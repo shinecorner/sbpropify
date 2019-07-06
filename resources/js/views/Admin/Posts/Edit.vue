@@ -1,0 +1,461 @@
+<template>
+    <div class="units-edit mb20">
+        <heading :title="$t('models.post.edit_title')" icon="ti-user" style="margin-bottom: 20px;">
+            <edit-actions :saveAction="submit" route="adminPosts"/>
+        </heading>
+        <el-row :gutter="20" class="crud-view">
+            <el-col :md="12">
+                <el-form :model="model" label-position="top" label-width="192px" ref="form">
+                    <el-card :loading="loading" class="mb20">
+                        <el-row :gutter="20">
+                            <el-col :lg="8">
+                                <el-form-item :label="$t('models.post.type.label')">
+                                    <el-select style="display: block" v-model="model.pinned">
+                                        <el-option
+                                            :label="$t(`models.post.type.article`)"
+                                            :value="false"
+                                        >
+                                        </el-option>
+                                        <el-option
+                                            :label="$t(`models.post.type.pinned`)"
+                                            :value="true"
+                                        >
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :lg="8">
+                                <el-form-item :label="$t('models.post.status.label')">
+                                    <el-select style="display: block" v-model="model.status">
+                                        <el-option
+                                            :key="key"
+                                            :label="$t(`models.post.status.${status}`)"
+                                            :value="parseInt(key)"
+                                            v-for="(status, key) in postConstants.status">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :lg="8" v-if="model.pinned">
+                                <el-form-item :label="$t('models.post.category.label')">
+                                    <el-select style="display: block" v-model="model.category">
+                                        <el-option
+                                            :key="key"
+                                            :label="$t(`models.post.category.${category}`)"
+                                            :value="parseInt(key)"
+                                            v-for="(category, key) in postConstants.category">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :lg="8" v-else>
+                                <el-form-item :label="$t('models.post.visibility.label')">
+                                    <el-select style="display: block" v-model="model.visibility">
+                                        <el-option
+                                            :key="key"
+                                            :label="$t(`models.post.visibility.${visibility}`)"
+                                            :value="parseInt(key)"
+                                            v-for="(visibility, key) in postConstants.visibility">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+
+                        <template v-if="model.pinned">
+                            <el-form-item :label="$t('models.post.title_label')" :rules="validationRules.title"
+                                          prop="title">
+                                <el-input type="text" v-model="model.title"></el-input>
+                            </el-form-item>
+                        </template>
+                        <el-form-item :label="$t('models.post.content')" :rules="validationRules.content"
+                                      prop="content">
+                            <el-input
+                                :autosize="{minRows: 5}"
+                                type="textarea"
+                                v-model="model.content">
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item :label="$t('models.post.images')"
+                        >
+                            <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
+                            <div class="mt15">
+                                <media :data="mediaFiles" @deleteMedia="deleteMedia"
+                                       v-if="media.length || (model.media && model.media.length)"></media>
+                            </div>
+                        </el-form-item>
+                    </el-card>
+                    <el-card :loading="loading">
+                        <el-row :gutter="10">
+                            <el-col :lg="6">
+                                <el-select @change="resetToAssignList"
+                                           class="custom-select"
+                                           v-model="assignmentType"
+                                >
+                                    <el-option
+                                        :key="type"
+                                        :label="$t(`models.post.assignmentTypes.${type}`)"
+                                        :value="type"
+                                        v-for="(type) in assignmentTypes">
+                                    </el-option>
+                                </el-select>
+                            </el-col>
+                            <el-col :lg="12" :xl="14">
+                                <el-select
+                                    :loading="remoteLoading"
+                                    :placeholder="$t('models.post.placeholders.search')"
+                                    :remote-method="remoteSearchBuildings"
+                                    class="custom-remote-select"
+                                    filterable
+                                    remote
+                                    reserve-keyword
+                                    style="width: 100%;"
+                                    v-model="toAssign"
+                                >
+                                    <div class="custom-prefix-wrapper" slot="prefix">
+                                        <i class="el-icon-search custom-icon"></i>
+                                    </div>
+                                    <el-option
+                                        :key="building.id"
+                                        :label="building.name"
+                                        :value="building.id"
+                                        v-for="building in toAssignList"/>
+                                </el-select>
+                            </el-col>
+                            <el-col :lg="6" :xl="4">
+                                <el-button :disabled="!toAssign" @click="attachBuilding" class="full-button"
+                                           icon="ti-save" type="primary">
+                                    {{$t('models.post.assign')}}
+                                </el-button>
+                            </el-col>
+                        </el-row>
+                        <relation-list
+                            :actions="assignmentsActions"
+                            :columns="assignmentsColumns"
+                            :filterValue="model.id"
+                            fetchAction="getPostAssignments"
+                            filter="post_id"
+                            ref="assignmentsList"
+                            v-if="model.id"
+                        />
+
+                    </el-card>
+
+                    <template v-if="model.pinned">
+
+                        <el-card :loading="loading" class="mt15">
+                            <el-row :gutter="10">
+                                <el-col :lg="18" :xl="20">
+                                    <el-select
+                                        :loading="remoteLoading"
+                                        :placeholder="$t('models.post.placeholders.search_provider')"
+                                        :remote-method="remoteSearchProviders"
+                                        class="custom-remote-select"
+                                        filterable
+                                        remote
+                                        reserve-keyword
+                                        style="width: 100%;"
+                                        v-model="toAssignProvider"
+                                    >
+                                        <div class="custom-prefix-wrapper" slot="prefix">
+                                            <i class="el-icon-search custom-icon"></i>
+                                        </div>
+                                        <el-option
+                                            :key="provider.id"
+                                            :label="provider.name"
+                                            :value="provider.id"
+                                            v-for="provider in toAssignProviderList"/>
+                                    </el-select>
+                                </el-col>
+                                <el-col :lg="6" :xl="4">
+                                    <el-button :disabled="!toAssignProvider" @click="attachProvider" class="full-button"
+                                               icon="ti-save" type="primary">
+                                        {{$t('models.post.assign')}}
+                                    </el-button>
+                                </el-col>
+                            </el-row>
+                            <relation-list
+                                :actions="assignmentsProviderActions"
+                                :columns="assignmentsProviderColumns"
+                                :filterValue="model.id"
+                                fetchAction="getServices"
+                                filter="post_id"
+                                ref="assignmentsProviderList"
+                                v-if="model.id"
+                            />
+                        </el-card>
+
+                        <el-card :loading="loading" class="mt15">
+                            <el-row :gutter="20">
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.post.execution_interval.start')"
+                                                  prop="execution_start">
+                                        <el-date-picker
+                                            :picker-options="{disabledDate: disabledExecutionStart}"
+                                            format="dd.MM.yyyy HH:mm"
+                                            style="width: 100%"
+                                            type="datetime"
+                                            v-model="model.execution_start"
+                                            value-format="yyyy-MM-dd HH:mm:ss"
+                                        >
+                                        </el-date-picker>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.post.execution_interval.end')"
+                                                  prop="execution_end">
+                                        <el-date-picker
+                                            :picker-options="{disabledDate: disabledExecutionEnd}"
+                                            format="dd.MM.yyyy HH:mm"
+                                            style="width: 100%"
+                                            type="datetime"
+                                            v-model="model.execution_end"
+                                            value-format="yyyy-MM-dd HH:mm:ss"
+                                        >
+                                        </el-date-picker>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row :gutter="20">
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.post.pinned_to')"
+                                                  :rules="validationRules.pinned_to"
+                                                  prop="pinned_to">
+                                        <el-date-picker
+                                            format="dd.MM.yyyy HH:mm"
+                                            style="width: 100%"
+                                            type="datetime"
+                                            v-model="model.pinned_to"
+                                            value-format="yyyy-MM-dd HH:mm:ss"
+                                        >
+                                        </el-date-picker>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-form-item :label="$t('models.post.notify_email')" prop="notify_email"
+                                          style="display: flex">
+                                <el-switch style="margin-left: 10px" v-model="model.notify_email">
+                                </el-switch>
+                            </el-form-item>
+                        </el-card>
+                    </template>
+                </el-form>
+            </el-col>
+            <el-col :md="12">
+                <el-card :loading="loading" class="mb20">
+                    <el-row>
+                        <el-col :md="12">
+                            <span class="custom-label">{{$t('models.post.user')}}</span>
+                            <br>
+                            <span v-if="model.user">
+                                <router-link :to="{name: 'adminUsersEdit', params: {id: model.user.id}}">
+                                    {{model.user.name}}
+                                </router-link>
+                            </span>
+                        </el-col>
+                    </el-row>
+                </el-card>
+                <el-card :loading="loading" class="mb20">
+                    <el-row :gutter="20">
+                        <el-col :md="8">
+                            <span class="custom-label">{{$t('models.post.likes')}}</span>
+                            <br>
+                            <span>
+                                {{model.likes_count}}
+                            </span>
+                        </el-col>
+                        <el-col :md="8">
+                            <span class="custom-label">{{$t('models.post.comments')}}</span>
+                            <br>
+                            <span>
+                                {{model.comments_count}}
+                            </span>
+                        </el-col>
+
+                        <el-col :md="8">
+                            <span class="custom-label">{{$t('models.post.published_at')}}</span>
+                            <br>
+                            <span v-if="model.published_at">
+                                    {{model.published_at}}
+                                </span>
+                            <span v-else>-</span>
+                        </el-col>
+                    </el-row>
+                </el-card>
+                <el-card class="mt15" v-if="model.id">
+                    <div slot="header">{{$t('models.post.comments')}}</div>
+                    <chat :id="model.id" size="480px" type="post"/>
+                </el-card>
+            </el-col>
+        </el-row>
+
+    </div>
+</template>
+
+<script>
+    import Chat from 'components/Chat2';
+    import EditActions from 'components/EditViewActions';
+    import PostsMixin from 'mixins/adminPostsMixin';
+    import RelationList from 'components/RelationListing';
+    import {displayError, displaySuccess} from "helpers/messages";
+    import {mapActions} from 'vuex';
+
+
+    const mixin = PostsMixin({mode: 'edit'});
+
+    export default {
+        mixins: [mixin],
+        components: {
+            Chat,
+            EditActions,
+            RelationList
+        },
+        data() {
+            return {
+                assignmentsColumns: [{
+                    prop: 'name',
+                    label: this.$t('models.district.name')
+                }, {
+                    prop: 'type',
+                    label: this.$t('models.post.assignType'),
+                    i18n: this.translateType
+                }],
+                assignmentsActions: [{
+                    width: '180px',
+                    buttons: [{
+                        title: this.$t('models.post.unassign'),
+                        type: 'danger',
+                        onClick: this.notifyUnassignment
+                    }]
+                }],
+                assignmentsProviderColumns: [{
+                    prop: 'name',
+                    label: this.$t('models.service.name')
+                }],
+                assignmentsProviderActions: [{
+                    width: '180px',
+                    buttons: [{
+                        title: this.$t('models.post.unassign'),
+                        type: 'danger',
+                        onClick: this.notifyProviderUnassignment
+                    }]
+                }]
+            }
+        },
+        methods: {
+            ...mapActions(['unassignPostBuilding', 'unassignPostDistrict', 'unassignPostProvider']),
+            disabledExecutionStart(date) {
+                const d = new Date(date).getTime();
+                const executionEnd = new Date(this.model.execution_end).getTime();
+                return executionEnd > 0 && d > executionEnd;
+            },
+            disabledExecutionEnd(date) {
+                const d = new Date(date).getTime();
+                const executionStart = new Date(this.model.execution_start).getTime();
+                return d < executionStart;
+            },
+            notifyUnassignment(row) {
+                this.$confirm(this.$t(`models.post.confirmUnassign.title`), this.$t('models.post.confirmUnassign.warning'), {
+                    confirmButtonText: this.$t(`models.post.confirmUnassign.confirmBtnText`),
+                    cancelButtonText: this.$t(`models.post.confirmUnassign.cancelBtnText`),
+                    type: 'warning'
+                }).then(async () => {
+                    try {
+                        this.loading.status = true;
+
+                        await this.unassign(row);
+
+                    } catch (err) {
+                        displayError(err);
+                    } finally {
+                        this.loading.status = false;
+                    }
+                }).catch(async () => {
+                    this.loading.status = false;
+                });
+            },
+            async unassign(toUnassign) {
+                let resp;
+                if (toUnassign.aType == 1) {
+                    resp = await this.unassignPostBuilding({
+                        id: this.model.id,
+                        toAssignId: toUnassign.id
+                    })
+                } else {
+                    resp = await this.unassignPostDistrict({
+                        id: this.model.id,
+                        toAssignId: toUnassign.id
+                    })
+                }
+
+                if (resp) {
+                    await this.fetchCurrentPost();
+                    this.$refs.assignmentsList.fetch();
+
+                    this.toAssign = '';
+
+                    const type = toUnassign.aType == 1 ? 'building' : 'district';
+
+                    displaySuccess({
+                        success: true,
+                        message: this.$t(`models.post.detached.${type}`)
+                    })
+                }
+            },
+            async unassignProvider(toUnassign) {
+                const resp = await this.unassignPostProvider({
+                    id: this.model.id,
+                    toAssignId: toUnassign.id
+                });
+
+                await this.fetchCurrentPost();
+                this.$refs.assignmentsProviderList.fetch();
+
+                this.toAssignProvider = '';
+
+                displaySuccess({
+                    success: true,
+                    message: this.$t(`models.post.detached.provider`)
+                })
+            },
+            notifyProviderUnassignment(row) {
+                this.$confirm(this.$t(`models.post.confirmUnassign.title`), this.$t('models.post.confirmUnassign.warning'), {
+                    confirmButtonText: this.$t(`models.post.confirmUnassign.confirmBtnText`),
+                    cancelButtonText: this.$t(`models.post.confirmUnassign.cancelBtnText`),
+                    type: 'warning'
+                }).then(async () => {
+                    try {
+                        this.loading.status = true;
+
+                        await this.unassignProvider(row);
+
+                    } catch (err) {
+                        displayError(err);
+                    } finally {
+                        this.loading.status = false;
+                    }
+                }).catch(async () => {
+                    this.loading.status = false;
+                });
+            },
+        }
+    }
+</script>
+
+<style scoped>
+    .custom-select {
+        display: block;
+    }
+
+    .custom-label {
+        color: #6AC06F;
+    }
+
+    .mb20 {
+        margin-bottom: 20px;
+    }
+
+    .el-card .chat {
+        margin: -20px;
+    }
+</style>

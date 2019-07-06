@@ -1,0 +1,75 @@
+<template>
+    <div class="chat">
+        <comments-list ref="comments" @click="console.log('test')" :id="id" :type="type" :limit="limit" reversed with-scroller :show-children="false" :style="{height: size}" />
+        <add-comment ref="addComment" :id="id" :type="type" />
+    </div>
+</template>
+
+<script>
+    import AddComment from './AddComment'
+    import CommentsList from './CommentsList'
+
+    export default {
+        props: {
+            id: {
+                type: Number,
+                required: true
+            },
+            type: {
+                type: String,
+                required: true,
+                validator: type => ['post', 'product', 'request', 'conversation'].includes(type)
+            },
+            size: {
+                type: String,
+                default: '320px'
+            },
+            limit: {
+                type: Number,
+                default: 50
+            },
+            autofocus: {
+                type: Boolean,
+                default: false
+            }
+        },
+        components: {
+            AddComment,
+            CommentsList
+        },
+        methods: {
+            focusOnAddComment() {
+                this.$refs.addComment.focus()
+            }
+        },
+        mounted () {
+            if (this.autofocus) {
+                this.focusOnAddComment()
+            }
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+    .chat {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        .comments-list {
+            :global(.vue-recycle-scroller) {
+                padding: 16px;
+                padding-bottom: 8px;
+                :global(.vue-recycle-scroller__slot) {
+                    :global(.el-divider) {
+                        margin-top: 8px;
+                    }
+                }
+            }
+        }
+        .add-comment {
+            width: auto;
+            margin: 16px;
+            margin-top: 0;
+        }
+    }
+</style>
