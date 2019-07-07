@@ -42,11 +42,13 @@ class initDB extends Command
         $bar->start();
 
         system('composer dump-autoload');
-        sleep(3);
+        $bar->advance();
+
+        $this->call('passport:install', ['--force' => true]);
         $bar->advance();
 
         $this->call('migrate:fresh');
-        $bar->advance(); 
+        $bar->advance();
 
         $this->call('db:seed');
         $bar->advance();
