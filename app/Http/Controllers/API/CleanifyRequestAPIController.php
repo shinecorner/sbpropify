@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\CleanifyRequests\FilterByUserCriteria;
-use App\Models\CleanifyRequest;
-use App\Models\RealEstate;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\API\CleanifyRequest\CreateRequest;
+use App\Models\RealEstate;
 use App\Repositories\CleanifyRequestRepository;
 use App\Repositories\TemplateRepository;
 use App\Transformers\CleanifyRequestTransformer;
 use Illuminate\Http\Request;
-use App\Http\Requests\API\CleanifyRequest\CreateRequest;
+use Illuminate\Http\Response;
 
 /**
  * Class CleanifyRequestAPIController
@@ -75,6 +75,7 @@ class CleanifyRequestAPIController extends AppBaseController
 
     /**
      * @param CreateRequest $request
+     * @param TemplateRepository $tRepo
      * @return Response
      *
      * @SWG\Post(

@@ -98,6 +98,7 @@ class TemplateRepository extends BaseRepository
         $tenant = $context['tenant'] ?? null;
         $post = $context['post'] ?? null;
         $request = $context['request'] ?? null;
+        $form = $context['form'] ?? null;
 
         $tags = [];
         foreach ($tagMap as $tag => $val) {
@@ -168,6 +169,10 @@ class TemplateRepository extends BaseRepository
     {
         if (!$context) {
             return '';
+        }
+
+        if (is_array($context)) {
+            return $context[$field] ?? '';
         }
 
         return $context->$field ?? '';
@@ -335,24 +340,13 @@ class TemplateRepository extends BaseRepository
      */
     public function getCleanifyParsedTemplate(CleanifyRequest $creq): array
     {
-        $tagMap = CleanifyRequest::templateMap;
-        $tags = [];
-        foreach ($tagMap as $tag => $val) {
-            $valMap = explode('.', $val);
-            if (count($valMap) && $valMap[0] == 'user') {
-                $val = $creq->user->{$valMap[1]};
-            }
-            if (count($valMap) && $valMap[0] == 'cleanify_request') {
-                $val = $creq->{$valMap[1]};
-            }
-            if (count($valMap) && $valMap[0] == 'form') {
-                $val = $creq->form[$valMap[1]] ?? "";
-            }
-
-            $tags[$tag] = $val;
-        }
-
         $template = $this->getByCategoryName('cleanify_request_email');
+
+        $context = [
+            'form' => $creq->form
+        ];
+
+        $tags = $this->getTags($template->category->tag_map, $context);
 
         return $this->getParsedTemplate($template, $tags);
     }

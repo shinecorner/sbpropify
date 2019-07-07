@@ -315,6 +315,25 @@ HTML
                 'parent_id' => 8,
                 'name' => 'cleanify_request_email',
                 'description' => 'Email sent to Cleanify when the tenant makes a request.',
+                'tag_map' => [
+                    'salutation' => 'form.title',
+                    'firstName' => 'form.first_name',
+                    'lastName' => 'form.last_name',
+                    'address' => 'form.address',
+                    'zip' => 'form.zip',
+                    'city' => 'form.city',
+                    'email' => 'form.email',
+                    'phone' => 'form.phone',
+                ],
+                'subject' => 'New Cleanify request from: {{salutation}} {{firstName}} {{lastName}}',
+                'body' => <<<HTML
+<p>New Cleanify request,</p>
+<p>Name : {{salutation}} {{firstName}} {{lastName}}.</p>
+<p>Phone : {{phone}}.</p>
+<p>Email : {{email}}.</p>
+<p>Address:</p>
+<p>{{address}}, {{city}} {{zip}}.</p>
+HTML
             ],
         ];
 
