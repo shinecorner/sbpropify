@@ -10,7 +10,7 @@
         <template v-else>
             <el-row :gutter="16" v-if="products.data.length">
                 <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" v-for="product in products.data" :key="product.id">
-                    <product :data="product" />
+                    <product-card :data="product" />
                 </el-col>
             </el-row>
             <placeholder v-else :src="require('img/5ca7dde590fa1.png')">
@@ -25,14 +25,14 @@
     import Card from 'components/Card'
     import Loader from 'components/SimpleLoader'
     import Placeholder from 'components/Placeholder'
-    import Product from 'components/tenant/MarketplaceProduct'
+    import ProductCard from 'components/tenant/MarketplaceProductCard'
     import {displaySuccess, displayError} from 'helpers/messages'
 
     export default {
         components: {
             Card,
             Loader,
-            Product,
+            ProductCard,
             Placeholder
         },
         props: {
@@ -79,17 +79,6 @@
 
 <style lang="scss" scoped>
     .el-card.latest-products-widget {
-        &:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: .032;
-            pointer-events: none;
-            background-image: url('~img/5ca7dde590fa1.png');
-        }
         :global(.el-card__header) {
             .title {
                 flex: auto;

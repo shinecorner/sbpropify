@@ -76,17 +76,6 @@
 
 <style lang="scss">
     .el-card.property-managers-widget {
-        &:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: .032;
-            pointer-events: none;
-            background-image: url('~img/5cae67303cdad.png');
-        }
         :global(.el-card__body) {
             .el-carousel {
                 :global(.el-carousel__item) {

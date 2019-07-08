@@ -5,7 +5,7 @@
             <div class="media-item" v-for="(file, idx) in localMedia" :key="file.id" :style="itemStyle">
                 <div class="media-content">
                     <template v-if="isFileImage(file)">
-                        <el-image :src="file.url" fit="cover" :alt="file.name" :scroll-container="lazyScrollContainer" :lazy="lazy">
+                        <el-image :src="file.url" fit="cover" :alt="file.name" :lazy="lazy" :scroll-container="lazyScrollContainer">
                             <div slot="error" class="error" style="color: red;">
                                 <i class="el-icon-document-delete" />
                             </div>

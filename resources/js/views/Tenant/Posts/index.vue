@@ -1,6 +1,6 @@
 <template>
     <div class="news">
-        <el-card class="heading" v-sticky="{stickyTop: -32}">
+        <el-card class="heading" v-sticky="{stickyTop: -16}">
             <heading icon="ti-announcement" title="News">
                 <div slot="description">Sed placerat volutpat mollis.</div>
             </heading>
@@ -264,10 +264,6 @@
     }
 
     .news {
-        height: 100% !important;
-        margin: -2em;
-        padding: 2em;
-        overflow-y: auto;
 
         &:before {
             content: '';

@@ -114,7 +114,7 @@
 </template>
 
 <script>
-    import config from '@/config'
+    import {MEDIA_UPLOAD_MAX_SIZE} from '@/config'
     import Chat from 'components/Chat2'
     import Audit from 'components/Audit'
     import Avatar from 'components/Avatar'
@@ -150,7 +150,7 @@
         data () {
             return {
                 activeTab: 'chat',
-                mediaUploadMaxSize: config.MEDIA_UPLOAD_MAX_SIZE,
+                mediaUploadMaxSize: MEDIA_UPLOAD_MAX_SIZE,
                 uploadedMedia: [],
                 requests: {
                     data: []
@@ -271,7 +271,7 @@
 
                     this.requests = {data: [...this.requests.data, ...data], ...rest}
                 } catch (err) {
-                    this.$notify,error({
+                    this.$notify.error({
                         title: 'Oops!',
                         message: err
                     })
@@ -407,10 +407,6 @@
 
 <style lang="scss" scoped>
     .requests {
-        position: relative !important;
-        margin: -2em;
-        padding: 2em;
-        height: 100% !important;
         &:not(.empty):before {
             content: '';
             position: fixed;
@@ -520,7 +516,7 @@
                 }
             }
             .content {
-                padding: 2em;
+                padding: 16px;
                 .heading.el-card {
                     :global(.el-card__body) {
                         padding: 12px 16px;

@@ -1,6 +1,6 @@
 <template>
     <placeholder :src="require('img/5c98b47a97050.png')" v-if="hasEmptyComments && usePlaceholder">
-        <b>You have no conversations yet...</b>
+        <b>There are no messages yet...</b>
         <small slot="secondary">Start messaging by using the below form and press enter.</small>
     </placeholder>
     <div ref="comments" class="comments-list" v-else>

@@ -131,6 +131,7 @@
             :global(.el-textarea__inner) {
                 padding: 5px 8px;
                 max-height: 256px;
+                -webkit-appearance: none;
             }
 
             &:before,

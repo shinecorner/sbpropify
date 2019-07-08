@@ -1,9 +1,6 @@
 <template>
     <card :loading="loading" class="weather-widget">
         <template v-if="data">
-            <el-tooltip content="Refresh" effect="dark" placement="bottom-end">
-                <el-button @click="get" circle icon="el-icon-refresh" size="mini"/>
-            </el-tooltip>
             <div :class="`owi owi-${data.weather[0].icon}`"></div>
             <div class="content">
                 <div class="city">{{ data.name }}</div>

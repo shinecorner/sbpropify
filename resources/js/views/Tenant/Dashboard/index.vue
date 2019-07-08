@@ -1,13 +1,8 @@
 <template>
     <div class="dashboard">
-        <el-card v-sticky="{stickyTop: -32}">
-            <heading icon="ti-home" title="My dashboard">
-                <div slot="description">
-                    <greeting/>
-                </div>
-            </heading>
-        </el-card>
-        <el-divider/>
+        <heading icon="ti-home" title="My dashboard">
+            <greeting class="description" slot="description" />
+        </heading>
         <el-row :gutter="24">
             <el-col :md="8">
                 <el-row :gutter="24">
@@ -78,24 +73,35 @@
 
 <style lang="scss" scoped>
     .dashboard {
-        height: 100% !important;
-        margin: -2em;
-        padding: 2em;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-
-        > .el-card {
-            :global(.el-card__body) {
-                padding: 12px 16px;
-
-                .heading div {
-                    color: darken(#fff, 40%);
-                }
+        &:before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-image: url('~img/5d2212060e9f6.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: 0 -10em;
+            width: 100%;
+            height: 100%;
+            opacity: .12;
+            pointer-events: none;
+        }
+        
+        .heading {
+            margin-bottom: 24px;
+            
+            .description {
+                color: darken(#fff, 40%);
             }
         }
 
         .el-row {
             .el-col {
+                .el-card {
+                    background: transparentize(#fff, .28);
+                }
+
                 &:not(:last-child) {
                     margin-bottom: 24px;
                 }

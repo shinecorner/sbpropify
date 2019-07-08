@@ -32,7 +32,7 @@
         text-align: center;
         img {
             opacity: .64;
-            filter: drop-shadow(4px 4px 8px);
+            // filter: drop-shadow(4px 4px 8px);
         }
     }
 </style>

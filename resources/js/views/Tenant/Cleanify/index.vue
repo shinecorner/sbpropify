@@ -69,14 +69,12 @@
                         >
                             <el-input type="text" v-model="model.address"></el-input>
                         </el-form-item>
+
                         <el-form-item
-                            class="terms-wrapper"
                             prop="terms"
                         >
-                            <span class="terms-label" slot="label"><a
-                                @click.prevent="dialogVisible = true" href="#">{{$t('models.cleanify.terms_and_conditions')}}
-                                </a></span>
-                            <el-checkbox class="terms-check" v-model="model.terms"></el-checkbox>
+                            <el-checkbox v-model="model.terms">{{$t('models.cleanify.terms_and_conditions')}}
+                            </el-checkbox>
                         </el-form-item>
                         <el-form-item>
                             <el-button @click="submit()" icon="ti-save" type="primary">
@@ -88,15 +86,6 @@
                 </card>
             </el-col>
         </el-row>
-        <el-dialog
-            :title="$t('models.cleanify.terms_and_conditions')"
-            :visible.sync="dialogVisible"
-            width="80%">
-            <span>{{$t('models.cleanify.terms_text')}}</span>
-            <span class="dialog-footer" slot="footer">
-            <el-button @click="dialogVisible = false">{{$t('cancel')}}</el-button>
-          </span>
-        </el-dialog>
     </div>
 </template>
 
@@ -113,7 +102,6 @@
         },
         data() {
             return {
-                dialogVisible: false,
                 model: {
                     firstName: '',
                     lastName: '',
@@ -165,7 +153,7 @@
                         message: this.$t("validation.title.required")
                     }],
                     terms: [{
-                        trigger: 'blur',
+                        trigger: 'blue',
                         validator: this.termValidator
                     }]
                 },
@@ -174,7 +162,7 @@
                     state: false,
                     text: 'Please wait...'
                 }
-            };
+            }
         },
         methods: {
             ...mapActions(['sendCleanifyRequest']),
@@ -217,25 +205,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .terms-wrapper {
-        display: flex;
-        position: relative;
-        line-height: 20px;
-
-        .el-form-item__label {
-            line-height: 20px;
-            order: 1;
-            padding: 0;
-        }
-
-        .el-form-item__content {
-            line-height: 20px;
-            order: -1;
-            position: static;
-            width: 15px;
-            margin-right: 10px;
-        }
-    }
-</style>

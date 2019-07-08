@@ -268,6 +268,7 @@
                 margin: 2px 0;
                 :global(.el-textarea__inner) {
                     padding: 5px 8px;
+                    -webkit-appearance: none;
                 }
 
                 & + small {

@@ -10,7 +10,7 @@
 
 <style lang="scss" scoped>
     .el-menu {
-        z-index: 2;
+        z-index: 999;
         &.el-menu--horizontal {
             box-shadow: 0 1px 3px transparentize(#000, .88),
                         0 1px 2px transparentize(#000, .76);

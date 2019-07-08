@@ -4,7 +4,7 @@
         <small>All of them will be listed here in columns by category.</small>
     </placeholder>
     <div class="documents" v-else-if="!isEmpty">
-        <el-card v-sticky="{stickyTop: -32}">
+        <el-card v-sticky="{stickyTop: -16}">
             <heading icon="ti-book" title="My documents">
                 <div slot="description">A list with all the building and unit's documents.</div>
             </heading>
@@ -88,10 +88,6 @@
         }
     }
     .documents {
-        height: 100% !important;
-        margin: -2em;
-        padding: 2em;
-        overflow-y: auto;
 
         &:before {
             content: '';

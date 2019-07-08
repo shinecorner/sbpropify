@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    import config from '@/config'
+    import {MEDIA_UPLOAD_MAX_SIZE} from '@/config'
     import MediaUpload from 'components/MediaUpload'
     import ServicesTypes from 'mixins/methods/servicesTypes'
     import PrepareCategories from 'mixins/methods/prepareCategories'
@@ -70,7 +70,7 @@
                 categories: [],
                 priorities: [],
                 loading: false,
-                mediaUploadMaxSize: config.MEDIA_UPLOAD_MAX_SIZE
+                mediaUploadMaxSize: MEDIA_UPLOAD_MAX_SIZE
             }
         },
         methods: {
@@ -80,9 +80,9 @@
                         try {
                             this.loading = true
 
-                            const {media, ...params} = this.model;
+                            const {media, ...params} = this.model
 
-                            const data = await this.$store.dispatch('createRequest', params);
+                            const data = await this.$store.dispatch('createRequest', params)
 
                             displaySuccess(data)
 
