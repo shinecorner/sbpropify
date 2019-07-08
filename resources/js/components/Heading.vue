@@ -1,6 +1,6 @@
 <template>
     <div class="heading">
-        <i :class="icon" v-if="icon"></i>
+        <i :class="['icon', icon]" v-if="icon"></i>
         <div class="content">
             <div class="title">{{title}}</div>
             <slot name="description" />
@@ -11,7 +11,6 @@
 
 <script>
     export default {
-        name: 'Heading',
         props: {
             icon: String,
             title: {
@@ -19,15 +18,6 @@
                 required: true
             },
             description: String
-        },
-        data () {
-            return {
-                offset: {
-                    bottom: false,
-                    top: 72,
-                    sticked: true
-                }
-            }
         }
     }
 </script>
@@ -37,28 +27,28 @@
         display: flex;
         align-items: center;
         flex-shrink: 0;
-        transition: all .24s cubic-bezier(.57,.21,.69,1.25);
         position: relative;
         z-index: 1;
 
-
-        i {
-            font-size: 32px;
-            margin-right: .5em;
+        .icon {
+            color: #6AC06F;
+            font-size: 42px;
+            margin-right: 16px;
         }
 
         .content {
             flex: auto;
             min-width: 0;
+            flex-shrink: 0;
 
             .title {
+                color: #6AC06F;
                 font-size: 24px;
                 font-weight: bold;
                 overflow: hidden;
                 min-width: 0;
                 text-overflow: ellipsis;
                 white-space: nowrap;
-
             }
         }
     }
