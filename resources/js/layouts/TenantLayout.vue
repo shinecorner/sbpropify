@@ -323,6 +323,10 @@ export default {
                     }
                 }
 
+                :global(i) {
+                    color: inherit;
+                }
+
                 .el-divider {
                     height: 32px;
                 }
