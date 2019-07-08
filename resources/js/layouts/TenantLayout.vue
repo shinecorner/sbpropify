@@ -337,6 +337,7 @@ export default {
         }
 
         .content {
+            background-color: #F2F4F9;
             height: calc(100% - 65px);
             display: table;
             z-index: 0;
