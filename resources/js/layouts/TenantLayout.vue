@@ -379,6 +379,7 @@ export default {
             > div {
                 will-change: transform;
                 padding: 24px;
+                height: 100%;
             }
         }
     }
