@@ -1,5 +1,5 @@
 <template>
-    <card :loading="loading" class="weather-widget">
+    <el-card class="weather-widget" v-loading="loading" element-loading-background="rgba(255, 255, 255, 0)">
         <template v-if="data">
             <div :class="`owi owi-${data.weather[0].icon}`"></div>
             <div class="content">
@@ -34,7 +34,7 @@
                 </table>
             </div>
         </template>
-    </card>
+    </el-card>
 </template>
 
 <script>
@@ -48,9 +48,7 @@
         },
         data() {
             return {
-                loading: {
-                    state: false
-                },
+                loading: false,
                 data: null
             }
         },
@@ -62,15 +60,15 @@
         methods: {
             async get() {
                 try {
-                    this.loading.state = true;
+                    this.loading = true
 
-                    const {data} = await axios.get('news/weather.json');
+                    const {data} = await axios.get('news/weather.json')
 
                     this.data = data
                 } catch (err) {
                     displayError(err)
                 } finally {
-                    this.loading.state = false
+                    this.loading = false
                 }
             }
         },
@@ -82,8 +80,7 @@
 
 <style lang="scss" scoped>
     .weather-widget {
-        min-height: 157px; //temporary
-        // max-width: 448px;
+        min-height: 173px;
         :global(.el-card__body) {
             display: flex;
             align-items: center;
