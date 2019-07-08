@@ -372,13 +372,13 @@ export default {
             }
 
             .sliding-enter {
-                filter: opacity(0);
-                transform: scale3d(1, 1, 1) translate3d(112px, 0, 0);
+                filter: opacity(1);
+                transform: translate3d(112px, 0, 0);
             }
             
             .sliding-leave-active {
                 filter: opacity(0);
-                transform: scale3d(1.16, 1.16, 1.16) translate3d(-112px, 0, 0);
+                transform: translate3d(-112px, 0, 0);
             }
 
             > div {
