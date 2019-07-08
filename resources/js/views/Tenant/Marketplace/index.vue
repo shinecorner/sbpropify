@@ -1,7 +1,7 @@
 <template>
     <div class="tenant-marketplace">
-        <sticky-heading ref="sticky-heading" icon="ti-shopping-cart" title="Marketplace" :sticky-top="0">
-            <div slot="description">Start selling things you don't need anymore.</div>
+        <heading icon="ti-shopping-cart" title="Marketplace">
+            <div slot="description" class="description">Start selling things you don't need anymore.</div>
             <el-button type="primary" icon="el-icon-circle-plus-outline" round @click="dialogs.addProductForm.visible = true">Add product</el-button>
             <el-dialog top="0" width="100%" :class="['el-dialog-add-product-form-wrapper', {'is-md': el.is.md}]" custom-class="el-dialog-add-product-form" title="Add product" :visible.sync="dialogs.addProductForm.visible" :fullscreen="dialogs.addProductForm.fullscreen" append-to-body>
                 <add-product-form ref="add-product-form" />
@@ -14,8 +14,7 @@
                     </el-button>
                 </template>
             </el-dialog>
-        </sticky-heading>
-        <el-divider />
+        </heading>
         <el-card class="products" v-loading="loading">
             <div class="title">
                 Latest products added
@@ -498,8 +497,12 @@ Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interd
         // -webkit-backface-visibility: hidden;
         // -webkit-perspective: 1000;
 
-        .el-divider {
-            margin: 16px 0;
+        .heading {
+            margin-bottom: 24px;
+            
+            .description {
+                color: darken(#fff, 40%);
+            }
         }
 
         .el-card.products {
