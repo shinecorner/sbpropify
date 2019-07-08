@@ -4,28 +4,31 @@ namespace App\Notifications;
 
 use App\Models\Post;
 use App\Models\Tenant;
+use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
-class PostLiked extends Notification implements ShouldQueue
+class PostCommented extends Notification implements ShouldQueue
 {
     use Queueable;
 
     protected $post;
-    protected $liker;
+    protected $commenter;
+    protected $comment;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Post $post, Tenant $liker)
+    public function __construct(Post $post, Tenant $commenter, Comment $comment)
     {
         $this->post = $post;
-        $this->liker = $liker;
+        $this->commenter = $commenter;
+        $this->comment = $comment;
     }
 
     /**
@@ -68,7 +71,8 @@ class PostLiked extends Notification implements ShouldQueue
     {
         return [
             'post_id' => $this->post->id,
-            'tenant' => $this->liker->name,
+            'tenant' => $this->commenter->name,
+            'comment' => $this->comment->comment,
             'fragment' => Str::limit($this->post->content, 128),
         ];
     }
