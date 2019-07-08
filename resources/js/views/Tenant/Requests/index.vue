@@ -63,15 +63,12 @@
                 </template>
             </placeholder>
             <div class="content" v-else-if="requests.data.length">
-                <el-card class="heading" v-sticky>
-                    <heading icon="ti-comment" title="Requests">
-                        <div slot="description">Need some info? Encountered an issue? Contact us!</div>
-                        <el-button @click="addRequestDialogVisible = true" icon="ti-plus" round size="small" type="primary">
-                            Add request
-                        </el-button>
-                    </heading>
-                </el-card>
-                <el-divider />
+                <heading icon="ti-comment" title="Requests">
+                    <div slot="description" class="description">Need some info? Encountered an issue? Contact us!</div>
+                    <el-button @click="addRequestDialogVisible = true" icon="ti-plus" round size="small" type="primary">
+                        Add request
+                    </el-button>
+                </heading>
                 <el-row :gutter="16">
                     <el-col :span="16">
                         <dynamic-scroller ref="dynamic-scroller" :items="requests.data" :min-item-size="249" page-mode>
@@ -94,7 +91,7 @@
                             </template>
                         </dynamic-scroller>
                     </el-col>
-                    <el-col class="hidden-md-and-down" :span="8" v-sticky="{stickyTop: 88}">
+                    <el-col class="hidden-md-and-down" :span="8" v-sticky="{stickyTop: 16}">
                         <el-card>
                             <filters ref="filters" :data.sync="filters.data" :schema="filters.schema" @changed="filtersChanged"/>
                             <el-button type="primary" icon="el-icon-sort-up" @click="resetFilters">Reset filters</el-button>
@@ -407,6 +404,8 @@
 
 <style lang="scss" scoped>
     .requests {
+        height: auto !important;
+
         &:not(.empty):before {
             content: '';
             position: fixed;
@@ -517,14 +516,15 @@
             }
             .content {
                 padding: 16px;
-                .heading.el-card {
-                    :global(.el-card__body) {
-                        padding: 12px 16px;
-                        .heading div {
-                            color: darken(#fff, 40%);
-                        }
+
+                .heading {
+                    margin-bottom: 24px;
+                    
+                    .description {
+                        color: darken(#fff, 40%);
                     }
                 }
+                
                 .el-row {
                     .el-col {
                         &:first-child {
