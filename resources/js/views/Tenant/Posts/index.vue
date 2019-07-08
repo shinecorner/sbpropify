@@ -1,11 +1,8 @@
 <template>
     <div class="news">
-        <el-card class="heading" v-sticky="{stickyTop: -16}">
-            <heading icon="ti-announcement" title="News">
-                <div slot="description">Sed placerat volutpat mollis.</div>
-            </heading>
-        </el-card>
-        <el-divider />
+        <heading icon="ti-announcement" title="News">
+            <div slot="description" class="description">Sed placerat volutpat mollis.</div>
+        </heading>
         <el-row :gutter="24">
             <el-col :span="16">
                 <announcement class="notice" v-model="model.content" :loading="isPublishing" @onEnter="handlePublishing">
@@ -264,7 +261,6 @@
     }
 
     .news {
-
         &:before {
             content: '';
             position: fixed;
@@ -278,12 +274,11 @@
             opacity: .16;
         }
 
-        > .el-card {
-            :global(.el-card__body) {
-                padding: 12px 16px;
-                .heading div {
-                    color: darken(#fff, 40%);
-                }
+        .heading {
+            margin-bottom: 24px;
+            
+            .description {
+                color: darken(#fff, 40%);
             }
         }
 
