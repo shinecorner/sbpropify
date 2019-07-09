@@ -1,6 +1,6 @@
 <template>
     <div class="chat">
-        <comments-list ref="comments" @click="console.log('test')" :id="id" :type="type" :limit="limit" reversed with-scroller :show-children="false" :style="{height: size}" />
+        <comments-list ref="comments" :id="id" :type="type" :limit="limit" reversed with-scroller :show-children="false" :style="{height: size}" />
         <add-comment ref="addComment" :id="id" :type="type" />
     </div>
 </template>

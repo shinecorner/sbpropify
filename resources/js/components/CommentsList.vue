@@ -1,15 +1,15 @@
 <template>
-    <placeholder :src="require('img/5c98b47a97050.png')" v-if="hasEmptyComments && usePlaceholder">
+    <placeholder :src="require('img/5c98b47a97050.png')" v-if="!loading.state && !comments.data.length && usePlaceholder">
         <b>There are no messages yet...</b>
         <small slot="secondary">Start messaging by using the below form and press enter.</small>
     </placeholder>
-    <div ref="comments" class="comments-list" v-else>
+    <div class="comments-list" v-else>
         <template v-if="withScroller">
             <dynamic-scroller ref="dynamic-scroller" :items="comments.data" :min-item-size="40" @resize="scrollToBottom">
                 <template #before>
                     <el-divider v-if="comments.current_page !== comments.last_page">
-                        <el-button icon="el-icon-top" size="mini" :loading="loading" round @click="fetch">
-                            <template v-if="loading">Loading...</template>
+                        <el-button icon="el-icon-top" size="mini" :loading="loading.state" round @click="fetch">
+                            <template v-if="loading.state">Loading...</template>
                             <template v-else>Load {{comments.total - comments.data.length}} more</template>
                         </el-button>
                     </el-divider>
@@ -22,7 +22,7 @@
             </dynamic-scroller>
         </template>
         <template v-else>
-            <el-button type="text" @click="fetch" :loading="loading" v-if="!data && comments.current_page !== comments.last_page">
+            <el-button type="text" @click="fetch" :loading="loading.state" v-if="!data && comments.current_page !== comments.last_page">
                 Load {{comments.total - comments.data.length}} more comments
             </el-button>
             <comment v-bind="commentComponentProps" :show-children="showChildren" v-for="comment in comments.data" :key="comment.id" :data="comment" :reversed="isCommentReversed(comment)" />
@@ -31,9 +31,7 @@
 </template>
 
 <script>
-    import Empty from './Empty'
     import Comment from './Comment'
-    import Loader from './SimpleLoader'
     import Placeholder from './Placeholder'
     import {displaySuccess, displayError} from 'helpers/messages'
 
@@ -74,15 +72,15 @@
             }
         },
         components: {
-            Empty,
-            Loader,
             Comment,
             Placeholder
         },
         data () {
             return {
                 loader: null,
-                loading: false,
+                loading: {
+                    state: false
+                },
                 comments: {
                     data: []
                 }
@@ -110,10 +108,12 @@
 
                 page++;
 
-                this.loading = true;
+                if (!this.comments.data.length) {
+                    this.$el.style.minHeight = '47px'
 
-                if (this.loading && !this.comments.data.length) {
-                    this.$nextTick(() => this.loader = this.$loading({target: this.$refs.comments}))
+                    this.loading = this.$loading({target: this.$el})
+                } else {
+                    this.loading.state = true
                 }
 
                 try {
@@ -135,10 +135,12 @@
                 } catch (err) {
                     displayError(err)
                 } finally {
-                    this.loading = false
+                    if (this.loading._isVue) {
+                        this.$el.style.minHeight = ''
 
-                    if (this.loader) {
-                        this.loader.close()
+                        this.loading.close()
+                    } else {
+                        this.loading.state = false
                     }
                 }
             },
@@ -216,7 +218,6 @@
     }
     .comments-list {
         width: 100%;
-        min-height: 47px;
         display: flex;
         flex-direction: column;
         box-sizing: border-box;
