@@ -96,11 +96,11 @@ export default {
     }) {
         const idx = state[commentable][id].data.findIndex(c => c.id === parent_id)
 
-        if (idx) {
+        if (idx > -1) {
             if (child_id) {
                 const childIdx = state[commentable][id].data[idx].children.data.findIndex(cc => cc.id === child_id)
                 
-                if (typeof childIdx !== 'undefined') {
+                if (childIdx > -1) {
                     state[commentable][id].data[idx].children.data.splice(childIdx, 1)
                     state[commentable][id].data[idx].children_count--
                 }
