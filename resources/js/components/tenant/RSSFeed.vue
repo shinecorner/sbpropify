@@ -21,7 +21,7 @@
     import VueRssFeed from 'vue-rss-feed';
     import axios from '@/axios';
     import {displaySuccess, displayError} from 'helpers/messages';
-    import config from '@/config';
+    import {API_BASE_URL} from '@/config';
     import Parser from 'rss-parser';
     import { distanceInWordsToNow } from 'date-fns'
 
@@ -68,7 +68,7 @@
             });
 
             try {
-                const {items} = await parser.parseURL(config.API_BASE_URL + 'news/rss.xml');
+                const {items} = await parser.parseURL(API_BASE_URL + 'news/rss.xml');
 
                 this.items = items.filter((item, idx) => {
                     item.pubDate = distanceInWordsToNow(item.pubDate, {

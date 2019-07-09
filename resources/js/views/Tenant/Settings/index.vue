@@ -284,11 +284,6 @@
 
 <style lang="scss" scoped>
     .settings {
-        position: relative;
-        height: 100% !important;
-        margin: -2em;
-        padding: 2em;
-
         .custom-heading {
             margin-bottom: 2em;
         }

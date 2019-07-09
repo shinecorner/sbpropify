@@ -1,9 +1,9 @@
 import axios from "axios";
 import router from './routes';
-import config from './config';
+import {API_BASE_URL} from './config';
 
 const base = axios.create({
-    baseURL: config.API_BASE_URL,
+    baseURL: API_BASE_URL,
 });
 
 base.interceptors.request.use(config => {

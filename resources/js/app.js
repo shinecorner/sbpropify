@@ -17,6 +17,7 @@ import permissions from 'middlewares/permissions';
 import Sticky from 'vue-sticky-directive';
 import VueVirtualScroller from 'vue-virtual-scroller'
 import ReadMore from 'vue-read-more'
+import VueDebounce from 'vue-debounce'
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 
 Vue.use(VueUid);
@@ -25,6 +26,7 @@ Vue.use(VueVirtualScroller)
 
 Vue.use(VueI18n)
 Vue.use(ReadMore)
+Vue.use(VueDebounce)
 
 import messages from './lang/index';
 

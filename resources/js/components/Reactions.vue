@@ -1,12 +1,12 @@
 <template>
     <div class="reactions">
         <template v-if="counter">
-            <div><i class="ti-thumb-up" /> {{ like.likes_count }}</div>
+            <div><i class="ti-thumb-up" /> {{like.likes_count}}</div>
         </template>
         <template v-else>
             <el-button type="text" :icon="likeIcon" :loading="loading.like" @click.stop="handleLike">
-                <template v-if="like.liked">{{text.unlike}}</template>
-                <template v-else>{{text.like}}</template>
+                <template v-if="like.liked">{{unlikeText}}</template>
+                <template v-else>{{likeText}}</template>
             </el-button>
         </template>
         <slot />
@@ -31,9 +31,13 @@
                 type: Boolean,
                 default: false
             },
-            text: {
-                type: Object,
-                default: () => ({like: 'Like', unlike: 'Unlike'})
+            likeText: {
+                type: String,
+                default: 'Like'
+            },
+            unlikeText: {
+                type: String,
+                default: 'Unlike'
             }
         },
         data () {

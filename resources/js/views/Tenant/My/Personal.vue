@@ -5,12 +5,9 @@
             <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
         </placeholder>
         <template v-else-if="model">
-            <el-card v-sticky="{stickyTop: -32, zIndex: 3000}">
-                <heading icon="ti-book" title="Personal data">
-                    <div slot="description">My personal details.</div>
-                </heading>
-            </el-card>
-            <el-divider />
+            <heading icon="ti-book" title="Personal data">
+                <div slot="description" class="description">My personal details.</div>
+            </heading>
             <el-card ref="card" v-loading="loading.visible">
                 <el-form :label-position="labelPosition" :model="model" label-width="144px" ref="form">
                     <el-form-item label="Title" prop="title">
@@ -170,12 +167,6 @@
 
 <style lang="scss" scoped>
     .personal {
-        margin: -2em;
-        padding: 2em;
-        overflow-y: auto;
-        height: 100% !important;
-        -webkit-overflow-scrolling: touch;
-
         &:not(.empty):before {
             content: '';
             position: fixed;
@@ -188,6 +179,14 @@
             height: 100%;
             opacity: .16;
             pointer-events: none;
+        }
+
+        .heading {
+            margin-bottom: 24px;
+            
+            .description {
+                color: darken(#fff, 40%);
+            }
         }
 
         .placeholder {
@@ -204,17 +203,7 @@
             position: relative;
             max-width: 640px;
 
-            &:first-child {
-                :global(.el-card__body) {
-                    padding: 12px 16px;
-
-                    .heading div {
-                        color: darken(#fff, 40%);
-                    }
-                }
-            }
-
-            &:last-child .el-form {
+            .el-form {
                 .el-button,
                 .el-select,
                 .el-date-editor {

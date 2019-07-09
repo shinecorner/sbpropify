@@ -1,5 +1,5 @@
 <template>
-    <div :id="id" class="blueimp-gallery blueimp-gallery-controls" :class="{'blueimp-gallery-carousel': carousel}">
+    <div :id="id" class="blueimp-gallery blueimp-gallery-controls">
         <div class="slides"></div>
         <a class="prev">
             <i class="el-icon-arrow-left"></i>
@@ -7,11 +7,9 @@
         <a class="next">
             <i class="el-icon-arrow-right"></i>
         </a>
-        <a v-if="!carousel" class="close">
+        <a class="close">
             <i class="el-icon-close"></i>
         </a>
-        <ol v-if="!carousel" class="indicator"></ol>
-        <a v-if="carousel" class="play-pause"></a>
     </div>
 </template>
 
@@ -35,6 +33,7 @@
         },
         beforeCreate () {
             this.$delete(this.$options.props, 'id')
+            this.$delete(this.$options.props, 'carousel')
         }
     }
 </script>

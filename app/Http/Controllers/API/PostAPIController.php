@@ -20,6 +20,7 @@ use App\Http\Requests\API\Post\UpdateRequest;
 use App\Models\Post;
 use App\Models\User;
 use App\Notifications\NewTenantPost;
+use App\Notifications\PostLiked;
 use App\Repositories\BuildingRepository;
 use App\Repositories\DistrictRepository;
 use App\Repositories\PostRepository;
@@ -502,6 +503,13 @@ class PostAPIController extends AppBaseController
 
         $u = \Auth::user();
         $u->like($post);
+
+        // if logged in user is tenant and
+        // author of post is tenant and
+        // author of post is different than liker
+        if ($u->tenant && $post->user->tenant && $u->id != $post->user_id) {
+            $post->user->notify(new PostLiked($post, $u->tenant));
+        }
         return $this->sendResponse($this->uTransformer->transform($u),
             'Post liked successfully');
     }

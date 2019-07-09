@@ -117,17 +117,6 @@
 
 <style lang="scss" scoped>
     .el-card {
-        &:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: .032;
-            pointer-events: none;
-            background-image: url('~img/5c9d6e6c73f70.png');
-        }
         :global(.el-card__header) {
             .title {
                 flex: auto;
@@ -146,6 +135,7 @@
                 border-style: none;
                 .el-collapse-item {
                     :global(.el-collapse-item__header) {
+                        background: transparent;
                         padding: 0 16px;
                         .title {
                             flex: auto;
@@ -167,19 +157,22 @@
                             }
                         }
                     }
-                    :global(.el-collapse-item__content) {
-                        color: darken(#fff, 48%);
-                        padding: 0 16px 16px 16px;
-                        :global(.reactions) {
-                            float: left;
-                        }
-                        .el-button {
-                            float: right;
-                        }
-                        &:after {
-                            content: '';
-                            display: table;
-                            clear: both;
+                    :global(.el-collapse-item__wrap) {
+                        background: transparent;
+                        :global(.el-collapse-item__content) {
+                            color: darken(#fff, 48%);
+                            padding: 0 16px 16px 16px;
+                            :global(.reactions) {
+                                float: left;
+                            }
+                            .el-button {
+                                float: right;
+                            }
+                            &:after {
+                                content: '';
+                                display: table;
+                                clear: both;
+                            }
                         }
                     }
                     &:last-child :global(.el-collapse-item__header) {

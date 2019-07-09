@@ -4,7 +4,7 @@
         <small>All of them will be listed here, each shown in a detailed way.</small>
     </placeholder>
     <div class="contacts" v-else-if="contacts.length">
-        <el-card class="heading" v-sticky="{stickyTop: -32}">
+        <el-card class="heading" v-sticky="{stickyTop: -16}">
             <heading icon="ti-book" title="My contracts">
                 <div slot="description">A list with all the building's contacts.</div>
             </heading>
@@ -87,12 +87,6 @@
         }
     }
     .contacts {
-        height: 100% !important;
-        margin: -2em;
-        padding: 2em;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-
          &:before {
             content: '';
             position: fixed;

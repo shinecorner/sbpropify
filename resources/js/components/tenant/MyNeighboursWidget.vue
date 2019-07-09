@@ -85,17 +85,6 @@
 
 <style lang="scss" scoped>
     .el-card.my-neighbours-widget {
-        &:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: .032;
-            pointer-events: none;
-            background-image: url('~img/5c9e682f7dad6.png');
-        }
         :global(.el-card__body) {
             ul {
                 color: #000;

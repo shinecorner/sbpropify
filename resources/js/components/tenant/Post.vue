@@ -17,7 +17,7 @@
                     </small>
                 </div>
             </div>
-            <reactions :id="data.id" :text="{like: 'Greetings', unlike: 'Bye'}" type="posts"/>
+            <reactions :id="data.id" like-text="Greetings" unlike-text="Bye" type="posts" />
         </template>
         <template v-else>
             <div class="pinned" v-if="data.pinned"><span>pinned</span></div>
@@ -45,9 +45,9 @@
             <div class="providers" v-if="data.pinned && data.providers && data.providers.length">
                 Providers: {{data.providers.map(provider => provider.name).join(', ')}}
             </div>
-            <media-carousel-gallery :media="data.media" v-if="data.media.length"/>
+            <media-gallery-carousel :media="images" :use-placeholder="false" />
             <div class="likes" v-if="data.likes.length">
-                <avatar :key="user.id" :name="user.name" :size="28" :src="user.avatar" v-for="user in data.likes"/>
+                <avatar :key="user.id" :name="user.name" :size="28" :src="user.avatar" v-for="user in data.likes" />
                 <div class="users">
                     <template v-if="data.liked">You</template>
                     <template v-else>{{ data.likes[data.likes.length - 1].name }}</template>
@@ -75,7 +75,7 @@
     import Reactions from 'components/Reactions'
     import AddComment from 'components/AddComment'
     import CommentsList from 'components/CommentsList'
-    import MediaCarouselGallery from 'components/MediaCarouselGallery'
+    import MediaGalleryCarousel from 'components/MediaGalleryCarousel'
     import {format, isSameDay} from 'date-fns'
 
     export default {
@@ -97,12 +97,15 @@
             Reactions,
             AddComment,
             CommentsList,
-            MediaCarouselGallery
+            MediaGalleryCarousel
         },
         methods: {
             showChildrenAddComment() {
                 this.$refs.comments.showChildrenAddComment()
-            }
+            },
+            isImage (file) {
+                return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(file.name.split('.').pop());
+            },
         },
         computed: {
             isNewNeighbourType() {
@@ -120,6 +123,13 @@
                 const {title, first_name, last_name} = this.data.tenant;
 
                 return `${title}. ${first_name} ${last_name}`
+            },
+            images () {
+                return this.data.media.map(file => {
+                    if (this.isImage(file)) {
+                        return file.url
+                    }
+                })
             }
         }
     }

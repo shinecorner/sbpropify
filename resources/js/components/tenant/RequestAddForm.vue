@@ -22,13 +22,14 @@
         <el-form-item prop="description" label="Description" required>
             <el-input type="textarea" ref="description" v-model="model.description" :autosize="{minRows: 4, maxRows: 16}" />
         </el-form-item>
+        <el-form-item prop="visibility" :label="$t('models.request.visibility.label')" required>
+            <el-select v-model="model.visibility" :placeholder="$t('models.request.placeholders.visibility')">
+                <el-option :key="k" :label="$t(`models.request.visibility.${visibility}`)" :value="parseInt(k)" v-for="(visibility, k) in $constants.serviceRequests.visibility">
+                </el-option>
+            </el-select>
+        </el-form-item>
         <el-divider />
         <media-upload ref="upload" v-model="model.media" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="4" />
-        <el-divider />
-        <el-form-item prop="is_public">
-            <el-switch v-model="model.is_public" />
-            <small>Use the this option to make your request visible to your neighbours. Normal requests about your tenancy will always be private.</small>
-        </el-form-item>
         <el-form-item v-if="showSubmit">
             <el-button class="submit" type="primary" @click="submit">Save</el-button>
         </el-form-item>
@@ -36,7 +37,7 @@
 </template>
 
 <script>
-    import config from '@/config'
+    import {MEDIA_UPLOAD_MAX_SIZE} from '@/config'
     import MediaUpload from 'components/MediaUpload'
     import ServicesTypes from 'mixins/methods/servicesTypes'
     import PrepareCategories from 'mixins/methods/prepareCategories'
@@ -65,12 +66,12 @@
                     description: '',
                     priority: '',
                     media: [],
-                    is_public: false
+                    visibility: ''
                 },
                 categories: [],
                 priorities: [],
                 loading: false,
-                mediaUploadMaxSize: config.MEDIA_UPLOAD_MAX_SIZE
+                mediaUploadMaxSize: MEDIA_UPLOAD_MAX_SIZE
             }
         },
         methods: {
@@ -80,9 +81,9 @@
                         try {
                             this.loading = true
 
-                            const {media, ...params} = this.model;
+                            const {media, ...params} = this.model
 
-                            const data = await this.$store.dispatch('createRequest', params);
+                            const data = await this.$store.dispatch('createRequest', params)
 
                             displaySuccess(data)
 

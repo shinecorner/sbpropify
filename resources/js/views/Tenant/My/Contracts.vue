@@ -4,7 +4,7 @@
         <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
     </placeholder>
     <div class="contracts" v-else-if="contract">
-        <el-card v-sticky="{stickyTop: -32}">
+        <el-card v-sticky="{stickyTop: -16}">
             <heading icon="ti-book" title="My contract">
                 <div slot="description">Curabitur pellentesque consectetur malesuada.</div>
             </heading>
@@ -138,11 +138,6 @@
         }
     }
     .contracts {
-        margin: -2em;
-        padding: 2em;
-        overflow-y: auto;
-        height: 100% !important;
-        -webkit-overflow-scrolling: touch;
 
         &:not(.empty):before {
             content: '';
