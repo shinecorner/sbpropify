@@ -260,7 +260,7 @@ HTML
             [
                 'parent_id' => 5,
                 'name' => 'request_assigment',
-                'description' => 'Email sent to property assignment, service providers after assignment to a request.',
+                'description' => 'Notify service provider -> sends email to service provider, property manager and others (BCC, CC).',
                 'tag_map' => [
                     'salutation' => 'user.title',
                     'name' => 'user.name',
@@ -277,6 +277,106 @@ HTML
 <p>Category: {{category}}.</p>
 <p>Title: {{title}}.</p>
 <p>{{description}}.</p>
+HTML
+            ],
+            [
+                'parent_id' => 5,
+                'name' => 'request_comment',
+                'description' => 'When any party adds a new comment (tenant, property manager, service partner, admin or super admin) we notify all assigned people',
+                'tag_map' => [
+                    'salutation' => 'user.title',
+                    'name' => 'user.name',
+                    'subjectSalutation' => 'subject.title',
+                    'subjectName' => 'subject.name',
+                    'title' => 'request.title',
+                    'description' => 'request.description',
+                    'category' => 'request.category.name',
+                    'comment' => 'comment'
+                ],
+                'subject' => 'New comment for request: {{title}}',
+                'body' => <<<HTML
+<p>Hello {{salutation}} {{name}},</p>
+<p>A new comment was made for request: {{title}</p>
+<p>{{comment}}.</p>
+HTML
+            ],
+            [
+                'parent_id' => 5,
+                'name' => 'request_upload',
+                'description' => 'When any party uploads a document/image',
+                'tag_map' => [
+                    'salutation' => 'user.title',
+                    'name' => 'user.name',
+                    'subjectSalutation' => 'subject.title',
+                    'subjectName' => 'subject.name',
+                    'title' => 'request.title',
+                    'description' => 'request.description',
+                    'category' => 'request.category.name',
+                ],
+                'subject' => 'New document uploaded for request: {{title}}',
+                'body' => <<<HTML
+<p>Hello {{salutation}} {{name}},</p>
+<p>A new document/image was added for request: {{title}</p>
+HTML
+            ],
+            [
+                'parent_id' => 5,
+                'name' => 'request_admin_change_status',
+                'description' => 'When the Property Manager, Admin or Service partner change the status we notify the tenant, each time when status is changed from X to XY',
+                'tag_map' => [
+                    'salutation' => 'request.tenant.title',
+                    'name' => 'request.tenant.user.name',
+                    'title' => 'request.title',
+                    'description' => 'request.description',
+                    'category' => 'request.category.name',
+                    'status' => 'constant.request.status',
+                    'originalStatus' => 'constant.originalRequest.status',
+                ],
+                'subject' => 'New request: {{title}} changed status',
+                'body' => <<<HTML
+<p>Hello {{salutation}} {{name}},</p>
+<p>Admin changed status for request {{title} from {{originalStatus}} to {{status}}</p>
+HTML
+            ],
+            [
+                'parent_id' => 5,
+                'name' => 'request_internal_comment',
+                'description' => 'When admin or service partner add a internal comment, we will notify each other.',
+                'tag_map' => [
+                    'salutation' => 'user.title',
+                    'name' => 'user.name',
+                    'subjectSalutation' => 'subject.title',
+                    'subjectName' => 'subject.name',
+                    'title' => 'request.title',
+                    'description' => 'request.description',
+                    'category' => 'request.category.name',
+                    'comment' => 'comment.comment'
+                ],
+                'subject' => 'New comment for request: {{title}}',
+                'body' => <<<HTML
+<p>Hello {{salutation}} {{name}},</p>
+<p>{{subjectSalutation}} {{subjectName}} added a new comment for request: {{title}</p>
+<p>{{comment}}.</p>
+HTML
+            ],
+            [
+                'parent_id' => 5,
+                'name' => 'request_due_date_reminder',
+                'description' => 'Send reminder email to property manager / admin 1 day before the due date is reached',
+                'tag_map' => [
+                    'salutation' => 'user.title',
+                    'name' => 'user.name',
+                    'subjectSalutation' => 'subject.title',
+                    'subjectName' => 'subject.name',
+                    'title' => 'request.title',
+                    'description' => 'request.description',
+                    'dueDate' => 'request.due_date',
+                    'category' => 'request.category.name',
+                ],
+                'subject' => 'Request: {{title}} has the due date tomorrow',
+                'body' => <<<HTML
+<p>Hello {{salutation}} {{name}},</p>
+<p>Due date for request {{title} is {{dueDate}}</p>
 HTML
             ],
         ];
