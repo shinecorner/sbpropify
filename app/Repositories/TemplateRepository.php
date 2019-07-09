@@ -97,12 +97,30 @@ class TemplateRepository extends BaseRepository
         $subject = $context['subject'] ?? null;
         $tenant = $context['tenant'] ?? null;
         $post = $context['post'] ?? null;
+
         $request = $context['request'] ?? null;
+        $originalRequest = $context['originalRequest'] ?? null;
+
+        $comment = $context['comment'] ?? null;
         $form = $context['form'] ?? null;
 
         $tags = [];
         foreach ($tagMap as $tag => $val) {
             $valMap = explode('.', $val);
+
+            if (count($valMap) == 4) {
+                if ($valMap[0] == 'constant') {
+                    $val = self::getContextValue(${$valMap[1]}->{$valMap[2]}, $valMap[3]);
+                    $val = __('common.' . $val);
+                    $tags[$tag] = $val;
+                    continue;
+                }
+
+                $val = self::getContextValue(${$valMap[0]}->{$valMap[1]}->{$valMap[2]}, $valMap[3]);
+
+                $tags[$tag] = $val;
+                continue;
+            }
 
             if (count($valMap) == 3) {
                 if ($valMap[0] == 'constant') {
@@ -302,6 +320,25 @@ class TemplateRepository extends BaseRepository
     public function getPinnedPostParsedTemplate(Post $post, User $user): array
     {
         $template = $this->getByCategoryName('pinned_post');
+
+        $context = [
+            'user' => $user,
+            'post' => $post,
+        ];
+
+        $tags = $this->getTags($template->category->tag_map, $context);
+
+        return $this->getParsedTemplate($template, $tags);
+    }
+
+    /**
+     * @param Post $post
+     * @param User $user
+     * @return array
+     */
+    public function getPostLikedParsedTemplate(Post $post, User $user): array
+    {
+        $template = $this->getByCategoryName('post_liked');
 
         $context = [
             'user' => $user,
