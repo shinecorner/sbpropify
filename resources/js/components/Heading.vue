@@ -31,9 +31,17 @@
         z-index: 1;
 
         .icon {
+            width: 56px;
+            height: 56px;
+            background-color: transparentize(#fff, .2);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #6AC06F;
-            font-size: 42px;
+            font-size: 32px;
             margin-right: 16px;
+            box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
         }
 
         .content {
