@@ -1,6 +1,6 @@
 <template>
     <div class="chat">
-        <comments-list ref="comments" :id="id" :type="type" :limit="limit" reversed with-scroller :show-children="false" :style="{height: size}" />
+        <comments-list ref="comments" :id="id" :type="type" :limit="limit" reversed with-scroller :show-children="false" :style="{height: size, minHeight: minSize, maxHeight: maxSize}" />
         <add-comment ref="addComment" :id="id" :type="type" />
     </div>
 </template>
@@ -21,6 +21,14 @@
                 validator: type => ['post', 'product', 'request', 'conversation'].includes(type)
             },
             size: {
+                type: String,
+                default: '320px'
+            },
+            minSize: {
+                type: String,
+                default: '84px'
+            },
+            maxSize: {
                 type: String,
                 default: '320px'
             },

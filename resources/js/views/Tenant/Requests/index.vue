@@ -6,7 +6,7 @@
                     <i class="ti-comments"></i>
                     Chat
                 </div>
-                <chat ref="chat" :id="openedRequest.id" type="request" size="100%" />
+                <chat ref="chat" :id="openedRequest.id" type="request" size="100%" max-size="100%" />
             </el-tab-pane>
             <el-tab-pane name="media" lazy>
                 <div slot="label">
