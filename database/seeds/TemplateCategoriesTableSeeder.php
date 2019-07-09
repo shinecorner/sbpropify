@@ -230,6 +230,25 @@ HTML
 <p>{{content}}.</p>
 HTML
             ],
+            [
+                'parent_id' => 3,
+                'name' => 'post_commented',
+                'description' => 'Email sent to post author when tenant comments on the post',
+                'tag_map' => [
+                    'salutation' => 'post.user.title',
+                    'name' => 'post.user.name',
+                    'commenterSalutation' => 'user.title',
+                    'commenterName' => 'user.name',
+                    'content' => 'post.content',
+                    'comment' => 'comment.comment',
+                ],
+                'subject' => '{{commenterSalutation}} {{commenterName}} liked your post',
+                'body' => <<<HTML
+<p>Hello {{salutation}} {{name}},</p>
+<p>Tenant {{commenterSalutation}} {{commenterName}} commented on  your post:</p>
+<p><em>{{comment}}</em>.</p>
+HTML
+            ],
         ];
         foreach ($templates as $template) {
             (new TemplateCategory())->create($template);

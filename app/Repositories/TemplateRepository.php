@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\CleanifyRequest;
+use App\Models\Comment;
 use App\Models\PasswordReset;
 use App\Models\Post;
 use App\Models\RealEstate;
@@ -324,6 +325,27 @@ class TemplateRepository extends BaseRepository
         $context = [
             'user' => $user,
             'post' => $post,
+        ];
+
+        $tags = $this->getTags($template->category->tag_map, $context);
+
+        return $this->getParsedTemplate($template, $tags);
+    }
+
+    /**
+     * @param Post $post
+     * @param User $user
+     * @param Comment $comment
+     * @return array
+     */
+    public function getPostCommentedParsedTemplate(Post $post, User $user, Comment $comment): array
+    {
+        $template = $this->getByCategoryName('post_commented');
+
+        $context = [
+            'user' => $user,
+            'post' => $post,
+            'comment' => $comment,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
