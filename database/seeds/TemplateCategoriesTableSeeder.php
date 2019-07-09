@@ -212,6 +212,24 @@ HTML
 <p>{{content}}.</p>
 HTML
             ],
+            [
+                'parent_id' => 3,
+                'name' => 'post_liked',
+                'description' => 'Email sent to post author when tenant liked the post',
+                'tag_map' => [
+                    'salutation' => 'post.user.title',
+                    'name' => 'post.user.name',
+                    'likerSalutation' => 'user.title',
+                    'likerName' => 'user.name',
+                    'content' => 'post.content',
+                ],
+                'subject' => '{{likerSalutation}} {{likerName}} liked your post',
+                'body' => <<<HTML
+<p>Hello {{salutation}} {{name}},</p>
+<p>Tenant {{likerSalutation}} {{likerName}} liked your post:</p>
+<p>{{content}}.</p>
+HTML
+            ],
         ];
         foreach ($templates as $template) {
             (new TemplateCategory())->create($template);

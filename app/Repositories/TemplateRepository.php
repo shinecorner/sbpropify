@@ -332,6 +332,25 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
+     * @param Post $post
+     * @param User $user
+     * @return array
+     */
+    public function getPostLikedParsedTemplate(Post $post, User $user): array
+    {
+        $template = $this->getByCategoryName('post_liked');
+
+        $context = [
+            'user' => $user,
+            'post' => $post,
+        ];
+
+        $tags = $this->getTags($template->category->tag_map, $context);
+
+        return $this->getParsedTemplate($template, $tags);
+    }
+
+    /**
      * @param ServiceRequest $request
      * @param User $user
      * @param User $subject
