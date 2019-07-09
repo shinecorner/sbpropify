@@ -745,7 +745,7 @@ export default {
             },
             visibility: {
                 label: 'Visibility',
-                tenant: 'Tenant',
+                tenant: 'Private',
                 district: 'District',
                 building: 'Building',
             }
@@ -983,6 +983,21 @@ export default {
         },
         terms: {
             required: 'Please approve with terms and conditions'
+        }
+    },
+
+    views: {
+        tenant: {
+            my: {
+                personal: {
+                    title: 'Personal data',
+                    description: 'My personal details.',
+                    placeholder: {
+                        title: 'No personal data available.',
+                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+                    }
+                }
+            }
         }
     }
 }
