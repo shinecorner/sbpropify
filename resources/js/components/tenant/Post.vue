@@ -76,19 +76,15 @@
     import AddComment from 'components/AddComment'
     import CommentsList from 'components/CommentsList'
     import MediaGalleryCarousel from 'components/MediaGalleryCarousel'
+    import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
     import {format, isSameDay} from 'date-fns'
 
     export default {
-        mixins: [AgoMixin],
+        mixins: [AgoMixin, FormatDateTimeMixin],
         props: {
             data: {
                 type: Object,
                 required: true
-            }
-        },
-        filters: {
-            formatDatetime (date) {
-                return format(date, 'DD.MM.YYYY HH:mm')
             }
         },
         components: {

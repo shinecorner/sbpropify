@@ -48,9 +48,10 @@
     import Chat from 'components/Chat2'
     import Reactions from 'components/Reactions'
     import MediaGalleryCarousel from 'components/MediaGalleryCarousel'
-    import {format} from 'date-fns'
+    import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
 
     export default {
+        mixins: [FormatDateTimeMixin],
         props: {
             data: {
                 type: Object,
@@ -61,11 +62,6 @@
             Chat,
             Reactions,
             MediaGalleryCarousel
-        },
-        filters: {
-            formatDatetime (date) {
-                return `${format(date, 'DD.MM.YYYY')} at ${format(date, 'HH:mm')}`
-            }
         },
         data () {
             return {

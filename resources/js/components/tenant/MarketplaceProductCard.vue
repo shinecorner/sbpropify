@@ -38,9 +38,11 @@
 <script>
     import Reactions from 'components/Reactions'
     import Placeholder from 'components/Placeholder'
+    import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
     import {format} from 'date-fns'
 
     export default {
+        mixins: [FormatDateTimeMixin],
         props: {
             data: {
                 type: Object,
@@ -55,11 +57,6 @@
         components: {
             Reactions,
             Placeholder
-        },
-        filters: {
-            formatDatetime (date) {
-                return `${format(date, 'DD.MM.YYYY')} at ${format(date, 'HH:mm')}`
-            }
         },
         computed: {
             isFree () {
