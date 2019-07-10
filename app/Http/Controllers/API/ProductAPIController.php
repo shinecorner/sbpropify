@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\Products\FilterByTypeCriteria;
 use App\Criteria\Products\FilterByUserCriteria;
+use App\Notifications\ProductLiked;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Product\CreateRequest;
 use App\Http\Requests\API\Product\DeleteRequest;
@@ -393,6 +394,13 @@ class ProductAPIController extends AppBaseController
 
         $u = \Auth::user();
         $u->like($product);
+
+        // if logged in user is tenant and
+        // author of product is tenant and
+        // author of product is different than liker
+        if ($u->tenant && $product->user->tenant && $u->id != $product->user_id) {
+            $product->user->notify(new ProductLiked($product, $u->tenant));
+        }
         return $this->sendResponse($this->uTransformer->transform($u),
             'Product liked successfully');
     }

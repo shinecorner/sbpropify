@@ -12,6 +12,7 @@ use App\Http\Requests\API\Comment\DestroyRequest;
 use App\Http\Requests\API\Comment\ListRequest;
 use App\Http\Requests\API\Comment\UpdateRequest;
 use App\Notifications\PostCommented;
+use App\Notifications\ProductCommented;
 use App\Repositories\CommentRepository;
 use App\Repositories\PostRepository;
 use App\Repositories\ProductRepository;
@@ -241,6 +242,14 @@ class CommentAPIController extends AppBaseController
 
         $comment = $product->comment($request->comment, $request->parent_id);
         $comment->load('user');
+
+        // if logged in user is tenant and
+        // author of post is tenant and
+        // author of post is different than liker
+        $u = \Auth::user();
+        if ($u->tenant && $product->user->tenant && $u->id != $product->user_id) {
+            $product->user->notify(new ProductCommented($product, $u->tenant, $comment));
+        }
         $out = $this->transformer->transform($comment);
         return $this->sendResponse($out, "Comment successfully created");
     }

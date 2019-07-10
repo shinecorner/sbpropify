@@ -20,6 +20,7 @@ class CreateUserSettingsTable extends Migration
             $table->string('summary')->default('daily');
             $table->integer('admin_notification')->unsigned()->default(1);
             $table->integer('news_notification')->unsigned()->default(1);
+            $table->integer('marketplace_notification')->unsigned()->default(1);
             $table->integer('service_notification')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();

@@ -24,6 +24,7 @@ class UserSettingsRepository extends BaseRepository
         'summary',
         'admin_notification',
         'news_notification',
+        'marketplace_notification',
         'service_notification'
     ];
 

@@ -58,6 +58,7 @@ class UsersTableSeeder extends Seeder
         $settings->summary = 'daily';
         $settings->admin_notification = 1;
         $settings->news_notification = 1;
+        $settings->marketplace_notification = 1;
         $settings->service_notification = 1;
 
         return $settings;

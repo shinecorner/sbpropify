@@ -6,6 +6,7 @@ use App\Models\CleanifyRequest;
 use App\Models\Comment;
 use App\Models\PasswordReset;
 use App\Models\Post;
+use App\Models\Product;
 use App\Models\RealEstate;
 use App\Models\ServiceRequest;
 use App\Models\Template;
@@ -97,6 +98,7 @@ class TemplateRepository extends BaseRepository
         $subject = $context['subject'] ?? null;
         $tenant = $context['tenant'] ?? null;
         $post = $context['post'] ?? null;
+        $product = $context['product'] ?? null;
 
         $request = $context['request'] ?? null;
         $originalRequest = $context['originalRequest'] ?? null;
@@ -365,6 +367,46 @@ class TemplateRepository extends BaseRepository
         $context = [
             'user' => $user,
             'post' => $post,
+        ];
+
+        $tags = $this->getTags($template->category->tag_map, $context);
+
+        return $this->getParsedTemplate($template, $tags);
+    }
+
+    /**
+     * @param Product $product
+     * @param User $user
+     * @return array
+     */
+    public function getProductLikedParsedTemplate(Product $product, User $user): array
+    {
+        $template = $this->getByCategoryName('product_liked');
+
+        $context = [
+            'user' => $user,
+            'product' => $product,
+        ];
+
+        $tags = $this->getTags($template->category->tag_map, $context);
+
+        return $this->getParsedTemplate($template, $tags);
+    }
+
+    /**
+     * @param Product $product
+     * @param User $user
+     * @param Comment $comment
+     * @return array
+     */
+    public function getProductCommentedParsedTemplate(Product $product, User $user, Comment $comment): array
+    {
+        $template = $this->getByCategoryName('product_commented');
+
+        $context = [
+            'user' => $user,
+            'product' => $product,
+            'comment' => $comment,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
