@@ -17,7 +17,6 @@ use InfyOm\Generator\Common\BaseRepository;
 /**
  * Class TemplateRepository
  * @package App\Repositories
- * @version April 1, 2019, 8:46 am UTC
  */
 class TemplateRepository extends BaseRepository
 {
@@ -200,9 +199,10 @@ class TemplateRepository extends BaseRepository
     /**
      * @param Template $template
      * @param $tagMap
+     * @param $lang
      * @return array
      */
-    public function getParsedTemplate($template, $tagMap): array
+    public function getParsedTemplate($template, $tagMap, $lang = ''): array
     {
         if (!$template) {
             return [
@@ -211,13 +211,13 @@ class TemplateRepository extends BaseRepository
             ];
         }
 
+        $languages = Config::get('app.locales');
+        $userLanguage = in_array($lang, array_keys($languages)) ? $lang : Config::get('app.locale');
+
         $subject = $template->subject;
         $body = $template->body;
 
-        $userLanguage = \Auth::user()->settings->language ?? Config::get('app.locale');
-
         $translations = $template->translations()->where('language', $userLanguage)->get();
-
         foreach ($translations as $translation) {
             if (isset($translation->subject)) {
                 $subject = $translation->subject;
