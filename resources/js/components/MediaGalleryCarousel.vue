@@ -1,5 +1,5 @@
 <template>
-    <div class="media-carousel-gallery" v-if="images.length">
+    <div class="media-carousel-gallery" v-if="media.length">
         <gallery :images="images" :index="index" @close="close" />
         <el-carousel v-bind="$attrs" v-on="$listeners" :arrow="images.length <= 1 ? 'never' : 'hover'">
             <el-carousel-item v-for="(url, idx) in images" :key="idx">
@@ -15,7 +15,7 @@
             </el-carousel-item>
         </el-carousel>
     </div>
-    <placeholder :src="require('img/5c98a90bb5c05.png')" v-else-if="!images.length && usePlaceholder" />
+    <placeholder :src="require('img/5c98a90bb5c05.png')" v-else-if="!media.length && usePlaceholder" />
 </template>
 
 <script>
@@ -24,7 +24,7 @@
 
     export default {
         props: {
-            images: {
+            media: {
                 type: Array,
                 default: () => ([])
             },
@@ -53,6 +53,9 @@
             close () {
                 this.index = null
             },
+            isImage (file) {
+                return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(file.name.split('.').pop());
+            },
             resizeImage (x, y, percentage, minimum) {
                 if (x > y) {
                     const ratio = y / x;
@@ -69,6 +72,15 @@
 
                     return [rx + minimum * ratio, ry + minimum];
                 }
+            }
+        },
+        computed: {
+            images () {
+                return this.media.map(file => {
+                    if (this.isImage(file)) {
+                        return file.url
+                    }
+                })
             }
         }
     }

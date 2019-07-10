@@ -45,7 +45,7 @@
             <div class="providers" v-if="data.pinned && data.providers && data.providers.length">
                 Providers: {{data.providers.map(provider => provider.name).join(', ')}}
             </div>
-            <media-gallery-carousel :media="images" :use-placeholder="false" />
+            <media-gallery-carousel :media="data.media" :use-placeholder="false" height="320px" :autoplay="false" />
             <div class="likes" v-if="data.likes.length">
                 <avatar :key="user.id" :name="user.name" :size="28" :src="user.avatar" v-for="user in data.likes" />
                 <div class="users">
@@ -102,10 +102,7 @@
         methods: {
             showChildrenAddComment() {
                 this.$refs.comments.showChildrenAddComment()
-            },
-            isImage (file) {
-                return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(file.name.split('.').pop());
-            },
+            }
         },
         computed: {
             isNewNeighbourType() {
@@ -123,13 +120,6 @@
                 const {title, first_name, last_name} = this.data.tenant;
 
                 return `${title}. ${first_name} ${last_name}`
-            },
-            images () {
-                return this.data.media.map(file => {
-                    if (this.isImage(file)) {
-                        return file.url
-                    }
-                })
             }
         }
     }

@@ -1,6 +1,6 @@
 <template>
     <div class="product-details">
-        <media-gallery-carousel ref="media-gallery-carousel" :images="images" :autoplay="false" />
+        <media-gallery-carousel ref="media-gallery-carousel" :media="data.media" :autoplay="false" />
         <el-tabs value="overview">
             <el-tab-pane name="overview" label="Overview">
                 <div class="container">
@@ -72,19 +72,7 @@
                 showContactInformations: false
             }
         },
-        methods: {
-            isImage (file) {
-                return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(file.name.split('.').pop());
-            },
-        },
         computed: {
-            images () {
-                return this.data.media.map(file => {
-                    if (this.isImage(file)) {
-                        return file.url
-                    }
-                })
-            },
             typeName () {
                 return this.$constants.products.type[this.data.type]
             },
