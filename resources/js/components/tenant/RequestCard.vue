@@ -204,6 +204,7 @@
 
 <style lang="scss" scoped>
     .el-tabs.request-card {
+        color: lighten(#000, 32%);
         border-radius: 6px;
         overflow: hidden;
         box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76) !important;

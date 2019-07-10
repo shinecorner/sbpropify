@@ -127,6 +127,7 @@
 
 <style lang="scss" scoped>
     .el-card.post {
+        color: lighten(#000, 32%);
         &.pinned {
             /deep/ .el-card__body {
                 border-width: 8px;
@@ -282,7 +283,7 @@
             }
 
             .content {
-                margin: 8px 0;
+                margin: 16px 0;
                 :global(p) {
                     margin: 0;
                     white-space: pre-wrap;

@@ -61,6 +61,7 @@
 <style lang="scss" scoped>
     .chat {
         height: 100%;
+        color: lighten(#000, 32%);
         display: flex;
         flex-direction: column;
         .comments-list {

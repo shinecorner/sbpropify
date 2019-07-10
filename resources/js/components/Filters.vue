@@ -65,6 +65,7 @@
 
 <style lang="scss">
     .filters {
+        color: lighten(#000, 32%);
         &.row {
             display: flex;
             flex-wrap: wrap;
