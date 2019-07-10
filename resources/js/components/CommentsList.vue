@@ -139,9 +139,14 @@
                         this.$el.style.minHeight = ''
 
                         this.loading.close()
+
+                        this.loading = {
+                            state: false
+                        }
                     } else {
                         this.loading.state = false
                     }
+
                 }
             },
             forceUpdate () {
