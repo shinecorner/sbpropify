@@ -266,7 +266,7 @@ Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interd
                         this.$refs['add-product-form'].$el.classList.remove('el-loading-parent--relative')
 
                         if (!state) {
-                            this.dialogs.addProduct.visible = false
+                            this.dialogs.addProductForm.visible = false
 
                             await this.fetch()
                         }
