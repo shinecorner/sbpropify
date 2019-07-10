@@ -9,7 +9,7 @@ use App\Models\Product;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
-use App\Models\Template;
+use App\Models\TemplateCategory;
 use App\Models\Tenant;
 use App\Repositories\BuildingRepository;
 use App\Repositories\TenantRepository;
@@ -180,7 +180,7 @@ class UtilsAPIController extends AppBaseController
     private function getTemplateConstants()
     {
         $result = [
-            'type' => Template::Type,
+            'type' => TemplateCategory::Type,
         ];
 
         return $result;

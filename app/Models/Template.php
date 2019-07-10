@@ -105,14 +105,6 @@ class Template extends Model
         'system' => 'boolean'
     ];
 
-    const TypeEmail = 1;
-    const TypeCommunication = 2;
-
-    const Type = [
-        self::TypeEmail => 'email',
-        self::TypeCommunication => 'communication',
-    ];
-
     public function translatable()
     {
         return [

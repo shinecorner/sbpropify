@@ -81,6 +81,7 @@ class TemplateCategoriesTableSeeder extends Seeder
         $templates = [
             [
                 'parent_id' => 1,
+                'system' => 1,
                 'name' => 'new_admin',
                 'description' => 'User create admin notification',
                 'tag_map' => [
@@ -104,6 +105,7 @@ HTML
             ],
             [
                 'parent_id' => 1,
+                'system' => 1,
                 'name' => 'reset_password',
                 'description' => 'User reset password email',
                 'tag_map' => [
@@ -122,6 +124,7 @@ HTML
             ],
             [
                 'parent_id' => 1,
+                'system' => 1,
                 'name' => 'reset_password_success',
                 'description' => 'Password changed successfully',
                 'tag_map' => [
@@ -149,6 +152,7 @@ HTML
         $templates = [
             [
                 'parent_id' => 2,
+                'system' => 1,
                 'name' => 'tenant_credentials',
                 'description' => 'Email sent to tenant, containing the PDF with the credentials and tenancy details.',
                 'tag_map' => [
@@ -180,6 +184,7 @@ HTML
         $templates = [
             [
                 'parent_id' => 3,
+                'system' => 1,
                 'name' => 'pinned_post',
                 'description' => 'Email sent to tenants when admin publishes a pinned post',
                 'tag_map' => [
@@ -198,6 +203,7 @@ HTML
             ],
             [
                 'parent_id' => 3,
+                'system' => 1,
                 'name' => 'new_post',
                 'description' => 'Email sent to admins when tenant creates a new post',
                 'tag_map' => [
@@ -217,6 +223,7 @@ HTML
             ],
             [
                 'parent_id' => 3,
+                'system' => 1,
                 'name' => 'post_liked',
                 'description' => 'Email sent to post author when tenant liked the post',
                 'tag_map' => [
@@ -235,6 +242,7 @@ HTML
             ],
             [
                 'parent_id' => 3,
+                'system' => 1,
                 'name' => 'post_commented',
                 'description' => 'Email sent to post author when tenant comments on the post',
                 'tag_map' => [
@@ -333,6 +341,27 @@ HTML
         $templates = [
             [
                 'parent_id' => 5,
+                'system' => 0,
+                'type' => TemplateCategory::TypeCommunication,
+                'name' => 'communication',
+                'description' => 'Request communication templates',
+                'tag_map' => [
+                    'salutation' => 'user.title',
+                    'name' => 'user.name',
+                    'subjectSalutation' => 'subject.title',
+                    'subjectName' => 'subject.name',
+                    'title' => 'request.title',
+                    'description' => 'request.description',
+                    'category' => 'request.category.name',
+                    'unit' => 'request.unit.name',
+                    'building' => 'request.unit.building.name',
+                ],
+                'subject' => 'Hello {{subjectSalutation}} {{subjectName}}',
+                'body' => '',
+            ],
+            [
+                'parent_id' => 5,
+                'system' => 1,
                 'name' => 'new_request',
                 'description' => 'Email sent to property managers when tenant creates a new request.',
                 'tag_map' => [
@@ -359,6 +388,7 @@ HTML
             [
                 'parent_id' => 5,
                 'name' => 'request_assigment',
+                'system' => 0,
                 'description' => 'Notify service provider -> sends email to service provider, property manager and others (BCC, CC).',
                 'tag_map' => [
                     'salutation' => 'user.title',
