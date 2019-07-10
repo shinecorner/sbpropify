@@ -71,6 +71,9 @@
                         <el-form-item :label="$t('settings.news')">
                             <el-switch v-model="loggedInUser.settings.news_notification"></el-switch>
                         </el-form-item>
+                        <el-form-item :label="$t('settings.marketplace')">
+                            <el-switch v-model="loggedInUser.settings.martketplace_notification"></el-switch>
+                        </el-form-item>
                         <el-form-item :label="$t('settings.admin')">
                             <el-switch v-model="loggedInUser.settings.admin_notification"></el-switch>
                         </el-form-item>

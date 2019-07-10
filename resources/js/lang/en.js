@@ -918,6 +918,7 @@ export default {
         notifications: "Notifications and language",
         admin: 'Admin notifications',
         news: 'News notifications',
+        marketplace: 'Marketplace notifications',
         service: 'Service notifications',
         updated: 'Settings updated',
         language: 'Language',
