@@ -19,7 +19,7 @@ class CreateTemplatesTable extends Migration
             $table->integer('type')->unsigned()->default(1);
             $table->string('name');
             $table->string('subject');
-            $table->mediumText('body');
+            $table->mediumText('body')->nullable();
             $table->boolean('default')->default(0);
             $table->boolean('system')->default(0);
             $table->timestamps();
