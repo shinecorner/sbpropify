@@ -457,6 +457,7 @@ class PostAPIController extends AppBaseController
     }
 
     /**
+     * @param $id
      * @return Response
      *
      * @SWG\Post(

@@ -234,7 +234,7 @@ class ServiceRequestRepository extends BaseRepository
             return;
         }
 
-        $tRepo = (new TemplateRepository($this->app));
+        $tRepo = new TemplateRepository($this->app);
         $propertyManagers = PropertyManager::join('building_property_manager', 'property_managers.id', '=', 'building_property_manager.property_manager_id')
             ->where('building_id', $serviceRequest->tenant->building->id)->get();
 
