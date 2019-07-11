@@ -93,6 +93,7 @@
             }
 
             .content {
+                min-width: 0;
                 flex: auto;
                 line-height: 1.56;
                 margin-left: 16px;
@@ -100,6 +101,9 @@
                 .city {
                     font-size: 24px;
                     font-weight: bold;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
                 }
 
                 .temperature {
