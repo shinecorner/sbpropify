@@ -111,6 +111,7 @@
             }
             .content {
                 width: 100%;
+                color: lighten(#000, 32%);
                 font-size: 1.24em;
                 resize: none;
                 border-style: none;

@@ -9,7 +9,7 @@
         </el-tooltip>
         <div ref="container" class="container">
             <el-input ref="content" type="textarea" resize="none" v-if="idState.editing" v-model="comment" autosize :disabled="idState.loading.$_uid && idState.loading.visible" :validate-event="false" @keydown.native.alt.enter.exact="nextLine" @keydown.native.prevent.enter.exact="update" @keydown.native.stop.esc.exact="cancelEdit" />
-            <div class="content" :class="{'empty': !comment, 'disabled': idState.loading.$_uid && idState.loading.visible}" v-else>
+            <div class="content" :class="{'empty': !comment, 'disabled': idState.loading._isVue && idState.loading.visible}" v-else>
                 <div class="text">{{comment || 'This comment was deleted.'}}</div>
                 <div class="actions" v-if="hasActions">
                     <el-button type="text" @click="enterEdit" v-if="data.comment">

@@ -126,8 +126,9 @@
                         try {
                             this.loading = true;
 
-                            const {media, tenant_name, tenant_phone, ...params} = this.model
+                            const {price, media, tenant_name, tenant_phone, ...params} = this.model
 
+                            params.price = `${price.integer}.${price.decimals}`
                             params.contact = `${tenant_name} - ${tenant_phone}`
 
                             const {data} = await this.$store.dispatch('products2/create', params);

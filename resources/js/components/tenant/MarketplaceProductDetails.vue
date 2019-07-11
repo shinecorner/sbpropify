@@ -1,6 +1,6 @@
 <template>
     <div class="product-details">
-        <media-gallery-carousel ref="media-gallery-carousel" :images="images" :autoplay="false" />
+        <media-gallery-carousel ref="media-gallery-carousel" :media="data.media" :autoplay="false" />
         <el-tabs value="overview">
             <el-tab-pane name="overview" label="Overview">
                 <div class="container">
@@ -48,9 +48,10 @@
     import Chat from 'components/Chat2'
     import Reactions from 'components/Reactions'
     import MediaGalleryCarousel from 'components/MediaGalleryCarousel'
-    import {format} from 'date-fns'
+    import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
 
     export default {
+        mixins: [FormatDateTimeMixin],
         props: {
             data: {
                 type: Object,
@@ -62,29 +63,12 @@
             Reactions,
             MediaGalleryCarousel
         },
-        filters: {
-            formatDatetime (date) {
-                return `${format(date, 'DD.MM.YYYY')} at ${format(date, 'HH:mm')}`
-            }
-        },
         data () {
             return {
                 showContactInformations: false
             }
         },
-        methods: {
-            isImage (file) {
-                return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(file.name.split('.').pop());
-            },
-        },
         computed: {
-            images () {
-                return this.data.media.map(file => {
-                    if (this.isImage(file)) {
-                        return file.url
-                    }
-                })
-            },
             typeName () {
                 return this.$constants.products.type[this.data.type]
             },

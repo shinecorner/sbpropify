@@ -86,6 +86,14 @@ class TemplateCategory extends Model
         'tag_map' => 'array'
     ];
 
+    const TypeEmail = 1;
+    const TypeCommunication = 2;
+
+    const Type = [
+        self::TypeEmail => 'email',
+        self::TypeCommunication => 'communication',
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/

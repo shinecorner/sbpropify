@@ -45,7 +45,7 @@
             <div class="providers" v-if="data.pinned && data.providers && data.providers.length">
                 Providers: {{data.providers.map(provider => provider.name).join(', ')}}
             </div>
-            <media-gallery-carousel :media="images" :use-placeholder="false" />
+            <media-gallery-carousel :media="data.media" :use-placeholder="false" height="320px" :autoplay="false" />
             <div class="likes" v-if="data.likes.length">
                 <avatar :key="user.id" :name="user.name" :size="28" :src="user.avatar" v-for="user in data.likes" />
                 <div class="users">
@@ -76,19 +76,15 @@
     import AddComment from 'components/AddComment'
     import CommentsList from 'components/CommentsList'
     import MediaGalleryCarousel from 'components/MediaGalleryCarousel'
+    import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
     import {format, isSameDay} from 'date-fns'
 
     export default {
-        mixins: [AgoMixin],
+        mixins: [AgoMixin, FormatDateTimeMixin],
         props: {
             data: {
                 type: Object,
                 required: true
-            }
-        },
-        filters: {
-            formatDatetime (date) {
-                return format(date, 'DD.MM.YYYY HH:mm')
             }
         },
         components: {
@@ -102,10 +98,7 @@
         methods: {
             showChildrenAddComment() {
                 this.$refs.comments.showChildrenAddComment()
-            },
-            isImage (file) {
-                return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(file.name.split('.').pop());
-            },
+            }
         },
         computed: {
             isNewNeighbourType() {
@@ -123,13 +116,6 @@
                 const {title, first_name, last_name} = this.data.tenant;
 
                 return `${title}. ${first_name} ${last_name}`
-            },
-            images () {
-                return this.data.media.map(file => {
-                    if (this.isImage(file)) {
-                        return file.url
-                    }
-                })
             }
         }
     }
@@ -137,6 +123,7 @@
 
 <style lang="scss" scoped>
     .el-card.post {
+        color: lighten(#000, 32%);
         &.pinned {
             /deep/ .el-card__body {
                 border-width: 8px;
@@ -292,7 +279,7 @@
             }
 
             .content {
-                margin: 8px 0;
+                margin: 16px 0;
                 :global(p) {
                     margin: 0;
                     white-space: pre-wrap;
