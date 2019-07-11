@@ -75,6 +75,10 @@
                     withMultipleProps: true,
                     props: ['tenant_name', 'created_at']
                 }, {
+                    label: this.$t('models.request.priority.label'),
+                    withBadgeProps: true,
+                    prop: 'priority_label',
+                }, {
                     label: this.$t('models.request.status.label'),
                     prop: 'status',
                     i18nPath: 'models.request.status',
@@ -84,16 +88,6 @@
                         getter: "application/requests",
                         withDisabled: "statusByAgent",
                         onChange: this.listingSelectChangedNotify
-                    }
-                }, {
-                    label: this.$t('models.request.priority.label'),
-                    prop: 'priority',
-                    i18nPath: 'models.request.priority',
-                    select: {
-                        icon: 'ti-pencil',
-                        data: [],
-                        getter: "application/requests",
-                        onChange: this.listingSelectChanged
                     }
                 }, {
                     width: 120,

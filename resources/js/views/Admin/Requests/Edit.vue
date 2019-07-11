@@ -63,37 +63,6 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12">
-                                    <el-form-item :label="$t('models.request.status.label')"
-                                                  :rules="validationRules.status"
-                                                  prop="status">
-                                        <el-select :placeholder="$t('models.request.placeholders.status')"
-                                                   class="custom-select"
-                                                   v-model="model.status">
-                                            <el-option
-                                                :disabled="isDisabled(k)"
-                                                :key="k"
-                                                :label="$t(`models.request.status.${status}`)"
-                                                :value="parseInt(k)"
-                                                v-for="(status, k) in constants.service_requests.status">
-                                            </el-option>
-                                        </el-select>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :md="12">
-                                    <el-form-item :label="$t('models.request.due_date')"
-                                                  :rules="validationRules.due_date">
-                                        <el-date-picker
-                                            :disabled="$can($permissions.update.serviceRequest)"
-                                            :placeholder="$t('models.request.placeholders.due_date')"
-                                            format="dd.MM.yyyy"
-                                            style="width: 100%"
-                                            type="date"
-                                            v-model="model.due_date"
-                                        >
-                                        </el-date-picker>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :md="12">
                                     <el-form-item :label="$t('models.request.visibility.label')"
                                                   :rules="validationRules.visibility"
                                                   prop="visibility"
@@ -194,6 +163,41 @@
                         <template v-if="$can($permissions.assign.request)">
                             <card :loading="loading">
                                 <el-row :gutter="10">
+                                    <el-col :md="12">
+                                        <el-form-item :label="$t('models.request.status.label')"
+                                                      :rules="validationRules.status"
+                                                      prop="status">
+                                            <el-select :placeholder="$t('models.request.placeholders.status')"
+                                                       class="custom-select"
+                                                       v-model="model.status">
+                                                <el-option
+                                                    :disabled="isDisabled(k)"
+                                                    :key="k"
+                                                    :label="$t(`models.request.status.${status}`)"
+                                                    :value="parseInt(k)"
+                                                    v-for="(status, k) in constants.service_requests.status">
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :md="12">
+                                        <el-form-item :label="$t('models.request.due_date')"
+                                                      :rules="validationRules.due_date">
+                                            <el-date-picker
+                                                :disabled="$can($permissions.update.serviceRequest)"
+                                                :placeholder="$t('models.request.placeholders.due_date')"
+                                                format="dd.MM.yyyy"
+                                                style="width: 100%"
+                                                type="date"
+                                                v-model="model.due_date"
+                                            >
+                                            </el-date-picker>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                            </card>
+                            <card class="mt15" :loading="loading">
+                                <el-row :gutter="20">
                                     <el-col :lg="6">
                                         <el-select @change="resetToAssignList"
                                                    class="custom-select"
