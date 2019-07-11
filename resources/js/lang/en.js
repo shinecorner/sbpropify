@@ -948,7 +948,7 @@ export default {
         created_from: 'Created from',
         created_to: 'Created to',
         services: 'Services',
-        tenant: 'Tenants'
+        tenant: 'Type tenants'
     },
     errors: {
         files_extension_images: 'Only jpg and png files accepted'
