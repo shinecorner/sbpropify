@@ -451,4 +451,26 @@ class TemplateRepository extends BaseRepository
 
         return $this->getParsedTemplate($template, $tags);
     }
+
+    /**
+     * @param $id
+     * @param ServiceRequest $request
+     * @param User $user
+     * @return string
+     */
+    public function getCommunicationTemplate($id, ServiceRequest $request, User $user): string
+    {
+        $template = $this->with(['category'])->find($id);
+
+        $context = [
+            'user' => $user,
+            'request' => $request,
+        ];
+
+        $tags = $this->getTags($template->category->tag_map, $context);
+
+        $response = $this->getParsedTemplate($template, $tags);
+
+        return $response['subject'];
+    }
 }
