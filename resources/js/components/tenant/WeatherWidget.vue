@@ -80,8 +80,11 @@
 
 <style lang="scss" scoped>
     .weather-widget {
-        min-height: 173px;
+        color: lighten(#000, 32%);
+        min-height: 167px;
+
         :global(.el-card__body) {
+            padding: 16px;
             display: flex;
             align-items: center;
 
@@ -154,14 +157,6 @@
                 top: 0;
                 right: 0;
                 margin: 8px;
-            }
-        }
-    }
-
-    @media only screen and (max-width: 475px) {
-        .weather-widget {
-            :global(.el-card__body) {
-                flex-direction: column;
             }
         }
     }
