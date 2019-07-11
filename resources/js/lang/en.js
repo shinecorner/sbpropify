@@ -987,6 +987,25 @@ export default {
         }
     },
 
+    components: {
+        common: {
+
+        },
+        tenant: {
+            weatherWidget: {
+                minTemp: 'min',
+                maxTemp: 'max',
+                wind: 'wind',
+                cloudiness: 'cloudiness',
+                humidity: 'humidity',
+                pressure: 'pressure'
+            }
+        },
+        admin: {
+
+        }
+    },
+
     views: {
         tenant: {
             my: {

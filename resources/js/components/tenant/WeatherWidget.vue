@@ -7,27 +7,27 @@
                 <div class="temperature">
                     <div>{{ data.main.temp | celsius }}</div>
                     <small>
-                        <span>min {{ data.main.temp_min | celsius }}</span>
-                        <span>max {{ data.main.temp_max | celsius }}</span>
+                        <span>{{$t('components.tenant.weatherWidget.minTemp')}} {{ data.main.temp_min | celsius }}</span>
+                        <span>{{$t('components.tenant.weatherWidget.maxTemp')}} {{ data.main.temp_max | celsius }}</span>
                     </small>
                 </div>
                 <div class="description">{{ data.weather[0].description }}</div>
                 <table class="extra">
                     <tr>
                         <td class="wind">
-                            <small>Wind</small>
+                            <small>{{$t('components.tenant.weatherWidget.wind')}}</small>
                             {{ data.wind.speed }}m/s
                         </td>
                         <td class="cloudiness">
-                            <small>Cloudiness</small>
+                            <small>{{$t('components.tenant.weatherWidget.cloudiness')}}</small>
                             {{ data.clouds.all }}%
                         </td>
                         <td class="humidity">
-                            <small>Humidity</small>
+                            <small>{{$t('components.tenant.weatherWidget.humidity')}}</small>
                             {{ data.main.humidity }}%
                         </td>
                         <td class="pressure">
-                            <small>Pressure</small>
+                            <small>{{$t('components.tenant.weatherWidget.pressure')}}</small>
                             {{ data.main.pressure }}hPa
                         </td>
                     </tr>
@@ -151,16 +151,10 @@
                             font-weight: bold;
                             color: darken(#fff, 24%);
                             display: block;
+                            text-transform: capitalize;
                         }
                     }
                 }
-            }
-
-            .el-button {
-                position: absolute;
-                top: 0;
-                right: 0;
-                margin: 8px;
             }
         }
     }
