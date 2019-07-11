@@ -129,6 +129,7 @@
                         font-size: 44%;
                         font-weight: normal;
                         color: darken(#fff, 32%);
+                        text-transform: lowercase;
 
                         span:after {
                             content: '\00b0' + 'C';
