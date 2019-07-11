@@ -192,7 +192,12 @@ HTML
                     'name' => 'user.name',
                     'title' => 'post.title',
                     'content' => 'post.content',
-                    'type' => 'post.type',
+                    'execution_start' => 'post.executionStartStr',
+                    'execution_end' => 'post.executionEndStr',
+                    'category' => 'post.categoryStr',
+                    'providers' => 'post.providersStr',
+                    'buildings' => 'post.buildingsStr',
+                    'districts' => 'post.districtsStr',
                 ],
                 'subject' => 'New Pined post: {{title}}',
                 'body' => <<<HTML
