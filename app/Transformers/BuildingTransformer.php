@@ -27,6 +27,7 @@ class BuildingTransformer extends BaseTransformer
         $response = [
             'id' => $model->id,
             'name' => $model->name,
+            'building_format' => $model->building_format,
             'label' => $model->label,
             'description' => $model->description,
             'floor_nr' => $model->floor_nr,

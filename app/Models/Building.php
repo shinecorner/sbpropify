@@ -86,7 +86,8 @@ class Building extends Model implements HasMedia
         'district_id',
         'floor_nr',
         'basement',
-        'attic'
+        'attic',
+        'building_format'
     ];
 
     /**
