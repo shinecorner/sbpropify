@@ -156,6 +156,7 @@ class Tenant extends Model implements HasMedia
         'status',
         'rent_start',
         'rent_end',
+        'tenant_format'
     ];
     protected $dates = ['deleted_at', 'rent_start', 'rent_end'];
     /**
@@ -190,6 +191,10 @@ class Tenant extends Model implements HasMedia
     public static function boot()
     {
         parent::boot();
+
+        static::creating(function ($tenant) {
+            $tenant->tenant_format  = $tenant->getTenantFormat($tenant->id);
+        });
 
         static::deleting(function ($tenant) {
             $tenant->user->settings()->forceDelete();
