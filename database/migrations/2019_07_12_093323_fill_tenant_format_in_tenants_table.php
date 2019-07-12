@@ -14,7 +14,7 @@ class FillTenantFormatInTenantsTable extends Migration
     public function up()
     {
         \App\Models\Tenant::get(['id', 'created_at'])->each(function ($tenant) {
-            $tenant->tenant_format  = $tenant->getTenantFormat($tenant->id, $tenant->created_at);
+            $tenant->tenant_format  = $tenant->getUniqueIDFormat($tenant->id, $tenant->created_at);
             $tenant->save();
         });
     }
