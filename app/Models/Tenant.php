@@ -329,4 +329,11 @@ class Tenant extends Model implements HasMedia
     {
         return $this->title . " " . $this->first_name . " " . $this->last_name;
     }
+
+    public function getTenantFormat($id, $date = null)
+    {
+        $date = $date ?? now();
+        $format = env('TENANT_FORMAT');
+        return str_replace(['ID', 'YYYYMMDD'], [$id, $date->format('Ymd')], $format);
+    }
 }
