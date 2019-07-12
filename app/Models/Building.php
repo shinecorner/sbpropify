@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -71,8 +72,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  */
 class Building extends Model implements HasMedia
 {
-    use SoftDeletes;
-    use HasMediaTrait;
+    use SoftDeletes, HasMediaTrait, UniqueIDFormat;
 
     public $table = 'buildings';
 
@@ -86,7 +86,8 @@ class Building extends Model implements HasMedia
         'district_id',
         'floor_nr',
         'basement',
-        'attic'
+        'attic',
+        'building_format'
     ];
 
     /**
@@ -114,6 +115,17 @@ class Building extends Model implements HasMedia
         'name' => 'required',
         'floor_nr' => 'required'
     ];
+
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($building) {
+            $building->building_format = $building->getUniqueIDFormat($building->id);
+            $building->save();
+        });
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
