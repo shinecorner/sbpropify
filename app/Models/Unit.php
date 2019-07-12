@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -82,7 +83,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Unit extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, UniqueIDFormat;
 
     public $table = 'units';
 
