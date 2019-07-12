@@ -294,6 +294,16 @@ class ServiceRequest extends Model implements HasMedia, Auditable
         'status' => 'integer'
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($serviceRequest) {
+            $serviceRequest->service_request_format = $serviceRequest->getUniqueIDFormat($serviceRequest->id);
+            $serviceRequest->save();
+        });
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      **/
