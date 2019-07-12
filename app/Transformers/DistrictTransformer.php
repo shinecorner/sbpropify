@@ -23,6 +23,7 @@ class DistrictTransformer extends BaseTransformer
         $response = [
             'id' => $model->id,
             'name' => $model->name,
+            'district_format' => $model->district_format,
             'description' => $model->description,
         ];
 

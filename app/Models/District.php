@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -40,7 +41,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class District extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, UniqueIDFormat;
 
     /**
      * Validation rules
@@ -53,7 +54,8 @@ class District extends Model
     public $table = 'districts';
     public $fillable = [
         'name',
-        'description'
+        'description',
+        'district_format'
     ];
     protected $dates = ['deleted_at'];
     /**
@@ -65,6 +67,16 @@ class District extends Model
         'name' => 'string',
         'description' => 'string'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($district) {
+            $district->district_format = $district->getUniqueIDFormat($district->id);
+            $district->save();
+        });
+    }
 
     public function propertyManagers()
     {
