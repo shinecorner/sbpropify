@@ -183,6 +183,7 @@ class ServiceRequest extends Model implements HasMedia, Auditable
         'solved_date',
         'qualification',
         'visibility',
+        'service_request_format'
     ];
 
     public $fillable = self::Fillable;
