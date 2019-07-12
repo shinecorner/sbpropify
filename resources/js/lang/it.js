@@ -45,6 +45,13 @@ export default  {
         about: 'About',
         feedback: 'Feedback'
     },
+    dashboard:{
+        statistics: 'Statistiche',
+        requests_by_creation_date: 'Richieste per data di creazione',
+        requests_by_status: 'Richieste per stato',
+        requests_by_category: 'Richieste per categoria', 
+        each_hour_request: 'Ogni ora richiede',
+    },
     support: "Support",
     actions: {
         label: "Operations",
