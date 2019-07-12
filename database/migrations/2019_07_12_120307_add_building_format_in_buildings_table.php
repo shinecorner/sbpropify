@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class FillTenantFormatInTenantsTable extends Migration
+class AddBuildingFormatInBuildingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class FillTenantFormatInTenantsTable extends Migration
      */
     public function up()
     {
-        \App\Models\Tenant::get(['id', 'created_at'])->each(function ($tenant) {
-            $tenant->tenant_format  = $tenant->getUniqueIDFormat($tenant->id);
-            $tenant->save();
+        Schema::table('buildings', function (Blueprint $table) {
+            $table->string('building_format', 30)->after('id');
         });
     }
 
@@ -26,5 +25,8 @@ class FillTenantFormatInTenantsTable extends Migration
      */
     public function down()
     {
+        Schema::table('buildings', function (Blueprint $table) {
+            $table->dropColumn('building_format');
+        });
     }
 }

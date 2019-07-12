@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -71,8 +72,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  */
 class Building extends Model implements HasMedia
 {
-    use SoftDeletes;
-    use HasMediaTrait;
+    use SoftDeletes, HasMediaTrait, UniqueIDFormat;
 
     public $table = 'buildings';
 
