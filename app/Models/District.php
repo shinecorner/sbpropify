@@ -68,6 +68,17 @@ class District extends Model
         'description' => 'string'
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($district) {
+            $district->district_format = $district->getUniqueIDFormat($district->id);
+            $district->save();
+        });
+    }
+
+
     public function propertyManagers()
     {
         return $this->belongsToMany(PropertyManager::class, 'district_property_manager', 'district_id', 'property_manager_id');
