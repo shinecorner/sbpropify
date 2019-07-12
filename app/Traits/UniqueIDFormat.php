@@ -5,6 +5,7 @@ namespace App\Traits;
 use BeyondCode\Comments\Traits\HasComments as OriginalHasTraits;
 use BeyondCode\Comments\Contracts\Commentator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 trait UniqueIDFormat
 {
@@ -14,19 +15,12 @@ trait UniqueIDFormat
      */
     public function getUniqueIDFormat($id){
 
-        $table = $this->getTable();
         $date = now();
-
-        switch($table){
-
-            case 'tenants':
-
-                $format = env('TENANT_FORMAT');
-
-                break;
-
-        }
-
+        $format = $this->getTable();
+        $format = Str::singular($format);
+        $format = strtoupper($format);
+        $format .= '_FORMAT';
+        $format = env($format, 'TE-YYYYMMDD150ID');
         return str_replace(['ID', 'YYYYMMDD'], [$id, $date->format('Ymd')], $format);
     }
 }

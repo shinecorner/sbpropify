@@ -194,7 +194,7 @@ class Tenant extends Model implements HasMedia
         parent::boot();
 
         static::creating(function ($tenant) {
-            $tenant->tenant_format  = $tenant->getUniqueIDFormat($tenant->id);
+            $tenant->tenant_format = $tenant->getUniqueIDFormat($tenant->id);
         });
 
         static::deleting(function ($tenant) {
