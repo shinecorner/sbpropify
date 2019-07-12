@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -40,7 +41,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class District extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, UniqueIDFormat;
 
     /**
      * Validation rules
