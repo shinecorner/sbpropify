@@ -116,6 +116,17 @@ class Building extends Model implements HasMedia
         'floor_nr' => 'required'
     ];
 
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($building) {
+            $building->building_format = $building->getUniqueIDFormat($building->id);
+            $building->save();
+        });
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      **/
