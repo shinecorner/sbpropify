@@ -36,6 +36,7 @@ class TenantTransformer extends BaseTransformer
             'private_phone' => $model->private_phone,
             'work_phone' => $model->work_phone,
             'status' => $model->status,
+            'tenant_format' => $model->tenant_format,
         ];
 
         if ($model->relationExists('user')) {
