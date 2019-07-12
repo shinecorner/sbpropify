@@ -78,7 +78,6 @@ class District extends Model
         });
     }
 
-
     public function propertyManagers()
     {
         return $this->belongsToMany(PropertyManager::class, 'district_property_manager', 'district_id', 'property_manager_id');

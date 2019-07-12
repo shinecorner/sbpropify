@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasComments;
+use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -96,6 +97,7 @@ class ServiceRequest extends Model implements HasMedia, Auditable
     use HasMediaTrait;
     use HasComments;
     use \OwenIt\Auditing\Auditable;
+    use UniqueIDFormat;
 
     public $table = 'service_requests';
 
