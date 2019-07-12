@@ -312,7 +312,7 @@ class TemplateRepository extends BaseRepository
         ];
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplate($template, $tags, $tenant->user->settings->language);
     }
 
     /**
@@ -331,7 +331,7 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplate($template, $tags, $user->settings->language);
     }
 
     /**
@@ -352,7 +352,7 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplate($template, $tags, $post->user->settings->language);
     }
 
     /**
@@ -371,7 +371,7 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags, $user->settings->language);
+        return $this->getParsedTemplate($template, $tags, $post->user->settings->language);
     }
 
     /**
@@ -390,7 +390,7 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplate($template, $tags, $product->user->settings->language);
     }
 
     /**
@@ -411,7 +411,7 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplate($template, $tags, $product->user->settings->language);
     }
 
     /**
