@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use PDF;
@@ -112,7 +113,7 @@ use Storage;
  */
 class Tenant extends Model implements HasMedia
 {
-    use HasMediaTrait;
+    use HasMediaTrait, UniqueIDFormat;
 
     const Title = [
         'mr',
@@ -156,6 +157,7 @@ class Tenant extends Model implements HasMedia
         'status',
         'rent_start',
         'rent_end',
+        'tenant_format'
     ];
     protected $dates = ['deleted_at', 'rent_start', 'rent_end'];
     /**
@@ -190,6 +192,11 @@ class Tenant extends Model implements HasMedia
     public static function boot()
     {
         parent::boot();
+
+        static::created(function ($tenant) {
+            $tenant->tenant_format = $tenant->getUniqueIDFormat($tenant->id);
+            $tenant->save();
+        });
 
         static::deleting(function ($tenant) {
             $tenant->user->settings()->forceDelete();
