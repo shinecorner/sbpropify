@@ -84,7 +84,7 @@
             background-position: 0 -10em;
             width: 100%;
             height: 100%;
-            opacity: .12;
+            opacity: .16;
             pointer-events: none;
         }
         
@@ -99,7 +99,7 @@
         .el-row {
             .el-col {
                 .el-card {
-                    background: transparentize(#fff, .28);
+                    background-color: transparentize(#fff, .2);
                 }
 
                 &:not(:last-child) {

@@ -7,27 +7,27 @@
                 <div class="temperature">
                     <div>{{ data.main.temp | celsius }}</div>
                     <small>
-                        <span>min {{ data.main.temp_min | celsius }}</span>
-                        <span>max {{ data.main.temp_max | celsius }}</span>
+                        <span>{{$t('components.tenant.weatherWidget.minTemp')}} {{ data.main.temp_min | celsius }}</span>
+                        <span>{{$t('components.tenant.weatherWidget.maxTemp')}} {{ data.main.temp_max | celsius }}</span>
                     </small>
                 </div>
                 <div class="description">{{ data.weather[0].description }}</div>
                 <table class="extra">
                     <tr>
                         <td class="wind">
-                            <small>Wind</small>
+                            <small>{{$t('components.tenant.weatherWidget.wind')}}</small>
                             {{ data.wind.speed }}m/s
                         </td>
                         <td class="cloudiness">
-                            <small>Cloudiness</small>
+                            <small>{{$t('components.tenant.weatherWidget.cloudiness')}}</small>
                             {{ data.clouds.all }}%
                         </td>
                         <td class="humidity">
-                            <small>Humidity</small>
+                            <small>{{$t('components.tenant.weatherWidget.humidity')}}</small>
                             {{ data.main.humidity }}%
                         </td>
                         <td class="pressure">
-                            <small>Pressure</small>
+                            <small>{{$t('components.tenant.weatherWidget.pressure')}}</small>
                             {{ data.main.pressure }}hPa
                         </td>
                     </tr>
@@ -80,8 +80,11 @@
 
 <style lang="scss" scoped>
     .weather-widget {
-        min-height: 173px;
+        color: lighten(#000, 32%);
+        min-height: 167px;
+
         :global(.el-card__body) {
+            padding: 16px;
             display: flex;
             align-items: center;
 
@@ -90,6 +93,7 @@
             }
 
             .content {
+                min-width: 0;
                 flex: auto;
                 line-height: 1.56;
                 margin-left: 16px;
@@ -97,6 +101,9 @@
                 .city {
                     font-size: 24px;
                     font-weight: bold;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
                 }
 
                 .temperature {
@@ -122,6 +129,7 @@
                         font-size: 44%;
                         font-weight: normal;
                         color: darken(#fff, 32%);
+                        text-transform: lowercase;
 
                         span:after {
                             content: '\00b0' + 'C';
@@ -144,24 +152,10 @@
                             font-weight: bold;
                             color: darken(#fff, 24%);
                             display: block;
+                            text-transform: capitalize;
                         }
                     }
                 }
-            }
-
-            .el-button {
-                position: absolute;
-                top: 0;
-                right: 0;
-                margin: 8px;
-            }
-        }
-    }
-
-    @media only screen and (max-width: 475px) {
-        .weather-widget {
-            :global(.el-card__body) {
-                flex-direction: column;
             }
         }
     }

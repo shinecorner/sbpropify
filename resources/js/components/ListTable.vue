@@ -195,6 +195,15 @@
             <el-table-column
                 :key="column.prop"
                 :label="column.label"
+                :width="column.width"
+                v-for="(column, key) in headerWithBadges">
+                <template slot-scope="scope">
+                    <el-button round>{{ scope.row[column.prop] }}</el-button>
+                </template>
+            </el-table-column>
+            <el-table-column
+                :key="column.prop"
+                :label="column.label"
                 v-for="(column, key) in headerWithSelect">
                 <template slot-scope="scope">
                     <el-select @change="column.select.onChange(scope.row)" v-model="scope.row[column.prop]">
@@ -341,6 +350,7 @@
                 && !row.withUsers
                 && !row.withCounts
                 && !row.withMultipleProps
+                && !row.withBadgeProps
                 && acc.push(row), acc), []);
             },
             headerWithMultipleProps() {
@@ -375,6 +385,9 @@
                         return filter.select;
                     }
                 });
+            },
+            headerWithBadges() {
+                return this.header.reduce((acc, row) => (row.withBadgeProps && acc.push(row), acc), []);
             },
             filterColSize() {
                 return 4;

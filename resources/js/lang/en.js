@@ -955,7 +955,7 @@ export default {
         created_from: 'Created from',
         created_to: 'Created to',
         services: 'Services',
-        tenant: 'Tenants'
+        tenant: 'Type tenants'
     },
     errors: {
         files_extension_images: 'Only jpg and png files accepted'
@@ -991,6 +991,25 @@ export default {
         },
         terms: {
             required: 'Please approve with terms and conditions'
+        }
+    },
+
+    components: {
+        common: {
+
+        },
+        tenant: {
+            weatherWidget: {
+                minTemp: 'min',
+                maxTemp: 'max',
+                wind: 'wind',
+                cloudiness: 'cloudiness',
+                humidity: 'humidity',
+                pressure: 'pressure'
+            }
+        },
+        admin: {
+
         }
     },
 

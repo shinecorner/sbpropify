@@ -951,7 +951,7 @@ export default {
         created_from: 'Erstellt vom',
         created_to: 'Erstellt bis',
         services: 'Partnerfirmen',
-        tenant: 'Tenants'
+        tenant: 'Typ der Mieter'
     },
     errors: {
         files_extension_images: 'Nur Dateien in der Formaten .jpg und .png erlaubt'
