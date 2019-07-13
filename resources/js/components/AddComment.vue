@@ -4,7 +4,7 @@
             <avatar :name="user.name" :size="32" :src="user.avatar" />
         </el-tooltip>
         <el-input autosize ref="content" :class="{'is-focused': focused}" type="textarea" resize="none" v-model="content" :placeholder="$t('components.common.addComment.placeholder')" :disabled="loading" :validate-event="false" @blur="focused = false" @focus="focused = true" @keydown.native.alt.enter.exact="save" />
-         <el-button circle icon="el-icon-s-promotion" size="small" :loading="loading" @click="save" />
+         <el-button circle icon="el-icon-s-promotion" size="small" :disabled="!content" :loading="loading" @click="save" />
     </div>
 </template>
 
