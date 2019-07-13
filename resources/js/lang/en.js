@@ -788,7 +788,11 @@ export default {
             requests: 'Requests',
             assign: 'Assign',
             unassign: 'Unassign',
-            delete_with_reassign: 'Delete & reassign buildings',
+            delete_with_reassign_modal: {
+                title : 'Delete & reassign buildings',
+                description: 'The selected property manager is linked to properties. You can assign the properties to another person. To do this, select a property manager from the list.',
+                search_title: 'Search Property Manager',
+            },
             delete_without_reassign: 'Delete',
             profile_card: 'User Profile',
             social_card: 'Social Media',

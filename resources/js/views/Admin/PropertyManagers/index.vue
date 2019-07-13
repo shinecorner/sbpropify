@@ -1,7 +1,7 @@
 <template>
     <div class="services">
         <heading :title="$t('models.propertyManager.title')" icon="ti-user">
-            <template v-if="$can($permissions.create.propertyManager)">
+            <template v-if="$can($permissions.create.propertyManager)">            
                 <el-button @click="add" icon="ti-plus" round size="small" type="primary">
                     {{$t('models.propertyManager.add')}}
                 </el-button>
@@ -26,34 +26,50 @@
             @selectionChanged="selectionChanged"
         >
         </list-table>
-        <el-dialog :close-on-click-modal="false" :title="$t('models.propertyManager.delete_with_reassign')"
-                   :visible.sync="assignManagersVisible"
-                   v-loading="processAssignment" width="30%">
-            <el-select
-                :loading="remoteLoading"
-                :placeholder="$t('models.propertyManager.placeholders.search')"
-                :remote-method="remoteSearchManagers"
-                class="custom-remote-select"
-                filterable
-                remote
-                reserve-keyword
-                style="width: 100%;"
-                v-model="toAssign"
-            >
-                <div class="custom-prefix-wrapper" slot="prefix">
-                    <i class="el-icon-search custom-icon"></i>
-                </div>
-                <el-option
-                    :key="manager.id"
-                    :label="`${manager.first_name} ${manager.last_name}`"
-                    :value="manager.id"
-                    v-for="manager in toAssignList"/>
-            </el-select>
+        <el-dialog  class="delete_width_reassign_modal" 
+                    :close-on-click-modal="false" :title="$t('models.propertyManager.delete_with_reassign_modal.title')"
+                    :visible.sync="assignManagersVisible"
+                    v-loading="processAssignment" width="30%">
+            <el-row>
+                <el-col :span="24">
+                    <p class="description">{{$t('models.propertyManager.delete_with_reassign_modal.description')}}</p>
+                    <el-select
+                        :loading="remoteLoading"
+                        :placeholder="$t('models.propertyManager.placeholders.search')"
+                        :remote-method="remoteSearchManagers"
+                        class="custom-remote-select"
+                        filterable
+                        remote
+                        reserve-keyword
+                        style="width: 100%;"
+                        v-model="toAssign"
+                    >
+                        <div class="custom-prefix-wrapper" slot="prefix">
+                            <i class="el-icon-search custom-icon"></i>
+                        </div>
+                        <el-option
+                            :key="manager.id"
+                            :label="`${manager.first_name} ${manager.last_name}`"
+                            :value="manager.id"
+                            v-for="manager in toAssignList"/>
+                    </el-select>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="24">
+                    <el-button 
+                        :disabled="!toAssign"
+                        @click="batchDelete(true)" 
+                        size="mini" 
+                        type="primary">
+                        {{$t('models.propertyManager.delete_with_reassign_modal.title')}}
+                    </el-button>
+                </el-col>
+            </el-row> 
             <span class="dialog-footer" slot="footer">
-    <el-button @click="closeModal" size="mini">{{$t('models.building.cancel')}}</el-button>
-    <el-button :disabled="!toAssign" @click="batchDelete(true)" size="mini" type="primary">{{$t('models.propertyManager.delete_with_reassign')}}</el-button>
-    <el-button @click="batchDelete(false)" size="mini" type="danger">{{$t('models.propertyManager.delete_without_reassign')}}</el-button>
-  </span>
+                <el-button @click="closeModal" size="mini">{{$t('models.building.cancel')}}</el-button>                
+                <el-button @click="batchDelete(false)" size="mini" type="danger">{{$t('models.propertyManager.delete_without_reassign')}}</el-button>
+            </span>
         </el-dialog>
     </div>
 </template>
@@ -211,3 +227,18 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    .delete_width_reassign_modal {
+        .el-row {
+            margin-bottom: 20px;
+            &:last-child {
+            margin-bottom: 0;
+            }
+        }
+
+        .description {
+            margin-top: 0;
+        }
+    }
+</style>

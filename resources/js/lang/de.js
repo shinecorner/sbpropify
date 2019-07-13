@@ -789,7 +789,11 @@ export default {
             requests: 'Anfragen',
             assign: 'Zuweisen',
             unassign: 'Entfernen',
-            delete_with_reassign: 'Neu zuweisen und Benutzer löschen',
+            delete_with_reassign_modal: {
+                title : 'Neu zuweisen und Benutzer löschen',
+                description: 'Der gewählte Bewirtschafter ist mit Liegenschaften verlinkt. Sie können die Liegenschaft(en) an eine anderen Person zuweisen. Wählen Sie hierzu einen Bewirtschafter aus der Liste aus.',
+                search_title: 'Bewirtaschafter suchen',
+            },
             delete_without_reassign: 'Löschen',
             profile_card: 'User Profile',
             social_card: 'Social Media',
