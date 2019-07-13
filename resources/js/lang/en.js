@@ -989,7 +989,9 @@ export default {
 
     components: {
         common: {
-
+            addComment: {
+                placeholder: 'Type a comment...'
+            }
         },
         tenant: {
             weatherWidget: {

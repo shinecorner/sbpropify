@@ -1,9 +1,10 @@
 <template>
-    <div :class="{reversed}" class="add-comment">
+    <div :class="['add-comment', {'is-reversed': reversed}]">
         <el-tooltip :content="user.name" effect="dark" placement="top-start">
-            <avatar ref="avatar" :name="user.name" :size="32" :src="user.avatar" />
+            <avatar :name="user.name" :size="32" :src="user.avatar" />
         </el-tooltip>
-        <el-input ref="content" type="textarea" resize="none" :class="{'is-focused': focused}" placeholder="Type a comment..." v-model="content" @blur="handleBlur" @focus="handleFocus" @keydown.native.alt.enter.exact="nextLine" @keydown.native.prevent.enter.exact="add" autosize clearable :disabled="loading.visible" :validate-event="false" />
+        <el-input autosize ref="content" :class="{'is-focused': focused}" type="textarea" resize="none" v-model="content" :placeholder="$t('components.common.addComment.placeholder')" :disabled="loading" :validate-event="false" @blur="focused = false" @focus="focused = true" @keydown.native.alt.enter.exact="save" />
+         <el-button circle icon="el-icon-s-promotion" size="small" :loading="loading" @click="save" />
     </div>
 </template>
 
@@ -41,37 +42,18 @@
             return {
                 content: '',
                 focused: false,
-                loading: {
-                    visible: false
-                }
+                loading: false
             }
         },
         methods: {
-            focus() {
-                this.$content.focus()
-            },
-            blur() {
-                this.$content.blur()
-            },
-            handleFocus() {
-                this.focused = true
-            },
-            handleBlur() {
-                this.focused = false
-            },
-            nextLine(ev) {
-                this.content += '\r\n'
-            },
-            async add() {
-                if (!this.content) {
+            async save () {
+                if (!/\S/.test(this.content)) {
                     return
                 }
 
-                this.blur()
+                this.$content.blur()
 
-                this.loading = this.$loading({
-                    target: this.$refs.avatar.$el
-                })
+                this.loading = true
 
                 try {
                     await this.$store.dispatch('comments/create', {
@@ -81,16 +63,13 @@
                         parent_id: this.parentId
                     });
 
-                } catch (err) {
-                    if (err.response) {
-                        displayError(err)
-                    }
+                } catch (error) {
+                    displayError(error)
                 } finally {
+                    this.$content.focus()
+
                     this.content = ''
-
-                    this.focus()
-
-                    this.loading.close()
+                    this.loading = false
                 }
             }
         },
@@ -103,7 +82,7 @@
             this.$content = this.$refs.content.$el.querySelector('textarea')
 
             if (this.autofocus) {
-                this.focus()
+                this.$content.focus()
             } 
         }
     }
@@ -147,11 +126,11 @@
             }
         }
 
-        &.reversed {
+        &.is-reversed {
             flex-direction: row-reverse;
 
             .el-textarea {
-                margin-right: .5em;
+                margin-right: 8px;
 
                 :global(.el-textarea__inner) {
                     border-bottom-right-radius: 0;
@@ -188,12 +167,16 @@
                 &.is-focused:before {
                     border-left-color: #6AC06F;
                 }
+
+                & + .el-button {
+                    margin-right: 8px;
+                }
             }
         }
 
-        &:not(.reversed) {
+        &:not(.is-reversed) {
             .el-textarea {
-                margin-left: .5em;
+                margin-left: 8px;
 
                 :global(.el-textarea__inner) {
                     border-bottom-left-radius: 0;
@@ -229,6 +212,10 @@
 
                 &.is-focused:before {
                     border-bottom-color: #6AC06F;
+                }
+
+                & + .el-button {
+                    margin-left: 8px;
                 }
             }
         }
