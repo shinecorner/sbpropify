@@ -136,20 +136,20 @@
                     &::-webkit-scrollbar-thumb {
                         border-radius: 8px;
                         width: 4px;
-                        background-color: transparentize(lighten(#000, 48%), .16);
+                        background-color: lighten(#6AC06F, 8%);
                     }
 
                     &:hover::-webkit-scrollbar-thumb {
-                        background-color: lighten(#000, 48%);
+                        background-color: #6AC06F;
                     }
         
                     &::-webkit-scrollbar-track {
                         border-radius: 8px;
-                        background-color: darken(#fff, 2%);
+                        background-color: #fff;
                     }
 
                     &::-webkit-scrollbar-thumb:window-inactive {
-                        background-color: lighten(lighten(#000, 48%), 12%);
+                        background-color: lighten(#6AC06F, 16%);
                     }
                 }
 
