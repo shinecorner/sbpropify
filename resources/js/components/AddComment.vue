@@ -97,7 +97,7 @@
         mounted () {
             if (this.autofocus) {
                 this.$refs.content.focus()
-            } 
+            }
         }
     }
 </script>
@@ -117,41 +117,6 @@
             .el-textarea {
                 position: relative;
                 margin-left: 8px;
-
-                :global(.el-textarea__inner) {
-                    padding: 6px 8px;
-                    max-height: 256px;
-                    overflow-y: overlay;
-                    overflow-x: hidden;
-                    scrollbar-width: thin;
-                    overscroll-behavior: contain;
-                    border-bottom-left-radius: 0;
-                    -webkit-appearance: none;
-                    -webkit-overflow-scrolling: touch;
-
-                    &::-webkit-scrollbar {
-                        width: 4px;
-                    }
-        
-                    &::-webkit-scrollbar-thumb {
-                        border-radius: 8px;
-                        width: 4px;
-                        background-color: lighten(#6AC06F, 8%);
-                    }
-
-                    &:hover::-webkit-scrollbar-thumb {
-                        background-color: #6AC06F;
-                    }
-        
-                    &::-webkit-scrollbar-track {
-                        border-radius: 8px;
-                        background-color: #fff;
-                    }
-
-                    &::-webkit-scrollbar-thumb:window-inactive {
-                        background-color: lighten(#6AC06F, 16%);
-                    }
-                }
 
                 &:before,
                 &:after {
@@ -199,15 +164,59 @@
                 &:not(.is-disabled):not(.is-focused):hover:before {
                     border-bottom-color: #C0C4CC;
                 }
-                
+
                 & + .el-dropdown {
                     position: absolute;
                     bottom: 0;
-                    right: -8px;
+                    right: -2px;
 
                     .el-dropdown-link {
                         padding: 8px;
                         transform: rotate(90deg);
+                    }
+                }
+
+                &.is-focused :global(.el-textarea__inner)::-webkit-scrollbar-thumb {
+                    background-color: #6AC06F;
+                    box-shadow: inset -1px -1px 0px darken(#6AC06F, 4%), inset 1px 1px 0px darken(#6AC06F, 4%);
+                }
+
+                &:not(.is-focused) :global(.el-textarea__inner) {
+                    &:hover::-webkit-scrollbar-thumb {
+                        background-color: #C0C4CC;
+                        box-shadow: inset -1px -1px 0px darken(#C0C4CC, 4%), inset 1px 1px 0px darken(#C0C4CC, 4%);
+                    }
+
+                    &:not(:hover)::-webkit-scrollbar-thumb {
+                        background-color: #DCDFE6;
+                        box-shadow: inset -1px -1px 0px darken(#DCDFE6, 4%), inset 1px 1px 0px darken(#DCDFE6, 4%);
+                    }
+                }
+
+                :global(.el-textarea__inner) {
+                    padding: 6px 8px;
+                    border-radius: 12px;
+                    max-height: 256px;
+                    overflow-y: overlay;
+                    overflow-x: hidden;
+                    scrollbar-width: thin;
+                    overscroll-behavior: contain;
+                    border-bottom-left-radius: 0;
+                    -webkit-appearance: none;
+                    -webkit-overflow-scrolling: touch;
+
+                    &::-webkit-scrollbar {
+                        width: 14px;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        border: 4px transparent solid;
+                        background-clip: padding-box;
+                        border-radius: 12px;
+                    }
+
+                    &::-webkit-scrollbar-thumb:window-inactive {
+                        background-color: lighten(#6AC06F, 16%);
                     }
                 }
             }
