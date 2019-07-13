@@ -6,7 +6,7 @@ export default {
     fr: 'FR',
     it: 'IT',
     de: 'DE',
-    yes: 'Yes',
+    yes: 'Ja',
     languages: {
         fr: 'Français',
         it: 'Italiano',
@@ -23,7 +23,7 @@ export default {
         sunday: 'Sonntag'
     },
     no: 'Nein',
-    none: 'None',
+    none: 'Nicht gewählt',
     all: 'Alle',
     loadMore: 'Mehr laden',
     account: "Konto",
@@ -113,7 +113,7 @@ export default {
             notifications: 'Benachrichtigungen'
         },
         user: {
-            title: 'Users'
+            title: 'Benutzer'
         },
         request_activities: {
             title: 'Tracking von Anfrage-Aktivitäten'
@@ -124,16 +124,16 @@ export default {
     },
     support: "Support",
     actions: {
-        label: "Operations",
+        label: "Operationen",
         edit: 'Öffnen',
-        add: 'Add',
+        add: 'Hinzufügen',
         delete: 'Löschen',
         create: 'Erstellen',
         view: 'Details',
         save: 'Speichern',
         close: 'Schliessen',
         saveAndClose: 'Speichern & schliessen',
-        upload: 'Upload'
+        upload: 'Herunterladen'
     },
     models: {
         user: {
@@ -156,7 +156,7 @@ export default {
             logo: 'Logo',
             address: 'Addresse',
             blank_pdf: 'Blank pdf',
-            realEstateSaved: "Real Estate settings saved",
+            realEstateSaved: "Einstellung gespeichert",
             validation: {
                 name: {
                     required: 'Name ist obligatorisch'
@@ -651,6 +651,8 @@ export default {
             public_legend: 'Aktivieren Sie die Option, um die Anfrage allen Bewohnern einer Liegenschaft/Überbauung zu zeigen.',
             conversation: 'Chat-Mitteilungen',
             open_conversation: 'Offen',
+            other_recipients: 'Other recipients',
+            recipients: 'Recipients',
             assign: 'Zuweisen',
             images: 'Fotos und Dokumente',
             assignmentTypes: {
@@ -796,6 +798,8 @@ export default {
             unassign: 'Entfernen',
             delete_with_reassign: 'Neu zuweisen und Benutzer löschen',
             delete_without_reassign: 'Löschen',
+            profile_card: 'User Profile',
+            social_card: 'Social Media',
             deleted: 'Gelöscht',
             titles: {
                 mr: 'Herr',
@@ -853,7 +857,7 @@ export default {
                 label: 'Typ',
                 sell: 'Verkaufen',
                 lend: 'Leihen',
-                service: 'Service',
+                service: 'Dienstleistung',
                 giveaway: 'Gratis'
             },
             status: {
@@ -911,17 +915,18 @@ export default {
     },
     roles: {
         label: 'Rolle',
+        administrator: 'Administrator',
+        homeowner: 'Eigentümer',
         manager: 'Bewirtschafter',
         registered: 'Registriert',
         service: 'Partnerfirma',
-        administrator: 'Administrator',
         super_admin: 'Super Administrator',
-        homeowner: 'Eigentümer',
     },
     settings: {
         notifications: "Benachrichtigungen und Sprache",
         admin: 'Benachrichtigungen vom Vermieter',
         news: 'Pinnwand',
+        marketplace: 'Marketplace notifications',
         service: 'Partnerfirmen',
         updated: 'Einstellungen wurden gespeichert.',
         language: 'Sprache',
@@ -987,6 +992,36 @@ export default {
         },
         terms: {
             required: 'Please approve with terms and conditions'
+        }
+    },
+
+    components: {
+        common: {},
+        tenant: {
+            weatherWidget: {
+                minTemp: 'min',
+                maxTemp: 'max',
+                wind: 'Wind',
+                cloudiness: 'Bewölkung',
+                humidity: 'Luftfeuchte',
+                pressure: 'Druck'
+            }
+        },
+        admin: {}
+    },
+
+    views: {
+        tenant: {
+            my: {
+                personal: {
+                    title: 'Persönliche Angaben',
+                    description: 'Meine Daten',
+                    placeholder: {
+                        title: 'Keine persönlichen Angaben angegeben.',
+                        description: 'Bislang wurden keine Daten in diesem Bereich hinterlegt.'
+                    }
+                }
+            }
         }
     }
 }

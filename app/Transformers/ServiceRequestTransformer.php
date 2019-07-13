@@ -21,6 +21,7 @@ class ServiceRequestTransformer extends BaseTransformer
     {
         $response = [
             'id' => $model->id,
+            'service_request_format' => $model->service_request_format,
             'title' => $model->title,
             'description' => $model->description,
             'status' => $model->status,

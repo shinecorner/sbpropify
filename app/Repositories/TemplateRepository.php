@@ -221,12 +221,12 @@ class TemplateRepository extends BaseRepository
 
         $translations = $template->translations()->where('language', $userLanguage)->get();
         foreach ($translations as $translation) {
-            if (isset($translation->subject)) {
-                $subject = $translation->subject;
+            if ($translation->name == "subject") {
+                $subject = $translation->value;
             }
 
-            if (isset($translation->body)) {
-                $body = $translation->body;
+            if ($translation->name == "body") {
+                $body = $translation->value;
             }
         }
 
@@ -312,7 +312,7 @@ class TemplateRepository extends BaseRepository
         ];
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplate($template, $tags, $tenant->user->settings->language);
     }
 
     /**
@@ -331,7 +331,7 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplate($template, $tags, $user->settings->language);
     }
 
     /**
@@ -352,7 +352,7 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplate($template, $tags, $post->user->settings->language);
     }
 
     /**
@@ -371,7 +371,7 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplate($template, $tags, $post->user->settings->language);
     }
 
     /**
@@ -390,7 +390,7 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplate($template, $tags, $product->user->settings->language);
     }
 
     /**
@@ -411,7 +411,7 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplate($template, $tags, $product->user->settings->language);
     }
 
     /**

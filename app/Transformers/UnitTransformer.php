@@ -26,6 +26,7 @@ class UnitTransformer extends BaseTransformer
     {
         $response = [
             'id' => $model->id,
+            'unit_format' => $model->unit_format,
             'type' => $model->type,
             'name' => $model->name,
             'description' => $model->description,
