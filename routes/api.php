@@ -180,6 +180,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::delete('/requests/{id}/assignees/{assignee_id}', 'ServiceRequestAPIController@unassignUser');
     Route::post('/requests/{id}/providers/{provider_id}', 'ServiceRequestAPIController@assignProvider');
     Route::delete('/requests/{id}/providers/{provider_id}', 'ServiceRequestAPIController@unassignProvider');
+    Route::get('/requests/{id}/communicationTemplates', 'ServiceRequestAPIController@getCommunicationTemplates');
 
     // Products
     Route::resource('products', 'ProductAPIController');
