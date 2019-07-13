@@ -6,7 +6,7 @@
         <div class="content">
             <el-input autosize ref="content" :class="{'is-focused': focused}" type="textarea" resize="none" v-model="content" :placeholder="$t('components.common.addComment.placeholder')" :disabled="loading" :validate-event="false" @blur="focused = false" @focus="focused = true" @keydown.native.alt.enter.exact="save" />
             <el-dropdown size="small" placement="top" trigger="click" v-if="useTemplates">
-                <el-button class="el-dropdown-link" type="text">
+                <el-button class="el-dropdown-link" type="text" :disabled="loading">
                     <i class="el-icon-more"></i>
                 </el-button>
                 <el-dropdown-menu slot="dropdown">
@@ -169,12 +169,15 @@
                 &:before {
                     left: -6px;
                     bottom: 0;
-                    border-bottom-color: #DCDFE6;
                 }
 
                 &:after {
                     left: -4px;
                     bottom: 1px;
+                }
+
+                &.is-disabled:before {
+                    border-bottom-color: #E4E7ED;
                 }
 
                 &.is-disabled:after {
@@ -185,14 +188,18 @@
                     border-bottom-color: #fff;
                 }
 
-                &:not(.is-disabled):hover:before {
-                    border-bottom-color: #C0C4CC;
-                }
-
-                &.is-focused:before {
+                &:not(.is-disabled).is-focused:before {
                     border-bottom-color: #6AC06F;
                 }
 
+                &:not(.is-disabled):not(.is-focused):before {
+                    border-bottom-color: #DCDFE6;
+                }
+
+                &:not(.is-disabled):not(.is-focused):hover:before {
+                    border-bottom-color: #C0C4CC;
+                }
+                
                 & + .el-dropdown {
                     position: absolute;
                     bottom: 0;
