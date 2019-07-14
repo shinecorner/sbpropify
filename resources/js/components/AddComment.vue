@@ -5,14 +5,15 @@
         </el-tooltip>
         <div class="content">
             <el-input autosize ref="content" :class="{'is-focused': focused}" type="textarea" resize="none" v-model="content" :placeholder="$t('components.common.addComment.placeholder')" :disabled="loading" :validate-event="false" @blur="focused = false" @focus="focused = true" @keydown.native.alt.enter.exact="save" />
-            <el-dropdown size="small" placement="top" trigger="click" v-if="useTemplates">
+            <el-dropdown class="templates" size="small" placement="top" trigger="click" @command="onTemplateSelected" v-if="useTemplates">
                 <el-button class="el-dropdown-link" type="text" :disabled="loading">
                     <i class="el-icon-more"></i>
                 </el-button>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>Template 1</el-dropdown-item>
-                    <el-dropdown-item>Template 2</el-dropdown-item>
-                    <el-dropdown-item>Template 3</el-dropdown-item>
+                    <el-dropdown-item v-for="(template, idx) in templates" :key="template.id" :command="template" :divided="!!idx">
+                        {{template.name}}
+                        <small style="display: block;color: #A9A9A9;width: 280px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{template.subject}}</small>
+                    </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
@@ -22,6 +23,7 @@
 
 <script>
     import Avatar from './Avatar'
+    import {mapActions, mapGetters} from 'vuex'
     import {displaySuccess, displayError} from 'helpers/messages'
 
     export default {
@@ -58,10 +60,20 @@
             return {
                 content: '',
                 focused: false,
-                loading: false
+                loading: false,
+                isBusy: false
             }
         },
         methods: {
+            ...mapActions({
+                getTemplates: 'getRequestTemplates'
+            }),
+
+            onTemplateSelected (template) {
+                const caretPosition = this.$refs.content.$el.querySelector('textarea').selectionStart
+
+                this.content = this.content.substring(0, caretPosition) + template.subject + this.content.substring(caretPosition)
+            },
             async save () {
                 if (!/\S/.test(this.content)) {
                     return
@@ -90,11 +102,30 @@
             }
         },
         computed: {
+            ...mapGetters({
+                templatesWithId: 'getRequestTemplatesWithId'
+            }),
+
+            templates () {
+                return this.templatesWithId(this.id)
+            },
+
             user () {
                 return this.$store.getters.loggedInUser
             }
         },
-        mounted () {
+        async mounted () {
+            if (!this.templates) {
+                try {
+                    await this.getTemplates({id: this.id})
+                } catch (error) {
+                    displayError(error)
+                } finally {
+                    console.log('gt', this.templates)
+                }
+            }
+
+
             if (this.autofocus) {
                 this.$refs.content.focus()
             }

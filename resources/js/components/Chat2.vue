@@ -1,7 +1,7 @@
 <template>
     <div class="chat">
         <comments-list ref="comments" :id="id" :type="type" :limit="limit" reversed with-scroller :show-children="false" :style="{height: size, minHeight: minSize, maxHeight: maxSize}" />
-        <add-comment ref="addComment" :id="id" :type="type" />
+        <add-comment ref="addComment" :id="id" :type="type" :use-templates="useTemplates" />
     </div>
 </template>
 
@@ -37,6 +37,10 @@
                 default: 50
             },
             autofocus: {
+                type: Boolean,
+                default: false
+            },
+            useTemplates: {
                 type: Boolean,
                 default: false
             }
