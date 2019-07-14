@@ -6,13 +6,5 @@ export default {
         state.templates = Object.assign({}, state.templates, {
             [id]: data
         })
-        // Object.assign({}, {
-        //     ...state.templates,
-
-        //     [id]: data
-        // })
-        // Object.assign(state.templates, {
-        //     [id]: data
-        // })
     }
 }

@@ -994,7 +994,9 @@ export default {
     components: {
         common: {
             addComment: {
-                placeholder: 'Type a comment...'
+                placeholder: 'Type a comment...',
+                loadingTemplates: 'Loading templates...',
+                emptyTemplatesPlaceholder: 'No templates available.'
             }
         },
         tenant: {
