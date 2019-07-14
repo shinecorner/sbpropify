@@ -193,7 +193,7 @@
                             type: 'warning',
                             roundButton: true
                         }).then(() => {
-
+                            this.batchDelete(false);
                         }).catch(() => {
                         });
                     }
@@ -202,10 +202,10 @@
                 }   
             },
             async batchDelete(withReassign) {
-                try {
+                try {                    
                     const resp = await this.batchDeletePropertyManagers({
                         managerIds: _.map(this.selectedItems, 'id'),
-                        assignee: this.toAssign ? this.toAssign : 0
+                        assignee: (this.toAssign && withReassign) ? this.toAssign : 0
                     });
 
                     if (resp) {
