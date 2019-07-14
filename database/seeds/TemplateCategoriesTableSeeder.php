@@ -99,8 +99,8 @@ class TemplateCategoriesTableSeeder extends Seeder
                 'body' => <<<HTML
 <p>Hello {{name}}</p>
 <p>A new admin account was created:</p>
-<p>User {{name}}</p>
-<p>Email {{email}}</p>
+<p>User {{subjectName}}</p>
+<p>Email {{subjectEmail}}</p>
 HTML
             ],
             [
@@ -466,10 +466,10 @@ HTML
                     'status' => 'constant.request.status',
                     'originalStatus' => 'constant.originalRequest.status',
                 ],
-                'subject' => 'New request: {{title}} changed status',
+                'subject' => 'Status changed for request: {{title}}',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
-<p>Admin changed status for request {{title} from {{originalStatus}} to {{status}}</p>
+<p>Admin changed status for request {{title}} from {{originalStatus}} to {{status}}</p>
 HTML
             ],
             [

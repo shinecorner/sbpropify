@@ -260,7 +260,6 @@ class TemplateRepository extends BaseRepository
             foreach ($tagMap as $tag => $value) {
                 $template->$field = str_replace('{{' . $tag . '}}', $value, $template->$field);
             }
-
         }
 
         return $template;
@@ -470,6 +469,26 @@ class TemplateRepository extends BaseRepository
             'user' => $user,
         ];
 
+        $tags = $this->gettags($template->category->tag_map, $context);
+
+        return $this->getparsedtemplatedata($template, $tags, $user->settings->language);
+    }
+
+    /**
+     * @param ServiceRequest $sr
+     * @param ServiceRequest $osr
+     * @param User $user
+     * @return array
+     */
+    public function getRequestStatusChangedParsedTemplate(ServiceRequest $sr, ServiceRequest $osr, User $user): array
+    {
+        $template = $this->getByCategoryName('request_admin_change_status');
+
+        $context = [
+            'request' => $sr,
+            'originalRequest' => $osr,
+            'user' => $user,
+        ];
         $tags = $this->gettags($template->category->tag_map, $context);
 
         return $this->getparsedtemplatedata($template, $tags, $user->settings->language);
