@@ -3,10 +3,13 @@
 namespace App\Notifications;
 
 use App\Models\ServiceRequest;
+use App\Models\User;
+use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Queue\InteractsWithQueue;
 
 /**
  * Class StatusChangedRequest
@@ -14,19 +17,25 @@ use Illuminate\Notifications\Notification;
  */
 class StatusChangedRequest extends Notification implements ShouldQueue
 {
-    use Queueable;
+    use Queueable, InteractsWithQueue;
 
-    protected $serviceRequest;
+    public $tries = 3;
+
+    protected $request;
+    protected $originalRequest;
+    protected $user;
 
     /**
-     * Create a new notification instance.
-     *
-     * @param ServiceRequest $serviceRequest
-     * @return void
+     * StatusChangedRequest constructor.
+     * @param ServiceRequest $request
+     * @param ServiceRequest $originalRequest
+     * @param User $user
      */
-    public function __construct(ServiceRequest $serviceRequest)
+    public function __construct(ServiceRequest $request, ServiceRequest $originalRequest, User $user)
     {
-        $this->serviceRequest = $serviceRequest;
+        $this->originalRequest = $originalRequest;
+        $this->request = $request;
+        $this->user = $user;
     }
 
     /**
@@ -48,10 +57,14 @@ class StatusChangedRequest extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $tRepo = new TemplateRepository(app());
+        $msg = $tRepo->getRequestStatusChangedParsedTemplate($this->request, $this->originalRequest, $this->user);
+
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->view('mails.request', [
+                'body' => $msg['body'],
+                'subject' => $msg['subject'],
+            ])->subject($msg['subject']);
     }
 
     public function toDatabase($notifiable)

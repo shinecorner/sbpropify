@@ -1,18 +1,27 @@
 <template>
-    <div :class="['add-comment', {'with-templates': useTemplates}]">
+    <div :class="['add-comment', {'with-templates': showTemplates}]">
         <el-tooltip :content="user.name" effect="dark" placement="top-start">
             <avatar :name="user.name" :size="32" :src="user.avatar" />
         </el-tooltip>
         <div class="content">
             <el-input autosize ref="content" :class="{'is-focused': focused}" type="textarea" resize="none" v-model="content" :placeholder="$t('components.common.addComment.placeholder')" :disabled="loading" :validate-event="false" @blur="focused = false" @focus="focused = true" @keydown.native.alt.enter.exact="save" />
-            <el-dropdown size="small" placement="top" trigger="click" v-if="useTemplates">
-                <el-button class="el-dropdown-link" type="text" :disabled="loading">
-                    <i class="el-icon-more"></i>
-                </el-button>
+            <el-dropdown class="templates" size="small" placement="top-end" trigger="click" @command="onTemplateSelected" @visible-change="onDropdownVisibility" v-if="showTemplates">
+                <el-tooltip content="Choose a template" placement="top-end">
+                    <el-button ref="templatesButton" type="text" class="el-dropdown-link" :disabled="loading">
+                        <i class="el-icon-more"></i>
+                    </el-button>
+                </el-tooltip>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item>Template 1</el-dropdown-item>
-                    <el-dropdown-item>Template 2</el-dropdown-item>
-                    <el-dropdown-item>Template 3</el-dropdown-item>
+                    <el-dropdown-item v-for="(template, idx) in templates" :key="template.id" :command="template" :divided="!!idx">
+                        {{template.name}}
+                        <small style="display: block;color: #A9A9A9;width: 280px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">{{template.subject}}</small>
+                    </el-dropdown-item>
+                    <el-dropdown-item disabled v-if="loadingTemplates">
+                        {{$t('components.common.addComment.loadingTemplates')}}
+                    </el-dropdown-item>
+                    <el-dropdown-item disabled v-else-if="!loadingTemplates && !templates.length">
+                        {{$t('components.common.addComment.emptyTemplatesPlaceholder')}}
+                    </el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
@@ -22,6 +31,7 @@
 
 <script>
     import Avatar from './Avatar'
+    import {mapActions, mapGetters} from 'vuex'
     import {displaySuccess, displayError} from 'helpers/messages'
 
     export default {
@@ -46,7 +56,7 @@
                 type: Boolean,
                 default: false
             },
-            useTemplates: {
+            showTemplates: {
                 type: Boolean,
                 default: false
             }
@@ -58,20 +68,35 @@
             return {
                 content: '',
                 focused: false,
-                loading: false
+                loading: false,
+                loadingTemplates: false,
+                dropdownTemplatesVisible: false
             }
         },
         methods: {
+            ...mapActions({
+                getTemplates: 'getRequestTemplates'
+            }),
+
+            onTemplateSelected (template) {
+                const caretPosition = this.$refs.content.$el.querySelector('textarea').selectionStart
+
+                this.content = this.content.substring(0, caretPosition) + template.subject + this.content.substring(caretPosition)
+
+                this.$refs.content.focus()
+            },
+            onDropdownVisibility (state) {
+                this.dropdownTemplatesVisible = state
+            },
             async save () {
                 if (!/\S/.test(this.content)) {
                     return
                 }
 
-                this.$refs.content.blur()
-
-                this.loading = true
-
                 try {
+                    this.loading = true
+                    this.$refs.content.blur()
+
                     await this.$store.dispatch('comments/create', {
                         id: this.id,
                         comment: this.content,
@@ -90,11 +115,37 @@
             }
         },
         computed: {
-            user () {
-                return this.$store.getters.loggedInUser
+            ...mapGetters({
+                user: 'loggedInUser',
+                templatesWithId: 'getRequestTemplatesWithId'
+            }),
+
+            templates () {
+                return this.templatesWithId(this.id)
+            },
+            canShowTemplates () {
+                return this.showTemplates && ['request'].includes(this.type)
             }
         },
-        mounted () {
+        async mounted () {
+            if (this.canShowTemplates) {
+                if (!this.templates) {
+                    try {
+                        this.loadingTemplates = true
+
+                        await this.getTemplates({id: this.id})
+                    } catch (error) {
+                        displayError(error)
+                    } finally {
+                        this.loadingTemplates = false
+
+                        if (this.dropdownTemplatesVisible) {
+                            this.$refs.templatesButton.$el.click()
+                        }
+                    }
+                }
+            }
+
             if (this.autofocus) {
                 this.$refs.content.focus()
             }
@@ -171,7 +222,7 @@
                     right: -2px;
 
                     .el-dropdown-link {
-                        padding: 8px;
+                        padding: 9px;
                         transform: rotate(90deg);
                     }
                 }

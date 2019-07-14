@@ -154,7 +154,7 @@
                                 :visible.sync="conversationVisible"
                                 width="50%">
                                 <chat :id="selectedConversation.id" type="conversation"
-                                      v-if="selectedConversation.id"/>
+                                      v-if="selectedConversation.id" show-templates />
                             </el-dialog>
                         </template>
 
@@ -272,7 +272,7 @@
                             <div slot="header">
                                 <p class="comments-header">{{$t('models.request.comments')}}</p>
                             </div>
-                            <chat :id="model.id" type="request"/>
+                            <chat :id="model.id" type="request" show-templates />
                         </card>
                     </el-col>
                 </el-row>
@@ -446,7 +446,7 @@
         align-items: center;
         color: #6AC06F;
         text-decoration: none;
-        
+
         & > span {
             margin-left: 5px;
         }

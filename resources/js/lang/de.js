@@ -993,7 +993,11 @@ export default {
     },
 
     components: {
-        common: {},
+        common: {
+            addComment: {
+                placeholder: 'Type a comment...'
+            }
+        },
         tenant: {
             weatherWidget: {
                 minTemp: 'min',

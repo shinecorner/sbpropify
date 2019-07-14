@@ -282,15 +282,15 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $attr = $this->serviceRequestRepository->getPutAttributes($input, $oldStatus);
-        $serviceRequest = $this->serviceRequestRepository->update($attr, $id);
+        $updatedServiceRequest = $this->serviceRequestRepository->update($attr, $id);
 
-        $this->serviceRequestRepository->notifyStatusChange($oldStatus, $serviceRequest);
+        $this->serviceRequestRepository->notifyStatusChange($serviceRequest, $updatedServiceRequest);
 
-        $serviceRequest->load([
+        $updatedServiceRequest->load([
             'media', 'tenant.user', 'category', 'assignees',
             'comments.user', 'providers.address', 'providers.user',
         ]);
-        $response = (new ServiceRequestTransformer)->transform($serviceRequest);
+        $response = (new ServiceRequestTransformer)->transform($updatedServiceRequest);
         return $this->sendResponse($response, 'ServiceRequest updated successfully');
     }
 

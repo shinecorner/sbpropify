@@ -191,6 +191,7 @@ class CommentAPIController extends AppBaseController
         $comment = $serviceRequest->comment($request->comment, $request->parent_id);
         $comment->load('user');
         $out = $this->transformer->transform($comment);
+        $this->serviceRequestRepository->notifyNewComment($serviceRequest, $comment);
         return $this->sendResponse($out, "Comment successfully created");
     }
 

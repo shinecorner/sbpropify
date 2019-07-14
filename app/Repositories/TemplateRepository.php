@@ -260,7 +260,6 @@ class TemplateRepository extends BaseRepository
             foreach ($tagMap as $tag => $value) {
                 $template->$field = str_replace('{{' . $tag . '}}', $value, $template->$field);
             }
-
         }
 
         return $template;
@@ -451,7 +450,48 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplateData($template, $tags);
+        return $this->getParsedTemplateData($template, $tags, $user->settings->language);
+    }
+
+    /**
+     * @param ServiceRequest $sr
+     * @param User $user
+     * @param Comment $comment
+     * @return array
+     */
+    public function getRequestCommentedParsedTemplate(ServiceRequest $sr, User $user, Comment $comment): array
+    {
+        $template = $this->getByCategoryName('request_comment');
+
+        $context = [
+            'request' => $sr,
+            'comment' => $comment,
+            'user' => $user,
+        ];
+
+        $tags = $this->gettags($template->category->tag_map, $context);
+
+        return $this->getparsedtemplatedata($template, $tags, $user->settings->language);
+    }
+
+    /**
+     * @param ServiceRequest $sr
+     * @param ServiceRequest $osr
+     * @param User $user
+     * @return array
+     */
+    public function getRequestStatusChangedParsedTemplate(ServiceRequest $sr, ServiceRequest $osr, User $user): array
+    {
+        $template = $this->getByCategoryName('request_admin_change_status');
+
+        $context = [
+            'request' => $sr,
+            'originalRequest' => $osr,
+            'user' => $user,
+        ];
+        $tags = $this->gettags($template->category->tag_map, $context);
+
+        return $this->getparsedtemplatedata($template, $tags, $user->settings->language);
     }
 
     /**
@@ -468,7 +508,7 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplateData($template, $tags);
+        return $this->getParsedTemplateData($template, $tags, $creq->user->settings->language);
     }
 
     /**
