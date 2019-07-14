@@ -1,9 +1,9 @@
 <template>
     <div class="action-group">
-        <el-button @click="saveAction" size="small" type="primary"> {{this.$t('actions.save')}}</el-button>
-        <el-button @click="saveAndClose" size="small" type="primary"> {{this.$t('actions.saveAndClose')}}
+        <el-button @click="saveAction" size="small" type="primary" round> {{this.$t('actions.save')}}</el-button>
+        <el-button @click="saveAndClose" size="small" type="primary" round> {{this.$t('actions.saveAndClose')}}
         </el-button>
-        <el-button @click="goToListing" size="small" type="warning"> {{this.$t('actions.close')}}
+        <el-button @click="goToListing" size="small" type="warning" round> {{this.$t('actions.close')}}
         </el-button>
     </div>
 </template>
