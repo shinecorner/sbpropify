@@ -155,7 +155,7 @@
             }
         },
         methods: {
-            ...mapActions(["remoteSearchManagers", "batchDeletePropertyManagers", "getBuildings"]),
+            ...mapActions(["remoteSearchManagers", "batchDeletePropertyManagers", "getBuildings", "getIDsAssignmentsCount"]),
             async getFilterBuildings() {
                 this.loading = true;
                 const buildings = await this.getBuildings({
@@ -178,8 +178,28 @@
                     }
                 });
             },
-            openDeleteWithReassignment() {
-                this.assignManagersVisible = true;
+            async openDeleteWithReassignment() {
+                try {
+                    const resp = await this.getIDsAssignmentsCount({
+                        ids:_.map(this.selectedItems, 'id')
+                    });
+
+                    if(resp.data > 0) {
+                        this.assignManagersVisible = true;
+                    }else {
+                        this.$confirm('Are you sure you want to delete?', 'Confirm?', {
+                            confirmButtonText: 'OK',
+                            cancelButtonText: 'Cancel',
+                            type: 'warning',
+                            roundButton: true
+                        }).then(() => {
+
+                        }).catch(() => {
+                        });
+                    }
+                } catch (e) {
+                    displayError(e);
+                }   
             },
             async batchDelete(withReassign) {
                 try {
@@ -224,6 +244,7 @@
                     }
                 }
             },
+            
         }
     }
 </script>

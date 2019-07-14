@@ -690,4 +690,15 @@ class PropertyManagerAPIController extends AppBaseController
         $assignments = $this->propertyManagerRepository->assignments($propertyManager)->paginate($perPage);
         return $this->sendResponse($assignments, 'Assignments retrieved successfully');
     }
+
+    public function getIDsAssignmentsCount(Request $request)
+    {
+        /** @var PropertyManager $propertyManager */
+        $propertyManagerArray = $this->propertyManagerRepository->find($request->post('ids'));
+        if (empty($propertyManagerArray)) {
+            return $this->sendError('Property Managers not found');
+        }
+        $assignments = $this->propertyManagerRepository->assignmentsWithIds($propertyManagerArray->pluck('id')->all())->count();
+        return $this->sendResponse($assignments, 'Assignments retrieved successfully');
+    }
 }
