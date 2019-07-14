@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Mails\NotifyServiceProvider;
+use App\Models\Comment;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
@@ -10,6 +11,7 @@ use App\Models\Tenant;
 use App\Models\User;
 use App\Notifications\NewTenantRequest;
 use App\Notifications\StatusChangedRequest;
+use App\Notifications\RequestCommented;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use InfyOm\Generator\Common\BaseRepository;
@@ -248,6 +250,23 @@ class ServiceRequestRepository extends BaseRepository
             $propertyManager->user
                 ->notify((new NewTenantRequest($serviceRequest, $message['subject'], $message['body']))
                     ->delay(now()->addSeconds($delay)));
+        }
+    }
+
+    /**
+     * @param ServiceRequest $serviceRequest
+     * @param Comment $comment
+     */
+    public function notifyNewComment(ServiceRequest $sr, Comment $comment)
+    {
+        $i = 0;
+        foreach ($sr->allPeople as $person) {
+            $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
+
+            if ($person->id != $comment->user->id) {
+                $person->notify((new RequestCommented($sr, $person, $comment))
+                    ->delay(now()->addSeconds($delay)));
+            }
         }
     }
 

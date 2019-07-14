@@ -420,18 +420,18 @@ HTML
                 'tag_map' => [
                     'salutation' => 'user.title',
                     'name' => 'user.name',
-                    'subjectSalutation' => 'subject.title',
-                    'subjectName' => 'subject.name',
+                    'commenterSalutation' => 'comment.user.title',
+                    'commenterName' => 'comment.user.name',
                     'title' => 'request.title',
                     'description' => 'request.description',
                     'category' => 'request.category.name',
-                    'comment' => 'comment'
+                    'comment' => 'comment.comment'
                 ],
                 'subject' => 'New comment for request: {{title}}',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
-<p>A new comment was made for request: {{title}</p>
-<p>{{comment}}.</p>
+<p>A new comment by {{commenterSalutation}} {{commenterName}} was made for request: {{title}}</p>
+<p><em>{{comment}}</em>.</p>
 HTML
             ],
             [
