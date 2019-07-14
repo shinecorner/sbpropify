@@ -1,11 +1,11 @@
 <template>
-    <div :class="['add-comment', {'with-templates': useTemplates}]">
+    <div :class="['add-comment', {'with-templates': showTemplates}]">
         <el-tooltip :content="user.name" effect="dark" placement="top-start">
             <avatar :name="user.name" :size="32" :src="user.avatar" />
         </el-tooltip>
         <div class="content">
             <el-input autosize ref="content" :class="{'is-focused': focused}" type="textarea" resize="none" v-model="content" :placeholder="$t('components.common.addComment.placeholder')" :disabled="loading" :validate-event="false" @blur="focused = false" @focus="focused = true" @keydown.native.alt.enter.exact="save" />
-            <el-dropdown class="templates" size="small" placement="top" trigger="click" @command="onTemplateSelected" v-if="useTemplates">
+            <el-dropdown class="templates" size="small" placement="top" trigger="click" @command="onTemplateSelected" v-if="showTemplates">
                 <el-button class="el-dropdown-link" type="text" :disabled="loading">
                     <i class="el-icon-more"></i>
                 </el-button>
@@ -48,7 +48,7 @@
                 type: Boolean,
                 default: false
             },
-            useTemplates: {
+            showTemplates: {
                 type: Boolean,
                 default: false
             }
@@ -103,28 +103,29 @@
         },
         computed: {
             ...mapGetters({
+                user: 'loggedInUser',
                 templatesWithId: 'getRequestTemplatesWithId'
             }),
 
             templates () {
                 return this.templatesWithId(this.id)
             },
-
-            user () {
-                return this.$store.getters.loggedInUser
+            canShowTemplates () {
+                return this.showTemplates && ['request'].includes(this.type)
             }
         },
         async mounted () {
-            if (!this.templates) {
-                try {
-                    await this.getTemplates({id: this.id})
-                } catch (error) {
-                    displayError(error)
-                } finally {
-                    console.log('gt', this.templates)
+            if (this.canShowTemplates) {
+                if (!this.templates) {
+                    try {
+                        await this.getTemplates({id: this.id})
+                    } catch (error) {
+                        displayError(error)
+                    } finally {
+                        console.log('gt', this.templates)
+                    }
                 }
             }
-
 
             if (this.autofocus) {
                 this.$refs.content.focus()
