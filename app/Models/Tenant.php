@@ -180,7 +180,8 @@ class Tenant extends Model implements HasMedia
         'mobile_phone' => 'string',
         'private_phone' => 'string',
         'work_phone' => 'string',
-        'status' => 'integer'
+        'status' => 'integer',
+        'tenant_format' => 'string'
     ];
 
     const templateMap = [
