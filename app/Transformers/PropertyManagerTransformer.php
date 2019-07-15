@@ -22,6 +22,7 @@ class PropertyManagerTransformer extends BaseTransformer
     {
         $response = [
             'id' => $model->id,
+            'property_manager_format' => $model->property_manager_format,
             'description' => $model->description,
             'title' => $model->title,
             'first_name' => $model->first_name,

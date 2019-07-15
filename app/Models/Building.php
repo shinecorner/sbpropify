@@ -103,7 +103,8 @@ class Building extends Model implements HasMedia
         'district_id' => 'integer',
         'floor_nr' => 'integer',
         'basement' => 'boolean',
-        'attic' => 'boolean'
+        'attic' => 'boolean',
+        'building_format' => 'string'
     ];
 
     /**
@@ -116,7 +117,9 @@ class Building extends Model implements HasMedia
         'floor_nr' => 'required'
     ];
 
-
+    /**
+     *
+     */
     public static function boot()
     {
         parent::boot();

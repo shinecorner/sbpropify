@@ -65,7 +65,8 @@ class District extends Model
      */
     protected $casts = [
         'name' => 'string',
-        'description' => 'string'
+        'description' => 'string',
+        'district_format' => 'string'
     ];
 
     public static function boot()

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class FillServiceRequestFormatInServiceRequestsTable extends Migration
+class FixServiceProviderFormatInServiceProvidersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class FillServiceRequestFormatInServiceRequestsTable extends Migration
      */
     public function up()
     {
-        \App\Models\ServiceRequest::get(['id', 'created_at'])->each(function ($service_request) {
-            $service_request->service_request_format  = $service_request->getUniqueIDFormat($service_request->id, $service_request->created_at);
+        \App\Models\ServiceProvider::get(['id', 'created_at'])->each(function ($service_request) {
+            $service_request->service_provider_format  = $service_request->getUniqueIDFormat($service_request->id, $service_request->created_at);
             $service_request->save();
         });
     }
@@ -26,5 +26,6 @@ class FillServiceRequestFormatInServiceRequestsTable extends Migration
      */
     public function down()
     {
+
     }
 }
