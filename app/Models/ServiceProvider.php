@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
@@ -63,6 +64,10 @@ use Illuminate\Notifications\Notifiable;
  */
 class ServiceProvider extends Model
 {
+    use Notifiable;
+    use SoftDeletes;
+    use UniqueIDFormat;
+
     /**
      * Validation rules
      *
@@ -84,8 +89,6 @@ class ServiceProvider extends Model
         'phone' => 'required|string|max:255',
     ];
 
-    use Notifiable;
-    use SoftDeletes;
     public $table = 'service_providers';
 
     const ServiceProviderCategories = [
