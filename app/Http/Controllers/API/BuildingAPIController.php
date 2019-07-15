@@ -19,7 +19,10 @@ use App\Repositories\AddressRepository;
 use App\Repositories\BuildingRepository;
 use App\Repositories\PropertyManagerRepository;
 use App\Repositories\UserRepository;
+use App\Repositories\UnitRepository;
+use App\Repositories\ServiceRequestRepository;
 use App\Transformers\BuildingTransformer;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Validator;
@@ -42,24 +45,36 @@ class BuildingAPIController extends AppBaseController
     /** @var  propertyManagerRepository */
     private $propertyManagerRepository;
 
+    /** @var  UnitRepository */
+    private $unitRepository;
+
+    /** @var  ServiceRequestRepository */
+    private $serviceRequestRepository;
+
     /**
      * BuildingAPIController constructor.
      * @param BuildingRepository $buildingRepo
      * @param AddressRepository $addrRepo
      * @param UserRepository $ur
      * @param PropertyManagerRepository $pm
+     * @param UnitRepository $un
+     * @param ServiceRequestRepository $sr
      */
     public function __construct(
         BuildingRepository $buildingRepo,
         AddressRepository $addrRepo,
         UserRepository $ur,
-        PropertyManagerRepository $pm
+        PropertyManagerRepository $pm,
+        UnitRepository $un,
+        ServiceRequestRepository $sr
     )
     {
         $this->buildingRepository = $buildingRepo;
         $this->addressRepository = $addrRepo;
         $this->userRepository = $ur;
         $this->propertyManagerRepository = $pm;
+        $this->unitRepository = $un;
+        $this->serviceRequestRepository = $sr;
     }
 
     /**
@@ -377,6 +392,36 @@ class BuildingAPIController extends AppBaseController
         }
 
         return $this->sendResponse($id, 'Building deleted successfully');
+    }
+
+    public function destroyWithIds(Request $request)
+    {
+        /** @var Building $building */        
+        $buildings = $this->buildingRepository->findWithoutFail($request->get('ids'));
+        if (empty($buildings)) {
+            return $this->sendError('Building not found');
+        }        
+
+        try {
+            foreach($buildings as $building) {
+                $this->buildingRepository->delete($building->id);
+            }
+            $units = $this->unitRepository->getUnitsIdwithBuildingIds($buildings->pluck('id'));
+
+            if($request->get('is_delete_request')) {
+                $this->serviceRequestRepository->deleteRequesetWithUnitIds($units->pluck('id'));
+            }            
+
+            if($request->get('is_delete_units')) {                
+                $this->unitRepository->deleteUnitWithBuilding($buildings->pluck('id'));                
+            }            
+
+            return $this->sendResponse('', 'Building deleted successfully');
+
+        } catch (\Exception $e) {
+            return $this->sendError('Building deleted error: ' . $e->getMessage());
+        }
+        
     }
 
     /**

@@ -44,4 +44,12 @@ class UnitRepository extends BaseRepository
         return parent::update($attrs, $id);
     }
 
+    public function getUnitsIdwithBuildingIds($ids) {
+        return $this->model->whereIn('building_id', $ids)->get('id');
+    }
+
+    public function deleteUnitWithBuilding($ids) {
+        return $this->model->whereIn('building_id', $ids)->delete();
+    }
+    
 }

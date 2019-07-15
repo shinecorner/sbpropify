@@ -13,7 +13,7 @@
                 </el-button>
             </template>
             <template v-if="$can($permissions.delete.building)">
-                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="small"
+                <el-button :disabled="!selectedItems.length" @click="batchDeleteBuilding" icon="ti-trash" round size="small"
                            type="danger">
                     {{$t('models.building.delete')}}
                 </el-button>
@@ -58,10 +58,37 @@
                 </el-select>
             </el-form>
             <span class="dialog-footer" slot="footer">
-    <el-button @click="closeModal" size="mini">{{$t('models.building.cancel')}}</el-button>
-    <el-button @click="assignManagers" size="mini" type="primary">{{$t('models.building.assign_managers')}}</el-button>
-  </span>
+                <el-button @click="closeModal" size="mini">{{$t('models.building.cancel')}}</el-button>
+                <el-button @click="assignManagers" size="mini" type="primary">{{$t('models.building.assign_managers')}}</el-button>
+            </span>
         </el-dialog>
+
+        <el-dialog  :close-on-click-modal="false" 
+                    :title="$t('models.building.delete_building_modal.title')"
+                    :visible.sync="deleteBuildingVisible"
+                    v-loading="processAssignment" 
+                    width="30%"
+                    class="delete_building_modal">  
+            
+            <el-row>
+                <el-col :span="24">
+                    <p class="description">{{$t('models.building.delete_building_modal.description')}}</p>                    
+                </el-col>
+            </el-row>
+            <el-form label-width="70px">
+                <el-form-item :label="$t('models.building.delete_building_modal.unite_label')">
+                    <el-switch v-model="isDeleteUnits" />
+                </el-form-item>
+                <el-form-item :label="$t('models.building.delete_building_modal.request_label')">
+                    <el-switch v-model="isDeleteRequests" />
+                </el-form-item>
+            </el-form>
+            <span class="dialog-footer" slot="footer">
+                <el-button @click="closeDeleteBuildModal" size="mini">{{$t('models.building.cancel')}}</el-button>
+                <el-button @click="deleteSelectedBuilding" size="mini" type="primary">{{$t('models.building.delete')}}</el-button>
+            </span>
+        </el-dialog>
+
     </div>
 </template>
 
@@ -93,11 +120,14 @@
         data() {
             return {
                 assignManagersVisible: false,
+                deleteBuildingVisible: false,
                 processAssignment: false,
                 managersForm: {},
                 toAssignList: '',
                 toAssign: [],
                 remoteLoading: false,
+                isDeleteUnits: 0,
+                isDeleteRequests: 0,
                 header: [{
                     label: this.$t('models.request.address'),
                     withMultipleProps: true,
@@ -228,7 +258,7 @@
             }
         },
         methods: {
-            ...mapActions(['getPropertyManagers', 'batchAssignUsersToBuilding']),
+            ...mapActions(['getPropertyManagers', 'batchAssignUsersToBuilding', 'deleteBuildingWithIds']),
             prepareFilters(property) {
                 return Object.keys(this.requestConstants[property]).map((id) => {
                     return {
@@ -315,7 +345,37 @@
             resetToAssignList() {
                 this.toAssignList = [];
                 this.toAssign = [];
+            },
+            batchDeleteBuilding() {
+                this.isDeleteUnits = 0;
+                this.isDeleteRequests = 0;
+                this.deleteBuildingVisible = true;
+            },            
+            async deleteSelectedBuilding() {
+                try {
+                    const resp = await this.deleteBuildingWithIds({
+                        ids: _.map(this.selectedItems, 'id'),
+                        is_delete_units: this.isDeleteUnits,
+                        is_delete_request: this.isDeleteRequests
+                    });
+                    this.deleteBuildingVisible = false;
+                    displaySuccess(resp);                    
+                } catch (err) {
+                    displayError(err);
+                } finally {
+                    this.fetchMore();
+                }
+            },
+            closeDeleteBuildModal() {
+                this.deleteBuildingVisible = false;
             }
         }
     };
 </script>
+<style lang="scss" scoped>
+    .delete_building_modal {
+        .description {
+            margin: 0 0 22px 0;
+        }
+    }
+</style>

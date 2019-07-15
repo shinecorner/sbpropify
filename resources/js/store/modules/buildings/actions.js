@@ -92,4 +92,11 @@ export default {
             }).catch((error) => reject(error));
         });
     },
+    deleteBuildingWithIds({}, payload) {
+        return new Promise((resolve, reject) => {
+            axios.post(`buildings/deletewithids`, {...payload}).then((resp) => {                
+                resolve(resp.data);
+            }).catch((error) => reject(error));
+        });
+    }    
 }
