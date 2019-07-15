@@ -123,7 +123,21 @@ class PropertyManager extends Model
         'slogan' => 'string',
         'xing_url' => 'string',
         'linkedin_url' => 'string',
+        'property_manager_format' => 'string'
     ];
+
+    /**
+     *
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($building) {
+            $building->property_manager_format = $building->getUniqueIDFormat($building->id);
+            $building->save();
+        });
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

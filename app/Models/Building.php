@@ -116,7 +116,9 @@ class Building extends Model implements HasMedia
         'floor_nr' => 'required'
     ];
 
-
+    /**
+     *
+     */
     public static function boot()
     {
         parent::boot();
