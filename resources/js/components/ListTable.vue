@@ -779,4 +779,8 @@
     .rounded-select .el-input .el-input__suffix {
         top: 5px;
     }
+
+    .rounded-select .el-input.is-focus .el-input__suffix{
+        top: -3px;
+    }
 </style>
