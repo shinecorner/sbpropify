@@ -204,6 +204,7 @@ class ServiceRequest extends Model implements HasMedia, Auditable
         'solved_date' => 'date',
         'qualification' => 'integer',
         'visibility' => 'integer',
+        'service_request_format' => 'string'
     ];
 
     protected $auditInclude = [
