@@ -121,8 +121,22 @@ class ServiceProvider extends Model
         'category' => 'string',
         'name' => 'string',
         'email' => 'string',
-        'phone' => 'string'
+        'phone' => 'string',
+        'service_provider_format' => 'string'
     ];
+
+    /**
+     *
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($building) {
+            $building->service_provider_format = $building->getUniqueIDFormat($building->id);
+            $building->save();
+        });
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
