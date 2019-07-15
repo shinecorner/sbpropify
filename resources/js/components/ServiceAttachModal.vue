@@ -1,7 +1,7 @@
 <template>
     <el-dialog
         :close-on-click-modal="false"
-        :title="`${$t('models.request.mail.title')}: ${selectedServiceRequest.name ? selectedServiceRequest.name : ''}`"
+        :title="`${selectedServiceRequest.name ? selectedServiceRequest.name + selectedProvider : ''}`"
         :visible="showServiceMailModal"
         @close="close"
         v-loading="mailSending"
@@ -214,6 +214,17 @@
                 }
 
                 return foundConversation.id;
+            },
+            selectedProvider() {
+                let provider = this.providers.find((provider) => {
+                    if(provider.id === this.model.provider) return provider;
+                })
+
+                if(provider) {
+                    return ', ' + provider.address.street + ', ' + provider.address.city;
+                }
+                
+                return '';
             }
         },
         methods: {

@@ -85,7 +85,7 @@
             </el-form>
             <span class="dialog-footer" slot="footer">
                 <el-button @click="closeDeleteBuildModal" size="mini">{{$t('models.building.cancel')}}</el-button>
-                <el-button @click="deleteSelectedBuilding" size="mini" type="primary">{{$t('models.building.delete')}}</el-button>
+                <el-button @click="deleteSelectedBuilding" size="mini" type="danger">{{$t('models.building.delete')}}</el-button>
             </span>
         </el-dialog>
 

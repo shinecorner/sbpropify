@@ -87,11 +87,9 @@
 <style lang="scss" scoped>
     .el-menu {
         width: 256px;
-        box-shadow: 0 1px 3px transparentize(#000, .88),
-        0 1px 2px transparentize(#000, .76);
         display: flex;
         flex-direction: column;
-
+        border-right: none !important;
         .content {
             padding: 0;
             overflow: auto;

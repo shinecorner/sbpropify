@@ -30,8 +30,8 @@
 <style lang="scss" scoped>
     .el-menu {
         &.el-menu--horizontal {
-            box-shadow: 0 1px 3px transparentize(#000, .88),
-            0 1px 2px transparentize(#000, .76);
+            z-index: 10;
+            box-shadow: 0 1px 5px 5px transparentize(#000, .9);
             display: flex;
             align-items: center;
             flex-shrink: 0;
