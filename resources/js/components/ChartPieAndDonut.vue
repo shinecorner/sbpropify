@@ -46,10 +46,7 @@ export default {
             }
           }],
           legend: {
-                show: true,
-                position: 'bottom',
-                horizontalAlign: 'center',
-                width: 470
+                show: true,                                
            },
            chart:{
                  toolbar: {

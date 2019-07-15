@@ -66,8 +66,7 @@ export default {
             },
             legend: {
               position: 'bottom',              
-              horizontalAlign: 'center',
-              width: 750
+              horizontalAlign: 'center'              
             },
             fill: {
               opacity: 1

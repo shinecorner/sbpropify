@@ -7,8 +7,8 @@
                     <small>{{ $t('models.building.requestStatuses.total') }}</small>
                 </h3>
             </el-col>
-            <el-col :span="cols" v-for="(count, index) in data.data" :key="index">
-                <h3>
+            <el-col :span="cols" v-for="(count, index) in data.data" :key="index">                
+                <h3 :style="{color: colorObject[data.labels[index]]}">
                     {{ count }}
                     <small>{{ $t('models.request.status.'+data.labels[index]) }}</small>
                 </h3>
@@ -45,6 +45,18 @@
                 default: 0
             },
             avgReqDuration: [String, Number]
+        },
+        data(){
+            return {
+                colorObject: {
+                    received: '#bbb',
+                    in_processing: '#ebb563',
+                    assigned: '#ebb563',
+                    done: '#67C23A',
+                    reactivated: '#ebb563',
+                    archived: '#67C23A'
+                }
+            }            
         }
     }
 </script>

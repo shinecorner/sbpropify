@@ -16,6 +16,7 @@ use App\Repositories\UnitRepository;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Validator;
 use DB;
@@ -262,7 +263,7 @@ class StatisticsAPIController extends AppBaseController
 
         return $this->sendResponse($response, 'Service Request statistics retrieved successfully');
     }
-
+    
     public function adminStats()
     {
         $ret = [
@@ -394,8 +395,50 @@ class StatisticsAPIController extends AppBaseController
 
         $avgReqFix = DB::select("select coalesce(floor(avg(time_to_sec(timediff(solved_date, created_at)))), 0) duration
             from service_requests where solved_date is not null;");
-        $ret['avg_request_duration'] = $avgReqFix ? $avgReqFix[0]->duration : 0;
+        $ret['avg_request_duration'] = $avgReqFix ? gmdate("H:i",$avgReqFix[0]->duration) : 0;
 
         return $this->sendResponse($ret, 'Admin statistics retrieved successfully');
+    }
+    public function chartRequestByCreationDate(Request $request){
+        $response = [
+          'labels' => ["2019-06-15", "2019-06-16", "2019-06-17", "2019-06-18", "2019-06-19"],
+          'series' => [
+              [
+                  'name' => 'Disturbance',
+                  'data' => [8,12,7,20,41]
+              ],
+              [
+                  'name' => 'Defect',
+                  'data' => [8,12,7,20,41]
+              ],
+              [
+                  'name' => 'Order documents',
+                  'data' => [8,12,7,20,41]
+              ],
+              [
+                  'name' => 'Order a payment slip',
+                  'data' => [8,12,7,20,41]
+              ],
+              [
+                  'name' => 'Questions about the tenancy',
+                  'data' => [8,12,7,20,41]
+              ],
+          ]
+        ];
+        return $this->sendResponse($response, 'Admin statistics retrieved successfully');
+    }
+    public function chartRequestByStatus(Request $request){
+        $response = [
+          'labels' => ["received", "in_processing", "assigned", "done", "reactivated", "archived"],
+          'series' => [6, 7, 4, 9, 12, 12]
+        ];
+        return $this->sendResponse($response, 'Admin statistics retrieved successfully');
+    }
+    public function chartRequestByCategory(Request $request){
+        $response = [
+          'labels' => ["Disturbance", "Defect", "Order documents", "Order a payment slip", "Questions about the tenancy","Other"],
+          'series' => [16, 17, 6, 3, 3, 5]
+        ];
+        return $this->sendResponse($response, 'Admin statistics retrieved successfully');
     }
 }
