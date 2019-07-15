@@ -410,4 +410,14 @@ class ServiceRequest extends Model implements HasMedia, Auditable
     {
         return self::Priority[$this->priority];
     }
+
+    public function getAllPeopleAttribute()
+    {
+        $providers = $this->providers->map(function($p) {
+            return $p->user;
+        });
+        return array_merge([
+            $this->tenant->user,
+        ], $providers->all(), $this->assignees->all()) ;
+    }
 }

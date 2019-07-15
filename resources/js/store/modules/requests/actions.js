@@ -1,5 +1,6 @@
 import axios from '@/axios';
 import {buildFetchUrl} from 'helpers/url';
+import queryString from 'query-string'
 
 export default {
     getRequests({commit}, payload) {
@@ -153,5 +154,10 @@ export default {
                     resolve(r);
                 })
                 .catch(({response: {data: err}}) => reject(err)));
+    },
+    async getRequestTemplates ({commit}, {id}) {
+        const {data} = await axios.get(`requests/${id}/communicationTemplates`)
+
+        commit('SAVE_REQUEST_TEMPLATES', {id, data: data.data})
     }
 }

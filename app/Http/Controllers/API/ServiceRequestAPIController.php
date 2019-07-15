@@ -20,8 +20,10 @@ use App\Http\Requests\API\ServiceRequest\UpdateRequest;
 use App\Models\ServiceRequest;
 use App\Repositories\ServiceProviderRepository;
 use App\Repositories\ServiceRequestRepository;
+use App\Repositories\TemplateRepository;
 use App\Repositories\UserRepository;
 use App\Transformers\ServiceRequestTransformer;
+use App\Transformers\TemplateTransformer;
 use Auth;
 use Exception;
 use Illuminate\Http\Request;
@@ -280,15 +282,15 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $attr = $this->serviceRequestRepository->getPutAttributes($input, $oldStatus);
-        $serviceRequest = $this->serviceRequestRepository->update($attr, $id);
+        $updatedServiceRequest = $this->serviceRequestRepository->update($attr, $id);
 
-        $this->serviceRequestRepository->notifyStatusChange($oldStatus, $serviceRequest);
+        $this->serviceRequestRepository->notifyStatusChange($serviceRequest, $updatedServiceRequest);
 
-        $serviceRequest->load([
+        $updatedServiceRequest->load([
             'media', 'tenant.user', 'category', 'assignees',
             'comments.user', 'providers.address', 'providers.user',
         ]);
-        $response = (new ServiceRequestTransformer)->transform($serviceRequest);
+        $response = (new ServiceRequestTransformer)->transform($updatedServiceRequest);
         return $this->sendResponse($response, 'ServiceRequest updated successfully');
     }
 
@@ -839,5 +841,65 @@ class ServiceRequestAPIController extends AppBaseController
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $assignees = $this->serviceRequestRepository->assignees($sr)->paginate($perPage);
         return $this->sendResponse($assignees, 'Assignees retrieved successfully');
+    }
+
+    /**
+     * @param int $id
+     * @param TemplateRepository $tempRepo
+     *
+     * @return Response
+     *
+     * @SWG\Get(
+     *      path="/requests/{id}/comunicationTemplates",
+     *      summary="Display the list of Comunication templates filled with request data",
+     *      tags={"ServiceRequest"},
+     *      description="Get CommunicationTemplates",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="id",
+     *          description="id of ServiceRequest",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *
+     *
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/ServiceRequest"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function getCommunicationTemplates($id, TemplateRepository $tempRepo)
+    {
+        /** @var ServiceRequest $serviceRequest */
+        $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+        if (empty($serviceRequest)) {
+            return $this->sendError('Service Request not found');
+        }
+
+        $serviceRequest->load([
+            'media', 'tenant.user', 'tenant.building', 'category',
+        ]);
+
+        $templates = $tempRepo->getParsedCommunicationTemplates($serviceRequest, Auth::user());
+
+        $response = (new TemplateTransformer)->transformCollection($templates);
+        return $this->sendResponse($response, 'Communication Templates retrieved successfully');
     }
 }

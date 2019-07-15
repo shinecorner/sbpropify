@@ -10,9 +10,11 @@ use App\Models\Product;
 use App\Models\RealEstate;
 use App\Models\ServiceRequest;
 use App\Models\Template;
+use App\Models\TemplateCategory;
 use App\Models\Tenant;
 use App\Models\User;
 use Config;
+use Illuminate\Database\Eloquent\Collection;
 use InfyOm\Generator\Common\BaseRepository;
 
 /**
@@ -57,19 +59,6 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param $templateName
-     * @return mixed
-     */
-    public function getByCategoryName($templateName)
-    {
-        $template = (new Template)->with('category')->whereHas('category', function ($q) use ($templateName) {
-            $q->where('name', $templateName);
-        })->first();
-
-        return $template;
-    }
-
-    /**
      * @param User $user
      * @param User $subject
      * @return array
@@ -83,7 +72,20 @@ class TemplateRepository extends BaseRepository
             'subject' => $subject,
         ];
         $tags = $this->getTags($template->category->tag_map, $context);
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplateData($template, $tags);
+    }
+
+    /**
+     * @param $templateName
+     * @return mixed
+     */
+    public function getByCategoryName($templateName)
+    {
+        $template = (new Template)->with('category')->whereHas('category', function ($q) use ($templateName) {
+            $q->where('name', $templateName);
+        })->first();
+
+        return $template;
     }
 
     /**
@@ -168,19 +170,6 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param $url
-     * @param $text
-     * @return string
-     */
-    private function button($url, $text)
-    {
-        $linkClass = 'button button-primary';
-        $linkStyle = 'font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Helvetica, Arial, sans-serif, \'Apple Color Emoji\', \'Segoe UI Emoji\', \'Segoe UI Symbol\'; box-sizing: border-box; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); color: #FFF; display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; background-color: #3490DC; border-top: 10px solid #3490DC; border-right: 18px solid #3490DC; border-bottom: 10px solid #3490DC; border-left: 18px solid #3490DC;';
-
-        return sprintf('<a class="%s" style="%s" href="%s">%s</a>', $linkClass, $linkStyle, $url, $text);
-    }
-
-    /**
      * @param $context
      * @param $field
      * @return string
@@ -199,12 +188,25 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
+     * @param $url
+     * @param $text
+     * @return string
+     */
+    private function button($url, $text)
+    {
+        $linkClass = 'button button-primary';
+        $linkStyle = 'font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Helvetica, Arial, sans-serif, \'Apple Color Emoji\', \'Segoe UI Emoji\', \'Segoe UI Symbol\'; box-sizing: border-box; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); color: #FFF; display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; background-color: #3490DC; border-top: 10px solid #3490DC; border-right: 18px solid #3490DC; border-bottom: 10px solid #3490DC; border-left: 18px solid #3490DC;';
+
+        return sprintf('<a class="%s" style="%s" href="%s">%s</a>', $linkClass, $linkStyle, $url, $text);
+    }
+
+    /**
      * @param Template $template
      * @param $tagMap
      * @param $lang
      * @return array
      */
-    public function getParsedTemplate($template, $tagMap, $lang = ''): array
+    public function getParsedTemplateData($template, $tagMap, $lang = ''): array
     {
         if (!$template) {
             return [
@@ -213,38 +215,54 @@ class TemplateRepository extends BaseRepository
             ];
         }
 
-        $languages = Config::get('app.locales');
-        $userLanguage = in_array($lang, array_keys($languages)) ? $lang : Config::get('app.locale');
-
-        $subject = $template->subject;
-        $body = $template->body;
-
-        $translations = $template->translations()->where('language', $userLanguage)->get();
-        foreach ($translations as $translation) {
-            if ($translation->name == "subject") {
-                $subject = $translation->value;
-            }
-
-            if ($translation->name == "body") {
-                $body = $translation->value;
-            }
-        }
-
-        foreach ($tagMap as $tag => $value) {
-            $subject = str_replace('{{' . $tag . '}}', $value, $subject);
-        }
-
-        foreach ($tagMap as $tag => $value) {
-            $body = str_replace('{{' . $tag . '}}', $value, $body);
-        }
+        $template = self::getParsedTemplate($template, $tagMap, $lang);
 
         $rl = (new RealEstate())->first();
 
         return [
-            'subject' => $subject,
-            'body' => $body,
+            'subject' => $template->subject,
+            'body' => $template->body,
             'settings' => $rl,
         ];
+    }
+
+    /**
+     * @param Template $template
+     * @param $tagMap
+     * @param $lang
+     *
+     * @return Template
+     */
+    public function getParsedTemplate($template, $tagMap, $lang = ''): Template
+    {
+        if (!$template) {
+            return null;
+        }
+
+        $languages = Config::get('app.locales');
+        $userLanguage = in_array($lang, array_keys($languages)) ? $lang : Config::get('app.locale');
+
+        $translations = $template->translations()->where('language', $userLanguage)->get();
+        $templateFields = [
+            'subject',
+            'body'
+        ];
+
+        foreach ($translations as $translation) {
+            foreach ($templateFields as $field) {
+                if ($translation->name == $field) {
+                    $template->$field = $translation->value;
+                }
+            }
+        }
+
+        foreach ($templateFields as $field) {
+            foreach ($tagMap as $tag => $value) {
+                $template->$field = str_replace('{{' . $tag . '}}', $value, $template->$field);
+            }
+        }
+
+        return $template;
     }
 
     /**
@@ -261,7 +279,7 @@ class TemplateRepository extends BaseRepository
             'pwReset' => $pwReset,
         ];
         $tags = $this->getTags($template->category->tag_map, $context);
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplateData($template, $tags);
     }
 
     /**
@@ -277,7 +295,7 @@ class TemplateRepository extends BaseRepository
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplateData($template, $tags);
     }
 
     /**
@@ -295,7 +313,7 @@ class TemplateRepository extends BaseRepository
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplateData($template, $tags);
     }
 
     /**
@@ -312,7 +330,7 @@ class TemplateRepository extends BaseRepository
         ];
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags, $tenant->user->settings->language);
+        return $this->getParsedTemplateData($template, $tags, $tenant->user->settings->language);
     }
 
     /**
@@ -331,7 +349,7 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags, $user->settings->language);
+        return $this->getParsedTemplateData($template, $tags, $user->settings->language);
     }
 
     /**
@@ -352,7 +370,7 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags, $post->user->settings->language);
+        return $this->getParsedTemplateData($template, $tags, $post->user->settings->language);
     }
 
     /**
@@ -371,7 +389,7 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags, $post->user->settings->language);
+        return $this->getParsedTemplateData($template, $tags, $post->user->settings->language);
     }
 
     /**
@@ -390,7 +408,7 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags, $product->user->settings->language);
+        return $this->getParsedTemplateData($template, $tags, $product->user->settings->language);
     }
 
     /**
@@ -411,7 +429,7 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags, $product->user->settings->language);
+        return $this->getParsedTemplateData($template, $tags, $product->user->settings->language);
     }
 
     /**
@@ -432,7 +450,48 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplateData($template, $tags, $user->settings->language);
+    }
+
+    /**
+     * @param ServiceRequest $sr
+     * @param User $user
+     * @param Comment $comment
+     * @return array
+     */
+    public function getRequestCommentedParsedTemplate(ServiceRequest $sr, User $user, Comment $comment): array
+    {
+        $template = $this->getByCategoryName('request_comment');
+
+        $context = [
+            'request' => $sr,
+            'comment' => $comment,
+            'user' => $user,
+        ];
+
+        $tags = $this->gettags($template->category->tag_map, $context);
+
+        return $this->getparsedtemplatedata($template, $tags, $user->settings->language);
+    }
+
+    /**
+     * @param ServiceRequest $sr
+     * @param ServiceRequest $osr
+     * @param User $user
+     * @return array
+     */
+    public function getRequestStatusChangedParsedTemplate(ServiceRequest $sr, ServiceRequest $osr, User $user): array
+    {
+        $template = $this->getByCategoryName('request_admin_change_status');
+
+        $context = [
+            'request' => $sr,
+            'originalRequest' => $osr,
+            'user' => $user,
+        ];
+        $tags = $this->gettags($template->category->tag_map, $context);
+
+        return $this->getparsedtemplatedata($template, $tags, $user->settings->language);
     }
 
     /**
@@ -449,28 +508,46 @@ class TemplateRepository extends BaseRepository
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplate($template, $tags);
+        return $this->getParsedTemplateData($template, $tags, $creq->user->settings->language);
     }
 
     /**
-     * @param $id
+     * @param ServiceRequest $serviceReq
+     * @param User $user
+     * @return Collection
+     */
+    public function getParsedCommunicationTemplates(ServiceRequest $serviceReq, User $user): Collection
+    {
+        $templates = (new Template())->whereHas('category', function ($q) {
+            $q->where('type', TemplateCategory::TypeCommunication);
+        })->get();
+
+        foreach ($templates as $template) {
+            $template = self::getCommunicationTemplate($template, $serviceReq, $user);
+        }
+
+        return $templates;
+    }
+
+    /**
+     * @param Template $template
      * @param ServiceRequest $request
      * @param User $user
-     * @return string
+     *
+     * @return Template
      */
-    public function getCommunicationTemplate($id, ServiceRequest $request, User $user): string
+    public function getCommunicationTemplate(Template $template, ServiceRequest $request, User $user): Template
     {
-        $template = $this->with(['category'])->find($id);
-
         $context = [
             'user' => $user,
+            'subject' => $request->tenant->user,
             'request' => $request,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        $response = $this->getParsedTemplate($template, $tags);
+        $parsedTemplate = $this->getParsedTemplate($template, $tags);
 
-        return $response['subject'];
+        return $parsedTemplate;
     }
 }

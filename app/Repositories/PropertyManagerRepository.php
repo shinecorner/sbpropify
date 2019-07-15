@@ -110,4 +110,12 @@ class PropertyManagerRepository extends BaseRepository
 
         return $buildings->union($districts)->orderBy('name');
     }
+
+    public function assignmentsWithIds(array $ids)
+    {
+        $buildings = Building::select(\DB::raw('buildings.id, buildings.name, "building" as type'))
+            ->join('building_property_manager', 'building_id', '=', 'buildings.id')
+            ->whereIn('building_property_manager.property_manager_id', $ids);
+        return $buildings;
+    }
 }

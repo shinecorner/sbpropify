@@ -132,5 +132,14 @@ export default {
                 reject(error.response.data);
             });
         });
+    },
+    getIDsAssignmentsCount({}, payload) {       
+        return new Promise((resolve, reject) => {
+            axios.post(`propertyManagers/idsassignments`, payload).then((response) => {    
+                resolve(response.data);
+            }).catch((error) => {
+                reject(error.response.data);
+            });
+        });
     }
 }
