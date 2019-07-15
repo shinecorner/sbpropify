@@ -661,6 +661,8 @@ export default {
             recipients: 'Recipients',
             assign: 'Assign',
             images: 'Images',
+            request_details: 'Request details',
+            internal_notices: 'Internal notices',
             assignmentTypes: {
                 services: 'Services',
                 managers: 'Managers'

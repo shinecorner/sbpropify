@@ -103,7 +103,7 @@
 
                             <el-tabs v-model="activeTab1">
 
-                                <el-tab-pane label="Request details" name="request_details">
+                                <el-tab-pane :label="$t('models.request.request_details')" name="request_details">
                                     <el-form-item :label="$t('models.request.prop_title')" :rules="validationRules.title"
                                                   prop="title">
                                         <el-input :disabled="$can($permissions.update.serviceRequest)" type="text"
@@ -120,7 +120,7 @@
                                     </el-form-item>
                                 </el-tab-pane>
 
-                                <el-tab-pane label="Images" name="request_images">
+                                <el-tab-pane :label="$t('models.request.images')" name="request_images">
                                     <div slot="header">
                                         <p class="comments-header">{{$t('models.request.images')}}</p>
                                     </div>
@@ -284,7 +284,7 @@
                                 <el-tab-pane :label="$t('models.request.comments')" name="comments">
                                     <chat :id="model.id" type="request"/>
                                 </el-tab-pane>
-                                <el-tab-pane label="Internal Notices"></el-tab-pane>
+                                <el-tab-pane :label="$t('models.request.internal_notices')"></el-tab-pane>
                             </el-tabs>
                         </card>
                     </el-col>
