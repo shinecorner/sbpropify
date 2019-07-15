@@ -21,6 +21,14 @@ trait UniqueIDFormat
         $format = strtoupper($format);
         $format .= '_FORMAT';
         $format = env($format, 'TE-YYYYMMDD150ID');
+
+        $len = strlen($id);
+        if ($len < 6) {
+            for ($i = 0; $i < (6 - $len); $i++) {
+                $id = '0' . $id;
+            }
+        }
+
         return str_replace(['ID', 'YYYYMMDD'], [$id, $date->format('Ymd')], $format);
     }
 }
