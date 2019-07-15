@@ -11,10 +11,12 @@ use App\Models\Tenant;
 use App\Models\User;
 use App\Notifications\NewTenantRequest;
 use App\Notifications\RequestCommented;
+use App\Notifications\RequestMedia;
 use App\Notifications\StatusChangedRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use InfyOm\Generator\Common\BaseRepository;
+use Spatie\MediaLibrary\Models\Media;
 
 /**
  * Class ServiceRequestRepository
@@ -272,6 +274,24 @@ class ServiceRequestRepository extends BaseRepository
     }
 
     /**
+     * @param ServiceRequest $serviceRequest
+     * @param User $uploader
+     * @param Media $media
+     */
+    public function notifyMedia(ServiceRequest $sr, User $uploader, Media $media)
+    {
+        $i = 0;
+        foreach ($sr->allPeople as $person) {
+            $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
+
+            if ($person->id != $uploader->id) {
+                $person->notify((new RequestMedia($sr, $uploader, $media))
+                    ->delay(now()->addSeconds($delay)));
+            }
+        }
+    }
+
+    /**
      * @param ServiceRequest $sr
      * @param ServiceProvider $sp
      * @param $assignees
@@ -368,7 +388,7 @@ class ServiceRequestRepository extends BaseRepository
         return $ps->union($as);
     }
 
-    public function deleteRequesetWithUnitIds($ids) 
+    public function deleteRequesetWithUnitIds($ids)
     {
         return $this->model->whereIn('unit_id', $ids)->delete();
     }
