@@ -372,4 +372,9 @@ class ServiceRequestRepository extends BaseRepository
     {
         return $this->model->whereIn('unit_id', $ids)->delete();
     }
+
+    public function getRequestCountWithUnitIds($ids)
+    {
+        return $this->model->whereIn('unit_id', $ids)->count();
+    }
 }

@@ -401,18 +401,18 @@ class BuildingAPIController extends AppBaseController
         if (empty($buildings)) {
             return $this->sendError('Building not found');
         }        
-
+        
         try {
             foreach($buildings as $building) {
                 $this->buildingRepository->delete($building->id);
             }
             $units = $this->unitRepository->getUnitsIdwithBuildingIds($buildings->pluck('id'));
 
-            if($request->get('is_delete_request')) {
+            if($request->get('deleteStatus') == 1 || $request->get('deleteStatus') == 2) {
                 $this->serviceRequestRepository->deleteRequesetWithUnitIds($units->pluck('id'));
             }            
 
-            if($request->get('is_delete_units')) {                
+            if($request->get('deleteStatus') == 0 || $request->get('deleteStatus') == 2) {                
                 $this->unitRepository->deleteUnitWithBuilding($buildings->pluck('id'));                
             }            
 
@@ -422,6 +422,43 @@ class BuildingAPIController extends AppBaseController
             return $this->sendError('Building deleted error: ' . $e->getMessage());
         }
         
+    }
+
+    public function checkUnitRequest(Request $request)
+    {
+        $buildings = $this->buildingRepository->findWithoutFail($request->get('ids'));
+        if (empty($buildings)) {
+            return $this->sendError('Building not found');
+        }
+
+        try {            
+            $units = $this->unitRepository->getUnitsIdwithBuildingIds($buildings->pluck('id'));
+            $returnValue = [
+                'isUnitExist' => false,
+                'isRequestExist' => false,
+            ];
+            
+            if(count($units) > 0) {
+                $request['isUnitExist'] = true;
+            }
+
+            if($this->serviceRequestRepository->getRequestCountWithUnitIds($units->pluck('id')) > 0){
+                $request['isRequestExist'] = true;
+            }
+
+            $returnValue = -1;
+            if($request['isUnitExist'] && $request['isRequestExist'])
+                $returnValue = 2;
+            else if($request['isUnitExist'] && !$request['isRequestExist'])
+                $returnValue = 0;
+            else if(!$request['isUnitExist'] && $request['isRequestExist'])
+                $returnValue = 1;
+
+            return $this->sendResponse($returnValue, 'Building deleted successfully');
+
+        } catch (\Exception $e) {
+            return $this->sendError('Building deleted error: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -586,5 +623,5 @@ class BuildingAPIController extends AppBaseController
         $response = (new BuildingTransformer)->transform($building);
         return $this->sendResponse($response, 'Property unassigned successfully');
     }
-
+    
 }

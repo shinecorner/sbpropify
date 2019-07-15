@@ -351,9 +351,9 @@ export default {
             },
             delete_building_modal: {
                 title: "Delete Building(s)",
-                description: "Lorem. Ipsum. Dolor sit amet.",
-                unite_label: "Unit(s)",
-                request_label: "Request"
+                description_unit: "Der ausgewählten Liegenschaft sind Einheiten zugewiesen. Wenn dieses auch gelöscht werden sollen, dann aktivieren Sie die unten stehende Option.",
+                description_request: "Der ausgewählten Liegenschaft sind Anfragen zugewiesen. Wenn dieses auch gelöscht werden sollen, dann aktivieren Sie die unten stehende Option.",
+                description_both: "Der ausgewählten Liegenschaft sind Einheiten und Anfragen zugewiesen. Wenn diese auch gelöscht werden sollen, dann aktivieren Sie die unten stehende Optionen."
             }
         },
         unit: {

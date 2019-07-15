@@ -351,9 +351,9 @@ export default {
             },
             delete_building_modal: {
                 title: "Delete Building(s)",
-                description: "Lorem. Ipsum. Dolor sit amet.",
-                unite_label: "Unit(s)",
-                request_label: "Request"
+                description_unit: "Units are assigned to the selected property. If you want to delete the units as well, please activate the option below.",
+                description_request: "Requests are assigned to the selected property. If you also want to delete request as well, please activate the option below.",
+                description_both: "Units and requests are assigned to the selected property. If you also want to delete them, please activate the options below."
             }
         },
         unit: {

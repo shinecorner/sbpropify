@@ -98,5 +98,12 @@ export default {
                 resolve(resp.data);
             }).catch((error) => reject(error));
         });
+    },
+    checkUnitRequestWidthIds({}, payload) {
+        return new Promise((resolve, reject) => {
+            axios.post(`buildings/checkunitrequest`, {...payload}).then((resp) => {                
+                resolve(resp.data);
+            }).catch((error) => reject(error));
+        });
     }    
 }

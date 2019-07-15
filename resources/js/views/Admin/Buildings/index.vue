@@ -72,17 +72,15 @@
             
             <el-row>
                 <el-col :span="24">
-                    <p class="description">{{$t('models.building.delete_building_modal.description')}}</p>                    
+                    <p class="description">{{getDelBuildingDescription()}}</p>                    
                 </el-col>
             </el-row>
-            <el-form label-width="70px">
-                <el-form-item :label="$t('models.building.delete_building_modal.unite_label')">
-                    <el-switch v-model="isDeleteUnits" />
-                </el-form-item>
-                <el-form-item :label="$t('models.building.delete_building_modal.request_label')">
-                    <el-switch v-model="isDeleteRequests" />
-                </el-form-item>
-            </el-form>
+            <el-row>
+                <el-col :span="24">
+                    <el-switch v-model="isDelBuildingOption" />
+                </el-col>
+            </el-row>
+
             <span class="dialog-footer" slot="footer">
                 <el-button @click="closeDeleteBuildModal" size="mini">{{$t('models.building.cancel')}}</el-button>
                 <el-button @click="deleteSelectedBuilding" size="mini" type="danger">{{$t('models.building.delete')}}</el-button>
@@ -126,8 +124,8 @@
                 toAssignList: '',
                 toAssign: [],
                 remoteLoading: false,
-                isDeleteUnits: 0,
-                isDeleteRequests: 0,
+                delBuildingStatus: -1, // 0: unit, 1: request, 2: both
+                isDelBuildingOption: 0,
                 header: [{
                     label: this.$t('models.request.address'),
                     withMultipleProps: true,
@@ -258,7 +256,7 @@
             }
         },
         methods: {
-            ...mapActions(['getPropertyManagers', 'batchAssignUsersToBuilding', 'deleteBuildingWithIds']),
+            ...mapActions(['getPropertyManagers', 'batchAssignUsersToBuilding', 'deleteBuildingWithIds', 'checkUnitRequestWidthIds']),
             prepareFilters(property) {
                 return Object.keys(this.requestConstants[property]).map((id) => {
                     return {
@@ -346,17 +344,40 @@
                 this.toAssignList = [];
                 this.toAssign = [];
             },
-            batchDeleteBuilding() {
-                this.isDeleteUnits = 0;
-                this.isDeleteRequests = 0;
-                this.deleteBuildingVisible = true;
-            },            
+            async batchDeleteBuilding() {
+                try {                    
+                    const resp = await this.checkUnitRequestWidthIds({ids:_.map(this.selectedItems, 'id')});                    
+                    this.delBuildingStatus = resp.data;
+
+                    if(this.delBuildingStatus == -1) {
+                        this.$confirm('This action is irreversible. Please proceed with caution.', 'Are you sure?', {
+                            type: 'warning'
+                        }).then(() => {
+                            Promise.all(this.selectedItems.map((item) => {
+                                return this.deleteBuilding(item)
+                                    .then(r => {
+                                        displaySuccess(r);
+                                    })
+                                    .catch(err => displayError(err));
+                            })).then(() => {
+                                this.fetchMore();
+                            })
+                        }).catch(() => {
+                        });
+                    }else {
+                        this.deleteBuildingVisible = true;
+                    }
+                } catch(err) {
+                    displayError(err);
+                } finally {
+                    this.isDelBuildingOption = 0;                    
+                }
+            },     
             async deleteSelectedBuilding() {
                 try {
                     const resp = await this.deleteBuildingWithIds({
                         ids: _.map(this.selectedItems, 'id'),
-                        is_delete_units: this.isDeleteUnits,
-                        is_delete_request: this.isDeleteRequests
+                        deleteStatus: (this.isDelBuildingOption)? this.delBuildingStatus: -1,
                     });
                     this.deleteBuildingVisible = false;
                     displaySuccess(resp);                    
@@ -368,6 +389,18 @@
             },
             closeDeleteBuildModal() {
                 this.deleteBuildingVisible = false;
+            },
+            getDelBuildingDescription() {
+                switch(this.delBuildingStatus) {
+                    case 0:
+                        return this.$t('models.building.delete_building_modal.description_unit');
+                    case 1:
+                        return this.$t('models.building.delete_building_modal.description_request');
+                    case 2:
+                        return this.$t('models.building.delete_building_modal.description_both');
+                    default:
+                        return "";
+                }
             }
         }
     };
