@@ -198,7 +198,9 @@
                 :width="column.width"
                 v-for="(column, key) in headerWithBadges">
                 <template slot-scope="scope">
-                    <el-button round>{{ scope.row[column.prop] }}</el-button>
+                    <el-button v-if="scope.row[column.prop] == 'low'" class="btn-priority-badge" :size="column.size" round>{{ scope.row[column.prop] }}</el-button>
+                    <el-button v-else-if="scope.row[column.prop] == 'normal'" plain type="warning" class="btn-priority-badge" :size="column.size" round>{{ scope.row[column.prop] }}</el-button>
+                    <el-button v-else-if="scope.row[column.prop] == 'urgent'" plain type="danger" class="btn-priority-badge" :size="column.size" round>{{ scope.row[column.prop] }}</el-button>
                 </template>
             </el-table-column>
             <el-table-column
@@ -206,9 +208,8 @@
                 :label="column.label"
                 v-for="(column, key) in headerWithSelect">
                 <template slot-scope="scope">
-                    <el-select @change="column.select.onChange(scope.row)" v-model="scope.row[column.prop]">
+                    <el-select :class="column.class" @change="column.select.onChange(scope.row)" v-model="scope.row[column.prop]">
                         <el-option
-                            :disabled="isDisabled(column.select, scope.row[column.prop], item.id)"
                             :key="item.id"
                             :label="item.name"
                             :value="item.id"
@@ -750,6 +751,10 @@
         }
     }
 
+    .btn-priority-badge {
+        pointer-events:none;
+    }
+
 </style>
 
 <style lang="scss">
@@ -764,5 +769,14 @@
         text-decoration: none;
         color: #6AC06F;
         font-weight: bold;
+    }
+
+    .rounded-select .el-input .el-input__inner {
+        border-radius: 20px;
+        height: 32px;
+    }
+
+    .rounded-select .el-input .el-input__suffix {
+        top: 5px;
     }
 </style>
