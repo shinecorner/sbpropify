@@ -318,7 +318,6 @@ class PostAPIController extends AppBaseController
         $input = $request->only(Post::Fillable);
         $input['type'] = $request->pinned ? Post::TypePinned : Post::TypeArticle;
         $status = $input['status'];
-        unset($input['status']);
 
         /** @var Post $post */
         $post = $this->postRepository->findWithoutFail($id);
