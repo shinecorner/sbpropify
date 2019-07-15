@@ -97,134 +97,171 @@
                     title: this.$t('menu.buildings'),
                     permission: this.$permissions.list.user,
                     children: [{
-                        title: this.$t('menu.all_buildgit
-                        name: 'adminRequestsActivity'
+                        title: this.$t('menu.all_buildings'),
+                        icon: 'ti-home',
+                        permission: this.$permissions.list.building,
+                        route: {
+                            name: 'adminBuildings'
+                        }
+                    }, {
+                        title: this.$t('menu.units'),
+                        icon: 'ti-home',
+                        permission: this.$permissions.list.unit,
+                        route: {
+                            name: 'adminUnits'
+                        }
+                    }, {
+                        title: this.$t('menu.districts'),
+                        icon: 'ti-home',
+                        permission: this.$permissions.list.district,
+                        route: {
+                            name: 'adminDistricts'
+                        }
+                    }]
+                }, {
+                    icon: 'ti-user',
+                    title: this.$t('menu.requests'),
+                    permission: this.$permissions.list.request,
+                    children: [{
+                        icon: 'ti-user',
+                        title: this.$t('menu.all_requests'),
+                        permission: this.$permissions.list.request,
+                        route: {
+                            name: 'adminRequests'
+                        }
+                    }, {
+                        icon: 'ti-announcement',
+                        title: this.$t('menu.activity'),
+                        nestedItem: true,
+                        permission: this.$permissions.list.audit,
+                        route: {
+                            name: 'adminRequestsActivity'
+                        }
+                    }, {
+                        icon: 'ti-user',
+                        title: this.$t('menu.services'),
+                        permission: this.$permissions.list.provider,
+                        nestedItem: true,
+                        route: {
+                            name: 'adminServices'
+                        }
+                    }]
+                }, {
+                    title: this.$t('menu.posts'),
+                    icon: 'ti-announcement',
+                    permission: this.$permissions.list.post,
+                    route: {
+                        name: 'adminPosts'
+                    }
+                }, {
+                    title: this.$t('menu.products'),
+                    icon: 'ti-announcement',
+                    permission: this.$permissions.list.product,
+                    route: {
+                        name: 'adminProducts'
                     }
                 }, {
                     icon: 'ti-user',
-                    title: this.$t('menu.services'),
-                    permission: this.$permissions.list.provider,
-                    nestedItem: true,
-                    route: {
-                        name: 'adminServices'
-                    }
-                }]
-            }, {
-        title: this.$t('menu.posts'),
-            icon: 'ti-announcement',
-            permission: this.$permissions.list.post,
-            route: {
-            name: 'adminPosts'
-        }
-    }, {
-        title: this.$t('menu.products'),
-            icon: 'ti-announcement',
-            permission: this.$permissions.list.product,
-            route: {
-            name: 'adminProducts'
-        }
-    }, {
-        icon: 'ti-user',
-            title: this.$t('menu.users'),
-            permission: this.$permissions.list.user,
-            children: [{
-            title: this.$t('menu.tenants'),
-            icon: 'ti-user',
-            permission: this.$permissions.list.tenant,
-            route: {
-                name: 'adminTenants'
+                    title: this.$t('menu.users'),
+                    permission: this.$permissions.list.user,
+                    children: [{
+                        title: this.$t('menu.tenants'),
+                        icon: 'ti-user',
+                        permission: this.$permissions.list.tenant,
+                        route: {
+                            name: 'adminTenants'
+                        }
+                    }, {
+                        icon: 'ti-user',
+                        title: this.$t('menu.propertyManagers'),
+                        permission: this.$permissions.list.propertyManager,
+                        route: {
+                            name: 'adminPropertyManagers'
+                        }
+                    }, {
+                        title: this.$t('menu.admins'),
+                        route: {
+                            name: 'adminUsers',
+                            query: {
+                                role: 'administrator'
+                            }
+                        }
+                    }, {
+                        title: this.$t('menu.super_admins'),
+                        route: {
+                            name: 'adminUsers',
+                            query: {
+                                role: 'super_admin'
+                            }
+                        }
+                    }]
+                }];
             }
-        }, {
-            icon: 'ti-user',
-            title: this.$t('menu.propertyManagers'),
-            permission: this.$permissions.list.propertyManager,
-            route: {
-                name: 'adminPropertyManagers'
-            }
-        }, {
-            title: this.$t('menu.admins'),
-            route: {
-                name: 'adminUsers',
-                query: {
-                    role: 'administrator'
-                }
-            }
-        }, {
-            title: this.$t('menu.super_admins'),
-            route: {
-                name: 'adminUsers',
-                query: {
-                    role: 'super_admin'
-                }
-            }
-        }]
-    }];
-    }
-    },
-    methods: {
-    ...mapActions(['logout']),
-    ...mapActions(['updateSettings']),
+        },
+        methods: {
+            ...mapActions(['logout']),
+            ...mapActions(['updateSettings']),
             toggleFullscreen() {
-            if (document.fullscreenElement) {
-                this.fullScreenText = 'Enter fullscreen mode';
+                if (document.fullscreenElement) {
+                    this.fullScreenText = 'Enter fullscreen mode';
 
-                document.exitFullscreen();
-            } else {
-                this.fullScreenText = 'Exit fullscreen mode';
+                    document.exitFullscreen();
+                } else {
+                    this.fullScreenText = 'Exit fullscreen mode';
 
-                document.documentElement.requestFullscreen();
-            }
-        },
-        handleLogout() {
-            this.$confirm('You will be logged out.', 'Are you sure?', {
-                type: 'warning'
-            }).then(() => {
-                this.logout()
-                    .then(() => this.$router.push({name: 'login'}))
-                    .catch(err => displayError(err));
-            }).catch(() => {
-            });
-        },
-        toggleShow: function() {
-            this.showMenu = !this.showMenu;
-        },
-        itemClicked: function(item, flag) {
-            this.toggleShow();
-            this.onClick(item, flag);
-        },
-        changeLanguage: function(language) {
-            this.activeLanguage = language;
-        },
-        onClick(language, flag){
-            this.$i18n.locale = language;
-            this.selectedFlag = flag;
+                    document.documentElement.requestFullscreen();
+                }
+            },
+            handleLogout() {
+                this.$confirm('You will be logged out.', 'Are you sure?', {
+                    type: 'warning'
+                }).then(() => {
+                    this.logout()
+                        .then(() => this.$router.push({name: 'login'}))
+                        .catch(err => displayError(err));
+                }).catch(() => {
+                });
+            },
+            toggleShow: function() {
+                this.showMenu = !this.showMenu;
+            },
+            itemClicked: function(item, flag) {
+                this.toggleShow();
+                this.onClick(item, flag);
+            },
+            changeLanguage: function(language) {
+                this.activeLanguage = language;
+            },
+            onClick(language, flag){
+                this.$i18n.locale = language;
+                this.selectedFlag = flag;
 
-            console.log('language --- ', this.$i18n.locale);
+                console.log('language --- ', this.$i18n.locale);
 
-            this.toggleShow();
-        },
-        init(){
-            if(this.user.settings.language === 'en'){
-                this.selectedFlag = `flag-icon flag-icon-us`;
-            }else {
-                this.selectedFlag = `flag-icon flag-icon-${this.user.settings.language}`;
-            }
-        }
-
-    },
-    mounted(){
-        this.init();
-        this.$store.subscribe((mutation, state) => {
-            if(mutation.type === "SET_LOGGED_IN_USER"){
-
+                this.toggleShow();
+            },
+            init(){
                 if(this.user.settings.language === 'en'){
                     this.selectedFlag = `flag-icon flag-icon-us`;
                 }else {
-                    this.selectedFlag = `flag-icon flag-icon-${mutation.payload.settings.language}`;
+                    this.selectedFlag = `flag-icon flag-icon-${this.user.settings.language}`;
                 }
             }
-        })
-    },
+
+        },
+        mounted(){
+            this.init();
+            this.$store.subscribe((mutation, state) => {
+                if(mutation.type === "SET_LOGGED_IN_USER"){
+
+                    if(this.user.settings.language === 'en'){
+                        this.selectedFlag = `flag-icon flag-icon-us`;
+                    }else {
+                        this.selectedFlag = `flag-icon flag-icon-${mutation.payload.settings.language}`;
+                    }
+                }
+            })
+        },
 
 
     }
