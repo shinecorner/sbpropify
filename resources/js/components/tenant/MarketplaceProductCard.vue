@@ -16,8 +16,7 @@
             <el-tag class="price" effect="dark" :type="isFree ? 'success':'info'" disable-transitions>
                 <template v-if="isFree">Free</template>
                 <template v-else>
-                    {{data.price.split('.')[0]}}
-                    <small class="decimals">.{{data.price.split('.')[1]}}</small>
+                    {{data.price.split('.')[0]}}.{{data.price.split('.')[1]}}
                     CHF
                 </template>
             </el-tag>
@@ -70,7 +69,7 @@
     .product {
         background-color: #fff;
         border: 1px darken(#fff, 12%) solid;
-        border-radius: 6px; 
+        border-radius: 6px;
         // overflow: hidden;
         // will-change: transform;
 
@@ -105,7 +104,7 @@
                     justify-content: center;
                 }
             }
-            
+
             .el-tag.price {
                 position: absolute;
                 left: 0;
@@ -120,15 +119,6 @@
                 text-transform: uppercase;
                 box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
 
-                .decimals {
-                    position: relative;
-                    top: -4px;
-                    left: -4px;
-                    font-size: 80%;
-                    margin-right: -4px;
-                    font-weight: normal;
-                }
-                
                 &.el-tag--info {
                     background-color: #000;
                     border-color: #000;
@@ -150,5 +140,5 @@
                 color: darken(#fff, 40%);
             }
         }
-    } 
+    }
 </style>
