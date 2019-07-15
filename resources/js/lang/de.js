@@ -97,6 +97,14 @@ export default {
         propertyManagers: 'Bewirtschafter',
         templates: 'Vorlagen'
     },
+    dashboard:{
+        statistics: 'Statistiken',        
+        requests_by_creation_date: 'Anfragen nach Erstellungsdatum',
+        requests_by_status: 'Anfragen nach Status',
+        requests_by_category: 'Anfragen nach Kategorie',        
+        each_hour_request: 'Jede Stunde fordert',
+        average_request_duration: 'Lösungszeit'
+    },
     pages: {
         profile: {
             pageTitle: 'Profil-Einstellungen',
