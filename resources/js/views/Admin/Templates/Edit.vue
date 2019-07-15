@@ -1,6 +1,6 @@
 <template>
     <div class="templates-edit">
-        <heading :title="$t('models.template.edit')" icon="ti-user" style="margin-bottom: 20px;">
+        <heading :title="$t('models.template.edit')" icon="ti-user" shadow="heavy" style="margin-bottom: 20px;">
             <edit-actions :queryParams="{tab: 'templates'}" :saveAction="submit" route="adminSettings"/>
         </heading>
         <el-row :gutter="20" class="crud-view">

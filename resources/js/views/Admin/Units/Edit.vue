@@ -1,6 +1,6 @@
 <template>
     <div class="units-edit">
-        <heading :title="$t('models.unit.edit')" icon="ti-user" style="margin-bottom: 20px;">
+        <heading :title="$t('models.unit.edit')" icon="ti-user" style="margin-bottom: 20px;" shadow="heavy">
             <edit-actions :saveAction="submit" route="adminUnits"/>
         </heading>
         <el-row :gutter="20" class="crud-view">

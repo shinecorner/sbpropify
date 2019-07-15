@@ -1,6 +1,6 @@
 <template>
     <div class="buildings-edit ">
-        <heading :title="$t('models.building.edit_title')" icon="ti-home">
+        <heading :title="$t('models.building.edit_title')" icon="ti-home" shadow="heavy">
             <edit-actions :saveAction="submit" route="adminBuildings"/>
         </heading>
         <el-row :gutter="20" class="crud-view">

@@ -1,6 +1,6 @@
 <template>
     <div class="buildings-add ">
-        <heading :title="$t('models.building.add')" icon="ti-home">
+        <heading :title="$t('models.building.add')" icon="ti-home" shadow="heavy">
             <add-actions :saveAction="submit" route="adminBuildings"/>
         </heading>
         <div class="crud-view">

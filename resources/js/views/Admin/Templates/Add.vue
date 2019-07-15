@@ -1,6 +1,6 @@
 <template>
     <div class="templates-add">
-        <heading :title="$t('models.template.add')" icon="ti-user" style="margin-bottom: 20px;"/>
+        <heading :title="$t('models.template.add')" icon="ti-user" shadow="heavy" style="margin-bottom: 20px;"/>
         <el-row :gutter="20" class="crud-view">
             <el-form :model="model" label-width="100px" ref="form">
                 <el-col :md="16">

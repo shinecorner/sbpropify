@@ -1,6 +1,6 @@
 <template>
     <div class="services-edit mb20">
-        <heading :title="$t('models.service.edit_title')" icon="ti-user">
+        <heading :title="$t('models.service.edit_title')" icon="ti-user" shadow="heavy">
             <edit-actions :saveAction="submit" route="adminServices"/>
         </heading>
         <el-row :gutter="20" class="crud-view">

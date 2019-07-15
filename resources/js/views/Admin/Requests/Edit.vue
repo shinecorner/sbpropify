@@ -1,6 +1,6 @@
 <template>
     <div class="services-edit mb20" v-if="constants">
-        <heading :title="$t('models.request.edit_title')" icon="ti-user">
+        <heading :title="$t('models.request.edit_title')" icon="ti-user" shadow="heavy">
             <edit-actions :saveAction="submit" route="adminRequests"/>
         </heading>
         <div class="crud-view">
