@@ -90,26 +90,53 @@
                                             <avatar :size="30"
                                                     :src="'/' + model.tenant.user.avatar"
                                                     v-if="model.tenant.user.avatar"></avatar>
+                                            <avatar :size="28"
+                                                    :username="model.tenant.user.first_name ? `${model.tenant.user.first_name} ${model.tenant.user.last_name}`: `${model.tenant.user.name}`"
+                                                    backgroundColor="rgb(205, 220, 57)"
+                                                    color="#fff"
+                                                    v-if="!model.tenant.user.avatar"></avatar>
                                             <span>{{model.tenant.first_name}} {{model.tenant.last_name}}</span>
                                         </router-link>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
 
-                            <el-form-item :label="$t('models.request.prop_title')" :rules="validationRules.title"
-                                          prop="title">
-                                <el-input :disabled="$can($permissions.update.serviceRequest)" type="text"
-                                          v-model="model.title"/>
-                            </el-form-item>
-                            <el-form-item :label="$t('models.request.description')" :rules="validationRules.description"
-                                          prop="description">
-                                <el-input
-                                    :autosize="{minRows: 16}"
-                                    :disabled="$can($permissions.update.serviceRequest)"
-                                    type="textarea"
-                                    v-model="model.description">
-                                </el-input>
-                            </el-form-item>
+                            <el-tabs v-model="activeName">
+
+                                <el-tab-pane label="Request details" name="first">
+                                    <el-form-item :label="$t('models.request.prop_title')" :rules="validationRules.title"
+                                                  prop="title">
+                                        <el-input :disabled="$can($permissions.update.serviceRequest)" type="text"
+                                                  v-model="model.title"/>
+                                    </el-form-item>
+                                    <el-form-item :label="$t('models.request.description')" :rules="validationRules.description"
+                                                  prop="description">
+                                        <el-input
+                                            :autosize="{minRows: 16}"
+                                            :disabled="$can($permissions.update.serviceRequest)"
+                                            type="textarea"
+                                            v-model="model.description">
+                                        </el-input>
+                                    </el-form-item>
+                                </el-tab-pane>
+
+                                <el-tab-pane label="Images" name="second">
+                                    <div slot="header">
+                                        <p class="comments-header">{{$t('models.request.images')}}</p>
+                                    </div>
+                                    <upload-document
+                                        @fileUploaded="uploadFiles"
+                                        class="drag-custom"
+                                        drag
+                                        multiple
+                                    />
+                                    <div class="mt15">
+                                        <request-media :data="[...model.media, ...media]" @deleteMedia="deleteMedia"
+                                                       v-if="media.length || (model.media && model.media.length)"></request-media>
+                                    </div>
+                                </el-tab-pane>
+
+                            </el-tabs>
 
                             <!--                            <el-form-item-->
                             <!--                                :label="$t('models.request.is_public')"-->
@@ -171,7 +198,6 @@
                                                        class="custom-select"
                                                        v-model="model.status">
                                                 <el-option
-                                                    :disabled="isDisabled(k)"
                                                     :key="k"
                                                     :label="$t(`models.request.status.${status}`)"
                                                     :value="parseInt(k)"
@@ -253,27 +279,13 @@
                             </card>
                         </template>
                         <!--                    v-if="(!$can($permissions.update.serviceRequest)) || ($can($permissions.update.serviceRequest) && (media.length || (model.media && model.media.length)))"-->
-                        <card :class="{'mt15': $can($permissions.assign.request)}"
-                        >
-                            <div slot="header">
-                                <p class="comments-header">{{$t('models.request.images')}}</p>
-                            </div>
-                            <upload-document
-                                @fileUploaded="uploadFiles"
-                                class="drag-custom"
-                                drag
-                                multiple
-                            />
-                            <div class="mt15">
-                                <request-media :data="[...model.media, ...media]" @deleteMedia="deleteMedia"
-                                               v-if="media.length || (model.media && model.media.length)"></request-media>
-                            </div>
-                        </card>
                         <card class="mt15" v-if="model.id">
-                            <div slot="header">
-                                <p class="comments-header">{{$t('models.request.comments')}}</p>
-                            </div>
-                            <chat :id="model.id" type="request" show-templates />
+                            <el-tabs v-model="activeName">
+                                <el-tab-pane :label="$t('models.request.comments')" name="first">
+                                    <chat :id="model.id" type="request"/>
+                                </el-tab-pane>
+                                <el-tab-pane label="Internal Notices"></el-tab-pane>
+                            </el-tabs>
                         </card>
                     </el-col>
                 </el-row>
@@ -326,6 +338,7 @@
         },
         data() {
             return {
+                activeName: 'first',
                 conversationVisible: false,
                 selectedConversation: {},
                 constants: this.$store.getters['application/constants'],
