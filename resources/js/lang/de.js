@@ -340,6 +340,12 @@ export default {
             },
             placeholders: {
                 search: 'Suchen'
+            },
+            delete_building_modal: {
+                title: "Delete Building(s)",
+                description: "Lorem. Ipsum. Dolor sit amet.",
+                unite_label: "Unit(s)",
+                request_label: "Request"
             }
         },
         unit: {
