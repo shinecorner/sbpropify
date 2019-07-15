@@ -13,14 +13,13 @@ trait UniqueIDFormat
      * @param $id
      * @return mixed
      */
-    public function getUniqueIDFormat($id){
-
-        $date = now();
+    public function getUniqueIDFormat($id)
+    {
         $format = $this->getTable();
         $format = Str::singular($format);
         $format = strtoupper($format);
         $format .= '_FORMAT';
-        $format = env($format, 'TE-YYYYMMDD150ID');
+        $format = env($format, 'TE-ID');
 
         $len = strlen($id);
         if ($len < 6) {
@@ -29,6 +28,6 @@ trait UniqueIDFormat
             }
         }
 
-        return str_replace(['ID', 'YYYYMMDD'], [$id, $date->format('Ymd')], $format);
+        return str_replace('ID', $id, $format);
     }
 }
