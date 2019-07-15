@@ -1009,6 +1009,26 @@ export default {
 
     components: {
         common: {
+            commentsList: {
+                loading: 'Loading...',
+                loadMore: {
+                    simple: 'Load {count} more',
+                    detailed: 'Load {count} more comments'
+                },
+                emptyPlaceholder: {
+                    title: 'There are no messages yet...',
+                    description: 'Start messaging by using the below form and press enter.'
+                }
+            },
+            comment: {
+                updateOrSave: '{update} or press {esc} to {cancel}',
+                update: 'update',
+                esc: 'ESC',
+                cancel: 'cancel',
+                addChildComment: 'Comment',
+                loadMore: 'Load 1 more comment | Load {count} more comments', 
+                deletedCommentPlaceholder: 'This comment was deleted.'
+            },
             addComment: {
                 placeholder: 'Type a comment...',
                 loadingTemplates: 'Loading templates...',
