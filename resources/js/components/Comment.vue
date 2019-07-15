@@ -1,5 +1,5 @@
 <template>
-    <div :class="{'is-reversed': reversed}" class="comment">
+    <div :class="['comment', {'is-reversed': reversed}]">
         <el-tooltip :content="data.user.name" :placement="reversed ? 'top-end':'top-start'" effect="dark">
             <template slot="content">
                 {{data.user.name}}
@@ -8,7 +8,7 @@
             <avatar ref="avatar" :name="data.user.name" :size="32" :src="data.user.avatar" />
         </el-tooltip>
         <div ref="container" class="container">
-            <el-input ref="content" type="textarea" resize="none" v-if="idState.editing" v-model="comment" autosize :disabled="idState.loading.$_uid && idState.loading.visible" :validate-event="false" @keydown.native.alt.enter.exact="nextLine" @keydown.native.prevent.enter.exact="update" @keydown.native.stop.esc.exact="cancelEdit" />
+            <el-input ref="content" :class="{'is-focused': idState.focused}" type="textarea" resize="none" v-if="idState.editing" v-model="comment" autosize :disabled="idState.loading.$_uid && idState.loading.visible" :validate-event="false" @blur="idState.focused = false" @focus="idState.focused = true" @keydown.native.alt.enter.exact="update" @keydown.native.stop.esc.exact="cancelEdit" />
             <div class="content" :class="{'empty': !comment, 'disabled': idState.loading._isVue && idState.loading.visible}" v-else>
                 <div class="text">{{comment || 'This comment was deleted.'}}</div>
                 <div class="actions" v-if="hasActions">
@@ -23,10 +23,13 @@
         </div>
         <template v-if="idState.editing">
             <div class="extra">
-                Press
+                <el-button type="text" :disabled="idState.loading.$_uid && idState.loading.visible" @click="update">update</el-button>
+                or press
                 <el-tag size="mini">ESC</el-tag>
                 to
-                <el-button type="text" :disabled="idState.loading.$_uid && idState.loading.visible" @click="cancelEdit">cancel</el-button>
+                <el-button type="text" :disabled="idState.loading.$_uid && idState.loading.visible" @click="cancelEdit">
+                    cancel
+                </el-button>
             </div>
         </template>
         <el-button type="text" @click="showAddComment" v-else-if="!parentId && showChildren">Comment</el-button>
@@ -45,8 +48,8 @@
     import Loader from './SimpleLoader'
     import AddComment from './AddComment'
     import AgoMixin from 'mixins/agoMixin'
-    import {displaySuccess, displayError} from 'helpers/messages'
     import {IdState} from 'vue-virtual-scroller'
+    import {displaySuccess, displayError} from 'helpers/messages'
 
     export default {
         mixins: [
@@ -93,6 +96,7 @@
         idState () {
             return {
                 editing: false,
+                focused: false,
                 loading: {
                     visible: false
                 },
@@ -265,10 +269,98 @@
             width: calc(100% - 40px);
 
             .el-textarea {
+                position: relative;
                 margin: 2px 0;
+
+                &:before,
+                &:after {
+                    content: '';
+                    position: absolute;
+                    width: 0;
+                    height: 0;
+                    border-width: 0;
+                    border-style: solid;
+                    border-color: transparent;
+                    border-width: 0 0 8px 6px;
+                    transition: border-bottom-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+                }
+
+                &:before {
+                    left: -6px;
+                    bottom: 0;
+                }
+
+                &:after {
+                    left: -4px;
+                    bottom: 1px;
+                }
+
+                &.is-disabled:before {
+                    border-bottom-color: #E4E7ED;
+                }
+
+                &.is-disabled:after {
+                    border-bottom-color: #F5F7FB;
+                }
+
+                &:not(.is-disabled):after {
+                    border-bottom-color: #fff;
+                }
+
+                &:not(.is-disabled).is-focused:before {
+                    border-bottom-color: #6AC06F;
+                }
+
+                &:not(.is-disabled):not(.is-focused):before {
+                    border-bottom-color: #DCDFE6;
+                }
+
+                &:not(.is-disabled):not(.is-focused):hover:before {
+                    border-bottom-color: #C0C4CC;
+                }
+
+                &.is-focused :global(.el-textarea__inner)::-webkit-scrollbar-thumb {
+                    background-color: #6AC06F;
+                    box-shadow: inset -1px -1px 0px darken(#6AC06F, 4%), inset 1px 1px 0px darken(#6AC06F, 4%);
+                }
+
+                &:not(.is-focused) :global(.el-textarea__inner) {
+                    &:hover::-webkit-scrollbar-thumb {
+                        background-color: #C0C4CC;
+                        box-shadow: inset -1px -1px 0px darken(#C0C4CC, 4%), inset 1px 1px 0px darken(#C0C4CC, 4%);
+                    }
+
+                    &:not(:hover)::-webkit-scrollbar-thumb {
+                        background-color: #DCDFE6;
+                        box-shadow: inset -1px -1px 0px darken(#DCDFE6, 4%), inset 1px 1px 0px darken(#DCDFE6, 4%);
+                    }
+                }
+
                 :global(.el-textarea__inner) {
-                    padding: 5px 8px;
+                    padding: 6px 8px;
+                    border-radius: 12px;
+                    max-height: 256px;
+                    overflow-y: overlay;
+                    overflow-x: hidden;
+                    scrollbar-width: thin;
+                    overscroll-behavior: contain;
+                    border-bottom-left-radius: 0;
                     -webkit-appearance: none;
+                    -webkit-overflow-scrolling: touch;
+
+                    &::-webkit-scrollbar {
+                        width: 14px;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        border: 4px transparent solid;
+                        background-clip: padding-box;
+                        border-radius: 12px;
+                    }
+
+                    &::-webkit-scrollbar-thumb:window-inactive {
+                        background-color: lighten(#6AC06F, 16%);
+                    }
                 }
 
                 & + small {
