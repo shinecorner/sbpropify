@@ -129,7 +129,7 @@ class TemplateRepository extends BaseRepository
             if (count($valMap) == 3) {
                 if ($valMap[0] == 'constant') {
                     $val = self::getContextValue(${$valMap[1]}, $valMap[2]);
-                    $val = __('common.' . $val);
+                    $val = __('common.' . $valMap[1] . '_' . $valMap[2] . '_' . $val);
                     $tags[$tag] = $val;
                     continue;
                 }

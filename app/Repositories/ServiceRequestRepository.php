@@ -217,14 +217,14 @@ class ServiceRequestRepository extends BaseRepository
     }
 
     /**
-     * @param ServiceRequest $originaleRequest
+     * @param ServiceRequest $originalRequest
      * @param ServiceRequest $serviceRequest
      */
-    public function notifyStatusChange(ServiceRequest $originaleRequest, ServiceRequest $serviceRequest)
+    public function notifyStatusChange(ServiceRequest $originalRequest, ServiceRequest $serviceRequest)
     {
-        if ($originaleRequest->status != $serviceRequest->status) {
+        if ($originalRequest->status != $serviceRequest->status) {
             $user = $serviceRequest->tenant->user;
-            $user->notify(new StatusChangedRequest($serviceRequest, $originaleRequest, $user));
+            $user->notify(new StatusChangedRequest($serviceRequest, $originalRequest, $user));
         }
     }
 

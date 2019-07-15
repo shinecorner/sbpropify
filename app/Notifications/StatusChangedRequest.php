@@ -23,6 +23,7 @@ class StatusChangedRequest extends Notification implements ShouldQueue
 
     protected $request;
     protected $originalRequest;
+    protected $originalStatus;
     protected $user;
 
     /**
@@ -33,9 +34,10 @@ class StatusChangedRequest extends Notification implements ShouldQueue
      */
     public function __construct(ServiceRequest $request, ServiceRequest $originalRequest, User $user)
     {
-        $this->originalRequest = $originalRequest;
         $this->request = $request;
         $this->user = $user;
+        $this->originalRequest = $originalRequest;
+        $this->originalStatus = $originalRequest->status;
     }
 
     /**
@@ -57,6 +59,8 @@ class StatusChangedRequest extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $this->originalRequest->status = $this->originalStatus;
+
         $tRepo = new TemplateRepository(app());
         $msg = $tRepo->getRequestStatusChangedParsedTemplate($this->request, $this->originalRequest, $this->user);
 
@@ -84,8 +88,8 @@ class StatusChangedRequest extends Notification implements ShouldQueue
             'post_id' => $this->serviceRequest->id,
             'user_name' => 'test',
             'fragment' => sprintf('Request: %s status changed to:%',
-                $this->serviceRequest->title,
-                $this->serviceRequest->status
+                $this->request->title,
+                $this->request->status
             )
         ];
     }
