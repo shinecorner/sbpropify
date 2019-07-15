@@ -116,7 +116,8 @@ class Unit extends Model
         'monthly_rent' => 'float',
         'room_no' => 'float',
         'basement' => 'boolean',
-        'attic' => 'boolean'
+        'attic' => 'boolean',
+        'unit_format' => 'string'
     ];
 
     /**

@@ -19,8 +19,7 @@
                         <template v-else>
                             <div class="title">Price</div>
                             <div class="content">
-                                {{data.price.split('.')[0]}}
-                                <small>.{{data.price.split('.')[1]}}</small>
+                                {{data.price.split('.')[0]}}.{{data.price.split('.')[1]}}
                                 CHF
                             </div>
                         </template>
@@ -125,15 +124,6 @@
                                 font-size: 20px;
                                 font-weight: bold;
                                 color: #6AC06F;
-
-                                small {
-                                    position: relative;
-                                    top: -6px;
-                                    left: -4px;
-                                    font-size: 80%;
-                                    font-weight: normal;
-                                    margin-right: -4px;
-                                }
                             }
                         }
 
@@ -164,7 +154,7 @@
 
                     .el-button {
                         width: 100%;
-                        
+
                         & + .hint {
                             display: block;
                             line-height: 1.32;

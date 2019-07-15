@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -66,7 +67,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class PropertyManager extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, UniqueIDFormat;
 
     public $table = 'property_managers';
 
@@ -102,6 +103,7 @@ class PropertyManager extends Model
         'slogan',
         'xing_url',
         'linkedin_url',
+        'property_manager_format'
     ];
 
     protected $dates = ['deleted_at'];
@@ -121,7 +123,21 @@ class PropertyManager extends Model
         'slogan' => 'string',
         'xing_url' => 'string',
         'linkedin_url' => 'string',
+        'property_manager_format' => 'string'
     ];
+
+    /**
+     *
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($building) {
+            $building->property_manager_format = $building->getUniqueIDFormat($building->id);
+            $building->save();
+        });
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

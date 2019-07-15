@@ -22,6 +22,7 @@ class BuildingSimpleTransformer extends BaseTransformer
     {
         $response = [
             'id' => $model->id,
+            'building_format' => $model->building_format,
             'name' => $model->name,
             'label' => $model->label,
             'description' => $model->description,
