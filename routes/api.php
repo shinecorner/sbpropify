@@ -79,9 +79,10 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('/buildings', 'BuildingAPIController@store')->name('buildings.store');
     Route::post('/buildings/{id}/media', 'MediaAPIController@buildingUpload')->name('buildings.media.upload');
     Route::post('/buildings/{id}/propertyManagers', 'BuildingAPIController@assignManagers')->name('buildings.assign.managers');
+    Route::post('/buildings/deletewithids', 'BuildingAPIController@destroyWithIds')->name('buildings.destroyWithIds');
 
     Route::put('/buildings/{id}', 'BuildingAPIController@update')->name('buildings.update');
-
+        
     Route::delete('/buildings/{id}', 'BuildingAPIController@destroy')->name('buildings.destroy');
     Route::delete('/buildings/{building_id}/media/{media_id}', 'MediaAPIController@buildingDestroy')->name('buildings.media.destroy');
     Route::delete('/buildings/{building_id}/service/{service_id}', 'BuildingAPIController@serviceRemove')->name('buildings.service.destroy');

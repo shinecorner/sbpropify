@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class FillServiceRequestFormatInServiceRequestsTable extends Migration
+class AddProprertyManagerFormatInPropertyManagersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class FillServiceRequestFormatInServiceRequestsTable extends Migration
      */
     public function up()
     {
-        \App\Models\ServiceRequest::get(['id', 'created_at'])->each(function ($service_request) {
-            $service_request->service_request_format  = $service_request->getUniqueIDFormat($service_request->id, $service_request->created_at);
-            $service_request->save();
+        Schema::table('property_managers', function (Blueprint $table) {
+            $table->string('property_manager_format', 30)->after('user_id');
         });
     }
 
@@ -26,5 +25,8 @@ class FillServiceRequestFormatInServiceRequestsTable extends Migration
      */
     public function down()
     {
+        Schema::table('property_managers', function (Blueprint $table) {
+            $table->dropColumn('property_manager_format');
+        });
     }
 }

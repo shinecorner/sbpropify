@@ -102,7 +102,7 @@
             return {
                 header: [{
                     label: this.$t('models.propertyManager.name'),
-                    prop: 'user.name'
+                    prop: 'name'
                 }, {
                     label: this.$t('models.propertyManager.email'),
                     prop: 'user.email'

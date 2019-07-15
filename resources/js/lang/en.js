@@ -97,6 +97,14 @@ export default {
         propertyManagers: 'Property managers',
         templates: 'Templates'
     },
+    dashboard:{
+        statistics: 'Statistics',
+        requests_by_creation_date: 'Requests by creation date',
+        requests_by_status: 'Requests by status',
+        requests_by_category: 'Requests by category',        
+        each_hour_request: 'Each hour requests',
+        average_request_duration: 'Resolution time'
+    },
     pages: {
         profile: {
             pageTitle: 'Profile',
@@ -340,6 +348,12 @@ export default {
             },
             placeholders: {
                 search: 'Search'
+            },
+            delete_building_modal: {
+                title: "Delete Building(s)",
+                description: "Lorem. Ipsum. Dolor sit amet.",
+                unite_label: "Unit(s)",
+                request_label: "Request"
             }
         },
         unit: {

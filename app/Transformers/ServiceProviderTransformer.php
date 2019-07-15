@@ -27,6 +27,7 @@ class ServiceProviderTransformer extends BaseTransformer
             'name' => $model->name,
             'email' => $model->email,
             'phone' => $model->phone,
+            'service_provider_format' => $model->service_provider_format,
         ];
 
         if ($model->relationExists('user')) {

@@ -367,4 +367,9 @@ class ServiceRequestRepository extends BaseRepository
 
         return $ps->union($as);
     }
+
+    public function deleteRequesetWithUnitIds($ids) 
+    {
+        return $this->model->whereIn('unit_id', $ids)->delete();
+    }
 }

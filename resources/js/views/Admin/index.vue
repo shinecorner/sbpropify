@@ -1,98 +1,123 @@
 <template>
     <div>
         <heading class="custom-heading" icon="ti-home" title="Dashboard"/>
-        <el-row :gutter="24" style="margin-bottom: 24px;" type="flex">
-            <el-col :span="6">
-                <raw-grid-statistics-card :data="statistics"/>
-            </el-col>
-            <!--<el-col :span="6">-->
-            <!--<el-row>-->
-            <!--<el-col :span="24" style="margin-bottom: 12px;">-->
-            <!--<colored-statistics-card -->
-            <!--color="#0F52BC"-->
-            <!--icon="ti-timer" -->
-            <!--title="Bounce rate" -->
-            <!--value="32.16%" -->
-            <!--description="65.45% on average time" />-->
-            <!--</el-col>-->
-            <!--<el-col :span="24" style="margin-bottom: 12px;">-->
-            <!--<colored-statistics-card -->
-            <!--color="#27ae60"-->
-            <!--icon="ti-timer" -->
-            <!--title="Bounce rate" -->
-            <!--value="32.16%" -->
-            <!--description="65.45% on average time" />-->
-            <!--</el-col>-->
-            <!--<el-col :span="24">-->
-            <!--<colored-statistics-card -->
-            <!--color="#582DB7"-->
-            <!--icon="ti-timer" -->
-            <!--title="Bounce rate" -->
-            <!--value="32.16%" -->
-            <!--description="65.45% on average time" />-->
-            <!--</el-col> -->
-            <!--</el-row>-->
-            <!--</el-col>-->
-            <!--<el-col :span="6">-->
-            <!--<el-row>-->
-            <!--<el-col :span="24" style="margin-bottom: 24px;">-->
-            <!--<progress-statistics-card-->
-            <!--value="64"-->
-            <!--title="Activities completed"-->
-            <!--description="3 more than in August"-->
-            <!--color="#f39c12" />-->
-            <!--</el-col>-->
-            <!--<el-col :span="24">-->
-            <!--<raw-grid-statistics-card :data="liteStatistics" />-->
-            <!--</el-col>-->
-            <!--</el-row>-->
-            <!--</el-col>-->
-            <!--<el-col :span="6">-->
-            <!--<el-row :gutter="12" style="margin-bottom: 12px;">-->
-            <!--<el-col :span="12">-->
-            <!--<circular-progress-statistics-card :percentage="56" title="Lorep ipsum"  />-->
-            <!--</el-col>-->
-            <!--<el-col :span="12">-->
-            <!--<circular-progress-statistics-card-->
-            <!--:percentage="88"-->
-            <!--color="#94579F"-->
-            <!--title="Lorep ipsum" />-->
-            <!--</el-col>-->
-            <!--</el-row>-->
-            <!--<colored-statistics-card-->
-            <!--color="#CA004A"-->
-            <!--icon="ti-timer"-->
-            <!--title="Bounce rate"-->
-            <!--value="32.16%"-->
-            <!--description="65.45% on average time" />-->
-            <!--</el-col>-->
-        </el-row>
-        <!--<el-row :gutter="24">-->
-        <!--<el-col :span="12">-->
-        <!--<weather-card />-->
-        <!--</el-col>-->
-        <!--</el-row>-->
+        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+            <el-col class="dashboard-tabpanel">
+                <el-tabs type="border-card">
+                    <el-tab-pane :label="$t('menu.requests')">
+                        <el-row style="margin-bottom: 24px;" type="flex">
+                            <el-col :span="24">
+                                <dashboard-statistics-card :totalRequest="totalRequest" :data="reqStatusCount" :avgReqDuration="avgReqDuration"></dashboard-statistics-card>
+                            </el-col>                            
+                        </el-row>
+                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+                            <el-col :span="24">
+                                <el-card class="chart-card" :header="$t('dashboard.requests_by_creation_date')">
+                                    <chart-stacked-column 
+                                        :yData="chartDataTotalReqByCreationDate.yData" 
+                                        :xData="chartDataTotalReqByCreationDate.xData">
+                                    </chart-stacked-column>
+                                </el-card>
+                            </el-col>                                                        
+                         </el-row>   
+                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="$t('dashboard.requests_by_status')">
+                                    <chart-pie-and-donut 
+                                        type="pie"
+                                        :xData="chartDataReqByStatus.xData" 
+                                        :yData="chartDataReqByStatus.yData">
+                                    </chart-pie-and-donut>
+                                </el-card>
+                            </el-col>                            
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="$t('dashboard.requests_by_category')">
+                                    <chart-pie-and-donut
+                                        type="donut"
+                                        :xData="chartDataReqByCategory.xData" 
+                                        :yData="chartDataReqByCategory.yData">
+                                    </chart-pie-and-donut>
+                                </el-card>                                
+                            </el-col>                           
+                        </el-row>
+                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="$t('dashboard.each_hour_request')">
+                                    <chart-heat-map
+                                        :xData="chartDataReqByHour.xData" 
+                                        :yData="chartDataReqByHour.yData">
+                                    </chart-heat-map>
+                                </el-card>                                
+                            </el-col>
+                        </el-row>    
+                    </el-tab-pane>
+                    <el-tab-pane :label="$t('menu.buildings')">
+                        {{'Second Tab'}}
+                    </el-tab-pane>
+                    <el-tab-pane :label="$t('menu.news')">
+                        {{'Content Third tab'}}
+                    </el-tab-pane>
+                    <el-tab-pane :label="$t('menu.marketplace')">
+                        {{'Fourth Tab'}}
+                    </el-tab-pane>                                      
+                    <el-tab-pane :label="$t('menu.tenants')">
+                        {{'Fourth Tab'}}
+                    </el-tab-pane>                                      
+                </el-tabs>
+            </el-col>            
+        </el-row>       
     </div>
 </template>
 
-<script>
+<script>  
+    import axios from '@/axios';
+    import DashboardStatisticsCard from 'components/DashboardStatisticsCard';
+    import ChartStackedColumn from 'components/ChartStackedColumn';
+    import ChartPieAndDonut from 'components/ChartPieAndDonut';    
+    import ChartHeatMap from 'components/ChartHeatMap';
     import Heading from 'components/Heading';
     import RawGridStatisticsCard from 'components/RawGridStatisticsCard';
     import ColoredStatisticsCard from 'components/ColoredStatisticsCard.vue';
     import ProgressStatisticsCard from 'components/ProgressStatisticsCard.vue';
     import CircularProgressStatisticsCard from 'components/CircularProgressStatisticsCard.vue';
-
+    
     export default {
         name: 'AdminDashboard',
-        components: {
-            Heading,
-            RawGridStatisticsCard,
+        components: {            
+            Heading, 
+            DashboardStatisticsCard,
             ColoredStatisticsCard,
             ProgressStatisticsCard,
-            CircularProgressStatisticsCard
+            CircularProgressStatisticsCard,
+            ChartStackedColumn,
+            ChartPieAndDonut,            
+            ChartHeatMap
         },
         data() {
             return {
+                totalRequest: 0,
+                avgReqDuration: '',
+                chartDataTotalReqByCreationDate: {                                        
+                    yData: [],
+                    xData: []
+                },
+                chartDataReqByStatus: {
+                    xData: [],
+                    yData: []
+                },
+                chartDataReqByCategory:{
+                    xData: [],
+                    yData: []
+                },
+                chartDataReqByHour:{
+                    xData: [],
+                    yData: []
+                },
+                chartOptionsTotalReqByCreationDate: {},
+                reqStatusCount: {
+                    data: [],
+                    labels: []
+                },
                 statistics: [{
                     icon: 'ti-shopping-cart',
                     color: '#f06292',
@@ -126,7 +151,40 @@
                     description: 'Products'
                 }]
             }
+        },
+        methods: {            
+            getReqStatastics() {
+                let that = this;                                               
+                
+                return axios.get('admin/statistics')
+                .then(function (response) { 
+                    
+                    that.reqStatusCount.data = response.data.data.requests_per_status.data;
+                    that.reqStatusCount.labels = response.data.data.requests_per_status.labels;
+
+                    that.totalRequest = response.data.data.total_requests;
+                    that.avgReqDuration = response.data.data.avg_request_duration;
+                    that.chartDataReqByStatus.xData = response.data.data.requests_per_status.labels.map(function(e){return that.$t('models.request.status.'+e)});
+                    that.chartDataReqByStatus.yData = response.data.data.requests_per_status.data;
+                    
+                    
+                    
+                    that.chartDataReqByCategory.xData = response.data.data.requests_per_category.labels;
+                    that.chartDataReqByCategory.yData = response.data.data.requests_per_category.data;
+                    
+                    that.chartDataTotalReqByCreationDate.yData = response.data.data.requests_per_day_ydata;
+                    that.chartDataTotalReqByCreationDate.xData = response.data.data.requests_per_day_xdata;
+                    
+                }).catch(function (error) {
+                    console.log(error);
+                })
+            }           
+        },
+        created(){
+            this.getReqStatastics();
         }
+
+         
     }
 </script>
 
