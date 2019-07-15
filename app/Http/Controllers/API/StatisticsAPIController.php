@@ -14,6 +14,8 @@ use App\Repositories\ServiceRequestRepository;
 use App\Repositories\TenantRepository;
 use App\Repositories\UnitRepository;
 use Carbon\CarbonInterval;
+use Carbon\CarbonPeriod;
+use Carbon\Carbon;
 use Illuminate\Http\Response;
 use Validator;
 use DB;
@@ -264,10 +266,10 @@ class StatisticsAPIController extends AppBaseController
     public function adminStats()
     {
         $ret = [
+            'total_requests' => DB::table('service_requests')->count('id'),
             'tenants_per_day' => DB::select("select date(created_at) `x`, count(id) `y` from tenants group by date(created_at) order by `x`;"),
             'tenants_per_status' => [],
-
-            'requests_per_day' => DB::select("select date(created_at) `x`, count(id) `y` from service_requests group by date(created_at) order by `x`;"),
+                        
             'requests_per_status' => [],
             'requests_per_category' => [],
 
@@ -277,7 +279,31 @@ class StatisticsAPIController extends AppBaseController
             'posts_per_day' => DB::select("select date(created_at) `x`, count(id) `y` from posts group by date(created_at) order by `x`;"),
             'posts_per_status' => [],
         ];
-
+        $period_array = $req_array = $formatted_req_array = [];
+        
+        $period = CarbonPeriod::create(Carbon::now()->subDays(30)->format('Y-m-d'), Carbon::now()->format('Y-m-d'));
+        foreach ($period as $date) {            
+            $period_array[] = $date->format('Y-m-d');
+        }
+        $req_parents = collect(DB::select("SELECT id,name from service_request_categories WHERE parent_id IS NULL"));
+        foreach($req_parents as $req_parent){
+            foreach ($period_array as $date) {
+                    $req_array[$req_parent->name][$date] = 0;
+                }            
+        }        
+        $reqPerCreationDate = collect(DB::select("SELECT count(req.id) as cnt_request, date(req.created_at) as created_at, req.category_id, IF(cat2.id IS NULL,cat1.id,cat2.id) AS parent_category_id, IF(cat2.name IS NULL,cat1.name,cat2.name) AS parent_category_name from service_requests as req INNER JOIN service_request_categories AS cat1 on req.category_id = cat1.id LEFT JOIN service_request_categories AS cat2 ON cat1.parent_id = cat2.id GROUP BY parent_category_id, created_at"));
+//        print_r($reqPerCreationDate);exit;
+        foreach($reqPerCreationDate as $reqValue){
+            $req_array[$reqValue->parent_category_name][$reqValue->created_at] = $reqValue->cnt_request;
+        }
+        $i=0;
+        foreach($req_array as $key=>$value){
+            $formatted_req_array[$i]['name'] = $key;
+            $formatted_req_array[$i]['data'] = array_values($value);
+            $i++;        
+        }
+        $ret['requests_per_day_xdata'] = $period_array;
+        $ret['requests_per_day_ydata'] = $formatted_req_array;
         $rsPerStatus = collect(DB::select("select status `status`, count(id) `count` from service_requests group by status order by status;"));
         // Fill missing statuses with a 0 count
         foreach (ServiceRequest::Status as $status => $__) {
@@ -355,33 +381,15 @@ class StatisticsAPIController extends AppBaseController
             return Post::Status[$el->status];
         });
 
-        $q = "select service_request_categories.name `category`, category_id, coalesce(parent_categs.name, '') `parent_name`, count(service_requests.id) `count`
-            from service_requests
-            join service_request_categories on category_id = service_request_categories.id
-            left join service_request_categories parent_categs on parent_categs.id = service_request_categories.parent_id
-            group by category_id order by service_request_categories.id;";
-        $rsPerCategory = collect(DB::select($q));
-        foreach (ServiceRequestCategory::all() as $rCateg) {
-            if (!$rsPerCategory->contains(function($val) use ($rCateg) {
-                return $val->category_id == $rCateg->id;
-            })) {
-                $stat = new \stdClass;
-                $stat->category = $rCateg->name;
-                $stat->category_id = $rCateg->id;
-                $stat->parent_name = $rCateg->parentCategory ? $rCateg->parentCategory->name : "";
-                $stat->count = 0;
-                $rsPerCategory->push($stat);
-            }
-        }
+        $q = "SELECT count(req.id) as cnt_request, IF(parent_cat.id IS NULL,cat.id,parent_cat.id) AS parent_category_id, IF(parent_cat.name IS NULL,cat.name,parent_cat.name) AS parent_category_name from service_requests as req INNER JOIN service_request_categories AS cat on req.category_id = cat.id LEFT JOIN service_request_categories AS parent_cat ON cat.parent_id = parent_cat.id GROUP BY parent_category_id";
+        $rsPerCategory = collect(DB::select($q));                
+        
 
         $ret['requests_per_category']['data'] = $rsPerCategory->map(function($el) {
-            return $el->count;
+            return $el->cnt_request;
         });
-        $ret['requests_per_category']['labels'] = $rsPerCategory->map(function($el) {
-            if ($el->parent_name) {
-                return $el->parent_name . '.' . $el->category;
-            }
-            return $el->category;
+        $ret['requests_per_category']['labels'] = $rsPerCategory->map(function($el) {            
+            return $el->parent_category_name;
         });
 
         $avgReqFix = DB::select("select coalesce(floor(avg(time_to_sec(timediff(solved_date, created_at)))), 0) duration

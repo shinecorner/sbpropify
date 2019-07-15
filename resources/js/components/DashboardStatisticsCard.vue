@@ -1,12 +1,23 @@
 <template>
     <card>
         <el-row>
-            <el-col :span="cols" v-for="(item, index) in data" :key="index">
-                    <i :class="item.icon" :style="{'color': item.color}" />
-                    <h3 :style="{'color': item.color}">
-                        {{ item.value }}
-                        <small>{{ item.description }}</small>
-                    </h3>
+            <el-col :span="cols">
+                <h3>
+                    {{ totalRequest }}
+                    <small>{{ $t('models.building.requestStatuses.total') }}</small>
+                </h3>
+            </el-col>
+            <el-col :span="cols" v-for="(count, index) in data.data" :key="index">
+                <h3>
+                    {{ count }}
+                    <small>{{ $t('models.request.status.'+data.labels[index]) }}</small>
+                </h3>
+            </el-col>
+            <el-col :span="cols">
+                <h3>
+                    {{ avgReqDuration }}
+                    <small>{{ $t('dashboard.average_request_duration') }}</small>
+                </h3>
             </el-col>
         </el-row>
     </card>
@@ -16,19 +27,24 @@
     import Card from './Card';
 
     export default {
-        name: 'RawGridStatisticsCard',
+        name: 'DashboardStatisticsCard',
         components: {
             Card
         },
         props: {
             data: {
-                type: Array,
+                type: Object,
                 required: true
             },
             cols: {
                 type: Number,
-                default: 12
-            }
+                default: 3
+            },
+            totalRequest: {
+                type: Number,
+                default: 0
+            },
+            avgReqDuration: [String, Number]
         }
     }
 </script>

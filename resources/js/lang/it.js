@@ -51,6 +51,7 @@ export default  {
         requests_by_status: 'Richieste per stato',
         requests_by_category: 'Richieste per categoria', 
         each_hour_request: 'Ogni ora richiede',
+        average_request_duration: 'Tempo di risoluzione'
     },
     support: "Support",
     actions: {
