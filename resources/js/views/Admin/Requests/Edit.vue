@@ -101,9 +101,9 @@
                                 </el-col>
                             </el-row>
 
-                            <el-tabs v-model="activeName">
+                            <el-tabs v-model="activeTab1">
 
-                                <el-tab-pane label="Request details" name="first">
+                                <el-tab-pane label="Request details" name="request_details">
                                     <el-form-item :label="$t('models.request.prop_title')" :rules="validationRules.title"
                                                   prop="title">
                                         <el-input :disabled="$can($permissions.update.serviceRequest)" type="text"
@@ -120,7 +120,7 @@
                                     </el-form-item>
                                 </el-tab-pane>
 
-                                <el-tab-pane label="Images" name="second">
+                                <el-tab-pane label="Images" name="request_images">
                                     <div slot="header">
                                         <p class="comments-header">{{$t('models.request.images')}}</p>
                                     </div>
@@ -280,8 +280,8 @@
                         </template>
                         <!--                    v-if="(!$can($permissions.update.serviceRequest)) || ($can($permissions.update.serviceRequest) && (media.length || (model.media && model.media.length)))"-->
                         <card class="mt15" v-if="model.id">
-                            <el-tabs v-model="activeName">
-                                <el-tab-pane :label="$t('models.request.comments')" name="first">
+                            <el-tabs v-model="activeTab2">
+                                <el-tab-pane :label="$t('models.request.comments')" name="comments">
                                     <chat :id="model.id" type="request"/>
                                 </el-tab-pane>
                                 <el-tab-pane label="Internal Notices"></el-tab-pane>
@@ -338,7 +338,8 @@
         },
         data() {
             return {
-                activeName: 'first',
+                activeTab1: 'request_details',
+                activeTab2: 'comments',
                 conversationVisible: false,
                 selectedConversation: {},
                 constants: this.$store.getters['application/constants'],
