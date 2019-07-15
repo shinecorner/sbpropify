@@ -209,6 +209,12 @@
         overflow: hidden;
         box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76) !important;
 
+        :global(.el-tabs__header) {
+            :global(.el-tabs__item):last-child {
+                border-right-style: none;
+            }
+        }
+
         :global(.el-tabs__content) {
             padding: 16px;
 

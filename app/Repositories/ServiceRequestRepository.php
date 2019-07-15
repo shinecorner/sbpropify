@@ -3,12 +3,14 @@
 namespace App\Repositories;
 
 use App\Mails\NotifyServiceProvider;
+use App\Models\Comment;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Notifications\NewTenantRequest;
+use App\Notifications\RequestCommented;
 use App\Notifications\StatusChangedRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -215,13 +217,14 @@ class ServiceRequestRepository extends BaseRepository
     }
 
     /**
-     * @param int $oldStatus
+     * @param ServiceRequest $originaleRequest
      * @param ServiceRequest $serviceRequest
      */
-    public function notifyStatusChange(int $oldStatus, ServiceRequest $serviceRequest)
+    public function notifyStatusChange(ServiceRequest $originaleRequest, ServiceRequest $serviceRequest)
     {
-        if ($oldStatus != $serviceRequest->status) {
-            $serviceRequest->tenant->user->notify(new StatusChangedRequest($serviceRequest));
+        if ($originaleRequest->status != $serviceRequest->status) {
+            $user = $serviceRequest->tenant->user;
+            $user->notify(new StatusChangedRequest($serviceRequest, $originaleRequest, $user));
         }
     }
 
@@ -248,6 +251,23 @@ class ServiceRequestRepository extends BaseRepository
             $propertyManager->user
                 ->notify((new NewTenantRequest($serviceRequest, $message['subject'], $message['body']))
                     ->delay(now()->addSeconds($delay)));
+        }
+    }
+
+    /**
+     * @param ServiceRequest $serviceRequest
+     * @param Comment $comment
+     */
+    public function notifyNewComment(ServiceRequest $sr, Comment $comment)
+    {
+        $i = 0;
+        foreach ($sr->allPeople as $person) {
+            $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
+
+            if ($person->id != $comment->user->id) {
+                $person->notify((new RequestCommented($sr, $person, $comment))
+                    ->delay(now()->addSeconds($delay)));
+            }
         }
     }
 

@@ -128,7 +128,7 @@ class ConversationAPIController extends AppBaseController
         if (empty($c)) {
             return $this->sendError('Conversation not found');
         }
-        $comment = $c->comment($r->comment, null);
+        $comment = $c->comment($r->comment, null)->load('user');
         $out = $this->commTransf->transform($comment);
         return $this->sendResponse($out, 'Conversation comment created successfully');
     }

@@ -35,5 +35,8 @@ export default {
     },
     requestsMeta(state) {
         return _.omit(state.requests, 'data');
+    },
+    getRequestTemplatesWithId: (state) => (id) => {
+        return state.templates[id]
     }
 }

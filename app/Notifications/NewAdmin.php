@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Queue\InteractsWithQueue;
 
 /**
  * Class NewAdmin
@@ -14,7 +15,10 @@ use Illuminate\Notifications\Notification;
  */
 class NewAdmin extends Notification implements ShouldQueue
 {
-    use Queueable;
+    use Queueable, InteractsWithQueue;
+
+    public $tries = 3;
+
     /**
      * @var string
      */

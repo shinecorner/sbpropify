@@ -234,7 +234,7 @@
             visibilityTypes() {
                 let types = postTypes.visibility;
 
-                if (!_.isEmpty(this.tenant) && !_.isEmpty(this.tenant.building) && _.isEmpty(this.tenant.building.district)) {
+                if (_.isEmpty(this.tenant) || _.isEmpty(this.tenant.building) || (!_.has(this.tenant.building, 'district_id') || this.tenant.building.district_id == null)) {
                     types = _.omit(postTypes.visibility, 2)
                 }
 

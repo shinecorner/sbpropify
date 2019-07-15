@@ -66,22 +66,26 @@
                     withMultipleProps: true,
                     props: ['address', 'zip']
                 }, {
+                    label: this.$t('models.request.created_by'),
+                    withMultipleProps: true,
+                    props: ['tenant_name', 'created_at']
+                }, {
+                    width: 110,
                     label: this.$t('models.request.assigned_to'),
                     withUsers: true,
                     prop: 'assignedUsers',
                     count: 'assignedUsersCount'
                 }, {
-                    label: this.$t('models.request.created_by'),
-                    withMultipleProps: true,
-                    props: ['tenant_name', 'created_at']
-                }, {
+                    width: 100,
                     label: this.$t('models.request.priority.label'),
                     withBadgeProps: true,
                     prop: 'priority_label',
+                    size: 'small'
                 }, {
                     label: this.$t('models.request.status.label'),
                     prop: 'status',
                     i18nPath: 'models.request.status',
+                    class: 'rounded-select',
                     select: {
                         icon: 'ti-pencil',
                         data: [],

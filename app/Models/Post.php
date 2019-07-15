@@ -251,16 +251,55 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         $this->addMediaCollection('media');
     }
 
-    public function getProvidersListAttribute()
+    public function getExecutionStartStrAttribute()
     {
-        if (!$this->providers) {
+        if (!$this->execution_start) {
+            return "-";
+        }
+        return $this->execution_start->format('d.m.Y H:i');
+    }
+    public function getExecutionEndStrAttribute()
+    {
+        if (!$this->execution_end) {
+            return "-";
+        }
+        return $this->execution_end->format('d.m.Y H:i');
+    }
+
+    public function getProvidersStrAttribute()
+    {
+        if (!count($this->providers)) {
             return "-";
         }
         $pNames = $this->providers->map(function($el) {
             return $el->name;
         })->toArray();
 
-        return implode(',', $pNames);
+        return implode(', ', $pNames);
+    }
+
+    public function getBuildingsStrAttribute()
+    {
+        if (!count($this->buildings)) {
+            return "-";
+        }
+        $pNames = $this->buildings->map(function($el) {
+            return $el->name;
+        })->toArray();
+
+        return implode(', ', $pNames);
+    }
+
+    public function getDistrictsStrAttribute()
+    {
+        if (!count($this->districts)) {
+            return "-";
+        }
+        $pNames = $this->districts->map(function($el) {
+            return $el->name;
+        })->toArray();
+
+        return implode(', ', $pNames);
     }
 
     public function getCategoryStrAttribute()
