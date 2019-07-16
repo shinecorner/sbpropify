@@ -316,11 +316,10 @@ class StatisticsAPIController extends AppBaseController
     public function chartRequestByCreationDate(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null)
     {
         if (is_null($startDate) && is_null($endDate)) {
-            $period = $this->getPeriod($request);
-            [$startDate, $endDate] = $this->getStartDateEndDate($request, $period);
+            [$startDate, $endDate] = $this->getStartDateEndDate($request);
         }
 
-        $periodValues = $this->getPeriodValues($startDate, $endDate);
+        $periodValues = $this->getPeriodValues($request, $startDate, $endDate);
         $catDayStats = $this->initializeServiceRequestCategoriesForChart($periodValues);
         $query = $this->getGroupedQueryForServiceRequest();
         $reqPerCreationDate = collect(DB::select($query, ['start_date' => $startDate, 'end_date' => $endDate]));
@@ -459,16 +458,24 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     * @param $request
      * @param $startDate
-     * @param $endDate
+     * @param Carbon $endDate
      * @return array
      */
-    protected function getPeriodValues($startDate, $endDate)
+    protected function getPeriodValues($request, $startDate, Carbon $endDate)
     {
+        $period = $this->getPeriod($request);
         $periodValues = [];
 
-        $period = CarbonPeriod::create($startDate, $endDate);
-        foreach ($period as $date) {
+//        if ('week' == $period) {
+//        } elseif ('day' == $period) {
+//        } elseif ('day' == $period) {
+//        } else {
+//        }
+
+        $datePeriod = CarbonPeriod::create($startDate, $endDate);
+        foreach ($datePeriod as $date) {
             $periodValues[] = $date->format('Y-m-d');
         }
 
@@ -480,13 +487,10 @@ class StatisticsAPIController extends AppBaseController
      * @param null $period
      * @return array
      */
-    protected function getStartDateEndDate($request, $period = null)
+    protected function getStartDateEndDate($request)
     {
         // @TODO fix query param hard code, also key hard code like month
         $requestData = $request->all();
-        if (is_null($period)) {
-            $period = $this->getPeriod($request);
-        }
 
         $startDate = $requestData['start_date'] ?? '';
         $endDate = $requestData['end_date'] ?? '';
@@ -504,25 +508,6 @@ class StatisticsAPIController extends AppBaseController
         } else {
             $endDate = Carbon::parse($endDate);
             $startDate = Carbon::parse($startDate);
-        }
-
-        if ('year' == $period) {
-            $startDate->setMonth(1);
-            $startDate->setDay(1);
-            $endDate->setMonth(12);
-            $endDate->setDay(31);
-        } elseif ('month' == $period) {
-            $startDate->setDay(1);
-            $endDate->addMonth();
-            $endDate->setDay(1)->subDay(1);
-        } elseif ('week' == $period) {
-            if ($startDate->dayOfWeek) {
-                $startDate->subDay($startDate->dayOfWeek);
-            }
-
-            if (6 != $endDate->dayOfWeek) {
-                $endDate->addDays(6 - $endDate->dayOfWeek);
-            }
         }
 
         return [$startDate, $endDate];
