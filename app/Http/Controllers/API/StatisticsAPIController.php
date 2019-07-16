@@ -319,14 +319,25 @@ class StatisticsAPIController extends AppBaseController
             [$startDate, $endDate] = $this->getStartDateEndDate($request);
         }
 
-        $periodValues = $this->getPeriodValues($request, $startDate, $endDate);
+        $period = $this->getPeriod($request);
         $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id')->toArray();
-        $catDayStats = $this->initializeServiceRequestCategoriesForChart($parentCategories, $periodValues);
-        $query = $this->getGroupedQueryForServiceRequest();
-        $reqPerCreationDate = collect(DB::select($query, ['start_date' => $startDate, 'end_date' => $endDate]));
 
-        foreach($reqPerCreationDate as $reqValue){
-            $catDayStats[$reqValue->parent_category_name][$reqValue->created_at] = $reqValue->cnt_request;
+        [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate);
+        $catDayStats = $this->initializeServiceRequestCategoriesForChart($parentCategories, $periodValues);
+
+        $serviceRequests = ServiceRequest::selectRaw($raw)
+            ->when('day' == $period, function ($q) use ($startDate, $endDate) {
+                $q->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
+                    ->whereDate('created_at', '<=', $endDate->format('Y-m-d'));
+            })
+            ->addSelect('category_parent_id')
+            ->groupBy('period')
+            ->groupBy('category_parent_id')
+            ->get();
+
+        foreach ($serviceRequests as $serviceRequest) {
+            $categoryName = $parentCategories[$serviceRequest->category_parent_id] ?? '';
+            $catDayStats[$categoryName][$serviceRequest->period] = $serviceRequest->count;
         }
 
         $formattedReqStatistics = [];
@@ -337,7 +348,7 @@ class StatisticsAPIController extends AppBaseController
             ];
         }
 
-        $ret['requests_per_day_xdata'] = $periodValues;
+        $ret['requests_per_day_xdata'] = array_values($periodValues);
         $ret['requests_per_day_ydata'] = $formattedReqStatistics;
 
         return $isConvertResponse
@@ -459,16 +470,27 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     * @param $request
+     * @param $period
      * @param $startDate
      * @param Carbon $endDate
      * @return array
      */
-    protected function getPeriodValues($request, $startDate, Carbon $endDate)
+    protected function getPeriodRelatedData($period, $startDate, Carbon $endDate)
     {
-        $period = $this->getPeriod($request);
         $periodValues = [];
 
+
+        if ('year' == $period) {
+            $part = "YEAR(created_at)";
+        } elseif ('month' == $period) {
+            $part = "CONCAT(YEAR(created_at), ' ', MONTH(created_at))";
+        } elseif ('week' == $period) {
+            $part = "CONCAT(YEAR(created_at), ' ', WEEK(created_at))";
+        } else {
+            $part = "DATE(created_at)";
+        }
+
+        $raw = sprintf("count(id) as count, %s as period", $part);
 //        if ('week' == $period) {
 //        } elseif ('day' == $period) {
 //        } elseif ('day' == $period) {
@@ -481,7 +503,7 @@ class StatisticsAPIController extends AppBaseController
             $periodValues[$date->format('Y-m-d')] = $date->format('Y-m-d');
         }
 
-        return $periodValues;
+        return [$periodValues, $raw];
     }
 
     /**
