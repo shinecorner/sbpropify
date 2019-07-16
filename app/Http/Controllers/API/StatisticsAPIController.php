@@ -263,12 +263,25 @@ class StatisticsAPIController extends AppBaseController
 
         return $this->sendResponse($response, 'Service Request statistics retrieved successfully');
     }
-    
+
+
+    public function getDayCountStatisticForModel($className, $startDate = null, $endDate = null)
+    {
+        $endDate  = $endDate ?? now()->subMonth();
+        $startDate  = $startDate ?? now();
+        return $className::selectRaw ('date(created_at) `x`, count(id) `y`')
+            ->whereDate('created_at', '>=', $endDate)
+            ->whereDate('created_at', '<=', $startDate)
+            ->groupBy('x')
+            ->orderBy('x')
+            ->get();
+    }
+
     public function adminStats()
     {
         $ret = [
             'total_requests' => DB::table('service_requests')->count('id'),
-            'tenants_per_day' => DB::select("select date(created_at) `x`, count(id) `y` from tenants group by date(created_at) order by `x`;"),
+            'tenants_per_day' => $this->getDayCountStatisticForModel(Tenant::class),
             'tenants_per_status' => [],
                         
             'requests_per_status' => [],
@@ -280,6 +293,7 @@ class StatisticsAPIController extends AppBaseController
             'posts_per_day' => DB::select("select date(created_at) `x`, count(id) `y` from posts group by date(created_at) order by `x`;"),
             'posts_per_status' => [],
         ];
+
         $period_array = $req_array = $formatted_req_array = [];
         
         $period = CarbonPeriod::create(Carbon::now()->subDays(30)->format('Y-m-d'), Carbon::now()->format('Y-m-d'));
@@ -399,6 +413,7 @@ class StatisticsAPIController extends AppBaseController
 
         return $this->sendResponse($ret, 'Admin statistics retrieved successfully');
     }
+
     public function chartRequestByCreationDate(Request $request){
         $response = [
           'labels' => ["2019-06-15", "2019-06-16", "2019-06-17", "2019-06-18", "2019-06-19"],
