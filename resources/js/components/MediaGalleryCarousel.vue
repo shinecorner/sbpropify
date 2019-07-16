@@ -48,17 +48,17 @@
         },
         methods: {
             open (idx) {
-                this.index = idx;
+                this.index = idx
             },
             close () {
                 this.index = null
             },
             isImage (file) {
-                return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(file.name.split('.').pop());
+                return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(file.name.split('.').pop())
             },
             resizeImage (x, y, percentage, minimum) {
                 if (x > y) {
-                    const ratio = y / x;
+                    const ratio = y / x
 
                     const rx = (x - minimum) * (percentage / 100)
                     const ry = (y - minimum * ratio) * (percentage / 100)
@@ -68,9 +68,9 @@
                     const ratio = x / y
 
                     const rx = (x - minimum * ratio) * (percentage / 100)
-                    const ry = (y - minimum) * (percentage / 100);
+                    const ry = (y - minimum) * (percentage / 100)
 
-                    return [rx + minimum * ratio, ry + minimum];
+                    return [rx + minimum * ratio, ry + minimum]
                 }
             }
         },
