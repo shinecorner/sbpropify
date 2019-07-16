@@ -103,6 +103,7 @@ class TemplateRepository extends BaseRepository
         $post = $context['post'] ?? null;
         $product = $context['product'] ?? null;
         $uploader = $context['uploader'] ?? null;
+        $sender = $context['sender'] ?? null;
         $receiver = $context['receiver'] ?? null;
 
         $request = $context['request'] ?? null;
@@ -535,6 +536,29 @@ class TemplateRepository extends BaseRepository
         $tags = $this->getTags($template->category->tag_map, $context);
 
         return $this->getParsedTemplateData($template, $tags, $user->settings->language);
+    }
+
+    /**
+     * @param ServiceRequest $sr
+     * @param Comment $comment
+     * @param User $sender
+     * @param User $receiver
+     * @return array
+     */
+    public function getRequestInternalCommentParsedTemplate(ServiceRequest $sr, Comment $comment, User $sender, User $receiver): array
+    {
+        $template = $this->getByCategoryName('request_internal_comment');
+
+        $context = [
+            'request' => $sr,
+            'comment' => $comment,
+            'sender' => $sender,
+            'receiver' => $receiver,
+        ];
+
+        $tags = $this->getTags($template->category->tag_map, $context);
+
+        return $this->getParsedTemplateData($template, $tags, $receiver->settings->language);
     }
 
     /**
