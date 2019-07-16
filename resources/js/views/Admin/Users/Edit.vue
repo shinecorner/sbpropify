@@ -1,12 +1,7 @@
 <template>
     <div class="users-edit">
-<<<<<<< HEAD
         <heading :title="$t('models.user.edit')" icon="ti-user">
-            <edit-actions :saveAction="submit" :deleteAction="deleteUser" route="adminUsers"/>
-=======
-        <heading :title="$t('models.user.edit')" icon="ti-user" shadow="heavy">
-            <edit-actions :saveAction="submit" route="adminUsers"/>
->>>>>>> 1c154e3869bc4df23a5c2a4873f6555568208f1e
+            <edit-actions :saveAction="submit" :deleteAction="deleteUser" route="adminUsers" shadow="heavy"/>
         </heading>
         <el-row class="crud-view">
             <el-col :md="12">

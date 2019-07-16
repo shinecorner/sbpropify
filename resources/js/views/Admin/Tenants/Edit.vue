@@ -1,12 +1,7 @@
 <template>
     <div class="tenants-edit mb20">
-<<<<<<< HEAD
-        <heading :title="$t('models.tenant.edit_title')" icon="ti-home">
-            <edit-actions :saveAction="submit" :deleteAction="deleteTenant" route="adminTenants"/>
-=======
         <heading :title="$t('models.tenant.edit_title')" icon="ti-home" shadow="heavy">
-            <edit-actions :saveAction="submit" route="adminTenants"/>
->>>>>>> 1c154e3869bc4df23a5c2a4873f6555568208f1e
+            <edit-actions :saveAction="submit" :deleteAction="deleteTenant" route="adminTenants"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">

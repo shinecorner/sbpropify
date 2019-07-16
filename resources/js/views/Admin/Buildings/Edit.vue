@@ -1,12 +1,7 @@
 <template>
     <div class="buildings-edit ">
-<<<<<<< HEAD
-        <heading :title="$t('models.building.edit_title')" icon="ti-home">
-            <edit-actions :saveAction="submit" :deleteAction="deleteBuilding" route="adminBuildings"/>
-=======
         <heading :title="$t('models.building.edit_title')" icon="ti-home" shadow="heavy">
-            <edit-actions :saveAction="submit" route="adminBuildings"/>
->>>>>>> 1c154e3869bc4df23a5c2a4873f6555568208f1e
+            <edit-actions :saveAction="submit" :deleteAction="deleteBuilding" route="adminBuildings"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">

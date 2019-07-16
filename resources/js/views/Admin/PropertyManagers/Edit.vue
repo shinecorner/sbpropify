@@ -1,12 +1,7 @@
 <template>
     <div class="services-edit">
-<<<<<<< HEAD
-        <heading :title="$t('models.propertyManager.edit_title')" icon="ti-user">
-            <edit-actions :saveAction="submit" :deleteAction="deletePropertyManager" route="adminPropertyManagers"/>
-=======
         <heading :title="$t('models.propertyManager.edit_title')" icon="ti-user" shadow="heavy">
-            <edit-actions :saveAction="submit" route="adminPropertyManagers"/>
->>>>>>> 1c154e3869bc4df23a5c2a4873f6555568208f1e
+            <edit-actions :saveAction="submit" :deleteAction="deletePropertyManager" route="adminPropertyManagers"/>
         </heading>
         <div class="crud-view">
             <el-form :model="model" label-position="top" label-width="192px" ref="form">
