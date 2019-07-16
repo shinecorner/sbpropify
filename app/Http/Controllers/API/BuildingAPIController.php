@@ -408,11 +408,11 @@ class BuildingAPIController extends AppBaseController
             }
             $units = $this->unitRepository->getUnitsIdwithBuildingIds($buildings->pluck('id'));
 
-            if($request->get('deleteStatus') == 1 || $request->get('deleteStatus') == 2) {
+            if($request->get('is_requests')) {
                 $this->serviceRequestRepository->deleteRequesetWithUnitIds($units->pluck('id'));
             }            
 
-            if($request->get('deleteStatus') == 0 || $request->get('deleteStatus') == 2) {                
+            if($request->get('is_units')) {                
                 $this->unitRepository->deleteUnitWithBuilding($buildings->pluck('id'));                
             }            
 
@@ -421,7 +421,6 @@ class BuildingAPIController extends AppBaseController
         } catch (\Exception $e) {
             return $this->sendError('Building deleted error: ' . $e->getMessage());
         }
-        
     }
 
     public function checkUnitRequest(Request $request)

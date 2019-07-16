@@ -353,7 +353,11 @@ export default {
                 title: "Delete Building(s)",
                 description_unit: "Units are assigned to the selected property. If you want to delete the units as well, please activate the option below.",
                 description_request: "Requests are assigned to the selected property. If you also want to delete request as well, please activate the option below.",
-                description_both: "Units and requests are assigned to the selected property. If you also want to delete them, please activate the options below."
+                description_both: "Units and requests are assigned to the selected property. If you also want to delete them, please activate the options below.",
+                delete_units: "Delete Unit(s)",
+                dont_delete_units: "Don't Delete Unit(s)",
+                delete_requests: "Delete Request(s)",
+                dont_delete_requests: "Don't Delete Request(s)"
             }
         },
         unit: {

@@ -353,7 +353,11 @@ export default {
                 title: "Delete Building(s)",
                 description_unit: "Der ausgewählten Liegenschaft sind Einheiten zugewiesen. Wenn dieses auch gelöscht werden sollen, dann aktivieren Sie die unten stehende Option.",
                 description_request: "Der ausgewählten Liegenschaft sind Anfragen zugewiesen. Wenn dieses auch gelöscht werden sollen, dann aktivieren Sie die unten stehende Option.",
-                description_both: "Der ausgewählten Liegenschaft sind Einheiten und Anfragen zugewiesen. Wenn diese auch gelöscht werden sollen, dann aktivieren Sie die unten stehende Optionen."
+                description_both: "Der ausgewählten Liegenschaft sind Einheiten und Anfragen zugewiesen. Wenn diese auch gelöscht werden sollen, dann aktivieren Sie die unten stehende Optionen.",
+                delete_units: "Löschen Einheiten",
+                dont_delete_units: "Nicht Löschen Einheiten",
+                delete_requests: "Löschen Anfragen",
+                dont_delete_requests: "Nicht Löschen Anfragen",
             }
         },
         unit: {
