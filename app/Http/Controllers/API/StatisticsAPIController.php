@@ -285,83 +285,10 @@ class StatisticsAPIController extends AppBaseController
         ];
 
         $ret = array_merge($ret, $this->chartRequestByCreationDate($request, false, $startDate, $endDate));
-
-        $rsPerStatus = collect(DB::select("select status `status`, count(id) `count` from service_requests group by status order by status;"));
-        // Fill missing statuses with a 0 count
-        foreach (ServiceRequest::Status as $status => $__) {
-            if (!$rsPerStatus->contains(function($val) use ($status) {
-                return $val->status == $status;
-            })) {
-                $stat = new \stdClass;
-                $stat->status = $status;
-                $stat->count = 0;
-                $rsPerStatus->push($stat);
-            }
-        }
-        $ret['requests_per_status']['data'] = $rsPerStatus->map(function($el) {
-            return $el->count;
-        });
-        $ret['requests_per_status']['labels'] = $rsPerStatus->map(function($el) {
-            return ServiceRequest::Status[$el->status];
-        });
-
-        $tsPerStatus = collect(DB::select("select status `status`, count(id) `count` from tenants group by status order by status;"));
-        // Fill missing statuses with a 0 count
-        foreach (Tenant::Status as $status => $__) {
-            if (!$tsPerStatus->contains(function($val) use ($status) {
-                return $val->status == $status;
-            })) {
-                $stat = new \stdClass;
-                $stat->status = $status;
-                $stat->count = 0;
-                $tsPerStatus->push($stat);
-            }
-        }
-        $ret['tenants_per_status']['data'] = $tsPerStatus->map(function($el) {
-            return $el->count;
-        });
-        $ret['tenants_per_status']['labels'] = $tsPerStatus->map(function($el) {
-            return Tenant::Status[$el->status];
-        });
-
-
-        $prodsPerStatus = collect(DB::select("select status `status`, count(id) `count` from products group by status order by status;"));
-        // Fill missing statuses with a 0 count
-        foreach (Product::Status as $status => $__) {
-            if (!$prodsPerStatus->contains(function($val) use ($status) {
-                return $val->status == $status;
-            })) {
-                $stat = new \stdClass;
-                $stat->status = $status;
-                $stat->count = 0;
-                $prodsPerStatus->push($stat);
-            }
-        }
-        $ret['products_per_status']['data'] = $prodsPerStatus->map(function($el) {
-            return $el->count;
-        });
-        $ret['products_per_status']['labels'] = $prodsPerStatus->map(function($el) {
-            return Product::Status[$el->status];
-        });
-
-        $postsPerStatus = collect(DB::select("select status `status`, count(id) `count` from posts group by status order by status asc;"));
-        // Fill missing statuses with a 0 count
-        foreach (Post::Status as $status => $__) {
-            if (!$postsPerStatus->contains(function($val) use ($status) {
-                return $val->status == $status;
-            })) {
-                $stat = new \stdClass;
-                $stat->status = $status;
-                $stat->count = 0;
-                $postsPerStatus->push($stat);
-            }
-        }
-        $ret['posts_per_status']['data'] = $postsPerStatus->map(function($el) {
-            return $el->count;
-        });
-        $ret['posts_per_status']['labels'] = $postsPerStatus->map(function($el) {
-            return Post::Status[$el->status];
-        });
+        $ret['requests_per_status'] = $this->chartRequestByStatus($request, false, $startDate, $endDate);
+        $ret['tenants_per_status'] = $this->chartRequestByStatus($request, false, $startDate, $endDate, 'tenants');
+        $ret['products_per_status'] = $this->chartRequestByStatus($request, false, $startDate, $endDate, 'products');
+        $ret['posts_per_status'] = $this->chartRequestByStatus($request, false, $startDate, $endDate, 'posts');
 
         $q = "SELECT count(req.id) as cnt_request, IF(parent_cat.id IS NULL,cat.id,parent_cat.id) AS parent_category_id, IF(parent_cat.name IS NULL,cat.name,parent_cat.name) AS parent_category_name from service_requests as req INNER JOIN service_request_categories AS cat on req.category_id = cat.id LEFT JOIN service_request_categories AS parent_cat ON cat.parent_id = parent_cat.id GROUP BY parent_category_id";
         $rsPerCategory = collect(DB::select($q));
@@ -420,38 +347,29 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     * @param $table
-     * @param null $startDate
-     * @param null $endDate
-     * @return mixed
-     */
-    public function getDayCountStatistic($table, $startDate = null, $endDate = null)
-    {
-        return \DB::table($table)->selectRaw ('date(created_at) `x`, count(id) `y`')
-            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
-            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
-            ->groupBy('x')
-            ->orderBy('x')
-            ->get();
-    }
-
-    /**
+     * @TODO fix many parameters
+     *
      * @param Request $request
      * @param bool $isConvertResponse
      * @param null $startDate
      * @param null $endDate
+     * @param null $table
      * @return mixed
      */
-    public function chartRequestByStatus(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null)
+    public function chartRequestByStatus(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null, $table = null)
     {
         if (is_null($startDate) && is_null($endDate)) {
             [$startDate, $endDate] = $this->getStartDateEndDate($request);
         }
+
         $tables = [
             'service_requests' => ServiceRequest::class,
-            'post' => Post::class
+            'tenants' => Tenant::class,
+            'products' => Product::class,
+            'posts' => Post::class,
         ];
-        $table = $request->input('table', 'service_requests');
+
+        $table = $table ?? $request->input('table', 'service_requests');
         $table  = key_exists($table, $tables) ? $table : 'service_requests';
 
         $class = $tables[$table];
@@ -475,8 +393,8 @@ class StatisticsAPIController extends AppBaseController
             }
         }
 
-        $response['labels'] = $rsPerStatus->map(function($el) {
-            return ServiceRequest::Status[$el->status];
+        $response['labels'] = $rsPerStatus->map(function($el) use ($classStatus) {
+            return $classStatus[$el->status];
         });
 
         $response['data'] = $rsPerStatus->map(function($el) {
@@ -486,6 +404,22 @@ class StatisticsAPIController extends AppBaseController
         return $isConvertResponse
             ? $this->sendResponse($response, 'Admin statistics retrieved successfully for ' . $table)
             : $response;
+    }
+
+    /**
+     * @param $table
+     * @param null $startDate
+     * @param null $endDate
+     * @return mixed
+     */
+    public function getDayCountStatistic($table, $startDate = null, $endDate = null)
+    {
+        return \DB::table($table)->selectRaw ('date(created_at) `x`, count(id) `y`')
+            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
+            ->groupBy('x')
+            ->orderBy('x')
+            ->get();
     }
 
     /**
