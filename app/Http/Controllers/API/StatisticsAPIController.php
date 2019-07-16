@@ -270,7 +270,7 @@ class StatisticsAPIController extends AppBaseController
     {
         $ret = [
             'total_requests' => DB::table('service_requests')->count('id'),
-            'tenants_per_day' => $this->getDayCountStatisticForModel(Tenant::class),
+            'tenants_per_day' => $this->getDayCountStatistic('tenants'),
             'tenants_per_status' => [],
                         
             'requests_per_status' => [],
