@@ -662,6 +662,7 @@ export default {
             recipients: 'Empfänger',
             assign: 'Zuweisen',
             images: 'Fotos und Dokumente',
+            no_images_message: 'Keine Dateien hochgeladen',
             request_details: 'Beschreibung',
             internal_notices: 'Interne Notizen',
             assignmentTypes: {
