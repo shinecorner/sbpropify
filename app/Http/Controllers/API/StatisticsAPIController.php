@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
 use App\Models\Building;
+use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestCategory;
 use App\Models\Tenant;
@@ -18,6 +19,7 @@ use Carbon\CarbonPeriod;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 use Validator;
 use DB;
 
@@ -264,20 +266,50 @@ class StatisticsAPIController extends AppBaseController
         return $this->sendResponse($response, 'Service Request statistics retrieved successfully');
     }
 
-
+    /**
+     * @param $className
+     * @param null $startDate
+     * @param null $endDate
+     * @return mixed
+     */
     public function getDayCountStatisticForModel($className, $startDate = null, $endDate = null)
     {
-        $endDate  = $endDate ?? now()->subMonth();
-        $startDate  = $startDate ?? now();
         return $className::selectRaw ('date(created_at) `x`, count(id) `y`')
-            ->whereDate('created_at', '>=', $endDate)
-            ->whereDate('created_at', '<=', $startDate)
+            ->when($startDate, function ($q) use ($startDate) {
+                $q->whereDate('started_at', '>=', Carbon::parse($startDate)->format('Y-m-d'));
+            })
+            ->when($endDate, function ($q) use ($endDate) {
+                $q->whereDate('created_at', '<=', Carbon::parse($endDate)->format('Y-m-d'));
+            })
             ->groupBy('x')
             ->orderBy('x')
             ->get();
     }
 
-    public function adminStats()
+    /**
+     *
+     */
+    public function serviceRequestStats(Request $request)
+    {
+        // @TODO fix query param hard code, also key hard code like month
+        $requestData = $request->all();
+        $period = $requestData['period'] ?? 'day';
+        $startDate = $requestData['start_date'] ?? '';
+        $endDate = $requestData['end_date'] ?? '';
+
+
+        if ('year' == $period) {
+            $startDate = '';
+            $endDate = '';
+        } elseif ('month' == $period) {
+
+        } elseif ('week' == $period) {
+
+        }
+        return $this->getDayCountStatisticForModel(ServiceRequest::class, $startDate, $endDate);
+    }
+
+    public function adminStats(Request $request)
     {
         $ret = [
             'total_requests' => DB::table('service_requests')->count('id'),
