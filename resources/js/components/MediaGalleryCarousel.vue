@@ -1,10 +1,10 @@
 <template>
     <div class="media-gallery-carousel" v-if="media.length">
-        <gallery :images="images" :index="index" @close="close" />
+        <gallery :images="images" :index="gallerIndex" :options="galleryOptions" @close="gallleryClose" />
         <el-carousel v-bind="$attrs" v-on="$listeners" :arrow="images.length <= 1 ? 'never' : 'hover'">
             <el-carousel-item v-for="(url, idx) in images" :key="idx">
                 <div class="el-carousel-actions">
-                     <div class="el-icon-zoom-in" @click="open(idx)"></div>
+                     <div class="el-icon-zoom-in" @click="openImage(idx)"></div>
                 </div>
                 <el-image :src="url" fit="cover" >
                     <div slot="error" class="error" style="color: red;">
@@ -28,6 +28,10 @@
                 type: Array,
                 default: () => ([])
             },
+            galleryOptions: {
+                type: Object,
+                default: () => ({})
+            },
             usePlaceholder: {
                 type: Boolean,
                 default: true
@@ -39,7 +43,7 @@
         },
         data () {
             return {
-                index: null,
+                gallerIndex: null,
                 sizes: {
                     minWidth: 0,
                     maxHeight: 0
@@ -47,11 +51,11 @@
             }
         },
         methods: {
-            open (idx) {
-                this.index = idx
+            openImage (idx) {
+                this.gallerIndex = idx
             },
-            close () {
-                this.index = null
+            gallleryClose () {
+                this.gallerIndex = null
             },
             isImage (file) {
                 return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(file.name.split('.').pop())

@@ -45,7 +45,7 @@
             <div class="providers" v-if="data.pinned && data.providers && data.providers.length">
                 Providers: {{data.providers.map(provider => provider.name).join(', ')}}
             </div>
-            <media-gallery-carousel :media="data.media" :use-placeholder="false" height="320px" :autoplay="false" />
+            <media-gallery-carousel :media="data.media" :use-placeholder="false" height="320px" :autoplay="false" :gallery-options="{container: '#gallery'}" />
             <div class="likes" v-if="data.likes.length">
                 <avatar :key="user.id" :name="user.name" :size="28" :src="user.avatar" v-for="user in data.likes" />
                 <div class="users">
