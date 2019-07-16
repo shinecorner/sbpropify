@@ -102,6 +102,8 @@ class TemplateRepository extends BaseRepository
         $tenant = $context['tenant'] ?? null;
         $post = $context['post'] ?? null;
         $product = $context['product'] ?? null;
+        $uploader = $context['uploader'] ?? null;
+        $receiver = $context['receiver'] ?? null;
 
         $request = $context['request'] ?? null;
         $originalRequest = $context['originalRequest'] ?? null;

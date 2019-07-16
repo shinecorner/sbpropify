@@ -439,18 +439,18 @@ HTML
                 'name' => 'request_upload',
                 'description' => 'When any party uploads a document/image',
                 'tag_map' => [
-                    'salutation' => 'user.title',
-                    'name' => 'user.name',
-                    'subjectSalutation' => 'subject.title',
-                    'subjectName' => 'subject.name',
+                    'receiverSalutation' => 'receiver.title',
+                    'receiverName' => 'receiver.name',
+                    'uploaderSalutation' => 'uploader.title',
+                    'uploaderName' => 'uploader.name',
                     'title' => 'request.title',
                     'description' => 'request.description',
                     'category' => 'request.category.name',
                 ],
-                'subject' => 'New document uploaded for request: {{title}}',
+                'subject' => '{{uploaderSalutation}} {{uploaderName}} uploaded a new document for request: {{title}}',
                 'body' => <<<HTML
-<p>Hello {{salutation}} {{name}},</p>
-<p>A new document/image was added for request: {{title}}</p>
+<p>Hello {{receiverSalutation}} {{receiverName}},</p>
+<p>{{uploaderSalutation}} {{uploaderName}} uploaded a new document for request: {{title}}.</p>
 <p>Please find the uploaded file in the attachments of this email.</p>
 HTML
             ],
