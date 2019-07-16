@@ -423,6 +423,7 @@ class StatisticsAPIController extends AppBaseController
         } elseif ('week' == $period) {
 
         }
+        
 
         // @TODO security problem maybe make table aliases or permit specific tables
         $table = $requestData['table'] ?? 'service_requests';
