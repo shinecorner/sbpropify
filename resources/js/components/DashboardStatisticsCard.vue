@@ -8,7 +8,7 @@
                 </h3>
             </el-col>
             <el-col :span="cols" v-for="(count, index) in data.data" :key="index">                
-                <h3 :style="{color: colorObject[data.labels[index]]}">
+                <h3 :style="{color: getRequestStatusColor(data.labels[index], 'name')}">
                     {{ count }}
                     <small>{{ $t('models.request.status.'+data.labels[index]) }}</small>
                 </h3>
@@ -25,9 +25,10 @@
 
 <script>
     import Card from './Card';
-
+    import globalFunction from "helpers/globalFunction";
     export default {
         name: 'DashboardStatisticsCard',
+        mixins: [globalFunction],
         components: {
             Card
         },
@@ -47,16 +48,7 @@
             avgReqDuration: [String, Number]
         },
         data(){
-            return {
-                colorObject: {
-                    received: '#bbb',
-                    in_processing: '#ebb563',
-                    assigned: '#ebb563',
-                    done: '#67C23A',
-                    reactivated: '#ebb563',
-                    archived: '#67C23A'
-                }
-            }            
+            return {}
         }
     }
 </script>
