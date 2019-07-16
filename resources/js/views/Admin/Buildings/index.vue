@@ -135,7 +135,7 @@
                     label: this.$t('models.building.units'),
                     withMultipleProps: true,
                     withLinks: true,
-                    width: '60px',
+                    width: '90px',
                     route: {
                         name: 'adminBuildingUnits',
                         paramsKeys: {
