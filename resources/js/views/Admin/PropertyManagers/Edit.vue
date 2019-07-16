@@ -191,11 +191,11 @@
     import RelationList from 'components/RelationListing';
     import EditActions from 'components/EditViewActions';
     import {mapGetters, mapActions} from 'vuex';
-
+    import globalFunction from "helpers/globalFunction";
 
     export default {
         name: 'AdminPropertyManagersEdit',
-        mixins: [PropertyManagersMixin({
+        mixins: [globalFunction, PropertyManagersMixin({
             mode: 'edit'
         })],
         components: {
@@ -280,18 +280,9 @@
                 });
             },
 
-            requestStatusBadge(status) {
-                const colorObject = {
-                    1: '#bbb',
-                    2: '#ebb563',
-                    3: '#ebb563',
-                    4: '#67C23A',
-                    5: '#ebb563',
-                    6: '#67C23A'
-                };
-
-                return colorObject[status];
-            }
+            requestStatusBadge(status) {                
+                return this.getRequestStatusColor(status);
+            },
         },
         computed: {
             ...mapGetters('application', {

@@ -357,13 +357,14 @@
     import Cropper from 'components/Cropper';
     import RelationList from 'components/RelationListing';
     import EditActions from 'components/EditViewActions';
+    import globalFunction from "helpers/globalFunction";
 
     const mixin = AdminTenantsMixin({
         mode: 'edit'
     });
 
     export default {
-        mixins: [mixin],
+        mixins: [mixin, globalFunction],
         components: {
             Heading,
             Card,
@@ -532,18 +533,9 @@
                 } finally {
                     this.loading.state = false;
                 }
-            },
-            requestStatusBadge(status) {
-                const colorObject = {
-                    1: '#bbb',
-                    2: '#ebb563',
-                    3: '#ebb563',
-                    4: '#67C23A',
-                    5: '#ebb563',
-                    6: '#67C23A'
-                };
-
-                return colorObject[status];
+            },           
+            requestStatusBadge(status) {                
+                return this.getRequestStatusColor(status);
             },
             requestStatusLabel(status) {
                 return this.$t(`models.request.status.${this.requestStatusConstants[status]}`)
