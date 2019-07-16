@@ -303,6 +303,16 @@ class ServiceRequest extends Model implements HasMedia, Auditable
             $serviceRequest->service_request_format = $serviceRequest->getUniqueIDFormat($serviceRequest->id);
             $serviceRequest->save();
         });
+
+        static::saving(function ($serviceRequest) {
+           if (! empty($serviceRequest->category_id)) {
+               $category = ServiceRequestCategory::where('id', $serviceRequest->category_id)->first(['parent_id']);
+               if (! empty($category)) {
+                   $parentId = $category->parent_id ?? $serviceRequest->category_id;
+                   $serviceRequest->category_parent_id = $parentId;
+               }
+           }
+        });
     }
 
     /**
