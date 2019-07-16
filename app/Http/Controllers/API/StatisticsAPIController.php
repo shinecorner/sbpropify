@@ -409,26 +409,27 @@ class StatisticsAPIController extends AppBaseController
     public function chartRequestByCreationDate(Request $request)
     {
         // @TODO fix query param hard code, also key hard code like month
-        $requestData = $request->all();
-        $period = $requestData['period'] ?? 'day';
-        $startDate = $requestData['start_date'] ?? '';
-        $endDate = $requestData['end_date'] ?? '';
+        [$startDate, $endDate] = $this->getStartDateEndDate($request);
+        $periodValues = $this->getPeriodValues($startDate, $endDate);
+        $catDayStats = $this->initializeServiceRequestCategoriesForChart($periodValues);
+        $query = $this->getGroupedQueryForServiceRequest();
+        $reqPerCreationDate = collect(DB::select($query, ['start_date' => $startDate, 'end_date' => $endDate]));
 
-
-        if ('year' == $period) {
-//            $startDate = '';
-//            $endDate = '';
-        } elseif ('month' == $period) {
-
-        } elseif ('week' == $period) {
-
+        foreach($reqPerCreationDate as $reqValue){
+            $catDayStats[$reqValue->parent_category_name][$reqValue->created_at] = $reqValue->cnt_request;
         }
-        
 
-        // @TODO security problem maybe make table aliases or permit specific tables
-        $table = $requestData['table'] ?? 'service_requests';
+        $formattedReqStatistics = [];
+        foreach($catDayStats as $key=>$value){
+            $formattedReqStatistics[] = [
+                'name' => $key,
+                'data' => array_values($value)
+            ];
+        }
 
-        return $this->getDayCountStatistic($table, $startDate, $endDate);
+        $ret['requests_per_day_xdata'] = $periodValues;
+        $ret['requests_per_day_ydata'] = $formattedReqStatistics;
+        return $this->sendResponse($ret, 'Admin statistics retrieved successfully');
     }
 
     /**
@@ -493,5 +494,101 @@ class StatisticsAPIController extends AppBaseController
           'series' => [16, 17, 6, 3, 3, 5]
         ];
         return $this->sendResponse($response, 'Admin statistics retrieved successfully');
+    }
+
+    /**
+     * @param $periodValues
+     * @return array
+     */
+    public function initializeServiceRequestCategoriesForChart($periodValues)
+    {
+        $categoryDayStatistic = [];
+        $req_parents = collect(DB::select("SELECT `name` from service_request_categories WHERE parent_id IS NULL"));
+
+        foreach($req_parents as $req_parent){
+            foreach ($periodValues as $date) {
+                $categoryDayStatistic[$req_parent->name][$date] = 0;
+            }
+        }
+
+        return $categoryDayStatistic;
+    }
+
+    /**
+     * @param $startDate
+     * @param $endDate
+     * @return array
+     */
+    protected function getPeriodValues($startDate, $endDate)
+    {
+        $periodValues = [];
+
+        $period = CarbonPeriod::create($startDate, $endDate);
+        foreach ($period as $date) {
+            $periodValues[] = $date->format('Y-m-d');
+        }
+
+        return $periodValues;
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    protected function getStartDateEndDate($request)
+    {
+        $requestData = $request->all();
+        $period = $requestData['period'] ?? 'day';
+        $startDate = $requestData['start_date'] ?? '';
+        $endDate = $requestData['end_date'] ?? '';
+
+        if (empty($startDate) && empty($endDate)) {
+            $endDate = now();
+            $startDate = now()->subMonth();
+        } elseif (empty($startDate)) {
+            $endDate = Carbon::parse($endDate);
+            $startDate = clone $endDate;
+            $startDate->subMonth();
+        } elseif (empty($endDate)) {
+            $startDate = Carbon::parse($startDate);
+            $endDate = now();
+        }
+
+        if ('year' == $period) {
+            // @TODO fix start_date, end_date
+        } elseif ('month' == $period) {
+            // @TODO fix start_date, end_date
+        } elseif ('week' == $period) {
+            // @TODO fix start_date, end_date
+        }
+
+        return [$startDate, $endDate];
+    }
+
+    /**
+     * @return string
+     */
+    protected function getGroupedQueryForServiceRequest()
+    {
+        return "SELECT 
+              COUNT(req.id) AS cnt_request,
+              DATE(req.created_at) AS created_at,
+              req.category_id,
+              IF(cat2.id IS NULL, cat1.id, cat2.id) AS parent_category_id,
+              IF(
+                cat2.name IS NULL,
+                cat1.name,
+                cat2.name
+              ) AS parent_category_name 
+            FROM
+              service_requests AS req 
+              INNER JOIN service_request_categories AS cat1 
+                ON req.category_id = cat1.id 
+              LEFT JOIN service_request_categories AS cat2 
+                ON cat1.parent_id = cat2.id
+                WHERE DATE(req.created_at) >= :start_date
+                AND DATE(req.created_at) <= :end_date 
+            GROUP BY parent_category_id,
+                created_at";
     }
 }
