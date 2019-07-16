@@ -294,6 +294,7 @@ class StatisticsAPIController extends AppBaseController
         $ret['requests_per_category']['labels'] = $categoryDayStatistics->map(function($el) {
             return $el['name'];
         });
+
         $ret['requests_per_category']['data'] = $categoryDayStatistics->map(function($el) {
             return array_sum($el['data']);
         });
@@ -315,7 +316,8 @@ class StatisticsAPIController extends AppBaseController
     public function chartRequestByCreationDate(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null)
     {
         if (is_null($startDate) && is_null($endDate)) {
-            [$startDate, $endDate] = $this->getStartDateEndDate($request);
+            $period = $this->getPeriod($request);
+            [$startDate, $endDate] = $this->getStartDateEndDate($request, $period);
         }
 
         $periodValues = $this->getPeriodValues($startDate, $endDate);
@@ -475,13 +477,17 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @param $request
+     * @param null $period
      * @return array
      */
-    protected function getStartDateEndDate($request)
+    protected function getStartDateEndDate($request, $period = null)
     {
         // @TODO fix query param hard code, also key hard code like month
         $requestData = $request->all();
-        $period = $requestData['period'] ?? 'day';
+        if (is_null($period)) {
+            $period = $this->getPeriod($request);
+        }
+
         $startDate = $requestData['start_date'] ?? '';
         $endDate = $requestData['end_date'] ?? '';
 
@@ -501,14 +507,41 @@ class StatisticsAPIController extends AppBaseController
         }
 
         if ('year' == $period) {
-            // @TODO fix start_date, end_date
+            $startDate->setMonth(1);
+            $startDate->setDay(1);
+            $endDate->setMonth(12);
+            $endDate->setDay(31);
         } elseif ('month' == $period) {
-            // @TODO fix start_date, end_date
+            $startDate->setDay(1);
+            $endDate->addMonth();
+            $endDate->setDay(1)->subDay(1);
         } elseif ('week' == $period) {
-            // @TODO fix start_date, end_date
+            if ($startDate->dayOfWeek) {
+                $startDate->subDay($startDate->dayOfWeek);
+            }
+
+            if (6 != $endDate->dayOfWeek) {
+                $endDate->addDays(6 - $endDate->dayOfWeek);
+            }
         }
 
         return [$startDate, $endDate];
+    }
+
+    /**
+     * @param $request
+     * @return string
+     */
+    protected function getPeriod($request)
+    {
+        $periods = [
+            'day',
+            'week',
+            'month',
+            'year'
+        ];
+        $period = $request->period ?? 'day';
+        return in_array($period, $periods) ? $period : 'day';
     }
 
     /**
