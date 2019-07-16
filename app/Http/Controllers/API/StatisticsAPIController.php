@@ -315,20 +315,18 @@ class StatisticsAPIController extends AppBaseController
      */
     public function chartRequestByCreationDate(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null)
     {
+        $period = $this->getPeriod($request);
         if (is_null($startDate) && is_null($endDate)) {
-            [$startDate, $endDate] = $this->getStartDateEndDate($request);
+            [$startDate, $endDate] = $this->getStartDateEndDate($request, $period);
         }
 
-        $period = $this->getPeriod($request);
         $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id')->toArray();
         [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate);
         $catDayStats = $this->initializeServiceRequestCategoriesForChart($parentCategories, $periodValues);
 
         $serviceRequests = ServiceRequest::selectRaw($raw)
-            ->when('day' == $period, function ($q) use ($startDate, $endDate) {
-                $q->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
-                    ->whereDate('created_at', '<=', $endDate->format('Y-m-d'));
-            })
+            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
             ->addSelect('category_parent_id')
             ->groupBy('period')
             ->groupBy('category_parent_id')
@@ -482,17 +480,28 @@ class StatisticsAPIController extends AppBaseController
             $part = "YEAR(created_at)";
         } elseif ('month' == $period) {
             $part = "CONCAT(YEAR(created_at), ' ', MONTH(created_at))";
+            $startDate->setDay(1);
+            $endDate->addMonth()->setDay(1)->subDay();
+
+            $currentDate = clone $startDate;
+            while ($currentDate < $endDate) {
+                $yearMonth = $currentDate->year . ' ' . $currentDate->month;
+                $periodValues[$yearMonth] = $currentDate->format('Y M');
+                $currentDate->addWeek();
+            }
         } elseif ('week' == $period) {
+
             if ($startDate->dayOfWeek) {
                 $startDate = $startDate->subDays($startDate->dayOfWeek);
             }
             if (6 != $endDate->dayOfWeek) {
                 $endDate = $endDate->addDays(6 - $endDate->dayOfWeek);
             }
-
+            // @TODO check statistics when WEEK(created_at) = 1, 52, 53 maybe can income some incorrect data
             $part = "CONCAT(YEAR(created_at), ' ', WEEK(created_at))";
             $currentDate = clone $startDate;
             $today = now();
+
             while ($currentDate < $endDate) {
                 $yearWeek = $currentDate->year . ' ' . $currentDate->week;
                 $periodValues[$yearWeek] = ($currentDate->year != $today->year) ? $yearWeek : $currentDate->week;
