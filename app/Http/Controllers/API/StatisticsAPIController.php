@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
 use App\Models\Building;
+use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestCategory;
 use App\Models\Tenant;
@@ -18,6 +19,7 @@ use Carbon\CarbonPeriod;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 use Validator;
 use DB;
 
@@ -263,12 +265,12 @@ class StatisticsAPIController extends AppBaseController
 
         return $this->sendResponse($response, 'Service Request statistics retrieved successfully');
     }
-    
-    public function adminStats()
+
+    public function adminStats(Request $request)
     {
         $ret = [
             'total_requests' => DB::table('service_requests')->count('id'),
-            'tenants_per_day' => DB::select("select date(created_at) `x`, count(id) `y` from tenants group by date(created_at) order by `x`;"),
+            'tenants_per_day' => $this->getDayCountStatistic('tenants'),
             'tenants_per_status' => [],
                         
             'requests_per_status' => [],
@@ -280,6 +282,7 @@ class StatisticsAPIController extends AppBaseController
             'posts_per_day' => DB::select("select date(created_at) `x`, count(id) `y` from posts group by date(created_at) order by `x`;"),
             'posts_per_status' => [],
         ];
+
         $period_array = $req_array = $formatted_req_array = [];
         
         $period = CarbonPeriod::create(Carbon::now()->subDays(30)->format('Y-m-d'), Carbon::now()->format('Y-m-d'));
@@ -399,7 +402,55 @@ class StatisticsAPIController extends AppBaseController
 
         return $this->sendResponse($ret, 'Admin statistics retrieved successfully');
     }
-    public function chartRequestByCreationDate(Request $request){
+
+    /**
+     *
+     */
+    public function chartRequestByCreationDate(Request $request)
+    {
+        // @TODO fix query param hard code, also key hard code like month
+        $requestData = $request->all();
+        $period = $requestData['period'] ?? 'day';
+        $startDate = $requestData['start_date'] ?? '';
+        $endDate = $requestData['end_date'] ?? '';
+
+
+        if ('year' == $period) {
+//            $startDate = '';
+//            $endDate = '';
+        } elseif ('month' == $period) {
+
+        } elseif ('week' == $period) {
+
+        }
+
+        // @TODO security problem maybe make table aliases or permit specific tables
+        $table = $requestData['table'] ?? 'service_requests';
+
+        return $this->getDayCountStatistic($table, $startDate, $endDate);
+    }
+
+    /**
+     * @param $table
+     * @param null $startDate
+     * @param null $endDate
+     * @return mixed
+     */
+    public function getDayCountStatistic($table, $startDate = null, $endDate = null)
+    {
+        return \DB::table($table)->selectRaw ('date(created_at) `x`, count(id) `y`')
+            ->when($startDate, function ($q) use ($startDate) {
+                $q->whereDate('created_at', '>=', Carbon::parse($startDate)->format('Y-m-d'));
+            })
+            ->when($endDate, function ($q) use ($endDate) {
+                $q->whereDate('created_at', '<=', Carbon::parse($endDate)->format('Y-m-d'));
+            })
+            ->groupBy('x')
+            ->orderBy('x')
+            ->get();
+    }
+
+    public function _chartRequestByCreationDate(Request $request){
         $response = [
           'labels' => ["2019-06-15", "2019-06-16", "2019-06-17", "2019-06-18", "2019-06-19"],
           'series' => [
@@ -434,6 +485,7 @@ class StatisticsAPIController extends AppBaseController
         ];
         return $this->sendResponse($response, 'Admin statistics retrieved successfully');
     }
+
     public function chartRequestByCategory(Request $request){
         $response = [
           'labels' => ["Disturbance", "Defect", "Order documents", "Order a payment slip", "Questions about the tenancy","Other"],

@@ -79,6 +79,7 @@
                     label: this.$t('models.tenant.status.label'),
                     prop: 'status',
                     i18nPath: 'models.tenant.status',
+                    class: 'rounded-select',
                     select: {
                         icon: 'ti-pencil',
                         data: [],

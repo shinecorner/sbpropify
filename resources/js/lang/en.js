@@ -764,7 +764,9 @@ export default {
                 tenant: 'Private',
                 district: 'District',
                 building: 'Building',
-            }
+            },
+            requestID: "Request ID",
+            requestCategory: "Request Category",
         },
         requestCategory: {
             title: 'Request categories',
