@@ -478,6 +478,15 @@ class StatisticsAPIController extends AppBaseController
 
         if ('year' == $period) {
             $part = "YEAR(created_at)";
+            $startDate->setMonth(1)->setDay(1);
+            $endDate->setMonth(12)->setDay(31);
+            $currentDate = clone $startDate;
+
+            while ($currentDate < $endDate) {
+                $periodValues[$currentDate->year] = $currentDate->year;
+                $currentDate->addYear();
+            }
+
         } elseif ('month' == $period) {
             $part = "CONCAT(YEAR(created_at), ' ', MONTH(created_at))";
             $startDate->setDay(1);
@@ -487,7 +496,7 @@ class StatisticsAPIController extends AppBaseController
             while ($currentDate < $endDate) {
                 $yearMonth = $currentDate->year . ' ' . $currentDate->month;
                 $periodValues[$yearMonth] = $currentDate->format('Y M');
-                $currentDate->addWeek();
+                $currentDate->addMonth();
             }
         } elseif ('week' == $period) {
 
