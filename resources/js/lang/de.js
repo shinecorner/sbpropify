@@ -763,7 +763,9 @@ export default {
                 tenant: 'Mieter',
                 district: 'Überbauung',
                 building: 'Liegenschaft',
-            }
+            },
+            requestID: "Anfrage ID",
+            requestCategory: "Anfordern Kategorie ",
         },
         requestCategory: {
             title: 'Anfrage Kategorien',

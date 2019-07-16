@@ -1,14 +1,23 @@
 <template>
     <el-dialog
         :close-on-click-modal="false"
-        :title="`${selectedServiceRequest.name ? selectedServiceRequest.name + selectedProvider : ''}`"
+        :title="`${seletedTenantName + selectedProvider}`"
         :visible="showServiceMailModal"
         @close="close"
         v-loading="mailSending"
-    >
+    >   
+        <el-row class="request-info-row">
+            <el-col :md="6">                
+                <span>{{$t('models.request.requestID')}}: {{requestData.id}}</span>
+            </el-col>
+            <el-col :md="12">                
+                <span>{{$t('models.request.requestCategory')}}: {{requestData.category.name}}</span>
+            </el-col>
+        </el-row>
+
         <el-tabs v-model="activeName">
             <el-tab-pane :label="$t('models.request.mail.notify')" name="notify">
-                <span slot="label"><i class="el-icon-message"></i> {{$t('models.request.mail.notify')}}</span>
+                <span slot="label"><i class="el-icon-message"></i> {{$t('models.request.mail.notify')}}</span>                
                 <el-form :model="model" :rules="validationRules" ref="form">
                     <el-collapse v-model="activeNames">
                         <el-collapse-item :title="$t('models.request.recipients')" class="collapse-item"
@@ -144,6 +153,16 @@
                 default() {
                     return []
                 }
+            },
+            requestData: {
+                type: Object,
+                default: {                    
+                    id: "", 
+                    category: {
+                        id: -1,
+                        name: ""
+                    }                    
+                }
             }
         },
         data() {
@@ -215,7 +234,7 @@
 
                 return foundConversation.id;
             },
-            selectedProvider() {
+            selectedProvider() {                
                 let provider = this.providers.find((provider) => {
                     if(provider.id === this.model.provider) return provider;
                 })
@@ -225,6 +244,14 @@
                 }
                 
                 return '';
+            },
+            seletedTenantName() {
+                let provider = this.providers.find((provider) => {
+                    if(provider.id === this.model.provider) return provider;                    
+                })
+                if(provider) {
+                    return provider.user.name
+                }
             }
         },
         methods: {
@@ -276,5 +303,9 @@
 
     .collapse-item .el-collapse-item__content {
         padding-bottom: 0;
+    }
+
+    .request-info-row {
+        margin-bottom: 22px;
     }
 </style>

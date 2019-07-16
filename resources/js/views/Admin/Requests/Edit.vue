@@ -298,6 +298,7 @@
             :providers="model.providers"
             :selectedServiceRequest="selectedServiceRequest"
             :showServiceMailModal="showServiceMailModal"
+            :requestData="selectedRequestIDAndCategory"
             @close="closeMailModal"
             @send="sendServiceMail"
             v-if="(model.providers && model.providers.length) || (model.assignees && model.assignees.length)"
@@ -381,6 +382,19 @@
                             return obj;
                         }, {});
                 }
+            },
+            selectedRequestIDAndCategory() {
+                let selectedCategory = this.categories.find((category) => { 
+                    if( category.id == this.model.category_id )
+                        return category;
+                })
+                return {
+                    id: this.model.id,
+                    category: {
+                        id: this.model.category_id,
+                        name: selectedCategory? selectedCategory.name : ""
+                    }
+                }                
             }
         },
         methods: {
@@ -430,7 +444,7 @@
                     this.loading.status = false;
                 });
             },
-            openNotifyProvider(provider) {
+            openNotifyProvider(provider) {            
                 this.selectedServiceRequest = provider;
                 this.showServiceMailModal = true;
             },
@@ -440,7 +454,7 @@
                     this.selectedConversation = row;
                     this.conversationVisible = true;
                 })
-            },
+            },            
         }
     };
 </script>
