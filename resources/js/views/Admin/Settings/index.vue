@@ -1,6 +1,6 @@
 <template>
     <div class="settings">
-        <heading :title="$t('models.realEstate.title')" class="custom-heading" icon="ti-settings"/>
+        <heading :title="$t('models.realEstate.title')" class="custom-heading" icon="ti-settings" shadow="heavy" />
         <el-tabs tab-position="left" v-model="activeName">
             <el-tab-pane :label="$t('models.realEstate.details')" name="details">
                 <el-card>

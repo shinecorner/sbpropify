@@ -1,6 +1,6 @@
 <template>
     <div class="services-add">
-        <heading :title="$t('models.propertyManager.add')" icon="ti-user">
+        <heading :title="$t('models.propertyManager.add')" icon="ti-user" shadow="heavy">
             <add-actions :saveAction="submit" route="adminPropertyManagers"/>
         </heading>
         <div class="crud-view">

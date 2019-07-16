@@ -1,6 +1,6 @@
 <template>
     <div class="users-edit">
-        <heading icon="ti-user" :title="$t('models.address.edit')" class="custom-heading"/>
+        <heading icon="ti-user" :title="$t('models.address.edit')" shadow="heavy" class="custom-heading"/>
         <el-form :model="editAddress" ref="editAddressForm" label-position="top">
             <el-row :gutter="20">
                 <el-col :span="12">

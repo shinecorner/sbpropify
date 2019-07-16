@@ -16,6 +16,7 @@ use App\Models\User;
 use Config;
 use Illuminate\Database\Eloquent\Collection;
 use InfyOm\Generator\Common\BaseRepository;
+use Spatie\MediaLibrary\Models\Media;
 
 /**
  * Class TemplateRepository
@@ -129,7 +130,7 @@ class TemplateRepository extends BaseRepository
             if (count($valMap) == 3) {
                 if ($valMap[0] == 'constant') {
                     $val = self::getContextValue(${$valMap[1]}, $valMap[2]);
-                    $val = __('common.' . $val);
+                    $val = __('common.' . $valMap[1] . '_' . $valMap[2] . '_' . $val);
                     $tags[$tag] = $val;
                     continue;
                 }
@@ -469,9 +470,33 @@ class TemplateRepository extends BaseRepository
             'user' => $user,
         ];
 
-        $tags = $this->gettags($template->category->tag_map, $context);
+        $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getparsedtemplatedata($template, $tags, $user->settings->language);
+        return $this->getParsedTemplateData($template, $tags, $user->settings->language);
+    }
+
+    /**
+     * @param ServiceRequest $sr
+     * @param User $uploader
+     * @param Media $media
+     * @return array
+     */
+    public function getRequestMediaParsedTemplate(ServiceRequest $sr, User $uploader, User $receiver, Media $media): array
+    {
+        $template = $this->getByCategoryName('request_upload');
+
+        $context = [
+            'request' => $sr,
+            'media' => $media,
+            'uploader' => $uploader,
+            'receiver' => $receiver,
+        ];
+
+        $tags = $this->getTags($template->category->tag_map, $context);
+
+        $msg = $this->getParsedTemplateData($template, $tags, $receiver->settings->language);
+        $msg['media'] = $media;
+        return $msg;
     }
 
     /**
@@ -489,9 +514,9 @@ class TemplateRepository extends BaseRepository
             'originalRequest' => $osr,
             'user' => $user,
         ];
-        $tags = $this->gettags($template->category->tag_map, $context);
+        $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getparsedtemplatedata($template, $tags, $user->settings->language);
+        return $this->getParsedTemplateData($template, $tags, $user->settings->language);
     }
 
     /**

@@ -1,6 +1,6 @@
 <template>
     <div class="posts">
-        <heading :title="$t('models.post.title')" icon="ti-announcement">
+        <heading :title="$t('models.post.title')" icon="ti-announcement" shadow="heavy">
             <template v-if="$can($permissions.create.post)">
                 <el-button @click="add" icon="ti-plus" round size="small" type="primary">
                     {{$t('models.post.add')}}

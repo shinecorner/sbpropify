@@ -450,7 +450,8 @@ HTML
                 'subject' => 'New document uploaded for request: {{title}}',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
-<p>A new document/image was added for request: {{title}</p>
+<p>A new document/image was added for request: {{title}}</p>
+<p>Please find the uploaded file in the attachments of this email.</p>
 HTML
             ],
             [
@@ -510,7 +511,7 @@ HTML
                 'subject' => 'Request: {{title}} has the due date tomorrow',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
-<p>Due date for request {{title} is {{dueDate}}</p>
+<p>Due date for request {{title}} is {{dueDate}}</p>
 HTML
             ],
         ];

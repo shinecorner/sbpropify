@@ -1,6 +1,6 @@
 <template>
-    <div class="heading">
-        <i :class="['icon', icon, {'admin-icon':  !this.$store.getters.isTenant}]" v-if="icon"></i>
+    <div :class="['heading', `${shadow}-shadow`]">
+        <i :class="['icon', icon]" v-if="icon"></i>
         <div class="content">
             <div class="title">{{title}}</div>
             <slot name="description" />
@@ -17,6 +17,11 @@
                 type: String,
                 required: true
             },
+            shadow: {
+                type: String,
+                default: 'light',
+                validator: type => ['light', 'heavy'].includes(type)
+            },
             description: String
         }
     }
@@ -30,6 +35,18 @@
         position: relative;
         z-index: 1;
 
+        &.light-shadow .icon {
+            box-shadow: 0 1px 3px transparentize(#000, .88),
+                        0 1px 2px transparentize(#000, .76);
+        }
+
+        &.heavy-shadow .icon {
+            box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,.03), 
+                        0 0.9375rem 1.40625rem rgba(4,9,20,.03), 
+                        0 0.25rem 0.53125rem rgba(4,9,20,.05), 
+                        0 0.125rem 0.1875rem rgba(4,9,20,.03);
+        }
+
         .icon {
             width: 56px;
             height: 56px;
@@ -41,13 +58,6 @@
             color: #6AC06F;
             font-size: 22px;
             margin-right: 16px;
-        }
-
-        .admin-icon{
-                box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,.03), 
-                            0 0.9375rem 1.40625rem rgba(4,9,20,.03), 
-                            0 0.25rem 0.53125rem rgba(4,9,20,.05), 
-                            0 0.125rem 0.1875rem rgba(4,9,20,.03);
         }
 
         .content {

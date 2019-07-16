@@ -1,7 +1,12 @@
 <template>
     <div class="services-edit mb20">
+<<<<<<< HEAD
         <heading :title="$t('models.service.edit_title')" icon="ti-user">
             <edit-actions :saveAction="submit" :deleteAction="deleteService" route="adminServices"/>
+=======
+        <heading :title="$t('models.service.edit_title')" icon="ti-user" shadow="heavy">
+            <edit-actions :saveAction="submit" route="adminServices"/>
+>>>>>>> 1c154e3869bc4df23a5c2a4873f6555568208f1e
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">

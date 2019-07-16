@@ -1,6 +1,6 @@
 <template>
     <div class="services">
-        <heading icon="ti-user" :title="$t('pages.user.title')">
+        <heading icon="ti-user" :title="$t('pages.user.title')" shadow="heavy">
             <template v-if="$can($permissions.create.user)">
                 <el-button @click="add" icon="ti-plus" round size="small" type="primary">{{$t('actions.add')}}</el-button>
             </template>

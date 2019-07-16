@@ -16,7 +16,7 @@
                 <user/>
             </el-menu-item>
             <el-menu-item>
-                <el-tooltip content="Logout" effect="dark" placement="bottom">
+                <el-tooltip :content="$t('layouts.tenant.menu.logout')" effect="dark" placement="bottom">
                     <el-button @click="logout" circle icon="ti-power-off" size="mini" type="danger"/>
                 </el-tooltip>
             </el-menu-item>
@@ -141,34 +141,34 @@ export default {
         routes() {
             const routes = [{
                 icon: 'ti-home',
-                title: 'Dashboard',
+                title: this.$t('layouts.tenant.sidebar.dashboard'),
                 route: {
                     name: 'tenantDashboard'
                 }
             }, {
                 icon: 'ti-user',
-                title: 'My tenancy',
+                title: this.$t('layouts.tenant.sidebar.myTenancy'),
                 children: [{
                     icon: 'ti-files',
-                    title: 'My personal data',
+                    title: this.$t('layouts.tenant.sidebar.myPersonalData'),
                     route: {
                         name: 'tenantMyPersonal'
                     }
                 }, {
                     icon: 'ti-pin-alt',
-                    title: 'My recent contract',
+                    title: this.$t('layouts.tenant.sidebar.myRecentContract'),
                     route: {
                         name: 'tenantMyContracts'
                     }
                 }, {
                     icon: 'ti-book',
-                    title: 'Documents',
+                    title: this.$t('layouts.tenant.sidebar.myDocuments'),
                     route: {
                         name: 'tenantMyDocuments'
                     }
                 }, {
                     icon: 'ti-user',
-                    title: 'Contact persons',
+                    title: this.$t('layouts.tenant.sidebar.myContactPersons'),
                     route: {
                         name: 'tenantMyContacts'
                     },
@@ -176,19 +176,19 @@ export default {
                 }]
             }, {
                 icon: 'ti-announcement',
-                title: 'News',
+                title: this.$t('layouts.tenant.sidebar.posts'),
                 route: {
                     name: 'tenantPosts'
                 }
             }, {
                 icon: 'ti-comments',
-                title: 'Requests',
+                title: this.$t('layouts.tenant.sidebar.requests'),
                 route: {
                     name: 'tenantRequests'
                 }
             }, {
                 icon: 'ti-shopping-cart',
-                title: 'Marketplace',
+                title: this.$t('layouts.tenant.sidebar.products'),
                 route: {
                     name: 'tenantMarketplace'
                 }
@@ -200,7 +200,7 @@ export default {
                 }
             }, {
                 icon: 'ti-settings',
-                title: 'Settings',
+                title: this.$t('layouts.tenant.sidebar.settings'),
                 positionedBottom: true,
                 route: {
                     name: 'tenantSettings'

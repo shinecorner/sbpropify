@@ -1,6 +1,6 @@
 <template>
     <div>
-        <heading class="custom-heading" icon="ti-home" title="Dashboard"/>
+        <heading class="custom-heading" icon="ti-home" title="Dashboard" shadow="heavy" />
         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
             <el-col class="dashboard-tabpanel">
                 <el-tabs type="border-card">

@@ -1,7 +1,12 @@
 <template>
     <div class="units-edit">
+<<<<<<< HEAD
         <heading :title="$t('models.unit.edit')" icon="ti-user" style="margin-bottom: 20px;">
             <edit-actions :saveAction="submit" :deleteAction="deleteUnit" route="adminUnits"/>
+=======
+        <heading :title="$t('models.unit.edit')" icon="ti-user" style="margin-bottom: 20px;" shadow="heavy">
+            <edit-actions :saveAction="submit" route="adminUnits"/>
+>>>>>>> 1c154e3869bc4df23a5c2a4873f6555568208f1e
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">

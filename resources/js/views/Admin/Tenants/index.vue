@@ -1,6 +1,6 @@
 <template>
     <div class="tenants">
-        <heading :title="$t('pages.tenant.title')" icon="ti-plus" >
+        <heading :title="$t('pages.tenant.title')" icon="ti-plus" shadow="heavy">
             <template v-if="$can($permissions.create.tenant)">
                 <el-button @click="add" icon="ti-plus" round size="small" type="primary">{{$t('models.tenant.add')}}
                 </el-button>
