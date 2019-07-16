@@ -172,6 +172,7 @@ class ServiceRequest extends Model implements HasMedia, Auditable
 
     const Fillable = [
         'category_id',
+        'category_parent_id',
         'subject_id',
         'tenant_id',
         'unit_id',

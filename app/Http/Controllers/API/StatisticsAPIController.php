@@ -320,7 +320,8 @@ class StatisticsAPIController extends AppBaseController
         }
 
         $periodValues = $this->getPeriodValues($request, $startDate, $endDate);
-        $catDayStats = $this->initializeServiceRequestCategoriesForChart($periodValues);
+        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id')->toArray();
+        $catDayStats = $this->initializeServiceRequestCategoriesForChart($parentCategories, $periodValues);
         $query = $this->getGroupedQueryForServiceRequest();
         $reqPerCreationDate = collect(DB::select($query, ['start_date' => $startDate, 'end_date' => $endDate]));
 
@@ -440,17 +441,17 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     * @param $parentCategories
      * @param $periodValues
      * @return array
      */
-    public function initializeServiceRequestCategoriesForChart($periodValues)
+    public function initializeServiceRequestCategoriesForChart($parentCategories, $periodValues)
     {
         $categoryDayStatistic = [];
-        $req_parents = collect(DB::select("SELECT `name` from service_request_categories WHERE parent_id IS NULL"));
 
-        foreach($req_parents as $req_parent){
-            foreach ($periodValues as $date) {
-                $categoryDayStatistic[$req_parent->name][$date] = 0;
+        foreach($parentCategories as $category){
+            foreach ($periodValues as $period) {
+                $categoryDayStatistic[$category][$period] = 0;
             }
         }
 
@@ -476,7 +477,8 @@ class StatisticsAPIController extends AppBaseController
 
         $datePeriod = CarbonPeriod::create($startDate, $endDate);
         foreach ($datePeriod as $date) {
-            $periodValues[] = $date->format('Y-m-d');
+
+            $periodValues[$date->format('Y-m-d')] = $date->format('Y-m-d');
         }
 
         return $periodValues;
