@@ -321,7 +321,6 @@ class StatisticsAPIController extends AppBaseController
 
         $period = $this->getPeriod($request);
         $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id')->toArray();
-
         [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate);
         $catDayStats = $this->initializeServiceRequestCategoriesForChart($parentCategories, $periodValues);
 
@@ -461,7 +460,7 @@ class StatisticsAPIController extends AppBaseController
         $categoryDayStatistic = [];
 
         foreach($parentCategories as $category){
-            foreach ($periodValues as $period) {
+            foreach ($periodValues as $period => $__) {
                 $categoryDayStatistic[$category][$period] = 0;
             }
         }
@@ -479,29 +478,37 @@ class StatisticsAPIController extends AppBaseController
     {
         $periodValues = [];
 
-
         if ('year' == $period) {
             $part = "YEAR(created_at)";
         } elseif ('month' == $period) {
             $part = "CONCAT(YEAR(created_at), ' ', MONTH(created_at))";
         } elseif ('week' == $period) {
+            if ($startDate->dayOfWeek) {
+                $startDate = $startDate->subDays($startDate->dayOfWeek);
+            }
+            if (6 != $endDate->dayOfWeek) {
+                $endDate = $endDate->addDays(6 - $endDate->dayOfWeek);
+            }
+
             $part = "CONCAT(YEAR(created_at), ' ', WEEK(created_at))";
+            $currentDate = clone $startDate;
+            $today = now();
+            while ($currentDate < $endDate) {
+                $yearWeek = $currentDate->year . ' ' . $currentDate->week;
+                $periodValues[$yearWeek] = ($currentDate->year != $today->year) ? $yearWeek : $currentDate->week;
+                $currentDate->addWeek();
+            }
+
         } else {
             $part = "DATE(created_at)";
+            $datePeriod = CarbonPeriod::create($startDate, $endDate);
+            foreach ($datePeriod as $date) {
+                $periodValues[$date->format('Y-m-d')] = $date->format('Y-m-d');
+            }
         }
 
         $raw = sprintf("count(id) as count, %s as period", $part);
-//        if ('week' == $period) {
-//        } elseif ('day' == $period) {
-//        } elseif ('day' == $period) {
-//        } else {
-//        }
 
-        $datePeriod = CarbonPeriod::create($startDate, $endDate);
-        foreach ($datePeriod as $date) {
-
-            $periodValues[$date->format('Y-m-d')] = $date->format('Y-m-d');
-        }
 
         return [$periodValues, $raw];
     }
