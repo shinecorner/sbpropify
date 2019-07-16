@@ -7,7 +7,7 @@
                     <div class="heading">
                         {{data.title}}
                         <small class="time">
-                            added on {{data.published_at | formatDatetime}}
+                            added on {{formatDatetime(data.published_at)}}
                         </small>
                     </div>
                     <el-tag class="type" size="mini" disable-transitions>{{typeName}}</el-tag>

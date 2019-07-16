@@ -22,11 +22,11 @@
         <template v-else>
             <div class="pinned" v-if="data.pinned"><span>pinned</span></div>
             <div class="user">
-                <avatar :name="data.user.name" :size="44" :src="data.user.avatar"/>
+                <avatar :name="data.user.name" :size="44" :src="data.user.avatar" />
                 <div class="name">
                     {{data.user.name}}
                     <small>
-                        {{data.created_at | formatDatetime}}
+                        {{formatDatetime(data.created_at)}}
                     </small>
                 </div>
             </div>
@@ -62,7 +62,7 @@
             <reactions :id="data.id" type="posts">
                 <el-button @click="$refs.addComment.focus()" icon="ti-comment-alt" type="text">Comment</el-button>
             </reactions>
-            <comments-list ref="comments" type="post" :children="{visible: true}" :id="data.id" :use-placeholder="false" noscroll />
+            <comments-list ref="comments" :id="data.id" type="post" :use-placeholder="false" />
             <add-comment ref="addComment" :id="data.id" type="post"/>
         </template>
     </card>
@@ -107,7 +107,7 @@
             execution() {
                 const {execution_start, execution_end} = this.data
 
-                const start = this.$options.filters.formatDatetime(execution_start)
+                const start = this.formatDatetime(execution_start)
                 const end = format(execution_end, isSameDay(execution_start, execution_end) ? 'HH:mm':'DD.MM.YYYY HH:mm')
 
                 return `${start} - ${end}`
@@ -172,7 +172,7 @@
             color: darken(#fff, 48%);
         }
 
-        /deep/ .media-carousel-gallery {
+        .media-gallery-carousel {
             margin: 12px -16px;
             box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
         }

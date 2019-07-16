@@ -1035,6 +1035,9 @@ export default {
     },
     components: {
         common: {
+            audit: {
+
+            },
             commentsList: {
                 loading: 'Loading...',
                 loadMore: {
@@ -1089,5 +1092,6 @@ export default {
                 }
             }
         }
-    }
+    },
+    dateTimeFormat: '{date} at {time}'
 }

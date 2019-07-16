@@ -1,5 +1,5 @@
 <template>
-    <div class="media-carousel-gallery" v-if="media.length">
+    <div class="media-gallery-carousel" v-if="media.length">
         <gallery :images="images" :index="index" @close="close" />
         <el-carousel v-bind="$attrs" v-on="$listeners" :arrow="images.length <= 1 ? 'never' : 'hover'">
             <el-carousel-item v-for="(url, idx) in images" :key="idx">
@@ -87,7 +87,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .media-carousel-gallery .el-carousel {
+    .media-gallery-carousel .el-carousel {
         height: 100%;
 
         :global(.el-carousel__container) {
