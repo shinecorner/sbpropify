@@ -665,6 +665,7 @@ export default {
             recipients: 'Recipients',
             assign: 'Assign',
             images: 'Images',
+            no_images_message: 'No files uploaded',
             request_details: 'Request details',
             internal_notices: 'Internal notices',
             assignmentTypes: {

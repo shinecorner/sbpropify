@@ -120,13 +120,24 @@
                                     </el-form-item>
                                 </el-tab-pane>
 
-                                <el-tab-pane :label="$t('models.request.images')" name="request_images">
+                                <el-tab-pane name="request_images">
+                                    <span slot="label">
+                                        <el-badge :value="mediaCount" :max="99" class="item">{{ $t('models.request.images') }}</el-badge>
+                                    </span>
                                     <div slot="header">
                                         <p class="comments-header">{{$t('models.request.images')}}</p>
                                     </div>
+                                    <el-alert
+                                        v-if="!mediaCount"
+                                        :title="$t('models.request.no_images_message')"
+                                        type="info"
+                                        show-icon
+                                        :closable="false"
+                                    >
+                                    </el-alert>
                                     <upload-document
                                         @fileUploaded="uploadFiles"
-                                        class="drag-custom"
+                                        class="drag-custom mt15"
                                         drag
                                         multiple
                                     />
@@ -284,7 +295,11 @@
                                 <el-tab-pane :label="$t('models.request.comments')" name="comments">
                                     <chat :id="model.id" type="request"/>
                                 </el-tab-pane>
-                                <el-tab-pane :label="$t('models.request.internal_notices')"></el-tab-pane>
+                                <el-tab-pane>
+                                    <span slot="label">
+                                        <el-badge value="0" :max="99" class="item">{{ $t('models.request.internal_notices') }}</el-badge>
+                                    </span>
+                                </el-tab-pane>
                             </el-tabs>
                         </card>
                     </el-col>
@@ -395,6 +410,13 @@
                         name: selectedCategory? selectedCategory.name : ""
                     }
                 }                
+            },
+            mediaCount() {
+                if(this.model.media) {
+                    return this.model.media.length;
+                } else {
+                    return 0;
+                }
             }
         },
         methods: {
@@ -492,6 +514,12 @@
         .el-form-item__label, .el-form-item__content {
             line-height: 20px;
         }
+    }
+
+    .item .el-badge__content.is-fixed {
+        top:10px;
+        right:0px;
+        background-color:#6AC06F;
     }
 
 </style>
