@@ -478,20 +478,20 @@ HTML
                 'name' => 'request_internal_comment',
                 'description' => 'When admin or service partner add a internal comment, we will notify each other.',
                 'tag_map' => [
-                    'salutation' => 'user.title',
-                    'name' => 'user.name',
-                    'subjectSalutation' => 'subject.title',
-                    'subjectName' => 'subject.name',
+                    'receiverSalutation' => 'receiver.title',
+                    'receiverName' => 'receiver.name',
+                    'senderSalutation' => 'sender.title',
+                    'senderName' => 'sender.name',
                     'title' => 'request.title',
                     'description' => 'request.description',
                     'category' => 'request.category.name',
                     'comment' => 'comment.comment'
                 ],
-                'subject' => 'New comment for request: {{title}}',
+                'subject' => 'New internal comment for request: {{title}}',
                 'body' => <<<HTML
-<p>Hello {{salutation}} {{name}},</p>
-<p>{{subjectSalutation}} {{subjectName}} added a new comment for request: {{title}</p>
-<p>{{comment}}.</p>
+<p>Hello {{receiverSalutation}} {{receiverName}},</p>
+<p>{{senderSalutation}} {{senderName}} added a new private comment for request: {{title}}</p>
+<p><em>{{comment}}.</em></p>
 HTML
             ],
             [
