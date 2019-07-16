@@ -138,5 +138,17 @@ body {
     padding: .5rem .5rem;
 }
 .dashboard .apexcharts-menu-icon {
-    margin-top: -95px;
+    margin-top: -55px;
+    margin-right: 10px;
+}
+
+.dashboard .apexcharts-menu.open{    
+    margin-top: -20px;
+    margin-right: 5px;
+}
+.dashboard .stackchart .apexcharts-menu-icon{
+    margin-top: -170px;
+}
+.dashboard .stackchart .apexcharts-menu.open{
+    margin-top: -79px;
 }

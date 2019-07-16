@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="stackchart">
         <el-row type="flex" class="chart-filter">
             <el-col :span="24">
                 <el-radio-group v-model="radio1">
