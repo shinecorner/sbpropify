@@ -106,7 +106,6 @@
                         </el-form>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('models.building.files')" name="files">
-                        <label class="card-label">{{$t('models.building.files')}}</label>
                         <draggable @sort="sortFiles" v-model="model.media">
                             <transition-group name="list-complete">
                                 <el-row :gutter="10" :key="element.name" class="list-complete-item"
@@ -144,7 +143,6 @@
                         </div>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('models.building.companies')" name="companies">
-                        <label class="card-label">{{$t('models.building.companies')}}</label>
                         <div v-if="model.service_providers && model.service_providers.length">
                             <el-row :gutter="10" :key="service.id" class="list-complete-item"
                                     v-for="service in model.service_providers">
@@ -235,7 +233,7 @@
                                 </el-select>
                             </el-col>
                             <el-col :md="4">
-                                <el-button @click="assignManagers" type="primary">
+                                <el-button @click="assignManagers" type="primary" class="btn-assign">
                                     {{$t('models.building.assign')}}
                                 </el-button>
                             </el-col>
@@ -349,11 +347,15 @@
                     buttons: [{
                         title: this.$t('models.building.unassign_manager'),
                         type: 'danger',
-                        onClick: this.unassignManager
+                        onClick: this.unassignManager,
+                        tooltipMode: true,
+                        icon: 'el-icon-close'
                     }, {
                         title: this.$t('models.propertyManager.edit'),
                         type: 'primary',
-                        onClick: this.managerEditView
+                        onClick: this.managerEditView,
+                        tooltipMode: true,
+                        icon: 'el-icon-edit'
                     }]
                 }],
                 requestColumns: [{
@@ -596,7 +598,7 @@
             },
             closeDeleteBuildModal() {
                 this.deleteBuildingVisible = false;
-            },            
+            },
 
             async saveAndClose() {
                 try {
@@ -694,6 +696,10 @@
 
     .category-select {
         margin-bottom: 30px;
+        width: 100%;
+    }
+
+    .btn-assign {
         width: 100%;
     }
 </style>
