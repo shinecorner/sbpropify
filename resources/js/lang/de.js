@@ -23,7 +23,7 @@ export default {
         sunday: 'Sonntag'
     },
     no: 'Nein',
-    none: 'Nicht gewählt',
+    none: 'Nichts gewählt',
     all: 'Alle',
     loadMore: 'Mehr laden',
     account: "Konto",
@@ -98,12 +98,12 @@ export default {
         templates: 'Vorlagen'
     },
     dashboard:{
-        statistics: 'Statistiken',        
+        statistics: 'Statistiken',
         requests_by_creation_date: 'Anfragen nach Erstellungsdatum',
         requests_by_status: 'Anfragen nach Status',
-        requests_by_category: 'Anfragen nach Kategorie',        
+        requests_by_category: 'Anfragen nach Kategorie',
         each_hour_request: 'Jede Stunde fordert',
-        average_request_duration: 'Lösungszeit'
+        average_request_duration: 'Ø Bearbeitungszeit'
     },
     pages: {
         profile: {
@@ -658,10 +658,12 @@ export default {
             public_legend: 'Aktivieren Sie die Option, um die Anfrage allen Bewohnern einer Liegenschaft/Überbauung zu zeigen.',
             conversation: 'Chat-Mitteilungen',
             open_conversation: 'Offen',
-            other_recipients: 'Other recipients',
-            recipients: 'Recipients',
+            other_recipients: 'Weitere Empfänger',
+            recipients: 'Empfänger',
             assign: 'Zuweisen',
             images: 'Fotos und Dokumente',
+            request_details: 'Beschreibung',
+            internal_notices: 'Interne Notizen',
             assignmentTypes: {
                 services: 'Partnerfirma',
                 managers: 'Bewirtschafter'
@@ -844,13 +846,13 @@ export default {
         },
         product: {
             title: 'Marktplatz',
-            add: 'Inserat hinzufügen',
-            edit_title: 'Inserat bearbeiten',
+            add: 'Anzeige hinzufügen',
+            edit_title: 'Anzeige bearbeiten',
             edit: 'Öffnen',
             delete_action: 'Löschen',
             show: 'Vorschau',
             details: 'Details zum Angebot',
-            delete: 'Inserat löschen',
+            delete: 'Anzeige löschen',
             content: "Inhalt",
             product_title: 'Titel',
             published_at: 'Hinzugefügt am',
@@ -1008,10 +1010,51 @@ export default {
         }
     },
 
+    layouts: {
+        tenant: {
+            menu: {
+                logout: 'Abmelden'
+            },
+            sidebar: {
+                dashboard: 'Dashboard',
+                myTenancy: 'Mein Mieterdossier',
+                myPersonalData: 'Persönlichen Angaben',
+                myRecentContract: 'Mietvertrag',
+                myDocuments: 'Dokumentation',
+                myContactPersons: 'Kontaktpersonen',
+                posts: 'Pinnwand',
+                requests: 'Anfragen',
+                products: 'Marktplatz',
+                settings: 'Einstellungen'
+            }
+        }
+    },
     components: {
         common: {
+            commentsList: {
+                loading: 'Ladet...',
+                loadMore: {
+                    simple: 'Weitere {count} laden',
+                    detailed: 'Lade {count} weitere Kommentare'
+                },
+                emptyPlaceholder: {
+                    title: 'Bislang wurde kein Beitrag geteilt...',
+                    description: 'Verfasse den ersten Post in dem du auf den unten stehenden Button klickst.'
+                }
+            },
+            comment: {
+                updateOrSave: '{update} oder drücke {esc} um {cancel}',
+                update: 'bearbeiten',
+                esc: 'ESC',
+                cancel: 'abzubrechen',
+                addChildComment: 'Kommentar',
+                loadMore: 'Lade 1 weiteren Kommentar | Lade {count} weitere Kommentare',
+                deletedCommentPlaceholder: 'Der Kommentar wurde gelöscht.'
+            },
             addComment: {
-                placeholder: 'Type a comment...'
+                placeholder: 'Schreibe einen Kommentar...',
+                loadingTemplates: 'Vorlagen werden geladen...',
+                emptyTemplatesPlaceholder: 'Keine Vorlagen vorhanden'
             }
         },
         tenant: {
@@ -1024,7 +1067,9 @@ export default {
                 pressure: 'Druck'
             }
         },
-        admin: {}
+        admin: {
+
+        }
     },
 
     views: {

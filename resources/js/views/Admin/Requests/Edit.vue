@@ -389,7 +389,7 @@
                         return category;
                 })
                 return {
-                    id: this.model.id,
+                    service_request_format: this.model.service_request_format,
                     category: {
                         id: this.model.category_id,
                         name: selectedCategory? selectedCategory.name : ""

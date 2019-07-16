@@ -8,7 +8,7 @@
     >   
         <el-row class="request-info-row">
             <el-col :md="6">                
-                <span>{{$t('models.request.requestID')}}: {{requestData.id}}</span>
+                <span>{{$t('models.request.requestID')}}: {{requestData.service_request_format}}</span>
             </el-col>
             <el-col :md="12">                
                 <span>{{$t('models.request.requestCategory')}}: {{requestData.category.name}}</span>
@@ -101,7 +101,7 @@
             <el-tab-pane :label="$t('models.request.conversation')" name="conversation"
                          v-if="model.provider && currentConversation && shouldFetchConversation">
                 <span slot="label"><i class="ti-comment"></i> {{$t('models.request.conversation')}}</span>
-                <chat :id="currentConversation" ref="chat" type="conversation"/>
+                <chat :id="currentConversation" ref="chat" type="conversation" class="request-chat"/>
             </el-tab-pane>
         </el-tabs>
 
@@ -307,5 +307,9 @@
 
     .request-info-row {
         margin-bottom: 22px;
+    }
+
+    .request-chat .el-textarea .el-textarea__inner{
+        min-height: 56px !important;
     }
 </style>
