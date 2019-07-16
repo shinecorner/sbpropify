@@ -8,7 +8,7 @@
     >   
         <el-row class="request-info-row">
             <el-col :md="6">                
-                <span>{{$t('models.request.requestID')}}: {{requestData.id}}</span>
+                <span>{{$t('models.request.requestID')}}: {{requestData.service_request_format}}</span>
             </el-col>
             <el-col :md="12">                
                 <span>{{$t('models.request.requestCategory')}}: {{requestData.category.name}}</span>
