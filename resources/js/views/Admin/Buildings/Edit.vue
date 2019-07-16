@@ -32,8 +32,6 @@
                                                 :label="$t('none')"
                                                 value=""
                                             />
-
-                                            </el-option>
                                             <el-option
                                                 :key="district.id"
                                                 :label="district.name"
