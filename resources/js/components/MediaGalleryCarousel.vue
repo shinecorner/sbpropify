@@ -1,6 +1,6 @@
 <template>
     <div class="media-gallery-carousel" v-if="media.length">
-        <gallery :images="images" :index="gallerIndex" :options="galleryOptions" @close="gallleryClose" />
+        <gallery :images="images" :index="galleryIndex" :options="galleryOptions" @close="gallleryClose" />
         <el-carousel v-bind="$attrs" v-on="$listeners" :arrow="images.length <= 1 ? 'never' : 'hover'">
             <el-carousel-item v-for="(url, idx) in images" :key="idx">
                 <div class="el-carousel-actions">
@@ -43,7 +43,7 @@
         },
         data () {
             return {
-                gallerIndex: null,
+                galleryIndex: null,
                 sizes: {
                     minWidth: 0,
                     maxHeight: 0
@@ -52,10 +52,10 @@
         },
         methods: {
             openImage (idx) {
-                this.gallerIndex = idx
+                this.galleryIndex = idx
             },
             gallleryClose () {
-                this.gallerIndex = null
+                this.galleryIndex = null
             },
             isImage (file) {
                 return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(file.name.split('.').pop())
