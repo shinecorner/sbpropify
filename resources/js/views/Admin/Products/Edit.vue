@@ -1,7 +1,7 @@
 <template>
     <div class="units-edit mb20">
         <heading :title="$t('models.product.edit_title')" icon="ti-user" style="margin-bottom: 20px;">
-            <edit-actions :saveAction="submit" route="adminProducts"/>
+            <edit-actions :saveAction="submit" :deleteAction="deleteProduct" route="adminProducts"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
@@ -152,6 +152,7 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
     import ProductsMixin from 'mixins/adminProductsMixin';
     import Chat from 'components/Chat2';
     import EditActions from 'components/EditViewActions';
@@ -165,6 +166,11 @@
         components: {
             Chat,
             EditActions
+        },
+        methods: {            
+            ...mapActions([
+                "deleteProduct"
+            ]),
         }
     }
 </script>

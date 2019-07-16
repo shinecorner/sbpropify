@@ -1,7 +1,7 @@
 <template>
     <div class="tenants-edit mb20">
         <heading :title="$t('models.tenant.edit_title')" icon="ti-home">
-            <edit-actions :saveAction="submit" route="adminTenants"/>
+            <edit-actions :saveAction="submit" :deleteAction="deleteTenant" route="adminTenants"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
@@ -454,7 +454,7 @@
             }
         },
         methods: {
-            ...mapActions(['deleteMediaFile', 'downloadTenantCredentials', 'sendTenantCredentials']),
+            ...mapActions(['deleteMediaFile', 'downloadTenantCredentials', 'sendTenantCredentials', 'deleteTenant']),
             deleteMedia() {
                 this.deleteMediaFile({
                     id: this.model.id,

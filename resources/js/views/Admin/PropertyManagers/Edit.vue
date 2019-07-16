@@ -1,7 +1,7 @@
 <template>
     <div class="services-edit">
         <heading :title="$t('models.propertyManager.edit_title')" icon="ti-user">
-            <edit-actions :saveAction="submit" route="adminPropertyManagers"/>
+            <edit-actions :saveAction="submit" :deleteAction="deletePropertyManager" route="adminPropertyManagers"/>
         </heading>
         <div class="crud-view">
             <el-form :model="model" label-position="top" label-width="192px" ref="form">
@@ -190,7 +190,7 @@
     import Cropper from 'components/Cropper';
     import RelationList from 'components/RelationListing';
     import EditActions from 'components/EditViewActions';
-    import {mapGetters} from 'vuex';
+    import {mapGetters, mapActions} from 'vuex';
 
 
     export default {
@@ -244,6 +244,7 @@
             }
         },
         methods: {
+            ...mapActions(['deletePropertyManager']),
             requestEditView(row) {
                 this.$router.push({
                     name: 'adminRequestsEdit',

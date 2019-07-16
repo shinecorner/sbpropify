@@ -1,7 +1,7 @@
 <template>
     <div class="units-edit">
         <heading :title="$t('models.unit.edit')" icon="ti-user" style="margin-bottom: 20px;">
-            <edit-actions :saveAction="submit" route="adminUnits"/>
+            <edit-actions :saveAction="submit" :deleteAction="deleteUnit" route="adminUnits"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
@@ -135,6 +135,7 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
     import Heading from 'components/Heading';
     import Card from 'components/Card';
     import EditActions from 'components/EditViewActions';
@@ -151,6 +152,11 @@
             Card,
             EditActions,
             RelationList
+        },
+        methods: {            
+            ...mapActions([
+                "deleteUnit"
+            ]),
         }
     }
 </script>

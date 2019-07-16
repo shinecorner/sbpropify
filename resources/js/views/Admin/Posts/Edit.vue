@@ -1,7 +1,7 @@
 <template>
     <div class="units-edit mb20">
         <heading :title="$t('models.post.edit_title')" icon="ti-user" style="margin-bottom: 20px;">
-            <edit-actions :saveAction="submit" route="adminPosts"/>
+            <edit-actions :saveAction="submit" :deleteAction="deletePost" route="adminPosts"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
@@ -343,7 +343,7 @@
             }
         },
         methods: {
-            ...mapActions(['unassignPostBuilding', 'unassignPostDistrict', 'unassignPostProvider']),
+            ...mapActions(['unassignPostBuilding', 'unassignPostDistrict', 'unassignPostProvider', 'deletePost']),
             disabledExecutionStart(date) {
                 const d = new Date(date).getTime();
                 const executionEnd = new Date(this.model.execution_end).getTime();

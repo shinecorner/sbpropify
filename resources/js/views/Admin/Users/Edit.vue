@@ -1,7 +1,7 @@
 <template>
     <div class="users-edit">
         <heading :title="$t('models.user.edit')" icon="ti-user">
-            <edit-actions :saveAction="submit" route="adminUsers"/>
+            <edit-actions :saveAction="submit" :deleteAction="deleteUser" route="adminUsers"/>
         </heading>
         <el-row class="crud-view">
             <el-col :md="12">
@@ -61,6 +61,7 @@
 <script>
     import Heading from 'components/Heading';
     import Card from 'components/Card';
+    import {mapActions} from 'vuex';
     import AdminUsersMixin from 'mixins/adminUsersMixin';
     import EditActions from 'components/EditViewActions';
 
@@ -74,6 +75,9 @@
             Card,
             EditActions
         },
+        methods: {
+            ...mapActions(['deleteUser']),
+        }
     }
 </script>
 

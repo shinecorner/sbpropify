@@ -1,7 +1,7 @@
 <template>
     <div class="services-edit mb20" v-if="constants">
         <heading :title="$t('models.request.edit_title')" icon="ti-user">
-            <edit-actions :saveAction="submit" route="adminRequests"/>
+            <edit-actions :saveAction="submit" :deleteAction="deleteRequest" route="adminRequests"/>
         </heading>
         <div class="crud-view">
             <el-form :model="model" label-position="top" label-width="192px" ref="form">
@@ -384,7 +384,7 @@
             }
         },
         methods: {
-            ...mapActions(['unassignProvider', 'unassignManager']),
+            ...mapActions(['unassignProvider', 'unassignManager', 'deleteRequest']),
             translateType(type) {
                 return this.$t(`models.request.userType.${type}`);
             },

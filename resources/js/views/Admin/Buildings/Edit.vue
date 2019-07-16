@@ -1,7 +1,7 @@
 <template>
     <div class="buildings-edit ">
         <heading :title="$t('models.building.edit_title')" icon="ti-home">
-            <edit-actions :saveAction="submit" route="adminBuildings"/>
+            <edit-actions :saveAction="submit" :deleteAction="deleteBuilding" route="adminBuildings"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
@@ -371,7 +371,8 @@
                 "deleteBuildingService",
                 "getPropertyManagers",
                 "batchAssignUsersToBuilding",
-                "unassignBuildingManager"
+                "unassignBuildingManager",
+                "deleteBuilding"
             ]),
             unassignManager(manager) {
                 this.$confirm(this.$t(`models.request.confirmUnassign.title`), this.$t('models.request.confirmUnassign.warning'), {
