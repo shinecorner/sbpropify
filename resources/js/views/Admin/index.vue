@@ -1,7 +1,7 @@
 <template>
     <div>
         <heading class="custom-heading" icon="ti-home" title="Dashboard" shadow="heavy" />
-        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+        <el-row :gutter="20" class="dashboard" style="margin-bottom: 24px;" type="flex">
             <el-col class="dashboard-tabpanel">
                 <el-tabs type="border-card">
                     <el-tab-pane :label="$t('menu.requests')">
@@ -10,13 +10,13 @@
                                 <dashboard-statistics-card :totalRequest="totalRequest" :data="reqStatusCount" :avgReqDuration="avgReqDuration"></dashboard-statistics-card>
                             </el-col>                            
                         </el-row>
-                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
                                 <el-card class="chart-card" :header="$t('dashboard.requests_by_creation_date')">
                                     <chart-stacked-column 
-                                        :yData="chartDataTotalReqByCreationDate.yData" 
-                                        :xData="chartDataTotalReqByCreationDate.xData">
-                                    </chart-stacked-column>
+                                                :yData="chartDataTotalReqByCreationDate.yData" 
+                                                :xData="chartDataTotalReqByCreationDate.xData">
+                                    </chart-stacked-column>                                    
                                 </el-card>
                             </el-col>                                                        
                          </el-row>   

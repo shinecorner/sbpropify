@@ -74,6 +74,9 @@ body {
     padding: 0 20px;
 }
 
+.dashboard{
+    padding: 5px;
+}
 .dashboard-tabpanel .el-tabs--border-card > .el-tabs__header .el-tabs__item{
     flex-basis: 0;
     -webkit-box-flex: 1;    
@@ -126,33 +129,14 @@ body {
 .dashboard-tabpanel .chart-card{
     height: 420px;
 }
-/*
-.dashboard-tabpanel .tabs-rounded-lg {
-    border-radius: 120px;
-    background: #fff;
-    padding: .75rem;
-    margin-bottom: 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
+.chart-card .el-card__body{
+    padding: 0 0 0 0;
 }
-
-.dashboard-tabpanel .nav-item {
-    flex-basis: 0;
-    -webkit-box-flex: 1;    
-    flex-grow: 1;
-    text-align: center;
+.chart-filter{
+    background-color: #fbfbfb; 
+    border-bottom: 1px solid #e1e5eb; 
+    padding: .5rem .5rem;
 }
-.dashboard-tabpanel .nav-link{
-    position: relative;
-    margin: 0 .75rem 0 0;
-    font-weight:400;    
-    margin-bottom: 0;
-    font-size: 1.175rem;
-    padding: .75rem .5rem;
-    cursor: pointer;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    transition: background-color .3s ease,color .3s ease;
+.dashboard .apexcharts-menu-icon {
+    margin-top: -95px;
 }
-*/
