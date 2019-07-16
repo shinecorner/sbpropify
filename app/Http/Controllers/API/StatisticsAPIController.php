@@ -376,17 +376,16 @@ class StatisticsAPIController extends AppBaseController
             'posts' => Post::class,
         ];
 
-        $table = $table ?? $request->input('table', 'service_requests');
+        $table = $table ?? $request->table;
         $table  = key_exists($table, $tables) ? $table : 'service_requests';
-
         $class = $tables[$table];
+
         $rsPerStatus = $class::selectRaw('status, count(id) `count`')
             ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
             ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
             ->groupBy('status')
             ->orderBy('status')
             ->get();
-
 
         // Fill missing statuses with a 0 count
         $existingStatuses = $rsPerStatus->pluck('status')->all();
