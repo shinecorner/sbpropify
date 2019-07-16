@@ -268,22 +268,23 @@ class StatisticsAPIController extends AppBaseController
 
     public function adminStats(Request $request)
     {
+        [$startDate, $endDate] = $this->getStartDateEndDate($request);
         $ret = [
             'total_requests' => DB::table('service_requests')->count('id'),
-            'tenants_per_day' => $this->getDayCountStatistic('tenants'),
+            'tenants_per_day' => $this->getDayCountStatistic('tenants', $startDate, $endDate),
             'tenants_per_status' => [],
-                        
+
             'requests_per_status' => [],
             'requests_per_category' => [],
 
-            'products_per_day' => $this->getDayCountStatistic('products'),
+            'products_per_day' => $this->getDayCountStatistic('products', $startDate, $endDate),
             'products_per_status' => [],
 
-            'posts_per_day' => $this->getDayCountStatistic('posts'),
+            'posts_per_day' => $this->getDayCountStatistic('posts', $startDate, $endDate),
             'posts_per_status' => [],
         ];
 
-        $ret = array_merge($ret, $this->chartRequestByCreationDate($request, false));
+        $ret = array_merge($ret, $this->chartRequestByCreationDate($request, false, $startDate, $endDate));
 
         $rsPerStatus = collect(DB::select("select status `status`, count(id) `count` from service_requests group by status order by status;"));
         // Fill missing statuses with a 0 count
@@ -363,13 +364,13 @@ class StatisticsAPIController extends AppBaseController
         });
 
         $q = "SELECT count(req.id) as cnt_request, IF(parent_cat.id IS NULL,cat.id,parent_cat.id) AS parent_category_id, IF(parent_cat.name IS NULL,cat.name,parent_cat.name) AS parent_category_name from service_requests as req INNER JOIN service_request_categories AS cat on req.category_id = cat.id LEFT JOIN service_request_categories AS parent_cat ON cat.parent_id = parent_cat.id GROUP BY parent_category_id";
-        $rsPerCategory = collect(DB::select($q));                
-        
+        $rsPerCategory = collect(DB::select($q));
+
 
         $ret['requests_per_category']['data'] = $rsPerCategory->map(function($el) {
             return $el->cnt_request;
         });
-        $ret['requests_per_category']['labels'] = $rsPerCategory->map(function($el) {            
+        $ret['requests_per_category']['labels'] = $rsPerCategory->map(function($el) {
             return $el->parent_category_name;
         });
 
@@ -383,11 +384,16 @@ class StatisticsAPIController extends AppBaseController
     /**
      * @param Request $request
      * @param bool $isConvertResponse
+     * @param null $startDate
+     * @param null $endDate
      * @return mixed
      */
-    public function chartRequestByCreationDate(Request $request, $isConvertResponse = true)
+    public function chartRequestByCreationDate(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null)
     {
-        [$startDate, $endDate] = $this->getStartDateEndDate($request);
+        if (is_null($startDate) && is_null($endDate)) {
+            [$startDate, $endDate] = $this->getStartDateEndDate($request);
+        }
+
         $periodValues = $this->getPeriodValues($startDate, $endDate);
         $catDayStats = $this->initializeServiceRequestCategoriesForChart($periodValues);
         $query = $this->getGroupedQueryForServiceRequest();
@@ -422,59 +428,64 @@ class StatisticsAPIController extends AppBaseController
     public function getDayCountStatistic($table, $startDate = null, $endDate = null)
     {
         return \DB::table($table)->selectRaw ('date(created_at) `x`, count(id) `y`')
-            ->when($startDate, function ($q) use ($startDate) {
-                $q->whereDate('created_at', '>=', Carbon::parse($startDate)->format('Y-m-d'));
-            })
-            ->when($endDate, function ($q) use ($endDate) {
-                $q->whereDate('created_at', '<=', Carbon::parse($endDate)->format('Y-m-d'));
-            })
+            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
             ->groupBy('x')
             ->orderBy('x')
             ->get();
     }
 
-    public function _chartRequestByCreationDate(Request $request){
-        $response = [
-          'labels' => ["2019-06-15", "2019-06-16", "2019-06-17", "2019-06-18", "2019-06-19"],
-          'series' => [
-              [
-                  'name' => 'Disturbance',
-                  'data' => [8,12,7,20,41]
-              ],
-              [
-                  'name' => 'Defect',
-                  'data' => [8,12,7,20,41]
-              ],
-              [
-                  'name' => 'Order documents',
-                  'data' => [8,12,7,20,41]
-              ],
-              [
-                  'name' => 'Order a payment slip',
-                  'data' => [8,12,7,20,41]
-              ],
-              [
-                  'name' => 'Questions about the tenancy',
-                  'data' => [8,12,7,20,41]
-              ],
-          ]
+    /**
+     * @param Request $request
+     * @param bool $isConvertResponse
+     * @param null $startDate
+     * @param null $endDate
+     * @return mixed
+     */
+    public function chartRequestByStatus(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null)
+    {
+        if (is_null($startDate) && is_null($endDate)) {
+            [$startDate, $endDate] = $this->getStartDateEndDate($request);
+        }
+        $tables = [
+            'service_requests' => ServiceRequest::class,
+            'post' => Post::class
         ];
-        return $this->sendResponse($response, 'Admin statistics retrieved successfully');
-    }
-    public function chartRequestByStatus(Request $request){
-        $response = [
-          'labels' => ["received", "in_processing", "assigned", "done", "reactivated", "archived"],
-          'series' => [6, 7, 4, 9, 12, 12]
-        ];
-        return $this->sendResponse($response, 'Admin statistics retrieved successfully');
-    }
+        $table = $request->input('table', 'service_requests');
+        $table  = key_exists($table, $tables) ? $table : 'service_requests';
 
-    public function chartRequestByCategory(Request $request){
-        $response = [
-          'labels' => ["Disturbance", "Defect", "Order documents", "Order a payment slip", "Questions about the tenancy","Other"],
-          'series' => [16, 17, 6, 3, 3, 5]
-        ];
-        return $this->sendResponse($response, 'Admin statistics retrieved successfully');
+        $class = $tables[$table];
+        $rsPerStatus = $class::selectRaw('status, count(id) `count`')
+            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
+            ->groupBy('status')
+            ->orderBy('status')
+            ->get();
+
+
+        // Fill missing statuses with a 0 count
+        $existingStatuses = $rsPerStatus->pluck('status')->all();
+        $classStatus = $class::Status;
+        foreach ($classStatus as $status => $__) {
+            if (! in_array($status, $existingStatuses)) {
+                $stat = new \stdClass;
+                $stat->status = $status;
+                $stat->count = 0;
+                $rsPerStatus->push($stat);
+            }
+        }
+
+        $response['labels'] = $rsPerStatus->map(function($el) {
+            return ServiceRequest::Status[$el->status];
+        });
+
+        $response['data'] = $rsPerStatus->map(function($el) {
+            return $el->count;
+        });
+
+        return $isConvertResponse
+            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for ' . $table)
+            : $response;
     }
 
     /**
@@ -534,6 +545,9 @@ class StatisticsAPIController extends AppBaseController
         } elseif (empty($endDate)) {
             $startDate = Carbon::parse($startDate);
             $endDate = now();
+        } else {
+            $endDate = Carbon::parse($endDate);
+            $startDate = Carbon::parse($startDate);
         }
 
         if ('year' == $period) {
