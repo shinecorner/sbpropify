@@ -290,15 +290,12 @@ class StatisticsAPIController extends AppBaseController
         $ret['products_per_status'] = $this->chartRequestByStatus($request, false, $startDate, $endDate, 'products');
         $ret['posts_per_status'] = $this->chartRequestByStatus($request, false, $startDate, $endDate, 'posts');
 
-        $q = "SELECT count(req.id) as cnt_request, IF(parent_cat.id IS NULL,cat.id,parent_cat.id) AS parent_category_id, IF(parent_cat.name IS NULL,cat.name,parent_cat.name) AS parent_category_name from service_requests as req INNER JOIN service_request_categories AS cat on req.category_id = cat.id LEFT JOIN service_request_categories AS parent_cat ON cat.parent_id = parent_cat.id GROUP BY parent_category_id";
-        $rsPerCategory = collect(DB::select($q));
-
-
-        $ret['requests_per_category']['data'] = $rsPerCategory->map(function($el) {
-            return $el->cnt_request;
+        $categoryDayStatistics = collect($ret['requests_per_day_ydata']);
+        $ret['requests_per_category']['labels'] = $categoryDayStatistics->map(function($el) {
+            return $el['name'];
         });
-        $ret['requests_per_category']['labels'] = $rsPerCategory->map(function($el) {
-            return $el->parent_category_name;
+        $ret['requests_per_category']['data'] = $categoryDayStatistics->map(function($el) {
+            return array_sum($el['data']);
         });
 
         $avgReqFix = DB::select("select coalesce(floor(avg(time_to_sec(timediff(solved_date, created_at)))), 0) duration
@@ -407,6 +404,25 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     *
+     */
+    public function chartRequestByCategory(Request $request)
+    {
+        [$startDate, $endDate] = $this->getStartDateEndDate($request);
+        $query = $this->getGroupedQueryForServiceRequest(false);
+        $reqPerCategory = collect(DB::select($query, ['start_date' => $startDate, 'end_date' => $endDate]));
+
+        $response['labels'] = $reqPerCategory->map(function($el) {
+            return $el->parent_category_name;
+        });
+        $response['data'] = $reqPerCategory->map(function($el) {
+            return $el->cnt_request;
+        });
+
+        return $this->sendResponse($response, 'Admin statistics retrieved successfully');
+    }
+
+    /**
      * @param $table
      * @param null $startDate
      * @param null $endDate
@@ -496,14 +512,13 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     * @param bool $groupByDate
      * @return string
      */
-    protected function getGroupedQueryForServiceRequest()
+    protected function getGroupedQueryForServiceRequest($groupByDate = true)
     {
-        return "SELECT 
-              COUNT(req.id) AS cnt_request,
-              DATE(req.created_at) AS created_at,
-              req.category_id,
+        $query = "SELECT 
+              COUNT(req.id) AS cnt_request, %s
               IF(cat2.id IS NULL, cat1.id, cat2.id) AS parent_category_id,
               IF(
                 cat2.name IS NULL,
@@ -518,7 +533,14 @@ class StatisticsAPIController extends AppBaseController
                 ON cat1.parent_id = cat2.id
                 WHERE DATE(req.created_at) >= :start_date
                 AND DATE(req.created_at) <= :end_date 
-            GROUP BY parent_category_id,
-                created_at";
+            GROUP BY parent_category_id%s";
+
+        if ($groupByDate) {
+            $query = sprintf($query, 'DATE(req.created_at) AS created_at,', ', created_at');
+        } else {
+            $query = sprintf($query, '', '');
+        }
+
+        return $query;
     }
 }
