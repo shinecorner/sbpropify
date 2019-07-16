@@ -44,7 +44,7 @@ a, a:hover {
 <!-- BODY -->
 <!-- Set message background color (twice) and text color (twice) -->
 <body topmargin="0" rightmargin="0" bottommargin="0" leftmargin="0" marginwidth="0" marginheight="0" width="100%" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%; height: 100%; -webkit-font-smoothing: antialiased; text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; line-height: 100%;
-    background-color: #F0F0F0;
+    background-color: #FFFFFF;
     color: #000000;"
     bgcolor="#FFFFFF"
     text="#000000">
@@ -52,7 +52,7 @@ a, a:hover {
 <!-- SECTION / BACKGROUND -->
 <!-- Set message background color one again -->
 <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%;" class="background"><tr><td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;"
-    bgcolor="#F0F0F0">
+                                                                                                                                                                                                   bgcolor="#FFFFFF">
 
 <!-- WRAPPER -->
 <!-- Set wrapper width (twice) -->
@@ -74,7 +74,7 @@ a, a:hover {
             <!-- LOGO -->
             <a target="_blank" style="text-decoration: none;"
                 href=""><img border="0" vspace="0" hspace="0"
-                             src="@yield('logo')"
+                             src="{{ $company->logo ?? '' }}"
                              width="140"
                              alt="Logo" title="Logo" style="
                 color: #000000;
@@ -130,16 +130,6 @@ a, a:hover {
             </table>
         </td>
     </tr>
-
-    <!-- LINE -->
-    <!-- Set line color -->
-    <tr>
-        <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%;
-            padding-top: 25px;" class="line"><hr
-            color="#E0E0E0" align="center" width="100%" size="1" noshade style="margin: 0; padding: 0;" />
-        </td>
-    </tr>
-
 <!-- End of WRAPPER -->
 </table>
 
@@ -177,7 +167,7 @@ a, a:hover {
             padding-bottom: 20px;
             color: #999999;
             font-family: sans-serif;" class="footer">
-            @yield('company_name')  
+            @yield('companyName')  
         </td>
     </tr> 
     <tr>

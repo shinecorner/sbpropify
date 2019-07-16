@@ -2,28 +2,42 @@
 
 namespace App\Notifications;
 
+use App\Models\Comment;
 use App\Models\ServiceRequest;
 use App\Models\User;
 use App\Repositories\TemplateRepository;
-use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
+/**
+ * Class RequestCommented
+ * @package App\Notifications
+ */
 class RequestCommented extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var ServiceRequest
+     */
     protected $request;
+    /**
+     * @var User
+     */
     protected $user;
+    /**
+     * @var Comment
+     */
     protected $comment;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * RequestCommented constructor.
+     * @param ServiceRequest $request
+     * @param User $user
+     * @param Comment $comment
      */
     public function __construct(ServiceRequest $request, User $user, Comment $comment)
     {
@@ -80,6 +94,10 @@ class RequestCommented extends Notification implements ShouldQueue
         ];
     }
 
+    /**
+     * @param $notifiable
+     * @return array
+     */
     public function toDatabase($notifiable)
     {
         return $this->toArray($notifiable);

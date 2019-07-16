@@ -220,15 +220,31 @@ class TemplateRepository extends BaseRepository
 
         $template = self::getParsedTemplate($template, $tagMap, $lang);
 
-        $rl = (new RealEstate())->first();
+        $company = (new RealEstate())->first();
 
         return [
             'subject' => $template->subject,
             'body' => $template->body,
-            'settings' => $rl,
+            'company' => $company,
+            'companyLogo' => $company->logo,
+            'companyName' => $company->name,
+            'companyName' => $company->name,
         ];
     }
-
+//Diese E-Mail wurde automatisch für Ylber Muhaxheri generiert.
+//
+//
+//
+//You get this automatically generated e-mail as a user of Europe Square. Europe Square is operated by the Allthings Technologies AG.
+//
+//
+//
+//Allthings
+//
+//Allthings Technologies AG
+//Lange Gasse 8, 4052 Basel, Schweiz
+//
+//Impressum | Nutzungsbedingungen | Datenschutzerklärung
     /**
      * @param Template $template
      * @param $tagMap
