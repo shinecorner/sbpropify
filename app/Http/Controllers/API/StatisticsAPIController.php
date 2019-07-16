@@ -266,49 +266,6 @@ class StatisticsAPIController extends AppBaseController
         return $this->sendResponse($response, 'Service Request statistics retrieved successfully');
     }
 
-    /**
-     * @param $className
-     * @param null $startDate
-     * @param null $endDate
-     * @return mixed
-     */
-    public function getDayCountStatisticForModel($className, $startDate = null, $endDate = null)
-    {
-        return $className::selectRaw ('date(created_at) `x`, count(id) `y`')
-            ->when($startDate, function ($q) use ($startDate) {
-                $q->whereDate('started_at', '>=', Carbon::parse($startDate)->format('Y-m-d'));
-            })
-            ->when($endDate, function ($q) use ($endDate) {
-                $q->whereDate('created_at', '<=', Carbon::parse($endDate)->format('Y-m-d'));
-            })
-            ->groupBy('x')
-            ->orderBy('x')
-            ->get();
-    }
-
-    /**
-     *
-     */
-    public function serviceRequestStats(Request $request)
-    {
-        // @TODO fix query param hard code, also key hard code like month
-        $requestData = $request->all();
-        $period = $requestData['period'] ?? 'day';
-        $startDate = $requestData['start_date'] ?? '';
-        $endDate = $requestData['end_date'] ?? '';
-
-
-        if ('year' == $period) {
-            $startDate = '';
-            $endDate = '';
-        } elseif ('month' == $period) {
-
-        } elseif ('week' == $period) {
-
-        }
-        return $this->getDayCountStatisticForModel(ServiceRequest::class, $startDate, $endDate);
-    }
-
     public function adminStats(Request $request)
     {
         $ret = [
@@ -446,7 +403,54 @@ class StatisticsAPIController extends AppBaseController
         return $this->sendResponse($ret, 'Admin statistics retrieved successfully');
     }
 
-    public function chartRequestByCreationDate(Request $request){
+    /**
+     *
+     */
+    public function chartRequestByCreationDate(Request $request)
+    {
+        // @TODO fix query param hard code, also key hard code like month
+        $requestData = $request->all();
+        $period = $requestData['period'] ?? 'day';
+        $startDate = $requestData['start_date'] ?? '';
+        $endDate = $requestData['end_date'] ?? '';
+
+
+        if ('year' == $period) {
+//            $startDate = '';
+//            $endDate = '';
+        } elseif ('month' == $period) {
+
+        } elseif ('week' == $period) {
+
+        }
+
+        // @TODO security problem maybe make table aliases or permit specific tables
+        $table = $requestData['table'] ?? 'service_requests';
+
+        return $this->getDayCountStatistic($table, $startDate, $endDate);
+    }
+
+    /**
+     * @param $table
+     * @param null $startDate
+     * @param null $endDate
+     * @return mixed
+     */
+    public function getDayCountStatistic($table, $startDate = null, $endDate = null)
+    {
+        return \DB::table($table)->selectRaw ('date(created_at) `x`, count(id) `y`')
+            ->when($startDate, function ($q) use ($startDate) {
+                $q->whereDate('created_at', '>=', Carbon::parse($startDate)->format('Y-m-d'));
+            })
+            ->when($endDate, function ($q) use ($endDate) {
+                $q->whereDate('created_at', '<=', Carbon::parse($endDate)->format('Y-m-d'));
+            })
+            ->groupBy('x')
+            ->orderBy('x')
+            ->get();
+    }
+
+    public function _chartRequestByCreationDate(Request $request){
         $response = [
           'labels' => ["2019-06-15", "2019-06-16", "2019-06-17", "2019-06-18", "2019-06-19"],
           'series' => [
@@ -481,6 +485,7 @@ class StatisticsAPIController extends AppBaseController
         ];
         return $this->sendResponse($response, 'Admin statistics retrieved successfully');
     }
+
     public function chartRequestByCategory(Request $request){
         $response = [
           'labels' => ["Disturbance", "Defect", "Order documents", "Order a payment slip", "Questions about the tenancy","Other"],
