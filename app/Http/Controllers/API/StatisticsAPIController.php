@@ -315,11 +315,11 @@ class StatisticsAPIController extends AppBaseController
      */
     public function chartRequestByCreationDate(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null)
     {
-        $period = $this->getPeriod($request);
         if (is_null($startDate) && is_null($endDate)) {
-            [$startDate, $endDate] = $this->getStartDateEndDate($request, $period);
+            [$startDate, $endDate] = $this->getStartDateEndDate($request);
         }
 
+        $period = $this->getPeriod($request);
         $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id')->toArray();
         [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate);
         $catDayStats = $this->initializeServiceRequestCategoriesForChart($parentCategories, $periodValues);
@@ -419,6 +419,7 @@ class StatisticsAPIController extends AppBaseController
     public function chartRequestByCategory(Request $request)
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request);
+        // @TODO improve optimize sql query
         $query = $this->getGroupedQueryForServiceRequest(false);
         $reqPerCategory = collect(DB::select($query, ['start_date' => $startDate, 'end_date' => $endDate]));
 
