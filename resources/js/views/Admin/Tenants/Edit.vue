@@ -208,7 +208,7 @@
                             <el-form-item>
                                 <el-row :gutter="20">
                                     <el-col :md="12">
-                                        <upload-document @fileUploaded="contractUploaded" class="drag-custom" drag/>
+                                        <upload-document @fileUploaded="contractUploaded" class="drag-custom" acceptType=".pdf" drag/>
                                     </el-col>
                                     <el-col :md="12">
                                         <el-row :gutter="20" class="list-complete-item" justify="center"
@@ -225,9 +225,7 @@
                                             </el-col>
                                         </el-row>
                                         <template v-if="lastMedia && lastMedia.name">
-                                            <el-image :src="lastMedia.url" style="width: 100%"
-                                                      v-if="isFileImage(lastMedia)"/>
-                                            <embed :src="lastMedia.url" style="width: 100%" v-else/>
+                                            <embed :src="lastMedia.url" style="width: 100%" v-if="isFilePDF(lastMedia)"/>
                                         </template>
                                     </el-col>
                                 </el-row>
