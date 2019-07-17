@@ -67,14 +67,23 @@ export const displaySuccess = async (resp) => {
     if (resp && resp.message) {
         const {$i18n, $swal, $router} = await Vue;
 
-        $swal({
+        /*$swal({
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
             timer: 3000,
             type: 'success',
             title: $i18n.t(resp.message)
-        });
+        });*/
+
+
+        $swal.fire(
+            '',
+            $i18n.t(resp.message),
+            'success'
+        );
+
+
 
         if (resp.redirect) {
             $router.push({name: resp.redirect});
