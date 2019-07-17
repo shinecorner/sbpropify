@@ -80,14 +80,14 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('/buildings/{id}/media', 'MediaAPIController@buildingUpload')->name('buildings.media.upload');
     Route::post('/buildings/{id}/propertyManagers', 'BuildingAPIController@assignManagers')->name('buildings.assign.managers');
     Route::post('/buildings/deletewithids', 'BuildingAPIController@destroyWithIds')->name('buildings.destroyWithIds');
+    Route::post('/buildings/checkunitrequest', 'BuildingAPIController@checkUnitRequest')->name('buildings.checkUnitRequest');
 
     Route::put('/buildings/{id}', 'BuildingAPIController@update')->name('buildings.update');
         
     Route::delete('/buildings/{id}', 'BuildingAPIController@destroy')->name('buildings.destroy');
     Route::delete('/buildings/{building_id}/media/{media_id}', 'MediaAPIController@buildingDestroy')->name('buildings.media.destroy');
     Route::delete('/buildings/{building_id}/service/{service_id}', 'BuildingAPIController@serviceRemove')->name('buildings.service.destroy');
-    Route::delete('/buildings/{building_id}/propertyManagers/{manager_id}', 'BuildingAPIController@unAssignPropertyManager')->name('buildings.manager.destroy');
-
+    Route::delete('/buildings/{building_id}/propertyManagers/{manager_id}', 'BuildingAPIController@unAssignPropertyManager')->name('buildings.manager.destroy');    
     // Units
     Route::get('/units', 'UnitAPIController@index')->name('units');
     Route::get('/units/{id}', 'UnitAPIController@show')->name('units.show');
@@ -220,6 +220,9 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     // Translations
     Route::resource('translations', 'TranslationAPIController');
     Route::get('/admin/statistics', 'StatisticsAPIController@adminStats');
+    Route::get('/admin/chartRequestByCreationDate', 'StatisticsAPIController@chartRequestByCreationDate');
+    Route::get('/admin/chartRequestByStatus', 'StatisticsAPIController@chartRequestByStatus');
+    Route::get('/admin/chartRequestByCategory', 'StatisticsAPIController@chartRequestByCategory');
 });
 
 

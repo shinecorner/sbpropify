@@ -1,6 +1,6 @@
 <template>
     <div class="units-add">
-        <heading :title="title" icon="ti-user" style="margin-bottom: 20px;"/>
+        <heading :title="title" icon="ti-user" shadow="heavy" style="margin-bottom: 20px;"/>
         <div class="crud-view">
             <card :loading="loading">
                 <el-form :model="model" label-width="192px" ref="form" style="max-width: 512px;">

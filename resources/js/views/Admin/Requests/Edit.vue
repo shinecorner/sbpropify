@@ -1,7 +1,7 @@
 <template>
     <div class="services-edit mb20" v-if="constants">
-        <heading :title="$t('models.request.edit_title')" icon="ti-user">
-            <edit-actions :saveAction="submit" route="adminRequests"/>
+        <heading :title="$t('models.request.edit_title')" icon="ti-user" shadow="heavy">
+            <edit-actions :saveAction="submit" :deleteAction="deleteRequest" route="adminRequests"/>
         </heading>
         <div class="crud-view">
             <el-form :model="model" label-position="top" label-width="192px" ref="form">
@@ -90,26 +90,64 @@
                                             <avatar :size="30"
                                                     :src="'/' + model.tenant.user.avatar"
                                                     v-if="model.tenant.user.avatar"></avatar>
+                                            <avatar :size="28"
+                                                    :username="model.tenant.user.first_name ? `${model.tenant.user.first_name} ${model.tenant.user.last_name}`: `${model.tenant.user.name}`"
+                                                    backgroundColor="rgb(205, 220, 57)"
+                                                    color="#fff"
+                                                    v-if="!model.tenant.user.avatar"></avatar>
                                             <span>{{model.tenant.first_name}} {{model.tenant.last_name}}</span>
                                         </router-link>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
 
-                            <el-form-item :label="$t('models.request.prop_title')" :rules="validationRules.title"
-                                          prop="title">
-                                <el-input :disabled="$can($permissions.update.serviceRequest)" type="text"
-                                          v-model="model.title"/>
-                            </el-form-item>
-                            <el-form-item :label="$t('models.request.description')" :rules="validationRules.description"
-                                          prop="description">
-                                <el-input
-                                    :autosize="{minRows: 16}"
-                                    :disabled="$can($permissions.update.serviceRequest)"
-                                    type="textarea"
-                                    v-model="model.description">
-                                </el-input>
-                            </el-form-item>
+                            <el-tabs v-model="activeTab1">
+
+                                <el-tab-pane :label="$t('models.request.request_details')" name="request_details">
+                                    <el-form-item :label="$t('models.request.prop_title')" :rules="validationRules.title"
+                                                  prop="title">
+                                        <el-input :disabled="$can($permissions.update.serviceRequest)" type="text"
+                                                  v-model="model.title"/>
+                                    </el-form-item>
+                                    <el-form-item :label="$t('models.request.description')" :rules="validationRules.description"
+                                                  prop="description">
+                                        <el-input
+                                            :autosize="{minRows: 16}"
+                                            :disabled="$can($permissions.update.serviceRequest)"
+                                            type="textarea"
+                                            v-model="model.description">
+                                        </el-input>
+                                    </el-form-item>
+                                </el-tab-pane>
+
+                                <el-tab-pane name="request_images">
+                                    <span slot="label">
+                                        <el-badge :value="mediaCount" :max="99" class="item">{{ $t('models.request.images') }}</el-badge>
+                                    </span>
+                                    <div slot="header">
+                                        <p class="comments-header">{{$t('models.request.images')}}</p>
+                                    </div>
+                                    <el-alert
+                                        v-if="!mediaCount"
+                                        :title="$t('models.request.no_images_message')"
+                                        type="info"
+                                        show-icon
+                                        :closable="false"
+                                    >
+                                    </el-alert>
+                                    <upload-document
+                                        @fileUploaded="uploadFiles"
+                                        class="drag-custom mt15"
+                                        drag
+                                        multiple
+                                    />
+                                    <div class="mt15">
+                                        <request-media :data="[...model.media, ...media]" @deleteMedia="deleteMedia"
+                                                       v-if="media.length || (model.media && model.media.length)"></request-media>
+                                    </div>
+                                </el-tab-pane>
+
+                            </el-tabs>
 
                             <!--                            <el-form-item-->
                             <!--                                :label="$t('models.request.is_public')"-->
@@ -171,7 +209,6 @@
                                                        class="custom-select"
                                                        v-model="model.status">
                                                 <el-option
-                                                    :disabled="isDisabled(k)"
                                                     :key="k"
                                                     :label="$t(`models.request.status.${status}`)"
                                                     :value="parseInt(k)"
@@ -253,27 +290,17 @@
                             </card>
                         </template>
                         <!--                    v-if="(!$can($permissions.update.serviceRequest)) || ($can($permissions.update.serviceRequest) && (media.length || (model.media && model.media.length)))"-->
-                        <card :class="{'mt15': $can($permissions.assign.request)}"
-                        >
-                            <div slot="header">
-                                <p class="comments-header">{{$t('models.request.images')}}</p>
-                            </div>
-                            <upload-document
-                                @fileUploaded="uploadFiles"
-                                class="drag-custom"
-                                drag
-                                multiple
-                            />
-                            <div class="mt15">
-                                <request-media :data="[...model.media, ...media]" @deleteMedia="deleteMedia"
-                                               v-if="media.length || (model.media && model.media.length)"></request-media>
-                            </div>
-                        </card>
                         <card class="mt15" v-if="model.id">
-                            <div slot="header">
-                                <p class="comments-header">{{$t('models.request.comments')}}</p>
-                            </div>
-                            <chat :id="model.id" type="request" show-templates />
+                            <el-tabs v-model="activeTab2">
+                                <el-tab-pane :label="$t('models.request.comments')" name="comments">
+                                    <chat :id="model.id" type="request"/>
+                                </el-tab-pane>
+                                <el-tab-pane>
+                                    <span slot="label">
+                                        <el-badge value="0" :max="99" class="item">{{ $t('models.request.internal_notices') }}</el-badge>
+                                    </span>
+                                </el-tab-pane>
+                            </el-tabs>
                         </card>
                     </el-col>
                 </el-row>
@@ -286,6 +313,7 @@
             :providers="model.providers"
             :selectedServiceRequest="selectedServiceRequest"
             :showServiceMailModal="showServiceMailModal"
+            :requestData="selectedRequestIDAndCategory"
             @close="closeMailModal"
             @send="sendServiceMail"
             v-if="(model.providers && model.providers.length) || (model.assignees && model.assignees.length)"
@@ -326,6 +354,8 @@
         },
         data() {
             return {
+                activeTab1: 'request_details',
+                activeTab2: 'comments',
                 conversationVisible: false,
                 selectedConversation: {},
                 constants: this.$store.getters['application/constants'],
@@ -367,10 +397,30 @@
                             return obj;
                         }, {});
                 }
+            },
+            selectedRequestIDAndCategory() {
+                let selectedCategory = this.categories.find((category) => { 
+                    if( category.id == this.model.category_id )
+                        return category;
+                })
+                return {
+                    service_request_format: this.model.service_request_format,
+                    category: {
+                        id: this.model.category_id,
+                        name: selectedCategory? selectedCategory.name : ""
+                    }
+                }                
+            },
+            mediaCount() {
+                if(this.model.media) {
+                    return this.model.media.length;
+                } else {
+                    return 0;
+                }
             }
         },
         methods: {
-            ...mapActions(['unassignProvider', 'unassignManager']),
+            ...mapActions(['unassignProvider', 'unassignManager', 'deleteRequest']),
             translateType(type) {
                 return this.$t(`models.request.userType.${type}`);
             },
@@ -416,7 +466,7 @@
                     this.loading.status = false;
                 });
             },
-            openNotifyProvider(provider) {
+            openNotifyProvider(provider) {            
                 this.selectedServiceRequest = provider;
                 this.showServiceMailModal = true;
             },
@@ -426,7 +476,7 @@
                     this.selectedConversation = row;
                     this.conversationVisible = true;
                 })
-            },
+            },            
         }
     };
 </script>
@@ -464,6 +514,12 @@
         .el-form-item__label, .el-form-item__content {
             line-height: 20px;
         }
+    }
+
+    .item .el-badge__content.is-fixed {
+        top:10px;
+        right:0px;
+        background-color:#6AC06F;
     }
 
 </style>

@@ -7,8 +7,8 @@
                     <small>{{ $t('models.building.requestStatuses.total') }}</small>
                 </h3>
             </el-col>
-            <el-col :span="cols" v-for="(count, index) in data.data" :key="index">
-                <h3>
+            <el-col :span="cols" v-for="(count, index) in data.data" :key="index">                
+                <h3 :style="{color: getRequestStatusColor(data.labels[index], 'name')}">
                     {{ count }}
                     <small>{{ $t('models.request.status.'+data.labels[index]) }}</small>
                 </h3>
@@ -25,9 +25,10 @@
 
 <script>
     import Card from './Card';
-
+    import globalFunction from "helpers/globalFunction";
     export default {
         name: 'DashboardStatisticsCard',
+        mixins: [globalFunction],
         components: {
             Card
         },
@@ -45,6 +46,9 @@
                 default: 0
             },
             avgReqDuration: [String, Number]
+        },
+        data(){
+            return {}
         }
     }
 </script>

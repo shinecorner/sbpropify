@@ -1,6 +1,6 @@
 <template>
     <div class="buildings">
-        <heading :title="$t('models.building.title')" icon="ti-home">
+        <heading :title="$t('models.building.title')" icon="ti-home" shadow="heavy">
             <template v-if="$can($permissions.create.building)">
                 <el-button @click="add" icon="ti-plus" round size="small" type="primary">{{$t('models.building.add')}}
                 </el-button>
@@ -63,32 +63,12 @@
             </span>
         </el-dialog>
 
-        <el-dialog  :close-on-click-modal="false" 
-                    :title="$t('models.building.delete_building_modal.title')"
-                    :visible.sync="deleteBuildingVisible"
-                    v-loading="processAssignment" 
-                    width="30%"
-                    class="delete_building_modal">  
-            
-            <el-row>
-                <el-col :span="24">
-                    <p class="description">{{$t('models.building.delete_building_modal.description')}}</p>                    
-                </el-col>
-            </el-row>
-            <el-form label-width="70px">
-                <el-form-item :label="$t('models.building.delete_building_modal.unite_label')">
-                    <el-switch v-model="isDeleteUnits" />
-                </el-form-item>
-                <el-form-item :label="$t('models.building.delete_building_modal.request_label')">
-                    <el-switch v-model="isDeleteRequests" />
-                </el-form-item>
-            </el-form>
-            <span class="dialog-footer" slot="footer">
-                <el-button @click="closeDeleteBuildModal" size="mini">{{$t('models.building.cancel')}}</el-button>
-                <el-button @click="deleteSelectedBuilding" size="mini" type="danger">{{$t('models.building.delete')}}</el-button>
-            </span>
-        </el-dialog>
-
+        <DeleteBuildingModal 
+            :deleteBuildingVisible="deleteBuildingVisible"
+            :delBuildingStatus="delBuildingStatus"
+            :closeModal="closeDeleteBuildModal"
+            :deleteSelectedBuilding="deleteSelectedBuilding"
+        />
     </div>
 </template>
 
@@ -100,7 +80,7 @@
     import getFilterDistricts from 'mixins/methods/getFilterDistricts';
     import getFilterPropertyManager from 'mixins/methods/getFilterPropertyManager';
     import {displaySuccess, displayError} from "helpers/messages";
-
+    import DeleteBuildingModal from 'components/DeleteBuildingModal';
     const mixin = ListTableMixin({
         actions: {
             get: 'getBuildings',
@@ -115,7 +95,8 @@
     export default {
         mixins: [mixin, getFilterStates, getFilterDistricts, getFilterPropertyManager],
         components: {
-            Heading
+            Heading,
+            DeleteBuildingModal
         },
         data() {
             return {
@@ -126,8 +107,7 @@
                 toAssignList: '',
                 toAssign: [],
                 remoteLoading: false,
-                isDeleteUnits: 0,
-                isDeleteRequests: 0,
+                delBuildingStatus: -1, // 0: unit, 1: request, 2: both
                 header: [{
                     label: this.$t('models.request.address'),
                     withMultipleProps: true,
@@ -137,7 +117,7 @@
                     label: this.$t('models.building.units'),
                     withMultipleProps: true,
                     withLinks: true,
-                    width: '60px',
+                    width: '90px',
                     route: {
                         name: 'adminBuildingUnits',
                         paramsKeys: {
@@ -258,7 +238,7 @@
             }
         },
         methods: {
-            ...mapActions(['getPropertyManagers', 'batchAssignUsersToBuilding', 'deleteBuildingWithIds']),
+            ...mapActions(['getPropertyManagers', 'batchAssignUsersToBuilding', 'deleteBuildingWithIds', 'checkUnitRequestWidthIds']),
             prepareFilters(property) {
                 return Object.keys(this.requestConstants[property]).map((id) => {
                     return {
@@ -346,17 +326,40 @@
                 this.toAssignList = [];
                 this.toAssign = [];
             },
-            batchDeleteBuilding() {
-                this.isDeleteUnits = 0;
-                this.isDeleteRequests = 0;
-                this.deleteBuildingVisible = true;
-            },            
-            async deleteSelectedBuilding() {
+            async batchDeleteBuilding() {
+                try {                    
+                    const resp = await this.checkUnitRequestWidthIds({ids:_.map(this.selectedItems, 'id')});                    
+                    this.delBuildingStatus = resp.data;
+
+                    if(this.delBuildingStatus == -1) {
+                        this.$confirm('This action is irreversible. Please proceed with caution.', 'Are you sure?', {
+                            type: 'warning'
+                        }).then(() => {
+                            Promise.all(this.selectedItems.map((item) => {
+                                return this.deleteBuilding(item)
+                                    .then(r => {
+                                        displaySuccess(r);
+                                    })
+                                    .catch(err => displayError(err));
+                            })).then(() => {
+                                this.fetchMore();
+                            })
+                        }).catch(() => {
+                        });
+                    }else {
+                        this.deleteBuildingVisible = true;
+                    }
+                } catch(err) {
+                    displayError(err);
+                } finally {
+                }
+            },     
+            async deleteSelectedBuilding(isUnits, isRequests) {
                 try {
                     const resp = await this.deleteBuildingWithIds({
                         ids: _.map(this.selectedItems, 'id'),
-                        is_delete_units: this.isDeleteUnits,
-                        is_delete_request: this.isDeleteRequests
+                        is_units: isUnits,
+                        is_requests: isRequests
                     });
                     this.deleteBuildingVisible = false;
                     displaySuccess(resp);                    
@@ -368,14 +371,7 @@
             },
             closeDeleteBuildModal() {
                 this.deleteBuildingVisible = false;
-            }
+            },            
         }
     };
 </script>
-<style lang="scss" scoped>
-    .delete_building_modal {
-        .description {
-            margin: 0 0 22px 0;
-        }
-    }
-</style>

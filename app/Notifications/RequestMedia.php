@@ -2,48 +2,34 @@
 
 namespace App\Notifications;
 
-use App\Models\Comment;
 use App\Models\ServiceRequest;
 use App\Models\User;
 use App\Repositories\TemplateRepository;
+use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
-/**
- * Class RequestCommented
- * @package App\Notifications
- */
-class RequestCommented extends Notification implements ShouldQueue
+class RequestMedia extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * @var ServiceRequest
-     */
     protected $request;
-    /**
-     * @var User
-     */
-    protected $user;
-    /**
-     * @var Comment
-     */
-    protected $comment;
+    protected $uploader;
+    protected $media;
 
     /**
-     * RequestCommented constructor.
-     * @param ServiceRequest $request
-     * @param User $user
-     * @param Comment $comment
+     * Create a new notification instance.
+     *
+     * @return void
      */
-    public function __construct(ServiceRequest $request, User $user, Comment $comment)
+    public function __construct(ServiceRequest $request, User $uploader, Media $media)
     {
         $this->request = $request;
-        $this->user = $user;
-        $this->comment = $comment;
+        $this->uploader = $uploader;
+        $this->media = $media;
     }
 
     /**
@@ -70,12 +56,13 @@ class RequestCommented extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $msg = $tRepo->getRequestCommentedParsedTemplate($this->request, $this->user, $this->comment);
+        $msg = $tRepo->getRequestMediaParsedTemplate($this->request, $this->uploader, $notifiable, $this->media);
         return (new MailMessage)
-            ->view('mails.requestCommented', [
+            ->view('mails.requestMedia', [
                 'body' => $msg['body'],
                 'subject' => $msg['subject'],
-            ])->subject($msg['subject']);
+            ])->subject($msg['subject'])
+            ->attach($msg['media']->getPath());
     }
 
     /**
@@ -88,16 +75,12 @@ class RequestCommented extends Notification implements ShouldQueue
     {
         return [
             'request_id' => $this->request->id,
-            'user' => $this->comment->user->name,
-            'comment' => $this->comment->comment,
+            'uploader' => $this->uploader,
+            'media' => $this->media,
             'fragment' => Str::limit($this->request->title, 128),
         ];
     }
 
-    /**
-     * @param $notifiable
-     * @return array
-     */
     public function toDatabase($notifiable)
     {
         return $this->toArray($notifiable);

@@ -1,6 +1,6 @@
 <template>
     <div class="units">
-        <heading :title="$t('models.unit.title')" icon="ti-house">
+        <heading :title="$t('models.unit.title')" icon="ti-house" shadow="heavy">
             <template v-if="$can($permissions.create.unit)">
                 <el-button @click="add" icon="ti-plus" round size="small" type="primary">
                     {{$t('models.unit.add')}}

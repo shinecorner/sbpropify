@@ -1,7 +1,7 @@
 <template>
     <div class="services-edit">
-        <heading :title="$t('models.propertyManager.edit_title')" icon="ti-user">
-            <edit-actions :saveAction="submit" route="adminPropertyManagers"/>
+        <heading :title="$t('models.propertyManager.edit_title')" icon="ti-user" shadow="heavy">
+            <edit-actions :saveAction="submit" :deleteAction="deletePropertyManager" route="adminPropertyManagers"/>
         </heading>
         <div class="crud-view">
             <el-form :model="model" label-position="top" label-width="192px" ref="form">
@@ -190,12 +190,12 @@
     import Cropper from 'components/Cropper';
     import RelationList from 'components/RelationListing';
     import EditActions from 'components/EditViewActions';
-    import {mapGetters} from 'vuex';
-
+    import {mapGetters, mapActions} from 'vuex';
+    import globalFunction from "helpers/globalFunction";
 
     export default {
         name: 'AdminPropertyManagersEdit',
-        mixins: [PropertyManagersMixin({
+        mixins: [globalFunction, PropertyManagersMixin({
             mode: 'edit'
         })],
         components: {
@@ -244,6 +244,7 @@
             }
         },
         methods: {
+            ...mapActions(['deletePropertyManager']),
             requestEditView(row) {
                 this.$router.push({
                     name: 'adminRequestsEdit',
@@ -279,18 +280,9 @@
                 });
             },
 
-            requestStatusBadge(status) {
-                const colorObject = {
-                    1: '#bbb',
-                    2: '#ebb563',
-                    3: '#ebb563',
-                    4: '#67C23A',
-                    5: '#ebb563',
-                    6: '#67C23A'
-                };
-
-                return colorObject[status];
-            }
+            requestStatusBadge(status) {                
+                return this.getRequestStatusColor(status);
+            },
         },
         computed: {
             ...mapGetters('application', {

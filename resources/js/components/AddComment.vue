@@ -78,12 +78,15 @@
                 getTemplates: 'getRequestTemplates'
             }),
 
+            focus () {
+                this.$refs.content.focus()
+            },
             onTemplateSelected (template) {
                 const caretPosition = this.$refs.content.$el.querySelector('textarea').selectionStart
 
                 this.content = this.content.substring(0, caretPosition) + template.subject + this.content.substring(caretPosition)
 
-                this.$refs.content.focus()
+                this.focus()
             },
             onDropdownVisibility (state) {
                 this.dropdownTemplatesVisible = state
@@ -107,7 +110,7 @@
                 } catch (error) {
                     displayError(error)
                 } finally {
-                    this.$refs.content.focus()
+                    this.focus()
 
                     this.content = ''
                     this.loading = false
@@ -147,7 +150,7 @@
             }
 
             if (this.autofocus) {
-                this.$refs.content.focus()
+                this.focus()
             }
         }
     }

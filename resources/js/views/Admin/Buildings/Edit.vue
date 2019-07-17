@@ -1,7 +1,16 @@
 <template>
     <div class="buildings-edit ">
-        <heading :title="$t('models.building.edit_title')" icon="ti-home">
-            <edit-actions :saveAction="submit" route="adminBuildings"/>
+        <heading :title="$t('models.building.edit_title')" icon="ti-home" shadow="heavy">
+            <template>
+                <div class="action-group">
+                    <el-button @click="submit" size="small" type="primary" round> {{this.$t('actions.save')}}</el-button>
+                    <el-button @click="saveAndClose" size="small" type="primary" round> {{this.$t('actions.saveAndClose')}}
+                    </el-button>
+                    <el-button @click="batchDeleteBuilding" size="small" type="danger" round icon="ti-trash"> {{this.$t('actions.delete')}}</el-button>
+                    <el-button @click="goToListing" size="small" type="warning" round> {{this.$t('actions.close')}}
+                    </el-button>
+                </div>
+            </template>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
@@ -32,8 +41,6 @@
                                                 :label="$t('none')"
                                                 value=""
                                             />
-
-                                            </el-option>
                                             <el-option
                                                 :key="district.id"
                                                 :label="district.name"
@@ -99,7 +106,6 @@
                         </el-form>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('models.building.files')" name="files">
-                        <label class="card-label">{{$t('models.building.files')}}</label>
                         <draggable @sort="sortFiles" v-model="model.media">
                             <transition-group name="list-complete">
                                 <el-row :gutter="10" :key="element.name" class="list-complete-item"
@@ -137,7 +143,6 @@
                         </div>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('models.building.companies')" name="companies">
-                        <label class="card-label">{{$t('models.building.companies')}}</label>
                         <div v-if="model.service_providers && model.service_providers.length">
                             <el-row :gutter="10" :key="service.id" class="list-complete-item"
                                     v-for="service in model.service_providers">
@@ -228,7 +233,7 @@
                                 </el-select>
                             </el-col>
                             <el-col :md="4">
-                                <el-button @click="assignManagers" type="primary">
+                                <el-button @click="assignManagers" type="primary" class="btn-assign">
                                     {{$t('models.building.assign')}}
                                 </el-button>
                             </el-col>
@@ -261,6 +266,13 @@
                 </el-row>
             </el-col>
         </el-row>
+
+        <DeleteBuildingModal 
+            :deleteBuildingVisible="deleteBuildingVisible"
+            :delBuildingStatus="delBuildingStatus"
+            :closeModal="closeDeleteBuildModal"
+            :deleteSelectedBuilding="deleteSelectedBuilding"
+        />
     </div>
 </template>
 
@@ -275,12 +287,12 @@
     import BuildingsMixin from 'mixins/adminBuildingsMixin';
     import UploadDocument from 'components/UploadDocument';
     import draggable from 'vuedraggable';
-    import RelationList from 'components/RelationListing';
-    import EditActions from 'components/EditViewActions';
-
+    import RelationList from 'components/RelationListing';    
+    import globalFunction from "helpers/globalFunction";
+    import DeleteBuildingModal from 'components/DeleteBuildingModal';
 
     export default {
-        mixins: [BuildingsMixin({
+        mixins: [globalFunction, BuildingsMixin({
             mode: 'edit'
         })],
         components: {
@@ -292,7 +304,7 @@
             UploadDocument,
             draggable,
             RelationList,
-            EditActions
+            DeleteBuildingModal            
         },
         data() {
             return {
@@ -335,11 +347,15 @@
                     buttons: [{
                         title: this.$t('models.building.unassign_manager'),
                         type: 'danger',
-                        onClick: this.unassignManager
+                        onClick: this.unassignManager,
+                        tooltipMode: true,
+                        icon: 'el-icon-close'
                     }, {
                         title: this.$t('models.propertyManager.edit'),
                         type: 'primary',
-                        onClick: this.managerEditView
+                        onClick: this.managerEditView,
+                        tooltipMode: true,
+                        icon: 'el-icon-edit'
                     }]
                 }],
                 requestColumns: [{
@@ -361,7 +377,9 @@
                 }],
                 toAssignList: '',
                 toAssign: [],
-                remoteLoading: false
+                remoteLoading: false,
+                deleteBuildingVisible: false,
+                delBuildingStatus: -1, // 0: unit, 1: request, 2: both
             };
         },
         methods: {
@@ -371,7 +389,10 @@
                 "deleteBuildingService",
                 "getPropertyManagers",
                 "batchAssignUsersToBuilding",
-                "unassignBuildingManager"
+                "unassignBuildingManager",
+                "deleteBuilding",
+                'deleteBuildingWithIds', 
+                'checkUnitRequestWidthIds'
             ]),
             unassignManager(manager) {
                 this.$confirm(this.$t(`models.request.confirmUnassign.title`), this.$t('models.request.confirmUnassign.warning'), {
@@ -423,17 +444,8 @@
                     }
                 })
             },
-            requestStatusBadge(status) {
-                const colorObject = {
-                    1: '#bbb',
-                    2: '#ebb563',
-                    3: '#ebb563',
-                    4: '#67C23A',
-                    5: '#ebb563',
-                    6: '#67C23A'
-                };
-                
-                return colorObject[status];
+            requestStatusBadge(status) {                
+                return this.getRequestStatusColor(status);
             },
             requestStatusLabel(status) {
                 return this.$t(`models.request.status.${this.requestStatusConstants[status]}`)
@@ -543,7 +555,67 @@
             resetToAssignList() {
                 this.toAssignList = [];
                 this.toAssign = [];
-            }
+            },
+             async batchDeleteBuilding() {
+                try {              
+                    const resp = await this.checkUnitRequestWidthIds({ids:[this.model.id]});                    
+                    this.delBuildingStatus = resp.data;
+
+                    if(this.delBuildingStatus == -1) {
+                        this.$confirm('This action is irreversible. Please proceed with caution.', 'Are you sure?', {
+                            type: 'warning'
+                        }).then(() => {
+                            this.deleteBuilding({id:this.model.id})
+                                .then(r => {
+                                    displaySuccess(r);
+                                    this.goToListing();
+                                })
+                                .catch(err => displayError(err));                            
+                        }).catch(() => {
+                        });
+                    }else {
+                        this.deleteBuildingVisible = true;
+                    }
+                } catch(err) {
+                    displayError(err);
+                } finally {                    
+                }
+            },     
+            async deleteSelectedBuilding(isUnits, isRequests) {
+                try {
+                    const resp = await this.deleteBuildingWithIds({
+                        ids: [this.model.id],
+                        is_units: isUnits,
+                        is_requests: isRequests
+                    });
+                    this.deleteBuildingVisible = false;
+                    displaySuccess(resp); 
+                    this.goToListing();            
+                } catch (err) {
+                    displayError(err);
+                } finally {
+                }
+            },
+            closeDeleteBuildModal() {
+                this.deleteBuildingVisible = false;
+            },
+
+            async saveAndClose() {
+                try {
+                    const resp = await this.submit();
+                    if (resp) {
+                        this.goToListing();
+                    }
+                } catch (e) {
+                    console.log(e)
+                }
+            },
+            goToListing() {
+                return this.$router.push({
+                    name: "adminBuildings",
+                    query: this.queryParams
+                })
+            },
         },
         computed: {
             ...mapGetters('application', {
@@ -624,6 +696,10 @@
 
     .category-select {
         margin-bottom: 30px;
+        width: 100%;
+    }
+
+    .btn-assign {
         width: 100%;
     }
 </style>

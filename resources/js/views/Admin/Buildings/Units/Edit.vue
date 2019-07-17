@@ -1,6 +1,6 @@
 <template>
     <div class="units-edit ">
-        <heading :title="title" icon="ti-user" style="margin-bottom: 20px;">
+        <heading :title="title" icon="ti-user" shadow="heavy" style="margin-bottom: 20px;">
             <edit-actions :saveAction="submit" route="adminUnits"/>
         </heading>
         <el-row :gutter="20" class="crud-view">

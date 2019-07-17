@@ -89,6 +89,11 @@ export default (config = {}) => {
 
                 return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(ext);
             },
+            isFilePDF (file) {
+                debugger;
+                const ext = file.name.split('.').pop()
+                return ['.pdf'].includes(ext);
+            },
             async remoteSearchBuildings(search) {
                 if (search === '') {
                     this.buildings = [];

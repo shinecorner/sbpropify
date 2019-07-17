@@ -1,6 +1,6 @@
 <template>
     <div class="products">
-        <heading :title="$t('models.product.title')" icon="ti-announcement">
+        <heading :title="$t('models.product.title')" icon="ti-announcement" shadow="heavy">
             <!--<el-button @click="add" icon="ti-plus" round type="primary">-->
             <!--{{$t('models.product.add')}}-->
             <!--</el-button>-->

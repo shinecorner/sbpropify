@@ -427,7 +427,7 @@ Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interd
                     display: flex;
                     flex-direction: column;
 
-                    .media-carousel-gallery .el-carousel {
+                    .media-gallery-carousel .el-carousel {
                         height: 336px;
                     }
 

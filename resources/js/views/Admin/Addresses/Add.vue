@@ -1,6 +1,6 @@
 <template>
     <div class="users-add">
-        <heading icon="ti-home" :title="$t('models.address.add')" class="custom-heading"/>
+        <heading icon="ti-home" :title="$t('models.address.add')" shadow="heavy" class="custom-heading"/>
         <el-form :model="newAddress" ref="newAddressForm" label-position="top">
             <el-row>
                 <el-col :span="12">

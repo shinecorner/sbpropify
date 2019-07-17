@@ -491,6 +491,8 @@ class MediaAPIController extends AppBaseController
         ];
         $a->save();
 
+        $this->serviceRequestRepository->notifyMedia($serviceRequest, \Auth::user(), $media);
+
         $response = (new MediaTransformer)->transform($media);
         return $this->sendResponse($response, 'Media saved successfully');
     }

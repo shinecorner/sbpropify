@@ -1,7 +1,7 @@
 <template>
     <div class="services-edit mb20">
-        <heading :title="$t('models.service.edit_title')" icon="ti-user">
-            <edit-actions :saveAction="submit" route="adminServices"/>
+        <heading :title="$t('models.service.edit_title')" icon="ti-user" shadow="heavy">
+            <edit-actions :saveAction="submit" :deleteAction="deleteService" route="adminServices"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
@@ -257,7 +257,7 @@
             }
         },
         methods: {
-            ...mapActions(['unassignServiceBuilding', 'unassignServiceDistrict']),
+            ...mapActions(['unassignServiceBuilding', 'unassignServiceDistrict', 'deleteService']),
             requestEditView(row) {
                 this.$router.push({
                     name: 'adminRequestsEdit',

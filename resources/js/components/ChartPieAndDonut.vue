@@ -1,6 +1,6 @@
 <template>
     <div>
-      <apexchart :type="type" width='400' height='400' :options="chartOptions" :series="series" />
+      <apexchart :type="type" width='100%' height='400' :options="chartOptions" :series="series" />
     </div>
 </template>
 <script>
@@ -46,10 +46,7 @@ export default {
             }
           }],
           legend: {
-                show: true,
-                position: 'bottom',
-                horizontalAlign: 'center',
-                width: 470
+                show: true,                                
            },
            chart:{
                  toolbar: {

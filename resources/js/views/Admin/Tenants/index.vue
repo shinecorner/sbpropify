@@ -1,6 +1,6 @@
 <template>
     <div class="tenants">
-        <heading :title="$t('pages.tenant.title')" icon="ti-plus" >
+        <heading :title="$t('pages.tenant.title')" icon="ti-plus" shadow="heavy">
             <template v-if="$can($permissions.create.tenant)">
                 <el-button @click="add" icon="ti-plus" round size="small" type="primary">{{$t('models.tenant.add')}}
                 </el-button>
@@ -79,6 +79,7 @@
                     label: this.$t('models.tenant.status.label'),
                     prop: 'status',
                     i18nPath: 'models.tenant.status',
+                    class: 'rounded-select',
                     select: {
                         icon: 'ti-pencil',
                         data: [],

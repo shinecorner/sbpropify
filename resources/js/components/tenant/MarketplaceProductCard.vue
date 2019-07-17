@@ -24,7 +24,7 @@
         <div class="content">
             <div class="title">{{data.title}}</div>
             <small class="time">
-                added on {{data.published_at | formatDatetime}}
+                added on {{formatDatetime(data.published_at)}}
             </small>
             <reactions :id="data.id" type="products" counter>
                 <div><i class="ti-comments" /> {{data.comments_count}}</div>
