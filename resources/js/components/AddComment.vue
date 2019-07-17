@@ -6,9 +6,9 @@
         <div class="content">
             <el-input autosize ref="content" :class="{'is-focused': focused}" type="textarea" resize="none" v-model="content" :placeholder="$t('components.common.addComment.placeholder')" :disabled="loading" :validate-event="false" @blur="focused = false" @focus="focused = true" @keydown.native.alt.enter.exact="save" />
             <el-dropdown class="templates" size="small" placement="top-end" trigger="click" @command="onTemplateSelected" @visible-change="onDropdownVisibility" v-if="showTemplates">
-                <el-tooltip content="Choose a template" placement="top-end">
+                <el-tooltip :content="$t('components.common.addComment.tooltipTemplates')" placement="top-end">
                     <el-button ref="templatesButton" type="text" class="el-dropdown-link" :disabled="loading">
-                        <i class="el-icon-more"></i>
+                        <i class="icon-ellipsis-vert"></i>
                     </el-button>
                 </el-tooltip>
                 <el-dropdown-menu slot="dropdown">
@@ -25,7 +25,7 @@
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
-        <el-button circle icon="el-icon-s-promotion" size="small" :disabled="!content" :loading="loading" @click="save" />
+        <el-button circle icon="icon-paper-plane" size="small" :disabled="!content" :loading="loading" @click="save" />
     </div>
 </template>
 
@@ -226,7 +226,6 @@
 
                     .el-dropdown-link {
                         padding: 9px;
-                        transform: rotate(90deg);
                     }
                 }
 

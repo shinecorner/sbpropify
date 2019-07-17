@@ -1066,6 +1066,7 @@ export default {
             },
             addComment: {
                 placeholder: 'Type a comment...',
+                tooltipTemplates: 'Choose a template',
                 loadingTemplates: 'Loading templates...',
                 emptyTemplatesPlaceholder: 'No templates available.'
             }
