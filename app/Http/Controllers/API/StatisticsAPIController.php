@@ -430,9 +430,47 @@ class StatisticsAPIController extends AppBaseController
             return $el->count;
         });
 
+        if ('service_requests' == $table) {
+            $sum = $response['data']->sum();
+            $response['tag_percentage'] = $this->getTagPercentage($rsPerStatus, $sum);
+        }
+
         return $isConvertResponse
             ? $this->sendResponse($response, 'Admin statistics retrieved successfully for ' . $table)
             : $response;
+    }
+
+    /**
+     * @param $rsPerStatus
+     * @param $sum
+     * @return mixed
+     */
+    protected function getTagPercentage($rsPerStatus, $sum)
+    {
+        $tagPercentages = $rsPerStatus->map(function($el) use ($sum) {
+            return round($el->count  * 100 / $sum);
+        });
+
+        $sumPercentage = $tagPercentages->sum();
+
+        if ($sumPercentage != 100) {
+            // @TODO improve this logic if need for make round max correct way
+            $diff = $rsPerStatus->map(function($el, $index) use ($sum, $tagPercentages) {
+                return $el->count  * 100 / $sum - $tagPercentages[$index];
+            });
+            $diff = $diff->sort();
+
+            $difference = abs(100 - $sumPercentage);
+            $sign = (100 - $sumPercentage > 0) ? 1 : -1;
+
+            for ($i = 0; $i < $difference; $i++) {
+                $key = $diff->keys()->last();
+                $tagPercentages[$key] = $tagPercentages[$key] + $sign * 1;
+                $diff->pop();
+            }
+        }
+
+        return $tagPercentages;
     }
 
     /**
