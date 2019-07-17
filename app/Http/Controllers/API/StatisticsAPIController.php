@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
 use App\Models\Building;
-use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestCategory;
 use App\Models\Tenant;
@@ -19,9 +18,7 @@ use Carbon\CarbonPeriod;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Arr;
-use Validator;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class StatisticsAPIController
@@ -268,132 +265,35 @@ class StatisticsAPIController extends AppBaseController
 
     public function adminStats(Request $request)
     {
+        [$startDate, $endDate] = $this->getStartDateEndDate($request);
         $ret = [
             'total_requests' => DB::table('service_requests')->count('id'),
-            'tenants_per_day' => $this->getDayCountStatistic('tenants'),
+            'tenants_per_day' => $this->getDayCountStatistic('tenants', $startDate, $endDate),
             'tenants_per_status' => [],
-                        
+
             'requests_per_status' => [],
             'requests_per_category' => [],
 
-            'products_per_day' => DB::select("select date(created_at) `x`, count(id) `y` from products group by date(created_at) order by `x`;"),
+            'products_per_day' => $this->getDayCountStatistic('products', $startDate, $endDate),
             'products_per_status' => [],
 
-            'posts_per_day' => DB::select("select date(created_at) `x`, count(id) `y` from posts group by date(created_at) order by `x`;"),
+            'posts_per_day' => $this->getDayCountStatistic('posts', $startDate, $endDate),
             'posts_per_status' => [],
         ];
 
-        $period_array = $req_array = $formatted_req_array = [];
-        
-        $period = CarbonPeriod::create(Carbon::now()->subDays(30)->format('Y-m-d'), Carbon::now()->format('Y-m-d'));
-        foreach ($period as $date) {            
-            $period_array[] = $date->format('Y-m-d');
-        }
-        $req_parents = collect(DB::select("SELECT id,name from service_request_categories WHERE parent_id IS NULL"));
-        foreach($req_parents as $req_parent){
-            foreach ($period_array as $date) {
-                    $req_array[$req_parent->name][$date] = 0;
-                }            
-        }        
-        $reqPerCreationDate = collect(DB::select("SELECT count(req.id) as cnt_request, date(req.created_at) as created_at, req.category_id, IF(cat2.id IS NULL,cat1.id,cat2.id) AS parent_category_id, IF(cat2.name IS NULL,cat1.name,cat2.name) AS parent_category_name from service_requests as req INNER JOIN service_request_categories AS cat1 on req.category_id = cat1.id LEFT JOIN service_request_categories AS cat2 ON cat1.parent_id = cat2.id GROUP BY parent_category_id, created_at"));
-//        print_r($reqPerCreationDate);exit;
-        foreach($reqPerCreationDate as $reqValue){
-            $req_array[$reqValue->parent_category_name][$reqValue->created_at] = $reqValue->cnt_request;
-        }
-        $i=0;
-        foreach($req_array as $key=>$value){
-            $formatted_req_array[$i]['name'] = $key;
-            $formatted_req_array[$i]['data'] = array_values($value);
-            $i++;        
-        }
-        $ret['requests_per_day_xdata'] = $period_array;
-        $ret['requests_per_day_ydata'] = $formatted_req_array;
-        $rsPerStatus = collect(DB::select("select status `status`, count(id) `count` from service_requests group by status order by status;"));
-        // Fill missing statuses with a 0 count
-        foreach (ServiceRequest::Status as $status => $__) {
-            if (!$rsPerStatus->contains(function($val) use ($status) {
-                return $val->status == $status;
-            })) {
-                $stat = new \stdClass;
-                $stat->status = $status;
-                $stat->count = 0;
-                $rsPerStatus->push($stat);
-            }
-        }
-        $ret['requests_per_status']['data'] = $rsPerStatus->map(function($el) {
-            return $el->count;
-        });
-        $ret['requests_per_status']['labels'] = $rsPerStatus->map(function($el) {
-            return ServiceRequest::Status[$el->status];
+        $ret = array_merge($ret, $this->chartRequestByCreationDate($request, false, $startDate, $endDate));
+        $ret['requests_per_status'] = $this->chartRequestByStatus($request, false, $startDate, $endDate);
+        $ret['tenants_per_status'] = $this->chartRequestByStatus($request, false, $startDate, $endDate, 'tenants');
+        $ret['products_per_status'] = $this->chartRequestByStatus($request, false, $startDate, $endDate, 'products');
+        $ret['posts_per_status'] = $this->chartRequestByStatus($request, false, $startDate, $endDate, 'posts');
+
+        $categoryDayStatistics = collect($ret['requests_per_day_ydata']);
+        $ret['requests_per_category']['labels'] = $categoryDayStatistics->map(function($el) {
+            return $el['name'];
         });
 
-        $tsPerStatus = collect(DB::select("select status `status`, count(id) `count` from tenants group by status order by status;"));
-        // Fill missing statuses with a 0 count
-        foreach (Tenant::Status as $status => $__) {
-            if (!$tsPerStatus->contains(function($val) use ($status) {
-                return $val->status == $status;
-            })) {
-                $stat = new \stdClass;
-                $stat->status = $status;
-                $stat->count = 0;
-                $tsPerStatus->push($stat);
-            }
-        }
-        $ret['tenants_per_status']['data'] = $tsPerStatus->map(function($el) {
-            return $el->count;
-        });
-        $ret['tenants_per_status']['labels'] = $tsPerStatus->map(function($el) {
-            return Tenant::Status[$el->status];
-        });
-
-
-        $prodsPerStatus = collect(DB::select("select status `status`, count(id) `count` from products group by status order by status;"));
-        // Fill missing statuses with a 0 count
-        foreach (Product::Status as $status => $__) {
-            if (!$prodsPerStatus->contains(function($val) use ($status) {
-                return $val->status == $status;
-            })) {
-                $stat = new \stdClass;
-                $stat->status = $status;
-                $stat->count = 0;
-                $prodsPerStatus->push($stat);
-            }
-        }
-        $ret['products_per_status']['data'] = $prodsPerStatus->map(function($el) {
-            return $el->count;
-        });
-        $ret['products_per_status']['labels'] = $prodsPerStatus->map(function($el) {
-            return Product::Status[$el->status];
-        });
-
-        $postsPerStatus = collect(DB::select("select status `status`, count(id) `count` from posts group by status order by status asc;"));
-        // Fill missing statuses with a 0 count
-        foreach (Post::Status as $status => $__) {
-            if (!$postsPerStatus->contains(function($val) use ($status) {
-                return $val->status == $status;
-            })) {
-                $stat = new \stdClass;
-                $stat->status = $status;
-                $stat->count = 0;
-                $postsPerStatus->push($stat);
-            }
-        }
-        $ret['posts_per_status']['data'] = $postsPerStatus->map(function($el) {
-            return $el->count;
-        });
-        $ret['posts_per_status']['labels'] = $postsPerStatus->map(function($el) {
-            return Post::Status[$el->status];
-        });
-
-        $q = "SELECT count(req.id) as cnt_request, IF(parent_cat.id IS NULL,cat.id,parent_cat.id) AS parent_category_id, IF(parent_cat.name IS NULL,cat.name,parent_cat.name) AS parent_category_name from service_requests as req INNER JOIN service_request_categories AS cat on req.category_id = cat.id LEFT JOIN service_request_categories AS parent_cat ON cat.parent_id = parent_cat.id GROUP BY parent_category_id";
-        $rsPerCategory = collect(DB::select($q));                
-        
-
-        $ret['requests_per_category']['data'] = $rsPerCategory->map(function($el) {
-            return $el->cnt_request;
-        });
-        $ret['requests_per_category']['labels'] = $rsPerCategory->map(function($el) {            
-            return $el->parent_category_name;
+        $ret['requests_per_category']['data'] = $categoryDayStatistics->map(function($el) {
+            return array_sum($el['data']);
         });
 
         $avgReqFix = DB::select("select coalesce(floor(avg(time_to_sec(timediff(solved_date, created_at)))), 0) duration
@@ -404,30 +304,149 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     *
+     * @param Request $request
+     * @param bool $isConvertResponse
+     * @param null $startDate
+     * @param null $endDate
+     * @return mixed
      */
-    public function chartRequestByCreationDate(Request $request)
+    public function chartRequestByCreationDate(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null)
     {
-        // @TODO fix query param hard code, also key hard code like month
-        $requestData = $request->all();
-        $period = $requestData['period'] ?? 'day';
-        $startDate = $requestData['start_date'] ?? '';
-        $endDate = $requestData['end_date'] ?? '';
-
-
-        if ('year' == $period) {
-//            $startDate = '';
-//            $endDate = '';
-        } elseif ('month' == $period) {
-
-        } elseif ('week' == $period) {
-
+        if (is_null($startDate) && is_null($endDate)) {
+            [$startDate, $endDate] = $this->getStartDateEndDate($request);
         }
 
-        // @TODO security problem maybe make table aliases or permit specific tables
-        $table = $requestData['table'] ?? 'service_requests';
+        $period = $this->getPeriod($request);
+        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id')->toArray();
+        [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate);
+        $catDayStats = $this->initializeServiceRequestCategoriesForChart($parentCategories, $periodValues);
 
-        return $this->getDayCountStatistic($table, $startDate, $endDate);
+
+        $serviceRequests = ServiceRequest::selectRaw($raw . ', IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
+            ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
+            ->leftJoin('service_request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
+            ->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'))
+            ->groupBy('period')
+            ->groupBy('category_parent_id')
+            ->get();
+
+        foreach ($serviceRequests as $serviceRequest) {
+            $categoryName = $parentCategories[$serviceRequest->category_parent_id] ?? '';
+            $catDayStats[$categoryName][$serviceRequest->period] = $serviceRequest->count;
+        }
+
+        $formattedReqStatistics = [];
+        foreach($catDayStats as $key=>$value){
+            $formattedReqStatistics[] = [
+                'name' => $key,
+                'data' => array_values($value)
+            ];
+        }
+
+        $ret['requests_per_day_xdata'] = array_values($periodValues);
+        $ret['requests_per_day_ydata'] = $formattedReqStatistics;
+
+        return $isConvertResponse
+            ? $this->sendResponse($ret, 'Request services statistics formatted successfully')
+            : $ret;
+    }
+
+    /**
+     * @TODO fix many parameters
+     *
+     * @param Request $request
+     * @param bool $isConvertResponse
+     * @param null $startDate
+     * @param null $endDate
+     * @param null $table
+     * @return mixed
+     */
+    public function chartRequestByStatus(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null, $table = null)
+    {
+        if (is_null($startDate) && is_null($endDate)) {
+            [$startDate, $endDate] = $this->getStartDateEndDate($request);
+        }
+
+        $tables = [
+            'service_requests' => ServiceRequest::class,
+            'tenants' => Tenant::class,
+            'products' => Product::class,
+            'posts' => Post::class,
+        ];
+
+        $table = $table ?? $request->table;
+        $table  = key_exists($table, $tables) ? $table : 'service_requests';
+        $class = $tables[$table];
+
+        $rsPerStatus = $class::selectRaw('status, count(id) `count`')
+            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
+            ->groupBy('status')
+            ->orderBy('status')
+            ->get();
+
+        // Fill missing statuses with a 0 count
+        $existingStatuses = $rsPerStatus->pluck('status')->all();
+        $classStatus = $class::Status;
+        foreach ($classStatus as $status => $__) {
+            if (! in_array($status, $existingStatuses)) {
+                $stat = new \stdClass;
+                $stat->status = $status;
+                $stat->count = 0;
+                $rsPerStatus->push($stat);
+            }
+        }
+
+        $response['labels'] = $rsPerStatus->map(function($el) use ($classStatus) {
+            return $classStatus[$el->status];
+        });
+
+        $response['ids'] = $rsPerStatus->map(function($el) use ($classStatus) {
+            return $el->status;
+        });
+
+        $response['data'] = $rsPerStatus->map(function($el) {
+            return $el->count;
+        });
+
+        return $isConvertResponse
+            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for ' . $table)
+            : $response;
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function chartRequestByCategory(Request $request)
+    {
+        [$startDate, $endDate] = $this->getStartDateEndDate($request);
+        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id');
+        $serviceRequests = ServiceRequest::selectRaw('count(service_requests.id) as count, IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
+            ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
+            ->leftJoin('service_request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
+            ->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'))
+            ->groupBy('category_parent_id')
+            ->get();
+
+        $statisticData = $parentCategories->values()->flip();
+        foreach ($statisticData as $category => $__) {
+            $statisticData[$category] = 0;
+        }
+
+        foreach ($serviceRequests as $serviceRequest) {
+            $category = $parentCategories[$serviceRequest->category_parent_id];
+            $statisticData[$category] = $serviceRequest->count;
+        }
+
+        $response = [
+            'labels' => $statisticData->keys(),
+            'date' => $statisticData->values()
+        ];
+
+        return $this->sendResponse($response, 'Admin statistics retrieved successfully');
     }
 
     /**
@@ -439,58 +458,140 @@ class StatisticsAPIController extends AppBaseController
     public function getDayCountStatistic($table, $startDate = null, $endDate = null)
     {
         return \DB::table($table)->selectRaw ('date(created_at) `x`, count(id) `y`')
-            ->when($startDate, function ($q) use ($startDate) {
-                $q->whereDate('created_at', '>=', Carbon::parse($startDate)->format('Y-m-d'));
-            })
-            ->when($endDate, function ($q) use ($endDate) {
-                $q->whereDate('created_at', '<=', Carbon::parse($endDate)->format('Y-m-d'));
-            })
+            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
             ->groupBy('x')
             ->orderBy('x')
             ->get();
     }
 
-    public function _chartRequestByCreationDate(Request $request){
-        $response = [
-          'labels' => ["2019-06-15", "2019-06-16", "2019-06-17", "2019-06-18", "2019-06-19"],
-          'series' => [
-              [
-                  'name' => 'Disturbance',
-                  'data' => [8,12,7,20,41]
-              ],
-              [
-                  'name' => 'Defect',
-                  'data' => [8,12,7,20,41]
-              ],
-              [
-                  'name' => 'Order documents',
-                  'data' => [8,12,7,20,41]
-              ],
-              [
-                  'name' => 'Order a payment slip',
-                  'data' => [8,12,7,20,41]
-              ],
-              [
-                  'name' => 'Questions about the tenancy',
-                  'data' => [8,12,7,20,41]
-              ],
-          ]
-        ];
-        return $this->sendResponse($response, 'Admin statistics retrieved successfully');
-    }
-    public function chartRequestByStatus(Request $request){
-        $response = [
-          'labels' => ["received", "in_processing", "assigned", "done", "reactivated", "archived"],
-          'series' => [6, 7, 4, 9, 12, 12]
-        ];
-        return $this->sendResponse($response, 'Admin statistics retrieved successfully');
+    /**
+     * @param $parentCategories
+     * @param $periodValues
+     * @return array
+     */
+    public function initializeServiceRequestCategoriesForChart($parentCategories, $periodValues)
+    {
+        $categoryDayStatistic = [];
+
+        foreach($parentCategories as $category){
+            foreach ($periodValues as $period => $__) {
+                $categoryDayStatistic[$category][$period] = 0;
+            }
+        }
+
+        return $categoryDayStatistic;
     }
 
-    public function chartRequestByCategory(Request $request){
-        $response = [
-          'labels' => ["Disturbance", "Defect", "Order documents", "Order a payment slip", "Questions about the tenancy","Other"],
-          'series' => [16, 17, 6, 3, 3, 5]
+    /**
+     * @param $period
+     * @param $startDate
+     * @param Carbon $endDate
+     * @return array
+     */
+    protected function getPeriodRelatedData($period, $startDate, Carbon $endDate)
+    {
+        $periodValues = [];
+
+        if ('year' == $period) {
+            $part = "YEAR(service_requests.created_at)";
+            $startDate->setMonth(1)->setDay(1);
+            $endDate->setMonth(12)->setDay(31);
+            $currentDate = clone $startDate;
+
+            while ($currentDate < $endDate) {
+                $periodValues[$currentDate->year] = $currentDate->year;
+                $currentDate->addYear();
+            }
+
+        } elseif ('month' == $period) {
+            $part = "CONCAT(YEAR(service_requests.created_at), ' ', MONTH(service_requests.created_at))";
+            $startDate->setDay(1);
+            $endDate->addMonth()->setDay(1)->subDay();
+
+            $currentDate = clone $startDate;
+            while ($currentDate < $endDate) {
+                $yearMonth = $currentDate->year . ' ' . $currentDate->month;
+                $periodValues[$yearMonth] = $currentDate->format('Y M');
+                $currentDate->addMonth();
+            }
+        } elseif ('week' == $period) {
+
+            if ($startDate->dayOfWeek) {
+                $startDate = $startDate->subDays($startDate->dayOfWeek);
+            }
+            if (6 != $endDate->dayOfWeek) {
+                $endDate = $endDate->addDays(6 - $endDate->dayOfWeek);
+            }
+            // @TODO check statistics when WEEK(created_at) = 1, 52, 53 maybe can income some incorrect data
+            $part = "CONCAT(YEAR(service_requests.created_at), ' ', WEEK(service_requests.created_at))";
+            $currentDate = clone $startDate;
+            $today = now();
+
+            while ($currentDate < $endDate) {
+                $yearWeek = $currentDate->year . ' ' . $currentDate->week;
+                $periodValues[$yearWeek] = ($currentDate->year != $today->year) ? $yearWeek : $currentDate->week;
+                $currentDate->addWeek();
+            }
+
+        } else {
+            $part = "DATE(service_requests.created_at)";
+            $datePeriod = CarbonPeriod::create($startDate, $endDate);
+            foreach ($datePeriod as $date) {
+                $periodValues[$date->format('Y-m-d')] = $date->format('Y-m-d');
+            }
+        }
+
+        $raw = sprintf("count(service_requests.id) as count, %s as period", $part);
+
+
+        return [$periodValues, $raw];
+    }
+
+    /**
+     * @param $request
+     * @param null $period
+     * @return array
+     */
+    protected function getStartDateEndDate($request)
+    {
+        // @TODO fix query param hard code, also key hard code like month
+        $requestData = $request->all();
+
+        $startDate = $requestData['start_date'] ?? '';
+        $endDate = $requestData['end_date'] ?? '';
+
+        if (empty($startDate) && empty($endDate)) {
+            $endDate = now();
+            $startDate = now()->subMonth();
+        } elseif (empty($startDate)) {
+            $endDate = Carbon::parse($endDate);
+            $startDate = clone $endDate;
+            $startDate->subMonth();
+        } elseif (empty($endDate)) {
+            $startDate = Carbon::parse($startDate);
+            $endDate = now();
+        } else {
+            $endDate = Carbon::parse($endDate);
+            $startDate = Carbon::parse($startDate);
+        }
+
+        return [$startDate, $endDate];
+    }
+
+    /**
+     * @param $request
+     * @return string
+     */
+    protected function getPeriod($request)
+    {
+        $periods = [
+            'day',
+            'week',
+            'month',
+            'year'
         ];
-        return $this->sendResponse($response, 'Admin statistics retrieved successfully');
+        $period = $request->period ?? 'day';
+        return in_array($period, $periods) ? $period : 'day';
     }
 }
