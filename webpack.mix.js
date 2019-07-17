@@ -1,6 +1,5 @@
 // DO NOT FORGET TO DO -> NPM INSTALL AGAIN (older version of laravel-mix)
 const mix = require('laravel-mix');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +32,6 @@ mix
             chunkFilename: 'js/[name].js',
         },
         plugins: [
-            new CleanWebpackPlugin({
-                cleanOnceBeforeBuildPatterns: ['./public/js', './public/css']
-            })
         ],
         resolve: {
             alias: {
@@ -52,10 +48,10 @@ mix
                 'views': path.resolve('resources/js/views')
             }
         }
-    });
+    })
 
 if (mix.inProduction()) {
     mix.version();
 } else {
-    mix.version().sourceMaps();
+    mix.sourceMaps();
 }
