@@ -1,5 +1,6 @@
 // DO NOT FORGET TO DO -> NPM INSTALL AGAIN (older version of laravel-mix)
 const mix = require('laravel-mix');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +17,13 @@ mix
     .options({
         extractVueStyles: true
     })
+    .copy('resources/fonts', 'public/fonts')
+    .sass('resources/sass/app.scss', 'public/css/app.css')
+    .combine([
+        'public/css/app.css',
+        'resources/css/fontello.css'
+    ], 'public/css/app.css')
     .js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
     .extract(['vue', 'vue-router', 'element-ui'])
     .disableNotifications()
     .webpackConfig({
@@ -26,7 +32,11 @@ mix
             filename: '[name].js',
             chunkFilename: 'js/[name].js',
         },
-        plugins: [],
+        plugins: [
+            new CleanWebpackPlugin({
+                cleanOnceBeforeBuildPatterns: ['./public/js', './public/css']
+            })
+        ],
         resolve: {
             alias: {
                 '@': path.resolve('resources/js'),
@@ -47,5 +57,5 @@ mix
 if (mix.inProduction()) {
     mix.version();
 } else {
-    mix.sourceMaps();
+    mix.version().sourceMaps();
 }
