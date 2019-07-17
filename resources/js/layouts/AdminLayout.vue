@@ -33,14 +33,20 @@
                <transition name="slide-fade">
                    <ul class="dropdown-list" v-if="userDropdownVisibility">
                        <li class="dropdown-list-item" @click="toggleUserDropdown">
-                           <router-link :to="{name: 'adminProfile'}" class="header-link">
-                               <i class="ti-user"/>
-                               {{$t('menu.profile')}}
+                           <router-link :to="{name: 'adminProfile'}" class="header-link"
+                                        :class="{'active': activeDropdownMenuItem}"
+                                        @click="selectDropdownMenu">
+                               <div class="df">
+                                   <div class="user-params-img inDropdown" :style="`background-image: url('${user.avatar}')`"></div>
+                                   {{$t('menu.profile')}}
+                               </div>
                            </router-link>
                        </li>
                        <li class="dropdown-list-item" @click="toggleUserDropdown">
                            <template v-if="$can($permissions.view.realEstate)">
-                               <router-link :to="{name: 'adminSettings'}" class="header-link">
+                               <router-link :to="{name: 'adminSettings'}" class="header-link"
+                                            :class="{'active': activeDropdownMenuItem}"
+                                            @click="selectDropdownMenu">
                                    <i class="ti-settings"/>
                                    {{$t('menu.settings')}}
                                </router-link>
@@ -95,6 +101,7 @@
                 language: "language",
                 activeLanguage: 'Piano',
                 selectedFlag: '',
+                activeDropdownMenuItem: false,
                 languages: [
                     {name: 'Français', symbol: 'fr', flag: 'flag-icon flag-icon-fr'},
                     {name: 'Italiano', symbol: 'it', flag: 'flag-icon flag-icon-it'},
@@ -302,6 +309,10 @@
                 document.querySelector('body').oncontextmenu = function(){
                     return false;
                 }
+            },
+
+            selectDropdownMenu(){
+                this.activeDropdownMenuItem = !this.activeDropdownMenuItem;
             }
 
         },
@@ -367,6 +378,13 @@
                 border-radius: 50%;
             }
 
+            &-img.inDropdown{
+                width: 15px;
+                height: 15px;
+                margin-right: 10px;
+                margin-bottom: 10px;
+            }
+
             &-name{
                 margin-left: 10px;
                 display: flex;
@@ -382,13 +400,22 @@
 
         .language{
             position: relative;
-            width: 50px;
-            height: 50px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-right: 10px;
+            margin-right: 30px;
+
+            &:after{
+                content: "";
+                position: absolute;
+                right: -15px;
+                height: 90%;
+                width: 1px;
+                background: #c2c2c2;;
+            }
 
 
             &.active{
@@ -403,8 +430,8 @@
             }
 
             &-iconBorder{
-                width: 50px;
-                height: 50px;
+                width: 35px;
+                height: 35px;
                 border-radius: 50%;
                 background: #eee;
                 display: flex;
@@ -418,8 +445,8 @@
             }
 
             .language-checked-img{
-                width: 35px;
-                height: 35px;
+                width: 25px;
+                height: 25px;
                 border-radius: 50%;
                 overflow: hidden;
                 position: relative;
