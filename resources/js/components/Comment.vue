@@ -22,10 +22,12 @@
             </div>
         </div>
         <template v-if="idState.editing">
-            <i18n path="components.common.comment.updateOrSave" tag="div" class="extra">
-                <el-button type="text" :disabled="idState.loading._isVue && idState.loading.visible" @click="update" place="update">
-                    {{$t('components.common.comment.update')}}
-                </el-button>
+            <i18n path="components.common.comment.updateOrCancel" tag="div" class="extra">
+                <el-tooltip :content="$t('components.common.comment.updateShortcut', {shortcut: updateKeysShortcut})" placement="bottom-start" place="update">
+                    <el-button type="text" :disabled="idState.loading._isVue && idState.loading.visible" @click="update">
+                        {{$t('components.common.comment.update')}}
+                    </el-button>
+                </el-tooltip>
                 <el-tag size="mini" place="esc">{{$t('components.common.comment.esc')}}</el-tag>
                 <el-button type="text" :disabled="idState.loading._isVue && idState.loading.visible" @click="cancelEdit" place="cancel">
                     {{$t('components.common.comment.cancel')}}
@@ -245,6 +247,13 @@
             },
             hasActions() {
                 return (this.data.comment || !this.data.children_count) && !this.idState.loading.visible && this.data.user_id === this.$store.getters.loggedInUser.id
+            },
+            updateKeysShortcut () {
+                if (navigator.platform.toUpperCase().includes('MAC')) {
+                    return 'option+enter'
+                }
+
+                return 'alt+enter'
             }
         },
         beforeDestroy () {

@@ -1056,7 +1056,8 @@ export default {
                 }
             },
             comment: {
-                updateOrSave: '{update} or press {esc} to {cancel}',
+                updateShortcut: 'or use {shortcut} shortcut',
+                updateOrCancel: '{update} or press {esc} to {cancel}',
                 update: 'update',
                 esc: 'ESC',
                 cancel: 'cancel',

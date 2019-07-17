@@ -1054,7 +1054,7 @@ export default {
                 }
             },
             comment: {
-                updateOrSave: '{update} oder drücke {esc} um {cancel}',
+                updateOrCancel: '{update} oder drücke {esc} um {cancel}',
                 update: 'bearbeiten',
                 esc: 'ESC',
                 cancel: 'abzubrechen',
