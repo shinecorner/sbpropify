@@ -7,11 +7,17 @@ export default {
     it: 'IT',
     de: 'DE',
     yes: 'Yes',
+    chooseLanguage: 'Choose Language',
     languages: {
         fr: 'Français',
         it: 'Italiano',
         de: 'Deutsch',
         en: 'English'
+    },
+    footerText: {
+        top: 'Propify',
+        bottom: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.',
+        allRightsSaved: 'All rights reserved',
     },
     days: {
         monday: 'Monday',
@@ -101,7 +107,7 @@ export default {
         statistics: 'Statistics',
         requests_by_creation_date: 'Requests by creation date',
         requests_by_status: 'Requests by status',
-        requests_by_category: 'Requests by category',        
+        requests_by_category: 'Requests by category',
         each_hour_request: 'Each hour requests',
         average_request_duration: 'Resolution time'
     },
@@ -1055,7 +1061,7 @@ export default {
                 esc: 'ESC',
                 cancel: 'cancel',
                 addChildComment: 'Comment',
-                loadMore: 'Load 1 more comment | Load {count} more comments', 
+                loadMore: 'Load 1 more comment | Load {count} more comments',
                 deletedCommentPlaceholder: 'This comment was deleted.'
             },
             addComment: {

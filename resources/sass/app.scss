@@ -74,17 +74,14 @@ body {
     padding: 0 20px;
 }
 
-.dashboard{
-    padding: 5px;
-}
 .dashboard-tabpanel .el-tabs--border-card > .el-tabs__header .el-tabs__item{
     flex-basis: 0;
-    -webkit-box-flex: 1;    
+    -webkit-box-flex: 1;
     flex-grow: 1;
     text-align: center;
-    color: #495057;    
-    cursor: pointer;    
-    font-weight:400;    
+    color: #495057;
+    cursor: pointer;
+    font-weight:400;
     -webkit-box-align: center;
     align-items: center;
     text-align: center;
@@ -105,7 +102,7 @@ body {
     text-align: center;
     border-radius: 120px;
     background: #fff;
-    padding: .75rem;    
+    padding: .75rem;
     display: flex;
     flex-wrap: wrap;
     width: 70%;
@@ -124,31 +121,75 @@ body {
 .dashboard-tabpanel .el-tabs--border-card > .el-tabs__header{
     border-bottom: none !important;
     background: none !important;
-    
+
 }
 .dashboard-tabpanel .chart-card{
     height: 420px;
 }
-.chart-card .el-card__body{
-    padding: 0 0 0 0;
-}
-.chart-filter{
-    background-color: #fbfbfb; 
-    border-bottom: 1px solid #e1e5eb; 
-    padding: .5rem .5rem;
-}
-.dashboard .apexcharts-menu-icon {
-    margin-top: -55px;
-    margin-right: 10px;
+
+.swal2-popup .swal2-actions{
+    margin: 1.25em 0 0 !important;
+    align-items: flex-end !important;;
+    justify-content: flex-end !important;;
 }
 
-.dashboard .apexcharts-menu.open{    
-    margin-top: -20px;
-    margin-right: 5px;
+.slide-fade-enter-active {
+    transition: all .3s ease;
 }
-.dashboard .stackchart .apexcharts-menu-icon{
-    margin-top: -170px;
+.slide-fade-leave-active {
+    transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
-.dashboard .stackchart .apexcharts-menu.open{
-    margin-top: -79px;
+.slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
 }
+
+.bounce-enter-active {
+    animation: bounce-in .4s;
+}
+.bounce-leave-active {
+    animation: bounce-in .4s reverse;
+}
+@keyframes bounce-in {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/*
+.dashboard-tabpanel .tabs-rounded-lg {
+    border-radius: 120px;
+    background: #fff;
+    padding: .75rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dashboard-tabpanel .nav-item {
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    text-align: center;
+}
+.dashboard-tabpanel .nav-link{
+    position: relative;
+    margin: 0 .75rem 0 0;
+    font-weight:400;
+    margin-bottom: 0;
+    font-size: 1.175rem;
+    padding: .75rem .5rem;
+    cursor: pointer;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    transition: background-color .3s ease,color .3s ease;
+}
+*/

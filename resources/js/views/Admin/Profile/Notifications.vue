@@ -36,6 +36,7 @@
                 <el-button @click="settingsUpdated" icon="ti-save" type="primary">{{$t('models.user.save')}}</el-button>
             </el-form-item>
         </el-form>
+
     </el-card>
 </template>
 
@@ -67,29 +68,37 @@
                 },
                 summaryValues: [
                     "daily", "monthly", "yearly"
-                ]
+                ],
             };
         },
-        methods: {
-            ...mapActions(['updateSettings']),
-            settingsUpdated() {
-                this.updateSettings(this.user).then((resp) => {
-                    this.$i18n.locale = this.user.settings.language;
-                    displaySuccess({
-                        success: true,
-                        message: this.$t('settings.updated')
-                    });
-                }).catch((err) => {
-                    displayError(err);
-                });
-            },
-        },
+
         computed: {
             ...mapGetters(["getAllAvailableLanguages"]),
             ...mapState({
                 user: ({users}) => users.loggedInUser
             })
-        }
+        },
+
+        methods: {
+            ...mapActions(['updateSettings']),
+
+            settingsUpdated() {
+
+                displaySuccess({
+                    message: this.$t('settings.updated'),
+                });
+
+                this.updateSettings(this.user).then((resp) => {
+
+                    this.$i18n.locale = this.user.settings.language;
+
+                }).catch((err) => {
+                    displayError(err);
+                })
+
+            },
+        },
+
     }
 </script>
 
