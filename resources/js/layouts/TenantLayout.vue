@@ -56,11 +56,9 @@ export default {
     data() {
         return {
             visibleSidebar: true,
-            visibleToggler: false
+            visibleToggler: false,
+            realEstate: {},
         }
-    },
-    created() {
-        this.getRealEstate();
     },
     methods: {
         ...mapActions(['getRealEstate']),
@@ -80,7 +78,11 @@ export default {
             }).catch(() => {
             });
         },
-        filterRouteConditionals(route) {
+        async filterRouteConditionals(route) {
+
+            const resp = await this.getRealEstate();
+            this.realEstate = resp.data;
+
             if (!route.realEstateCondition && !route.children) {
                 return route;
             }
@@ -90,12 +92,13 @@ export default {
             }
 
             if (route.children) {
+                let vm = this;
                 route.children = route.children.filter(childRoute => {
                     if (!childRoute.realEstateCondition) {
                         return childRoute;
                     }
 
-                    if (childRoute.realEstateCondition && !_.isEmpty(this.realEstate) && this.realEstate[childRoute.realEstateCondition]) {
+                    if (childRoute.realEstateCondition && !_.isEmpty(vm.realEstate) && vm.realEstate[childRoute.realEstateCondition]) {
                         return childRoute;
                     }
                 });
@@ -105,9 +108,6 @@ export default {
         }
     },
     computed: {
-        ...mapGetters([
-            'realEstate'
-        ]),
 
         breakpoints () {
             return {
