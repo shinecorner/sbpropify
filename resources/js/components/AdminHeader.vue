@@ -113,6 +113,10 @@
                     }
                 }
 
+                .header-link.active{
+                    color: #6AC06F;
+                }
+
                 .logout-button {
                     display: flex;
                     /*flex-direction: column;*/
