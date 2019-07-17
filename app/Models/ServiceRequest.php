@@ -172,7 +172,6 @@ class ServiceRequest extends Model implements HasMedia, Auditable
 
     const Fillable = [
         'category_id',
-        'category_parent_id',
         'subject_id',
         'tenant_id',
         'unit_id',
@@ -303,16 +302,6 @@ class ServiceRequest extends Model implements HasMedia, Auditable
         static::created(function ($serviceRequest) {
             $serviceRequest->service_request_format = $serviceRequest->getUniqueIDFormat($serviceRequest->id);
             $serviceRequest->save();
-        });
-
-        static::saving(function ($serviceRequest) {
-           if (! empty($serviceRequest->category_id)) {
-               $category = ServiceRequestCategory::where('id', $serviceRequest->category_id)->first(['parent_id']);
-               if (! empty($category)) {
-                   $parentId = $category->parent_id ?? $serviceRequest->category_id;
-                   $serviceRequest->category_parent_id = $parentId;
-               }
-           }
         });
     }
 
