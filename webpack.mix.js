@@ -49,9 +49,8 @@ mix
             }
         }
     })
+    .version();
 
-if (mix.inProduction()) {
-    mix.version();
-} else {
+if (!mix.inProduction()) {
     mix.sourceMaps();
 }
