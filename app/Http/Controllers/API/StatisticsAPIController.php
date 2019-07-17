@@ -418,16 +418,28 @@ class StatisticsAPIController extends AppBaseController
     public function chartRequestByCategory(Request $request)
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request);
-        // @TODO improve optimize sql query
-        $query = $this->getGroupedQueryForServiceRequest(false);
-        $reqPerCategory = collect(DB::select($query, ['start_date' => $startDate, 'end_date' => $endDate]));
+        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id');
+        $serviceRequests = ServiceRequest::selectRaw('count(id) as count')
+            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
+            ->addSelect('category_parent_id')
+            ->groupBy('category_parent_id')
+            ->get();
 
-        $response['labels'] = $reqPerCategory->map(function($el) {
-            return $el->parent_category_name;
-        });
-        $response['data'] = $reqPerCategory->map(function($el) {
-            return $el->cnt_request;
-        });
+        $statisticData = $parentCategories->values()->flip();
+        foreach ($statisticData as $category => $__) {
+            $statisticData[$category] = 0;
+        }
+
+        foreach ($serviceRequests as $serviceRequest) {
+            $category = $parentCategories[$serviceRequest->category_parent_id];
+            $statisticData[$category] = $serviceRequest->count;
+        }
+
+        $response = [
+            'labels' => $statisticData->keys(),
+            'date' => $statisticData->values()
+        ];
 
         return $this->sendResponse($response, 'Admin statistics retrieved successfully');
     }
@@ -576,38 +588,5 @@ class StatisticsAPIController extends AppBaseController
         ];
         $period = $request->period ?? 'day';
         return in_array($period, $periods) ? $period : 'day';
-    }
-
-    /**
-     * @param bool $groupByDate
-     * @return string
-     */
-    protected function getGroupedQueryForServiceRequest($groupByDate = true)
-    {
-        $query = "SELECT 
-              COUNT(req.id) AS cnt_request, %s
-              IF(cat2.id IS NULL, cat1.id, cat2.id) AS parent_category_id,
-              IF(
-                cat2.name IS NULL,
-                cat1.name,
-                cat2.name
-              ) AS parent_category_name 
-            FROM
-              service_requests AS req 
-              INNER JOIN service_request_categories AS cat1 
-                ON req.category_id = cat1.id 
-              LEFT JOIN service_request_categories AS cat2 
-                ON cat1.parent_id = cat2.id
-                WHERE DATE(req.created_at) >= :start_date
-                AND DATE(req.created_at) <= :end_date 
-            GROUP BY parent_category_id%s";
-
-        if ($groupByDate) {
-            $query = sprintf($query, 'DATE(req.created_at) AS created_at,', ', created_at');
-        } else {
-            $query = sprintf($query, '', '');
-        }
-
-        return $query;
     }
 }
