@@ -321,10 +321,12 @@ class StatisticsAPIController extends AppBaseController
         [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate);
         $catDayStats = $this->initializeServiceRequestCategoriesForChart($parentCategories, $periodValues);
 
-        $serviceRequests = ServiceRequest::selectRaw($raw)
-            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
-            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
-            ->addSelect('category_parent_id')
+
+        $serviceRequests = ServiceRequest::selectRaw($raw . ', IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
+            ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
+            ->leftJoin('service_request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
+            ->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'))
             ->groupBy('period')
             ->groupBy('category_parent_id')
             ->get();
@@ -414,16 +416,18 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     *
+     * @param Request $request
+     * @return mixed
      */
     public function chartRequestByCategory(Request $request)
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request);
         $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id');
-        $serviceRequests = ServiceRequest::selectRaw('count(id) as count')
-            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
-            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
-            ->addSelect('category_parent_id')
+        $serviceRequests = ServiceRequest::selectRaw('count(service_requests.id) as count, IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
+            ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
+            ->leftJoin('service_request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
+            ->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'))
             ->groupBy('category_parent_id')
             ->get();
 
@@ -490,7 +494,7 @@ class StatisticsAPIController extends AppBaseController
         $periodValues = [];
 
         if ('year' == $period) {
-            $part = "YEAR(created_at)";
+            $part = "YEAR(service_requests.created_at)";
             $startDate->setMonth(1)->setDay(1);
             $endDate->setMonth(12)->setDay(31);
             $currentDate = clone $startDate;
@@ -501,7 +505,7 @@ class StatisticsAPIController extends AppBaseController
             }
 
         } elseif ('month' == $period) {
-            $part = "CONCAT(YEAR(created_at), ' ', MONTH(created_at))";
+            $part = "CONCAT(YEAR(service_requests.created_at), ' ', MONTH(service_requests.created_at))";
             $startDate->setDay(1);
             $endDate->addMonth()->setDay(1)->subDay();
 
@@ -520,7 +524,7 @@ class StatisticsAPIController extends AppBaseController
                 $endDate = $endDate->addDays(6 - $endDate->dayOfWeek);
             }
             // @TODO check statistics when WEEK(created_at) = 1, 52, 53 maybe can income some incorrect data
-            $part = "CONCAT(YEAR(created_at), ' ', WEEK(created_at))";
+            $part = "CONCAT(YEAR(service_requests.created_at), ' ', WEEK(service_requests.created_at))";
             $currentDate = clone $startDate;
             $today = now();
 
@@ -531,14 +535,14 @@ class StatisticsAPIController extends AppBaseController
             }
 
         } else {
-            $part = "DATE(created_at)";
+            $part = "DATE(service_requests.created_at)";
             $datePeriod = CarbonPeriod::create($startDate, $endDate);
             foreach ($datePeriod as $date) {
                 $periodValues[$date->format('Y-m-d')] = $date->format('Y-m-d');
             }
         }
 
-        $raw = sprintf("count(id) as count, %s as period", $part);
+        $raw = sprintf("count(service_requests.id) as count, %s as period", $part);
 
 
         return [$periodValues, $raw];
