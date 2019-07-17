@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
 use App\Models\Building;
-use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestCategory;
 use App\Models\Tenant;
@@ -19,9 +18,7 @@ use Carbon\CarbonPeriod;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Arr;
-use Validator;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class StatisticsAPIController
@@ -401,6 +398,10 @@ class StatisticsAPIController extends AppBaseController
 
         $response['labels'] = $rsPerStatus->map(function($el) use ($classStatus) {
             return $classStatus[$el->status];
+        });
+
+        $response['ids'] = $rsPerStatus->map(function($el) use ($classStatus) {
+            return $el->status;
         });
 
         $response['data'] = $rsPerStatus->map(function($el) {
