@@ -13,10 +13,10 @@
                 <div class="text">{{comment || $t('components.common.comment.deletedCommentPlaceholder')}}</div>
                 <div class="actions" v-if="hasActions">
                     <el-button type="text" @click="enterEdit" v-if="data.comment">
-                        <i class="el-icon-edit"></i>
+                        <i class="icon-pencil"></i>
                     </el-button>
                     <el-button type="text" @click="remove">
-                        <i class="el-icon-delete" style="color: red;"></i>
+                        <i class="icon-trash-empty" style="color: red;"></i>
                     </el-button>
                 </div>
             </div>
@@ -478,7 +478,7 @@
                     .text {
                         border-color: darken(mix(#fff, #6AC06F, 90%), 5%);
                         background-color: mix(#fff, #6AC06F, 90%);
-                        border-bottom-right-radius: 0;    
+                        border-bottom-right-radius: 0;
 
                         &:before,
                         &:after {
