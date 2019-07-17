@@ -8,7 +8,8 @@ export default  {
     de: 'DE',
     footerText: {
         top: 'Propify',
-        bottom: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minimi eveniet voluptates dolorum, temporibus nisi maxime nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.'
+        bottom: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minimi eveniet voluptates dolorum, temporibus nisi maxime nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.',
+        allRightsSaved: 'Tutti i diritti riservati',
     },
     unauthenticated: 'Unauthenticated',
     logged_out: 'Logged out',

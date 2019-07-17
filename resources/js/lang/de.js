@@ -16,7 +16,8 @@ export default {
     },
     footerText: {
         top: 'Propify',
-        bottom: 'Lorem ipsum, dolor sit amet consectetur adipisating elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.'
+        bottom: 'Lorem ipsum, dolor sit amet consectetur adipisating elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.',
+        allRightsSaved: 'Alle Rechte vorbehalten',
     },
     days: {
         monday: 'Montag',

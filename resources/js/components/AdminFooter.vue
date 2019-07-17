@@ -12,8 +12,8 @@
             <div class="footer-bottom-content">
                 <img class="footer-bottom-content-logo" src="~img/logo4.png"/>
                 <div class="footer-bottom-content-text">
-                    <span>© {{currentYear}} ProPify <br>
-                        All rights reserved</span>
+                    <span>© {{currentYear}} {{$t('footerText.top')}} <br>
+                        {{$t('footerText.allRightsSaved')}}</span>
                 </div>
             </div>
         </div>
