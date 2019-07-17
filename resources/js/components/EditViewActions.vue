@@ -50,18 +50,23 @@
                     console.log(e)
                 }
             },
-            async deleteAndClose() {
-                try {
-                    const resp = await this.deleteAction({id: parseInt(this.$route.params.id)})
-                        .then(r => {
-                            displaySuccess(r);
-                            this.goToListing();
-                        })
-                        .catch(err => displayError(err));
-                } catch (e) {
-                    console.log(e)
-                }
+            deleteAndClose() {
+                this.$confirm('This action is irreversible. Please proceed with caution.', 'Are you sure?', {
+                        type: 'warning'
+                    }).then(() => {
+                        this.callDeleteAction();
+                    }).catch(() => {
+                    });
             },
+
+            async callDeleteAction() {
+                const resp = await this.deleteAction({id: parseInt(this.$route.params.id)})
+                    .then(r => {
+                        displaySuccess(r);
+                        this.goToListing();
+                    })
+                    .catch(err => displayError(err)); 
+            }
         }
     }
 </script>
