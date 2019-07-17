@@ -14,7 +14,7 @@
                     Media
                 </div>
                 <div ref="media-content" id="media-content" class="content">
-                    <media-gallery :media="openedRequest.media" :cols="2" :use-placeholder="!uploadedMedia.length" :options="{container: '#gallery'}" lazy-scroll-container="#media-content" lazy />
+                    <media-gallery :media="openedRequest.media" :cols="2" :use-placeholder="!uploadedMedia.length" :gallery-options="{container: '#gallery'}" lazy-scroll-container="#media-content" lazy />
                     <el-divider>
                         <div v-if="uploadedMedia.length">
                             <el-button type="success" size="small" round :loading="uploadingMedia" @click="uploadMedia">
@@ -31,7 +31,7 @@
                     </el-divider>
                     <el-alert type="warning" title="Once confirmed the uploaded files, you can no longer delete them. Please proceed with caution!" :closable="false" center />
                     <el-divider />
-                    <media-upload ref="upload" v-model="uploadedMedia" :loading="uploadingMedia" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="2">
+                    <media-upload ref="upload" v-model="uploadedMedia" :loading="uploadingMedia" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="2" :gallery-options="{container: '#gallery'}">
                         <template slot="trigger" slot-scope="scope">
                             <el-tooltip key="trigger" content="Drop files or click here to select" effect="dark" placement="bottom" >
                                 <el-button class="trigger" icon="el-icon-plus" :style="scope.mediaItemStyle" @click="scope.triggerSelect" :disabled="uploadingMedia" />

@@ -48,6 +48,7 @@
             background: #6AC06F;
             border-color: #6AC06F;
             opacity: 1;
+            
             i {
                 font-size: 24px;
             }

@@ -1,6 +1,6 @@
 <template>
     <div class="media-gallery" :style="[cols > 1 ? {margin: '-4px'} : {margin: '0px'}]" v-if="media.length">
-        <gallery :images="images" :index="galleryIndex" :options="options" @close="galleryIndex = null" />
+        <gallery :images="images" :index="galleryIndex" :options="galleryOptions" @close="galleryIndex = null" />
         <transition-group tag="div" class="media-list" name="media-item-fade">
             <div class="media-item" v-for="(file, idx) in localMedia" :key="file.id" :style="itemStyle">
                 <div class="media-content">
@@ -49,7 +49,7 @@
                 type: Number,
                 default: 0
             },
-            options: {
+            galleryOptions: {
                 type: Object,
                 default: () => ({})
             },

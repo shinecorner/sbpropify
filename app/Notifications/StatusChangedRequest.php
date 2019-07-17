@@ -68,6 +68,7 @@ class StatusChangedRequest extends Notification implements ShouldQueue
             ->view('mails.request', [
                 'body' => $msg['body'],
                 'subject' => $msg['subject'],
+                'company' => $msg['company'],
             ])->subject($msg['subject']);
     }
 

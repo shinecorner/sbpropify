@@ -1021,7 +1021,7 @@ export default {
             },
             sidebar: {
                 dashboard: 'Dashboard',
-                myTenancy: 'My tenanact',
+                myTenancy: 'My tenancy',
                 myPersonalData: 'My personal data',
                 myRecentContract: 'My recent contract',
                 myDocuments: 'Documents',
@@ -1035,6 +1035,9 @@ export default {
     },
     components: {
         common: {
+            audit: {
+
+            },
             commentsList: {
                 loading: 'Loading...',
                 loadMore: {
@@ -1089,5 +1092,6 @@ export default {
                 }
             }
         }
-    }
+    },
+    dateTimeFormat: '{date} at {time}'
 }
