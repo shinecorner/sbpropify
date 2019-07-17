@@ -63,7 +63,7 @@
                 </template>
             </placeholder>
             <div class="content" v-else-if="requests.data.length">
-                <heading icon="ti-comment" title="Requests">
+                <heading icon="icon-chat-empty" title="Requests">
                     <div slot="description" class="description">Need some info? Encountered an issue? Contact us!</div>
                     <el-button @click="addRequestDialogVisible = true" icon="ti-plus" round size="small" type="primary">
                         Add request
@@ -345,7 +345,7 @@
                         }
                     })
                 })
-         
+
                 this.$refs['request-add-form'].submit()
             },
             toggleDrawer (request, tab = 'chat') {
@@ -519,12 +519,12 @@
 
                 .heading {
                     margin-bottom: 24px;
-                    
+
                     .description {
                         color: darken(#fff, 40%);
                     }
                 }
-                
+
                 .el-row {
                     .el-col {
                         &:first-child {
