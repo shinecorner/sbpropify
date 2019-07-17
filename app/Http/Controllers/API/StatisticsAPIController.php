@@ -26,6 +26,26 @@ use Illuminate\Support\Facades\DB;
  */
 class StatisticsAPIController extends AppBaseController
 {
+    const YEAR = 'year';
+    const MONTH = 'month';
+    const WEEK = 'week';
+    const DAY = 'day';
+    const DEFAULT_PERIOD = self::DAY;
+    const PERMITTED_PERIODS = [
+        self::DAY,
+        self::WEEK,
+        self::MONTH,
+        self::YEAR,
+    ];
+
+    const QUERY_PARAMS = [
+        'year' => 'year',
+        'period' => 'period',
+        'start_date' => 'start_date',
+        'end_date' => 'end_date',
+        'table' => 'table',
+    ];
+
     /** @var  BuildingRepository */
     private $buildingRepo;
 
@@ -375,7 +395,7 @@ class StatisticsAPIController extends AppBaseController
             'posts' => Post::class,
         ];
 
-        $table = $table ?? $request->table;
+        $table = $table ?? $request->{self::QUERY_PARAMS['table']};
         $table  = key_exists($table, $tables) ? $table : 'service_requests';
         $class = $tables[$table];
 
@@ -493,7 +513,7 @@ class StatisticsAPIController extends AppBaseController
     {
         $periodValues = [];
 
-        if ('year' == $period) {
+        if (self::YEAR == $period) {
             $part = "YEAR(service_requests.created_at)";
             $startDate->setMonth(1)->setDay(1);
             $endDate->setMonth(12)->setDay(31);
@@ -504,7 +524,7 @@ class StatisticsAPIController extends AppBaseController
                 $currentDate->addYear();
             }
 
-        } elseif ('month' == $period) {
+        } elseif (self::MONTH == $period) {
             $part = "CONCAT(YEAR(service_requests.created_at), ' ', MONTH(service_requests.created_at))";
             $startDate->setDay(1);
             $endDate->addMonth()->setDay(1)->subDay();
@@ -515,7 +535,7 @@ class StatisticsAPIController extends AppBaseController
                 $periodValues[$yearMonth] = $currentDate->format('Y M');
                 $currentDate->addMonth();
             }
-        } elseif ('week' == $period) {
+        } elseif (self::WEEK == $period) {
 
             if ($startDate->dayOfWeek) {
                 $startDate = $startDate->subDays($startDate->dayOfWeek);
@@ -558,9 +578,8 @@ class StatisticsAPIController extends AppBaseController
         // @TODO fix query param hard code, also key hard code like month
         $requestData = $request->all();
 
-        $startDate = $requestData['start_date'] ?? '';
-        $endDate = $requestData['end_date'] ?? '';
-
+        $startDate = $requestData[self::QUERY_PARAMS['start_date']] ?? '';
+        $endDate = $requestData[self::QUERY_PARAMS['end_date']] ?? '';
         if (empty($startDate) && empty($endDate)) {
             $endDate = now();
             $startDate = now()->subMonth();
@@ -585,13 +604,7 @@ class StatisticsAPIController extends AppBaseController
      */
     protected function getPeriod($request)
     {
-        $periods = [
-            'day',
-            'week',
-            'month',
-            'year'
-        ];
-        $period = $request->period ?? 'day';
-        return in_array($period, $periods) ? $period : 'day';
+        $period = $request->{self::QUERY_PARAMS['period']} ?? self::DEFAULT_PERIOD;
+        return in_array($period, self::PERMITTED_PERIODS) ? $period : self::DEFAULT_PERIOD;
     }
 }
