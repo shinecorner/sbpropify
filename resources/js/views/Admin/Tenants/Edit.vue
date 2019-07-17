@@ -1,7 +1,7 @@
 <template>
     <div class="tenants-edit mb20">
-        <heading :title="$t('models.tenant.edit_title')" icon="ti-home">
-            <edit-actions :saveAction="submit" route="adminTenants"/>
+        <heading :title="$t('models.tenant.edit_title')" icon="ti-home" shadow="heavy">
+            <edit-actions :saveAction="submit" :deleteAction="deleteTenant" route="adminTenants"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
@@ -208,7 +208,7 @@
                             <el-form-item>
                                 <el-row :gutter="20">
                                     <el-col :md="12">
-                                        <upload-document @fileUploaded="contractUploaded" class="drag-custom" drag/>
+                                        <upload-document @fileUploaded="contractUploaded" class="drag-custom" acceptType=".pdf" drag/>
                                     </el-col>
                                     <el-col :md="12">
                                         <el-row :gutter="20" class="list-complete-item" justify="center"
@@ -225,9 +225,7 @@
                                             </el-col>
                                         </el-row>
                                         <template v-if="lastMedia && lastMedia.name">
-                                            <el-image :src="lastMedia.url" style="width: 100%"
-                                                      v-if="isFileImage(lastMedia)"/>
-                                            <embed :src="lastMedia.url" style="width: 100%" v-else/>
+                                            <embed :src="lastMedia.url" style="width: 100%" v-if="isFilePDF(lastMedia)"/>
                                         </template>
                                     </el-col>
                                 </el-row>
@@ -357,13 +355,14 @@
     import Cropper from 'components/Cropper';
     import RelationList from 'components/RelationListing';
     import EditActions from 'components/EditViewActions';
+    import globalFunction from "helpers/globalFunction";
 
     const mixin = AdminTenantsMixin({
         mode: 'edit'
     });
 
     export default {
-        mixins: [mixin],
+        mixins: [mixin, globalFunction],
         components: {
             Heading,
             Card,
@@ -454,7 +453,7 @@
             }
         },
         methods: {
-            ...mapActions(['deleteMediaFile', 'downloadTenantCredentials', 'sendTenantCredentials']),
+            ...mapActions(['deleteMediaFile', 'downloadTenantCredentials', 'sendTenantCredentials', 'deleteTenant']),
             deleteMedia() {
                 this.deleteMediaFile({
                     id: this.model.id,
@@ -532,18 +531,9 @@
                 } finally {
                     this.loading.state = false;
                 }
-            },
-            requestStatusBadge(status) {
-                const colorObject = {
-                    1: '#bbb',
-                    2: '#ebb563',
-                    3: '#ebb563',
-                    4: '#67C23A',
-                    5: '#ebb563',
-                    6: '#67C23A'
-                };
-
-                return colorObject[status];
+            },           
+            requestStatusBadge(status) {                
+                return this.getRequestStatusColor(status);
             },
             requestStatusLabel(status) {
                 return this.$t(`models.request.status.${this.requestStatusConstants[status]}`)

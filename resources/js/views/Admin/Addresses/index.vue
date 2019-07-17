@@ -1,6 +1,6 @@
 <template>
     <div>
-        <heading icon="ti-house" :title="$t('menu.addresses')" class="custom-heading">
+        <heading icon="ti-house" :title="$t('menu.addresses')" shadow="heavy" class="custom-heading">
             <el-button icon="ti-plus" type="primary" size="small" round @click="addAddress">
                 {{$t('models.address.add')}}
             </el-button>

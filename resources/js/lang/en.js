@@ -353,7 +353,11 @@ export default {
                 title: "Delete Building(s)",
                 description_unit: "Units are assigned to the selected property. If you want to delete the units as well, please activate the option below.",
                 description_request: "Requests are assigned to the selected property. If you also want to delete request as well, please activate the option below.",
-                description_both: "Units and requests are assigned to the selected property. If you also want to delete them, please activate the options below."
+                description_both: "Units and requests are assigned to the selected property. If you also want to delete them, please activate the options below.",
+                delete_units: "Delete Unit(s)",
+                dont_delete_units: "Don't Delete Unit(s)",
+                delete_requests: "Delete Request(s)",
+                dont_delete_requests: "Don't Delete Request(s)"
             }
         },
         unit: {
@@ -661,6 +665,9 @@ export default {
             recipients: 'Recipients',
             assign: 'Assign',
             images: 'Images',
+            no_images_message: 'No files uploaded',
+            request_details: 'Request details',
+            internal_notices: 'Internal notices',
             assignmentTypes: {
                 services: 'Services',
                 managers: 'Managers'
@@ -762,7 +769,9 @@ export default {
                 tenant: 'Private',
                 district: 'District',
                 building: 'Building',
-            }
+            },
+            requestID: "Request ID",
+            requestCategory: "Request Category",
         },
         requestCategory: {
             title: 'Request categories',
@@ -1005,8 +1014,50 @@ export default {
         }
     },
 
+    layouts: {
+        tenant: {
+            menu: {
+                logout: 'Logout'
+            },
+            sidebar: {
+                dashboard: 'Dashboard',
+                myTenancy: 'My tenancy',
+                myPersonalData: 'My personal data',
+                myRecentContract: 'My recent contract',
+                myDocuments: 'Documents',
+                myContactPersons: 'Contact persons',
+                posts: 'News',
+                requests: 'Requests',
+                products: 'Marketplace',
+                settings: 'Settings'
+            }
+        }
+    },
     components: {
         common: {
+            audit: {
+
+            },
+            commentsList: {
+                loading: 'Loading...',
+                loadMore: {
+                    simple: 'Load {count} more',
+                    detailed: 'Load {count} more comments'
+                },
+                emptyPlaceholder: {
+                    title: 'There are no messages yet...',
+                    description: 'Start messaging by using the below form and press enter.'
+                }
+            },
+            comment: {
+                updateOrSave: '{update} or press {esc} to {cancel}',
+                update: 'update',
+                esc: 'ESC',
+                cancel: 'cancel',
+                addChildComment: 'Comment',
+                loadMore: 'Load 1 more comment | Load {count} more comments', 
+                deletedCommentPlaceholder: 'This comment was deleted.'
+            },
             addComment: {
                 placeholder: 'Type a comment...',
                 loadingTemplates: 'Loading templates...',
@@ -1041,5 +1092,6 @@ export default {
                 }
             }
         }
-    }
+    },
+    dateTimeFormat: '{date} at {time}'
 }

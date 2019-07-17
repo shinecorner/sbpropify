@@ -16,6 +16,16 @@ use App\Models\Post;
 class FilterByLocationCriteria implements CriteriaInterface
 {
     /**
+     * @var \Illuminate\Http\Request
+     */
+    protected $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
+    /**
      * Apply criteria in query repository
      *
      * @param         Builder|Model     $model
@@ -28,6 +38,10 @@ class FilterByLocationCriteria implements CriteriaInterface
     {
         $u = \Auth::user();
         if ($u->can('list-post')) {
+            return $model;
+        }
+
+        if ($this->request->get('all', null)) {
             return $model;
         }
 

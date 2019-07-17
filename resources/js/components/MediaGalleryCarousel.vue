@@ -1,10 +1,10 @@
 <template>
-    <div class="media-carousel-gallery" v-if="media.length">
-        <gallery :images="images" :index="index" @close="close" />
+    <div class="media-gallery-carousel" v-if="media.length">
+        <gallery :images="images" :index="galleryIndex" :options="galleryOptions" @close="gallleryClose" />
         <el-carousel v-bind="$attrs" v-on="$listeners" :arrow="images.length <= 1 ? 'never' : 'hover'">
             <el-carousel-item v-for="(url, idx) in images" :key="idx">
                 <div class="el-carousel-actions">
-                     <div class="el-icon-zoom-in" @click="open(idx)"></div>
+                     <div class="el-icon-zoom-in" @click="openImage(idx)"></div>
                 </div>
                 <el-image :src="url" fit="cover" >
                     <div slot="error" class="error" style="color: red;">
@@ -28,6 +28,10 @@
                 type: Array,
                 default: () => ([])
             },
+            galleryOptions: {
+                type: Object,
+                default: () => ({})
+            },
             usePlaceholder: {
                 type: Boolean,
                 default: true
@@ -39,7 +43,7 @@
         },
         data () {
             return {
-                index: null,
+                galleryIndex: null,
                 sizes: {
                     minWidth: 0,
                     maxHeight: 0
@@ -47,18 +51,18 @@
             }
         },
         methods: {
-            open (idx) {
-                this.index = idx;
+            openImage (idx) {
+                this.galleryIndex = idx
             },
-            close () {
-                this.index = null
+            gallleryClose () {
+                this.galleryIndex = null
             },
             isImage (file) {
-                return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(file.name.split('.').pop());
+                return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(file.name.split('.').pop())
             },
             resizeImage (x, y, percentage, minimum) {
                 if (x > y) {
-                    const ratio = y / x;
+                    const ratio = y / x
 
                     const rx = (x - minimum) * (percentage / 100)
                     const ry = (y - minimum * ratio) * (percentage / 100)
@@ -68,9 +72,9 @@
                     const ratio = x / y
 
                     const rx = (x - minimum * ratio) * (percentage / 100)
-                    const ry = (y - minimum) * (percentage / 100);
+                    const ry = (y - minimum) * (percentage / 100)
 
-                    return [rx + minimum * ratio, ry + minimum];
+                    return [rx + minimum * ratio, ry + minimum]
                 }
             }
         },
@@ -87,7 +91,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .media-carousel-gallery .el-carousel {
+    .media-gallery-carousel .el-carousel {
         height: 100%;
 
         :global(.el-carousel__container) {

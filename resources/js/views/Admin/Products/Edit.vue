@@ -1,7 +1,7 @@
 <template>
     <div class="units-edit mb20">
-        <heading :title="$t('models.product.edit_title')" icon="ti-user" style="margin-bottom: 20px;">
-            <edit-actions :saveAction="submit" route="adminProducts"/>
+        <heading :title="$t('models.product.edit_title')" icon="ti-user" shadow="heavy" style="margin-bottom: 20px;">
+            <edit-actions :saveAction="submit" :deleteAction="deleteProduct" route="adminProducts"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
@@ -49,11 +49,11 @@
                                               prop="price">
                                     <el-row :gutter="5">
                                         <el-col :span="16">
-                                            <el-input type="text" v-model="price.integer"></el-input>
+                                            <el-input type="text" v-model="price.integer" />
                                         </el-col>
                                         <el-col :span="1">.</el-col>
                                         <el-col :span="7">
-                                            <el-input type="text" v-model="price.decimals"></el-input>
+                                            <el-input type="text" v-model="price.decimals" maxlength="2" />
                                         </el-col>
                                     </el-row>
                                 </el-form-item>
@@ -152,6 +152,7 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
     import ProductsMixin from 'mixins/adminProductsMixin';
     import Chat from 'components/Chat2';
     import EditActions from 'components/EditViewActions';
@@ -165,6 +166,11 @@
         components: {
             Chat,
             EditActions
+        },
+        methods: {            
+            ...mapActions([
+                "deleteProduct"
+            ]),
         }
     }
 </script>

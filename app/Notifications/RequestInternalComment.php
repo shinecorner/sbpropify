@@ -2,48 +2,34 @@
 
 namespace App\Notifications;
 
-use App\Models\Comment;
 use App\Models\ServiceRequest;
 use App\Models\User;
 use App\Repositories\TemplateRepository;
+use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
-/**
- * Class RequestCommented
- * @package App\Notifications
- */
-class RequestCommented extends Notification implements ShouldQueue
+class RequestInternalComment extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /**
-     * @var ServiceRequest
-     */
-    protected $request;
-    /**
-     * @var User
-     */
-    protected $user;
-    /**
-     * @var Comment
-     */
+    protected $sr;
     protected $comment;
+    protected $receiver;
 
     /**
-     * RequestCommented constructor.
-     * @param ServiceRequest $request
-     * @param User $user
-     * @param Comment $comment
+     * Create a new notification instance.
+     *
+     * @return void
      */
-    public function __construct(ServiceRequest $request, User $user, Comment $comment)
+    public function __construct(ServiceRequest $sr, Comment $comment, User $receiver)
     {
-        $this->request = $request;
-        $this->user = $user;
+        $this->sr = $sr;
         $this->comment = $comment;
+        $this->receiver = $receiver;
     }
 
     /**
@@ -70,9 +56,9 @@ class RequestCommented extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $msg = $tRepo->getRequestCommentedParsedTemplate($this->request, $this->user, $this->comment);
+        $msg = $tRepo->getRequestInternalCommentParsedTemplate($this->sr, $this->comment, $this->comment->user, $this->receiver);
         return (new MailMessage)
-            ->view('mails.requestCommented', [
+            ->view('mails.requestInternalComment', [
                 'body' => $msg['body'],
                 'subject' => $msg['subject'],
             ])->subject($msg['subject']);
@@ -87,17 +73,13 @@ class RequestCommented extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'request_id' => $this->request->id,
-            'user' => $this->comment->user->name,
+            'request_id' => $this->sr->id,
             'comment' => $this->comment->comment,
-            'fragment' => Str::limit($this->request->title, 128),
+            'sender' => $this->comment->user->name,
+            'receiver' => $this->receiver->name,
         ];
     }
 
-    /**
-     * @param $notifiable
-     * @return array
-     */
     public function toDatabase($notifiable)
     {
         return $this->toArray($notifiable);

@@ -1,7 +1,7 @@
 <template>
     <div class="services-edit mb20" v-if="constants">
-        <heading :title="$t('models.request.edit_title')" icon="ti-user">
-            <edit-actions :saveAction="submit" route="adminRequests"/>
+        <heading :title="$t('models.request.edit_title')" icon="ti-user" shadow="heavy">
+            <edit-actions :saveAction="submit" :deleteAction="deleteRequest" route="adminRequests"/>
         </heading>
         <div class="crud-view">
             <el-form :model="model" label-position="top" label-width="192px" ref="form">
@@ -103,7 +103,7 @@
 
                             <el-tabs v-model="activeTab1">
 
-                                <el-tab-pane label="Request details" name="request_details">
+                                <el-tab-pane :label="$t('models.request.request_details')" name="request_details">
                                     <el-form-item :label="$t('models.request.prop_title')" :rules="validationRules.title"
                                                   prop="title">
                                         <el-input :disabled="$can($permissions.update.serviceRequest)" type="text"
@@ -120,13 +120,24 @@
                                     </el-form-item>
                                 </el-tab-pane>
 
-                                <el-tab-pane label="Images" name="request_images">
+                                <el-tab-pane name="request_images">
+                                    <span slot="label">
+                                        <el-badge :value="mediaCount" :max="99" class="item">{{ $t('models.request.images') }}</el-badge>
+                                    </span>
                                     <div slot="header">
                                         <p class="comments-header">{{$t('models.request.images')}}</p>
                                     </div>
+                                    <el-alert
+                                        v-if="!mediaCount"
+                                        :title="$t('models.request.no_images_message')"
+                                        type="info"
+                                        show-icon
+                                        :closable="false"
+                                    >
+                                    </el-alert>
                                     <upload-document
                                         @fileUploaded="uploadFiles"
-                                        class="drag-custom"
+                                        class="drag-custom mt15"
                                         drag
                                         multiple
                                     />
@@ -284,7 +295,11 @@
                                 <el-tab-pane :label="$t('models.request.comments')" name="comments">
                                     <chat :id="model.id" type="request"/>
                                 </el-tab-pane>
-                                <el-tab-pane label="Internal Notices"></el-tab-pane>
+                                <el-tab-pane>
+                                    <span slot="label">
+                                        <el-badge value="0" :max="99" class="item">{{ $t('models.request.internal_notices') }}</el-badge>
+                                    </span>
+                                </el-tab-pane>
                             </el-tabs>
                         </card>
                     </el-col>
@@ -298,6 +313,7 @@
             :providers="model.providers"
             :selectedServiceRequest="selectedServiceRequest"
             :showServiceMailModal="showServiceMailModal"
+            :requestData="selectedRequestIDAndCategory"
             @close="closeMailModal"
             @send="sendServiceMail"
             v-if="(model.providers && model.providers.length) || (model.assignees && model.assignees.length)"
@@ -381,10 +397,30 @@
                             return obj;
                         }, {});
                 }
+            },
+            selectedRequestIDAndCategory() {
+                let selectedCategory = this.categories.find((category) => { 
+                    if( category.id == this.model.category_id )
+                        return category;
+                })
+                return {
+                    service_request_format: this.model.service_request_format,
+                    category: {
+                        id: this.model.category_id,
+                        name: selectedCategory? selectedCategory.name : ""
+                    }
+                }                
+            },
+            mediaCount() {
+                if(this.model.media) {
+                    return this.model.media.length;
+                } else {
+                    return 0;
+                }
             }
         },
         methods: {
-            ...mapActions(['unassignProvider', 'unassignManager']),
+            ...mapActions(['unassignProvider', 'unassignManager', 'deleteRequest']),
             translateType(type) {
                 return this.$t(`models.request.userType.${type}`);
             },
@@ -430,7 +466,7 @@
                     this.loading.status = false;
                 });
             },
-            openNotifyProvider(provider) {
+            openNotifyProvider(provider) {            
                 this.selectedServiceRequest = provider;
                 this.showServiceMailModal = true;
             },
@@ -440,7 +476,7 @@
                     this.selectedConversation = row;
                     this.conversationVisible = true;
                 })
-            },
+            },            
         }
     };
 </script>
@@ -478,6 +514,12 @@
         .el-form-item__label, .el-form-item__content {
             line-height: 20px;
         }
+    }
+
+    .item .el-badge__content.is-fixed {
+        top:10px;
+        right:0px;
+        background-color:#6AC06F;
     }
 
 </style>

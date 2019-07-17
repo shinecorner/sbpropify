@@ -1,6 +1,6 @@
 <template>
     <div class="posts">
-        <heading :title="$t('models.post.title')" icon="ti-announcement">
+        <heading :title="$t('models.post.title')" icon="ti-announcement" shadow="heavy">
             <template v-if="$can($permissions.create.post)">
                 <el-button @click="add" icon="ti-plus" round size="small" type="primary">
                     {{$t('models.post.add')}}
@@ -88,6 +88,7 @@
                     label: this.$t('models.post.status.label'),
                     prop: 'status',
                     i18nPath: 'models.post.status',
+                    class: 'rounded-select',
                     select: {
                         icon: 'ti-pencil',
                         data: [],

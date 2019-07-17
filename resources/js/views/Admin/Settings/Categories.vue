@@ -1,6 +1,6 @@
 <template>
     <div class="requestCategories">
-        <heading style="background: transparent; padding: 0 20px;" title="">
+        <heading style="background: transparent; padding: 0 20px;" title="" shadow="heavy">
             <el-button @click="openAdd" icon="ti-plus" round size="mini" type="primary">
                 {{$t('models.requestCategory.add')}}
             </el-button>

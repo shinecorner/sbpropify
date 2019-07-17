@@ -3,23 +3,30 @@
         <el-button @click="saveAction" size="small" type="primary" round> {{this.$t('actions.save')}}</el-button>
         <el-button @click="saveAndClose" size="small" type="primary" round> {{this.$t('actions.saveAndClose')}}
         </el-button>
+        <el-button v-if="deleteAction || undefined"  @click="deleteAndClose" size="small" type="danger" round icon="ti-trash"> {{this.$t('actions.delete')}}</el-button>
         <el-button @click="goToListing" size="small" type="warning" round> {{this.$t('actions.close')}}
         </el-button>
     </div>
 </template>
 
 <script>
+    import {displayError, displaySuccess} from "helpers/messages";
+
     export default {
         props: {
             saveAction: {
                 type: Function,
                 required: true
             },
+            deleteAction: {
+                type: Function,
+                required: false
+            },
             route: {
                 type: String,
                 required: true
             },
-            queryParams: {
+            queryParams: { 
                 type: Object,
                 default() {
                     return {}
@@ -42,6 +49,23 @@
                 } catch (e) {
                     console.log(e)
                 }
+            },
+            deleteAndClose() {
+                this.$confirm('This action is irreversible. Please proceed with caution.', 'Are you sure?', {
+                        type: 'warning'
+                    }).then(() => {
+                        this.callDeleteAction();
+                    }).catch(() => {
+                    });
+            },
+
+            async callDeleteAction() {
+                const resp = await this.deleteAction({id: parseInt(this.$route.params.id)})
+                    .then(r => {
+                        displaySuccess(r);
+                        this.goToListing();
+                    })
+                    .catch(err => displayError(err)); 
             }
         }
     }

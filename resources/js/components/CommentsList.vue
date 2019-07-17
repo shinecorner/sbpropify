@@ -1,16 +1,12 @@
-<template>
-    <placeholder :src="require('img/5c98b47a97050.png')" v-if="!loading.state && !comments.data.length && usePlaceholder">
-        <b>There are no messages yet...</b>
-        <small slot="secondary">Start messaging by using the below form and press enter.</small>
-    </placeholder>
-    <div class="comments-list" v-else>
+<template>  
+    <div class="comments-list">
         <template v-if="withScroller">
             <dynamic-scroller ref="dynamic-scroller" :items="comments.data" :min-item-size="40" @resize="scrollToBottom">
                 <template #before>
                     <el-divider v-if="comments.current_page !== comments.last_page">
-                        <el-button icon="el-icon-top" size="mini" :loading="loading.state" round @click="fetch">
-                            <template v-if="loading.state">Loading...</template>
-                            <template v-else>Load {{comments.total - comments.data.length}} more</template>
+                        <el-button icon="el-icon-top" size="mini" :loading="loading.visible" round @click="fetch">
+                            <template v-if="loading.visible">{{$t('components.common.commentsList.loading')}}</template>
+                            <template v-else>{{$t('components.common.commentsList.loadMore.simple', {count: comments.total - comments.data.length})}}</template>
                         </el-button>
                     </el-divider>
                 </template>
@@ -22,11 +18,15 @@
             </dynamic-scroller>
         </template>
         <template v-else>
-            <el-button type="text" @click="fetch" :loading="loading.state" v-if="!data && comments.current_page !== comments.last_page">
-                Load {{comments.total - comments.data.length}} more comments
+            <el-button type="text" @click="fetch" :loading="loading.visible" v-if="!data && comments.current_page !== comments.last_page">
+                {{$t('components.common.commentsList.loadMore.detailed', {count: comments.total - comments.data.length})}}
             </el-button>
             <comment v-bind="commentComponentProps" :show-children="showChildren" v-for="comment in comments.data" :key="comment.id" :data="comment" :reversed="isCommentReversed(comment)" />
         </template>
+        <placeholder :src="require('img/5c98b47a97050.png')" v-if="!loading.visible && !comments.data.length && usePlaceholder">
+            <b>{{$t('components.common.commentsList.emptyPlaceholder.title')}}</b>
+            <small slot="secondary">{{$t('components.common.commentsList.emptyPlaceholder.description')}}</small>
+        </placeholder>
     </div>
 </template>
 
@@ -79,7 +79,7 @@
             return {
                 loader: null,
                 loading: {
-                    state: false
+                    visible: true
                 },
                 comments: {
                     data: []
@@ -113,7 +113,7 @@
 
                     this.loading = this.$loading({target: this.$el})
                 } else {
-                    this.loading.state = true
+                    this.loading.visible = true
                 }
 
                 try {
@@ -141,10 +141,10 @@
                         this.loading.close()
 
                         this.loading = {
-                            state: false
+                            visible: false
                         }
                     } else {
-                        this.loading.state = false
+                        this.loading.visible = false
                     }
 
                 }
@@ -218,24 +218,35 @@
 </script>
 
 <style lang="scss" scoped>
-    .placeholder small {
-        color: darken(#fff, 40%);
-    }
     .comments-list {
         width: 100%;
         display: flex;
+        position: relative;
         flex-direction: column;
         box-sizing: border-box;
-        .el-button {
-            align-self: flex-start;
+
+        .placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            small {
+                color: darken(#fff, 40%);
+            }
         }
+
         .vue-recycle-scroller {
             height: 100%;
             overflow: auto;
             will-change: transform;
+
             :global(.vue-recycle-scroller__item-wrapper) {
                 overflow: visible;
             }
+        }
+
+        .el-button {
+            align-self: flex-start;
         }
     }
 </style>

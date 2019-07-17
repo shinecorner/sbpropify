@@ -1,6 +1,6 @@
 <template>
     <div class="services-edit">
-        <heading :title="$t('models.request.add_title')" icon="ti-user">
+        <heading :title="$t('models.request.add_title')" icon="ti-user" shadow="heavy">
             <add-actions :saveAction="submit" route="adminRequests"/>
         </heading>
         <el-row :gutter="20" class="crud-view">

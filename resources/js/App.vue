@@ -9,21 +9,14 @@
     import {displayError} from 'helpers/messages';
 
     export default {
-        name: 'App',
-        // mixins: [{
-        //     methods: {
-        //         ...mapActions(['me']),
-        //     },
-        //     async created () {
-        //         if (localStorage.token) {
-        //             try {
-        //                 await this.me();
-        //             } catch (err) {
-        //                 displayError(err);
-        //             }
-        //         }
-        //     }
-        // }]
+        mounted () {
+            document.documentElement.setAttribute('style', `
+                --primary-color: #6AC06F;
+                --accent-color: #F7CA18;
+                --danger-color: #cf000f;
+                --text-color: #3f3f3f;
+            `)
+        }
     }
 </script>
 

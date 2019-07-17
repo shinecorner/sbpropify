@@ -104,7 +104,7 @@ class PostAPIController extends AppBaseController
         $this->postRepository->pushCriteria(new FeedCriteria($request));
         $this->postRepository->pushCriteria(new FilterByStatusCriteria($request));
         $this->postRepository->pushCriteria(new FilterByTypeCriteria($request));
-        $this->postRepository->pushCriteria(new FilterByLocationCriteria());
+        $this->postRepository->pushCriteria(new FilterByLocationCriteria($request));
         $this->postRepository->pushCriteria(new FilterByUserCriteria($request));
         $this->postRepository->pushCriteria(new FilterByDistrictCriteria($request));
         $this->postRepository->pushCriteria(new FilterByBuildingCriteria($request));

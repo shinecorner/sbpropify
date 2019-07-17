@@ -6,6 +6,7 @@
         :http-request="fileUpload"
         :multiple="multiple"
         :show-file-list="false"
+        :accept="acceptType"
         class="avatar-uploader"
     >
         <i class="el-icon-plus avatar-uploader-icon"></i>
@@ -27,6 +28,10 @@
             drag: {
                 type: Boolean,
                 default: false
+            },
+            acceptType: {
+                type: String,
+                default: ""
             }
         },
         methods: {
