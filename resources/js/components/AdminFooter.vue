@@ -10,7 +10,7 @@
         </div>
         <div class="footer-bottom">
             <div class="footer-bottom-content">
-                <img class="footer-bottom-content-logo" src="~img/logo4.png"/>
+                <img class="footer-bottom-content-logo" src="~img/propify-logo.svg"/>
                 <div class="footer-bottom-content-text">
                     <span>© {{currentYear}} {{$t('footerText.top')}} <br>
                         {{$t('footerText.allRightsSaved')}}</span>
@@ -58,7 +58,8 @@
                 justify-content: flex-end;
 
                 &-logo{
-                    width: 19px;
+                    width: 35px;
+                    height: 35px;
                     margin-right: 15px;
                 }
             }
