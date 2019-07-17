@@ -124,7 +124,7 @@
             }),
 
             templates () {
-                return this.templatesWithId(this.id)
+                return this.templatesWithId(this.id) || []
             },
             canShowTemplates () {
                 return this.showTemplates && ['request'].includes(this.type)
@@ -132,7 +132,7 @@
         },
         async mounted () {
             if (this.canShowTemplates) {
-                if (!this.templates) {
+                if (!this.templates.length) {
                     try {
                         this.loadingTemplates = true
 
