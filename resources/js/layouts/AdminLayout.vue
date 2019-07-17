@@ -10,7 +10,7 @@
                     </div>
                     <div class="language-check-box">
                         <div class="language-check-box-title">
-                            Choose Language
+                            {{$t('chooseLanguage')}}
                         </div>
                         <div class="language-check-box-body">
                             <ul class="language-check-box-body-item" v-for='language in this.languages' @click='itemClicked(language.symbol, language.flag)'>

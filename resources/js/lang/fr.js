@@ -6,6 +6,10 @@ export default  {
     fr: 'FR',
     it: 'IT',
     de: 'DE',
+    footerText: {
+        top: 'Propify',
+        bottom: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.'
+    },
     unauthenticated: 'Unauthenticated',
     logged_out: 'Logged out',
     logged_in: 'Logged in',

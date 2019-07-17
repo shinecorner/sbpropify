@@ -1,16 +1,18 @@
 <template>
     <footer class="footer">
         <div class="footer-top">
-            <span class="footer-top-title">Gull - Laravel + Bootstrap 4 admin template</span>
+            <span class="footer-top-title">
+                {{$t('footerText.top')}}
+            </span>
             <p class="footer-top-text">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.
+                {{$t('footerText.bottom')}}
             </p>
         </div>
         <div class="footer-bottom">
             <div class="footer-bottom-content">
                 <img class="footer-bottom-content-logo" src="~img/logo4.png"/>
                 <div class="footer-bottom-content-text">
-                    <span>© {{currentDate}} ProPify <br>
+                    <span>© {{currentYear}} ProPify <br>
                         All rights reserved</span>
                 </div>
             </div>
@@ -23,13 +25,13 @@
         name: "AdminFooter",
         data(){
             return {
-                currentDate: null
+                currentYear: null
             }
         },
 
         mounted() {
             let d = new Date();
-            this.currentDate = d.getFullYear();
+            this.currentYear = d.getFullYear();
         }
     }
 </script>

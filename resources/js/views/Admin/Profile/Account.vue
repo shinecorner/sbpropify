@@ -25,7 +25,7 @@
     import {mapState, mapMutations, mapActions} from 'vuex';
     import {displayError, displaySuccess} from 'helpers/messages';
     import Card from 'components/Card';
-    import AreYouSure from 'components/AreYouSure'
+
 
     export default {
         components: {

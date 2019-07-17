@@ -11,21 +11,27 @@
                 @click="handleLink($event, key, link)"
                 v-for="(link, key) in links"
                 v-if="!link.children && ($can(link.permission) || !link.permission)">
-                <i :class="[link.icon, 'icon']"/>
-                <span class="title">{{ link.title }}</span>
+                <a href="#">
+                    <i :class="[link.icon, 'icon']"/>
+                    <span class="title">{{ link.title }}</span>
+                </a>
             </el-menu-item>
             <el-submenu :index="link.title" v-else-if="($can(link.permission) || !link.permission)">
                 <template slot="title">
-                    <i :class="[link.icon, 'icon']"/>
-                    <span class="title">{{ link.title }}</span>
+                    <a href="#">
+                        <i :class="[link.icon, 'icon']"/>
+                        <span class="title">{{ link.title }}</span>
+                    </a>
                 </template>
                 <el-menu-item
                     :index="child.title"
                     :key="child.title"
                     @click="handleLink($event, childKey, child)"
                     v-for="(child, childKey) in link.children">
-                    <i :class="[child.icon, 'icon']"/>
-                    <span class="title">{{ child.title }}</span>
+                    <a href="#">
+                        <i :class="[child.icon, 'icon']"/>
+                        <span class="title">{{ child.title }}</span>
+                    </a>
                 </el-menu-item>
             </el-submenu>
         </ul>
@@ -93,6 +99,11 @@
         .content {
             padding: 0;
             overflow: auto;
+
+            a {
+                color: #303133;
+                text-decoration: none;
+            }
 
             .el-menu-item,
             :global(.el-submenu__title) {
