@@ -227,6 +227,12 @@
       "css": "tools",
       "code": 59420,
       "src": "entypo"
+    },
+    {
+      "uid": "750058837a91edae64b03d60fc7e81a7",
+      "css": "ellipsis-vert",
+      "code": 61762,
+      "src": "fontawesome"
     }
   ]
 }
