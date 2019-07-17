@@ -6,8 +6,8 @@
         <div class="content">
             <el-input autosize ref="content" :class="{'is-focused': focused}" type="textarea" resize="none" v-model="content" :placeholder="$t('components.common.addComment.placeholder')" :disabled="loading" :validate-event="false" @blur="focused = false" @focus="focused = true" @keydown.native.alt.enter.exact="save" />
             <el-dropdown class="templates" size="small" placement="top-end" trigger="click" @command="onTemplateSelected" @visible-change="onDropdownVisibility" v-if="showTemplates">
-                <el-tooltip :content="$t('components.common.addComment.tooltipTemplates')" placement="top-end">
-                    <el-button ref="templatesButton" type="text" class="el-dropdown-link" :disabled="loading">
+                <el-tooltip ref="templates-button-tooltip" :content="$t('components.common.addComment.tooltipTemplates')" placement="top-end">
+                    <el-button ref="templates-button" type="text" class="el-dropdown-link" :disabled="loading">
                         <i class="icon-ellipsis-vert"></i>
                     </el-button>
                 </el-tooltip>
@@ -90,6 +90,8 @@
             },
             onDropdownVisibility (state) {
                 this.dropdownTemplatesVisible = state
+
+                this.$refs['templates-button-tooltip'].hide()
             },
             async save () {
                 if (!/\S/.test(this.content)) {
@@ -143,7 +145,7 @@
                         this.loadingTemplates = false
 
                         if (this.dropdownTemplatesVisible) {
-                            this.$refs.templatesButton.$el.click()
+                            this.$refs['templates-button'].$el.click()
                         }
                     }
                 }
