@@ -25,7 +25,9 @@
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
-        <el-button circle icon="icon-paper-plane" size="small" :disabled="!content" :loading="loading" @click="save" />
+        <el-tooltip :content="$t('components.common.addComment.saveShortcut', {shortcut: saveKeysShortcut})" placement="top-end">
+            <el-button circle icon="icon-paper-plane" size="small" :disabled="!content" :loading="loading" @click="save" />
+        </el-tooltip>
     </div>
 </template>
 
@@ -130,6 +132,13 @@
             },
             canShowTemplates () {
                 return this.showTemplates && ['request'].includes(this.type)
+            },
+            saveKeysShortcut () {
+                if (navigator.platform.toUpperCase().includes('MAC')) {
+                    return 'option+enter'
+                }
+
+                return 'alt+enter'
             }
         },
         async mounted () {

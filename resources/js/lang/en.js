@@ -1069,6 +1069,7 @@ export default {
                 placeholder: 'Type a comment...',
                 tooltipTemplates: 'Choose a template',
                 loadingTemplates: 'Loading templates...',
+                saveShortcut: 'or use {shortcut} shortcut',
                 emptyTemplatesPlaceholder: 'No templates available.'
             }
         },
