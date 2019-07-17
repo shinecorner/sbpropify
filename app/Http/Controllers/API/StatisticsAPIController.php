@@ -38,6 +38,14 @@ class StatisticsAPIController extends AppBaseController
         self::YEAR,
     ];
 
+    const QUERY_PARAMS = [
+        'year' => 'year',
+        'period' => 'period',
+        'start_date' => 'start_date',
+        'end_date' => 'end_date',
+        'table' => 'table',
+    ];
+
     /** @var  BuildingRepository */
     private $buildingRepo;
 
@@ -387,7 +395,7 @@ class StatisticsAPIController extends AppBaseController
             'posts' => Post::class,
         ];
 
-        $table = $table ?? $request->table;
+        $table = $table ?? $request->{self::QUERY_PARAMS['table']};
         $table  = key_exists($table, $tables) ? $table : 'service_requests';
         $class = $tables[$table];
 
@@ -570,9 +578,8 @@ class StatisticsAPIController extends AppBaseController
         // @TODO fix query param hard code, also key hard code like month
         $requestData = $request->all();
 
-        $startDate = $requestData['start_date'] ?? '';
-        $endDate = $requestData['end_date'] ?? '';
-
+        $startDate = $requestData[self::QUERY_PARAMS['start_date']] ?? '';
+        $endDate = $requestData[self::QUERY_PARAMS['end_date']] ?? '';
         if (empty($startDate) && empty($endDate)) {
             $endDate = now();
             $startDate = now()->subMonth();
@@ -597,7 +604,7 @@ class StatisticsAPIController extends AppBaseController
      */
     protected function getPeriod($request)
     {
-        $period = $request->period ?? self::DEFAULT_PERIOD;
+        $period = $request->{self::QUERY_PARAMS['period']} ?? self::DEFAULT_PERIOD;
         return in_array($period, self::PERMITTED_PERIODS) ? $period : self::DEFAULT_PERIOD;
     }
 }
