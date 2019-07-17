@@ -122,7 +122,7 @@
 
                                 <el-tab-pane name="request_images">
                                     <span slot="label">
-                                        <el-badge :value="mediaCount" :max="99" class="item">{{ $t('models.request.images') }}</el-badge>
+                                        <el-badge :value="mediaCount" :max="99" class="admin-layout">{{ $t('models.request.images') }}</el-badge>
                                     </span>
                                     <div slot="header">
                                         <p class="comments-header">{{$t('models.request.images')}}</p>
@@ -297,7 +297,7 @@
                                 </el-tab-pane>
                                 <el-tab-pane>
                                     <span slot="label">
-                                        <el-badge value="0" :max="99" class="item">{{ $t('models.request.internal_notices') }}</el-badge>
+                                        <el-badge value="0" :max="99" class="admin-layout">{{ $t('models.request.internal_notices') }}</el-badge>
                                     </span>
                                 </el-tab-pane>
                             </el-tabs>
@@ -516,10 +516,13 @@
         }
     }
 
-    .item .el-badge__content.is-fixed {
-        top:10px;
-        right:0px;
-        background-color:#6AC06F;
+    .admin-layout .el-badge__content.is-fixed {
+        top: 19px;
+        right: -5px;
+        background-color: #6AC06F;
+        margin-left: 5px;
+        height: 18px;
+        width: 6px;
     }
 
 </style>
