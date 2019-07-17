@@ -128,7 +128,7 @@
                                         <p class="comments-header">{{$t('models.request.images')}}</p>
                                     </div>
                                     <el-alert
-                                        v-if="!mediaCount"
+                                        v-if="!media.length || (!model.media && !model.media.length)"
                                         :title="$t('models.request.no_images_message')"
                                         type="info"
                                         show-icon
