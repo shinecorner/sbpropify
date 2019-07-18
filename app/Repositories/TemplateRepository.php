@@ -494,6 +494,25 @@ class TemplateRepository extends BaseRepository
 
     /**
      * @param ServiceRequest $sr
+     * @return array
+     */
+    public function getRequestDueParsedTemplate(ServiceRequest $sr, User $receiver): array
+    {
+        $template = $this->getByCategoryName('request_due_date_reminder');
+
+        $context = [
+            'request' => $sr,
+            'receiver' => $receiver,
+        ];
+
+        $tags = $this->getTags($template->category->tag_map, $context);
+
+        return $this->getParsedTemplateData($template, $tags, $receiver->settings->language);
+    }
+
+
+    /**
+     * @param ServiceRequest $sr
      * @param User $uploader
      * @param Media $media
      * @return array
