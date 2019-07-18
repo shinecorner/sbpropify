@@ -343,11 +343,12 @@ class StatisticsAPIController extends AppBaseController
         ];
 
         $ret = array_merge($ret, $this->chartRequestByCreationDate($request, false, $startDate, $endDate));
-        $ret['requests_per_status'] = $this->chartRequestByStatus($request, false, $startDate, $endDate);
-        $ret['tenants_per_status'] = $this->chartRequestByStatus($request, false, $startDate, $endDate, 'tenants');
-        $ret['products_per_status'] = $this->chartRequestByStatus($request, false, $startDate, $endDate, 'products');
-        $ret['posts_per_status'] = $this->chartRequestByStatus($request, false, $startDate, $endDate, 'posts');
-
+        $isConvertResponse = false;
+        $optionalParameters = compact('isConvertResponse', 'startDate', 'endDate');
+        $ret['requests_per_status'] = $this->chartRequestByColumn($request, $optionalParameters);
+        $ret['tenants_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalParameters, ['table' => 'tenants']));
+        $ret['products_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalParameters, ['table' => 'products']));
+        $ret['posts_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalParameters, ['table' => 'posts']));
         $categoryDayStatistics = collect($ret['requests_per_day_ydata']);
         $ret['requests_per_category']['labels'] = $categoryDayStatistics->map(function($el) {
             return $el['name'];
