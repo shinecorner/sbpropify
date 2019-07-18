@@ -36,9 +36,6 @@ class FilterByDistrictCriteria implements CriteriaInterface
     public function apply($model, RepositoryInterface $repository)
     {
         $district_id = $this->request->get('district_id', null);
-        if (!\Auth::user()->can('list-post')) {
-            $district_id = Product::StatusPublished;
-        }
         if ($district_id) {
             $model->where('district_id', $district_id);
         }

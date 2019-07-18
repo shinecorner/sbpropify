@@ -37,9 +37,6 @@ class FilterByStatusCriteria implements CriteriaInterface
     public function apply($model, RepositoryInterface $repository)
     {
         $status = $this->request->get('status', null);
-        if (!\Auth::user()->can('list-post')) {
-            $status = Product::StatusPublished;
-        }
         if ($status) {
             $model->where('status', $status);
         }
