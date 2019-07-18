@@ -52,7 +52,7 @@
             height: 56px;
             background-color: transparentize(#fff, .2);
             color: #6AC06F;
-            border-radius: 4px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
