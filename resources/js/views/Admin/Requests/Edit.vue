@@ -307,13 +307,14 @@
             </el-form>
         </div>
         <ServiceDialog
+            :address="address"
             :conversations="conversations"
             :mailSending="mailSending"
             :managers="model.assignees"
             :providers="model.providers"
             :selectedServiceRequest="selectedServiceRequest"
             :showServiceMailModal="showServiceMailModal"
-            :requestData="selectedRequestIDAndCategory"
+            :requestData="selectedRequestData"
             @close="closeMailModal"
             @send="sendServiceMail"
             v-if="(model.providers && model.providers.length) || (model.assignees && model.assignees.length)"
@@ -398,17 +399,11 @@
                         }, {});
                 }
             },
-            selectedRequestIDAndCategory() {
-                let selectedCategory = this.categories.find((category) => { 
-                    if( category.id == this.model.category_id )
-                        return category;
-                })
-                return {
+            selectedRequestData() {      
+                return {             
+                    tenant: this.model.tenant,
                     service_request_format: this.model.service_request_format,
-                    category: {
-                        id: this.model.category_id,
-                        name: selectedCategory? selectedCategory.name : ""
-                    }
+                    category: (this.model.category.parent_id == null)? this.model.category.name : this.model.category.parentCategory.name + " > " + this.model.category.name
                 }                
             },
             mediaCount() {

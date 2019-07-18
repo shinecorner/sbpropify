@@ -1,17 +1,17 @@
 <template>
     <el-dialog
         :close-on-click-modal="false"
-        :title="`${seletedTenantName + selectedProvider}`"
+        :title="selectedTitle"
         :visible="showServiceMailModal"
         @close="close"
         v-loading="mailSending"
     >   
         <el-row class="request-info-row">
-            <el-col :md="6">                
-                <span>{{$t('models.request.requestID')}}: {{requestData.service_request_format}}</span>
-            </el-col>
-            <el-col :md="12">                
-                <span>{{$t('models.request.requestCategory')}}: {{requestData.category.name}}</span>
+            <el-col :span="24">               
+                <el-breadcrumb separator="|">
+                    <el-breadcrumb-item>{{$t('models.request.requestID')}}: {{requestData.service_request_format}}</el-breadcrumb-item>                    
+                    <el-breadcrumb-item>{{$t('models.request.requestCategory')}}: {{requestData.category}}</el-breadcrumb-item>
+                </el-breadcrumb>
             </el-col>
         </el-row>
 
@@ -156,13 +156,11 @@
             },
             requestData: {
                 type: Object,
-                default: {                    
-                    id: "", 
-                    category: {
-                        id: -1,
-                        name: ""
-                    }                    
-                }
+                default: {}
+            },
+            address: {
+                type: Object,
+                default: {}
             }
         },
         data() {
@@ -234,23 +232,15 @@
 
                 return foundConversation.id;
             },
-            selectedProvider() {                
-                let provider = this.providers.find((provider) => {
-                    if(provider.id === this.model.provider) return provider;
-                })
-
-                if(provider) {
-                    return ', ' + provider.address.street + ', ' + provider.address.city;
-                }
-                
-                return '';
-            },
-            seletedTenantName() {
-                let provider = this.providers.find((provider) => {
-                    if(provider.id === this.model.provider) return provider;                    
-                })
-                if(provider) {
-                    return provider.user.name
+            selectedTitle () {
+                if(this.requestData.tenant && this.address) {
+                    return this.requestData.tenant.first_name + " " 
+                        + this.requestData.tenant.last_name 
+                        + ", " + this.address.street 
+                        + " " + this.address.street_nr
+                        + " " + this.address.city;
+                }else {
+                    return "";
                 }
             }
         },

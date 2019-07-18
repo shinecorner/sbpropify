@@ -73,7 +73,8 @@ export default (config = {}) => {
                 assignmentTypes: ['managers', 'services'],
                 assignmentType: 'managers',
                 toAssign: '',
-                conversations: []
+                conversations: [],
+                address: {},
             };
         },
         computed: {
@@ -289,7 +290,7 @@ export default (config = {}) => {
             case 'edit':
                 mixin.methods = {
                     ...mixin.methods,
-                    ...mapActions(['getRequest', 'updateRequest', 'getTenant', 'getRequestConversations']),
+                    ...mapActions(['getRequest', 'updateRequest', 'getTenant', 'getRequestConversations', 'getAddress']),
                     async fetchCurrentRequest() {
                         const resp = await this.getRequest({id: this.$route.params.id});
 
@@ -299,10 +300,12 @@ export default (config = {}) => {
                         this.$set(this.model, 'category_id', data.category.id);
 
                         await this.getConversations();
-
+                        
                         if (data.tenant) {
                             this.model.tenant_id = data.tenant.id;
+                            await this.getBuildingAddress(data.tenant.building.id);
                         }
+                        
                     },
                     submit() {
                         return new Promise((resolve, reject) => {
@@ -339,6 +342,14 @@ export default (config = {}) => {
 
                         if (resp.data) {
                             this.conversations = resp.data;
+                        }
+                    },
+                    async getBuildingAddress(building_id) {
+                        const resp = await this.getAddress({
+                            id: building_id
+                        });
+                        if (resp) {
+                            this.address = resp;
                         }
                     }
                 };
