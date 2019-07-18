@@ -7,6 +7,13 @@ export default {
     it: 'IT',
     de: 'DE',
     yes: 'Yes',
+    timestamps:{
+      hours: 'Hours',  
+      days: 'Days',
+      weeks: 'Weeks',
+      months: 'Months',      
+      years: 'Years'     
+    },
     chooseLanguage: 'Choose Language',
     languages: {
         fr: 'Français',
@@ -1056,7 +1063,8 @@ export default {
                 }
             },
             comment: {
-                updateOrSave: '{update} or press {esc} to {cancel}',
+                updateShortcut: 'or use {shortcut} shortcut',
+                updateOrCancel: '{update} or press {esc} to {cancel}',
                 update: 'update',
                 esc: 'ESC',
                 cancel: 'cancel',
@@ -1066,7 +1074,9 @@ export default {
             },
             addComment: {
                 placeholder: 'Type a comment...',
+                tooltipTemplates: 'Choose a template',
                 loadingTemplates: 'Loading templates...',
+                saveShortcut: 'or use {shortcut} shortcut',
                 emptyTemplatesPlaceholder: 'No templates available.'
             }
         },

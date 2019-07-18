@@ -41,9 +41,9 @@
         }
 
         &.heavy-shadow .icon {
-            box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,.03), 
-                        0 0.9375rem 1.40625rem rgba(4,9,20,.03), 
-                        0 0.25rem 0.53125rem rgba(4,9,20,.05), 
+            box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,.03),
+                        0 0.9375rem 1.40625rem rgba(4,9,20,.03),
+                        0 0.25rem 0.53125rem rgba(4,9,20,.05),
                         0 0.125rem 0.1875rem rgba(4,9,20,.03);
         }
 
@@ -51,11 +51,12 @@
             width: 56px;
             height: 56px;
             background-color: transparentize(#fff, .2);
+            color: #6AC06F;
             border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #6AC06F;
+            flex-shrink: 0;
             font-size: 22px;
             margin-right: 16px;
         }

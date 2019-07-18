@@ -1,6 +1,6 @@
 <template>
     <div class="settings">
-        <heading class="custom-heading" icon="ti-settings" title="User Settings"/>
+        <heading class="custom-heading" icon="icon-cog" title="User Settings"/>
         <el-tabs v-model="active">
             <el-tab-pane label="Personal Informations" name="personal_informations">
                 <el-row>

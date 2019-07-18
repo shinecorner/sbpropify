@@ -1,26 +1,36 @@
 <template>
-    <card>
-        <el-row>
-            <el-col :span="cols">
-                <h3>
-                    {{ totalRequest }}
-                    <small>{{ $t('models.building.requestStatuses.total') }}</small>
-                </h3>
-            </el-col>
-            <el-col :span="cols" v-for="(count, index) in data.data" :key="index">                
-                <h3 :style="{color: getRequestStatusColor(data.labels[index], 'name')}">
-                    {{ count }}
-                    <small>{{ $t('models.request.status.'+data.labels[index]) }}</small>
-                </h3>
-            </el-col>
-            <el-col :span="cols">
-                <h3>
-                    {{ avgReqDuration }}
-                    <small>{{ $t('dashboard.average_request_duration') }}</small>
-                </h3>
-            </el-col>
-        </el-row>
-    </card>
+    <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+        <el-col :span="6">
+            <!--<el-card class="box-card">
+                <div slot="header" class="clearfix">
+                  <span>Card name</span>
+                  <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button>
+                </div>
+                <div v-for="o in 20" :key="o" class="text item">
+                  {{'List item ' + o }}
+                </div>
+            </el-card>-->
+        </el-col>
+        <el-col :span="18">
+            <el-row :gutter="20">
+                <el-col v-for="(count, index) in data.data" :key="index" :span="8" style="padding: 0 10px 20px 10px">
+                    <el-card class="box-card" :style="{'border-color': getRequestStatusColor(data.labels[index], 'name')}">
+                        <div slot="header" class="box-card-header clearfix">
+                          <span>{{ $t('models.request.status.'+data.labels[index]) }}</span>
+                        </div>
+                        <div class="box-card-body">
+                            <div class="box-card-count">
+                                {{ count }}
+                            </div>
+                            <div class="box-card-progress">
+                                <el-progress type="circle" :percentage="25" :width="60" :color="getRequestStatusColor(data.labels[index], 'name')" :stroke-width="4"></el-progress>
+                            </div>
+                        </div>
+                    </el-card>
+                </el-col>
+            </el-row>
+        </el-col>    
+     </el-row>
 </template>
 
 <script>

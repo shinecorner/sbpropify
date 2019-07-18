@@ -2,7 +2,7 @@
     <div>
         <heading class="custom-heading" icon="ti-home" title="Dashboard" shadow="heavy" />
         <el-row :gutter="20" class="dashboard" style="margin-bottom: 24px;" type="flex">
-            <el-col class="dashboard-tabpanel">
+            <el-col>
                 <el-tabs type="border-card">
                     <el-tab-pane :label="$t('menu.requests')">
                         <el-row style="margin-bottom: 24px;" type="flex">

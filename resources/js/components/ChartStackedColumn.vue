@@ -3,18 +3,18 @@
         <el-row type="flex" class="chart-filter">
             <el-col :span="24">
                 <el-radio-group v-model="radio1">
-                    <el-radio-button label="Day"></el-radio-button>
-                    <el-radio-button label="Month"></el-radio-button>                                        
+                    <el-radio-button :label="$t('timestamps.days')"></el-radio-button>
+                    <el-radio-button :label="$t('timestamps.months')"></el-radio-button>                                        
                 </el-radio-group>
                 <el-date-picker
                     v-model="start_date"
                     type="date"
-                    placeholder="Pick a day">
+                >
                 </el-date-picker>
                 <el-date-picker
                     v-model="end_date"
                     type="date"
-                    placeholder="Pick a day">
+                >
                 </el-date-picker>
             </el-col>
         </el-row>    
@@ -27,8 +27,11 @@
 </template>
 <script>
 import VueApexCharts from 'vue-apexcharts'
+import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
+import {format} from 'date-fns'
 
 export default {
+  mixins: [FormatDateTimeMixin],  
   components: {'apexchart': VueApexCharts},
   props: {
             xData: {
@@ -43,8 +46,8 @@ export default {
     data() {
         return {        
             radio1: 'Day',
-            start_date: '',
-            end_date: '',
+            start_date: formatDatetime(new Date()),
+            end_date: formatDatetime(new Date()),
         }
     },    
     computed: {    

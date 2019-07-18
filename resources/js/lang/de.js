@@ -7,6 +7,13 @@ export default {
     it: 'IT',
     de: 'DE',
     yes: 'Ja',
+    timestamps:{
+      hours: 'Stunden',  
+      days: 'Tage',
+      weeks: 'Wochen',
+      months: 'Monate',      
+      years: 'Jahre'     
+    },
     chooseLanguage:'Sprache auswählen',
     languages: {
         fr: 'Français',
@@ -1054,7 +1061,7 @@ export default {
                 }
             },
             comment: {
-                updateOrSave: '{update} oder drücke {esc} um {cancel}',
+                updateOrCancel: '{update} oder drücke {esc} um {cancel}',
                 update: 'bearbeiten',
                 esc: 'ESC',
                 cancel: 'abzubrechen',

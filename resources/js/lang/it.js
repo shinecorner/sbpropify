@@ -6,6 +6,13 @@ export default  {
     fr: 'FR',
     it: 'IT',
     de: 'DE',
+    timestamps:{
+      hours: 'Orario',  
+      days: 'Giorni',
+      weeks: 'Settimane',
+      months: 'Mesi',
+      years: 'Anni'   
+     },
     footerText: {
         top: 'Propify',
         bottom: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minimi eveniet voluptates dolorum, temporibus nisi maxime nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.',
