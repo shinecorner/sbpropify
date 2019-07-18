@@ -1,41 +1,46 @@
 <template>
-    <el-menu :default-active="currActive">
-        <li class="slot" index="slot" v-if="hasSlot">
-            <slot/>
-        </li>
-        <ul class="content">
-            <el-menu-item
-                :class="{nested: link.nestedItem }"
-                :index="link.title"
-                :key="link.title"
-                @click="handleLink($event, key, link)"
-                v-for="(link, key) in links"
-                v-if="!link.children && ($can(link.permission) || !link.permission)">
-                <a href="#">
-                    <i :class="[link.icon, 'icon']"/>
-                    <span class="title">{{ link.title }}</span>
-                </a>
-            </el-menu-item>
-            <el-submenu :index="link.title" v-else-if="($can(link.permission) || !link.permission)">
-                <template slot="title">
+
+
+    <aside class="aside">
+        <el-menu :default-active="currActive">
+            <li class="slot" index="slot" v-if="hasSlot">
+                <slot/>
+            </li>
+
+            <ul class="content">
+                <el-menu-item
+                        :class="{nested: link.nestedItem }"
+                        :index="link.title"
+                        :key="link.title"
+                        @click="handleLink($event, key, link)"
+                        v-for="(link, key) in links"
+                        v-if="!link.children && ($can(link.permission) || !link.permission)">
                     <a href="#">
                         <i :class="[link.icon, 'icon']"/>
                         <span class="title">{{ link.title }}</span>
                     </a>
-                </template>
-                <el-menu-item
-                    :index="child.title"
-                    :key="child.title"
-                    @click="handleLink($event, childKey, child)"
-                    v-for="(child, childKey) in link.children">
-                    <a href="#">
-                        <i :class="[child.icon, 'icon']"/>
-                        <span class="title">{{ child.title }}</span>
-                    </a>
                 </el-menu-item>
-            </el-submenu>
-        </ul>
-    </el-menu>
+                <el-submenu :index="link.title" v-else-if="($can(link.permission) || !link.permission)">
+                    <template slot="title">
+                        <a href="#">
+                            <i :class="[link.icon, 'icon']"/>
+                            <span class="title">{{ link.title }}</span>
+                        </a>
+                    </template>
+                    <el-menu-item
+                            :index="child.title"
+                            :key="child.title"
+                            @click="handleLink($event, childKey, child)"
+                            v-for="(child, childKey) in link.children">
+                        <a href="#">
+                            <i :class="[child.icon, 'icon']"/>
+                            <span class="title">{{ child.title }}</span>
+                        </a>
+                    </el-menu-item>
+                </el-submenu>
+            </ul>
+        </el-menu>
+    </aside>
 </template>
 
 <script>
@@ -91,11 +96,16 @@
 </script>
 
 <style lang="scss" scoped>
+    .aside{
+        background: #fff;
+    }
+
     .el-menu {
         width: 256px;
         display: flex;
         flex-direction: column;
         border-right: none !important;
+
         .content {
             padding: 0;
             overflow: auto;

@@ -88,7 +88,7 @@ export default (async() => {
                         this.$i18n.locale = data.settings.language;
                     }
                 });
-            }
+            },
         });
     } catch (err) {
         alert('The application could not be initialized. Please try again.');

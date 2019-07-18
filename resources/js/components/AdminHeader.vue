@@ -74,10 +74,10 @@
                     list-style: none;
                     background: #fff;
                     position: absolute;
-                    width: 105px;
+                    width: 143px;
                     top: 36px;
                     right: -29px;
-                    padding: 10px;
+                    padding: 0 10px 10px 10px;
                     margin: 0;
                     box-shadow: 0px 5px 8px -3px;
                     border-bottom-left-radius: 5px;
@@ -90,7 +90,7 @@
 
                 font-size: 15px;
 
-                .header-link {
+                .header-link, .dropdown-list-item-link {
                     /*margin-right: 15px;*/
                     /*display: flex;*/
                     line-height: 1;
@@ -111,6 +111,12 @@
                             color: #6AC06F;
                         }
                     }
+                }
+
+                .dropdown-list-item-link.active{
+                    background-color: #f0f9f1;
+                    padding: 10px 100% 10px 10px;
+                    margin-left: -10px;
                 }
 
                 .header-link.active{
