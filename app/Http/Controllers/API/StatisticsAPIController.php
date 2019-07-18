@@ -44,6 +44,47 @@ class StatisticsAPIController extends AppBaseController
         'start_date' => 'start_date',
         'end_date' => 'end_date',
         'table' => 'table',
+        'column' => 'column'
+    ];
+
+    /**
+     * if not set table optional parameter or write not permitted table name that case must be get data
+     * for this table and must be group by first value of self::PERMITTED_TABLES_GROUP[self::DEFAULT_TABLE]['column']
+     */
+    const DEFAULT_TABLE = 'service_requests';
+
+    /**
+     * table,column config for make DonutChart
+     *
+     * this is use for permit correct table and column value
+     * also according this config can get default values
+     */
+    const PERMITTED_TABLES_GROUP = [
+        'service_requests' => [
+            'class' => ServiceRequest::class,
+            'columns' => [
+                'status'
+            ]
+        ],
+        'tenants' => [
+            'class' => Tenant::class,
+            'columns' => [
+                'status'
+            ]
+        ],
+        'products' => [
+            'class' => Product::class,
+            'columns' => [
+                'status'
+            ]
+        ],
+        'posts' => [
+            'class' => Post::class,
+            'columns' => [
+                'status',
+                'type'
+            ]
+        ],
     ];
 
     /** @var  BuildingRepository */
@@ -384,36 +425,50 @@ class StatisticsAPIController extends AppBaseController
      */
     public function chartRequestByStatus(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null, $table = null)
     {
+        $optionalArgs = compact('startDate', 'endDate', 'isConvertResponse', 'table');
+        return $this->chartRequestByColumn($request, $optionalArgs);
+    }
+
+    /**
+     * @param Request $request
+     * @param array $optionalArgs
+     * @return mixed
+     */
+    public function chartRequestByColumn(Request $request, $optionalArgs = [])
+    {
+        $startDate = $optionalArgs['startDate'] ?? null;
+        $endDate = $optionalArgs['endDate'] ?? null;
+
         if (is_null($startDate) && is_null($endDate)) {
             [$startDate, $endDate] = $this->getStartDateEndDate($request);
         }
 
-        $tables = [
-            'service_requests' => ServiceRequest::class,
-            'tenants' => Tenant::class,
-            'products' => Product::class,
-            'posts' => Post::class,
-        ];
-
+        $table = $optionalArgs['table'] ?? null;
         $table = $table ?? $request->{self::QUERY_PARAMS['table']};
-        $table  = key_exists($table, $tables) ? $table : 'service_requests';
-        $class = $tables[$table];
+        $table = key_exists($table, self::PERMITTED_TABLES_GROUP) ? $table : self::DEFAULT_TABLE;
 
-        $rsPerStatus = $class::selectRaw('status, count(id) `count`')
+        $permittedColumns = self::PERMITTED_TABLES_GROUP[$table]['columns'];
+        $column = $optionalArgs['column'] ?? null;
+        $column = $column ?? $request->{self::QUERY_PARAMS['column']};
+        $column = in_array($column, $permittedColumns) ? $column : array_first($permittedColumns);
+
+        $class = self::PERMITTED_TABLES_GROUP[$table]['class'];
+        $statistics = $class::selectRaw($column . ', count(id) `count`')
             ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
             ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
-            ->groupBy('status')
-            ->orderBy('status')
+            ->groupBy($column)
+            ->orderBy($column)
             ->get();
 
-        $classStatus = $class::Status;
-        $response = $this->formatForDonutChart($rsPerStatus, $classStatus, $table);
+        // @TODO improve if need
+        $columnValues = constant($class . "::" . ucfirst($column));
+        $response = $this->formatForDonutChart($statistics, $column, $columnValues, $table);
 
+        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
-            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for ' . $table)
+            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for ' . $table . ' for ' . $column)
             : $response;
     }
-
 
     /**
      * @TODO fix many parameters
@@ -439,7 +494,7 @@ class StatisticsAPIController extends AppBaseController
             ->get();
 
         $classStatus = ServiceRequest::Status;
-        $response = $this->formatForDonutChart($rsPerStatus, $classStatus);
+        $response = $this->formatForDonutChart($rsPerStatus, 'status', $classStatus);
 
         return $isConvertResponse
             ? $this->sendResponse($response, 'Admin statistics retrieved successfully for tenants')
@@ -448,28 +503,29 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @param $statistics
-     * @param $classStatus
+     * @param $column
+     * @param $columnValues
      * @param null $table
      * @return mixed
      */
-    protected function formatForDonutChart($statistics, $classStatus, $table = null)
+    protected function formatForDonutChart($statistics, $column, $columnValues, $table = null)
     {
-        $existingStatuses = $statistics->pluck('status')->all();
-        foreach ($classStatus as $status => $__) {
-            if (! in_array($status, $existingStatuses)) {
+        $existingStatuses = $statistics->pluck($column)->all();
+        foreach ($columnValues as $value => $__) {
+            if (! in_array($value, $existingStatuses)) {
                 $stat = new \stdClass;
-                $stat->status = $status;
+                $stat->{$column} = $value;
                 $stat->count = 0;
                 $statistics->push($stat);
             }
         }
 
-        $response['labels'] = $statistics->map(function($el) use ($classStatus) {
-            return $classStatus[$el->status];
+        $response['labels'] = $statistics->map(function($el) use ($columnValues, $column) {
+            return $columnValues[$el->{$column}];
         });
 
-        $response['ids'] = $statistics->map(function($el) use ($classStatus) {
-            return $el->status;
+        $response['ids'] = $statistics->map(function($el) use ($columnValues, $column) {
+            return $el->{$column};
         });
 
         $response['data'] = $statistics->map(function($el) {
