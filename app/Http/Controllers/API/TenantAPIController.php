@@ -125,6 +125,22 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function latest(ListRequest $request)
+    {
+        $limit = $request->get('limit', 5);
+        $request->merge([
+            'limit' => $limit,
+        ]);
+        $this->tenantRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $tenants = $this->tenantRepository->get(['id', 'first_name', 'last_name', 'status']);
+        return $this->sendResponse($tenants->toArray(), 'Tenants retrieved successfully');
+    }
+
+    /**
      * @param CreateRequest $request
      * @param PostRepository $pr
      * @return Response
