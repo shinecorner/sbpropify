@@ -276,7 +276,7 @@
                             <span class="custom-label">{{$t('models.post.published_at')}}</span>
                             <br>
                             <span v-if="model.published_at">
-                                    {{model.published_at}}
+                                    {{this.formatDatetime(model.published_at)}}
                                 </span>
                             <span v-else>-</span>
                         </el-col>
@@ -296,6 +296,7 @@
     import Chat from 'components/Chat2';
     import EditActions from 'components/EditViewActions';
     import PostsMixin from 'mixins/adminPostsMixin';
+    import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
     import RelationList from 'components/RelationListing';
     import {displayError, displaySuccess} from "helpers/messages";
     import {mapActions} from 'vuex';
@@ -304,7 +305,7 @@
     const mixin = PostsMixin({mode: 'edit'});
 
     export default {
-        mixins: [mixin],
+        mixins: [mixin, FormatDateTimeMixin],
         components: {
             Chat,
             EditActions,
