@@ -5,16 +5,8 @@
         :visible="showServiceMailModal"
         @close="close"
         v-loading="mailSending"
+        id="service-attach-modal"
     >   
-        <el-row class="request-info-row">
-            <el-col :span="24">               
-                <el-breadcrumb separator="|">
-                    <el-breadcrumb-item>{{$t('models.request.requestID')}}: {{requestData.service_request_format}}</el-breadcrumb-item>                    
-                    <el-breadcrumb-item>{{$t('models.request.requestCategory')}}: {{requestData.category}}</el-breadcrumb-item>
-                </el-breadcrumb>
-            </el-col>
-        </el-row>
-
         <el-tabs v-model="activeName">
             <el-tab-pane :label="$t('models.request.mail.notify')" name="notify">
                 <span slot="label"><i class="el-icon-message"></i> {{$t('models.request.mail.notify')}}</span>                
@@ -238,7 +230,9 @@
                         + this.requestData.tenant.last_name 
                         + ", " + this.address.street 
                         + " " + this.address.street_nr
-                        + " " + this.address.city;
+                        + " " + this.address.city
+                        + " [ " + this.requestData.service_request_format
+                        +" ] | " + this.requestData.category;
                 }else {
                     return "";
                 }
@@ -301,5 +295,16 @@
 
     .request-chat .el-textarea .el-textarea__inner{
         min-height: 56px !important;
+    }
+    #service-attach-modal .el-dialog__header  {
+        border-bottom: 1px solid #EBEEF5;
+    }
+
+    #service-attach-modal .el-dialog__body {
+        padding: 10px 20px 30px;
+    }
+
+    #service-attach-modal .el-collapse {
+        border-top: none;
     }
 </style>
