@@ -75,7 +75,8 @@ class StatisticsAPIController extends AppBaseController
         'products' => [
             'class' => Product::class,
             'columns' => [
-                'status'
+                'status',
+                'type'
             ]
         ],
         'posts' => [
