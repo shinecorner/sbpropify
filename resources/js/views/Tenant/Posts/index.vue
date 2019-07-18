@@ -1,6 +1,6 @@
 <template>
     <div class="news">
-        <heading icon="ti-announcement" title="News">
+        <heading icon="icon-megaphone-1" title="News">
             <div slot="description" class="description">Sed placerat volutpat mollis.</div>
         </heading>
         <el-row :gutter="24">
@@ -276,7 +276,7 @@
 
         .heading {
             margin-bottom: 24px;
-            
+
             .description {
                 color: darken(#fff, 40%);
             }

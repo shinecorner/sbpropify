@@ -168,11 +168,19 @@
                         data: [],
                         fetch: this.getFilterBuildings
                     },
+                    {
+                        name: this.$t('filters.tenant'),
+                        type: 'remote-select',
+                        key: 'tenant_id',
+                        data: [],
+                        remoteLoading: false,
+                        fetch: this.fetchRemoteTenants
+                    },
                 ]
             }
         },
         methods: {
-            ...mapActions(['changePostPublish', 'updatePost', 'getBuildings']),
+            ...mapActions(['changePostPublish', 'updatePost', 'getBuildings', 'getTenants']),
             async getFilterBuildings() {
                 this.loading = true;
                 const buildings = await this.getBuildings({
@@ -241,7 +249,17 @@
                         name: this.$t(`models.post.${property}.${this.postsConstants[property][id]}`)
                     };
                 });
-            }
+            },
+            async fetchRemoteTenants(search) {
+                const tenants = await this.getTenants({get_all: true, search});
+
+                return tenants.data.map((tenant) => {
+                    return {
+                        name: `${tenant.first_name} ${tenant.last_name}`,
+                        id: tenant.id
+                    };
+                });
+            },
         }
     }
 </script>

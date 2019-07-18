@@ -39,7 +39,7 @@
 
             > .el-menu-item {
                 height: 72px;
-                line-height: 72px;
+                line-height: 40px;
                 padding: 0 1em;
                 background: none !important;
                 border-bottom-style: none !important;
@@ -65,6 +65,25 @@
 <style lang="scss">
     .el-menu {
         &.el-menu--horizontal {
+
+            .dropdown{
+                position: relative;
+                width: 100%;
+
+                &-list{
+                    list-style: none;
+                    background: #fff;
+                    position: absolute;
+                    width: 105px;
+                    top: 36px;
+                    right: -29px;
+                    padding: 10px;
+                    margin: 0;
+                    box-shadow: 0px 5px 8px -3px;
+                    border-bottom-left-radius: 5px;
+                }
+            }
+
             > .el-menu-item.header-menu-links {
                 display: flex !important;
                 align-items: center;
@@ -72,16 +91,17 @@
                 font-size: 15px;
 
                 .header-link {
-                    margin-right: 15px;
-                    display: flex;
+                    /*margin-right: 15px;*/
+                    /*display: flex;*/
                     line-height: 1;
-                    flex-direction: column;
+                    /*flex-direction: column;*/
                     text-align: center;
                     text-decoration: none;
                     color: #909399;
 
                     i {
                         margin-bottom: 5px;
+                        margin-right: 10px;
                     }
 
                     &:hover {
@@ -93,13 +113,18 @@
                     }
                 }
 
+                .header-link.active{
+                    color: #6AC06F;
+                }
+
                 .logout-button {
                     display: flex;
-                    flex-direction: column;
+                    /*flex-direction: column;*/
                     color: #909399;
 
                     i {
                         margin-bottom: 5px;
+                        margin-right: 15px;
                     }
 
                     &:hover {

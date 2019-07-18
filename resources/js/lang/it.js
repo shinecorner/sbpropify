@@ -12,6 +12,11 @@ export default  {
       weeks: 'Settimane',
       months: 'Mesi',
       years: 'Anni'   
+     },
+    footerText: {
+        top: 'Propify',
+        bottom: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minimi eveniet voluptates dolorum, temporibus nisi maxime nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.',
+        allRightsSaved: 'Tutti i diritti riservati',
     },
     unauthenticated: 'Unauthenticated',
     logged_out: 'Logged out',
@@ -56,7 +61,7 @@ export default  {
         statistics: 'Statistiche',
         requests_by_creation_date: 'Richieste per data di creazione',
         requests_by_status: 'Richieste per stato',
-        requests_by_category: 'Richieste per categoria', 
+        requests_by_category: 'Richieste per categoria',
         each_hour_request: 'Ogni ora richiede',
         average_request_duration: 'Tempo di risoluzione'
     },

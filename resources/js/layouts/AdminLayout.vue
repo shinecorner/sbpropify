@@ -3,12 +3,14 @@
         <a-header>
             <router-link :to="{name: ''}" class="header-link">
                 <div  v-bind:class="[{ active: showMenu }, language]" @click='toggleShow' >
-                    <div class="language-checked-img">
-                        <span v-bind:class="selectedFlag"></span>
+                    <div class="language-iconBorder">
+                        <div class="language-checked-img">
+                            <span v-bind:class="selectedFlag"></span>
+                        </div>
                     </div>
                     <div class="language-check-box">
                         <div class="language-check-box-title">
-                            Choose Language
+                            {{$t('chooseLanguage')}}
                         </div>
                         <div class="language-check-box-body">
                             <ul class="language-check-box-body-item" v-for='language in this.languages' @click='itemClicked(language.symbol, language.flag)'>
@@ -21,31 +23,55 @@
                     </div>
                 </div>
             </router-link>
-            <router-link :to="{name: 'adminProfile'}" class="header-link">
-                <i class="ti-user"/>
-                {{$t('menu.profile')}}
-            </router-link>
-            <template v-if="$can($permissions.view.realEstate)">
-                <router-link :to="{name: 'adminSettings'}" class="header-link">
-                    <i class="ti-settings"/>
-                    {{$t('menu.settings')}}
-                </router-link>
-            </template>
-            <el-button @click="handleLogout" type="text">
-                <div class="logout-button">
-                    <i class="ti-power-off"/>
-                    {{$t('menu.logout')}}
-                </div>
-            </el-button>
+
+            <div class="user-params" @click="toggleUserDropdown">
+                <div class="user-params-img" :style="`background-image: url('${user.avatar}')`"></div>
+                <span class="user-params-name">{{user.name}} <i class="el-submenu__icon-arrow el-icon-arrow-down" :class="{'user-params-name-rotateIcon': userDropdownVisibility}"></i></span>
+            </div>
+
+            <div class="dropdown">
+               <transition name="slide-fade">
+                   <ul class="dropdown-list" v-if="userDropdownVisibility">
+                       <li class="dropdown-list-item" @click="toggleUserDropdown">
+                           <router-link :to="{name: 'adminProfile'}" class="header-link"
+                                        :class="{'active': activeDropdownMenuItem}"
+                                        @click="selectDropdownMenu">
+                               <div class="df">
+                                   <div class="user-params-img inDropdown" :style="`background-image: url('${user.avatar}')`"></div>
+                                   {{$t('menu.profile')}}
+                               </div>
+                           </router-link>
+                       </li>
+                       <li class="dropdown-list-item" @click="toggleUserDropdown">
+                           <template v-if="$can($permissions.view.realEstate)">
+                               <router-link :to="{name: 'adminSettings'}" class="header-link"
+                                            :class="{'active': activeDropdownMenuItem}"
+                                            @click="selectDropdownMenu">
+                                   <i class="ti-settings"/>
+                                   {{$t('menu.settings')}}
+                               </router-link>
+                           </template>
+                       </li>
+                       <li class="dropdown-list-item">
+                           <el-button @click="handleLogout" type="text">
+                               <div class="logout-button">
+                                   <i class="ti-power-off"/>
+                                   {{$t('menu.logout')}}
+                               </div>
+                           </el-button>
+                       </li>
+                   </ul>
+               </transition>
+            </div>
         </a-header>
         <el-container>
             <a-sidebar :links="links">
-                <a-user/>
             </a-sidebar>
             <el-main sticky-container>
                 <v-router-transition transition="slide-left">
                     <router-view/>
                 </v-router-transition>
+                <a-footer />
             </el-main>
         </el-container>
     </el-container>
@@ -54,7 +80,7 @@
 <script>
     import AHeader from 'components/AdminHeader';
     import ASidebar from 'components/AdminSidebar';
-    import AUser from 'components/AdminSidebarUser';
+    import AFooter from 'components/AdminFooter';
     import VRouterTransition from 'v-router-transition';
     import {mapActions, mapState} from "vuex";
 
@@ -63,16 +89,19 @@
         components: {
             AHeader,
             ASidebar,
-            AUser,
+            AFooter,
             VRouterTransition
         },
+
         data() {
             return {
                 fullScreenText: 'Enter fullscreen mode',
                 showMenu: false,
+                userDropdownVisibility: false,
                 language: "language",
                 activeLanguage: 'Piano',
                 selectedFlag: '',
+                activeDropdownMenuItem: false,
                 languages: [
                     {name: 'Français', symbol: 'fr', flag: 'flag-icon flag-icon-fr'},
                     {name: 'Italiano', symbol: 'it', flag: 'flag-icon flag-icon-it'},
@@ -81,6 +110,7 @@
                 ]
             }
         },
+
         computed: {
             ...mapState({
                 user: ({users}) => users.loggedInUser
@@ -198,9 +228,11 @@
                 }];
             }
         },
+
         methods: {
             ...mapActions(['logout']),
             ...mapActions(['updateSettings']),
+
             toggleFullscreen() {
                 if (document.fullscreenElement) {
                     this.fullScreenText = 'Enter fullscreen mode';
@@ -212,26 +244,34 @@
                     document.documentElement.requestFullscreen();
                 }
             },
+
             handleLogout() {
                 this.$confirm('You will be logged out.', 'Are you sure?', {
                     type: 'warning'
                 }).then(() => {
                     this.logout()
                         .then(() => this.$router.push({name: 'login'}))
-                        .catch(err => displayError(err));
+                        .catch(err => {
+                            displayError(err);
+                        });
                 }).catch(() => {
+                    this.toggleUserDropdown();
                 });
             },
+
             toggleShow: function() {
                 this.showMenu = !this.showMenu;
             },
+
             itemClicked: function(item, flag) {
                 this.toggleShow();
                 this.onClick(item, flag);
             },
+
             changeLanguage: function(language) {
                 this.activeLanguage = language;
             },
+
             onClick(language, flag){
                 this.$i18n.locale = language;
                 this.selectedFlag = flag;
@@ -239,18 +279,49 @@
                 console.log('language --- ', this.$i18n.locale);
 
                 this.toggleShow();
+
+                this.saveLangParamsInLocalStorage();
             },
+
             init(){
-                if(this.user.settings.language === 'en'){
-                    this.selectedFlag = `flag-icon flag-icon-us`;
-                }else {
-                    this.selectedFlag = `flag-icon flag-icon-${this.user.settings.language}`;
+                if(!localStorage.getItem('locale')){
+                    if(this.user.settings.language === 'en'){
+                        this.selectedFlag = `flag-icon flag-icon-us`;
+                    }else {
+                        this.selectedFlag = `flag-icon flag-icon-${this.user.settings.language}`;
+                    }
+                } else {
+                    this.selectedFlag = localStorage.getItem('selectedFlag');
+                    this.$i18n.locale = localStorage.getItem('locale');
                 }
+            },
+
+            saveLangParamsInLocalStorage(){
+                localStorage.setItem('locale', this.$i18n.locale);
+                localStorage.setItem('selectedFlag', this.selectedFlag);
+            },
+
+            toggleUserDropdown(){
+                this.userDropdownVisibility = !this.userDropdownVisibility;
+            },
+
+            disableRightClick(){
+                document.querySelector('body').oncontextmenu = function(){
+                    return false;
+                }
+            },
+
+            selectDropdownMenu(){
+                this.activeDropdownMenuItem = !this.activeDropdownMenuItem;
             }
 
         },
+
         mounted(){
             this.init();
+
+            // this.disableRightClick(); // If this function is enabled, the ability to use the right mouse button will be disabled in the Admin panel
+
             this.$store.subscribe((mutation, state) => {
                 if(mutation.type === "SET_LOGGED_IN_USER"){
 
@@ -260,7 +331,7 @@
                         this.selectedFlag = `flag-icon flag-icon-${mutation.payload.settings.language}`;
                     }
                 }
-            })
+            });
         },
 
 
@@ -297,16 +368,54 @@
 
         }
 
+        .user-params{
+            display: flex;
+            align-items: center;
+            &-img{
+                width: 35px;
+                height: 35px;
+                border: solid #c2c2c2 1px;
+                border-radius: 50%;
+            }
+
+            &-img.inDropdown{
+                width: 15px;
+                height: 15px;
+                margin-right: 10px;
+                margin-bottom: 10px;
+            }
+
+            &-name{
+                margin-left: 10px;
+                display: flex;
+                width: 70px;
+                align-items: center;
+
+                &-rotateIcon{
+                    transform: rotate(180deg);
+                }
+            }
+        }
 
 
         .language{
             position: relative;
-            width: 45px;
-            height: 45px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-right: 30px;
+
+            &:after{
+                content: "";
+                position: absolute;
+                right: -15px;
+                height: 90%;
+                width: 1px;
+                background: #c2c2c2;;
+            }
 
 
             &.active{
@@ -320,9 +429,24 @@
                 }
             }
 
-            .language-checked-img{
+            &-iconBorder{
                 width: 35px;
                 height: 35px;
+                border-radius: 50%;
+                background: #eee;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: 0.2s ease-in;
+
+                &:hover{
+                    background: #B4B4B4;
+                }
+            }
+
+            .language-checked-img{
+                width: 25px;
+                height: 25px;
                 border-radius: 50%;
                 overflow: hidden;
                 position: relative;

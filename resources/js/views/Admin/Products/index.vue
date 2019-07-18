@@ -47,8 +47,8 @@
     import {displayError, displaySuccess} from "helpers/messages";
     import ListTableMixin from 'mixins/ListTableMixin';
     import ProductDetails from "components/ProductDetails";
-    import productConstants from "mixins/methods/productTypes";
-
+    import getFilterDistricts from 'mixins/methods/getFilterDistricts';
+    
     const mixin = ListTableMixin({
         actions: {
             get: 'getProducts',
@@ -65,7 +65,7 @@
             Heading,
             ProductDetails
         },
-        mixins: [mixin],
+        mixins: [mixin, getFilterDistricts],
         data() {
             return {
                 header: [{
@@ -103,7 +103,6 @@
                 }],
                 product: {},
                 productDetailsVisible: false,
-                productConstants
             };
         },
         computed: {
@@ -122,12 +121,44 @@
                         type: 'text',
                         icon: 'el-icon-search',
                         key: 'search'
-                    }
+                    },
+                    {
+                        name: this.$t('models.product.status.label'),
+                        type: 'select',
+                        key: 'status',
+                        data: this.prepareFilters("status"),
+                    },
+                    {
+                        name: this.$t('models.product.type.label'),
+                        type: 'select',
+                        key: 'type',
+                        data: this.prepareFilters("type"),
+                    },
+                    {
+                        name: this.$t('filters.districts'),
+                        type: 'select',
+                        key: 'district_id',
+                        data: [],
+                        fetch: this.getFilterDistricts
+                    },
                 ]
-            }
+            },
+            productConstants() {
+                return this.$store.getters['application/constants'].products;
+            },
+
         },
         methods: {
-            ...mapActions(['changeProductPublish']),
+            ...mapActions(['changeProductPublish', 'getBuildings']),
+            async getFilterBuildings() {
+                this.loading = true;
+                const buildings = await this.getBuildings({
+                    get_all: true
+                });
+                this.loading = false;
+
+                return buildings.data;
+            },
             add() {
                 this.$router.push({
                     name: 'adminProductsAdd'
@@ -153,7 +184,15 @@
                 }).catch((error) => {
                     displayError(error);
                 });
-            }
+            },
+            prepareFilters(property) {
+                return Object.keys(this.productConstants[property]).map((id) => {
+                    return {
+                        id: parseInt(id),
+                        name: this.$t(`models.product.${property}.${this.productConstants[property][id].toLowerCase()}`)
+                    };
+                });
+            },
         }
     }
 </script>

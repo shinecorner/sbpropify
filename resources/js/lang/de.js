@@ -14,11 +14,17 @@ export default {
       months: 'Monate',      
       years: 'Jahre'     
     },
+    chooseLanguage:'Sprache auswählen',
     languages: {
         fr: 'Français',
         it: 'Italiano',
         de: 'Deutsch',
         en: 'English'
+    },
+    footerText: {
+        top: 'Propify',
+        bottom: 'Lorem ipsum, dolor sit amet consectetur adipisating elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.',
+        allRightsSaved: 'Alle Rechte vorbehalten',
     },
     days: {
         monday: 'Montag',
@@ -1055,7 +1061,7 @@ export default {
                 }
             },
             comment: {
-                updateOrSave: '{update} oder drücke {esc} um {cancel}',
+                updateOrCancel: '{update} oder drücke {esc} um {cancel}',
                 update: 'bearbeiten',
                 esc: 'ESC',
                 cancel: 'abzubrechen',

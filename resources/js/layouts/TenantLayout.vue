@@ -36,7 +36,7 @@
 import AppMenu from 'components/tenant/AppMenu';
 import Sidebar from 'components/tenant/Sidebar';
 import User from 'components/tenant/User';
-import {mapActions, mapGetters} from 'vuex';    
+import {mapActions, mapGetters} from 'vuex';
 import VRouterTransition from 'v-router-transition';
 import {displayError} from "helpers/messages"
 import MediaGallery from 'components/MediaGallery'
@@ -56,11 +56,9 @@ export default {
     data() {
         return {
             visibleSidebar: true,
-            visibleToggler: false
+            visibleToggler: false,
+            realEstate: {},
         }
-    },
-    created() {
-        this.getRealEstate();
     },
     methods: {
         ...mapActions(['getRealEstate']),
@@ -80,7 +78,11 @@ export default {
             }).catch(() => {
             });
         },
-        filterRouteConditionals(route) {
+        async filterRouteConditionals(route) {
+
+            const resp = await this.getRealEstate();
+            this.realEstate = resp.data;
+
             if (!route.realEstateCondition && !route.children) {
                 return route;
             }
@@ -90,12 +92,13 @@ export default {
             }
 
             if (route.children) {
+                let vm = this;
                 route.children = route.children.filter(childRoute => {
                     if (!childRoute.realEstateCondition) {
                         return childRoute;
                     }
 
-                    if (childRoute.realEstateCondition && !_.isEmpty(this.realEstate) && this.realEstate[childRoute.realEstateCondition]) {
+                    if (childRoute.realEstateCondition && !_.isEmpty(vm.realEstate) && vm.realEstate[childRoute.realEstateCondition]) {
                         return childRoute;
                     }
                 });
@@ -105,9 +108,6 @@ export default {
         }
     },
     computed: {
-        ...mapGetters([
-            'realEstate'
-        ]),
 
         breakpoints () {
             return {
@@ -118,7 +118,7 @@ export default {
 
                         // // this.sidebarKey = 'mobile'
                         // // this.sidebarDrawableContent = '#content'
-                        
+
                         // if (this.visibleSidebar) {
                         //     this.visibleSidebar = false
                         // }
@@ -140,34 +140,34 @@ export default {
         },
         routes() {
             const routes = [{
-                icon: 'ti-home',
+                icon: 'icon-th',
                 title: this.$t('layouts.tenant.sidebar.dashboard'),
                 route: {
                     name: 'tenantDashboard'
                 }
             }, {
-                icon: 'ti-user',
+                icon: 'icon-home',
                 title: this.$t('layouts.tenant.sidebar.myTenancy'),
                 children: [{
-                    icon: 'ti-files',
+                    icon: 'icon-user',
                     title: this.$t('layouts.tenant.sidebar.myPersonalData'),
                     route: {
                         name: 'tenantMyPersonal'
                     }
                 }, {
-                    icon: 'ti-pin-alt',
+                    icon: 'icon-handshake-o',
                     title: this.$t('layouts.tenant.sidebar.myRecentContract'),
                     route: {
                         name: 'tenantMyContracts'
                     }
                 }, {
-                    icon: 'ti-book',
+                    icon: 'icon-doc-text',
                     title: this.$t('layouts.tenant.sidebar.myDocuments'),
                     route: {
                         name: 'tenantMyDocuments'
                     }
                 }, {
-                    icon: 'ti-user',
+                    icon: 'icon-contacts',
                     title: this.$t('layouts.tenant.sidebar.myContactPersons'),
                     route: {
                         name: 'tenantMyContacts'
@@ -175,31 +175,31 @@ export default {
                     realEstateCondition: 'contact_enable'
                 }]
             }, {
-                icon: 'ti-announcement',
+                icon: 'icon-megaphone-1',
                 title: this.$t('layouts.tenant.sidebar.posts'),
                 route: {
                     name: 'tenantPosts'
                 }
             }, {
-                icon: 'ti-comments',
+                icon: 'icon-chat-empty',
                 title: this.$t('layouts.tenant.sidebar.requests'),
                 route: {
                     name: 'tenantRequests'
                 }
             }, {
-                icon: 'ti-shopping-cart',
+                icon: 'icon-basket',
                 title: this.$t('layouts.tenant.sidebar.products'),
                 route: {
                     name: 'tenantMarketplace'
                 }
             }, {
-                icon: 'el-icon-brush',
+                icon: 'icon-water',
                 title: 'Cleanify',
                 route: {
                     name: 'cleanifyRequest'
                 }
             }, {
-                icon: 'ti-settings',
+                icon: 'icon-cog',
                 title: this.$t('layouts.tenant.sidebar.settings'),
                 positionedBottom: true,
                 route: {
@@ -261,25 +261,25 @@ export default {
                         &:hover {
                             filter: opacity(1);
                         }
-    
+
                         &.active .lines {
                             transform: scale3d(0.8, 0.8, 0.8);
-    
+
                             &:before,
                             &:after {
                                 top: 0;
                                 width: 24px;
                             }
-    
+
                             &:before {
                                 transform: rotate3d(0, 0, 1, 45deg);
                             }
-    
+
                             &:after {
                                 transform: rotate3d(0, 0, 1, -45deg);
                             }
                         }
-    
+
                         .lines {
                             display: inline-block;
                             height: 6px;
@@ -288,7 +288,7 @@ export default {
                             transition: .48s;
                             background: #6AC06F;
                             position: relative;
-    
+
                             &:before,
                             &:after {
                                 content: '';
@@ -303,11 +303,11 @@ export default {
                                 transform-origin: 3px center;
                                 width: 100%;
                             }
-    
+
                             &:before{
                                 top: 10px;
                             }
-    
+
                             &:after {
                                 top: -10px;
                             }
@@ -375,7 +375,7 @@ export default {
                 filter: opacity(1);
                 transform: translate3d(112px, 0, 0);
             }
-            
+
             .sliding-leave-active {
                 filter: opacity(0);
                 transform: translate3d(-112px, 0, 0);

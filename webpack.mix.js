@@ -16,8 +16,13 @@ mix
     .options({
         extractVueStyles: true
     })
+    .copy('resources/fonts', 'public/fonts')
+    .sass('resources/sass/app.scss', 'public/css/app.css')
+    .combine([
+        'public/css/app.css',
+        'resources/css/fontello.css'
+    ], 'public/css/app.css')
     .js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
     .extract(['vue', 'vue-router', 'element-ui'])
     .disableNotifications()
     .webpackConfig({
@@ -26,7 +31,8 @@ mix
             filename: '[name].js',
             chunkFilename: 'js/[name].js',
         },
-        plugins: [],
+        plugins: [
+        ],
         resolve: {
             alias: {
                 '@': path.resolve('resources/js'),
@@ -42,10 +48,9 @@ mix
                 'views': path.resolve('resources/js/views')
             }
         }
-    });
+    })
+    .version();
 
-if (mix.inProduction()) {
-    mix.version();
-} else {
+if (!mix.inProduction()) {
     mix.sourceMaps();
 }

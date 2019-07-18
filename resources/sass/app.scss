@@ -79,12 +79,12 @@ body {
 }
 .dashboard-tabpanel .el-tabs--border-card > .el-tabs__header .el-tabs__item{
     flex-basis: 0;
-    -webkit-box-flex: 1;    
+    -webkit-box-flex: 1;
     flex-grow: 1;
     text-align: center;
-    color: #495057;    
-    cursor: pointer;    
-    font-weight:400;    
+    color: #495057;
+    cursor: pointer;
+    font-weight:400;
     -webkit-box-align: center;
     align-items: center;
     text-align: center;
@@ -105,7 +105,7 @@ body {
     text-align: center;
     border-radius: 120px;
     background: #fff;
-    padding: .75rem;    
+    padding: .75rem;
     display: flex;
     flex-wrap: wrap;
     width: 70%;
@@ -124,10 +124,50 @@ body {
 .dashboard-tabpanel .el-tabs--border-card > .el-tabs__header{
     border-bottom: none !important;
     background: none !important;
-    
+
 }
 .dashboard-tabpanel .chart-card{
     height: 420px;
+}
+
+.swal2-popup .swal2-actions{
+    margin: 1.25em 0 0 !important;
+    align-items: flex-end !important;;
+    justify-content: flex-end !important;;
+}
+
+.slide-fade-enter-active {
+    transition: all .3s ease;
+}
+.slide-fade-leave-active {
+    transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+}
+
+.bounce-enter-active {
+    animation: bounce-in .4s;
+}
+.bounce-leave-active {
+    animation: bounce-in .4s reverse;
+}
+@keyframes bounce-in {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.df{
+    display: flex;
 }
 .chart-card .el-card__body{
     padding: 0 0 0 0;

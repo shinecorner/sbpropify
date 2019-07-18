@@ -10,6 +10,7 @@ use App\Criteria\Posts\FilterByPinnedCriteria;
 use App\Criteria\Posts\FilterByStatusCriteria;
 use App\Criteria\Posts\FilterByTypeCriteria;
 use App\Criteria\Posts\FilterByUserCriteria;
+use App\Criteria\Posts\FilterByTenantCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Post\AssignRequest;
 use App\Http\Requests\API\Post\CreateRequest;
@@ -109,6 +110,7 @@ class PostAPIController extends AppBaseController
         $this->postRepository->pushCriteria(new FilterByDistrictCriteria($request));
         $this->postRepository->pushCriteria(new FilterByBuildingCriteria($request));
         $this->postRepository->pushCriteria(new FilterByPinnedCriteria($request));
+        $this->postRepository->pushCriteria(new FilterByTenantCriteria($request));
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $posts = $this->postRepository->with([
@@ -317,7 +319,7 @@ class PostAPIController extends AppBaseController
     {
         $input = $request->only(Post::Fillable);
         $input['type'] = $request->pinned ? Post::TypePinned : Post::TypeArticle;
-        $status = $input['status'];
+        $status = $request->get('status');
 
         /** @var Post $post */
         $post = $this->postRepository->findWithoutFail($id);

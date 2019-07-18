@@ -13,19 +13,21 @@
                 <div class="text">{{comment || $t('components.common.comment.deletedCommentPlaceholder')}}</div>
                 <div class="actions" v-if="hasActions">
                     <el-button type="text" @click="enterEdit" v-if="data.comment">
-                        <i class="el-icon-edit"></i>
+                        <i class="icon-pencil"></i>
                     </el-button>
                     <el-button type="text" @click="remove">
-                        <i class="el-icon-delete" style="color: red;"></i>
+                        <i class="icon-trash-empty" style="color: red;"></i>
                     </el-button>
                 </div>
             </div>
         </div>
         <template v-if="idState.editing">
-            <i18n path="components.common.comment.updateOrSave" tag="div" class="extra">
-                <el-button type="text" :disabled="idState.loading._isVue && idState.loading.visible" @click="update" place="update">
-                    {{$t('components.common.comment.update')}}
-                </el-button>
+            <i18n path="components.common.comment.updateOrCancel" tag="div" class="extra">
+                <el-tooltip :content="$t('components.common.comment.updateShortcut', {shortcut: updateKeysShortcut})" placement="bottom-start" place="update">
+                    <el-button type="text" :disabled="idState.loading._isVue && idState.loading.visible" @click="update">
+                        {{$t('components.common.comment.update')}}
+                    </el-button>
+                </el-tooltip>
                 <el-tag size="mini" place="esc">{{$t('components.common.comment.esc')}}</el-tag>
                 <el-button type="text" :disabled="idState.loading._isVue && idState.loading.visible" @click="cancelEdit" place="cancel">
                     {{$t('components.common.comment.cancel')}}
@@ -245,6 +247,13 @@
             },
             hasActions() {
                 return (this.data.comment || !this.data.children_count) && !this.idState.loading.visible && this.data.user_id === this.$store.getters.loggedInUser.id
+            },
+            updateKeysShortcut () {
+                if (navigator.platform.toUpperCase().includes('MAC')) {
+                    return 'option+enter'
+                }
+
+                return 'alt+enter'
             }
         },
         beforeDestroy () {
@@ -478,7 +487,7 @@
                     .text {
                         border-color: darken(mix(#fff, #6AC06F, 90%), 5%);
                         background-color: mix(#fff, #6AC06F, 90%);
-                        border-bottom-right-radius: 0;    
+                        border-bottom-right-radius: 0;
 
                         &:before,
                         &:after {

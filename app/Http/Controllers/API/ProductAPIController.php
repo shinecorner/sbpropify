@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\Products\FilterByTypeCriteria;
 use App\Criteria\Products\FilterByUserCriteria;
+use App\Criteria\Products\FilterByStatusCriteria;
+use App\Criteria\Products\FilterByDistrictCriteria;
 use App\Notifications\ProductLiked;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Product\CreateRequest;
@@ -101,7 +103,9 @@ class ProductAPIController extends AppBaseController
         $this->productRepository->pushCriteria(new LimitOffsetCriteria($request));
         $this->productRepository->pushCriteria(new FilterByUserCriteria($request));
         $this->productRepository->pushCriteria(new FilterByTypeCriteria($request));
-
+        $this->productRepository->pushCriteria(new FilterByStatusCriteria($request));
+        $this->productRepository->pushCriteria(new FilterByDistrictCriteria($request));
+        
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $products = $this->productRepository->with([
             'media',

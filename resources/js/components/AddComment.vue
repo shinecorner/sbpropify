@@ -6,9 +6,9 @@
         <div class="content">
             <el-input autosize ref="content" :class="{'is-focused': focused}" type="textarea" resize="none" v-model="content" :placeholder="$t('components.common.addComment.placeholder')" :disabled="loading" :validate-event="false" @blur="focused = false" @focus="focused = true" @keydown.native.alt.enter.exact="save" />
             <el-dropdown class="templates" size="small" placement="top-end" trigger="click" @command="onTemplateSelected" @visible-change="onDropdownVisibility" v-if="showTemplates">
-                <el-tooltip content="Choose a template" placement="top-end">
-                    <el-button ref="templatesButton" type="text" class="el-dropdown-link" :disabled="loading">
-                        <i class="el-icon-more"></i>
+                <el-tooltip ref="templates-button-tooltip" :content="$t('components.common.addComment.tooltipTemplates')" placement="top-end">
+                    <el-button ref="templates-button" type="text" class="el-dropdown-link" :disabled="loading">
+                        <i class="icon-ellipsis-vert"></i>
                     </el-button>
                 </el-tooltip>
                 <el-dropdown-menu slot="dropdown">
@@ -25,7 +25,9 @@
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
-        <el-button circle icon="el-icon-s-promotion" size="small" :disabled="!content" :loading="loading" @click="save" />
+        <el-tooltip :content="$t('components.common.addComment.saveShortcut', {shortcut: saveKeysShortcut})" placement="top-end">
+            <el-button circle icon="icon-paper-plane" size="small" :disabled="!content" :loading="loading" @click="save" />
+        </el-tooltip>
     </div>
 </template>
 
@@ -90,6 +92,8 @@
             },
             onDropdownVisibility (state) {
                 this.dropdownTemplatesVisible = state
+
+                this.$refs['templates-button-tooltip'].hide()
             },
             async save () {
                 if (!/\S/.test(this.content)) {
@@ -124,15 +128,22 @@
             }),
 
             templates () {
-                return this.templatesWithId(this.id)
+                return this.templatesWithId(this.id) || []
             },
             canShowTemplates () {
                 return this.showTemplates && ['request'].includes(this.type)
+            },
+            saveKeysShortcut () {
+                if (navigator.platform.toUpperCase().includes('MAC')) {
+                    return 'option+enter'
+                }
+
+                return 'alt+enter'
             }
         },
         async mounted () {
             if (this.canShowTemplates) {
-                if (!this.templates) {
+                if (!this.templates.length) {
                     try {
                         this.loadingTemplates = true
 
@@ -143,7 +154,7 @@
                         this.loadingTemplates = false
 
                         if (this.dropdownTemplatesVisible) {
-                            this.$refs.templatesButton.$el.click()
+                            this.$refs['templates-button'].$el.click()
                         }
                     }
                 }
@@ -226,7 +237,6 @@
 
                     .el-dropdown-link {
                         padding: 9px;
-                        transform: rotate(90deg);
                     }
                 }
 

@@ -132,7 +132,6 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
 
     const Fillable = [
         'user_id',
-        'status',
         'type',
         'content',
         'visibility',

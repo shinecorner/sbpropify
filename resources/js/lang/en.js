@@ -14,11 +14,17 @@ export default {
       months: 'Months',      
       years: 'Years'     
     },
+    chooseLanguage: 'Choose Language',
     languages: {
         fr: 'Français',
         it: 'Italiano',
         de: 'Deutsch',
         en: 'English'
+    },
+    footerText: {
+        top: 'Propify',
+        bottom: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.',
+        allRightsSaved: 'All rights reserved',
     },
     days: {
         monday: 'Monday',
@@ -108,7 +114,7 @@ export default {
         statistics: 'Statistics',
         requests_by_creation_date: 'Requests by creation date',
         requests_by_status: 'Requests by status',
-        requests_by_category: 'Requests by category',        
+        requests_by_category: 'Requests by category',
         each_hour_request: 'Each hour requests',
         average_request_duration: 'Resolution time'
     },
@@ -1057,17 +1063,20 @@ export default {
                 }
             },
             comment: {
-                updateOrSave: '{update} or press {esc} to {cancel}',
+                updateShortcut: 'or use {shortcut} shortcut',
+                updateOrCancel: '{update} or press {esc} to {cancel}',
                 update: 'update',
                 esc: 'ESC',
                 cancel: 'cancel',
                 addChildComment: 'Comment',
-                loadMore: 'Load 1 more comment | Load {count} more comments', 
+                loadMore: 'Load 1 more comment | Load {count} more comments',
                 deletedCommentPlaceholder: 'This comment was deleted.'
             },
             addComment: {
                 placeholder: 'Type a comment...',
+                tooltipTemplates: 'Choose a template',
                 loadingTemplates: 'Loading templates...',
+                saveShortcut: 'or use {shortcut} shortcut',
                 emptyTemplatesPlaceholder: 'No templates available.'
             }
         },
