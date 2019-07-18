@@ -422,10 +422,9 @@ class StatisticsAPIController extends AppBaseController
      * @param bool $isConvertResponse
      * @param null $startDate
      * @param null $endDate
-     * @param null $table
      * @return mixed
      */
-    public function chartRequestByRequestStatus(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null, $table = null)
+    public function chartRequestByRequestStatus(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null)
     {
         if (is_null($startDate) && is_null($endDate)) {
             [$startDate, $endDate] = $this->getStartDateEndDate($request);
