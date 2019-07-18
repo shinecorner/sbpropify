@@ -42,6 +42,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::delete('/users/{id}', 'UserAPIController@destroy')->name('users.destroy');
 
     // Tenants
+    Route::get('/tenants/latest', 'TenantAPIController@latest')->name('latest');
     Route::get('/tenants', 'TenantAPIController@index')->name('tenants');
     Route::get('/tenants/me', 'TenantAPIController@showLoggedIn')->name('tenants.me');
     Route::get('/tenants/{id}', 'TenantAPIController@show')->name('tenants.show');
