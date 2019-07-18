@@ -84,22 +84,26 @@
                     label: this.$t('models.product.status.label'),
                     prop: 'status_label'
                 }, {
-                    width: 170,
-                    actions: [{
-                        type: 'primary',
-                        title: this.$t('models.product.show'),
-                        onClick: this.show,
-                        permissions: [
-                            this.$permissions.view.product
-                        ]
-                    }, {
-                        type: 'success',
-                        title: this.$t('models.product.edit'),
-                        onClick: this.edit,
-                        permissions: [
-                            this.$permissions.update.product
-                        ]
-                    }]
+                    // width: 170,
+                    width: 85,
+                    actions: [
+                        // {
+                        //     type: 'primary',
+                        //     title: this.$t('models.product.show'),
+                        //     onClick: this.show,
+                        //     permissions: [
+                        //         this.$permissions.view.product
+                        //     ]
+                        // }, 
+                        {
+                            type: 'success',
+                            title: this.$t('models.product.edit'),
+                            onClick: this.edit,
+                            permissions: [
+                                this.$permissions.update.product
+                            ]
+                        }
+                    ]
                 }],
                 product: {},
                 productDetailsVisible: false,
