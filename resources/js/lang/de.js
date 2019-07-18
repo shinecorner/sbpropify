@@ -1035,8 +1035,8 @@ export default {
             },
             sidebar: {
                 dashboard: 'Dashboard',
-                myTenancy: 'Mein Mieterdossier',
-                myPersonalData: 'Persönlichen Angaben',
+                myTenancy: 'Mein Dossier',
+                myPersonalData: 'Persönliche Angaben',
                 myRecentContract: 'Mietvertrag',
                 myDocuments: 'Dokumentation',
                 myContactPersons: 'Kontaktpersonen',
