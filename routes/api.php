@@ -48,6 +48,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/tenants/{id}/statistics', 'StatisticsAPIController@tenantStatistics')->name('tenants.statistics.show');
 
     Route::post('/tenants', 'TenantAPIController@store')->name('tenants.store');
+    Route::post('/tenant-review', 'TenantAPIController@tenantreview');
     Route::post('/tenants/{id}/media', 'MediaAPIController@tenantUpload')->name('tenants.media.upload');
     Route::post('/tenants/{id}/send-credentials', 'TenantAPIController@sendCredentials');
     Route::post('/tenants/{id}/download-credentials', 'TenantAPIController@downloadCredentials');

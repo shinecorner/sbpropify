@@ -157,7 +157,9 @@ class Tenant extends Model implements HasMedia
         'status',
         'rent_start',
         'rent_end',
-        'tenant_format'
+        'tenant_format',
+        'review',
+        'rating'
     ];
     protected $dates = ['deleted_at', 'rent_start', 'rent_end'];
     /**

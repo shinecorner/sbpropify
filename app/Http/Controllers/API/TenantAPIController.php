@@ -633,4 +633,22 @@ class TenantAPIController extends AppBaseController
 
         return $this->sendResponse($id, 'Tenant credentials sent successfully');
     }
+     /**
+     * @param $id
+     * @param tenantreview
+     * @return mixed
+     */
+    public function tenantreview(Request $request){
+        $input = $request->all();
+        $tenant = $this->tenantRepository->findWithoutFail($input['tenant_id']);
+        
+        if (empty($tenant)) {
+            return $this->sendError('Tenant not found');
+        }
+        $data['review']=$input['review'];
+        $data['rating']=$input['rating'];
+        Tenant::where('id',$input['tenant_id'])->update($data);
+        
+        return $this->sendResponse($input['tenant_id'], 'Tenant review sent successfully');
+    }
 }
