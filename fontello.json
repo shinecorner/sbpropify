@@ -251,6 +251,18 @@
       "css": "thumbs-down-alt",
       "code": 61797,
       "src": "fontawesome"
+    },
+    {
+      "uid": "540b6a4262be769515c79700618b4aea",
+      "css": "address",
+      "code": 59421,
+      "src": "entypo"
+    },
+    {
+      "uid": "gjt8ba5q0n3nn8ptw6324sflr8qoaeam",
+      "css": "location",
+      "code": 59422,
+      "src": "typicons"
     }
   ]
 }
