@@ -99,7 +99,6 @@ body {
     }
 }
 
-
 .dashboard-tabpanel .el-tabs__nav {
     float: none;
     text-align: center;
@@ -131,9 +130,14 @@ body {
 }
 
 .swal2-popup .swal2-actions{
-    margin: 1.25em 0 0 !important;
-    align-items: flex-end !important;;
-    justify-content: flex-end !important;;
+    opacity: 0;
+    transform: scale(0);
+    transition: 0.3s ease-in-out;
+}
+
+.showButton{
+    opacity: 1!important;
+    transform: scale(1)!important;;
 }
 
 .slide-fade-enter-active {
@@ -168,6 +172,7 @@ body {
 
 .df{
     display: flex;
+    flex-direction: column;
 }
 .chart-card .el-card__body{
     padding: 0 0 0 0;

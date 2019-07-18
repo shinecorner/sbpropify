@@ -268,7 +268,7 @@
 </script>
 <style lang="scss" scoped>
     .settings {
-        height: 100% !important;
+        /*height: 100% !important;*/
 
         .custom-heading {
             margin-bottom: 20px;
