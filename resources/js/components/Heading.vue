@@ -51,7 +51,7 @@
             width: 56px;
             height: 56px;
             background-color: transparentize(#fff, .2);
-            color: #6AC06F;
+            color: var(--primary-color);
             border-radius: 6px;
             display: flex;
             align-items: center;
@@ -67,7 +67,7 @@
             flex-shrink: 0;
 
             .title {
-                color: #6AC06F;
+                color: var(--primary-color);
                 font-size: 24px;
                 font-weight: bold;
                 overflow: hidden;
