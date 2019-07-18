@@ -6,6 +6,13 @@ export default  {
     fr: 'FR',
     it: 'IT',
     de: 'DE',
+    timestamps:{
+      hours: 'Heures',  
+      days: 'Jours',
+      weeks: 'Semaines',
+      months: 'Mois',
+      years: 'Années'     
+    },
     unauthenticated: 'Unauthenticated',
     logged_out: 'Logged out',
     logged_in: 'Logged in',

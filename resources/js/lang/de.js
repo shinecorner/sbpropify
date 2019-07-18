@@ -7,6 +7,13 @@ export default {
     it: 'IT',
     de: 'DE',
     yes: 'Ja',
+    timestamps:{
+      hours: 'Stunden',  
+      days: 'Tage',
+      weeks: 'Wochen',
+      months: 'Monate',      
+      years: 'Jahre'     
+    },
     languages: {
         fr: 'Français',
         it: 'Italiano',

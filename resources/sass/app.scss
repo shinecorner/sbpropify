@@ -152,3 +152,31 @@ body {
 .dashboard .stackchart .apexcharts-menu.open{
     margin-top: -79px;
 }
+.dashboard .box-card{ 
+    border: none;
+    border-bottom: 4px solid transparent;    
+    .el-card__header {        
+        padding: 10px 20px;        
+        opacity: 0.5;     
+        text-transform: uppercase;        
+        border-bottom: none;
+    }
+    .box-card-body{
+        display: flex;        
+        .box-card-count{
+            padding: 10px 20px 10px 20px;
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+            text-align: left;            
+            float: left;
+        }
+        .box-card-progress{            
+            float: left;
+            margin-left: auto;
+            padding: 0 15px 0 0;
+            position: relative;
+            top: -10px;
+        }
+    }
+}
