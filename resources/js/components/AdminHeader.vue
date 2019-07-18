@@ -67,16 +67,15 @@
         &.el-menu--horizontal {
 
             .dropdown{
-                position: relative;
-                width: 100%;
+                position: absolute;
+                width: 113%;
+                top: 56px;
+                left: 0px;
 
                 &-list{
                     list-style: none;
                     background: #fff;
-                    position: absolute;
-                    width: 143px;
-                    top: 36px;
-                    right: -29px;
+                    width: 110%;
                     padding: 0 10px 10px 10px;
                     margin: 0;
                     box-shadow: 0px 5px 8px -3px;
@@ -87,6 +86,7 @@
             > .el-menu-item.header-menu-links {
                 display: flex !important;
                 align-items: center;
+                width: auto;
 
                 font-size: 15px;
 
