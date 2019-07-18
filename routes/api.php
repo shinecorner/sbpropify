@@ -222,6 +222,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/admin/statistics', 'StatisticsAPIController@adminStats');
     Route::get('/admin/chartRequestByCreationDate', 'StatisticsAPIController@chartRequestByCreationDate');
     Route::get('/admin/chartRequestByStatus', 'StatisticsAPIController@chartRequestByStatus');
+    Route::get('/admin/chartRequestByRequestStatus', 'StatisticsAPIController@chartRequestByRequestStatus');
     Route::get('/admin/chartRequestByCategory', 'StatisticsAPIController@chartRequestByCategory');
 });
 

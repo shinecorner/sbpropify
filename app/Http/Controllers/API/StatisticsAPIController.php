@@ -406,38 +406,83 @@ class StatisticsAPIController extends AppBaseController
             ->orderBy('status')
             ->get();
 
-        // Fill missing statuses with a 0 count
-        $existingStatuses = $rsPerStatus->pluck('status')->all();
         $classStatus = $class::Status;
+        $response = $this->formatForDonutChart($rsPerStatus, $classStatus, $table);
+
+        return $isConvertResponse
+            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for ' . $table)
+            : $response;
+    }
+
+
+    /**
+     * @TODO fix many parameters
+     *
+     * @param Request $request
+     * @param bool $isConvertResponse
+     * @param null $startDate
+     * @param null $endDate
+     * @param null $table
+     * @return mixed
+     */
+    public function chartRequestByRequestStatus(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null, $table = null)
+    {
+        if (is_null($startDate) && is_null($endDate)) {
+            [$startDate, $endDate] = $this->getStartDateEndDate($request);
+        }
+
+        $rsPerStatus = Tenant::selectRaw('`service_requests`.`status`, count(`tenants`.`id`) `count`')
+            ->join('service_requests', 'service_requests.tenant_id', 'tenants.id')
+            ->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'))
+            ->groupBy('status')
+            ->orderBy('status')
+            ->get();
+
+        $classStatus = ServiceRequest::Status;
+        $response = $this->formatForDonutChart($rsPerStatus, $classStatus);
+
+        return $isConvertResponse
+            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for tenants')
+            : $response;
+    }
+
+    /**
+     * @param $statistics
+     * @param $classStatus
+     * @param null $table
+     * @return mixed
+     */
+    protected function formatForDonutChart($statistics, $classStatus, $table = null)
+    {
+        $existingStatuses = $statistics->pluck('status')->all();
         foreach ($classStatus as $status => $__) {
             if (! in_array($status, $existingStatuses)) {
                 $stat = new \stdClass;
                 $stat->status = $status;
                 $stat->count = 0;
-                $rsPerStatus->push($stat);
+                $statistics->push($stat);
             }
         }
 
-        $response['labels'] = $rsPerStatus->map(function($el) use ($classStatus) {
+        $response['labels'] = $statistics->map(function($el) use ($classStatus) {
             return $classStatus[$el->status];
         });
 
-        $response['ids'] = $rsPerStatus->map(function($el) use ($classStatus) {
+        $response['ids'] = $statistics->map(function($el) use ($classStatus) {
             return $el->status;
         });
 
-        $response['data'] = $rsPerStatus->map(function($el) {
+        $response['data'] = $statistics->map(function($el) {
             return $el->count;
         });
 
         if ('service_requests' == $table) {
             $sum = $response['data']->sum();
-            $response['tag_percentage'] = $this->getTagPercentage($rsPerStatus, $sum);
+            $response['tag_percentage'] = $this->getTagPercentage($statistics, $sum);
         }
 
-        return $isConvertResponse
-            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for ' . $table)
-            : $response;
+        return $response;
     }
 
     /**
