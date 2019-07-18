@@ -80,6 +80,7 @@
                     prop: 'status',
                     i18nPath: 'models.tenant.status',
                     class: 'rounded-select',
+                    icon: true,
                     select: {
                         icon: 'ti-pencil',
                         data: [],
