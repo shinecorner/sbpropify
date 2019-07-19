@@ -8,9 +8,9 @@
                 <el-col :md="12">
                     <card :loading="loading" class="mb20">
                         <el-row :gutter="20">
-                            <el-col :lg="8">
+                            <el-col :lg="model.pinned? 12 : 8">
                                 <el-form-item :label="$t('models.post.type.label')">
-                                    <el-select style="display: block" v-model="model.pinned">
+                                    <el-select style="display: block" v-model="model.pinned" @change="chagePinned">
                                         <el-option
                                             :label="$t(`models.post.type.article`)"
                                             :value="false"
@@ -24,7 +24,7 @@
                                     </el-select>
                                 </el-form-item>
                             </el-col>
-                            <el-col :lg="8">
+                            <el-col :lg="8" v-if="!model.pinned">
                                 <el-form-item :label="$t('models.post.status.label')">
                                     <el-select style="display: block" v-model="model.status">
                                         <el-option
@@ -36,7 +36,7 @@
                                     </el-select>
                                 </el-form-item>
                             </el-col>
-                            <el-col :lg="8" v-if="model.pinned">
+                            <el-col :lg="12" v-if="model.pinned">
                                 <el-form-item :label="$t('models.post.category.label')">
                                     <el-select style="display: block" v-model="model.category">
                                         <el-option
@@ -237,6 +237,13 @@
                 const d = new Date(date).getTime();
                 const executionStart = new Date(this.model.execution_start).getTime();
                 return d < executionStart;
+            },
+            chagePinned(nValue) {
+                if(nValue) {
+                    this.model.status = 2;
+                }else {
+                    this.model.status = 1;
+                }
             }
         }
     }
