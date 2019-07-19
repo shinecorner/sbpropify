@@ -14,8 +14,8 @@ export default  {
       years: 'Années'
   },  
     footerText: {
-        top: 'Propify',
-        bottom: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.',
+        companyName: 'Propify',
+        leftSideText: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.',
         allRightsSaved: 'Tous droits réservés',
     },
     unauthenticated: 'Unauthenticated',

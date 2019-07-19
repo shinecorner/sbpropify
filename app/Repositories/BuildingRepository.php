@@ -131,4 +131,12 @@ class BuildingRepository extends BaseRepository
 
         return $media;
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
 }

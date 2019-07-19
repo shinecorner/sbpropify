@@ -508,7 +508,7 @@ HTML
                     'dueDate' => 'request.due_date',
                     'category' => 'request.category.name',
                 ],
-                'subject' => 'Request: {{title}} has the due date tomorrow',
+                'subject' => 'Request: {{title}} is approaching its due date',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
 <p>Due date for request {{title}} is {{dueDate}}</p>

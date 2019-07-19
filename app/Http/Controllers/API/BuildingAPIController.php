@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Criteria\Buildings\FilterByRelatedFieldsCriteria;
 use App\Criteria\Buildings\ExcludeIdsCriteria;
+use App\Criteria\Buildings\SelectCriteria;
 use App\Criteria\Common\RequestCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Building\BatchAssignManagers;
@@ -147,6 +148,22 @@ class BuildingAPIController extends AppBaseController
 
         $response = (new BuildingTransformer)->transformPaginator($buildings);
         return $this->sendResponse($response, 'Buildings retrieved successfully');
+    }
+
+    /**
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function latest(ListRequest $request)
+    {
+        $limit = $request->get('limit', 5);
+        $model = $this->buildingRepository->getModel();
+        $buildings = $model->select(['id', 'name'])->limit($limit)->withCount([
+            'units',
+            'tenants',
+        ])->get();
+        return $this->sendResponse($buildings->toArray(), 'Buildings retrieved successfully');
     }
 
     /**

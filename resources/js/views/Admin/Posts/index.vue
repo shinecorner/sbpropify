@@ -96,24 +96,28 @@
                         onChange: this.listingSelectChangedNotify
                     }
                 }, {
-                    width: 170,
-                    actions: [{
-                        type: 'primary',
-                        title: this.$t('models.post.show'),
-                        onClick: this.show,
-                        permissions: [
-                            this.$permissions.view.post
-                        ],
-                        hidden: this.checkPostType
-                    }, {
-                        type: 'success',
-                        title: this.$t('models.post.edit'),
-                        onClick: this.edit,
-                        permissions: [
-                            this.$permissions.update.post
-                        ],
-                        hidden: this.checkPostType
-                    }]
+                    // width: 170,
+                    width: 85,
+                    actions: [
+                        // {
+                        //     type: 'primary',
+                        //     title: this.$t('models.post.show'),
+                        //     onClick: this.show,
+                        //     permissions: [
+                        //         this.$permissions.view.post
+                        //     ],
+                        //     hidden: this.checkPostType
+                        // }, 
+                        {
+                            type: 'success',
+                            title: this.$t('models.post.edit'),
+                            onClick: this.edit,
+                            permissions: [
+                                this.$permissions.update.post
+                            ],
+                            hidden: this.checkPostType
+                        }
+                    ]
                 }],
                 post: {},
                 postDetailsVisible: false,

@@ -1,18 +1,15 @@
 <template>
     <footer class="footer">
-        <div class="footer-top">
-            <span class="footer-top-title">
-                {{$t('footerText.top')}}
-            </span>
-            <p class="footer-top-text">
-                {{$t('footerText.bottom')}}
-            </p>
-        </div>
-        <div class="footer-bottom">
-            <div class="footer-bottom-content">
-                <img class="footer-bottom-content-logo" src="~img/propify-logo.svg"/>
-                <div class="footer-bottom-content-text">
-                    <span>© {{currentYear}} {{$t('footerText.top')}} <br>
+        <div class="footer-content">
+            <div class="footer-content-left">
+                <p class="footer-content-left-text">
+                    {{$t('footerText.leftSideText')}}
+                </p>
+            </div>
+            <div class="footer-content-right">
+                <img class="footer-content-right-logo" src="~img/propify-logo.svg"/>
+                <div class="footer-content-right-text">
+                    <span>&copy; {{currentYear}} {{$t('footerText.companyName')}} <br>
                         {{$t('footerText.allRightsSaved')}}</span>
                 </div>
             </div>
@@ -39,28 +36,28 @@
 <style lang="scss" scoped>
     .footer{
         margin: 2rem 20px 0;
-        background: #e6e6e6;
+        background: #fff;
         padding: 1.25rem;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
 
-        &-top{
-            &-title{
-                font-weight: bold;
-            }
-        }
+        &-content{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
-        &-bottom{
-            border-top: solid #d8d8d8 1px;
-            padding-top: 1rem;
-            &-content{
+            &-left{
+                width: 73%;
+            }
+
+            &-right{
+                width: 24%;
                 display: flex;
-                justify-content: flex-end;
 
                 &-logo{
-                    width: 35px;
-                    height: 35px;
-                    margin-right: 15px;
+                   width: 35px;
+                   height: 35px;
+                   margin-right: 15px;
                 }
             }
         }

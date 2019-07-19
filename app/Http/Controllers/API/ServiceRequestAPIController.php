@@ -160,6 +160,9 @@ class ServiceRequestAPIController extends AppBaseController
 
         $serviceRequest = $this->serviceRequestRepository->create($input);
         $this->serviceRequestRepository->notifyNewRequest($serviceRequest);
+        if ($input['due_date']) {
+            $this->serviceRequestRepository->notifyDue($serviceRequest);
+        }
 
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, 'Service Request saved successfully');
@@ -285,6 +288,9 @@ class ServiceRequestAPIController extends AppBaseController
         $updatedServiceRequest = $this->serviceRequestRepository->update($attr, $id);
 
         $this->serviceRequestRepository->notifyStatusChange($serviceRequest, $updatedServiceRequest);
+        if ($updatedServiceRequest->due_date && $updatedServiceRequest->due_date != $serviceRequest->due_date) {
+            $this->serviceRequestRepository->notifyDue($updatedServiceRequest);
+        }
 
         $updatedServiceRequest->load([
             'media', 'tenant.user', 'category', 'assignees',
