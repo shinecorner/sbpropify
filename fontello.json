@@ -263,6 +263,18 @@
       "css": "location",
       "code": 59422,
       "src": "typicons"
+    },
+    {
+      "uid": "e45a3da2ebde8bc8e30a873f3bd51f30",
+      "css": "eye",
+      "code": 59423,
+      "src": "elusive"
+    },
+    {
+      "uid": "d218294e6f9f7191f6b0b3d1ff6239ff",
+      "css": "eye-off",
+      "code": 59424,
+      "src": "elusive"
     }
   ]
 }
