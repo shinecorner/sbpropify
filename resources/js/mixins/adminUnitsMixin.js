@@ -23,6 +23,7 @@ export default (config = {}) => {
                     room_no: '',
                     monthly_rent: '',
                     floor: '',
+                    sq_meter: '',
                     basement: false,
                     attic: false,
                     building_id: this.$route.params.id,

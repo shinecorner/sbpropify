@@ -232,7 +232,7 @@
                         + " " + this.address.street_nr
                         + " " + this.address.city
                         + " [ " + this.requestData.service_request_format
-                        +" ] | " + this.requestData.category;
+                        +" | " + this.requestData.category +" ]";
                 }else {
                     return "";
                 }
@@ -306,5 +306,9 @@
 
     #service-attach-modal .el-collapse {
         border-top: none;
+    }
+
+    #service-attach-modal .el-tabs__header{
+        margin-bottom: 0;
     }
 </style>

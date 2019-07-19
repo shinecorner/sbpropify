@@ -99,7 +99,8 @@ class Unit extends Model
         'room_no',
         'basement',
         'attic',
-        'unit_format'
+        'unit_format',
+        'sq_meter'
     ];
 
     /**
@@ -117,7 +118,8 @@ class Unit extends Model
         'room_no' => 'float',
         'basement' => 'boolean',
         'attic' => 'boolean',
-        'unit_format' => 'string'
+        'unit_format' => 'string',
+        'sq_meter' => 'integer'
     ];
 
     /**
