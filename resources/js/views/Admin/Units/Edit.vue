@@ -93,9 +93,13 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.unit.floor')" :rules="validationRules.floor"
-                                              prop="floor">
+                                <el-form-item :label="$t('models.unit.floor')" :rules="validationRules.floor" prop="floor">
                                     <el-input autocomplete="off" type="number" v-model="model.floor"></el-input>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :md="12">
+                                <el-form-item :label="$t('models.unit.sq_meter')" prop="sq_meter">
+                                    <el-input autocomplete="off" type="number" v-model="model.sq_meter"></el-input>
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12" style="display: flex">

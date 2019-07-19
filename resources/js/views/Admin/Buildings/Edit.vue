@@ -209,7 +209,7 @@
                     </el-tab-pane>
                     <el-tab-pane :label="$t('models.building.managers')" name="managers">
                         <el-row :gutter="20">
-                            <el-col :md="20">
+                            <el-col :md="18">
                                 <el-select
                                     :loading="remoteLoading"
                                     :placeholder="$t('models.propertyManager.placeholders.search')"
@@ -232,9 +232,9 @@
                                         v-for="manager in toAssignList"/>
                                 </el-select>
                             </el-col>
-                            <el-col :md="4">
+                            <el-col :md="6">
                                 <el-button @click="assignManagers" type="primary" class="btn-assign">
-                                    {{$t('models.building.assign')}}
+                                    <i class="ti-save"></i> {{$t('models.building.assign')}}
                                 </el-button>
                             </el-col>
                         </el-row>

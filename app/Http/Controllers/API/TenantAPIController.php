@@ -610,16 +610,15 @@ class TenantAPIController extends AppBaseController
         if (empty($t)) {
             return $this->sendError('Tenant not found');
         }
-
         $re = RealEstate::firstOrFail();
         $pdfName = $t->pdfXFileName();
         if ($re && $re->blank_pdf) {
             $pdfName = $t->pdfFileName();
         }
+
         if (!\Storage::disk('tenant_credentials')->exists($pdfName)) {
             return $this->sendError($this->credentialsFileNotFound);
         }
-
         return \Storage::disk('tenant_credentials')->download($pdfName, $pdfName);
     }
 
@@ -648,5 +647,23 @@ class TenantAPIController extends AppBaseController
         $t->user->notify(new TenantCredentials($t, $message['subject'], $message['body']));
 
         return $this->sendResponse($id, 'Tenant credentials sent successfully');
+    }
+     /**
+     * @param $id
+     * @param tenantreview
+     * @return mixed
+     */
+    public function addReview(Request $request){
+        $input = $request->all();
+        $tenant = $this->tenantRepository->findWithoutFail($input['tenant_id']);
+        
+        if (empty($tenant)) {
+            return $this->sendError('Tenant not found');
+        }
+        $data['review']=$input['review'];
+        $data['rating']=$input['rating'];
+        Tenant::where('id',$input['tenant_id'])->update($data);
+        
+        return $this->sendResponse($input['tenant_id'], 'Tenant review sent successfully');
     }
 }

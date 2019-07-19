@@ -384,6 +384,7 @@ export default {
             save: 'Speichern',
             saved: "Einheit gespeichert",
             floor: 'Stockwerk',
+            sq_meter: 'Quadratmeter',
             room_no: 'Anzahl Zimmer',
             monthly_rent: 'Monatsmiete',
             building_search: 'Bitte nach einer Liegenschaft suchen',
