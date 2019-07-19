@@ -3,6 +3,8 @@
 namespace App\Notifications;
 
 use App\Models\Post;
+use App\Models\RealEstate;
+use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -33,7 +35,10 @@ class PostPublished extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['database'];
+        if (app()->runningInConsole()) {
+            return [];
+        }
+        return ['database', 'mail'];
     }
 
     /**
@@ -44,10 +49,16 @@ class PostPublished extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $tRepo = new TemplateRepository(app());
+        $rl = RealEstate::firstOrFail();
+        $message = $tRepo->getPostParsedTemplate($this->post, $notifiable);
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->view('mails.postPublished', [
+                'body' => $message['body'],
+                'subject' => $message['subject'],
+                'userName' => $notifiable->name,
+                'companyName' => $rl->name,
+            ])->subject($message['subject']);
     }
 
     /**
