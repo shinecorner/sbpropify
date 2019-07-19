@@ -25,8 +25,7 @@ body {
     line-height: 1.36;
     font-weight: 400;
     font-family: Roboto;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: auto;
     -webkit-overflow-scrolling: touch;
     -webkit-font-smoothing: subpixel-antialiased;
 }
@@ -74,16 +73,68 @@ body {
     padding: 0 20px;
 }
 
-.swal2-popup .swal2-actions{
-    opacity: 0;
-    transform: scale(0);
-    transition: 0.3s ease-in-out;
+.dashboard-tabpanel .el-tabs--border-card > .el-tabs__header .el-tabs__item{
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    text-align: center;
+    color: #495057;
+    cursor: pointer;
+    font-weight:400;
+    -webkit-box-align: center;
+    align-items: center;
+    text-align: center;
+    &.is-active, &:hover{
+        background: #6AC06F;
+        border-radius: 120px;
+        border-right-color: none;
+        border-left-color: none;
+        -ms-flex-positive: 1;
+        color: #fff !important;
+        transition: background-color .3s ease,color .3s ease !important;
+    }
 }
 
-.showButton{
-    opacity: 1!important;
-    transform: scale(1)!important;;
+.dashboard-tabpanel .el-tabs__nav {
+    float: none;
+    text-align: center;
+    border-radius: 120px;
+    background: #fff;
+    padding: .75rem;
+    display: flex;
+    flex-wrap: wrap;
+    width: 70%;
+    margin: 1.5rem 15%
 }
+
+.dashboard-tabpanel .el-tabs--border-card{
+    background:none;
+}
+
+.dashboard-tabpanel .el-tabs--border-card{
+    border: none;
+    background: none;
+    box-shadow: none;
+}
+.dashboard-tabpanel .el-tabs--border-card > .el-tabs__header{
+    border-bottom: none !important;
+    background: none !important;
+
+}
+.dashboard-tabpanel .chart-card{
+    height: 420px;
+}
+
+//.swal2-popup .swal2-actions{
+//    opacity: 0;
+//    transform: scale(0);
+//    transition: 0.3s ease-in-out;
+//}
+//
+//.showButton{
+//    opacity: 1!important;
+//    transform: scale(1)!important;;
+//}
 
 .slide-fade-enter-active {
     transition: all .3s ease;
@@ -93,7 +144,7 @@ body {
 }
 .slide-fade-enter, .slide-fade-leave-to
     /* .slide-fade-leave-active below version 2.1.8 */ {
-    transform: translateX(10px);
+    transform: translateY(10px);
     opacity: 0;
 }
 
@@ -119,3 +170,35 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+
+/*
+.dashboard-tabpanel .tabs-rounded-lg {
+    border-radius: 120px;
+    background: #fff;
+    padding: .75rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dashboard-tabpanel .nav-item {
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    text-align: center;
+}
+.dashboard-tabpanel .nav-link{
+    position: relative;
+    margin: 0 .75rem 0 0;
+    font-weight:400;
+    margin-bottom: 0;
+    font-size: 1.175rem;
+    padding: .75rem .5rem;
+    cursor: pointer;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    transition: background-color .3s ease,color .3s ease;
+}
+*/

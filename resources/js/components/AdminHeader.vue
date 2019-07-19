@@ -66,27 +66,10 @@
     .el-menu {
         &.el-menu--horizontal {
 
-            .dropdown{
-                position: relative;
-                width: 100%;
-
-                &-list{
-                    list-style: none;
-                    background: #fff;
-                    position: absolute;
-                    width: 143px;
-                    top: 36px;
-                    right: -29px;
-                    padding: 0 10px 10px 10px;
-                    margin: 0;
-                    box-shadow: 0px 5px 8px -3px;
-                    border-bottom-left-radius: 5px;
-                }
-            }
-
             > .el-menu-item.header-menu-links {
                 display: flex !important;
                 align-items: center;
+                width: auto;
 
                 font-size: 15px;
 
@@ -139,5 +122,31 @@
                 }
             }
         }
+    }
+
+    .el-menu.el-menu--horizontal{
+        border-bottom: none!important;
+    }
+
+    .dropdown-menu .el-submenu{
+        .el-submenu__title{
+
+
+            .el-submenu__icon-arrow {
+                display: none !important;
+            }
+
+            .user-params {
+                .el-submenu__icon-arrow{
+                    display: block !important;
+                }
+            }
+        }
+
+    }
+
+    .el-menu--popup {
+        top: 13px;
+        left: 5px;
     }
 </style>

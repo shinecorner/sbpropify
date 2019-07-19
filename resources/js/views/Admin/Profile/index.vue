@@ -47,7 +47,7 @@
 
 <style lang="scss" scoped>
     .profile {
-        height: 100% !important;
+        height: 77vh !important;
 
         .custom-heading {
             margin-bottom: 2em;
