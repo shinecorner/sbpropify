@@ -265,45 +265,41 @@
                     </template>                
                 </el-col>
                 <el-col :md="12">
-                    <el-card :loading="loading" class="mb20">
+                    <el-card :loading="loading" class="contact-info-card mb20">
                         <el-row>
-                            <el-col :md="12">
+                            <el-col :md="8">
                                 <span class="custom-label">{{$t('models.post.user')}}</span>
                                 <br>
                                 <span v-if="model.user">
-                                    <router-link :to="{name: 'adminUsersEdit', params: {id: model.user.id}}">
-                                        {{model.user.name}}
+                                    <router-link :to="{name: 'adminUsersEdit', params: {id: model.user.id}}" class="tenant-link">
+                                        <avatar :size="30"
+                                                :src="'/' + model.user.avatar"
+                                                v-if="model.user.avatar"></avatar>
+                                        <avatar :size="28"
+                                                :username="model.user.first_name ? `${model.user.first_name} ${model.user.last_name}`: `${model.user.name}`"
+                                                backgroundColor="rgb(205, 220, 57)"
+                                                color="#fff"
+                                                v-if="!model.user.avatar"></avatar>
+                                        <span>{{model.user.name}}</span>
                                     </router-link>
                                 </span>
-                            </el-col>
-                        </el-row>
-                    </el-card>
-                    <el-card :loading="loading" class="mb20">
-                        <el-row :gutter="20">
+                            </el-col>                            
                             <el-col :md="8">
-                                <span class="custom-label">{{$t('models.post.likes')}}</span>
+                                <span class="custom-label">{{$t('models.post.published_at')}}</span>
                                 <br>
-                                <span>
-                                    {{model.likes_count}}
-                                </span>
+                                <span class="custom-value" v-if="model.published_at">
+                                        {{this.formatDatetime(model.published_at)}}
+                                    </span>
+                                <span class="custom-value" v-else>-</span>
                             </el-col>
                             <el-col :md="8">
                                 <span class="custom-label">{{$t('models.post.comments')}}</span>
                                 <br>
-                                <span>
+                                <span class="custom-value">
                                     {{model.comments_count}}
                                 </span>
                             </el-col>
-
-                            <el-col :md="8">
-                                <span class="custom-label">{{$t('models.post.published_at')}}</span>
-                                <br>
-                                <span v-if="model.published_at">
-                                        {{this.formatDatetime(model.published_at)}}
-                                    </span>
-                                <span v-else>-</span>
-                            </el-col>
-                        </el-row>
+                        </el-row>                    
                     </el-card>
                     <el-card :loading="loading" v-if="model.pinned">
                         <el-row :gutter="10">
@@ -324,7 +320,7 @@
                                 <el-select
                                     :loading="remoteLoading"
                                     :placeholder="$t('models.post.placeholders.search')"
-                                    :remote-method="remoteSearchBuildings"
+                                    :remote-method  ="remoteSearchBuildings"
                                     class="custom-remote-select"
                                     filterable
                                     remote
@@ -379,7 +375,7 @@
     import RelationList from 'components/RelationListing';
     import {displayError, displaySuccess} from "helpers/messages";
     import {mapActions} from 'vuex';
-
+    import {Avatar} from 'vue-avatar'
 
     const mixin = PostsMixin({mode: 'edit'});
 
@@ -388,7 +384,8 @@
         components: {
             Chat,
             EditActions,
-            RelationList
+            RelationList,
+            Avatar
         },
         data() {
             return {
@@ -523,18 +520,44 @@
     }
 </script>
 
-<style scope>
+<style lang="scss" scope>
     .custom-select {
         display: block;
     }
 
     .custom-label {
         color: #6AC06F;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    .custom-value {        
+        line-height: 28px;
     }
 
     .mb20 {
         margin-bottom: 20px;
-    }        
+    }
+    
+    .contact-info-card {
+        .el-row {
+            margin-bottom: 22px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }        
+    }
+
+    .tenant-link {
+        display: flex;
+        align-items: center;
+        color: #6AC06F;
+        text-decoration: none;
+
+        & > span {
+            margin-left: 5px;
+        }
+    }
 </style>
 
 <style>
