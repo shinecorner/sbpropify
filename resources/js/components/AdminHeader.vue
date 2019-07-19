@@ -68,18 +68,19 @@
 
             .dropdown{
                 position: absolute;
-                width: 113%;
+                width: 106%;
                 top: 56px;
                 left: 0px;
 
                 &-list{
                     list-style: none;
                     background: #fff;
-                    width: 110%;
+                    width: 100%;
                     padding: 0 10px 10px 10px;
                     margin: 0;
-                    box-shadow: 0px 5px 8px -3px;
+                    box-shadow: -5px 4px 6px -5px;
                     border-bottom-left-radius: 5px;
+                    overflow: hidden;
                 }
             }
 

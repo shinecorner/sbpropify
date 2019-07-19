@@ -19,6 +19,7 @@ import VueVirtualScroller from 'vue-virtual-scroller'
 import ReadMore from 'vue-read-more'
 import VueDebounce from 'vue-debounce'
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
+import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(VueUid);
 Vue.use(Sticky)
