@@ -109,7 +109,7 @@
                         </template>                        
                     </el-card>
 
-                    <el-card :loading="loading" v-if="!model.pinned">
+                    <el-card :loading="loading" v-if="!model.pinned && (!model.tenant)">
                         <el-row :gutter="10">
                             <el-col :lg="6">
                                 <el-select @change="resetToAssignList"
@@ -301,7 +301,7 @@
                             </el-col>
                         </el-row>                    
                     </el-card>
-                    <el-card :loading="loading" v-if="model.pinned">
+                    <el-card :loading="loading" v-if="model.pinned && (!model.tenant)">
                         <el-row :gutter="10">
                             <el-col :lg="6">
                                 <el-select @change="resetToAssignList"
