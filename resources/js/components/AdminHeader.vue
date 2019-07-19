@@ -66,24 +66,6 @@
     .el-menu {
         &.el-menu--horizontal {
 
-            .dropdown{
-                position: absolute;
-                width: 106%;
-                top: 56px;
-                left: 0px;
-
-                &-list{
-                    list-style: none;
-                    background: #fff;
-                    width: 100%;
-                    padding: 0 10px 10px 10px;
-                    margin: 0;
-                    box-shadow: -5px 4px 6px -5px;
-                    border-bottom-left-radius: 5px;
-                    overflow: hidden;
-                }
-            }
-
             > .el-menu-item.header-menu-links {
                 display: flex !important;
                 align-items: center;
@@ -140,5 +122,31 @@
                 }
             }
         }
+    }
+
+    .el-menu.el-menu--horizontal{
+        border-bottom: none!important;
+    }
+
+    .dropdown-menu .el-submenu{
+        .el-submenu__title{
+
+
+            .el-submenu__icon-arrow {
+                display: none !important;
+            }
+
+            .user-params {
+                .el-submenu__icon-arrow{
+                    display: block !important;
+                }
+            }
+        }
+
+    }
+
+    .el-menu--popup {
+        top: 13px;
+        left: 5px;
     }
 </style>

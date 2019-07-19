@@ -24,7 +24,66 @@
                 </div>
             </router-link>
 
-            <div class="user-params" @click="toggleUserDropdown">
+
+            <el-menu class="dropdown-menu" menu-trigger="click" mode="horizontal">
+                <el-submenu index="2">
+                    <template slot="title">
+
+                        <div class="user-params" @click="toggleUserDropdown">
+                            <div class="user-params-img" :style="`background-image: url('${user.avatar}')`"></div>
+
+                            <div class="user-params-wrap">
+                                <span class="user-params-name">{{user.name.slice(0, 8)}}
+                                    <span v-if="user.name.length > 10">...</span>
+                                </span>
+                                <i class="el-submenu__icon-arrow el-icon-arrow-down user-params-wrap-icon" :class="{'user-params-name-rotateIcon': userDropdownVisibility}"></i>
+                            </div>
+
+
+                            <div v-if="false" class="dropdown">
+
+                                <transition name="slide-fade">
+                                    <ul class="dropdown-list" v-if="userDropdownVisibility">
+                                        <li class="dropdown-list-item">
+                                            <router-link :to="{name: 'adminProfile'}" class="dropdown-list-item-link"
+                                                         :class="{'active': activeDropdownMenuItem}"
+                                                         @click="selectDropdownMenu">
+                                                <i class="ti-user"/>
+                                                {{$t('menu.profile')}}
+                                            </router-link>
+                                        </li>
+                                        <li class="dropdown-list-item">
+                                            <template v-if="$can($permissions.view.realEstate)">
+                                                <router-link :to="{name: 'adminSettings'}" class="dropdown-list-item-link"
+                                                             :class="{'active': activeDropdownMenuItem}"
+                                                             @click="selectDropdownMenu">
+                                                    <i class="ti-settings"/>
+                                                    {{$t('menu.settings')}}
+                                                </router-link>
+                                            </template>
+                                        </li>
+                                        <li class="dropdown-list-item">
+                                            <el-button @click="handleLogout" type="text">
+                                                <div class="logout-button">
+                                                    <i class="ti-power-off"/>
+                                                    {{$t('menu.logout')}}
+                                                </div>
+                                            </el-button>
+                                        </li>
+                                    </ul>
+                                </transition>
+                            </div>
+                        </div>
+
+
+                    </template>
+                    <el-menu-item index="2-1">item one</el-menu-item>
+                    <el-menu-item index="2-2">item two</el-menu-item>
+                    <el-menu-item index="2-3">item three</el-menu-item>
+                </el-submenu>
+            </el-menu>
+
+            <div class="user-params" @click="toggleUserDropdown" v-if="false">
                 <div class="user-params-img" :style="`background-image: url('${user.avatar}')`"></div>
 
                 <div class="user-params-wrap">
@@ -34,7 +93,8 @@
                     <i class="el-submenu__icon-arrow el-icon-arrow-down user-params-wrap-icon" :class="{'user-params-name-rotateIcon': userDropdownVisibility}"></i>
                 </div>
 
-                <div class="dropdown">
+
+                <div v-if="false" class="dropdown">
 
                     <transition name="slide-fade">
                         <ul class="dropdown-list" v-if="userDropdownVisibility">
@@ -410,6 +470,24 @@
                 &-rotateIcon{
                     transform: rotate(180deg);
                 }
+            }
+        }
+
+        .dropdown{
+            position: absolute;
+            width: 106%;
+            top: 56px;
+            left: 0px;
+
+            &-list{
+                list-style: none;
+                background: #fff;
+                width: 100%;
+                padding: 0 10px 10px 10px;
+                margin: 0;
+                box-shadow: -5px 4px 6px -5px;
+                border-bottom-left-radius: 5px;
+                overflow: hidden;
             }
         }
 
