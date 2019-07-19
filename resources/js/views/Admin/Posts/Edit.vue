@@ -1,5 +1,5 @@
 <template>
-    <div class="units-edit mb20">
+    <div id="post-edit-view" class="units-edit mb20">
         <heading :title="$t('models.post.edit_title')" icon="ti-user" shadow="heavy" style="margin-bottom: 20px;">
             <edit-actions :saveAction="submit" :deleteAction="deletePost" route="adminPosts"/>
         </heading>
@@ -78,14 +78,14 @@
                                 </el-form-item>
                                 <el-form-item :label="$t('models.post.images')">
                                     <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
-                                    <div class="mt15">
+                                    <div class="mt15" v-if="media.length || (model.media && model.media.length)">
                                         <media :data="mediaFiles" @deleteMedia="deleteMedia"
                                             v-if="media.length || (model.media && model.media.length)"></media>
                                     </div>
                                 </el-form-item>
                             </el-tab-pane>
                             <el-tab-pane :label="$t('models.post.comments')" name="comments">
-                                <chat :id="model.id" size="480px" type="post"/>
+                                <chat class="edit-post-chat" :id="model.id" size="480px" type="post"/>
                             </el-tab-pane>
                         </el-tabs>
                         
@@ -101,7 +101,7 @@
                             <el-form-item :label="$t('models.post.images')"
                             >
                                 <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
-                                <div class="mt15">
+                                <div class="mt15" v-if="media.length || (model.media && model.media.length)">
                                     <media :data="mediaFiles" @deleteMedia="deleteMedia"
                                         v-if="media.length || (model.media && model.media.length)"></media>
                                 </div>
@@ -362,7 +362,7 @@
 
                     <el-card class="mt15" v-if="model.id && !model.pinned">
                         <div slot="header">{{$t('models.post.comments')}}</div>
-                        <chat :id="model.id" size="480px" type="post"/>
+                        <chat class="edit-post-chat" :id="model.id" size="480px" type="post"/>
                     </el-card>
                 </el-col>
             </el-form>
@@ -523,7 +523,7 @@
     }
 </script>
 
-<style scoped>
+<style scope>
     .custom-select {
         display: block;
     }
@@ -534,9 +534,16 @@
 
     .mb20 {
         margin-bottom: 20px;
+    }        
+</style>
+
+<style>
+
+    #post-edit-view .el-card__body .el-form-item:last-child {
+        margin-bottom: 0;
     }
 
-    .el-card .chat {
-        margin: -20px;
+    .edit-post-chat .add-comment {
+        margin-bottom: 0 !important;
     }
-</style>
+</style>    
