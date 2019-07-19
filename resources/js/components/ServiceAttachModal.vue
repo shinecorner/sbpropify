@@ -232,7 +232,7 @@
                         + " " + this.address.street_nr
                         + " " + this.address.city
                         + " [ " + this.requestData.service_request_format
-                        +" ] | " + this.requestData.category;
+                        +" | " + this.requestData.category +" ]";
                 }else {
                     return "";
                 }
