@@ -157,7 +157,9 @@ class Tenant extends Model implements HasMedia
         'status',
         'rent_start',
         'rent_end',
-        'tenant_format'
+        'tenant_format',
+        'review',
+        'rating'
     ];
     protected $dates = ['deleted_at', 'rent_start', 'rent_end'];
     /**
@@ -306,7 +308,6 @@ class Tenant extends Model implements HasMedia
             ]);
             Storage::disk('tenant_credentials')
                 ->put($this->pdfXFileName(), $pdf->output());
-
             $pdf = PDF::loadView('pdfs.tenantCredentials', [
                 'tenant' => $this,
                 'password' => $password,

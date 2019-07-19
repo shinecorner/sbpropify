@@ -222,30 +222,28 @@ class TemplateRepository extends BaseRepository
         $template = self::getParsedTemplate($template, $tagMap, $lang);
 
         $company = (new RealEstate())->first();
+        $appUrl = env('APP_URL', '');
+
+        $companyAddress = [
+            $company->address->street,
+            $company->address->street_nr . ',',
+            $company->address->zip,
+            $company->address->city,
+        ];
 
         return [
             'subject' => $template->subject,
             'body' => $template->body,
             'company' => $company,
-            'companyLogo' => $company->logo,
+            'companyLogo' => $appUrl .'/'. $company->logo,
             'companyName' => $company->name,
-            'companyName' => $company->name,
+            'companyAddress' => implode(' ', $companyAddress),
+            'linkContact' => env('APP_URL', '#'),
+            'linkTermsOfUse' => env('APP_URL', '#'),
+            'linkDataProtection' => env('APP_URL', '#'),
         ];
     }
-//Diese E-Mail wurde automatisch für Ylber Muhaxheri generiert.
-//
-//
-//
-//You get this automatically generated e-mail as a user of Europe Square. Europe Square is operated by the Allthings Technologies AG.
-//
-//
-//
-//Allthings
-//
-//Allthings Technologies AG
-//Lange Gasse 8, 4052 Basel, Schweiz
-//
-//Impressum | Nutzungsbedingungen | Datenschutzerklärung
+
     /**
      * @param Template $template
      * @param $tagMap
@@ -496,12 +494,35 @@ class TemplateRepository extends BaseRepository
 
     /**
      * @param ServiceRequest $sr
+     * @return array
+     */
+    public function getRequestDueParsedTemplate(ServiceRequest $sr, User $receiver): array
+    {
+        $template = $this->getByCategoryName('request_due_date_reminder');
+
+        $context = [
+            'request' => $sr,
+            'receiver' => $receiver,
+        ];
+
+        $tags = $this->getTags($template->category->tag_map, $context);
+
+        return $this->getParsedTemplateData($template, $tags, $receiver->settings->language);
+    }
+
+
+    /**
+     * @param ServiceRequest $sr
      * @param User $uploader
      * @param Media $media
      * @return array
      */
-    public function getRequestMediaParsedTemplate(ServiceRequest $sr, User $uploader, User $receiver, Media $media): array
-    {
+    public function getRequestMediaParsedTemplate(
+        ServiceRequest $sr,
+        User $uploader,
+        User $receiver,
+        Media $media
+    ): array {
         $template = $this->getByCategoryName('request_upload');
 
         $context = [
@@ -545,8 +566,12 @@ class TemplateRepository extends BaseRepository
      * @param User $receiver
      * @return array
      */
-    public function getRequestInternalCommentParsedTemplate(ServiceRequest $sr, Comment $comment, User $sender, User $receiver): array
-    {
+    public function getRequestInternalCommentParsedTemplate(
+        ServiceRequest $sr,
+        Comment $comment,
+        User $sender,
+        User $receiver
+    ): array {
         $template = $this->getByCategoryName('request_internal_comment');
 
         $context = [

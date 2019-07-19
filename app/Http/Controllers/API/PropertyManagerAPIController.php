@@ -82,19 +82,34 @@ class PropertyManagerAPIController extends AppBaseController
         $this->propertyManagerRepository->pushCriteria(new FilterByRelatedFieldsCriteria($request));
 
         $getAll = $request->get('get_all', false);
-        if ($getAll) {
-            $propertyManagers = $this->propertyManagerRepository->with([
+        $reqCount = $request->get('req_count');
+        if ($reqCount) {
+            $this->propertyManagerRepository->with([
+                'user' => function ($q) {
+                    $q->withCount([
+                        'requestsReceived',
+                        'requestsInProcessing',
+                        'requestsAssigned',
+                        'requestsDone',
+                        'requestsReactivated',
+                        'requestsArchived',
+                    ]);
+                }
+            ]);
+        } else {
+            $this->propertyManagerRepository->with([
                 'user',
-            ])->get();
+            ]);
+        }
+
+        if ($getAll) {
+            $propertyManagers = $this->propertyManagerRepository->get();
             $response = (new PropertyManagerTransformer)->transformCollection($propertyManagers);
             return $this->sendResponse($response, 'Property Managers retrieved successfully');
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $propertyManagers = $this->propertyManagerRepository->with([
-            'user',
-        ])->paginate($perPage);
-
+        $propertyManagers = $this->propertyManagerRepository->paginate($perPage);
         $response = (new PropertyManagerTransformer)->transformPaginator($propertyManagers);
         return $this->sendResponse($response, 'Property Managers retrieved successfully');
     }

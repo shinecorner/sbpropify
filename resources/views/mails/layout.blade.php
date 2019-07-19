@@ -51,8 +51,7 @@ a, a:hover {
 
 <!-- SECTION / BACKGROUND -->
 <!-- Set message background color one again -->
-<table width="100%" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%;" class="background"><tr><td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;"
-                                                                                                                                                                                                   bgcolor="#FFFFFF">
+<table width="100%" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%;" class="background"><tr><td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;">
 
 <!-- WRAPPER -->
 <!-- Set wrapper width (twice) -->
@@ -74,9 +73,9 @@ a, a:hover {
             <!-- LOGO -->
             <a target="_blank" style="text-decoration: none;"
                 href=""><img border="0" vspace="0" hspace="0"
-                             src="{{ $company->logo ?? '' }}"
+                             src="{{ $companyLogo ?? '' }}"
                              width="140"
-                             alt="Logo" title="Logo" style="
+                             alt="{{ $companyName ?? '' }}" title="{{ $companyName ?? '' }}" style="
                 color: #000000;
                 font-size: 10px; margin: 0; padding: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; border: none; display: block;" /></a>
         </td>
@@ -143,31 +142,28 @@ a, a:hover {
     <!-- Set text color and font family ("sans-serif" or "Georgia, serif"). Duplicate all text styles in links, including line-height -->
     <tr>
         <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 17px; font-weight: 400; line-height: 160%;
-            padding-top: 20px;
-            padding-bottom: 25px;
+            padding-top: 20px;            
             color: #000000;
             font-family: sans-serif;" class="paragraph">
-            @yield('email_footer_message1')          
+            {{  __('common.email_footer_message1', ['UserName' => $userName]) }}              
         </td>
     </tr>
     <tr>
         <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 17px; font-weight: 400; line-height: 160%;
-            padding-top: 20px;
-            padding-bottom: 25px;
+            padding-top: 20px;           
             color: #000000;
-            font-family: sans-serif;" class="paragraph">
-            @yield('email_footer_message2')            
+            font-family: sans-serif;" class="paragraph">           
+            {{  __('common.email_footer_message2', ['CompanyName' => $companyName]) }}         
         </td>
     </tr>  
     <!-- FOOTER -->
     <!-- Set text color and font family ("sans-serif" or "Georgia, serif"). Duplicate all text styles in links, including line-height -->
     <tr>
         <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 13px; font-weight: 400; line-height: 150%;
-            padding-top: 20px;
-            padding-bottom: 20px;
+            padding-top: 20px;            
             color: #999999;
-            font-family: sans-serif;" class="footer">
-            @yield('companyName')  
+            font-family: sans-serif;" class="footer">          
+            {{ $companyName ?? '' }}  
         </td>
     </tr> 
     <tr>
@@ -176,7 +172,7 @@ a, a:hover {
             padding-bottom: 20px;
             color: #999999;
             font-family: sans-serif;" class="footer">
-            @yield('company_address')  
+            {{ $companyAddress ?? '' }}  
         </td>
     </tr>
      <tr>
@@ -185,10 +181,17 @@ a, a:hover {
             padding-bottom: 20px;
             color: #999999;
             font-family: sans-serif;" class="footer">
-            @yield('email_footer_links')  
+            <p align="center" style="text-align:center"> <span style="font-size:7.5pt;font-family:&quot;Open Sans&quot;,sans-serif;color:#333333">
+                <a href="{{ $linkContact ?? '' }}" target="_blank">
+                    <span style="text-decoration:none">{{  __('common.email_link_contacts') }}</span>
+                </a> | 
+                <a href="{{ $linkTermsOfUse ?? '' }}" target="_blank">
+                    <span style="text-decoration:none">{{  __('common.email_link_terms_of_use') }}</span></a> | 
+                <a href="{{ $linkDataProtection ?? '' }}" target="_blank">
+                    <span style="text-decoration:none">{{  __('common.email_link_data_protection') }}</span></a></span>
+                </p>
         </td>
     </tr> 
-
 <!-- End of WRAPPER -->
 </table>
 

@@ -7,6 +7,13 @@ export default {
     it: 'IT',
     de: 'DE',
     yes: 'Yes',
+    timestamps:{
+      hours: 'Hours',  
+      days: 'Days',
+      weeks: 'Weeks',
+      months: 'Months',      
+      years: 'Years'     
+    },
     chooseLanguage: 'Choose Language',
     languages: {
         fr: 'Français',
@@ -377,6 +384,7 @@ export default {
             save: 'Save',
             saved: "Unit saved",
             floor: 'Floor',
+            sq_meter: 'Sq Meter',
             room_no: 'Number of rooms',
             monthly_rent: 'Monthly rent',
             building_search: 'Please enter a building name and select it',
@@ -485,6 +493,7 @@ export default {
             pinned_to: 'Pinned to',
             comments: 'Comments',
             images: 'Images',
+            details_title: "Details",
             placeholders: {
                 buildings: "Choose buildings",
                 search: 'Search',
@@ -1056,7 +1065,8 @@ export default {
                 }
             },
             comment: {
-                updateOrSave: '{update} or press {esc} to {cancel}',
+                updateShortcut: 'or use {shortcut} shortcut',
+                updateOrCancel: '{update} or press {esc} to {cancel}',
                 update: 'update',
                 esc: 'ESC',
                 cancel: 'cancel',
@@ -1066,7 +1076,9 @@ export default {
             },
             addComment: {
                 placeholder: 'Type a comment...',
+                tooltipTemplates: 'Choose a template',
                 loadingTemplates: 'Loading templates...',
+                saveShortcut: 'or use {shortcut} shortcut',
                 emptyTemplatesPlaceholder: 'No templates available.'
             }
         },

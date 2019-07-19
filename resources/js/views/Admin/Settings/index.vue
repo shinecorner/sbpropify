@@ -61,13 +61,13 @@
                                 <el-form-item :label="$t('models.user.blank_pdf')" prop="blank_pdf">
                                     <el-switch v-model="model.blank_pdf"/>
                                 </el-form-item>
-                                <el-form-item :label="$t('models.realEstate.district_enable')" prop="district_enable">
+                                <!-- <el-form-item :label="$t('models.realEstate.district_enable')" prop="district_enable">
                                     <el-switch v-model="model.district_enable"/>
                                 </el-form-item>
                                 <el-form-item :label="$t('models.realEstate.marketplace_approval_enable')"
                                               prop="marketplace_approval_enable">
                                     <el-switch v-model="model.marketplace_approval_enable"/>
-                                </el-form-item>
+                                </el-form-item> -->
                                 <el-form-item :label="$t('models.realEstate.news_approval_enable')"
                                               prop="news_approval_enable">
                                     <el-switch v-model="model.news_approval_enable"/>

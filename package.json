@@ -69,6 +69,7 @@
     "dependencies": {
         "apexcharts": "^3.8.2",
         "babel-runtime": "^6.26.0",
+        "clean-webpack-plugin": "^3.0.0",
         "less": "^3.9.0",
         "less-loader": "^4.1.0",
         "open-weather-icons": "0.0.8",

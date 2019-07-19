@@ -122,13 +122,13 @@
 
                                 <el-tab-pane name="request_images">
                                     <span slot="label">
-                                        <el-badge :value="mediaCount" :max="99" class="item">{{ $t('models.request.images') }}</el-badge>
+                                        <el-badge :value="mediaCount" :max="99" class="admin-layout">{{ $t('models.request.images') }}</el-badge>
                                     </span>
                                     <div slot="header">
                                         <p class="comments-header">{{$t('models.request.images')}}</p>
                                     </div>
                                     <el-alert
-                                        v-if="!mediaCount"
+                                        v-if="!media.length || (!model.media && !model.media.length)"
                                         :title="$t('models.request.no_images_message')"
                                         type="info"
                                         show-icon
@@ -297,7 +297,7 @@
                                 </el-tab-pane>
                                 <el-tab-pane>
                                     <span slot="label">
-                                        <el-badge value="0" :max="99" class="item">{{ $t('models.request.internal_notices') }}</el-badge>
+                                        <el-badge value="0" :max="99" class="admin-layout">{{ $t('models.request.internal_notices') }}</el-badge>
                                     </span>
                                 </el-tab-pane>
                             </el-tabs>
@@ -307,13 +307,14 @@
             </el-form>
         </div>
         <ServiceDialog
+            :address="address"
             :conversations="conversations"
             :mailSending="mailSending"
             :managers="model.assignees"
             :providers="model.providers"
             :selectedServiceRequest="selectedServiceRequest"
             :showServiceMailModal="showServiceMailModal"
-            :requestData="selectedRequestIDAndCategory"
+            :requestData="selectedRequestData"
             @close="closeMailModal"
             @send="sendServiceMail"
             v-if="(model.providers && model.providers.length) || (model.assignees && model.assignees.length)"
@@ -398,17 +399,11 @@
                         }, {});
                 }
             },
-            selectedRequestIDAndCategory() {
-                let selectedCategory = this.categories.find((category) => { 
-                    if( category.id == this.model.category_id )
-                        return category;
-                })
-                return {
+            selectedRequestData() {      
+                return {             
+                    tenant: this.model.tenant,
                     service_request_format: this.model.service_request_format,
-                    category: {
-                        id: this.model.category_id,
-                        name: selectedCategory? selectedCategory.name : ""
-                    }
+                    category: (this.model.category.parent_id == null)? this.model.category.name : this.model.category.parentCategory.name + " > " + this.model.category.name
                 }                
             },
             mediaCount() {
@@ -516,10 +511,13 @@
         }
     }
 
-    .item .el-badge__content.is-fixed {
-        top:10px;
-        right:0px;
-        background-color:#6AC06F;
+    .admin-layout .el-badge__content.is-fixed {
+        top: 19px;
+        right: -5px;
+        background-color: #6AC06F;
+        margin-left: 5px;
+        height: 18px;
+        width: 6px;
     }
 
 </style>

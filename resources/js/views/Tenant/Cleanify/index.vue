@@ -3,7 +3,7 @@
         <heading
             :title="$t('models.cleanify.pageTitle')"
             class="custom-heading"
-            icon="el-icon-brush"
+            icon="icon-water"
         />
         <el-row :gutter="20" class="mt15">
             <el-col>

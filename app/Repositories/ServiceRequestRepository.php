@@ -11,6 +11,7 @@ use App\Models\Tenant;
 use App\Models\User;
 use App\Notifications\NewTenantRequest;
 use App\Notifications\RequestCommented;
+use App\Notifications\RequestDue;
 use App\Notifications\RequestMedia;
 use App\Notifications\StatusChangedRequest;
 use Carbon\Carbon;
@@ -334,6 +335,20 @@ class ServiceRequestRepository extends BaseRepository
         foreach ($assignees as $assignee) {
             $conv = $sr->conversationFor($u, $assignee);
             $conv->comment($comment);
+        }
+    }
+
+    /**
+     * @param ServiceRequest $sr
+     */
+    public function notifyDue(ServiceRequest $sr)
+    {
+        $beforeHours = env('REQUEST_DUE_MAIL', 24);
+        $providers = $sr->providers->map(function($p) {
+            return $p->user;
+        });
+        foreach (array_merge($providers->all(), $sr->assignees->all()) as $u) {
+            $u->notify((new RequestDue($sr))->delay($sr->due_date->subHours($beforeHours)));
         }
     }
 

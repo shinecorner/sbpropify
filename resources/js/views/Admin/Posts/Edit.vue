@@ -1,11 +1,11 @@
 <template>
-    <div class="units-edit mb20">
+    <div id="post-edit-view" class="units-edit mb20">
         <heading :title="$t('models.post.edit_title')" icon="ti-user" shadow="heavy" style="margin-bottom: 20px;">
             <edit-actions :saveAction="submit" :deleteAction="deletePost" route="adminPosts"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
-            <el-col :md="12">
-                <el-form :model="model" label-position="top" label-width="192px" ref="form">
+            <el-form :model="model" label-position="top" label-width="192px" ref="form">
+                <el-col :md="12">                
                     <el-card :loading="loading" class="mb20">
                         <el-row :gutter="20">
                             <el-col :lg="8">
@@ -62,30 +62,54 @@
                             </el-col>
                         </el-row>
 
-                        <template v-if="model.pinned">
-                            <el-form-item :label="$t('models.post.title_label')" :rules="validationRules.title"
-                                          prop="title">
-                                <el-input type="text" v-model="model.title"></el-input>
+                        <el-tabs v-if="model.pinned" v-model="activeTab1">
+                            <el-tab-pane :label="$t('models.post.details_title')" name="details">
+                                <el-form-item :label="$t('models.post.title_label')" :rules="validationRules.title"
+                                            prop="title">
+                                    <el-input type="text" v-model="model.title"></el-input>
+                                </el-form-item>
+                                <el-form-item :label="$t('models.post.content')" :rules="validationRules.content"
+                                            prop="content">
+                                    <el-input
+                                        :autosize="{minRows: 5}"
+                                        type="textarea"
+                                        v-model="model.content">
+                                    </el-input>
+                                </el-form-item>
+                                <el-form-item :label="$t('models.post.images')">
+                                    <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
+                                    <div class="mt15" v-if="media.length || (model.media && model.media.length)">
+                                        <media :data="mediaFiles" @deleteMedia="deleteMedia"
+                                            v-if="media.length || (model.media && model.media.length)"></media>
+                                    </div>
+                                </el-form-item>
+                            </el-tab-pane>
+                            <el-tab-pane :label="$t('models.post.comments')" name="comments">
+                                <chat class="edit-post-chat" :id="model.id" size="480px" type="post"/>
+                            </el-tab-pane>
+                        </el-tabs>
+                        
+                        <template v-if="!model.pinned">
+                            <el-form-item :label="$t('models.post.content')" :rules="validationRules.content"
+                                        prop="content">
+                                <el-input
+                                    :autosize="{minRows: 5}"
+                                    type="textarea"
+                                    v-model="model.content">
+                                </el-input>
                             </el-form-item>
-                        </template>
-                        <el-form-item :label="$t('models.post.content')" :rules="validationRules.content"
-                                      prop="content">
-                            <el-input
-                                :autosize="{minRows: 5}"
-                                type="textarea"
-                                v-model="model.content">
-                            </el-input>
-                        </el-form-item>
-                        <el-form-item :label="$t('models.post.images')"
-                        >
-                            <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
-                            <div class="mt15">
-                                <media :data="mediaFiles" @deleteMedia="deleteMedia"
-                                       v-if="media.length || (model.media && model.media.length)"></media>
-                            </div>
-                        </el-form-item>
+                            <el-form-item :label="$t('models.post.images')"
+                            >
+                                <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
+                                <div class="mt15" v-if="media.length || (model.media && model.media.length)">
+                                    <media :data="mediaFiles" @deleteMedia="deleteMedia"
+                                        v-if="media.length || (model.media && model.media.length)"></media>
+                                </div>
+                            </el-form-item>
+                        </template>                        
                     </el-card>
-                    <el-card :loading="loading">
+
+                    <el-card :loading="loading" v-if="!model.pinned">
                         <el-row :gutter="10">
                             <el-col :lg="6">
                                 <el-select @change="resetToAssignList"
@@ -238,55 +262,106 @@
                                 </el-switch>
                             </el-form-item>
                         </el-card>
-                    </template>
-                </el-form>
-            </el-col>
-            <el-col :md="12">
-                <el-card :loading="loading" class="mb20">
-                    <el-row>
-                        <el-col :md="12">
-                            <span class="custom-label">{{$t('models.post.user')}}</span>
-                            <br>
-                            <span v-if="model.user">
-                                <router-link :to="{name: 'adminUsersEdit', params: {id: model.user.id}}">
-                                    {{model.user.name}}
-                                </router-link>
-                            </span>
-                        </el-col>
-                    </el-row>
-                </el-card>
-                <el-card :loading="loading" class="mb20">
-                    <el-row :gutter="20">
-                        <el-col :md="8">
-                            <span class="custom-label">{{$t('models.post.likes')}}</span>
-                            <br>
-                            <span>
-                                {{model.likes_count}}
-                            </span>
-                        </el-col>
-                        <el-col :md="8">
-                            <span class="custom-label">{{$t('models.post.comments')}}</span>
-                            <br>
-                            <span>
-                                {{model.comments_count}}
-                            </span>
-                        </el-col>
-
-                        <el-col :md="8">
-                            <span class="custom-label">{{$t('models.post.published_at')}}</span>
-                            <br>
-                            <span v-if="model.published_at">
-                                    {{model.published_at}}
+                    </template>                
+                </el-col>
+                <el-col :md="12">
+                    <el-card :loading="loading" class="contact-info-card mb20">
+                        <el-row>
+                            <el-col :md="8">
+                                <span class="custom-label">{{$t('models.post.user')}}</span>
+                                <br>
+                                <span v-if="model.user">
+                                    <router-link :to="{name: 'adminUsersEdit', params: {id: model.user.id}}" class="tenant-link">
+                                        <avatar :size="30"
+                                                :src="'/' + model.user.avatar"
+                                                v-if="model.user.avatar"></avatar>
+                                        <avatar :size="28"
+                                                :username="model.user.first_name ? `${model.user.first_name} ${model.user.last_name}`: `${model.user.name}`"
+                                                backgroundColor="rgb(205, 220, 57)"
+                                                color="#fff"
+                                                v-if="!model.user.avatar"></avatar>
+                                        <span>{{model.user.name}}</span>
+                                    </router-link>
                                 </span>
-                            <span v-else>-</span>
-                        </el-col>
-                    </el-row>
-                </el-card>
-                <el-card class="mt15" v-if="model.id">
-                    <div slot="header">{{$t('models.post.comments')}}</div>
-                    <chat :id="model.id" size="480px" type="post"/>
-                </el-card>
-            </el-col>
+                            </el-col>                            
+                            <el-col :md="8">
+                                <span class="custom-label">{{$t('models.post.published_at')}}</span>
+                                <br>
+                                <span class="custom-value" v-if="model.published_at">
+                                        {{this.formatDatetime(model.published_at)}}
+                                    </span>
+                                <span class="custom-value" v-else>-</span>
+                            </el-col>
+                            <el-col :md="8">
+                                <span class="custom-label">{{$t('models.post.comments')}}</span>
+                                <br>
+                                <span class="custom-value">
+                                    {{model.comments_count}}
+                                </span>
+                            </el-col>
+                        </el-row>                    
+                    </el-card>
+                    <el-card :loading="loading" v-if="model.pinned">
+                        <el-row :gutter="10">
+                            <el-col :lg="6">
+                                <el-select @change="resetToAssignList"
+                                           class="custom-select"
+                                           v-model="assignmentType"
+                                >
+                                    <el-option
+                                        :key="type"
+                                        :label="$t(`models.post.assignmentTypes.${type}`)"
+                                        :value="type"
+                                        v-for="(type) in assignmentTypes">
+                                    </el-option>
+                                </el-select>
+                            </el-col>
+                            <el-col :lg="12" :xl="14">
+                                <el-select
+                                    :loading="remoteLoading"
+                                    :placeholder="$t('models.post.placeholders.search')"
+                                    :remote-method  ="remoteSearchBuildings"
+                                    class="custom-remote-select"
+                                    filterable
+                                    remote
+                                    reserve-keyword
+                                    style="width: 100%;"
+                                    v-model="toAssign"
+                                >
+                                    <div class="custom-prefix-wrapper" slot="prefix">
+                                        <i class="el-icon-search custom-icon"></i>
+                                    </div>
+                                    <el-option
+                                        :key="building.id"
+                                        :label="building.name"
+                                        :value="building.id"
+                                        v-for="building in toAssignList"/>
+                                </el-select>
+                            </el-col>
+                            <el-col :lg="6" :xl="4">
+                                <el-button :disabled="!toAssign" @click="attachBuilding" class="full-button"
+                                           icon="ti-save" type="primary">
+                                    {{$t('models.post.assign')}}
+                                </el-button>
+                            </el-col>
+                        </el-row>
+                        <relation-list
+                            :actions="assignmentsActions"
+                            :columns="assignmentsColumns"
+                            :filterValue="model.id"
+                            fetchAction="getPostAssignments"
+                            filter="post_id"
+                            ref="assignmentsList"
+                            v-if="model.id"
+                        />
+                    </el-card>
+
+                    <el-card class="mt15" v-if="model.id && !model.pinned">
+                        <div slot="header">{{$t('models.post.comments')}}</div>
+                        <chat class="edit-post-chat" :id="model.id" size="480px" type="post"/>
+                    </el-card>
+                </el-col>
+            </el-form>
         </el-row>
 
     </div>
@@ -296,19 +371,21 @@
     import Chat from 'components/Chat2';
     import EditActions from 'components/EditViewActions';
     import PostsMixin from 'mixins/adminPostsMixin';
+    import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
     import RelationList from 'components/RelationListing';
     import {displayError, displaySuccess} from "helpers/messages";
     import {mapActions} from 'vuex';
-
+    import {Avatar} from 'vue-avatar'
 
     const mixin = PostsMixin({mode: 'edit'});
 
     export default {
-        mixins: [mixin],
+        mixins: [mixin, FormatDateTimeMixin],
         components: {
             Chat,
             EditActions,
-            RelationList
+            RelationList,
+            Avatar
         },
         data() {
             return {
@@ -339,7 +416,8 @@
                         type: 'danger',
                         onClick: this.notifyProviderUnassignment
                     }]
-                }]
+                }],
+                activeTab1: "details"
             }
         },
         methods: {
@@ -442,20 +520,53 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scope>
     .custom-select {
         display: block;
     }
 
     .custom-label {
         color: #6AC06F;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    .custom-value {        
+        line-height: 28px;
     }
 
     .mb20 {
         margin-bottom: 20px;
     }
+    
+    .contact-info-card {
+        .el-row {
+            margin-bottom: 22px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }        
+    }
 
-    .el-card .chat {
-        margin: -20px;
+    .tenant-link {
+        display: flex;
+        align-items: center;
+        color: #6AC06F;
+        text-decoration: none;
+
+        & > span {
+            margin-left: 5px;
+        }
     }
 </style>
+
+<style>
+
+    #post-edit-view .el-card__body .el-form-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .edit-post-chat .add-comment {
+        margin-bottom: 0 !important;
+    }
+</style>    

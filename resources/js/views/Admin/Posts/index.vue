@@ -96,24 +96,28 @@
                         onChange: this.listingSelectChangedNotify
                     }
                 }, {
-                    width: 170,
-                    actions: [{
-                        type: 'primary',
-                        title: this.$t('models.post.show'),
-                        onClick: this.show,
-                        permissions: [
-                            this.$permissions.view.post
-                        ],
-                        hidden: this.checkPostType
-                    }, {
-                        type: 'success',
-                        title: this.$t('models.post.edit'),
-                        onClick: this.edit,
-                        permissions: [
-                            this.$permissions.update.post
-                        ],
-                        hidden: this.checkPostType
-                    }]
+                    // width: 170,
+                    width: 85,
+                    actions: [
+                        // {
+                        //     type: 'primary',
+                        //     title: this.$t('models.post.show'),
+                        //     onClick: this.show,
+                        //     permissions: [
+                        //         this.$permissions.view.post
+                        //     ],
+                        //     hidden: this.checkPostType
+                        // }, 
+                        {
+                            type: 'success',
+                            title: this.$t('models.post.edit'),
+                            onClick: this.edit,
+                            permissions: [
+                                this.$permissions.update.post
+                            ],
+                            hidden: this.checkPostType
+                        }
+                    ]
                 }],
                 post: {},
                 postDetailsVisible: false,
@@ -168,11 +172,19 @@
                         data: [],
                         fetch: this.getFilterBuildings
                     },
+                    {
+                        name: this.$t('filters.tenant'),
+                        type: 'remote-select',
+                        key: 'tenant_id',
+                        data: [],
+                        remoteLoading: false,
+                        fetch: this.fetchRemoteTenants
+                    },
                 ]
             }
         },
         methods: {
-            ...mapActions(['changePostPublish', 'updatePost', 'getBuildings']),
+            ...mapActions(['changePostPublish', 'updatePost', 'getBuildings', 'getTenants']),
             async getFilterBuildings() {
                 this.loading = true;
                 const buildings = await this.getBuildings({
@@ -241,7 +253,17 @@
                         name: this.$t(`models.post.${property}.${this.postsConstants[property][id]}`)
                     };
                 });
-            }
+            },
+            async fetchRemoteTenants(search) {
+                const tenants = await this.getTenants({get_all: true, search});
+
+                return tenants.data.map((tenant) => {
+                    return {
+                        name: `${tenant.first_name} ${tenant.last_name}`,
+                        id: tenant.id
+                    };
+                });
+            },
         }
     }
 </script>

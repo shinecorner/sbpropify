@@ -7,6 +7,13 @@ export default {
     it: 'IT',
     de: 'DE',
     yes: 'Ja',
+    timestamps:{
+      hours: 'Stunden',  
+      days: 'Tage',
+      weeks: 'Wochen',
+      months: 'Monate',      
+      years: 'Jahre'     
+    },
     chooseLanguage:'Sprache auswählen',
     languages: {
         fr: 'Français',
@@ -377,6 +384,7 @@ export default {
             save: 'Speichern',
             saved: "Einheit gespeichert",
             floor: 'Stockwerk',
+            sq_meter: 'Quadratmeter',
             room_no: 'Anzahl Zimmer',
             monthly_rent: 'Monatsmiete',
             building_search: 'Bitte nach einer Liegenschaft suchen',
@@ -485,6 +493,7 @@ export default {
             pinned_to: 'Hervorheben bis',
             comments: 'Kommentare',
             images: 'Fotos und Dokumente',
+            details_title: "Vorschau",
             placeholders: {
                 buildings: "Liegenschaft wählen",
                 search: 'Suche',
@@ -1028,8 +1037,8 @@ export default {
             },
             sidebar: {
                 dashboard: 'Dashboard',
-                myTenancy: 'Mein Mieterdossier',
-                myPersonalData: 'Persönlichen Angaben',
+                myTenancy: 'Mein Dossier',
+                myPersonalData: 'Persönliche Angaben',
                 myRecentContract: 'Mietvertrag',
                 myDocuments: 'Dokumentation',
                 myContactPersons: 'Kontaktpersonen',
@@ -1054,7 +1063,7 @@ export default {
                 }
             },
             comment: {
-                updateOrSave: '{update} oder drücke {esc} um {cancel}',
+                updateOrCancel: '{update} oder drücke {esc} um {cancel}',
                 update: 'bearbeiten',
                 esc: 'ESC',
                 cancel: 'abzubrechen',

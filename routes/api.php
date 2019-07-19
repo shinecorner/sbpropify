@@ -43,11 +43,13 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     // Tenants
     Route::get('/tenants', 'TenantAPIController@index')->name('tenants');
+    Route::get('/tenants/latest', 'TenantAPIController@latest')->name('tenants.latest');
     Route::get('/tenants/me', 'TenantAPIController@showLoggedIn')->name('tenants.me');
     Route::get('/tenants/{id}', 'TenantAPIController@show')->name('tenants.show');
     Route::get('/tenants/{id}/statistics', 'StatisticsAPIController@tenantStatistics')->name('tenants.statistics.show');
 
     Route::post('/tenants', 'TenantAPIController@store')->name('tenants.store');
+    Route::post('/addReview', 'TenantAPIController@addReview');
     Route::post('/tenants/{id}/media', 'MediaAPIController@tenantUpload')->name('tenants.media.upload');
     Route::post('/tenants/{id}/send-credentials', 'TenantAPIController@sendCredentials');
     Route::post('/tenants/{id}/download-credentials', 'TenantAPIController@downloadCredentials');
@@ -73,6 +75,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     // Buildings
     Route::get('/buildings', 'BuildingAPIController@index')->name('buildings');
+    Route::get('/buildings/latest', 'BuildingAPIController@latest')->name('buildings.latest');
     Route::get('/buildings/{id}', 'BuildingAPIController@show')->name('buildings.show');
     Route::get('/buildings/{id}/statistics', 'StatisticsAPIController@buildingStatistics')->name('buildings.statistics.show');
 
@@ -221,7 +224,9 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::resource('translations', 'TranslationAPIController');
     Route::get('/admin/statistics', 'StatisticsAPIController@adminStats');
     Route::get('/admin/chartRequestByCreationDate', 'StatisticsAPIController@chartRequestByCreationDate');
+    Route::get('/admin/chartRequestByColumn', 'StatisticsAPIController@chartRequestByColumn');
     Route::get('/admin/chartRequestByStatus', 'StatisticsAPIController@chartRequestByStatus');
+    Route::get('/admin/chartRequestByRequestStatus', 'StatisticsAPIController@chartRequestByRequestStatus');
     Route::get('/admin/chartRequestByCategory', 'StatisticsAPIController@chartRequestByCategory');
 });
 

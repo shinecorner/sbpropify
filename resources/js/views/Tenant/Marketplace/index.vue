@@ -1,6 +1,6 @@
 <template>
     <div class="tenant-marketplace">
-        <heading icon="ti-shopping-cart" title="Marketplace">
+        <heading icon="icon-basket" title="Marketplace">
             <div slot="description" class="description">Start selling things you don't need anymore.</div>
             <el-button type="primary" icon="el-icon-circle-plus-outline" round @click="dialogs.addProductForm.visible = true">Add product</el-button>
             <el-dialog top="0" width="100%" :class="['el-dialog-add-product-form-wrapper', {'is-md': el.is.md}]" custom-class="el-dialog-add-product-form" title="Add product" :visible.sync="dialogs.addProductForm.visible" :fullscreen="dialogs.addProductForm.fullscreen" append-to-body>
@@ -119,6 +119,7 @@ Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interd
     import Placeholder from 'components/Placeholder'
     import Heading from 'components/Heading'
     import StickyHeading from 'components/StickyHeading'
+    import {displayError, displaySuccess} from 'helpers/messages'
     import ProductCard from 'components/tenant/MarketplaceProductCard'
     import AddProductForm from 'components/tenant/MarketplaceAddProductForm'
     import ProductDetails from 'components/tenant/MarketplaceProductDetails'
@@ -230,11 +231,8 @@ Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interd
                     this.products = data
 
                     this.$el.scrollTop = 0
-                } catch (err) {
-                    this.$notify.error({
-                        title: 'Oops!',
-                        message: err
-                    })
+                } catch (error) {
+                    displayError(error)
                 } finally {
                     this.loading = false
                 }
@@ -272,7 +270,7 @@ Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interd
                         }
                     })
                 })
-         
+
                 this.$refs['add-product-form'].submit()
             },
             openProduct (product) {
@@ -499,7 +497,7 @@ Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interd
 
         .heading {
             margin-bottom: 24px;
-            
+
             .description {
                 color: darken(#fff, 40%);
             }
@@ -510,7 +508,7 @@ Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interd
             -webkit-backface-visibility: hidden;
             -webkit-perspective: 1000;
             -webkit-overflow-scrolling: touch;
-            
+
             :global(.el-card__body) {
                 padding: 8px;
                 min-height: 256px;
@@ -556,7 +554,7 @@ Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interd
                         color: darken(#fff, 40%);
                     }
                 }
-                
+
                 .product {
                     cursor: pointer;
                     align-self: flex-start;
@@ -567,7 +565,7 @@ Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interd
                         box-shadow: 0 1px 3px transparentize(#000, .88),
                                     0 1px 2px transparentize(#000, .76);
                     }
-                } 
+                }
                 .el-pagination {
                     width: 100%;
                     display: flex;
