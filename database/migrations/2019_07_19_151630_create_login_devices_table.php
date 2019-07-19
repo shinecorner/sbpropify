@@ -20,6 +20,7 @@ class CreateLoginDevicesTable extends Migration
             $table->integer('mobile')->unsigned()->default(0);
             $table->integer('desktop')->unsigned()->default(0);
             $table->integer('tablet')->unsigned()->default(0);
+            $table->date('created_by');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('tenant_id')->references('id')->on('tenants');
         });
