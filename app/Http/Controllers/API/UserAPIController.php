@@ -79,19 +79,6 @@ class UserAPIController extends AppBaseController
         $this->userRepository->pushCriteria(new FilterByRolesCriteria($request));
         $this->userRepository->pushCriteria(new LimitOffsetCriteria($request));
 
-        $reqCount = $request->get('req_count');
-        if ($reqCount) {
-            $this->userRepository
-                ->withCount([
-                    'requestsReceived',
-                    'requestsInProcessing',
-                    'requestsAssigned',
-                    'requestsDone',
-                    'requestsReactivated',
-                    'requestsArchived',
-              ]);
-        }
-
         $getAll = $request->get('get_all', false);
         if ($getAll) {
             $users = $this->userRepository->get();
