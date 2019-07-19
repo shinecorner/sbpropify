@@ -2,7 +2,7 @@
     <div>
         <heading class="custom-heading" icon="ti-home" title="Dashboard" shadow="heavy" />
         <el-row :gutter="20" class="dashboard" style="margin-bottom: 24px;" type="flex">
-            <el-col>
+            <el-col class="dashboard-tabpanel">
                 <el-tabs type="border-card">
                     <el-tab-pane :label="$t('menu.requests')">
                         <el-row style="margin-bottom: 24px;" type="flex">
@@ -13,10 +13,7 @@
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
                                 <el-card class="chart-card" :header="$t('dashboard.requests_by_creation_date')">
-                                    <chart-stacked-column 
-                                                :yData="chartDataTotalReqByCreationDate.yData" 
-                                                :xData="chartDataTotalReqByCreationDate.xData">
-                                    </chart-stacked-column>                                    
+                                    <chart-stacked-column type="request_by_creation_date"></chart-stacked-column>
                                 </el-card>
                             </el-col>                                                        
                          </el-row>   
@@ -96,11 +93,7 @@
         data() {
             return {
                 totalRequest: 0,
-                avgReqDuration: '',
-                chartDataTotalReqByCreationDate: {                                        
-                    yData: [],
-                    xData: []
-                },
+                avgReqDuration: '',                
                 chartDataReqByStatus: {
                     xData: [],
                     yData: []
@@ -114,10 +107,7 @@
                     yData: []
                 },
                 chartOptionsTotalReqByCreationDate: {},
-                reqStatusCount: {
-                    data: [],
-                    labels: []
-                },
+                reqStatusCount: {},
                 statistics: [{
                     icon: 'ti-shopping-cart',
                     color: '#f06292',
@@ -159,29 +149,23 @@
                 return axios.get('admin/statistics')
                 .then(function (response) { 
                     
-                    that.reqStatusCount.data = response.data.data.requests_per_status.data;
-                    that.reqStatusCount.labels = response.data.data.requests_per_status.labels;
+                    that.reqStatusCount = response.data.data.requests_per_status;                    
 
                     that.totalRequest = response.data.data.total_requests;
                     that.avgReqDuration = response.data.data.avg_request_duration;
                     that.chartDataReqByStatus.xData = response.data.data.requests_per_status.labels.map(function(e){return that.$t('models.request.status.'+e)});
                     that.chartDataReqByStatus.yData = response.data.data.requests_per_status.data;
                     
-                    
-                    
                     that.chartDataReqByCategory.xData = response.data.data.requests_per_category.labels;
-                    that.chartDataReqByCategory.yData = response.data.data.requests_per_category.data;
-                    
-                    that.chartDataTotalReqByCreationDate.yData = response.data.data.requests_per_day_ydata;
-                    that.chartDataTotalReqByCreationDate.xData = response.data.data.requests_per_day_xdata;
+                    that.chartDataReqByCategory.yData = response.data.data.requests_per_category.data;                                        
                     
                 }).catch(function (error) {
                     console.log(error);
                 })
-            }           
+            },            
         },
         created(){
-            this.getReqStatastics();
+            this.getReqStatastics();            
         }
 
          
@@ -192,4 +176,135 @@
     .custom-heading {
         margin-bottom: 2em;
     }
+    .dashboard{
+        padding: 5px;
+    }
+</style>
+<style lang="scss">
+.dashboard-tabpanel{
+    .el-tabs--border-card > .el-tabs__header .el-tabs__item{
+        flex-basis: 0;
+        -webkit-box-flex: 1;    
+        flex-grow: 1;
+        text-align: center;
+        color: #495057;    
+        cursor: pointer;    
+        font-weight:400;    
+        -webkit-box-align: center;
+        align-items: center;
+        text-align: center;
+        &.is-active, &:hover{
+            background: #6AC06F;
+            border-radius: 120px;
+            border-right-color: none;
+            border-left-color: none;
+            -ms-flex-positive: 1;
+            color: #fff !important;
+            transition: background-color .3s ease,color .3s ease !important;
+        }
+    }
+    .el-tabs__nav {
+        float: none;
+        text-align: center;
+        border-radius: 120px;
+        background: #fff;
+        padding: .75rem;    
+        display: flex;
+        flex-wrap: wrap;
+        width: 70%;
+        margin: 1.5rem 15%
+    }
+    .el-tabs--border-card{
+        background:none;
+    }
+    .el-tabs--border-card{
+        border: none;
+        background: none;
+        box-shadow: none;
+    }
+    .el-tabs--border-card > .el-tabs__header{
+        border-bottom: none !important;
+        background: none !important;    
+    }
+    .chart-card{
+        height: 420px;
+    }
+}
+.chart-card .el-card__body{
+    padding: 0 0 0 0;
+}
+.chart-filter{
+    background-color: #fbfbfb; 
+    border-bottom: 1px solid #e1e5eb; 
+    padding: .5rem .5rem;
+}
+.dashboard .apexcharts-menu-icon {
+    margin-top: -55px;
+    margin-right: 10px;
+}
+
+.dashboard .apexcharts-menu.open{    
+    margin-top: -20px;
+    margin-right: 5px;
+}
+.dashboard .stackchart .apexcharts-menu-icon{
+    margin-top: -170px;
+}
+.dashboard .stackchart .apexcharts-menu.open{
+    margin-top: -79px;
+}
+.dashboard .box-card-count{
+    .el-card__body{
+        height: 100%;
+    }
+    .total-box-card-header{
+    clear: both;
+    padding: 10px 20px;
+    opacity: 0.5;
+    text-transform: uppercase;
+    border-bottom: none;
+    box-sizing: border-box;
+  }  
+  .total-box-card-body{
+    clear: both;
+    padding: 10px 20px 10px 20px;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    text-align: left;
+    float: left;
+  }
+  .el-divider--horizontal{
+    margin: 0 0;
+  }
+}
+.dashboard .box-card{ 
+    border: none;
+    border-bottom: 4px solid transparent;  
+    
+    .el-card__header {        
+        padding: 10px 20px;        
+        opacity: 0.5;     
+        text-transform: uppercase;        
+        border-bottom: none;
+    }
+    .box-card-body{
+        display: flex;        
+        .box-card-count{
+            padding: 10px 20px 10px 20px;
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+            text-align: left;            
+            float: left;
+        }
+        .box-card-progress{            
+            float: left;
+            margin-left: auto;
+            padding: 0 15px 0 0;
+            position: relative;
+            top: -10px;
+        }
+    }
+}  
 </style>

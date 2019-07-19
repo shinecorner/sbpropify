@@ -34,6 +34,12 @@ class PropertyManagerTransformer extends BaseTransformer
         ];
 
         if ($model->relationExists('user')) {
+            $response['requests_received_count'] = $model->user->requests_received_count ?? 0;
+            $response['requests_in_processing_count'] = $model->user->requests_in_processing_count ?? 0;
+            $response['requests_assigned_count'] = $model->user->requests_assigned_count ?? 0;
+            $response['requests_done_count'] = $model->user->requests_done_count ?? 0;
+            $response['requests_reactivated_count'] = $model->user->requests_reactivated_count ?? 0;
+            $response['requests_archived_count'] = $model->user->requests_archived_count ?? 0;
             $response['user'] = (new UserTransformer)->transform($model->user);
         }
 

@@ -10,6 +10,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Jenssegers\Agent\Agent;
 
 /**
  * Class AuthController
@@ -116,6 +118,7 @@ class AuthController extends Controller
     */
     public function login(Request $request)
     {
+
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
@@ -149,6 +152,7 @@ class AuthController extends Controller
         }
 
         $token->save();
+        $this->saveLog($user);
 
         return response()->json([
             'access_token' => $tokenResult->accessToken,
@@ -157,6 +161,31 @@ class AuthController extends Controller
                 $tokenResult->token->expires_at
             )->toDateTimeString()
         ]);
+    }
+
+    protected function saveLog($user)
+    {
+        // @TODO this is tmp for testing purpose
+        $agent = new Agent();
+        $loginDetails = [
+            'time' => now()->toDateTimeString(),
+            'is_phone' => $agent->isPhone(),
+            'is_mobile' => $agent->isMobile(),
+            'is_desktop' => $agent->isDesktop(),
+            'is_tablet' => $agent->isTablet(),
+            'is_robot' => $agent->isRobot(),
+            'user' => $user->only('id', 'name', 'email')
+        ];
+
+        $tmpPathName = 'login_details.txt';
+
+        $oldContent = [];
+        if (Storage::disk('local')->exists($tmpPathName)) {
+            $oldContent  = Storage::disk('local')->get($tmpPathName);
+            $oldContent = json_decode($oldContent, JSON_OBJECT_AS_ARRAY);
+        }
+        $oldContent[] = $loginDetails;
+        Storage::disk('local')->put($tmpPathName, json_encode($oldContent, JSON_PRETTY_PRINT));
     }
 
     /**

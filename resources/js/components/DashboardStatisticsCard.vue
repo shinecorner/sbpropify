@@ -1,15 +1,29 @@
 <template>
     <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
         <el-col :span="6">
-            <!--<el-card class="box-card">
-                <div slot="header" class="clearfix">
-                  <span>Card name</span>
-                  <el-button style="float: right; padding: 3px 0" type="text">Operation button</el-button>
-                </div>
-                <div v-for="o in 20" :key="o" class="text item">
-                  {{'List item ' + o }}
-                </div>
-            </el-card>-->
+            <el-card class="box-card-count" style="height: 91%">
+            		<div style="height: 50%">
+		              <div class="total-box-card-header">
+		                <span>{{ $t('models.building.requestStatuses.total') }}</span>
+		              </div>
+		              <div class="total-box-card-body">
+		                  <div class="box-card-count">
+		                      {{ totalRequest }}
+		                  </div>        
+		              </div>
+		            </div>  
+                            <el-divider style="margin: 0;"></el-divider>
+		            <div style="height: 50%">
+		              <div class="total-box-card-header clearfix ">
+		                <span>{{ $t('dashboard.average_request_duration') }}</span>
+		              </div>
+		              <div class="total-box-card-body">
+		                  <div class="box-card-count">
+		                      {{ avgReqDuration }}
+		                  </div>        
+		              </div>
+ 		            </div>  
+            </el-card>            
         </el-col>
         <el-col :span="18">
             <el-row :gutter="20">
@@ -23,7 +37,7 @@
                                 {{ count }}
                             </div>
                             <div class="box-card-progress">
-                                <el-progress type="circle" :percentage="25" :width="60" :color="getRequestStatusColor(data.labels[index], 'name')" :stroke-width="4"></el-progress>
+                                <el-progress type="circle" :percentage="data.tag_percentage[index]" :width="60" :color="getRequestStatusColor(data.labels[index], 'name')" :stroke-width="4"></el-progress>
                             </div>
                         </div>
                     </el-card>

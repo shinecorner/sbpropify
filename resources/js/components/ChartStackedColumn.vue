@@ -7,20 +7,24 @@
                     <el-radio-button :label="$t('timestamps.months')"></el-radio-button>                                        
                 </el-radio-group>
                 <el-date-picker
-                    v-model="start_date"
+                    v-model="startDate"
                     type="date"
+                    format="dd.MM.yyyy"
+                    value-format="dd.MM.yyyy"
                 >
                 </el-date-picker>
                 <el-date-picker
-                    v-model="end_date"
+                    v-model="endDate"
                     type="date"
+                    format="dd.MM.yyyy"
+                    value-format="dd.MM.yyyy"
                 >
                 </el-date-picker>
             </el-col>
         </el-row>    
         <el-row style="margin-bottom: 24px;" type="flex">
             <el-col :span="24">
-                <apexchart width="100%" height="310" type="bar" :options="chartOptions" :series="series"></apexchart>
+                <apexchart ref="stackColumnChart" width="100%" height="310" type="bar" :options="chartOptions" :series="series"></apexchart>
             </el-col>
         </el-row>        
     </div>
@@ -29,29 +33,29 @@
 import VueApexCharts from 'vue-apexcharts'
 import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
 import {format} from 'date-fns'
+import axios from '@/axios';
 
 export default {
   mixins: [FormatDateTimeMixin],  
   components: {'apexchart': VueApexCharts},
   props: {
-            xData: {
-                type: Array,
+            type: {
+                type: String,
                 required: true
-            },
-            yData: {
-                type: Array,
-                required: true
-            }
+            }            
     },  
     data() {
         return {        
-            radio1: 'Day',
-            start_date: formatDatetime(new Date()),
-            end_date: formatDatetime(new Date()),
+            radio1: '',
+            startDate: '',
+            endDate: '',
+            xData: [],
+            yData: []
         }
     },    
     computed: {    
-        series: function(){        
+        series: function(){  
+        		console.log(this.yData);
             return this.yData;
         },
         chartOptions: function(){
@@ -102,8 +106,45 @@ export default {
                 enabled: false,
             }
           }
+        }        
+      },
+    methods: {
+    	changeStartDate(type){
+    		
+    	},
+      fetchData(){
+            let that = this;                                               
+						let url = '';						
+						if(this.type === 'request_by_creation_date'){
+							url = 'admin/chartRequestByCreationDate';
+						}
+            return axios.get(url,{
+            	params: {
+    						start_date: that.startDate,
+    						end_date: that.endDate
+						  }
+            })
+            .then(function (response) {
+                that.yData = response.data.data.requests_per_day_ydata;
+                that.xData = response.data.data.requests_per_day_xdata;
+
+            }).catch(function (error) {
+                console.log(error);
+            })
         }
-        
-      }
+    },
+    created(){
+        if(this.type === 'request_by_creation_date'){
+            this.fetchData();
+        }
+    },
+    watch:{
+        startDate: function (val) {
+      		this.fetchData();
+	    	},
+	    	endDate: function (val) {
+      		this.fetchData();
+	    	}
+    }
 }
 </script>

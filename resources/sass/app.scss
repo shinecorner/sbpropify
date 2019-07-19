@@ -74,61 +74,6 @@ body {
     padding: 0 20px;
 }
 
-.dashboard{
-    padding: 5px;
-}
-.dashboard-tabpanel .el-tabs--border-card > .el-tabs__header .el-tabs__item{
-    flex-basis: 0;
-    -webkit-box-flex: 1;
-    flex-grow: 1;
-    text-align: center;
-    color: #495057;
-    cursor: pointer;
-    font-weight:400;
-    -webkit-box-align: center;
-    align-items: center;
-    text-align: center;
-    &.is-active, &:hover{
-        background: #6AC06F;
-        border-radius: 120px;
-        border-right-color: none;
-        border-left-color: none;
-        -ms-flex-positive: 1;
-        color: #fff !important;
-        transition: background-color .3s ease,color .3s ease !important;
-    }
-}
-
-.dashboard-tabpanel .el-tabs__nav {
-    float: none;
-    text-align: center;
-    border-radius: 120px;
-    background: #fff;
-    padding: .75rem;
-    display: flex;
-    flex-wrap: wrap;
-    width: 70%;
-    margin: 1.5rem 15%
-}
-
-.dashboard-tabpanel .el-tabs--border-card{
-    background:none;
-}
-
-.dashboard-tabpanel .el-tabs--border-card{
-    border: none;
-    background: none;
-    box-shadow: none;
-}
-.dashboard-tabpanel .el-tabs--border-card > .el-tabs__header{
-    border-bottom: none !important;
-    background: none !important;
-
-}
-.dashboard-tabpanel .chart-card{
-    height: 420px;
-}
-
 .swal2-popup .swal2-actions{
     opacity: 0;
     transform: scale(0);
@@ -173,55 +118,4 @@ body {
 .df{
     display: flex;
     flex-direction: column;
-}
-.chart-card .el-card__body{
-    padding: 0 0 0 0;
-}
-.chart-filter{
-    background-color: #fbfbfb; 
-    border-bottom: 1px solid #e1e5eb; 
-    padding: .5rem .5rem;
-}
-.dashboard .apexcharts-menu-icon {
-    margin-top: -55px;
-    margin-right: 10px;
-}
-
-.dashboard .apexcharts-menu.open{    
-    margin-top: -20px;
-    margin-right: 5px;
-}
-.dashboard .stackchart .apexcharts-menu-icon{
-    margin-top: -170px;
-}
-.dashboard .stackchart .apexcharts-menu.open{
-    margin-top: -79px;
-}
-.dashboard .box-card{ 
-    border: none;
-    border-bottom: 4px solid transparent;    
-    .el-card__header {        
-        padding: 10px 20px;        
-        opacity: 0.5;     
-        text-transform: uppercase;        
-        border-bottom: none;
-    }
-    .box-card-body{
-        display: flex;        
-        .box-card-count{
-            padding: 10px 20px 10px 20px;
-            font-size: 2rem;
-            font-weight: 700;
-            line-height: 1;
-            text-align: left;            
-            float: left;
-        }
-        .box-card-progress{            
-            float: left;
-            margin-left: auto;
-            padding: 0 15px 0 0;
-            position: relative;
-            top: -10px;
-        }
-    }
 }
