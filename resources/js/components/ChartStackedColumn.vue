@@ -2,9 +2,9 @@
     <div class="stackchart">
         <el-row type="flex" class="chart-filter">
             <el-col :span="24">
-                <el-radio-group v-model="radio1">
-                    <el-radio-button :label="$t('timestamps.days')"></el-radio-button>
-                    <el-radio-button :label="$t('timestamps.months')"></el-radio-button>                                        
+                <el-radio-group v-model="period">                
+                    <el-radio-button label="day">{{$t('timestamps.days')}}</el-radio-button>
+                    <el-radio-button label="month">{{$t('timestamps.months')}}</el-radio-button>                                        
                 </el-radio-group>
                 <el-date-picker
                     v-model="startDate"
@@ -46,7 +46,7 @@ export default {
     },  
     data() {
         return {        
-            radio1: '',
+            period: 'day',
             startDate: '',
             endDate: '',
             xData: [],
@@ -121,7 +121,8 @@ export default {
             return axios.get(url,{
             	params: {
     						start_date: that.startDate,
-    						end_date: that.endDate
+    						end_date: that.endDate,
+    						period: that.period
 						  }
             })
             .then(function (response) {
@@ -143,6 +144,9 @@ export default {
       		this.fetchData();
 	    	},
 	    	endDate: function (val) {
+      		this.fetchData();
+	    	},
+	    	period: function (val) {
       		this.fetchData();
 	    	}
     }
