@@ -307,4 +307,8 @@
     #service-attach-modal .el-collapse {
         border-top: none;
     }
+
+    #service-attach-modal .el-tabs__header{
+        margin-bottom: 0;
+    }
 </style>
