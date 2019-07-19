@@ -76,31 +76,25 @@ export const displaySuccess = async (resp) => {
             title: $i18n.t(resp.message)
         });*/
 
-        const hideOkButton = () =>{
-            console.log('Ready to hide the button');
+        const toggleModal = () =>{
+            $swal.fire(
+                {
+                    title: '',
+                    text: $i18n.t(resp.message),
+                    type: 'success'
+                },
+            );
 
             setTimeout(()=> {
-                let ModalOkButton = document.querySelector('.swal2-actions');
-                // console.log(ModalOkButton);
-
-                ModalOkButton.classList.add('showButton');
-
-            }, 800);
+                $swal.close();
+            }, 900);
         };
 
 
-        $swal.fire(
-            {
-                title: '',
-                text: $i18n.t(resp.message),
-                type: 'success'
-            },
-        ).then(()=>{
-            // console.log('Ready to hide the button');
-        });
 
 
-        hideOkButton();
+
+        toggleModal();
 
 
 
