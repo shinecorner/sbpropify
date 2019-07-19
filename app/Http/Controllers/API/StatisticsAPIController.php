@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
 use App\Models\Building;
+use App\Models\LoginDevice;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestCategory;
 use App\Models\Tenant;
@@ -464,7 +465,9 @@ class StatisticsAPIController extends AppBaseController
 
         // @TODO improve if need
         $columnValues = constant($class . "::" . ucfirst($column));
-        $response = $this->formatForDonutChart($statistics, $column, $columnValues, $table);
+
+        $includePercentage = ('service_requests' == $table) ? true : false;
+        $response = $this->formatForDonutChart($statistics, $column, $columnValues, $includePercentage);
 
         $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
@@ -504,37 +507,69 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     * @return mixed
+     */
+    protected function chartLoginDevice()
+    {
+        $loginDevices = LoginDevice::get(['mobile', 'desktop', 'tablet']);
+        $mobileLoginCount = $loginDevices->where('mobile', 1)->count();
+        $desktopLoginCount = $loginDevices->where('desktop', 1)->count();
+        $tabletLoginCount = $loginDevices->where('tablet', 1)->count();
+
+        $statistics = collect([
+            [
+                'login' => 1,
+                'count' => $desktopLoginCount,
+            ],
+            [
+                'login' => 2,
+                'count' => $tabletLoginCount,
+            ],
+            [
+                'login' => 3,
+                'count' => $mobileLoginCount,
+            ],
+        ]);
+        $values = [
+            1 => 'Desktop',
+            2 => 'Tablet',
+            3 => 'mobile',
+        ];
+        
+        return $this->formatForDonutChart($statistics, 'login', $values, true);
+    }
+
+    /**
      * @param $statistics
      * @param $column
      * @param $columnValues
-     * @param null $table
+     * @param bool $includePercentage
      * @return mixed
      */
-    protected function formatForDonutChart($statistics, $column, $columnValues, $table = null)
+    protected function formatForDonutChart($statistics, $column, $columnValues, $includePercentage = false)
     {
         $existingStatuses = $statistics->pluck($column)->all();
         foreach ($columnValues as $value => $__) {
             if (! in_array($value, $existingStatuses)) {
-                $stat = new \stdClass;
-                $stat->{$column} = $value;
-                $stat->count = 0;
+                $stat[$column] = $value;
+                $stat['count'] = 0;
                 $statistics->push($stat);
             }
         }
 
         $response['labels'] = $statistics->map(function($el) use ($columnValues, $column) {
-            return $columnValues[$el->{$column}];
+            return $columnValues[$el[$column]];
         });
 
         $response['ids'] = $statistics->map(function($el) use ($columnValues, $column) {
-            return $el->{$column};
+            return $el[$column];
         });
 
         $response['data'] = $statistics->map(function($el) {
-            return $el->count;
+            return $el['count'];
         });
 
-        if ('service_requests' == $table) {
+        if ($includePercentage) {
             $sum = $response['data']->sum();
             $response['tag_percentage'] = $this->getTagPercentage($statistics, $sum);
         }
@@ -554,7 +589,7 @@ class StatisticsAPIController extends AppBaseController
         }
         
         $tagPercentages = $rsPerStatus->map(function($el) use ($sum) {
-            return round($el->count  * 100 / $sum);
+            return round($el['count']  * 100 / $sum);
         });
 
         $sumPercentage = $tagPercentages->sum();
@@ -562,7 +597,7 @@ class StatisticsAPIController extends AppBaseController
         if ($sumPercentage != 100) {
             // @TODO improve this logic if need for make round max correct way
             $diff = $rsPerStatus->map(function($el, $index) use ($sum, $tagPercentages) {
-                return $el->count  * 100 / $sum - $tagPercentages[$index];
+                return $el['count']  * 100 / $sum - $tagPercentages[$index];
             });
             $diff = $diff->sort();
 
