@@ -471,7 +471,7 @@ export default {
         },
         post: {
             title: 'Pinnwand',
-            title_label: 'Anrede',
+            title_label: 'Betreff',
             content: 'Inhalt',
             preview: 'Vorschau',
             add: 'Nachricht hinzufügen',
