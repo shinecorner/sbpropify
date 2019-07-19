@@ -492,6 +492,7 @@ export default {
             pinned_to: 'Pinned to',
             comments: 'Comments',
             images: 'Images',
+            details_title: "Details",
             placeholders: {
                 buildings: "Choose buildings",
                 search: 'Search',

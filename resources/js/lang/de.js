@@ -492,6 +492,7 @@ export default {
             pinned_to: 'Hervorheben bis',
             comments: 'Kommentare',
             images: 'Fotos und Dokumente',
+            details_title: "Vorschau",
             placeholders: {
                 buildings: "Liegenschaft wählen",
                 search: 'Suche',
