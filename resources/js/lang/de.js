@@ -489,7 +489,7 @@ export default {
             unpublish: 'Unpublish',
             buildings: 'Liegenschaften',
             pinned: 'Ankündigung',
-            notify_email: 'Per E-Mail benachrichtigen',
+            notify_email: 'Mieter benachrichtigen',
             pinned_to: 'Hervorheben bis',
             comments: 'Kommentare',
             images: 'Fotos und Dokumente',
