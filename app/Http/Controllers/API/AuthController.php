@@ -178,6 +178,8 @@ class AuthController extends Controller
             'user_id' => $user->id,
             'tenant_id' => $user->tenant->id ?? null
         ];
+        $user->last_login_at = now();
+        $user->save();
         LoginDevice::create($data);
     }
 

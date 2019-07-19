@@ -535,7 +535,7 @@ class StatisticsAPIController extends AppBaseController
             2 => 'Tablet',
             3 => 'mobile',
         ];
-        
+
         return $this->formatForDonutChart($statistics, 'login', $values, true);
     }
 
