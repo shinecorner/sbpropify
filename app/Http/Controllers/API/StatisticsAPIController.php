@@ -549,6 +549,10 @@ class StatisticsAPIController extends AppBaseController
      */
     protected function getTagPercentage($rsPerStatus, $sum)
     {
+        if (0 == $sum) {
+            return 0;
+        }
+        
         $tagPercentages = $rsPerStatus->map(function($el) use ($sum) {
             return round($el->count  * 100 / $sum);
         });
