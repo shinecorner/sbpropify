@@ -308,7 +308,6 @@ class Tenant extends Model implements HasMedia
             ]);
             Storage::disk('tenant_credentials')
                 ->put($this->pdfXFileName(), $pdf->output());
-
             $pdf = PDF::loadView('pdfs.tenantCredentials', [
                 'tenant' => $this,
                 'password' => $password,
