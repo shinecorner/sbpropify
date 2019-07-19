@@ -5,7 +5,7 @@
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
-                <el-form :model="model" label-position="top" label-width="192px" ref="form">
+                <el-form :model="model" label-position="top" label-width="192px" ref="form">                    
                     <el-card :loading="loading" class="mb20">
                         <el-row :gutter="20">
                             <el-col :lg="8">
@@ -68,22 +68,31 @@
                                 <el-input type="text" v-model="model.title"></el-input>
                             </el-form-item>
                         </template>
-                        <el-form-item :label="$t('models.post.content')" :rules="validationRules.content"
-                                      prop="content">
-                            <el-input
-                                :autosize="{minRows: 5}"
-                                type="textarea"
-                                v-model="model.content">
-                            </el-input>
-                        </el-form-item>
-                        <el-form-item :label="$t('models.post.images')"
-                        >
-                            <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
-                            <div class="mt15">
-                                <media :data="mediaFiles" @deleteMedia="deleteMedia"
-                                       v-if="media.length || (model.media && model.media.length)"></media>
-                            </div>
-                        </el-form-item>
+                        <el-tabs>
+                            <el-tab-pane :label="$t('models.post.content')">
+                                <el-form-item :rules="validationRules.content" prop="content">
+                                    <el-input
+                                        :autosize="{minRows: 5}"
+                                        type="textarea"
+                                        v-model="model.content">
+                                    </el-input>
+                                </el-form-item>
+                                <el-form-item :label="$t('models.post.images')"
+                                >
+                                    <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
+                                    <div class="mt15">
+                                        <media :data="mediaFiles" @deleteMedia="deleteMedia"
+                                            v-if="media.length || (model.media && model.media.length)"></media>
+                                    </div>
+                                </el-form-item>
+                            </el-tab-pane>
+                            <el-tab-pane 
+                                :label="$t('models.post.comments')"
+                                v-if="model.id"
+                            >
+                                <chat :id="model.id" size="480px" type="post"/>
+                            </el-tab-pane>
+                        </el-tabs>                        
                     </el-card>
                     <el-card :loading="loading">
                         <el-row :gutter="10">
@@ -282,10 +291,6 @@
                         </el-col>
                     </el-row>
                 </el-card>
-                <el-card class="mt15" v-if="model.id">
-                    <div slot="header">{{$t('models.post.comments')}}</div>
-                    <chat :id="model.id" size="480px" type="post"/>
-                </el-card>
             </el-col>
         </el-row>
 
@@ -456,7 +461,4 @@
         margin-bottom: 20px;
     }
 
-    .el-card .chat {
-        margin: -20px;
-    }
 </style>
