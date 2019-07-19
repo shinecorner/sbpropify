@@ -42,8 +42,8 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::delete('/users/{id}', 'UserAPIController@destroy')->name('users.destroy');
 
     // Tenants
-    Route::get('/tenants/latest', 'TenantAPIController@latest')->name('latest');
     Route::get('/tenants', 'TenantAPIController@index')->name('tenants');
+    Route::get('/tenants/latest', 'TenantAPIController@latest')->name('tenants.latest');
     Route::get('/tenants/me', 'TenantAPIController@showLoggedIn')->name('tenants.me');
     Route::get('/tenants/{id}', 'TenantAPIController@show')->name('tenants.show');
     Route::get('/tenants/{id}/statistics', 'StatisticsAPIController@tenantStatistics')->name('tenants.statistics.show');
@@ -74,6 +74,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     // Buildings
     Route::get('/buildings', 'BuildingAPIController@index')->name('buildings');
+    Route::get('/buildings/latest', 'BuildingAPIController@latest')->name('buildings.latest');
     Route::get('/buildings/{id}', 'BuildingAPIController@show')->name('buildings.show');
     Route::get('/buildings/{id}/statistics', 'StatisticsAPIController@buildingStatistics')->name('buildings.statistics.show');
 
