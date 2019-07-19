@@ -36,6 +36,7 @@ class UnitTransformer extends BaseTransformer
             'room_no' => $model->room_no,
             'basement' => $model->basement,
             'attic' => $model->attic,
+            'sq_meter' => $model->sq_meter,
             'tenants' => [],
         ];
 

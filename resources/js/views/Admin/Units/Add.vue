@@ -70,6 +70,9 @@
                     <el-form-item :label="$t('models.unit.floor')" :rules="validationRules.floor" prop="floor">
                         <el-input autocomplete="off" type="number" v-model="model.floor"></el-input>
                     </el-form-item>
+                    <el-form-item :label="$t('models.unit.sq_meter')" prop="sq_meter">
+                        <el-input autocomplete="off" type="number" v-model="model.sq_meter"></el-input>
+                    </el-form-item>
                     <el-form-item :label="$t('models.unit.basement')" :rules="validationRules.basement"
                                   class="switch-wrapper">
                         <el-switch v-model="model.basement">
