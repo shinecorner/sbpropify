@@ -179,6 +179,33 @@ class StatisticsAPIController extends AppBaseController
         return $this->sendResponse($response, 'Building statistics retrieved successfully');
     }
 
+    public function allBuildingStatistics()
+    {
+        $tenantCount = $this->tenantRepo->count();
+        $unitCount = $this->unitRepo->count();
+        $buildingCount = $this->buildingRepo->count();
+
+        $occupiedUnits = 0;
+        $freeUnit = 0;
+        if ($tenantCount > 0 && $unitCount> 0) {
+            $occupiedUnits = round($tenantCount * 100 / $unitCount);
+            $freeUnit = 100 - $occupiedUnits;
+        }
+
+        /**
+         * @TODO adjust response for frontend
+         */
+        $response = [
+            'total_building' => $buildingCount,
+            'total_tenants' => $tenantCount,
+            'total_units' => $unitCount,
+            'occupied_units' => $occupiedUnits,
+            'free_units' => $freeUnit,
+        ];
+
+        return $this->sendResponse($response, 'Building statistics retrieved successfully');
+    }
+
     /**
      * @param int $id
      * @return Response

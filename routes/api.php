@@ -76,6 +76,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     // Buildings
     Route::get('/buildings', 'BuildingAPIController@index')->name('buildings');
     Route::get('/buildings/latest', 'BuildingAPIController@latest')->name('buildings.latest');
+    Route::get('/buildings/statistics', 'StatisticsAPIController@allBuildingStatistics')->name('buildings.statistics.all');
     Route::get('/buildings/{id}', 'BuildingAPIController@show')->name('buildings.show');
     Route::get('/buildings/{id}/statistics', 'StatisticsAPIController@buildingStatistics')->name('buildings.statistics.show');
 
