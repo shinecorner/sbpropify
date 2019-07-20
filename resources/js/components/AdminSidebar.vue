@@ -1,7 +1,7 @@
 <template>
 
 
-    <aside class="aside">
+    <aside class="el-menu-aside">
         <el-menu :default-active="currActive">
             <li class="slot" index="slot" v-if="hasSlot">
                 <slot/>
@@ -15,27 +15,26 @@
                         @click="handleLink($event, key, link)"
                         v-for="(link, key) in links"
                         v-if="!link.children && ($can(link.permission) || !link.permission)">
-                    <a href="#">
+                    <router-link :to="{name: link.route.name}">
                         <i :class="[link.icon, 'icon']"/>
                         <span class="title">{{ link.title }}</span>
-                    </a>
+                    </router-link>
                 </el-menu-item>
                 <el-submenu :index="link.title" v-else-if="($can(link.permission) || !link.permission)">
                     <template slot="title">
-                        <a href="#">
-                            <i :class="[link.icon, 'icon']"/>
-                            <span class="title">{{ link.title }}</span>
-                        </a>
+                        <i :class="[link.icon, 'icon']"/>
+                        <span class="title">{{ link.title }}</span>
                     </template>
                     <el-menu-item
                             :index="child.title"
                             :key="child.title"
                             @click="handleLink($event, childKey, child)"
                             v-for="(child, childKey) in link.children">
-                        <a href="#">
+
+                        <router-link :to="{name: child.route.name}">
                             <i :class="[child.icon, 'icon']"/>
                             <span class="title">{{ child.title }}</span>
-                        </a>
+                        </router-link>
                     </el-menu-item>
                 </el-submenu>
             </ul>
@@ -96,15 +95,15 @@
 </script>
 
 <style lang="scss" scoped>
-    .aside{
-        background: #fff;
-    }
-
     .el-menu {
         width: 256px;
         display: flex;
         flex-direction: column;
         border-right: none !important;
+
+        &-aside{
+            background: #fff;
+        }
 
         .content {
             padding: 0;

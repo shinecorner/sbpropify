@@ -134,27 +134,26 @@ class PostRepository extends BaseRepository
             return;
         }
         $usersToNotify = new Collection();
-        $tRepo = (new TemplateRepository($this->app));
         if ($post->visibility == Post::VisibilityAll) {
             $users = User::has('tenant')->where('id', '!=', $post->user_id)->get();
             $usersToNotify = $usersToNotify->merge($users);
         }
         if ($post->visibility == Post::VisibilityDistrict) {
-            $building_ids = $post->buildings()->pluck('id')->toArray();
-            $users = User::select('users.*')
-                ->join('tenants', 'tenants.user_id', '=', 'users.id')
-                ->where('tenants.deleted_at', null)
-                ->whereIn('tenants.building_id', $building_ids)
-                ->get();
-            $usersToNotify = $usersToNotify->merge($users);
-        }
-        if ($post->visibility == Post::VisibilityAddress) {
             $district_ids = $post->districts()->pluck('id')->toArray();
             $users = User::select('users.*')
                 ->join('tenants', 'tenants.user_id', '=', 'users.id')
                 ->join('buildings', 'tenants.building_id', '=', 'buildings.id')
                 ->where('tenants.deleted_at', null)
                 ->whereIn('buildings.district_id', $district_ids)
+                ->get();
+            $usersToNotify = $usersToNotify->merge($users);
+        }
+        if ($post->visibility == Post::VisibilityAddress) {
+            $building_ids = $post->buildings()->pluck('id')->toArray();
+            $users = User::select('users.*')
+                ->join('tenants', 'tenants.user_id', '=', 'users.id')
+                ->where('tenants.deleted_at', null)
+                ->whereIn('tenants.building_id', $building_ids)
                 ->get();
             $usersToNotify = $usersToNotify->merge($users);
         }
@@ -183,8 +182,7 @@ class PostRepository extends BaseRepository
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
             $u->redirect = '/news';
             if ($u->settings->admin_notification && $post->pinned) {
-                $message = $tRepo->getPinnedPostParsedTemplate($post, $u);
-                $u->notify((new PinnedPostPublished($post, $message['subject'], $message['body']))
+                $u->notify((new PinnedPostPublished($post))
                     ->delay(now()->addSeconds($delay)));
                 continue;
             }

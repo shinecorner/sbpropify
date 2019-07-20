@@ -2,8 +2,8 @@
     <el-container class="admin-layout" direction="vertical">
         <a-header>
             <router-link :to="{name: ''}" class="header-link">
-                <div  v-bind:class="[{ active: showMenu }, language]" @click='toggleShow' >
-                    <div class="language-iconBorder">
+                <div  v-bind:class="[{ active: showMenu }, language]">
+                    <div class="language-iconBorder" @click="toggleShow">
                         <div class="language-checked-img">
                             <span v-bind:class="selectedFlag"></span>
                         </div>
@@ -26,41 +26,51 @@
 
             <div class="user-params" @click="toggleUserDropdown">
                 <div class="user-params-img" :style="`background-image: url('${user.avatar}')`"></div>
-                <span class="user-params-name">{{user.name}} <i class="el-submenu__icon-arrow el-icon-arrow-down" :class="{'user-params-name-rotateIcon': userDropdownVisibility}"></i></span>
+
+                <div class="user-params-wrap">
+                    <span class="user-params-name">{{user.name.slice(0, 8)}}
+                        <span v-if="user.name.length > 10">...</span>
+                    </span>
+                    <i class="el-submenu__icon-arrow el-icon-arrow-down user-params-wrap-icon" :class="{'user-params-name-rotateIcon': userDropdownVisibility}"></i>
+                </div>
+
+
+                <div class="dropdown">
+                    <transition name="slide-fade">
+                        <ul class="dropdown-list" v-if="userDropdownVisibility">
+                            <li class="dropdown-list-item">
+                                <router-link :to="{name: 'adminProfile'}" class="dropdown-list-item-link"
+                                             :class="{'active': activeDropdownMenuItem}"
+                                             @click="selectDropdownMenu">
+                                    <i class="ti-user"/>
+                                    {{$t('menu.profile')}}
+                                </router-link>
+                            </li>
+                            <li class="dropdown-list-item">
+                                <template v-if="$can($permissions.view.realEstate)">
+                                    <router-link :to="{name: 'adminSettings'}" class="dropdown-list-item-link"
+                                                 :class="{'active': activeDropdownMenuItem}"
+                                                 @click="selectDropdownMenu">
+                                        <i class="ti-settings"/>
+                                        {{$t('menu.settings')}}
+                                    </router-link>
+                                </template>
+                            </li>
+                            <li class="dropdown-list-item">
+                                <el-button @click="handleLogout" type="text">
+                                    <div class="logout-button">
+                                        <i class="ti-power-off"/>
+                                        {{$t('menu.logout')}}
+                                    </div>
+                                </el-button>
+                            </li>
+                        </ul>
+                    </transition>
+                </div>
             </div>
 
-            <div class="dropdown">
-               <transition name="slide-fade">
-                   <ul class="dropdown-list" v-if="userDropdownVisibility">
-                       <li class="dropdown-list-item" @click="toggleUserDropdown">
-                           <router-link :to="{name: 'adminProfile'}" class="dropdown-list-item-link"
-                                        :class="{'active': activeDropdownMenuItem}"
-                                        @click="selectDropdownMenu">
-                               <i class="ti-user"/>
-                               {{$t('menu.profile')}}
-                           </router-link>
-                       </li>
-                       <li class="dropdown-list-item" @click="toggleUserDropdown">
-                           <template v-if="$can($permissions.view.realEstate)">
-                               <router-link :to="{name: 'adminSettings'}" class="dropdown-list-item-link"
-                                            :class="{'active': activeDropdownMenuItem}"
-                                            @click="selectDropdownMenu">
-                                   <i class="ti-settings"/>
-                                   {{$t('menu.settings')}}
-                               </router-link>
-                           </template>
-                       </li>
-                       <li class="dropdown-list-item">
-                           <el-button @click="handleLogout" type="text">
-                               <div class="logout-button">
-                                   <i class="ti-power-off"/>
-                                   {{$t('menu.logout')}}
-                               </div>
-                           </el-button>
-                       </li>
-                   </ul>
-               </transition>
-            </div>
+
+
         </a-header>
         <el-container>
             <a-sidebar :links="links">
@@ -100,6 +110,10 @@
                 activeLanguage: 'Piano',
                 selectedFlag: '',
                 activeDropdownMenuItem: false,
+
+                activeIndex: '1',
+                activeIndex2: '1',
+
                 languages: [
                     {name: 'Français', symbol: 'fr', flag: 'flag-icon flag-icon-fr'},
                     {name: 'Italiano', symbol: 'it', flag: 'flag-icon flag-icon-it'},
@@ -262,7 +276,7 @@
             },
 
             itemClicked: function(item, flag) {
-                this.toggleShow();
+                // this.toggleShow();
                 this.onClick(item, flag);
             },
 
@@ -303,22 +317,13 @@
                 this.userDropdownVisibility = !this.userDropdownVisibility;
             },
 
-            disableRightClick(){
-                document.querySelector('body').oncontextmenu = function(){
-                    return false;
-                }
-            },
-
             selectDropdownMenu(){
                 this.activeDropdownMenuItem = !this.activeDropdownMenuItem;
-            }
-
+            },
         },
 
         mounted(){
             this.init();
-
-            // this.disableRightClick(); // If this function is enabled, the ability to use the right mouse button will be disabled in the Admin panel
 
             this.$store.subscribe((mutation, state) => {
                 if(mutation.type === "SET_LOGGED_IN_USER"){
@@ -344,9 +349,12 @@
         .el-main {
             padding: 0;
             height: 100%;
-            overflow: auto;
+            overflow: hidden;
             flex-basis: 0;
-            overflow-x: hidden;
+            overflow-y: auto;
+
+            display: flex;
+            flex-direction: column;
 
             .el-breadcrumb {
                 background-color: #fff;
@@ -369,23 +377,57 @@
         .user-params{
             display: flex;
             align-items: center;
+            position: relative;
+            width: 100%;
+
             &-img{
-                width: 35px;
-                height: 35px;
+                width: 33px;
+                height: 33px;
                 border: solid #c2c2c2 1px;
                 border-radius: 50%;
             }
 
+            &-wrap{
+                display: flex;
+                align-items: center;
+                padding-left: 15px;
+
+                &-icon{
+                    position: static;
+                    margin-top: 0;
+                    margin-left: 10px;
+                }
+            }
+
             &-name{
-                margin-left: 10px;
-                margin-right: 25px;
+                /*margin-left: 10px;*/
+                /*margin-right: 40px;*/
                 display: flex;
                 width: auto;
-                align-items: center;
+                /*align-items: center;*/
+
 
                 &-rotateIcon{
                     transform: rotate(180deg);
                 }
+            }
+        }
+
+        .dropdown{
+            position: absolute;
+            width: 106%;
+            top: 56px;
+            left: 0px;
+
+            &-list{
+                list-style: none;
+                background: #fff;
+                width: 100%;
+                padding: 0 10px 10px 10px;
+                margin: 0;
+                box-shadow: -5px 4px 6px -5px;
+                border-bottom-left-radius: 5px;
+                overflow: hidden;
             }
         }
 
@@ -488,11 +530,7 @@
 
 
                         &:hover{
-                            background: #69c06f;
-
-                            p{
-                                color: #fff;
-                            }
+                            background-color: #f0f9f1;
                         }
 
                         span{
@@ -501,6 +539,7 @@
 
                         p{
                             margin: 0;
+                            color: #303133;
                         }
                     }
                 }

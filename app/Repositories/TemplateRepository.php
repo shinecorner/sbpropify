@@ -373,6 +373,25 @@ class TemplateRepository extends BaseRepository
     /**
      * @param Post $post
      * @param User $user
+     * @return array
+     */
+    public function getPostParsedTemplate(Post $post, User $receiver): array
+    {
+        $template = $this->getByCategoryName('post_published');
+
+        $context = [
+            'receiver' => $receiver,
+            'post' => $post,
+        ];
+
+        $tags = $this->getTags($template->category->tag_map, $context);
+
+        return $this->getParsedTemplateData($template, $tags, $receiver->settings->language);
+    }
+
+    /**
+     * @param Post $post
+     * @param User $user
      * @param Comment $comment
      * @return array
      */

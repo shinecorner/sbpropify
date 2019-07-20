@@ -209,6 +209,25 @@ HTML
             [
                 'parent_id' => 3,
                 'system' => 1,
+                'name' => 'post_published',
+                'description' => 'Email sent to neighbour tenants when admin publishes a post, or the post is automatically published',
+                'tag_map' => [
+                    'authorSalutation' => 'post.user.title',
+                    'authorName' => 'post.user.name',
+                    'salutation' => 'receiver.title',
+                    'name' => 'receiver.name',
+                    'content' => 'post.content',
+                ],
+                'subject' => 'New post published {{authorSalutation}} {{authorName}}',
+                'body' => <<<HTML
+<p>Hello {{salutation}} {{name}},</p>
+<p>{{authorSalutation}} {{authorName}} published a new post.</p>
+<p><em>{{content}}</em></p>
+HTML
+            ],
+            [
+                'parent_id' => 3,
+                'system' => 1,
                 'name' => 'new_post',
                 'description' => 'Email sent to admins when tenant creates a new post',
                 'tag_map' => [

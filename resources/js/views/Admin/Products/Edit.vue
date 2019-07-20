@@ -83,39 +83,62 @@
                 </card>
             </el-col>
             <el-col :md="12">
-                <card :loading="loading" class="mb20">
+                <card :loading="loading" class="mb20 contact-info-card">
                     <el-row>
-                        <el-col :md="12">
+                        <el-col :md="8">
                             <span class="custom-label">{{$t('models.product.user')}}</span>
                             <br>
-                            <span v-if="model.user">
-                                <router-link :to="{name: 'adminUsersEdit', params: {id: model.user.id}}">
-                                    {{model.user.name}}
-                                </router-link>
+                            <span class="custom-value" v-if="model.user">
+                                <router-link :to="{name: 'adminUsersEdit', params: {id: model.user.id}}" class="tenant-link">
+                                    <avatar :size="30"
+                                            :src="'/' + model.user.avatar"
+                                            v-if="model.user.avatar"></avatar>
+                                    <avatar :size="28"
+                                            :username="model.user.first_name ? `${model.user.first_name} ${model.user.last_name}`: `${model.user.name}`"
+                                            backgroundColor="rgb(205, 220, 57)"
+                                            color="#fff"
+                                            v-if="!model.user.avatar"></avatar>
+                                    <span>{{model.user.name}}</span>
+                                </router-link>                            
                             </span>
                         </el-col>
-                        <el-col :md="12">
+
+                        <el-col :md="8">
+                            <span class="custom-label">{{$t('models.product.published_at')}}</span>
+                            <br>
+                            <span class="custom-value" v-if="model.published_at">
+                                    {{model.published_at}}
+                                </span>
+                            <span v-else>-</span>
+                        </el-col>
+
+                        <el-col :md="8">
+                            <span class="custom-label">{{$t('models.product.comments')}}</span>
+                            <br>
+                            <span class="custom-value">
+                                {{model.comments_count}}
+                            </span>
+                        </el-col>
+                        <!-- <el-col :md="12">
                             <span class="custom-label">{{$t('models.product.contact')}}</span>
                             <br>
                             <span>
                                 {{model.contact}}
                                 </span>
-                        </el-col>
+                        </el-col> -->
                     </el-row>
-                </card>
-                <card :loading="loading" class="mb20">
-                    <el-row :gutter="20">
+                    <!-- <el-row :gutter="20">
                         <el-col :md="8">
                             <span class="custom-label">{{$t('models.product.likes')}}</span>
                             <br>
-                            <span>
+                            <span class="custom-value">
                                 {{model.likes_count}}
                             </span>
                         </el-col>
                         <el-col :md="8">
                             <span class="custom-label">{{$t('models.product.comments')}}</span>
                             <br>
-                            <span>
+                            <span class="custom-value">
                                 {{model.comments_count}}
                             </span>
                         </el-col>
@@ -123,12 +146,12 @@
                         <el-col :md="8">
                             <span class="custom-label">{{$t('models.product.published_at')}}</span>
                             <br>
-                            <span v-if="model.published_at">
+                            <span class="custom-value" v-if="model.published_at">
                                     {{model.published_at}}
                                 </span>
                             <span v-else>-</span>
                         </el-col>
-                    </el-row>
+                    </el-row> -->
                 </card>
                 <card :loading="loading">
                     <div slot="header">
@@ -156,6 +179,7 @@
     import ProductsMixin from 'mixins/adminProductsMixin';
     import Chat from 'components/Chat2';
     import EditActions from 'components/EditViewActions';
+    import {Avatar} from 'vue-avatar'
 
     const mixin = ProductsMixin({mode: 'edit'});
 
@@ -165,7 +189,8 @@
         ],
         components: {
             Chat,
-            EditActions
+            EditActions,
+            Avatar
         },
         methods: {            
             ...mapActions([
@@ -175,7 +200,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .custom-select {
         display: block;
     }
@@ -186,5 +211,35 @@
 
     .mb20 {
         margin-bottom: 20px;
+    }
+
+    .contact-info-card {
+        .el-row {
+            margin-bottom: 22px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }        
+    }
+
+    .custom-label {
+        color: #6AC06F;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    .custom-value {        
+        line-height: 28px;
+    }
+
+    .tenant-link {
+        display: flex;
+        align-items: center;
+        color: #6AC06F;
+        text-decoration: none;
+
+        & > span {
+            margin-left: 5px;
+        }
     }
 </style>

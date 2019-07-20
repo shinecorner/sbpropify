@@ -4,6 +4,7 @@ import 'open-weather-icons/dist/css/open-weather-icons.css'
 import 'flag-icon-css/css/flag-icon.min.css';
 
 import Vue from 'vue';
+import axios from '@/axios'
 import ElementUI from 'element-ui';
 import VueI18n from 'vue-i18n';
 import store from './store/index';
@@ -18,7 +19,10 @@ import Sticky from 'vue-sticky-directive';
 import VueVirtualScroller from 'vue-virtual-scroller'
 import ReadMore from 'vue-read-more'
 import VueDebounce from 'vue-debounce'
+import VueAxios from 'vue-axios'
+
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
+import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(VueUid);
 Vue.use(Sticky)
@@ -27,6 +31,8 @@ Vue.use(VueVirtualScroller)
 Vue.use(VueI18n)
 Vue.use(ReadMore)
 Vue.use(VueDebounce)
+
+Vue.use(VueAxios, axios)
 
 import messages from './lang/index';
 

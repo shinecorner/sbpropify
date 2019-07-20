@@ -23,7 +23,7 @@ export default {
     },
     footerText: {
         companyName: 'Propify',
-        leftSideText: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.',
+        leftSideText: 'Sie brauchen Unterstützung? Kontaktieren Sie Support-Team unter<br>0800 000 000 oder via eine E-Mail an support@propify.ch',
         allRightsSaved: 'Alle Rechte vorbehalten',
     },
     days: {
@@ -471,7 +471,7 @@ export default {
         },
         post: {
             title: 'Pinnwand',
-            title_label: 'Anrede',
+            title_label: 'Betreff',
             content: 'Inhalt',
             preview: 'Vorschau',
             add: 'Nachricht hinzufügen',
@@ -489,7 +489,7 @@ export default {
             unpublish: 'Unpublish',
             buildings: 'Liegenschaften',
             pinned: 'Ankündigung',
-            notify_email: 'Per E-Mail benachrichtigen',
+            notify_email: 'Mieter benachrichtigen',
             pinned_to: 'Hervorheben bis',
             comments: 'Kommentare',
             images: 'Fotos und Dokumente',
