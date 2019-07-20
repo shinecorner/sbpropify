@@ -33,6 +33,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Validator;
+use Hashids\Hashids;
 
 /**
  * Class TenantController
@@ -206,7 +207,7 @@ class TenantAPIController extends AppBaseController
 
         $tenant->load('user', 'building', 'unit', 'address');
         $pr->newTenantPost($tenant);
-        $tenant->setCredentialsPDF($userPass);
+        //$tenant->setCredentialsPDF($userPass);
 
         $response = (new TenantTransformer)->transform($tenant);
         return $this->sendResponse($response, 'Tenant saved successfully');
@@ -391,9 +392,9 @@ class TenantAPIController extends AppBaseController
         if ($shouldPost) {
             $pr->newTenantPost($tenant);
         }
-        if ($userPass) {
-            $tenant->setCredentialsPDF($userPass);
-        }
+        //if ($userPass) {
+            //$tenant->setCredentialsPDF($userPass);
+        //}
         $response = (new TenantTransformer)->transform($tenant);
         return $this->sendResponse($response, 'Tenant updated successfully');
     }
@@ -610,6 +611,7 @@ class TenantAPIController extends AppBaseController
         if (empty($t)) {
             return $this->sendError('Tenant not found');
         }
+        $t->setCredentialsPDF($t->id);
         $re = RealEstate::firstOrFail();
         $pdfName = $t->pdfXFileName();
         if ($re && $re->blank_pdf) {
@@ -634,6 +636,7 @@ class TenantAPIController extends AppBaseController
         if (empty($t)) {
             return $this->sendError('Tenant not found');
         }
+        $t->setCredentialsPDF($t->id);
         $re = RealEstate::firstOrFail();
         $pdfName = $t->pdfXFileName($t->user->settings->language);
         if ($re && $re->blank_pdf) {
@@ -648,6 +651,31 @@ class TenantAPIController extends AppBaseController
 
         return $this->sendResponse($id, 'Tenant credentials sent successfully');
     }
+
+    /**
+    * @param $id
+    * @param token
+    * @param email
+    * @param password
+    * @return void
+    */
+    public function resetPassword(Request $request){
+        $hashids = new Hashids('', 25);
+        $tenant_id[0] = $hashids->decode($request->token);
+        $tenant = $this->tenantRepository->findWithoutFail($tenant_id[0])->first();
+        if (empty($tenant)) {
+            return $this->sendError('Tenant not found');
+        }
+        $user = $tenant->user;
+        if($user->email == $request->email) {
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return $this->sendResponse($tenant_id[0], 'Tenant password reset successfully');
+        } else {
+            return $this->sendError('Incorrect email address');
+        }
+    }
+
      /**
      * @param $id
      * @param tenantreview

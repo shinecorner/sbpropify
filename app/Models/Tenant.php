@@ -9,6 +9,7 @@ use PDF;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Storage;
+use Hashids\Hashids;
 
 /**
  * @SWG\Definition(
@@ -296,26 +297,22 @@ class Tenant extends Model implements HasMedia
             ->where('service_requests.status', ServiceRequest::StatusArchived);
     }
 
-    public function setCredentialsPDF($password)
+    public function setCredentialsPDF($tenant_id)
     {
+        $hashids = new Hashids('', 25);
         $re = RealEstate::firstOrFail();
-        foreach (['de', 'en', 'fr', 'it'] as $lang) {
-            \App::setLocale($lang);
-            $pdf = PDF::loadView('pdfs.tenantCredentialsXtended', [
-                'tenant' => $this,
-                'password' => $password,
-                're' => $re,
-            ]);
-            Storage::disk('tenant_credentials')
-                ->put($this->pdfXFileName(), $pdf->output());
-            $pdf = PDF::loadView('pdfs.tenantCredentials', [
-                'tenant' => $this,
-                'password' => $password,
-                're' => $re,
-            ]);
-            Storage::disk('tenant_credentials')
-                ->put($this->pdfFilename(), $pdf->output());
-        }
+        $pdf = PDF::loadView('pdfs.tenantCredentialsXtended', [
+            'tenant' => $this,
+            're' => $re,
+            'url' => url('/resetpassword?token='.$hashids->encode($tenant_id))
+        ]);
+        Storage::disk('tenant_credentials')->put($this->pdfXFileName(), $pdf->output());
+        $pdf = PDF::loadView('pdfs.tenantCredentials', [
+            'tenant' => $this,
+            're' => $re,
+            'url' => url('/resetpassword?token='.$hashids->encode($tenant_id))
+        ]);
+        Storage::disk('tenant_credentials')->put($this->pdfFilename(), $pdf->output());
     }
 
     public function pdfXFileName(string $language = "")

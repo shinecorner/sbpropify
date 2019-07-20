@@ -19,6 +19,7 @@ Route::group([
 
 // Constants
 Route::get('/constants', 'UtilsAPIController@constants')->name('constants');
+Route::put('/tenants/resetpassword', 'TenantAPIController@resetPassword');
 
 // private routes
 Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
