@@ -228,6 +228,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/admin/chartRequestByStatus', 'StatisticsAPIController@chartRequestByStatus');
     Route::get('/admin/chartRequestByRequestStatus', 'StatisticsAPIController@chartRequestByRequestStatus');
     Route::get('/admin/chartRequestByCategory', 'StatisticsAPIController@chartRequestByCategory');
+    Route::get('/admin/chartLoginDevice', 'StatisticsAPIController@chartLoginDevice');
 });
 
 

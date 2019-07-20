@@ -171,13 +171,15 @@ class AuthController extends Controller
         // @TODO this is tmp for testing purpose
         $agent = new Agent();
         $data = [
-            'time' => now()->toDateTimeString(),
+            'created_by' => now()->toDateTimeString(),
             'mobile' => $agent->isMobile()? 1 : 0,
             'desktop' => $agent->isDesktop() ? 1 : 0,
             'tablet' => $agent->isTablet() ? 1 : 0,
             'user_id' => $user->id,
             'tenant_id' => $user->tenant->id ?? null
         ];
+        $user->last_login_at = now();
+        $user->save();
         LoginDevice::create($data);
     }
 

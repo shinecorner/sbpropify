@@ -89,6 +89,7 @@ class User extends Authenticatable implements LikerContract, Commentator
         'phone',
         'avatar',
         'email_verified_at',
+        'last_login_at',
         'password'
     ];
 
