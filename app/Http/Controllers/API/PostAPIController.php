@@ -173,8 +173,7 @@ class PostAPIController extends AppBaseController
      * )
      */
     public function store(CreateRequest $request,
-        RealEstateRepository $reRepo,
-        TemplateRepository $tRepo)
+        RealEstateRepository $reRepo)
     {
         $input = $request->only(Post::Fillable);
 
@@ -191,16 +190,7 @@ class PostAPIController extends AppBaseController
         }
 
         $post = $this->postRepository->create($input);
-        if ($post->user->tenant) {
-            $admins = User::whereHas('roles', function ($query) {
-                $query->where('name', 'super_admin');
-            })->get();
-            foreach ($admins as $admin) {
-                $admin->redirect = '/admin/posts';
-                $message = $tRepo->getNewPostParsedTemplate($post, $admin);
-                $admin->notify(new NewTenantPost($post, $message['subject'], $message['body']));
-            }
-        }
+        $this->postRepository->notifyAdmins($post);
         $data = $this->transformer->transform($post);
         return $this->sendResponse($data, 'Post saved successfully');
     }
