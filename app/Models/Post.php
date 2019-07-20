@@ -309,4 +309,19 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
 
         return self::Category[$this->category];
     }
+
+    public function incrementViews(int $userID)
+    {
+        $uv = PostView::where('post_id', $this->id)
+            ->where('user_id', $userID)
+            ->first();
+        if (!$uv) {
+            $uv = new PostView();
+            $uv->user_id = $userID;
+            $uv->post_id = $this->id;
+        }
+        $uv->views += 1;
+        $uv->save();
+        return $uv;
+    }
 }

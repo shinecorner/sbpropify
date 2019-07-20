@@ -982,4 +982,46 @@ class PostAPIController extends AppBaseController
 
         return $this->sendResponse($p, 'ServiceProvider unassigned successfully');
     }
+
+    /**
+     * @param int $id
+     * @return Response
+     *
+     * @SWG\Put(
+     *      path="/posts/{id}/views",
+     *      summary="Increment the view count of the post",
+     *      tags={"Listing"},
+     *      description="Increment the view count of the post",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/Post"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function incrementViews(int $id)
+    {
+        $p = $this->postRepository->findWithoutFail($id);
+        if (empty($p)) {
+            return $this->sendError('Post not found');
+        }
+
+        $p->incrementViews(\Auth::id());
+        return $this->sendResponse($id, 'Views increased successfully');
+    }
 }
