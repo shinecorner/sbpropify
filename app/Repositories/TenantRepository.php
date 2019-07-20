@@ -255,4 +255,12 @@ class TenantRepository extends BaseRepository
 
         return $deleted;
     }
+
+    /**
+     * @return mixed
+     */
+    public function count()
+    {
+        return $this->model->count();
+    }
 }

@@ -139,4 +139,12 @@ class BuildingRepository extends BaseRepository
     {
         return $this->model;
     }
+
+    /**
+     * @return mixed
+     */
+    public function count()
+    {
+        return $this->model->count();
+    }
 }
