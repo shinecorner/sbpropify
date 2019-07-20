@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\ServiceRequest;
+use App\Models\RealEstate;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -47,10 +48,13 @@ class NewTenantRequest extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $rl = RealEstate::firstOrFail();
         return (new MailMessage)
             ->view('mails.pinnedPostPublished', [
                 'body' => $this->body,
                 'subject' => $this->subject,
+                'userName' => $notifiable->name,
+                'companyName' => $rl->name,
             ])->subject($this->subject);
     }
 

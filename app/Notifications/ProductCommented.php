@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Product;
+use App\Models\RealEstate;
 use App\Models\Tenant;
 use App\Repositories\TemplateRepository;
 use App\Models\Comment;
@@ -55,12 +56,15 @@ class ProductCommented extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $rl = RealEstate::firstOrFail();
         $tRepo = new TemplateRepository(app());
         $msg = $tRepo->getProductCommentedParsedTemplate($this->product, $this->commenter->user, $this->comment);
         return (new MailMessage)
             ->view('mails.productCommented', [
                 'body' => $msg['body'],
                 'subject' => $msg['subject'],
+                'userName' => $notifiable->name,
+                'companyName' => $rl->name,
             ])->subject($msg['subject']);
     }
 

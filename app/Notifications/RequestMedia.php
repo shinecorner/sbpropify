@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\ServiceRequest;
+use App\Models\RealEstate;
 use App\Models\User;
 use App\Repositories\TemplateRepository;
 use Spatie\MediaLibrary\Models\Media;
@@ -55,12 +56,15 @@ class RequestMedia extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $rl = RealEstate::firstOrFail();
         $tRepo = new TemplateRepository(app());
         $msg = $tRepo->getRequestMediaParsedTemplate($this->request, $this->uploader, $notifiable, $this->media);
         return (new MailMessage)
             ->view('mails.requestMedia', [
                 'body' => $msg['body'],
                 'subject' => $msg['subject'],
+                'userName' => $notifiable->name,
+                'companyName' => $rl->name,
             ])->subject($msg['subject'])
             ->attach($msg['media']->getPath());
     }

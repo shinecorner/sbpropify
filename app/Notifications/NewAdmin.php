@@ -65,9 +65,12 @@ class NewAdmin extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $rl = RealEstate::firstOrFail();
         $data = [
             'body' => $this->body,
             'logo' => $this->logo,
+            'userName' => $notifiable->name,
+            'companyName' => $rl->name,
         ];
 
         return (new MailMessage)
