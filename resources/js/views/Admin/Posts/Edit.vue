@@ -7,7 +7,7 @@
             <el-form :model="model" label-position="top" label-width="192px" ref="form">
                 <el-col :md="12">                
                     <el-card :loading="loading" class="mb20">
-                        <el-row :gutter="20">
+                        <el-row :gutter="20" class="mb20">
                             <el-col :lg="8">
                                 <el-form-item :label="$t('models.post.type.label')">
                                     <el-select style="display: block" v-model="model.pinned">
