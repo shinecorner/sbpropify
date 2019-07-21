@@ -84,8 +84,8 @@
             </el-col>
             <el-col :md="12">
                 <card :loading="loading" class="mb20 contact-info-card">
-                    <el-row>
-                        <el-col :md="8">
+                    <el-row  :gutter="30" class="contact-info-card-row">
+                        <el-col class="contact-info-card-col" :md="8">
                             <span class="custom-label">{{$t('models.product.user')}}</span>
                             <br>
                             <span class="custom-value" v-if="model.user">
@@ -103,7 +103,15 @@
                             </span>
                         </el-col>
 
-                        <el-col :md="8">
+                        <el-col class="contact-info-card-col" :md="8">
+                            <span class="custom-label">{{$t('models.product.contact')}}</span>
+                            <br>
+                            <span>
+                                {{model.contact}}
+                                </span>
+                        </el-col>
+
+                        <el-col class="contact-info-card-col" :md="8">
                             <span class="custom-label">{{$t('models.product.published_at')}}</span>
                             <br>
                             <span class="custom-value" v-if="model.published_at">
@@ -111,14 +119,7 @@
                                 </span>
                             <span v-else>-</span>
                         </el-col>
-
-                        <el-col :md="8">
-                            <span class="custom-label">{{$t('models.product.comments')}}</span>
-                            <br>
-                            <span class="custom-value">
-                                {{model.comments_count}}
-                            </span>
-                        </el-col>
+                        
                         <!-- <el-col :md="12">
                             <span class="custom-label">{{$t('models.product.contact')}}</span>
                             <br>
@@ -127,14 +128,24 @@
                                 </span>
                         </el-col> -->
                     </el-row>
-                    <!-- <el-row :gutter="20">
-                        <el-col :md="8">
+                     <el-row  :gutter="30" class="contact-info-card-row">
+                        <el-col class="contact-info-card-col" :md="8">
                             <span class="custom-label">{{$t('models.product.likes')}}</span>
                             <br>
                             <span class="custom-value">
                                 {{model.likes_count}}
                             </span>
                         </el-col>
+
+                        <el-col class="contact-info-card-col" :md="8">
+                            <span class="custom-label">{{$t('models.product.comments')}}</span>
+                            <br>
+                            <span class="custom-value">
+                                {{model.comments_count}}
+                            </span>
+                        </el-col>
+                        <el-col class="contact-info-card-col" :md="8"></el-col>
+                        <!--
                         <el-col :md="8">
                             <span class="custom-label">{{$t('models.product.comments')}}</span>
                             <br>
@@ -150,8 +161,8 @@
                                     {{model.published_at}}
                                 </span>
                             <span v-else>-</span>
-                        </el-col>
-                    </el-row> -->
+                        </el-col>-->
+                    </el-row> 
                 </card>
                 <card :loading="loading">
                     <div slot="header">
@@ -213,13 +224,27 @@
         margin-bottom: 20px;
     }
 
-    .contact-info-card {
-        .el-row {
-            margin-bottom: 22px;
-            &:last-child {
-                margin-bottom: 0;
+ .contact-info-card {
+        .contact-info-card-row {
+            padding-top: 11px;
+            padding-bottom: 11px;
+            border-bottom: 1px solid #EBEEF5;
+            &:first-child {
+                padding-top: 0;
             }
-        }        
+            &:last-child {
+                padding-bottom: 0;
+                border-bottom: 0;
+            }
+        }
+        
+        .contact-info-card-col {
+            border-right: 1px solid #EBEEF5;
+            min-height: 57px;
+            &:last-child {
+                border: none;
+            }
+        }
     }
 
     .custom-label {
