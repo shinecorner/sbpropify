@@ -461,12 +461,7 @@ class StatisticsAPIController extends AppBaseController
      */
     public function chartRequestByCreationDateByColumn(Request $request, $optionalArgs = [])
     {
-        $startDate = $optionalArgs['startDate'] ?? null;
-        $endDate = $optionalArgs['endDate'] ?? null;
-
-        if (is_null($startDate) && is_null($endDate)) {
-            [$startDate, $endDate] = $this->getStartDateEndDate($request);
-        }
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
 
         $period = $optionalArgs['period'] ?? $this->getPeriod($request);
         $table = $optionalArgs['table'] ?? null;
@@ -537,12 +532,7 @@ class StatisticsAPIController extends AppBaseController
      */
     public function chartRequestByColumn(Request $request, $optionalArgs = [])
     {
-        $startDate = $optionalArgs['startDate'] ?? null;
-        $endDate = $optionalArgs['endDate'] ?? null;
-
-        if (is_null($startDate) && is_null($endDate)) {
-            [$startDate, $endDate] = $this->getStartDateEndDate($request);
-        }
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
 
         $table = $optionalArgs['table'] ?? null;
         $table = $table ?? $request->{self::QUERY_PARAMS['table']};
@@ -574,19 +564,13 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     * @TODO fix many parameters
-     *
      * @param Request $request
-     * @param bool $isConvertResponse
-     * @param null $startDate
-     * @param null $endDate
+     * @param array $optionalArgs
      * @return mixed
      */
-    public function chartRequestByRequestStatus(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null)
+    public function chartRequestByRequestStatus(Request $request, $optionalArgs = [])
     {
-        if (is_null($startDate) && is_null($endDate)) {
-            [$startDate, $endDate] = $this->getStartDateEndDate($request);
-        }
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
 
         $rsPerStatus = Tenant::selectRaw('`service_requests`.`status`, count(`tenants`.`id`) `count`')
             ->join('service_requests', 'service_requests.tenant_id', 'tenants.id')
@@ -599,6 +583,7 @@ class StatisticsAPIController extends AppBaseController
         $classStatus = ServiceRequest::Status;
         $response = $this->formatForDonutChart($rsPerStatus, 'status', $classStatus);
 
+        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
             ? $this->sendResponse($response, 'Admin statistics retrieved successfully for tenants')
             : $response;
