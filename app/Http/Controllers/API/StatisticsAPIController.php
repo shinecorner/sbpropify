@@ -418,8 +418,9 @@ class StatisticsAPIController extends AppBaseController
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         $period = $this->getPeriod($request);
-        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id')->toArray();
         [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate);
+
+        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id')->toArray();
         $catDayStats = $this->initializeServiceRequestCategoriesForChart($parentCategories, $periodValues);
 
         $serviceRequests = ServiceRequest::selectRaw($raw . ', IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
@@ -462,19 +463,8 @@ class StatisticsAPIController extends AppBaseController
     public function chartRequestByCreationDateByColumn(Request $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
-
+        [$class, $table, $column, $columnValues] = $this->getTableColumnClassByRequest($request, self::PERMITTED_TABLES_FOR_CREATED_DATE);
         $period = $optionalArgs['period'] ?? $this->getPeriod($request);
-        $table = $optionalArgs['table'] ?? null;
-        $table = $table ?? $request->{self::QUERY_PARAMS['table']};
-        $table = key_exists($table, self::PERMITTED_TABLES_FOR_CREATED_DATE) ? $table : Arr::first(array_keys(self::PERMITTED_TABLES_FOR_CREATED_DATE));
-
-        $permittedColumns = self::PERMITTED_TABLES_FOR_CREATED_DATE[$table]['columns'];
-        $column = $optionalArgs['column'] ?? null;
-        $column = $column ?? $request->{self::QUERY_PARAMS['column']};
-        $column = in_array($column, $permittedColumns) ? $column : Arr::first($permittedColumns);
-        $class = self::PERMITTED_TABLES_FOR_CREATED_DATE[$table]['class'];
-
-        $columnValues = constant($class . "::" . ucfirst($column));
         [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate, $table);
 
         $statistics = $class::selectRaw($raw . ',' . $column . ', count(id) `count`')
@@ -533,26 +523,14 @@ class StatisticsAPIController extends AppBaseController
     public function chartRequestByColumn(Request $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
+        [$class, $table, $column, $columnValues] = $this->getTableColumnClassByRequest($request, self::PERMITTED_TABLES_GROUP);
 
-        $table = $optionalArgs['table'] ?? null;
-        $table = $table ?? $request->{self::QUERY_PARAMS['table']};
-        $table = key_exists($table, self::PERMITTED_TABLES_GROUP) ? $table : self::DEFAULT_TABLE;
-
-        $permittedColumns = self::PERMITTED_TABLES_GROUP[$table]['columns'];
-        $column = $optionalArgs['column'] ?? null;
-        $column = $column ?? $request->{self::QUERY_PARAMS['column']};
-        $column = in_array($column, $permittedColumns) ? $column : array_first($permittedColumns);
-
-        $class = self::PERMITTED_TABLES_GROUP[$table]['class'];
         $statistics = $class::selectRaw($column . ', count(id) `count`')
             ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
             ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
             ->groupBy($column)
             ->orderBy($column)
             ->get();
-
-        // @TODO improve if need
-        $columnValues = constant($class . "::" . ucfirst($column));
 
         $includePercentage = ('service_requests' == $table) ? true : false;
         $response = $this->formatForDonutChart($statistics, $column, $columnValues, $includePercentage);
@@ -872,5 +850,27 @@ class StatisticsAPIController extends AppBaseController
     {
         $period = $request->{self::QUERY_PARAMS['period']} ?? self::DEFAULT_PERIOD;
         return in_array($period, self::PERMITTED_PERIODS) ? $period : self::DEFAULT_PERIOD;
+    }
+
+    /**
+     * @TODO rename
+     * @param $request
+     * @param $permissions
+     * @return array
+     */
+    protected function getTableColumnClassByRequest($request, $permissions)
+    {
+        $table = $optionalArgs['table'] ?? null;
+        $table = $table ?? $request->{self::QUERY_PARAMS['table']};
+        $table = key_exists($table, $permissions) ? $table : Arr::first(array_keys($permissions));
+
+        $permittedColumns = $permissions[$table]['columns'];
+        $column = $optionalArgs['column'] ?? null;
+        $column = $column ?? $request->{self::QUERY_PARAMS['column']};
+        $column = in_array($column, $permittedColumns) ? $column : Arr::first($permittedColumns);
+        $class = $permissions[$table]['class'];
+        $columnValues = constant($class . "::" . ucfirst($column));
+
+        return [$class, $table, $column, $columnValues];
     }
 }
