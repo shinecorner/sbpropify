@@ -108,7 +108,6 @@ export default {
         }
     },
     computed: {
-
         breakpoints () {
             return {
                 md: el => {
@@ -122,6 +121,7 @@ export default {
                         // if (this.visibleSidebar) {
                         //     this.visibleSidebar = false
                         // }
+                        return
 
                     } else {
                         this.sidebarCompact = false
@@ -146,7 +146,7 @@ export default {
                     name: 'tenantDashboard'
                 }
             }, {
-                icon: 'icon-home',
+                icon: 'icon-vcard',
                 title: this.$t('layouts.tenant.sidebar.myTenancy'),
                 children: [{
                     icon: 'icon-user',
