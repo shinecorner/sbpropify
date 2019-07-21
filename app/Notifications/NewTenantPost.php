@@ -3,31 +3,40 @@
 namespace App\Notifications;
 
 use App\Models\Post;
-use App\Models\RealEstate;
+use App\Models\User;
+use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
+/**
+ * Class NewTenantPost
+ * @package App\Notifications
+ */
 class NewTenantPost extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var Post
+     */
     protected $post;
-    protected $subject;
-    protected $body;
+    /**
+     * @var User
+     */
+    protected $user;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * NewTenantPost constructor.
+     * @param Post $post
+     * @param User $user
      */
-    public function __construct(Post $post, string $subject, string $body)
+    public function __construct(Post $post, User $user)
     {
         $this->post = $post;
-        $this->subject = $subject;
-        $this->body = $body;
+        $this->user = $user;
     }
 
     /**
@@ -49,14 +58,12 @@ class NewTenantPost extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $rl = RealEstate::firstOrFail();
+        $tRepo = new TemplateRepository(app());
+        $message = $tRepo->getNewPostParsedTemplate($this->post, $this->user);
+        $data['userName'] = $notifiable->name;
+
         return (new MailMessage)
-            ->view('mails.postAddedByTenant', [
-                'body' => $this->body,
-                'subject' => $this->subject,
-                'userName' => $notifiable->name,
-                'companyName' => $rl->name,
-            ])->subject($this->subject);
+            ->view('mails.postAddedByTenant', $data)->subject($data['subject']);
     }
 
     /**
@@ -74,6 +81,10 @@ class NewTenantPost extends Notification implements ShouldQueue
         ];
     }
 
+    /**
+     * @param $notifiable
+     * @return array
+     */
     public function toDatabase($notifiable)
     {
         return $this->toArray($notifiable);

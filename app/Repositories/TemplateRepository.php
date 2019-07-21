@@ -328,6 +328,7 @@ class TemplateRepository extends BaseRepository
         $context = [
             'user' => $user,
             'post' => $post,
+            'subject' => $post->user,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
@@ -548,10 +549,10 @@ class TemplateRepository extends BaseRepository
         return $this->getParsedTemplateData($template, $tags, $receiver->settings->language);
     }
 
-
     /**
      * @param ServiceRequest $sr
      * @param User $uploader
+     * @param User $receiver
      * @param Media $media
      * @return array
      */

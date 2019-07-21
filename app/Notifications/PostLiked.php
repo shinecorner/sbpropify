@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use App\Models\Post;
-use App\Models\RealEstate;
 use App\Models\Tenant;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
@@ -12,17 +11,27 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
+/**
+ * Class PostLiked
+ * @package App\Notifications
+ */
 class PostLiked extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var Post
+     */
     protected $post;
+    /**
+     * @var Tenant
+     */
     protected $liker;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * PostLiked constructor.
+     * @param Post $post
+     * @param Tenant $liker
      */
     public function __construct(Post $post, Tenant $liker)
     {
@@ -53,16 +62,12 @@ class PostLiked extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $rl = RealEstate::firstOrFail();
         $tRepo = new TemplateRepository(app());
-        $msg = $tRepo->getPostLikedParsedTemplate($this->post, $this->liker->user);
+        $data = $tRepo->getPostLikedParsedTemplate($this->post, $this->liker->user);
+        $data['userName'] = $notifiable->name;
+
         return (new MailMessage)
-            ->view('mails.postLiked', [
-                'body' => $msg['body'],
-                'subject' => $msg['subject'],
-                'userName' => $notifiable->name,
-                'companyName' => $rl->name,
-            ])->subject($msg['subject']);
+            ->view('mails.postLiked', $data)->subject($data['subject']);
     }
 
     /**
@@ -80,6 +85,10 @@ class PostLiked extends Notification implements ShouldQueue
         ];
     }
 
+    /**
+     * @param $notifiable
+     * @return array
+     */
     public function toDatabase($notifiable)
     {
         return $this->toArray($notifiable);

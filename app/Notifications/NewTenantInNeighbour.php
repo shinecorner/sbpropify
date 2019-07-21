@@ -8,18 +8,30 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Str;
 
+/**
+ * Class NewTenantInNeighbour
+ * @package App\Notifications
+ */
 class NewTenantInNeighbour extends Notification implements ShouldQueue
 {
-    use Queueable;
+    use Queueable, InteractsWithQueue;
 
+    /**
+     * @var int
+     */
+    public $tries = 3;
+
+    /**
+     * @var Post
+     */
     protected $post;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * NewTenantInNeighbour constructor.
+     * @param Post $post
      */
     public function __construct(Post $post)
     {
@@ -69,6 +81,10 @@ class NewTenantInNeighbour extends Notification implements ShouldQueue
         ];
     }
 
+    /**
+     * @param $notifiable
+     * @return array
+     */
     public function toDatabase($notifiable)
     {
         return $this->toArray($notifiable);
