@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use App\Models\ServiceRequest;
-use App\Models\RealEstate;
 use App\Models\User;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
@@ -77,11 +76,9 @@ class StatusChangedRequest extends Notification implements ShouldQueue
     {
         $this->originalRequest->status = $this->originalStatus;
 
-        $rl = RealEstate::firstOrFail();
         $tRepo = new TemplateRepository(app());
         $data = $tRepo->getRequestStatusChangedParsedTemplate($this->request, $this->originalRequest, $this->user);
-        $data['userName'] = $this->user->name;
-        $data['companyName'] = $rl->name;
+        $data['userName'] = $notifiable->name;
 
         return (new MailMessage)
             ->view('mails.request', $data)->subject($data['subject']);
@@ -106,7 +103,7 @@ class StatusChangedRequest extends Notification implements ShouldQueue
     {
         return [
             'post_id' => $this->request->id,
-            'user_name' => 'test',
+            'user_name' => $notifiable->name,
             'fragment' => sprintf('Request: %s status changed to:%',
                 $this->request->title,
                 $this->request->status
