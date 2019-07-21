@@ -143,6 +143,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('/posts/{id}/providers/{provider_id}', 'PostAPIController@assignProvider');
     Route::delete('/posts/{id}/providers/{provider_id}', 'PostAPIController@unassignProvider');
     Route::put('/posts/{id}/views', 'PostAPIController@incrementViews');
+    Route::get('/posts/{id}/views', 'PostAPIController@indexViews');
 
     // News
     Route::get('news/rss.xml', 'NewsAPIController@showNewsRSS');

@@ -245,6 +245,11 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         return $this->belongsToMany(ServiceProvider::class);
     }
 
+    public function views()
+    {
+        return $this->hasMany(PostView::class);
+    }
+
     public function registerMediaCollections()
     {
         $this->addMediaCollection('media');
