@@ -101,6 +101,12 @@ class StatisticsAPIController extends AppBaseController
                 'status',
             ]
         ],
+        'posts' => [
+            'class' => Post::class,
+            'columns' => [
+                'status',
+            ]
+        ],
     ];
 
     /** @var  BuildingRepository */
