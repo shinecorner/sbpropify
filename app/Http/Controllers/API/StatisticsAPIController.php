@@ -50,16 +50,14 @@ class StatisticsAPIController extends AppBaseController
     ];
 
     /**
-     * if not set table optional parameter or write not permitted table name that case must be get data
-     * for this table and must be group by first value of self::PERMITTED_TABLES_GROUP[self::DEFAULT_TABLE]['column']
-     */
-    const DEFAULT_TABLE = 'service_requests';
-
-    /**
      * table,column config for make DonutChart
      *
      * this is use for permit correct table and column value
      * also according this config can get default values
+     *
+     * if not set table optional parameter or write not permitted table name that case must be get data
+     * for this table and must be group by first value of self::PERMITTED_TABLES_GROUP[self::DEFAULT_TABLE]['column']
+
      */
     const PERMITTED_TABLES_GROUP = [
         'service_requests' => [
@@ -421,8 +419,6 @@ class StatisticsAPIController extends AppBaseController
         [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate);
 
         $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id')->toArray();
-        $catDayStats = $this->initializeServiceRequestCategoriesForChart($parentCategories, $periodValues);
-
         $serviceRequests = ServiceRequest::selectRaw($raw . ', IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
             ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
             ->leftJoin('service_request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
@@ -432,22 +428,7 @@ class StatisticsAPIController extends AppBaseController
             ->groupBy('category_parent_id')
             ->get();
 
-        foreach ($serviceRequests as $serviceRequest) {
-            $categoryName = $parentCategories[$serviceRequest->category_parent_id] ?? '';
-            $catDayStats[$categoryName][$serviceRequest->period] = $serviceRequest->count;
-        }
-
-        $formattedReqStatistics = [];
-        foreach($catDayStats as $key=>$value){
-            $formattedReqStatistics[] = [
-                'name' => $key,
-                'data' => array_values($value)
-            ];
-        }
-
-        $ret['requests_per_day_xdata'] = array_values($periodValues);
-        $ret['requests_per_day_ydata'] = $formattedReqStatistics;
-
+        $ret = $this->formatResponseGropedPeriodAndCol($periodValues, $serviceRequests, 'category_parent_id', $parentCategories);
         $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
             ? $this->sendResponse($ret, 'Request services statistics formatted successfully')
@@ -474,30 +455,12 @@ class StatisticsAPIController extends AppBaseController
             ->groupBy($column)
             ->get();
 
-
-        $colStats = $this->initializeServiceRequestCategoriesForChart($columnValues, $periodValues);
-        foreach ($statistics as $statistic) {
-            $value = $columnValues[$statistic[$column]] ?? '';
-            $colStats[$value][$statistic['period']] = $statistic['count'];
-        }
-
-        $formattedReqStatistics = [];
-        foreach($colStats as $key=>$value){
-            $formattedReqStatistics[] = [
-                'name' => $key,
-                'data' => array_values($value)
-            ];
-        }
-
-        $ret['requests_per_day_xdata'] = array_values($periodValues);
-        $ret['requests_per_day_ydata'] = $formattedReqStatistics;
-
+        $ret = $this->formatResponseGropedPeriodAndCol($periodValues, $statistics, $column, $columnValues);
         $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
             ? $this->sendResponse($ret, 'Request services statistics formatted successfully fo ' . $table . ' by ' . $column)
             : $ret;
     }
-
 
     /**
      * @TODO fix many parameters
@@ -598,6 +561,34 @@ class StatisticsAPIController extends AppBaseController
         ];
 
         return $this->formatForDonutChart($statistics, 'login', $values, true);
+    }
+
+    /**
+     * @param $periodValues
+     * @param $statistics
+     * @param $column
+     * @param $columnValues
+     * @return mixed
+     */
+    protected function formatResponseGropedPeriodAndCol($periodValues, $statistics, $column, $columnValues)
+    {
+        $colStats = $this->initializeServiceRequestCategoriesForChart($columnValues, $periodValues);
+        foreach ($statistics as $statistic) {
+            $value = $columnValues[$statistic[$column]] ?? '';
+            $colStats[$value][$statistic['period']] = $statistic['count'];
+        }
+
+        $formattedReqStatistics = [];
+        foreach($colStats as $key=>$value){
+            $formattedReqStatistics[] = [
+                'name' => $key,
+                'data' => array_values($value)
+            ];
+        }
+
+        $ret['requests_per_day_xdata'] = array_values($periodValues);
+        $ret['requests_per_day_ydata'] = $formattedReqStatistics;
+        return $ret;
     }
 
     /**
