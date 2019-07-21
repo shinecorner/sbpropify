@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Product;
+use App\Models\RealEstate;
 use App\Models\Tenant;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
@@ -52,13 +53,15 @@ class ProductLiked extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-
+        $rl = RealEstate::firstOrFail();
         $tRepo = new TemplateRepository(app());
         $msg = $tRepo->getProductLikedParsedTemplate($this->product, $this->liker->user);
         return (new MailMessage)
             ->view('mails.productLiked', [
                 'body' => $msg['body'],
                 'subject' => $msg['subject'],
+                'userName' => $notifiable->name,
+                'companyName' => $rl->name,
             ])->subject($msg['subject']);
     }
 

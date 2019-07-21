@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\ServiceRequest;
+use App\Models\RealEstate;
 use App\Models\User;
 use App\Repositories\TemplateRepository;
 use App\Models\Comment;
@@ -55,12 +56,15 @@ class RequestInternalComment extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $rl = RealEstate::firstOrFail();
         $tRepo = new TemplateRepository(app());
         $msg = $tRepo->getRequestInternalCommentParsedTemplate($this->sr, $this->comment, $this->comment->user, $this->receiver);
         return (new MailMessage)
             ->view('mails.requestInternalComment', [
                 'body' => $msg['body'],
                 'subject' => $msg['subject'],
+                'userName' => $notifiable->name,
+                'companyName' => $rl->name,
             ])->subject($msg['subject']);
     }
 

@@ -63,8 +63,8 @@
     <td>{{ $tenant->user->email }}</td>
   </tr>
   <tr>
-    <td class="detail-key">{{ __("tenant.password") }}</td>
-    <td>{{ $password }}</td>
+    <td class="detail-key">{{ __("tenant.url") }}</td>
+    <td>{{ $url }}</td>
   </tr>
 </table>
 @endsection

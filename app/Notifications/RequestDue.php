@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Comment;
+use App\Models\RealEstate;
 use App\Models\ServiceRequest;
 use App\Models\User;
 use App\Repositories\TemplateRepository;
@@ -57,12 +58,15 @@ class RequestDue extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $rl = RealEstate::firstOrFail();
         $tRepo = new TemplateRepository(app());
         $msg = $tRepo->getRequestDueParsedTemplate($this->request, $notifiable);
         return (new MailMessage)
             ->view('mails.requestDue', [
                 'body' => $msg['body'],
                 'subject' => $msg['subject'],
+                'userName' => $notifiable->name,
+                'companyName' => $rl->name,
             ])->subject($msg['subject']);
     }
 
