@@ -363,6 +363,10 @@ class StatisticsAPIController extends AppBaseController
         return $this->sendResponse($response, 'Service Request statistics retrieved successfully');
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function adminStats(Request $request)
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request);
@@ -381,18 +385,19 @@ class StatisticsAPIController extends AppBaseController
             'posts_per_status' => [],
         ];
 
-        $ret = array_merge($ret, $this->chartRequestByCreationDate($request, false, $startDate, $endDate));
         $isConvertResponse = false;
-        $optionalParameters = compact('isConvertResponse', 'startDate', 'endDate');
-        $ret['requests_per_status'] = $this->chartRequestByColumn($request, $optionalParameters);
-        $ret['tenants_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalParameters, ['table' => 'tenants']));
-        $ret['products_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalParameters, ['table' => 'products']));
-        $ret['posts_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalParameters, ['table' => 'posts']));
+        $optionalArgs = compact('isConvertResponse', 'startDate', 'endDate');
+
+        $ret = array_merge($ret, $this->chartRequestByCreationDate($request, $optionalArgs));
+        $ret['requests_per_status'] = $this->chartRequestByColumn($request, $optionalArgs);
+        $ret['tenants_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalArgs, ['table' => 'tenants']));
+        $ret['products_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalArgs, ['table' => 'products']));
+        $ret['posts_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalArgs, ['table' => 'posts']));
         $categoryDayStatistics = collect($ret['requests_per_day_ydata']);
+
         $ret['requests_per_category']['labels'] = $categoryDayStatistics->map(function($el) {
             return $el['name'];
         });
-
         $ret['requests_per_category']['data'] = $categoryDayStatistics->map(function($el) {
             return array_sum($el['data']);
         });
@@ -406,22 +411,16 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @param bool $isConvertResponse
-     * @param null $startDate
-     * @param null $endDate
+     * @param $optionalArgs
      * @return mixed
      */
-    public function chartRequestByCreationDate(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null)
+    public function chartRequestByCreationDate(Request $request, $optionalArgs)
     {
-        if (is_null($startDate) && is_null($endDate)) {
-            [$startDate, $endDate] = $this->getStartDateEndDate($request);
-        }
-
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         $period = $this->getPeriod($request);
         $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id')->toArray();
         [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate);
         $catDayStats = $this->initializeServiceRequestCategoriesForChart($parentCategories, $periodValues);
-
 
         $serviceRequests = ServiceRequest::selectRaw($raw . ', IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
             ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
@@ -448,6 +447,7 @@ class StatisticsAPIController extends AppBaseController
         $ret['requests_per_day_xdata'] = array_values($periodValues);
         $ret['requests_per_day_ydata'] = $formattedReqStatistics;
 
+        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
             ? $this->sendResponse($ret, 'Request services statistics formatted successfully')
             : $ret;
@@ -848,16 +848,19 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @param $request
-     * @param null $period
+     * @param array $optionalArgs
      * @return array
      */
-    protected function getStartDateEndDate($request)
+    protected function getStartDateEndDate($request, $optionalArgs = [])
     {
-        // @TODO fix query param hard code, also key hard code like month
-        $requestData = $request->all();
+        if (key_exists('startDate', $optionalArgs) && key_exists('endDate', $optionalArgs)) {
+            return [$optionalArgs['startDate'], $optionalArgs['endDate']];
+        }
 
+        $requestData = $request->all();
         $startDate = $requestData[self::QUERY_PARAMS['start_date']] ?? '';
         $endDate = $requestData[self::QUERY_PARAMS['end_date']] ?? '';
+
         if (empty($startDate) && empty($endDate)) {
             $endDate = now();
             $startDate = now()->subMonth();
