@@ -14,8 +14,8 @@ class AddLongitudeLangitudeInBuildindsTable extends Migration
     public function up()
     {
         Schema::table('buildings', function (Blueprint $table) {
-            $table->decimal('longitude', 10, 7)->after('building_format');
-            $table->decimal('latitude', 10, 7)->after('building_format');
+            $table->decimal('longitude', 10, 7)->after('building_format')->nullable();
+            $table->decimal('latitude', 10, 7)->after('building_format')->nullable();
         });
     }
 
