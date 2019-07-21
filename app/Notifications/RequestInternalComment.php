@@ -2,29 +2,41 @@
 
 namespace App\Notifications;
 
+use App\Models\Comment;
 use App\Models\ServiceRequest;
-use App\Models\RealEstate;
 use App\Models\User;
 use App\Repositories\TemplateRepository;
-use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Str;
 
+/**
+ * Class RequestInternalComment
+ * @package App\Notifications
+ */
 class RequestInternalComment extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var ServiceRequest
+     */
     protected $sr;
+    /**
+     * @var Comment
+     */
     protected $comment;
+    /**
+     * @var User
+     */
     protected $receiver;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * RequestInternalComment constructor.
+     * @param ServiceRequest $sr
+     * @param Comment $comment
+     * @param User $receiver
      */
     public function __construct(ServiceRequest $sr, Comment $comment, User $receiver)
     {
@@ -56,16 +68,12 @@ class RequestInternalComment extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $rl = RealEstate::firstOrFail();
         $tRepo = new TemplateRepository(app());
-        $msg = $tRepo->getRequestInternalCommentParsedTemplate($this->sr, $this->comment, $this->comment->user, $this->receiver);
+        $data = $tRepo->getRequestInternalCommentParsedTemplate($this->sr, $this->comment, $this->comment->user, $this->receiver);
+        $data['userName'] = $notifiable->name;
+
         return (new MailMessage)
-            ->view('mails.requestInternalComment', [
-                'body' => $msg['body'],
-                'subject' => $msg['subject'],
-                'userName' => $notifiable->name,
-                'companyName' => $rl->name,
-            ])->subject($msg['subject']);
+            ->view('mails.requestInternalComment', $data)->subject($data['subject']);
     }
 
     /**
@@ -84,6 +92,10 @@ class RequestInternalComment extends Notification implements ShouldQueue
         ];
     }
 
+    /**
+     * @param $notifiable
+     * @return array
+     */
     public function toDatabase($notifiable)
     {
         return $this->toArray($notifiable);

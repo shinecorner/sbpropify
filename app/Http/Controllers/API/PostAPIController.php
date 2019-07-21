@@ -29,6 +29,7 @@ use App\Repositories\RealEstateRepository;
 use App\Repositories\ServiceProviderRepository;
 use App\Repositories\TemplateRepository;
 use App\Transformers\PostTransformer;
+use App\Transformers\PostViewTransformer;
 use App\Transformers\UserTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -1023,5 +1024,49 @@ class PostAPIController extends AppBaseController
 
         $p->incrementViews(\Auth::id());
         return $this->sendResponse($id, 'Views increased successfully');
+    }
+
+    /**
+     * @param int $id
+     * @return Response
+     *
+     * @SWG\Get(
+     *      path="/posts/{id}/views",
+     *      summary="List the view count of the post",
+     *      tags={"Listing"},
+     *      description="List the view count of the post",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/PostView"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function indexViews(int $id, PostViewTransformer $pvt, Request $req)
+    {
+        $p = $this->postRepository->findWithoutFail($id);
+        if (empty($p)) {
+            return $this->sendError('Post not found');
+        }
+
+        $perPage = $req->get('per_page', env('APP_PAGINATE', 10));
+        $vs = $p->views()->with('user')->paginate($perPage);
+        $ret = $pvt->transformPaginator($vs);
+        return $this->sendResponse($ret, 'Views retrieved successfully');
     }
 }

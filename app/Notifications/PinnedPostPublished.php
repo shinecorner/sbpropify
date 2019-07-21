@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use App\Models\Post;
-use App\Models\RealEstate;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,16 +10,22 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
+/**
+ * Class PinnedPostPublished
+ * @package App\Notifications
+ */
 class PinnedPostPublished extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var Post
+     */
     protected $post;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * PinnedPostPublished constructor.
+     * @param Post $post
      */
     public function __construct(Post $post)
     {
@@ -47,15 +52,10 @@ class PinnedPostPublished extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $rl = RealEstate::firstOrFail();
-        $message = $tRepo->getPinnedPostParsedTemplate($this->post, $notifiable);
-        return (new MailMessage)
-            ->view('mails.pinnedPostPublished', [
-                'body' => $message['body'],
-                'subject' => $message['subject'],
-                'userName' => $notifiable->name,
-                'companyName' => $rl->name,
-            ])->subject($message['subject']);
+        $data = $tRepo->getPinnedPostParsedTemplate($this->post, $notifiable);
+        $data['userName'] = $notifiable->name;
+
+        return (new MailMessage)->view('mails.pinnedPostPublished', $data)->subject($data['subject']);
     }
 
     /**
@@ -74,6 +74,10 @@ class PinnedPostPublished extends Notification implements ShouldQueue
         ];
     }
 
+    /**
+     * @param $notifiable
+     * @return array
+     */
     public function toDatabase($notifiable)
     {
         return $this->toArray($notifiable);

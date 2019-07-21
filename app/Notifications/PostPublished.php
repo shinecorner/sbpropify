@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use App\Models\Post;
-use App\Models\RealEstate;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,16 +10,22 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
+/**
+ * Class PostPublished
+ * @package App\Notifications
+ */
 class PostPublished extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var Post
+     */
     protected $post;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * PostPublished constructor.
+     * @param Post $post
      */
     public function __construct(Post $post)
     {
@@ -50,15 +55,11 @@ class PostPublished extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $rl = RealEstate::firstOrFail();
-        $message = $tRepo->getPostParsedTemplate($this->post, $notifiable);
+        $data = $tRepo->getPostParsedTemplate($this->post, $notifiable);
+        $data['userName'] = $notifiable->name;
+
         return (new MailMessage)
-            ->view('mails.postPublished', [
-                'body' => $message['body'],
-                'subject' => $message['subject'],
-                'userName' => $notifiable->name,
-                'companyName' => $rl->name,
-            ])->subject($message['subject']);
+            ->view('mails.postPublished', $data)->subject($data['subject']);
     }
 
     /**
@@ -77,6 +78,10 @@ class PostPublished extends Notification implements ShouldQueue
         ];
     }
 
+    /**
+     * @param $notifiable
+     * @return array
+     */
     public function toDatabase($notifiable)
     {
         return $this->toArray($notifiable);
