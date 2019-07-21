@@ -409,10 +409,10 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @param $optionalArgs
+     * @param array $optionalArgs
      * @return mixed
      */
-    public function chartRequestByCreationDate(Request $request, $optionalArgs)
+    public function chartRequestByCreationDate(Request $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         $period = $this->getPeriod($request);
@@ -463,19 +463,16 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     * @TODO fix many parameters
-     *
      * @param Request $request
-     * @param bool $isConvertResponse
-     * @param null $startDate
-     * @param null $endDate
-     * @param null $table
      * @return mixed
      */
-    public function chartRequestByStatus(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null, $table = null)
+    public function chartRequestByStatus(Request $request)
     {
-        $optionalArgs = compact('startDate', 'endDate', 'isConvertResponse', 'table');
-        return $this->chartRequestByColumn($request, $optionalArgs);
+        $request->merge([
+            'table' => 'service_requests',
+            'column' => 'status'
+        ]);
+        return $this->chartRequestByColumn($request);
     }
 
     /**
