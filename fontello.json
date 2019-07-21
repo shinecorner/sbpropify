@@ -323,6 +323,12 @@
       "css": "vcard",
       "code": 59427,
       "src": "entypo"
+    },
+    {
+      "uid": "74415da8e36ed0afcea9b2b1454f4176",
+      "css": "cancel-circled2",
+      "code": 59428,
+      "src": "elusive"
     }
   ]
 }
