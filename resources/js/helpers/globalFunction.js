@@ -17,7 +17,6 @@ let globalFunction = {
                 reactivated: '#ebb563',
                 archived: '#67C23A'
             };
-            console.log(type);
             if(type === 'name'){                
                 return colorByName[status];
             }            

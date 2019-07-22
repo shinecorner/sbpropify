@@ -4,7 +4,9 @@
             <el-col :span="24">
                 <el-radio-group v-model="period">                
                     <el-radio-button label="day">{{$t('timestamps.days')}}</el-radio-button>
-                    <el-radio-button label="month">{{$t('timestamps.months')}}</el-radio-button>                                        
+                    <el-radio-button label="month">{{$t('timestamps.months')}}</el-radio-button>
+                    <el-radio-button label="week">{{$t('timestamps.weeks')}}</el-radio-button>
+                    <el-radio-button label="year">{{$t('timestamps.years')}}</el-radio-button>
                 </el-radio-group>
                 <el-date-picker
                     v-model="startDate"
@@ -48,14 +50,13 @@ export default {
         return {        
             period: 'day',
             startDate: '',
-            endDate: '',
+            endDate: dateFns.format(new Date(), 'DD.MM.YYYY'),
             xData: [],
             yData: []
         }
     },    
     computed: {    
         series: function(){  
-        		console.log(this.yData);
             return this.yData;
         },
         chartOptions: function(){
@@ -92,7 +93,6 @@ export default {
             },
 
             xaxis: {
-              type: 'datetime',
               categories: this.xData,
             },
             legend: {
