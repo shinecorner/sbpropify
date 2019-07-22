@@ -37,27 +37,25 @@ export const displayError = async (err) => {
             _.each(err.error.response.data.errors, (errorObj) => {
                 if (_.isArray(errorObj)) {
                     _.each(errorObj, (er) => {
-                        $swal({
-                            toast: true,
-                            position: 'top-end',
+                        $swal.fire({
+                            type: 'error',
                             showConfirmButton: false,
                             timer: 3000,
-                            type: 'error',
+                            width: 'auto',
                             title: $i18n.t(er)
-                        });
+                        })
                     })
                 }
             });
         } else {
             const msg = err.message;
-            $swal({
-                toast: true,
-                position: 'top-end',
+            $swal.fire({
+                type: 'error',
                 showConfirmButton: false,
                 timer: 3000,
-                type: 'error',
+                width: 'auto',
                 title: $i18n.t(typeof msg === 'string' ? msg : (typeof msg === 'object' ? msg[Object.keys(msg)[0]][0] : 'ERROR'))
-            });
+            })
         }
 
     }
@@ -76,22 +74,15 @@ export const displaySuccess = async (resp) => {
             title: $i18n.t(resp.message)
         });*/
 
-        const toggleModal = () =>{
-            $swal.fire(
-                {
-                    title: '',
-                    text: $i18n.t(resp.message),
-                    type: 'success',
-                    showConfirmButton: false
-                },
-            );
-
-            setTimeout(()=> {
-                $swal.close();
-            }, 900);
-        };
-
-        toggleModal();
+        $swal.fire(
+            {
+                title: '',
+                text: $i18n.t(resp.message),
+                type: 'success',
+                timer: 900,
+                showConfirmButton: false
+            },
+        );
 
 
         if (resp.redirect) {
