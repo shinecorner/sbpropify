@@ -63,6 +63,9 @@ class PostTransformer extends BaseTransformer
         if ($model->relationExists('media')) {
             $ret['media'] = (new MediaTransformer)->transformCollection($model->media);
         }
+        if ($model->relationExists('views')) {
+            $ret['views'] = $model->views->sum('views');
+        }
 
         return $ret;
     }

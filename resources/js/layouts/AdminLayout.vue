@@ -24,50 +24,48 @@
                 </div>
             </router-link>
 
-            <div class="user-params" @click="toggleUserDropdown">
-                <div class="user-params-img" :style="`background-image: url('${user.avatar}')`"></div>
 
-                <div class="user-params-wrap">
-                    <span class="user-params-name">{{user.name.slice(0, 8)}}
-                        <span v-if="user.name.length > 10">...</span>
-                    </span>
-                    <i class="el-submenu__icon-arrow el-icon-arrow-down user-params-wrap-icon" :class="{'user-params-name-rotateIcon': userDropdownVisibility}"></i>
-                </div>
+            <el-menu class="dropdown-menu" menu-trigger="hover" mode="horizontal">
+                <el-submenu index="2">
+                    <template slot="title">
+
+                        <div class="user-params">
+                            <div class="user-params-img" :style="`background-image: url('${user.avatar}')`"></div>
+
+                            <div class="user-params-wrap">
+                                <span class="user-params-name">{{userName.slice(0, 8)}}
+                                    <span v-if="userName.length > 10">...</span>
+                                </span>
+                                <i class="el-submenu__icon-arrow el-icon-arrow-down user-params-wrap-icon"></i>
+                            </div>
+                        </div>
 
 
-                <div class="dropdown">
-                    <transition name="slide-fade">
-                        <ul class="dropdown-list" v-if="userDropdownVisibility">
-                            <li class="dropdown-list-item">
-                                <router-link :to="{name: 'adminProfile'}" class="dropdown-list-item-link"
-                                             :class="{'active': activeDropdownMenuItem}"
-                                             @click="selectDropdownMenu">
-                                    <i class="ti-user"/>
-                                    {{$t('menu.profile')}}
-                                </router-link>
-                            </li>
-                            <li class="dropdown-list-item">
-                                <template v-if="$can($permissions.view.realEstate)">
-                                    <router-link :to="{name: 'adminSettings'}" class="dropdown-list-item-link"
-                                                 :class="{'active': activeDropdownMenuItem}"
-                                                 @click="selectDropdownMenu">
-                                        <i class="ti-settings"/>
-                                        {{$t('menu.settings')}}
-                                    </router-link>
-                                </template>
-                            </li>
-                            <li class="dropdown-list-item">
-                                <el-button @click="handleLogout" type="text">
-                                    <div class="logout-button">
-                                        <i class="ti-power-off"/>
-                                        {{$t('menu.logout')}}
-                                    </div>
-                                </el-button>
-                            </li>
-                        </ul>
-                    </transition>
-                </div>
-            </div>
+                    </template>
+                    <el-menu-item index="2-1" class="el-menu-item-d">
+                        <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
+                            <i class="ti-user"/>
+                            {{$t('menu.profile')}}
+                        </router-link>
+                    </el-menu-item>
+                    <el-menu-item index="2-2" class="el-menu-item-d">
+                        <template v-if="$can($permissions.view.realEstate)">
+                            <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
+                                <i class="ti-settings"/>
+                                {{$t('menu.settings')}}
+                            </router-link>
+                        </template>
+                    </el-menu-item>
+                    <el-menu-item index="2-3">
+                        <el-button @click="handleLogout" type="text">
+                            <div class="logout-button">
+                                <i class="ti-power-off"/>
+                                {{$t('menu.logout')}}
+                            </div>
+                        </el-button>
+                    </el-menu-item>
+                </el-submenu>
+            </el-menu>
 
 
 
@@ -105,14 +103,14 @@
             return {
                 fullScreenText: 'Enter fullscreen mode',
                 showMenu: false,
-                userDropdownVisibility: false,
                 language: "language",
                 activeLanguage: 'Piano',
                 selectedFlag: '',
-                activeDropdownMenuItem: false,
 
                 activeIndex: '1',
                 activeIndex2: '1',
+
+                userName: null,
 
                 languages: [
                     {name: 'Français', symbol: 'fr', flag: 'flag-icon flag-icon-fr'},
@@ -267,7 +265,7 @@
                             displayError(err);
                         });
                 }).catch(() => {
-                    this.toggleUserDropdown();
+
                 });
             },
 
@@ -312,14 +310,6 @@
                 localStorage.setItem('locale', this.$i18n.locale);
                 localStorage.setItem('selectedFlag', this.selectedFlag);
             },
-
-            toggleUserDropdown(){
-                this.userDropdownVisibility = !this.userDropdownVisibility;
-            },
-
-            selectDropdownMenu(){
-                this.activeDropdownMenuItem = !this.activeDropdownMenuItem;
-            },
         },
 
         mounted(){
@@ -336,6 +326,10 @@
                 }
             });
         },
+
+        created() {
+            this.userName = this.user.name;
+        }
 
 
     }

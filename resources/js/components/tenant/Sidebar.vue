@@ -10,6 +10,7 @@
             <div :class="['item', {'active': item.active}]" v-for="item in submenu.items" :key="item.title" @click.stop="handleRoute($event, item)">
                 <i :class="['icon', item.icon]"></i>
                 <div class="title">{{item.title}}</div>
+                {{item.visible}}
             </div>
         </transition-group>
     </div>
@@ -128,20 +129,26 @@
                         this.submenu.items = item.children
                     }
 
-                    let j = item.children.length
+                    item.children = item.children.reduce((children, child, childIdx) => {
+                        if ('visible' in child && !child.visible) {
+                            return children
+                        }
 
-                    while (j--) {
-                        item.children[j].active = false
-                        item.children[j].key = `${item.key}.${j}`
+                        child.active = false
+                        child.key = `${item.key}.${childIdx}`
 
-                        if (item.children[j].route) {
-                            if (item.children[j].route.name === this.$route.name) {
+                        if (child.route) {
+                            if (child.route.name === this.$route.name) {
                                 item.active = true
 
-                                item.children[j].active = true
+                                child.active = true
                             }
                         }
-                    }
+
+                        children.push(child)
+
+                        return children
+                    }, [])
                 } else if (item.route && item.route.name === this.$route.name) {
                     item.active = true
                 }

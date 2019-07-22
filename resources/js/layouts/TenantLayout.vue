@@ -1,5 +1,8 @@
 <template>
-    <div class="layout">
+    <div v-if="loading">
+        Loading
+    </div>
+    <div class="layout" v-else>
         <el-menu mode="horizontal" background-color="#fff">
             <!-- <el-menu-item class="toggler">
                 <div :class="['button', {'active': visibleSidebar}]" @click="toggleSidebar">
@@ -58,6 +61,7 @@ export default {
             visibleSidebar: true,
             visibleToggler: false,
             realEstate: {},
+            loading: true
         }
     },
     methods: {
@@ -77,34 +81,6 @@ export default {
                     .catch(err => displayError(err));
             }).catch(() => {
             });
-        },
-        async filterRouteConditionals(route) {
-
-            const resp = await this.getRealEstate();
-            this.realEstate = resp.data;
-
-            if (!route.realEstateCondition && !route.children) {
-                return route;
-            }
-
-            if (route.realEstateCondition && !_.isEmpty(this.realEstate) && this.realEstate[route.realEstateCondition]) {
-                return route;
-            }
-
-            if (route.children) {
-                let vm = this;
-                route.children = route.children.filter(childRoute => {
-                    if (!childRoute.realEstateCondition) {
-                        return childRoute;
-                    }
-
-                    if (childRoute.realEstateCondition && !_.isEmpty(vm.realEstate) && vm.realEstate[childRoute.realEstateCondition]) {
-                        return childRoute;
-                    }
-                });
-
-                return route;
-            }
         }
     },
     computed: {
@@ -139,7 +115,7 @@ export default {
             }
         },
         routes() {
-            const routes = [{
+            return [{
                 icon: 'icon-th',
                 title: this.$t('layouts.tenant.sidebar.dashboard'),
                 route: {
@@ -172,7 +148,7 @@ export default {
                     route: {
                         name: 'tenantMyContacts'
                     },
-                    realEstateCondition: 'contact_enable'
+                    visible: this.realEstate && this.realEstate.contact_enable
                 }]
             }, {
                 icon: 'icon-megaphone-1',
@@ -206,9 +182,19 @@ export default {
                     name: 'tenantSettings'
                 }
             }]
-                .filter(this.filterRouteConditionals);
+        }
+    },
+    async mounted () {
+        try {
+            this.loading = true
 
-            return routes;
+            const {data} = await this.getRealEstate()
+
+            this.realEstate = data
+        } catch (error) {
+            displayError(error)
+        } finally {
+            this.loading = false
         }
     }
 }

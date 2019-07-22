@@ -9,28 +9,28 @@
                     <div class="total-box-card-body">
                         <div class="box-card-count">
                             {{ totalRequest }}
-                        </div>        
+                        </div>
                     </div>
-                </div>  
+                </div>
                 <el-divider style="margin: 0;"></el-divider>
                 <div style="height: 50%">
                     <div class="total-box-card-header clearfix ">
-                    <span>{{ $t('dashboard.average_request_duration') }}</span>
+                        <span>{{ $t('dashboard.average_request_duration') }}</span>
                     </div>
                     <div class="total-box-card-body">
                         <div class="box-card-count">
                             {{ avgReqDuration }}
-                        </div>        
+                        </div>
                     </div>
-                </div>  
-            </el-card>            
+                </div>
+            </el-card>
         </el-col>
         <el-col :span="18">
             <el-row :gutter="20">
                 <el-col v-for="(count, index) in data.data" :key="index" :span="8" style="padding: 0 10px 20px 10px">
                     <el-card class="box-card" :style="{'border-color': getRequestStatusColor(data.labels[index], 'name')}">
                         <div slot="header" class="box-card-header clearfix">
-                          <span>{{ $t('models.request.status.'+data.labels[index]) }}</span>
+                            <span>{{ $t('models.request.status.'+data.labels[index]) }}</span>
                         </div>
                         <div class="box-card-body">
                             <div class="box-card-count">
@@ -43,8 +43,8 @@
                     </el-card>
                 </el-col>
             </el-row>
-        </el-col>    
-     </el-row>
+        </el-col>
+    </el-row>
 </template>
 
 <script>
@@ -73,10 +73,6 @@
         },
         data(){
             return {}
-        },
-        mounted() {
-            console.log(this.data.data);
-            console.log(this.cols);
         }
     }
 </script>
