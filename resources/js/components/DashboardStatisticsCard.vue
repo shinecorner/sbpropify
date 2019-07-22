@@ -2,27 +2,27 @@
     <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
         <el-col :span="6">
             <el-card class="box-card-count" style="height: 91%">
-            		<div style="height: 50%">
-		              <div class="total-box-card-header">
-		                <span>{{ $t('models.building.requestStatuses.total') }}</span>
-		              </div>
-		              <div class="total-box-card-body">
-		                  <div class="box-card-count">
-		                      {{ totalRequest }}
-		                  </div>        
-		              </div>
-		            </div>  
-                            <el-divider style="margin: 0;"></el-divider>
-		            <div style="height: 50%">
-		              <div class="total-box-card-header clearfix ">
-		                <span>{{ $t('dashboard.average_request_duration') }}</span>
-		              </div>
-		              <div class="total-box-card-body">
-		                  <div class="box-card-count">
-		                      {{ avgReqDuration }}
-		                  </div>        
-		              </div>
- 		            </div>  
+                <div style="height: 50%">
+                    <div class="total-box-card-header">
+                    <span>{{ $t('models.building.requestStatuses.total') }}</span>
+                    </div>
+                    <div class="total-box-card-body">
+                        <div class="box-card-count">
+                            {{ totalRequest }}
+                        </div>        
+                    </div>
+                </div>  
+                <el-divider style="margin: 0;"></el-divider>
+                <div style="height: 50%">
+                    <div class="total-box-card-header clearfix ">
+                    <span>{{ $t('dashboard.average_request_duration') }}</span>
+                    </div>
+                    <div class="total-box-card-body">
+                        <div class="box-card-count">
+                            {{ avgReqDuration }}
+                        </div>        
+                    </div>
+                </div>  
             </el-card>            
         </el-col>
         <el-col :span="18">
@@ -37,7 +37,7 @@
                                 {{ count }}
                             </div>
                             <div class="box-card-progress">
-                                <el-progress type="circle" :percentage="data.tag_percentage[index]" :width="60" :color="getRequestStatusColor(data.labels[index], 'name')" :stroke-width="4"></el-progress>
+                                <el-progress type="circle" :percentage="data.tag_percentage[index]" :width="70" :color="getRequestStatusColor(data.labels[index], 'name')" :stroke-width="5"></el-progress>
                             </div>
                         </div>
                     </el-card>
@@ -73,11 +73,19 @@
         },
         data(){
             return {}
+        },
+        mounted() {
+            console.log(this.data.data);
+            console.log(this.cols);
         }
     }
 </script>
 
 <style lang="scss" scoped>
+    .el-divider.el-divider--horizontal {
+        width: 90%;
+        margin: 0 auto;
+    }
     .el-card {
         :global(.el-card__body) {
             padding: 0;
