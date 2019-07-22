@@ -25,7 +25,7 @@
             </router-link>
 
 
-            <el-menu class="dropdown-menu" menu-trigger="click" mode="horizontal">
+            <el-menu class="dropdown-menu" menu-trigger="hover" mode="horizontal">
                 <el-submenu index="2">
                     <template slot="title">
 
