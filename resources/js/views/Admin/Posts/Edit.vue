@@ -306,7 +306,7 @@
                                 <br>
                                 <span class="custom-value">
                                     {{model.likes_count}}
-                                </span>               
+                                </span>    
                             </el-col>
                             <el-col class="contact-info-card-col" :md="8"></el-col>
                             <el-col class="contact-info-card-col" :md="8"></el-col>
@@ -552,21 +552,36 @@
     
     .contact-info-card {
         .contact-info-card-row {
-            padding-top: 11px;
-            padding-bottom: 11px;
+            display: flex;
             border-bottom: 1px solid #EBEEF5;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
             &:first-child {
-                padding-top: 0;
+                .contact-info-card-col {
+                    padding-top: 0;
+                }
             }
             &:last-child {
-                padding-bottom: 0;
                 border-bottom: 0;
+                .contact-info-card-col {
+                    padding-bottom: 0;
+                }
+            }
+            .contact-info-card-col {
+                &:first-child {
+                    padding-left: 0 !important;
+                }
+                &:last-child {
+                    padding-right: 0 !important;
+                }
             }
         }
         
         .contact-info-card-col {
             border-right: 1px solid #EBEEF5;
             min-height: 57px;
+            padding-bottom: 10px;
+            padding-top: 10px;
             &:last-child {
                 border: none;
             }

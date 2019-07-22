@@ -133,13 +133,13 @@
                 margin-right: 10px;
             }
 
-            &:hover {
-                color: #6AC06F;
+            /*&:hover {*/
+            /*    color: #6AC06F;*/
 
-                i {
-                    color: #6AC06F;
-                }
-            }
+            /*    i {*/
+            /*        color: #6AC06F;*/
+            /*    }*/
+            /*}*/
         }
 
         .logout-button {
@@ -181,7 +181,7 @@
 
     .el-menu--popup {
         top: 13px;
-        left: 5px;
-        min-width: 150px!important;
+        left: -16px;
+        min-width: 167px !important;
     }
 </style>

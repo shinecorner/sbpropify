@@ -18,6 +18,7 @@ use App\Http\Requests\API\Post\DeleteRequest;
 use App\Http\Requests\API\Post\PublishRequest;
 use App\Http\Requests\API\Post\ShowRequest;
 use App\Http\Requests\API\Post\UpdateRequest;
+use App\Http\Requests\API\Post\ListViewsRequest;
 use App\Models\Post;
 use App\Models\User;
 use App\Notifications\NewTenantPost;
@@ -1057,7 +1058,7 @@ class PostAPIController extends AppBaseController
      *      )
      * )
      */
-    public function indexViews(int $id, PostViewTransformer $pvt, Request $req)
+    public function indexViews(int $id, PostViewTransformer $pvt, ListViewsRequest $req)
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
