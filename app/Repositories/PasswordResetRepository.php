@@ -49,11 +49,8 @@ class PasswordResetRepository extends BaseRepository
 
         $this->skipPresenter($temporarySkipPresenter);
 
-        $templateRepo = (new TemplateRepository($this->app));
-
-        $message = $templateRepo->getUserResetPasswordTemplate($user, $model);
         $model->notify(
-            new PasswordResetRequest($message['subject'], $message['body'], $message['settings'])
+            new PasswordResetRequest($user, $model)
         );
 
         return $this->parserResult($model);

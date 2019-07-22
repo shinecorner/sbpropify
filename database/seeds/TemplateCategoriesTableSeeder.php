@@ -165,7 +165,7 @@ HTML
                     'title' => 'constant.tenant.title',
                     'tenantCredentials' => 'tenantCredentials',
                 ],
-                'subject' => 'Password changed successfully',
+                'subject' => 'Account created',
                 'body' => <<<HTML
 <p>Hello {{title}} {{name}}</p>
 <p>Your account was created.</p>

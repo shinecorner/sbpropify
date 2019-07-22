@@ -29,11 +29,11 @@ use App\Repositories\TemplateRepository;
 use App\Repositories\TenantRepository;
 use App\Repositories\UserRepository;
 use App\Transformers\TenantTransformer;
+use Hashids\Hashids;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Validator;
-use Hashids\Hashids;
 
 /**
  * Class TenantController
@@ -646,8 +646,7 @@ class TenantAPIController extends AppBaseController
             return $this->sendError($this->credentialsFileNotFound);
         }
 
-        $message = $tRepo->getTenantCredentialsParsedTemplate($t);
-        $t->user->notify(new TenantCredentials($t, $message['subject'], $message['body']));
+        $t->user->notify(new TenantCredentials($t));
 
         return $this->sendResponse($id, 'Tenant credentials sent successfully');
     }

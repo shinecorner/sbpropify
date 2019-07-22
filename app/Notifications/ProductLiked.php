@@ -19,9 +19,9 @@ class ProductLiked extends Notification implements ShouldQueue
     protected $liker;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * ProductLiked constructor.
+     * @param Product $product
+     * @param Tenant $liker
      */
     public function __construct(Product $product, Tenant $liker)
     {

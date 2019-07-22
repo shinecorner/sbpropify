@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
-use App\Models\RealEstate;
 use App\Models\Tenant;
+use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -21,15 +21,6 @@ class TenantCredentials extends Notification implements ShouldQueue
      * @var Tenant
      */
     protected $tenant;
-    /**
-     * @var string
-     */
-    protected $subject;
-    /**
-     * @var string
-     */
-    protected $body;
-
 
     /**
      * TenantCredentials constructor.
@@ -37,11 +28,9 @@ class TenantCredentials extends Notification implements ShouldQueue
      * @param string $subject
      * @param string $body
      */
-    public function __construct(Tenant $tenant, string $subject, string $body)
+    public function __construct(Tenant $tenant)
     {
         $this->tenant = $tenant;
-        $this->subject = $subject;
-        $this->body = $body;
     }
 
     /**
@@ -63,17 +52,19 @@ class TenantCredentials extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $re = RealEstate::firstOrFail();
+        $tRepo = new TemplateRepository(app());
+        $data = $tRepo->getTenantCredentialsParsedTemplate($this->tenant);
+        $data['userName'] = $notifiable->name;
+
         $pdfName = $this->tenant->pdfXFileName();
-        if ($re && $re->blank_pdf) {
+        if ($data['company'] && $data['company']->blank_pdf) {
             $pdfName = $this->tenant->pdfFileName();
         }
         $disk = \Storage::disk('tenant_credentials');
+
         return (new MailMessage)
-            ->view('mails.sendTenantCredentials', [
-                'body' => $this->body,
-                'subject' => $this->subject,
-            ])->subject($this->subject);
+            ->view('mails.sendTenantCredentials', $data)
+            ->subject($data['subject']);
     }
 
     /**

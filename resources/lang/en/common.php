@@ -6,6 +6,14 @@ return [
     'mrs' => 'Mrs',
     'company' => 'Company',
 
+    'user_title_mr' => 'Mr',
+    'user_title_mrs' => 'Mrs',
+    'user_title_company' => 'Company',
+
+    'tenant_title_mr' => 'Mr',
+    'tenant_title_mrs' => 'Mrs',
+    'tenant_title_company' => 'Company',
+
     //Request
     'request_status_1' => 'Received',
     'request_status_2' => 'In Processing',
