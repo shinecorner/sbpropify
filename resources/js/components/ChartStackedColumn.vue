@@ -4,7 +4,7 @@
             <el-col :span="24">
                 <el-radio-group v-model="radio1">
                     <el-radio-button :label="$t('timestamps.days')"></el-radio-button>
-                    <el-radio-button :label="$t('timestamps.months')"></el-radio-button>                                        
+                    <el-radio-button :label="$t('timestamps.months')"></el-radio-button>
                 </el-radio-group>
                 <el-date-picker
                     v-model="startDate"
@@ -21,12 +21,12 @@
                 >
                 </el-date-picker>
             </el-col>
-        </el-row>    
+        </el-row>
         <el-row style="margin-bottom: 24px;" type="flex">
             <el-col :span="24">
                 <apexchart ref="stackColumnChart" width="100%" height="310" type="bar" :options="chartOptions" :series="series"></apexchart>
             </el-col>
-        </el-row>        
+        </el-row>
     </div>
 </template>
 <script>
@@ -36,32 +36,27 @@ import {format} from 'date-fns'
 import axios from '@/axios';
 
 export default {
-  mixins: [FormatDateTimeMixin],  
+  mixins: [FormatDateTimeMixin],
   components: {'apexchart': VueApexCharts},
-  props: {
-            type: {
-                type: String,
-                required: true
-            }            
-    },  
+  props: ['yDatap', 'xDatap'],
     data() {
-        return {        
+        return {
             radio1: '',
             startDate: '',
             endDate: '',
             xData: [],
             yData: []
         }
-    },    
-    computed: {    
-        series: function(){  
+    },
+    computed: {
+        series: function(){
         		console.log(this.yData);
             return this.yData;
         },
         chartOptions: function(){
-          return {  
+          return {
             chart: {
-              stacked: true, 
+              stacked: true,
               toolbar: {
                 show: true,
                 tools: {
@@ -71,9 +66,9 @@ export default {
             zoomin: false,
             zoomout: false,
             pan: false,
-            reset: false            
+            reset: false
           },
-              },  
+              },
             },
             responsive: [{
               breakpoint: 480,
@@ -96,8 +91,8 @@ export default {
               categories: this.xData,
             },
             legend: {
-              position: 'bottom',              
-              horizontalAlign: 'center'              
+              position: 'bottom',
+              horizontalAlign: 'center'
             },
             fill: {
               opacity: 1
@@ -106,15 +101,15 @@ export default {
                 enabled: false,
             }
           }
-        }        
+        }
       },
     methods: {
     	changeStartDate(type){
-    		
+
     	},
       fetchData(){
-            let that = this;                                               
-						let url = '';						
+            let that = this;
+						let url = '';
 						if(this.type === 'request_by_creation_date'){
 							url = 'admin/chartRequestByCreationDate';
 						}

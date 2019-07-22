@@ -81,7 +81,8 @@ export const displaySuccess = async (resp) => {
                 {
                     title: '',
                     text: $i18n.t(resp.message),
-                    type: 'success'
+                    type: 'success',
+                    showConfirmButton: false
                 },
             );
 
@@ -90,12 +91,7 @@ export const displaySuccess = async (resp) => {
             }, 900);
         };
 
-
-
-
-
         toggleModal();
-
 
 
         if (resp.redirect) {

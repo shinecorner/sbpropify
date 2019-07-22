@@ -9,9 +9,9 @@
 		              <div class="total-box-card-body">
 		                  <div class="box-card-count">
 		                      {{ totalRequest }}
-		                  </div>        
+		                  </div>
 		              </div>
-		            </div>  
+		            </div>
                             <el-divider style="margin: 0;"></el-divider>
 		            <div style="height: 50%">
 		              <div class="total-box-card-header clearfix ">
@@ -20,10 +20,10 @@
 		              <div class="total-box-card-body">
 		                  <div class="box-card-count">
 		                      {{ avgReqDuration }}
-		                  </div>        
+		                  </div>
 		              </div>
- 		            </div>  
-            </el-card>            
+ 		            </div>
+            </el-card>
         </el-col>
         <el-col :span="18">
             <el-row :gutter="20">
@@ -37,13 +37,13 @@
                                 {{ count }}
                             </div>
                             <div class="box-card-progress">
-                                <el-progress type="circle" :percentage="data.tag_percentage[index]" :width="60" :color="getRequestStatusColor(data.labels[index], 'name')" :stroke-width="4"></el-progress>
+                                <el-progress type="circle"  :percentage="count" :width="60" :color="getRequestStatusColor(data.labels[index], 'name')" :stroke-width="4"></el-progress>
                             </div>
                         </div>
                     </el-card>
                 </el-col>
             </el-row>
-        </el-col>    
+        </el-col>
      </el-row>
 </template>
 
@@ -73,7 +73,7 @@
         },
         data(){
             return {}
-        }
+        },
     }
 </script>
 

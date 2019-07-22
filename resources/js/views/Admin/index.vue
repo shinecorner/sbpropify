@@ -14,8 +14,8 @@
                             <el-col :span="24">
                                 <el-card class="chart-card" :header="$t('dashboard.requests_by_creation_date')">
                                     <chart-stacked-column
-                                                :yData="chartDataTotalReqByCreationDate.yData"
-                                                :xData="chartDataTotalReqByCreationDate.xData">
+                                                :yDatap="chartDataTotalReqByCreationDate.yData"
+                                                :xDatap="chartDataTotalReqByCreationDate.xData">
                                     </chart-stacked-column>
                                 </el-card>
                             </el-col>
@@ -182,8 +182,7 @@
         },
         created(){
             this.getReqStatastics();
-        }
-
+        },
 
     }
 </script>
