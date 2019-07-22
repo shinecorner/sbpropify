@@ -6405,6 +6405,11 @@
                     "type": "integer",
                     "format": "int32"
                 },
+                "post_id": {
+                    "description": "post_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
                 "user_id": {
                     "description": "user_id",
                     "type": "integer",

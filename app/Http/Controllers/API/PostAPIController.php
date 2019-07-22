@@ -249,6 +249,7 @@ class PostAPIController extends AppBaseController
             'buildings.media',
             'districts',
             'providers',
+            'views',
         ])->withCount('allComments')->findWithoutFail($id);
 
         if (empty($post)) {
