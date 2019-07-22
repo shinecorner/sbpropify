@@ -19,6 +19,7 @@ use Carbon\CarbonPeriod;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -49,16 +50,14 @@ class StatisticsAPIController extends AppBaseController
     ];
 
     /**
-     * if not set table optional parameter or write not permitted table name that case must be get data
-     * for this table and must be group by first value of self::PERMITTED_TABLES_GROUP[self::DEFAULT_TABLE]['column']
-     */
-    const DEFAULT_TABLE = 'service_requests';
-
-    /**
      * table,column config for make DonutChart
      *
      * this is use for permit correct table and column value
      * also according this config can get default values
+     *
+     * if not set table optional parameter or write not permitted table name that case must be get data
+     * for this table and must be group by first value of self::PERMITTED_TABLES_GROUP[self::DEFAULT_TABLE]['column']
+
      */
     const PERMITTED_TABLES_GROUP = [
         'service_requests' => [
@@ -85,6 +84,27 @@ class StatisticsAPIController extends AppBaseController
             'columns' => [
                 'status',
                 'type'
+            ]
+        ],
+    ];
+
+    const PERMITTED_TABLES_FOR_CREATED_DATE = [
+        'products' => [
+            'class' => Product::class,
+            'columns' => [
+                'status',
+            ]
+        ],
+        'tenants' => [
+            'class' => Tenant::class,
+            'columns' => [
+                'status',
+            ]
+        ],
+        'posts' => [
+            'class' => Post::class,
+            'columns' => [
+                'status',
             ]
         ],
     ];
@@ -353,6 +373,10 @@ class StatisticsAPIController extends AppBaseController
         return $this->sendResponse($response, 'Service Request statistics retrieved successfully');
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function adminStats(Request $request)
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request);
@@ -371,18 +395,19 @@ class StatisticsAPIController extends AppBaseController
             'posts_per_status' => [],
         ];
 
-        $ret = array_merge($ret, $this->chartRequestByCreationDate($request, false, $startDate, $endDate));
         $isConvertResponse = false;
-        $optionalParameters = compact('isConvertResponse', 'startDate', 'endDate');
-        $ret['requests_per_status'] = $this->chartRequestByColumn($request, $optionalParameters);
-        $ret['tenants_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalParameters, ['table' => 'tenants']));
-        $ret['products_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalParameters, ['table' => 'products']));
-        $ret['posts_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalParameters, ['table' => 'posts']));
+        $optionalArgs = compact('isConvertResponse', 'startDate', 'endDate');
+
+        $ret = array_merge($ret, $this->chartRequestByCreationDate($request, $optionalArgs));
+        $ret['requests_per_status'] = $this->chartRequestByColumn($request, $optionalArgs);
+        $ret['tenants_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalArgs, ['table' => 'tenants']));
+        $ret['products_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalArgs, ['table' => 'products']));
+        $ret['posts_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalArgs, ['table' => 'posts']));
         $categoryDayStatistics = collect($ret['requests_per_day_ydata']);
+
         $ret['requests_per_category']['labels'] = $categoryDayStatistics->map(function($el) {
             return $el['name'];
         });
-
         $ret['requests_per_category']['data'] = $categoryDayStatistics->map(function($el) {
             return array_sum($el['data']);
         });
@@ -396,23 +421,16 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @param bool $isConvertResponse
-     * @param null $startDate
-     * @param null $endDate
+     * @param array $optionalArgs
      * @return mixed
      */
-    public function chartRequestByCreationDate(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null)
+    public function chartRequestByCreationDate(Request $request, $optionalArgs = [])
     {
-        if (is_null($startDate) && is_null($endDate)) {
-            [$startDate, $endDate] = $this->getStartDateEndDate($request);
-        }
-
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         $period = $this->getPeriod($request);
-        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id')->toArray();
         [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate);
-        $catDayStats = $this->initializeServiceRequestCategoriesForChart($parentCategories, $periodValues);
 
-
+        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id')->toArray();
         $serviceRequests = ServiceRequest::selectRaw($raw . ', IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
             ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
             ->leftJoin('service_request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
@@ -422,41 +440,51 @@ class StatisticsAPIController extends AppBaseController
             ->groupBy('category_parent_id')
             ->get();
 
-        foreach ($serviceRequests as $serviceRequest) {
-            $categoryName = $parentCategories[$serviceRequest->category_parent_id] ?? '';
-            $catDayStats[$categoryName][$serviceRequest->period] = $serviceRequest->count;
-        }
-
-        $formattedReqStatistics = [];
-        foreach($catDayStats as $key=>$value){
-            $formattedReqStatistics[] = [
-                'name' => $key,
-                'data' => array_values($value)
-            ];
-        }
-
-        $ret['requests_per_day_xdata'] = array_values($periodValues);
-        $ret['requests_per_day_ydata'] = $formattedReqStatistics;
-
+        $ret = $this->formatResponseGropedPeriodAndCol($periodValues, $serviceRequests, 'category_parent_id', $parentCategories);
+        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
             ? $this->sendResponse($ret, 'Request services statistics formatted successfully')
             : $ret;
     }
 
+
     /**
-     * @TODO fix many parameters
-     *
      * @param Request $request
-     * @param bool $isConvertResponse
-     * @param null $startDate
-     * @param null $endDate
-     * @param null $table
+     * @param array $optionalArgs
      * @return mixed
      */
-    public function chartRequestByStatus(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null, $table = null)
+    public function chartRequestByCreationDateByColumn(Request $request, $optionalArgs = [])
     {
-        $optionalArgs = compact('startDate', 'endDate', 'isConvertResponse', 'table');
-        return $this->chartRequestByColumn($request, $optionalArgs);
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
+        [$class, $table, $column, $columnValues] = $this->getTableColumnClassByRequest($request, self::PERMITTED_TABLES_FOR_CREATED_DATE);
+        $period = $optionalArgs['period'] ?? $this->getPeriod($request);
+        [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate, $table);
+
+        $statistics = $class::selectRaw($raw . ',' . $column . ', count(id) `count`')
+            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
+            ->groupBy('period')
+            ->groupBy($column)
+            ->get();
+
+        $ret = $this->formatResponseGropedPeriodAndCol($periodValues, $statistics, $column, $columnValues);
+        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
+        return $isConvertResponse
+            ? $this->sendResponse($ret, 'Request services statistics formatted successfully fo ' . $table . ' by ' . $column)
+            : $ret;
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function chartRequestByStatus(Request $request)
+    {
+        $request->merge([
+            'table' => 'service_requests',
+            'column' => 'status'
+        ]);
+        return $this->chartRequestByColumn($request);
     }
 
     /**
@@ -466,32 +494,15 @@ class StatisticsAPIController extends AppBaseController
      */
     public function chartRequestByColumn(Request $request, $optionalArgs = [])
     {
-        $startDate = $optionalArgs['startDate'] ?? null;
-        $endDate = $optionalArgs['endDate'] ?? null;
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
+        [$class, $table, $column, $columnValues] = $this->getTableColumnClassByRequest($request, self::PERMITTED_TABLES_GROUP);
 
-        if (is_null($startDate) && is_null($endDate)) {
-            [$startDate, $endDate] = $this->getStartDateEndDate($request);
-        }
-
-        $table = $optionalArgs['table'] ?? null;
-        $table = $table ?? $request->{self::QUERY_PARAMS['table']};
-        $table = key_exists($table, self::PERMITTED_TABLES_GROUP) ? $table : self::DEFAULT_TABLE;
-
-        $permittedColumns = self::PERMITTED_TABLES_GROUP[$table]['columns'];
-        $column = $optionalArgs['column'] ?? null;
-        $column = $column ?? $request->{self::QUERY_PARAMS['column']};
-        $column = in_array($column, $permittedColumns) ? $column : array_first($permittedColumns);
-
-        $class = self::PERMITTED_TABLES_GROUP[$table]['class'];
         $statistics = $class::selectRaw($column . ', count(id) `count`')
             ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
             ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
             ->groupBy($column)
             ->orderBy($column)
             ->get();
-
-        // @TODO improve if need
-        $columnValues = constant($class . "::" . ucfirst($column));
 
         $includePercentage = ('service_requests' == $table) ? true : false;
         $response = $this->formatForDonutChart($statistics, $column, $columnValues, $includePercentage);
@@ -503,19 +514,13 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     * @TODO fix many parameters
-     *
      * @param Request $request
-     * @param bool $isConvertResponse
-     * @param null $startDate
-     * @param null $endDate
+     * @param array $optionalArgs
      * @return mixed
      */
-    public function chartRequestByRequestStatus(Request $request, $isConvertResponse = true, $startDate = null, $endDate = null)
+    public function chartRequestByRequestStatus(Request $request, $optionalArgs = [])
     {
-        if (is_null($startDate) && is_null($endDate)) {
-            [$startDate, $endDate] = $this->getStartDateEndDate($request);
-        }
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
 
         $rsPerStatus = Tenant::selectRaw('`service_requests`.`status`, count(`tenants`.`id`) `count`')
             ->join('service_requests', 'service_requests.tenant_id', 'tenants.id')
@@ -528,6 +533,7 @@ class StatisticsAPIController extends AppBaseController
         $classStatus = ServiceRequest::Status;
         $response = $this->formatForDonutChart($rsPerStatus, 'status', $classStatus);
 
+        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
             ? $this->sendResponse($response, 'Admin statistics retrieved successfully for tenants')
             : $response;
@@ -564,6 +570,34 @@ class StatisticsAPIController extends AppBaseController
         ];
 
         return $this->formatForDonutChart($statistics, 'login', $values, true);
+    }
+
+    /**
+     * @param $periodValues
+     * @param $statistics
+     * @param $column
+     * @param $columnValues
+     * @return mixed
+     */
+    protected function formatResponseGropedPeriodAndCol($periodValues, $statistics, $column, $columnValues)
+    {
+        $colStats = $this->initializeServiceRequestCategoriesForChart($columnValues, $periodValues);
+        foreach ($statistics as $statistic) {
+            $value = $columnValues[$statistic[$column]] ?? '';
+            $colStats[$value][$statistic['period']] = $statistic['count'];
+        }
+
+        $formattedReqStatistics = [];
+        foreach($colStats as $key=>$value){
+            $formattedReqStatistics[] = [
+                'name' => $key,
+                'data' => array_values($value)
+            ];
+        }
+
+        $ret['requests_per_day_xdata'] = array_values($periodValues);
+        $ret['requests_per_day_ydata'] = $formattedReqStatistics;
+        return $ret;
     }
 
     /**
@@ -712,15 +746,16 @@ class StatisticsAPIController extends AppBaseController
     /**
      * @param $period
      * @param $startDate
-     * @param Carbon $endDate
+     * @param $endDate
+     * @param string $table
      * @return array
      */
-    protected function getPeriodRelatedData($period, $startDate, Carbon $endDate)
+    protected function getPeriodRelatedData($period, $startDate, $endDate, $table = 'service_requests')
     {
         $periodValues = [];
 
         if (self::YEAR == $period) {
-            $part = "YEAR(service_requests.created_at)";
+            $part = "YEAR(' . $table . '.created_at)";
             $startDate->setMonth(1)->setDay(1);
             $endDate->setMonth(12)->setDay(31);
             $currentDate = clone $startDate;
@@ -731,7 +766,7 @@ class StatisticsAPIController extends AppBaseController
             }
 
         } elseif (self::MONTH == $period) {
-            $part = "CONCAT(YEAR(service_requests.created_at), ' ', MONTH(service_requests.created_at))";
+            $part = "CONCAT(YEAR(" . $table . ".created_at), ' ', MONTH(" . $table . ".created_at))";
             $startDate->setDay(1);
             $endDate->addMonth()->setDay(1)->subDay();
 
@@ -750,7 +785,7 @@ class StatisticsAPIController extends AppBaseController
                 $endDate = $endDate->addDays(6 - $endDate->dayOfWeek);
             }
             // @TODO check statistics when WEEK(created_at) = 1, 52, 53 maybe can income some incorrect data
-            $part = "CONCAT(YEAR(service_requests.created_at), ' ', WEEK(service_requests.created_at))";
+            $part = "CONCAT(YEAR(" . $table . ".created_at), ' ', WEEK(" . $table . ".created_at))";
             $currentDate = clone $startDate;
             $today = now();
 
@@ -761,14 +796,14 @@ class StatisticsAPIController extends AppBaseController
             }
 
         } else {
-            $part = "DATE(service_requests.created_at)";
+            $part = "DATE(" . $table . ".created_at)";
             $datePeriod = CarbonPeriod::create($startDate, $endDate);
             foreach ($datePeriod as $date) {
                 $periodValues[$date->format('Y-m-d')] = $date->format('Y-m-d');
             }
         }
 
-        $raw = sprintf("count(service_requests.id) as count, %s as period", $part);
+        $raw = sprintf("count(" . $table . ".id) as count, %s as period", $part);
 
 
         return [$periodValues, $raw];
@@ -776,16 +811,19 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @param $request
-     * @param null $period
+     * @param array $optionalArgs
      * @return array
      */
-    protected function getStartDateEndDate($request)
+    protected function getStartDateEndDate($request, $optionalArgs = [])
     {
-        // @TODO fix query param hard code, also key hard code like month
-        $requestData = $request->all();
+        if (key_exists('startDate', $optionalArgs) && key_exists('endDate', $optionalArgs)) {
+            return [$optionalArgs['startDate'], $optionalArgs['endDate']];
+        }
 
+        $requestData = $request->all();
         $startDate = $requestData[self::QUERY_PARAMS['start_date']] ?? '';
         $endDate = $requestData[self::QUERY_PARAMS['end_date']] ?? '';
+
         if (empty($startDate) && empty($endDate)) {
             $endDate = now();
             $startDate = now()->subMonth();
@@ -812,5 +850,27 @@ class StatisticsAPIController extends AppBaseController
     {
         $period = $request->{self::QUERY_PARAMS['period']} ?? self::DEFAULT_PERIOD;
         return in_array($period, self::PERMITTED_PERIODS) ? $period : self::DEFAULT_PERIOD;
+    }
+
+    /**
+     * @TODO rename
+     * @param $request
+     * @param $permissions
+     * @return array
+     */
+    protected function getTableColumnClassByRequest($request, $permissions)
+    {
+        $table = $optionalArgs['table'] ?? null;
+        $table = $table ?? $request->{self::QUERY_PARAMS['table']};
+        $table = key_exists($table, $permissions) ? $table : Arr::first(array_keys($permissions));
+
+        $permittedColumns = $permissions[$table]['columns'];
+        $column = $optionalArgs['column'] ?? null;
+        $column = $column ?? $request->{self::QUERY_PARAMS['column']};
+        $column = in_array($column, $permittedColumns) ? $column : Arr::first($permittedColumns);
+        $class = $permissions[$table]['class'];
+        $columnValues = constant($class . "::" . ucfirst($column));
+
+        return [$class, $table, $column, $columnValues];
     }
 }

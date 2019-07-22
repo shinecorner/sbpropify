@@ -77,6 +77,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     // Buildings
     Route::get('/buildings', 'BuildingAPIController@index')->name('buildings');
     Route::get('/buildings/latest', 'BuildingAPIController@latest')->name('buildings.latest');
+    Route::get('/buildings/map', 'BuildingAPIController@map')->name('buildings.map');
     Route::get('/buildings/statistics', 'StatisticsAPIController@allBuildingStatistics')->name('buildings.statistics.all');
     Route::get('/buildings/{id}', 'BuildingAPIController@show')->name('buildings.show');
     Route::get('/buildings/{id}/statistics', 'StatisticsAPIController@buildingStatistics')->name('buildings.statistics.show');
@@ -228,6 +229,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::resource('translations', 'TranslationAPIController');
     Route::get('/admin/statistics', 'StatisticsAPIController@adminStats');
     Route::get('/admin/chartRequestByCreationDate', 'StatisticsAPIController@chartRequestByCreationDate');
+    Route::get('/admin/chartRequestByCreationDateByColumn', 'StatisticsAPIController@chartRequestByCreationDateByColumn');
     Route::get('/admin/chartRequestByColumn', 'StatisticsAPIController@chartRequestByColumn');
     Route::get('/admin/chartRequestByStatus', 'StatisticsAPIController@chartRequestByStatus');
     Route::get('/admin/chartRequestByRequestStatus', 'StatisticsAPIController@chartRequestByRequestStatus');
