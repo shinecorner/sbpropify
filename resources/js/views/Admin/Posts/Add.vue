@@ -1,7 +1,7 @@
 <template>
     <div class="units-add">
         <heading :title="$t('models.post.add')" icon="ti-annoucements" shadow="heavy" style="margin-bottom: 20px;">
-            <add-actions :saveAction="submit" route="adminPosts"/>
+            <add-actions :saveAction="submit" route="adminPosts" editRoute="adminPostsEdit"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-form :model="model" label-position="top" label-width="192px" ref="form">

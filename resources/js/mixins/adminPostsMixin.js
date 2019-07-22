@@ -290,42 +290,43 @@ export default (config = {}) => {
                 mixin.methods = {
                     ...mixin.methods,
                     ...mapActions(['createPost', 'changePostPublish']),
-                    submit() {
-                        this.form.validate(async valid => {
-                            if (!valid) {
-                                return false;
-                            }
+                    async submit() {
+                        const valid = this.form.validate();
+                        if (!valid) {
+                            return false;
+                        }
 
-                            this.loading.state = true;
+                        this.loading.state = true;
 
-                            try {
-                                const resp = await this.createPost(this.model);
+                        try {
+                            const resp = await this.createPost(this.model);
 
-                                if (resp && resp.data.id) {
-                                    this.$set(this.model, 'id', resp.data.id);
-                                    await this.uploadNewMedia(resp.data.id);
-                                    if (this.toAssign) {
-                                        await this.attachBuilding();
-                                    }
-
-                                    if (this.toAssignProvider) {
-                                        await this.attachProvider();
-                                    }
-
-                                    await this.changePostPublish({
-                                        id: resp.data.id,
-                                        status: this.model.status
-                                    })
+                            if (resp && resp.data.id) {
+                                this.$set(this.model, 'id', resp.data.id);
+                                await this.uploadNewMedia(resp.data.id);
+                                if (this.toAssign) {
+                                    await this.attachBuilding();
                                 }
-                                this.form.resetFields();
-                                this.media = [];
-                                displaySuccess(resp);
-                            } catch (err) {
-                                displayError(err);
-                            } finally {
-                                this.loading.state = false;
+
+                                if (this.toAssignProvider) {
+                                    await this.attachProvider();
+                                }
+
+                                await this.changePostPublish({
+                                    id: resp.data.id,
+                                    status: this.model.status
+                                })
                             }
-                        });
+                            this.form.resetFields();
+                            this.media = [];
+                            displaySuccess(resp);
+                            return resp;
+                        } catch (err) {
+                            displayError(err);
+                        } finally {
+                            this.loading.state = false;
+                        }
+
                     },
 
                 };

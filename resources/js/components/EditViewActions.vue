@@ -1,6 +1,6 @@
 <template>
     <div class="action-group">
-        <el-button @click="saveAction" size="small" type="primary" round> {{this.$t('actions.save')}}</el-button>
+        <el-button @click="callSaveActionAndRedirectToEditPage" size="small" type="primary" round> {{this.$t('actions.save')}}</el-button>
         <el-button @click="saveAndClose" size="small" type="primary" round> {{this.$t('actions.saveAndClose')}}
         </el-button>
         <el-button v-if="deleteAction || undefined"  @click="deleteAndClose" size="small" type="danger" round icon="ti-trash"> {{this.$t('actions.delete')}}</el-button>
@@ -25,6 +25,10 @@
             route: {
                 type: String,
                 required: true
+            },
+            editRoute: {
+                type: String,
+                required: false
             },
             queryParams: { 
                 type: Object,
@@ -57,6 +61,20 @@
                         this.callDeleteAction();
                     }).catch(() => {
                     });
+            },
+            async callSaveActionAndRedirectToEditPage() {
+                try {
+                    const resp = await this.saveAction();
+                    if (resp && resp.data) {
+                        this.$router.push({
+                            name: this.editRoute,
+                            params: {id: resp.data.id}
+                        })
+                    }
+                } catch (e) {
+                    console.log(e)
+                }
+
             },
 
             async callDeleteAction() {

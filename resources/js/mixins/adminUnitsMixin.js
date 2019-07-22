@@ -145,21 +145,22 @@ export default (config = {}) => {
         switch (config.mode) {
             case 'add':
                 mixin.methods = {
-                    submit() {
-                        this.form.validate(async valid => {
-                            if (valid) {
-                                this.loading.state = true;
-                                try {
-                                    displaySuccess(await this.createUnit(this.model));
+                    async submit() {
+                        const valid = await this.form.validate();
+                        if (valid) {
+                            this.loading.state = true;
+                            try {
+                                const response = await this.createUnit(this.model);
+                                displaySuccess(response);
 
-                                    this.form.resetFields();
-                                } catch (err) {
-                                    displayError(err);
-                                } finally {
-                                    this.loading.state = false;
-                                }
+                                this.form.resetFields();
+                                return response;
+                            } catch (err) {
+                                displayError(err);
+                            } finally {
+                                this.loading.state = false;
                             }
-                        });
+                        }
                     },
 
                     ...mixin.methods,

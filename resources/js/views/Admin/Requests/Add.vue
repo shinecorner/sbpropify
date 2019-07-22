@@ -1,7 +1,7 @@
 <template>
     <div class="services-edit">
         <heading :title="$t('models.request.add_title')" icon="ti-user" shadow="heavy">
-            <add-actions :saveAction="submit" route="adminRequests"/>
+            <add-actions :saveAction="submit" route="adminRequests" editRoute="adminRequestsEdit"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
