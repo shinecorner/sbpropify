@@ -88,8 +88,14 @@ export default {
     forceLogout({commit}) {
         localStorage.removeItem('token');
 
+
+        //TODO figure out how to logout without reloading the page
+        window.location.reload();
+
         commit('SET_LOGGED_IN', false);
         commit('SET_LOGGED_IN_USER', {});
+
+
     },
     sendForgotPassword(_, payload) {
         return new Promise((resolve, reject) =>
