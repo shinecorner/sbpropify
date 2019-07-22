@@ -73,6 +73,52 @@ body {
     padding: 0 20px;
 }
 
+//.swal2-popup .swal2-actions{
+//    opacity: 0;
+//    transform: scale(0);
+//    transition: 0.3s ease-in-out;
+//}
+//
+//.showButton{
+//    opacity: 1!important;
+//    transform: scale(1)!important;;
+//}
+
+.slide-fade-enter-active {
+    transition: all .3s ease;
+}
+.slide-fade-leave-active {
+    transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateY(10px);
+    opacity: 0;
+}
+
+.bounce-enter-active {
+    animation: bounce-in .4s;
+}
+.bounce-leave-active {
+    animation: bounce-in .4s reverse;
+}
+@keyframes bounce-in {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.df{
+    display: flex;
+    flex-direction: column;
+}
+
 .dashboard-tabpanel .el-tabs--border-card > .el-tabs__header .el-tabs__item{
     flex-basis: 0;
     -webkit-box-flex: 1;
@@ -123,39 +169,4 @@ body {
 }
 .dashboard-tabpanel .chart-card{
     height: 420px;
-}
-
-.slide-fade-enter-active {
-    transition: all .3s ease;
-}
-.slide-fade-leave-active {
-    transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-}
-.slide-fade-enter, .slide-fade-leave-to
-    /* .slide-fade-leave-active below version 2.1.8 */ {
-    transform: translateY(10px);
-    opacity: 0;
-}
-
-.bounce-enter-active {
-    animation: bounce-in .4s;
-}
-.bounce-leave-active {
-    animation: bounce-in .4s reverse;
-}
-@keyframes bounce-in {
-    0% {
-        transform: scale(0);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-.df{
-    display: flex;
-    flex-direction: column;
 }

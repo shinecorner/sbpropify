@@ -2,27 +2,27 @@
     <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
         <el-col :span="6">
             <el-card class="box-card-count" style="height: 91%">
-            		<div style="height: 50%">
-		              <div class="total-box-card-header">
-		                <span>{{ $t('models.building.requestStatuses.total') }}</span>
-		              </div>
-		              <div class="total-box-card-body">
-		                  <div class="box-card-count">
-		                      {{ totalRequest }}
-		                  </div>
-		              </div>
-		            </div>
-                            <el-divider style="margin: 0;"></el-divider>
-		            <div style="height: 50%">
-		              <div class="total-box-card-header clearfix ">
-		                <span>{{ $t('dashboard.average_request_duration') }}</span>
-		              </div>
-		              <div class="total-box-card-body">
-		                  <div class="box-card-count">
-		                      {{ avgReqDuration }}
-		                  </div>
-		              </div>
- 		            </div>
+                <div style="height: 50%">
+                    <div class="total-box-card-header">
+                        <span>{{ $t('models.building.requestStatuses.total') }}</span>
+                    </div>
+                    <div class="total-box-card-body">
+                        <div class="box-card-count">
+                            {{ totalRequest }}
+                        </div>
+                    </div>
+                </div>
+                <el-divider style="margin: 0;"></el-divider>
+                <div style="height: 50%">
+                    <div class="total-box-card-header clearfix ">
+                        <span>{{ $t('dashboard.average_request_duration') }}</span>
+                    </div>
+                    <div class="total-box-card-body">
+                        <div class="box-card-count">
+                            {{ avgReqDuration }}
+                        </div>
+                    </div>
+                </div>
             </el-card>
         </el-col>
         <el-col :span="18">
@@ -30,7 +30,7 @@
                 <el-col v-for="(count, index) in data.data" :key="index" :span="8" style="padding: 0 10px 20px 10px">
                     <el-card class="box-card" :style="{'border-color': getRequestStatusColor(data.labels[index], 'name')}">
                         <div slot="header" class="box-card-header clearfix">
-                          <span>{{ $t('models.request.status.'+data.labels[index]) }}</span>
+                            <span>{{ $t('models.request.status.'+data.labels[index]) }}</span>
                         </div>
                         <div class="box-card-body">
                             <div class="box-card-count">
@@ -44,7 +44,7 @@
                 </el-col>
             </el-row>
         </el-col>
-     </el-row>
+    </el-row>
 </template>
 
 <script>
