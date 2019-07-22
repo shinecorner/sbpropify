@@ -114,24 +114,24 @@ export default {
       },
     methods: {
       disabledEndDate(date){
-        		var parsed_start_date = (this.startDate) ? this.startDate.split(".") : [];
-        		if((parsed_start_date[0] !== undefined) && (parsed_start_date[1] !== undefined) && (parsed_start_date[0] !== undefined)){
-        			return isBefore(date, new Date(parsed_start_date[2], parsed_start_date[1] - 1, parsed_start_date[0]))
-        		}
-        		return false;            
+        var parsed_start_date = (this.startDate) ? this.startDate.split(".") : [];
+        if((parsed_start_date[0] !== undefined) && (parsed_start_date[1] !== undefined) && (parsed_start_date[0] !== undefined)){
+                return isBefore(date, new Date(parsed_start_date[2], parsed_start_date[1] - 1, parsed_start_date[0]))
+        }
+        return false;            
       },
       fetchData(){
             let that = this;                                               
-						let url = '';						
-						if(this.type === 'request_by_creation_date'){
-							url = 'admin/chartRequestByCreationDate';
-						}
+            let url = '';						
+            if(this.type === 'request_by_creation_date'){
+                    url = 'admin/chartRequestByCreationDate';
+            }
             return axios.get(url,{
             	params: {
-    						start_date: that.startDate,
-    						end_date: that.endDate,
-    						period: that.period
-						  }
+                    start_date: that.startDate,
+                    end_date: that.endDate,
+                    period: that.period
+                }
             })
             .then(function (response) {
                 that.yData = response.data.data.requests_per_day_ydata;
@@ -149,21 +149,21 @@ export default {
     },
     watch:{
         startDate: function (val) {
-        	var parsed_end_date = (this.endDate) ? this.endDate.split(".") : [];
-        	var parsed_start_date = (val) ? val.split(".") : [];
-        		if((parsed_end_date[2] !== undefined) && (parsed_start_date[2] !== undefined)){        				
-        			 if(isAfter(new Date(parsed_start_date[2], parsed_start_date[1] - 1, parsed_start_date[0]), new Date(parsed_end_date[2], parsed_end_date[1] - 1, parsed_end_date[0]))){
-        			 		this.endDate = val;
-        			 }
-        		}
-      		this.fetchData();
-	    	},
-	    	endDate: function (val) {
-      		this.fetchData();
-	    	},
-	    	period: function (val) {
-      		this.fetchData();
-	    	}
+            var parsed_end_date = (this.endDate) ? this.endDate.split(".") : [];
+            var parsed_start_date = (val) ? val.split(".") : [];
+            if((parsed_end_date[2] !== undefined) && (parsed_start_date[2] !== undefined)){        				
+                if(isAfter(new Date(parsed_start_date[2], parsed_start_date[1] - 1, parsed_start_date[0]), new Date(parsed_end_date[2], parsed_end_date[1] - 1, parsed_end_date[0]))){
+                    this.endDate = val;
+                }
+            }
+            this.fetchData();
+        },
+        endDate: function (val) {
+            this.fetchData();
+        },
+        period: function (val) {
+            this.fetchData();
+        }
     }
 }
 </script>
