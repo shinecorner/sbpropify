@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Criteria\Buildings\FilterByRelatedFieldsCriteria;
 use App\Criteria\Buildings\ExcludeIdsCriteria;
-use App\Criteria\Buildings\SelectCriteria;
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\Posts\FilterByBuildingCriteria;
 use App\Http\Controllers\AppBaseController;
@@ -27,6 +26,7 @@ use App\Transformers\BuildingTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
+use Spatie\Geocoder\Geocoder;
 use Validator;
 
 /**
@@ -259,6 +259,9 @@ class BuildingAPIController extends AppBaseController
         $input['address_id'] = $address->id;
         $input['name'] = sprintf('%s %s', $address->street, $address->street_nr);
 
+        // @TODO pass correct argument
+//        $geoData = $this->getGeoDataByAddress($input['name']);
+//        $input = array_merge($input, $geoData);
         $building = $this->buildingRepository->create($input);
         $response = (new BuildingTransformer)->transform($building);
 
@@ -678,5 +681,32 @@ class BuildingAPIController extends AppBaseController
         $response = (new BuildingTransformer)->transform($building);
         return $this->sendResponse($response, 'Property unassigned successfully');
     }
-    
+
+    /**
+     * @param $address
+     * @return array
+     */
+    protected function getGeoDataByAddress($address)
+    {
+        $client = new \GuzzleHttp\Client();
+
+        $geocoder = new Geocoder($client);
+        $geocoder->setApiKey(config('geocoder.key'));
+
+//        $geocoder->setCountry(config('US'));
+        try {
+            // @TODO remove after test
+            $address = 'Infinite Loop 1, Cupertino';
+            $response = $geocoder->getCoordinatesForAddress($address);
+        } catch (\Exception $exception) {
+            $response = [
+                'lat' => 0,
+                'lng' => 0,
+            ];
+        }
+        return [
+            'longitude' => $response['lng'],
+            'latitude' => $response['lat']
+        ];
+    }
 }
