@@ -7,7 +7,7 @@
             <el-form :model="model" label-position="top" label-width="192px" ref="form">
                 <el-col :md="12">                
                     <el-card :loading="loading" class="mb20">
-                        <el-row :gutter="20">
+                        <el-row :gutter="20" class="mb20">
                             <el-col :lg="8">
                                 <el-form-item :label="$t('models.post.type.label')">
                                     <el-select style="display: block" v-model="model.pinned">
@@ -109,7 +109,7 @@
                         </template>                        
                     </el-card>
 
-                    <el-card :loading="loading" v-if="!model.pinned">
+                    <el-card :loading="loading" v-if="!model.pinned && (!model.tenant)">
                         <el-row :gutter="10">
                             <el-col :lg="6">
                                 <el-select @change="resetToAssignList"
@@ -266,8 +266,8 @@
                 </el-col>
                 <el-col :md="12">
                     <el-card :loading="loading" class="contact-info-card mb20">
-                        <el-row>
-                            <el-col :md="8">
+                        <el-row  :gutter="30" class="contact-info-card-row">
+                            <el-col class="contact-info-card-col" :md="8">
                                 <span class="custom-label">{{$t('models.post.user')}}</span>
                                 <br>
                                 <span v-if="model.user">
@@ -284,7 +284,7 @@
                                     </router-link>
                                 </span>
                             </el-col>                            
-                            <el-col :md="8">
+                            <el-col class="contact-info-card-col" :md="8">
                                 <span class="custom-label">{{$t('models.post.published_at')}}</span>
                                 <br>
                                 <span class="custom-value" v-if="model.published_at">
@@ -292,16 +292,27 @@
                                     </span>
                                 <span class="custom-value" v-else>-</span>
                             </el-col>
-                            <el-col :md="8">
+                            <el-col class="contact-info-card-col" :md="8">
                                 <span class="custom-label">{{$t('models.post.comments')}}</span>
                                 <br>
                                 <span class="custom-value">
                                     {{model.comments_count}}
                                 </span>
                             </el-col>
-                        </el-row>                    
+                        </el-row>     
+                        <el-row  :gutter="30" class="contact-info-card-row">
+                            <el-col class="contact-info-card-col" :md="8">
+                                <span class="custom-label">{{$t('models.post.likes')}}</span>
+                                <br>
+                                <span class="custom-value">
+                                    {{model.likes_count}}
+                                </span>               
+                            </el-col>
+                            <el-col class="contact-info-card-col" :md="8"></el-col>
+                            <el-col class="contact-info-card-col" :md="8"></el-col>
+                        </el-row>                                                    
                     </el-card>
-                    <el-card :loading="loading" v-if="model.pinned">
+                    <el-card :loading="loading" v-if="model.pinned && (!model.tenant)">
                         <el-row :gutter="10">
                             <el-col :lg="6">
                                 <el-select @change="resetToAssignList"
@@ -540,12 +551,26 @@
     }
     
     .contact-info-card {
-        .el-row {
-            margin-bottom: 22px;
-            &:last-child {
-                margin-bottom: 0;
+        .contact-info-card-row {
+            padding-top: 11px;
+            padding-bottom: 11px;
+            border-bottom: 1px solid #EBEEF5;
+            &:first-child {
+                padding-top: 0;
             }
-        }        
+            &:last-child {
+                padding-bottom: 0;
+                border-bottom: 0;
+            }
+        }
+        
+        .contact-info-card-col {
+            border-right: 1px solid #EBEEF5;
+            min-height: 57px;
+            &:last-child {
+                border: none;
+            }
+        }
     }
 
     .tenant-link {

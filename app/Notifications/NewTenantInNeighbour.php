@@ -3,22 +3,35 @@
 namespace App\Notifications;
 
 use App\Models\Post;
+use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Str;
 
+/**
+ * Class NewTenantInNeighbour
+ * @package App\Notifications
+ */
 class NewTenantInNeighbour extends Notification implements ShouldQueue
 {
-    use Queueable;
+    use Queueable, InteractsWithQueue;
 
+    /**
+     * @var int
+     */
+    public $tries = 3;
+
+    /**
+     * @var Post
+     */
     protected $post;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * NewTenantInNeighbour constructor.
+     * @param Post $post
      */
     public function __construct(Post $post)
     {
@@ -33,7 +46,7 @@ class NewTenantInNeighbour extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'mail'];
     }
 
     /**
@@ -44,10 +57,12 @@ class NewTenantInNeighbour extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $tRepo = new TemplateRepository(app());
+        $data = $tRepo->getPostNewTenantInNeighbourParsedTemplate($this->post, $notifiable);
+        $data['userName'] = $notifiable->name;
+
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->view('mails.postPublished', $data)->subject($data['subject']);
     }
 
     /**
@@ -66,6 +81,10 @@ class NewTenantInNeighbour extends Notification implements ShouldQueue
         ];
     }
 
+    /**
+     * @param $notifiable
+     * @return array
+     */
     public function toDatabase($notifiable)
     {
         return $this->toArray($notifiable);

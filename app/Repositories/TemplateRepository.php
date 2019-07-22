@@ -328,6 +328,7 @@ class TemplateRepository extends BaseRepository
         $context = [
             'user' => $user,
             'post' => $post,
+            'subject' => $post->user,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
@@ -368,6 +369,44 @@ class TemplateRepository extends BaseRepository
         $tags = $this->getTags($template->category->tag_map, $context);
 
         return $this->getParsedTemplateData($template, $tags, $user->settings->language);
+    }
+
+    /**
+     * @param Post $post
+     * @param User $receiver
+     * @return array
+     */
+    public function getPostParsedTemplate(Post $post, User $receiver): array
+    {
+        $template = $this->getByCategoryName('post_published');
+
+        $context = [
+            'receiver' => $receiver,
+            'post' => $post,
+        ];
+
+        $tags = $this->getTags($template->category->tag_map, $context);
+
+        return $this->getParsedTemplateData($template, $tags, $receiver->settings->language);
+    }
+
+    /**
+     * @param Post $post
+     * @param User $receiver
+     * @return array
+     */
+    public function getPostNewTenantInNeighbourParsedTemplate(Post $post, User $receiver): array
+    {
+        $template = $this->getByCategoryName('post_new_tenant_in_neighbour');
+
+        $context = [
+            'receiver' => $receiver,
+            'post' => $post,
+        ];
+
+        $tags = $this->getTags($template->category->tag_map, $context);
+
+        return $this->getParsedTemplateData($template, $tags, $receiver->settings->language);
     }
 
     /**
@@ -510,10 +549,10 @@ class TemplateRepository extends BaseRepository
         return $this->getParsedTemplateData($template, $tags, $receiver->settings->language);
     }
 
-
     /**
      * @param ServiceRequest $sr
      * @param User $uploader
+     * @param User $receiver
      * @param Media $media
      * @return array
      */

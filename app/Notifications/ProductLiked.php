@@ -52,14 +52,12 @@ class ProductLiked extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-
         $tRepo = new TemplateRepository(app());
-        $msg = $tRepo->getProductLikedParsedTemplate($this->product, $this->liker->user);
+        $data = $tRepo->getProductLikedParsedTemplate($this->product, $this->liker->user);
+        $data['userName'] = $notifiable->name;
+
         return (new MailMessage)
-            ->view('mails.productLiked', [
-                'body' => $msg['body'],
-                'subject' => $msg['subject'],
-            ])->subject($msg['subject']);
+            ->view('mails.productLiked', $data)->subject($data['subject']);
     }
 
     /**

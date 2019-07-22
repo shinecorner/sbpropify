@@ -6,6 +6,7 @@ use App\Criteria\Buildings\FilterByRelatedFieldsCriteria;
 use App\Criteria\Buildings\ExcludeIdsCriteria;
 use App\Criteria\Buildings\SelectCriteria;
 use App\Criteria\Common\RequestCriteria;
+use App\Criteria\Posts\FilterByBuildingCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Building\BatchAssignManagers;
 use App\Http\Requests\API\Building\CreateRequest;
@@ -163,6 +164,44 @@ class BuildingAPIController extends AppBaseController
             'units',
             'tenants',
         ])->get();
+        return $this->sendResponse($buildings->toArray(), 'Buildings retrieved successfully');
+    }
+
+    /**
+     * @param ListRequest $request
+     * @return mixed
+     */
+    public function map(ListRequest $request)
+    {
+        $model = $this->buildingRepository->getModel();
+        $columns = [
+            'id',
+            'address_id',
+            'name',
+            'latitude',
+            'longitude'
+        ];
+
+        $buildings = $model->select($columns)->with(
+            [
+                'address' => function ($q) {
+                    $q->select('id', 'country_id', 'state_id', 'city', 'street', 'street_nr', 'zip')
+                        ->with(['state', 'country']);
+                },
+            ])->withCount(
+            [
+                'units',
+                'propertyManagers',
+                'tenants',
+                'requests',
+                'requestsReceived',
+                'requestsInProcessing',
+                'requestsAssigned',
+                'requestsDone',
+                'requestsReactivated',
+                'requestsArchived',
+            ]
+        )->get();
         return $this->sendResponse($buildings->toArray(), 'Buildings retrieved successfully');
     }
 

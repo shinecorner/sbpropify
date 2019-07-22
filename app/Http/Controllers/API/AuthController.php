@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\LoginDevice;
 use App\Models\User;
 use App\Models\Tenant;
 use App\Models\Autologin;
@@ -139,7 +140,6 @@ class AuthController extends Controller
             ], 401);
         }
 
-
         $user = User::where('email', $userData->email)
             ->where('password', $userData->password)->firstOrFail();
 
@@ -152,7 +152,7 @@ class AuthController extends Controller
         }
 
         $token->save();
-        $this->saveLog($user);
+        $this->saveLoginDevice($user);
 
         return response()->json([
             'access_token' => $tokenResult->accessToken,
@@ -163,29 +163,24 @@ class AuthController extends Controller
         ]);
     }
 
-    protected function saveLog($user)
+    /**
+     * @param $user
+     */
+    protected function saveLoginDevice($user)
     {
         // @TODO this is tmp for testing purpose
         $agent = new Agent();
-        $loginDetails = [
-            'time' => now()->toDateTimeString(),
-            'is_phone' => $agent->isPhone(),
-            'is_mobile' => $agent->isMobile(),
-            'is_desktop' => $agent->isDesktop(),
-            'is_tablet' => $agent->isTablet(),
-            'is_robot' => $agent->isRobot(),
-            'user' => $user->only('id', 'name', 'email')
+        $data = [
+            'created_by' => now()->toDateTimeString(),
+            'mobile' => $agent->isMobile()? 1 : 0,
+            'desktop' => $agent->isDesktop() ? 1 : 0,
+            'tablet' => $agent->isTablet() ? 1 : 0,
+            'user_id' => $user->id,
+            'tenant_id' => $user->tenant->id ?? null
         ];
-
-        $tmpPathName = 'login_details.txt';
-
-        $oldContent = [];
-        if (Storage::disk('local')->exists($tmpPathName)) {
-            $oldContent  = Storage::disk('local')->get($tmpPathName);
-            $oldContent = json_decode($oldContent, JSON_OBJECT_AS_ARRAY);
-        }
-        $oldContent[] = $loginDetails;
-        Storage::disk('local')->put($tmpPathName, json_encode($oldContent, JSON_PRETTY_PRINT));
+        $user->last_login_at = now();
+        $user->save();
+        LoginDevice::create($data);
     }
 
     /**

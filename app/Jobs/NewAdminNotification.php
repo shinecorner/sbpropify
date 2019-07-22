@@ -47,9 +47,8 @@ class NewAdminNotification implements ShouldQueue
         $templateRepo = app()->make(TemplateRepository::class);
 
         foreach ($admins as $admin) {
-            $message = $templateRepo->getUserNewAdminTemplate($admin, $this->user);
             $admin->notify(
-                new NewAdmin($message['subject'], $message['body'], $message['settings'])
+                new NewAdmin($admin, $this->user)
             );
         }
     }

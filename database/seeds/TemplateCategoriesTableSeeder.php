@@ -209,6 +209,25 @@ HTML
             [
                 'parent_id' => 3,
                 'system' => 1,
+                'name' => 'post_published',
+                'description' => 'Email sent to neighbour tenants when admin publishes a post, or the post is automatically published',
+                'tag_map' => [
+                    'authorSalutation' => 'post.user.title',
+                    'authorName' => 'post.user.name',
+                    'salutation' => 'receiver.title',
+                    'name' => 'receiver.name',
+                    'content' => 'post.content',
+                ],
+                'subject' => 'New post published {{authorSalutation}} {{authorName}}',
+                'body' => <<<HTML
+<p>Hello {{salutation}} {{name}},</p>
+<p>{{authorSalutation}} {{authorName}} published a new post.</p>
+<p><em>{{content}}</em></p>
+HTML
+            ],
+            [
+                'parent_id' => 3,
+                'system' => 1,
                 'name' => 'new_post',
                 'description' => 'Email sent to admins when tenant creates a new post',
                 'tag_map' => [
@@ -263,6 +282,25 @@ HTML
 <p>Hello {{salutation}} {{name}},</p>
 <p>Tenant {{commenterSalutation}} {{commenterName}} commented on  your post:</p>
 <p><em>{{comment}}</em>.</p>
+HTML
+            ],
+            [
+                'parent_id' => 3,
+                'system' => 1,
+                'name' => 'post_new_tenant_in_neighbour',
+                'description' => 'Email sent to neighbour tenants when new neighbour moves in the neighbourhood',
+                'tag_map' => [
+                    'subjectSalutation' => 'post.user.title',
+                    'subjectName' => 'post.user.name',
+                    'salutation' => 'receiver.title',
+                    'name' => 'receiver.name',
+                    'content' => 'post.content',
+                ],
+                'subject' => 'New tenant in the neighbour',
+                'body' => <<<HTML
+<p>Hello {{salutation}} {{name}},</p>
+<p>You got a new neighbour: {{subjectSalutation}} {{subjectName}}.</p>
+<p><em>{{content}}</em></p>
 HTML
             ],
         ];

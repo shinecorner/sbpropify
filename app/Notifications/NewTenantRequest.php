@@ -3,29 +3,45 @@
 namespace App\Notifications;
 
 use App\Models\ServiceRequest;
+use App\Models\User;
+use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
+/**
+ * Class NewTenantRequest
+ * @package App\Notifications
+ */
 class NewTenantRequest extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var ServiceRequest
+     */
     protected $serviceRequest;
-    protected $subject;
-    protected $body;
+    /**
+     * @var string
+     */
+    protected $user;
+    /**
+     * @var string
+     */
+    protected $subjectUser;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * NewTenantRequest constructor.
+     * @param ServiceRequest $serviceRequest
+     * @param User $user
+     * @param User $subjectUser
      */
-    public function __construct(ServiceRequest $serviceRequest, string $subject, string $body)
+    public function __construct(ServiceRequest $serviceRequest, User $user, User $subjectUser)
     {
         $this->serviceRequest = $serviceRequest;
-        $this->subject = $subject;
-        $this->body = $body;
+        $this->user = $user;
+        $this->subjectUser = $subjectUser;
     }
 
     /**
@@ -47,11 +63,12 @@ class NewTenantRequest extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $tRepo = new TemplateRepository(app());
+        $data = $tRepo->getNewRequestParsedTemplate($this->serviceRequest, $this->user, $this->subjectUser);
+        $data['userName'] = $notifiable->name;
+
         return (new MailMessage)
-            ->view('mails.pinnedPostPublished', [
-                'body' => $this->body,
-                'subject' => $this->subject,
-            ])->subject($this->subject);
+            ->view('mails.request', $data)->subject($data['subject']);
     }
 
     /**

@@ -2,28 +2,42 @@
 
 namespace App\Notifications;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Tenant;
 use App\Repositories\TemplateRepository;
-use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
+/**
+ * Class PostCommented
+ * @package App\Notifications
+ */
 class PostCommented extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var Post
+     */
     protected $post;
+    /**
+     * @var Tenant
+     */
     protected $commenter;
+    /**
+     * @var Comment
+     */
     protected $comment;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * PostCommented constructor.
+     * @param Post $post
+     * @param Tenant $commenter
+     * @param Comment $comment
      */
     public function __construct(Post $post, Tenant $commenter, Comment $comment)
     {
@@ -56,12 +70,11 @@ class PostCommented extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $msg = $tRepo->getPostCommentedParsedTemplate($this->post, $this->commenter->user, $this->comment);
+        $data = $tRepo->getPostCommentedParsedTemplate($this->post, $this->commenter->user, $this->comment);
+        $data['userName'] = $notifiable->name;
+
         return (new MailMessage)
-            ->view('mails.postCommented', [
-                'body' => $msg['body'],
-                'subject' => $msg['subject'],
-            ])->subject($msg['subject']);
+            ->view('mails.postCommented', $data)->subject($data['subject']);
     }
 
     /**
@@ -80,6 +93,10 @@ class PostCommented extends Notification implements ShouldQueue
         ];
     }
 
+    /**
+     * @param $notifiable
+     * @return array
+     */
     public function toDatabase($notifiable)
     {
         return $this->toArray($notifiable);

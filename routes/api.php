@@ -19,6 +19,7 @@ Route::group([
 
 // Constants
 Route::get('/constants', 'UtilsAPIController@constants')->name('constants');
+Route::put('/tenants/resetpassword', 'TenantAPIController@resetPassword');
 
 // private routes
 Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
@@ -76,6 +77,8 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     // Buildings
     Route::get('/buildings', 'BuildingAPIController@index')->name('buildings');
     Route::get('/buildings/latest', 'BuildingAPIController@latest')->name('buildings.latest');
+    Route::get('/buildings/map', 'BuildingAPIController@map')->name('buildings.map');
+    Route::get('/buildings/statistics', 'StatisticsAPIController@allBuildingStatistics')->name('buildings.statistics.all');
     Route::get('/buildings/{id}', 'BuildingAPIController@show')->name('buildings.show');
     Route::get('/buildings/{id}/statistics', 'StatisticsAPIController@buildingStatistics')->name('buildings.statistics.show');
 
@@ -86,11 +89,11 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('/buildings/checkunitrequest', 'BuildingAPIController@checkUnitRequest')->name('buildings.checkUnitRequest');
 
     Route::put('/buildings/{id}', 'BuildingAPIController@update')->name('buildings.update');
-        
+
     Route::delete('/buildings/{id}', 'BuildingAPIController@destroy')->name('buildings.destroy');
     Route::delete('/buildings/{building_id}/media/{media_id}', 'MediaAPIController@buildingDestroy')->name('buildings.media.destroy');
     Route::delete('/buildings/{building_id}/service/{service_id}', 'BuildingAPIController@serviceRemove')->name('buildings.service.destroy');
-    Route::delete('/buildings/{building_id}/propertyManagers/{manager_id}', 'BuildingAPIController@unAssignPropertyManager')->name('buildings.manager.destroy');    
+    Route::delete('/buildings/{building_id}/propertyManagers/{manager_id}', 'BuildingAPIController@unAssignPropertyManager')->name('buildings.manager.destroy');
     // Units
     Route::get('/units', 'UnitAPIController@index')->name('units');
     Route::get('/units/{id}', 'UnitAPIController@show')->name('units.show');
@@ -140,6 +143,8 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::delete('/posts/{id}/districts/{district_id}', 'PostAPIController@unassignDistrict');
     Route::post('/posts/{id}/providers/{provider_id}', 'PostAPIController@assignProvider');
     Route::delete('/posts/{id}/providers/{provider_id}', 'PostAPIController@unassignProvider');
+    Route::put('/posts/{id}/views', 'PostAPIController@incrementViews');
+    Route::get('/posts/{id}/views', 'PostAPIController@indexViews');
 
     // News
     Route::get('news/rss.xml', 'NewsAPIController@showNewsRSS');
@@ -224,10 +229,12 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::resource('translations', 'TranslationAPIController');
     Route::get('/admin/statistics', 'StatisticsAPIController@adminStats');
     Route::get('/admin/chartRequestByCreationDate', 'StatisticsAPIController@chartRequestByCreationDate');
+    Route::get('/admin/chartRequestByCreationDateByColumn', 'StatisticsAPIController@chartRequestByCreationDateByColumn');
     Route::get('/admin/chartRequestByColumn', 'StatisticsAPIController@chartRequestByColumn');
     Route::get('/admin/chartRequestByStatus', 'StatisticsAPIController@chartRequestByStatus');
     Route::get('/admin/chartRequestByRequestStatus', 'StatisticsAPIController@chartRequestByRequestStatus');
     Route::get('/admin/chartRequestByCategory', 'StatisticsAPIController@chartRequestByCategory');
+    Route::get('/admin/chartLoginDevice', 'StatisticsAPIController@chartLoginDevice');
 });
 
 

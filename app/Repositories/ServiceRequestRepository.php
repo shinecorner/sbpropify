@@ -240,7 +240,6 @@ class ServiceRequestRepository extends BaseRepository
             return;
         }
 
-        $tRepo = new TemplateRepository($this->app);
         $propertyManagers = PropertyManager::join('building_property_manager', 'property_managers.id', '=', 'building_property_manager.property_manager_id')
             ->where('building_id', $serviceRequest->tenant->building->id)->get();
 
@@ -248,11 +247,9 @@ class ServiceRequestRepository extends BaseRepository
         foreach ($propertyManagers as $propertyManager) {
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
             $propertyManager->user->redirect = "/admin/requests/" . $serviceRequest->id;
-            $message = $tRepo->getNewRequestParsedTemplate($serviceRequest, $propertyManager->user,
-                $serviceRequest->tenant->user);
 
             $propertyManager->user
-                ->notify((new NewTenantRequest($serviceRequest, $message['subject'], $message['body']))
+                ->notify((new NewTenantRequest($serviceRequest, $propertyManager->user, $serviceRequest->tenant->user))
                     ->delay(now()->addSeconds($delay)));
         }
     }

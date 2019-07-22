@@ -3,30 +3,33 @@
 namespace App\Notifications;
 
 use App\Models\Post;
+use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
+/**
+ * Class PinnedPostPublished
+ * @package App\Notifications
+ */
 class PinnedPostPublished extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var Post
+     */
     protected $post;
-    protected $subject;
-    protected $body;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * PinnedPostPublished constructor.
+     * @param Post $post
      */
-    public function __construct(Post $post, string $subject, string $body)
+    public function __construct(Post $post)
     {
         $this->post = $post;
-        $this->subject = $subject;
-        $this->body = $body;
     }
 
     /**
@@ -48,11 +51,11 @@ class PinnedPostPublished extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->view('mails.pinnedPostPublished', [
-                'body' => $this->body,
-                'subject' => $this->subject,
-            ])->subject($this->subject);
+        $tRepo = new TemplateRepository(app());
+        $data = $tRepo->getPinnedPostParsedTemplate($this->post, $notifiable);
+        $data['userName'] = $notifiable->name;
+
+        return (new MailMessage)->view('mails.pinnedPostPublished', $data)->subject($data['subject']);
     }
 
     /**
@@ -71,6 +74,10 @@ class PinnedPostPublished extends Notification implements ShouldQueue
         ];
     }
 
+    /**
+     * @param $notifiable
+     * @return array
+     */
     public function toDatabase($notifiable)
     {
         return $this->toArray($notifiable);

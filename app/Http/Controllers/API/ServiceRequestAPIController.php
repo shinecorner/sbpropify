@@ -160,7 +160,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $serviceRequest = $this->serviceRequestRepository->create($input);
         $this->serviceRequestRepository->notifyNewRequest($serviceRequest);
-        if ($input['due_date']) {
+        if (isset($input['due_date'])) {
             $this->serviceRequestRepository->notifyDue($serviceRequest);
         }
 

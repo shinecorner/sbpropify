@@ -29,6 +29,7 @@ use App\Repositories\RealEstateRepository;
 use App\Repositories\ServiceProviderRepository;
 use App\Repositories\TemplateRepository;
 use App\Transformers\PostTransformer;
+use App\Transformers\PostViewTransformer;
 use App\Transformers\UserTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -173,8 +174,7 @@ class PostAPIController extends AppBaseController
      * )
      */
     public function store(CreateRequest $request,
-        RealEstateRepository $reRepo,
-        TemplateRepository $tRepo)
+        RealEstateRepository $reRepo)
     {
         $input = $request->only(Post::Fillable);
 
@@ -191,16 +191,7 @@ class PostAPIController extends AppBaseController
         }
 
         $post = $this->postRepository->create($input);
-        if ($post->user->tenant) {
-            $admins = User::whereHas('roles', function ($query) {
-                $query->where('name', 'super_admin');
-            })->get();
-            foreach ($admins as $admin) {
-                $admin->redirect = '/admin/posts';
-                $message = $tRepo->getNewPostParsedTemplate($post, $admin);
-                $admin->notify(new NewTenantPost($post, $message['subject'], $message['body']));
-            }
-        }
+        $this->postRepository->notifyAdmins($post);
         $data = $this->transformer->transform($post);
         return $this->sendResponse($data, 'Post saved successfully');
     }
@@ -991,5 +982,91 @@ class PostAPIController extends AppBaseController
         $p->likers = $p->collectLikers();
 
         return $this->sendResponse($p, 'ServiceProvider unassigned successfully');
+    }
+
+    /**
+     * @param int $id
+     * @return Response
+     *
+     * @SWG\Put(
+     *      path="/posts/{id}/views",
+     *      summary="Increment the view count of the post",
+     *      tags={"Listing"},
+     *      description="Increment the view count of the post",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/Post"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function incrementViews(int $id)
+    {
+        $p = $this->postRepository->findWithoutFail($id);
+        if (empty($p)) {
+            return $this->sendError('Post not found');
+        }
+
+        $p->incrementViews(\Auth::id());
+        return $this->sendResponse($id, 'Views increased successfully');
+    }
+
+    /**
+     * @param int $id
+     * @return Response
+     *
+     * @SWG\Get(
+     *      path="/posts/{id}/views",
+     *      summary="List the view count of the post",
+     *      tags={"Listing"},
+     *      description="List the view count of the post",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/PostView"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function indexViews(int $id, PostViewTransformer $pvt, Request $req)
+    {
+        $p = $this->postRepository->findWithoutFail($id);
+        if (empty($p)) {
+            return $this->sendError('Post not found');
+        }
+
+        $perPage = $req->get('per_page', env('APP_PAGINATE', 10));
+        $vs = $p->views()->with('user')->paginate($perPage);
+        $ret = $pvt->transformPaginator($vs);
+        return $this->sendResponse($ret, 'Views retrieved successfully');
     }
 }

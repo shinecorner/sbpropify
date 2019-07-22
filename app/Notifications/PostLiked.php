@@ -11,17 +11,27 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
+/**
+ * Class PostLiked
+ * @package App\Notifications
+ */
 class PostLiked extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var Post
+     */
     protected $post;
+    /**
+     * @var Tenant
+     */
     protected $liker;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * PostLiked constructor.
+     * @param Post $post
+     * @param Tenant $liker
      */
     public function __construct(Post $post, Tenant $liker)
     {
@@ -52,14 +62,12 @@ class PostLiked extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-
         $tRepo = new TemplateRepository(app());
-        $msg = $tRepo->getPostLikedParsedTemplate($this->post, $this->liker->user);
+        $data = $tRepo->getPostLikedParsedTemplate($this->post, $this->liker->user);
+        $data['userName'] = $notifiable->name;
+
         return (new MailMessage)
-            ->view('mails.postLiked', [
-                'body' => $msg['body'],
-                'subject' => $msg['subject'],
-            ])->subject($msg['subject']);
+            ->view('mails.postLiked', $data)->subject($data['subject']);
     }
 
     /**
@@ -77,6 +85,10 @@ class PostLiked extends Notification implements ShouldQueue
         ];
     }
 
+    /**
+     * @param $notifiable
+     * @return array
+     */
     public function toDatabase($notifiable)
     {
         return $this->toArray($notifiable);

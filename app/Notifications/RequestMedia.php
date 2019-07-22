@@ -5,25 +5,39 @@ namespace App\Notifications;
 use App\Models\ServiceRequest;
 use App\Models\User;
 use App\Repositories\TemplateRepository;
-use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
+use Spatie\MediaLibrary\Models\Media;
 
+/**
+ * Class RequestMedia
+ * @package App\Notifications
+ */
 class RequestMedia extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var ServiceRequest
+     */
     protected $request;
+    /**
+     * @var User
+     */
     protected $uploader;
+    /**
+     * @var Media
+     */
     protected $media;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * RequestMedia constructor.
+     * @param ServiceRequest $request
+     * @param User $uploader
+     * @param Media $media
      */
     public function __construct(ServiceRequest $request, User $uploader, Media $media)
     {
@@ -56,13 +70,11 @@ class RequestMedia extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $msg = $tRepo->getRequestMediaParsedTemplate($this->request, $this->uploader, $notifiable, $this->media);
+        $data = $tRepo->getRequestMediaParsedTemplate($this->request, $this->uploader, $notifiable, $this->media);
+        $data['userName'] = $notifiable->name;
+
         return (new MailMessage)
-            ->view('mails.requestMedia', [
-                'body' => $msg['body'],
-                'subject' => $msg['subject'],
-            ])->subject($msg['subject'])
-            ->attach($msg['media']->getPath());
+            ->view('mails.requestMedia', $data)->subject($data['subject'])->attach($data['media']->getPath());
     }
 
     /**
@@ -81,6 +93,10 @@ class RequestMedia extends Notification implements ShouldQueue
         ];
     }
 
+    /**
+     * @param $notifiable
+     * @return array
+     */
     public function toDatabase($notifiable)
     {
         return $this->toArray($notifiable);

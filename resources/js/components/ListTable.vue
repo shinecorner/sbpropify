@@ -213,7 +213,7 @@
                             :label="item.name"
                             :value="item.id"
                             v-for="item in column.select.data">
-                            <i class="icon-dot-circled" :class="scope.row[column.prop] == item.id ? 'icon-success':'icon-danger'" v-if="column.icon"></i>{{item.name}}
+                            <i class="icon-dot-circled" :class="scope.row[column.prop] == item.id ? 'icon-success':'icon-danger'" v-if="column.icon"></i> {{item.name}}
                         </el-option>
                     </el-select>
                 </template>
