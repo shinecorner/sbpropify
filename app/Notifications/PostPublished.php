@@ -55,6 +55,7 @@ class PostPublished extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
+        $notifiable->redirect = '/news';
         $data = $tRepo->getPostParsedTemplate($this->post, $notifiable);
         $data['userName'] = $notifiable->name;
 
