@@ -2,23 +2,29 @@
 
 namespace App\Notifications;
 
+use App\Models\Product;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
-use App\Models\Product;
-
+/**
+ * Class ProductPublished
+ * @package App\Notifications
+ */
 class ProductPublished extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $product;
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * @var Product
+     */
+    protected $product;
+
+    /**
+     * ProductPublished constructor.
+     * @param Product $product
      */
     public function __construct(Product $product)
     {
@@ -45,9 +51,9 @@ class ProductPublished extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -65,6 +71,10 @@ class ProductPublished extends Notification implements ShouldQueue
         ];
     }
 
+    /**
+     * @param $notifiable
+     * @return array
+     */
     public function toDatabase($notifiable)
     {
         return $this->toArray($notifiable);

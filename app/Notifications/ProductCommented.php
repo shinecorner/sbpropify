@@ -2,28 +2,42 @@
 
 namespace App\Notifications;
 
+use App\Models\Comment;
 use App\Models\Product;
 use App\Models\Tenant;
 use App\Repositories\TemplateRepository;
-use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 
+/**
+ * Class ProductCommented
+ * @package App\Notifications
+ */
 class ProductCommented extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /**
+     * @var Product
+     */
     protected $product;
+    /**
+     * @var Tenant
+     */
     protected $commenter;
+    /**
+     * @var Comment
+     */
     protected $comment;
 
     /**
-     * Create a new notification instance.
-     *
-     * @return void
+     * ProductCommented constructor.
+     * @param Product $product
+     * @param Tenant $commenter
+     * @param Comment $comment
      */
     public function __construct(Product $product, Tenant $commenter, Comment $comment)
     {
@@ -56,12 +70,11 @@ class ProductCommented extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $msg = $tRepo->getProductCommentedParsedTemplate($this->product, $this->commenter->user, $this->comment);
+        $data = $tRepo->getProductCommentedParsedTemplate($this->product, $this->commenter->user, $this->comment);
+        $data['userName'] = $notifiable->name;
+
         return (new MailMessage)
-            ->view('mails.productCommented', [
-                'body' => $msg['body'],
-                'subject' => $msg['subject'],
-            ])->subject($msg['subject']);
+            ->view('mails.productCommented', $data)->subject($data['subject']);
     }
 
     /**
@@ -80,6 +93,10 @@ class ProductCommented extends Notification implements ShouldQueue
         ];
     }
 
+    /**
+     * @param $notifiable
+     * @return array
+     */
     public function toDatabase($notifiable)
     {
         return $this->toArray($notifiable);

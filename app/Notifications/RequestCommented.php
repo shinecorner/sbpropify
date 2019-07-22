@@ -70,12 +70,11 @@ class RequestCommented extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $msg = $tRepo->getRequestCommentedParsedTemplate($this->request, $this->user, $this->comment);
+        $data = $tRepo->getRequestCommentedParsedTemplate($this->request, $this->user, $this->comment);
+        $data['userName'] = $notifiable->name;
+
         return (new MailMessage)
-            ->view('mails.requestCommented', [
-                'body' => $msg['body'],
-                'subject' => $msg['subject'],
-            ])->subject($msg['subject']);
+            ->view('mails.requestCommented', $data)->subject($data['subject']);
     }
 
     /**

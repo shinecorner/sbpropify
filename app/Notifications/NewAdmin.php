@@ -2,7 +2,8 @@
 
 namespace App\Notifications;
 
-use App\Models\RealEstate;
+use App\Models\User;
+use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -20,30 +21,24 @@ class NewAdmin extends Notification implements ShouldQueue
     public $tries = 3;
 
     /**
-     * @var string
+     * @var User
      */
-    protected $subject;
-    /**
-     * @var string
-     */
-    protected $body;
-    /**
-     * @var string
-     */
-    protected $logo;
+    protected $user;
 
     /**
-     * PasswordResetRequest constructor.
-     * @param string $subject
-     * @param string $body
-     * @param RealEstate $settings
+     * @var User
      */
-    public function __construct(string $subject, string $body, RealEstate $settings)
+    protected $subjectUser;
+
+    /**
+     * NewAdmin constructor.
+     * @param User $user
+     * @param User $subjectUser
+     */
+    public function __construct(User $user, User $subjectUser)
     {
-        $this->subject = $subject;
-        $this->body = $body;
-        $logo = $settings->logo ?? 'images/logo3.png';
-        $this->logo = env('APP_URL', 'http://localhost') . '/' . $logo;
+        $this->user = $user;
+        $this->subjectUser = $subjectUser;
     }
 
     /**
@@ -65,14 +60,12 @@ class NewAdmin extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $data = [
-            'body' => $this->body,
-            'logo' => $this->logo,
-        ];
+        $tRepo = new TemplateRepository(app());
+        $data = $tRepo->getUserNewAdminTemplate($this->user, $this->subjectUser);
 
         return (new MailMessage)
             ->view('mails.users.userPasswordReset', $data)
-            ->subject($this->subject);
+            ->subject($data['subject']);
     }
 
     /**

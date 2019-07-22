@@ -97,7 +97,7 @@ a, a:hover {
         <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 24px; font-weight: bold; line-height: 130%;
             padding-top: 25px;
             color: #000000;
-            font-family: sans-serif;" class="header">
+            font-family: 'Open Sans',sans-serif;" class="header">
                 @yield('title')
         </td>
     </tr>
@@ -108,7 +108,7 @@ a, a:hover {
         <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-bottom: 3px; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 18px; font-weight: 300; line-height: 150%;
             padding-top: 5px;
             color: #000000;
-            font-family: sans-serif;" class="subheader">
+            font-family: 'Open Sans',sans-serif;" class="subheader">
         </td>
     </tr>
 
@@ -140,19 +140,21 @@ a, a:hover {
 
     <!-- PARAGRAPH -->
     <!-- Set text color and font family ("sans-serif" or "Georgia, serif"). Duplicate all text styles in links, including line-height -->
+    @isset($userName)
     <tr>
         <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 17px; font-weight: 400; line-height: 160%;
             padding-top: 20px;            
             color: #000000;
-            font-family: sans-serif;" class="paragraph">
+            font-family: 'Open Sans',sans-serif;" class="paragraph">
             {{  __('common.email_footer_message1', ['UserName' => $userName]) }}              
         </td>
     </tr>
+    @endisset
     <tr>
         <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 17px; font-weight: 400; line-height: 160%;
             padding-top: 20px;           
             color: #000000;
-            font-family: sans-serif;" class="paragraph">           
+            font-family: 'Open Sans',sans-serif;" class="paragraph">
             {{  __('common.email_footer_message2', ['CompanyName' => $companyName]) }}         
         </td>
     </tr>  
@@ -162,7 +164,7 @@ a, a:hover {
         <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 13px; font-weight: 400; line-height: 150%;
             padding-top: 20px;            
             color: #999999;
-            font-family: sans-serif;" class="footer">          
+            font-family: 'Open Sans',sans-serif;" class="footer">
             {{ $companyName ?? '' }}  
         </td>
     </tr> 
@@ -171,7 +173,7 @@ a, a:hover {
             padding-top: 20px;
             padding-bottom: 20px;
             color: #999999;
-            font-family: sans-serif;" class="footer">
+            font-family: 'Open Sans',sans-serif;" class="footer">
             {{ $companyAddress ?? '' }}  
         </td>
     </tr>
@@ -180,7 +182,7 @@ a, a:hover {
             padding-top: 20px;
             padding-bottom: 20px;
             color: #999999;
-            font-family: sans-serif;" class="footer">
+            font-family: 'Open Sans',sans-serif;" class="footer">
             <p align="center" style="text-align:center"> <span style="font-size:7.5pt;font-family:&quot;Open Sans&quot;,sans-serif;color:#333333">
                 <a href="{{ $linkContact ?? '' }}" target="_blank">
                     <span style="text-decoration:none">{{  __('common.email_link_contacts') }}</span>

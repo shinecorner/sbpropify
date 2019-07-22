@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Notifications\NewTenantInNeighbour;
+use App\Notifications\NewTenantPost;
 use App\Notifications\PinnedPostPublished;
 use App\Notifications\PostPublished;
 use Carbon\Carbon;
@@ -193,6 +194,27 @@ class PostRepository extends BaseRepository
                 if ($post->type == Post::TypeNewNeighbour) {
                     $u->notify((new NewTenantInNeighbour($post))->delay($post->published_at));
                 }
+            }
+        }
+    }
+
+    /**
+     * @param Post $post
+     */
+    public function notifyAdmins(Post $post)
+    {
+        $tRepo = new TemplateRepository(app());
+        if ($post->user->tenant) {
+            $admins = User::whereHas('roles', function ($query) {
+                $query->where('name', 'super_admin');
+            })->get();
+            $i = 0;
+            foreach ($admins as $admin) {
+                $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
+                $admin->redirect = '/admin/posts';
+
+                $notif = (new NewTenantPost($post, $admin))->delay(now()->addSeconds($delay));
+                $admin->notify($notif);
             }
         }
     }

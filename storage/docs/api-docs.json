@@ -2349,6 +2349,66 @@
                 }
             }
         },
+        "/posts/{id}/views": {
+            "get": {
+                "tags": [
+                    "Listing"
+                ],
+                "summary": "List the view count of the post",
+                "description": "List the view count of the post",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/PostView"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Listing"
+                ],
+                "summary": "Increment the view count of the post",
+                "description": "Increment the view count of the post",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Post"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/products": {
             "get": {
                 "tags": [
@@ -4009,6 +4069,46 @@
                                     "items": {
                                         "$ref": "#/definitions/ServiceRequest"
                                     }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/requests/{id}/comunicationTemplates": {
+            "get": {
+                "tags": [
+                    "ServiceRequest"
+                ],
+                "summary": "Display the list of Comunication templates filled with request data",
+                "description": "Get CommunicationTemplates",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of ServiceRequest",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/ServiceRequest"
                                 },
                                 "message": {
                                     "type": "string"
@@ -6297,6 +6397,36 @@
                 }
             }
         },
+        "PostView": {
+            "required": [],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "user_id": {
+                    "description": "user_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "views": {
+                    "description": "views",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
         "Product": {
             "required": [
                 "content",
@@ -7060,6 +7190,7 @@
                 "language",
                 "summary",
                 "news_notification",
+                "marketplace_notification",
                 "service_notification"
             ],
             "properties": {
@@ -7088,6 +7219,11 @@
                 },
                 "news_notification": {
                     "description": "news_notification",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "marketplace_notification": {
+                    "description": "marketplace_notification",
                     "type": "integer",
                     "format": "int32"
                 },

@@ -51,5 +51,12 @@ class UnitRepository extends BaseRepository
     public function deleteUnitWithBuilding($ids) {
         return $this->model->whereIn('building_id', $ids)->delete();
     }
-    
+
+    /**
+     * @return mixed
+     */
+    public function count()
+    {
+        return $this->model->count();
+    }
 }
