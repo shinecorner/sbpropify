@@ -50,7 +50,7 @@ export default {
         return {        
             period: 'day',
             startDate: '',
-            endDate: dateFns.format(new Date(), 'DD.MM.YYYY'),
+            endDate: '',
             xData: [],
             yData: []
         }
