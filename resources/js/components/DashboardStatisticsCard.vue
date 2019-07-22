@@ -37,7 +37,7 @@
                                 {{ count }}
                             </div>
                             <div class="box-card-progress">
-                                <el-progress type="circle"  :percentage="count" :width="60" :color="getRequestStatusColor(data.labels[index], 'name')" :stroke-width="4"></el-progress>
+                                <el-progress type="circle" :percentage="data.tag_percentage[index]" :width="60" :color="getRequestStatusColor(data.labels[index], 'name')" :stroke-width="4"></el-progress>
                             </div>
                         </div>
                     </el-card>
@@ -73,7 +73,7 @@
         },
         data(){
             return {}
-        },
+        }
     }
 </script>
 

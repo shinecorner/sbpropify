@@ -38,7 +38,12 @@ import axios from '@/axios';
 export default {
   mixins: [FormatDateTimeMixin],
   components: {'apexchart': VueApexCharts},
-  props: ['yDatap', 'xDatap'],
+  props: {
+            type: {
+                type: String,
+                required: true
+            }
+    },
     data() {
         return {
             radio1: '',
