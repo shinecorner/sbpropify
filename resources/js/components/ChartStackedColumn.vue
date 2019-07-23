@@ -34,12 +34,10 @@
 </template>
 <script>
 import VueApexCharts from 'vue-apexcharts'
-import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
 import {format, subDays, isBefore, isAfter, parse} from 'date-fns'
 import axios from '@/axios';
 
-export default {
-  mixins: [FormatDateTimeMixin],  
+export default {  
   components: {'apexchart': VueApexCharts},
   props: {
             type: {
