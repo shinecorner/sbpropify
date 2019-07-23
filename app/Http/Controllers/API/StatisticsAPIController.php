@@ -548,6 +548,41 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     * @param array $optionalArgs
+     * @return mixed
+     */
+    public function chartBuildingsByCreationDate(Request $request, $optionalArgs = [])
+    {
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
+        $period = $optionalArgs['period'] ?? $this->getPeriod($request);
+        [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate, 'buildings');
+
+        $statistics = Building::selectRaw($raw . ', count(id) `count`')
+            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
+            ->groupBy('period')
+            ->get();
+
+
+        $dayStatistic = [];
+        foreach ($periodValues as $period => $__) {
+            $dayStatistic[$period] = 0;
+        }
+
+        foreach ($statistics as $statistic) {
+            $dayStatistic[$statistic['period']] = $statistic['count'];
+        }
+
+        $response['requests_per_day_xdata'] = array_values($periodValues);
+        $response['requests_per_day_ydata'] = array_values($dayStatistic);
+        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
+        return $isConvertResponse
+            ? $this->sendResponse($response, 'Building statistics formatted successfully')
+            : $response;
+    }
+
+    /**
+     * @param Request $request
      * @return mixed
      */
     public function chartRequestByStatus(Request $request)
