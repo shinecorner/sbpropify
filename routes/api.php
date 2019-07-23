@@ -44,6 +44,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     // Tenants
     Route::get('/tenants', 'TenantAPIController@index')->name('tenants');
+    Route::get('/tenants/gender-statistics', 'StatisticsAPIController@tenantsGenderStatistics')->name('tenants.gender-statistics');
     Route::get('/tenants/latest', 'TenantAPIController@latest')->name('tenants.latest');
     Route::get('/tenants/me', 'TenantAPIController@showLoggedIn')->name('tenants.me');
     Route::get('/tenants/{id}', 'TenantAPIController@show')->name('tenants.show');
