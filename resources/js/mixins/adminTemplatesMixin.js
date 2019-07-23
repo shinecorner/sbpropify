@@ -111,25 +111,26 @@ export default (config = {}) => {
                 mixin.methods = {
                     ...mixin.methods,
                     ...mapActions(['createTemplate']),
-                    submit() {
-                        this.form.validate(async valid => {
-                            if (!valid) {
-                                return false;
-                            }
+                    async submit() {
+                        const valid = await this.form.validate();
+                        if (!valid) {
+                            return false;
+                        }
 
-                            this.loading.state = true;
+                        this.loading.state = true;
 
-                            try {
-                                this.model = Object.assign({}, this.model, this.model.translations[this.loggedInUser.settings.language]);
-                                const resp = await this.createTemplate(this.model);
-                                displaySuccess(resp);
-                                this.form.resetFields();
-                            } catch (err) {
-                                displayError(err);
-                            } finally {
-                                this.loading.state = false;
-                            }
-                        });
+                        try {
+                            this.model = Object.assign({}, this.model, this.model.translations[this.loggedInUser.settings.language]);
+                            const resp = await this.createTemplate(this.model);
+                            displaySuccess(resp);
+                            this.form.resetFields();
+                            return resp;
+                        } catch (err) {
+                            displayError(err);
+                        } finally {
+                            this.loading.state = false;
+                        }
+
                     },
                 };
 

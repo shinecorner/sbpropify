@@ -203,28 +203,28 @@ export default (config = {}) => {
                 }), UploadUserAvatarMixin, PropertyManagerTitlesMixin];
 
                 mixin.methods = {
-                    submit() {
-                        this.form.validate(async valid => {
-                            if (valid) {
-                                this.loading.state = true;
-                                try {
-                                    const resp = await this.createPropertyManager(this.model);
+                    async submit() {
+                        const valid = await this.form.validate();
+                        if (valid) {
+                            this.loading.state = true;
+                            try {
+                                const resp = await this.createPropertyManager(this.model);
 
-                                    if (resp.data.user && resp.data.user.id) {
-                                        await this.uploadAvatarIfNeeded(resp.data.user.id);
-                                    }
-
-                                    displaySuccess(resp);
-
-                                    this.form.resetFields();
-                                    this.model.buildings = [];
-                                } catch (err) {
-                                    displayError(err);
-                                } finally {
-                                    this.loading.state = false;
+                                if (resp.data.user && resp.data.user.id) {
+                                    await this.uploadAvatarIfNeeded(resp.data.user.id);
                                 }
+
+                                displaySuccess(resp);
+
+                                this.form.resetFields();
+                                this.model.buildings = [];
+                                return resp;
+                            } catch (err) {
+                                displayError(err);
+                            } finally {
+                                this.loading.state = false;
                             }
-                        });
+                        }
                     },
 
                     ...mixin.methods,

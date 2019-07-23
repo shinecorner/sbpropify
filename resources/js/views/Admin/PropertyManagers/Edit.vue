@@ -93,14 +93,18 @@
                                         <el-form-item :label="$t('models.propertyManager.linkedin_url')"
                                                       :rules="validationRules.linkedin_url"
                                                       prop="linkedin_url">
-                                            <el-input type="text" v-model="model.linkedin_url"/>
+                                            <el-input type="text" v-model="model.linkedin_url">
+                                                <template slot="prepend"><i class="icon-linkedin"></i></template>
+                                            </el-input>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.propertyManager.xing_url')"
                                                       :rules="validationRules.xing_url"
                                                       prop="xing_url">
-                                            <el-input type="text" v-model="model.xing_url"/>
+                                            <el-input type="text" v-model="model.xing_url">
+                                                <template slot="prepend"><i class="icon-xing"></i></template>
+                                            </el-input>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>

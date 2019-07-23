@@ -115,32 +115,32 @@ export default (config = {}) => {
         switch (config.mode) {
             case 'add':
                 mixin.methods = {
-                    submit() {
-                        this.form.validate(async valid => {
-                            if (valid) {
-                                this.loading.state = true;
-                                try {
-                                    const {state_id, city, street, street_nr, zip, ...restParams} = this.model;
-
-                                    displaySuccess(await this.createBuilding({
-                                        address: {
-                                            state_id,
-                                            city,
-                                            street,
-                                            street_nr,
-                                            zip
-                                        },
-                                        ...restParams
-                                    }));
-
-                                    this.form.resetFields();
-                                } catch (err) {
-                                    displayError(err);
-                                } finally {
-                                    this.loading.state = false;
-                                }
+                    async submit() {
+                        const valid = await this.form.validate();
+                        if (valid) {
+                            this.loading.state = true;
+                            try {
+                                const {state_id, city, street, street_nr, zip, ...restParams} = this.model;
+                                const response = await this.createBuilding({
+                                    address: {
+                                        state_id,
+                                        city,
+                                        street,
+                                        street_nr,
+                                        zip
+                                    },
+                                    ...restParams
+                                });
+                                displaySuccess(response);
+                                this.form.resetFields();
+                                return response;
+                            } catch (err) {
+                                displayError(err);
+                            } finally {
+                                this.loading.state = false;
                             }
-                        });
+                        }
+
                     },
 
                     ...mixin.methods,
