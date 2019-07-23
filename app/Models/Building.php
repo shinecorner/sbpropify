@@ -89,7 +89,13 @@ class Building extends Model implements HasMedia
         'attic',
         'building_format',
         'longitude',
-        'latitude'
+        'latitude',
+        'country_id',
+        'state_id',
+        'city',
+        'street',
+        'street_nr',
+        'zip',
     ];
 
     /**
@@ -106,7 +112,13 @@ class Building extends Model implements HasMedia
         'floor_nr' => 'integer',
         'basement' => 'boolean',
         'attic' => 'boolean',
-        'building_format' => 'string'
+        'building_format' => 'string',
+        'country_id' => 'integer',
+        'state_id' => 'integer',
+        'city' => 'string',
+        'street' => 'string',
+        'street_nr' => 'string',
+        'zip' => 'string'
     ];
 
     /**
@@ -116,7 +128,11 @@ class Building extends Model implements HasMedia
      */
     public static $rules = [
         'name' => 'required',
-        'floor_nr' => 'required'
+        'floor_nr' => 'required',
+        'city' => 'required',
+        'street' => 'required',
+        'street_nr' => 'required',
+        'zip' => 'required'
     ];
 
     /**
@@ -138,6 +154,22 @@ class Building extends Model implements HasMedia
     public function address()
     {
         return $this->hasOne(Address::class, 'id', 'address_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function state()
+    {
+        return $this->belongsTo(State::class, 'state_id', 'id');
     }
 
     /**
