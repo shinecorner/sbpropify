@@ -255,17 +255,17 @@
     padding: 10px 20px;
     opacity: 0.5;
     text-transform: uppercase;
+    text-align: center;
     border-bottom: none;
     box-sizing: border-box;
   }  
   .total-box-card-body{
     clear: both;
     padding: 10px 20px 10px 20px;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 700;
     line-height: 1;
-    text-align: left;
-    float: left;
+    text-align: center;
   }
   .el-divider--horizontal{
     margin: 0 0;
@@ -285,7 +285,7 @@
         display: flex;        
         .box-card-count{
             padding: 10px 20px 10px 20px;
-            font-size: 2rem;
+            font-size: 1.6rem;
             font-weight: 700;
             line-height: 1;
             text-align: left;            

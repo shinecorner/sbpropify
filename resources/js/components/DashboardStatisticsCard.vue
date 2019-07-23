@@ -2,7 +2,7 @@
     <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
         <el-col :span="6">
             <el-card class="box-card-count" style="height: 91%">
-                <div style="height: 50%">
+                <div style="height: 50%;">
                     <div class="total-box-card-header">
                     <span>{{ $t('models.building.requestStatuses.total') }}</span>
                     </div>
