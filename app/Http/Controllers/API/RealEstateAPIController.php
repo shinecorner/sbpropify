@@ -6,6 +6,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\RealEstate\UpdateRequest;
 use App\Http\Requests\API\RealEstate\ViewRequest;
 use App\Models\RealEstate;
+use App\Models\User;
 use App\Repositories\AddressRepository;
 use App\Repositories\RealEstateRepository;
 use App\Transformers\RealEstateTransformer;
@@ -67,6 +68,7 @@ class RealEstateAPIController extends AppBaseController
         if (empty($realEstate)) {
             return $this->sendError('Real Estate not found');
         }
+        $realEstate->news_receivers = User::whereIn('id', $realEstate->news_receiver_ids)->get();
 
         $response = (new RealEstateTransformer)->transform($realEstate);
         return $this->sendResponse($response, 'Real Estate retrieved successfully');
@@ -142,6 +144,7 @@ class RealEstateAPIController extends AppBaseController
         } catch (\Exception $e) {
             return $this->sendError('RealEstate updated error');
         }
+        $realEstate->news_receivers = User::whereIn('id', $realEstate->news_receiver_ids)->get();
 
         $response = (new RealEstateTransformer)->transform($realEstate);
         return $this->sendResponse($response, 'RealEstate updated successfully');
