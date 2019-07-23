@@ -1,6 +1,6 @@
 <template>
     <div class="action-group">
-        <el-button @click="callSaveActionAndRedirectToEditPage" size="small" type="primary" round> {{this.$t('actions.save')}}</el-button>
+        <el-button @click="SaveAndEdit" size="small" type="primary" round> {{this.$t('actions.save')}}</el-button>
         <el-button @click="saveAndClose" size="small" type="primary" round> {{this.$t('actions.saveAndClose')}}
         </el-button>
         <el-button v-if="deleteAction || undefined"  @click="deleteAndClose" size="small" type="danger" round icon="ti-trash"> {{this.$t('actions.delete')}}</el-button>
@@ -62,7 +62,7 @@
                     }).catch(() => {
                     });
             },
-            async callSaveActionAndRedirectToEditPage() {
+            async SaveAndEdit() {
                 try {
                     const resp = await this.saveAction();
                     if (resp && resp.data) {
