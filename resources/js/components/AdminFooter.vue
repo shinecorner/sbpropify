@@ -1,5 +1,5 @@
 <template>
-    <div class="footer">
+    <footer class="footer">
         <div class="footer-content">
             <div class="footer-content-left">
                 <p class="footer-content-left-text" v-html="$t('footerText.leftSideText')"></p>
@@ -14,7 +14,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </footer>
 </template>
 
 <script>

@@ -165,7 +165,7 @@ HTML
                     'title' => 'constant.tenant.title',
                     'tenantCredentials' => 'tenantCredentials',
                 ],
-                'subject' => 'Password changed successfully',
+                'subject' => 'Account created',
                 'body' => <<<HTML
 <p>Hello {{title}} {{name}}</p>
 <p>Your account was created.</p>
@@ -198,12 +198,14 @@ HTML
                     'providers' => 'post.providersStr',
                     'buildings' => 'post.buildingsStr',
                     'districts' => 'post.districtsStr',
+                    'autologin' => 'user.autologinUrl',
                 ],
                 'subject' => 'New Pined post: {{title}}',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
 <p>Title {{title}}.</p>
 <p>{{content}}.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the announcement.</p>
 HTML
             ],
             [
@@ -217,12 +219,14 @@ HTML
                     'salutation' => 'receiver.title',
                     'name' => 'receiver.name',
                     'content' => 'post.content',
+                    'autologin' => 'receiver.autologinUrl',
                 ],
                 'subject' => 'New post published {{authorSalutation}} {{authorName}}',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
 <p>{{authorSalutation}} {{authorName}} published a new post.</p>
 <p><em>{{content}}</em></p>
+<p>Use <a href="{{autologin}}">this link</a> to view the published post.</p>
 HTML
             ],
             [
@@ -237,12 +241,14 @@ HTML
                     'subjectName' => 'subject.name',
                     'content' => 'post.content',
                     'type' => 'post.type',
+                    'autologin' => 'user.autologinUrl',
                 ],
                 'subject' => 'New tenant post',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
 <p>Tenant {{subjectSalutation}} {{subjectName}} added a new post</p>
 <p>{{content}}.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the published post.</p>
 HTML
             ],
             [
@@ -256,12 +262,14 @@ HTML
                     'likerSalutation' => 'user.title',
                     'likerName' => 'user.name',
                     'content' => 'post.content',
+                    'autologin' => 'post.user.autologinUrl',
                 ],
                 'subject' => '{{likerSalutation}} {{likerName}} liked your post',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
 <p>Tenant {{likerSalutation}} {{likerName}} liked your post:</p>
 <p>{{content}}.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the liked post.</p>
 HTML
             ],
             [
@@ -276,12 +284,14 @@ HTML
                     'commenterName' => 'user.name',
                     'content' => 'post.content',
                     'comment' => 'comment.comment',
+                    'autologin' => 'post.user.autologinUrl',
                 ],
                 'subject' => '{{commenterSalutation}} {{commenterName}} commented on your post',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
 <p>Tenant {{commenterSalutation}} {{commenterName}} commented on  your post:</p>
 <p><em>{{comment}}</em>.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the post.</p>
 HTML
             ],
             [
@@ -295,12 +305,14 @@ HTML
                     'salutation' => 'receiver.title',
                     'name' => 'receiver.name',
                     'content' => 'post.content',
+                    'autologin' => 'receiver.autologinUrl',
                 ],
                 'subject' => 'New tenant in the neighbour',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
 <p>You got a new neighbour: {{subjectSalutation}} {{subjectName}}.</p>
 <p><em>{{content}}</em></p>
+<p>Use <a href="{{autologin}}">this link</a> to view the post.</p>
 HTML
             ],
         ];

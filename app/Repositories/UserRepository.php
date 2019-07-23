@@ -142,13 +142,7 @@ class UserRepository extends BaseRepository
         $model = parent::update($attributes, $id);
         $this->skipPresenter($temporarySkipPresenter);
 
-        $templateRepo = (new TemplateRepository($this->app));
-
-        $message = $templateRepo->getUserResetPasswordSuccessTemplate($model);
-
-        $model->notify(
-            new PasswordResetSuccess($message['subject'], $message['body'], $message['settings'])
-        );
+        $model->notify(new PasswordResetSuccess($model));
 
         return $this->parserResult($model);
     }

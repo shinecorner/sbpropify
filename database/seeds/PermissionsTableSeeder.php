@@ -35,6 +35,7 @@ class PermissionsTableSeeder extends Seeder
         ['publish-post', 'Publish Post', 'publish post'],
         ['pin-post', 'Pin Post', 'pin post'],
         ['assign-post', 'Assign Post', 'assign post'],
+        ['list_views-post', 'List views of Post', 'list views of post'],
         // Product
         ['list-product', 'List Products', 'list all products'],
         ['view-product', 'View Product', 'view product'],

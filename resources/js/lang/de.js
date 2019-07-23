@@ -484,7 +484,7 @@ export default {
             delete: 'Löschen',
             likes: 'Likes',
             details: 'Beitragsdetails',
-            published_at: 'Veröffentlicht an',
+            published_at: 'Veröffentlichung',
             publish: 'Veröffentlicht',
             unpublish: 'Unpublish',
             buildings: 'Liegenschaften',

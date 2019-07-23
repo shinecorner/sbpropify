@@ -2,7 +2,9 @@
 
 namespace App\Notifications;
 
-use App\Models\RealEstate;
+use App\Models\PasswordReset;
+use App\Models\User;
+use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -15,22 +17,19 @@ use Illuminate\Notifications\Notification;
 class PasswordResetRequest extends Notification implements ShouldQueue
 {
     use Queueable;
-    protected $subject;
-    protected $body;
-    protected $logo;
+
+    protected $user;
+    protected $pwReset;
 
     /**
      * PasswordResetRequest constructor.
-     * @param string $subject
-     * @param string $body
-     * @param RealEstate $settings
+     * @param User $user
+     * @param PasswordReset|null $pwReset
      */
-    public function __construct(string $subject, string $body, RealEstate $settings)
+    public function __construct(User $user, PasswordReset $pwReset)
     {
-        $this->subject = $subject;
-        $this->body = $body;
-        $logo = $settings->logo ?? 'images/logo3.png';
-        $this->logo = env('APP_URL', 'http://localhost') . '/' . $logo;
+        $this->user = $user;
+        $this->pwReset = $pwReset;
     }
 
     /**
@@ -52,17 +51,13 @@ class PasswordResetRequest extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $rl = RealEstate::firstOrFail();
-        $data = [
-            'body' => $this->body,
-            'logo' => $this->logo,
-            'userName' => $notifiable->name,
-            'companyName' => $rl->name,
-        ];
+        $tRepo = new TemplateRepository(app());
+        $data = $tRepo->getUserResetPasswordTemplate($this->user, $this->pwReset);
+        $data['userName'] = $notifiable->name;
 
         return (new MailMessage)
             ->view('mails.users.userPasswordReset', $data)
-            ->subject($this->subject);
+            ->subject($data['subject']);
     }
 
     /**

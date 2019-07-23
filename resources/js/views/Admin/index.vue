@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="flex-grow: 1;">
         <heading class="custom-heading" icon="ti-home" title="Dashboard" shadow="heavy" />
         <el-row :gutter="20" class="dashboard" style="margin-bottom: 24px;" type="flex">
             <el-col class="dashboard-tabpanel">
@@ -8,45 +8,45 @@
                         <el-row style="margin-bottom: 24px;" type="flex">
                             <el-col :span="24">
                                 <dashboard-statistics-card :totalRequest="totalRequest" :data="reqStatusCount" :avgReqDuration="avgReqDuration"></dashboard-statistics-card>
-                            </el-col>                            
+                            </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
                                 <el-card class="chart-card" :header="$t('dashboard.requests_by_creation_date')">
                                     <chart-stacked-column type="request_by_creation_date"></chart-stacked-column>
                                 </el-card>
-                            </el-col>                                                        
-                         </el-row>   
+                            </el-col>
+                         </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="12">
                                 <el-card class="chart-card" :header="$t('dashboard.requests_by_status')">
-                                    <chart-pie-and-donut 
+                                    <chart-pie-and-donut
                                         type="pie"
-                                        :xData="chartDataReqByStatus.xData" 
+                                        :xData="chartDataReqByStatus.xData"
                                         :yData="chartDataReqByStatus.yData">
                                     </chart-pie-and-donut>
                                 </el-card>
-                            </el-col>                            
+                            </el-col>
                             <el-col :span="12">
                                 <el-card class="chart-card" :header="$t('dashboard.requests_by_category')">
                                     <chart-pie-and-donut
                                         type="donut"
-                                        :xData="chartDataReqByCategory.xData" 
+                                        :xData="chartDataReqByCategory.xData"
                                         :yData="chartDataReqByCategory.yData">
                                     </chart-pie-and-donut>
-                                </el-card>                                
-                            </el-col>                           
+                                </el-card>
+                            </el-col>
                         </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="12">
                                 <el-card class="chart-card" :header="$t('dashboard.each_hour_request')">
                                     <chart-heat-map
-                                        :xData="chartDataReqByHour.xData" 
+                                        :xData="chartDataReqByHour.xData"
                                         :yData="chartDataReqByHour.yData">
                                     </chart-heat-map>
-                                </el-card>                                
+                                </el-card>
                             </el-col>
-                        </el-row>    
+                        </el-row>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.buildings')">
                         {{'Second Tab'}}
@@ -56,38 +56,38 @@
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.marketplace')">
                         {{'Fourth Tab'}}
-                    </el-tab-pane>                                      
+                    </el-tab-pane>
                     <el-tab-pane :label="$t('menu.tenants')">
                         {{'Fourth Tab'}}
-                    </el-tab-pane>                                      
+                    </el-tab-pane>
                 </el-tabs>
-            </el-col>            
-        </el-row>       
+            </el-col>
+        </el-row>
     </div>
 </template>
 
-<script>  
+<script>
     import axios from '@/axios';
     import DashboardStatisticsCard from 'components/DashboardStatisticsCard';
     import ChartStackedColumn from 'components/ChartStackedColumn';
-    import ChartPieAndDonut from 'components/ChartPieAndDonut';    
+    import ChartPieAndDonut from 'components/ChartPieAndDonut';
     import ChartHeatMap from 'components/ChartHeatMap';
     import Heading from 'components/Heading';
     import RawGridStatisticsCard from 'components/RawGridStatisticsCard';
     import ColoredStatisticsCard from 'components/ColoredStatisticsCard.vue';
     import ProgressStatisticsCard from 'components/ProgressStatisticsCard.vue';
     import CircularProgressStatisticsCard from 'components/CircularProgressStatisticsCard.vue';
-    
+
     export default {
         name: 'AdminDashboard',
-        components: {            
-            Heading, 
+        components: {
+            Heading,
             DashboardStatisticsCard,
             ColoredStatisticsCard,
             ProgressStatisticsCard,
             CircularProgressStatisticsCard,
             ChartStackedColumn,
-            ChartPieAndDonut,            
+            ChartPieAndDonut,
             ChartHeatMap
         },
         data() {
@@ -142,35 +142,35 @@
                 }]
             }
         },
-        methods: {            
+        methods: {
             getReqStatastics() {
-                let that = this;                                               
-                
+                let that = this;
+
                 return axios.get('admin/statistics')
-                .then(function (response) { 
-                    
-                    that.reqStatusCount = response.data.data.requests_per_status;                    
+                .then(function (response) {
+
+                    that.reqStatusCount = response.data.data.requests_per_status;
 
                     that.totalRequest = response.data.data.total_requests;
                     that.avgReqDuration = response.data.data.avg_request_duration;
                     that.chartDataReqByStatus.xData = response.data.data.requests_per_status.labels.map(function(e){return that.$t('models.request.status.'+e)});
                     that.chartDataReqByStatus.yData = response.data.data.requests_per_status.data;
-                    
+
                     that.chartDataReqByCategory.xData = response.data.data.requests_per_category.labels;
-                    that.chartDataReqByCategory.yData = response.data.data.requests_per_category.data;                                        
+                    that.chartDataReqByCategory.yData = response.data.data.requests_per_category.data;
                     
                 }).catch(function (error) {
                     console.log(error);
                 })
-            },            
+            }
         },
         created(){
             this.getReqStatastics();
-        }
+        },
 
-         
     }
 </script>
+
 
 <style lang="scss" scoped>
     .custom-heading {

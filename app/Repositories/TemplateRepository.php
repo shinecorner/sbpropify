@@ -331,6 +331,7 @@ class TemplateRepository extends BaseRepository
             'subject' => $post->user,
         ];
 
+        $user->redirect = "/admin/posts/" . $post->id;
         $tags = $this->getTags($template->category->tag_map, $context);
         return $this->getParsedTemplateData($template, $tags);
     }
@@ -361,6 +362,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('pinned_post');
 
+        $user->redirect = '/news';
         $context = [
             'user' => $user,
             'post' => $post,
@@ -380,6 +382,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('post_published');
 
+        $receiver->redirect = '/news';
         $context = [
             'receiver' => $receiver,
             'post' => $post,
@@ -419,6 +422,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('post_commented');
 
+        $post->user->redirect = '/news';
         $context = [
             'user' => $user,
             'post' => $post,
