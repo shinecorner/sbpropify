@@ -703,7 +703,7 @@ class StatisticsAPIController extends AppBaseController
 
         $response = [
             'labels' => $statisticData->keys(),
-            'date' => $statisticData->values()
+            'data' => $statisticData->values()
         ];
 
         return $this->sendResponse($response, 'Admin statistics retrieved successfully');
