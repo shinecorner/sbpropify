@@ -203,27 +203,28 @@ export default (config = {}) => {
                 }), ServicesTypes, UploadUserAvatarMixin];
 
                 mixin.methods = {
-                    submit() {
-                        this.form.validate(async valid => {
-                            if (valid) {
-                                this.loading.state = true;
-                                try {
-                                    const resp = await this.createService(this.model);
+                    async submit() {
+                        const valid = await this.form.validate();
+                        if (valid) {
+                            this.loading.state = true;
+                            try {
+                                const resp = await this.createService(this.model);
 
-                                    if (resp.data.user && resp.data.user.id) {
-                                        await this.uploadAvatarIfNeeded(resp.data.user.id);
-                                    }
-
-                                    displaySuccess(resp);
-
-                                    this.form.resetFields();
-                                } catch (err) {
-                                    displayError(err);
-                                } finally {
-                                    this.loading.state = false;
+                                if (resp.data.user && resp.data.user.id) {
+                                    await this.uploadAvatarIfNeeded(resp.data.user.id);
                                 }
+
+                                displaySuccess(resp);
+
+                                this.form.resetFields();
+                                return resp;
+                            } catch (err) {
+                                displayError(err);
+                            } finally {
+                                this.loading.state = false;
                             }
-                        });
+                        }
+
                     },
 
                     ...mixin.methods,

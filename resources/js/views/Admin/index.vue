@@ -159,6 +159,9 @@
     }
 </style>
 <style lang="scss">
+.el-row.dashboard {
+    margin-top: -110px;
+}
 .dashboard-tabpanel{
     .el-tabs--border-card > .el-tabs__header .el-tabs__item{
         flex-basis: 0;
@@ -171,26 +174,38 @@
         -webkit-box-align: center;
         align-items: center;
         text-align: center;
+        background-color: #fff;
+        border: 1px solid #ddd;
+
         &.is-active, &:hover{
             background: #6AC06F;
-            border-radius: 120px;
+            //border-radius: 120px;
             border-right-color: none;
             border-left-color: none;
             -ms-flex-positive: 1;
             color: #fff !important;
             transition: background-color .3s ease,color .3s ease !important;
         }
+
+        &:first-child {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        &:last-child {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
     }
     .el-tabs__nav {
         float: none;
         text-align: center;
         border-radius: 120px;
-        background: #fff;
         padding: .75rem;    
         display: flex;
         flex-wrap: wrap;
-        width: 70%;
-        margin: 1.5rem 15%
+        width: fit-content;
+        margin: 1.5rem 0 1.5em auto;
     }
     .el-tabs--border-card{
         background:none;
@@ -281,7 +296,12 @@
             margin-left: auto;
             padding: 0 15px 0 0;
             position: relative;
-            top: -10px;
+            top: -27px;
+            margin-bottom: -27px;
+
+            .el-progress__text {
+                font-size: 16px !important;
+            }
         }
     }
 }  

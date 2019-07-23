@@ -1,7 +1,7 @@
 <template>
     <div class="tenants-add">
         <heading :title="$t('models.tenant.add')" icon="ti-user" shadow="heavy">
-            <add-actions :saveAction="submit" route="adminTenants"/>
+            <add-actions :saveAction="submit" route="adminTenants" editRoute="adminTenantsEdit"/>
         </heading>
         <div class="crud-view">
             <el-form :model="model" label-width="192px" ref="form">

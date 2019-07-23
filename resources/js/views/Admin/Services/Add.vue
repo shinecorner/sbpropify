@@ -1,7 +1,7 @@
 <template>
     <div class="services-add">
         <heading :title="$t('models.service.add_title')" icon="ti-user" shadow="heavy">
-            <add-actions :saveAction="submit" route="adminServices"/>
+            <add-actions :saveAction="submit" route="adminServices" editRoute="adminServicesEdit"/>
         </heading>
         <div class="crud-view">
             <card :loading="loading">

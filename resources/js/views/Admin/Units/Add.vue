@@ -1,7 +1,7 @@
 <template>
     <div class="units-add">
         <heading :title="$t('models.unit.add')" icon="ti-user" style="margin-bottom: 20px;" shadow="heavy">
-            <add-actions :saveAction="submit" route="adminUnits"/>
+            <add-actions :saveAction="submit" route="adminUnits" editRoute="adminUnitsEdit"/>
         </heading>
         <div class="crud-view">
             <card :loading="loading">
