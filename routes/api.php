@@ -44,6 +44,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     // Tenants
     Route::get('/tenants', 'TenantAPIController@index')->name('tenants');
+    Route::get('/tenants/gender-statistics', 'StatisticsAPIController@tenantsGenderStatistics')->name('tenants.gender-statistics');
     Route::get('/tenants/latest', 'TenantAPIController@latest')->name('tenants.latest');
     Route::get('/tenants/me', 'TenantAPIController@showLoggedIn')->name('tenants.me');
     Route::get('/tenants/{id}', 'TenantAPIController@show')->name('tenants.show');
@@ -232,6 +233,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::resource('translations', 'TranslationAPIController');
     Route::get('/admin/statistics', 'StatisticsAPIController@adminStats');
     Route::get('/admin/chartRequestByCreationDate', 'StatisticsAPIController@chartRequestByCreationDate');
+    Route::get('/admin/chartBuildingsByCreationDate', 'StatisticsAPIController@chartBuildingsByCreationDate');
     Route::get('/admin/chartRequestByCreationDateByColumn', 'StatisticsAPIController@chartRequestByCreationDateByColumn');
     Route::get('/admin/chartRequestByColumn', 'StatisticsAPIController@chartRequestByColumn');
     Route::get('/admin/chartRequestByStatus', 'StatisticsAPIController@chartRequestByStatus');

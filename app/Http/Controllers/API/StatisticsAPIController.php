@@ -374,6 +374,78 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     * @return mixed
+     */
+    public function tenantsGenderStatistics()
+    {
+        $tenants = Tenant::selectRaw('count(id) as count, title')
+            ->whereIn('title', ['mr', 'mrs'])
+            ->groupBy('title')
+            ->get();
+        $manCount = $tenants->where('title', 'mr')->first()->count ?? 0;
+        $femaleCount = $tenants->where('title', 'mrs')->first()->count ?? 0;
+        if ($manCount + $femaleCount == 0) {
+            $response = [
+                'labels' => [
+                    'mr',
+                    'mrs'
+                ],
+                'data' => [
+                    0,
+                    0
+                ],
+                'tag_percentage' => [
+                    0,
+                    0
+                ],
+                'average_age' => [
+                    'mr' => 0,
+                    'mrs' => 0,
+                    'both' => 0
+                ]
+            ];
+            return $this->sendResponse($response, 'Tenants gender statistics retrieved successfully');
+        }
+
+
+        $femalePercentage = round($femaleCount * 100 / ($femaleCount + $manCount));
+
+
+        $tenantsAge = Tenant::selectRaw('FROM_UNIXTIME(AVG(UNIX_TIMESTAMP(birth_date))) AS duration, title')
+            ->whereIn('title', ['mr', 'mrs'])
+            ->groupBy('title')
+            ->get();
+        $bothTenants = Tenant::selectRaw('FROM_UNIXTIME(AVG(UNIX_TIMESTAMP(birth_date))) AS duration')
+            ->whereIn('title', ['mr', 'mrs'])
+            ->value('duration');
+
+        $femaleAvgAge = $tenantsAge->where('title', 'mrs')->first()->duration ?? 0;
+        $manAvgAge = $tenantsAge->where('title', 'mr')->first()->duration ?? 0;
+
+        $response = [
+            'labels' => [
+                'mr',
+                'mrs'
+            ],
+            'data' => [
+                $manCount,
+                $femaleCount
+            ],
+            'tag_percentage' => [
+                 100 - $femalePercentage,
+                $femalePercentage
+            ],
+            'average_age' => [
+                'mr' => Carbon::parse($manAvgAge)->age,
+                'mrs' => Carbon::parse($femaleAvgAge)->age,
+                'both' => Carbon::parse($bothTenants)->age
+            ]
+        ];
+
+        return $this->sendResponse($response, 'Tenants gender statistics retrieved successfully');
+    }
+
+    /**
      * @param Request $request
      * @return mixed
      */
@@ -472,6 +544,41 @@ class StatisticsAPIController extends AppBaseController
         return $isConvertResponse
             ? $this->sendResponse($ret, 'Request services statistics formatted successfully fo ' . $table . ' by ' . $column)
             : $ret;
+    }
+
+    /**
+     * @param Request $request
+     * @param array $optionalArgs
+     * @return mixed
+     */
+    public function chartBuildingsByCreationDate(Request $request, $optionalArgs = [])
+    {
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
+        $period = $optionalArgs['period'] ?? $this->getPeriod($request);
+        [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate, 'buildings');
+
+        $statistics = Building::selectRaw($raw . ', count(id) `count`')
+            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
+            ->groupBy('period')
+            ->get();
+
+
+        $dayStatistic = [];
+        foreach ($periodValues as $period => $__) {
+            $dayStatistic[$period] = 0;
+        }
+
+        foreach ($statistics as $statistic) {
+            $dayStatistic[$statistic['period']] = $statistic['count'];
+        }
+
+        $response['requests_per_day_xdata'] = array_values($periodValues);
+        $response['requests_per_day_ydata'] = array_values($dayStatistic);
+        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
+        return $isConvertResponse
+            ? $this->sendResponse($response, 'Building statistics formatted successfully')
+            : $response;
     }
 
     /**
@@ -703,7 +810,7 @@ class StatisticsAPIController extends AppBaseController
 
         $response = [
             'labels' => $statisticData->keys(),
-            'date' => $statisticData->values()
+            'data' => $statisticData->values()
         ];
 
         return $this->sendResponse($response, 'Admin statistics retrieved successfully');
