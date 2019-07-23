@@ -5,14 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Address\CreateRequest;
 use App\Http\Requests\API\Address\DeleteRequest;
-use App\Http\Requests\API\Address\ListRequest;
 use App\Http\Requests\API\Address\UpdateRequest;
-use App\Http\Requests\API\Address\ViewRequest;
 use App\Models\Address;
 use App\Repositories\AddressRepository;
 use Illuminate\Http\Response;
-use InfyOm\Generator\Criteria\LimitOffsetCriteria;
-use Prettus\Repository\Criteria\RequestCriteria;
 
 /**
  * Class AddressController
@@ -45,24 +41,6 @@ class AddressAPIController extends AppBaseController
         $addresses = $this->addressRepository->create($input);
 
         return $this->sendResponse($addresses->toArray(), 'Address saved successfully');
-    }
-
-    /**
-     * @param int $id
-     * @param ViewRequest $r
-     * @return Response
-     *
-     */
-    public function show($id, ViewRequest $r)
-    {
-        /** @var Address $address */
-        $address = $this->addressRepository->with(['country', 'state'])->findWithoutFail($id);
-
-        if (empty($address)) {
-            return $this->sendError('Address not found');
-        }
-
-        return $this->sendResponse($address->toArray(), 'Address retrieved successfully');
     }
 
     /**

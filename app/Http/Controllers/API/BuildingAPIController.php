@@ -154,12 +154,13 @@ class BuildingAPIController extends AppBaseController
 
 
     /**
+     * @TODO delete
+     *
      * @param ListRequest $request
      * @return Response
      * @throws \Exception
-     *
      */
-    public function tmpAddressIndex(ListRequest $request)
+    public function tmpAddressIndex(\App\Http\Requests\API\Address\ListRequest $request)
     {
         $this->buildingRepository->pushCriteria(new \Prettus\Repository\Criteria\RequestCriteria($request));
         $this->buildingRepository->pushCriteria(new LimitOffsetCriteria($request));
@@ -385,6 +386,46 @@ class BuildingAPIController extends AppBaseController
         $response = (new BuildingTransformer)->transform($building);
         return $this->sendResponse($response, 'Building retrieved successfully');
     }
+
+
+    /**
+     * @TODO delete
+     *
+     * @param $id
+     * @param \App\Http\Requests\API\Address\ViewRequest $r
+     * @return mixed
+     */
+    public function tmpAddressShow($id, \App\Http\Requests\API\Address\ViewRequest $r)
+    {
+        /** @var Address $address */
+        $building = $this->buildingRepository->with(['country', 'state'])->getModel();
+        $building = $building->where('address_id', $id)->first();
+
+        if (empty($building)) {
+            return $this->sendError('Address not found');
+        }
+
+        $data =  $building->only([
+            'country_id',
+            'state_id',
+            'city',
+            'street',
+            'street_nr',
+            'zip',
+        ]);
+
+        $data = array_merge(['id' => $building->address_id], $data);
+        $data = array_merge($data, [
+            'created_at' => $building->created_at->toDateTimeString(),
+            'updated_at' => $building->updated_at->toDateTimeString(),
+            'deleted_at' => $building->deleted_at ? $building->deleted_at->toDateTimeString() : null,
+            'country' => $building->country,
+            'state' => $building->state,
+        ]);
+
+        return $this->sendResponse($data, 'Address retrieved successfully');
+    }
+
 
     /**
      * @param int $id
