@@ -143,38 +143,38 @@ a, a:hover {
     @isset($userName)
     <tr>
         <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 17px; font-weight: 400; line-height: 160%;
-            padding-top: 20px;            
+            padding-top: 20px;
             color: #000000;
             font-family: 'Open Sans',sans-serif;" class="paragraph">
-            {{  __('common.email_footer_message1', ['UserName' => $userName]) }}              
+            {{  __('common.email_footer_message1', ['UserName' => $userName]) }}
         </td>
     </tr>
     @endisset
     <tr>
         <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 17px; font-weight: 400; line-height: 160%;
-            padding-top: 20px;           
+            padding-top: 20px;
             color: #000000;
             font-family: 'Open Sans',sans-serif;" class="paragraph">
-            {{  __('common.email_footer_message2', ['CompanyName' => $companyName]) }}         
+            {{  __('common.email_footer_message2', ['CompanyName' => $companyName ?? '']) }}
         </td>
-    </tr>  
+    </tr>
     <!-- FOOTER -->
     <!-- Set text color and font family ("sans-serif" or "Georgia, serif"). Duplicate all text styles in links, including line-height -->
     <tr>
         <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 13px; font-weight: 400; line-height: 150%;
-            padding-top: 20px;            
+            padding-top: 20px;
             color: #999999;
             font-family: 'Open Sans',sans-serif;" class="footer">
-            {{ $companyName ?? '' }}  
+            {{ $companyName ?? '' }}
         </td>
-    </tr> 
+    </tr>
     <tr>
         <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 13px; font-weight: 400; line-height: 150%;
             padding-top: 20px;
             padding-bottom: 20px;
             color: #999999;
             font-family: 'Open Sans',sans-serif;" class="footer">
-            {{ $companyAddress ?? '' }}  
+            {{ $companyAddress ?? '' }}
         </td>
     </tr>
      <tr>
@@ -186,14 +186,14 @@ a, a:hover {
             <p align="center" style="text-align:center"> <span style="font-size:7.5pt;font-family:&quot;Open Sans&quot;,sans-serif;color:#333333">
                 <a href="{{ $linkContact ?? '' }}" target="_blank">
                     <span style="text-decoration:none">{{  __('common.email_link_contacts') }}</span>
-                </a> | 
+                </a> |
                 <a href="{{ $linkTermsOfUse ?? '' }}" target="_blank">
-                    <span style="text-decoration:none">{{  __('common.email_link_terms_of_use') }}</span></a> | 
+                    <span style="text-decoration:none">{{  __('common.email_link_terms_of_use') }}</span></a> |
                 <a href="{{ $linkDataProtection ?? '' }}" target="_blank">
                     <span style="text-decoration:none">{{  __('common.email_link_data_protection') }}</span></a></span>
                 </p>
         </td>
-    </tr> 
+    </tr>
 <!-- End of WRAPPER -->
 </table>
 
