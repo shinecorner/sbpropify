@@ -33,29 +33,6 @@ class AddressAPIController extends AppBaseController
     }
 
     /**
-     * @param ListRequest $request
-     * @return Response
-     * @throws \Exception
-     *
-     */
-    public function index(ListRequest $request)
-    {
-        $this->addressRepository->pushCriteria(new RequestCriteria($request));
-        $this->addressRepository->pushCriteria(new LimitOffsetCriteria($request));
-
-        $getAll = $request->get('get_all', false);
-        if ($getAll) {
-            $addresses = $this->addressRepository->get();
-            return $this->sendResponse($addresses->toArray(), 'Addresses retrieved successfully');
-        }
-
-        $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $addresses = $this->addressRepository->with(['country', 'state'])->paginate($perPage);
-
-        return $this->sendResponse($addresses->toArray(), 'Addresses retrieved successfully');
-    }
-
-    /**
      * @param CreateRequest $request
      * @return Response
      * @throws \Exception

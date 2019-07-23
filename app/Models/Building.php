@@ -149,6 +149,7 @@ class Building extends Model implements HasMedia
     }
 
     /**
+     * @TODO remove after migration
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      **/
     public function address()

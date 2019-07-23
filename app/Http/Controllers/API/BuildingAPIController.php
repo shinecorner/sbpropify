@@ -25,6 +25,7 @@ use App\Repositories\ServiceRequestRepository;
 use App\Transformers\BuildingTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Pagination\LengthAwarePaginator;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Spatie\Geocoder\Geocoder;
 use Validator;
@@ -149,6 +150,69 @@ class BuildingAPIController extends AppBaseController
 
         $response = (new BuildingTransformer)->transformPaginator($buildings);
         return $this->sendResponse($response, 'Buildings retrieved successfully');
+    }
+
+
+    /**
+     * @param ListRequest $request
+     * @return Response
+     * @throws \Exception
+     *
+     */
+    public function tmpAddressIndex(ListRequest $request)
+    {
+        $this->buildingRepository->pushCriteria(new \Prettus\Repository\Criteria\RequestCriteria($request));
+        $this->buildingRepository->pushCriteria(new LimitOffsetCriteria($request));
+
+        $getAll = $request->get('get_all', false);
+        if ($getAll) {
+            $buildings = $this->buildingRepository->get();
+            $buildings = $buildings->map(function ($building) {
+                $data =  $building->only([
+                    'country_id',
+                    'state_id',
+                    'city',
+                    'street',
+                    'street_nr',
+                    'zip',
+                ]);
+                $data = array_merge(['id' => $building->address_id], $data);
+                $data = array_merge($data, [
+                    'created_at' => $building->created_at->toDateTimeString(),
+                    'updated_at' => $building->updated_at->toDateTimeString(),
+                    'deleted_at' => $building->deleted_at ? $building->deleted_at->toDateTimeString() : null,
+                ]);
+                return $data;
+            });
+
+            return $this->sendResponse($buildings->toArray(), 'Addresses retrieved successfully');
+        }
+
+        $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
+        $buildings = $this->buildingRepository->with(['country', 'state'])->paginate($perPage);
+
+        $items = $buildings->map(function ($building) {
+            $data =  $building->only([
+                'country_id',
+                'state_id',
+                'city',
+                'street',
+                'street_nr',
+                'zip',
+            ]);
+            $data = array_merge(['id' => $building->address_id], $data);
+            $data = array_merge($data, [
+                'created_at' => $building->created_at->toDateTimeString(),
+                'updated_at' => $building->updated_at->toDateTimeString(),
+                'deleted_at' => $building->deleted_at ? $building->deleted_at->toDateTimeString() : null,
+                'country' => $building->country,
+                'state' => $building->state,
+            ]);
+            return $data;
+        });
+
+        $buildings->setCollection($items);
+        return $this->sendResponse($buildings->toArray(), 'Addresses retrieved successfully');
     }
 
     /**
