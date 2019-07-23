@@ -161,6 +161,10 @@
 <style lang="scss">
 .el-row.dashboard {
     margin-top: -110px;
+
+    @media screen and (max-width: 1000px) {
+        margin-top: 0;
+    }
 }
 .dashboard-tabpanel{
     .el-tabs--border-card > .el-tabs__header .el-tabs__item{
@@ -206,6 +210,10 @@
         flex-wrap: wrap;
         width: fit-content;
         margin: 1.5rem 0 1.5em auto;
+
+        @media screen and (max-width: 1000px) {
+            margin: 1.5rem auto;
+        }
     }
     .el-tabs--border-card{
         background:none;
