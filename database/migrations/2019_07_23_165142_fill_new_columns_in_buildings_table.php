@@ -13,15 +13,18 @@ class FillNewColumnsInBuildingsTable extends Migration
      */
     public function up()
     {
-        \App\Models\Building::with('address')->get()->each(function ($building) {
-            $building->country_id = $building->address->country_id ?? null;
-            $building->state_id = $building->address->state_id ?? null;
-            $building->city = $building->address->city ?? null;
-            $building->street = $building->address->street ?? null;
-            $building->street_nr = $building->address->street_nr ?? null;
-            $building->zip = $building->address->zip ?? null;
-            $building->save();
-        });
+        if (class_exists("App\Models\Address")) {
+            \App\Models\Building::with('address')->get()->each(function ($building) {
+                $building->country_id = $building->address->country_id ?? null;
+                $building->state_id = $building->address->state_id ?? null;
+                $building->city = $building->address->city ?? null;
+                $building->street = $building->address->street ?? null;
+                $building->street_nr = $building->address->street_nr ?? null;
+                $building->zip = $building->address->zip ?? null;
+                $building->save();
+            });
+        }
+
     }
 
     /**
