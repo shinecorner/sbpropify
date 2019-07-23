@@ -150,6 +150,9 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('news/rss.xml', 'NewsAPIController@showNewsRSS');
     Route::get('news/weather.json', 'NewsAPIController@showWeatherJSON');
 
+    //Internal Notices
+    Route::resource('internalNotices', 'InternalNoticeAPIController');
+
     // Comments & Notifications & Conversations
     Route::get('/comments', 'CommentAPIController@index')->name('comments');
     Route::get('/comments/{id}', 'CommentAPIController@children')->name('comments.children');
