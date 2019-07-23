@@ -394,12 +394,8 @@
             }
 
             &-name{
-                /*margin-left: 10px;*/
-                /*margin-right: 40px;*/
                 display: flex;
                 width: auto;
-                /*align-items: center;*/
-
 
                 &-rotateIcon{
                     transform: rotate(180deg);

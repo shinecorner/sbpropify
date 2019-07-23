@@ -74,10 +74,7 @@
                 font-size: 15px;
 
                 .header-link{
-                    /*margin-right: 15px;*/
-                    /*display: flex;*/
                     line-height: 1;
-                    /*flex-direction: column;*/
                     text-align: center;
                     text-decoration: none;
                     color: #909399;
@@ -120,10 +117,7 @@
         }
 
         &-link{
-            /*margin-right: 15px;*/
-            /*display: flex;*/
             line-height: 1;
-            /*flex-direction: column;*/
             text-align: center;
             text-decoration: none;
             color: #909399;
@@ -132,19 +126,10 @@
                 margin-bottom: 5px;
                 margin-right: 10px;
             }
-
-            /*&:hover {*/
-            /*    color: #6AC06F;*/
-
-            /*    i {*/
-            /*        color: #6AC06F;*/
-            /*    }*/
-            /*}*/
         }
 
         .logout-button {
             display: flex;
-            /*flex-direction: column;*/
             color: #909399;
 
             i {
@@ -182,6 +167,6 @@
     .el-menu--popup {
         top: 13px;
         left: -16px;
-        min-width: 167px !important;
+        min-width: 153px !important;
     }
 </style>
