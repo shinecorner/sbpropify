@@ -4,7 +4,7 @@
             <el-card class="box-card-count" style="height: 91%">
                 <div style="height: 50%">
                     <div class="total-box-card-header">
-                        <span>{{ $t('models.building.requestStatuses.total') }}</span>
+                    <span>{{ $t('models.building.requestStatuses.total') }}</span>
                     </div>
                     <div class="total-box-card-body">
                         <div class="box-card-count">
@@ -37,7 +37,7 @@
                                 {{ count }}
                             </div>
                             <div class="box-card-progress">
-                                <el-progress type="circle" :percentage="data.tag_percentage[index]" :width="60" :color="getRequestStatusColor(data.labels[index], 'name')" :stroke-width="4"></el-progress>
+                                <el-progress type="circle" :percentage="data.tag_percentage[index]" :width="70" :color="getRequestStatusColor(data.labels[index], 'name')" :stroke-width="5"></el-progress>
                             </div>
                         </div>
                     </el-card>
@@ -78,6 +78,10 @@
 </script>
 
 <style lang="scss" scoped>
+    .el-divider.el-divider--horizontal {
+        width: 90%;
+        margin: 0 auto;
+    }
     .el-card {
         :global(.el-card__body) {
             padding: 0;
