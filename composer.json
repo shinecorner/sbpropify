@@ -25,7 +25,8 @@
         "league/fractal": "^0.17.0",
         "owen-it/laravel-auditing": "^9.0",
         "spatie/laravel-medialibrary": "^7.0.0",
-        "vinkla/hashids": "^6.0",
+        "vinkla/hashids": "*",
+        "spatie/geocoder": "*",
         "zizaco/entrust": "^1.9"
     },
     "require-dev": {

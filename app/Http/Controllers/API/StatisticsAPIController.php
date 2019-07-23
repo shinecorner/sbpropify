@@ -755,7 +755,7 @@ class StatisticsAPIController extends AppBaseController
         $periodValues = [];
 
         if (self::YEAR == $period) {
-            $part = "YEAR(' . $table . '.created_at)";
+            $part = "YEAR(" . $table . ".created_at)";
             $startDate->setMonth(1)->setDay(1);
             $endDate->setMonth(12)->setDay(31);
             $currentDate = clone $startDate;
