@@ -2,7 +2,7 @@
 
 
     <aside class="el-menu-aside">
-        <el-menu :default-active="currActive">
+        <el-menu :default-active="currActive" :unique-opened="true">
             <li class="slot" index="slot" v-if="hasSlot">
                 <slot/>
             </li>
@@ -31,7 +31,7 @@
                             @click="handleLink($event, childKey, child)"
                             v-for="(child, childKey) in link.children">
 
-                        <router-link :to="{name: child.route.name}">
+                        <router-link :to="child.route">
                             <i :class="[child.icon, 'icon']"/>
                             <span class="title">{{ child.title }}</span>
                         </router-link>
@@ -60,10 +60,21 @@
             }
         },
         methods: {
-            handleLink(ev, key, {route, action, children}) {
-                this.currActive = key.toString();
+            handleLink(ev, key, {route, action, children, icon}) {
+                //this.currActive = key.toString();
 
                 !children && route && this.$router.push(route);
+
+                /*if (!children && !!icon) {
+                    console.log('el', this.$el);
+                    const element1 = document.body.querySelector('.el-submenu.is-opened');
+                    console.log('element', element1);
+                    if (element1) {
+                        element1.classList.remove('is-opened');
+                        element1.removeAttribute('aria-expanded');
+                        element1.querySelector('ul').style.display = 'none';
+                    }
+                }*/
 
                 if (action) {
                     if (action.showConfirmation) {
@@ -90,6 +101,23 @@
             hasSlot() {
                 return !!this.$slots.default;
             }
+        },
+        created() {
+            const routeName = this.$route.name;
+            
+            this.links.map(link => {
+                if (link.route && link.route.name == routeName) {
+                    this.currActive = link.title;
+                }
+                else if (link.children) {
+                    let dActive = '';
+                    link.children.map(child => {
+                        if (child.route &&  child.route.name == routeName) {
+                            this.currActive = child.title;
+                        }
+                    });
+                }
+            });
         }
     }
 </script>
@@ -112,6 +140,13 @@
             a {
                 color: #303133;
                 text-decoration: none;
+            }
+
+            .is-active {
+                background-color: #f0f9f1;
+                > a {
+                    font-weight: bold;
+                }
             }
 
             .el-menu-item,

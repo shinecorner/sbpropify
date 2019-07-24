@@ -127,98 +127,92 @@
             }),
             links() {
                 return [{
-                    icon: 'ti-home',
+                    icon: 'icon-chart-bar',
                     title: 'Dashboard',
                     route: {
                         name: 'adminDashboard'
                     }
                 }, {
-                    icon: 'ti-user',
+                    icon: 'icon-commerical-building',
                     title: this.$t('menu.buildings'),
                     permission: this.$permissions.list.user,
                     children: [{
                         title: this.$t('menu.all_buildings'),
-                        icon: 'ti-home',
                         permission: this.$permissions.list.building,
                         route: {
                             name: 'adminBuildings'
                         }
                     }, {
                         title: this.$t('menu.units'),
-                        icon: 'ti-home',
                         permission: this.$permissions.list.unit,
                         route: {
                             name: 'adminUnits'
                         }
                     }, {
                         title: this.$t('menu.districts'),
-                        icon: 'ti-home',
                         permission: this.$permissions.list.district,
                         route: {
                             name: 'adminDistricts'
                         }
                     }]
                 }, {
-                    icon: 'ti-user',
+                    icon: 'icon-chat-empty',
                     title: this.$t('menu.requests'),
                     permission: this.$permissions.list.request,
                     children: [{
-                        icon: 'ti-user',
                         title: this.$t('menu.all_requests'),
                         permission: this.$permissions.list.request,
                         route: {
                             name: 'adminRequests'
                         }
                     }, {
-                        icon: 'ti-announcement',
                         title: this.$t('menu.activity'),
                         nestedItem: true,
                         permission: this.$permissions.list.audit,
                         route: {
                             name: 'adminRequestsActivity'
                         }
-                    }, {
-                        icon: 'ti-user',
-                        title: this.$t('menu.services'),
-                        permission: this.$permissions.list.provider,
-                        nestedItem: true,
-                        route: {
-                            name: 'adminServices'
-                        }
                     }]
                 }, {
+                    title: this.$t('menu.tenants'),
+                    icon: 'icon-group',
+                    permission: this.$permissions.list.tenant,
+                    route: {
+                        name: 'adminTenants'
+                    }
+                }, {
+                    icon: 'icon-users',
+                    title: this.$t('menu.propertyManagers'),
+                    permission: this.$permissions.list.propertyManager,
+                    route: {
+                        name: 'adminPropertyManagers'
+                    }
+                }, {
+                    icon: 'icon-tools',
+                    title: this.$t('menu.services'),
+                    permission: this.$permissions.list.provider,
+                    route: {
+                        name: 'adminServices'
+                    }
+                }, {
                     title: this.$t('menu.posts'),
-                    icon: 'ti-announcement',
+                    icon: 'icon-megaphone-1',
                     permission: this.$permissions.list.post,
                     route: {
                         name: 'adminPosts'
                     }
                 }, {
                     title: this.$t('menu.products'),
-                    icon: 'ti-announcement',
+                    icon: 'icon-basket',
                     permission: this.$permissions.list.product,
                     route: {
                         name: 'adminProducts'
                     }
                 }, {
-                    icon: 'ti-user',
+                    icon: 'icon-user',
                     title: this.$t('menu.users'),
                     permission: this.$permissions.list.user,
                     children: [{
-                        title: this.$t('menu.tenants'),
-                        icon: 'ti-user',
-                        permission: this.$permissions.list.tenant,
-                        route: {
-                            name: 'adminTenants'
-                        }
-                    }, {
-                        icon: 'ti-user',
-                        title: this.$t('menu.propertyManagers'),
-                        permission: this.$permissions.list.propertyManager,
-                        route: {
-                            name: 'adminPropertyManagers'
-                        }
-                    }, {
                         title: this.$t('menu.admins'),
                         route: {
                             name: 'adminUsers',

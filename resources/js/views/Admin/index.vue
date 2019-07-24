@@ -161,6 +161,10 @@
 <style lang="scss">
 .el-row.dashboard {
     margin-top: -110px;
+
+    @media screen and (max-width: 1000px) {
+        margin-top: 0;
+    }
 }
 .dashboard-tabpanel{
     .el-tabs--border-card > .el-tabs__header .el-tabs__item{
@@ -206,6 +210,10 @@
         flex-wrap: wrap;
         width: fit-content;
         margin: 1.5rem 0 1.5em auto;
+
+        @media screen and (max-width: 1000px) {
+            margin: 1.5rem auto;
+        }
     }
     .el-tabs--border-card{
         background:none;
@@ -252,20 +260,21 @@
     }
     .total-box-card-header{
     clear: both;
-    padding: 10px 20px;
+    padding: 15px 20px 5px 20px;
     opacity: 0.5;
     text-transform: uppercase;
+    text-align: center;
     border-bottom: none;
     box-sizing: border-box;
+    font-size: 13px;
   }  
   .total-box-card-body{
     clear: both;
-    padding: 10px 20px 10px 20px;
-    font-size: 2rem;
+    padding: 5px 20px 15px 20px;
+    font-size: 1.6rem;
     font-weight: 700;
     line-height: 1;
-    text-align: left;
-    float: left;
+    text-align: center;
   }
   .el-divider--horizontal{
     margin: 0 0;
@@ -276,16 +285,17 @@
     border-bottom: 4px solid transparent;  
     
     .el-card__header {        
-        padding: 10px 20px;        
+        padding: 15px 20px 5px 20px;       
         opacity: 0.5;     
         text-transform: uppercase;        
         border-bottom: none;
+        font-size: 13px;
     }
     .box-card-body{
         display: flex;        
         .box-card-count{
-            padding: 10px 20px 10px 20px;
-            font-size: 2rem;
+            padding: 5px 20px 15px 20px;
+            font-size: 1.6rem;
             font-weight: 700;
             line-height: 1;
             text-align: left;            
@@ -300,7 +310,7 @@
             margin-bottom: -27px;
 
             .el-progress__text {
-                font-size: 16px !important;
+                font-size: 13px !important;
             }
         }
     }
