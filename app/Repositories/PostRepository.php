@@ -6,6 +6,7 @@ use App\Models\Building;
 use App\Models\District;
 use App\Models\Post;
 use App\Models\Tenant;
+use App\Models\RealEstate;
 use App\Models\User;
 use App\Notifications\NewTenantInNeighbour;
 use App\Notifications\NewTenantPost;
@@ -203,11 +204,10 @@ class PostRepository extends BaseRepository
      */
     public function notifyAdmins(Post $post)
     {
+        $re = RealEstate::firstOrFail();
         $tRepo = new TemplateRepository(app());
         if ($post->user->tenant) {
-            $admins = User::whereHas('roles', function ($query) {
-                $query->where('name', 'super_admin');
-            })->get();
+            $admins = User::whereIn('id', $re->news_receiver_ids)->get();
             $i = 0;
             foreach ($admins as $admin) {
                 $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);

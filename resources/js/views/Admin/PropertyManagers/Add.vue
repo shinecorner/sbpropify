@@ -1,7 +1,7 @@
 <template>
     <div class="services-add">
         <heading :title="$t('models.propertyManager.add')" icon="ti-user" shadow="heavy">
-            <add-actions :saveAction="submit" route="adminPropertyManagers"/>
+            <add-actions :saveAction="submit" route="adminPropertyManagers" editRoute="adminPropertyManagersEdit"/>
         </heading>
         <div class="crud-view">
             <el-form :model="model" label-width="192px" ref="form">

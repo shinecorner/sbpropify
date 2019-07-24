@@ -20,20 +20,12 @@
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="12">
                                 <el-card class="chart-card" :header="$t('dashboard.requests_by_status')">
-                                    <chart-pie-and-donut
-                                        type="pie"
-                                        :xData="chartDataReqByStatus.xData"
-                                        :yData="chartDataReqByStatus.yData">
-                                    </chart-pie-and-donut>
+                                    <chart-pie-and-donut type="request_by_status"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="12">
                                 <el-card class="chart-card" :header="$t('dashboard.requests_by_category')">
-                                    <chart-pie-and-donut
-                                        type="donut"
-                                        :xData="chartDataReqByCategory.xData"
-                                        :yData="chartDataReqByCategory.yData">
-                                    </chart-pie-and-donut>
+                                    <chart-pie-and-donut type="request_by_category"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -94,14 +86,6 @@
             return {
                 totalRequest: 0,
                 avgReqDuration: '',                
-                chartDataReqByStatus: {
-                    xData: [],
-                    yData: []
-                },
-                chartDataReqByCategory:{
-                    xData: [],
-                    yData: []
-                },
                 chartDataReqByHour:{
                     xData: [],
                     yData: []
@@ -152,13 +136,7 @@
                     that.reqStatusCount = response.data.data.requests_per_status;
 
                     that.totalRequest = response.data.data.total_requests;
-                    that.avgReqDuration = response.data.data.avg_request_duration;
-                    that.chartDataReqByStatus.xData = response.data.data.requests_per_status.labels.map(function(e){return that.$t('models.request.status.'+e)});
-                    that.chartDataReqByStatus.yData = response.data.data.requests_per_status.data;
-
-                    that.chartDataReqByCategory.xData = response.data.data.requests_per_category.labels;
-                    that.chartDataReqByCategory.yData = response.data.data.requests_per_category.data;
-                    
+                    that.avgReqDuration = response.data.data.avg_request_duration;                    
                 }).catch(function (error) {
                     console.log(error);
                 })
@@ -253,20 +231,20 @@
     border-bottom: 1px solid #e1e5eb; 
     padding: .5rem .5rem;
 }
-.dashboard .apexcharts-menu-icon {
-    margin-top: -55px;
-    margin-right: 10px;
-}
 
-.dashboard .apexcharts-menu.open{    
-    margin-top: -20px;
-    margin-right: 5px;
-}
 .dashboard .stackchart .apexcharts-menu-icon{
     margin-top: -170px;
 }
 .dashboard .stackchart .apexcharts-menu.open{
     margin-top: -79px;
+}
+.dashboard .piechart .apexcharts-menu-icon{
+    margin-top: -170px;
+    margin-right: -20px;
+}
+.dashboard .piechart .apexcharts-menu.open{
+    margin-top: -79px;
+    margin-right: -20px;
 }
 .dashboard .box-card-count{
     .el-card__body{

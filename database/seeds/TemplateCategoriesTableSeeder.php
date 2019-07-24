@@ -289,7 +289,7 @@ HTML
                 'subject' => '{{commenterSalutation}} {{commenterName}} commented on your post',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
-<p>Tenant {{commenterSalutation}} {{commenterName}} commented on  your post:</p>
+<p>Tenant {{commenterSalutation}} {{commenterName}} commented on your post:</p>
 <p><em>{{comment}}</em>.</p>
 <p>Use <a href="{{autologin}}">this link</a> to view the post.</p>
 HTML

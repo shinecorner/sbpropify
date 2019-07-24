@@ -73,23 +73,25 @@ export default (config = {}) => {
                 mixin.mixins = [PasswordValidatorMixin()];
 
                 mixin.methods = {
-                    submit() {
-                        this.form.validate(async valid => {
-                            if (!valid) {
-                                return false;
-                            }
-                            this.loading.state = true;
+                    async submit() {
+                        const valid = await this.form.validate();
+                        if (!valid) {
+                            return false;
+                        }
+                        this.loading.state = true;
 
-                            try {
-                                displaySuccess(await this.createUser(this.model));
+                        try {
+                            const resp = await this.createUser(this.model);
+                            displaySuccess(resp);
 
-                                this.form.resetFields();
-                            } catch (err) {
-                                displayError(err);
-                            } finally {
-                                this.loading.state = false;
-                            }
-                        });
+                            this.form.resetFields();
+                            return resp;
+                        } catch (err) {
+                            displayError(err);
+                        } finally {
+                            this.loading.state = false;
+                        }
+
                     },
 
                     ...mixin.methods,

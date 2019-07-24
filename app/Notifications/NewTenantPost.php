@@ -59,7 +59,7 @@ class NewTenantPost extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $message = $tRepo->getNewPostParsedTemplate($this->post, $this->user);
+        $data = $tRepo->getNewPostParsedTemplate($this->post, $this->user);
         $data['userName'] = $notifiable->name;
 
         return (new MailMessage)

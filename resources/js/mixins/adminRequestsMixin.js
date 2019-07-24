@@ -253,21 +253,22 @@ export default (config = {}) => {
                         return resp;
 
                     },
-                    submit() {
-                        this.form.validate(async valid => {
-                            if (valid) {
-                                this.loading.state = true;
-                                try {
-                                    const resp = await this.saveRequest();
+                    async submit() {
+                        const valid = await this.form.validate();
+                        if (valid) {
+                            this.loading.state = true;
+                            try {
+                                const resp = await this.saveRequest();
 
-                                    displaySuccess(resp);
-                                } catch (err) {
-                                    displayError(err);
-                                } finally {
-                                    this.loading.state = false;
-                                }
+                                displaySuccess(resp);
+                                return resp;
+                            } catch (err) {
+                                displayError(err);
+                            } finally {
+                                this.loading.state = false;
                             }
-                        });
+                        }
+
                     },
                 };
 

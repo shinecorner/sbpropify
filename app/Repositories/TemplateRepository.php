@@ -96,81 +96,91 @@ class TemplateRepository extends BaseRepository
      */
     public function getTags(array $tagMap, array $context): array
     {
-        $user = $context['user'] ?? null;
-        $pwReset = $context['pwReset'] ?? null;
-        $subject = $context['subject'] ?? null;
-        $tenant = $context['tenant'] ?? null;
-        $post = $context['post'] ?? null;
-        $product = $context['product'] ?? null;
-        $uploader = $context['uploader'] ?? null;
-        $sender = $context['sender'] ?? null;
-        $receiver = $context['receiver'] ?? null;
-
-        $request = $context['request'] ?? null;
-        $originalRequest = $context['originalRequest'] ?? null;
-
-        $comment = $context['comment'] ?? null;
-        $form = $context['form'] ?? null;
-
         $tags = [];
         foreach ($tagMap as $tag => $val) {
-            $valMap = explode('.', $val);
+            $tags = [];
+            foreach ($tagMap as $tag => $val) {
+                if (in_array($tag, ['autologinUrl', 'passwordResetUrl', 'tenantCredentials'])) {
+                    $tags[$tag] = $this->getStaticTagValue($tag, $val, $context);
+                    continue;
+                }
 
-            if (count($valMap) == 4) {
+                $valMap = explode('.', $val);
+
+                if (count($valMap) > $this->maxNesting) {
+                    continue;
+                }
+
+                $isTranslatable = false;
                 if ($valMap[0] == 'constant') {
-                    $val = self::getContextValue(${$valMap[1]}->{$valMap[2]}, $valMap[3]);
+                    $isTranslatable = true;
+                    unset($valMap[0]);
+                    $valMap = array_values($valMap);
+                }
+
+                if (!isset($context[$valMap[0]])) {
+                    continue;
+                }
+
+                $cContext = $context[$valMap[0]];
+                unset($valMap[0]);
+                $valMap = array_values($valMap);
+
+                $val = self::getContextValue(${$cContext}, $valMap);
+
+                if ($isTranslatable) {
                     $val = __('common.' . $val);
-                    $tags[$tag] = $val;
-                    continue;
                 }
 
-                $val = self::getContextValue(${$valMap[0]}->{$valMap[1]}->{$valMap[2]}, $valMap[3]);
-
                 $tags[$tag] = $val;
-                continue;
             }
+        }
+    }
 
-            if (count($valMap) == 3) {
-                if ($valMap[0] == 'constant') {
-                    $val = self::getContextValue(${$valMap[1]}, $valMap[2]);
-                    $val = __('common.' . $valMap[1] . '_' . $valMap[2] . '_' . $val);
-                    $tags[$tag] = $val;
-                    continue;
-                }
+    /**
+     * @param string $tag
+     * @param string $val
+     * @param array $context
+     * @return string
+     */
+    private function getStaticTagValue(string $tag, string $val, array $context)
+    {
+        $user = $context['user'] ?? null;
+        $pwReset = $context['pwReset'] ?? null;
+        $tenant = $context['tenant'] ?? null;
 
-                $val = self::getContextValue(${$valMap[0]}->{$valMap[1]}, $valMap[2]);
-
-                $tags[$tag] = $val;
-                continue;
-            }
-
-            if (count($valMap) == 2) {
-                $val = self::getContextValue(${$valMap[0]}, $valMap[1]);
-                $tags[$tag] = $val;
-                continue;
-            }
-
-            if ($tag == 'autologinUrl' && $user) {
-                $linkText = __('See post');
-                $val = $this->button($user->autologinUrl, $linkText);
-            }
-
-            if ($tag == 'passwordResetUrl' && $pwReset) {
-                $linkHref = url(sprintf('/reset-password?email=%s&token=%s', $user->email, $pwReset->token));
-                $linkText = __('Reset password');
-                $val = $this->button($linkHref, $linkText);
-            }
-
-            if ($tag == 'tenantCredentials' && $tenant) {
-                $linkHref = env('APP_URL') . \Storage::url($tenant->pdfXFileName());
-                $linkText = __('Download Credentials');
-                $val = $this->button($linkHref, $linkText);
-            }
-
-            $tags[$tag] = $val;
+        if ($tag == 'autologinUrl' && $user) {
+            $linkText = __('See post');
+            return $this->button($user->autologinUrl, $linkText);
         }
 
-        return $tags;
+        if ($tag == 'passwordResetUrl' && $pwReset) {
+            $linkHref = url(sprintf('/reset-password?email=%s&token=%s', $user->email, $pwReset->token));
+            $linkText = __('Reset password');
+            return $this->button($linkHref, $linkText);
+        }
+
+        if ($tag == 'tenantCredentials' && $tenant) {
+            $linkHref = env('APP_URL') . \Storage::url($tenant->pdfXFileName());
+            $linkText = __('Download Credentials');
+            return $this->button($linkHref, $linkText);
+        }
+
+        return $val;
+    }
+
+    /**
+     * @param $url
+     * @param $text
+     * @return string
+     */
+    private
+    function button($url, $text)
+    {
+        $linkClass = 'button button-primary';
+        $linkStyle = 'font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Helvetica, Arial, sans-serif, \'Apple Color Emoji\', \'Segoe UI Emoji\', \'Segoe UI Symbol\'; box-sizing: border-box; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); color: #FFF; display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; background-color: #3490DC; border-top: 10px solid #3490DC; border-right: 18px solid #3490DC; border-bottom: 10px solid #3490DC; border-left: 18px solid #3490DC;';
+
+        return sprintf('<a class="%s" style="%s" href="%s">%s</a>', $linkClass, $linkStyle, $url, $text);
     }
 
     /**
@@ -192,25 +202,13 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param $url
-     * @param $text
-     * @return string
-     */
-    private function button($url, $text)
-    {
-        $linkClass = 'button button-primary';
-        $linkStyle = 'font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Helvetica, Arial, sans-serif, \'Apple Color Emoji\', \'Segoe UI Emoji\', \'Segoe UI Symbol\'; box-sizing: border-box; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); color: #FFF; display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; background-color: #3490DC; border-top: 10px solid #3490DC; border-right: 18px solid #3490DC; border-bottom: 10px solid #3490DC; border-left: 18px solid #3490DC;';
-
-        return sprintf('<a class="%s" style="%s" href="%s">%s</a>', $linkClass, $linkStyle, $url, $text);
-    }
-
-    /**
      * @param Template $template
      * @param $tagMap
      * @param $lang
      * @return array
      */
-    public function getParsedTemplateData($template, $tagMap, $lang = ''): array
+    public
+    function getParsedTemplateData($template, $tagMap, $lang = ''): array
     {
         if (!$template) {
             return [
@@ -235,7 +233,7 @@ class TemplateRepository extends BaseRepository
             'subject' => $template->subject,
             'body' => $template->body,
             'company' => $company,
-            'companyLogo' => $appUrl .'/'. $company->logo,
+            'companyLogo' => $appUrl . '/' . $company->logo,
             'companyName' => $company->name,
             'companyAddress' => implode(' ', $companyAddress),
             'linkContact' => env('APP_URL', '#'),
@@ -251,7 +249,8 @@ class TemplateRepository extends BaseRepository
      *
      * @return Template
      */
-    public function getParsedTemplate($template, $tagMap, $lang = ''): Template
+    public
+    function getParsedTemplate($template, $tagMap, $lang = ''): Template
     {
         if (!$template) {
             return null;
@@ -288,7 +287,8 @@ class TemplateRepository extends BaseRepository
      * @param PasswordReset|null $pwReset
      * @return array
      */
-    public function getUserResetPasswordTemplate(User $user, PasswordReset $pwReset): array
+    public
+    function getUserResetPasswordTemplate(User $user, PasswordReset $pwReset): array
     {
         $template = $this->getByCategoryName('reset_password');
 
@@ -304,7 +304,8 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return array
      */
-    public function getUserResetPasswordSuccessTemplate(User $user): array
+    public
+    function getUserResetPasswordSuccessTemplate(User $user): array
     {
         $template = $this->getByCategoryName('reset_password_success');
 
@@ -321,7 +322,8 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return array
      */
-    public function getNewPostParsedTemplate(Post $post, User $user): array
+    public
+    function getNewPostParsedTemplate(Post $post, User $user): array
     {
         $template = $this->getByCategoryName('new_post');
 
@@ -340,7 +342,8 @@ class TemplateRepository extends BaseRepository
      * @param Tenant $tenant
      * @return array
      */
-    public function getTenantCredentialsParsedTemplate(Tenant $tenant): array
+    public
+    function getTenantCredentialsParsedTemplate(Tenant $tenant): array
     {
         $template = $this->getByCategoryName('tenant_credentials');
 
@@ -358,7 +361,8 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return array
      */
-    public function getPinnedPostParsedTemplate(Post $post, User $user): array
+    public
+    function getPinnedPostParsedTemplate(Post $post, User $user): array
     {
         $template = $this->getByCategoryName('pinned_post');
 
@@ -378,7 +382,8 @@ class TemplateRepository extends BaseRepository
      * @param User $receiver
      * @return array
      */
-    public function getPostParsedTemplate(Post $post, User $receiver): array
+    public
+    function getPostParsedTemplate(Post $post, User $receiver): array
     {
         $template = $this->getByCategoryName('post_published');
 
@@ -398,7 +403,8 @@ class TemplateRepository extends BaseRepository
      * @param User $receiver
      * @return array
      */
-    public function getPostNewTenantInNeighbourParsedTemplate(Post $post, User $receiver): array
+    public
+    function getPostNewTenantInNeighbourParsedTemplate(Post $post, User $receiver): array
     {
         $template = $this->getByCategoryName('post_new_tenant_in_neighbour');
 
@@ -418,7 +424,8 @@ class TemplateRepository extends BaseRepository
      * @param Comment $comment
      * @return array
      */
-    public function getPostCommentedParsedTemplate(Post $post, User $user, Comment $comment): array
+    public
+    function getPostCommentedParsedTemplate(Post $post, User $user, Comment $comment): array
     {
         $template = $this->getByCategoryName('post_commented');
 
@@ -439,7 +446,8 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return array
      */
-    public function getPostLikedParsedTemplate(Post $post, User $user): array
+    public
+    function getPostLikedParsedTemplate(Post $post, User $user): array
     {
         $template = $this->getByCategoryName('post_liked');
 
@@ -458,7 +466,8 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return array
      */
-    public function getProductLikedParsedTemplate(Product $product, User $user): array
+    public
+    function getProductLikedParsedTemplate(Product $product, User $user): array
     {
         $template = $this->getByCategoryName('product_liked');
 
@@ -478,7 +487,8 @@ class TemplateRepository extends BaseRepository
      * @param Comment $comment
      * @return array
      */
-    public function getProductCommentedParsedTemplate(Product $product, User $user, Comment $comment): array
+    public
+    function getProductCommentedParsedTemplate(Product $product, User $user, Comment $comment): array
     {
         $template = $this->getByCategoryName('product_commented');
 
@@ -499,7 +509,8 @@ class TemplateRepository extends BaseRepository
      * @param User $subject
      * @return array
      */
-    public function getNewRequestParsedTemplate(ServiceRequest $request, User $user, User $subject): array
+    public
+    function getNewRequestParsedTemplate(ServiceRequest $request, User $user, User $subject): array
     {
         $template = $this->getByCategoryName('new_request');
 
@@ -520,7 +531,8 @@ class TemplateRepository extends BaseRepository
      * @param Comment $comment
      * @return array
      */
-    public function getRequestCommentedParsedTemplate(ServiceRequest $sr, User $user, Comment $comment): array
+    public
+    function getRequestCommentedParsedTemplate(ServiceRequest $sr, User $user, Comment $comment): array
     {
         $template = $this->getByCategoryName('request_comment');
 
@@ -539,7 +551,8 @@ class TemplateRepository extends BaseRepository
      * @param ServiceRequest $sr
      * @return array
      */
-    public function getRequestDueParsedTemplate(ServiceRequest $sr, User $receiver): array
+    public
+    function getRequestDueParsedTemplate(ServiceRequest $sr, User $receiver): array
     {
         $template = $this->getByCategoryName('request_due_date_reminder');
 
@@ -560,12 +573,14 @@ class TemplateRepository extends BaseRepository
      * @param Media $media
      * @return array
      */
-    public function getRequestMediaParsedTemplate(
+    public
+    function getRequestMediaParsedTemplate(
         ServiceRequest $sr,
         User $uploader,
         User $receiver,
         Media $media
-    ): array {
+    ): array
+    {
         $template = $this->getByCategoryName('request_upload');
 
         $context = [
@@ -588,7 +603,8 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return array
      */
-    public function getRequestStatusChangedParsedTemplate(ServiceRequest $sr, ServiceRequest $osr, User $user): array
+    public
+    function getRequestStatusChangedParsedTemplate(ServiceRequest $sr, ServiceRequest $osr, User $user): array
     {
         $template = $this->getByCategoryName('request_admin_change_status');
 
@@ -609,12 +625,14 @@ class TemplateRepository extends BaseRepository
      * @param User $receiver
      * @return array
      */
-    public function getRequestInternalCommentParsedTemplate(
+    public
+    function getRequestInternalCommentParsedTemplate(
         ServiceRequest $sr,
         Comment $comment,
         User $sender,
         User $receiver
-    ): array {
+    ): array
+    {
         $template = $this->getByCategoryName('request_internal_comment');
 
         $context = [
@@ -633,7 +651,8 @@ class TemplateRepository extends BaseRepository
      * @param CleanifyRequest $creq
      * @return array
      */
-    public function getCleanifyParsedTemplate(CleanifyRequest $creq): array
+    public
+    function getCleanifyParsedTemplate(CleanifyRequest $creq): array
     {
         $template = $this->getByCategoryName('cleanify_request_email');
 
@@ -651,7 +670,8 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return Collection
      */
-    public function getParsedCommunicationTemplates(ServiceRequest $serviceReq, User $user): Collection
+    public
+    function getParsedCommunicationTemplates(ServiceRequest $serviceReq, User $user): Collection
     {
         $templates = (new Template())->whereHas('category', function ($q) {
             $q->where('type', TemplateCategory::TypeCommunication);
@@ -671,7 +691,8 @@ class TemplateRepository extends BaseRepository
      *
      * @return Template
      */
-    public function getCommunicationTemplate(Template $template, ServiceRequest $request, User $user): Template
+    public
+    function getCommunicationTemplate(Template $template, ServiceRequest $request, User $user): Template
     {
         $context = [
             'user' => $user,

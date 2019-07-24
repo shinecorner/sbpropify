@@ -129,6 +129,7 @@ class RealEstate extends Model
         'iframe_url',
         'iframe_enable',
         'cleanify_email',
+        'news_receiver_ids',
     ];
 
     /**
@@ -155,6 +156,7 @@ class RealEstate extends Model
         'iframe_url' => 'string',
         'iframe_enable' => 'boolean',
         'cleanify_email' => 'string',
+        'news_receiver_ids' => 'array',
     ];
 
     /**
@@ -172,6 +174,14 @@ class RealEstate extends Model
                 if (is_string($val)) {
                     if (!filter_var($val, FILTER_VALIDATE_URL)) {
                         $fail('The iframe url format is invalid');
+                    }
+                }
+            },
+            'news_receiver_ids' => function($attr, $val, $fail) {
+                $us = User::whereIn('id', $val)->get();
+                foreach ($us as $u) {
+                    if (!$u->hasRole('administrator')) {
+                        $fail('News email receivers must be administrators');
                     }
                 }
             },

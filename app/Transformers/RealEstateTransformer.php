@@ -45,10 +45,14 @@ class RealEstateTransformer extends TransformerAbstract
             'iframe_url' => $model->iframe_url,
             'iframe_enable' => $model->iframe_enable,
             'cleanify_email' => $model->cleanify_email,
+            'news_receiver_ids' => $model->news_receiver_ids,
         ];
 
         if ($model->address) {
             $response['address'] = (new AddressTransformer)->transform($model->address);
+        }
+        if (isset($model->news_receivers)) {
+            $response['news_receivers'] = (new UserTransformer)->transformCollection($model->news_receivers);
         }
 
         return $response;
