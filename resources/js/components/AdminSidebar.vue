@@ -32,7 +32,7 @@
                             v-for="(child, childKey) in link.children">
 
                         <router-link :to="child.route">
-                            <i :class="[child.icon, 'icon']"/>
+                            <i :class="['icon-right-1', 'icon']"/>
                             <span class="title">{{ child.title }}</span>
                         </router-link>
                     </el-menu-item>
@@ -135,14 +135,14 @@
 
         .content {
             padding: 0;
-            overflow: auto;
+            // overflow: auto;
 
             a {
                 color: #303133;
                 text-decoration: none;
             }
 
-            .is-active {
+            .is-active:not(.el-submenu) {
                 background-color: #f0f9f1;
                 > a {
                     font-weight: bold;
