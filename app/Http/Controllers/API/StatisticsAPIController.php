@@ -604,16 +604,32 @@ class StatisticsAPIController extends AppBaseController
             $intervalValues = array_combine(range(1, 31), range(1, 31));
         }
 
-        $colStats = $this->initializeServiceRequestCategoriesForChart($intervalValues, $hours);
+        $colStats = $this->initializeServiceRequestCategoriesForChart($hours, array_flip($intervalValues));
         foreach ($statistics as $statistic) {
             $parts = explode(' ', $statistic['interval']);
             $day = $parts[0];
             $y = $parts[1];
             $x = $intervalValues[$day];
-            $colStats[$x][$y] = $statistic['count'];
+            $colStats[$y][$x] = $statistic['count'];
         }
 
-        return $this->sendResponse($colStats, 'Request services statistics formatted successfully');
+        $response = [];
+        foreach ($colStats as $yAxis => $xAxisData) {
+            $format = [];
+            foreach ($xAxisData as $xAxis => $count) {
+                $format[] = [
+                    'x' => $xAxis,
+                    'y' => $count
+                ];
+            }
+
+            $response[] = [
+                'name' => $yAxis,
+                'data' => $format
+            ];
+        }
+
+        return $this->sendResponse($response, 'Request services statistics formatted successfully');
     }
 
     /**
