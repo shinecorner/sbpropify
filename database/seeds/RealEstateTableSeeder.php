@@ -21,6 +21,7 @@ class RealEstateTableSeeder extends Seeder
 
         $realEstate->free_apartments_enable = false;
         $realEstate->opening_hours = json_encode($this->getOpeningHours());
+        $realEstate->news_receiver_ids = [];
 
         $address = factory(App\Models\Address::class, 1)->create()[0];
         $address->zip = 3172;
