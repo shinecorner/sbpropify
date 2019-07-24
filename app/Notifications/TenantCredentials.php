@@ -25,8 +25,6 @@ class TenantCredentials extends Notification implements ShouldQueue
     /**
      * TenantCredentials constructor.
      * @param Tenant $tenant
-     * @param string $subject
-     * @param string $body
      */
     public function __construct(Tenant $tenant)
     {
@@ -64,6 +62,7 @@ class TenantCredentials extends Notification implements ShouldQueue
 
         return (new MailMessage)
             ->view('mails.sendTenantCredentials', $data)
+            ->attachData($disk->get($pdfName), $pdfName)
             ->subject($data['subject']);
     }
 

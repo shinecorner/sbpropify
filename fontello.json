@@ -353,6 +353,18 @@
       "css": "ellipsis",
       "code": 61761,
       "src": "fontawesome"
+    },
+    {
+      "uid": "6a7ed3214c9049148cbdb01825e5efc2",
+      "css": "picture-1",
+      "code": 59429,
+      "src": "typicons"
+    },
+    {
+      "uid": "3c961c1a8d874815856fc6637dc5a13c",
+      "css": "file-image",
+      "code": 61893,
+      "src": "fontawesome"
     }
   ]
 }
