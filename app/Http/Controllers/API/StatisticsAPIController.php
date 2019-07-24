@@ -23,6 +23,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 /**
+ * @TODO authorize each request
+ *
  * Class StatisticsAPIController
  * @package App\Http\Controllers\API
  */
@@ -40,9 +42,15 @@ class StatisticsAPIController extends AppBaseController
         self::YEAR,
     ];
 
+    const PERMITTED_HEAT_PERIODS = [
+        self::WEEK,
+        self::YEAR,
+    ];
+
     const QUERY_PARAMS = [
         'year' => 'year',
         'period' => 'period',
+        'date' => 'date',
         'start_date' => 'start_date',
         'end_date' => 'end_date',
         'table' => 'table',
@@ -547,6 +555,84 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     * @TODO improve
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function heatRequestByCreationDate(Request $request)
+    {
+        $date = $request->{self::QUERY_PARAMS['date']} ?? '';
+        $date = Carbon::parse($date);
+        $period =  $request->{self::QUERY_PARAMS['period']} ?? '';
+        $period = in_array($period, self::PERMITTED_HEAT_PERIODS) ? $period : Arr::first(self::PERMITTED_HEAT_PERIODS);
+
+        if (self::WEEK == $period) {
+            $startDate = $date->subDays(($date->dayOfWeek - 1));
+            $endDate = clone $startDate;
+            $endDate = $endDate->addDays(6);
+            $raw = "CONCAT(DATE(created_at), ' ',  HOUR(created_at))";
+        } else {
+//            mean self::YEAR == $period
+            $startDate = $date;
+            $startDate->setDay(1);
+            $startDate->setMonth(1);
+            $endDate = clone $startDate;
+            $endDate->setDay(31);
+            $endDate->setMonth(12);
+            $raw = "CONCAT(DAY(created_at), ' ', MONTH(created_at))";
+        }
+
+        $statistics = ServiceRequest::selectRaw($raw . " AS `interval`, COUNT(id) AS `count`")
+            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
+            ->groupBy('interval')->get();
+
+        if (self::WEEK == $period) {
+            $hours = array_combine(range(1, 24), range(1, 24));
+        } else {
+            $hours = array_combine(range(1, 12), range(1, 12));
+        }
+
+        if (self::WEEK == $period) {
+            $datePeriod = CarbonPeriod::create($startDate, $endDate);
+            $intervalValues = [];
+            foreach ($datePeriod as $date) {
+                $intervalValues[$date->format('Y-m-d')] = $date->format('l');
+            }
+        } else {
+            $intervalValues = array_combine(range(1, 31), range(1, 31));
+        }
+
+        $colStats = $this->initializeServiceRequestCategoriesForChart($hours, array_flip($intervalValues));
+        foreach ($statistics as $statistic) {
+            $parts = explode(' ', $statistic['interval']);
+            $day = $parts[0];
+            $y = $parts[1];
+            $x = $intervalValues[$day];
+            $colStats[$y][$x] = $statistic['count'];
+        }
+
+        $response = [];
+        foreach ($colStats as $yAxis => $xAxisData) {
+            $format = [];
+            foreach ($xAxisData as $xAxis => $count) {
+                $format[] = [
+                    'x' => $xAxis,
+                    'y' => $count
+                ];
+            }
+
+            $response[] = [
+                'name' => $yAxis,
+                'data' => $format
+            ];
+        }
+
+        return $this->sendResponse($response, 'Request services statistics formatted successfully');
+    }
+
+    /**
      * @param Request $request
      * @param array $optionalArgs
      * @return mixed
@@ -880,7 +966,7 @@ class StatisticsAPIController extends AppBaseController
             $currentDate = clone $startDate;
             while ($currentDate < $endDate) {
                 $yearMonth = $currentDate->year . ' ' . $currentDate->month;
-                $periodValues[$yearMonth] = $currentDate->format('Y M');
+                $periodValues[$yearMonth] = $currentDate->format('M Y');
                 $currentDate->addMonth();
             }
         } elseif (self::WEEK == $period) {
@@ -898,7 +984,9 @@ class StatisticsAPIController extends AppBaseController
 
             while ($currentDate < $endDate) {
                 $yearWeek = $currentDate->year . ' ' . $currentDate->week;
-                $periodValues[$yearWeek] = ($currentDate->year != $today->year) ? $yearWeek : $currentDate->week;
+                $periodValues[$yearWeek] = ($currentDate->year != $today->year)
+                    ? $currentDate->week . ' ' . $currentDate->year
+                    : $currentDate->week;
                 $currentDate->addWeek();
             }
 

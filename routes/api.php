@@ -235,6 +235,8 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/admin/chartRequestByCreationDate', 'StatisticsAPIController@chartRequestByCreationDate');
     Route::get('/admin/chartBuildingsByCreationDate', 'StatisticsAPIController@chartBuildingsByCreationDate');
     Route::get('/admin/chartRequestByCreationDateByColumn', 'StatisticsAPIController@chartRequestByCreationDateByColumn');
+    Route::get('/admin/heatRequestByCreationDate', 'StatisticsAPIController@heatRequestByCreationDate');
+
     Route::get('/admin/chartRequestByColumn', 'StatisticsAPIController@chartRequestByColumn');
     Route::get('/admin/chartRequestByStatus', 'StatisticsAPIController@chartRequestByStatus');
     Route::get('/admin/chartRequestByRequestStatus', 'StatisticsAPIController@chartRequestByRequestStatus');
