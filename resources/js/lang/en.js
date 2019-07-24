@@ -105,7 +105,7 @@ export default {
         districts: 'Districts',
         products: 'Products',
         requestCategories: 'Request categories',
-        services: "Services",
+        services: "Service Partners",
         activity: 'Activity',
         propertyManagers: 'Property managers',
         templates: 'Templates'
