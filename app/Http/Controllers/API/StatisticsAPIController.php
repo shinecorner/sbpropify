@@ -42,6 +42,11 @@ class StatisticsAPIController extends AppBaseController
         self::YEAR,
     ];
 
+    const PERMITTED_HEAT_PERIODS = [
+        self::WEEK,
+        self::YEAR,
+    ];
+
     const QUERY_PARAMS = [
         'year' => 'year',
         'period' => 'period',
@@ -550,6 +555,8 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     * @TODO improve
+     *
      * @param Request $request
      * @return mixed
      */
@@ -557,31 +564,53 @@ class StatisticsAPIController extends AppBaseController
     {
         $date = $request->{self::QUERY_PARAMS['date']} ?? '';
         $date = Carbon::parse($date);
-        $startDate = $date->subDays(($date->dayOfWeek - 1));
-        $endDate = clone $startDate;
-        $endDate = $endDate->addDays(6);
+        $period =  $request->{self::QUERY_PARAMS['period']} ?? '';
+        $period = in_array($period, self::PERMITTED_HEAT_PERIODS) ? $period : Arr::first(self::PERMITTED_HEAT_PERIODS);
 
-        $statistics = ServiceRequest::selectRaw("CONCAT(DATE(created_at), ' ',  HOUR(created_at)) AS `interval`, COUNT(id) AS `count`")
+        if (self::WEEK == $period) {
+            $startDate = $date->subDays(($date->dayOfWeek - 1));
+            $endDate = clone $startDate;
+            $endDate = $endDate->addDays(6);
+            $raw = "CONCAT(DATE(created_at), ' ',  HOUR(created_at))";
+        } else {
+//            mean self::YEAR == $period
+            $startDate = $date;
+            $startDate->setDay(1);
+            $startDate->setMonth(1);
+            $endDate = clone $startDate;
+            $endDate->setDay(31);
+            $endDate->setMonth(12);
+            $raw = "CONCAT(DAY(created_at), ' ', MONTH(created_at))";
+        }
+
+        $statistics = ServiceRequest::selectRaw($raw . " AS `interval`, COUNT(id) AS `count`")
             ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
             ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
             ->groupBy('interval')->get();
 
+        if (self::WEEK == $period) {
+            $hours = array_combine(range(1, 24), range(1, 24));
+        } else {
+            $hours = array_combine(range(1, 12), range(1, 12));
+        }
 
-        $hours = array_combine(range(1, 24), range(1, 24));
-        $datePeriod = CarbonPeriod::create($startDate, $endDate);
-
-        $intervalValues = [];
-        foreach ($datePeriod as $date) {
-            $intervalValues[$date->format('Y-m-d')] = $date->format('l');
+        if (self::WEEK == $period) {
+            $datePeriod = CarbonPeriod::create($startDate, $endDate);
+            $intervalValues = [];
+            foreach ($datePeriod as $date) {
+                $intervalValues[$date->format('Y-m-d')] = $date->format('l');
+            }
+        } else {
+            $intervalValues = array_combine(range(1, 31), range(1, 31));
         }
 
         $colStats = $this->initializeServiceRequestCategoriesForChart($intervalValues, $hours);
         foreach ($statistics as $statistic) {
             $parts = explode(' ', $statistic['interval']);
             $day = $parts[0];
-            $hour = $parts[1];
-            $weekName = $intervalValues[$day];
-            $colStats[$weekName][$hour] = $statistic['count'];
+            $y = $parts[1];
+            $x = $intervalValues[$day];
+            $colStats[$x][$y] = $statistic['count'];
         }
 
         return $this->sendResponse($colStats, 'Request services statistics formatted successfully');
