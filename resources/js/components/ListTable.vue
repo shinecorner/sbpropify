@@ -559,7 +559,7 @@
                 handler({page, per_page}, prevQuery) {
                     if (!page || !per_page && prevQuery) {
                         this.page.currPage = 1;
-                        this.page.currSize = 10;
+                        this.page.currSize = 20;
 
                         return this.syncUrl();
                     }
