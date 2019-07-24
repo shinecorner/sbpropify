@@ -194,6 +194,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('/requests/{id}/providers/{provider_id}', 'ServiceRequestAPIController@assignProvider');
     Route::delete('/requests/{id}/providers/{provider_id}', 'ServiceRequestAPIController@unassignProvider');
     Route::get('/requests/{id}/communicationTemplates', 'ServiceRequestAPIController@getCommunicationTemplates');
+    Route::get('/requests/{id}/serviceCommunicationTemplates', 'ServiceRequestAPIController@getServiceCommunicationTemplates');
 
     // Products
     Route::resource('products', 'ProductAPIController');

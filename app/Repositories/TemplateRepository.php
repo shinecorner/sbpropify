@@ -111,11 +111,11 @@ class TemplateRepository extends BaseRepository
                     continue;
                 }
 
-                $isTranslatable = false;
+                $trString = '';
                 if ($valMap[0] == 'constant') {
-                    $isTranslatable = true;
                     unset($valMap[0]);
                     $valMap = array_values($valMap);
+                    $trString = implode('_', $valMap);
                 }
 
                 if (!isset($context[$valMap[0]])) {
@@ -126,15 +126,17 @@ class TemplateRepository extends BaseRepository
                 unset($valMap[0]);
                 $valMap = array_values($valMap);
 
-                $val = self::getContextValue(${$cContext}, $valMap);
+                $val = self::getContextValue($cContext, $valMap);
 
-                if ($isTranslatable) {
-                    $val = __('common.' . $val);
+                if ($trString) {
+                    $val = __('common.' . $trString . '_' . $val);
                 }
 
                 $tags[$tag] = $val;
             }
         }
+
+        return $tags;
     }
 
     /**
@@ -670,15 +672,21 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return Collection
      */
-    public
-    function getParsedCommunicationTemplates(ServiceRequest $serviceReq, User $user): Collection
+    public function getParsedCommunicationTemplates(ServiceRequest $serviceReq, User $user): Collection
     {
         $templates = (new Template())->whereHas('category', function ($q) {
-            $q->where('type', TemplateCategory::TypeCommunication);
+            $q->where('type', TemplateCategory::TypeCommunication)
+                ->where('name', 'communication_tenant');
         })->get();
 
         foreach ($templates as $template) {
-            $template = self::getCommunicationTemplate($template, $serviceReq, $user);
+            $context = [
+                'user' => $user,
+                'subject' => $serviceReq->tenant->user,
+                'request' => $serviceReq,
+            ];
+
+            $template = self::getTemplate($template, $context);
         }
 
         return $templates;
@@ -686,24 +694,40 @@ class TemplateRepository extends BaseRepository
 
     /**
      * @param Template $template
-     * @param ServiceRequest $request
-     * @param User $user
+     * @param array $context
      *
      * @return Template
      */
-    public
-    function getCommunicationTemplate(Template $template, ServiceRequest $request, User $user): Template
+    public function getTemplate(Template $template, $context): Template
     {
-        $context = [
-            'user' => $user,
-            'subject' => $request->tenant->user,
-            'request' => $request,
-        ];
-
         $tags = $this->getTags($template->category->tag_map, $context);
 
         $parsedTemplate = $this->getParsedTemplate($template, $tags);
 
         return $parsedTemplate;
+    }
+
+    /**
+     * @param ServiceRequest $serviceReq
+     * @param User $user
+     * @return Collection
+     */
+    public function getParsedServiceCommunicationTemplates(ServiceRequest $serviceReq, User $user): Collection
+    {
+        $templates = (new Template())->whereHas('category', function ($q) {
+            $q->where('type', TemplateCategory::TypeCommunication)
+                ->where('name', 'service_communication');
+        })->get();
+
+        foreach ($templates as $template) {
+            $context = [
+                'user' => $user,
+                'subject' => $serviceReq->tenant->user,
+                'request' => $serviceReq,
+            ];
+            $template = self::getTemplate($template, $context);
+        }
+
+        return $templates;
     }
 }
