@@ -880,7 +880,7 @@ class StatisticsAPIController extends AppBaseController
             $currentDate = clone $startDate;
             while ($currentDate < $endDate) {
                 $yearMonth = $currentDate->year . ' ' . $currentDate->month;
-                $periodValues[$yearMonth] = $currentDate->format('Y M');
+                $periodValues[$yearMonth] = $currentDate->format('M Y');
                 $currentDate->addMonth();
             }
         } elseif (self::WEEK == $period) {
@@ -898,7 +898,9 @@ class StatisticsAPIController extends AppBaseController
 
             while ($currentDate < $endDate) {
                 $yearWeek = $currentDate->year . ' ' . $currentDate->week;
-                $periodValues[$yearWeek] = ($currentDate->year != $today->year) ? $yearWeek : $currentDate->week;
+                $periodValues[$yearWeek] = ($currentDate->year != $today->year)
+                    ? $currentDate->week . ' ' . $currentDate->year
+                    : $currentDate->week;
                 $currentDate->addWeek();
             }
 
