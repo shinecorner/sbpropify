@@ -147,6 +147,12 @@ class Tenant extends Model implements HasMedia
         'address_id',
         'building_id',
         'unit_id',
+        'country_id',
+        'state_id',
+        'city',
+        'street',
+        'street_nr',
+        'zip',
         'title',
         'company',
         'first_name',
@@ -184,7 +190,13 @@ class Tenant extends Model implements HasMedia
         'private_phone' => 'string',
         'work_phone' => 'string',
         'status' => 'integer',
-        'tenant_format' => 'string'
+        'tenant_format' => 'string',
+        'country_id' => 'integer',
+        'state_id' => 'integer',
+        'city' => 'string',
+        'street' => 'string',
+        'street_nr' => 'string',
+        'zip' => 'string'
     ];
 
     const templateMap = [
