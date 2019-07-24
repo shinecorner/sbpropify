@@ -23,6 +23,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 /**
+ * @TODO authorize each request
+ *
  * Class StatisticsAPIController
  * @package App\Http\Controllers\API
  */
@@ -43,6 +45,7 @@ class StatisticsAPIController extends AppBaseController
     const QUERY_PARAMS = [
         'year' => 'year',
         'period' => 'period',
+        'date' => 'date',
         'start_date' => 'start_date',
         'end_date' => 'end_date',
         'table' => 'table',
@@ -544,6 +547,44 @@ class StatisticsAPIController extends AppBaseController
         return $isConvertResponse
             ? $this->sendResponse($ret, 'Request services statistics formatted successfully fo ' . $table . ' by ' . $column)
             : $ret;
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function heatRequestByCreationDate(Request $request)
+    {
+        $date = $request->{self::QUERY_PARAMS['date']} ?? '';
+        $date = Carbon::parse($date);
+        $startDate = $date->subDays(($date->dayOfWeek - 1));
+        $endDate = clone $startDate;
+        $endDate = $endDate->addDays(6);
+
+        $statistics = ServiceRequest::selectRaw("CONCAT(DATE(created_at), ' ',  HOUR(created_at)) AS `interval`, COUNT(id) AS `count`")
+            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
+            ->groupBy('interval')->get();
+
+
+        $hours = array_combine(range(1, 24), range(1, 24));
+        $datePeriod = CarbonPeriod::create($startDate, $endDate);
+
+        $intervalValues = [];
+        foreach ($datePeriod as $date) {
+            $intervalValues[$date->format('Y-m-d')] = $date->format('l');
+        }
+
+        $colStats = $this->initializeServiceRequestCategoriesForChart($intervalValues, $hours);
+        foreach ($statistics as $statistic) {
+            $parts = explode(' ', $statistic['interval']);
+            $day = $parts[0];
+            $hour = $parts[1];
+            $weekName = $intervalValues[$day];
+            $colStats[$weekName][$hour] = $statistic['count'];
+        }
+
+        return $this->sendResponse($colStats, 'Request services statistics formatted successfully');
     }
 
     /**
