@@ -19,7 +19,6 @@ use App\Repositories\ProductRepository;
 use App\Repositories\RealEstateRepository;
 use App\Repositories\ServiceRequestRepository;
 use App\Transformers\CommentTransformer;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
@@ -429,10 +428,10 @@ class CommentAPIController extends AppBaseController
         if ($realEstate = $this->reRepository->first()) {
             $timeout = $realEstate->comment_update_timeout;
         }
-        if ($request->user()->role &&
-            $request->user()->role->name != 'super_admin' &&
-            $comment->created_at->addMinutes($timeout)->lessThan(Carbon::now())) {
-            $err = "Comments can only be edited in the first %d minutes after being created";
+        $isAdmin = $request->user()->hasRole('super_admin') ||
+            $request->user()->hasRole('administrator');
+        if (!$isAdmin && $comment->created_at->addMinutes($timeout)->lessThan(now())) {
+            $err = "Comments can only be edited in the first %d minutes after being created.";
             return $this->sendError(sprintf($err, $timeout));
         }
         $input = ['comment' => $request->comment];
