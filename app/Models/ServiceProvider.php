@@ -104,12 +104,6 @@ class ServiceProvider extends Model
     public $fillable = [
         'user_id',
         'address_id',
-        'country_id',
-        'state_id',
-        'city',
-        'street',
-        'street_nr',
-        'zip',
         'category',
         'name',
         'email',
@@ -128,13 +122,7 @@ class ServiceProvider extends Model
         'name' => 'string',
         'email' => 'string',
         'phone' => 'string',
-        'service_provider_format' => 'string',
-        'country_id' => 'integer',
-        'state_id' => 'integer',
-        'city' => 'string',
-        'street' => 'string',
-        'street_nr' => 'string',
-        'zip' => 'string'
+        'service_provider_format' => 'string'
     ];
 
     /**

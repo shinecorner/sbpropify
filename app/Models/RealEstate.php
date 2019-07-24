@@ -130,12 +130,6 @@ class RealEstate extends Model
         'iframe_enable',
         'cleanify_email',
         'news_receiver_ids',
-        'country_id',
-        'state_id',
-        'city',
-        'street',
-        'street_nr',
-        'zip'
     ];
 
     /**
@@ -163,12 +157,6 @@ class RealEstate extends Model
         'iframe_enable' => 'boolean',
         'cleanify_email' => 'string',
         'news_receiver_ids' => 'array',
-        'country_id' => 'integer',
-        'state_id' => 'integer',
-        'city' => 'string',
-        'street' => 'string',
-        'street_nr' => 'string',
-        'zip' => 'string'
     ];
 
     /**
