@@ -80,10 +80,6 @@ class ServiceProvider extends Model
         'phone' => 'required|string|max:255',
         'user' => 'required',
         'address' => 'required',
-        'city' => 'required',
-        'street' => 'required',
-        'street_nr' => 'required',
-        'zip' => 'required'
     ];
 
     public static $rulesUpdate = [
