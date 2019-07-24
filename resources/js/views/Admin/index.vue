@@ -260,16 +260,17 @@
     }
     .total-box-card-header{
     clear: both;
-    padding: 10px 20px;
+    padding: 15px 20px 5px 20px;
     opacity: 0.5;
     text-transform: uppercase;
     text-align: center;
     border-bottom: none;
     box-sizing: border-box;
+    font-size: 13px;
   }  
   .total-box-card-body{
     clear: both;
-    padding: 10px 20px 10px 20px;
+    padding: 5px 20px 15px 20px;
     font-size: 1.6rem;
     font-weight: 700;
     line-height: 1;
@@ -284,15 +285,16 @@
     border-bottom: 4px solid transparent;  
     
     .el-card__header {        
-        padding: 10px 20px;        
+        padding: 15px 20px 5px 20px;       
         opacity: 0.5;     
         text-transform: uppercase;        
         border-bottom: none;
+        font-size: 13px;
     }
     .box-card-body{
         display: flex;        
         .box-card-count{
-            padding: 10px 20px 10px 20px;
+            padding: 5px 20px 15px 20px;
             font-size: 1.6rem;
             font-weight: 700;
             line-height: 1;
@@ -308,7 +310,7 @@
             margin-bottom: -27px;
 
             .el-progress__text {
-                font-size: 16px !important;
+                font-size: 13px !important;
             }
         }
     }

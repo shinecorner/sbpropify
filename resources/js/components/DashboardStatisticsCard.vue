@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <el-divider style="margin: 0;"></el-divider>
-                <div class="total-wrapper">
+                <div class="avg-wrapper">
                     <div class="total-box-card-header clearfix ">
                         <span>{{ $t('dashboard.average_request_duration') }}</span>
                     </div>
@@ -75,7 +75,10 @@
 
 <style lang="scss" scoped>
     .total-wrapper {
-        padding: 8px 0;
+        padding: 5px 0 11px 0;
+    }
+    .avg-wrapper {
+        padding: 11px 0 5px 0;
     }
     .el-divider.el-divider--horizontal {
         width: 90%;
