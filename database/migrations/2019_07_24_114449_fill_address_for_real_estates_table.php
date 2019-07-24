@@ -14,14 +14,14 @@ class FillAddressForRealEstatesTable extends Migration
     public function up()
     {
         if (class_exists("App\Models\Address")) {
-            \App\Models\RealEstate::with('address')->get()->each(function ($tenant) {
-                $tenant->country_id = $tenant->address->country_id ?? null;
-                $tenant->state_id = $tenant->address->state_id ?? null;
-                $tenant->city = $tenant->address->city ?? null;
-                $tenant->street = $tenant->address->street ?? null;
-                $tenant->street_nr = $tenant->address->street_nr ?? null;
-                $tenant->zip = $tenant->address->zip ?? null;
-                $tenant->save();
+            \App\Models\RealEstate::with('address')->get()->each(function ($realEstate) {
+                $realEstate->country_id = $realEstate->address->country_id ?? null;
+                $realEstate->state_id = $realEstate->address->state_id ?? null;
+                $realEstate->city = $realEstate->address->city ?? null;
+                $realEstate->street = $realEstate->address->street ?? null;
+                $realEstate->street_nr = $realEstate->address->street_nr ?? null;
+                $realEstate->zip = $realEstate->address->zip ?? null;
+                $realEstate->save();
             });
         }
     }

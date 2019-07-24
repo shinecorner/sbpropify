@@ -128,6 +128,12 @@ class Product extends Model implements HasMedia, LikeableContract, Auditable
         'contact',
         'title',
         'price',
+        'country_id',
+        'state_id',
+        'city',
+        'street',
+        'street_nr',
+        'zip'
     ];
     public $fillable = self::Fillable;
 
@@ -145,6 +151,12 @@ class Product extends Model implements HasMedia, LikeableContract, Auditable
         'contact' => 'string',
         'title' => 'string',
         'price' => 'string',
+        'country_id' => 'integer',
+        'state_id' => 'integer',
+        'city' => 'string',
+        'street' => 'string',
+        'street_nr' => 'string',
+        'zip' => 'string'
     ];
 
     /**
@@ -183,6 +195,15 @@ class Product extends Model implements HasMedia, LikeableContract, Auditable
     public function user()
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
+    }
+
+    /**
+     * @TODO remove after migration
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     **/
+    public function address()
+    {
+        return $this->hasOne(Address::class, 'id', 'address_id');
     }
 
     public function registerMediaCollections()

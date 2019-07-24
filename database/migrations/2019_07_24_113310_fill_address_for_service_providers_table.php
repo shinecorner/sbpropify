@@ -14,14 +14,14 @@ class FillAddressForServiceProvidersTable extends Migration
     public function up()
     {
         if (class_exists("App\Models\Address")) {
-            \App\Models\ServiceProvider::with('address')->get()->each(function ($tenant) {
-                $tenant->country_id = $tenant->address->country_id ?? null;
-                $tenant->state_id = $tenant->address->state_id ?? null;
-                $tenant->city = $tenant->address->city ?? null;
-                $tenant->street = $tenant->address->street ?? null;
-                $tenant->street_nr = $tenant->address->street_nr ?? null;
-                $tenant->zip = $tenant->address->zip ?? null;
-                $tenant->save();
+            \App\Models\ServiceProvider::with('address')->get()->each(function ($serviceProvider) {
+                $serviceProvider->country_id = $serviceProvider->address->country_id ?? null;
+                $serviceProvider->state_id = $serviceProvider->address->state_id ?? null;
+                $serviceProvider->city = $serviceProvider->address->city ?? null;
+                $serviceProvider->street = $serviceProvider->address->street ?? null;
+                $serviceProvider->street_nr = $serviceProvider->address->street_nr ?? null;
+                $serviceProvider->zip = $serviceProvider->address->zip ?? null;
+                $serviceProvider->save();
             });
         }
     }
