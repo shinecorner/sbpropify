@@ -26,7 +26,7 @@
 
 
             <el-menu class="dropdown-menu" menu-trigger="hover" mode="horizontal">
-                <el-submenu index="2">
+                <el-submenu index="2"  popper-class="profile-popper">
                     <template slot="title">
 
                         <div class="user-params">
