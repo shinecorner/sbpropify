@@ -17,7 +17,8 @@ class TemplateTableSeeder extends Seeder
     public function run()
     {
         $this->setupEmailTemplates();
-        $this->setupCommunicationTemplates();
+        $this->setupCommunicationTenantTemplates();
+        $this->setupCommunicationServiceTemplates();
     }
 
     private function setupEmailTemplates()
@@ -41,10 +42,11 @@ class TemplateTableSeeder extends Seeder
         }
     }
 
-    private function setupCommunicationTemplates()
+    private function setupCommunicationTenantTemplates()
     {
         $templateCategory = (new TemplateCategory)->where('parent_id', '>', 0)
             ->where('type', TemplateCategory::TypeCommunication)
+            ->where('name', 'communication_tenant')
             ->with('parentCategory')
             ->first();
 
@@ -59,6 +61,44 @@ class TemplateTableSeeder extends Seeder
             ],
             [
                 'name' => 'Goodbye 1',
+                'subject' => 'Have a nice day {{subjectSalutation}} {{subjectName}}.',
+            ],
+        ];
+
+        foreach ($templatData as $data) {
+            $template = new Template();
+            $template->category_id = $templateCategory->id;
+            $template->name = $data['name'];
+            $template->subject = $data['subject'];
+            $template->body = '';
+
+            $template->default = true;
+            $template->save();
+        }
+    }
+
+    /**
+     *
+     */
+    private function setupCommunicationServiceTemplates()
+    {
+        $templateCategory = (new TemplateCategory)->where('parent_id', '>', 0)
+            ->where('type', TemplateCategory::TypeCommunication)
+            ->where('name', 'communication_service_chat')
+            ->with('parentCategory')
+            ->first();
+
+        $templatData = [
+            [
+                'name' => 'Service Grreting 1',
+                'subject' => 'Hello {{subjectSalutation}} {{subjectName}}. How can I help you?',
+            ],
+            [
+                'name' => 'Service Grreting 2',
+                'subject' => 'Hello {{subjectSalutation}} {{subjectName}}. My name is {{name}} How can I help you?',
+            ],
+            [
+                'name' => 'Service Goodbye 1',
                 'subject' => 'Have a nice day {{subjectSalutation}} {{subjectName}}.',
             ],
         ];

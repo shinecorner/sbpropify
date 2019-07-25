@@ -1023,7 +1023,7 @@ class ServiceRequestAPIController extends AppBaseController
             'media', 'tenant.user', 'tenant.building', 'category',
         ]);
 
-        $templates = $tempRepo->getParsedEmailTemplates($serviceRequest, Auth::user());
+        $templates = $tempRepo->getParsedServiceEmailTemplates($serviceRequest, Auth::user());
 
         $response = (new TemplateTransformer)->transformCollection($templates);
         return $this->sendResponse($response, 'Service Email Templates retrieved successfully');

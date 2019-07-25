@@ -34,10 +34,15 @@ class FilterByBuildingCriteria implements CriteriaInterface
      * @throws \Exception
      */
     public function apply($model, RepositoryInterface $repository)
-    {      
+    {
+        $hasBuilding = $this->request->get('has_building', null);
+        if ($hasBuilding) {
+            $model = $model->where('building_id', '>', 0);
+        }
+
         $building_id = $this->request->get('building_id', null);
         if ($building_id) {
-            return $model->where('building_id', (int)$building_id);
+            $model = $model->where('building_id', (int)$building_id);
         }
         
         return $model;     
