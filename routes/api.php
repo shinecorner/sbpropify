@@ -235,10 +235,12 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/admin/statistics', 'StatisticsAPIController@adminStats');
     Route::get('/admin/chartRequestByCreationDate', 'StatisticsAPIController@chartRequestByCreationDate');
     Route::get('/admin/chartBuildingsByCreationDate', 'StatisticsAPIController@chartBuildingsByCreationDate');
+    Route::get('/admin/chartByCreationDate', 'StatisticsAPIController@chartByCreationDate');
 
-    // @TODO remove chartRequestByCreationDateByColumn later
-    Route::get('/admin/chartRequestByCreationDateByColumn', 'StatisticsAPIController@chartStatisticsByCreationDateByColumn');
-    Route::get('/admin/chartStatisticByCreationDateByColumn', 'StatisticsAPIController@chartStatisticsByCreationDateByColumn');
+
+
+
+
 
 
 

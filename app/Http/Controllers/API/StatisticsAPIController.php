@@ -526,7 +526,7 @@ class StatisticsAPIController extends AppBaseController
      * @param array $optionalArgs
      * @return mixed
      */
-    public function chartStatisticsByCreationDateByColumn(Request $request, $optionalArgs = [])
+    public function chartByCreationDate(Request $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         [$class, $table, $column, $columnValues] = $this->getTableColumnClassByRequest(
