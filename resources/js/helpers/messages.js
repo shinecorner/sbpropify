@@ -30,63 +30,67 @@ export const errorMessage = async (defaultMessage, status, err = {}) => {
 };
 
 export const displayError = async (err) => {
-    const {$swal, $i18n} = await Vue;
+    if (window.location.pathname.toString().includes('/admin')) {
+        const {$swal, $i18n} = await Vue;
 
-    if (err && err.message) {
-        if (err.status && err.error) {
-            _.each(err.error.response.data.errors, (errorObj) => {
-                if (_.isArray(errorObj)) {
-                    _.each(errorObj, (er) => {
-                        $swal.fire({
-                            type: 'error',
-                            showConfirmButton: false,
-                            timer: 3000,
-                            width: 'auto',
-                            title: $i18n.t(er)
+        if (err && err.message) {
+            if (err.status && err.error) {
+                _.each(err.error.response.data.errors, (errorObj) => {
+                    if (_.isArray(errorObj)) {
+                        _.each(errorObj, (er) => {
+                            $swal.fire({
+                                type: 'error',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                width: 'auto',
+                                title: $i18n.t(er)
+                            })
                         })
-                    })
-                }
-            });
-        } else {
-            const msg = err.message;
-            $swal.fire({
-                type: 'error',
-                showConfirmButton: false,
-                timer: 3000,
-                width: 'auto',
-                title: $i18n.t(typeof msg === 'string' ? msg : (typeof msg === 'object' ? msg[Object.keys(msg)[0]][0] : 'ERROR'))
-            })
-        }
+                    }
+                });
+            } else {
+                const msg = err.message;
+                $swal.fire({
+                    type: 'error',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    width: 'auto',
+                    title: $i18n.t(typeof msg === 'string' ? msg : (typeof msg === 'object' ? msg[Object.keys(msg)[0]][0] : 'ERROR'))
+                })
+            }
 
+        }
     }
 };
 
 export const displaySuccess = async (resp) => {
-    if (resp && resp.message) {
-        const {$i18n, $swal, $router} = await Vue;
+    if (window.location.pathname.toString().includes('/admin')) {
+        if (resp && resp.message) {
+            const {$i18n, $swal, $router} = await Vue;
 
-        /*$swal({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            type: 'success',
-            title: $i18n.t(resp.message)
-        });*/
-
-        $swal.fire(
-            {
-                title: '',
-                text: $i18n.t(resp.message),
+            /*$swal({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
                 type: 'success',
-                timer: 900,
-                showConfirmButton: false
-            },
-        );
+                title: $i18n.t(resp.message)
+            });*/
+
+            $swal.fire(
+                {
+                    title: '',
+                    text: $i18n.t(resp.message),
+                    type: 'success',
+                    timer: 1500,
+                    showConfirmButton: false
+                },
+            );
 
 
-        if (resp.redirect) {
-            $router.push({name: resp.redirect});
+            if (resp.redirect) {
+                $router.push({name: resp.redirect});
+            }
         }
     }
 };

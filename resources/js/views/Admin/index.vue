@@ -180,6 +180,7 @@
         text-align: center;
         background-color: #fff;
         border: 1px solid #ddd;
+        padding: 0 13px !important;
 
         &.is-active, &:hover{
             background: #6AC06F;
@@ -285,7 +286,7 @@
     border-bottom: 4px solid transparent;  
     
     .el-card__header {        
-        padding: 15px 20px 5px 20px;       
+        padding: 20px 20px 0px 20px;       
         opacity: 0.5;     
         text-transform: uppercase;        
         border-bottom: none;
@@ -294,7 +295,7 @@
     .box-card-body{
         display: flex;        
         .box-card-count{
-            padding: 5px 20px 15px 20px;
+            padding: 8px 20px 12px 20px;
             font-size: 1.6rem;
             font-weight: 700;
             line-height: 1;
