@@ -18,7 +18,6 @@ export default (config = {}) => {
                 buildings: [],
                 units: [],
                 user: {},
-                unit: {},
                 model: {
                     first_name: '',
                     last_name: '',
@@ -33,7 +32,7 @@ export default (config = {}) => {
                     company: '',
                     building_id: '',
                     unit_id: '',
-                    media: [],
+                    media: []
                 },
                 validationRules: {
                     first_name: [{
@@ -91,7 +90,6 @@ export default (config = {}) => {
                 return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(ext);
             },
             isFilePDF (file) {
-                debugger;
                 const ext = file.name.split('.').pop()
                 return ['.pdf'].includes(ext);
             },
@@ -174,46 +172,46 @@ export default (config = {}) => {
                             displayError(err);
                         });
                     },
-                    submit() {
-                        this.form.validate(async valid => {
-                            if (!valid) {
-                                return false;
+                    async submit() {
+                        const valid = await this.form.validate();
+                        if (!valid) {
+                            return false;
+                        }
+
+                        this.loading.state = true;
+
+                        let {email, password, password_confirmation, ...tenant} = this.model;
+
+                        try {
+
+                            const resp = await this.createTenant({
+                                user: {
+                                    email,
+                                    password,
+                                    password_confirmation: password_confirmation
+                                },
+                                ...tenant
+                            });
+
+                            if (resp.data.user && resp.data.user.id) {
+                                this.uploadAvatarIfNeeded(resp.data.user.id);
                             }
 
-                            this.loading.state = true;
-
-                            let {email, password, password_confirmation, ...tenant} = this.model;
-
-                            try {
-
-                                const resp = await this.createTenant({
-                                    user: {
-                                        email,
-                                        password,
-                                        password_confirmation: password_confirmation
-                                    },
-                                    ...tenant
-                                });
-
-                                if (resp.data.user && resp.data.user.id) {
-                                    this.uploadAvatarIfNeeded(resp.data.user.id);
-                                }
-
-                                if (resp.data && resp.data.id && !_.isEmpty(this.toUploadContract)) {
-                                    await this.contractUpl(resp.data.id);
-                                }
-
-                                displaySuccess(resp);
-
-                                this.toUploadContract = {};
-                                this.model.rent_start = '';
-                                this.form.resetFields();
-                            } catch (err) {
-                                displayError(err);
-                            } finally {
-                                this.loading.state = false;
+                            if (resp.data && resp.data.id && !_.isEmpty(this.toUploadContract)) {
+                                await this.contractUpl(resp.data.id);
                             }
-                        });
+
+                            displaySuccess(resp);
+
+                            this.toUploadContract = {};
+                            this.model.rent_start = '';
+                            this.form.resetFields();
+                            return resp;
+                        } catch (err) {
+                            displayError(err);
+                        } finally {
+                            this.loading.state = false;
+                        }
                     },
 
                     ...mixin.methods,
@@ -262,13 +260,6 @@ export default (config = {}) => {
                     ...mapActions(['getTenant', 'updateTenant'])
                 };
 
-            case 'view':
-                mixin.mixins = [PasswordValidatorMixin({required: false}), TenantTitleTypes, UploadUserAvatarMixin];
-                mixin.methods = {
-                    ...mixin.methods,
-                    ...mapActions(['getTenant'])
-                }
-
                 mixin.computed = {
                     ...mixin.computed
                 };
@@ -293,7 +284,6 @@ export default (config = {}) => {
                         if (unit) {
                             await this.searchUnits();
                             this.model.unit_id = unit.id;
-                            this.unit = unit;
                         }
 
                     } catch (err) {

@@ -80,13 +80,14 @@
                     prop: 'status',
                     i18nPath: 'models.tenant.status',
                     class: 'rounded-select',
+                    icon: true,
                     select: {
                         icon: 'ti-pencil',
                         data: [],
                         getter: "application/tenants",
                         onChange: this.listingSelectChangedNotify
                     }
-                }/*, {
+                }, {
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
@@ -95,17 +96,6 @@
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.tenant
-                        ]
-                    }]
-                }*/, {
-                    width: 120,
-                    actions: [{
-                        icon: 'ti-pencil',
-                        type: 'success',
-                        title: this.$t('models.tenant.view'),
-                        onClick: this.view,
-                        permissions: [
-                            this.$permissions.view.tenant
                         ]
                     }]
                 }]
@@ -121,14 +111,6 @@
             edit({id}) {
                 this.$router.push({
                     name: 'adminTenantsEdit',
-                    params: {
-                        id
-                    }
-                });
-            },
-            view({id}) {
-                this.$router.push({
-                    name: 'adminTenantsView',
                     params: {
                         id
                     }
