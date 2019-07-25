@@ -723,7 +723,7 @@ class StatisticsAPIController extends AppBaseController
      * @param array $optionalArgs
      * @return mixed
      */
-    public function chartRequestByRequestStatus(Request $request, $optionalArgs = [])
+    public function chartTenantsByDateAndStatus(Request $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
 
