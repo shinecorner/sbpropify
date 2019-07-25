@@ -1,7 +1,7 @@
 <template>
     <el-container class="admin-layout" direction="vertical">
         <a-header>
-            <router-link :to="{name: ''}" class="header-link">
+            <div class="header-link">
                 <div  v-bind:class="[{ active: showMenu }, language]">
                     <div class="language-iconBorder" @click="toggleShow">
                         <div class="language-checked-img">
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-            </router-link>
+            </div>
 
 
             <el-menu class="dropdown-menu" menu-trigger="hover" mode="horizontal">
@@ -33,9 +33,7 @@
                             <div class="user-params-img" :style="`background-image: url('${user.avatar}')`"></div>
 
                             <div class="user-params-wrap">
-                                <span class="user-params-name">{{userName.slice(0, 8)}}
-                                    <span v-if="userName.length > 10">...</span>
-                                </span>
+                                <span class="user-params-name">{{userName}}</span>
                                 <i class="el-submenu__icon-arrow el-icon-arrow-down user-params-wrap-icon"></i>
                             </div>
                         </div>
@@ -428,12 +426,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-right: 30px;
+            margin-right: 40px;
 
             &:after{
                 content: "";
                 position: absolute;
-                right: -15px;
+                right: -25px;
                 height: 90%;
                 width: 1px;
                 background: #c2c2c2;;
@@ -500,6 +498,7 @@
                 transition: .2s;
 
                 .language-check-box-title{
+                    cursor: default;
                     padding: 15px 30px;
                     background: #525560;
                     color: #fff;
