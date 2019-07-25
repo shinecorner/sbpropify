@@ -588,4 +588,13 @@
     .mb15 {
         margin-bottom: 15px;
     }
+    .icon-success {
+        color: #5fad64;
+    }
+    .icon-danger {
+        color: #dd6161;
+    }
+    .text-secondary {
+        color: #909399;
+    }
 </style>

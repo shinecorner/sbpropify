@@ -281,7 +281,7 @@ import Heading from "components/Heading";
 import AdminTenantsMixin from "mixins/adminTenantsMixin";
 import UnitsMixin from 'mixins/adminUnitsMixin';
 import RelationList from "components/RelationListing";
-import Timeline from "components/timeLine"
+import Timeline from "components/TenantViewTimeline"
 import {mapActions, mapGetters} from 'vuex';
 import {displayError, displaySuccess} from "helpers/messages";
 import {format} from 'date-fns'
@@ -467,6 +467,9 @@ export default {
 
     .mb-10 {
         margin-bottom: 15px;
+    }
+    .text-secondary {
+        color: #909399;
     }
 }
 
