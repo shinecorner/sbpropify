@@ -473,21 +473,21 @@ class StatisticsAPIController extends AppBaseController
             'avg_request_duration' => $avgReqFix ? gmdate("H:i",$avgReqFix[0]->duration) : 0,
             // all time total requests count and total request count of per status
             'total_requests' => ServiceRequest::count('id'),
-            'requests_per_status' => $this->chartByTableColumn($request, $optionalArgs, 'service_requests'),
+            'requests_per_status' => $this->donutChartByTable($request, $optionalArgs, 'service_requests'),
             'requests_per_category' => $this->chartRequestByCategory($request, $optionalArgs),
 
             // all time total tenants count and total tenants count of per status
             'total_tenants' => Tenant::count('id'),
-            'tenants_per_status' => $this->chartByTableColumn($request, $optionalArgs, 'tenants'),
+            'tenants_per_status' => $this->donutChartByTable($request, $optionalArgs, 'tenants'),
 
             // all time total buildings count and total buildings count of per status
             'total_buildings' => Building::count('id'),
 
             'total_products' => Product::count('id'),
-            'products_per_status' => $this->chartByTableColumn($request, $optionalArgs, 'products'),
+            'products_per_status' => $this->donutChartByTable($request, $optionalArgs, 'products'),
 
             'total_posts' => Post::count('id'),
-            'posts_per_status' => $this->chartByTableColumn($request, $optionalArgs, 'posts'),
+            'posts_per_status' => $this->donutChartByTable($request, $optionalArgs, 'posts'),
         ];
 
         return $this->sendResponse($ret, 'Admin statistics retrieved successfully');
@@ -549,6 +549,134 @@ class StatisticsAPIController extends AppBaseController
         return $isConvertResponse
             ? $this->sendResponse($ret, $table . ' statistics formatted successfully by ' . $column)
             : $ret;
+    }
+
+    /**
+     * @param Request $request
+     * @param array $optionalArgs
+     * @return mixed
+     */
+    public function chartBuildingsByCreationDate(Request $request, $optionalArgs = [])
+    {
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
+        $period = $optionalArgs['period'] ?? $this->getPeriod($request);
+        [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate, 'buildings');
+
+        $statistics = Building::selectRaw($raw . ', count(id) `count`')
+            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
+            ->groupBy('period')
+            ->get();
+
+
+        $dayStatistic = [];
+        foreach ($periodValues as $period => $__) {
+            $dayStatistic[$period] = 0;
+        }
+
+        foreach ($statistics as $statistic) {
+            $dayStatistic[$statistic['period']] = $statistic['count'];
+        }
+
+        $response['requests_per_day_xdata'] = array_values($periodValues);
+        $response['requests_per_day_ydata'] = array_values($dayStatistic);
+        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
+        return $isConvertResponse
+            ? $this->sendResponse($response, 'Building statistics formatted successfully')
+            : $response;
+    }
+
+    /**
+     * @param Request $request
+     * @param array $optionalArgs
+     * @return mixed
+     */
+    public function donutChart(Request $request, $optionalArgs = [])
+    {
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
+        [$class, $table, $column, $columnValues] = $this->getTableColumnClassByRequest(
+            $request,
+            self::PERMITTED_TABLES_GROUP,
+            $optionalArgs
+        );
+        $statistics = $class::selectRaw($column . ', count(id) `count`')
+            ->when($startDate, function ($q) use ($startDate) {$q->whereDate('created_at', '>=', $startDate->format('Y-m-d'));})
+            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('created_at', '<=', $endDate->format('Y-m-d'));})
+            ->groupBy($column)
+            ->orderBy($column)
+            ->get();
+
+        $includePercentage = ('service_requests' == $table) ? true : false;
+        $response = $this->formatForDonutChart($statistics, $column, $columnValues, $includePercentage);
+
+        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
+        return $isConvertResponse
+            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for ' . $table . ' for ' . $column)
+            : $response;
+    }
+
+    /**
+     * @param Request $request
+     * @param array $optionalArgs
+     * @return mixed
+     */
+    public function donutChartRequestByCategory(Request $request, $optionalArgs = [])
+    {
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
+        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id');
+        $serviceRequests = ServiceRequest::selectRaw('count(service_requests.id) as count, IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
+            ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
+            ->leftJoin('service_request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
+            ->when($startDate, function ($q) use ($startDate) {$q->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'));})
+            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'));})
+            ->groupBy('category_parent_id')
+            ->get();
+
+        $statisticData = $parentCategories->values()->flip();
+        foreach ($statisticData as $category => $__) {
+            $statisticData[$category] = 0;
+        }
+
+        foreach ($serviceRequests as $serviceRequest) {
+            $category = $parentCategories[$serviceRequest->category_parent_id];
+            $statisticData[$category] = $serviceRequest->count;
+        }
+
+        $response = [
+            'labels' => $statisticData->keys(),
+            'data' => $statisticData->values()
+        ];
+
+        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
+        return $isConvertResponse
+            ? $this->sendResponse($response, 'Admin statistics retrieved successfully')
+            : $response;
+    }
+
+    /**
+     * @param Request $request
+     * @param array $optionalArgs
+     * @return mixed
+     */
+    public function donutChartTenantsByDateAndStatus(Request $request, $optionalArgs = [])
+    {
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
+
+        $rsPerStatus = Tenant::selectRaw('`service_requests`.`status`, count(`tenants`.`id`) `count`')
+            ->join('service_requests', 'service_requests.tenant_id', 'tenants.id')
+            ->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'))
+            ->groupBy('status')
+            ->orderBy('status')
+            ->get();
+
+        $classStatus = ServiceRequest::Status;
+        $response = $this->formatForDonutChart($rsPerStatus, 'status', $classStatus);
+
+        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
+        return $isConvertResponse
+            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for tenants')
+            : $response;
     }
 
     /**
@@ -630,108 +758,6 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @param array $optionalArgs
-     * @return mixed
-     */
-    public function chartBuildingsByCreationDate(Request $request, $optionalArgs = [])
-    {
-        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
-        $period = $optionalArgs['period'] ?? $this->getPeriod($request);
-        [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate, 'buildings');
-
-        $statistics = Building::selectRaw($raw . ', count(id) `count`')
-            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
-            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
-            ->groupBy('period')
-            ->get();
-
-
-        $dayStatistic = [];
-        foreach ($periodValues as $period => $__) {
-            $dayStatistic[$period] = 0;
-        }
-
-        foreach ($statistics as $statistic) {
-            $dayStatistic[$statistic['period']] = $statistic['count'];
-        }
-
-        $response['requests_per_day_xdata'] = array_values($periodValues);
-        $response['requests_per_day_ydata'] = array_values($dayStatistic);
-        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
-        return $isConvertResponse
-            ? $this->sendResponse($response, 'Building statistics formatted successfully')
-            : $response;
-    }
-
-    /**
-     * @param Request $request
-     * @param $optionalArgs
-     * @param string $table
-     * @return mixed
-     */
-    public function chartByTableColumn(Request $request, $optionalArgs, $table = 'service_requests')
-    {
-        return $this->donutChart($request, array_merge($optionalArgs, ['table' => $table, 'column' => 'status']));
-    }
-
-
-    /**
-     * @param Request $request
-     * @param array $optionalArgs
-     * @return mixed
-     */
-    public function donutChart(Request $request, $optionalArgs = [])
-    {
-        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
-        [$class, $table, $column, $columnValues] = $this->getTableColumnClassByRequest(
-            $request,
-            self::PERMITTED_TABLES_GROUP,
-            $optionalArgs
-        );
-        $statistics = $class::selectRaw($column . ', count(id) `count`')
-            ->when($startDate, function ($q) use ($startDate) {$q->whereDate('created_at', '>=', $startDate->format('Y-m-d'));})
-            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('created_at', '<=', $endDate->format('Y-m-d'));})
-            ->groupBy($column)
-            ->orderBy($column)
-            ->get();
-
-        $includePercentage = ('service_requests' == $table) ? true : false;
-        $response = $this->formatForDonutChart($statistics, $column, $columnValues, $includePercentage);
-
-        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
-        return $isConvertResponse
-            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for ' . $table . ' for ' . $column)
-            : $response;
-    }
-
-    /**
-     * @param Request $request
-     * @param array $optionalArgs
-     * @return mixed
-     */
-    public function donutChartTenantsByDateAndStatus(Request $request, $optionalArgs = [])
-    {
-        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
-
-        $rsPerStatus = Tenant::selectRaw('`service_requests`.`status`, count(`tenants`.`id`) `count`')
-            ->join('service_requests', 'service_requests.tenant_id', 'tenants.id')
-            ->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'))
-            ->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'))
-            ->groupBy('status')
-            ->orderBy('status')
-            ->get();
-
-        $classStatus = ServiceRequest::Status;
-        $response = $this->formatForDonutChart($rsPerStatus, 'status', $classStatus);
-
-        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
-        return $isConvertResponse
-            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for tenants')
-            : $response;
-    }
-
-    /**
      * @return mixed
      */
     protected function chartLoginDevice()
@@ -762,6 +788,33 @@ class StatisticsAPIController extends AppBaseController
         ];
 
         return $this->formatForDonutChart($statistics, 'login', $values, true);
+    }
+
+    /**
+     * @param $table
+     * @param null $startDate
+     * @param null $endDate
+     * @return mixed
+     */
+    public function getDayCountStatistic($table, $startDate = null, $endDate = null)
+    {
+        return \DB::table($table)->selectRaw ('date(created_at) `x`, count(id) `y`')
+            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
+            ->groupBy('x')
+            ->orderBy('x')
+            ->get();
+    }
+
+    /**
+     * @param Request $request
+     * @param $optionalArgs
+     * @param string $table
+     * @return mixed
+     */
+    protected function donutChartByTable(Request $request, $optionalArgs, $table = 'service_requests')
+    {
+        return $this->donutChart($request, array_merge($optionalArgs, ['table' => $table, 'column' => 'status']));
     }
 
     /**
@@ -868,65 +921,11 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @param array $optionalArgs
-     * @return mixed
-     */
-    public function donutChartRequestByCategory(Request $request, $optionalArgs = [])
-    {
-        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
-        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id');
-        $serviceRequests = ServiceRequest::selectRaw('count(service_requests.id) as count, IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
-            ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
-            ->leftJoin('service_request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
-            ->when($startDate, function ($q) use ($startDate) {$q->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'));})
-            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'));})
-            ->groupBy('category_parent_id')
-            ->get();
-
-        $statisticData = $parentCategories->values()->flip();
-        foreach ($statisticData as $category => $__) {
-            $statisticData[$category] = 0;
-        }
-
-        foreach ($serviceRequests as $serviceRequest) {
-            $category = $parentCategories[$serviceRequest->category_parent_id];
-            $statisticData[$category] = $serviceRequest->count;
-        }
-
-        $response = [
-            'labels' => $statisticData->keys(),
-            'data' => $statisticData->values()
-        ];
-
-        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
-        return $isConvertResponse
-            ? $this->sendResponse($response, 'Admin statistics retrieved successfully')
-            : $response;
-    }
-
-    /**
-     * @param $table
-     * @param null $startDate
-     * @param null $endDate
-     * @return mixed
-     */
-    public function getDayCountStatistic($table, $startDate = null, $endDate = null)
-    {
-        return \DB::table($table)->selectRaw ('date(created_at) `x`, count(id) `y`')
-            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
-            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
-            ->groupBy('x')
-            ->orderBy('x')
-            ->get();
-    }
-
-    /**
      * @param $parentCategories
      * @param $periodValues
      * @return array
      */
-    public function initializeServiceRequestCategoriesForChart($parentCategories, $periodValues)
+    protected function initializeServiceRequestCategoriesForChart($parentCategories, $periodValues)
     {
         $categoryDayStatistic = [];
 
