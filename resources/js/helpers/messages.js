@@ -79,7 +79,7 @@ export const displaySuccess = async (resp) => {
                 title: '',
                 text: $i18n.t(resp.message),
                 type: 'success',
-                timer: 900,
+                timer: 1500,
                 showConfirmButton: false
             },
         );

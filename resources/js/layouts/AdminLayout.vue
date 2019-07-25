@@ -255,7 +255,9 @@
                 }).then(() => {
                     //this.$router.push({name: 'login'});
                     this.logoutAdmin()
-                        .then(() => this.$router.push({name: 'login'}))
+                        .then(() => {
+                            this.$router.push({name: 'login'});
+                        })
                         .catch(err => {
                             displayError(err);
                         });
