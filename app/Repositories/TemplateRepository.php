@@ -693,21 +693,6 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Template $template
-     * @param array $context
-     *
-     * @return Template
-     */
-    public function getTemplate(Template $template, $context): Template
-    {
-        $tags = $this->getTags($template->category->tag_map, $context);
-
-        $parsedTemplate = $this->getParsedTemplate($template, $tags);
-
-        return $parsedTemplate;
-    }
-
-    /**
      * @param ServiceRequest $serviceReq
      * @param User $user
      * @return Collection
@@ -716,7 +701,7 @@ class TemplateRepository extends BaseRepository
     {
         $templates = (new Template())->whereHas('category', function ($q) {
             $q->where('type', TemplateCategory::TypeCommunication)
-                ->where('name', 'service_communication');
+                ->where('name', 'communication_service_chat');
         })->get();
 
         foreach ($templates as $template) {
@@ -729,5 +714,44 @@ class TemplateRepository extends BaseRepository
         }
 
         return $templates;
+    }
+
+    /**
+     * @param ServiceRequest $serviceReq
+     * @param User $user
+     * @return Collection
+     */
+    public function getParsedServiceEmailTemplates(ServiceRequest $serviceReq, User $user): Collection
+    {
+        $templates = (new Template())->whereHas('category', function ($q) {
+            $q->where('type', TemplateCategory::TypeEmail)
+                ->where('name', 'communication_service_email');
+        })->get();
+
+        foreach ($templates as $template) {
+            $context = [
+                'user' => $user,
+                'subject' => $serviceReq->tenant->user,
+                'request' => $serviceReq,
+            ];
+            $template = self::getTemplate($template, $context);
+        }
+
+        return $templates;
+    }
+
+    /**
+     * @param Template $template
+     * @param array $context
+     *
+     * @return Template
+     */
+    public function getTemplate(Template $template, $context): Template
+    {
+        $tags = $this->getTags($template->category->tag_map, $context);
+
+        $parsedTemplate = $this->getParsedTemplate($template, $tags);
+
+        return $parsedTemplate;
     }
 }
