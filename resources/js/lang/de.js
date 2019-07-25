@@ -181,6 +181,8 @@ export default {
             }
         },
         tenant: {
+            view: 'Aussicht',
+            view_title: 'Mieter anzeigen',
             edit_title: 'Mieter bearbeiten',
             download_credentials: 'Download credentials',
             send_credentials: 'Send credentials',
