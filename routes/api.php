@@ -241,7 +241,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/admin/donutChartRequestByCategory', 'StatisticsAPIController@donutChartRequestByCategory');
     Route::get('/admin/donutChartTenantsByDateAndStatus', 'StatisticsAPIController@donutChartTenantsByDateAndStatus');
 
-    Route::get('/admin/heatRequestByCreationDate', 'StatisticsAPIController@heatRequestByCreationDate');
+    Route::get('/admin/heatMapByDatePeriod', 'StatisticsAPIController@heatMapByDatePeriod');
     Route::get('/admin/chartLoginDevice', 'StatisticsAPIController@chartLoginDevice');
 });
 

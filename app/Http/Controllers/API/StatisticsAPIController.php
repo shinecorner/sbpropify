@@ -474,7 +474,7 @@ class StatisticsAPIController extends AppBaseController
             // all time total requests count and total request count of per status
             'total_requests' => ServiceRequest::count('id'),
             'requests_per_status' => $this->donutChartByTable($request, $optionalArgs, 'service_requests'),
-            'requests_per_category' => $this->chartRequestByCategory($request, $optionalArgs),
+            'requests_per_category' => $this->donutChartRequestByCategory($request, $optionalArgs),
 
             // all time total tenants count and total tenants count of per status
             'total_tenants' => Tenant::count('id'),
@@ -685,7 +685,7 @@ class StatisticsAPIController extends AppBaseController
      * @param Request $request
      * @return mixed
      */
-    public function heatRequestByCreationDate(Request $request)
+    public function heatMapByDatePeriod(Request $request)
     {
         $date = $request->{self::QUERY_PARAMS['date']} ?? '';
         $date = Carbon::parse($date);
