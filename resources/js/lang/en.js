@@ -181,6 +181,8 @@ export default {
             }
         },
         tenant: {
+            view: 'View',
+            view_title: 'View tenant',
             edit_title: 'Edit tenant',
             download_credentials: 'Download credentials',
             send_credentials: 'Send credentials',

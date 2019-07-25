@@ -537,7 +537,7 @@
             },
             requestStatusLabel(status) {
                 return this.$t(`models.request.status.${this.requestStatusConstants[status]}`)
-            }
+            },
         },
         computed: {
             ...mapGetters('application', {

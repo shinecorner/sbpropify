@@ -34,7 +34,7 @@ export default [{
         }
     }, {
         path: ':id',
-        name: 'adminTenantsEdit',
+        name: 'adminTenantsEdit2',
         component: () =>
             import ( /* webpackChunkName: "admin/tenants/edit" */ 'views/Admin/Tenants/Edit'),
         props: {
@@ -45,6 +45,34 @@ export default [{
             middleware: [auth, admin],
             permission: permissions.update.tenant,
             breadcrumb: 'Edit tenant'
+        }
+    }, {
+        path: ':id/new',
+        name: 'adminTenantsEdit',
+        component: () =>
+            import ( /* webpackChunkName: "admin/tenants/editNew" */ 'views/Admin/Tenants/editNew'),
+        props: {
+            title: 'Edit tenant'
+        },
+        meta: {
+            title: 'Edit Tenant',
+            middleware: [auth, admin],
+            permission: permissions.update.tenant,
+            breadcrumb: 'Edit tenant'
+        }
+    }, {
+        path: ':id/view',
+        name: 'adminTenantsView',
+        component: () =>
+            import ( /* webpackChunkName: "admin/tenants/view" */ 'views/Admin/Tenants/view'),
+        props: {
+            title: 'View tenant'
+        },
+        meta: {
+            title: 'View Tenant',
+            middleware: [auth, admin],
+            permission: permissions.view.tenant,
+            breadcrumb: 'View tenant'
         }
     }]
 }];
