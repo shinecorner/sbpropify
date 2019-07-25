@@ -1,5 +1,5 @@
 <template>
-    <el-row style="margin-bottom: 24px;" :gutter="20">
+    <el-row style="margin-bottom: 24px;" :gutter="20" v-if="data.labels">
         <el-col :sm="24" :md="12" :lg="6">
             <el-card class="box-card-count" style="margin-bottom: 17px;">
                 <div class="total-wrapper">
