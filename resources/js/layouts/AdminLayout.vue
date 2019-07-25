@@ -346,6 +346,7 @@
 
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
 
             .el-breadcrumb {
                 background-color: #fff;
