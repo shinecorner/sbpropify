@@ -459,42 +459,36 @@ class StatisticsAPIController extends AppBaseController
      */
     public function adminStats(Request $request)
     {
-        [$startDate, $endDate] = $this->getStartDateEndDate($request);
-        $ret = [
-            'total_requests' => DB::table('service_requests')->count('id'),
-            'tenants_per_day' => $this->getDayCountStatistic('tenants', $startDate, $endDate),
-            'tenants_per_status' => [],
-
-            'requests_per_status' => [],
-            'requests_per_category' => [],
-
-            'products_per_day' => $this->getDayCountStatistic('products', $startDate, $endDate),
-            'products_per_status' => [],
-
-            'posts_per_day' => $this->getDayCountStatistic('posts', $startDate, $endDate),
-            'posts_per_status' => [],
+        $optionalArgs = [
+            'isConvertResponse' => false,
+            'startDate' => null,
+            'endDate' => null,
         ];
 
-        $isConvertResponse = false;
-        $optionalArgs = compact('isConvertResponse', 'startDate', 'endDate');
+        $query = "select coalesce(floor(avg(time_to_sec(timediff(solved_date, created_at)))), 0) 
+                                                      duration from service_requests where solved_date is not null;";
+        $avgReqFix = DB::select($query);
 
-        $ret = array_merge($ret, $this->chartRequestByCreationDate($request, $optionalArgs));
-        $ret['requests_per_status'] = $this->chartRequestByColumn($request, $optionalArgs);
-        $ret['tenants_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalArgs, ['table' => 'tenants']));
-        $ret['products_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalArgs, ['table' => 'products']));
-        $ret['posts_per_status'] = $this->chartRequestByColumn($request, array_merge($optionalArgs, ['table' => 'posts']));
-        $categoryDayStatistics = collect($ret['requests_per_day_ydata']);
+        $ret = [
+            'avg_request_duration' => $avgReqFix ? gmdate("H:i",$avgReqFix[0]->duration) : 0,
+            // all time total requests count and total request count of per status
+            'total_requests' => ServiceRequest::count('id'),
+            'requests_per_status' => $this->chartByTableColumn($request, $optionalArgs, 'service_requests'),
+            'requests_per_category' => $this->chartRequestByCategory($request, $optionalArgs),
 
-        $ret['requests_per_category']['labels'] = $categoryDayStatistics->map(function($el) {
-            return $el['name'];
-        });
-        $ret['requests_per_category']['data'] = $categoryDayStatistics->map(function($el) {
-            return array_sum($el['data']);
-        });
+            // all time total tenants count and total tenants count of per status
+            'total_tenants' => Tenant::count('id'),
+            'tenants_per_status' => $this->chartByTableColumn($request, $optionalArgs, 'tenants'),
 
-        $avgReqFix = DB::select("select coalesce(floor(avg(time_to_sec(timediff(solved_date, created_at)))), 0) duration
-            from service_requests where solved_date is not null;");
-        $ret['avg_request_duration'] = $avgReqFix ? gmdate("H:i",$avgReqFix[0]->duration) : 0;
+            // all time total buildings count and total buildings count of per status
+            'total_buildings' => Building::count('id'),
+
+            'total_products' => Product::count('id'),
+            'products_per_status' => $this->chartByTableColumn($request, $optionalArgs, 'products'),
+
+            'total_posts' => Post::count('id'),
+            'posts_per_status' => $this->chartByTableColumn($request, $optionalArgs, 'posts'),
+        ];
 
         return $this->sendResponse($ret, 'Admin statistics retrieved successfully');
     }
@@ -536,7 +530,11 @@ class StatisticsAPIController extends AppBaseController
     public function chartRequestByCreationDateByColumn(Request $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
-        [$class, $table, $column, $columnValues] = $this->getTableColumnClassByRequest($request, self::PERMITTED_TABLES_FOR_CREATED_DATE);
+        [$class, $table, $column, $columnValues] = $this->getTableColumnClassByRequest(
+            $request,
+            self::PERMITTED_TABLES_FOR_CREATED_DATE,
+            $optionalArgs
+        );
         $period = $optionalArgs['period'] ?? $this->getPeriod($request);
         [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate, $table);
 
@@ -682,17 +680,32 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     * @param $optionalArgs
+     * @param string $table
+     * @return mixed
+     */
+    public function chartByTableColumn(Request $request, $optionalArgs, $table = 'service_requests')
+    {
+        return $this->chartRequestByColumn($request, array_merge($optionalArgs, ['table' => $table, 'column' => 'status']));
+    }
+
+
+    /**
+     * @param Request $request
      * @param array $optionalArgs
      * @return mixed
      */
     public function chartRequestByColumn(Request $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
-        [$class, $table, $column, $columnValues] = $this->getTableColumnClassByRequest($request, self::PERMITTED_TABLES_GROUP);
-
+        [$class, $table, $column, $columnValues] = $this->getTableColumnClassByRequest(
+            $request,
+            self::PERMITTED_TABLES_GROUP,
+            $optionalArgs
+        );
         $statistics = $class::selectRaw($column . ', count(id) `count`')
-            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
-            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
+            ->when($startDate, function ($q) use ($startDate) {$q->whereDate('created_at', '>=', $startDate->format('Y-m-d'));})
+            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('created_at', '<=', $endDate->format('Y-m-d'));})
             ->groupBy($column)
             ->orderBy($column)
             ->get();
@@ -870,17 +883,18 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     * @param array $optionalArgs
      * @return mixed
      */
-    public function chartRequestByCategory(Request $request)
+    public function chartRequestByCategory(Request $request, $optionalArgs = [])
     {
-        [$startDate, $endDate] = $this->getStartDateEndDate($request);
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id');
         $serviceRequests = ServiceRequest::selectRaw('count(service_requests.id) as count, IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
             ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
             ->leftJoin('service_request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
-            ->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'))
-            ->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'))
+            ->when($startDate, function ($q) use ($startDate) {$q->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'));})
+            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'));})
             ->groupBy('category_parent_id')
             ->get();
 
@@ -899,7 +913,10 @@ class StatisticsAPIController extends AppBaseController
             'data' => $statisticData->values()
         ];
 
-        return $this->sendResponse($response, 'Admin statistics retrieved successfully');
+        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
+        return $isConvertResponse
+            ? $this->sendResponse($response, 'Admin statistics retrieved successfully')
+            : $response;
     }
 
     /**
@@ -980,7 +997,6 @@ class StatisticsAPIController extends AppBaseController
             // @TODO check statistics when WEEK(created_at) = 1, 52, 53 maybe can income some incorrect data
             $part = "CONCAT(YEAR(" . $table . ".created_at), ' ', WEEK(" . $table . ".created_at))";
             $currentDate = clone $startDate;
-            $today = now();
 
             while ($currentDate < $endDate) {
                 $yearWeek = $currentDate->year . ' ' . $currentDate->week;
@@ -1047,11 +1063,13 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @TODO rename
+     *
      * @param $request
      * @param $permissions
+     * @param array $optionalArgs
      * @return array
      */
-    protected function getTableColumnClassByRequest($request, $permissions)
+    protected function getTableColumnClassByRequest($request, $permissions, $optionalArgs = [])
     {
         $table = $optionalArgs['table'] ?? null;
         $table = $table ?? $request->{self::QUERY_PARAMS['table']};
