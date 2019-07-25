@@ -259,9 +259,8 @@ class BuildingAPIController extends AppBaseController
         $input['address_id'] = $address->id;
         $input['name'] = sprintf('%s %s', $address->street, $address->street_nr);
 
-        // @TODO pass correct argument
-//        $geoData = $this->getGeoDataByAddress($input['name']);
-//        $input = array_merge($input, $geoData);
+        $geoData = $this->getGeoDataByAddress($address);
+        $input = array_merge($input, $geoData);
         $building = $this->buildingRepository->create($input);
         $response = (new BuildingTransformer)->transform($building);
 
@@ -387,6 +386,10 @@ class BuildingAPIController extends AppBaseController
                 return $this->sendError($validator->errors());
             }
             $address = $this->addressRepository->update($addressInput, $building->address_id);
+            if ($address->getChanges()) {
+                $geoData = $this->getGeoDataByAddress($address);
+                $input = array_merge($input, $geoData);
+            }
             $input['address_id'] = $address->id;
         }
 
@@ -688,16 +691,13 @@ class BuildingAPIController extends AppBaseController
      */
     protected function getGeoDataByAddress($address)
     {
+        $_address = sprintf('%s %s, %s %s', $address->street, $address->street_nr, $address->zip, $address->city);
         $client = new \GuzzleHttp\Client();
-
         $geocoder = new Geocoder($client);
         $geocoder->setApiKey(config('geocoder.key'));
 
-//        $geocoder->setCountry(config('US'));
         try {
-            // @TODO remove after test
-            $address = 'Infinite Loop 1, Cupertino';
-            $response = $geocoder->getCoordinatesForAddress($address);
+            $response = $geocoder->getCoordinatesForAddress($_address);
         } catch (\Exception $exception) {
             $response = [
                 'lat' => 0,
