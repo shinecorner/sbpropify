@@ -30,9 +30,9 @@ export const errorMessage = async (defaultMessage, status, err = {}) => {
 };
 
 export const displayError = async (err) => {
-    const {$swal, $i18n} = await Vue;
+    const {$swal, $i18n, $route} = await Vue;
 
-    const isAdmin = window.location.pathname.toString().includes('/admin');
+    const isAdmin = $route.path.includes('/admin');
 
     if (err && err.message) {
         if (err.status && err.error) {
@@ -51,7 +51,7 @@ export const displayError = async (err) => {
                         else {
                             $swal({
                                 toast: true,
-                                position: 'top-end',
+                                position: 'bottom-end',
                                 showConfirmButton: false,
                                 timer: 3000,
                                 type: 'error',
@@ -76,7 +76,7 @@ export const displayError = async (err) => {
             else {
                 $swal({
                     toast: true,
-                    position: 'top-end',
+                    position: 'bottom-end',
                     showConfirmButton: false,
                     timer: 3000,
                     type: 'error',
@@ -91,7 +91,7 @@ export const displayError = async (err) => {
 
 export const displaySuccess = async (resp) => {
     if (resp && resp.message) {
-        const {$i18n, $swal, $router} = await Vue;
+        const {$i18n, $swal, $route} = await Vue;
 
         /*$swal({
             toast: true,
@@ -102,7 +102,7 @@ export const displaySuccess = async (resp) => {
             title: $i18n.t(resp.message)
         });*/
 
-        if (window.location.pathname.toString().includes('/admin')) {
+        if ($route.path.includes('/admin')) {
             $swal.fire(
                 {
                     title: '',
@@ -116,7 +116,7 @@ export const displaySuccess = async (resp) => {
         else {
             $swal({
                 toast: true,
-                position: 'top-end',
+                position: 'bottom-end',
                 showConfirmButton: false,
                 timer: 3000,
                 type: 'success',
