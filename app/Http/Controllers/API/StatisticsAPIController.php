@@ -984,9 +984,7 @@ class StatisticsAPIController extends AppBaseController
 
             while ($currentDate < $endDate) {
                 $yearWeek = $currentDate->year . ' ' . $currentDate->week;
-                $periodValues[$yearWeek] = ($currentDate->year != $today->year)
-                    ? $currentDate->week . ' ' . $currentDate->year
-                    : $currentDate->week;
+                $periodValues[$yearWeek] = $currentDate->week . ' ' . $currentDate->year;
                 $currentDate->addWeek();
             }
 
