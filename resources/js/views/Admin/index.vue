@@ -180,7 +180,7 @@
         text-align: center;
         background-color: #fff;
         border: 1px solid #ddd;
-        padding: 0 13px;
+        padding: 0 13px !important;
 
         &.is-active, &:hover{
             background: #6AC06F;

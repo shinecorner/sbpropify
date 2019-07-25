@@ -234,7 +234,7 @@
         },
 
         methods: {
-            ...mapActions(['logout']),
+            ...mapActions(['logoutAdmin']),
             ...mapActions(['updateSettings']),
 
             toggleFullscreen() {
@@ -253,7 +253,8 @@
                 this.$confirm('You will be logged out.', 'Are you sure?', {
                     type: 'warning'
                 }).then(() => {
-                    this.logout()
+                    //this.$router.push({name: 'login'});
+                    this.logoutAdmin()
                         .then(() => this.$router.push({name: 'login'}))
                         .catch(err => {
                             displayError(err);

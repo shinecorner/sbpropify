@@ -85,6 +85,22 @@ export default {
                 resolve();
             }).catch(({response: {data: err}}) => reject(err)));
     },
+    logoutAdmin({dispatch, commit}) {
+        return new Promise((resolve, reject) =>
+            axios.get('auth/logout').then(({status}) => {
+                console.log('then:', status);
+                if (status === 200) {
+                    localStorage.removeItem('token');
+                    //commit('SET_LOGGED_IN', false);
+                    //commit('SET_LOGGED_IN_USER', {});
+                    //window.location.href = '/';
+                }
+
+                resolve();
+            }).catch((response) => {
+                console.log('error response', response);
+            }));
+    },
     forceLogout({commit}) {
         localStorage.removeItem('token');
 
