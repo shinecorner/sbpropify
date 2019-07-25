@@ -521,13 +521,12 @@ class StatisticsAPIController extends AppBaseController
             : $ret;
     }
 
-
     /**
      * @param Request $request
      * @param array $optionalArgs
      * @return mixed
      */
-    public function chartRequestByCreationDateByColumn(Request $request, $optionalArgs = [])
+    public function chartStatisticsByCreationDateByColumn(Request $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         [$class, $table, $column, $columnValues] = $this->getTableColumnClassByRequest(
@@ -548,7 +547,7 @@ class StatisticsAPIController extends AppBaseController
         $ret = $this->formatResponseGropedPeriodAndCol($periodValues, $statistics, $column, $columnValues);
         $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
-            ? $this->sendResponse($ret, 'Request services statistics formatted successfully fo ' . $table . ' by ' . $column)
+            ? $this->sendResponse($ret, $table . ' statistics formatted successfully by ' . $column)
             : $ret;
     }
 
