@@ -236,18 +236,15 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/admin/chartRequestByCreationDate', 'StatisticsAPIController@chartRequestByCreationDate');
     Route::get('/admin/chartBuildingsByCreationDate', 'StatisticsAPIController@chartBuildingsByCreationDate');
     Route::get('/admin/chartByCreationDate', 'StatisticsAPIController@chartByCreationDate');
-    Route::get('/admin/chartTenantsByDateAndStatus', 'StatisticsAPIController@chartTenantsByDateAndStatus');
 
-
-
+    Route::get('/admin/donutChart', 'StatisticsAPIController@donutChart');
+    Route::get('/admin/donutChartRequestByCategory', 'StatisticsAPIController@donutChartRequestByCategory');
+    Route::get('/admin/donutChartTenantsByDateAndStatus', 'StatisticsAPIController@donutChartTenantsByDateAndStatus');
 
 
 
 
     Route::get('/admin/heatRequestByCreationDate', 'StatisticsAPIController@heatRequestByCreationDate');
-    Route::get('/admin/chartRequestByColumn', 'StatisticsAPIController@chartRequestByColumn');
-    Route::get('/admin/chartRequestByStatus', 'StatisticsAPIController@chartRequestByStatus');
-    Route::get('/admin/chartRequestByCategory', 'StatisticsAPIController@chartRequestByCategory');
     Route::get('/admin/chartLoginDevice', 'StatisticsAPIController@chartLoginDevice');
 });
 

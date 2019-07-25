@@ -666,26 +666,13 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return mixed
-     */
-    public function chartRequestByStatus(Request $request)
-    {
-        $request->merge([
-            'table' => 'service_requests',
-            'column' => 'status'
-        ]);
-        return $this->chartRequestByColumn($request);
-    }
-
-    /**
-     * @param Request $request
      * @param $optionalArgs
      * @param string $table
      * @return mixed
      */
     public function chartByTableColumn(Request $request, $optionalArgs, $table = 'service_requests')
     {
-        return $this->chartRequestByColumn($request, array_merge($optionalArgs, ['table' => $table, 'column' => 'status']));
+        return $this->donutChart($request, array_merge($optionalArgs, ['table' => $table, 'column' => 'status']));
     }
 
 
@@ -694,7 +681,7 @@ class StatisticsAPIController extends AppBaseController
      * @param array $optionalArgs
      * @return mixed
      */
-    public function chartRequestByColumn(Request $request, $optionalArgs = [])
+    public function donutChart(Request $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         [$class, $table, $column, $columnValues] = $this->getTableColumnClassByRequest(
@@ -723,7 +710,7 @@ class StatisticsAPIController extends AppBaseController
      * @param array $optionalArgs
      * @return mixed
      */
-    public function chartTenantsByDateAndStatus(Request $request, $optionalArgs = [])
+    public function donutChartTenantsByDateAndStatus(Request $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
 
@@ -885,7 +872,7 @@ class StatisticsAPIController extends AppBaseController
      * @param array $optionalArgs
      * @return mixed
      */
-    public function chartRequestByCategory(Request $request, $optionalArgs = [])
+    public function donutChartRequestByCategory(Request $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id');
