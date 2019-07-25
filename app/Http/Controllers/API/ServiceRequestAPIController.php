@@ -908,4 +908,124 @@ class ServiceRequestAPIController extends AppBaseController
         $response = (new TemplateTransformer)->transformCollection($templates);
         return $this->sendResponse($response, 'Communication Templates retrieved successfully');
     }
+
+    /**
+     * @param int $id
+     * @param TemplateRepository $tempRepo
+     *
+     * @return Response
+     *
+     * @SWG\Get(
+     *      path="/requests/{id}/serviceComunicationTemplates",
+     *      summary="Display the list of Service Comunication templates filled with request data",
+     *      tags={"ServiceRequest"},
+     *      description="Get Service Communication Templates",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="id",
+     *          description="id of ServiceRequest",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *
+     *
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/ServiceRequest"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function getServiceCommunicationTemplates($id, TemplateRepository $tempRepo)
+    {
+        /** @var ServiceRequest $serviceRequest */
+        $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+        if (empty($serviceRequest)) {
+            return $this->sendError('Service Request not found');
+        }
+
+        $serviceRequest->load([
+            'media', 'tenant.user', 'tenant.building', 'category',
+        ]);
+
+        $templates = $tempRepo->getParsedServiceCommunicationTemplates($serviceRequest, Auth::user());
+
+        $response = (new TemplateTransformer)->transformCollection($templates);
+        return $this->sendResponse($response, 'Service Communication Templates retrieved successfully');
+    }
+
+    /**
+     * @param int $id
+     * @param TemplateRepository $tempRepo
+     *
+     * @return Response
+     *
+     * @SWG\Get(
+     *      path="/requests/{id}/serviceemailTemplates",
+     *      summary="Display the list of Service Email templates filled with request data",
+     *      tags={"ServiceRequest"},
+     *      description="Get Service Email Templates",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="id",
+     *          description="id of ServiceRequest",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *
+     *
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/ServiceRequest"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function getServiceEmailTemplates($id, TemplateRepository $tempRepo)
+    {
+        /** @var ServiceRequest $serviceRequest */
+        $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+        if (empty($serviceRequest)) {
+            return $this->sendError('Service Request not found');
+        }
+
+        $serviceRequest->load([
+            'media', 'tenant.user', 'tenant.building', 'category',
+        ]);
+
+        $templates = $tempRepo->getParsedEmailTemplates($serviceRequest, Auth::user());
+
+        $response = (new TemplateTransformer)->transformCollection($templates);
+        return $this->sendResponse($response, 'Service Email Templates retrieved successfully');
+    }
 }
