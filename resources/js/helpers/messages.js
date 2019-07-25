@@ -30,14 +30,16 @@ export const errorMessage = async (defaultMessage, status, err = {}) => {
 };
 
 export const displayError = async (err) => {
-    if (window.location.pathname.toString().includes('/admin')) {
-        const {$swal, $i18n} = await Vue;
+    const {$swal, $i18n, $route} = await Vue;
 
-        if (err && err.message) {
-            if (err.status && err.error) {
-                _.each(err.error.response.data.errors, (errorObj) => {
-                    if (_.isArray(errorObj)) {
-                        _.each(errorObj, (er) => {
+    const isAdmin = $route.path.includes('/admin');
+
+    if (err && err.message) {
+        if (err.status && err.error) {
+            _.each(err.error.response.data.errors, (errorObj) => {
+                if (_.isArray(errorObj)) {
+                    _.each(errorObj, (er) => {
+                        if (isAdmin) {
                             $swal.fire({
                                 type: 'error',
                                 showConfirmButton: false,
@@ -45,38 +47,62 @@ export const displayError = async (err) => {
                                 width: 'auto',
                                 title: $i18n.t(er)
                             })
-                        })
-                    }
-                });
-            } else {
-                const msg = err.message;
+                        }
+                        else {
+                            $swal({
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                type: 'error',
+                                width: 'auto',
+                                title: $i18n.t(er)
+                            });
+                        }
+                    })
+                }
+            });
+        } else {
+            const msg = err.message;
+            if (isAdmin) {
                 $swal.fire({
                     type: 'error',
                     showConfirmButton: false,
                     timer: 3000,
-                    width: 'auto',
+                    /*width: 'auto',*/
                     title: $i18n.t(typeof msg === 'string' ? msg : (typeof msg === 'object' ? msg[Object.keys(msg)[0]][0] : 'ERROR'))
                 })
             }
-
+            else {
+                $swal({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    type: 'error',
+                    /*width: 'auto',*/
+                    title: $i18n.t(typeof msg === 'string' ? msg : (typeof msg === 'object' ? msg[Object.keys(msg)[0]][0] : 'ERROR'))
+                });
+            }
         }
+
     }
 };
 
 export const displaySuccess = async (resp) => {
-    if (window.location.pathname.toString().includes('/admin')) {
-        if (resp && resp.message) {
-            const {$i18n, $swal, $router} = await Vue;
+    if (resp && resp.message) {
+        const {$i18n, $swal, $route} = await Vue;
 
-            /*$swal({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                type: 'success',
-                title: $i18n.t(resp.message)
-            });*/
+        /*$swal({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            type: 'success',
+            title: $i18n.t(resp.message)
+        });*/
 
+        if ($route.path.includes('/admin')) {
             $swal.fire(
                 {
                     title: '',
@@ -86,11 +112,21 @@ export const displaySuccess = async (resp) => {
                     showConfirmButton: false
                 },
             );
+        }
+        else {
+            $swal({
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000,
+                type: 'success',
+                title: $i18n.t(resp.message)
+            });
+        }
 
 
-            if (resp.redirect) {
-                $router.push({name: resp.redirect});
-            }
+        if (resp.redirect) {
+            $router.push({name: resp.redirect});
         }
     }
 };
