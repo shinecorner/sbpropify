@@ -25,7 +25,7 @@
                             round
                             size="small"
                             type="primary"
-                    >{{$t('models.tenant.edit')}}
+                    ><span>&nbsp;</span>{{$t('models.tenant.edit')}}
                     </el-button>
                     <el-button
                             @click="goToListing"
@@ -101,12 +101,13 @@
                         <el-row :gutter="20">
 
                             <el-col :sm="8" :xs="12">{{$t('models.tenant.rent_start')}}:</el-col>
-                            <el-col :sm="16" :xs="12" class="text-secondary">{{ new Date(model.rent_start) |
-                                formatDate}}
+                            <el-col :sm="16" :xs="12" class="text-secondary">
+                                {{ model.rent_start ? (new Date(model.rent_start) |formatDate) : '&nbsp;'}}
                             </el-col>
 
                             <el-col :sm="8" :xs="12">{{$t('models.tenant.rent_end')}}:</el-col>
-                            <el-col :sm="16" :xs="12" class="text-secondary">{{new Date(model.rent_end) | formatDate}}
+                            <el-col :sm="16" :xs="12" class="text-secondary">
+                                {{ model.rent_end ? (new Date(model.rent_end) | formatDate) : '&nbsp;'}}
                             </el-col>
 
                             <el-col v-if="lastMedia" class="media">
@@ -427,7 +428,7 @@
                     padding-left: 30px !important;
 
                     .el-col {
-                        padding-bottom: 15px;
+                        padding-bottom: 10px;
                     }
 
                     .el-col:nth-last-of-type(1),
