@@ -15,7 +15,7 @@ class AddColumnsInTenantsTable extends Migration
     {
         Schema::table('tenants', function (Blueprint $table) {
             $table->string('review')->nullable()->after('tenant_format');
-            $table->integer('rating')->nullable()->after('country_id');
+            $table->integer('rating')->nullable()->after('unit_id');
         });
     }
 
