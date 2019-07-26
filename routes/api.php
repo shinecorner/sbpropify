@@ -27,6 +27,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/users', 'UserAPIController@index')->name('users');
     Route::get('/users/me', 'UserAPIController@showLoggedIn')->name('users.me');
     Route::get('/users/requestManagers', 'UserAPIController@requestManagers')->name('users.requestManagers');
+    Route::get('/users/check-email', 'UserAPIController@checkEmail')->name('users.check-email');
     Route::get('/users/{id}', 'UserAPIController@show')->name('users.show');
 
     Route::post('/users', 'UserAPIController@store')->name('users.store');
