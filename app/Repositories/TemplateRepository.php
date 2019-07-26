@@ -96,7 +96,6 @@ class TemplateRepository extends BaseRepository
      */
     public function getTags(array $tagMap, array $context): array
     {
-        $tagMap["salutation"] = "user.title.aaa";
         $tags = [];
         foreach ($tagMap as $tag => $val) {
             if (in_array($tag, ['autologinUrl', 'passwordResetUrl', 'tenantCredentials'])) {
