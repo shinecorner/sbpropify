@@ -1,10 +1,10 @@
 <template>
     <div style="flex-grow: 1;">
-        <heading class="custom-heading" icon="ti-home" title="Dashboard" shadow="heavy" />
+        <heading class="custom-heading" :icon="headingIcon" :title="$t(`menu.${activeName}`)" shadow="heavy" />
         <el-row :gutter="20" class="dashboard" style="margin-bottom: 24px;" type="flex">
             <el-col class="dashboard-tabpanel">
-                <el-tabs type="border-card">
-                    <el-tab-pane :label="$t('menu.requests')">
+                <el-tabs type="border-card" @tab-click="handleTabClick" v-model="activeName">
+                    <el-tab-pane :label="$t('menu.requests')" name="requests">
                         <el-row style="margin-bottom: 24px;" type="flex">
                             <el-col :span="24">
                                 <dashboard-statistics-card :totalRequest="totalRequest" :data="reqStatusCount" :avgReqDuration="avgReqDuration"></dashboard-statistics-card>
@@ -40,16 +40,16 @@
                             </el-col>
                         </el-row>
                     </el-tab-pane>
-                    <el-tab-pane :label="$t('menu.buildings')">
+                    <el-tab-pane :label="$t('menu.buildings')" name="buildings">
                         {{'Second Tab'}}
                     </el-tab-pane>
-                    <el-tab-pane :label="$t('menu.news')">
+                    <el-tab-pane :label="$t('menu.news')" name="news">
                         {{'Content Third tab'}}
                     </el-tab-pane>
-                    <el-tab-pane :label="$t('menu.marketplace')">
+                    <el-tab-pane :label="$t('menu.marketplace')" name="marketplace">
                         {{'Fourth Tab'}}
                     </el-tab-pane>
-                    <el-tab-pane :label="$t('menu.tenants')">
+                    <el-tab-pane :label="$t('menu.tenants')" name="tenants">
                         {{'Fourth Tab'}}
                     </el-tab-pane>
                 </el-tabs>
@@ -123,8 +123,12 @@
                     color: '#1a237e',
                     value: 256,
                     description: 'Products'
-                }]
+                }],
+                headingIcon: 'icon-chat-empty',
+                activeName: 'requests'
             }
+        },
+        computed: {
         },
         methods: {
             getReqStatastics() {
@@ -140,6 +144,17 @@
                 }).catch(function (error) {
                     console.log(error);
                 })
+            },
+
+            handleTabClick(tab, event) {
+                const icons = {
+                    'requests': 'icon-chat-empty',
+                    'buildings': 'icon-commerical-building',
+                    'news': 'icon-megaphone-1',
+                    'marketplace': 'icon-basket',
+                    'tenants': 'icon-group'
+                };
+                this.headingIcon = icons[tab.name];
             }
         },
         created(){

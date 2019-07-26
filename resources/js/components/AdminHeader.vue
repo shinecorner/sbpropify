@@ -156,6 +156,11 @@
             }
 
             .user-params {
+                .user-params-wrap {
+                    min-width: 65px;
+                    display: flex;
+                    justify-content: space-between;
+                }
                 .el-submenu__icon-arrow{
                     display: block !important;
                 }
@@ -167,6 +172,10 @@
     .el-menu--popup {
         top: 13px;
         left: -16px;
-        min-width: 153px !important;
+        min-width: 142px !important;
+    }
+
+    body > .el-menu--horizontal.profile-popper {
+        right: 20px;
     }
 </style>
