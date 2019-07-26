@@ -67,6 +67,9 @@ body {
     .el-form--label-top .el-form-item__label {
         padding: 0;
     }
+    .el-select-dropdown__item.selected {
+        color: #606266;
+    }
 }
 
 .crud-view {
@@ -118,3 +121,5 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+
