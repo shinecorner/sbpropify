@@ -211,7 +211,7 @@ class StatisticsAPIController extends AppBaseController
      * @param bool $isConvertResponse
      * @return array|mixed
      */
-    public function allBuildingStatistics($isConvertResponse = true)
+    protected function allBuildingStatistics()
     {
         $tenantCount = $this->tenantRepo->count();
         $unitCount = $this->unitRepo->count();
@@ -234,9 +234,8 @@ class StatisticsAPIController extends AppBaseController
             'occupied_units' => $occupiedUnits,
             'free_units' => $freeUnit,
         ];
-        return $isConvertResponse
-            ? $this->sendResponse($response, 'Building statistics retrieved successfully')
-            : $response;
+
+        return $this->sendResponse($response, 'Building statistics retrieved successfully');
     }
 
     /**
@@ -487,7 +486,7 @@ class StatisticsAPIController extends AppBaseController
 
             // all time total buildings count and total buildings count of per status
             'total_buildings' => Building::count('id'),
-            'buildings_per_status' => $this->allBuildingStatistics(false),
+            'buildings_per_status' => $this->allBuildingStatistics(),
 
             'total_products' => Product::count('id'),
             'products_per_status' => $this->donutChartByTable($request, $optionalArgs, 'products'),
