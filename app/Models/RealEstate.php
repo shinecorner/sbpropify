@@ -130,6 +130,13 @@ class RealEstate extends Model
         'iframe_enable',
         'cleanify_email',
         'news_receiver_ids',
+        'mail_host',
+        'mail_port',
+        'mail_username',
+        'mail_password',
+        'mail_encryption',
+        'mail_from_address',
+        'mail_from_name',
     ];
 
     /**
@@ -157,6 +164,13 @@ class RealEstate extends Model
         'iframe_enable' => 'boolean',
         'cleanify_email' => 'string',
         'news_receiver_ids' => 'array',
+        'mail_host' => 'string',
+        'mail_port' => 'integer',
+        'mail_username' => 'string',
+        'mail_password' => 'string',
+        'mail_encryption' => 'string',
+        'mail_from_address' => 'string',
+        'mail_from_name' => 'string',
     ];
 
     /**
@@ -170,6 +184,7 @@ class RealEstate extends Model
             'name' => 'required',
             'language' => 'required',
             'cleanify_email' => 'email',
+            'mail_from_address' => 'email',
             'iframe_url' => function($attr, $val, $fail) {
                 if (is_string($val)) {
                     if (!filter_var($val, FILTER_VALIDATE_URL)) {
@@ -194,5 +209,14 @@ class RealEstate extends Model
     public function address()
     {
         return $this->hasOne(Address::class, 'id', 'address_id');
+    }
+
+    public function getMailPasswordAttribute($val)
+    {
+        return \Crypt::decryptString($val);
+    }
+    public function setMailPasswordAttribute($val)
+    {
+        $this->attributes['mail_password'] = \Crypt::encryptString($val);
     }
 }
