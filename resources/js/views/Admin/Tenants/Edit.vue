@@ -27,10 +27,10 @@
                                                   prop="title">
                                         <el-select placeholder="Select" style="display: block" v-model="model.title">
                                             <el-option
-                                                :key="title"
-                                                :label="$t(`models.tenant.titles.${title}`)"
-                                                :value="title"
-                                                v-for="title in titles">
+                                                    :key="title"
+                                                    :label="$t(`models.tenant.titles.${title}`)"
+                                                    :value="title"
+                                                    v-for="title in titles">
                                             </el-option>
                                         </el-select>
                                     </el-form-item>
@@ -65,12 +65,12 @@
                                                   :rules="validationRules.birth_date"
                                                   prop="birth_date">
                                         <el-date-picker
-                                            :placeholder="$t('models.tenant.birth_date')"
-                                            format="dd.MM.yyyy"
-                                            style="width: 100%;"
-                                            type="date"
-                                            v-model="model.birth_date"
-                                            value-format="yyyy-MM-dd"/>
+                                                :placeholder="$t('models.tenant.birth_date')"
+                                                format="dd.MM.yyyy"
+                                                style="width: 100%;"
+                                                type="date"
+                                                v-model="model.birth_date"
+                                                value-format="yyyy-MM-dd"/>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12">
@@ -156,10 +156,10 @@
                                                   prop="status">
                                         <el-select style="display: block" v-model="model.status">
                                             <el-option
-                                                :key="k"
-                                                :label="$t(`models.tenant.status.${status}`)"
-                                                :value="parseInt(k)"
-                                                v-for="(status, k) in constants.tenants.status">
+                                                    :key="k"
+                                                    :label="$t(`models.tenant.status.${status}`)"
+                                                    :value="parseInt(k)"
+                                                    v-for="(status, k) in constants.tenants.status">
                                             </el-option>
                                         </el-select>
                                     </el-form-item>
@@ -181,13 +181,13 @@
                                     <el-form-item :label="$t('models.tenant.rent_start')"
                                                   prop="rent_start">
                                         <el-date-picker
-                                            :picker-options="{disabledDate: disabledRentStart}"
-                                            :placeholder="$t('models.tenant.rent_start')"
-                                            format="dd.MM.yyyy"
-                                            style="width: 100%;"
-                                            type="date"
-                                            v-model="model.rent_start"
-                                            value-format="yyyy-MM-dd"/>
+                                                :picker-options="{disabledDate: disabledRentStart}"
+                                                :placeholder="$t('models.tenant.rent_start')"
+                                                format="dd.MM.yyyy"
+                                                style="width: 100%;"
+                                                type="date"
+                                                v-model="model.rent_start"
+                                                value-format="yyyy-MM-dd"/>
                                     </el-form-item>
                                 </el-col>
 
@@ -195,13 +195,13 @@
                                     <el-form-item :label="$t('models.tenant.rent_end')"
                                                   prop="rent_end">
                                         <el-date-picker
-                                            :picker-options="{disabledDate: disabledRentEnd}"
-                                            :placeholder="$t('models.tenant.rent_end')"
-                                            format="dd.MM.yyyy"
-                                            style="width: 100%;"
-                                            type="date"
-                                            v-model="model.rent_end"
-                                            value-format="yyyy-MM-dd"/>
+                                                :picker-options="{disabledDate: disabledRentEnd}"
+                                                :placeholder="$t('models.tenant.rent_end')"
+                                                format="dd.MM.yyyy"
+                                                style="width: 100%;"
+                                                type="date"
+                                                v-model="model.rent_end"
+                                                value-format="yyyy-MM-dd"/>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -236,25 +236,25 @@
                         <el-form :model="model" label-width="80px" ref="form" style="max-width: 512px;">
                             <el-form-item :label="$t('models.tenant.building.name')" prop="building_id">
                                 <el-select
-                                    :loading="remoteLoading"
-                                    :placeholder="$t('models.tenant.search_building')"
-                                    :remote-method="remoteSearchBuildings"
-                                    :rules="validationRules.building_id"
-                                    @change="searchUnits"
-                                    filterable
-                                    remote
-                                    reserve-keyword
-                                    style="width: 100%;"
-                                    v-model="model.building_id">
+                                        :loading="remoteLoading"
+                                        :placeholder="$t('models.tenant.search_building')"
+                                        :remote-method="remoteSearchBuildings"
+                                        :rules="validationRules.building_id"
+                                        @change="searchUnits"
+                                        filterable
+                                        remote
+                                        reserve-keyword
+                                        style="width: 100%;"
+                                        v-model="model.building_id">
                                     <el-option
-                                        :label="`--${$t('models.tenant.no_building')}--`"
-                                        value=""
+                                            :label="`--${$t('models.tenant.no_building')}--`"
+                                            value=""
                                     />
                                     <el-option
-                                        :key="building.id"
-                                        :label="building.name"
-                                        :value="building.id"
-                                        v-for="building in buildings"/>
+                                            :key="building.id"
+                                            :label="building.name"
+                                            :value="building.id"
+                                            v-for="building in buildings"/>
                                 </el-select>
                             </el-form-item>
                             <el-form-item :label="$t('models.tenant.unit.name')" prop="unit_id"
@@ -262,10 +262,10 @@
                                 <el-select :placeholder="$t('models.tenant.search_unit')" style="display: block"
                                            v-model="model.unit_id">
                                     <el-option
-                                        :key="unit.id"
-                                        :label="unit.name"
-                                        :value="unit.id"
-                                        v-for="unit in units">
+                                            :key="unit.id"
+                                            :label="unit.name"
+                                            :value="unit.id"
+                                            v-for="unit in units">
                                     </el-option>
                                 </el-select>
                             </el-form-item>
@@ -278,32 +278,32 @@
                 <el-tabs type="border-card">
                     <el-tab-pane :label="$t('models.tenant.requests')">
                         <relation-list
-                            :actions="requestActions"
-                            :columns="requestColumns"
-                            :filterValue="model.id"
-                            fetchAction="getRequests"
-                            filter="tenant_id"
-                            v-if="model.id"
+                                :actions="requestActions"
+                                :columns="requestColumns"
+                                :filterValue="model.id"
+                                fetchAction="getRequests"
+                                filter="tenant_id"
+                                v-if="model.id"
                         />
                     </el-tab-pane>
                     <el-tab-pane :label="$t('models.tenant.posts')">
                         <relation-list
-                            :actions="postActions"
-                            :columns="postColumns"
-                            :filterValue="user.id"
-                            fetchAction="getPostsTruncated"
-                            filter="user_id"
-                            v-if="!_.isEmpty(user)"
+                                :actions="postActions"
+                                :columns="postColumns"
+                                :filterValue="user.id"
+                                fetchAction="getPostsTruncated"
+                                filter="user_id"
+                                v-if="!_.isEmpty(user)"
                         />
                     </el-tab-pane>
                     <el-tab-pane :label="$t('models.tenant.products')">
                         <relation-list
-                            :actions="productActions"
-                            :columns="productColumns"
-                            :filterValue="user.id"
-                            fetchAction="getProducts"
-                            filter="user_id"
-                            v-if="!_.isEmpty(user)"
+                                :actions="productActions"
+                                :columns="productColumns"
+                                :filterValue="user.id"
+                                fetchAction="getProducts"
+                                filter="user_id"
+                                v-if="!_.isEmpty(user)"
                         />
                     </el-tab-pane>
                 </el-tabs>
@@ -531,13 +531,13 @@
                 } finally {
                     this.loading.state = false;
                 }
-            },           
-            requestStatusBadge(status) {                
+            },
+            requestStatusBadge(status) {
                 return this.getRequestStatusColor(status);
             },
             requestStatusLabel(status) {
                 return this.$t(`models.request.status.${this.requestStatusConstants[status]}`)
-            }
+            },
         },
         computed: {
             ...mapGetters('application', {
@@ -587,5 +587,8 @@
 
     .mb15 {
         margin-bottom: 15px;
+    }
+    .text-secondary {
+        color: #909399;
     }
 </style>
