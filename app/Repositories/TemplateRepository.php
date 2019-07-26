@@ -96,44 +96,38 @@ class TemplateRepository extends BaseRepository
      */
     public function getTags(array $tagMap, array $context): array
     {
+        $tagMap["salutation"] = "user.title.aaa";
         $tags = [];
         foreach ($tagMap as $tag => $val) {
-            $tags = [];
-            foreach ($tagMap as $tag => $val) {
-                if (in_array($tag, ['autologinUrl', 'passwordResetUrl', 'tenantCredentials'])) {
-                    $tags[$tag] = $this->getStaticTagValue($tag, $val, $context);
-                    continue;
-                }
+            if (in_array($tag, ['autologinUrl', 'passwordResetUrl', 'tenantCredentials'])) {
+                $tags[$tag] = $this->getStaticTagValue($tag, $val, $context);
+                continue;
+            }
 
-                $valMap = explode('.', $val);
+            $valMap = explode('.', $val);
 
-                if (count($valMap) > $this->maxNesting) {
-                    continue;
-                }
-
-                $trString = '';
-                if ($valMap[0] == 'constant') {
-                    unset($valMap[0]);
-                    $valMap = array_values($valMap);
-                    $trString = implode('_', $valMap);
-                }
-
-                if (!isset($context[$valMap[0]])) {
-                    continue;
-                }
-
-                $cContext = $context[$valMap[0]];
+            $trString = '';
+            if ($valMap[0] == 'constant') {
                 unset($valMap[0]);
                 $valMap = array_values($valMap);
-
-                $val = self::getContextValue($cContext, $valMap);
-
-                if ($trString) {
-                    $val = __('common.' . $trString . '_' . $val);
-                }
-
-                $tags[$tag] = $val;
+                $trString = implode('_', $valMap);
             }
+
+            if (!isset($context[$valMap[0]])) {
+                continue;
+            }
+
+            $cContext = $context[$valMap[0]];
+            unset($valMap[0]);
+            $valMap = array_values($valMap);
+
+            if ($trString) {
+                $val = __('common.' . $trString . '_' . $val);
+            } else {
+                $val = self::getContextValue($cContext, $valMap);
+            }
+
+            $tags[$tag] = $val;
         }
 
         return $tags;
@@ -192,15 +186,28 @@ class TemplateRepository extends BaseRepository
      */
     private static function getContextValue($context, $field)
     {
-        if (!$context) {
+        if (! $context) {
             return '';
         }
 
-        if (is_array($context)) {
-            return $context[$field] ?? '';
+        if (is_array($field)) {
+            $_field = array_shift($field);
+        } else {
+            $_field = $field;
+            $field = [];
         }
 
-        return $context->$field ?? '';
+        if (is_array($context)) {
+            $newContext = $context[$_field] ?? '';
+        } else {
+            $newContext = $context->{$_field} ?? '';
+        }
+
+        if (empty($field)) {
+            return $newContext;
+        }
+
+        return self::getContextValue($newContext, $field);
     }
 
     /**
