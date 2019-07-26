@@ -236,7 +236,7 @@ class ServiceRequestRepository extends BaseRepository
      */
     public function notifyNewRequest(ServiceRequest $serviceRequest)
     {
-        if (!$serviceRequest->tenant->building) {
+        if (empty($serviceRequest->tenant->building)) {
             return;
         }
 
@@ -246,8 +246,11 @@ class ServiceRequestRepository extends BaseRepository
         $i = 0;
         foreach ($propertyManagers as $propertyManager) {
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
-            $propertyManager->user->redirect = "/admin/requests/" . $serviceRequest->id;
+            if (empty($propertyManager->user)) {
+                continue;
+            }
 
+            $propertyManager->user->redirect = "/admin/requests/" . $serviceRequest->id;
             $propertyManager->user
                 ->notify((new NewTenantRequest($serviceRequest, $propertyManager->user, $serviceRequest->tenant->user))
                     ->delay(now()->addSeconds($delay)));
