@@ -791,4 +791,8 @@
     .rounded-select .el-input.is-focus .el-input__suffix{
         top: -3px;
     }
+
+    .el-select-dropdown__item.selected {
+        color: #606266 !important;
+    }
 </style>
