@@ -245,6 +245,42 @@
     }
     .chart-card{
         height: 420px;
+
+        .el-card__header {
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        .chart-filter {
+            .el-radio-button__inner {
+                padding: 8px 12px;
+            }
+
+            .el-date-editor {
+                width: 135px;
+
+                .el-input__inner {
+                    height: 33px;
+                    line-height: 33px;
+                }
+
+                .el-input__icon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+
+        .apexcharts-toolbar {
+            margin-top: -88px;
+            margin-right: 7px;
+        }
+
+        .apexcharts-legend.center.position-bottom {
+            padding-top: 15px;
+            padding-bottom: 20px;
+        }
     }
 }
 .chart-card .el-card__body{
@@ -253,15 +289,9 @@
 .chart-filter{
     background-color: #fbfbfb; 
     border-bottom: 1px solid #e1e5eb; 
-    padding: .5rem .5rem;
+    padding: .5rem 14px;
 }
 
-.dashboard .stackchart .apexcharts-menu-icon{
-    margin-top: -170px;
-}
-.dashboard .stackchart .apexcharts-menu.open{
-    margin-top: -79px;
-}
 .dashboard .piechart .apexcharts-menu-icon{
     margin-top: -170px;
     margin-right: -20px;

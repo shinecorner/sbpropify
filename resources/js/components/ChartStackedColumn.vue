@@ -68,14 +68,14 @@ export default {
               toolbar: {
                 show: true,
                 tools: {
-            download: true,
-            selection: true,
-            zoom: false,
-            zoomin: false,
-            zoomout: false,
-            pan: false,
-            reset: false            
-          },
+                  download: true,
+                  selection: true,
+                  zoom: false,
+                  zoomin: false,
+                  zoomout: false,
+                  pan: false,
+                  reset: false            
+                },
               },  
             },
             responsive: [{
@@ -99,7 +99,8 @@ export default {
             },
             legend: {
               position: 'bottom',              
-              horizontalAlign: 'center'              
+              horizontalAlign: 'center',
+
             },
             fill: {
               opacity: 1
