@@ -208,9 +208,10 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     * @return mixed
+     * @param bool $isConvertResponse
+     * @return array|mixed
      */
-    public function allBuildingStatistics()
+    protected function allBuildingStatistics()
     {
         $tenantCount = $this->tenantRepo->count();
         $unitCount = $this->unitRepo->count();
@@ -485,6 +486,7 @@ class StatisticsAPIController extends AppBaseController
 
             // all time total buildings count and total buildings count of per status
             'total_buildings' => Building::count('id'),
+            'buildings_per_status' => $this->allBuildingStatistics(),
 
             'total_products' => Product::count('id'),
             'products_per_status' => $this->donutChartByTable($request, $optionalArgs, 'products'),
