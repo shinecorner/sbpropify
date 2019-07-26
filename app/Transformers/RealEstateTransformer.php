@@ -46,6 +46,13 @@ class RealEstateTransformer extends TransformerAbstract
             'iframe_enable' => $model->iframe_enable,
             'cleanify_email' => $model->cleanify_email,
             'news_receiver_ids' => $model->news_receiver_ids,
+            'mail_host' => $model->mail_host,
+            'mail_port' => $model->mail_port,
+            'mail_username' => $model->mail_username,
+            'mail_password' => $model->mail_password,
+            'mail_encryption' => $model->mail_encryption,
+            'mail_from_address' => $model->mail_from_address,
+            'mail_from_name' => $model->mail_from_name,
         ];
 
         if ($model->address) {
