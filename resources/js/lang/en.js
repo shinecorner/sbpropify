@@ -8,11 +8,11 @@ export default {
     de: 'DE',
     yes: 'Yes',
     timestamps:{
-      hours: 'Hours',  
-      days: 'Days',
-      weeks: 'Weeks',
-      months: 'Months',      
-      years: 'Years'     
+        hours: 'Hours',
+        days: 'Days',
+        weeks: 'Weeks',
+        months: 'Months',
+        years: 'Years'
     },
     chooseLanguage: 'Choose Language',
     languages: {
@@ -181,6 +181,8 @@ export default {
             }
         },
         tenant: {
+            view: 'View',
+            view_title: 'View tenant',
             edit_title: 'Edit tenant',
             download_credentials: 'Download credentials',
             send_credentials: 'Send credentials',

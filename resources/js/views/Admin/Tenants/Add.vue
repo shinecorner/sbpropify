@@ -1,7 +1,7 @@
 <template>
     <div class="tenants-add">
         <heading :title="$t('models.tenant.add')" icon="ti-user" shadow="heavy">
-            <add-actions :saveAction="submit" route="adminTenants" editRoute="adminTenantsEdit"/>
+            <add-actions :saveAction="submit" route="adminTenants"/>
         </heading>
         <div class="crud-view">
             <el-form :model="model" label-width="192px" ref="form">
@@ -15,10 +15,10 @@
                                           prop="title">
                                 <el-select placeholder="Select" style="display: block" v-model="model.title">
                                     <el-option
-                                        :key="title"
-                                        :label="$t(`models.tenant.titles.${title}`)"
-                                        :value="title"
-                                        v-for="title in titles">
+                                            :key="title"
+                                            :label="$t(`models.tenant.titles.${title}`)"
+                                            :value="title"
+                                            v-for="title in titles">
                                     </el-option>
                                 </el-select>
                             </el-form-item>
@@ -39,12 +39,12 @@
                             <el-form-item :label="$t('models.tenant.birth_date')" :rules="validationRules.birth_date"
                                           prop="birth_date">
                                 <el-date-picker
-                                    :placeholder="$t('models.tenant.birth_date')"
-                                    format="dd.MM.yyyy"
-                                    style="width: 100%;"
-                                    type="date"
-                                    v-model="model.birth_date"
-                                    value-format="yyyy-MM-dd"/>
+                                        :placeholder="$t('models.tenant.birth_date')"
+                                        format="dd.MM.yyyy"
+                                        style="width: 100%;"
+                                        type="date"
+                                        v-model="model.birth_date"
+                                        value-format="yyyy-MM-dd"/>
                             </el-form-item>
                             <el-divider class="column-divider" content-position="left">
                                 {{$t('models.tenant.contact_info_card')}}
@@ -86,25 +86,25 @@
                             </el-divider>
                             <el-form-item :label="$t('models.tenant.building.name')" prop="building_id">
                                 <el-select
-                                    :loading="remoteLoading"
-                                    :placeholder="$t('models.tenant.search_building')"
-                                    :remote-method="remoteSearchBuildings"
-                                    :rules="validationRules.building_id"
-                                    @change="searchUnits"
-                                    filterable
-                                    remote
-                                    reserve-keyword
-                                    style="width: 100%;"
-                                    v-model="model.building_id">
+                                        :loading="remoteLoading"
+                                        :placeholder="$t('models.tenant.search_building')"
+                                        :remote-method="remoteSearchBuildings"
+                                        :rules="validationRules.building_id"
+                                        @change="searchUnits"
+                                        filterable
+                                        remote
+                                        reserve-keyword
+                                        style="width: 100%;"
+                                        v-model="model.building_id">
                                     <el-option
-                                        :label="`--${$t('models.tenant.no_building')}--`"
-                                        value=""
+                                            :label="`--${$t('models.tenant.no_building')}--`"
+                                            value=""
                                     />
                                     <el-option
-                                        :key="building.id"
-                                        :label="building.name"
-                                        :value="building.id"
-                                        v-for="building in buildings"/>
+                                            :key="building.id"
+                                            :label="building.name"
+                                            :value="building.id"
+                                            v-for="building in buildings"/>
                                 </el-select>
                             </el-form-item>
                             <el-form-item :label="$t('models.tenant.unit.name')" prop="unit_id"
@@ -112,10 +112,10 @@
                                 <el-select :placeholder="$t('models.tenant.search_unit')" style="display: block"
                                            v-model="model.unit_id">
                                     <el-option
-                                        :key="unit.id"
-                                        :label="unit.name"
-                                        :value="unit.id"
-                                        v-for="unit in units">
+                                            :key="unit.id"
+                                            :label="unit.name"
+                                            :value="unit.id"
+                                            v-for="unit in units">
                                     </el-option>
                                 </el-select>
                             </el-form-item>
@@ -128,13 +128,13 @@
                                 <el-form-item :label="$t('models.tenant.rent_start')"
                                               prop="rent_start">
                                     <el-date-picker
-                                        :picker-options="{disabledDate: disabledRentStart}"
-                                        :placeholder="$t('models.tenant.rent_start')"
-                                        format="dd.MM.yyyy"
-                                        style="width: 100%;"
-                                        type="date"
-                                        v-model="model.rent_start"
-                                        value-format="yyyy-MM-dd"/>
+                                            :picker-options="{disabledDate: disabledRentStart}"
+                                            :placeholder="$t('models.tenant.rent_start')"
+                                            format="dd.MM.yyyy"
+                                            style="width: 100%;"
+                                            type="date"
+                                            v-model="model.rent_start"
+                                            value-format="yyyy-MM-dd"/>
                                 </el-form-item>
                                 <el-form-item>
                                     <el-row :gutter="20" class="list-complete-item" justify="center"
