@@ -146,4 +146,13 @@ class UserRepository extends BaseRepository
 
         return $this->parserResult($model);
     }
+
+    /**
+     * @return mixed
+     */
+    public function exists()
+    {
+        $this->applyCriteria();
+        return $this->model->exists();
+    }
 }

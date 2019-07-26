@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\Users\FilterByRolesCriteria;
+use App\Criteria\Users\WhereCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\User\ChangePasswordRequest;
 use App\Http\Requests\API\User\CreateRequest;
@@ -722,5 +723,27 @@ class UserAPIController extends AppBaseController
 
         $user->forceDelete();
         return $this->sendResponse($id, 'User deleted successfully');
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function checkEmail(Request $request)
+    {
+        $email = $request->email;
+        if (empty($email)) {
+            return $this->sendError('Pass email in query param');
+        }
+
+        $this->userRepository->pushCriteria(new WhereCriteria('email', $email));
+        $isExists = $this->userRepository->exists();
+        if ($isExists) {
+            return $this->sendResponse($email, 'This [' . $email. '] email exist, Select other email');
+
+        }
+        return $this->sendError('This [' . $email. '] email not exist');
+
     }
 }
