@@ -244,7 +244,8 @@
         background: none !important;    
     }
     .chart-card{
-        height: 420px;
+        //height: 420px;
+        height: 100%;
 
         .el-card__header {
             padding: 15px;
@@ -278,8 +279,7 @@
         }
 
         .apexcharts-legend.center.position-bottom {
-            padding-top: 15px;
-            padding-bottom: 20px;
+            padding-top: 10px;
         }
     }
 }
@@ -292,14 +292,14 @@
     padding: .5rem 14px;
 }
 
-.dashboard .piechart .apexcharts-menu-icon{
+/*.dashboard .piechart .apexcharts-menu-icon{
     margin-top: -170px;
     margin-right: -20px;
 }
 .dashboard .piechart .apexcharts-menu.open{
     margin-top: -79px;
     margin-right: -20px;
-}
+}*/
 .dashboard .box-card-count{
     .el-card__body{
         height: 100%;

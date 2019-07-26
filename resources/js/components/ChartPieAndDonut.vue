@@ -21,7 +21,7 @@
         </el-row>
         <el-row style="margin-bottom: 24px;" type="flex">
             <el-col :span="24">
-                <apexchart :type="chartType" width='90%' :options="chartOptions" :series="series" />
+                <apexchart :type="chartType" :options="chartOptions" :series="series" />
             </el-col>
         </el-row>       
     </div>
@@ -52,31 +52,49 @@ export default {
     }
   },
   computed:{
+    chartWidth: function() {
+        if (this.type === 'request_by_status') {
+            return 430;
+        }
+        else {
+            return 480;
+        }
+    },
     series: function(){        
         return this.yData;
     },
     chartOptions: function(){
         return {
-          labels: this.xData,
-          responsive: [{
-            breakpoint: 480,
-            options: {
-                chart: {
-                    width: 350
-                },
-                legend: {
-                    show: false
+            labels: this.xData,
+            responsive: [{
+                breakpoint: 1150,
+                options: {
+                    chart: {
+                        width: '100%',
+                        height: 'auto'
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
                 }
-            }
-          }],
-          legend: {
+            }, {
+                breakpoint: 480,
+                options: {
+                    legend: {
+                        show: false
+                    }
+                }
+            }],
+            legend: {
                 show: true,                                
-           },
-           chart:{
-                 toolbar: {
+            },
+            chart:{
+                toolbar: {
                     show: true,
-                 },
-                 autoSelected: ''
+                },
+                autoSelected: '',
+                width: this.chartWidth,
+                height: 320
             }
         }
     }
@@ -94,11 +112,11 @@ export default {
             let url = '';						
             if(this.type === 'request_by_status'){
                 this.chartType = 'pie';
-                url = 'admin/chartRequestByStatus';
+                url = 'admin/donutChart';
             }
             else if(this.type === 'request_by_category'){
                 this.chartType = 'donut';
-                url = 'admin/chartRequestByCategory';
+                url = 'admin/donutChartRequestByCategory';
             }
             return axios.get(url,{
             	params: {
@@ -111,8 +129,9 @@ export default {
                     that.yData = response.data.data.data;
                     that.xData = response.data.data.labels.map(function(e){return that.$t('models.request.status.'+e)});
                 }
-                else if(that.type === 'request_by_category'){                    
-                    that.yData = response.data.data.date;
+                else if(that.type === 'request_by_category'){
+                    console.log('response', response);
+                    that.yData = response.data.data.data;
                     that.xData = response.data.data.labels;
                 }                
             }).catch(function (error) {
@@ -140,3 +159,12 @@ export default {
     },
 }
 </script>
+<style lang="scss">
+    .piechart {
+        max-height: 420px;
+
+        .apexcharts-canvas {
+            position: unset;
+        }
+    }
+</style>

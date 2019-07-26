@@ -25,7 +25,7 @@
                 </el-date-picker>
             </el-col>
         </el-row>    
-        <el-row style="margin-bottom: 24px;" type="flex">
+        <el-row type="flex">
             <el-col :span="24">
                 <apexchart ref="stackColumnChart" width="100%" height="310" type="bar" :options="chartOptions" :series="series"></apexchart>
             </el-col>
