@@ -326,25 +326,6 @@ HTML
         $templates = [
             [
                 'parent_id' => 4,
-                'name' => 'new_product',
-                'description' => 'Email sent to admins when tenant creates a new product',
-                'tag_map' => [
-                    'salutation' => 'user.title',
-                    'name' => 'user.name',
-                    'authorSalutation' => 'product.user.title',
-                    'authorName' => 'product.user.name',
-                    'title' => 'product.title',
-                    'type' => 'product.type',
-                ],
-                'subject' => 'New tenant product',
-                'body' => <<<HTML
-<p>Hello {{salutation}} {{name}},</p>
-<p>Tenant {{subjectSalutation}} {{subjectName}} added a new product</p>
-<p>{{title}}.</p>
-HTML
-            ],
-            [
-                'parent_id' => 4,
                 'name' => 'product_liked',
                 'description' => 'Email sent to product author when tenant liked the product in marketplace',
                 'tag_map' => [
@@ -354,12 +335,14 @@ HTML
                     'authorName' => 'product.user.name',
                     'title' => 'product.title',
                     'type' => 'product.type',
+                    'autologin' => 'product.user.autologinUrl',
                 ],
                 'subject' => '{{salutation}} {{name}} liked your post',
                 'body' => <<<HTML
 <p>Hello {{authorSalutation}} {{authorName}},</p>
 <p>Tenant {{salutation}} {{name}} liked your product:</p>
 <p>{{title}}.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the product.</p>
 HTML
             ],
             [
@@ -374,6 +357,7 @@ HTML
                     'title' => 'product.title',
                     'type' => 'product.type',
                     'comment' => 'comment.comment',
+                    'autologin' => 'product.user.autologinUrl',
                 ],
                 'subject' => '{{salutation}} {{name}} commented on your post',
                 'body' => <<<HTML
@@ -382,6 +366,7 @@ HTML
 <p><em>{{title}}</em>.</p>
 <p>Comment:</p>
 <p><em>{{comment}}</em>.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the product.</p>
 HTML
             ],
         ];
