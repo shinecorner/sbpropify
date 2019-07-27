@@ -19,7 +19,7 @@
                 </el-date-picker>
             </el-col>
         </el-row>
-        <el-row style="margin-bottom: 24px;" type="flex">
+        <el-row type="flex">
             <el-col :span="24">
                 <apexchart :type="chartType" :options="chartOptions" :series="series" />
             </el-col>
@@ -54,10 +54,10 @@ export default {
   computed:{
     chartWidth: function() {
         if (this.type === 'request_by_status') {
-            return 430;
+            return 490;
         }
         else {
-            return 480;
+            return 490;
         }
     },
     series: function(){        
@@ -67,14 +67,15 @@ export default {
         return {
             labels: this.xData,
             responsive: [{
-                breakpoint: 1150,
+                breakpoint: 1210,
                 options: {
                     chart: {
                         width: '100%',
                         height: 'auto'
                     },
                     legend: {
-                        position: 'bottom'
+                        position: 'bottom',
+                        width: undefined
                     }
                 }
             }, {
@@ -86,7 +87,8 @@ export default {
                 }
             }],
             legend: {
-                show: true,                                
+                show: true,
+                width: 170
             },
             chart:{
                 toolbar: {

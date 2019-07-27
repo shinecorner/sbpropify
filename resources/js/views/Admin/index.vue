@@ -5,7 +5,7 @@
             <el-col class="dashboard-tabpanel">
                 <el-tabs type="border-card" @tab-click="handleTabClick" v-model="activeName">
                     <el-tab-pane :label="$t('menu.requests')" name="requests">
-                        <el-row style="margin-bottom: 24px;" type="flex">
+                        <el-row type="flex">
                             <el-col :span="24">
                                 <dashboard-statistics-card :totalRequest="totalRequest" :data="reqStatusCount" :avgReqDuration="avgReqDuration"></dashboard-statistics-card>
                             </el-col>
