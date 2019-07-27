@@ -374,7 +374,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('pinned_post');
 
-        $user->redirect = '/news';
+        $user->redirect = '/news/' . $post->id;
         $context = [
             'user' => $user,
             'post' => $post,
@@ -395,7 +395,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('post_published');
 
-        $receiver->redirect = '/news';
+        $user->redirect = '/news/' . $post->id;
         $context = [
             'receiver' => $receiver,
             'post' => $post,
@@ -437,7 +437,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('post_commented');
 
-        $post->user->redirect = '/news';
+        $post->user->redirect = '/news/' . $post->id;
         $context = [
             'user' => $user,
             'post' => $post,
