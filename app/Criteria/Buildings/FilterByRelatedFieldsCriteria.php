@@ -35,6 +35,17 @@ class FilterByRelatedFieldsCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
+        $search = $this->request->get(config('repository.criteria.params.search', 'search'), null);
+        if ($search) {
+            // @TODO if building make by code that case street and street_nr not need. It is already included
+            //App\Criteria\CommonRequestCriteria see BuildingRepository $fieldSearchable property
+            $model = $model->join('loc_addresses', 'buildings.address_id', '=', 'loc_addresses.id')
+                ->orWhere('loc_addresses.city', 'like', '%' . $search . '%')
+                ->orWhere('loc_addresses.street', 'like', '%' . $search . '%')
+                ->orWhere('loc_addresses.zip', 'like', '%' . $search . '%')
+                ->orWhere('loc_addresses.street_nr', 'like', '%' . $search . '%');
+        }
+
         $state_id = $this->request->get('state_id', null);
         if ($state_id) {
             return $model->whereHas('address', function ($q) use ($state_id) {
