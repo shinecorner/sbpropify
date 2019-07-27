@@ -159,4 +159,12 @@ class Unit extends Model
     {
         return $this->hasOne(Tenant::class, 'unit_id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     **/
+    public function tenants()
+    {
+        return $this->hasMany(Tenant::class, 'unit_id', 'id');
+    }
 }
