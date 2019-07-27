@@ -838,7 +838,8 @@ class StatisticsAPIController extends AppBaseController
         }
 
         $formattedReqStatistics = [];
-        foreach($colStats as $key=>$value){
+        foreach($colStats as $key => $value){
+            $value = array_intersect_key($value, $periodValues);
             $formattedReqStatistics[] = [
                 'name' => $key,
                 'data' => array_values($value)
@@ -998,7 +999,7 @@ class StatisticsAPIController extends AppBaseController
             $part = "DATE(" . $table . ".created_at)";
             $datePeriod = CarbonPeriod::create($startDate, $endDate);
             foreach ($datePeriod as $date) {
-                $periodValues[$date->format('Y-m-d')] = $date->format('Y-m-d');
+                $periodValues[$date->format('Y-m-d')] = $date->format('d.m.Y');
             }
         }
 
