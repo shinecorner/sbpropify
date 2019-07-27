@@ -234,6 +234,14 @@ class Tenant extends Model implements HasMedia
         return $this->belongsTo(Unit::class, 'unit_id', 'id');
     }
 
+    /**
+     * @return BelongsTo
+     **/
+    public function units()
+    {
+        return $this->belongsToMany(Unit::class, 'tenant_unit');
+    }
+
     public function registerMediaCollections()
     {
         $this->addMediaCollection('documents');
