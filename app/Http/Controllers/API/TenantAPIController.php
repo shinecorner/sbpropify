@@ -120,7 +120,7 @@ class TenantAPIController extends AppBaseController
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $tenants = $this->tenantRepository->with(['user', 'building.address', 'unit'])->paginate($perPage);
+        $tenants = $this->tenantRepository->with(['user', 'building.address', 'unit', 'units'])->paginate($perPage);
 
         return $this->sendResponse($tenants->toArray(), 'Tenants retrieved successfully');
     }
