@@ -105,6 +105,9 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     Route::delete('/units/{id}', 'UnitAPIController@destroy')->name('units.destroy');
 
+    Route::post('/units/{id}/assignees/{assignee_id}', 'UnitAPIController@assignTenant');
+    Route::delete('/units/{id}/assignees/{assignee_id}', 'UnitAPIController@unassignTenant');
+
     // Real Estate
     Route::get('/realEstate', 'RealEstateAPIController@show')->name('units.show');
     Route::put('/realEstate', 'RealEstateAPIController@update')->name('units.update');
