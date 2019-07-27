@@ -34,19 +34,17 @@
                 </div>
                 <el-button-group key="buttons" v-if="isListLayout">
                     <el-button class="media-upload-trigger" icon="el-icon-plus" @click="selectFiles()">
-                        Drop files or click here to select...
+                        Drop files or click to select...
                     </el-button>
-                    <el-tooltip content="Clear upload" v-if="showClearButton">
-                        <el-button type="primary" icon="icon-eraser" @click="clearUploader()" />
-                    </el-tooltip>
                     <el-button type="primary" icon="icon-upload-cloud" @click="startUploading()" v-if="canShowUploadButton">
                         Upload
                     </el-button>
                 </el-button-group>
                 <template v-else-if="isGridLayout">
-                    <el-tooltip key="trigger" content="Drop files or click here to select...">
-                        <el-button icon="icon-plus" class="media-upload-trigger" @click="selectFiles()" />
-                    </el-tooltip>
+                    <el-button key="trigger" class="media-upload-trigger" @click="selectFiles()">
+                        <i class="icon-plus"></i>
+                        Drop files or click to select...
+                    </el-button>
                     <el-button key="upload" type="primary" icon="icon-upload-cloud" @click="startUploading()" v-if="canShowUploadButton">
                         Upload
                     </el-button>
@@ -103,11 +101,11 @@
                 type: Boolean,
                 default: false
             },
-            autoClear: {
+            autoClearUploader: {
                 type: Boolean,
                 default: false,
             },
-            hideButton: {
+            hideUploadButton: {
                 type: Boolean,
                 default: false
             },
@@ -115,7 +113,7 @@
                 type: Boolean,
                 default: false
             },
-            showMessages: {
+            showUploadMessages: {
                 type: Boolean,
                 default: false
             }
@@ -215,7 +213,7 @@
                 return this.isListLayout ? 'line' : this.isGridLayout ? 'circle' : undefined
             },
             canShowUploadButton () {
-                return !this.autoUpload && !this.hideButton
+                return !this.autoUpload && !this.hideUploadButton
             },
             isDraggableDisabled () {
                 return !this.draggable || this.value.length && this.$refs.uploader.uploaded
@@ -225,7 +223,7 @@
             }
         },
         mounted () {
-            if (this.autoUpload || this.autoClear) {
+            if (this.autoUpload || this.autoClearUploader) {
                 this.$watch(() => this.value, media => {
                     if (media.length) {
                         if (this.autoUpload) {
@@ -236,11 +234,11 @@
                             })
                         }
 
-                        if (this.autoClear) {
+                        if (this.autoClearUploader) {
                             if (this.$refs.uploader.uploaded) {
                                 this.$refs.uploader.clear()
 
-                                if (this.showMessages) {
+                                if (this.showUploadMessages) {
                                     this.$message.success('Media files have been succesfully uploaded.', {
                                         showClose: true
                                     })
@@ -464,12 +462,13 @@
                             border-width: 2px;
                             border-style: dashed;
 
-                            :global(i) {
+                            :global(span) {
+                                font-size: 12px;
                                 display: flex;
+                                flex-direction: column;
                                 align-items: center;
                                 justify-content: center;
                                 color: darken(#DCDFE6, 4%);
-                                font-size: 18px;
                                 position: absolute;
                                 top: 0;
                                 left: 0;
@@ -477,6 +476,12 @@
                                 right: 0;
                                 width: 100%;
                                 height: 100%;
+                                white-space: normal;
+                                line-height: 1.24;
+
+                                :global(i) {
+                                    font-size: 18px;
+                                }
                             }
                         }
 
