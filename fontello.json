@@ -371,6 +371,18 @@
       "css": "commerical-building",
       "code": 59430,
       "src": "maki"
+    },
+    {
+      "uid": "a151e07df1262b33b210de5d956e4cc8",
+      "css": "menu-outline",
+      "code": 59431,
+      "src": "typicons"
+    },
+    {
+      "uid": "jh3jpcb1t1bcm80gidkadilh080aq79h",
+      "css": "menu",
+      "code": 59432,
+      "src": "typicons"
     }
   ]
 }
