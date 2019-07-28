@@ -1,24 +1,19 @@
 <template>
     <div class="piechart">
-      <el-row type="flex" class="chart-filter">
-            <el-col :span="24">                
-                <el-date-picker
-                    v-model="startDate"
-                    type="date"
-                    format="dd.MM.yyyy"
-                    value-format="dd.MM.yyyy"
-                >
-                </el-date-picker>
-                <el-date-picker
-                    v-model="endDate"
-                    type="date"
-                    format="dd.MM.yyyy"
-                    value-format="dd.MM.yyyy"
-                    :picker-options="endDatePickerOptions"
-                >
-                </el-date-picker>
-            </el-col>
-        </el-row>
+        <div class="chart-filter">              
+            <el-date-picker
+                v-model="dateRange"
+                type="daterange"
+                align="right"
+                unlink-panels
+                range-separator="To"
+                start-placeholder="Start date"
+                end-placeholder="End date"
+                format="dd.MM.yyyy"
+                value-format="dd.MM.yyyy"
+                :picker-options="pickerOptions">
+            </el-date-picker>
+        </div>
         <el-row type="flex">
             <el-col :span="24">
                 <apexchart :type="chartType" :options="chartOptions" :series="series" />
@@ -42,13 +37,60 @@ export default {
   data() {
     return {        
         chartType: 'pie',
-        startDate: format(subDays(new Date(), 28), 'DD.MM.YYYY'),
-        endDate: format(new Date(), 'DD.MM.YYYY'),
-        endDatePickerOptions: {
-            disabledDate: this.disabledEndDate
-        },
+        dateRange: [subDays(new Date(), 28), new Date()],
         xData: [],
-        yData: []
+        yData: [],
+        pickerOptions: {
+            shortcuts: [{
+                text: 'Last week',
+                onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                    picker.$emit('pick', [start, end]);
+                }
+            }, {
+                text: 'Last month',
+                onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                    picker.$emit('pick', [start, end]);
+                }
+            }, {
+                text: 'Last 3 months',
+                onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                    picker.$emit('pick', [start, end]);
+                }
+            }, {
+                text: 'Last 6 months',
+                onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 183);
+                    picker.$emit('pick', [start, end]);
+                }
+            }, {
+                text: 'Last year',
+                onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
+                    picker.$emit('pick', [start, end]);
+                }
+            }, {
+                text: 'Last 2 years',
+                onClick(picker) {
+                    const end = new Date();
+                    const start = new Date();
+                    start.setTime(start.getTime() - 3600 * 1000 * 24 * 730);
+                    picker.$emit('pick', [start, end]);
+                }
+            }]
+        },
     }
   },
   computed:{
@@ -102,13 +144,6 @@ export default {
     }
   },
     methods: {
-        disabledEndDate(date){
-            var parsed_start_date = (this.startDate) ? this.startDate.split(".") : [];
-            if((parsed_start_date[0] !== undefined) && (parsed_start_date[1] !== undefined) && (parsed_start_date[0] !== undefined)){
-                    return isBefore(date, new Date(parsed_start_date[2], parsed_start_date[1] - 1, parsed_start_date[0]))
-            }
-            return false;            
-        },
         fetchData(){
             let that = this;                                               
             let url = '';						
@@ -120,11 +155,14 @@ export default {
                 this.chartType = 'donut';
                 url = 'admin/donutChartRequestByCategory';
             }
+            let params = {};
+            if (this.dateRange != null) {
+              params.start_date = this.dateRange[0],
+              params.end_date = this.dateRange[1]
+            }
+
             return axios.get(url,{
-            	params: {
-                    start_date: that.startDate,
-                    end_date: that.endDate                    
-                }
+            	params: params
             })
             .then(function (response) {
                 if(that.type === 'request_by_status'){                    
@@ -141,19 +179,9 @@ export default {
         }
     },
     watch:{
-        startDate: function (val) {
-            var parsed_end_date = (this.endDate) ? this.endDate.split(".") : [];
-            var parsed_start_date = (val) ? val.split(".") : [];
-            if((parsed_end_date[2] !== undefined) && (parsed_start_date[2] !== undefined)){        				
-                if(isAfter(new Date(parsed_start_date[2], parsed_start_date[1] - 1, parsed_start_date[0]), new Date(parsed_end_date[2], parsed_end_date[1] - 1, parsed_end_date[0]))){
-                    this.endDate = val;
-                }
-            }
+        dateRange: function(val) {
             this.fetchData();
-        },
-        endDate: function (val) {
-            this.fetchData();
-        }       
+        }     
     },
     created(){        
         this.fetchData();        

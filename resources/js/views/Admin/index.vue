@@ -257,6 +257,9 @@
         }
 
         .chart-filter {
+            display: flex;
+            align-items: center;
+
             .el-radio-button__inner {
                 padding: 8px 12px;
             }
@@ -274,6 +277,13 @@
                     justify-content: center;
                     align-items: center;
                 }
+            }
+
+            .el-range-editor {
+                width: 250px;
+                padding: 0 0 0 7px;
+                height: 32px;
+                line-height: 32px;
             }
         }
 
