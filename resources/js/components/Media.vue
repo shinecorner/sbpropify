@@ -2,11 +2,11 @@
     <div :class="['media-uploader', {[`media-${layout}-layout`]: true}]">
         <gallery :index="galleryIndex" :images="galleryImages" :options="galleryOptions" />
         <uploader ref="uploader" v-bind="$attrs" :value="value" :input-id="`upload-${$_uid}`" :headers="headers" :custom-action="customAction" @input="value => $emit('input', value)" @input-filter="onUploadFilter" />
-        <draggable class="media-draggable" ghost-class="ghost" :list="value" :animation="240" :disabled="isDraggableDisabled">
+        <draggable class="media-draggable" ghost-class="ghost" :handle="draggableHandler" :list="value" :animation="240" :disabled="isDraggableDisabled">
             <transition-group class="media-list" type="transition" tag="div" name="flip-list" mode="out-in">
                 <div :class="['media-item', {'is-draggable': draggable && value.length && !$refs.uploader.uploaded}, $refs.uploader.active && {'is-active': +file.progress && !file.success, 'is-pending': !+file.progress}, {'is-success': file.success, 'is-failed': file.error}]" v-for="(file, idx) in value" :key="file.id" :style="{'transition-delay': `calc(0.16 * ${idx}s)`}">
                     <div class="media-content">
-                        <i class="icon-ellipsis-vert media-dragger" v-if="isListLayout"></i>
+                        <div class="icon-menu media-handler" v-if="isListLayout"></div>
                         <el-image class="media-image" :src="file.file.blob" fit="cover" :alt="file.name" v-if="isFileImage(file)" @click="isListLayout ? previewFile(file, idx) : undefined" lazy v-once>
                             <div slot="error" style="color: red;">
                                 <i class="icon-file-image" />
@@ -189,7 +189,7 @@
                 this.$refs.uploader.remove(file)
             },
             canShowProgressSpeed ({success, progress}) {
-                return this.isListLayout && +progress && !success
+                return this.isListLayout && +progress && success
             }
         },
         computed: {
@@ -217,6 +217,9 @@
             },
             isDraggableDisabled () {
                 return !this.draggable || this.value.length && this.$refs.uploader.uploaded
+            },
+            draggableHandler () {
+                return this.isListLayout ? '.media-handler' : undefined
             }
         },
         mounted () {
@@ -258,14 +261,20 @@
                 .media-list {
                     .media-item {
                         padding: 8px;
+
+                        &.is-draggable .media-content .media-handler {
+                            cursor: move;
+                        }
                         
                         .media-content {
                             display: flex;
                             flex-wrap: wrap;
                             align-items: center;
 
-                            .media-dragger {
-                                font-size: 18px;
+                            .media-handler {
+                                font-size: 12px;
+                                color: darken(#fff, 40%);
+                                margin-right: 8px;
                             }
 
                             .media-icon,
@@ -371,6 +380,10 @@
                     .media-item {
                         position: relative;
                         padding-top: 100%;
+
+                        &.is-draggable .media-content {
+                            cursor: move;
+                        }
 
                         .media-content {
                             position: absolute;
@@ -516,10 +529,6 @@
                         background-color: #fef0f0;
                         border-color: darken(#fef0f0, 4%);
                         color: #f56c6c;
-                    }
-
-                    &.is-draggable .media-content {
-                        cursor: move;
                     }
 
                     .media-content {
