@@ -33,11 +33,11 @@
                             <el-col :span="24">
                                 <el-card class="chart-card">
                                 <el-tabs>
-                                    <el-tab-pane :label="$t('dashboard.each_hour_request')">
-                                        <chart-heat-map type=""></chart-heat-map>
+                                    <el-tab-pane :label="$t('dashboard.week_hour')">
+                                        <chart-heat-map type="week-hour"></chart-heat-map>
                                     </el-tab-pane>
-                                    <el-tab-pane :label="$t('dashboard.each_hour_request')">
-                                        <chart-heat-map type=""></chart-heat-map>
+                                    <el-tab-pane :label="$t('dashboard.month_date')">
+                                        <chart-heat-map type="month-date"></chart-heat-map>
                                     </el-tab-pane>
                                 </el-tabs>
                                 </el-card>

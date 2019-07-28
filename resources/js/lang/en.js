@@ -116,7 +116,9 @@ export default {
         requests_by_status: 'Requests by status',
         requests_by_category: 'Requests by category',
         each_hour_request: 'Each hour requests',
-        average_request_duration: 'Resolution time'
+        average_request_duration: 'Resolution time',
+        week_hour: 'Week vs. Hour',
+        month_date: 'Month vs. Date'
     },
     pages: {
         profile: {

@@ -132,7 +132,6 @@ export default {
                     that.xData = response.data.data.labels.map(function(e){return that.$t('models.request.status.'+e)});
                 }
                 else if(that.type === 'request_by_category'){
-                    console.log('response', response);
                     that.yData = response.data.data.data;
                     that.xData = response.data.data.labels;
                 }                
