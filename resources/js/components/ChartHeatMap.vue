@@ -23,6 +23,20 @@ export default {
     computed: {
       chartOptions: function() {
         return {
+          chart: {
+            toolbar: {
+              show: true,
+              tools: {
+                download: true,
+                selection: true,
+                zoom: false,
+                zoomin: false,
+                zoomout: false,
+                pan: false,
+                reset: false            
+              },
+            },  
+          },
           dataLabels: {
             enabled: false
           },
@@ -69,16 +83,6 @@ export default {
             }
             //console.log(data);
             that.series = data;
-            /*if(that.type === 'request_by_status'){                    
-                that.yData = response.data.data.data;
-                that.xData = response.data.data.labels.map(function(e){return that.$t('models.request.status.'+e)});
-            }
-            else if(that.type === 'request_by_category'){
-                console.log('response', response);
-                that.yData = response.data.data.data;
-                that.xData = response.data.data.labels;
-            }*/
-            console.log('reponse', response);
         }).catch(function (error) {
             console.log(error);
         })

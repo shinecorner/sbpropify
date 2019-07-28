@@ -31,7 +31,7 @@
                         </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="24">
-                                <el-card class="chart-card">
+                                <el-card class="chart-card no-filter">
                                 <el-tabs>
                                     <el-tab-pane :label="$t('dashboard.week_hour')">
                                         <chart-heat-map type="week-hour"></chart-heat-map>
@@ -47,7 +47,7 @@
                     <el-tab-pane :label="$t('menu.buildings')" name="buildings">
                         <el-row type="flex">
                             <el-col :span="24">
-                                <dashboard-statistics-card :totalRequest="totalRequest" :data="reqStatusCount" :avgReqDuration="avgReqDuration"></dashboard-statistics-card>
+                                <buildings-statistics-card :totalRequest="totalRequest" :data="reqStatusCount"></buildings-statistics-card>
                             </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
@@ -85,6 +85,8 @@
     import ProgressStatisticsCard from 'components/ProgressStatisticsCard.vue';
     import CircularProgressStatisticsCard from 'components/CircularProgressStatisticsCard.vue';
 
+    import BuildingsStatisticsCard from 'components/BuildingsStatisticsCard';
+
     export default {
         name: 'AdminDashboard',
         components: {
@@ -95,7 +97,8 @@
             CircularProgressStatisticsCard,
             ChartStackedColumn,
             ChartPieAndDonut,
-            ChartHeatMap
+            ChartHeatMap,
+            BuildingsStatisticsCard
         },
         data() {
             return {
@@ -151,7 +154,7 @@
 
                 return axios.get('admin/statistics')
                 .then(function (response) {
-
+                    console.log(response);
                     that.reqStatusCount = response.data.data.requests_per_status;
 
                     that.totalRequest = response.data.data.total_requests;
@@ -174,6 +177,7 @@
         },
         created(){
             this.getReqStatastics();
+            
         },
 
     }
@@ -303,15 +307,28 @@
             margin-right: 7px;
         }
 
+        &.no-filter {
+            .apexcharts-toolbar {
+                margin-top: -38px;
+            }
+        }
+
         .apexcharts-legend.center.position-bottom {
             padding-top: 10px;
         }
 
         .el-tabs {
-            .el-tabs__nav {
-                margin: 0;
-                padding: 6px 0;
-                margin-left: 15px;
+            .el-tabs__header {
+                margin-bottom: 0;
+                .el-tabs__nav {
+                    margin: 0;
+                    padding: 6px 0;
+                    margin-left: 15px;
+                }
+            }
+
+            .el-tabs__content {
+                overflow: visible;
             }
         }
     }
