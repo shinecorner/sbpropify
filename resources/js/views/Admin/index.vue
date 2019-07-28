@@ -30,8 +30,9 @@
                             </el-col>
                         </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
-                            <el-col :span="12">
-                                <el-tabs class="chart-card" type="border-card">
+                            <el-col :span="24">
+                                <el-card class="chart-card">
+                                <el-tabs>
                                     <el-tab-pane :label="$t('dashboard.each_hour_request')">
                                         <chart-heat-map type=""></chart-heat-map>
                                     </el-tab-pane>
@@ -39,6 +40,7 @@
                                         <chart-heat-map type=""></chart-heat-map>
                                     </el-tab-pane>
                                 </el-tabs>
+                                </el-card>
                             </el-col>
                         </el-row>
                     </el-tab-pane>
@@ -282,6 +284,14 @@
 
         .apexcharts-legend.center.position-bottom {
             padding-top: 10px;
+        }
+
+        .el-tabs {
+            .el-tabs__nav {
+                margin: 0;
+                padding: 6px 0;
+                margin-left: 15px;
+            }
         }
     }
 }

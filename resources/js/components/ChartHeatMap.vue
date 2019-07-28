@@ -1,6 +1,6 @@
 <template>
     <div>
-      <apexchart type=heatmap width=400 :options="chartOptions" :series="series" />
+      <apexchart type=heatmap height="310" :options="chartOptions" :series="series" />
     </div>
 </template>
 <script>
@@ -9,14 +9,7 @@ import VueApexCharts from 'vue-apexcharts'
 export default {
     components: {'apexchart': VueApexCharts},
     props: {
-            xData: {
-                type: Array,
-                required: true
-            },
-            yData: {
-                type: Array,
-                required: true
-            }
+      
     },  
     data() {
         return {
