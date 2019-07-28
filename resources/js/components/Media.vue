@@ -2,7 +2,7 @@
     <div :class="['media-uploader', {[`media-${layout}-layout`]: true}]">
         <gallery :index="galleryIndex" :images="galleryImages" :options="galleryOptions" />
         <uploader ref="uploader" v-bind="$attrs" :value="value" :input-id="`upload-${$_uid}`" :headers="headers" :custom-action="customAction" @input="value => $emit('input', value)" @input-filter="onUploadFilter" />
-        <draggable class="media-draggable" ghost-class="ghost" :handle="draggableHandler" :list="value" :animation="240" :disabled="isDraggableDisabled">
+        <draggable class="media-draggable" ghost-class="is-ghost" :handle="draggableHandler" :list="value" :animation="240" :disabled="isDraggableDisabled">
             <transition-group class="media-list" type="transition" tag="div" name="flip-list" mode="out-in">
                 <div :class="['media-item', {'is-draggable': draggable && value.length && !$refs.uploader.uploaded}, $refs.uploader.active && {'is-active': +file.progress && !file.success, 'is-pending': !+file.progress}, {'is-success': file.success, 'is-failed': file.error}]" v-for="(file, idx) in value" :key="file.id" :style="{'transition-delay': `calc(0.16 * ${idx}s)`}">
                     <div class="media-content">
@@ -508,11 +508,21 @@
         .media-draggable {
             .media-list {
                 .media-item {
-                    border: 1px darken(#fff, 6%) solid;
+                    border-color: darken(#fff, 6%);
                     border-radius: 6px; 
                     transition-property: color, background-color, filter;
                     transition-duration: .24s;
                     filter: opacity(1);
+
+                    &:not(.is-ghost) {
+                        border-width: 1px;
+                        border-style: solid;
+                    }
+
+                    &.is-ghost {
+                        border-width: 2px;
+                        border-style: dashed;
+                    }
 
                     &.is-pending {
                         filter: opacity(.16);
