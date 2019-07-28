@@ -31,12 +31,14 @@
                         </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="12">
-                                <el-card class="chart-card" :header="$t('dashboard.each_hour_request')">
-                                    <chart-heat-map
-                                        :xData="chartDataReqByHour.xData"
-                                        :yData="chartDataReqByHour.yData">
-                                    </chart-heat-map>
-                                </el-card>
+                                <el-tabs class="chart-card" type="border-card">
+                                    <el-tab-pane :label="$t('dashboard.each_hour_request')">
+                                        <chart-heat-map type=""></chart-heat-map>
+                                    </el-tab-pane>
+                                    <el-tab-pane :label="$t('dashboard.each_hour_request')">
+                                        <chart-heat-map type=""></chart-heat-map>
+                                    </el-tab-pane>
+                                </el-tabs>
                             </el-col>
                         </el-row>
                     </el-tab-pane>
@@ -292,14 +294,6 @@
     padding: .5rem 14px;
 }
 
-/*.dashboard .piechart .apexcharts-menu-icon{
-    margin-top: -170px;
-    margin-right: -20px;
-}
-.dashboard .piechart .apexcharts-menu.open{
-    margin-top: -79px;
-    margin-right: -20px;
-}*/
 .dashboard .box-card-count{
     .el-card__body{
         height: 100%;
