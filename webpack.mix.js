@@ -1,6 +1,7 @@
 // DO NOT FORGET TO DO -> NPM INSTALL AGAIN (older version of laravel-mix)
 const mix = require('laravel-mix');
-
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+ 
 /*
 |--------------------------------------------------------------------------
 | Mix Asset Management
@@ -23,7 +24,30 @@ mix
         'resources/css/fontello.css'
     ], 'public/css/app.css')
     .js('resources/js/app.js', 'public/js')
-    .extract(['vue', 'vue-router', 'element-ui'])
+    .extract([
+        'vue',
+        'axios',
+        'date-fns',
+        'vue-axios',
+        'vue-router',
+        'vuedraggable',
+        'vue-upload-component',
+        'vue-quill-editor',
+        'vue-apexcharts',
+        'lodash',
+        'query-string',
+        'vue-i18n',
+        'vue-sweetalert2',
+        'vuex',
+        'p-queue',
+        'vue-responsive-components',
+        'vue-virtual-scroller',
+        'element-ui',
+        'vue-read-more',
+        'vue-croppie',
+        'vue-debounce',
+        'vue-uid'
+    ])
     .disableNotifications()
     .webpackConfig({
         devtool: 'inline-source-map',
@@ -32,6 +56,9 @@ mix
             chunkFilename: 'js/[name].js',
         },
         plugins: [
+            new BundleAnalyzerPlugin({
+                openAnalyzer: false
+            })
         ],
         resolve: {
             alias: {
