@@ -1,13 +1,13 @@
 <template>
     <div :class="['media-uploader', {[`media-${layout}-layout`]: true}]">
         <gallery :index="galleryIndex" :images="galleryImages" :options="galleryOptions" />
-        <uploader ref="uploader" v-bind="$attrs" :value="value" :input-id="`upload-${$_uid}`" :headers="headers" :custom-action="customAction" @input="value => $emit('input', value)" @input-filter="onUploadFilter" />
+        <uploader ref="uploader" v-bind="uploadOptions" :value="value" :input-id="`upload-${$_uid}`" :headers="headers" :custom-action="customAction" @input="value => $emit('input', value)" @input-filter="onUploadFilter" />
         <draggable class="media-draggable" ghost-class="is-ghost" :handle="draggableHandler" :list="value" :animation="240" :disabled="isDraggableDisabled">
             <transition-group class="media-list" type="transition" tag="div" name="flip-list" mode="out-in">
-                <div :class="['media-item', {'is-draggable': draggable && value.length && !$refs.uploader.uploaded}, $refs.uploader.active && {'is-active': +file.progress && !file.success, 'is-pending': !+file.progress}, {'is-success': file.success, 'is-failed': file.error}]" v-for="(file, idx) in value" :key="file.id" :style="{'transition-delay': `calc(0.16 * ${idx}s)`}">
+                <div :class="['media-item', {'is-draggable': uploadOptions.draggable && value.length && !$refs.uploader.uploaded}, $refs.uploader.active && {'is-active': +file.progress && !file.success, 'is-pending': !+file.progress}, {'is-success': file.success, 'is-failed': file.error}]" v-for="(file, idx) in value" :key="file.id" :style="{'transition-delay': `calc(0.16 * ${idx}s)`}">
                     <div class="media-content">
-                        <div class="icon-menu media-handler" v-if="isListLayout"></div>
-                        <el-image class="media-image" :src="file.file.blob" fit="cover" :alt="file.name" v-if="isFileImage(file)" @click="isListLayout ? previewFile(file, idx) : undefined" lazy v-once>
+                        <div class="icon-menu media-draggable-handler" v-if="canShowListDraggableHandler"></div>
+                        <el-image class="media-image" :src="file.file.blob" fit="cover" :alt="file.name" v-if="isFileImage(file)" @click="isListLayout ? previewFile(file, idx) : undefined" v-once>
                             <div slot="error" style="color: red;">
                                 <i class="icon-file-image" />
                             </div>
@@ -52,11 +52,9 @@
             </transition-group>
         </draggable>
         <div v-if="$refs.uploader && $refs.uploader.dropActive" class="media-drop-active">
-            <slot name="drop-active">
-                <i class="el-icon-upload"></i>
-                Drop your files here
-                <small>Only the files with the following <b></b> extensions are allowed.</small>
-            </slot>
+            <i class="icon-upload-cloud"></i>
+            Drop your files here
+            <small>Only the files with the following <b></b> extensions are allowed.</small>
         </div>
     </div>
 </template>
@@ -85,37 +83,18 @@
                 default: 'grid',
                 validator: layout => ['grid', 'list'].includes(layout)
             },
-            loading: {
-                type: Boolean,
-                default: false
-            },
-            draggable: {
-                type: Boolean,
-                default: true
-            },
             galleryOptions: {
                 type: Object,
                 default: () => ({})
             },
-            autoUpload: {
-                type: Boolean,
-                default: false
-            },
-            autoClearUploader: {
-                type: Boolean,
-                default: false,
-            },
-            hideUploadButton: {
-                type: Boolean,
-                default: false
-            },
-            showClearButton: {
-                type: Boolean,
-                default: false
-            },
-            showUploadMessages: {
-                type: Boolean,
-                default: false
+            uploadOptions: {
+                type: Object,
+                default: () => ({
+                    auto: false,
+                    clear: false,
+                    draggable: true,
+                    hideButton: false
+                })
             }
         },
         components: {
@@ -213,20 +192,23 @@
                 return this.isListLayout ? 'line' : this.isGridLayout ? 'circle' : undefined
             },
             canShowUploadButton () {
-                return !this.autoUpload && !this.hideUploadButton
+                return !this.uploadOptions.auto && !this.uploadOptions.hideButton
             },
             isDraggableDisabled () {
-                return !this.draggable || this.value.length && this.$refs.uploader.uploaded
+                return !this.uploadOptions.draggable || this.value.length && this.$refs.uploader.uploaded
             },
             draggableHandler () {
-                return this.isListLayout ? '.media-handler' : undefined
+                return this.isListLayout ? '.media-draggable-handler' : undefined
+            },
+            canShowListDraggableHandler () {
+                return this.isListLayout && this.uploadOptions.draggable
             }
         },
         mounted () {
-            if (this.autoUpload || this.autoClearUploader) {
+            if (this.uploadOptions.auto || this.uploadOptions.clear) {
                 this.$watch(() => this.value, media => {
                     if (media.length) {
-                        if (this.autoUpload) {
+                        if (this.uploadOptions.auto) {
                             this.$refs.uploader.active = true
 
                             this.$message.success('Uploading...', {
@@ -234,15 +216,13 @@
                             })
                         }
 
-                        if (this.autoClearUploader) {
+                        if (this.uploadOptions.clear) {
                             if (this.$refs.uploader.uploaded) {
                                 this.$refs.uploader.clear()
 
-                                if (this.showUploadMessages) {
-                                    this.$message.success('Media files have been succesfully uploaded.', {
-                                        showClose: true
-                                    })
-                                }
+                                this.$message.success('Media files have been succesfully uploaded.', {
+                                    showClose: true
+                                })
                             }
                         }
                     }
@@ -262,7 +242,11 @@
                     .media-item {
                         padding: 8px;
 
-                        &.is-draggable .media-content .media-handler {
+                        &.is-failed .media-content {
+                            .media-draggable-handler {}
+                        }
+
+                        &.is-draggable .media-content .media-draggable-handler {
                             cursor: move;
                         }
                         
@@ -271,9 +255,9 @@
                             flex-wrap: wrap;
                             align-items: center;
 
-                            .media-handler {
+                            .media-draggable-handler {
                                 font-size: 12px;
-                                color: darken(#fff, 40%);
+                                color: darken(#DCDFE6, 4%);
                                 margin-right: 8px;
                             }
 
@@ -395,8 +379,6 @@
                             height: 100%;
                             cursor: pointer;
                             box-sizing: border-box;
-                            border: 1px darken(#fff, 12%) solid;
-                            box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
                             overflow: hidden;
                             display: flex;
                             flex-direction: column;
@@ -508,20 +490,18 @@
         .media-draggable {
             .media-list {
                 .media-item {
-                    border-color: darken(#fff, 6%);
                     border-radius: 6px; 
+                    box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
                     transition-property: color, background-color, filter;
                     transition-duration: .24s;
                     filter: opacity(1);
 
                     &:not(.is-ghost) {
-                        border-width: 1px;
-                        border-style: solid;
+                        border: 1px lighten(#DCDFE6, 6%) solid;
                     }
 
                     &.is-ghost {
-                        border-width: 2px;
-                        border-style: dashed;
+                        border: 2px #DCDFE6 dashed;
                     }
 
                     &.is-pending {
@@ -542,6 +522,12 @@
                     }
 
                     .media-content {
+                        .media-image {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
                         .media-filename {
                             overflow: hidden;
                             text-overflow: ellipsis;
@@ -549,7 +535,7 @@
 
                             .media-filesize {
                                 font-size: 10px;
-                                color: darken(#fff, 24%);
+                                color: darken(#DCDFE6, 4%);
                                 display: block;
                             }
                         }
@@ -586,7 +572,7 @@
 
             small {
                 font-size: 56%;
-                color: darken(#fff, 48%);
+                color: darken(#DCDFE6, 48%);
             }
         }
     }
