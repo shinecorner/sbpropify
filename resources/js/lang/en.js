@@ -118,7 +118,14 @@ export default {
         each_hour_request: 'Each hour requests',
         average_request_duration: 'Resolution time',
         week_hour: 'Week vs. Hour',
-        month_date: 'Month vs. Date'
+        month_date: 'Month vs. Date',
+        buildings: {
+            total_building: 'Total Count',
+            total_units: 'Total Units',
+            occupied_units: 'Occupied Units',
+            free_units: 'Free Units',
+            buildings_by_creation_date: 'Buildings by creation date'
+        }
     },
     pages: {
         profile: {

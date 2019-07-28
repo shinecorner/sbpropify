@@ -47,13 +47,13 @@
                     <el-tab-pane :label="$t('menu.buildings')" name="buildings">
                         <el-row type="flex">
                             <el-col :span="24">
-                                <buildings-statistics-card :totalRequest="totalRequest" :data="reqStatusCount"></buildings-statistics-card>
+                                <buildings-statistics-card :data="buildingStatistics"></buildings-statistics-card>
                             </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
-                                <el-card class="chart-card" :header="$t('dashboard.requests_by_creation_date')">
-                                    <chart-stacked-column type="request_by_creation_date"></chart-stacked-column>
+                                <el-card class="chart-card" :header="$t('dashboard.buildings.buildings_by_creation_date')">
+                                    <chart-column type="buildings_by_creation_date"></chart-column>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -86,6 +86,7 @@
     import CircularProgressStatisticsCard from 'components/CircularProgressStatisticsCard.vue';
 
     import BuildingsStatisticsCard from 'components/BuildingsStatisticsCard';
+    import ChartColumn from 'components/ChartColumn';
 
     export default {
         name: 'AdminDashboard',
@@ -98,7 +99,8 @@
             ChartStackedColumn,
             ChartPieAndDonut,
             ChartHeatMap,
-            BuildingsStatisticsCard
+            BuildingsStatisticsCard,
+            ChartColumn
         },
         data() {
             return {
@@ -110,6 +112,7 @@
                 },
                 chartOptionsTotalReqByCreationDate: {},
                 reqStatusCount: {},
+                buildingStatistics: {},
                 statistics: [{
                     icon: 'ti-shopping-cart',
                     color: '#f06292',
@@ -154,11 +157,12 @@
 
                 return axios.get('admin/statistics')
                 .then(function (response) {
-                    console.log(response);
                     that.reqStatusCount = response.data.data.requests_per_status;
 
                     that.totalRequest = response.data.data.total_requests;
-                    that.avgReqDuration = response.data.data.avg_request_duration;                    
+                    that.avgReqDuration = response.data.data.avg_request_duration;
+
+                    that.buildingStatistics = response.data.data.buildings_per_status.original.data;
                 }).catch(function (error) {
                     console.log(error);
                 })
@@ -177,7 +181,6 @@
         },
         created(){
             this.getReqStatastics();
-            
         },
 
     }
