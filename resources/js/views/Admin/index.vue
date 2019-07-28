@@ -45,7 +45,18 @@
                         </el-row>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.buildings')" name="buildings">
-                        {{'Second Tab'}}
+                        <el-row type="flex">
+                            <el-col :span="24">
+                                <dashboard-statistics-card :totalRequest="totalRequest" :data="reqStatusCount" :avgReqDuration="avgReqDuration"></dashboard-statistics-card>
+                            </el-col>
+                        </el-row>
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="24">
+                                <el-card class="chart-card" :header="$t('dashboard.requests_by_creation_date')">
+                                    <chart-stacked-column type="request_by_creation_date"></chart-stacked-column>
+                                </el-card>
+                            </el-col>
+                        </el-row>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.news')" name="news">
                         {{'Content Third tab'}}
