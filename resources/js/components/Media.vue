@@ -1,7 +1,7 @@
 <template>
     <div :class="['media-uploader', {[`media-${layout}-layout`]: true}]">
         <gallery :index="galleryIndex" :images="galleryImages" :options="galleryOptions" />
-        <uploader ref="uploader" :value="value" v-bind="$attrs" :input-id="`upload-${$_uid}`" :headers="headers" :custom-action="customAction" @input="value => $emit('input', value)" @input-filter="onUploadFilter" />
+        <uploader ref="uploader" v-bind="$attrs" :value="value" :input-id="`upload-${$_uid}`" :headers="headers" :custom-action="customAction" @input="value => $emit('input', value)" @input-filter="onUploadFilter" />
         <draggable class="media-draggable" ghost-class="ghost" :list="value" :animation="240" :disabled="isDraggableDisabled">
             <transition-group class="media-list" type="transition" tag="div" name="flip-list" mode="out-in">
                 <div :class="['media-item', {'is-draggable': draggable && value.length && !$refs.uploader.uploaded}, $refs.uploader.active && {'is-active': +file.progress && !file.success, 'is-pending': !+file.progress}, {'is-success': file.success, 'is-failed': file.error}]" v-for="(file, idx) in value" :key="file.id" :style="{'transition-delay': `calc(0.16 * ${idx}s)`}">
@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <el-button-group key="buttons" v-if="isListLayout">
-                    <el-button class="media-upload-trigger" icon="el-icon-plus" @click="selectFiles()">
+                    <el-button class="media-upload-trigger" icon="icon-plus" @click="selectFiles()">
                         Drop files or click to select...
                     </el-button>
                     <el-button type="primary" icon="icon-upload-cloud" @click="startUploading()" v-if="canShowUploadButton">
@@ -51,7 +51,7 @@
                 </template>
             </transition-group>
         </draggable>
-        <div v-show="isDropActive" class="drop-active">
+        <div v-if="$refs.uploader && $refs.uploader.dropActive" class="media-drop-active">
             <slot name="drop-active">
                 <i class="el-icon-upload"></i>
                 Drop your files here
@@ -189,7 +189,7 @@
                 this.$refs.uploader.remove(file)
             },
             canShowProgressSpeed ({success, progress}) {
-                return this.isListLayout && +progress && success
+                return this.isListLayout && +progress && !success
             }
         },
         computed: {
@@ -217,9 +217,6 @@
             },
             isDraggableDisabled () {
                 return !this.draggable || this.value.length && this.$refs.uploader.uploaded
-            },
-            isDropActive () {
-                return this.$refs.upload && this.$refs.upload.dropActive
             }
         },
         mounted () {
@@ -348,6 +345,7 @@
                                 flex: 1;
                                 border-width: 2px;
                                 border-style: dashed;
+                                color: darken(#DCDFE6, 6%);
                             }
 
                             &:nth-child(2) {
@@ -468,7 +466,7 @@
                                 flex-direction: column;
                                 align-items: center;
                                 justify-content: center;
-                                color: darken(#DCDFE6, 4%);
+                                color: darken(#DCDFE6, 6%);
                                 position: absolute;
                                 top: 0;
                                 left: 0;
@@ -538,6 +536,38 @@
                         }
                     }
                 }
+            }
+        }
+
+        .media-drop-active {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 12px;
+            z-index: 9;
+            background-color: transparentize(#fff, .08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: lighten(#000, 28%);
+            font-size: 22px;
+            line-height: 1.24;
+            border: 2px #6AC06F dashed;
+            box-sizing: border-box;
+            text-align: center;
+
+            i {
+                color: #6AC06F;
+                font-size: 56px;
+                margin: 4px;
+            }
+
+            small {
+                font-size: 56%;
+                color: darken(#fff, 48%);
             }
         }
     }
