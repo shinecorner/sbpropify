@@ -373,6 +373,9 @@
         .apexcharts-toolbar {
             margin-top: -88px;
             margin-right: 7px;
+            .apexcharts-menu.open {
+                right: 7px;
+            }
         }
 
         &.no-filter {
