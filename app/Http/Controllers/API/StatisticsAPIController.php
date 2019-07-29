@@ -77,7 +77,12 @@ class StatisticsAPIController extends AppBaseController
         'tenants' => [
             'class' => Tenant::class,
             'columns' => [
-                'status'
+                'status',
+                'title' => [
+                    'mr' => 'mr',
+                    'mrs' => 'mrs',
+                    'company' => 'company',
+                ],
             ]
         ],
         'products' => [
@@ -1111,13 +1116,22 @@ class StatisticsAPIController extends AppBaseController
         $table = $optionalArgs['table'] ?? null;
         $table = $table ?? $request->{self::QUERY_PARAMS['table']};
         $table = key_exists($table, $permissions) ? $table : Arr::first(array_keys($permissions));
+        $class = $permissions[$table]['class'];
 
-        $permittedColumns = $permissions[$table]['columns'];
+        $permittedColumns = [];
+        foreach ($permissions[$table]['columns'] as $column => $columnValues) {
+            if (is_numeric($column)) {
+                $column = $columnValues;
+                $columnValues = constant($class . "::" . ucfirst($column));
+            }
+            $permittedColumns[$column] = $columnValues;
+        }
+
+        $_permittedColumns = array_keys($permittedColumns);
         $column = $optionalArgs['column'] ?? null;
         $column = $column ?? $request->{self::QUERY_PARAMS['column']};
-        $column = in_array($column, $permittedColumns) ? $column : Arr::first($permittedColumns);
-        $class = $permissions[$table]['class'];
-        $columnValues = constant($class . "::" . ucfirst($column));
+        $column = in_array($column, $_permittedColumns) ? $column : Arr::first($_permittedColumns);
+        $columnValues = $permittedColumns[$column];
 
         return [$class, $table, $column, $columnValues];
     }
