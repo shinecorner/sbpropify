@@ -114,6 +114,14 @@ export default {
                 this.chartType = 'donut';
                 url = 'admin/donutChart?table=products&column=type';
             }
+            else if (this.type === 'tenants_by_request_status') {
+                this.chartType = 'donut';
+                url = 'admin/donutChartTenantsByDateAndStatus';
+            }
+            else if (this.type === 'tenants_by_status') {
+                this.chartType = 'donut';
+                url = 'admin/donutChart?table=tenants&column=status';
+            }
             let params = {};
             if (this.dateRange != null) {
               params.start_date = this.dateRange[0],
@@ -140,6 +148,12 @@ export default {
                 else if (that.type === 'products_by_type') {
                     that.xData = response.data.data.labels.map(label => that.$t('models.product.type.' + label));
                 }
+                else if (that.type === 'tenants_by_request_status') {
+                    that.xData = response.data.data.labels.map(function(e){return that.$t('models.request.status.'+e)});
+                }
+                else if (that.type === 'tenants_by_status') {
+                    that.xData = response.data.data.labels.map(label => that.$t('models.tenant.status.' + label));
+                }
             }).catch(function (error) {
                 console.log(error);
             })
@@ -160,6 +174,12 @@ export default {
 
         .apexcharts-canvas {
             position: unset;
+        }
+
+        .apexcharts-legend {
+            display: flex;
+            flex-direction: column;
+            justify-content: center !important;
         }
     }
 </style>

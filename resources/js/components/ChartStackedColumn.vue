@@ -95,6 +95,8 @@ export default {
                       return this.$t('models.post.status.' + realValue);
                     case 'products_by_creation_date':
                       return this.$t('models.product.status.' + realValue);
+                    case 'tenants_by_creation_date':
+                      return this.$t('models.tenant.status.' + realValue);
                   }
                 }
                 return realValue;
@@ -121,6 +123,9 @@ export default {
         }
         else if (this.type === 'products_by_creation_date') {
           url = 'admin/chartByCreationDate?table=products';
+        }
+        else if (this.type === 'tenants_by_creation_date') {
+          url = 'admin/chartByCreationDate?table=tenants';
         }
         let params = {
           period: that.period
