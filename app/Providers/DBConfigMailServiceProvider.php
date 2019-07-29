@@ -8,6 +8,9 @@ use App\Models\RealEstate;
 class DBConfigMailServiceProvider extends MailServiceProvider{
 
     protected function registerSwiftTransport(){
+        if ('cli' == php_sapi_name()) {
+            return;
+        }
         $re = RealEstate::first();
 
         if ($re) {
