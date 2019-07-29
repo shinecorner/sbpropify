@@ -119,13 +119,16 @@ export default {
         average_request_duration: 'Resolution time',
         week_hour: 'Week vs. Hour',
         month_date: 'Month vs. Date',
+        news_by_creation_date: 'News by creation date',
+        news_by_status: 'News by status',
+        news_by_type: 'News by type',
         buildings: {
             total_building: 'Total Count',
             total_units: 'Total Units',
             occupied_units: 'Occupied Units',
             free_units: 'Free Units',
             buildings_by_creation_date: 'Buildings by creation date'
-        }
+        },
     },
     pages: {
         profile: {

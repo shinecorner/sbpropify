@@ -59,7 +59,25 @@
                         </el-row>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.news')" name="news">
-                        {{'Content Third tab'}}
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="24">
+                                <el-card class="chart-card" :header="$t('dashboard.news_by_creation_date')">
+                                    <chart-stacked-column type="news_by_creation_date"></chart-stacked-column>
+                                </el-card>
+                            </el-col>
+                         </el-row>
+                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="$t('dashboard.news_by_status')">
+                                    <chart-pie-and-donut type="news_by_status"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="$t('dashboard.news_by_type')">
+                                    <chart-pie-and-donut type="news_by_type"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                        </el-row>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.marketplace')" name="marketplace">
                         {{'Fourth Tab'}}
