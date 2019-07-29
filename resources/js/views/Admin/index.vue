@@ -330,6 +330,10 @@
                     margin: 0;
                     padding: 6px 0;
                     margin-left: 15px;
+
+                    .el-tabs__item {
+                        font-size: 16px;
+                    }
                 }
             }
 
