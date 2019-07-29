@@ -704,6 +704,32 @@ class StatisticsAPIController extends AppBaseController
      */
     public function heatMapByDatePeriod(Request $request)
     {
+        $colStats = $this->getStatisticForHeatMap($request);
+        $response = [];
+        foreach ($colStats as $yAxis => $xAxisData) {
+            $format = [];
+            foreach ($xAxisData as $xAxis => $count) {
+                $format[] = [
+                    'x' => $xAxis,
+                    'y' => $count
+                ];
+            }
+
+            $response[] = [
+                'name' => $yAxis,
+                'data' => $format
+            ];
+        }
+
+        return $this->sendResponse($response, 'Request services statistics formatted successfully');
+    }
+
+    /**
+     * @param $request
+     * @return array
+     */
+    protected function getStatisticForHeatMap($request)
+    {
         $date = $request->{self::QUERY_PARAMS['date']} ?? '';
         $date = Carbon::parse($date);
         $period =  $request->{self::QUERY_PARAMS['period']} ?? '';
@@ -724,27 +750,53 @@ class StatisticsAPIController extends AppBaseController
             $endDate->setMonth(12);
             $raw = "CONCAT(DAY(created_at), ' ', MONTH(created_at))";
         }
-
         $statistics = ServiceRequest::selectRaw($raw . " AS `interval`, COUNT(id) AS `count`")
             ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
             ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
             ->groupBy('interval')->get();
 
         if (self::WEEK == $period) {
-            $hours = array_combine(range(1, 24), range(1, 24));
-        } else {
-            $hours = array_combine(range(1, 12), range(1, 12));
+            return $this->getStatisticForHeatMapForWeek($statistics, $startDate, $endDate);
+        }
+        return $this->getStatisticForHeatMapForYear($statistics);
+    }
+
+    /**
+     * @param $statistics
+     * @param $startDate
+     * @param $endDate
+     * @return array
+     */
+    protected function getStatisticForHeatMapForWeek($statistics, $startDate, $endDate)
+    {
+        $hours = array_combine(range(1, 24), range(1, 24));
+        $datePeriod = CarbonPeriod::create($startDate, $endDate);
+        $intervalValues = [];
+
+        foreach ($datePeriod as $date) {
+            $intervalValues[$date->format('Y-m-d')] = $date->format('l');
+        }
+        $colStats = $this->initializeServiceRequestCategoriesForChart($intervalValues, $hours);
+
+        foreach ($statistics as $statistic) {
+            $parts = explode(' ', $statistic['interval']);
+            $day = $parts[0];
+            $y = $parts[1];
+            $x = $intervalValues[$day];
+            $colStats[$x][$y] = $statistic['count'];
         }
 
-        if (self::WEEK == $period) {
-            $datePeriod = CarbonPeriod::create($startDate, $endDate);
-            $intervalValues = [];
-            foreach ($datePeriod as $date) {
-                $intervalValues[$date->format('Y-m-d')] = $date->format('l');
-            }
-        } else {
-            $intervalValues = array_combine(range(1, 31), range(1, 31));
-        }
+        return $colStats;
+    }
+
+    /**
+     * @param $statistics
+     * @return array
+     */
+    protected function getStatisticForHeatMapForYear($statistics)
+    {
+        $hours = array_combine(range(1, 12), range(1, 12));
+        $intervalValues = array_combine(range(1, 31), range(1, 31));
 
         $colStats = $this->initializeServiceRequestCategoriesForChart($hours, array_flip($intervalValues));
         foreach ($statistics as $statistic) {
@@ -755,23 +807,7 @@ class StatisticsAPIController extends AppBaseController
             $colStats[$y][$x] = $statistic['count'];
         }
 
-        $response = [];
-        foreach ($colStats as $yAxis => $xAxisData) {
-            $format = [];
-            foreach ($xAxisData as $xAxis => $count) {
-                $format[] = [
-                    'x' => $xAxis,
-                    'y' => $count
-                ];
-            }
-
-            $response[] = [
-                'name' => $yAxis,
-                'data' => $format
-            ];
-        }
-
-        return $this->sendResponse($response, 'Request services statistics formatted successfully');
+        return $colStats;
     }
 
     /**
