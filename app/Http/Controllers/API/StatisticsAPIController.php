@@ -215,7 +215,6 @@ class StatisticsAPIController extends AppBaseController
     {
         $tenantCount = $this->tenantRepo->count();
         $unitCount = $this->unitRepo->count();
-        $buildingCount = $this->buildingRepo->count();
 
         $occupiedUnits = 0;
         $freeUnit = 0;
@@ -228,7 +227,6 @@ class StatisticsAPIController extends AppBaseController
          * @TODO adjust response for frontend
          */
         $response = [
-            'total_building' => $buildingCount,
             'total_tenants' => $tenantCount,
             'total_units' => $unitCount,
 //            'occupied_units' => $occupiedUnits,
