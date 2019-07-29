@@ -231,11 +231,23 @@ class StatisticsAPIController extends AppBaseController
             'total_building' => $buildingCount,
             'total_tenants' => $tenantCount,
             'total_units' => $unitCount,
-            'occupied_units' => $occupiedUnits,
-            'free_units' => $freeUnit,
+//            'occupied_units' => $occupiedUnits,
+//            'free_units' => $freeUnit,
+            'labels' => [
+                'occupied_units',
+                'free_units'
+            ],
+            'data' => [
+                $tenantCount,
+                $unitCount - $tenantCount
+            ],
+            'tag_percentage' => [
+                $occupiedUnits,
+                $freeUnit
+            ],
         ];
 
-        return $this->sendResponse($response, 'Building statistics retrieved successfully');
+        return $response;
     }
 
     /**
