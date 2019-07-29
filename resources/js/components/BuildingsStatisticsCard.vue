@@ -1,41 +1,30 @@
 <template>
-    <el-row style="margin-bottom: 4px;" :gutter="20" v-if="data.labels">
+    <el-row style="margin-bottom: 4px;" :gutter="20" v-if="data">
         <el-col :sm="24" :md="12" :lg="6">
             <el-card class="box-card-count" style="margin-bottom: 17px;">
                 <div class="total-wrapper">
                     <div class="total-box-card-header">
-                        <span>{{ $t('models.building.requestStatuses.total') }}</span>
+                        <span>{{ $t('dashboard.buildings.total_building') }}</span>
                     </div>
                     <div class="total-box-card-body">
                         <div class="box-card-count">
-                            {{ totalRequest }}
-                        </div>
-                    </div>
-                </div>
-                <el-divider style="margin: 0;"></el-divider>
-                <div class="avg-wrapper">
-                    <div class="total-box-card-header clearfix ">
-                        <span>{{ $t('dashboard.average_request_duration') }}</span>
-                    </div>
-                    <div class="total-box-card-body">
-                        <div class="box-card-count">
-                            {{ avgReqDuration }}
+                            {{ data.total_building }}
                         </div>
                     </div>
                 </div>
             </el-card>
         </el-col>
         <el-col :sm="24" :md="12" :lg="6" v-for="n in 3" :key="n">
-            <el-card v-for="m in 2" :key="m" class="box-card" :style="{'border-color': getRequestStatusColor(data.labels[n -1 + (m - 1) * 3], 'name')}" style="margin-bottom: 20px;">
+            <el-card class="box-card" :style="{'border-color': getBuildingsStatusColor(statuses[n - 1].name, 'name')}" style="margin-bottom: 20px;">
                 <div slot="header" class="box-card-header clearfix">
-                    <span>{{ $t('models.request.status.'+data.labels[n -1 + (m - 1) * 3]) }}</span>
+                    <span>{{ $t('dashboard.buildings.'+ statuses[n - 1].name) }}</span>
                 </div>
                 <div class="box-card-body">
                     <div class="box-card-count">
-                        {{ data.data[n -1 + (m - 1) * 3] }}
+                        {{ data[statuses[n - 1].name] }}
                     </div>
                     <div class="box-card-progress">
-                        <el-progress type="circle" :percentage="data.tag_percentage[n -1 + (m - 1) * 3]" :width="70" :color="getRequestStatusColor(data.labels[n -1 + (m - 1) * 3], 'name')" :stroke-width="5"></el-progress>
+                        <el-progress type="circle" :percentage="statuses[n - 1].percentage" :width="70" :color="getBuildingsStatusColor(statuses[n - 1].name, 'name')" :stroke-width="5"></el-progress>
                     </div>
                 </div>
             </el-card>
@@ -47,7 +36,7 @@
     import Card from './Card';
     import globalFunction from "helpers/globalFunction";
     export default {
-        name: 'DashboardStatisticsCard',
+        name: 'BuildingsStatisticsCard',
         mixins: [globalFunction],
         components: {
             Card
@@ -64,18 +53,32 @@
             totalRequest: {
                 type: Number,
                 default: 0
-            },
-            avgReqDuration: [String, Number]
+            }
         },
-        data(){
-            return {}
+        computed: {
+            statuses: function() {
+                return [
+                    {
+                        name: 'total_units',
+                        percentage: 100
+                    },
+                    {
+                        name: 'occupied_units',
+                        percentage: this.data && this.data.total_units > 0 ? Math.round(this.data.occupied_units * 100 / this.data.total_units) : 0
+                    },
+                    {
+                        name: 'free_units',
+                        percentage: this.data && this.data.total_units > 0 ? Math.round(this.data.free_units * 100 / this.data.total_units) : 0
+                    }
+                ]
+            }
         }
     }
 </script>
 
 <style lang="scss" scoped>
     .total-wrapper {
-        padding: 5px 0 11px 0;
+        padding: 5px 0 0px 0;
     }
     .avg-wrapper {
         padding: 11px 0 5px 0;

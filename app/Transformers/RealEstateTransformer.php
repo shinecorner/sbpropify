@@ -26,7 +26,7 @@ class RealEstateTransformer extends TransformerAbstract
      */
     public function transform(RealEstate $model)
     {
-        $response = [
+        $ret = [
             'id' => $model->id,
             'name' => $model->name,
             'email' => $model->email,
@@ -46,22 +46,25 @@ class RealEstateTransformer extends TransformerAbstract
             'iframe_enable' => $model->iframe_enable,
             'cleanify_email' => $model->cleanify_email,
             'news_receiver_ids' => $model->news_receiver_ids,
-            'mail_host' => $model->mail_host,
-            'mail_port' => $model->mail_port,
-            'mail_username' => $model->mail_username,
-            'mail_password' => $model->mail_password,
-            'mail_encryption' => $model->mail_encryption,
-            'mail_from_address' => $model->mail_from_address,
-            'mail_from_name' => $model->mail_from_name,
         ];
+        if (\Auth::user()->can('edit-real_estate')) {
+            $ret['mail_host'] = $model->mail_host;
+            $ret['mail_port'] = $model->mail_port;
+            $ret['mail_username'] = $model->mail_username;
+            $ret['mail_password'] = $model->mail_password;
+            $ret['mail_encryption'] = $model->mail_encryption;
+            $ret['mail_from_address'] = $model->mail_from_address;
+            $ret['mail_from_name'] = $model->mail_from_name;
+        }
+
 
         if ($model->address) {
-            $response['address'] = (new AddressTransformer)->transform($model->address);
+            $ret['address'] = (new AddressTransformer)->transform($model->address);
         }
         if (isset($model->news_receivers)) {
-            $response['news_receivers'] = (new UserTransformer)->transformCollection($model->news_receivers);
+            $ret['news_receivers'] = (new UserTransformer)->transformCollection($model->news_receivers);
         }
 
-        return $response;
+        return $ret;
     }
 }

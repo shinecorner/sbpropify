@@ -55,8 +55,7 @@
             }
 
             &-right{
-                padding-top: 15px;
-                padding-bottom: 15px;
+                font-size: 12px;
                 padding-right: 15px;
                 width: 24%;
                 display: flex;

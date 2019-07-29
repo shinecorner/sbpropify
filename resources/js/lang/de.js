@@ -1,7 +1,7 @@
-import enLocale from 'element-ui/lib/locale/lang/en';
+import deLocale from 'element-ui/lib/locale/lang/de';
 
 export default {
-    ...enLocale,
+    ...deLocale,
     en: 'EN',
     fr: 'FR',
     it: 'IT',

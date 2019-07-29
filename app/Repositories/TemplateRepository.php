@@ -335,13 +335,13 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('new_post');
 
+        $user->redirect = "/admin/posts/" . $post->id;
         $context = [
             'user' => $user,
             'post' => $post,
             'subject' => $post->user,
         ];
 
-        $user->redirect = "/admin/posts/" . $post->id;
         $tags = $this->getTags($template->category->tag_map, $context);
         return $this->getParsedTemplateData($template, $tags);
     }
@@ -374,7 +374,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('pinned_post');
 
-        $user->redirect = '/news';
+        $user->redirect = '/news/' . $post->id;
         $context = [
             'user' => $user,
             'post' => $post,
@@ -395,7 +395,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('post_published');
 
-        $receiver->redirect = '/news';
+        $user->redirect = '/news/' . $post->id;
         $context = [
             'receiver' => $receiver,
             'post' => $post,
@@ -416,6 +416,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('post_new_tenant_in_neighbour');
 
+        $receiver->redirect = '/news/' . $post->id;
         $context = [
             'receiver' => $receiver,
             'post' => $post,
@@ -437,7 +438,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('post_commented');
 
-        $post->user->redirect = '/news';
+        $post->user->redirect = '/news/' . $post->id;
         $context = [
             'user' => $user,
             'post' => $post,
@@ -459,6 +460,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('post_liked');
 
+        $post->user->redirect = '/news/' . $post->id;
         $context = [
             'user' => $user,
             'post' => $post,
@@ -479,6 +481,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('product_liked');
 
+        $product->user->redirect = '/marketplace';
         $context = [
             'user' => $user,
             'product' => $product,
@@ -500,6 +503,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('product_commented');
 
+        $product->user->redirect = '/marketplace';
         $context = [
             'user' => $user,
             'product' => $product,
@@ -522,6 +526,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('new_request');
 
+        $user->redirect = '/admin/requests/' . $request->id;
         $context = [
             'user' => $user,
             'subject' => $subject,
@@ -544,6 +549,10 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('request_comment');
 
+        $user->redirect = '/admin/requests/' . $sr->id;
+        if ($user->hasRole('registered')) {
+            $user->redirect = '/requests';
+        }
         $context = [
             'request' => $sr,
             'comment' => $comment,
@@ -564,6 +573,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('request_due_date_reminder');
 
+        $receiver->redirect = '/admin/requests/' . $sr->id;
         $context = [
             'request' => $sr,
             'receiver' => $receiver,
@@ -591,6 +601,10 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('request_upload');
 
+        $receiver->redirect = '/admin/requests/' . $sr->id;
+        if ($receiver->hasRole('registered')) {
+            $receiver->redirect = '/requests';
+        }
         $context = [
             'request' => $sr,
             'media' => $media,
@@ -616,6 +630,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('request_admin_change_status');
 
+        $sr->tenant->user->redirect = '/requests';
         $context = [
             'request' => $sr,
             'originalRequest' => $osr,
@@ -643,6 +658,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('request_internal_comment');
 
+        $receiver->redirect = '/admin/requests/' . $sr->id;
         $context = [
             'request' => $sr,
             'comment' => $comment,

@@ -116,7 +116,16 @@ export default {
         requests_by_status: 'Requests by status',
         requests_by_category: 'Requests by category',
         each_hour_request: 'Each hour requests',
-        average_request_duration: 'Resolution time'
+        average_request_duration: 'Resolution time',
+        week_hour: 'Week vs. Hour',
+        month_date: 'Month vs. Date',
+        buildings: {
+            total_building: 'Total Count',
+            total_units: 'Total Units',
+            occupied_units: 'Occupied Units',
+            free_units: 'Free Units',
+            buildings_by_creation_date: 'Buildings by creation date'
+        }
     },
     pages: {
         profile: {
@@ -1113,5 +1122,16 @@ export default {
             }
         }
     },
-    dateTimeFormat: '{date} at {time}'
+    dateTimeFormat: '{date} at {time}',
+    date_range: {
+        range_separator: 'To',
+        start_date: 'Start date',
+        end_date: 'End date',
+        last_week: 'Last week',
+        last_month: 'Last Month',
+        last_3_months: 'Last 3 months',
+        last_6_months: 'Last 6 months',
+        last_year: 'Last year',
+        last_2_years: 'Last 2 years'
+    }
 }

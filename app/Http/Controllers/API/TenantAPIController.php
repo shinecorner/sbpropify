@@ -183,7 +183,7 @@ class TenantAPIController extends AppBaseController
     public function store(CreateRequest $request, PostRepository $pr)
     {
         $input = (new TenantTransformer)->transformRequest($request->all());
-
+        //@TODO This action already done in  TenantTransformer delete it
         $input['user']['name'] = sprintf('%s %s', $input['first_name'], $input['last_name']);
         $validator = Validator::make($input['user'], User::$rules);
         if ($validator->fails()) {

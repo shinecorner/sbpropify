@@ -326,25 +326,6 @@ HTML
         $templates = [
             [
                 'parent_id' => 4,
-                'name' => 'new_product',
-                'description' => 'Email sent to admins when tenant creates a new product',
-                'tag_map' => [
-                    'salutation' => 'user.title',
-                    'name' => 'user.name',
-                    'authorSalutation' => 'product.user.title',
-                    'authorName' => 'product.user.name',
-                    'title' => 'product.title',
-                    'type' => 'product.type',
-                ],
-                'subject' => 'New tenant product',
-                'body' => <<<HTML
-<p>Hello {{salutation}} {{name}},</p>
-<p>Tenant {{subjectSalutation}} {{subjectName}} added a new product</p>
-<p>{{title}}.</p>
-HTML
-            ],
-            [
-                'parent_id' => 4,
                 'name' => 'product_liked',
                 'description' => 'Email sent to product author when tenant liked the product in marketplace',
                 'tag_map' => [
@@ -354,12 +335,14 @@ HTML
                     'authorName' => 'product.user.name',
                     'title' => 'product.title',
                     'type' => 'product.type',
+                    'autologin' => 'product.user.autologinUrl',
                 ],
                 'subject' => '{{salutation}} {{name}} liked your post',
                 'body' => <<<HTML
 <p>Hello {{authorSalutation}} {{authorName}},</p>
 <p>Tenant {{salutation}} {{name}} liked your product:</p>
 <p>{{title}}.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the product.</p>
 HTML
             ],
             [
@@ -374,6 +357,7 @@ HTML
                     'title' => 'product.title',
                     'type' => 'product.type',
                     'comment' => 'comment.comment',
+                    'autologin' => 'product.user.autologinUrl',
                 ],
                 'subject' => '{{salutation}} {{name}} commented on your post',
                 'body' => <<<HTML
@@ -382,6 +366,7 @@ HTML
 <p><em>{{title}}</em>.</p>
 <p>Comment:</p>
 <p><em>{{comment}}</em>.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the product.</p>
 HTML
             ],
         ];
@@ -449,6 +434,7 @@ HTML
                     'category' => 'request.category.name',
                     'unit' => 'request.unit.name',
                     'building' => 'request.unit.building.name',
+                    'autologin' => 'user.autologinUrl',
                 ],
                 'subject' => 'New Tenant request: {{title}}',
                 'body' => <<<HTML
@@ -458,6 +444,7 @@ HTML
 <p>Category: {{category}}.</p>
 <p>Title: {{title}}.</p>
 <p>{{description}}.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the request.</p>
 HTML
             ],
             [
@@ -495,13 +482,15 @@ HTML
                     'title' => 'request.title',
                     'description' => 'request.description',
                     'category' => 'request.category.name',
-                    'comment' => 'comment.comment'
+                    'comment' => 'comment.comment',
+                    'autologin' => 'user.autologinUrl',
                 ],
                 'subject' => 'New comment for request: {{title}}',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
 <p>A new comment by {{commenterSalutation}} {{commenterName}} was made for request: {{title}}</p>
 <p><em>{{comment}}</em>.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the request.</p>
 HTML
             ],
             [
@@ -516,12 +505,14 @@ HTML
                     'title' => 'request.title',
                     'description' => 'request.description',
                     'category' => 'request.category.name',
+                    'autologin' => 'receiver.autologinUrl',
                 ],
                 'subject' => '{{uploaderSalutation}} {{uploaderName}} uploaded a new document for request: {{title}}',
                 'body' => <<<HTML
 <p>Hello {{receiverSalutation}} {{receiverName}},</p>
 <p>{{uploaderSalutation}} {{uploaderName}} uploaded a new document for request: {{title}}.</p>
 <p>Please find the uploaded file in the attachments of this email.</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the request.</p>
 HTML
             ],
             [
@@ -536,11 +527,13 @@ HTML
                     'category' => 'request.category.name',
                     'status' => 'constant.request.status',
                     'originalStatus' => 'constant.originalRequest.status',
+                    'autologin' => 'request.tenant.user.autologinUrl',
                 ],
                 'subject' => 'Status changed for request: {{title}}',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
 <p>Admin changed status for request {{title}} from {{originalStatus}} to {{status}}</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the request.</p>
 HTML
             ],
             [
@@ -555,13 +548,15 @@ HTML
                     'title' => 'request.title',
                     'description' => 'request.description',
                     'category' => 'request.category.name',
-                    'comment' => 'comment.comment'
+                    'comment' => 'comment.comment',
+                    'autologin' => 'receiver.autologinUrl',
                 ],
                 'subject' => 'New internal comment for request: {{title}}',
                 'body' => <<<HTML
 <p>Hello {{receiverSalutation}} {{receiverName}},</p>
 <p>{{senderSalutation}} {{senderName}} added a new private comment for request: {{title}}</p>
 <p><em>{{comment}}.</em></p>
+<p>Use <a href="{{autologin}}">this link</a> to view the request.</p>
 HTML
             ],
             [
@@ -569,19 +564,19 @@ HTML
                 'name' => 'request_due_date_reminder',
                 'description' => 'Send reminder email to property manager / admin 1 day before the due date is reached',
                 'tag_map' => [
-                    'salutation' => 'user.title',
-                    'name' => 'user.name',
-                    'subjectSalutation' => 'subject.title',
-                    'subjectName' => 'subject.name',
+                    'salutation' => 'receiver.title',
+                    'name' => 'receiver.name',
                     'title' => 'request.title',
                     'description' => 'request.description',
                     'dueDate' => 'request.due_date',
                     'category' => 'request.category.name',
+                    'autologin' => 'receiver.autologinUrl',
                 ],
                 'subject' => 'Request: {{title}} is approaching its due date',
                 'body' => <<<HTML
 <p>Hello {{salutation}} {{name}},</p>
 <p>Due date for request {{title}} is {{dueDate}}</p>
+<p>Use <a href="{{autologin}}">this link</a> to view the request.</p>
 HTML
             ],
         ];

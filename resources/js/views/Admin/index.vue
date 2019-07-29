@@ -5,7 +5,7 @@
             <el-col class="dashboard-tabpanel">
                 <el-tabs type="border-card" @tab-click="handleTabClick" v-model="activeName">
                     <el-tab-pane :label="$t('menu.requests')" name="requests">
-                        <el-row style="margin-bottom: 24px;" type="flex">
+                        <el-row type="flex">
                             <el-col :span="24">
                                 <dashboard-statistics-card :totalRequest="totalRequest" :data="reqStatusCount" :avgReqDuration="avgReqDuration"></dashboard-statistics-card>
                             </el-col>
@@ -30,18 +30,33 @@
                             </el-col>
                         </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
-                            <el-col :span="12">
-                                <el-card class="chart-card" :header="$t('dashboard.each_hour_request')">
-                                    <chart-heat-map
-                                        :xData="chartDataReqByHour.xData"
-                                        :yData="chartDataReqByHour.yData">
-                                    </chart-heat-map>
+                            <el-col :span="24">
+                                <el-card class="chart-card no-filter">
+                                <el-tabs>
+                                    <el-tab-pane :label="$t('dashboard.week_hour')">
+                                        <chart-heat-map type="week-hour"></chart-heat-map>
+                                    </el-tab-pane>
+                                    <el-tab-pane :label="$t('dashboard.month_date')">
+                                        <chart-heat-map type="month-date"></chart-heat-map>
+                                    </el-tab-pane>
+                                </el-tabs>
                                 </el-card>
                             </el-col>
                         </el-row>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.buildings')" name="buildings">
-                        {{'Second Tab'}}
+                        <el-row type="flex">
+                            <el-col :span="24">
+                                <buildings-statistics-card :data="buildingStatistics"></buildings-statistics-card>
+                            </el-col>
+                        </el-row>
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="24">
+                                <el-card class="chart-card" :header="$t('dashboard.buildings.buildings_by_creation_date')">
+                                    <chart-column type="buildings_by_creation_date"></chart-column>
+                                </el-card>
+                            </el-col>
+                        </el-row>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.news')" name="news">
                         {{'Content Third tab'}}
@@ -70,6 +85,9 @@
     import ProgressStatisticsCard from 'components/ProgressStatisticsCard.vue';
     import CircularProgressStatisticsCard from 'components/CircularProgressStatisticsCard.vue';
 
+    import BuildingsStatisticsCard from 'components/BuildingsStatisticsCard';
+    import ChartColumn from 'components/ChartColumn';
+
     export default {
         name: 'AdminDashboard',
         components: {
@@ -80,7 +98,9 @@
             CircularProgressStatisticsCard,
             ChartStackedColumn,
             ChartPieAndDonut,
-            ChartHeatMap
+            ChartHeatMap,
+            BuildingsStatisticsCard,
+            ChartColumn
         },
         data() {
             return {
@@ -92,6 +112,7 @@
                 },
                 chartOptionsTotalReqByCreationDate: {},
                 reqStatusCount: {},
+                buildingStatistics: {},
                 statistics: [{
                     icon: 'ti-shopping-cart',
                     color: '#f06292',
@@ -136,11 +157,12 @@
 
                 return axios.get('admin/statistics')
                 .then(function (response) {
-
                     that.reqStatusCount = response.data.data.requests_per_status;
 
                     that.totalRequest = response.data.data.total_requests;
-                    that.avgReqDuration = response.data.data.avg_request_duration;                    
+                    that.avgReqDuration = response.data.data.avg_request_duration;
+
+                    that.buildingStatistics = response.data.data.buildings_per_status.original.data;
                 }).catch(function (error) {
                     console.log(error);
                 })
@@ -253,6 +275,9 @@
         }
 
         .chart-filter {
+            display: flex;
+            align-items: center;
+
             .el-radio-button__inner {
                 padding: 8px 12px;
             }
@@ -271,6 +296,13 @@
                     align-items: center;
                 }
             }
+
+            .el-range-editor {
+                width: 250px;
+                padding: 0 0 0 7px;
+                height: 32px;
+                line-height: 32px;
+            }
         }
 
         .apexcharts-toolbar {
@@ -278,8 +310,29 @@
             margin-right: 7px;
         }
 
+        &.no-filter {
+            .apexcharts-toolbar {
+                margin-top: -38px;
+            }
+        }
+
         .apexcharts-legend.center.position-bottom {
             padding-top: 10px;
+        }
+
+        .el-tabs {
+            .el-tabs__header {
+                margin-bottom: 0;
+                .el-tabs__nav {
+                    margin: 0;
+                    padding: 6px 0;
+                    margin-left: 15px;
+                }
+            }
+
+            .el-tabs__content {
+                overflow: visible;
+            }
         }
     }
 }
@@ -292,14 +345,6 @@
     padding: .5rem 14px;
 }
 
-/*.dashboard .piechart .apexcharts-menu-icon{
-    margin-top: -170px;
-    margin-right: -20px;
-}
-.dashboard .piechart .apexcharts-menu.open{
-    margin-top: -79px;
-    margin-right: -20px;
-}*/
 .dashboard .box-card-count{
     .el-card__body{
         height: 100%;

@@ -22,8 +22,7 @@ class ListRequest extends APIRequest
         }
 
         if ($u->tenant && Relation::$morphMap[$this->auditable_type] == ServiceRequest::class) {
-            return ServiceRequest::where('id', $this->auditable_id)
-                ->where('tenant_id', $u->tenant->id)->exists();
+            return true;
         }
 
         return false;
