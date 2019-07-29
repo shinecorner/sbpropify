@@ -17,7 +17,7 @@ export default {
     },
     data() {
         return {
-            series: []
+            series: [],
         }
     },
     computed: {
@@ -55,7 +55,13 @@ export default {
             labels: {
               hideOverlappingLabels: false,
               formatter: (value) => {
-                return value.substring(1);
+                const realValue =  value.substring(1);
+                if (this.type == 'week-hour') {
+                  return this.$t('days.' + realValue.toLowerCase());
+                }
+                else {
+                  return realValue;
+                }
               }
             }
           }
@@ -90,6 +96,6 @@ export default {
     },
     created(){        
       this.fetchData();        
-    }
+    },
 }
 </script>
