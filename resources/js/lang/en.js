@@ -1122,5 +1122,16 @@ export default {
             }
         }
     },
-    dateTimeFormat: '{date} at {time}'
+    dateTimeFormat: '{date} at {time}',
+    date_range: {
+        range_separator: 'To',
+        start_date: 'Start date',
+        end_date: 'End date',
+        last_week: 'Last week',
+        last_month: 'Last Month',
+        last_3_months: 'Last 3 months',
+        last_6_months: 'Last 6 months',
+        last_year: 'Last year',
+        last_2_years: 'Last 2 years'
+    }
 }

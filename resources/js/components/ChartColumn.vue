@@ -7,18 +7,9 @@
               <el-radio-button label="week">{{$t('timestamps.weeks')}}</el-radio-button>
               <el-radio-button label="year">{{$t('timestamps.years')}}</el-radio-button>
           </el-radio-group>
-          <el-date-picker
-            v-model="dateRange"
-            type="daterange"
-            align="right"
-            unlink-panels
-            range-separator="To"
-            start-placeholder="Start date"
-            end-placeholder="End date"
-            format="dd.MM.yyyy"
-            value-format="dd.MM.yyyy"
-            :picker-options="pickerOptions">
-          </el-date-picker>
+          <custom-date-range-picker
+            :pickHandler="pickHandler">
+          </custom-date-range-picker>
         </div>    
         <el-row type="flex">
             <el-col :span="24">
@@ -32,8 +23,13 @@ import VueApexCharts from 'vue-apexcharts'
 import {format, subDays, isBefore, isAfter, parse} from 'date-fns'
 import axios from '@/axios';
 
+import CustomDateRangePicker from 'components/CustomDateRangePicker';
+
 export default {  
-  components: {'apexchart': VueApexCharts},
+  components: {
+    'apexchart': VueApexCharts,
+    CustomDateRangePicker
+  },
   props: {
     type: {
       type: String,
@@ -46,58 +42,6 @@ export default {
       dateRange: [subDays(new Date(), 28), new Date()],
       xData: [],
       yData: [],
-
-      pickerOptions: {
-        shortcuts: [{
-          text: 'Last week',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: 'Last month',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: 'Last 3 months',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: 'Last 6 months',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 183);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: 'Last year',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: 'Last 2 years',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 730);
-            picker.$emit('pick', [start, end]);
-          }
-        }]
-      },
     }
   },    
   computed: {    
@@ -166,21 +110,22 @@ export default {
         params: params
       })
       .then(function (response) {
-        console.log('chart column res:', response);
-        that.yData = [{data: response.data.data.requests_per_day_ydata}];
+        that.yData = [{name: 'count', data: response.data.data.requests_per_day_ydata}];
         that.xData = response.data.data.requests_per_day_xdata;
       }).catch(function (error) {
           console.log(error);
       })
+    },
+
+    pickHandler(val) {
+      this.dateRange = val;
+      this.fetchData();
     }
   },
   created(){
     this.fetchData();
   },
   watch:{
-    dateRange: function(val) {
-      this.fetchData();
-    },
     period: function (val) {
       this.fetchData();
     }
