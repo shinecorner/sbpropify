@@ -1,5 +1,5 @@
 <template>
-    <el-row style="margin-bottom: 4px;" :gutter="20" v-if="data">
+    <el-row style="margin-bottom: 4px;" :gutter="20" v-if="data.card_data">
         <el-col :sm="24" :md="12" :lg="6">
             <el-card class="box-card-count" style="margin-bottom: 17px;">
                 <div class="total-wrapper">
@@ -8,23 +8,38 @@
                     </div>
                     <div class="total-box-card-body">
                         <div class="box-card-count">
-                            {{ data.total_building }}
+                            {{ data.total_buildings }}
                         </div>
                     </div>
                 </div>
             </el-card>
         </el-col>
-        <el-col :sm="24" :md="12" :lg="6" v-for="n in 3" :key="n">
-            <el-card class="box-card" :style="{'border-color': getBuildingsStatusColor(statuses[n - 1].name, 'name')}" style="margin-bottom: 20px;">
+        <el-col :sm="24" :md="12" :lg="6">
+            <el-card class="box-card" :style="{'border-color': getUnitsCountColor('total_units', 'name')}" style="margin-bottom: 20px;">
                 <div slot="header" class="box-card-header clearfix">
-                    <span>{{ $t('dashboard.buildings.'+ statuses[n - 1].name) }}</span>
+                    <span>{{ $t('dashboard.buildings.total_units') }}</span>
                 </div>
                 <div class="box-card-body">
                     <div class="box-card-count">
-                        {{ data[statuses[n - 1].name] }}
+                        {{ data.card_data.total_units }}
                     </div>
                     <div class="box-card-progress">
-                        <el-progress type="circle" :percentage="statuses[n - 1].percentage" :width="70" :color="getBuildingsStatusColor(statuses[n - 1].name, 'name')" :stroke-width="5"></el-progress>
+                        <el-progress type="circle" :percentage="100" :width="70" :color="getUnitsCountColor('total_units', 'name')" :stroke-width="5"></el-progress>
+                    </div>
+                </div>
+            </el-card>
+        </el-col>
+        <el-col :sm="24" :md="12" :lg="6" v-for="n in 2" :key="n">
+            <el-card class="box-card" :style="{'border-color': getUnitsCountColor(data.card_data.labels[n - 1], 'name')}" style="margin-bottom: 20px;">
+                <div slot="header" class="box-card-header clearfix">
+                    <span>{{ $t('dashboard.buildings.' + data.card_data.labels[n - 1]) }}</span>
+                </div>
+                <div class="box-card-body">
+                    <div class="box-card-count">
+                        {{ data.card_data.data[n - 1] }}
+                    </div>
+                    <div class="box-card-progress">
+                        <el-progress type="circle" :percentage="data.card_data.tag_percentage[n - 1]" :width="70" :color="getUnitsCountColor(data.card_data.labels[n - 1], 'name')" :stroke-width="5"></el-progress>
                     </div>
                 </div>
             </el-card>

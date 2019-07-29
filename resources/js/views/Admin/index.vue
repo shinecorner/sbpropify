@@ -162,7 +162,10 @@
                     that.totalRequest = response.data.data.total_requests;
                     that.avgReqDuration = response.data.data.avg_request_duration;
 
-                    that.buildingStatistics = response.data.data.buildings_per_status.original.data;
+                    that.buildingStatistics = {
+                        total_buildings: response.data.data.total_buildings,
+                        card_data: response.data.data.buildings_per_status
+                    };
                 }).catch(function (error) {
                     console.log(error);
                 })
