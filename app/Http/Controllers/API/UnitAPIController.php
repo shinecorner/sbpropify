@@ -84,7 +84,7 @@ class UnitAPIController extends AppBaseController
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $units = $this->unitRepository->with([
-            'building', 'tenant.user'
+            'building', 'tenant.user', 'tenants.user'
         ])->paginate($perPage);
 
         $response = (new UnitTransformer)->transformPaginator($units);
@@ -339,5 +339,57 @@ class UnitAPIController extends AppBaseController
         $unit->delete();
 
         return $this->sendResponse($id, 'Unit deleted successfully');
+    }
+
+    /**
+     * @param $unitId
+     * @param $tenantId
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     */
+    public function assignTenant($unitId, $tenantId)
+    {
+        $unit = $this->unitRepository->find($unitId, ['id']);
+        if (empty($unit)) {
+            return $this->sendError('Incorrect unit');
+        }
+
+        $tenant = $this->tenantRepository->find($tenantId, ['id']);
+        if (empty($tenant)) {
+            return $this->sendError('Incorrect tenant');
+        }
+
+        $data = [
+            'unit_id' => $unit->id,
+        ];
+        $this->tenantRepository->update($data, $tenantId);
+        return $this->sendResponse($unitId, 'tenant assigned unit successfully');
+    }
+
+    /**
+     * @param $unitId
+     * @param $tenantId
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     */
+    public function unassignTenant($unitId, $tenantId)
+    {
+        $tenant = $this->tenantRepository->find($tenantId, ['id', 'unit_id']);
+        if (empty($tenant)) {
+            return $this->sendError('Incorrect tenant');
+        }
+
+        if ($tenant->unit_id !=  $unitId) {
+            return $this->sendError('This tenant not assigned in this unit');
+        }
+
+        $data = [
+            'unit_id' => null,
+            'building_id' => null,
+            'address_id' => null,
+        ];
+        $this->tenantRepository->update($data, $tenantId);
+
+        return $this->sendResponse($unitId, 'tenant un assigned unit successfully');
     }
 }
