@@ -122,6 +122,8 @@ export default {
         news_by_creation_date: 'News by creation date',
         news_by_status: 'News by status',
         news_by_type: 'News by type',
+        products_by_creation_date: 'Market place products by creation date',
+        products_by_type: 'Market place products by type',
         buildings: {
             total_building: 'Total Count',
             total_units: 'Total Units',

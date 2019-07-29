@@ -89,8 +89,13 @@ export default {
               horizontalAlign: 'center',
               formatter: value => {
                 const realValue = value.toString();
-                if (this.type == 'news_by_creation_date' && realValue.match(/[a-zA-Z]+/gi)) {
-                  return this.$t('models.post.status.' + realValue);
+                if (realValue.match(/[a-zA-Z]+/gi)) {
+                  switch (this.type) {
+                    case 'news_by_creation_date':
+                      return this.$t('models.post.status.' + realValue);
+                    case 'products_by_creation_date':
+                      return this.$t('models.product.status.' + realValue);
+                  }
                 }
                 return realValue;
               }
@@ -113,6 +118,9 @@ export default {
         }
         else if (this.type === 'news_by_creation_date') {
           url = 'admin/chartByCreationDate?table=posts';
+        }
+        else if (this.type === 'products_by_creation_date') {
+          url = 'admin/chartByCreationDate?table=products';
         }
         let params = {
           period: that.period

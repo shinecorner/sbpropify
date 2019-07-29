@@ -110,6 +110,10 @@ export default {
                 this.chartType = 'donut';
                 url = 'admin/donutChart?table=posts&column=type';
             }
+            else if (this.type === 'products_by_type') {
+                this.chartType = 'donut';
+                url = 'admin/donutChart?table=products&column=type';
+            }
             let params = {};
             if (this.dateRange != null) {
               params.start_date = this.dateRange[0],
@@ -132,6 +136,9 @@ export default {
                 }
                 else if (that.type === 'news_by_type') {
                     that.xData = response.data.data.labels.map(label => that.$t('models.post.type.' + label));
+                }
+                else if (that.type === 'products_by_type') {
+                    that.xData = response.data.data.labels.map(label => that.$t('models.product.type.' + label));
                 }
             }).catch(function (error) {
                 console.log(error);
