@@ -114,6 +114,7 @@ class BuildingAPIController extends AppBaseController
      */
     public function index(ListRequest $request)
     {
+        $request->merge(['model' => 'buildings']);
         $this->buildingRepository->pushCriteria(new RequestCriteria($request));
         $this->buildingRepository->pushCriteria(new FilterByRelatedFieldsCriteria($request));
         $this->buildingRepository->pushCriteria(new ExcludeIdsCriteria($request));
