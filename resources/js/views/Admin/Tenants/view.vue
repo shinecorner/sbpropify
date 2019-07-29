@@ -40,8 +40,8 @@
         <div class="body">
             <el-row :gutter="30">
                 <el-col>
-                    <div class="data-section">
-                        <el-row :gutter="20">
+                    <el-card class="chart-card">
+                        <el-row :gutter="20" class="main-section">
                             <el-col :md="4">
                                 <img
                                         src="~img/user-avatar.jpg"
@@ -58,7 +58,6 @@
                             <el-col :md="7">
                                 <h3 class="user-name">{{ model.first_name }} {{ model.last_name }}</h3>
                                 <p class="user-info text-secondary" v-if="model.title === titles.company">{{model.company}}</p>
-
                                 <i class="icon-dot-circled" :class="[constants.tenants.status[model.status] === 'active' ? 'icon-success' : 'icon-danger']"></i>
                                 {{ $t('models.tenant.status.' + constants.tenants.status[model.status])}}
                             </el-col>
@@ -67,22 +66,22 @@
 
                                     <el-col :sm="8" :xs="12">{{$t('models.tenant.mobile_phone')}}:</el-col>
                                     <el-col :sm="16" :xs="12" class="text-secondary">
-                                        <a :href="`tel:${model.mobile_phone}`">{{model.mobile_phone}}&nbsp</a>
+                                        {{model.mobile_phone}}
                                     </el-col>
 
                                     <el-col :sm="8" :xs="12">{{$t('models.tenant.private_phone')}}:</el-col>
                                     <el-col :sm="16" :xs="12" class="text-secondary">
-                                        <a :href="`tel:${model.private_phone}`">{{ model.private_phone }}&nbsp</a>
+                                        {{ model.private_phone }}
                                     </el-col>
 
                                     <el-col :sm="8" :xs="12">{{$t('models.tenant.work_phone')}}:</el-col>
                                     <el-col :sm="16" :xs="12" class="text-secondary">
-                                        <a :href="`tel:${model.work_phone}`">{{ model.work_phone}}</a>&nbsp;
+                                        {{ model.work_phone}}
                                     </el-col>
 
                                     <el-col :sm="8" :xs="12">{{$t('email')}}:</el-col>
                                     <el-col :sm="16" :xs="12" class="text-secondary">
-                                        <a :href="`mailto:${model.email}`">{{ model.email}}</a>&nbsp
+                                       {{ model.email}}
                                     </el-col>
 
                                     <el-col :sm="8" :xs="12">{{$t('models.tenant.birth_date')}}:</el-col>
@@ -90,10 +89,10 @@
                                 </el-row>
                             </el-col>
                         </el-row>
-                    </div>
+                    </el-card>
                 </el-col>
                 <el-col :md="7" class="left-card">
-                    <div class="data-section left-card-data-section">
+                   <el-card class="chart-card left-card-data-section">
                         <h3 class="right-card">
                             <i class="ti-user"/>
                             {{$t('models.tenant.rent_contract')}}
@@ -102,12 +101,12 @@
 
                             <el-col :sm="8" :xs="12">{{$t('models.tenant.rent_start')}}:</el-col>
                             <el-col :sm="16" :xs="12" class="text-secondary">
-                                {{ model.rent_start ? (new Date(model.rent_start) |formatDate) : '&nbsp;'}}
+                                {{ model.rent_start ? (model.rent_start |formatDate) : '&nbsp;'}}
                             </el-col>
 
                             <el-col :sm="8" :xs="12">{{$t('models.tenant.rent_end')}}:</el-col>
                             <el-col :sm="16" :xs="12" class="text-secondary">
-                                {{ model.rent_end ? (new Date(model.rent_end) | formatDate) : '&nbsp;'}}
+                                {{ model.rent_end ? (model.rent_end | formatDate) : '&nbsp;'}}
                             </el-col>
 
                             <el-col v-if="lastMedia" class="media">
@@ -121,10 +120,10 @@
                                 </template>
                             </el-col>
                         </el-row>
-                    </div>
-                    <div class="data-section left-card-data-section">
+                   </el-card>
+                    <el-card class="chart-card left-card-data-section">
                         <h3 class="right-card">
-                            <i class="ti-user"/>
+                            <i class="icon-commerical-building icon"/>
                             {{$t('models.tenant.building.name')}}
                         </h3>
                         <el-row :gutter="20">
@@ -180,15 +179,8 @@
                                 : '&nbsp;'
                                 }}
                             </el-col>
-
                         </el-row>
-                    </div>
-
-                    <div class="data-section left-card-data-section">
-                        <h3 class="right-card">
-                            <i class="ti-user"/>
-                            {{$t('models.tenant.unit.name')}}
-                        </h3>
+                        <el-divider style="margin: 0;"></el-divider>
                         <el-row :gutter="20">
                             <el-col :sm="12" :xs="12">{{$t('models.unit.type.label')}}:</el-col>
                             <el-col :sm="12" :xs="12" class="text-secondary">
@@ -221,16 +213,15 @@
                             <el-col :sm="24" :xs="24" v-if="unit.attic">
                                 <el-tag size="mini">{{$t('models.unit.attic')}}</el-tag>
                             </el-col>
-
                         </el-row>
-                    </div>
+                    </el-card>
                 </el-col>
                 <el-col :md="17">
                     <el-row :gutter="20">
                         <el-col>
-                            <div class="data-section">
+                           <el-card class="chart-card">
                                 <h3 class="right-card">
-                                    <i class="ti-user"/>
+                                    <i class="icon-chat-empty icon"/>
                                     {{ $t('models.tenant.requests') }}
                                 </h3>
                                 <Timeline
@@ -239,12 +230,12 @@
                                         filter="tenant_id"
                                         v-if="model.id"
                                 />
-                            </div>
+                           </el-card>
                         </el-col>
                         <el-col>
-                            <div class="data-section">
+                            <el-card class="chart-card">
                                 <h3 class="right-card">
-                                    <i class="ti-announcement"/>
+                                    <i class="icon-megaphone-1 icon"/>
                                     {{ $t('models.tenant.posts') }}
                                 </h3>
                                 <Timeline
@@ -253,12 +244,12 @@
                                         filter="user_id"
                                         v-if="!_.isEmpty(user)"
                                 />
-                            </div>
+                            </el-card>
                         </el-col>
                         <el-col>
-                            <div class="data-section">
+                            <el-card class="chart-card">
                                 <h3 class="right-card">
-                                    <i class="ti-announcement"/>
+                                    <i class="icon-basket icon"/>
                                     {{ $t('models.tenant.products') }}
                                 </h3>
                                 <Timeline
@@ -267,7 +258,7 @@
                                         filter="user_id"
                                         v-if="!_.isEmpty(user)"
                                 />
-                            </div>
+                            </el-card>
                         </el-col>
                     </el-row>
                 </el-col>
@@ -381,6 +372,10 @@
 </script>
 
 <style lang="scss" scoped>
+   .main-section {
+        padding: 8px 0px 0 0 !important;
+        margin-left: -5px !important;
+    }
     .tenants-view {
         .heading {
             margin-bottom: 20px;
@@ -388,15 +383,9 @@
 
         .body {
             padding: 0 20px;
-
-            .data-section {
+            .chart-card{
                 margin-bottom: 30px !important;
-                background-color: white;
-                padding: 20px;
-                background-color: #fff;
-                border: 1px solid #ededed;
-                border-radius: 4px;
-                box-shadow: 0 1px 1px 0 transparentize(#000, .2);
+                padding: 10px;
                 height: 100%;
 
                 h3 {
@@ -426,6 +415,7 @@
                 .info {
                     border-left: 2px dashed #ccc;
                     padding-left: 30px !important;
+                    margin-top: 5px;
 
                     .el-col {
                         padding-bottom: 10px;
@@ -447,6 +437,9 @@
                         margin-bottom: 10px;
                     }
                 }
+                &__body {
+                padding: 10px 0 0 0 !important;
+            }
             }
 
             .user-image {

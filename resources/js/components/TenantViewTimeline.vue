@@ -1,16 +1,27 @@
 <template>
     <div>
-        <el-timeline>
-            <el-timeline-item
-                    v-for="(element, index) in list"
-                    :key="index">
-                <h4>{{element.title}}</h4>
-                <p class="subtitle text-secondary" v-if="element.category.name">{{element.category.name}}</p>
-                <p class="activity-date text-secondary">{{ new Date(element.created_at) | formatDate}}</p>
-            </el-timeline-item>
-        </el-timeline>
-        <div v-if="meta.current_page < meta.last_page">
-            <el-button @click="loadMore" size="mini" style="margin-top: 15px" type="text">{{$t('loadMore')}}</el-button>
+        <div v-if="list.length > 0">
+            <el-timeline>
+                <el-timeline-item
+                        v-for="(element, index) in list"
+                        :key="index">
+                    <h4>{{element.title}}</h4>
+                    <p class="subtitle text-secondary" v-if="element.category.name">{{element.category.name}}</p>
+                    <p class="activity-date text-secondary">{{ new Date(element.created_at) | formatDate}}</p>
+                </el-timeline-item>
+            </el-timeline>
+            <div v-if="meta.current_page < meta.last_page">
+                <el-button @click="loadMore" size="mini" style="margin-top: 15px" type="text">{{$t('loadMore')}}</el-button>
+            </div>
+        </div>
+        <div v-else>
+            <el-alert
+                :title="$t('views.tenant.my.personal.placeholder.title')"
+                type="info"
+                show-icon
+                :closable="false"
+            >
+            </el-alert>
         </div>
     </div>
 </template>
