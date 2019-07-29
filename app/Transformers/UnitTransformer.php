@@ -48,12 +48,16 @@ class UnitTransformer extends BaseTransformer
             $response['address'] = (new AddressTransformer)->transform($model->address);
         }
 
+        //@TODO delete
         if ($model->tenant) {
             $model->tenant->unit = null;
             $model->tenant->building = null;
             $model->tenant->address = null;
             $response['tenant'] = (new TenantTransformer)->transform($model->tenant);
-            $response['tenants'][] = (new TenantTransformer)->transform($model->tenant);
+        }
+
+        foreach ($model->tenants as $tenant) {
+            $response['tenants'][] = (new TenantTransformer)->transform($tenant);
         }
 
         return $response;
