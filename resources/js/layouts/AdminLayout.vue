@@ -281,7 +281,7 @@
                 this.$i18n.locale = language;
                 this.selectedFlag = flag;
 
-                console.log('language --- ', this.$i18n.locale);
+                //console.log('language --- ', this.$i18n.locale);
 
                 this.toggleShow();
 
