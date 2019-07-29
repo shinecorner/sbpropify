@@ -88,7 +88,7 @@
         "vue-sticky": "^3.3.4",
         "vue-sticky-position": "^2.0.0",
         "vue-uid": "^0.4.4",
-        "vue-upload-component": "^2.8.19",
+        "vue-upload-component": "^2.8.20",
         "vue-virtual-scroller": "^1.0.0-rc.2"
     }
 }
