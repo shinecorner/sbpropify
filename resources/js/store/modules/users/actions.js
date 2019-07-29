@@ -74,7 +74,7 @@ export default {
                     resolve(r);
                 })
                 .catch(({response: {data: err}}) => reject(err)));
-    },
+    },/*
     logout({dispatch}) {
         return new Promise((resolve, reject) =>
             axios.get('auth/logout').then(({status}) => {
@@ -84,8 +84,8 @@ export default {
 
                 resolve();
             }).catch(({response: {data: err}}) => reject(err)));
-    },
-    logoutAdmin({dispatch, commit}) {
+    },*/
+    logout({dispatch, commit}) {
         return new Promise((resolve, reject) =>
             axios.get('auth/logout').then(({status}) => {
                 console.log('then:', status);
