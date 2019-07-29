@@ -1,25 +1,11 @@
 <template>
     <div class="piechart">
-      <el-row type="flex" class="chart-filter">
-            <el-col :span="24">                
-                <el-date-picker
-                    v-model="startDate"
-                    type="date"
-                    format="dd.MM.yyyy"
-                    value-format="dd.MM.yyyy"
-                >
-                </el-date-picker>
-                <el-date-picker
-                    v-model="endDate"
-                    type="date"
-                    format="dd.MM.yyyy"
-                    value-format="dd.MM.yyyy"
-                    :picker-options="endDatePickerOptions"
-                >
-                </el-date-picker>
-            </el-col>
-        </el-row>
-        <el-row style="margin-bottom: 24px;" type="flex">
+        <div class="chart-filter">              
+            <custom-date-range-picker
+                :pickHandler="pickHandler">
+            </custom-date-range-picker>
+        </div>
+        <el-row type="flex">
             <el-col :span="24">
                 <apexchart :type="chartType" :options="chartOptions" :series="series" />
             </el-col>
@@ -31,8 +17,13 @@ import VueApexCharts from 'vue-apexcharts'
 import {format, subDays, isBefore, isAfter, parse} from 'date-fns'
 import axios from '@/axios';
 
+import CustomDateRangePicker from 'components/CustomDateRangePicker';
+
 export default {
-  components: {'apexchart': VueApexCharts},
+  components: {
+    'apexchart': VueApexCharts,
+    CustomDateRangePicker
+  },
   props: {            
             type: {
                 type: String,
@@ -42,22 +33,18 @@ export default {
   data() {
     return {        
         chartType: 'pie',
-        startDate: format(subDays(new Date(), 28), 'DD.MM.YYYY'),
-        endDate: format(new Date(), 'DD.MM.YYYY'),
-        endDatePickerOptions: {
-            disabledDate: this.disabledEndDate
-        },
+        dateRange: [subDays(new Date(), 28), new Date()],
         xData: [],
-        yData: []
+        yData: [],
     }
   },
   computed:{
     chartWidth: function() {
         if (this.type === 'request_by_status') {
-            return 430;
+            return 490;
         }
         else {
-            return 480;
+            return 490;
         }
     },
     series: function(){        
@@ -67,14 +54,15 @@ export default {
         return {
             labels: this.xData,
             responsive: [{
-                breakpoint: 1150,
+                breakpoint: 1210,
                 options: {
                     chart: {
                         width: '100%',
                         height: 'auto'
                     },
                     legend: {
-                        position: 'bottom'
+                        position: 'bottom',
+                        width: undefined
                     }
                 }
             }, {
@@ -86,7 +74,8 @@ export default {
                 }
             }],
             legend: {
-                show: true,                                
+                show: true,
+                width: 170
             },
             chart:{
                 toolbar: {
@@ -100,13 +89,6 @@ export default {
     }
   },
     methods: {
-        disabledEndDate(date){
-            var parsed_start_date = (this.startDate) ? this.startDate.split(".") : [];
-            if((parsed_start_date[0] !== undefined) && (parsed_start_date[1] !== undefined) && (parsed_start_date[0] !== undefined)){
-                    return isBefore(date, new Date(parsed_start_date[2], parsed_start_date[1] - 1, parsed_start_date[0]))
-            }
-            return false;            
-        },
         fetchData(){
             let that = this;                                               
             let url = '';						
@@ -118,11 +100,14 @@ export default {
                 this.chartType = 'donut';
                 url = 'admin/donutChartRequestByCategory';
             }
+            let params = {};
+            if (this.dateRange != null) {
+              params.start_date = this.dateRange[0],
+              params.end_date = this.dateRange[1]
+            }
+
             return axios.get(url,{
-            	params: {
-                    start_date: that.startDate,
-                    end_date: that.endDate                    
-                }
+            	params: params
             })
             .then(function (response) {
                 if(that.type === 'request_by_status'){                    
@@ -130,29 +115,17 @@ export default {
                     that.xData = response.data.data.labels.map(function(e){return that.$t('models.request.status.'+e)});
                 }
                 else if(that.type === 'request_by_category'){
-                    console.log('response', response);
                     that.yData = response.data.data.data;
                     that.xData = response.data.data.labels;
                 }                
             }).catch(function (error) {
                 console.log(error);
             })
-        }
-    },
-    watch:{
-        startDate: function (val) {
-            var parsed_end_date = (this.endDate) ? this.endDate.split(".") : [];
-            var parsed_start_date = (val) ? val.split(".") : [];
-            if((parsed_end_date[2] !== undefined) && (parsed_start_date[2] !== undefined)){        				
-                if(isAfter(new Date(parsed_start_date[2], parsed_start_date[1] - 1, parsed_start_date[0]), new Date(parsed_end_date[2], parsed_end_date[1] - 1, parsed_end_date[0]))){
-                    this.endDate = val;
-                }
-            }
-            this.fetchData();
         },
-        endDate: function (val) {
+        pickHandler(val) {
+            this.dateRange = val;
             this.fetchData();
-        }       
+        }
     },
     created(){        
         this.fetchData();        
