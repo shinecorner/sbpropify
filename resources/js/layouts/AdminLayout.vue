@@ -232,7 +232,7 @@
         },
 
         methods: {
-            ...mapActions(['logoutAdmin']),
+            ...mapActions(['logout']),
             ...mapActions(['updateSettings']),
 
             toggleFullscreen() {
@@ -252,7 +252,7 @@
                     type: 'warning'
                 }).then(() => {
                     //this.$router.push({name: 'login'});
-                    this.logoutAdmin()
+                    this.logout()
                         .then(() => {
                             this.$router.push({name: 'login'});
                         })
@@ -281,7 +281,7 @@
                 this.$i18n.locale = language;
                 this.selectedFlag = flag;
 
-                console.log('language --- ', this.$i18n.locale);
+                //console.log('language --- ', this.$i18n.locale);
 
                 this.toggleShow();
 

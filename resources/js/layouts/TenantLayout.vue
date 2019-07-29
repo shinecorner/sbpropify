@@ -76,7 +76,7 @@ export default {
                 type: 'warning',
                 roundButton: true
             }).then(() => {
-                this.$store.dispatch('logoutAdmin')
+                this.$store.dispatch('logout')
                     .then(() => this.$router.push({name: 'login'}))
                     .catch(err => displayError(err));
             }).catch(() => {
