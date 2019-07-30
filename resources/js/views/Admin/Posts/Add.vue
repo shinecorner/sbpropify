@@ -1,6 +1,6 @@
 <template>
     <div class="units-add">
-        <heading :title="$t('models.post.add')" icon="ti-annoucements" shadow="heavy" style="margin-bottom: 20px;">
+        <heading :title="$t('models.post.add')" icon="icon-megaphone-1" shadow="heavy" style="margin-bottom: 20px;">
             <add-actions :saveAction="submit" route="adminPosts" editRoute="adminPostsEdit"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
