@@ -40,6 +40,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 .icon-home:before { content: '\e800'; } /* '' */
 .icon-gauge-1:before { content: '\e801'; } /* '' */
 .icon-user:before { content: '\e802'; } /* '' */
@@ -86,6 +87,8 @@
 .icon-zoom-out-outline:before { content: '\e82b'; } /* '' */
 .icon-zoom-in:before { content: '\e82c'; } /* '' */
 .icon-zoom-in-outline:before { content: '\e82d'; } /* '' */
+.icon-right-small:before { content: '\e82e'; } /* '' */
+.icon-right-open:before { content: '\f006'; } /* '' */
 .icon-upload-cloud:before { content: '\f014'; } /* '' */
 .icon-upload:before { content: '\f02f'; } /* '' */
 .icon-users:before { content: '\f064'; } /* '' */
