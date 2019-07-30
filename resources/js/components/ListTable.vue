@@ -161,7 +161,7 @@
                               </el-tooltip>
 
                         </span>
-                        <avatar :size="28" :username="`+ ${scope.row[column.count]}`"
+                        <avatar class="avatar-count" :size="28" :username="`+ ${scope.row[column.count]}`"
                                 color="#fff"
                                 v-if="scope.row[column.count]"></avatar>
                     </div>
@@ -602,6 +602,9 @@
 </script>
 
 <style lang="scss" scoped>
+    .avatar-count{
+        min-width: 28px;
+    }
     .list-table {
         padding: 20px;
     }
