@@ -216,7 +216,7 @@
                             :label="item.name"
                             :value="item.id"
                             v-for="item in column.select.data">
-                            <i class="icon-dot-circled" :class="item.id == 1 ? 'icon-success':'icon-danger'" v-if="column.icon"></i> {{item.name}}
+                            <i class="icon-dot-circled" :class="item.id == 1 ? 'icon-success':'icon-danger'"></i> {{item.name}}
                         </el-option>
                     </el-select>
                 </template>
