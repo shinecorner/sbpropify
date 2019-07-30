@@ -1,4 +1,4 @@
-import enLocale from 'element-ui/lib/locale/lang/fr';
+import frLocale from 'element-ui/lib/locale/lang/fr';
 
 export default {
     ...frLocale,
