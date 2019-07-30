@@ -255,13 +255,13 @@
                         <circular-progress-statistics-card
                             :percentage="statistics.percentage.occupied_units"
                             :title="$t('models.building.occupied_units')"
-                            color="#FFA400"/>
+                            :color="getUnitsCountColor('occupied_units', 'name')"/>
                     </el-col>
                     <el-col :span="12">
                         <circular-progress-statistics-card
                             :percentage="statistics.percentage.free_units"
                             :title="$t('models.building.free_units')"
-                            color="#F9690E"/>
+                            :color="getUnitsCountColor('free_units', 'name')"/>
                     </el-col>
                 </el-row>
             </el-col>

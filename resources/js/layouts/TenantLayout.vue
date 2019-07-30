@@ -142,13 +142,14 @@ export default {
                     route: {
                         name: 'tenantMyDocuments'
                     }
+                    // do not show if no documents
                 }, {
                     icon: 'icon-contacts',
                     title: this.$t('layouts.tenant.sidebar.myContactPersons'),
                     route: {
                         name: 'tenantMyContacts'
                     },
-                    visible: this.realEstate && this.realEstate.contact_enable
+                    visible: this.realEstate && this.realEstate.contact_enable // OR no service partners for the building
                 }]
             }, {
                 icon: 'icon-megaphone-1',

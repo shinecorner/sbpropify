@@ -111,13 +111,11 @@
     import 'quill/dist/quill.bubble.css'
 
     import {quillEditor} from 'vue-quill-editor'
-    import Chat from 'components/Chat2';
 
 
     export default {
         components: {
-            quillEditor,
-            Chat
+            quillEditor
         },
         props: {
             providers: {

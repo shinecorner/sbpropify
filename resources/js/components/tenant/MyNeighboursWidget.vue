@@ -14,7 +14,6 @@
                     />
                     <div class="content">
                         {{ tenant.full_name }}
-                        <small>{{ tenant.user.phone }}</small>
                     </div>
                 </li>
             </ul>

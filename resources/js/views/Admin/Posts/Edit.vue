@@ -379,7 +379,6 @@
 </template>
 
 <script>
-    import Chat from 'components/Chat2';
     import EditActions from 'components/EditViewActions';
     import PostsMixin from 'mixins/adminPostsMixin';
     import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
@@ -393,7 +392,6 @@
     export default {
         mixins: [mixin, FormatDateTimeMixin],
         components: {
-            Chat,
             EditActions,
             RelationList,
             Avatar
