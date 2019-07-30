@@ -44,10 +44,9 @@
                         <el-row :gutter="20" class="main-section">
                             <el-col :md="4">
                                 <img
-                                        src="~img/user-avatar.jpg"
-                                        class="user-image"
-                                        v-if="model.avatar==null"
-                                />
+                                    src="~img/user-avatar.jpg"
+                                    class="user-image"
+                                    v-if="model.avatar==null"/>
                                 <img
                                         style="width: 100%;"
                                         class="user-image"
@@ -85,7 +84,7 @@
                                     </el-col>
 
                                     <el-col :sm="8" :xs="12">{{$t('models.tenant.birth_date')}}:</el-col>
-                                    <el-col :sm="16" :xs="12" class="text-secondary">{{ model.birth_date | formatDate }}&nbsp;</el-col>
+                                    <el-col :sm="16" :xs="12" class="text-secondary">{{ new Date(model.birth_date) | formatDate }}&nbsp;</el-col>
                                 </el-row>
                             </el-col>
                         </el-row>
@@ -98,15 +97,20 @@
                             {{$t('models.tenant.rent_contract')}}
                         </h3>
                         <el-row :gutter="20">
-
                             <el-col :sm="8" :xs="12">{{$t('models.tenant.rent_start')}}:</el-col>
-                            <el-col :sm="16" :xs="12" class="text-secondary">
-                                {{ model.rent_start ? (model.rent_start |formatDate) : '&nbsp;'}}
+                            <el-col :sm="16" :xs="12" class="text-secondary" v-if="model.rent_start">
+                                {{new Date(model.rent_start) | formatDate }}
+                            </el-col>
+                            <el-col :sm="16" :xs="12" class="text-secondary" v-else>
+                               &#8203;
                             </el-col>
 
                             <el-col :sm="8" :xs="12">{{$t('models.tenant.rent_end')}}:</el-col>
-                            <el-col :sm="16" :xs="12" class="text-secondary">
-                                {{ model.rent_end ? (model.rent_end | formatDate) : '&nbsp;'}}
+                            <el-col :sm="16" :xs="12" class="text-secondary" v-if="model.rent_end">
+                                {{  new Date(model.rent_end) | formatDate }}
+                            </el-col>
+                            <el-col :sm="16" :xs="12" class="text-secondary" v-else>
+                                &#8203;
                             </el-col>
 
                             <el-col v-if="lastMedia" class="media">
@@ -397,7 +401,7 @@
                     color: var(--text-color);
                     font-size: 18px;
                     font-weight: 400;
-                    margin-bottom: 20px;
+                    margin-bottom: 10px;
                     margin-top: 0;
                 }
 
