@@ -155,6 +155,9 @@ export default {
     watch:{
         period: function (val) {
             this.fetchData();
+        },
+        '$i18n.locale' : function(val) {
+          this.fetchData();
         }
     }
 }

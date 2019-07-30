@@ -160,7 +160,7 @@
         },
         data() {
             return {
-                totalRequest: 0,
+                totalRequest: "0",
                 avgReqDuration: '',                
                 chartDataReqByHour:{
                     xData: [],

@@ -112,5 +112,10 @@ export default {
     created(){        
       this.fetchData();        
     },
+    watch: {
+      '$i18n.locale' : function(val) {
+        this.fetchData();
+      }
+    }
 }
 </script>

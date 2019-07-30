@@ -132,7 +132,7 @@ export default {
             	params: params
             })
             .then(function (response) {
-                that.yData = response.data.data.data;
+                that.yData = response.data.data.data.map(val => parseFloat(val) || 0);
                 if(that.type === 'request_by_status'){
                     that.xData = response.data.data.labels.map(function(e){return that.$t('models.request.status.'+e)});
                 }
@@ -166,6 +166,11 @@ export default {
     created(){        
         this.fetchData();        
     },
+    watch: {
+      '$i18n.locale' : function(val) {
+        this.fetchData();
+      }
+    }
 }
 </script>
 <style lang="scss">
