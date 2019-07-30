@@ -188,7 +188,6 @@
 <script>
     import {mapActions} from 'vuex';
     import ProductsMixin from 'mixins/adminProductsMixin';
-    import Chat from 'components/Chat2';
     import EditActions from 'components/EditViewActions';
     import {Avatar} from 'vue-avatar'
 
@@ -199,7 +198,6 @@
             mixin
         ],
         components: {
-            Chat,
             EditActions,
             Avatar
         },

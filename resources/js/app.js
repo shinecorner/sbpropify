@@ -9,9 +9,7 @@ import ElementUI from 'element-ui';
 import VueI18n from 'vue-i18n';
 import store from './store/index';
 import router from './routes';
-import DrawerLayout from 'vue-drawer-layout'
 import VueCroppie from 'vue-croppie';
-import VueChatScroll from 'vue-chat-scroll';
 import VueUid from 'vue-uid';
 import can from 'middlewares/can';
 import permissions from 'middlewares/permissions';
@@ -24,6 +22,13 @@ import VueAxios from 'vue-axios'
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import 'element-ui/lib/theme-chalk/index.css';
 
+
+Vue.component('media', () => import(/* webpackChunkName: "media" */ 'components/Media'))
+Vue.component('chat', () => import(/* webpackChunkName: "chat" */ 'components/Chat'))
+Vue.component('comment', () => import(/* webpackChunkName: "comment" */ 'components/Comment'))
+Vue.component('comments', () => import(/* webpackChunkName: "comments" */ 'components/Comments'))
+Vue.component('add-comment', () => import(/* webpackChunkName: "add-comment" */ 'components/AddComment'))
+
 Vue.use(VueUid);
 Vue.use(Sticky)
 Vue.use(VueVirtualScroller)
@@ -33,6 +38,7 @@ Vue.use(ReadMore)
 Vue.use(VueDebounce)
 
 Vue.use(VueAxios, axios)
+
 
 import messages from './lang/index';
 
@@ -58,9 +64,7 @@ Vue.use(VueSweetalert2, {
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
 });
-Vue.use(DrawerLayout);
 Vue.use(VueCroppie);
-Vue.use(VueChatScroll);
 
 //add lodash from window to vue too
 Object.defineProperty(Vue.prototype, '_', { value: window._ });

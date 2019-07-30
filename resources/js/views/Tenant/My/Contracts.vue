@@ -4,12 +4,9 @@
         <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
     </placeholder>
     <div class="contracts" v-else-if="contract">
-        <el-card v-sticky="{stickyTop: -16}">
-            <heading icon="ti-book" title="My contract">
-                <div slot="description">Curabitur pellentesque consectetur malesuada.</div>
-            </heading>
-        </el-card>
-        <el-divider />
+        <heading icon="ti-book" title="My contract">
+            <div slot="description" class="description">Curabitur pellentesque consectetur malesuada.</div>
+        </heading>
         <el-card>
             <el-divider class="column-divider" content-position="left">Building</el-divider>
             <div>
@@ -139,6 +136,14 @@
     }
     .contracts {
 
+        .heading {
+            margin-bottom: 24px;
+            
+            .description {
+                color: darken(#fff, 40%);
+            }
+        }
+
         &:not(.empty):before {
             content: '';
             position: fixed;
@@ -158,16 +163,7 @@
             z-index: 1;
             max-width: 1024px;
 
-            &:first-child {
-                :global(.el-card__body) {
-                    padding: 12px 16px;
-                    .heading div {
-                        color: darken(#fff, 40%);
-                    }
-                }
-            }
-
-            &:last-child :global(.el-card__body) {
+            :global(.el-card__body) {
                 padding: 16px;
 
                 > div {

@@ -1,6 +1,8 @@
 // DO NOT FORGET TO DO -> NPM INSTALL AGAIN (older version of laravel-mix)
 const mix = require('laravel-mix');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CompressionPlugin = require('compression-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
  
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +17,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 mix
     .options({
-        extractVueStyles: true
+        extractVueStyles: true,
+        clearConsole: true
     })
     .copy('resources/fonts', 'public/fonts')
     .sass('resources/sass/app.scss', 'public/css/app.css')
@@ -26,40 +29,41 @@ mix
     .js('resources/js/app.js', 'public/js')
     .extract([
         'vue',
-        'axios',
-        'date-fns',
-        'vue-axios',
-        'vue-router',
-        'vuedraggable',
-        'vue-upload-component',
-        'vue-quill-editor',
-        'vue-apexcharts',
-        'lodash',
-        'query-string',
-        'vue-i18n',
-        'vue-sweetalert2',
         'vuex',
-        'p-queue',
-        'vue-responsive-components',
-        'vue-virtual-scroller',
-        'element-ui',
-        'vue-read-more',
+        'axios',
+        'vue-axios',
+        'v-router-transition',
+        'vue2-editor',
+        'vue-apexcharts',
+        'vue-avatar',
+        'vue-content-loader',
         'vue-croppie',
         'vue-debounce',
-        'vue-uid'
+        'vue-gallery',
+        'vue-i18n',
+        'vue-quill-editor',
+        'vue-read-more',
+        'vue-responsive-components',
+        'vue-router',
+        // 'vue-rss-feed',
+        'vue-sticky',
+        'vue-sticky-directive',
+        'vue-sweetalert2',
+        'vue-uid',
+        'vue-upload-component',
+        'vue-virtual-scroll-list',
+        'vue-virtual-scroller',
+        'vuedraggable',
+        'apexcharts',
+        'date-fns',
+        'element-ui',
+        'lodash',
+        'p-queue',
+        'query-string',
+        'rss-parser',
+        'uuid'
     ])
-    .disableNotifications()
     .webpackConfig({
-        devtool: 'inline-source-map',
-        output: {
-            filename: '[name].js',
-            chunkFilename: 'js/[name].js',
-        },
-        plugins: [
-            new BundleAnalyzerPlugin({
-                openAnalyzer: false
-            })
-        ],
         resolve: {
             alias: {
                 '@': path.resolve('resources/js'),
@@ -76,8 +80,51 @@ mix
             }
         }
     })
-    .version();
+    .version()
+    .disableNotifications();
 
-if (!mix.inProduction()) {
-    mix.sourceMaps();
+if (mix.inProduction()) {
+    mix
+        .options({
+            uglify: {
+                // exclude: /\/vendor.js(\?.*)?$/,
+                uglifyOptions: {
+                    compress: {
+                        ecma: 6,
+                        drop_console: true
+                    },
+                    output: {
+                        ecma: 6,
+                        comments: false
+                    }
+                }
+            }
+        })
+        .webpackConfig({
+            output: {
+                filename: '[name].js?id=[hash]',
+                chunkFilename: 'js/[chunkhash].js?id=[hash]'
+            },
+            plugins: [
+                new CleanWebpackPlugin(['public/js/**/*']),
+                new CompressionPlugin({
+                    asset: "[path].gz[query]",
+                    algorithm: "gzip",
+                    test: /\.js(\?.*)?$|\.css(\?.*)?$|\.html(\?.*)?$|\.woff2(\?.*)?$|\.ttf(\?.*)?$|\.svg(\?.*)?$|\.woff(\?.*)?$|\.eot(\?.*)?$/,
+                })
+            ]
+        })
+} else {
+    mix.webpackConfig({
+        devtool: 'inline-source-map',
+        output: {
+            filename: '[name].js',
+            chunkFilename: 'js/[name].js',
+        },
+        plugins: [
+            new BundleAnalyzerPlugin({
+                openAnalyzer: false
+            })
+        ]
+    }).sourceMaps();
 }
