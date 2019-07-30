@@ -44,19 +44,11 @@ export default {
           yaxis: {
             labels: {
               formatter: (value) => {
-                return value;
-              }
-            }
-          },
-          xaxis: {
-            type: 'category',
-            //tickAmount: 'dataPoints',
-            //tickPlacement: 'between',
-            labels: {
-              hideOverlappingLabels: false,
-              formatter: (value) => {
-                const realValue =  value.substring(1);
-                if (this.type == 'week-hour') {
+                const realValue = value.toString();
+                if (realValue == '') {
+                  return;
+                }
+                else if (this.type == 'week-hour' && realValue.match(/[a-zA-Z]+/gi)) {
                   return this.$t('days.' + realValue.toLowerCase());
                 }
                 else {
@@ -64,6 +56,29 @@ export default {
                 }
               }
             }
+          },
+          xaxis: {
+            type: 'category',
+            labels: {
+              hideOverlappingLabels: false,
+              formatter: (value) => {
+                const realValue =  value.substring(1);
+                return realValue;
+              }
+            }
+          },
+          tooltip: {
+            y: {
+                title: {
+                    formatter: (seriesName) => {
+                      const realValue = seriesName.toString();
+                      if (this.type == 'week-hour' && realValue.match(/[a-zA-Z]+/gi)) {
+                        return this.$t('days.' + realValue.toLowerCase());
+                      }
+                      return realValue;
+                    },
+                },
+            },
           }
         }
       }

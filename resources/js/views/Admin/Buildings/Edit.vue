@@ -1,6 +1,6 @@
 <template>
     <div class="buildings-edit ">
-        <heading :title="$t('models.building.edit_title')" icon="ti-home" shadow="heavy">
+        <heading :title="$t('models.building.edit_title')" icon="icon-commerical-building" shadow="heavy">
             <template>
                 <div class="action-group">
                     <el-button @click="submit" size="small" type="primary" round> {{this.$t('actions.save')}}</el-button>
@@ -255,13 +255,13 @@
                         <circular-progress-statistics-card
                             :percentage="statistics.percentage.occupied_units"
                             :title="$t('models.building.occupied_units')"
-                            color="#FFA400"/>
+                            :color="getUnitsCountColor('occupied_units', 'name')"/>
                     </el-col>
                     <el-col :span="12">
                         <circular-progress-statistics-card
                             :percentage="statistics.percentage.free_units"
                             :title="$t('models.building.free_units')"
-                            color="#F9690E"/>
+                            :color="getUnitsCountColor('free_units', 'name')"/>
                     </el-col>
                 </el-row>
             </el-col>

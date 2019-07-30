@@ -59,13 +59,67 @@
                         </el-row>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.news')" name="news">
-                        {{'Content Third tab'}}
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="24">
+                                <el-card class="chart-card" :header="$t('dashboard.news_by_creation_date')">
+                                    <chart-stacked-column type="news_by_creation_date"></chart-stacked-column>
+                                </el-card>
+                            </el-col>
+                         </el-row>
+                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="$t('dashboard.news_by_status')">
+                                    <chart-pie-and-donut type="news_by_status"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="$t('dashboard.news_by_type')">
+                                    <chart-pie-and-donut type="news_by_type"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                        </el-row>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.marketplace')" name="marketplace">
-                        {{'Fourth Tab'}}
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="24">
+                                <el-card class="chart-card" :header="$t('dashboard.products_by_creation_date')">
+                                    <chart-stacked-column type="products_by_creation_date"></chart-stacked-column>
+                                </el-card>
+                            </el-col>
+                         </el-row>
+                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="$t('dashboard.products_by_type')">
+                                    <chart-pie-and-donut type="products_by_type"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                        </el-row>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.tenants')" name="tenants">
-                        {{'Fourth Tab'}}
+                        <el-row type="flex">
+                            <el-col :span="24">
+                                <tenants-statistics-card :data="tenantsStatistics"></tenants-statistics-card>
+                            </el-col>
+                        </el-row>
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="24">
+                                <el-card class="chart-card" :header="$t('dashboard.tenants_by_creation_date')">
+                                    <chart-stacked-column type="tenants_by_creation_date"></chart-stacked-column>
+                                </el-card>
+                            </el-col>
+                         </el-row>
+                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="$t('dashboard.tenants_by_request_status')">
+                                    <chart-pie-and-donut type="tenants_by_request_status"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="$t('dashboard.tenants_by_status')">
+                                    <chart-pie-and-donut type="tenants_by_status"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                        </el-row>
                     </el-tab-pane>
                 </el-tabs>
             </el-col>
@@ -87,6 +141,7 @@
 
     import BuildingsStatisticsCard from 'components/BuildingsStatisticsCard';
     import ChartColumn from 'components/ChartColumn';
+    import TenantsStatisticsCard from 'components/TenantsStatisticsCard';
 
     export default {
         name: 'AdminDashboard',
@@ -100,7 +155,8 @@
             ChartPieAndDonut,
             ChartHeatMap,
             BuildingsStatisticsCard,
-            ChartColumn
+            ChartColumn,
+            TenantsStatisticsCard
         },
         data() {
             return {
@@ -113,6 +169,7 @@
                 chartOptionsTotalReqByCreationDate: {},
                 reqStatusCount: {},
                 buildingStatistics: {},
+                tenantsStatistics: {},
                 statistics: [{
                     icon: 'ti-shopping-cart',
                     color: '#f06292',
@@ -162,7 +219,15 @@
                     that.totalRequest = response.data.data.total_requests;
                     that.avgReqDuration = response.data.data.avg_request_duration;
 
-                    that.buildingStatistics = response.data.data.buildings_per_status.original.data;
+                    that.buildingStatistics = {
+                        total_buildings: response.data.data.total_buildings,
+                        card_data: response.data.data.buildings_per_status
+                    };
+
+                    that.tenantsStatistics = {
+                        total_tenants: response.data.data.total_tenants,
+                        card_data: response.data.data.tenants_per_status
+                    };
                 }).catch(function (error) {
                     console.log(error);
                 })
@@ -308,6 +373,9 @@
         .apexcharts-toolbar {
             margin-top: -88px;
             margin-right: 7px;
+            .apexcharts-menu.open {
+                right: 7px;
+            }
         }
 
         &.no-filter {
@@ -327,6 +395,10 @@
                     margin: 0;
                     padding: 6px 0;
                     margin-left: 15px;
+
+                    .el-tabs__item {
+                        font-size: 16px;
+                    }
                 }
             }
 

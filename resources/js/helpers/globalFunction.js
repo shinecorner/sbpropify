@@ -22,7 +22,7 @@ let globalFunction = {
             }            
             return colorByID[status];
         },
-        getBuildingsStatusColor(status, type='id') {            
+        getUnitsCountColor(status, type='id') {            
             const colorByID = {
                 1: '#bbb',
                 2: '#ebb563',
@@ -33,8 +33,10 @@ let globalFunction = {
             };
             const colorByName = {
                 total_units: '#bbb',
-                occupied_units: '#ebb563',
-                free_units: '#67C23A',
+                occupied_units: '#FFA400',
+                free_units: '#F9690E',
+                active: '#20A0FF',
+                not_active: '#bbb'
             };
             if(type === 'name'){                
                 return colorByName[status];

@@ -87,7 +87,20 @@ export default {
             legend: {
               position: 'bottom',              
               horizontalAlign: 'center',
-
+              formatter: value => {
+                const realValue = value.toString();
+                if (realValue.match(/[a-zA-Z]+/gi)) {
+                  switch (this.type) {
+                    case 'news_by_creation_date':
+                      return this.$t('models.post.status.' + realValue);
+                    case 'products_by_creation_date':
+                      return this.$t('models.product.status.' + realValue);
+                    case 'tenants_by_creation_date':
+                      return this.$t('models.tenant.status.' + realValue);
+                  }
+                }
+                return realValue;
+              }
             },
             fill: {
               opacity: 1
@@ -100,38 +113,44 @@ export default {
       },
     methods: {
       fetchData(){
-            let that = this;                                               
-            let url = '';						
-            if(this.type === 'request_by_creation_date'){
-                    url = 'admin/chartRequestByCreationDate';
-            }
-            let params = {
-              period: that.period
-            };
-            if (this.dateRange != null) {
-              params.start_date = this.dateRange[0],
-              params.end_date = this.dateRange[1]
-            }
-            return axios.get(url,{
-            	params: params
-            })
-            .then(function (response) {
-                that.yData = response.data.data.requests_per_day_ydata;
-                that.xData = response.data.data.requests_per_day_xdata;
-
-            }).catch(function (error) {
-                console.log(error);
-            })
-        },
-        pickHandler(val) {
-          this.dateRange = val;
-          this.fetchData();
+        let that = this;                                               
+        let url = '';						
+        if(this.type === 'request_by_creation_date'){
+          url = 'admin/chartRequestByCreationDate';
         }
+        else if (this.type === 'news_by_creation_date') {
+          url = 'admin/chartByCreationDate?table=posts';
+        }
+        else if (this.type === 'products_by_creation_date') {
+          url = 'admin/chartByCreationDate?table=products';
+        }
+        else if (this.type === 'tenants_by_creation_date') {
+          url = 'admin/chartByCreationDate?table=tenants';
+        }
+        let params = {
+          period: that.period
+        };
+        if (this.dateRange != null) {
+          params.start_date = this.dateRange[0],
+          params.end_date = this.dateRange[1]
+        }
+        return axios.get(url,{
+          params: params
+        })
+        .then(function (response) {
+          that.yData = response.data.data.requests_per_day_ydata;
+          that.xData = response.data.data.requests_per_day_xdata;
+        }).catch(function (error) {
+          console.log(error);
+        })
+      },
+      pickHandler(val) {
+        this.dateRange = val;
+        this.fetchData();
+      }
     },
     created(){
-        if(this.type === 'request_by_creation_date'){
-            this.fetchData();
-        }
+      this.fetchData();
     },
     watch:{
         period: function (val) {

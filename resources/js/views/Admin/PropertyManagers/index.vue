@@ -1,6 +1,6 @@
 <template>
     <div class="services">
-        <heading :title="$t('models.propertyManager.title')" icon="ti-user" shadow="heavy">
+        <heading :title="$t('models.propertyManager.title')" icon="icon-users" shadow="heavy">
             <template v-if="$can($permissions.create.propertyManager)">            
                 <el-button @click="add" icon="ti-plus" round size="small" type="primary">
                     {{$t('models.propertyManager.add')}}
