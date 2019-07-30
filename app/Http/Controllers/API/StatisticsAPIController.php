@@ -232,8 +232,8 @@ class StatisticsAPIController extends AppBaseController
          * @TODO adjust response for frontend
          */
         $response = [
-            'total_tenants' => $tenantCount,
-            'total_units' => $unitCount,
+            'total_tenants' => $this->thousandsFormat($tenantCount),
+            'total_units' => $this->thousandsFormat($unitCount),
 //            'occupied_units' => $occupiedUnits,
 //            'free_units' => $freeUnit,
             'labels' => [
@@ -241,8 +241,8 @@ class StatisticsAPIController extends AppBaseController
                 'free_units'
             ],
             'data' => [
-                $tenantCount,
-                $unitCount - $tenantCount
+                $this->thousandsFormat($tenantCount),
+                $this->thousandsFormat($unitCount - $tenantCount)
             ],
             'tag_percentage' => [
                 $occupiedUnits,
@@ -491,22 +491,22 @@ class StatisticsAPIController extends AppBaseController
         $ret = [
             'avg_request_duration' => $avgReqFix ? gmdate("H:i",$avgReqFix[0]->duration) : 0,
             // all time total requests count and total request count of per status
-            'total_requests' => ServiceRequest::count('id'),
+            'total_requests' => $this->thousandsFormat(ServiceRequest::count('id')),
             'requests_per_status' => $this->donutChartByTable($request, $optionalArgs, 'service_requests'),
             'requests_per_category' => $this->donutChartRequestByCategory($request, $optionalArgs),
 
             // all time total tenants count and total tenants count of per status
-            'total_tenants' => Tenant::count('id'),
+            'total_tenants' => $this->thousandsFormat(Tenant::count('id')),
             'tenants_per_status' => $this->donutChartByTable($request, $optionalArgs, 'tenants'),
 
             // all time total buildings count and total buildings count of per status
-            'total_buildings' => Building::count('id'),
+            'total_buildings' => $this->thousandsFormat(Building::count('id')),
             'buildings_per_status' => $this->allBuildingStatistics(),
 
-            'total_products' => Product::count('id'),
+            'total_products' => $this->thousandsFormat(Product::count('id')),
             'products_per_status' => $this->donutChartByTable($request, $optionalArgs, 'products'),
 
-            'total_posts' => Post::count('id'),
+            'total_posts' => $this->thousandsFormat(Post::count('id')),
             'posts_per_status' => $this->donutChartByTable($request, $optionalArgs, 'posts'),
         ];
 
@@ -659,7 +659,7 @@ class StatisticsAPIController extends AppBaseController
 
         foreach ($serviceRequests as $serviceRequest) {
             $category = $parentCategories[$serviceRequest->category_parent_id];
-            $statisticData[$category] = $serviceRequest->count;
+            $statisticData[$category] = $this->thousandsFormat($serviceRequest->count);
         }
 
         $response = [
@@ -929,7 +929,7 @@ class StatisticsAPIController extends AppBaseController
         });
 
         $response['data'] = $statistics->map(function($el) {
-            return $el['count'];
+            return $this->thousandsFormat($el['count']);
         });
 
         if ($includePercentage) {
@@ -1134,5 +1134,18 @@ class StatisticsAPIController extends AppBaseController
         $columnValues = $permittedColumns[$column];
 
         return [$class, $table, $column, $columnValues];
+    }
+
+    /**
+     * @param $number
+     * @return string
+     */
+    protected function thousandsFormat($number)
+    {
+        if (! is_numeric($number)) {
+            return $number;
+        }
+
+        return number_format($number, 0, ".", "'");
     }
 }
