@@ -116,7 +116,7 @@ if (mix.inProduction()) {
         })
 } else {
     mix.webpackConfig({
-        devtool: 'inline-source-map',
+        devtool: 'source-map',
         output: {
             filename: '[name].js',
             chunkFilename: 'js/[name].js',
