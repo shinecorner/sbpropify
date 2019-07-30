@@ -33,7 +33,7 @@ export default {
   data() {
     return {        
         chartType: 'pie',
-        dateRange: [subDays(new Date(), 28), new Date()],
+        dateRange: [format(subDays(new Date(), 28), 'DD.MM.YYYY'), format(new Date(), 'DD.MM.YYYY')],
         xData: [],
         yData: [],
     }
