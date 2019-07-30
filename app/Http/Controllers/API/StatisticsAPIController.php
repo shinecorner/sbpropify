@@ -203,10 +203,10 @@ class StatisticsAPIController extends AppBaseController
         }
 
         $response = [
-            'total_tenants' => $tenants,
-            'total_units' => $units,
-            'occupied_units' => $occupiedUnits,
-            'free_units' => $freeUnit,
+            'total_tenants' => $this->thousandsFormat($tenants),
+            'total_units' => $this->thousandsFormat($units),
+            'occupied_units' => $this->thousandsFormat($occupiedUnits),
+            'free_units' => $this->thousandsFormat($freeUnit),
         ];
 
         return $this->sendResponse($response, 'Building statistics retrieved successfully');
@@ -319,17 +319,17 @@ class StatisticsAPIController extends AppBaseController
         }
 
         $response = [
-            'requests_count' => $tenant->requests_count,
-            'opened_requests_count' => $tenant->requests_received_count,
-            'pending_requests_count' => $tenant->requests_in_processing_count,
-            'done_requests_count' => $tenant->requests_done_count,
-            'archived_requests_count' => $tenant->requests_archived_count,
+            'requests_count' => $this->thousandsFormat($tenant->requests_count),
+            'opened_requests_count' => $this->thousandsFormat($tenant->requests_received_count),
+            'pending_requests_count' => $this->thousandsFormat($tenant->requests_in_processing_count),
+            'done_requests_count' => $this->thousandsFormat($tenant->requests_done_count),
+            'archived_requests_count' => $this->thousandsFormat($tenant->requests_archived_count),
 
-            'requests' => $tenant->requests,
-            'opened_requests' => $tenant->requestsReceived,
-            'pending_requests' => $tenant->requestsInProcessing,
-            'done_requests' => $tenant->requestsDone,
-            'archived_requests' => $tenant->requestsArchived,
+            'requests' => $this->thousandsFormat($tenant->requests),
+            'opened_requests' => $this->thousandsFormat($tenant->requestsReceived),
+            'pending_requests' => $this->thousandsFormat($tenant->requestsInProcessing),
+            'done_requests' => $this->thousandsFormat($tenant->requestsDone),
+            'archived_requests' => $this->thousandsFormat($tenant->requestsArchived),
         ];
 
         return $this->sendResponse($response, 'Tenant statistics retrieved successfully');
@@ -390,8 +390,8 @@ class StatisticsAPIController extends AppBaseController
                 'mrs'
             ],
             'data' => [
-                $manCount,
-                $femaleCount
+                $this->thousandsFormat($manCount),
+                $this->thousandsFormat($femaleCount),
             ],
             'tag_percentage' => [
                 100 - $femalePercentage,
@@ -456,13 +456,13 @@ class StatisticsAPIController extends AppBaseController
             $response = [
                 'averageRequestTime' => CarbonInterval::minutes(ceil($averageRequestTime->solved))->cascade()->forHumans(),
 
-                'requestsCount' => $serviceReq->count(),
-                'requestsReceivedCount' => $serviceReq->requestsReceived()->count(),
-                'requestsInProcessingCount' => $serviceReq->requestsInProcessing()->count(),
-                'requestsAssignedCount' => $serviceReq->requestsAssigned()->count(),
-                'requestsDoneCount' => $serviceReq->requestsDone()->count(),
-                'requestsReactivatedCount' => $serviceReq->requestsReactivated()->count(),
-                'requestsArchivedCount' => $serviceReq->requestsArchived()->count(),
+                'requestsCount' => $this->thousandsFormat($serviceReq->count()),
+                'requestsReceivedCount' => $this->thousandsFormat($serviceReq->requestsReceived()->count()),
+                'requestsInProcessingCount' => $this->thousandsFormat($serviceReq->requestsInProcessing()->count()),
+                'requestsAssignedCount' => $this->thousandsFormat($serviceReq->requestsAssigned()->count()),
+                'requestsDoneCount' => $this->thousandsFormat($serviceReq->requestsDone()->count()),
+                'requestsReactivatedCount' => $this->thousandsFormat($serviceReq->requestsReactivated()->count()),
+                'requestsArchivedCount' => $this->thousandsFormat($serviceReq->requestsArchived()->count()),
             ];
 
         } catch (\Exception $e) {
@@ -595,7 +595,7 @@ class StatisticsAPIController extends AppBaseController
         }
 
         foreach ($statistics as $statistic) {
-            $dayStatistic[$statistic['period']] = $statistic['count'];
+            $dayStatistic[$statistic['period']] = $this->thousandsFormat($statistic['count']);
         }
 
         $response['requests_per_day_xdata'] = array_values($periodValues);
@@ -714,7 +714,7 @@ class StatisticsAPIController extends AppBaseController
             foreach ($xAxisData as $xAxis => $count) {
                 $format[] = [
                     'x' => $xAxis,
-                    'y' => $count
+                    'y' => $this->thousandsFormat($count)
                 ];
             }
 
@@ -786,7 +786,7 @@ class StatisticsAPIController extends AppBaseController
             $day = $parts[0];
             $y = $parts[1];
             $x = $intervalValues[$day];
-            $colStats[$x][$y] = $statistic['count'];
+            $colStats[$x][$y] = $this->thousandsFormat($statistic['count']);
         }
 
         return $colStats;
@@ -807,7 +807,7 @@ class StatisticsAPIController extends AppBaseController
             $day = $parts[0];
             $y = $parts[1];
             $x = $intervalValues[$day];
-            $colStats[$y][$x] = $statistic['count'];
+            $colStats[$y][$x] = $this->thousandsFormat($statistic['count']);
         }
 
         return $colStats;
@@ -826,15 +826,15 @@ class StatisticsAPIController extends AppBaseController
         $statistics = collect([
             [
                 'login' => 1,
-                'count' => $desktopLoginCount,
+                'count' => $this->thousandsFormat($desktopLoginCount),
             ],
             [
                 'login' => 2,
-                'count' => $tabletLoginCount,
+                'count' => $this->thousandsFormat($tabletLoginCount),
             ],
             [
                 'login' => 3,
-                'count' => $mobileLoginCount,
+                'count' => $this->thousandsFormat($mobileLoginCount),
             ],
         ]);
         $values = [
@@ -885,7 +885,7 @@ class StatisticsAPIController extends AppBaseController
         $colStats = $this->initializeServiceRequestCategoriesForChart($columnValues, $periodValues);
         foreach ($statistics as $statistic) {
             $value = $columnValues[$statistic[$column]] ?? '';
-            $colStats[$value][$statistic['period']] = $statistic['count'];
+            $colStats[$value][$statistic['period']] = $this->thousandsFormat($statistic['count']);
         }
 
         $formattedReqStatistics = [];
