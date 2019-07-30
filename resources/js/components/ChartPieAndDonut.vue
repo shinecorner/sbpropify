@@ -39,14 +39,6 @@ export default {
     }
   },
   computed:{
-    chartWidth: function() {
-        if (this.type === 'request_by_status') {
-            return 490;
-        }
-        else {
-            return 490;
-        }
-    },
     series: function(){        
         return this.yData;
     },
@@ -54,7 +46,17 @@ export default {
         return {
             labels: this.xData,
             responsive: [{
-                breakpoint: 1210,
+                breakpoint: 1300,
+                options: {
+                    chart: {
+                        width: 490,
+                    },
+                    legend: {
+                        width: 170,
+                    }
+                }
+            }, {
+                breakpoint: 1200,
                 options: {
                     chart: {
                         width: '100%',
@@ -75,14 +77,14 @@ export default {
             }],
             legend: {
                 show: true,
-                width: 170
+                width: 220
             },
             chart:{
                 toolbar: {
                     show: true,
                 },
                 autoSelected: '',
-                width: this.chartWidth,
+                width: 540,
                 height: 320
             }
         }
@@ -100,6 +102,26 @@ export default {
                 this.chartType = 'donut';
                 url = 'admin/donutChartRequestByCategory';
             }
+            else if (this.type === 'news_by_status') {
+                this.chartType = 'donut';
+                url = 'admin/donutChart?table=posts&column=status';
+            }
+            else if (this.type === 'news_by_type') {
+                this.chartType = 'donut';
+                url = 'admin/donutChart?table=posts&column=type';
+            }
+            else if (this.type === 'products_by_type') {
+                this.chartType = 'donut';
+                url = 'admin/donutChart?table=products&column=type';
+            }
+            else if (this.type === 'tenants_by_request_status') {
+                this.chartType = 'donut';
+                url = 'admin/donutChartTenantsByDateAndStatus';
+            }
+            else if (this.type === 'tenants_by_status') {
+                this.chartType = 'donut';
+                url = 'admin/donutChart?table=tenants&column=status';
+            }
             let params = {};
             if (this.dateRange != null) {
               params.start_date = this.dateRange[0],
@@ -110,14 +132,28 @@ export default {
             	params: params
             })
             .then(function (response) {
-                if(that.type === 'request_by_status'){                    
-                    that.yData = response.data.data.data;
+                that.yData = response.data.data.data;
+                if(that.type === 'request_by_status'){
                     that.xData = response.data.data.labels.map(function(e){return that.$t('models.request.status.'+e)});
                 }
                 else if(that.type === 'request_by_category'){
-                    that.yData = response.data.data.data;
                     that.xData = response.data.data.labels;
-                }                
+                }
+                else if (that.type === 'news_by_status') {
+                    that.xData = response.data.data.labels.map(label => that.$t('models.post.status.' + label));
+                }
+                else if (that.type === 'news_by_type') {
+                    that.xData = response.data.data.labels.map(label => that.$t('models.post.type.' + label));
+                }
+                else if (that.type === 'products_by_type') {
+                    that.xData = response.data.data.labels.map(label => that.$t('models.product.type.' + label));
+                }
+                else if (that.type === 'tenants_by_request_status') {
+                    that.xData = response.data.data.labels.map(function(e){return that.$t('models.request.status.'+e)});
+                }
+                else if (that.type === 'tenants_by_status') {
+                    that.xData = response.data.data.labels.map(label => that.$t('models.tenant.status.' + label));
+                }
             }).catch(function (error) {
                 console.log(error);
             })
@@ -138,6 +174,12 @@ export default {
 
         .apexcharts-canvas {
             position: unset;
+        }
+
+        .apexcharts-legend {
+            display: flex;
+            flex-direction: column;
+            justify-content: center !important;
         }
     }
 </style>

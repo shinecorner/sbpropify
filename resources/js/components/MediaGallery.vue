@@ -24,11 +24,7 @@
         },
         computed: {
             id () {
-                if (this.$attrs.id) {
-                    return this.$attrs.id
-                }
-
-                return `gallery-${this.$_uid}`
+                return this.$attrs.id || `gallery-${this.$_uid}`
             }
         },
         beforeCreate () {

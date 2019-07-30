@@ -77,7 +77,12 @@ class StatisticsAPIController extends AppBaseController
         'tenants' => [
             'class' => Tenant::class,
             'columns' => [
-                'status'
+                'status',
+                'title' => [
+                    'mr' => 'mr',
+                    'mrs' => 'mrs',
+                    'company' => 'company',
+                ],
             ]
         ],
         'products' => [
@@ -198,10 +203,10 @@ class StatisticsAPIController extends AppBaseController
         }
 
         $response = [
-            'total_tenants' => $tenants,
-            'total_units' => $units,
-            'occupied_units' => $occupiedUnits,
-            'free_units' => $freeUnit,
+            'total_tenants' => $this->thousandsFormat($tenants),
+            'total_units' => $this->thousandsFormat($units),
+            'occupied_units' => $this->thousandsFormat($occupiedUnits),
+            'free_units' => $this->thousandsFormat($freeUnit),
         ];
 
         return $this->sendResponse($response, 'Building statistics retrieved successfully');
@@ -227,8 +232,8 @@ class StatisticsAPIController extends AppBaseController
          * @TODO adjust response for frontend
          */
         $response = [
-            'total_tenants' => $tenantCount,
-            'total_units' => $unitCount,
+            'total_tenants' => $this->thousandsFormat($tenantCount),
+            'total_units' => $this->thousandsFormat($unitCount),
 //            'occupied_units' => $occupiedUnits,
 //            'free_units' => $freeUnit,
             'labels' => [
@@ -236,8 +241,8 @@ class StatisticsAPIController extends AppBaseController
                 'free_units'
             ],
             'data' => [
-                $tenantCount,
-                $unitCount - $tenantCount
+                $this->thousandsFormat($tenantCount),
+                $this->thousandsFormat($unitCount - $tenantCount)
             ],
             'tag_percentage' => [
                 $occupiedUnits,
@@ -314,17 +319,17 @@ class StatisticsAPIController extends AppBaseController
         }
 
         $response = [
-            'requests_count' => $tenant->requests_count,
-            'opened_requests_count' => $tenant->requests_received_count,
-            'pending_requests_count' => $tenant->requests_in_processing_count,
-            'done_requests_count' => $tenant->requests_done_count,
-            'archived_requests_count' => $tenant->requests_archived_count,
+            'requests_count' => $this->thousandsFormat($tenant->requests_count),
+            'opened_requests_count' => $this->thousandsFormat($tenant->requests_received_count),
+            'pending_requests_count' => $this->thousandsFormat($tenant->requests_in_processing_count),
+            'done_requests_count' => $this->thousandsFormat($tenant->requests_done_count),
+            'archived_requests_count' => $this->thousandsFormat($tenant->requests_archived_count),
 
-            'requests' => $tenant->requests,
-            'opened_requests' => $tenant->requestsReceived,
-            'pending_requests' => $tenant->requestsInProcessing,
-            'done_requests' => $tenant->requestsDone,
-            'archived_requests' => $tenant->requestsArchived,
+            'requests' => $this->thousandsFormat($tenant->requests),
+            'opened_requests' => $this->thousandsFormat($tenant->requestsReceived),
+            'pending_requests' => $this->thousandsFormat($tenant->requestsInProcessing),
+            'done_requests' => $this->thousandsFormat($tenant->requestsDone),
+            'archived_requests' => $this->thousandsFormat($tenant->requestsArchived),
         ];
 
         return $this->sendResponse($response, 'Tenant statistics retrieved successfully');
@@ -385,8 +390,8 @@ class StatisticsAPIController extends AppBaseController
                 'mrs'
             ],
             'data' => [
-                $manCount,
-                $femaleCount
+                $this->thousandsFormat($manCount),
+                $this->thousandsFormat($femaleCount),
             ],
             'tag_percentage' => [
                 100 - $femalePercentage,
@@ -451,13 +456,13 @@ class StatisticsAPIController extends AppBaseController
             $response = [
                 'averageRequestTime' => CarbonInterval::minutes(ceil($averageRequestTime->solved))->cascade()->forHumans(),
 
-                'requestsCount' => $serviceReq->count(),
-                'requestsReceivedCount' => $serviceReq->requestsReceived()->count(),
-                'requestsInProcessingCount' => $serviceReq->requestsInProcessing()->count(),
-                'requestsAssignedCount' => $serviceReq->requestsAssigned()->count(),
-                'requestsDoneCount' => $serviceReq->requestsDone()->count(),
-                'requestsReactivatedCount' => $serviceReq->requestsReactivated()->count(),
-                'requestsArchivedCount' => $serviceReq->requestsArchived()->count(),
+                'requestsCount' => $this->thousandsFormat($serviceReq->count()),
+                'requestsReceivedCount' => $this->thousandsFormat($serviceReq->requestsReceived()->count()),
+                'requestsInProcessingCount' => $this->thousandsFormat($serviceReq->requestsInProcessing()->count()),
+                'requestsAssignedCount' => $this->thousandsFormat($serviceReq->requestsAssigned()->count()),
+                'requestsDoneCount' => $this->thousandsFormat($serviceReq->requestsDone()->count()),
+                'requestsReactivatedCount' => $this->thousandsFormat($serviceReq->requestsReactivated()->count()),
+                'requestsArchivedCount' => $this->thousandsFormat($serviceReq->requestsArchived()->count()),
             ];
 
         } catch (\Exception $e) {
@@ -486,22 +491,22 @@ class StatisticsAPIController extends AppBaseController
         $ret = [
             'avg_request_duration' => $avgReqFix ? gmdate("H:i",$avgReqFix[0]->duration) : 0,
             // all time total requests count and total request count of per status
-            'total_requests' => ServiceRequest::count('id'),
+            'total_requests' => $this->thousandsFormat(ServiceRequest::count('id')),
             'requests_per_status' => $this->donutChartByTable($request, $optionalArgs, 'service_requests'),
             'requests_per_category' => $this->donutChartRequestByCategory($request, $optionalArgs),
 
             // all time total tenants count and total tenants count of per status
-            'total_tenants' => Tenant::count('id'),
+            'total_tenants' => $this->thousandsFormat(Tenant::count('id')),
             'tenants_per_status' => $this->donutChartByTable($request, $optionalArgs, 'tenants'),
 
             // all time total buildings count and total buildings count of per status
-            'total_buildings' => Building::count('id'),
+            'total_buildings' => $this->thousandsFormat(Building::count('id')),
             'buildings_per_status' => $this->allBuildingStatistics(),
 
-            'total_products' => Product::count('id'),
+            'total_products' => $this->thousandsFormat(Product::count('id')),
             'products_per_status' => $this->donutChartByTable($request, $optionalArgs, 'products'),
 
-            'total_posts' => Post::count('id'),
+            'total_posts' => $this->thousandsFormat(Post::count('id')),
             'posts_per_status' => $this->donutChartByTable($request, $optionalArgs, 'posts'),
         ];
 
@@ -590,7 +595,7 @@ class StatisticsAPIController extends AppBaseController
         }
 
         foreach ($statistics as $statistic) {
-            $dayStatistic[$statistic['period']] = $statistic['count'];
+            $dayStatistic[$statistic['period']] = $this->thousandsFormat($statistic['count']);
         }
 
         $response['requests_per_day_xdata'] = array_values($periodValues);
@@ -654,7 +659,7 @@ class StatisticsAPIController extends AppBaseController
 
         foreach ($serviceRequests as $serviceRequest) {
             $category = $parentCategories[$serviceRequest->category_parent_id];
-            $statisticData[$category] = $serviceRequest->count;
+            $statisticData[$category] = $this->thousandsFormat($serviceRequest->count);
         }
 
         $response = [
@@ -709,7 +714,7 @@ class StatisticsAPIController extends AppBaseController
             foreach ($xAxisData as $xAxis => $count) {
                 $format[] = [
                     'x' => $xAxis,
-                    'y' => $count
+                    'y' => $this->thousandsFormat($count)
                 ];
             }
 
@@ -781,7 +786,7 @@ class StatisticsAPIController extends AppBaseController
             $day = $parts[0];
             $y = $parts[1];
             $x = $intervalValues[$day];
-            $colStats[$x][$y] = $statistic['count'];
+            $colStats[$x][$y] = $this->thousandsFormat($statistic['count']);
         }
 
         return $colStats;
@@ -802,7 +807,7 @@ class StatisticsAPIController extends AppBaseController
             $day = $parts[0];
             $y = $parts[1];
             $x = $intervalValues[$day];
-            $colStats[$y][$x] = $statistic['count'];
+            $colStats[$y][$x] = $this->thousandsFormat($statistic['count']);
         }
 
         return $colStats;
@@ -821,15 +826,15 @@ class StatisticsAPIController extends AppBaseController
         $statistics = collect([
             [
                 'login' => 1,
-                'count' => $desktopLoginCount,
+                'count' => $this->thousandsFormat($desktopLoginCount),
             ],
             [
                 'login' => 2,
-                'count' => $tabletLoginCount,
+                'count' => $this->thousandsFormat($tabletLoginCount),
             ],
             [
                 'login' => 3,
-                'count' => $mobileLoginCount,
+                'count' => $this->thousandsFormat($mobileLoginCount),
             ],
         ]);
         $values = [
@@ -880,7 +885,7 @@ class StatisticsAPIController extends AppBaseController
         $colStats = $this->initializeServiceRequestCategoriesForChart($columnValues, $periodValues);
         foreach ($statistics as $statistic) {
             $value = $columnValues[$statistic[$column]] ?? '';
-            $colStats[$value][$statistic['period']] = $statistic['count'];
+            $colStats[$value][$statistic['period']] = $this->thousandsFormat($statistic['count']);
         }
 
         $formattedReqStatistics = [];
@@ -924,7 +929,7 @@ class StatisticsAPIController extends AppBaseController
         });
 
         $response['data'] = $statistics->map(function($el) {
-            return $el['count'];
+            return $this->thousandsFormat($el['count']);
         });
 
         if ($includePercentage) {
@@ -1111,14 +1116,36 @@ class StatisticsAPIController extends AppBaseController
         $table = $optionalArgs['table'] ?? null;
         $table = $table ?? $request->{self::QUERY_PARAMS['table']};
         $table = key_exists($table, $permissions) ? $table : Arr::first(array_keys($permissions));
+        $class = $permissions[$table]['class'];
 
-        $permittedColumns = $permissions[$table]['columns'];
+        $permittedColumns = [];
+        foreach ($permissions[$table]['columns'] as $column => $columnValues) {
+            if (is_numeric($column)) {
+                $column = $columnValues;
+                $columnValues = constant($class . "::" . ucfirst($column));
+            }
+            $permittedColumns[$column] = $columnValues;
+        }
+
+        $_permittedColumns = array_keys($permittedColumns);
         $column = $optionalArgs['column'] ?? null;
         $column = $column ?? $request->{self::QUERY_PARAMS['column']};
-        $column = in_array($column, $permittedColumns) ? $column : Arr::first($permittedColumns);
-        $class = $permissions[$table]['class'];
-        $columnValues = constant($class . "::" . ucfirst($column));
+        $column = in_array($column, $_permittedColumns) ? $column : Arr::first($_permittedColumns);
+        $columnValues = $permittedColumns[$column];
 
         return [$class, $table, $column, $columnValues];
+    }
+
+    /**
+     * @param $number
+     * @return string
+     */
+    protected function thousandsFormat($number)
+    {
+        if (! is_numeric($number)) {
+            return $number;
+        }
+
+        return number_format($number, 0, ".", "'");
     }
 }

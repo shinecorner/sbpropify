@@ -119,12 +119,23 @@ export default {
         average_request_duration: 'Resolution time',
         week_hour: 'Week vs. Hour',
         month_date: 'Month vs. Date',
+        news_by_creation_date: 'News by creation date',
+        news_by_status: 'News by status',
+        news_by_type: 'News by type',
+        products_by_creation_date: 'Market place products by creation date',
+        products_by_type: 'Market place products by type',
+        tenants_by_creation_date: 'Tenants by creation date',
+        tenants_by_request_status: 'Tenants by Requests status',
+        tenants_by_status: 'Tenants by status',
         buildings: {
             total_building: 'Total Count',
             total_units: 'Total Units',
             occupied_units: 'Occupied Units',
             free_units: 'Free Units',
             buildings_by_creation_date: 'Buildings by creation date'
+        },
+        tenants: {
+            total_tenants: 'Total Count'
         }
     },
     pages: {
@@ -298,6 +309,7 @@ export default {
             created_at: 'Date',
             edit: 'Edit',
             delete: 'Delete',
+            deleted: 'Building deleted successfully',
             units: 'Units',
             save: 'Save',
             saved: 'Building saved',
@@ -631,6 +643,7 @@ export default {
             description: 'Description',
             add: 'Add district',
             edit: 'Edit district',
+            save: 'Save',
             edit_action: 'Edit',
             delete: 'Delete',
             cancel: 'Cancel',

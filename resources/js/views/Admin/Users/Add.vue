@@ -1,6 +1,6 @@
 <template>
     <div class="users-add">
-        <heading :title="$t('models.user.add')" icon="ti-user" shadow="heavy">
+        <heading :title="$t('models.user.add')" icon="icon-user" shadow="heavy">
             <add-actions :saveAction="submit" route="adminUsers" editRoute="adminUsersEdit"/>
         </heading>
         <div class="crud-view">

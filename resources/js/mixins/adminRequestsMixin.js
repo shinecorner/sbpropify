@@ -91,8 +91,7 @@ export default (config = {}) => {
                     this.remoteLoading = true;
 
                     try {
-                        const {data} = await this.getTenants({get_all: true, search});
-
+                        const {data} = await this.getTenants({get_all: true, has_building: true,search});
                         this.tenants = data;
                         this.tenants.forEach(t => t.name = `${t.first_name} ${t.last_name}`);
                     } catch (err) {

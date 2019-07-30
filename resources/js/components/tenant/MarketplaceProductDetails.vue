@@ -44,7 +44,6 @@
 </template>
 
 <script>
-    import Chat from 'components/Chat2'
     import Reactions from 'components/Reactions'
     import MediaGalleryCarousel from 'components/MediaGalleryCarousel'
     import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
@@ -58,7 +57,6 @@
             }
         },
         components: {
-            Chat,
             Reactions,
             MediaGalleryCarousel
         },

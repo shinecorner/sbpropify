@@ -11,11 +11,7 @@ export default {
     allRoles(state) {
         return state.roles;
     },
-    loggedInUser({loggedInUser}) {
-        if (!loggedInUser.avatar) {
-            loggedInUser.avatar = undefined;
-        }
-
+    loggedInUser ({loggedInUser}) {
         return loggedInUser;
     },
     isTenant({loggedInUser}) {
