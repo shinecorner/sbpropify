@@ -1,13 +1,13 @@
 <template>
   <el-date-picker
     v-model="dateRange"
-    type="daterange"
+    :type="pickerType"
     align="right"
     unlink-panels
     :range-separator="$t('date_range.range_separator')"
     :start-placeholder="$t('date_range.start_date')"
     :end-placeholder="$t('date_range.end_date')"
-    format="dd.MM.yyyy"
+    :format="viewFormat"
     value-format="dd.MM.yyyy"
     :picker-options="pickerOptions">
   </el-date-picker>
@@ -21,6 +21,9 @@ export default {
   props: {
     pickHandler: {
       type: Function,
+    },
+    rangeType: {
+      type: String
     }
   },
   data() {
@@ -77,6 +80,20 @@ export default {
           }
         }]
       },
+    }
+  },
+  computed: {
+    pickerType: () => {
+      if (this.rangeType == 'month') {
+        return 'monthrange';
+      }
+      return 'daterange';
+    },
+    viewFormat: () => {
+      if (this.rangeType == 'month') {
+        return 'MM.yyyy';
+      }
+      return 'dd.MM.yyyy';
     }
   },
   watch:{

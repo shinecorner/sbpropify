@@ -1,7 +1,7 @@
 <template>
     <div class="piechart">
         <div class="chart-filter in-toolbar">              
-            <custom-date-range-picker
+            <custom-date-range-picker rangeType="day"
                 :pickHandler="pickHandler">
             </custom-date-range-picker>
         </div>
