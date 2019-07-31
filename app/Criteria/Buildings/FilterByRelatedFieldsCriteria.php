@@ -40,7 +40,7 @@ class FilterByRelatedFieldsCriteria implements CriteriaInterface
             // @TODO if building make by code that case street and street_nr not need. It is already included
             //App\Criteria\CommonRequestCriteria see BuildingRepository $fieldSearchable property
             $model = $model->orWhereHas('address', function ($q) use ($search) {
-                $q->orWhere('loc_addresses.city', 'like', '%' . $search . '%')
+                $q->where('loc_addresses.city', 'like', '%' . $search . '%')
                 ->orWhere('loc_addresses.street', 'like', '%' . $search . '%')
                 ->orWhere('loc_addresses.zip', 'like', '%' . $search . '%')
                 ->orWhere('loc_addresses.street_nr', 'like', '%' . $search . '%');
