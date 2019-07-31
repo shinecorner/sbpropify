@@ -63,7 +63,10 @@ export default (config = {}) => {
 
             form() {
                 return this.$refs.form;
-            }
+            },
+            queryParams(){
+                return {role: this.model.role}
+            }            
         }
     };
 
