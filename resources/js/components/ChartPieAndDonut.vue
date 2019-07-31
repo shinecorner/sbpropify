@@ -49,16 +49,19 @@ export default {
         return {
             labels: this.xData,
             responsive: [{
-                breakpoint: 1300,
+                breakpoint: 1400,
                 options: {
                     chart: {
-                        width: 490,
+                        width: '100%',
+                        //height: 'auto'
                     },
                     legend: {
-                        width: 170,
+                        position: 'bottom',
+                        horizontalAlign: 'center',
+                        width: undefined
                     }
                 }
-            }, {
+            }/*, {
                 breakpoint: 1200,
                 options: {
                     chart: {
@@ -77,7 +80,7 @@ export default {
                         show: false
                     }
                 }
-            }],
+            }*/],
             legend: {
                 show: true,
                 width: 220
@@ -181,7 +184,6 @@ export default {
 </script>
 <style lang="scss">
     .piechart {
-        max-height: 420px;
         position: relative;
 
         .apexcharts-canvas {
@@ -190,7 +192,7 @@ export default {
 
         .apexcharts-legend {
             display: flex;
-            flex-direction: column;
+            //flex-direction: column;
             justify-content: center !important;
         }
 
