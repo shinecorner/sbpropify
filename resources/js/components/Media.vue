@@ -260,7 +260,10 @@
                         if (this.uploadOptions.auto) {
                             this.$refs.uploader.active = true
 
-                            this.$message.success('Uploading...', {
+                            this.$message({
+                                type: 'info',
+                                message: 'Uploading...',
+                                duration: 5000,
                                 showClose: true
                             })
                         }
@@ -269,7 +272,10 @@
                             if (this.$refs.uploader.uploaded) {
                                 this.$refs.uploader.clear()
 
-                                this.$message.success('Media files have been succesfully uploaded.', {
+                                this.$message({
+                                    type: 'success',
+                                    message: 'Media files have been succesfully uploaded.',
+                                    duration: 5000,
                                     showClose: true
                                 })
                             }
