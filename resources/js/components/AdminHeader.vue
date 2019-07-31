@@ -4,14 +4,13 @@
             <slot name="prefix"></slot>
         </el-menu-item>
         <el-menu-item class="logo" index="logo">
-            <div v-bind:class="{'collapsed': isCollapsed,  'logo-image': true}">
-                <img v-if="isCollapsed == false" src="~img/logo3.png"/>
-                <img v-if="isCollapsed == true" src="~img/logoArtboard.png"/>
-            </div>
             <div class="menu-icon" title="Collapse" @click="handletoggle">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path fill="none" d="M0 0h24v24H0V0z"></path><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
                 </svg>
+            </div>
+            <div class="logo-image">
+                <img src="~img/logo3.png"/>
             </div>
         </el-menu-item>
         <el-menu-item class="header-menu-links" index="content" v-if="hasSlot()">
@@ -28,11 +27,6 @@
                 isCallapse: false
             }
         },
-        computed: {
-            isCollapsed : function() {
-                return this.$store.state.collapse.isCollapsed;
-            }
-        },
         methods: {
             hasSlot(slot) {
                 if (slot) {
@@ -42,7 +36,7 @@
                 return !!this.$slots.default;
             },
             handletoggle() {
-                this.$store.dispatch('collapse/setCollapse');
+                this.$store.dispatch('sidebar/toggleCollapse');
             }
         }
     }
@@ -74,7 +68,7 @@
                     padding: 1em;
                     padding-left: 0px;
                     display: flex;
-                    
+            
                     .logo-image {
                         width: 220px;
                         position: relative;
@@ -83,31 +77,22 @@
                             height: 100%;
                             vertical-align: baseline;
                         }
-                        &.collapsed {
-                            width: 24px;
-                            img {
-                                width: 21px;
-                                height: 22px;
-                                margin-top: 10px;
-                                margin-left: 5px;   
-                            }
-                        }
                     }
-                    .logo-image:after {
-                        content: "";
-                        position: absolute;
-                        right: -23px;
-                        height: 100%;
-                        width: 1px;
-                        background: #c2c2c2;
-                    }
-                    
                     
                     .menu-icon {
-                        margin-left: 50px;
+                        margin-right: 30px;
                         svg {
                             fill: #ccc;
                         }
+                    }
+                    .menu-icon:after {
+                        content: "";
+                        position: absolute;
+                        left: 38px;
+                        height: 31.5px;
+                        width: 1px;
+                        background: #c2c2c2;
+                        margin-top:6px;
                     }
                     .menu-icon:hover {
                         svg {
