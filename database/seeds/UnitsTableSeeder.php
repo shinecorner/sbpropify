@@ -21,7 +21,7 @@ class UnitsTableSeeder extends Seeder
             foreach ($buildings as $building) {
 
                 for ($i = 1; $i <= random_int(1, 3); $i++) {
-                    if ($count >= 20) {
+                    if ($count >= 200) {
                         break 2;
                     }
                     $count++;

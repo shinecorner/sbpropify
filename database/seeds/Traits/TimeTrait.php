@@ -15,7 +15,8 @@ trait TimeTrait
         $now = now();
 
         $diffSec = $now->diffInSeconds($statDate);
-        return $statDate->addSeconds(random_int(1, $diffSec));
+        $now->subSeconds(random_int(1, $diffSec));
+        return $now;
     }
 
     public function  getDateColumns($date)
