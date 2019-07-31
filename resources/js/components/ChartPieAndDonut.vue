@@ -176,6 +176,7 @@ export default {
 <style lang="scss">
     .piechart {
         max-height: 420px;
+        position: relative;
 
         .apexcharts-canvas {
             position: unset;
@@ -185,6 +186,18 @@ export default {
             display: flex;
             flex-direction: column;
             justify-content: center !important;
+        }
+
+        @media screen and (min-width: 1800px) {
+            .chart-filter {
+                position: absolute;
+                top: -42px;
+                right: 50px;
+
+                background-color: transparent;
+                border-bottom: none;
+                padding: 0;
+            }
         }
     }
 </style>

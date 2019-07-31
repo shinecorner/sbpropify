@@ -18,12 +18,17 @@
                             </el-col>
                          </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
-                            <el-col :span="12">
+                            <el-col :span="8">
                                 <el-card class="chart-card" :header="$t('dashboard.requests_by_status')">
                                     <chart-pie-and-donut type="request_by_status"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
-                            <el-col :span="12">
+                            <el-col :span="8">
+                                <el-card class="chart-card" :header="$t('dashboard.requests_by_category')">
+                                    <chart-pie-and-donut type="request_by_category"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="8">
                                 <el-card class="chart-card" :header="$t('dashboard.requests_by_category')">
                                     <chart-pie-and-donut type="request_by_category"></chart-pie-and-donut>
                                 </el-card>
@@ -387,6 +392,12 @@
         }
 
         &.no-filter {
+            .apexcharts-toolbar {
+                margin-top: -38px;
+            }
+        }
+
+        .piechart {
             .apexcharts-toolbar {
                 margin-top: -38px;
             }
