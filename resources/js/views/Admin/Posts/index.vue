@@ -233,9 +233,8 @@
                     type: 'warning'
                 }).then(async () => {
                     try {
-                        this.loading = true;
-
-                        const resp = await this.updatePost(row);
+                        this.loading = true;                    
+                        const resp = await this.changePostStatus(row.id, row.status);
                         await this.fetchMore();
                         displaySuccess({
                             success: true,
