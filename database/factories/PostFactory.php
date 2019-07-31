@@ -24,13 +24,7 @@ $factory->define(App\Models\Post::class, function (Faker $faker) {
         'notify_email' => true,
         'created_at' => $now,
         'updated_at' => $now,
-        'needs_approval' => true
     ];
-
-    $realEstate = \App\Models\RealEstate::first();
-    if ($realEstate) {
-        $ret['needs_approval'] = $realEstate->news_approval_enable;
-    }
 
     return $ret;
 });
