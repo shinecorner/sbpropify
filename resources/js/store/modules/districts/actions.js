@@ -17,19 +17,28 @@ export default {
     createDistrict(_, payload) {
         return new Promise((resolve, reject) =>
             axios.post('districts', payload)
-                .then(({data: r}) => resolve(r))
+                .then(({data: r}) => resolve({
+                    success: true,
+                    message: 'models.district.saved'
+                }))
                 .catch(({response: {data: err}}) => reject(err)));
     },
     updateDistrict(_, {id, ...restPayload}) {
         return new Promise((resolve, reject) =>
             axios.put(`districts/${id}`, restPayload)
-                .then(({data: r}) => resolve(r))
+                .then(({data: r}) => resolve({
+                    success: true,
+                    message: 'models.district.saved'
+                }))
                 .catch(({response: {data: err}}) => reject(err)));
     },
     deleteDistrict(_, {id}) {
         return new Promise((resolve, reject) =>
             axios.delete(`districts/${id}`)
-                .then(({data: r}) => resolve(r))
+                .then(({data: r}) => resolve({
+                    success: true,
+                    message: 'models.district.deleted'
+                }))
                 .catch(({response: {data: err}}) => reject(err)));
     }
 }

@@ -32,7 +32,7 @@
                             v-for="(child, childKey) in link.children">
 
                         <router-link :to="child.route">
-                            <i :class="['icon-right-1', 'icon']"/>
+                            <i :class="['icon-right-open', 'icon']"/>
                             <span class="title">{{ child.title }}</span>
                         </router-link>
                     </el-menu-item>
@@ -80,7 +80,7 @@
 
                 if (action) {
                     if (action.showConfirmation) {
-                        action && this.$confirm('Please proceed with caution.', 'Are you sure?', {
+                        action && this.$confirm(this.$t('swal.delete.text'), this.$t('swal.delete.title'), {
                             confirmButtonText: 'OK',
                             cancelButtonText: 'Cancel',
                             type: 'warning',
@@ -106,15 +106,14 @@
         },
         created() {
             const routeName = this.$route.name;
-            
+
             this.links.map(link => {
                 if (link.route && link.route.name == routeName) {
                     this.currActive = link.title;
-                }
-                else if (link.children) {
+                } else if (link.children) {
                     let dActive = '';
                     link.children.map(child => {
-                        if (child.route &&  child.route.name == routeName) {
+                        if (child.route && child.route.name == routeName) {
                             this.currActive = child.title;
                         }
                     });
@@ -131,7 +130,7 @@
         flex-direction: column;
         border-right: none !important;
 
-        &-aside{
+        &-aside {
             background: #fff;
         }
 
@@ -146,6 +145,7 @@
 
             .is-active:not(.el-submenu) {
                 background-color: #f0f9f1;
+
                 > a {
                     font-weight: bold;
                 }
@@ -163,6 +163,13 @@
 
                 &.nested {
                     padding: 0 40px !important;
+                }
+            }
+
+            .icon-right-open {
+                &.icon {
+                    font-size: 14px;
+                    margin-right: 0px;
                 }
             }
         }

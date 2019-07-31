@@ -218,7 +218,10 @@
                 this.changePostPublish({id, status}).then((resp) => {
                     this.fetchMore();
                     this.postDetailsVisible = false;
-                    displaySuccess(resp);
+                    displaySuccess({
+                        success: true,
+                        message: 'models.post.updated'
+                    });
                 }).catch((error) => {
                     displayError(error);
                 });
@@ -230,11 +233,13 @@
                     type: 'warning'
                 }).then(async () => {
                     try {
-                        this.loading = true;
-
-                        const resp = await this.updatePost(row);
+                        this.loading = true;                    
+                        const resp = await this.changePostStatus(row.id, row.status);
                         await this.fetchMore();
-                        displaySuccess(resp);
+                        displaySuccess({
+                            success: true,
+                            message: 'models.post.updated'
+                        });
                     } catch (err) {
                         displayError(err);
                     } finally {

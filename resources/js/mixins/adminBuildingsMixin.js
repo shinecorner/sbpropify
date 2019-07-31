@@ -182,7 +182,10 @@ export default (config = {}) => {
 
                                     this.model.service_providers_ids = [];
 
-                                    displaySuccess(data);
+                                    displaySuccess({
+                                        success: true,
+                                        message: 'models.building.saved'
+                                    });
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

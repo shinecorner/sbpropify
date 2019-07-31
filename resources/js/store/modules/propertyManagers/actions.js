@@ -53,7 +53,7 @@ export default {
             axios.delete(`propertyManagers/${payload.id}`).then((response) => {
                 resolve({
                     success: true,
-                    message: 'models.service.deleted'
+                    message: 'models.propertyManager.deleted'
                 })
             }).catch((error) => {
                 reject(error.response.data)

@@ -8,9 +8,9 @@
                 <el-form :model="model" label-position="top" label-width="192px" ref="form">
                     <el-row  :gutter="20">
                         <el-col>
-                            <div class="data-section">
+                          <el-card class="chart-card">
                                 <el-row :gutter="20">
-                                    <h3 class="data-section-header">
+                                    <h3 class="chart-card-header">
                                         <i class="ti-user"/>
                                         {{ $t('models.tenant.personal_details_card') }}
                                     </h3>
@@ -25,8 +25,8 @@
 
                                     </el-col>
                                     <el-col :md="10">
-                                        <el-row :gutter="20">
-                                            <el-col :md="12" class="left-col">
+                                        <el-row :gutter="20" class="mb20">
+                                            <el-col :md="12" >
                                                 <el-form-item :label="$t('models.tenant.title')" :rules="validationRules.title"
                                                               prop="title">
                                                     <el-select placeholder="Select" style="display: block" v-model="model.title">
@@ -78,52 +78,15 @@
                                         </el-row>
                                     </el-col>
                                     <el-col :md='10' class="user-info">
-                                        <el-row :gutter="20">
-                                            <el-col :md="12">
-                                                <el-form-item :label="$t('email')" :rules="validationRules.email" prop="email">
-                                                    <el-input autocomplete="off" type="email" v-model="model.email"></el-input>
-                                                </el-form-item>
-                                            </el-col>
-                                            <el-col :md="12">
-                                                <el-form-item :label="$t('models.tenant.status.label')"
-                                                              :rules="validationRules.status"
-                                                              prop="status">
-                                                    <el-select style="display: block" v-model="model.status">
-                                                        <el-option
-                                                                :key="k"
-                                                                :label="$t(`models.tenant.status.${status}`)"
-                                                                :value="parseInt(k)"
-                                                                v-for="(status, k) in constants.tenants.status">
-                                                        </el-option>
-                                                    </el-select>
-                                                </el-form-item>
-                                            </el-col>
-                                        </el-row>
-                                        <el-row :gutter="20">
-                                            <el-col :md="12">
-                                                <el-form-item :label="$t('password')" :rules="validationRules.password"
-                                                              prop="password">
-                                                    <el-input autocomplete="off" type="password"
-                                                              v-model="model.password"></el-input>
-                                                </el-form-item>
-                                            </el-col>
-                                            <el-col :md="12">
-                                                <el-form-item :label="$t('confirm_password')"
-                                                              :rules="validationRules.password_confirmation"
-                                                              prop="password_confirmation">
-                                                    <el-input autocomplete="off" type="password"
-                                                              v-model="model.password_confirmation"></el-input>
-                                                </el-form-item>
-                                            </el-col>
-                                        </el-row>
+                                  
                                     </el-col>
                                 </el-row>
-                            </div>
+                          </el-card>
                         </el-col>
                         <el-col :md="12">
-                            <div class="data-section">
+                           <el-card class="chart-card">
                                 <el-row :gutter="20">
-                                    <h3 class="data-section-header">
+                                    <h3 class="chart-card-header">
                                         <i class="ti-user"/>
                                         {{ $t('models.tenant.contact_info_card') }}
                                     </h3>
@@ -148,12 +111,12 @@
 
                                     </el-col>
                                 </el-row>
-                            </div>
+                           </el-card>
                         </el-col>
                         <el-col :md='12'>
-                            <div class="data-section">
+                            <el-card class="chart-card">
                                 <el-row :gutter="20">
-                                    <h3 class="data-section-header">
+                                    <h3 class="chart-card-header">
                                         <i class="ti-user"/>
                                         {{ $t('models.tenant.account_info_card') }}
                                     </h3>
@@ -194,18 +157,18 @@
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
-                            </div>
+                            </el-card>
                         </el-col>
                     </el-row>
                 </el-form>
                 <el-row :gutter="20">
                     <el-col :md="12">
-                        <div class='data-section'>
+                       <el-card class="chart-card">
                             <el-form :model="model" label-position="top" label-width="192px" ref="form">
                                 <el-row :gutter="20">
-                                    <h3 class="data-section-header">
-                                        <i class="ti-user"/>
-                                        {{ $t('models.tenant.rent_contract') }}
+                                    <h3 class="chart-card-header">
+                                        <i class="icon-handshake-o ti-user icon "/>
+                                         &nbsp;{{ $t('models.tenant.rent_contract') }}
                                     </h3>
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.tenant.rent_start')"
@@ -262,14 +225,14 @@
                                     </el-row>
                                 </el-form-item>
                             </el-form>
-                        </div>
+                       </el-card>
                     </el-col>
                     <el-col :md="12">
-                        <div class='data-section'>
+                        <el-card class="chart-card">
                             <el-form :model="model" label-position="top" label-width="192px" ref="form">
                                 <el-row :gutter="20">
-                                    <h3 class="data-section-header">
-                                        <i class="ti-user"/>
+                                    <h3 class="chart-card-header">
+                                        <i class="icon-commerical-building icon"/>
                                         {{ $t('models.tenant.building.name') }}
                                     </h3>
                                     <el-col :md="12">
@@ -313,7 +276,7 @@
                                     </el-col>
                                 </el-row>
                             </el-form>
-                        </div>
+                        </el-card>
                     </el-col>
                 </el-row>
 
@@ -383,7 +346,10 @@
                     id: this.model.id,
                     media_id: this.lastMedia.id
                 }).then(r => {
-                    displaySuccess(r);
+                    displaySuccess({
+                        success: true,
+                        message: 'swal.media.deleted'
+                    });
 
                     this.model.media.splice(-1, 1);
                 }).catch(err => {
@@ -488,10 +454,7 @@
 <style lang="scss">
     .tenants-edit-new{
 
-        .data-section{
-            .el-col{
-                padding: 0 15px!important;
-            }
+        .chart-card{
 
             .left-col{
                 padding-left: 10px!important;
@@ -506,13 +469,7 @@
             max-width: 170px;
         }
 
-        .el-input__inner{
-            height: 50px;
-            line-height: 50px;
-            border-radius: unset;
-        }
-
-        .data-section-header{
+        .chart-card-header{
             font-size: 18px;
             font-weight: 400;
             padding: 0 10px 20px;
@@ -533,7 +490,7 @@
             margin-bottom: 20px;
         }
 
-        .data-section{
+        .chart-card{
             margin-bottom: 30px!important;
             padding: 20px;
             background-color: #fff;

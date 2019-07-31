@@ -116,7 +116,27 @@ export default {
         requests_by_status: 'Anfragen nach Status',
         requests_by_category: 'Anfragen nach Kategorie',
         each_hour_request: 'Jede Stunde fordert',
-        average_request_duration: 'Ø Bearbeitungszeit'
+        average_request_duration: 'Ø Bearbeitungszeit',
+        week_hour: 'Woche vs. Stunde',
+        month_date: 'Monat vs. Datum',
+        news_by_creation_date: 'Nachrichten nach Erstellungsdatum',
+        news_by_status: 'Nachrichten nach Status',
+        news_by_type: 'Nachrichten nach Typ',
+        products_by_creation_date: 'Marktplatz-Produkte nach Erstellungsdatum',
+        products_by_type: 'Marktplatz-Produkte nach Typ',
+        tenants_by_creation_date: 'Mieter nach Erstellungsdatum',
+        tenants_by_request_status: 'Mieter nach Anforderungsstatus',
+        tenants_by_status: 'Mieter nach Status',
+        buildings: {
+            total_building: 'Gesamtzahl',
+            total_units: 'Gesamteinheiten',
+            occupied_units: 'Besetzte Einheiten',
+            free_units: 'Kostenlose Einheiten',
+            buildings_by_creation_date: 'Gebäude nach Erstellungsdatum'
+        },
+        tenants: {
+            total_tenants: 'Total Count'
+        }
     },
     pages: {
         profile: {
@@ -161,6 +181,7 @@ export default {
             add: 'Nutzer hinzufügen',
             save: 'Speichern',
             saved: 'Benutzer erfolgreich gespeichert',
+            deleted: 'Benutzer gelöscht',
             edit: 'Benutzer bearbeiten',
             not_found: 'Benutzer nicht gefunden',
             profile_image: 'Profil-Bild',
@@ -191,6 +212,8 @@ export default {
             credentials_download_failed: 'Credentials file not found. Try updating the tenant password to regenerate it',
             add: 'Mieter hinzufügen',
             save: 'Speichern',
+            saved: 'Mieter gespeichert',
+            deleted: 'Mieter gelöscht',
             update: 'Update',
             name: 'Name',
             first_name: 'Vorname',
@@ -289,6 +312,7 @@ export default {
             created_at: 'Datum',
             edit: 'Öffnen',
             delete: 'Löschen',
+            deleted: 'Liegenschaft erfolgreich gelöscht',
             units: 'Einheiten',
             save: 'Speichern',
             saved: 'Liegenschaft gespeichert',
@@ -383,6 +407,7 @@ export default {
             created_at: 'Datum',
             edit: 'Öffnen',
             delete: 'Löschen',
+            deleted: 'Einheit gelöscht',
             save: 'Speichern',
             saved: "Einheit gespeichert",
             floor: 'Stockwerk',
@@ -479,6 +504,9 @@ export default {
             add: 'Nachricht hinzufügen',
             add_pinned: 'Ankündigung erstellen',
             save: 'Speichern',
+            saved: 'Nachricht gespeichert',
+            updated: 'Nachricht aktualisiert',
+            deleted: 'Nachricht gelöscht',
             edit: 'Öffnen',
             edit_title: 'Beitrag bearbeiten',
             show: 'Vorschau',
@@ -575,6 +603,8 @@ export default {
             edit_title: 'Bearbeiten',
             edit: 'Öffnen',
             delete: 'Löschen',
+            saved: 'Firma gespeichert',
+            deleted: 'Firma gelöscht',
             category: 'Kategorie',
             electrician: "Elektro",
             heating_company: 'Heizung',
@@ -623,8 +653,10 @@ export default {
             add: 'Überbauung hinzufügen',
             edit: 'Überbauung bearbeiten',
             save: 'Speichern',
+            saved: 'Überbauung gespeichert',
             edit_action: 'Öffnen',
             delete: 'Löschen',
+            deleted: 'Überbauung gelöscht',
             cancel: 'Schliessen',
             required: 'Dies ist ein Pflichfeld',
             details: 'Öffnen',
@@ -658,6 +690,8 @@ export default {
             deleted: 'Gelöscht',
             title: 'Anfragen',
             created: 'Erstellt',
+            saved: 'Anfrage gespeichert',
+            deleted: 'Anfrage gelöscht',
             prop_title: 'Titel',
             description: 'Beschreibung',
             category: 'Kategorie',
@@ -691,6 +725,7 @@ export default {
                 managers: 'Bewirtschafter'
             },
             media: {
+                added: 'Dokument hinzugefügt',
                 removed: 'Dokument entfernt.',
                 deleted: 'Dokument gelöscht',
                 delete: 'Löschen'
@@ -806,6 +841,8 @@ export default {
             title_label: 'Anrede',
             add: 'Bewirtschafter hinzufügen',
             save: 'Speichern',
+            saved: 'Bewirtschafter gespeichert',
+            deleted: 'Bewirtschafter gelöscht',
             edit: 'Öffnen',
             edit_title: 'Bewirtschafter bearbeiten',
             delete: 'Löschen',
@@ -882,6 +919,8 @@ export default {
             unpublish: 'Unveröffentlicht',
             likes: 'Likes',
             save: 'Speichern',
+            saved: 'Anzeige gespeichert',
+            deleted: 'Anzeige gelöscht',
             comments: 'Kommentare',
             user: 'Benutzer',
             contact: 'Kontaktdaten',
@@ -940,7 +979,7 @@ export default {
         }
     },
     swal: {
-        delete: {
+        delete: {            
             title: 'Sind Sie sicher?',
             text: 'Dies kann nicht mehr rückgänging gemacht werden',
             confirmText: 'Ja, ich will löschen!',
@@ -948,7 +987,12 @@ export default {
         },
         add: {
             added: 'Erfolgreich hinzugefügt'
-        }
+        },
+        media: {
+            added: 'Dokument/Foto hinzugefügt',
+            deleted: 'Dokument/Foto gelöscht',            
+        },
+        logout_confirm: 'Du wirst ausgeloggt.'
     },
     roles: {
         label: 'Rolle',
@@ -1053,6 +1097,9 @@ export default {
     },
     components: {
         common: {
+            audit: {
+
+            },
             commentsList: {
                 loading: 'Ladet...',
                 loadMore: {
@@ -1065,6 +1112,7 @@ export default {
                 }
             },
             comment: {
+                updateShortcut: 'oder Verwendung {shortcut} Abkürzung',
                 updateOrCancel: '{update} oder drücke {esc} um {cancel}',
                 update: 'bearbeiten',
                 esc: 'ESC',
@@ -1075,7 +1123,9 @@ export default {
             },
             addComment: {
                 placeholder: 'Schreibe einen Kommentar...',
+                tooltipTemplates: 'Wählen Sie eine Vorlage',
                 loadingTemplates: 'Vorlagen werden geladen...',
+                saveShortcut: 'oder Verwendung {shortcut} Abkürzung',
                 emptyTemplatesPlaceholder: 'Keine Vorlagen vorhanden'
             }
         },
@@ -1107,5 +1157,17 @@ export default {
                 }
             }
         }
+    },
+    dateTimeFormat: '{date} bei {time}',
+    date_range: {
+        range_separator: 'Bis',
+        start_date: 'Startdatum',
+        end_date: 'Enddatum',
+        last_week: 'Letzte Woche',
+        last_month: 'Letzte Monat',
+        last_3_months: 'Letzte 3 Monate',
+        last_6_months: 'Letzte 3 Monate',
+        last_year: 'Letzte Jahr',
+        last_2_years: 'Letzte 2 Jahre'
     }
 }

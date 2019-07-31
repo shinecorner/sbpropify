@@ -1,7 +1,7 @@
 <template>
     <div class="users-edit">
         <heading :title="$t('models.user.edit')" icon="icon-user">
-            <edit-actions :saveAction="submit" :deleteAction="deleteUser" route="adminUsers" shadow="heavy"/>
+            <edit-actions :saveAction="submit" :deleteAction="deleteUser" route="adminUsers" :queryParams="queryParams" shadow="heavy"/>
         </heading>
         <el-row class="crud-view">
             <el-col :md="12">

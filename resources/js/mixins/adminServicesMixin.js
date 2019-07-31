@@ -214,7 +214,10 @@ export default (config = {}) => {
                                     await this.uploadAvatarIfNeeded(resp.data.user.id);
                                 }
 
-                                displaySuccess(resp);
+                                displaySuccess({
+                                    success: true,
+                                    message: 'models.service.saved'
+                                });
 
                                 this.form.resetFields();
                                 return resp;
@@ -265,7 +268,10 @@ export default (config = {}) => {
                                         await this.uploadAvatarIfNeeded(resp.data.user.id);
                                     }
 
-                                    displaySuccess(resp);
+                                    displaySuccess({
+                                        success: true,
+                                        message: 'models.service.saved'
+                                    });
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

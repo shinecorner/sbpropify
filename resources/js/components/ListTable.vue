@@ -161,7 +161,7 @@
                               </el-tooltip>
 
                         </span>
-                        <avatar :size="28" :username="`+ ${scope.row[column.count]}`"
+                        <avatar class="avatar-count" :size="28" :username="`+ ${scope.row[column.count]}`"
                                 color="#fff"
                                 v-if="scope.row[column.count]"></avatar>
                     </div>
@@ -209,14 +209,14 @@
                 <template slot-scope="scope">
                     <el-select class="select-icon" :class="column.class" @change="column.select.onChange(scope.row)" v-model="scope.row[column.prop]">
                         <template slot="prefix">
-                            <i class="icon-dot-circled" :class="scope.row[column.prop] == 1 ? 'icon-success':'icon-danger'"></i>
+                            <i class="icon-dot-circled" :class="scope.row[column.prop] == 1 ? 'icon-success':'icon-danger'"  v-if="column.ShowCircleIcon"></i>
                         </template>
                         <el-option
                             :key="item.id"
                             :label="item.name"
                             :value="item.id"
                             v-for="item in column.select.data">
-                            <i class="icon-dot-circled" :class="item.id == 1 ? 'icon-success':'icon-danger'"></i> {{item.name}}
+                            <i class="icon-dot-circled" :class="item.id == 1 ? 'icon-success':'icon-danger'"  v-if="column.ShowCircleIcon"></i> {{item.name}}
                         </el-option>
                     </el-select>
                 </template>
@@ -602,6 +602,9 @@
 </script>
 
 <style lang="scss" scoped>
+    .avatar-count{
+        min-width: 28px;
+    }
     .list-table {
         padding: 20px;
     }

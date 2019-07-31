@@ -1,23 +1,105 @@
 <template>
     <div>
-        <el-timeline>
-            <el-timeline-item
-                    v-for="(element, index) in list"
-                    :key="index">
-                <h4>{{element.title}}</h4>
-                <p class="subtitle text-secondary" v-if="element.category.name">{{element.category.name}}</p>
-                <p class="activity-date text-secondary">{{ new Date(element.created_at) | formatDate}}</p>
-            </el-timeline-item>
-        </el-timeline>
-        <div v-if="meta.current_page < meta.last_page">
-            <el-button @click="loadMore" size="mini" style="margin-top: 15px" type="text">{{$t('loadMore')}}</el-button>
+        <div v-if="list.length > 0">
+            <el-timeline>
+                <el-timeline-item
+                        v-for="(element, index) in list"
+                        :key="index">
+                        <el-row :gutter="20" class="main-section">
+                            <el-col :md="2" class="avatar-square">
+                                 <el-tooltip
+                                    :content="$t('models.post.images')"
+                                    class="item"
+                                    effect="light" placement="top">
+                                    <span>
+                                        <el-avatar v-if="element.media.length > 0" shape="square" :size="40" :src="element.media[0].url"></el-avatar>
+                                    </span>
+                                 </el-tooltip>
+                            </el-col>
+                            <el-col :md="fetchAction == 'getPostsTruncated' && element.media.length > 0 ? 22 : 24">
+                                <h4>
+                                    {{element.title}} 
+                                    <TimelineStatus v-if="fetchAction == 'getRequests'" :status="element.status" />
+                                    <template v-if="fetchAction == 'getPostsTruncated'">
+                                         <el-tooltip
+                                            :content="element.pinned ? $t('models.post.pinned') : $t('models.post.type.article')"
+                                            class="item"
+                                            effect="light" placement="top">
+                                            <span>
+                                                <el-button
+                                                    class="btn-hover"
+                                                    type="succcess"
+                                                    size="mini"
+                                                    round
+                                                    :style="{'border-color': '#d2ecd4','color' : '#6AC06F','background-color': '#f0f9f1'}"
+                                                >
+                                                    {{element.pinned ? $t('models.post.pinned') : $t('models.post.type.article')}}
+                                                </el-button>
+                                            </span>
+                                         </el-tooltip>
+                                    </template>
+                                     <template>
+                                        <span
+                                            class="btn-view"
+                                          >
+                                            <template
+                                                >
+                                                <el-button
+                                                    type="success"
+                                                    size="mini"
+                                                >
+                                                    view
+                                                </el-button>
+                                            </template>
+                                        </span>
+                                    </template>
+                                </h4>
+                            <p class="subtitle text-secondary" v-if="element.category.name">
+                                <el-tooltip
+                                    :content="(element.category.parentCategory && element.category.parentCategory.name ? $t('models.requestCategory.parent')  + ' > ' : '') + $t('models.post.category.label')"
+                                    class="item"
+                                    effect="light" placement="top">
+                                    <span>
+                                        {{element.category.parentCategory && element.category.parentCategory.name ? element.category.parentCategory.name + ' >'  : ''}} {{ element.category.name}}
+                                    </span>
+                                </el-tooltip>
+                            </p>
+                            <p class="activity-date text-secondary">
+                                <el-tooltip
+                                    :content="$t('models.tenant.created_at')"
+                                    class="item"
+                                    effect="light" placement="top">
+                                        <span>{{ new Date(element.created_at) | formatDate}}</span>
+                                </el-tooltip> 
+                            </p>
+                             <div class="reactions" v-if="fetchAction == 'getProducts'">
+                                <div><i class="ti-thumb-up"  />{{element.likes_count}}</div>
+                                <div><i class="ti-comments" /> {{element.comments_count}} </div>
+                                <div><i class="ti-gallery"  /> {{element.media.length}}</div>
+                            </div>
+                            </el-col>
+                        </el-row>
+                </el-timeline-item>
+            </el-timeline>
+            <div v-if="meta.current_page < meta.last_page">
+                <el-button @click="loadMore" size="mini" style="margin-top: 15px" type="text">{{$t('loadMore')}}</el-button>
+            </div>
+        </div>
+        <div v-else>
+            <el-alert
+                :title="$t('views.tenant.my.personal.placeholder.title')"
+                type="info"
+                show-icon
+                :closable="false"
+            >
+            </el-alert>
         </div>
     </div>
 </template>
 
 <script>
+    import TimelineStatus from 'components/TimelineStatus';
     import {format} from 'date-fns'
-
     export default {
         async created() {
             await this.fetch();
@@ -41,6 +123,9 @@
                 type: String,
                 required: true
             },
+        },
+         components: {
+            TimelineStatus
         },
         filters: {
             formatDate(date) {
@@ -95,7 +180,16 @@
 </script>
 
 <style lang="scss" scoped>
-
+    .btn-view{
+        float: right;
+    }
+    .btn-hover:hover{
+        text-decoration: none;
+        cursor: text;
+    }
+    .avatar-square{
+        padding-top: 5px;
+    }
     .el-timeline {
         h4 {
             margin-bottom: 0;
@@ -125,5 +219,38 @@
     .el-timeline-item:last-of-type {
         padding-bottom: 0;
     }
+     .reactions {
+        display: flex;
+        align-items: center;
+        padding-top: 3px;
+        > div {
+            i {
+                vertical-align: middle;
+            }
+            &:not(:last-child) {
+                margin-right: 4px;
+                &:after {
+                    content: '\2022';
+                    margin-left: 4px;
+                    margin-right: 2px;
+                }
+            }
+        }
+        .el-button {
+            padding: 0;
+            :global(span) {
+                margin-left: 5px;
+            }
+            &:before {
+                background-color: transparent;
+            }            
+        }
+        .btn-wrap:not(:first-child) {
+            margin-left: 5px;
+        }
+        .icon-success {
+            color: #5fad64;
+        }
 
+    }
 </style>

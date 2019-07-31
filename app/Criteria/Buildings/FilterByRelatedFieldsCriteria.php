@@ -39,11 +39,12 @@ class FilterByRelatedFieldsCriteria implements CriteriaInterface
         if ($search) {
             // @TODO if building make by code that case street and street_nr not need. It is already included
             //App\Criteria\CommonRequestCriteria see BuildingRepository $fieldSearchable property
-            $model = $model->join('loc_addresses', 'buildings.address_id', '=', 'loc_addresses.id')
-                ->orWhere('loc_addresses.city', 'like', '%' . $search . '%')
+            $model = $model->orWhereHas('address', function ($q) use ($search) {
+                $q->where('loc_addresses.city', 'like', '%' . $search . '%')
                 ->orWhere('loc_addresses.street', 'like', '%' . $search . '%')
                 ->orWhere('loc_addresses.zip', 'like', '%' . $search . '%')
                 ->orWhere('loc_addresses.street_nr', 'like', '%' . $search . '%');
+            });
         }
 
         $state_id = $this->request->get('state_id', null);
