@@ -80,7 +80,7 @@
 
                 if (action) {
                     if (action.showConfirmation) {
-                        action && this.$confirm('Please proceed with caution.', 'Are you sure?', {
+                        action && this.$confirm('Please proceed with caution.', this.$t('swal.delete.title'), {
                             confirmButtonText: 'OK',
                             cancelButtonText: 'Cancel',
                             type: 'warning',
