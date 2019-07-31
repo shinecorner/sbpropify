@@ -109,8 +109,7 @@
                 return !!this.$slots.default;
             },
             isCollapsed : function() {
-                
-                return this.$store.state.collapse.isCollapsed;
+                return this.$store.getters['sidebar/isCollapsed'];
             }
         },
         created() {
