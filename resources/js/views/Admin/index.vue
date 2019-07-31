@@ -352,6 +352,16 @@
             display: flex;
             align-items: center;
 
+            &.in-toolbar {
+                position: absolute;
+                top: -42px;
+                right: 50px;
+
+                background-color: transparent;
+                border-bottom: none;
+                padding: 0;
+            }
+
             .el-radio-button__inner {
                 padding: 8px 12px;
             }
@@ -384,22 +394,11 @@
         }
 
         .apexcharts-toolbar {
-            margin-top: -88px;
+            // margin-top: -88px;
+            margin-top: -38px;
             margin-right: 7px;
             .apexcharts-menu.open {
                 right: 7px;
-            }
-        }
-
-        &.no-filter {
-            .apexcharts-toolbar {
-                margin-top: -38px;
-            }
-        }
-
-        .piechart {
-            .apexcharts-toolbar {
-                margin-top: -38px;
             }
         }
 

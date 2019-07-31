@@ -1,6 +1,6 @@
 <template>
     <div class="piechart">
-        <div class="chart-filter">              
+        <div class="chart-filter in-toolbar">              
             <custom-date-range-picker
                 :pickHandler="pickHandler">
             </custom-date-range-picker>
@@ -186,18 +186,6 @@ export default {
             display: flex;
             flex-direction: column;
             justify-content: center !important;
-        }
-
-        @media screen and (min-width: 1800px) {
-            .chart-filter {
-                position: absolute;
-                top: -42px;
-                right: 50px;
-
-                background-color: transparent;
-                border-bottom: none;
-                padding: 0;
-            }
         }
     }
 </style>
