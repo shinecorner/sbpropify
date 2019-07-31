@@ -6,7 +6,7 @@ use App\Models\User;
 
 $factory->define(App\Models\Product::class, function (Faker $f) {
     $u = [
-        User::where('deleted_at', null)->first(),
+        User::where('deleted_at', null)->inRandomOrder()->first(),
         User::where('email', 'tenant@example.com')->first(),
     ][rand(0, 1)];
     $t = [Product::TypeSell, Product::TypeLend][rand(0, 1)];
