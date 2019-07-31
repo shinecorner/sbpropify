@@ -6,25 +6,53 @@
                         v-for="(element, index) in list"
                         :key="index">
                         <el-row :gutter="20" class="main-section">
-                            <el-col :md="2">
-                               <el-avatar v-if="element.media.length > 0" shape="square" :size="40" :src="element.media[0].url"></el-avatar>
+                            <el-col :md="2" class="avatar-square">
+                                 <el-tooltip
+                                    :content="$t('models.post.images')"
+                                    class="item"
+                                    effect="light" placement="top">
+                                    <span>
+                                        <el-avatar v-if="element.media.length > 0" shape="square" :size="40" :src="element.media[0].url"></el-avatar>
+                                    </span>
+                                 </el-tooltip>
                             </el-col>
-                            <el-col :md="22">
+                            <el-col :md="fetchAction == 'getPostsTruncated' && element.media.length > 0 ? 22 : 24">
                                 <h4>
-                                    {{element.title}}
-                                    <TimelineStatus :status="element.status" />
-                                    <!-- <template >
-                                        <span class="btn-wrap">
-                                            <template >
+                                    {{element.title}} 
+                                    <TimelineStatus v-if="fetchAction == 'getRequests'" :status="element.status" />
+                                    <template v-if="fetchAction == 'getPostsTruncated'">
+                                         <el-tooltip
+                                            :content="element.pinned ? $t('models.post.pinned') : $t('models.post.type.article')"
+                                            class="item"
+                                            effect="light" placement="top">
+                                            <span>
                                                 <el-button
+                                                    class="btn-hover"
                                                     type="succcess"
+                                                    size="mini"
+                                                    round
+                                                    :style="{'border-color': '#d2ecd4','color' : '#6AC06F','background-color': '#f0f9f1'}"
+                                                >
+                                                    {{element.pinned ? $t('models.post.pinned') : $t('models.post.type.article')}}
+                                                </el-button>
+                                            </span>
+                                         </el-tooltip>
+                                    </template>
+                                     <template>
+                                        <span
+                                            class="btn-view"
+                                          >
+                                            <template
+                                                >
+                                                <el-button
+                                                    type="success"
                                                     size="mini"
                                                 >
                                                     view
                                                 </el-button>
                                             </template>
                                         </span>
-                                    </template> -->
+                                    </template>
                                 </h4>
                             <p class="subtitle text-secondary" v-if="element.category.name">
                                 <el-tooltip
@@ -152,11 +180,17 @@
 </script>
 
 <style lang="scss" scoped>
-
+    .btn-view{
+        float: right;
+    }
+    .btn-hover:hover{
+        text-decoration: none;
+        cursor: text;
+    }
+    .avatar-square{
+        padding-top: 5px;
+    }
     .el-timeline {
-        .btn-hover{
-            text-decoration: none;
-        }
         h4 {
             margin-bottom: 0;
             color: #616161;
@@ -188,6 +222,7 @@
      .reactions {
         display: flex;
         align-items: center;
+        padding-top: 3px;
         > div {
             i {
                 vertical-align: middle;

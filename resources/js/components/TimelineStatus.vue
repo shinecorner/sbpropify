@@ -1,11 +1,16 @@
 <template>
     <span class="btn-wrap">
-        <template >
-            <el-button :style="{
-                'border-color': getRequestStatusColor(setStatus(status), 'name'),
-                'color' : getRequestStatusColor(setStatus(status), 'name')
-                }" plain :type="setStatus(status)" class="btn-priority-badge btn-hove" size="small" round>{{ setStatus(status) }}</el-button>
-        </template>
+        <el-tooltip
+            :content="$t('models.request.status.label')"
+            class="item"
+            effect="light" placement="top">
+            <template >
+                <el-button :style="{
+                    'border-color': getRequestStatusColor(setStatus(status), 'name'),
+                    'color' : getRequestStatusColor(setStatus(status), 'name')
+                    }" plain :type="setStatus(status)" class="btn-priority-badge btn-hover" size="mini" round>{{ setStatus(status) }}</el-button>
+            </template>
+        </el-tooltip>
     </span>
 </template>
 
@@ -33,6 +38,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+   .btn-hover:hover{
+        text-decoration: none;
+        cursor: text;
+    }
 </style>
+
