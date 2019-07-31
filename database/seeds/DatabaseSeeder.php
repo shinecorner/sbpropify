@@ -30,10 +30,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PostsTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
         $this->call(ProductsTableSeeder::class);
+
         $this->call(ServiceProvidersTableSeeder::class);
-
-
-
         $this->call(PropertyManagerTableSeeder::class);
         $this->call(ServiceRequestCategoriesTableSeeder::class);
         $this->call(ServiceRequestsTableSeeder::class);

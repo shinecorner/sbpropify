@@ -6,7 +6,7 @@ use App\Models\User;
 
 $factory->define(App\Models\Post::class, function (Faker $faker) {
     $us = [
-        User::where('deleted_at', null)->first(),
+        User::where('deleted_at', null)->inRandomOrder()->first(),
         User::where('email', 'tenant@example.com')->first(),
     ];
     $u = $us[rand(0, 1)];

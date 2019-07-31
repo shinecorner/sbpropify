@@ -20,7 +20,7 @@ class UnitsTableSeeder extends Seeder
             $buildings = Building::inRandomOrder()->get(['id', 'created_at']);
             foreach ($buildings as $building) {
 
-                for ($i = 1; $i <= random_int(1, 3); $i++) {
+                for ($i = 1; $i <= random_int(1, 4); $i++) {
                     if ($count >= 200) {
                         break 2;
                     }

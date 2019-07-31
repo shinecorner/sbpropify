@@ -10,6 +10,8 @@ use Illuminate\Database\Seeder;
 
 class PropertyManagerTableSeeder extends Seeder
 {
+    use \Traits\TimeTrait;
+
     /**
      * Run the database seeds.
      *
@@ -25,33 +27,33 @@ class PropertyManagerTableSeeder extends Seeder
         $managerRole = Role::where('name', 'manager')->first();
         $settings = $this->getSettings();
 
-        $buildings = Building::all()->count();
-        $totalManagers = $faker->numberBetween($buildings, $buildings * 2);
+        $totalManagers = 200;
+        $buildings = Building::inRandomOrder()->limit($totalManagers)->get();
 
         for ($i = 0; $i < $totalManagers; $i++) {
-            $firstName = $faker->firstName;
-            $lastName = $faker->lastName;
-
+            $managerData = factory(PropertyManager::class)->make()->toArray();
             $email = $faker->email;
             $attr = [
-                'name' => sprintf('%s %s', $firstName, $lastName),
+                'name' => sprintf('%s %s', $managerData['first_name'], $managerData['last_name']),
                 'email' => $email,
                 'phone' => $faker->phoneNumber,
                 'password' => bcrypt($email),
             ];
+            $date = $this->getRandomTime();
+            $attr = array_merge($attr, $this->getDateColumns($date));
             $user = factory(User::class, 1)->create($attr)->first();
 
             $user->attachRole($managerRole);
 
             $user->settings()->save($settings->replicate());
-            $attr = [
-                'user_id' => $user->id,
-                'title' => $user->title,
-            ];
+            $managerData['user_id'] = $user->id;
+            $managerData['title'] = $user->title;
 
-            $manager = factory(PropertyManager::class, 1)->create($attr)->first();
+            $date = $this->getRandomTime($user->created_at);
+            $managerData = array_merge($managerData, $this->getDateColumns($date));
+            $manager = factory(PropertyManager::class)->create($managerData);
 
-            $building = Building::inRandomOrder()->first();
+            $building = $buildings->random();
             $manager->buildings()->attach($building);
         }
     }
