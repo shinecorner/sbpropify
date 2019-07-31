@@ -127,7 +127,7 @@
                         ...params
                     })
 
-                    this.comments = this.$store.['comments/get'](this.id, this.type)
+                    this.comments = this.$store.getters['comments/get'](this.id, this.type)
 
                     if (this.$refs['dynamic-scroller'] && current_page >= 1) {
                         this.$refs['dynamic-scroller'].$el.scrollTop = this.$refs['dynamic-scroller'].$el.scrollHeight - prevScrollHeight
