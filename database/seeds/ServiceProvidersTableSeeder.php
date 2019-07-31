@@ -37,24 +37,23 @@ class ServiceProvidersTableSeeder extends Seeder
         $providerCount = 200;
         $categoryCount = floor($providerCount / count($serviceCategories));
         foreach ($serviceCategories as $category) {
-            $email = $faker->email;
-            $date = $this->getRandomTime();
-
-            $attr = [
-                'name' => $faker->name,
-                'email' => $email,
-                'phone' => $faker->phoneNumber,
-                'password' => bcrypt($email),
-            ];
-            $attr = array_merge($attr, $this->getDateColumns($date));
-
-            $user = factory(User::class, 1)->create($attr)->first();
-
-            $user->attachRole($serviceRole);
-
-            $user->settings()->save($settings->replicate());
-
             for ($i  = 0; $i < $categoryCount; $i++) {
+                $email = $faker->email;
+                $date = $this->getRandomTime();
+
+                $attr = [
+                    'name' => $faker->name,
+                    'email' => $email,
+                    'phone' => $faker->phoneNumber,
+                    'password' => bcrypt($email),
+                ];
+                $attr = array_merge($attr, $this->getDateColumns($date));
+
+                $user = factory(User::class, 1)->create($attr)->first();
+
+                $user->attachRole($serviceRole);
+
+                $user->settings()->save($settings->replicate());
 
                 //create User
                 $date = $this->getRandomTime($user->created_at);
