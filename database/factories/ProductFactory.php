@@ -34,6 +34,11 @@ $factory->define(App\Models\Product::class, function (Faker $f) {
         $ret['address_id'] = $u->tenant->building->address_id;
         $ret['district_id'] = $u->tenant->building->district_id;
     }
+    $realEstate = \App\Models\RealEstate::first();
+    $ret['needs_approval'] = false;
+    if ($realEstate) {
+        $ret['needs_approval'] = $realEstate->marketplace_approval_enable;
+    }
 
     return $ret;
 });
