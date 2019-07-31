@@ -2,10 +2,10 @@
     <div class="piechart">
         <div class="chart-filter in-toolbar">              
             <custom-date-range-picker rangeType="day" :initialRange="dateRange"
-                :pickHandler="pickHandler">
+                :pickHandler="pickHandler" :style="{display: showPicker ? 'inline-flex' : 'none'}">
             </custom-date-range-picker>
-            <div class="show-button" v-if="!showPicker"></div>
-            <div class="hide-button" v-if="showPicker"></div>
+            <div class="show-button" v-if="!showPicker" @click="handleShowClick(true)"><i class="el-icon-date"></i></div>
+            <div class="hide-button" v-if="showPicker" @click="handleShowClick(false)"><i class="el-icon-circle-close"></i></div>
         </div>
         <el-row type="flex">
             <el-col :span="24">
@@ -164,6 +164,9 @@ export default {
         pickHandler(val) {
             this.dateRange = val;
             this.fetchData();
+        },
+        handleShowClick(val) {
+            this.showPicker = val;
         }
     },
     created(){        
@@ -189,6 +192,35 @@ export default {
             display: flex;
             flex-direction: column;
             justify-content: center !important;
+        }
+
+        .chart-filter {
+            .show-button {
+                cursor: pointer;
+                padding: 5px 0;
+                color: #6E8192;
+                font-size: 17px;
+
+                &:hover {
+                    color: #333;
+                }
+            }
+
+            .hide-button {
+                cursor: pointer;
+                position: absolute;
+                padding: 7px;
+                top: 0;
+                right: 0;
+                color: #C0C4CC;
+
+                &:hover {
+                    color: #333;
+                }
+            }
+            .el-input__icon.el-range__close-icon {
+                display: none;
+            }
         }
     }
 </style>
