@@ -673,6 +673,34 @@ class StatisticsAPIController extends AppBaseController
             : $response;
     }
 
+    public function chartRequestByAssignedProvider(Request $request, $optionalArgs = [])
+    {
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
+        $serviceRequestCount = ServiceRequest
+            ::when($startDate, function ($q) use ($startDate) {$q->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'));})
+            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'));})
+            ->count();
+
+        $serviceRequestHasProviderCount = ServiceRequest
+            ::has('providers')->
+            when($startDate, function ($q) use ($startDate) {$q->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'));})
+            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'));})
+            ->count();
+
+        $response = [
+            'labels' => [
+                'requests_with_service_providers',
+                'request_wihout_service_providers'
+            ],
+            'data' => [
+                $serviceRequestHasProviderCount,
+                $serviceRequestCount - $serviceRequestHasProviderCount,
+            ],
+        ];
+
+        return $this->sendResponse($response, 'Admin requests_with_service_providers statistics retrieved successfully');
+    }
+
     /**
      * @param Request $request
      * @param array $optionalArgs
