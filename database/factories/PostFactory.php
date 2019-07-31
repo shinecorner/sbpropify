@@ -10,6 +10,11 @@ $factory->define(App\Models\Post::class, function (Faker $faker) {
         User::where('email', 'tenant@example.com')->first(),
     ];
     $u = $us[rand(0, 1)];
+    $statDate = $u->created_at;
+    $now = now();
+    $diffSec = $now->diffInSeconds($statDate);
+    $now->subSeconds(random_int(1, $diffSec));
+
     $ret = [
         'user_id' => $u->id,
         'type' => Post::TypeArticle,
@@ -17,6 +22,8 @@ $factory->define(App\Models\Post::class, function (Faker $faker) {
         'visibility' => Post::VisibilityAll,
         'content' => $faker->paragraph(),
         'notify_email' => true,
+        'created_at' => $now,
+        'updated_at' => $now,
     ];
 
     return $ret;
