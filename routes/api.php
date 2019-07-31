@@ -238,6 +238,8 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::resource('translations', 'TranslationAPIController');
     Route::get('/admin/statistics', 'StatisticsAPIController@adminStats');
     Route::get('/admin/chartRequestByCreationDate', 'StatisticsAPIController@chartRequestByCreationDate');
+    Route::get('/admin/chartRequestByAssignedProvider', 'StatisticsAPIController@chartRequestByAssignedProvider');
+    Route::get('/admin/chartRequestByCreationDate', 'StatisticsAPIController@chartRequestByCreationDate');
     Route::get('/admin/chartBuildingsByCreationDate', 'StatisticsAPIController@chartBuildingsByCreationDate');
     Route::get('/admin/chartByCreationDate', 'StatisticsAPIController@chartByCreationDate');
 
