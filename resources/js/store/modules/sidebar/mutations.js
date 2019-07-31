@@ -1,5 +1,5 @@
 export default {
-    SET_COLLAPSE(state, payload) {
+    TOGGLE_COLLAPSE(state) {
         state.isCollapsed = !state.isCollapsed;
     }
 }
