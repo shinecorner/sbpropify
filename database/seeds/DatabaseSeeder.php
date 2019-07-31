@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CountriesTableSeeder::class);
         $this->call(StatesTableSeeder::class);
-        $this->call(AddressesTableSeeder::class);
+        //$this->call(AddressesTableSeeder::class);
         $this->call(DistrictsTableSeeder::class);
         $this->call(RealEstateTableSeeder::class);
 
