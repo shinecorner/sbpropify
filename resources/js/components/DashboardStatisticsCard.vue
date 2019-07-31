@@ -62,7 +62,7 @@
                 default: 3
             },
             totalRequest: {
-                type: Number,
+                type: String,
                 default: 0
             },
             avgReqDuration: [String, Number]

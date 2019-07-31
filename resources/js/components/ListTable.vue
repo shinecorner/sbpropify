@@ -161,7 +161,7 @@
                               </el-tooltip>
 
                         </span>
-                        <avatar :size="28" :username="`+ ${scope.row[column.count]}`"
+                        <avatar class="avatar-count" :size="28" :username="`+ ${scope.row[column.count]}`"
                                 color="#fff"
                                 v-if="scope.row[column.count]"></avatar>
                     </div>
@@ -216,7 +216,7 @@
                             :label="item.name"
                             :value="item.id"
                             v-for="item in column.select.data">
-                            <i class="icon-dot-circled" :class="item.id == 1 ? 'icon-success':'icon-danger'" v-if="column.icon"></i> {{item.name}}
+                            <i class="icon-dot-circled" :class="item.id == 1 ? 'icon-success':'icon-danger'"></i> {{item.name}}
                         </el-option>
                     </el-select>
                 </template>
@@ -602,6 +602,9 @@
 </script>
 
 <style lang="scss" scoped>
+    .avatar-count{
+        min-width: 28px;
+    }
     .list-table {
         padding: 20px;
     }

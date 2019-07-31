@@ -18,12 +18,17 @@
                             </el-col>
                          </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
-                            <el-col :span="12">
+                            <el-col :span="8">
                                 <el-card class="chart-card" :header="$t('dashboard.requests_by_status')">
                                     <chart-pie-and-donut type="request_by_status"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
-                            <el-col :span="12">
+                            <el-col :span="8">
+                                <el-card class="chart-card" :header="$t('dashboard.requests_by_category')">
+                                    <chart-pie-and-donut type="request_by_category"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="8">
                                 <el-card class="chart-card" :header="$t('dashboard.requests_by_category')">
                                     <chart-pie-and-donut type="request_by_category"></chart-pie-and-donut>
                                 </el-card>
@@ -32,14 +37,14 @@
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="24">
                                 <el-card class="chart-card no-filter">
-                                <el-tabs>
-                                    <el-tab-pane :label="$t('dashboard.week_hour')">
-                                        <chart-heat-map type="week-hour"></chart-heat-map>
-                                    </el-tab-pane>
-                                    <el-tab-pane :label="$t('dashboard.month_date')">
-                                        <chart-heat-map type="month-date"></chart-heat-map>
-                                    </el-tab-pane>
-                                </el-tabs>
+                                    <el-tabs v-model="activeChart" @tab-click="handleHeatmapTabClick">
+                                        <el-tab-pane :label="$t('dashboard.week_hour')" name="week">
+                                            <chart-heat-map type="week-hour" :tab="activeChart"></chart-heat-map>
+                                        </el-tab-pane>
+                                        <el-tab-pane :label="$t('dashboard.month_date')" name="month">
+                                            <chart-heat-map type="month-date" :tab="activeChart"></chart-heat-map>
+                                        </el-tab-pane>
+                                    </el-tabs>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -160,7 +165,7 @@
         },
         data() {
             return {
-                totalRequest: 0,
+                totalRequest: "0",
                 avgReqDuration: '',                
                 chartDataReqByHour:{
                     xData: [],
@@ -203,7 +208,8 @@
                     description: 'Products'
                 }],
                 headingIcon: 'icon-chat-empty',
-                activeName: 'requests'
+                activeName: 'requests',
+                activeChart: 'week',
             }
         },
         computed: {
@@ -242,6 +248,9 @@
                     'tenants': 'icon-group'
                 };
                 this.headingIcon = icons[tab.name];
+            },
+            handleHeatmapTabClick(tab, event) {
+                
             }
         },
         created(){
@@ -367,6 +376,10 @@
                 padding: 0 0 0 7px;
                 height: 32px;
                 line-height: 32px;
+
+                .el-range-separator {
+                    width: 6%;
+                }
             }
         }
 
@@ -379,6 +392,12 @@
         }
 
         &.no-filter {
+            .apexcharts-toolbar {
+                margin-top: -38px;
+            }
+        }
+
+        .piechart {
             .apexcharts-toolbar {
                 margin-top: -38px;
             }
