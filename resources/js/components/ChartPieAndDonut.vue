@@ -1,9 +1,11 @@
 <template>
     <div class="piechart">
         <div class="chart-filter in-toolbar">              
-            <custom-date-range-picker rangeType="day"
+            <custom-date-range-picker rangeType="day" :initialRange="dateRange"
                 :pickHandler="pickHandler">
             </custom-date-range-picker>
+            <div class="show-button" v-if="!showPicker"></div>
+            <div class="hide-button" v-if="showPicker"></div>
         </div>
         <el-row type="flex">
             <el-col :span="24">
@@ -33,9 +35,10 @@ export default {
   data() {
     return {        
         chartType: 'pie',
-        dateRange: [format(subDays(new Date(), 28), 'DD.MM.YYYY'), format(new Date(), 'DD.MM.YYYY')],
+        dateRange: null,
         xData: [],
         yData: [],
+        showPicker: false
     }
   },
   computed:{

@@ -7,7 +7,7 @@
               <el-radio-button label="month">{{$t('timestamps.months')}}</el-radio-button>
               <el-radio-button label="year">{{$t('timestamps.years')}}</el-radio-button>
           </el-radio-group>
-          <custom-date-range-picker :rangeType="period"
+          <custom-date-range-picker :rangeType="period" :initialRange="dateRange"
             :pickHandler="pickHandler">
           </custom-date-range-picker>
         </div>    
