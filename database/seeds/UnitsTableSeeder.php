@@ -5,6 +5,8 @@ use Illuminate\Database\Seeder;
 
 class UnitsTableSeeder extends Seeder
 {
+    use \Traits\TimeTrait;
+
     /**
      * Run the database seeds.
      *
@@ -13,17 +15,25 @@ class UnitsTableSeeder extends Seeder
     public function run()
     {
         if (App::environment('local')) {
-            $buildings = Building::get();
-            foreach ($buildings as $building) {
-                $unitTotal = $building->floor_nr * 2;
+            $count = 0;
 
-                for ($i = 1; $i <= $unitTotal; $i++) {
+            $buildings = Building::inRandomOrder()->get(['id', 'created_at']);
+            foreach ($buildings as $building) {
+
+                for ($i = 1; $i <= random_int(1, 3); $i++) {
+                    if ($count >= 20) {
+                        break 2;
+                    }
+                    $count++;
+
                     $attr = [
                         'name' => sprintf('B%s - Unit %s', $building->id, $i),
                         'building_id' => $building->id,
                     ];
+                    $date = $this->getRandomTime($building->created_at);
+                    $attr = array_merge($attr, $this->getDateColumns($date));
 
-                    factory(App\Models\Unit::class, 1)->create($attr);
+                    factory(App\Models\Unit::class)->create($attr);
                 }
             }
         }

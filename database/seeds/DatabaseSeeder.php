@@ -26,6 +26,18 @@ class DatabaseSeeder extends Seeder
 
         $this->call(BuildingsTableSeeder::class);
         $this->call(UnitsTableSeeder::class);
+
+
+
+
+
+
+
+
+        
+
+
+
         $this->call(TenantsTableSeeder::class);
 
         $this->call(PostsTableSeeder::class);
