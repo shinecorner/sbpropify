@@ -990,8 +990,9 @@ export default {
         },
         media: {
             added: 'Document/Photo added',
-            deleted: 'Document/Photo deleted',            
+            deleted: 'Document/Photo deleted',                        
         },
+        logout_confirm: 'You will be logged out.'
     },
     roles: {
         label: 'Role',

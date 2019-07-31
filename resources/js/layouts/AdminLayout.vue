@@ -248,7 +248,7 @@
             },
 
             handleLogout() {
-                this.$confirm('You will be logged out.', this.$t('swal.delete.title'), {
+                this.$confirm(this.$t('swal.logout_confirm'), this.$t('swal.delete.title'), {
                     type: 'warning'
                 }).then(() => {
                     //this.$router.push({name: 'login'});

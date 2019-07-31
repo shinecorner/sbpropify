@@ -992,6 +992,7 @@ export default {
             added: 'Documento/foto aggiunto',
             deleted: 'Documento/foto soppresso',            
         },
+        logout_confirm: 'Sarai disconnesso.'
     },
     roles: {
         label: 'Role',
