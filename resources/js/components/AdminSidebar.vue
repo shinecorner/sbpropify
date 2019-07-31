@@ -131,6 +131,16 @@
         }
     }
 </script>
+<style lang="scss">
+    .el-submenu {
+        .el-submenu__title {
+            .el-icon-arrow-right {
+                display: none !important;
+            }
+        }
+    }
+</style>
+
 
 <style lang="scss" scoped>
     .el-menu-vertical-demo:not(.el-menu--collapse) {
@@ -146,9 +156,6 @@
             .el-submenu__title {
                 span.title {
                     display: none;
-                }
-                .el-icon-arrow-right {
-                    display: none !important;
                 }
             }
         }

@@ -104,7 +104,7 @@
                     
                     
                     .menu-icon {
-                        margin-left: 30px;
+                        margin-left: 50px;
                         svg {
                             fill: #ccc;
                         }
@@ -228,8 +228,9 @@
     }
 
     .el-menu--popup {
-        top: 13px;
-        left: -16px;
+        // top: 13px;
+        // left: -16px;
+        left: -2px;
         min-width: 142px !important;
     }
 
