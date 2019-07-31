@@ -24,9 +24,10 @@ class ServiceRequestsTableSeeder extends Seeder
                 $query->where('name', 'super_admin');
             })->get();
 
+            $serviceRequests = [];
             for ($i = 0; $i < 1000; $i++) {
                 $date = $this->getRandomTime();
-                $serviceRequests = factory(App\Models\ServiceRequest::class)->create($this->getDateColumns($date));
+                $serviceRequests[] = factory(App\Models\ServiceRequest::class)->create($this->getDateColumns($date));
             }
 
             $user = App\Models\User::where('email', 'tenant@example.com')->first();
