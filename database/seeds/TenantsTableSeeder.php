@@ -12,6 +12,8 @@ use Illuminate\Database\Seeder;
 
 class TenantsTableSeeder extends Seeder
 {
+    use \Traits\TimeTrait;
+
     /**
      * Run the database seeds.
      *
@@ -23,47 +25,56 @@ class TenantsTableSeeder extends Seeder
             return;
         }
 
+        $totalTenants = 200;
         $faker = Faker::create();
-        $units = Unit::inRandomOrder()->limit(20)->get();
-        foreach ($units as $key => $unit) {
-            $building = Building::where('id', $unit->building_id)->first();
+        $units = Unit::inRandomOrder()->with('building')->limit($totalTenants)->get();
 
-            $email = $faker->email;
-            if ($key == 0) {
+        for($i = 0; $i < $totalTenants; $i++) {
+
+            $email = $faker->safeEmail;
+            if ($i == 0) {
                 $email = 'tenant@example.com';
-                $services = ServiceProvider::select('id')->limit(4)->inRandomOrder()->get();
-                $building->serviceProviders()->attach($services);
             }
 
-            factory(App\Models\Tenant::class, 1)->create()->each(function ($tenant) use ($building, $unit, $email) {
-                // create user attached to tenant
-                $registeredRole = Role::where('name', 'registered')->first();
+            $data = factory(App\Models\Tenant::class)->make()->toArray();
+            $date = $this->getRandomTime();
 
-                $attr = [
-                    'name' => $tenant->first_name . ' ' . $tenant->last_name,
-                    'email' => $email,
-                    'phone' => $tenant->mobile_phone,
-                    'password' => bcrypt($email),
-                ];
-                $user = factory(User::class, 1)->create($attr)->first();
+            if ($email == 'tenant@example.com' || rand(0, 1)) {
+                $unit = $units->random();
+                $building = $unit->building;
+                $data['address_id'] = $building->address_id;
+                $data['building_id'] = $building->id;
+                $data['unit_id'] = $unit->id;
+                $data['status'] = Tenant::StatusActive;
+                $date = $this->getRandomTime($unit->created_at);
 
-                $user->attachRole($registeredRole);
-
-                $settings = $this->getSettings();
-                $user->settings()->save($settings->replicate());
-
-                $tenant->user_id = $user->id;
-                $tenant->title = $user->title;
-                // some are homeless, some not
-                if ($email == 'tenant@example.com' || rand(0, 1)) {
-                    $tenant->address_id = $building->address_id;
-                    $tenant->building_id = $building->id;
-                    $tenant->unit_id = $unit->id;
-                    $tenant->status = Tenant::StatusActive;
+                if ($email == 'tenant@example.com') {
+//                    $services = ServiceProvider::select('id')->limit(4)->inRandomOrder()->get();
+//                    $building->serviceProviders()->attach($services);
                 }
-                $tenant->save();
-                $tenant->setCredentialsPDF($user->email);
-            });
+            }
+
+            $userData = [
+                'name' =>  sprintf('%s %s', $data['first_name'], $data['last_name']),
+                'password' => bcrypt($email),
+                'email' => $email,
+                'phone' => $data['mobile_phone'],
+            ];
+            $userData = array_merge($userData, $this->getDateColumns($date));
+
+            $registeredRole = Role::where('name', 'registered')->first();
+            $user = factory(User::class)->create($userData);
+            $user->attachRole($registeredRole);
+            $settings = $this->getSettings();
+            $user->settings()->save($settings->replicate());
+
+
+            $data['user_id'] = $user->id;
+            $data['title'] = $user->title;
+
+            $data = array_merge($data, $this->getDateColumns($date));
+            $tenant = factory(App\Models\Tenant::class)->create($data);
+            $tenant->setCredentialsPDF($user->email);
         }
     }
 

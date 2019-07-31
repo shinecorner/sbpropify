@@ -11,6 +11,11 @@ $factory->define(App\Models\Product::class, function (Faker $f) {
     ][rand(0, 1)];
     $t = [Product::TypeSell, Product::TypeLend][rand(0, 1)];
 
+    $statDate = $u->created_at;
+    $now = now();
+    $diffSec = $now->diffInSeconds($statDate);
+    $now->subSeconds(random_int(1, $diffSec));
+
     $ret = [
         'user_id' => $u->id,
         'type' => $t,
@@ -21,11 +26,18 @@ $factory->define(App\Models\Product::class, function (Faker $f) {
         'published_at' => \Carbon\Carbon::now(),
         'contact' => implode(" ", [$f->firstName, $f->lastName, $f->phoneNumber]),
         'price' => '1.10',
+        'created_at' => $now,
+        'updated_at' => $now,
     ];
 
     if ($u->tenant && $u->tenant->building) {
         $ret['address_id'] = $u->tenant->building->address_id;
         $ret['district_id'] = $u->tenant->building->district_id;
+    }
+    $realEstate = \App\Models\RealEstate::first();
+    $ret['needs_approval'] = false;
+    if ($realEstate) {
+        $ret['needs_approval'] = $realEstate->marketplace_approval_enable;
     }
 
     return $ret;

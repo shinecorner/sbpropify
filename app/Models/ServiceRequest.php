@@ -215,6 +215,8 @@ class ServiceRequest extends Model implements HasMedia, Auditable
         'priority',
         'qualification',
         'due_date',
+        'visibility',
+        'description',
     ];
 
     const templateMap = [

@@ -16,7 +16,7 @@ class ProductsTableSeeder extends Seeder
     {
         $pRepo = new ProductRepository(app());
         if (App::environment('local')) {
-            $products = factory(App\Models\Product::class, 10)->create();
+            $products = factory(App\Models\Product::class, 200)->create();
             foreach ($products as $product) {
                 $pRepo->notify($product);
             }
