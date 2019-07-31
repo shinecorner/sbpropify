@@ -136,6 +136,54 @@
             },
             onUploadFilter (newFile, oldFile, prevent) {
                 if (newFile) {
+                    if (this.uploadOptions.extensions) {
+                        const fileExtension = newFile.type.substring(newFile.type.lastIndexOf('/') + 1)
+
+                        this.$message.closeAll()
+                        
+                        switch (this.uploadOptions.extensions.constructor) {
+                            case String:
+                                if (!this.uploadOptions.extensions.split(',').includes(fileExtension)) {
+                                    this.$message({
+                                        type: 'warning',
+                                        message: 'Oops! Some files have had an extension that was not allowed. Please try again.',
+                                        duration: 5000,
+                                        showClose: true
+                                    })
+
+                                    return prevent()
+                                }
+
+                                break
+                            case Array:
+                                if (!this.uploadOptions.extensions.includes(fileExtension)) {
+                                    this.$message({
+                                        type: 'warning',
+                                        message: 'Oops! Some files have had an extension that was not allowed. Please try again.',
+                                        duration: 5000,
+                                        showClose: true
+                                    })
+
+                                    return prevent()
+                                }
+
+                                break
+                            case RegExp:
+                                if (!this.uploadOptions.extensions.test(fileExtension)) {
+                                    this.$message({
+                                        type: 'warning',
+                                        message: 'Oops! Some files have had an extension that was not allowed. Please try again.',
+                                        duration: 5000,
+                                        showClose: true
+                                    })
+
+                                    return prevent()
+                                }
+
+                                break
+                        }
+                    }
+
                     const fileReader = new FileReader()
 
                     fileReader.readAsDataURL(newFile.file)
