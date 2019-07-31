@@ -209,7 +209,10 @@
                     });
 
                     if (resp) {
-                        displaySuccess(resp);
+                        displaySuccess({
+                                    success: true,
+                                    message: 'models.propertyManager.deleted'
+                                });
                         this.closeModal();
                         this.fetchMore();
                     }

@@ -218,7 +218,10 @@
                 this.changePostPublish({id, status}).then((resp) => {
                     this.fetchMore();
                     this.postDetailsVisible = false;
-                    displaySuccess(resp);
+                    displaySuccess({
+                        success: true,
+                        message: 'models.post.updated'
+                    });
                 }).catch((error) => {
                     displayError(error);
                 });
@@ -234,7 +237,10 @@
 
                         const resp = await this.updatePost(row);
                         await this.fetchMore();
-                        displaySuccess(resp);
+                        displaySuccess({
+                            success: true,
+                            message: 'models.post.updated'
+                        });
                     } catch (err) {
                         displayError(err);
                     } finally {

@@ -141,7 +141,10 @@ export default (config = {}) => {
                     id: this.model.id,
                     media: file.src
                 }).then(r => {
-                    displaySuccess(r);
+                    displaySuccess({
+                        success: true,
+                        message: 'swal.media.added'
+                    });
 
                     this.model.media.push(r.data);
                 }).catch(err => {
@@ -169,7 +172,10 @@ export default (config = {}) => {
                             id,
                             media: this.toUploadContract.src
                         }).then(r => {
-                            displaySuccess(r);
+                            displaySuccess({
+                                success: true,
+                                message: 'swal.media.added'
+                            });
                         }).catch(err => {
                             displayError(err);
                         });
@@ -203,7 +209,10 @@ export default (config = {}) => {
                                     await this.contractUpl(resp.data.id);
                                 }
 
-                                displaySuccess(resp);
+                                displaySuccess({
+                                        success: true,
+                                        message: 'models.tenant.saved'
+                                    });
 
                                 this.toUploadContract = {};
                                 this.model.rent_start = '';
@@ -246,7 +255,10 @@ export default (config = {}) => {
                                         this.uploadAvatarIfNeeded(resp.data.user.id);
                                     }
 
-                                    displaySuccess(resp);
+                                    displaySuccess({
+                                        success: true,
+                                        message: 'models.tenant.saved'
+                                    });
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

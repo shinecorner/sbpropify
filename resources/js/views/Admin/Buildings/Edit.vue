@@ -562,7 +562,7 @@
                     this.delBuildingStatus = resp.data;
 
                     if(this.delBuildingStatus == -1) {
-                        this.$confirm('This action is irreversible. Please proceed with caution.', 'Are you sure?', {
+                        this.$confirm(this.$t('swal.delete.text'), this.$t('swal.delete.title'), {
                             type: 'warning'
                         }).then(() => {
                             this.deleteBuilding({id:this.model.id})

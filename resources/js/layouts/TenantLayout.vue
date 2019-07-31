@@ -70,7 +70,7 @@ export default {
             this.visibleSidebar = !this.visibleSidebar;
         },
         logout() {
-            this.$confirm('Please proceed with caution.', 'Are you sure?', {
+            this.$confirm('Please proceed with caution.', this.$t('swal.delete.title'), {
                 confirmButtonText: 'OK',
                 cancelButtonText: 'Cancel',
                 type: 'warning',
