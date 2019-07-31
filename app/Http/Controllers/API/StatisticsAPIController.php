@@ -675,7 +675,13 @@ class StatisticsAPIController extends AppBaseController
 
     public function chartRequestByAssignedProvider(Request $request, $optionalArgs = [])
     {
-        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
+        if (empty($optionalArgs) && empty($request->only(self::QUERY_PARAMS['start_date'], self::QUERY_PARAMS['end_date']))) {
+            $startDate = null;
+            $endDate = null;
+        } else {
+            [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
+        }
+        
         $serviceRequestCount = ServiceRequest
             ::when($startDate, function ($q) use ($startDate) {$q->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'));})
             ->when($endDate, function ($q) use ($endDate) {$q->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'));})
