@@ -88,6 +88,9 @@ export default {
                       if (this.type == 'week-hour' && realValue.match(/[a-zA-Z]+/gi)) {
                         return this.$t('days.' + realValue.toLowerCase());
                       }
+                      else if (this.type == 'month-date' && (parseInt(realValue) || 0) > 0) {
+                        return format(new Date(2019, parseInt(realValue) - 1), 'MMMM', {locale: dateLocale[this.$i18n.locale]});
+                      }
                       return realValue;
                     },
                 },
