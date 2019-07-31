@@ -181,6 +181,7 @@ export default {
             add: 'Add user',
             save: 'Save',
             saved: 'User saved successfully',
+            deleted: 'Utilisateur supprimé',
             edit: 'Edit user',
             not_found: 'User not found',
             profile_image: 'Profile image',
@@ -211,6 +212,8 @@ export default {
             credentials_download_failed: 'Credentials file not found. Try updating the tenant password to regenerate it',
             add: 'Add tenant',
             save: 'Save',
+            saved: 'Locataire épargné',
+            deleted: 'Locataire supprimé',
             update: 'Update',
             name: 'Name',
             first_name: 'First name',
@@ -404,6 +407,7 @@ export default {
             created_at: 'Date',
             edit: 'Edit',
             delete: 'Remove',
+            deleted: 'Unité supprimée',
             save: 'Save',
             saved: "Unit saved",
             floor: 'Floor',
@@ -500,6 +504,9 @@ export default {
             add: 'Add',
             add_pinned: 'Add pinned post',
             save: 'Save',
+            saved: 'Nouvelles sauvegardées',
+            updated: 'nouvelles actualisées',
+            deleted: 'Nouvelles supprimées',
             edit: 'Edit',
             edit_title: 'Edit post',
             show: 'Details',
@@ -596,6 +603,8 @@ export default {
             edit_title: 'Edit Service',
             edit: 'Edit',
             delete: 'Delete',
+            saved: 'Service sauvé',
+            deleted: 'Service supprimé',
             category: 'Category',
             electrician: "Electrician",
             heating_company: 'Heating company',
@@ -644,8 +653,10 @@ export default {
             add: 'Add district',
             edit: 'Edit district',
             save: 'Save',
+            saved: 'District sauvé',
             edit_action: 'Edit',
             delete: 'Delete',
+            deleted: 'District supprimé',
             cancel: 'Cancel',
             required: 'This field is required',
             details: 'Details',
@@ -679,6 +690,8 @@ export default {
             deleted: 'Deleted',
             title: 'Requests',
             created: 'Created',
+            saved: 'Requête sauvegardée',
+            deleted: 'Richiesta supprimée',
             prop_title: 'Title',
             description: 'Description',
             category: 'Category',
@@ -712,6 +725,7 @@ export default {
                 managers: 'Managers'
             },
             media: {
+                added: 'Document ajouté',
                 removed: 'Media removed',
                 deleted: 'Media deleted',
                 delete: 'Delete'
@@ -827,6 +841,8 @@ export default {
             title_label: 'Title',
             add: 'Add property manager',
             save: 'Save',
+            saved: 'Gestionnaire immobilier sauvé',
+            deleted: 'Gestionnaire immobilier supprimé',
             edit: 'Edit',
             edit_title: 'Edit property manager',
             delete: 'Delete',
@@ -903,6 +919,8 @@ export default {
             unpublish: 'Unpublish',
             likes: 'Likes',
             save: 'Save',
+            saved: 'Produit sauvegardé',
+            deleted: 'Produit supprimé',
             comments: 'Comments',
             user: 'User',
             contact: 'Contact',
@@ -969,7 +987,12 @@ export default {
         },
         add: {
             added: 'Added successfully'
-        }
+        },
+        media: {
+            added: 'Document/Photo ajoutée',
+            deleted: 'Document/Photo supprimée',            
+        },
+        logout_confirm: 'Vous serez déconnecté.'
     },
     roles: {
         label: 'Role',

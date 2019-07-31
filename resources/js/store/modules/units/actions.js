@@ -17,19 +17,28 @@ export default {
     createUnit(_, payload) {
         return new Promise((resolve, reject) => 
             axios.post('units', payload)
-                 .then(({data: r}) => resolve(r))
+                 .then(({data: r}) => resolve({
+                    success: true,
+                    message: 'models.unit.saved'
+                 }))
                  .catch(({response: {data: err}}) => reject(err)));
     },
     updateUnit(_, {id, ...restPayload}) {
         return new Promise((resolve, reject) => 
             axios.put(`units/${id}`, restPayload)
-                 .then(({data: r}) => resolve(r))
+                 .then(({data: r}) => resolve({
+                    success: true,
+                    message: 'models.unit.saved'
+                 }))
                  .catch(({response: {data: err}}) => reject(err)));
     },
     deleteUnit(_, {id}) {
         return new Promise((resolve, reject) => 
             axios.delete(`units/${id}`)
-                 .then(({data: r}) => resolve(r))
+                 .then(({data: r}) => resolve({
+                    success: true,
+                    message: 'models.unit.deleted'
+                 }))
                  .catch(({response: {data: err}}) => reject(err)));
     }
 }

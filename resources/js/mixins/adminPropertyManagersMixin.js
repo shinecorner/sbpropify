@@ -214,7 +214,10 @@ export default (config = {}) => {
                                     await this.uploadAvatarIfNeeded(resp.data.user.id);
                                 }
 
-                                displaySuccess(resp);
+                                displaySuccess({
+                                    success: true,
+                                    message: 'models.propertyManager.saved'
+                                });
 
                                 this.form.resetFields();
                                 this.model.buildings = [];
@@ -262,7 +265,10 @@ export default (config = {}) => {
                                     }
 
                                     this.model = Object.assign({}, this.model, resp.data);
-                                    displaySuccess(resp);
+                                    displaySuccess({
+                                        success: true,
+                                        message: 'models.propertyManager.saved'
+                                    });
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

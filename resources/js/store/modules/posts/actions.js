@@ -29,7 +29,10 @@ export default {
     deletePost(_, {id}) {
         return new Promise((resolve, reject) =>
             axios.delete(`posts/${id}`)
-                .then(({data: r}) => resolve(r))
+                .then(({data: r}) => resolve({
+                    success: true,
+                    message: 'models.post.deleted'
+                }))
                 .catch(({response: {data: err}}) => reject(err)));
     },
     likePost(_, id) {

@@ -40,7 +40,10 @@ export default {
     deleteTenant(_, {id}) {
         return new Promise((resolve, reject) =>
             axios.delete(`tenants/${id}`)
-                .then(({data: r}) => resolve(r))
+                .then(({data: r}) => resolve({
+                    success: true,
+                    message: 'models.tenant.deleted'
+                }))
                 .catch(({response: {data: err}}) => reject(err)));
     },
     myTenancy(_, payload) {

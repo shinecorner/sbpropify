@@ -181,6 +181,7 @@ export default {
             add: 'Nutzer hinzufügen',
             save: 'Speichern',
             saved: 'Benutzer erfolgreich gespeichert',
+            deleted: 'Benutzer gelöscht',
             edit: 'Benutzer bearbeiten',
             not_found: 'Benutzer nicht gefunden',
             profile_image: 'Profil-Bild',
@@ -211,6 +212,8 @@ export default {
             credentials_download_failed: 'Credentials file not found. Try updating the tenant password to regenerate it',
             add: 'Mieter hinzufügen',
             save: 'Speichern',
+            saved: 'Mieter gespeichert',
+            deleted: 'Mieter gelöscht',
             update: 'Update',
             name: 'Name',
             first_name: 'Vorname',
@@ -404,6 +407,7 @@ export default {
             created_at: 'Datum',
             edit: 'Öffnen',
             delete: 'Löschen',
+            deleted: 'Einheit gelöscht',
             save: 'Speichern',
             saved: "Einheit gespeichert",
             floor: 'Stockwerk',
@@ -500,6 +504,9 @@ export default {
             add: 'Nachricht hinzufügen',
             add_pinned: 'Ankündigung erstellen',
             save: 'Speichern',
+            saved: 'Nachricht gespeichert',
+            updated: 'Nachricht aktualisiert',
+            deleted: 'Nachricht gelöscht',
             edit: 'Öffnen',
             edit_title: 'Beitrag bearbeiten',
             show: 'Vorschau',
@@ -596,6 +603,8 @@ export default {
             edit_title: 'Bearbeiten',
             edit: 'Öffnen',
             delete: 'Löschen',
+            saved: 'Firma gespeichert',
+            deleted: 'Firma gelöscht',
             category: 'Kategorie',
             electrician: "Elektro",
             heating_company: 'Heizung',
@@ -644,8 +653,10 @@ export default {
             add: 'Überbauung hinzufügen',
             edit: 'Überbauung bearbeiten',
             save: 'Speichern',
+            saved: 'Überbauung gespeichert',
             edit_action: 'Öffnen',
             delete: 'Löschen',
+            deleted: 'Überbauung gelöscht',
             cancel: 'Schliessen',
             required: 'Dies ist ein Pflichfeld',
             details: 'Öffnen',
@@ -679,6 +690,8 @@ export default {
             deleted: 'Gelöscht',
             title: 'Anfragen',
             created: 'Erstellt',
+            saved: 'Anfrage gespeichert',
+            deleted: 'Anfrage gelöscht',
             prop_title: 'Titel',
             description: 'Beschreibung',
             category: 'Kategorie',
@@ -712,6 +725,7 @@ export default {
                 managers: 'Bewirtschafter'
             },
             media: {
+                added: 'Dokument hinzugefügt',
                 removed: 'Dokument entfernt.',
                 deleted: 'Dokument gelöscht',
                 delete: 'Löschen'
@@ -827,6 +841,8 @@ export default {
             title_label: 'Anrede',
             add: 'Bewirtschafter hinzufügen',
             save: 'Speichern',
+            saved: 'Bewirtschafter gespeichert',
+            deleted: 'Bewirtschafter gelöscht',
             edit: 'Öffnen',
             edit_title: 'Bewirtschafter bearbeiten',
             delete: 'Löschen',
@@ -903,6 +919,8 @@ export default {
             unpublish: 'Unveröffentlicht',
             likes: 'Likes',
             save: 'Speichern',
+            saved: 'Anzeige gespeichert',
+            deleted: 'Anzeige gelöscht',
             comments: 'Kommentare',
             user: 'Benutzer',
             contact: 'Kontaktdaten',
@@ -961,7 +979,7 @@ export default {
         }
     },
     swal: {
-        delete: {
+        delete: {            
             title: 'Sind Sie sicher?',
             text: 'Dies kann nicht mehr rückgänging gemacht werden',
             confirmText: 'Ja, ich will löschen!',
@@ -969,7 +987,12 @@ export default {
         },
         add: {
             added: 'Erfolgreich hinzugefügt'
-        }
+        },
+        media: {
+            added: 'Dokument/Foto hinzugefügt',
+            deleted: 'Dokument/Foto gelöscht',            
+        },
+        logout_confirm: 'Du wirst ausgeloggt.'
     },
     roles: {
         label: 'Rolle',
