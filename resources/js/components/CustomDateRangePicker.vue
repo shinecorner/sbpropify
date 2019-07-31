@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {subDays} from 'date-fns';
+import {subDays, format} from 'date-fns';
 
 export default {
   name: 'CustomDateRangePicker',
@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      dateRange: [subDays(new Date(), 28), new Date()],
+      dateRange: [format(subDays(new Date(), 28), 'DD.MM.YYYY'), format(new Date(), 'DD.MM.YYYY')],
       pickerOptions: {
         shortcuts: [{
           text: this.$t('date_range.last_week'),

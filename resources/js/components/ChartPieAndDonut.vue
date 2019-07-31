@@ -33,7 +33,7 @@ export default {
   data() {
     return {        
         chartType: 'pie',
-        dateRange: [subDays(new Date(), 28), new Date()],
+        dateRange: [format(subDays(new Date(), 28), 'DD.MM.YYYY'), format(new Date(), 'DD.MM.YYYY')],
         xData: [],
         yData: [],
     }
@@ -132,7 +132,7 @@ export default {
             	params: params
             })
             .then(function (response) {
-                that.yData = response.data.data.data;
+                that.yData = response.data.data.data.map(val => parseFloat(val) || 0);
                 if(that.type === 'request_by_status'){
                     that.xData = response.data.data.labels.map(function(e){return that.$t('models.request.status.'+e)});
                 }
@@ -166,11 +166,17 @@ export default {
     created(){        
         this.fetchData();        
     },
+    watch: {
+      '$i18n.locale' : function(val) {
+        this.fetchData();
+      }
+    }
 }
 </script>
 <style lang="scss">
     .piechart {
         max-height: 420px;
+        position: relative;
 
         .apexcharts-canvas {
             position: unset;
@@ -180,6 +186,18 @@ export default {
             display: flex;
             flex-direction: column;
             justify-content: center !important;
+        }
+
+        @media screen and (min-width: 1800px) {
+            .chart-filter {
+                position: absolute;
+                top: -42px;
+                right: 50px;
+
+                background-color: transparent;
+                border-bottom: none;
+                padding: 0;
+            }
         }
     }
 </style>

@@ -35,8 +35,8 @@ let globalFunction = {
                 total_units: '#bbb',
                 occupied_units: '#FFA400',
                 free_units: '#F9690E',
-                active: '#20A0FF',
-                not_active: '#bbb'
+                active: '#5fad64',
+                not_active: '#dd6161'
             };
             if(type === 'name'){                
                 return colorByName[status];
