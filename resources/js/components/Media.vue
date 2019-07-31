@@ -146,8 +146,8 @@
                                 if (!this.uploadOptions.extensions.split(',').includes(fileExtension)) {
                                     this.$message({
                                         type: 'warning',
-                                        message: 'Oops! Some files have had an extension that was not allowed. Please try again.',
-                                        duration: 5000,
+                                        message: 'Oops! Some files have had an extension that was not allowed. Skipping...',
+                                        duration: 8000,
                                         showClose: true
                                     })
 
@@ -159,8 +159,8 @@
                                 if (!this.uploadOptions.extensions.includes(fileExtension)) {
                                     this.$message({
                                         type: 'warning',
-                                        message: 'Oops! Some files have had an extension that was not allowed. Please try again.',
-                                        duration: 5000,
+                                        message: 'Oops! Some files have had an extension that was not allowed. Skipping...',
+                                        duration: 8000,
                                         showClose: true
                                     })
 
@@ -172,8 +172,8 @@
                                 if (!this.uploadOptions.extensions.test(fileExtension)) {
                                     this.$message({
                                         type: 'warning',
-                                        message: 'Oops! Some files have had an extension that was not allowed. Please try again.',
-                                        duration: 5000,
+                                        message: 'Oops! Some files have had an extension that was not allowed. Skipping...',
+                                        duration: 8000,
                                         showClose: true
                                     })
 
@@ -263,7 +263,7 @@
                             this.$message({
                                 type: 'info',
                                 message: 'Uploading...',
-                                duration: 5000,
+                                duration: 8000,
                                 showClose: true
                             })
                         }
@@ -275,7 +275,7 @@
                                 this.$message({
                                     type: 'success',
                                     message: 'Media files have been succesfully uploaded.',
-                                    duration: 5000,
+                                    duration: 8000,
                                     showClose: true
                                 })
                             }
