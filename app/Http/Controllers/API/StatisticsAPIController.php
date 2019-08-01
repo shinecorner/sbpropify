@@ -989,15 +989,23 @@ class StatisticsAPIController extends AppBaseController
      *
      * @SWG\Get(
      *      path="donutChartRequestByCategory",
-     *      summary="Tenants gender statistics for Donut Chart",
+     *      summary="Get request statistics for Donut Chart by service_request_categories",
      *      tags={"ServiceRequest", "Donut"},
-     *      description="Get tenants gender statistics",
+     *      description="Get request statistics for Donut Chart by service_request_categories",
      *      produces={"application/json"},
      *      @SWG\Parameter(
-     *          ref="#/parameters/start_date",
+     *          name="start_date",
+     *          in="query",
+     *          description="format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. default value is one month ago of end_date",
+     *          type="string",
+     *          format="full-date"
      *      ),
      *      @SWG\Parameter(
-     *          ref="#/parameters/end_date",
+     *          name="end_date",
+     *          in="query",
+     *          description="format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. | default value today",
+     *          type="string",
+     *          format="full-date"
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -1016,7 +1024,7 @@ class StatisticsAPIController extends AppBaseController
      *                      description="Labels for statistics",
      *                      type="array",
      *                      items={"type"="string"},
-     *                      example={"received", "in_processing", "....."}
+     *                      example={"Disturbance", "Defect", "....."}
      *                  ),
      *                  @SWG\Property(
      *                      property="data",
@@ -1029,6 +1037,7 @@ class StatisticsAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="message",
      *                  type="string",
+     *                  example="Request statistics retrieved successfully By service_request_categories"
      *              )
      *          )
      *      )
@@ -1067,7 +1076,7 @@ class StatisticsAPIController extends AppBaseController
 
         $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
-            ? $this->sendResponse($response, 'Admin statistics retrieved successfully')
+            ? $this->sendResponse($response, 'Request statistics retrieved successfully By service_request_categories')
             : $response;
     }
 
@@ -1215,6 +1224,7 @@ class StatisticsAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="message",
      *                  type="string",
+     *                  example="Admin statistics retrieved successfully for tenants by request status"
      *              )
      *          )
      *      )
@@ -1242,7 +1252,7 @@ class StatisticsAPIController extends AppBaseController
 
         $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
-            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for tenants')
+            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for tenants by request status')
             : $response;
     }
 

@@ -5174,17 +5174,25 @@
                     "ServiceRequest",
                     "Donut"
                 ],
-                "summary": "Tenants gender statistics for Donut Chart",
-                "description": "Get tenants gender statistics",
+                "summary": "Get request statistics for Donut Chart by service_request_categories",
+                "description": "Get request statistics for Donut Chart by service_request_categories",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/parameters/start_date"
+                        "name": "start_date",
+                        "in": "query",
+                        "description": "format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. default value is one month ago of end_date",
+                        "type": "string",
+                        "format": "full-date"
                     },
                     {
-                        "$ref": "#/parameters/end_date"
+                        "name": "end_date",
+                        "in": "query",
+                        "description": "format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. | default value today",
+                        "type": "string",
+                        "format": "full-date"
                     }
                 ],
                 "responses": {
@@ -5204,8 +5212,8 @@
                                                 "type": "string"
                                             },
                                             "example": [
-                                                "received",
-                                                "in_processing",
+                                                "Disturbance",
+                                                "Defect",
                                                 "....."
                                             ]
                                         },
@@ -5225,7 +5233,8 @@
                                     "type": "object"
                                 },
                                 "message": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "Request statistics retrieved successfully By service_request_categories"
                                 }
                             },
                             "type": "object"
@@ -5303,8 +5312,8 @@
                     "Tenant",
                     "Donut"
                 ],
-                "summary": "Tenants gender statistics for Donut Chart",
-                "description": "Get tenants gender statistics",
+                "summary": "Tenants statistics for Donut Chart by service_requests status",
+                "description": "Tenants statistics for Donut Chart by service_requests status",
                 "produces": [
                     "application/json"
                 ],
@@ -5374,7 +5383,8 @@
                                     "type": "object"
                                 },
                                 "message": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "Admin statistics retrieved successfully for tenants by request status"
                                 }
                             },
                             "type": "object"
