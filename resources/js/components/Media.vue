@@ -136,6 +136,54 @@
             },
             onUploadFilter (newFile, oldFile, prevent) {
                 if (newFile) {
+                    if (this.uploadOptions.extensions) {
+                        const fileExtension = newFile.type.substring(newFile.type.lastIndexOf('/') + 1)
+
+                        this.$message.closeAll()
+                        
+                        switch (this.uploadOptions.extensions.constructor) {
+                            case String:
+                                if (!this.uploadOptions.extensions.split(',').includes(fileExtension)) {
+                                    this.$message({
+                                        type: 'warning',
+                                        message: 'Oops! Some files have had an extension that was not allowed. Skipping...',
+                                        duration: 8000,
+                                        showClose: true
+                                    })
+
+                                    return prevent()
+                                }
+
+                                break
+                            case Array:
+                                if (!this.uploadOptions.extensions.includes(fileExtension)) {
+                                    this.$message({
+                                        type: 'warning',
+                                        message: 'Oops! Some files have had an extension that was not allowed. Skipping...',
+                                        duration: 8000,
+                                        showClose: true
+                                    })
+
+                                    return prevent()
+                                }
+
+                                break
+                            case RegExp:
+                                if (!this.uploadOptions.extensions.test(fileExtension)) {
+                                    this.$message({
+                                        type: 'warning',
+                                        message: 'Oops! Some files have had an extension that was not allowed. Skipping...',
+                                        duration: 8000,
+                                        showClose: true
+                                    })
+
+                                    return prevent()
+                                }
+
+                                break
+                        }
+                    }
+
                     const fileReader = new FileReader()
 
                     fileReader.readAsDataURL(newFile.file)
@@ -212,7 +260,10 @@
                         if (this.uploadOptions.auto) {
                             this.$refs.uploader.active = true
 
-                            this.$message.success('Uploading...', {
+                            this.$message({
+                                type: 'info',
+                                message: 'Uploading...',
+                                duration: 8000,
                                 showClose: true
                             })
                         }
@@ -221,7 +272,10 @@
                             if (this.$refs.uploader.uploaded) {
                                 this.$refs.uploader.clear()
 
-                                this.$message.success('Media files have been succesfully uploaded.', {
+                                this.$message({
+                                    type: 'success',
+                                    message: 'Media files have been succesfully uploaded.',
+                                    duration: 8000,
                                     showClose: true
                                 })
                             }
