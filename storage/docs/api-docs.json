@@ -284,8 +284,8 @@
                 "tags": [
                     "Building"
                 ],
-                "summary": "Get a buildings 5 Tenants",
-                "description": "Get a buildings 5 Tenants or by limit",
+                "summary": "Get latest buildings 5 Tenants",
+                "description": "Get a latest 5(limit) Buildings",
                 "produces": [
                     "application/json"
                 ],
@@ -6116,7 +6116,7 @@
                     "Tenant"
                 ],
                 "summary": "Get a latest 5 Tenants",
-                "description": "Get a latest 5 Tenants or by limit",
+                "description": "Get a latest 5(limit) Tenants",
                 "produces": [
                     "application/json"
                 ],
@@ -6867,6 +6867,134 @@
                                 },
                                 "message": {
                                     "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "units/{id}/assignees/{assignee_id}": {
+            "post": {
+                "tags": [
+                    "Unit",
+                    "Tenant"
+                ],
+                "summary": "Assign the tenant to unit",
+                "description": "Assign the tenant to unit",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "unit id",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "assignee_id",
+                        "in": "path",
+                        "description": "tenant id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "not found",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": "false"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Incorrect tenant"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "tenant assigned unit successfully"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Unit",
+                    "Tenant"
+                ],
+                "summary": "Assign the tenant to unit",
+                "description": "Assign the tenant to unit",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "unit id",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "assignee_id",
+                        "in": "path",
+                        "description": "tenant id",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "not found",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": "false"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Incorrect tenant"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "tenant un assigned unit successfully"
                                 }
                             },
                             "type": "object"
