@@ -795,6 +795,55 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     * @SWG\Get(
+     *      path="chartBuildingsByCreationDate",
+     *      summary="get statistics for Grouped Report for buildings",
+     *      tags={"Building", "CreationDate"},
+     *      description="get statistics for Grouped Report for buildings",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          ref="#/parameters/period",
+     *      ),
+     *      @SWG\Parameter(
+     *          ref="#/parameters/start_date",
+     *      ),
+     *      @SWG\Parameter(
+     *          ref="#/parameters/end_date",
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  @SWG\Property(
+     *                      property="requests_per_day_xdata",
+     *                      type="array",
+     *                      items={"type"="string", "format"="full-date"},
+     *                      example={"01.07.2019", "02.07.2019", ".......", "01.08.2019"}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="requests_per_day_ydata",
+     *                      type="array",
+     *                      items={"type"="numeric"},
+     *                      example={"4", "5", ".......", "2"}
+     *                  ),
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     *
      * @param Request $request
      * @param array $optionalArgs
      * @return mixed
