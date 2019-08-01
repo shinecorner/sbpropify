@@ -4975,7 +4975,8 @@
                                     "$ref": "#/definitions/StatisticByCreationDate"
                                 },
                                 "message": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "products statistics formatted successfully by status"
                                 }
                             },
                             "type": "object"
@@ -5045,7 +5046,8 @@
                                     "type": "object"
                                 },
                                 "message": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "Building statistics formatted successfully"
                                 }
                             },
                             "type": "object"

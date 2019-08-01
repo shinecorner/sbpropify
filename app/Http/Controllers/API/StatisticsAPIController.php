@@ -760,6 +760,7 @@ class StatisticsAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="message",
      *                  type="string",
+     *                  example="products statistics formatted successfully by status"
      *              )
      *          )
      *      )
@@ -838,6 +839,7 @@ class StatisticsAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="message",
      *                  type="string",
+     *                  example="Building statistics formatted successfully"
      *              )
      *          )
      *      )
@@ -1093,9 +1095,9 @@ class StatisticsAPIController extends AppBaseController
      *
      * @SWG\Get(
      *      path="chartRequestByAssignedProvider",
-     *      summary="chartRequestByAssignedProvider",
-     *      tags={"ServiceRequest", "CreationDate"},
-     *      description="get statistics for Grouped Report for buildings",
+     *      summary="Requests by service_providers statistics for donut chart",
+     *      tags={"ServiceRequest", "Donut"},
+     *      description="Requests by service_providers statistics for donut chart",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          ref="#/parameters/start_date",
@@ -1131,6 +1133,7 @@ class StatisticsAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="message",
      *                  type="string",
+     *                  example="Requests by service_providers statistics retrieved successfully"
      *              )
      *          )
      *      )
@@ -1171,7 +1174,7 @@ class StatisticsAPIController extends AppBaseController
             ],
         ];
 
-        return $this->sendResponse($response, 'Admin requests_with_service_providers statistics retrieved successfully');
+        return $this->sendResponse($response, 'Requests by service_providers statistics retrieved successfully');
     }
 
     /**
