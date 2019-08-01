@@ -14,9 +14,9 @@
                     <div class="media-icon icon-doc" @click="previewFile(file, idx)" v-else></div>
                     <div class="media-filename" v-if="isListLayout || !isFileImage(file)">
                         {{file.name}}
-                        <small class="media-filesize">
+                        <div class="media-filesize">
                             {{file.size | formatBytes}}
-                        </small>
+                        </div>
                     </div>
                     <transition-group class="media-progress" tag="div" name="fade" v-if="canShowProgress(file)">
                         <el-progress :width="80" :type="progressType" key="progress" :stroke-width="3" :percentage="+file.progress" :status="getProgressStatus(file)" />
@@ -32,7 +32,12 @@
             </div>
             <el-button-group slot="footer" key="footer" v-if="isListLayout">
                 <el-button class="media-trigger" icon="icon-plus" @click="selectFiles()">
-                    Drop files or click to select...
+                    <template v-if="uploadOptions.drop">
+                        Drop files or click to select...
+                    </template>
+                    <template v-else>
+                        Click to select...
+                    </template>
                 </el-button>
                 <el-button type="primary" icon="icon-upload-cloud" @click="startUploading()" v-if="canShowUploadButton">
                     Upload
@@ -41,7 +46,12 @@
             <template slot="footer" v-else-if="isGridLayout">
                 <el-button key="media-trigger" class="media-upload-trigger" @click="selectFiles()">
                     <div class="icon-plus"></div>
-                    Drop files or click to select...
+                    <template v-if="uploadOptions.drop">
+                        Drop files or click to select...
+                    </template>
+                    <template v-else>
+                        Click to select...
+                    </template>
                 </el-button>
                 <el-button key="media-upload" type="primary" icon="icon-upload-cloud" @click="startUploading()" v-if="canShowUploadButton">
                     Upload
@@ -86,6 +96,7 @@
             uploadOptions: {
                 type: Object,
                 default: () => ({
+                    drop: true,
                     auto: false,
                     clear: false,
                     draggable: true,
@@ -145,7 +156,9 @@
 
                             return prevent()
                         }
-                    } else if (this.uploadOptions.extensions) {
+                    }
+                    
+                    if (this.uploadOptions.extensions) {
                         const fileExtension = newFile.type.substring(newFile.type.lastIndexOf('/') + 1)
 
                         this.$message.closeAll()
