@@ -1140,8 +1140,8 @@ export default {
                     upload: 'Upload'
                 },
                 dropActive: {
-                    title: 'Drop your files here',
-                    description: 'Only the files with the following {extensions} extensions are allowed.'
+                    title: 'Drop your files here...',
+                    description: 'Only the files with a certain extension are allowed.'
                 },
                 messages: {
                     preview: 'This file cannot be previewed.',
