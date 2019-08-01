@@ -5092,9 +5092,6 @@
                         ]
                     },
                     {
-                        "$ref": "#/parameters/period"
-                    },
-                    {
                         "$ref": "#/parameters/start_date"
                     },
                     {
@@ -5171,6 +5168,72 @@
                 }
             }
         },
+        "donutChartRequestByCategory": {
+            "get": {
+                "tags": [
+                    "ServiceRequest",
+                    "Donut"
+                ],
+                "summary": "Tenants gender statistics for Donut Chart",
+                "description": "Get tenants gender statistics",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/start_date"
+                    },
+                    {
+                        "$ref": "#/parameters/end_date"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "properties": {
+                                        "labels": {
+                                            "description": "Labels for statistics",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "received",
+                                                "in_processing",
+                                                "....."
+                                            ]
+                                        },
+                                        "data": {
+                                            "description": "data correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            },
+                                            "example": [
+                                                "65",
+                                                "130",
+                                                "..."
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "chartRequestByAssignedProvider": {
             "get": {
                 "tags": [
@@ -5219,6 +5282,84 @@
                                             "example": [
                                                 "45",
                                                 "96"
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "donutChartTenantsByDateAndStatus": {
+            "get": {
+                "tags": [
+                    "Tenant",
+                    "Donut"
+                ],
+                "summary": "Tenants gender statistics for Donut Chart",
+                "description": "Get tenants gender statistics",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/start_date"
+                    },
+                    {
+                        "$ref": "#/parameters/end_date"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "properties": {
+                                        "labels": {
+                                            "description": "Labels for statistics",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "received",
+                                                "in_processing",
+                                                "....."
+                                            ]
+                                        },
+                                        "ids": {
+                                            "description": "key correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "1",
+                                                "2",
+                                                "..."
+                                            ]
+                                        },
+                                        "data": {
+                                            "description": "data correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            },
+                                            "example": [
+                                                "65",
+                                                "130",
+                                                "..."
                                             ]
                                         }
                                     },

@@ -1157,6 +1157,62 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+
+     * @SWG\Get(
+     *      path="donutChartTenantsByDateAndStatus",
+     *      summary="Tenants gender statistics for Donut Chart",
+     *      tags={"Tenant", "Donut"},
+     *      description="Get tenants gender statistics",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          ref="#/parameters/start_date",
+     *      ),
+     *      @SWG\Parameter(
+     *          ref="#/parameters/end_date",
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  @SWG\Property(
+     *                      property="labels",
+     *                      description="Labels for statistics",
+     *                      type="array",
+     *                      items={"type"="string"},
+     *                      example={"received", "in_processing", "....."}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="ids",
+     *                      description="key correspond labels",
+     *                      type="array",
+     *                      items={"type"="string"},
+     *                      example={"1", "2", "..."}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="data",
+     *                      description="data correspond labels",
+     *                      type="array",
+     *                      items={"type"="integer"},
+     *                      example={"65", "130", "..."}
+     *                  ),
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     *
      * @param Request $request
      * @param array $optionalArgs
      * @return mixed
