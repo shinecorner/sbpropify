@@ -5152,7 +5152,7 @@
                                             },
                                             "example": [
                                                 "30",
-                                                "6"
+                                                "60"
                                             ]
                                         }
                                     },
@@ -5359,6 +5359,88 @@
                                             "example": [
                                                 "65",
                                                 "130",
+                                                "..."
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "chartTenantLanguage": {
+            "get": {
+                "tags": [
+                    "Tenant",
+                    "Donut"
+                ],
+                "summary": "Tenants statistics for Donut Chart by language",
+                "description": "Tenants statistics for Donut Chart by language",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "properties": {
+                                        "labels": {
+                                            "description": "Labels for statistics",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "Douche",
+                                                "English",
+                                                "....."
+                                            ]
+                                        },
+                                        "ids": {
+                                            "description": "key correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "de",
+                                                "en",
+                                                "..."
+                                            ]
+                                        },
+                                        "data": {
+                                            "description": "data correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            },
+                                            "example": [
+                                                "65",
+                                                "130",
+                                                "..."
+                                            ]
+                                        },
+                                        "tag_percentage": {
+                                            "description": "percentage correspond data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            },
+                                            "example": [
+                                                "30",
+                                                "60",
                                                 "..."
                                             ]
                                         }

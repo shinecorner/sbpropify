@@ -945,7 +945,7 @@ class StatisticsAPIController extends AppBaseController
      *                      description="percentage correspond data",
      *                      type="array",
      *                      items={"type"="integer"},
-     *                      example={"30", "6"}
+     *                      example={"30", "60"}
      *                  )
      *              ),
      *              @SWG\Property(
@@ -1385,6 +1385,66 @@ class StatisticsAPIController extends AppBaseController
         return $this->formatForDonutChart($statistics, 'login', $values, true);
     }
 
+    /**
+     *
+     * @SWG\Get(
+     *      path="chartTenantLanguage",
+     *      summary="Tenants statistics for Donut Chart by language",
+     *      tags={"Tenant", "Donut"},
+     *      description="Tenants statistics for Donut Chart by language",
+     *      produces={"application/json"},
+     *
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  @SWG\Property(
+     *                      property="labels",
+     *                      description="Labels for statistics",
+     *                      type="array",
+     *                      items={"type"="string"},
+     *                      example={"Douche", "English", "....."}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="ids",
+     *                      description="key correspond labels",
+     *                      type="array",
+     *                      items={"type"="string"},
+     *                      example={"de", "en", "..."}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="data",
+     *                      description="data correspond labels",
+     *                      type="array",
+     *                      items={"type"="integer"},
+     *                      example={"65", "130", "..."}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="tag_percentage",
+     *                      description="percentage correspond data",
+     *                      type="array",
+     *                      items={"type"="integer"},
+     *                      example={"30", "60", "..."}
+     *                  )
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @return mixed
+     */
     public function chartTenantLanguage()
     {
         $languages = config('app.locales');
