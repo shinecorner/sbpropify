@@ -27,11 +27,14 @@ export default {
     CustomDateRangePicker
   },
   props: {            
-            type: {
-                type: String,
-                required: true
-            }
-    },  
+    type: {
+        type: String,
+        required: true
+    },
+    colNum: {
+        type: Number
+    }
+  },  
   data() {
     return {        
         chartType: 'pie',
@@ -46,22 +49,19 @@ export default {
         return this.yData;
     },
     chartOptions: function(){
-        return {
-            labels: this.xData,
-            responsive: [{
-                breakpoint: 1400,
+        let responsive = [];
+        if (this.colNum == 2) {
+            responsive = [{
+                breakpoint: 1300,
                 options: {
                     chart: {
-                        width: '100%',
-                        //height: 'auto'
+                        width: 490,
                     },
                     legend: {
-                        position: 'bottom',
-                        horizontalAlign: 'center',
-                        width: undefined
+                        width: 170,
                     }
                 }
-            }/*, {
+            }, {
                 breakpoint: 1200,
                 options: {
                     chart: {
@@ -80,7 +80,44 @@ export default {
                         show: false
                     }
                 }
-            }*/],
+            }];
+        }
+        else {
+            responsive = [{
+                breakpoint: 1800,
+                options: {
+                    chart: {
+                        width: 490,
+                    },
+                    legend: {
+                        width: 170,
+                    }
+                }
+            }, {
+                breakpoint: 1650,
+                options: {
+                    chart: {
+                        width: 320,
+                        height: 'auto'
+                    },
+                    legend: {
+                        position: 'bottom',
+                        horizontalAlign: 'center',
+                        width: undefined
+                    }
+                }
+            }, {
+                breakpoint: 1300,
+                options: {
+                    chart: {
+                        width: '100%',
+                    }
+                }
+            }];
+        }
+        return {
+            labels: this.xData,
+            responsive: responsive,
             legend: {
                 show: true,
                 width: 220
@@ -92,6 +129,9 @@ export default {
                 autoSelected: '',
                 width: 540,
                 height: 320
+            },
+            tooltip: {
+                followCursor: false
             }
         }
     }
@@ -184,6 +224,7 @@ export default {
 </script>
 <style lang="scss">
     .piechart {
+        //max-height: 420px;
         position: relative;
 
         .apexcharts-canvas {
