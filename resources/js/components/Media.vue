@@ -1,6 +1,6 @@
 <template>
     <div :class="['media', {[`media-${layout}-layout`]: true}]">
-        <uploader ref="uploader" v-bind="uploadOptions" :value="value" :input-id="`upload-${$_uid}`" :headers="headers" :custom-action="customAction" @input="value => $emit('input', value)" @input-filter="onUploadFilter" />
+        <uploader ref="uploader" v-bind="uploaderProps" :value="value" :input-id="`upload-${$_uid}`" :headers="headers" :custom-action="customAction" @input="value => $emit('input', value)" @input-filter="onUploadFilter" />
         <draggable class="media-list" tag="transition-group" :componentData="{type: 'transition', name: 'flip-list', mode: 'out-in'}" ghost-class="is-ghost" :list="value" :handle="draggableHandler" :animation="240" :disabled="isDraggableDisabled" :move="onDraggableMove">
             <div :class="['media-item', {'is-draggable': uploadOptions.draggable && value.length && !$refs.uploader.uploaded}, $refs.uploader.active && {'is-active': +file.progress && !file.success, 'is-pending': !+file.progress}, {'is-success': file.success, 'is-failed': file.error}]" v-for="(file, idx) in value" :key="file.id" :style="{'transition-delay': `calc(0.16 * ${idx}s)`}">
                 <div class="media-content">
@@ -62,9 +62,7 @@
             <i class="icon-upload-cloud"></i>
             {{$t('components.common.media.dropActive.title')}}
             <div class="description">
-                {{$t('components.common.media.dropActive.description', {
-                    extensions: ''
-                })}}
+                {{$t('components.common.media.dropActive.description')}}
             </div>
         </div>
     </div>
@@ -116,7 +114,7 @@
         filters: {
             formatBytes (bytes) {
                 const i = Math.floor(Math.log(bytes) / Math.log(1024))
-                const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
 
                 return (bytes / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + sizes[i]
             }
@@ -263,6 +261,11 @@
                     'Content-Type': 'application/json;charset=UTF-8',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
+            },
+            uploaderProps () {
+                const {auto, clear, draggable, hideButton, ...restProps} = this.uploadOptions
+
+                return restProps
             },
             galleryImages () {
                 return this.value.filter(file => this.isFileImage(file)).map(({file}) => file.blob)
