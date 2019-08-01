@@ -97,20 +97,13 @@ export default {
                 breakpoint: 1650,
                 options: {
                     chart: {
-                        width: 320,
+                        width: '100%',
                         height: 'auto'
                     },
                     legend: {
                         position: 'bottom',
                         horizontalAlign: 'center',
                         width: undefined
-                    }
-                }
-            }, {
-                breakpoint: 1300,
-                options: {
-                    chart: {
-                        width: '100%',
                     }
                 }
             }];
