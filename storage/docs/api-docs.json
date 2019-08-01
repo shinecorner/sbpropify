@@ -4763,15 +4763,18 @@
                         "schema": {
                             "properties": {
                                 "success": {
-                                    "description": "aaaa",
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "description": "aaaa",
-                                    "$ref": "#/definitions/Donut"
+                                    "properties": {
+                                        "labels": {
+                                            "description": "Labels for statistics",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
                                 },
                                 "message": {
-                                    "description": "aaaa",
                                     "type": "boolean",
                                     "items": "$ref:Tag"
                                 }

@@ -352,7 +352,12 @@ class StatisticsAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Donut"
+     *                  type="object",
+     *                  @SWG\Property(
+     *                      property="labels",
+     *                      description="Labels for statistics",
+     *                      type="string",
+     *                  )
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -363,7 +368,6 @@ class StatisticsAPIController extends AppBaseController
      *      )
      * )
      *
-     * @var Tag aaaa
      * @return mixed
      */
     public function tenantsGenderStatistics()
