@@ -6046,6 +6046,70 @@
                 }
             }
         },
+        "/tenants/latest": {
+            "get": {
+                "tags": [
+                    "Tenant"
+                ],
+                "summary": "Get a latest 5 Tenants",
+                "description": "Get a latest 5 Tenants or by limit",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "How many tenants get",
+                        "type": "integer",
+                        "default": 5
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "/**",
+                                    "type": "boolean",
+                                    "example": "true"
+                                },
+                                "data": {
+                                    "description": "/**",
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "description": "/**",
+                                                "type": "integer"
+                                            },
+                                            "first_name": {
+                                                "description": "/**",
+                                                "type": "string"
+                                            },
+                                            "last_name": {
+                                                "description": "/**",
+                                                "type": "string"
+                                            },
+                                            "status": {
+                                                "description": "/**",
+                                                "type": "integer"
+                                            }
+                                        }
+                                    }
+                                },
+                                "message": {
+                                    "description": "/**",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/tenants/{id}": {
             "get": {
                 "tags": [

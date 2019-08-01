@@ -127,6 +127,63 @@ class TenantAPIController extends AppBaseController
 
     /**
      * @param ListRequest $request
+     * @return Response
+     * @throws \Exception
+     *
+     * @SWG\Get(
+     *      path="/tenants/latest",
+     *      summary="Get a latest 5 Tenants",
+     *      tags={"Tenant"},
+     *      description="Get a latest 5 Tenants or by limit",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="limit",
+     *          in="query",
+     *          description="How many tenants get",
+     *          type="integer",
+     *          default=5
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  example="true"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @SWG\Items(
+     *                      @SWG\Property(
+     *                          property="id",
+     *                          type="integer",
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="first_name",
+     *                          type="string"
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="last_name",
+     *                          type="string"
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="status",
+     *                          type="integer"
+     *                      )
+     *                  )
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @param ListRequest $request
      * @return mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
@@ -144,7 +201,9 @@ class TenantAPIController extends AppBaseController
     /**
      * @param CreateRequest $request
      * @param PostRepository $pr
-     * @return Response
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     *
      *
      * @SWG\Post(
      *      path="/tenants",
