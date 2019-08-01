@@ -279,6 +279,70 @@
                 }
             }
         },
+        "/buildings/latest": {
+            "get": {
+                "tags": [
+                    "Building"
+                ],
+                "summary": "Get a buildings 5 Tenants",
+                "description": "Get a buildings 5 Tenants or by limit",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "How many buildings get",
+                        "type": "integer",
+                        "default": 5
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "/**",
+                                    "type": "boolean",
+                                    "example": "true"
+                                },
+                                "data": {
+                                    "description": "/**",
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "description": "/**",
+                                                "type": "integer"
+                                            },
+                                            "name": {
+                                                "description": "/**",
+                                                "type": "string"
+                                            },
+                                            "units_count": {
+                                                "description": "/**",
+                                                "type": "integer"
+                                            },
+                                            "tenants_count": {
+                                                "description": "/**",
+                                                "type": "integer"
+                                            }
+                                        }
+                                    }
+                                },
+                                "message": {
+                                    "description": "/**",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/buildings/{id}": {
             "get": {
                 "tags": [
@@ -6071,36 +6135,29 @@
                         "schema": {
                             "properties": {
                                 "success": {
-                                    "description": "/**",
                                     "type": "boolean",
                                     "example": "true"
                                 },
                                 "data": {
-                                    "description": "/**",
                                     "type": "array",
                                     "items": {
                                         "properties": {
                                             "id": {
-                                                "description": "/**",
                                                 "type": "integer"
                                             },
                                             "first_name": {
-                                                "description": "/**",
                                                 "type": "string"
                                             },
                                             "last_name": {
-                                                "description": "/**",
                                                 "type": "string"
                                             },
                                             "status": {
-                                                "description": "/**",
                                                 "type": "integer"
                                             }
                                         }
                                     }
                                 },
                                 "message": {
-                                    "description": "/**",
                                     "type": "string"
                                 }
                             },

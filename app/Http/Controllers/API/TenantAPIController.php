@@ -134,7 +134,7 @@ class TenantAPIController extends AppBaseController
      *      path="/tenants/latest",
      *      summary="Get a latest 5 Tenants",
      *      tags={"Tenant"},
-     *      description="Get a latest 5 Tenants or by limit",
+     *      description="Get a latest 5(limit) Tenants",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="limit",

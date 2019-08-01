@@ -160,9 +160,9 @@ class BuildingAPIController extends AppBaseController
      *
      * @SWG\Get(
      *      path="/buildings/latest",
-     *      summary="Get a buildings 5 Tenants",
+     *      summary="Get latest buildings 5 Tenants",
      *      tags={"Building"},
-     *      description="Get a buildings 5 Tenants or by limit",
+     *      description="Get a latest 5(limit) Buildings",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="limit",
