@@ -5054,6 +5054,123 @@
                 }
             }
         },
+        "donutChart": {
+            "get": {
+                "tags": [
+                    "Tenant",
+                    "Donut"
+                ],
+                "summary": "Tenants gender statistics for Donut Chart",
+                "description": "Get tenants gender statistics",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "table",
+                        "in": "query",
+                        "description": "The table used for get statistic data based db table",
+                        "type": "string",
+                        "default": "service_requests",
+                        "enum": [
+                            "service_requests",
+                            "tenants",
+                            "products",
+                            "posts"
+                        ]
+                    },
+                    {
+                        "name": "column",
+                        "in": "query",
+                        "description": "The column used for get statistic according that column",
+                        "type": "string",
+                        "default": "status",
+                        "enum": [
+                            "status",
+                            "type",
+                            "title"
+                        ]
+                    },
+                    {
+                        "$ref": "#/parameters/period"
+                    },
+                    {
+                        "$ref": "#/parameters/start_date"
+                    },
+                    {
+                        "$ref": "#/parameters/end_date"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "properties": {
+                                        "labels": {
+                                            "description": "Labels for statistics",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "received",
+                                                "in_processing",
+                                                "....."
+                                            ]
+                                        },
+                                        "ids": {
+                                            "description": "key correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "1",
+                                                "2",
+                                                "..."
+                                            ]
+                                        },
+                                        "data": {
+                                            "description": "data correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            },
+                                            "example": [
+                                                "65",
+                                                "130",
+                                                "..."
+                                            ]
+                                        },
+                                        "tag_percentage": {
+                                            "description": "percentage correspond data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            },
+                                            "example": [
+                                                "30",
+                                                "6"
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "chartRequestByAssignedProvider": {
             "get": {
                 "tags": [
