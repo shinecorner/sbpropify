@@ -174,7 +174,6 @@
                                 if (!this.uploadOptions.extensions.split(',').includes(fileExtension)) {
                                     this.$message({
                                         type: 'warning',
-
                                         message: this.$t('components.common.media.messages.extensions'),
                                         duration: 8000,
                                         showClose: true
@@ -188,7 +187,6 @@
                                 if (!this.uploadOptions.extensions.includes(fileExtension)) {
                                     this.$message({
                                         type: 'warning',
-
                                         message: this.$t('components.common.media.messages.extensions'),
                                         duration: 8000,
                                         showClose: true
