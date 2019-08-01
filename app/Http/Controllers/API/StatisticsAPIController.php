@@ -78,12 +78,25 @@ class StatisticsAPIController extends AppBaseController
      *                  property="requests_per_day_xdata",
      *                  type="array",
      *                  items={"type"="string", "format"="full-date"},
-     *                  example={"01.07.2019", "02.07.2019"}
+     *                  example={"01.07.2019", "02.07.2019", ".......", "01.08.2019"}
      *              ),
      *              @SWG\Property(
      *                  property="requests_per_day_ydata",
      *                  type="array",
-     *                  items={"type"="string", "format"="full-date"},
+     *                  items={
+     *                      "type"="object",
+     *                  },
+     *                  example={
+     *                      {
+     *                          "name"="unpublished",
+     *                          "data"={0,1, "..."}
+     *                      },
+     *                      ".....",
+     *                      {
+     *                          "name"="published",
+     *                          "data"={0,1, "..."}
+     *                      },
+     *                  }
      *              ),
      *          )
      *      )
