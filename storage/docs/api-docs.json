@@ -4746,7 +4746,7 @@
                 }
             }
         },
-        "tenantsGenderStatistics": {
+        "tenants/gender-statistics": {
             "get": {
                 "tags": [
                     "Tenant",
@@ -4874,7 +4874,145 @@
                 }
             }
         },
-        "chartRequestByCreationDate": {
+        "admin/statistics": {
+            "get": {
+                "tags": [
+                    "ServiceRequest",
+                    "Post",
+                    "Tenant",
+                    "Product"
+                ],
+                "summary": "statistics for request, building, post, product",
+                "description": "statistics for request, building, post, product",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "properties": {
+                                        "avg_request_duration": {
+                                            "type": "string",
+                                            "example": "01:07"
+                                        },
+                                        "total_requests": {
+                                            "type": "string",
+                                            "example": "1'000"
+                                        },
+                                        "requests_per_status": {
+                                            "$ref": "#/definitions/Donut"
+                                        },
+                                        "requests_per_category": {
+                                            "properties": {
+                                                "labels": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "example": [
+                                                        "Disturbance",
+                                                        "Defect",
+                                                        "...."
+                                                    ]
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "integer"
+                                                    },
+                                                    "example": [
+                                                        "320",
+                                                        "425",
+                                                        "...."
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "total_tenants": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "tenants_per_status": {
+                                            "$ref": "#/definitions/Donut"
+                                        },
+                                        "total_buildings": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "buildings_per_status": {
+                                            "$ref": "#/definitions/Donut"
+                                        },
+                                        "total_products": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "products_per_status": {
+                                            "$ref": "#/definitions/Donut"
+                                        },
+                                        "total_posts": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "posts_per_status": {
+                                            "$ref": "#/definitions/Donut"
+                                        },
+                                        "all_start_dates": {
+                                            "properties": {
+                                                "requests": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "01.01.2019"
+                                                    ]
+                                                },
+                                                "tenants": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "01.01.2019"
+                                                    ]
+                                                },
+                                                "buildings": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "01.01.2019"
+                                                    ]
+                                                },
+                                                "products": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "01.01.2019"
+                                                    ]
+                                                },
+                                                "posts": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "01.01.2019"
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Request services statistics formatted successfully"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "admin/chartRequestByCreationDate": {
             "get": {
                 "tags": [
                     "ServiceRequest",
@@ -4908,7 +5046,8 @@
                                     "$ref": "#/definitions/StatisticByCreationDate"
                                 },
                                 "message": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "Request services statistics formatted successfully"
                                 }
                             },
                             "type": "object"
@@ -4917,7 +5056,7 @@
                 }
             }
         },
-        "chartByCreationDate": {
+        "admin/chartByCreationDate": {
             "get": {
                 "tags": [
                     "Tenant",
@@ -4985,7 +5124,7 @@
                 }
             }
         },
-        "chartBuildingsByCreationDate": {
+        "admin/chartBuildingsByCreationDate": {
             "get": {
                 "tags": [
                     "Building",
@@ -5056,7 +5195,7 @@
                 }
             }
         },
-        "donutChart": {
+        "admin/donutChart": {
             "get": {
                 "tags": [
                     "Tenant",
@@ -5120,56 +5259,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "properties": {
-                                        "labels": {
-                                            "description": "Labels for statistics",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string"
-                                            },
-                                            "example": [
-                                                "received",
-                                                "in_processing",
-                                                "....."
-                                            ]
-                                        },
-                                        "ids": {
-                                            "description": "key correspond labels",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string"
-                                            },
-                                            "example": [
-                                                "1",
-                                                "2",
-                                                "..."
-                                            ]
-                                        },
-                                        "data": {
-                                            "description": "data correspond labels",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "integer"
-                                            },
-                                            "example": [
-                                                "65",
-                                                "130",
-                                                "..."
-                                            ]
-                                        },
-                                        "tag_percentage": {
-                                            "description": "percentage correspond data",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "integer"
-                                            },
-                                            "example": [
-                                                "30",
-                                                "60"
-                                            ]
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#/definitions/Donut"
                                 },
                                 "message": {
                                     "type": "string",
@@ -5182,7 +5272,7 @@
                 }
             }
         },
-        "donutChartRequestByCategory": {
+        "admin/donutChartRequestByCategory": {
             "get": {
                 "tags": [
                     "ServiceRequest",
@@ -5257,14 +5347,14 @@
                 }
             }
         },
-        "chartRequestByAssignedProvider": {
+        "admin/chartRequestByAssignedProvider": {
             "get": {
                 "tags": [
                     "ServiceRequest",
-                    "CreationDate"
+                    "Donut"
                 ],
-                "summary": "chartRequestByAssignedProvider",
-                "description": "get statistics for Grouped Report for buildings",
+                "summary": "Requests by service_providers statistics for donut chart",
+                "description": "Requests by service_providers statistics for donut chart",
                 "produces": [
                     "application/json"
                 ],
@@ -5311,7 +5401,8 @@
                                     "type": "object"
                                 },
                                 "message": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "Requests by service_providers statistics retrieved successfully"
                                 }
                             },
                             "type": "object"
@@ -5320,7 +5411,7 @@
                 }
             }
         },
-        "donutChartTenantsByDateAndStatus": {
+        "admin/donutChartTenantsByDateAndStatus": {
             "get": {
                 "tags": [
                     "Tenant",
@@ -5407,7 +5498,7 @@
                 }
             }
         },
-        "heatMapByDatePeriod": {
+        "admin/heatMapByDatePeriod": {
             "get": {
                 "tags": [
                     "ServiceRequest",
@@ -5492,7 +5583,7 @@
                 }
             }
         },
-        "chartLoginDevice": {
+        "admin/chartLoginDevice": {
             "get": {
                 "tags": [
                     "Auth",
@@ -5575,7 +5666,7 @@
                 }
             }
         },
-        "chartTenantLanguage": {
+        "admin/chartTenantLanguage": {
             "get": {
                 "tags": [
                     "Tenant",
@@ -7229,24 +7320,53 @@
             }
         },
         "Donut": {
-            "required": [
-                "name",
-                "floor_nr"
-            ],
             "properties": {
                 "labels": {
                     "description": "Labels for statistics",
                     "type": "array",
                     "items": {
                         "type": "string"
-                    }
+                    },
+                    "example": [
+                        "received",
+                        "in_processing",
+                        "....."
+                    ]
+                },
+                "ids": {
+                    "description": "key correspond labels",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "example": [
+                        "1",
+                        "2",
+                        "..."
+                    ]
                 },
                 "data": {
-                    "description": "Labels for statistics",
+                    "description": "data correspond labels",
                     "type": "array",
                     "items": {
                         "type": "integer"
-                    }
+                    },
+                    "example": [
+                        "65",
+                        "130",
+                        "..."
+                    ]
+                },
+                "tag_percentage": {
+                    "description": "percentage correspond data",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "example": [
+                        "30",
+                        "60"
+                    ]
                 }
             }
         },

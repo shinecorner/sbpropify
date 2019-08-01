@@ -100,6 +100,37 @@ class StatisticsAPIController extends AppBaseController
      *              ),
      *          )
      *      )
+     *      @SWG\Definition(
+     *          definition="Donut",
+     *          @SWG\Property(
+     *              property="labels",
+     *              description="Labels for statistics",
+     *              type="array",
+     *              items={"type"="string"},
+     *              example={"received", "in_processing", "....."}
+     *          ),
+     *          @SWG\Property(
+     *              property="ids",
+     *              description="key correspond labels",
+     *              type="array",
+     *              items={"type"="string"},
+     *              example={"1", "2", "..."}
+     *          ),
+     *          @SWG\Property(
+     *              property="data",
+     *              description="data correspond labels",
+     *              type="array",
+     *              items={"type"="integer"},
+     *              example={"65", "130", "..."}
+     *          ),
+     *          @SWG\Property(
+     *              property="tag_percentage",
+     *              description="percentage correspond data",
+     *              type="array",
+     *              items={"type"="integer"},
+     *              example={"30", "60"}
+     *          )
+     *      )
      *
      */
     const QUERY_PARAMS = [
@@ -391,7 +422,7 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="tenantsGenderStatistics",
+     *      path="tenants/gender-statistics",
      *      summary="Tenants gender statistics for Donut Chart",
      *      tags={"Tenant", "Donut"},
      *      description="Get tenants gender statistics",
@@ -598,6 +629,130 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+
+     * @SWG\Get(
+     *      path="admin/statistics",
+     *      summary="statistics for request, building, post, product",
+     *      tags={"ServiceRequest", "Post", "Tenant", "Product"},
+     *      description="statistics for request, building, post, product",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  @SWG\Property(
+     *                      property="avg_request_duration",
+     *                      type="string",
+     *                      example="01:07"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="total_requests",
+     *                      type="string",
+     *                      example="1'000"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="requests_per_status",
+     *                      ref="#/definitions/Donut"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="requests_per_category",
+     *                      type="object",
+     *                      @SWG\Property(
+     *                          property="labels",
+     *                          type="array",
+     *                          items={"type"="string"},
+     *                          example={"Disturbance", "Defect", "...."}
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="data",
+     *                          type="array",
+     *                          items={"type"="integer"},
+     *                          example={"320", "425", "...."}
+     *                      ),
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="total_tenants",
+     *                      type="string",
+     *                      example="200"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="tenants_per_status",
+     *                      ref="#/definitions/Donut"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="total_buildings",
+     *                      type="string",
+     *                      example="200"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="buildings_per_status",
+     *                      ref="#/definitions/Donut"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="total_products",
+     *                      type="string",
+     *                      example="200"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="products_per_status",
+     *                      ref="#/definitions/Donut"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="total_posts",
+     *                      type="string",
+     *                      example="200"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="posts_per_status",
+     *                      ref="#/definitions/Donut"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="all_start_dates",
+     *                      type="object",
+     *                      @SWG\Property(
+     *                          property="requests",
+     *                          type="string",
+     *                          example="01.01.2019"
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="tenants",
+     *                          type="string",
+     *                          example="01.01.2019"
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="buildings",
+     *                          type="string",
+     *                          example="01.01.2019"
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="products",
+     *                          type="string",
+     *                          example="01.01.2019"
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="posts",
+     *                          type="string",
+     *                          example="01.01.2019"
+     *                      ),
+     *                  ),
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Request services statistics formatted successfully"
+     *              )
+     *          )
+     *      )
+     * )
+     *
      * @param Request $request
      * @return mixed
      */
@@ -649,7 +804,7 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="chartRequestByCreationDate",
+     *      path="admin/chartRequestByCreationDate",
      *      summary="get statistics for Grouped Report for request",
      *      tags={"ServiceRequest", "CreationDate"},
      *      description="get statistics for Grouped Report for request",
@@ -679,6 +834,7 @@ class StatisticsAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="message",
      *                  type="string",
+     *                  example="Request services statistics formatted successfully"
      *              )
      *          )
      *      )
@@ -714,7 +870,7 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="chartByCreationDate",
+     *      path="admin/chartByCreationDate",
      *      summary="get statistics for Grouped Report by products:status | tenants:status | posts:status ",
      *      tags={"Tenant", "Product", "Post", "CreationDate"},
      *      description="get statistics for Grouped Report by products:status | tenants:status | posts:status",
@@ -797,7 +953,7 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="chartBuildingsByCreationDate",
+     *      path="admin/chartBuildingsByCreationDate",
      *      summary="get statistics for Grouped Report for buildings",
      *      tags={"Building", "CreationDate"},
      *      description="get statistics for Grouped Report for buildings",
@@ -882,7 +1038,7 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="donutChart",
+     *      path="admin/donutChart",
      *      summary="service_requests, products, tenants,  posts statistics for Donut Chart",
      *      tags={"Tenant", "ServiceRequest", "Post", "Product", "Donut"},
      *      description="service_requests:status | tenants:status,title | products:status,type |  posts:status,type statistics for Donut Chart",
@@ -928,35 +1084,7 @@ class StatisticsAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  type="object",
-     *                  @SWG\Property(
-     *                      property="labels",
-     *                      description="Labels for statistics",
-     *                      type="array",
-     *                      items={"type"="string"},
-     *                      example={"received", "in_processing", "....."}
-     *                  ),
-     *                  @SWG\Property(
-     *                      property="ids",
-     *                      description="key correspond labels",
-     *                      type="array",
-     *                      items={"type"="string"},
-     *                      example={"1", "2", "..."}
-     *                  ),
-     *                  @SWG\Property(
-     *                      property="data",
-     *                      description="data correspond labels",
-     *                      type="array",
-     *                      items={"type"="integer"},
-     *                      example={"65", "130", "..."}
-     *                  ),
-     *                  @SWG\Property(
-     *                      property="tag_percentage",
-     *                      description="percentage correspond data",
-     *                      type="array",
-     *                      items={"type"="integer"},
-     *                      example={"30", "60"}
-     *                  )
+     *                  ref="#/definitions/Donut"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -999,7 +1127,7 @@ class StatisticsAPIController extends AppBaseController
     /**
      *
      * @SWG\Get(
-     *      path="donutChartRequestByCategory",
+     *      path="admin/donutChartRequestByCategory",
      *      summary="Get request statistics for Donut Chart by service_request_categories",
      *      tags={"ServiceRequest", "Donut"},
      *      description="Get request statistics for Donut Chart by service_request_categories",
@@ -1094,7 +1222,7 @@ class StatisticsAPIController extends AppBaseController
     /**
      *
      * @SWG\Get(
-     *      path="chartRequestByAssignedProvider",
+     *      path="admin/chartRequestByAssignedProvider",
      *      summary="Requests by service_providers statistics for donut chart",
      *      tags={"ServiceRequest", "Donut"},
      *      description="Requests by service_providers statistics for donut chart",
@@ -1180,7 +1308,7 @@ class StatisticsAPIController extends AppBaseController
     /**
 
      * @SWG\Get(
-     *      path="donutChartTenantsByDateAndStatus",
+     *      path="admin/donutChartTenantsByDateAndStatus",
      *      summary="Tenants statistics for Donut Chart by service_requests status",
      *      tags={"Tenant", "Donut"},
      *      description="Tenants statistics for Donut Chart by service_requests status",
@@ -1271,7 +1399,7 @@ class StatisticsAPIController extends AppBaseController
     /**
      *
      * @SWG\Get(
-     *      path="heatMapByDatePeriod",
+     *      path="admin/heatMapByDatePeriod",
      *      summary="Get Service Request statistics for Heat Map Graph",
      *      tags={"ServiceRequest", "HeatMap"},
      *      description="Get Service Request statistics for Heat Map Graph",
@@ -1459,7 +1587,7 @@ class StatisticsAPIController extends AppBaseController
     /**
      *
      * @SWG\Get(
-     *      path="chartLoginDevice",
+     *      path="admin/chartLoginDevice",
      *      summary="Get statistics for Donut Chart by login device",
      *      tags={"Auth", "Donut"},
      *      description="Get all time statistics for Donut Chart by login device",
@@ -1552,7 +1680,7 @@ class StatisticsAPIController extends AppBaseController
     /**
      *
      * @SWG\Get(
-     *      path="chartTenantLanguage",
+     *      path="admin/chartTenantLanguage",
      *      summary="Tenants statistics for Donut Chart by language",
      *      tags={"Tenant", "Donut"},
      *      description="Tenants statistics for Donut Chart by language",
@@ -1679,28 +1807,6 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     *
-     * @SWG\Definition(
-     *      definition="Donut",
-     *      required={"name", "floor_nr"},
-     *      @SWG\Property(
-     *          property="labels",
-     *          description="Labels for statistics",
-     *          type="array",
-     *          items={
-     *              "type":"string"
-     *          },
-     *      ),
-     *      @SWG\Property(
-     *          property="data",
-     *          description="Labels for statistics",
-     *          type="array",
-     *          items={
-     *              "type":"integer"
-     *          },
-     *      )
-     * )
-     *
      * @param $statistics
      * @param $column
      * @param $columnValues
