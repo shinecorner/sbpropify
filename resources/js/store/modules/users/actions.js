@@ -29,7 +29,10 @@ export default {
     deleteUser(_, {id}) {
         return new Promise((resolve, reject) =>
             axios.delete(`users/${id}`)
-                .then(({data: r}) => resolve(r))
+                .then(({data: r}) => resolve({
+                    success: true,
+                    message: 'models.user.deleted'
+                }))
                 .catch(({response: {data: err}}) => reject(err)));
     },
 

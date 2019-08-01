@@ -39,7 +39,7 @@ export default (config) => {
                 this.showModal = true;
             },
             remove(row) {
-                this.$confirm('This action is irreversible. Please proceed with caution.', 'Are you sure?', {
+                this.$confirm(this.$t('swal.delete.text'), this.$t('swal.delete.title'), {
                     type: 'warning'
                 }).then(() => {
                     this[actions.delete](row)

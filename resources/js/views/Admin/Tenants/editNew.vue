@@ -346,7 +346,10 @@
                     id: this.model.id,
                     media_id: this.lastMedia.id
                 }).then(r => {
-                    displaySuccess(r);
+                    displaySuccess({
+                        success: true,
+                        message: 'swal.media.deleted'
+                    });
 
                     this.model.media.splice(-1, 1);
                 }).catch(err => {

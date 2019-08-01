@@ -1,6 +1,6 @@
 <template>
     <el-container class="admin-layout" direction="vertical">
-        <a-header>
+        <a-header :toggleSidebar="toggleSidebar">
             <div class="header-link">
                 <div  v-bind:class="[{ active: showMenu }, language]">
                     <div class="language-iconBorder" @click="toggleShow">
@@ -69,7 +69,7 @@
 
         </a-header>
         <el-container>
-            <a-sidebar :links="links">
+            <a-sidebar :links="links" :collapsed="isCallapsed">
             </a-sidebar>
             <el-main sticky-container>
                 <v-router-transition transition="slide-left">
@@ -115,7 +115,9 @@
                     {name: 'Italiano', symbol: 'it', flag: 'flag-icon flag-icon-it'},
                     {name: 'Deutsch', symbol: 'de', flag: 'flag-icon flag-icon-de'},
                     {name: 'English', symbol: 'en', flag: 'flag-icon flag-icon-us'}
-                ]
+                ],
+
+                isCallapsed: false
             }
         },
 
@@ -247,8 +249,12 @@
                 }
             },
 
+            toggleSidebar() {
+                this.isCallapsed = !this.isCallapsed;
+            },
+
             handleLogout() {
-                this.$confirm('You will be logged out.', 'Are you sure?', {
+                this.$confirm(this.$t('swal.logout_confirm'), this.$t('swal.delete.title'), {
                     type: 'warning'
                 }).then(() => {
                     //this.$router.push({name: 'login'});

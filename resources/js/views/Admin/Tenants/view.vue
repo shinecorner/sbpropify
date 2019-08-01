@@ -210,12 +210,25 @@
                             <el-col :sm="12" :xs="12" class="text-secondary">
                                 {{unit.floor}}&nbsp;
                             </el-col>
-
-                            <el-col :sm="24" :xs="24" v-if="unit.basement">
-                                <el-tag size="mini">{{$t('models.unit.basement')}}</el-tag>
+                            
+                            <el-col :sm="12" :xs="12">{{$t('models.unit.basement')}}:</el-col>
+                            <el-col :sm="12" :xs="12">
+                                <div v-if="unit.basement">
+                                    <el-tag size="mini">{{$t('models.unit.basement')}}</el-tag>
+                                </div>
+                                <div v-else>
+                                    &nbsp;
+                                </div>
                             </el-col>
-                            <el-col :sm="24" :xs="24" v-if="unit.attic">
-                                <el-tag size="mini">{{$t('models.unit.attic')}}</el-tag>
+
+                            <el-col :sm="12" :xs="12">{{$t('models.unit.attic')}}:</el-col>
+                            <el-col :sm="12" :xs="12">
+                                <div v-if="unit.attic">
+                                    <el-tag size="mini">{{$t('models.unit.attic')}}</el-tag>
+                                </div>
+                                <div v-else>
+                                    &nbsp;
+                                </div>
                             </el-col>
                         </el-row>
                     </el-card>

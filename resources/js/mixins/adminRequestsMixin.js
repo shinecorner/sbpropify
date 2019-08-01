@@ -259,7 +259,10 @@ export default (config = {}) => {
                             try {
                                 const resp = await this.saveRequest();
 
-                                displaySuccess(resp);
+                                displaySuccess({
+                                    success: true,
+                                    message: this.$t('models.request.saved')
+                                });
                                 return resp;
                             } catch (err) {
                                 displayError(err);
@@ -324,7 +327,10 @@ export default (config = {}) => {
                                     this.$set(this.model, 'providers', resp.data.providers);
                                     this.$set(this.model, 'media', resp.data.media);
                                     this.$set(this.model, 'assignees', resp.data.assignees);
-                                    displaySuccess(resp);
+                                    displaySuccess({
+                                        success: true,
+                                        message: this.$t('models.request.saved')
+                                    });
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

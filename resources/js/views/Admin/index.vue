@@ -20,17 +20,17 @@
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="8">
                                 <el-card class="chart-card" :header="$t('dashboard.requests_by_status')">
-                                    <chart-pie-and-donut type="request_by_status"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="request_by_status" :colNum="3"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
                                 <el-card class="chart-card" :header="$t('dashboard.requests_by_category')">
-                                    <chart-pie-and-donut type="request_by_category"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="request_by_category" :colNum="3"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
                                 <el-card class="chart-card" :header="$t('dashboard.requests_by_category')">
-                                    <chart-pie-and-donut type="request_by_category"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="request_by_category" :colNum="3"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -74,12 +74,12 @@
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="12">
                                 <el-card class="chart-card" :header="$t('dashboard.news_by_status')">
-                                    <chart-pie-and-donut type="news_by_status"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="news_by_status" :colNum="2"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="12">
                                 <el-card class="chart-card" :header="$t('dashboard.news_by_type')">
-                                    <chart-pie-and-donut type="news_by_type"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="news_by_type" :colNum="2"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -95,7 +95,7 @@
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="12">
                                 <el-card class="chart-card" :header="$t('dashboard.products_by_type')">
-                                    <chart-pie-and-donut type="products_by_type"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="products_by_type" :colNum="2"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -116,12 +116,12 @@
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="12">
                                 <el-card class="chart-card" :header="$t('dashboard.tenants_by_request_status')">
-                                    <chart-pie-and-donut type="tenants_by_request_status"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="tenants_by_request_status" :colNum="2"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="12">
                                 <el-card class="chart-card" :header="$t('dashboard.tenants_by_status')">
-                                    <chart-pie-and-donut type="tenants_by_status"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="tenants_by_status" :colNum="2"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -136,7 +136,7 @@
     import axios from '@/axios';
     import DashboardStatisticsCard from 'components/DashboardStatisticsCard';
     import ChartStackedColumn from 'components/ChartStackedColumn';
-    import ChartPieAndDonut from 'components/ChartPieAndDonut';
+    import ChartPieAndDonut from 'components/ChartPieAndDonut'; 
     import ChartHeatMap from 'components/ChartHeatMap';
     import Heading from 'components/Heading';
     import RawGridStatisticsCard from 'components/RawGridStatisticsCard';
@@ -343,6 +343,8 @@
         //height: 420px;
         height: 100%;
 
+        overflow: visible;
+
         .el-card__header {
             padding: 15px;
             font-size: 16px;
@@ -351,6 +353,16 @@
         .chart-filter {
             display: flex;
             align-items: center;
+
+            &.in-toolbar {
+                position: absolute;
+                top: -42px;
+                right: 50px;
+
+                background-color: transparent;
+                border-bottom: none;
+                padding: 0;
+            }
 
             .el-radio-button__inner {
                 padding: 8px 12px;
@@ -384,22 +396,11 @@
         }
 
         .apexcharts-toolbar {
-            margin-top: -88px;
+            // margin-top: -88px;
+            margin-top: -38px;
             margin-right: 7px;
             .apexcharts-menu.open {
                 right: 7px;
-            }
-        }
-
-        &.no-filter {
-            .apexcharts-toolbar {
-                margin-top: -38px;
-            }
-        }
-
-        .piechart {
-            .apexcharts-toolbar {
-                margin-top: -38px;
             }
         }
 

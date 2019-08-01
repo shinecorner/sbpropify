@@ -17,7 +17,10 @@ export default {
     createBuilding(_, payload) {
         return new Promise((resolve, reject) =>
             axios.post('buildings', payload)
-                .then(({data: r}) => resolve(r))
+                .then(({data: r}) => resolve({
+                    success: true,
+                    message: 'models.building.saved'
+                }))
                 .catch(({response: {data: err}}) => reject(err)));
     },
     updateBuilding(_, {id, ...restPayload}) {
@@ -29,7 +32,10 @@ export default {
     deleteBuilding(_, {id}) {
         return new Promise((resolve, reject) =>
             axios.delete(`buildings/${id}`)
-                .then(({data: r}) => resolve(r))
+                .then(({data: r}) => resolve({
+                    success: true,
+                    message: 'models.building.deleted'
+                }))
                 .catch(({response: {data: err}}) => reject(err)));
     },
     getBuildingStatistics(_, {id}) {
@@ -95,7 +101,10 @@ export default {
     deleteBuildingWithIds({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`buildings/deletewithids`, {...payload}).then((resp) => {                
-                resolve(resp.data);
+                resolve({
+                    success: true,
+                    message: 'models.building.deleted'
+                });
             }).catch((error) => reject(error));
         });
     },
