@@ -1352,7 +1352,66 @@ class StatisticsAPIController extends AppBaseController
         return $colStats;
     }
 
+
     /**
+     *
+     * @SWG\Get(
+     *      path="chartLoginDevice",
+     *      summary="Get statistics for Donut Chart by login device",
+     *      tags={"Auth", "Donut"},
+     *      description="Get all time statistics for Donut Chart by login device",
+     *      produces={"application/json"},
+     *
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  @SWG\Property(
+     *                      property="labels",
+     *                      description="Labels for statistics",
+     *                      type="array",
+     *                      items={"type"="string"},
+     *                      example={"Desktop", "Tablet", "Mobile"}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="ids",
+     *                      description="key correspond labels",
+     *                      type="array",
+     *                      items={"type"="string"},
+     *                      example={"1", "2", "3"}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="data",
+     *                      description="data correspond labels",
+     *                      type="array",
+     *                      items={"type"="integer"},
+     *                      example={"65", "130", "32"}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="tag_percentage",
+     *                      description="percentage correspond data",
+     *                      type="array",
+     *                      items={"type"="integer"},
+     *                      example={"30", "60", "10"}
+     *                  )
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Statistics by login device retrieved successfully"
+     *              )
+     *          )
+     *      )
+     * )
+     *
      * @return mixed
      */
     protected function chartLoginDevice()
@@ -1379,10 +1438,12 @@ class StatisticsAPIController extends AppBaseController
         $values = [
             1 => 'Desktop',
             2 => 'Tablet',
-            3 => 'mobile',
+            3 => 'Mobile',
         ];
 
-        return $this->formatForDonutChart($statistics, 'login', $values, true);
+        $response =  $this->formatForDonutChart($statistics, 'login', $values, true);
+        return $this->sendResponse($response, 'Statistics by login device retrieved successfully');
+
     }
 
     /**
@@ -1438,6 +1499,7 @@ class StatisticsAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="message",
      *                  type="string",
+     *                  example="Tenants statistics by language retrieved successfully"
      *              )
      *          )
      *      )

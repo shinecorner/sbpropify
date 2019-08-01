@@ -5375,6 +5375,89 @@
                 }
             }
         },
+        "chartLoginDevice": {
+            "get": {
+                "tags": [
+                    "Auth",
+                    "Donut"
+                ],
+                "summary": "Get statistics for Donut Chart by login device",
+                "description": "Get all time statistics for Donut Chart by login device",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "properties": {
+                                        "labels": {
+                                            "description": "Labels for statistics",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "Desktop",
+                                                "Tablet",
+                                                "Mobile"
+                                            ]
+                                        },
+                                        "ids": {
+                                            "description": "key correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "1",
+                                                "2",
+                                                "3"
+                                            ]
+                                        },
+                                        "data": {
+                                            "description": "data correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            },
+                                            "example": [
+                                                "65",
+                                                "130",
+                                                "32"
+                                            ]
+                                        },
+                                        "tag_percentage": {
+                                            "description": "percentage correspond data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            },
+                                            "example": [
+                                                "30",
+                                                "60",
+                                                "10"
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Statistics by login device retrieved successfully"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "chartTenantLanguage": {
             "get": {
                 "tags": [
