@@ -306,13 +306,15 @@ class Tenant extends Model implements HasMedia
         $pdf = PDF::loadView('pdfs.tenantCredentialsXtended', [
             'tenant' => $this,
             're' => $re,
-            'url' => url('/resetpassword?token='.$hashids->encode($tenant_id))
+            'url' => url('/activate'),
+            'code' => $hashids->encode($tenant_id)
         ]);
         Storage::disk('tenant_credentials')->put($this->pdfXFileName(), $pdf->output());
         $pdf = PDF::loadView('pdfs.tenantCredentials', [
             'tenant' => $this,
             're' => $re,
-            'url' => url('/resetpassword?token='.$hashids->encode($tenant_id))
+            'url' => url('/activate'),
+            'code' => $hashids->encode($tenant_id)
         ]);
         Storage::disk('tenant_credentials')->put($this->pdfFilename(), $pdf->output());
     }
