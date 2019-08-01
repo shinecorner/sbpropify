@@ -945,6 +945,57 @@ class StatisticsAPIController extends AppBaseController
             : $response;
     }
 
+    /**
+     *
+     * @SWG\Get(
+     *      path="chartRequestByAssignedProvider",
+     *      summary="chartRequestByAssignedProvider",
+     *      tags={"ServiceRequest", "CreationDate"},
+     *      description="get statistics for Grouped Report for buildings",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          ref="#/parameters/start_date",
+     *      ),
+     *      @SWG\Parameter(
+     *          ref="#/parameters/end_date",
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  @SWG\Property(
+     *                      property="labels",
+     *                      type="array",
+     *                      items={"type"="string", "format"="full-date"},
+     *                      example={"requests_with_service_providers", "request_wihout_service_providers"}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="data",
+     *                      type="array",
+     *                      items={"type"="numeric"},
+     *                      example={"45", "96"}
+     *                  ),
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @param Request $request
+     * @param array $optionalArgs
+     * @return mixed
+     */
     public function chartRequestByAssignedProvider(Request $request, $optionalArgs = [])
     {
         if (empty($optionalArgs) && empty($request->only(self::QUERY_PARAMS['start_date'], self::QUERY_PARAMS['end_date']))) {

@@ -5054,6 +5054,69 @@
                 }
             }
         },
+        "chartRequestByAssignedProvider": {
+            "get": {
+                "tags": [
+                    "ServiceRequest",
+                    "CreationDate"
+                ],
+                "summary": "chartRequestByAssignedProvider",
+                "description": "get statistics for Grouped Report for buildings",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/start_date"
+                    },
+                    {
+                        "$ref": "#/parameters/end_date"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "properties": {
+                                        "labels": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "format": "full-date"
+                                            },
+                                            "example": [
+                                                "requests_with_service_providers",
+                                                "request_wihout_service_providers"
+                                            ]
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "numeric"
+                                            },
+                                            "example": [
+                                                "45",
+                                                "96"
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/templates": {
             "get": {
                 "tags": [
