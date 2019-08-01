@@ -87,15 +87,14 @@
                     if (action.showConfirmation) {
                         try {
 
-                            action && this.$confirm(this.$t('swal.delete.text'), this.$t('swal.delete.title'), {
+                            if (action && this.$confirm(this.$t('swal.delete.text'), this.$t('swal.delete.title'), {
                                 confirmButtonText: 'OK',
                                 cancelButtonText: 'Cancel',
                                 type: 'warning',
                                 roundButton: true
-                            })
-
-                            await this.$store.dispatch(action.name);
-   
+                            })) {
+                                await this.$store.dispatch(action.name);
+                            }
                         } catch (error) {
                             displayError(error)
                         }
