@@ -675,9 +675,76 @@ class TenantAPIController extends AppBaseController
         }
     }
 
-     /**
-     * @param $id
-     * @param tenantreview
+    /**
+
+     * @SWG\Post(
+     *      path="/addReview",
+     *      summary="Update Tenant review and rating",
+     *      tags={"Tenant"},
+     *      description="Update Tenant review and rating",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="tenant_id",
+     *          description="tenant_id of Tenant",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="rating",
+     *          description="rating of Tenant",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="review",
+     *          description="review of Tenant",
+     *          type="string",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Response(
+     *          response=404,
+     *          description="not found",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  example="false"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Tenant not found"
+     *              )
+     *          )
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successfully updated",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  example="true"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="integer",
+     *                  example=1
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @param Request $request
      * @return mixed
      */
     public function addReview(Request $request){

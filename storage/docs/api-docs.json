@@ -4967,33 +4967,23 @@
                                             "properties": {
                                                 "requests": {
                                                     "type": "string",
-                                                    "example": [
-                                                        "01.01.2019"
-                                                    ]
+                                                    "example": "01.01.2019"
                                                 },
                                                 "tenants": {
                                                     "type": "string",
-                                                    "example": [
-                                                        "01.01.2019"
-                                                    ]
+                                                    "example": "01.01.2019"
                                                 },
                                                 "buildings": {
                                                     "type": "string",
-                                                    "example": [
-                                                        "01.01.2019"
-                                                    ]
+                                                    "example": "01.01.2019"
                                                 },
                                                 "products": {
                                                     "type": "string",
-                                                    "example": [
-                                                        "01.01.2019"
-                                                    ]
+                                                    "example": "01.01.2019"
                                                 },
                                                 "posts": {
                                                     "type": "string",
-                                                    "example": [
-                                                        "01.01.2019"
-                                                    ]
+                                                    "example": "01.01.2019"
                                                 }
                                             },
                                             "type": "object"
@@ -6283,6 +6273,78 @@
                                 },
                                 "data": {
                                     "$ref": "#/definitions/Tenant"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/addReview": {
+            "post": {
+                "tags": [
+                    "Tenant"
+                ],
+                "summary": "Update Tenant review and rating",
+                "description": "Update Tenant review and rating",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "tenant_id",
+                        "in": "path",
+                        "description": "tenant_id of Tenant",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "rating",
+                        "in": "path",
+                        "description": "rating of Tenant",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "review",
+                        "in": "path",
+                        "description": "review of Tenant",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "not found",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": "false"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Tenant not found"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "200": {
+                        "description": "successfully updated",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": "true"
+                                },
+                                "data": {
+                                    "type": "integer",
+                                    "example": 1
                                 },
                                 "message": {
                                     "type": "string"
