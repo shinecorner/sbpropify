@@ -4874,6 +4874,49 @@
                 }
             }
         },
+        "chartRequestByCreationDate": {
+            "get": {
+                "tags": [
+                    "ServiceRequest",
+                    "CreationDate"
+                ],
+                "summary": "get statistics for Grouped Report for request",
+                "description": "get statistics for Grouped Report for request",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/period"
+                    },
+                    {
+                        "$ref": "#/parameters/start_date"
+                    },
+                    {
+                        "$ref": "#/parameters/end_date"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/StatisticByCreationDate"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "chartByCreationDate": {
             "get": {
                 "tags": [

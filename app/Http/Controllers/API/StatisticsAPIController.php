@@ -648,6 +648,43 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     * @SWG\Get(
+     *      path="chartRequestByCreationDate",
+     *      summary="get statistics for Grouped Report for request",
+     *      tags={"ServiceRequest", "CreationDate"},
+     *      description="get statistics for Grouped Report for request",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          ref="#/parameters/period",
+     *      ),
+     *      @SWG\Parameter(
+     *          ref="#/parameters/start_date",
+     *      ),
+     *      @SWG\Parameter(
+     *          ref="#/parameters/end_date",
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/StatisticByCreationDate"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     *
      * @param Request $request
      * @param array $optionalArgs
      * @return mixed
