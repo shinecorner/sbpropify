@@ -881,9 +881,9 @@ class StatisticsAPIController extends AppBaseController
     /**
      * @SWG\Get(
      *      path="donutChart",
-     *      summary="Tenants gender statistics for Donut Chart",
-     *      tags={"Tenant", "Donut"},
-     *      description="Get tenants gender statistics",
+     *      summary="service_requests, products, tenants,  posts statistics for Donut Chart",
+     *      tags={"Tenant", "ServiceRequest", "Post", "Product", "Donut"},
+     *      description="service_requests:status | tenants:status,title | products:status,type |  posts:status,type statistics for Donut Chart",
      *      produces={"application/json"},
      *     @SWG\Parameter(
      *          name="table",
@@ -896,16 +896,24 @@ class StatisticsAPIController extends AppBaseController
      *      @SWG\Parameter(
      *          name="column",
      *          in="query",
-     *          description="The column used for get statistic according that column",
+     *          description="The column used for get statistic according that column | permitted values for each table [service_requests:status | tenants:status,title | products:status,type |  posts:status,type]",
      *          type="string",
      *          default="status",
      *          enum={"status", "type", "title"}
      *      ),
      *      @SWG\Parameter(
-     *          ref="#/parameters/start_date",
+     *          name="start_date",
+     *          in="query",
+     *          description="format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. default value is one month ago of end_date",
+     *          type="string",
+     *          format="full-date"
      *      ),
      *      @SWG\Parameter(
-     *          ref="#/parameters/end_date",
+     *          name="end_date",
+     *          in="query",
+     *          description="format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. | default value today",
+     *          type="string",
+     *          format="full-date"
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -951,6 +959,7 @@ class StatisticsAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="message",
      *                  type="string",
+     *                  example="service_requests statistics by status retrieved successfully for DonutChart"
      *              )
      *          )
      *      )
@@ -981,7 +990,7 @@ class StatisticsAPIController extends AppBaseController
 
         $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
-            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for ' . $table . ' for ' . $column)
+            ? $this->sendResponse($response, sprintf('%s statistics by %s retrieved successfully for DonutChart', $table, $column))
             : $response;
     }
 
