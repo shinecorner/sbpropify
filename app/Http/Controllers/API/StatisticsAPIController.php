@@ -883,6 +883,7 @@ class StatisticsAPIController extends AppBaseController
     public function chartTenantLanguage()
     {
         $languages = [
+            null => 'Unknown',
             'en' => 'English',
             'fr' => 'Français',
             'de' => 'Deutsch',
@@ -961,6 +962,7 @@ class StatisticsAPIController extends AppBaseController
      */
     protected function formatForDonutChart($statistics, $column, $columnValues, $includePercentage = false)
     {
+        $statistics = $statistics->whereIn($column, array_keys($columnValues));
         $existingStatuses = $statistics->pluck($column)->all();
         foreach ($columnValues as $value => $__) {
             if (! in_array($value, $existingStatuses)) {
