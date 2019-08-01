@@ -4772,36 +4772,51 @@
                                             "type": "array",
                                             "items": {
                                                 "type": "string"
-                                            }
+                                            },
+                                            "example": [
+                                                "mr",
+                                                "mrs"
+                                            ]
                                         },
                                         "data": {
                                             "description": "data correspond labels",
                                             "type": "array",
                                             "items": {
                                                 "type": "integer"
-                                            }
+                                            },
+                                            "example": [
+                                                "65",
+                                                "72"
+                                            ]
                                         },
                                         "tag_percentage": {
                                             "description": "percentage correspond data",
                                             "type": "array",
                                             "items": {
                                                 "type": "integer"
-                                            }
+                                            },
+                                            "example": [
+                                                "47",
+                                                "53"
+                                            ]
                                         },
                                         "average_age": {
                                             "description": "associative array show average emage",
                                             "properties": {
                                                 "mr": {
                                                     "description": "data correspond labels",
-                                                    "type": "integer"
+                                                    "type": "integer",
+                                                    "example": 30
                                                 },
                                                 "mrs": {
                                                     "description": "data correspond labels",
-                                                    "type": "integer"
+                                                    "type": "integer",
+                                                    "example": 24
                                                 },
                                                 "both": {
                                                     "description": "data correspond labels",
-                                                    "type": "integer"
+                                                    "type": "integer",
+                                                    "example": 26
                                                 }
                                             },
                                             "type": "object"
@@ -4810,8 +4825,7 @@
                                     "type": "object"
                                 },
                                 "message": {
-                                    "type": "boolean",
-                                    "items": "$ref:Tag"
+                                    "type": "string"
                                 }
                             },
                             "type": "object"
@@ -4849,6 +4863,46 @@
                                 },
                                 "data": {
                                     "$ref": "#/definitions/Tenant"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "chartByCreationDate": {
+            "get": {
+                "tags": [
+                    "Tenant",
+                    "Product",
+                    "Post",
+                    "CreationDate"
+                ],
+                "summary": "get statistics for Grouped Report by products:status | tenants:status | posts:status ",
+                "description": "get statistics for Grouped Report by products:status | tenants:status | posts:status",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "table",
+                        "in": "query",
+                        "description": "The table used for get statistic data based db table",
+                        "type": "string",
+                        "default": "products"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
                                 },
                                 "message": {
                                     "type": "string"

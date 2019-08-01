@@ -357,19 +357,22 @@ class StatisticsAPIController extends AppBaseController
      *                      property="labels",
      *                      description="Labels for statistics",
      *                      type="array",
-     *                      items={"type"="string"}
+     *                      items={"type"="string"},
+     *                      example={"mr", "mrs"}
      *                  ),
      *                  @SWG\Property(
      *                      property="data",
      *                      description="data correspond labels",
      *                      type="array",
-     *                      items={"type"="integer"}
+     *                      items={"type"="integer"},
+     *                      example={"65", "72"}
      *                  ),
      *                  @SWG\Property(
      *                      property="tag_percentage",
      *                      description="percentage correspond data",
      *                      type="array",
-     *                      items={"type"="integer"}
+     *                      items={"type"="integer"},
+     *                      example={"47", "53"}
      *                  ),
      *                  @SWG\Property(
      *                      property="average_age",
@@ -379,23 +382,25 @@ class StatisticsAPIController extends AppBaseController
      *                          property="mr",
      *                          description="data correspond labels",
      *                          type="integer",
+     *                          example=30
      *                      ),
      *                      @SWG\Property(
      *                          property="mrs",
      *                          description="data correspond labels",
      *                          type="integer",
+     *                          example=24
      *                      ),
      *                      @SWG\Property(
      *                          property="both",
      *                          description="data correspond labels",
      *                          type="integer",
+     *                          example=26
      *                      )
      *                  )
      *              ),
      *              @SWG\Property(
      *                  property="message",
-     *                  type="boolean",
-     *                  items="$ref:Tag"
+     *                  type="string",
      *              )
      *          )
      *      )
@@ -616,6 +621,38 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     *
+
+     * @SWG\Get(
+     *      path="chartByCreationDate",
+     *      summary="get statistics for Grouped Report by products:status | tenants:status | posts:status ",
+     *      tags={"Tenant", "Product", "Post", "CreationDate"},
+     *      description="get statistics for Grouped Report by products:status | tenants:status | posts:status",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="table",
+     *          in="query",
+     *          description="The table used for get statistic data based db table",
+     *          type="string",
+     *          default="products"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *              )
+     *          )
+     *      )
+     * )
+     *
      * @param Request $request
      * @param array $optionalArgs
      * @return mixed
