@@ -4,7 +4,7 @@
             <slot name="prefix"></slot>
         </el-menu-item>
         <el-menu-item class="logo" index="logo">
-            <div class="menu-icon" title="Collapse" @click="handletoggle">
+            <div class="menu-icon" @click="handletoggle">
                 <i class="icon-menu"></i>
             </div>
             <div class="logo-image">
@@ -72,7 +72,7 @@
                         img {
                             height: 100%;
                             vertical-align: baseline;
-                            margin-left: 9px;
+                            margin-left: 13px;
                         }
                     }
                     
@@ -80,9 +80,9 @@
                         margin-right: 30px;
                         margin-left: 8px;
                         i {
-                            -webkit-text-fill-color: #ccc;
+                            color: #909399;
                             &:hover {
-                                -webkit-text-fill-color:black; 
+                                color:black; 
                             }
                         }
                         &:after {

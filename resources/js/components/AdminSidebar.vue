@@ -67,7 +67,7 @@
             }
         },
         methods: {
-            handleLink(ev, key, {route, action, children, icon}) {
+            async handleLink(ev, key, {route, action, children, icon}) {
                 //this.currActive = key.toString();
 
                 !children && route && this.$router.push(route);
@@ -85,21 +85,28 @@
 
                 if (action) {
                     if (action.showConfirmation) {
-                        action && this.$confirm(this.$t('swal.delete.text'), this.$t('swal.delete.title'), {
-                            confirmButtonText: 'OK',
-                            cancelButtonText: 'Cancel',
-                            type: 'warning',
-                            roundButton: true
-                        }).then(() => {
-                            this.$store.dispatch(action.name)
-                                .then(r => displaySuccess(r))
-                                .catch(err => displayError(err));
-                        }).catch(() => {
-                        });
+                        try {
+
+                            action && this.$confirm(this.$t('swal.delete.text'), this.$t('swal.delete.title'), {
+                                confirmButtonText: 'OK',
+                                cancelButtonText: 'Cancel',
+                                type: 'warning',
+                                roundButton: true
+                            })
+
+                            await this.$store.dispatch(action.name);
+   
+                        } catch (error) {
+                            displayError(error)
+                        }
                     } else {
-                        this.$store.dispatch(action.name)
-                            .then(r => displaySuccess(r))
-                            .catch(err => displayError(err));
+
+                        try {
+                            await this.$store.dispatch(action.name);
+                        } catch (error) {
+                            displayError(error)
+                        }
+                        
                     }
                 }
             }
@@ -110,9 +117,8 @@
             }
         },
         created() {
-            console.log(this.$props);
+            
             const routeName = this.$route.name;
-
             this.links.map(link => {
                 if (link.route && link.route.name == routeName) {
                     this.currActive = link.title;
