@@ -134,7 +134,18 @@
             },
             onUploadFilter (newFile, oldFile, prevent) {
                 if (newFile) {
-                    if (this.uploadOptions.extensions) {
+                    if (this.uploadOptions.size) {
+                        if (this.uploadOptions.size < newFile.size) {
+                            this.$message({
+                                type: 'warning',
+                                message: `Oops! Some files had the size bigger than the maximum allowed of ${this.$options.filters.formatBytes(this.uploadOptions.size)}.`,
+                                duration: 8000,
+                                showClose: true
+                            })
+
+                            return prevent()
+                        }
+                    } else if (this.uploadOptions.extensions) {
                         const fileExtension = newFile.type.substring(newFile.type.lastIndexOf('/') + 1)
 
                         this.$message.closeAll()
