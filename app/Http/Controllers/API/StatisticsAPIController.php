@@ -46,6 +46,7 @@ class StatisticsAPIController extends AppBaseController
         self::WEEK,
         self::YEAR,
     ];
+
     /**
      *
      *      @SWG\Parameter(
@@ -62,6 +63,31 @@ class StatisticsAPIController extends AppBaseController
      *          type="string",
      *          format="full-date"
      *      ),
+     *      @SWG\Parameter(
+     *          name="period",
+     *          in="query",
+     *          description="get statistic by period related start_date, end_date",
+     *          type="string",
+     *          default="day",
+     *          enum={"day", "week", "month", "year"}
+     *      ),
+     *
+     *      @SWG\Definition(
+     *          definition="StatisticByCreationDate",
+     *              @SWG\Property(
+     *                  property="requests_per_day_xdata",
+     *                  type="array",
+     *                  items={"type"="string", "format"="full-date"},
+     *                  example={"01.07.2019", "02.07.2019"}
+     *              ),
+     *              @SWG\Property(
+     *                  property="requests_per_day_ydata",
+     *                  type="array",
+     *                  items={"type"="string", "format"="full-date"},
+     *              ),
+     *          )
+     *      )
+     *
      */
     const QUERY_PARAMS = [
         'year' => 'year',
@@ -637,9 +663,6 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     *
-     *
-     *
      * @SWG\Get(
      *      path="chartByCreationDate",
      *      summary="get statistics for Grouped Report by products:status | tenants:status | posts:status ",
@@ -663,18 +686,13 @@ class StatisticsAPIController extends AppBaseController
      *          enum={"status"}
      *      ),
      *      @SWG\Parameter(
-     *          name="period",
-     *          in="query",
-     *          description="get statistic by period related start_date, end_date",
-     *          type="string",
-     *          default="day",
-     *          enum={"day", "week", "month", "year"}
+     *          ref="#/parameters/period",
      *      ),
      *      @SWG\Parameter(
-     *          ref="#/parameters/start_date"
+     *          ref="#/parameters/start_date",
      *      ),
      *      @SWG\Parameter(
-     *          ref="#/parameters/end_date"
+     *          ref="#/parameters/end_date",
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -684,6 +702,10 @@ class StatisticsAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="success",
      *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/StatisticByCreationDate"
      *              ),
      *              @SWG\Property(
      *                  property="message",

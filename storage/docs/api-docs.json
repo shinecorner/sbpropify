@@ -4911,17 +4911,7 @@
                         ]
                     },
                     {
-                        "name": "period",
-                        "in": "query",
-                        "description": "get statistic by period related start_date, end_date",
-                        "type": "string",
-                        "default": "day",
-                        "enum": [
-                            "day",
-                            "week",
-                            "month",
-                            "year"
-                        ]
+                        "$ref": "#/parameters/period"
                     },
                     {
                         "$ref": "#/parameters/start_date"
@@ -4937,6 +4927,9 @@
                             "properties": {
                                 "success": {
                                     "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/StatisticByCreationDate"
                                 },
                                 "message": {
                                     "type": "string"
@@ -6476,6 +6469,28 @@
         }
     },
     "definitions": {
+        "StatisticByCreationDate": {
+            "properties": {
+                "requests_per_day_xdata": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "format": "full-date"
+                    },
+                    "example": [
+                        "01.07.2019",
+                        "02.07.2019"
+                    ]
+                },
+                "requests_per_day_ydata": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "format": "full-date"
+                    }
+                }
+            }
+        },
         "Donut": {
             "required": [
                 "name",
@@ -7765,6 +7780,19 @@
             "description": "format: dd.mm.yyyy | example: 19.07.2019 | Get statistic after correspond value. It is corrected by period value | default value today",
             "type": "string",
             "format": "full-date"
+        },
+        "period": {
+            "name": "period",
+            "in": "query",
+            "description": "get statistic by period related start_date, end_date",
+            "type": "string",
+            "default": "day",
+            "enum": [
+                "day",
+                "week",
+                "month",
+                "year"
+            ]
         }
     },
     "securityDefinitions": {
