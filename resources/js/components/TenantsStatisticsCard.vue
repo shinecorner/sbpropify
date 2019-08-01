@@ -61,7 +61,8 @@
                     const that = this;
                     this.percentage = this.data.card_data.data.map(val => 0);
                     setTimeout(function() {
-                        that.percentage = that.data.card_data.data.map(value => Math.round(value * 100 / that.data.total_tenants));
+                        that.percentage = that.data.card_data.data.map(value => Math.floor(value * 100 / that.data.total_tenants + 0.5));
+                        that.percentage[1] = 100 - that.percentage[0];
                     }, 200);
                 }
             } 
