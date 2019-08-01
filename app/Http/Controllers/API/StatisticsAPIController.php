@@ -59,7 +59,7 @@ class StatisticsAPIController extends AppBaseController
      *      @SWG\Parameter(
      *          name="end_date",
      *          in="query",
-     *          description="format: dd.mm.yyyy | example: 19.07.2019 | Get statistic after correspond value. It is corrected by period value | default value today",
+     *          description="format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. It is corrected by period value | default value today",
      *          type="string",
      *          format="full-date"
      *      ),
@@ -1160,15 +1160,23 @@ class StatisticsAPIController extends AppBaseController
 
      * @SWG\Get(
      *      path="donutChartTenantsByDateAndStatus",
-     *      summary="Tenants gender statistics for Donut Chart",
+     *      summary="Tenants statistics for Donut Chart by service_requests status",
      *      tags={"Tenant", "Donut"},
-     *      description="Get tenants gender statistics",
+     *      description="Tenants statistics for Donut Chart by service_requests status",
      *      produces={"application/json"},
      *      @SWG\Parameter(
-     *          ref="#/parameters/start_date",
+     *          name="start_date",
+     *          in="query",
+     *          description="format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. default value is one month ago of end_date",
+     *          type="string",
+     *          format="full-date"
      *      ),
      *      @SWG\Parameter(
-     *          ref="#/parameters/end_date",
+     *          name="end_date",
+     *          in="query",
+     *          description="format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. | default value today",
+     *          type="string",
+     *          format="full-date"
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -1307,6 +1315,7 @@ class StatisticsAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="message",
      *                  type="string",
+     *                  example="Request services statistics formatted successfully for Heat Map"
      *              )
      *          )
      *      )

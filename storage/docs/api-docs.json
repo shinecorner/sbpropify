@@ -5310,10 +5310,18 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/parameters/start_date"
+                        "name": "start_date",
+                        "in": "query",
+                        "description": "format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. default value is one month ago of end_date",
+                        "type": "string",
+                        "format": "full-date"
                     },
                     {
-                        "$ref": "#/parameters/end_date"
+                        "name": "end_date",
+                        "in": "query",
+                        "description": "format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. | default value today",
+                        "type": "string",
+                        "format": "full-date"
                     }
                 ],
                 "responses": {
@@ -5451,7 +5459,8 @@
                                     ]
                                 },
                                 "message": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "Request services statistics formatted successfully for Heat Map"
                                 }
                             }
                         }
@@ -8481,7 +8490,7 @@
         "end_date": {
             "name": "end_date",
             "in": "query",
-            "description": "format: dd.mm.yyyy | example: 19.07.2019 | Get statistic after correspond value. It is corrected by period value | default value today",
+            "description": "format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. It is corrected by period value | default value today",
             "type": "string",
             "format": "full-date"
         },
