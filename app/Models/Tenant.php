@@ -188,6 +188,7 @@ class Tenant extends Model implements HasMedia
         'tenant_format' => 'string',
         'review' => 'string',
         'rating' => 'integer',
+        'language' => 'string',
     ];
 
     const templateMap = [

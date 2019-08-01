@@ -8,6 +8,13 @@ $factory->define(App\Models\PropertyManager::class, function (Faker $faker, arra
     $title = Tenant::Title[$faker->numberBetween(0, count(Tenant::Title) - 1)];
     $user_id = isset($attr['user_id']) ? $attr['user_id'] : User::withRole('manager')->inRandomOrder()->first();
 
+    $languages = [
+        'en',
+        'fr',
+        'de',
+        'it'
+    ];
+
     return [
         'user_id' => $user_id,
         'description' => $faker->sentence(4),
@@ -18,6 +25,7 @@ $factory->define(App\Models\PropertyManager::class, function (Faker $faker, arra
         'slogan' => $faker->paragraph,
         'xing_url' => $faker->url,
         'linkedin_url' => $faker->url,
+        'language' => $languages[array_rand($languages)]
     ];
 });
 
