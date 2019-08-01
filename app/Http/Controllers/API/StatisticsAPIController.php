@@ -356,7 +356,40 @@ class StatisticsAPIController extends AppBaseController
      *                  @SWG\Property(
      *                      property="labels",
      *                      description="Labels for statistics",
-     *                      type="string",
+     *                      type="array",
+     *                      items={"type"="string"}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="data",
+     *                      description="data correspond labels",
+     *                      type="array",
+     *                      items={"type"="integer"}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="tag_percentage",
+     *                      description="percentage correspond data",
+     *                      type="array",
+     *                      items={"type"="integer"}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="average_age",
+     *                      description="associative array show average emage",
+     *                      type="object",
+     *                      @SWG\Property(
+     *                          property="mr",
+     *                          description="data correspond labels",
+     *                          type="integer",
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="mrs",
+     *                          description="data correspond labels",
+     *                          type="integer",
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="both",
+     *                          description="data correspond labels",
+     *                          type="integer",
+     *                      )
      *                  )
      *              ),
      *              @SWG\Property(

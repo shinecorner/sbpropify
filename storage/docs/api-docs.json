@@ -4769,7 +4769,42 @@
                                     "properties": {
                                         "labels": {
                                             "description": "Labels for statistics",
-                                            "type": "string"
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "data": {
+                                            "description": "data correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "tag_percentage": {
+                                            "description": "percentage correspond data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "average_age": {
+                                            "description": "associative array show average emage",
+                                            "properties": {
+                                                "mr": {
+                                                    "description": "data correspond labels",
+                                                    "type": "integer"
+                                                },
+                                                "mrs": {
+                                                    "description": "data correspond labels",
+                                                    "type": "integer"
+                                                },
+                                                "both": {
+                                                    "description": "data correspond labels",
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     },
                                     "type": "object"
