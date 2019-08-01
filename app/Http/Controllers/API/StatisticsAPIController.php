@@ -1239,8 +1239,80 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     * @TODO improve
      *
+     * @SWG\Get(
+     *      path="heatMapByDatePeriod",
+     *      summary="Get Service Request statistics for Heat Map Graph",
+     *      tags={"ServiceRequest", "HeatMap"},
+     *      description="Get Service Request statistics for Heat Map Graph",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="period",
+     *          in="query",
+     *          description="The column used for get statistic for year period or week period",
+     *          type="string",
+     *          default="week",
+     *          enum={"week", "year"}
+     *      ),
+     *      @SWG\Parameter(
+     *          name="date",
+     *          in="query",
+     *          description="Format: dd.mm.yyyy | The column used for get statistic that date correspond week or year",
+     *          type="string",
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  items={"type"="object"},
+     *                  example={
+     *                      {
+     *                          "name" : 1,
+     *                          "data": {
+     *                               {
+     *                                  "x": 1,
+     *                                  "y": "6"
+     *                              },
+     *                              ".....",
+     *                              {
+     *                                  "x": 31,
+     *                                  "y": "16"
+     *                              },
+     *                          }
+     *                      },
+     *                      ".........",
+     *                      {
+     *                          "name" : 12,
+     *                          "data": {
+     *                               {
+     *                                  "x": 1,
+     *                                  "y": "6"
+     *                              },
+     *                              ".....",
+     *                              {
+     *                                  "x": 31,
+     *                                  "y": "16"
+     *                              },
+     *                          }
+     *                      }
+     *                  }
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @TODO improve
      * @param Request $request
      * @return mixed
      */
@@ -1263,7 +1335,7 @@ class StatisticsAPIController extends AppBaseController
             ];
         }
 
-        return $this->sendResponse($response, 'Request services statistics formatted successfully');
+        return $this->sendResponse($response, 'Request services statistics formatted successfully for Heat Map');
     }
 
     /**

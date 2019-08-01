@@ -5375,6 +5375,90 @@
                 }
             }
         },
+        "heatMapByDatePeriod": {
+            "get": {
+                "tags": [
+                    "ServiceRequest",
+                    "HeatMap"
+                ],
+                "summary": "Get Service Request statistics for Heat Map Graph",
+                "description": "Get Service Request statistics for Heat Map Graph",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "period",
+                        "in": "query",
+                        "description": "The column used for get statistic for year period or week period",
+                        "type": "string",
+                        "default": "week",
+                        "enum": [
+                            "week",
+                            "year"
+                        ]
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "Format: dd.mm.yyyy | The column used for get statistic that date correspond week or year",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "example": [
+                                        {
+                                            "name": 1,
+                                            "data": [
+                                                {
+                                                    "x": 1,
+                                                    "y": "6"
+                                                },
+                                                ".....",
+                                                {
+                                                    "x": 31,
+                                                    "y": "16"
+                                                }
+                                            ]
+                                        },
+                                        ".........",
+                                        {
+                                            "name": 12,
+                                            "data": [
+                                                {
+                                                    "x": 1,
+                                                    "y": "6"
+                                                },
+                                                ".....",
+                                                {
+                                                    "x": 31,
+                                                    "y": "16"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "chartLoginDevice": {
             "get": {
                 "tags": [
@@ -5531,7 +5615,8 @@
                                     "type": "object"
                                 },
                                 "message": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "Tenants statistics by language retrieved successfully"
                                 }
                             },
                             "type": "object"
