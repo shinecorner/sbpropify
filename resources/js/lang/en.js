@@ -192,6 +192,7 @@ export default {
             address: 'Address',
             blank_pdf: 'Blank pdf',
             realEstateSaved: "Real Estate settings saved",
+            serviceRequestCategorySaved: "Service request category saved",
             validation: {
                 name: {
                     required: 'Name is required'
@@ -952,6 +953,8 @@ export default {
             name: 'Name',
             edit: 'Edit',
             delete: 'Delete',
+            saved: 'Template saved',
+            deleted: 'Template deleted',
             add: 'Add',
             title: 'Templates',
             subject: 'Subject',
