@@ -1,54 +1,52 @@
 <template>
-    <div :class="['media-uploader', {[`media-${layout}-layout`]: true}]">
+    <div :class="['media', {[`media-${layout}-layout`]: true}]">
         <uploader ref="uploader" v-bind="uploadOptions" :value="value" :input-id="`upload-${$_uid}`" :headers="headers" :custom-action="customAction" @input="value => $emit('input', value)" @input-filter="onUploadFilter" />
-        <draggable class="media-draggable" ghost-class="is-ghost" :handle="draggableHandler" :list="value" :animation="240" :disabled="isDraggableDisabled">
-            <transition-group class="media-list" type="transition" tag="div" name="flip-list" mode="out-in">
-                <div :class="['media-item', {'is-draggable': uploadOptions.draggable && value.length && !$refs.uploader.uploaded}, $refs.uploader.active && {'is-active': +file.progress && !file.success, 'is-pending': !+file.progress}, {'is-success': file.success, 'is-failed': file.error}]" v-for="(file, idx) in value" :key="file.id" :style="{'transition-delay': `calc(0.16 * ${idx}s)`}">
-                    <div class="media-content">
-                        <div class="icon-menu media-draggable-handler" v-if="canShowListDraggableHandler(file)"></div>
-                        <el-image class="media-image" :src="file.file.blob" fit="cover" :alt="file.name" v-if="isFileImage(file)" @click="isListLayout ? previewFile(file, idx) : undefined" v-once>
-                            <div slot="error" style="color: red;">
-                                <div class="icon-file-image"></div>
-                            </div>
-                            <div slot="placeholder" class="el-icon-loading"></div>
-                        </el-image>
-                        <div class="media-icon icon-doc" @click="previewFile(file, idx)" v-else></div>
-                        <div class="media-filename" v-if="isListLayout || !isFileImage(file)">
-                            {{file.name}}
-                            <small class="media-filesize">
-                                {{file.size | formatBytes}}
-                            </small>
+        <draggable class="media-list" tag="transition-group" :componentData="{type: 'transition', name: 'flip-list', mode: 'out-in'}" ghost-class="is-ghost" :list="value" :handle="draggableHandler" :animation="240" :disabled="isDraggableDisabled" :move="onDraggableMove">
+            <div :class="['media-item', {'is-draggable': uploadOptions.draggable && value.length && !$refs.uploader.uploaded}, $refs.uploader.active && {'is-active': +file.progress && !file.success, 'is-pending': !+file.progress}, {'is-success': file.success, 'is-failed': file.error}]" v-for="(file, idx) in value" :key="file.id" :style="{'transition-delay': `calc(0.16 * ${idx}s)`}">
+                <div class="media-content">
+                    <div class="icon-menu media-draggable-handler" v-if="canShowListDraggableHandler(file)"></div>
+                    <el-image class="media-image" :src="file.file.blob" fit="cover" :alt="file.name" v-if="isFileImage(file)" @click="isListLayout ? previewFile(file, idx) : undefined" v-once>
+                        <div slot="error" style="color: red;">
+                            <div class="icon-file-image"></div>
                         </div>
-                        <transition-group class="media-progress" tag="div" name="fade" v-if="canShowProgress(file)">
-                            <el-progress :width="80" :type="progressType" key="progress" :stroke-width="3" :percentage="+file.progress" :status="getProgressStatus(file)" />
-                            <div key="speed" class="media-progress-speed" v-if="canShowProgressSpeed(file)">
-                                {{file.speed | formatBytes}}/s
-                            </div>
-                        </transition-group>
-                        <div class="media-actions" v-if="!file.active">
-                            <el-button circle plain icon="el-icon-zoom-in" size="mini" @click="previewFile(file, idx)" v-if="isGridLayout && canFileBePreviewed(file)" />
-                            <el-button circle plain type="danger" icon="el-icon-delete" size="mini" @click="removeFile(file)" v-if="!file.success" />
+                        <div slot="placeholder" class="el-icon-loading"></div>
+                    </el-image>
+                    <div class="media-icon icon-doc" @click="previewFile(file, idx)" v-else></div>
+                    <div class="media-filename" v-if="isListLayout || !isFileImage(file)">
+                        {{file.name}}
+                        <small class="media-filesize">
+                            {{file.size | formatBytes}}
+                        </small>
+                    </div>
+                    <transition-group class="media-progress" tag="div" name="fade" v-if="canShowProgress(file)">
+                        <el-progress :width="80" :type="progressType" key="progress" :stroke-width="3" :percentage="+file.progress" :status="getProgressStatus(file)" />
+                        <div key="speed" class="media-progress-speed" v-if="canShowProgressSpeed(file)">
+                            {{file.speed | formatBytes}}/s
                         </div>
+                    </transition-group>
+                    <div class="media-actions" v-if="!file.active">
+                        <el-button circle plain icon="el-icon-zoom-in" size="mini" @click="previewFile(file, idx)" v-if="isGridLayout && canFileBePreviewed(file)" />
+                        <el-button circle plain type="danger" icon="el-icon-delete" size="mini" @click="removeFile(file)" v-if="!file.success" />
                     </div>
                 </div>
-                <el-button-group key="media-buttons" v-if="isListLayout">
-                    <el-button class="media-trigger" icon="icon-plus" @click="selectFiles()">
-                        Drop files or click to select...
-                    </el-button>
-                    <el-button type="primary" icon="icon-upload-cloud" @click="startUploading()" v-if="canShowUploadButton">
-                        Upload
-                    </el-button>
-                </el-button-group>
-                <template v-else-if="isGridLayout">
-                    <el-button key="media-trigger" class="media-upload-trigger" @click="selectFiles()">
-                        <div class="icon-plus"></div>
-                        Drop files or click to select...
-                    </el-button>
-                    <el-button key="media-upload" type="primary" icon="icon-upload-cloud" @click="startUploading()" v-if="canShowUploadButton">
-                        Upload
-                    </el-button>
-                </template>
-            </transition-group>
+            </div>
+            <el-button-group slot="footer" key="footer" v-if="isListLayout">
+                <el-button class="media-trigger" icon="icon-plus" @click="selectFiles()">
+                    Drop files or click to select...
+                </el-button>
+                <el-button type="primary" icon="icon-upload-cloud" @click="startUploading()" v-if="canShowUploadButton">
+                    Upload
+                </el-button>
+            </el-button-group>
+            <template slot="footer" v-else-if="isGridLayout">
+                <el-button key="media-trigger" class="media-upload-trigger" @click="selectFiles()">
+                    <div class="icon-plus"></div>
+                    Drop files or click to select...
+                </el-button>
+                <el-button key="media-upload" type="primary" icon="icon-upload-cloud" @click="startUploading()" v-if="canShowUploadButton">
+                    Upload
+                </el-button>
+            </template>
         </draggable>
         <div v-if="$refs.uploader && $refs.uploader.dropActive" class="media-drop-active">
             <i class="icon-upload-cloud"></i>
@@ -222,6 +220,11 @@
             canShowListDraggableHandler ({active, success, error}) {
                 return this.isListLayout && this.uploadOptions.draggable && !active && !success && !error
             },
+            onDraggableMove ({draggedContext}, originalEvent) {
+                if (!draggedContext.element) {
+                    return false
+                }
+            }
         },
         computed: {
             headers () {
@@ -288,141 +291,139 @@
 </script>
 
 <style lang="scss" scoped>
-    .media-uploader {
+    .media {
         width: 100%;
 
         &.media-list-layout {
-            .media-draggable {
-                .media-list {
-                    .media-item {
-                        padding: 8px;
+            .media-list {
+                .media-item {
+                    padding: 8px;
 
-                        &.is-success .media-content {
-                            .media-draggable-handler {
+                    &.is-success .media-content {
+                        .media-draggable-handler {
+                            color: lighten(#67c23a, 20%);
+                        }
+
+                        .media-filename {
+                            .media-filesize {
                                 color: lighten(#67c23a, 20%);
-                            }
-
-                            .media-filename {
-                                .media-filesize {
-                                    color: lighten(#67c23a, 20%);
-                                }
-                            }
-                        }
-
-                        &.is-failed .media-content {
-                            .media-draggable-handler {
-                                color: lighten(#f56c6c, 16%);
-                            }
-
-                            .media-filename {
-                                .media-filesize {
-                                    color: lighten(#f56c6c, 16%);
-                                }
-                            }
-                        }
-
-                        &.is-draggable .media-content .media-draggable-handler {
-                            cursor: move;
-                        }
-                        
-                        .media-content {
-                            display: flex;
-                            flex-wrap: wrap;
-                            align-items: center;
-
-                            .media-draggable-handler {
-                                font-size: 12px;
-                                color: darken(#DCDFE6, 4%);
-                                margin-right: 8px;
-                            }
-
-                            .media-icon,
-                            .media-image {
-                                width: 32px;
-                                height: 32px;
-                                border: 1px darken(#fff, 6%) solid;
-                                border-radius: 6px;
-                                margin-right: 8px;
-                                box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
-                            }
-
-                            .media-image,
-                            .media-icon {
-                                &:hover {
-                                    cursor: zoom-in;
-                                }
-                            }
-
-                            .media-image {
-                                filter: opacity(.8);
-                                transition: filter .24s;
-
-                                &:hover {
-                                    cursor: zoom-in;
-                                }
-                            }
-
-                            .media-icon {
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                            }
-
-                            .media-filename {
-                                flex: 1;
-                            }
-
-                            .media-progress {
-                                width: 100%;
-                                margin-left: 58px;
-
-                                .media-progress-speed {
-                                    font-size: 12px;
-                                    color: darken(#fff, 48%);
-                                }
-                            }
-
-                            .media-actions {
-                                visibility: hidden;
-                            }
-                        }
-
-                        &:not(:last-of-type) {
-                            margin-bottom: 8px;
-                        }
-
-                        &:hover {
-                            .media-content {
-                                .media-actions {
-                                    visibility: visible;
-                                }
-                            }
-
-                            &:not(.is-success):not(.is-failed) {
-                                background-color: lighten(#DCDFE6, 8%);
                             }
                         }
                     }
 
-                    .el-button-group {
-                        width: 100%;
+                    &.is-failed .media-content {
+                        .media-draggable-handler {
+                            color: lighten(#f56c6c, 16%);
+                        }
+
+                        .media-filename {
+                            .media-filesize {
+                                color: lighten(#f56c6c, 16%);
+                            }
+                        }
+                    }
+
+                    &.is-draggable .media-content .media-draggable-handler {
+                        cursor: move;
+                    }
+                    
+                    .media-content {
                         display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
 
-                        .el-button {
-                            &:nth-child(1) {
-                                flex: 1;
-                                border-width: 2px;
-                                border-style: dashed;
-                                color: darken(#DCDFE6, 6%);
-                            }
+                        .media-draggable-handler {
+                            font-size: 12px;
+                            color: darken(#DCDFE6, 4%);
+                            margin-right: 8px;
+                        }
 
-                            &:nth-child(2) {
-                                margin-left: -1px;
-                            }
+                        .media-icon,
+                        .media-image {
+                            width: 32px;
+                            height: 32px;
+                            border: 1px darken(#fff, 6%) solid;
+                            border-radius: 6px;
+                            margin-right: 8px;
+                            box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
+                        }
 
-                            &:not(.is-circle) :global([class^="icon-"]) {
-                                margin-right: 8px;
+                        .media-image,
+                        .media-icon {
+                            &:hover {
+                                cursor: zoom-in;
                             }
+                        }
+
+                        .media-image {
+                            filter: opacity(.8);
+                            transition: filter .24s;
+
+                            &:hover {
+                                cursor: zoom-in;
+                            }
+                        }
+
+                        .media-icon {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
+                        .media-filename {
+                            flex: 1;
+                        }
+
+                        .media-progress {
+                            width: 100%;
+                            margin-left: 58px;
+
+                            .media-progress-speed {
+                                font-size: 12px;
+                                color: darken(#fff, 48%);
+                            }
+                        }
+
+                        .media-actions {
+                            visibility: hidden;
+                        }
+                    }
+
+                    &:not(:last-of-type) {
+                        margin-bottom: 8px;
+                    }
+
+                    &:hover {
+                        .media-content {
+                            .media-actions {
+                                visibility: visible;
+                            }
+                        }
+
+                        &:not(.is-success):not(.is-failed) {
+                            background-color: lighten(#DCDFE6, 8%);
+                        }
+                    }
+                }
+
+                .el-button-group {
+                    width: 100%;
+                    display: flex;
+
+                    .el-button {
+                        &:nth-child(1) {
+                            flex: 1;
+                            border-width: 2px;
+                            border-style: dashed;
+                            color: darken(#DCDFE6, 6%);
+                        }
+
+                        &:nth-child(2) {
+                            margin-left: -1px;
+                        }
+
+                        &:not(.is-circle) :global([class^="icon-"]) {
+                            margin-right: 8px;
                         }
                     }
                 }
@@ -430,21 +431,112 @@
         }
 
         &.media-grid-layout {
-            .media-draggable {
-                .media-list {
-                    display: grid;
-                    grid-gap: 8px;
-                    grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+            .media-list {
+                display: grid;
+                grid-gap: 8px;
+                grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
 
-                    .media-item {
-                        position: relative;
-                        padding-top: 100%;
+                .media-item {
+                    position: relative;
+                    padding-top: 100%;
 
-                        &.is-draggable .media-content {
-                            cursor: move;
+                    &.is-draggable .media-content {
+                        cursor: move;
+                    }
+
+                    .media-content {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        bottom: 0;
+                        right: 0;
+                        width: 100%;
+                        height: 100%;
+                        cursor: pointer;
+                        box-sizing: border-box;
+                        overflow: hidden;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        text-align: center;
+                        border-radius: 4px;
+                        word-break: break-word;
+                        hyphens: auto;
+
+                        .media-icon {
+                            font-size: 24px;
                         }
 
-                        .media-content {
+                        .media-filename {
+                            width: 90%;
+                            padding: 4px;
+                        }
+
+                        .media-progress {
+                            background-color: transparentize(#fff, .08);
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
+                        .media-actions {
+                            background-color: transparentize(#000, .56);
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            opacity: 0;
+                            transition: opacity .32s cubic-bezier(.17,.67,1,1.23);
+
+                            .el-button {
+                                font-size: 20px;
+                                padding: 0;
+                                border-style: none;
+                                background-color: transparent;
+                                filter: opacity(.72);
+                                transition: filter .24s;
+
+                                &:not(:last-of-type) {
+                                    color: #fff;
+                                }
+
+                                &:hover {
+                                    filter: opacity(1);
+                                }
+                            }
+                        }
+
+                        &:hover .media-actions {
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                > .el-button {
+                    &:nth-of-type(1) {
+                        position: relative;
+                        padding: 0;
+                        padding-top: 100%;
+                        border-width: 2px;
+                        border-style: dashed;
+
+                        :global(span) {
+                            font-size: 12px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            color: darken(#DCDFE6, 6%);
                             position: absolute;
                             top: 0;
                             left: 0;
@@ -452,167 +544,72 @@
                             right: 0;
                             width: 100%;
                             height: 100%;
-                            cursor: pointer;
-                            box-sizing: border-box;
-                            overflow: hidden;
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            justify-content: center;
-                            text-align: center;
-                            border-radius: 4px;
-                            word-break: break-word;
-                            hyphens: auto;
+                            white-space: normal;
+                            line-height: 1.24;
 
-                            .media-icon {
-                                font-size: 24px;
-                            }
-
-                            .media-filename {
-                                width: 90%;
-                                padding: 4px;
-                            }
-
-                            .media-progress {
-                                background-color: transparentize(#fff, .08);
-                                position: absolute;
-                                top: 0;
-                                left: 0;
-                                width: 100%;
-                                height: 100%;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                            }
-
-                            .media-actions {
-                                background-color: transparentize(#000, .56);
-                                position: absolute;
-                                top: 0;
-                                left: 0;
-                                width: 100%;
-                                height: 100%;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                opacity: 0;
-                                transition: opacity .32s cubic-bezier(.17,.67,1,1.23);
-
-                                .el-button {
-                                    font-size: 20px;
-                                    padding: 0;
-                                    border-style: none;
-                                    background-color: transparent;
-                                    filter: opacity(.72);
-                                    transition: filter .24s;
-
-                                    &:not(:last-of-type) {
-                                        color: #fff;
-                                    }
-
-                                    &:hover {
-                                        filter: opacity(1);
-                                    }
-                                }
-                            }
-
-                            &:hover .media-actions {
-                                opacity: 1;
+                            :global(i) {
+                                font-size: 18px;
                             }
                         }
                     }
 
-                    > .el-button {
-                        &:nth-of-type(1) {
-                            position: relative;
-                            padding: 0;
-                            padding-top: 100%;
-                            border-width: 2px;
-                            border-style: dashed;
-
-                            :global(span) {
-                                font-size: 12px;
-                                display: flex;
-                                flex-direction: column;
-                                align-items: center;
-                                justify-content: center;
-                                color: darken(#DCDFE6, 6%);
-                                position: absolute;
-                                top: 0;
-                                left: 0;
-                                bottom: 0;
-                                right: 0;
-                                width: 100%;
-                                height: 100%;
-                                white-space: normal;
-                                line-height: 1.24;
-
-                                :global(i) {
-                                    font-size: 18px;
-                                }
-                            }
-                        }
-
-                        &:nth-of-type(2) {
-                            margin-left: 0;
-                            grid-column: 1 / -1;
-                        }
+                    &:nth-of-type(2) {
+                        margin-left: 0;
+                        grid-column: 1 / -1;
                     }
                 }
             }
         }
 
-        .media-draggable {
-            .media-list {
-                .media-item {
-                    border-radius: 6px; 
-                    box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
-                    transition-property: color, filter;
-                    transition-duration: .24s;
-                    filter: opacity(1);
+        .media-list {
+            .media-item {
+                border-radius: 6px; 
+                box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
+                transition-property: color, filter;
+                transition-duration: .24s;
+                filter: opacity(1);
 
-                    &:not(.is-ghost) {
-                        border: 1px lighten(#DCDFE6, 6%) solid;
+                &:not(.is-ghost) {
+                    border: 1px lighten(#DCDFE6, 6%) solid;
+                }
+
+                &.is-ghost {
+                    border: 2px #DCDFE6 dashed;
+                }
+
+                &.is-pending {
+                    filter: opacity(.16);
+                    pointer-events: none;
+                }
+
+                &.is-success {
+                    background-color: #f0f9eb;
+                    border-color: darken(#f0f9eb, 4%);
+                    color: #67c23a;
+                }
+
+                &.is-failed {
+                    background-color: #fef0f0;
+                    border-color: darken(#fef0f0, 4%);
+                    color: #f56c6c;
+                }
+
+                .media-content {
+                    .media-image {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
                     }
 
-                    &.is-ghost {
-                        border: 2px #DCDFE6 dashed;
-                    }
+                    .media-filename {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
 
-                    &.is-pending {
-                        filter: opacity(.16);
-                        pointer-events: none;
-                    }
-
-                    &.is-success {
-                        background-color: #f0f9eb;
-                        border-color: darken(#f0f9eb, 4%);
-                        color: #67c23a;
-                    }
-
-                    &.is-failed {
-                        background-color: #fef0f0;
-                        border-color: darken(#fef0f0, 4%);
-                        color: #f56c6c;
-                    }
-
-                    .media-content {
-                        .media-image {
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                        }
-
-                        .media-filename {
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            white-space: nowrap;
-
-                            .media-filesize {
-                                font-size: 10px;
-                                color: darken(#DCDFE6, 4%);
-                                display: block;
-                            }
+                        .media-filesize {
+                            font-size: 10px;
+                            color: darken(#DCDFE6, 4%);
+                            display: block;
                         }
                     }
                 }
