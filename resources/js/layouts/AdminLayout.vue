@@ -251,7 +251,6 @@
 
             toggleSidebar() {
                 this.isCallapsed = !this.isCallapsed;
-                console.log(this.isCallapsed);
             },
 
             handleLogout() {
