@@ -248,7 +248,7 @@
                 return this.isListLayout && active && +progress
             },
             canShowListDraggableHandler ({active, success, error}) {
-                return this.isListLayout && this.uploadOptions.draggable && !active && !success && !error
+                return this.isListLayout && this.uploadOptions.draggable
             },
             onDraggableMove ({draggedContext}, originalEvent) {
                 if (!draggedContext.element) {
@@ -406,7 +406,7 @@
 
                         .media-progress {
                             width: 100%;
-                            margin-left: 58px;
+                            margin-left: 62px;
 
                             .media-progress-speed {
                                 font-size: 12px;
