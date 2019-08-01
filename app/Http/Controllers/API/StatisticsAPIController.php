@@ -891,13 +891,8 @@ class StatisticsAPIController extends AppBaseController
 
     public function chartTenantLanguage()
     {
-        $languages = [
-            null => 'Unknown',
-            'en' => 'English',
-            'fr' => 'Français',
-            'de' => 'Deutsch',
-            'it' => 'Italiano'
-        ];
+        $languages = config('app.locales');
+//        $languages[null] = 'Unknown'; @TODO need or not
 
         $tenants = Tenant::selectRaw('count(id) as count, language')
             ->groupBy('language')
