@@ -25,23 +25,23 @@
             </div>
             
             <div class="dropdown-menu">
-                <avatar :src="avatar" :name="userName" :size="33"/>
+                <avatar :src="user.avatar" :name="user.name" :size="33"/>
                 <el-dropdown>
                     <span class="el-dropdown-link">
-                        {{userName}}<i class="el-icon-arrow-down el-icon--right"></i>
+                        {{user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
                     
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item>
                             <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
-                                <i class="ti-user"/>
+                                <i class="icon-user"/>
                                 {{$t('menu.profile')}}
                             </router-link>
                         </el-dropdown-item>
                         <el-dropdown-item>
                             <template v-if="$can($permissions.view.realEstate)">
                                 <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
-                                    <i class="ti-settings"/>
+                                    <i class="icon-cog"/>
                                     {{$t('menu.settings')}}
                                 </router-link>
                             </template>
@@ -49,7 +49,7 @@
                         <el-dropdown-item>
                             <el-button @click="handleLogout" type="text">
                                 <div class="logout-button">
-                                    <i class="ti-power-off"/>
+                                    <i class="icon-logout"/>
                                     {{$t('menu.logout')}}
                                 </div>
                             </el-button>
@@ -99,9 +99,6 @@
 
                 activeIndex: '1',
                 activeIndex2: '1',
-
-                userName: null,
-                avatar: null,
 
                 languages: [
                     {name: 'Français', symbol: 'fr', flag: 'flag-icon flag-icon-fr'},
@@ -319,11 +316,6 @@
                     }
                 }
             });
-        },
-
-        created() {
-            this.userName = this.user.name;
-            this.avatar = this.user.avatar;
         }
 
 
