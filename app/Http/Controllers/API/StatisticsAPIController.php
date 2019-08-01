@@ -488,6 +488,14 @@ class StatisticsAPIController extends AppBaseController
                                                       duration from service_requests where solved_date is not null;";
         $avgReqFix = DB::select($query);
 
+        $allStartDates = [
+            'requests' => $this->timeFormat(ServiceRequest::min('created_at')),
+            'tenants' => $this->timeFormat(Tenant::min('created_at')),
+            'buildings' => $this->timeFormat(Building::min('created_at')),
+            'products' => $this->timeFormat(Product::min('created_at')),
+            'posts' => $this->timeFormat(Post::min('created_at')),
+        ];
+
         $ret = [
             'avg_request_duration' => $avgReqFix ? gmdate("H:i",$avgReqFix[0]->duration) : 0,
             // all time total requests count and total request count of per status
@@ -508,6 +516,7 @@ class StatisticsAPIController extends AppBaseController
 
             'total_posts' => $this->thousandsFormat(Post::count('id')),
             'posts_per_status' => $this->donutChartByTable($request, $optionalArgs, 'posts'),
+            'all_start_dates' => $allStartDates
         ];
 
         return $this->sendResponse($ret, 'Admin statistics retrieved successfully');
@@ -1199,5 +1208,14 @@ class StatisticsAPIController extends AppBaseController
         }
 
         return number_format($number, 0, ".", "'");
+    }
+
+    /**
+     * @param $date
+     * @return string
+     */
+    protected function timeFormat($date)
+    {
+        return Carbon::parse($date)->format('d.m.Y');
     }
 }
