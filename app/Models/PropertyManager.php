@@ -103,7 +103,8 @@ class PropertyManager extends Model
         'slogan',
         'xing_url',
         'linkedin_url',
-        'property_manager_format'
+        'property_manager_format',
+        'language'
     ];
 
     protected $dates = ['deleted_at'];
@@ -123,7 +124,8 @@ class PropertyManager extends Model
         'slogan' => 'string',
         'xing_url' => 'string',
         'linkedin_url' => 'string',
-        'property_manager_format' => 'string'
+        'property_manager_format' => 'string',
+        'language' => 'string',
     ];
 
     /**

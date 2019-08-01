@@ -160,7 +160,8 @@ class Tenant extends Model implements HasMedia
         'rent_end',
         'tenant_format',
         'review',
-        'rating'
+        'rating',
+        'language'
     ];
     protected $dates = ['deleted_at', 'rent_start', 'rent_end'];
     /**
@@ -187,6 +188,7 @@ class Tenant extends Model implements HasMedia
         'tenant_format' => 'string',
         'review' => 'string',
         'rating' => 'integer',
+        'language' => 'string',
     ];
 
     const templateMap = [

@@ -880,6 +880,22 @@ class StatisticsAPIController extends AppBaseController
         return $this->formatForDonutChart($statistics, 'login', $values, true);
     }
 
+    public function chartTenantLenguage()
+    {
+        $languages = [
+            'en' => 'English',
+            'fr' => 'Français',
+            'de' => 'Deutsch',
+            'it' => 'Italiano'
+        ];
+
+        $tenants = Tenant::selectRaw('count(id) as count, language')
+            ->groupBy('language')
+            ->get();
+        $response = $this->formatForDonutChart($tenants, 'language', $languages, true);
+        return $this->sendResponse($response, 'Tenants statistics by language retrieved successfully');
+    }
+
     /**
      * @param $table
      * @param null $startDate
