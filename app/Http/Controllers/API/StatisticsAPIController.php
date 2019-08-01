@@ -46,7 +46,23 @@ class StatisticsAPIController extends AppBaseController
         self::WEEK,
         self::YEAR,
     ];
-
+    /**
+     *
+     *      @SWG\Parameter(
+     *          name="start_date",
+     *          in="query",
+     *          description="format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. It is corrected by period value | default value is one month ago of end_date",
+     *          type="string",
+     *          format="full-date"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="end_date",
+     *          in="query",
+     *          description="format: dd.mm.yyyy | example: 19.07.2019 | Get statistic after correspond value. It is corrected by period value | default value today",
+     *          type="string",
+     *          format="full-date"
+     *      ),
+     */
     const QUERY_PARAMS = [
         'year' => 'year',
         'period' => 'period',
@@ -622,7 +638,8 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      *
-
+     *
+     *
      * @SWG\Get(
      *      path="chartByCreationDate",
      *      summary="get statistics for Grouped Report by products:status | tenants:status | posts:status ",
@@ -634,7 +651,30 @@ class StatisticsAPIController extends AppBaseController
      *          in="query",
      *          description="The table used for get statistic data based db table",
      *          type="string",
-     *          default="products"
+     *          default="products",
+     *          enum={"products", "tenants", "posts"}
+     *      ),
+     *      @SWG\Parameter(
+     *          name="column",
+     *          in="query",
+     *          description="The column used for get statistic according that column",
+     *          type="string",
+     *          default="status",
+     *          enum={"status"}
+     *      ),
+     *      @SWG\Parameter(
+     *          name="period",
+     *          in="query",
+     *          description="get statistic by period related start_date, end_date",
+     *          type="string",
+     *          default="day",
+     *          enum={"day", "week", "month", "year"}
+     *      ),
+     *      @SWG\Parameter(
+     *          ref="#/parameters/start_date"
+     *      ),
+     *      @SWG\Parameter(
+     *          ref="#/parameters/end_date"
      *      ),
      *      @SWG\Response(
      *          response=200,

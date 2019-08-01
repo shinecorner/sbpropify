@@ -4893,7 +4893,41 @@
                         "in": "query",
                         "description": "The table used for get statistic data based db table",
                         "type": "string",
-                        "default": "products"
+                        "default": "products",
+                        "enum": [
+                            "products",
+                            "tenants",
+                            "posts"
+                        ]
+                    },
+                    {
+                        "name": "column",
+                        "in": "query",
+                        "description": "The column used for get statistic according that column",
+                        "type": "string",
+                        "default": "status",
+                        "enum": [
+                            "status"
+                        ]
+                    },
+                    {
+                        "name": "period",
+                        "in": "query",
+                        "description": "get statistic by period related start_date, end_date",
+                        "type": "string",
+                        "default": "day",
+                        "enum": [
+                            "day",
+                            "week",
+                            "month",
+                            "year"
+                        ]
+                    },
+                    {
+                        "$ref": "#/parameters/start_date"
+                    },
+                    {
+                        "$ref": "#/parameters/end_date"
                     }
                 ],
                 "responses": {
@@ -7715,6 +7749,22 @@
                     "format": "date-time"
                 }
             }
+        }
+    },
+    "parameters": {
+        "start_date": {
+            "name": "start_date",
+            "in": "query",
+            "description": "format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. It is corrected by period value | default value is one month ago of end_date",
+            "type": "string",
+            "format": "full-date"
+        },
+        "end_date": {
+            "name": "end_date",
+            "in": "query",
+            "description": "format: dd.mm.yyyy | example: 19.07.2019 | Get statistic after correspond value. It is corrected by period value | default value today",
+            "type": "string",
+            "format": "full-date"
         }
     },
     "securityDefinitions": {
