@@ -213,8 +213,7 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     * @param bool $isConvertResponse
-     * @return array|mixed
+     * @return array
      */
     protected function allBuildingStatistics()
     {
@@ -336,6 +335,35 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     * @SWG\Get(
+     *      path="tenantsGenderStatistics",
+     *      summary="Tenants gender statistics for Donut Chart",
+     *      tags={"Tenant", "Donut"},
+     *      description="Get tenants gender statistics",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/Donut"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="boolean",
+     *                  items="$ref:Tag"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @var Tag aaaa
      * @return mixed
      */
     public function tenantsGenderStatistics()
@@ -958,6 +986,28 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     *
+     * @SWG\Definition(
+     *      definition="Donut",
+     *      required={"name", "floor_nr"},
+     *      @SWG\Property(
+     *          property="labels",
+     *          description="Labels for statistics",
+     *          type="array",
+     *          items={
+     *              "type":"string"
+     *          },
+     *      ),
+     *      @SWG\Property(
+     *          property="data",
+     *          description="Labels for statistics",
+     *          type="array",
+     *          items={
+     *              "type":"integer"
+     *          },
+     *      )
+     * )
+     *
      * @param $statistics
      * @param $column
      * @param $columnValues
