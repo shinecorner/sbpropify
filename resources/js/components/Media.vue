@@ -33,35 +33,39 @@
             <el-button-group slot="footer" key="footer" v-if="isListLayout">
                 <el-button class="media-trigger" icon="icon-plus" @click="selectFiles()">
                     <template v-if="uploadOptions.drop">
-                        Drop files or click to select...
+                        {{$t('components.common.media.buttons.selectFiles.withDrop')}}
                     </template>
                     <template v-else>
-                        Click to select...
+                        {{$t('components.common.media.buttons.selectFiles.withoutDrop')}}
                     </template>
                 </el-button>
                 <el-button type="primary" icon="icon-upload-cloud" @click="startUploading()" v-if="canShowUploadButton">
-                    Upload
+                    {{$t('components.common.media.buttons.upload')}}
                 </el-button>
             </el-button-group>
             <template slot="footer" v-else-if="isGridLayout">
                 <el-button key="media-trigger" class="media-upload-trigger" @click="selectFiles()">
                     <div class="icon-plus"></div>
                     <template v-if="uploadOptions.drop">
-                        Drop files or click to select...
+                        {{$t('components.common.media.buttons.selectFiles.withDrop')}}
                     </template>
                     <template v-else>
-                        Click to select...
+                        {{$t('components.common.media.buttons.selectFiles.withoutDrop')}}
                     </template>
                 </el-button>
                 <el-button key="media-upload" type="primary" icon="icon-upload-cloud" @click="startUploading()" v-if="canShowUploadButton">
-                    Upload
+                    {{$t('components.common.media.buttons.upload')}}
                 </el-button>
             </template>
         </draggable>
         <div v-if="$refs.uploader && $refs.uploader.dropActive" class="media-drop-active">
             <i class="icon-upload-cloud"></i>
-            Drop your files here
-            <small>Only the files with the following <b></b> extensions are allowed.</small>
+            {{$t('components.common.media.dropActive.title')}}
+            <div class="description">
+                {{$t('components.common.media.dropActive.description', {
+                    extensions: ''
+                })}}
+            </div>
         </div>
     </div>
 </template>
@@ -135,7 +139,7 @@
                 } else if (this.canFileBePreviewed(file)) {
                     window.open(file.file.blob)
                 } else {
-                    this.$message.warning('This file cannot be previewed.', {
+                    this.$message.warning(this.$t('components.common.media.messages.preview'), {
                         duration: 2400
                     })
                 }
@@ -149,7 +153,9 @@
                         if (this.uploadOptions.size < newFile.size) {
                             this.$message({
                                 type: 'warning',
-                                message: `Oops! Some files had the size bigger than the maximum allowed of ${this.$options.filters.formatBytes(this.uploadOptions.size)}.`,
+                                message: this.$t('components.common.media.messages.size', {
+                                    bytes: this.$options.filters.formatBytes(this.uploadOptions.size)
+                                }),
                                 duration: 8000,
                                 showClose: true
                             })
@@ -168,7 +174,8 @@
                                 if (!this.uploadOptions.extensions.split(',').includes(fileExtension)) {
                                     this.$message({
                                         type: 'warning',
-                                        message: 'Oops! Some files have had an extension that was not allowed. Skipping...',
+
+                                        message: this.$t('components.common.media.messages.extensions'),
                                         duration: 8000,
                                         showClose: true
                                     })
@@ -181,7 +188,8 @@
                                 if (!this.uploadOptions.extensions.includes(fileExtension)) {
                                     this.$message({
                                         type: 'warning',
-                                        message: 'Oops! Some files have had an extension that was not allowed. Skipping...',
+
+                                        message: this.$t('components.common.media.messages.extensions'),
                                         duration: 8000,
                                         showClose: true
                                     })
@@ -194,7 +202,7 @@
                                 if (!this.uploadOptions.extensions.test(fileExtension)) {
                                     this.$message({
                                         type: 'warning',
-                                        message: 'Oops! Some files have had an extension that was not allowed. Skipping...',
+                                        message: this.$t('components.common.media.messages.extensions'),
                                         duration: 8000,
                                         showClose: true
                                     })
@@ -289,7 +297,7 @@
 
                             this.$message({
                                 type: 'info',
-                                message: 'Uploading...',
+                                message: this.$t('components.common.media.messages.uploading'),
                                 duration: 8000,
                                 showClose: true
                             })
@@ -301,7 +309,7 @@
 
                                 this.$message({
                                     type: 'success',
-                                    message: 'Media files have been succesfully uploaded.',
+                                    message: this.$t('components.common.media.messages.uploaded'),
                                     duration: 8000,
                                     showClose: true
                                 })
@@ -666,8 +674,8 @@
                 margin: 4px;
             }
 
-            small {
-                font-size: 56%;
+            .description {
+                font-size: 12px;
                 color: darken(#DCDFE6, 48%);
             }
         }
