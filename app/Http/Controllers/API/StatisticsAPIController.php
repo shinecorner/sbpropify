@@ -10,6 +10,7 @@ use App\Models\ServiceRequestCategory;
 use App\Models\Tenant;
 use App\Models\Product;
 use App\Models\Post;
+use App\Models\UserSettings;
 use App\Repositories\BuildingRepository;
 use App\Repositories\ServiceRequestRepository;
 use App\Repositories\TenantRepository;
@@ -1743,9 +1744,10 @@ class StatisticsAPIController extends AppBaseController
         $languages = config('app.locales');
 //        $languages[null] = 'Unknown'; @TODO need or not
 
-        $tenants = Tenant::selectRaw('count(id) as count, language')
+        $tenants = UserSettings::has('tenant')->selectRaw('count(id) as count, language')
             ->groupBy('language')
             ->get();
+
         $response = $this->formatForDonutChart($tenants, 'language', $languages, true);
         return $this->sendResponse($response, 'Tenants statistics by language retrieved successfully');
     }
