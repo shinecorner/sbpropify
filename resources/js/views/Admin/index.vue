@@ -7,7 +7,7 @@
                     <el-tab-pane :label="$t('menu.requests')" name="requests">
                         <el-row type="flex">
                             <el-col :span="24">
-                                <dashboard-statistics-card :totalRequest="totalRequest" :data="reqStatusCount" :avgReqDuration="avgReqDuration"></dashboard-statistics-card>
+                                <dashboard-statistics-card :totalRequest="totalRequest" :data="reqStatusCount" :avgReqDuration="avgReqDuration" :animationTrigger="activeName"></dashboard-statistics-card>
                             </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
@@ -52,7 +52,7 @@
                     <el-tab-pane :label="$t('menu.buildings')" name="buildings">
                         <el-row type="flex">
                             <el-col :span="24">
-                                <buildings-statistics-card :data="buildingStatistics"></buildings-statistics-card>
+                                <buildings-statistics-card :data="buildingStatistics" :animationTrigger="activeName"></buildings-statistics-card>
                             </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
@@ -103,7 +103,7 @@
                     <el-tab-pane :label="$t('menu.tenants')" name="tenants">
                         <el-row type="flex">
                             <el-col :span="24">
-                                <tenants-statistics-card :data="tenantsStatistics"></tenants-statistics-card>
+                                <tenants-statistics-card :data="tenantsStatistics" :animationTrigger="activeName"></tenants-statistics-card>
                             </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
