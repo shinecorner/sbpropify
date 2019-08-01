@@ -23,7 +23,6 @@ import media from './modules/media'
 import posts2 from './modules/posts2'
 import templates from './modules/templates'
 import cleanify from './modules/cleanify'
-import sidebar from './modules/sidebar'
 
 Vue.use(Vuex);
 
@@ -149,10 +148,6 @@ const store = new Vuex.Store({
         posts2: {
             namespaced: true,
             ...posts2
-        },
-        sidebar: {
-            namespaced: true,
-            ...sidebar
         }
     }
 });

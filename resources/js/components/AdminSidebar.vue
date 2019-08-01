@@ -2,11 +2,7 @@
 
 
     <aside class="el-menu-aside">
-        <!-- <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-            <el-radio-button :label="false">expand</el-radio-button>
-            <el-radio-button :label="true">collapse</el-radio-button>
-        </el-radio-group> -->
-        <el-menu :default-active="currActive" :unique-opened="true" class="el-menu-vertical-demo" :collapse="isCollapsed">
+        <el-menu :default-active="currActive" :unique-opened="true" class="el-menu-vertical-demo" :collapse="collapsed">
             <li class="slot" index="slot" v-if="hasSlot">
                 <slot/>
             </li>
@@ -59,6 +55,10 @@
             },
             defaultActive: {
                 default: '0'
+            },
+            collapsed: {
+                type: Boolean,
+                default: false
             }
         },
         data() {
@@ -107,12 +107,10 @@
         computed: {
             hasSlot() {
                 return !!this.$slots.default;
-            },
-            isCollapsed : function() {
-                return this.$store.getters['sidebar/isCollapsed'];
             }
         },
         created() {
+            console.log(this.$props);
             const routeName = this.$route.name;
 
             this.links.map(link => {

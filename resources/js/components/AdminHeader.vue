@@ -5,9 +5,7 @@
         </el-menu-item>
         <el-menu-item class="logo" index="logo">
             <div class="menu-icon" title="Collapse" @click="handletoggle">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <path fill="none" d="M0 0h24v24H0V0z"></path><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
-                </svg>
+                <i class="icon-menu"></i>
             </div>
             <div class="logo-image">
                 <img src="~img/logo3.png"/>
@@ -22,10 +20,8 @@
 <script>
     export default {
         name: 'AdminHeader',
-        data() {
-            return {
-                isCallapse: false
-            }
+        props: {
+            toggleSidebar: { type: Function },
         },
         methods: {
             hasSlot(slot) {
@@ -36,7 +32,7 @@
                 return !!this.$slots.default;
             },
             handletoggle() {
-                this.$store.dispatch('sidebar/toggleCollapse');
+                this.toggleSidebar();
             }
         }
     }
@@ -76,27 +72,27 @@
                         img {
                             height: 100%;
                             vertical-align: baseline;
+                            margin-left: 9px;
                         }
                     }
                     
                     .menu-icon {
                         margin-right: 30px;
-                        svg {
-                            fill: #ccc;
+                        margin-left: 8px;
+                        i {
+                            -webkit-text-fill-color: #ccc;
+                            &:hover {
+                                -webkit-text-fill-color:black; 
+                            }
                         }
-                    }
-                    .menu-icon:after {
-                        content: "";
-                        position: absolute;
-                        left: 38px;
-                        height: 31.5px;
-                        width: 1px;
-                        background: #c2c2c2;
-                        margin-top:6px;
-                    }
-                    .menu-icon:hover {
-                        svg {
-                            fill: black;
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            left: 46px;
+                            height: 31.5px;
+                            width: 1px;
+                            background: #c2c2c2;
+                            margin-top:6px;
                         }
                     }
                 }
