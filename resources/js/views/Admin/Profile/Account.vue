@@ -61,7 +61,10 @@
                         try {
                             const {data, ...message} = await this.changeDetails(this.model);
 
-                            displaySuccess(message);
+                            displaySuccess({
+                                success: true,
+                                message: 'models.user.saved'
+                            });
 
 
                             this.me();
