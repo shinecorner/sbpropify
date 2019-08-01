@@ -248,7 +248,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     Route::get('/admin/heatMapByDatePeriod', 'StatisticsAPIController@heatMapByDatePeriod');
     Route::get('/admin/chartLoginDevice', 'StatisticsAPIController@chartLoginDevice');
-    Route::get('/admin/chartTenantLenguage', 'StatisticsAPIController@chartTenantLenguage');
+    Route::get('/admin/chartTenantLanguage', 'StatisticsAPIController@chartTenantLanguage');
 });
 
 

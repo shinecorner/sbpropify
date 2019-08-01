@@ -880,7 +880,7 @@ class StatisticsAPIController extends AppBaseController
         return $this->formatForDonutChart($statistics, 'login', $values, true);
     }
 
-    public function chartTenantLenguage()
+    public function chartTenantLanguage()
     {
         $languages = [
             'en' => 'English',
