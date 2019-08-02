@@ -24,14 +24,14 @@
                 </div>
             </div>
             
-            <div class="dropdown-menu">
+            <div id="dropdown" class="dropdown-menu" ref="prev">
                 <avatar :src="user.avatar" :name="user.name" :size="33"/>
                 <el-dropdown>
                     <span class="el-dropdown-link">
                         {{user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
                     
-                    <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-menu slot="dropdown" :style="dropmenuwidth">
                         <el-dropdown-item>
                             <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
                                 <i class="icon-user"/>
@@ -107,7 +107,8 @@
                     {name: 'English', symbol: 'en', flag: 'flag-icon flag-icon-us'}
                 ],
 
-                isCallapsed: false
+                isCallapsed: false,
+                dropdownwidth: 0
             }
         },
 
@@ -220,6 +221,9 @@
                         }
                     }]
                 }];
+            },
+            dropmenuwidth () {
+                return `width: ${this.dropdownwidth + 9.5}px;`
             }
         },
 
@@ -301,6 +305,11 @@
                 localStorage.setItem('locale', this.$i18n.locale);
                 localStorage.setItem('selectedFlag', this.selectedFlag);
             },
+
+            getDropdownWidth() {
+                this.dropdownwidth = this.$refs.prev.clientWidth;
+            }
+
         },
 
         mounted(){
@@ -316,6 +325,8 @@
                     }
                 }
             });
+
+            this.getDropdownWidth();
         }
 
 
@@ -326,8 +337,7 @@
         color: #909399 !important;
     }
     .el-dropdown-menu {
-        width: 139px;
-        margin: 16px 0 !important;    
+        margin: 16px 10px 16px 0px !important;    
     }
 </style>
 
@@ -401,6 +411,7 @@
             }
         }
         .dropdown-menu {
+            width: 100%;
             .avatar {
                 margin-right: 3%;
                 border: solid #c2c2c2 2px;
