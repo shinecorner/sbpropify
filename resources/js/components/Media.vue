@@ -1,6 +1,6 @@
 <template>
     <div :class="['media', {[`media-${layout}-layout`]: true}]">
-        <uploader ref="uploader" v-bind="uploaderProps" :value="value" :input-id="`upload-${$_uid}`" :headers="headers" :custom-action="customAction" @input="value => $emit('input', value)" @input-filter="onUploadFilter" />
+        <uploader ref="uploader" class="media-uploader" v-bind="uploaderProps" :value="value" :input-id="`upload-${$_uid}`" :headers="headers" :custom-action="customAction" @input="value => $emit('input', value)" @input-filter="onUploadFilter" />
         <draggable class="media-list" tag="transition-group" :componentData="{type: 'transition', name: 'flip-list', mode: 'out-in'}" ghost-class="is-ghost" :list="value" :handle="draggableHandler" :animation="240" :disabled="isDraggableDisabled" :move="onDraggableMove">
             <div :class="['media-item', {'is-draggable': uploadOptions.draggable && value.length && !$refs.uploader.uploaded}, $refs.uploader.active && {'is-active': +file.progress && !file.success, 'is-pending': !+file.progress}, {'is-success': file.success, 'is-failed': file.error}]" v-for="(file, idx) in value" :key="file.id" :style="{'transition-delay': `calc(0.16 * ${idx}s)`}">
                 <div class="media-content">
@@ -30,8 +30,8 @@
                     </div>
                 </div>
             </div>
-            <el-button-group slot="footer" key="footer" v-if="isListLayout">
-                <el-button class="media-trigger" icon="icon-plus" @click="selectFiles()">
+            <el-button-group slot="footer" key="footer" v-if="canShowButtonGroup">
+                <el-button class="media-trigger" icon="icon-plus" @click="selectFiles()" v-if="!uploadOptions.hideSelectFilesButton">
                     <template v-if="uploadOptions.drop">
                         {{$t('components.common.media.buttons.selectFiles.withDrop')}}
                     </template>
@@ -44,7 +44,7 @@
                 </el-button>
             </el-button-group>
             <template slot="footer" v-else-if="isGridLayout">
-                <el-button key="media-trigger" class="media-upload-trigger" @click="selectFiles()">
+                <el-button key="media-trigger" class="media-upload-trigger" @click="selectFiles()" v-if="!uploadOptions.hideSelectFilesButton">
                     <div class="icon-plus"></div>
                     <template v-if="uploadOptions.drop">
                         {{$t('components.common.media.buttons.selectFiles.withDrop')}}
@@ -102,7 +102,8 @@
                     auto: false,
                     clear: false,
                     draggable: true,
-                    hideButton: false
+                    hideSelectFilesButton: false,
+                    hideUploadButton: false
                 })
             }
         },
@@ -161,12 +162,12 @@
                             return prevent()
                         }
                     }
-                    
+
                     if (this.uploadOptions.extensions) {
                         const fileExtension = newFile.type.substring(newFile.type.lastIndexOf('/') + 1)
 
                         this.$message.closeAll()
-                        
+
                         switch (this.uploadOptions.extensions.constructor) {
                             case String:
                                 if (!this.uploadOptions.extensions.split(',').includes(fileExtension)) {
@@ -263,7 +264,7 @@
                 }
             },
             uploaderProps () {
-                const {auto, clear, draggable, hideButton, ...restProps} = this.uploadOptions
+                const {auto, clear, draggable, hideSelectFilesButton, hideUploadButton, ...restProps} = this.uploadOptions
 
                 return restProps
             },
@@ -279,15 +280,21 @@
             isDraggableDisabled () {
                 return !this.uploadOptions.draggable || this.value.length && this.$refs.uploader.uploaded
             },
+            canShowSelectFilesButton () {
+                return !this.uploadOptions.hideSelectFilesButton
+            },
             canShowUploadButton () {
-                return !this.uploadOptions.auto && !this.uploadOptions.hideButton
+                return !this.uploadOptions.auto && !this.uploadOptions.hideSelectFilesButton
+            },
+            canShowButtonGroup () {
+                return this.isListLayout && (this.canShowSelectFilesButton || this.canShowUploadButton)
             },
             progressType () {
                 return this.isListLayout ? 'line' : this.isGridLayout ? 'circle' : undefined
             },
             draggableHandler () {
                 return this.isListLayout ? '.media-draggable-handler' : undefined
-            }
+            },
         },
         mounted () {
             if (this.uploadOptions.auto || this.uploadOptions.clear) {
@@ -359,7 +366,7 @@
                     &.is-draggable .media-content .media-draggable-handler {
                         cursor: move;
                     }
-                    
+
                     .media-content {
                         display: flex;
                         flex-wrap: wrap;
@@ -594,9 +601,13 @@
             }
         }
 
+        .media-uploader {
+            display: block;
+        }
+
         .media-list {
             .media-item {
-                border-radius: 6px; 
+                border-radius: 6px;
                 box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
                 transition-property: color, filter;
                 transition-duration: .24s;
