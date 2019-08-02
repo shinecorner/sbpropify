@@ -14,7 +14,7 @@ trait HashId
     {
         $id = $id ?? $this->getKey();
         $hashid = new Hashids('', 25);
-        return substr($hashid->encode($id),0, 8);
+        return $hashid->encode($id);
     }
 
     /**

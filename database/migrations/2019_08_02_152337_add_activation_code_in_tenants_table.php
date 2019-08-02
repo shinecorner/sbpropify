@@ -14,7 +14,7 @@ class AddActivationCodeInTenantsTable extends Migration
     public function up()
     {
         Schema::table('tenants', function (Blueprint $table) {
-            $table->string('activation_code', 50)->after('status');
+            $table->string('activation_code', 50)->after('status')->nullable();
         });
     }
 
