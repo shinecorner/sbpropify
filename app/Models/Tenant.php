@@ -310,7 +310,11 @@ class Tenant extends Model implements HasMedia
         return $hashids->encode($id);
     }
 
-    public function setCredentialsPDF($tenant_id)
+    /**
+     * @param $tenant_id
+     * @param $language
+     */
+    public function setCredentialsPDF($tenant_id, $language)
     {
         $re = RealEstate::firstOrFail();
         $data = [
@@ -321,7 +325,6 @@ class Tenant extends Model implements HasMedia
         ];
 
         $pdf = PDF::loadView('pdfs.tenantCredentialsXtended', $data);
-        $language = $this->user->settings->language;
 
         Storage::disk('tenant_credentials')->put($this->pdfXFileName($language), $pdf->output());
         $pdf = PDF::loadView('pdfs.tenantCredentials', $data);
