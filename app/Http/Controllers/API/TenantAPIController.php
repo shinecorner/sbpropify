@@ -706,6 +706,7 @@ class TenantAPIController extends AppBaseController
      */
     protected function getPdfName(Tenant $tenant)
     {
+        // @TODO fix lazy loading
         $language  = $tenant->user->settings->language;
         $tenant->setCredentialsPDF($tenant->id, $language);
 
