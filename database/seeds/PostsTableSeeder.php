@@ -16,7 +16,7 @@ class PostsTableSeeder extends Seeder
 //        $pRepo = new PostRepository(app());
         if (App::environment('local')) {
             $totalPosts = 200;
-            $posts = factory(App\Models\Post::class, $totalPosts)->create();
+            $posts = factory(App\Models\Post::class, $totalPosts)->create(['status' => Post::StatusPublished]);
             foreach ($posts as $post) {
                 $u = $post->user;
                 if ($u->tenant && $u->tenant->building) {
