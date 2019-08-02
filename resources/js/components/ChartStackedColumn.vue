@@ -1,5 +1,5 @@
 <template>
-    <div class="stackchart">
+    <div v-if="startDate" class="stackchart">
         <div class="chart-filter in-toolbar">
           <el-radio-group v-model="period" class="stack-radios">                
               <el-radio-button label="day">{{$t('timestamps.days')}}</el-radio-button>
@@ -8,7 +8,7 @@
               <el-radio-button label="year">{{$t('timestamps.years')}}</el-radio-button>
           </el-radio-group>
           <custom-date-range-picker :rangeType="period" :initialRange="dateRange"
-            :pickHandler="pickHandler">
+            :pickHandler="pickHandler" :startDate="startDate">
           </custom-date-range-picker>
         </div>    
         <el-row type="flex">
@@ -31,11 +31,15 @@ export default {
     CustomDateRangePicker
   },
   props: {
-            type: {
-                type: String,
-                required: true
-            }            
-    },  
+    type: {
+        type: String,
+        required: true
+    },
+    startDate: {
+      type: String,
+      required: true
+    }
+  },  
     data() {
         return {        
             period: 'day',
