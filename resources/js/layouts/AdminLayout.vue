@@ -26,7 +26,7 @@
             
             <div id="dropdown" class="dropdown-menu" ref="prev">
                 <avatar :src="user.avatar" :name="user.name" :size="33"/>
-                <el-dropdown>
+                <el-dropdown trigger="click">
                     <span class="el-dropdown-link">
                         {{user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
@@ -78,6 +78,7 @@
     import Avatar from 'components/Avatar';
     import VRouterTransition from 'v-router-transition';
     import {mapActions, mapState} from "vuex";
+    import { EventBus } from '../event-bus.js';
 
     export default {
         name: 'AdminLayout',
@@ -108,7 +109,7 @@
                 ],
 
                 isCallapsed: false,
-                dropdownwidth: 0
+                dropdownwidth: 0,
             }
         },
 
@@ -223,7 +224,7 @@
                 }];
             },
             dropmenuwidth () {
-                return `width: ${this.dropdownwidth + 9.5}px;`
+                return `width: ${this.dropdownwidth + 13.5}px;`
             }
         },
 
@@ -326,6 +327,10 @@
                 }
             });
 
+            EventBus.$on('profile-username-change', () => {
+                this.dropdownwidth = this.$refs.prev.clientWidth;
+            });
+
             this.getDropdownWidth();
         }
 
@@ -337,7 +342,10 @@
         color: #909399 !important;
     }
     .el-dropdown-menu {
-        margin: 16px 10px 16px 0px !important;    
+        margin: 16px 10px 16px 0px !important;
+        .el-dropdown-menu__item {
+            padding: 0px 12px !important;
+        }
     }
 </style>
 
@@ -415,6 +423,8 @@
             .avatar {
                 margin-right: 3%;
                 border: solid #c2c2c2 2px;
+                background-color: rgb(205, 220, 57)!important;
+                color: white !important;
             }
             .el-dropdown-link {
                 cursor: pointer;
@@ -438,7 +448,7 @@
             &:after{
                 content: "";
                 position: absolute;
-                right: -25px;
+                right: -21px;
                 height: 90%;
                 width: 1px;
                 background: #c2c2c2;;
