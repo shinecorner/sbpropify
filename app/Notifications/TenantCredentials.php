@@ -56,10 +56,9 @@ class TenantCredentials extends Notification implements ShouldQueue
         $data['activationCode'] = $this->tenant->activation_code;
         $data['activationUrl'] = url(sprintf('/activate?&code=%s', $this->tenant->activation_code));
 
-        $language = $this->tenant->user->settings->language;
-        $pdfName = $this->tenant->pdfXFileName($language);
+        $pdfName = $this->tenant->pdfXFileName();
         if ($data['company'] && $data['company']->blank_pdf) {
-            $pdfName = $this->tenant->pdfFileName($language);
+            $pdfName = $this->tenant->pdfFileName();
         }
         $disk = \Storage::disk('tenant_credentials');
 

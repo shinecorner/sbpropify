@@ -266,7 +266,7 @@ class TenantAPIController extends AppBaseController
 
         $tenant->load('user', 'building', 'unit', 'address');
         $pr->newTenantPost($tenant);
-        //$tenant->setCredentialsPDF($userPass);
+        //$tenant->setCredentialsPDF();
 
         $response = (new TenantTransformer)->transform($tenant);
         return $this->sendResponse($response, 'Tenant saved successfully');
@@ -452,7 +452,7 @@ class TenantAPIController extends AppBaseController
             $pr->newTenantPost($tenant);
         }
         //if ($userPass) {
-            //$tenant->setCredentialsPDF($userPass);
+            //$tenant->setCredentialsPDF();
         //}
         $response = (new TenantTransformer)->transform($tenant);
         return $this->sendResponse($response, 'Tenant updated successfully');
@@ -706,14 +706,13 @@ class TenantAPIController extends AppBaseController
      */
     protected function getPdfName(Tenant $tenant)
     {
-        $language  = $tenant->user->settings->language;
-        $tenant->setCredentialsPDF($tenant->id, $language);
+        $tenant->setCredentialsPDF();
 
         $re = RealEstate::firstOrFail();
 
-        $pdfName = $tenant->pdfXFileName($language);
+        $pdfName = $tenant->pdfXFileName();
         if ($re && $re->blank_pdf) {
-            $pdfName = $tenant->pdfFileName($language);
+            $pdfName = $tenant->pdfFileName();
         }
 
         return $pdfName ;

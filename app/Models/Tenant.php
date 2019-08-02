@@ -305,36 +305,32 @@ class Tenant extends Model implements HasMedia
      * @param $tenant_id
      * @param $language
      */
-    public function setCredentialsPDF($tenant_id, $language)
+    public function setCredentialsPDF()
     {
         $re = RealEstate::firstOrFail();
         $data = [
             'tenant' => $this,
             're' => $re,
             'url' => url('/activate'),
-            'code' => $this->hashId($tenant_id)
+            'code' => $this->activation_code
         ];
 
         $pdf = PDF::loadView('pdfs.tenantCredentialsXtended', $data);
 
-        Storage::disk('tenant_credentials')->put($this->pdfXFileName($language), $pdf->output());
+        Storage::disk('tenant_credentials')->put($this->pdfXFileName(), $pdf->output());
         $pdf = PDF::loadView('pdfs.tenantCredentials', $data);
-        Storage::disk('tenant_credentials')->put($this->pdfFilename($language), $pdf->output());
+        Storage::disk('tenant_credentials')->put($this->pdfFilename(), $pdf->output());
     }
 
-    public function pdfXFileName(string $language = "")
+    public function pdfXFileName()
     {
-        if (!$language) {
-            $language = \App::getLocale();
-        }
+        $language  = $this->user->settings->language;
         return $this->id . '-' . $language . '-X.pdf';
     }
 
-    public function pdfFileName(string $language = "")
+    public function pdfFileName()
     {
-        if (!$language) {
-            $language = \App::getLocale();
-        }
+        $language  = $this->user->settings->language;
         return $this->id . '-' . $language . '.pdf';
     }
 
