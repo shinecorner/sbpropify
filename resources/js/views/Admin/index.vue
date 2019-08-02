@@ -43,9 +43,9 @@
                                                 <el-date-picker
                                                     v-model="weekSelected"
                                                     type="week"
-                                                    format="Week WW.yyyy"
+                                                    :format="$t('date_range.week') + ' WW.yyyy'"
                                                     value-format="dd.MM.yyyy"
-                                                    placeholder="Pick a week">
+                                                    :placeholder="$t('date_range.peek_week')">
                                                 </el-date-picker>
                                             </div>
                                             <chart-heat-map type="week-hour" :tab="activeChart" :week="weekSelected"></chart-heat-map>
@@ -401,7 +401,7 @@
 
                 input {
                     text-align: center;
-                    padding-right: 5px;
+                    padding-right: 10px;
                 }
 
                 .el-input__suffix {

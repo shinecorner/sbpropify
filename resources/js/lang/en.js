@@ -1201,6 +1201,8 @@ export default {
         last_3_months: 'Last 3 months',
         last_6_months: 'Last 6 months',
         last_year: 'Last year',
-        last_2_years: 'Last 2 years'
+        last_2_years: 'Last 2 years',
+        week: 'Week',
+        peek_week: 'Pick a week'
     }
 }
