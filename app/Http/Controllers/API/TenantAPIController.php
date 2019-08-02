@@ -666,7 +666,7 @@ class TenantAPIController extends AppBaseController
      */
     public function downloadCredentials($id, DownloadCredentialsRequest $r)
     {
-        $t = $this->tenantRepository->findWithoutFail($id);
+        $t = $this->tenantRepository->findForCredentials($id);
         if (empty($t)) {
             return $this->sendError('Tenant not found');
         }
@@ -686,7 +686,7 @@ class TenantAPIController extends AppBaseController
      */
     public function sendCredentials($id, SendCredentialsRequest $r, TemplateRepository $tRepo)
     {
-        $t = $this->tenantRepository->findWithoutFail($id);
+        $t = $this->tenantRepository->findForCredentials($id);
         if (empty($t)) {
             return $this->sendError('Tenant not found');
         }
@@ -706,7 +706,6 @@ class TenantAPIController extends AppBaseController
      */
     protected function getPdfName(Tenant $tenant)
     {
-        // @TODO fix lazy loading
         $language  = $tenant->user->settings->language;
         $tenant->setCredentialsPDF($tenant->id, $language);
 
