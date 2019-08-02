@@ -2,7 +2,7 @@
     <div class="piechart">
         <div class="chart-filter in-toolbar">              
             <custom-date-range-picker rangeType="day" :initialRange="dateRange"
-                :pickHandler="pickHandler" :style="{display: showPicker ? 'inline-flex' : 'none'}">
+                :pickHandler="pickHandler" :style="{display: showPicker ? 'inline-flex' : 'none'}" :startDate="startDate">
             </custom-date-range-picker>
             <div class="show-button" v-if="!showPicker" @click="handleShowClick(true)"><i class="el-icon-date"></i></div>
             <div class="hide-button" v-if="showPicker" @click="handleShowClick(false)"><i class="el-icon-circle-close"></i></div>
@@ -33,6 +33,9 @@ export default {
     },
     colNum: {
         type: Number
+    },
+    startDate: {
+        type: String
     }
   },  
   data() {
@@ -41,7 +44,8 @@ export default {
         dateRange: null,
         xData: [],
         yData: [],
-        showPicker: false
+        showPicker: false,
+        
     }
   },
   computed:{

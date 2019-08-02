@@ -27,6 +27,9 @@ export default {
     },
     initialRange: {
       type: Array
+    },
+    startDate: {
+      type: String
     }
   },
   data() {
@@ -131,9 +134,18 @@ export default {
           picker.$emit('pick', [start, end]);
         }
       }
+
+      const allTime = {
+        text: this.$t('date_range.all_time'),
+        onClick(picker) {
+          const end = new Date();
+          const start = new Date(this.startDate);
+          picker.$emit('pick', [start, end]);
+        }
+      }
       if (this.rangeType == 'day') {
         return {
-          shortcuts: [last7Days, lastWeek, last14Days, last30Days, lastMonth]
+          shortcuts: [last7Days, last14Days, last30Days, lastWeek, lastMonth]
         };
       }
       else if (this.rangeType == 'week') {
