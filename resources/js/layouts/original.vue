@@ -31,7 +31,10 @@
                         {{user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
                     
-                    <el-dropdown-menu slot="dropdown" :style="dropmenuwidth">
+                    <el-dropdown-menu slot="dropdown" :style="getBannerStyle">
+                        <el-dropdown-item>
+                            {{dropdownwidth}}
+                        </el-dropdown-item>
                         <el-dropdown-item>
                             <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
                                 <i class="icon-user"/>
@@ -108,7 +111,8 @@
                 ],
 
                 isCallapsed: false,
-                dropdownwidth: 0
+                dropdownwidth: 0,
+                offsetWidth: 0,
             }
         },
 
@@ -222,8 +226,8 @@
                     }]
                 }];
             },
-            dropmenuwidth () {
-                return `width: ${this.dropdownwidth + 9.5}px;`
+            getBannerStyle () {
+                return `width: ${this.offsetWidth + 25}px;`
             }
         },
 
@@ -309,7 +313,6 @@
             getWindowWidth() {
                 this.dropdownwidth = this.$refs.prev.clientWidth;
             }
-
         },
 
         mounted(){
@@ -327,6 +330,7 @@
             });
 
             this.getWindowWidth();
+            this.offsetWidth = document.getElementById('dropdown').offsetWidth
         }
 
 
