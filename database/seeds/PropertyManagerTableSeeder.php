@@ -60,8 +60,10 @@ class PropertyManagerTableSeeder extends Seeder
 
     private function getSettings()
     {
+        $languages = config('app.locales');
+
         $settings = new UserSettings();
-        $settings->language = 'en';
+        $settings->language = array_rand($languages);
         $settings->summary = 'daily';
         $settings->admin_notification = 1;
         $settings->news_notification = 1;

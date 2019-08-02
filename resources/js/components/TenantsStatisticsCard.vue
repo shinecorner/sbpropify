@@ -24,7 +24,7 @@
                         {{ data.card_data.data[n - 1] }}
                     </div>
                     <div class="box-card-progress">
-                        <el-progress type="circle" :percentage="Math.round(data.card_data.data[n - 1] * 100 / data.total_tenants)" :width="70" :color="getUnitsCountColor(data.card_data.labels[n - 1], 'name')" :stroke-width="5"></el-progress>
+                        <el-progress type="circle" :percentage="percentage[n - 1]" :width="70" :color="getUnitsCountColor(data.card_data.labels[n - 1], 'name')" :stroke-width="5"></el-progress>
                     </div>
                 </div>
             </el-card>
@@ -46,6 +46,26 @@
                 type: Object,
                 required: true
             },
+            animationTrigger: {
+                type: String
+            }
+        },
+        data() {
+            return {
+                percentage: []
+            }
+        },
+        watch: {
+            animationTrigger: function(val) {
+                if (val == 'tenants' && this.data.card_data) {
+                    const that = this;
+                    this.percentage = this.data.card_data.data.map(val => 0);
+                    setTimeout(function() {
+                        that.percentage = that.data.card_data.data.map(value => Math.floor(value * 100 / that.data.total_tenants + 0.5));
+                        that.percentage[1] = 100 - that.percentage[0];
+                    }, 200);
+                }
+            } 
         }
     }
 </script>

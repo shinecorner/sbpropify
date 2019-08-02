@@ -11,13 +11,6 @@ $factory->define(App\Models\Tenant::class, function (Faker $faker) {
         $company = $faker->company;
     }
 
-    $languages = [
-        'en',
-        'fr',
-        'de',
-        'it'
-    ];
-
     return [
         'user_id' => 1,
         'title' => $title,
@@ -29,6 +22,5 @@ $factory->define(App\Models\Tenant::class, function (Faker $faker) {
         'private_phone' => $faker->phoneNumber,
         'work_phone' => $faker->phoneNumber,
         'status' => $faker->numberBetween(Tenant::StatusActive, Tenant::StatusNotActive),
-        'language' => $languages[array_rand($languages)]
     ];
 });

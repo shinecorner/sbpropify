@@ -23,50 +23,40 @@
                     </div>
                 </div>
             </div>
-
-
-            <el-menu class="dropdown-menu" menu-trigger="hover" mode="horizontal">
-                <el-submenu index="2"  popper-class="profile-popper">
-                    <template slot="title">
-
-                        <div class="user-params">
-                            <div class="user-params-img" :style="`background-image: url('${user.avatar}')`"></div>
-
-                            <div class="user-params-wrap">
-                                <span class="user-params-name">{{userName}}</span>
-                                <i class="el-submenu__icon-arrow el-icon-arrow-down user-params-wrap-icon"></i>
-                            </div>
-                        </div>
-
-
-                    </template>
-                    <el-menu-item index="2-1" class="el-menu-item-d">
-                        <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
-                            <i class="ti-user"/>
-                            {{$t('menu.profile')}}
-                        </router-link>
-                    </el-menu-item>
-                    <el-menu-item index="2-2" class="el-menu-item-d">
-                        <template v-if="$can($permissions.view.realEstate)">
-                            <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
-                                <i class="ti-settings"/>
-                                {{$t('menu.settings')}}
+            
+            <div class="dropdown-menu">
+                <avatar :src="user.avatar" :name="user.name" :size="33"/>
+                <el-dropdown>
+                    <span class="el-dropdown-link">
+                        {{user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item>
+                            <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
+                                <i class="icon-user"/>
+                                {{$t('menu.profile')}}
                             </router-link>
-                        </template>
-                    </el-menu-item>
-                    <el-menu-item index="2-3">
-                        <el-button @click="handleLogout" type="text">
-                            <div class="logout-button">
-                                <i class="ti-power-off"/>
-                                {{$t('menu.logout')}}
-                            </div>
-                        </el-button>
-                    </el-menu-item>
-                </el-submenu>
-            </el-menu>
-
-
-
+                        </el-dropdown-item>
+                        <el-dropdown-item>
+                            <template v-if="$can($permissions.view.realEstate)">
+                                <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
+                                    <i class="icon-cog"/>
+                                    {{$t('menu.settings')}}
+                                </router-link>
+                            </template>
+                        </el-dropdown-item>
+                        <el-dropdown-item>
+                            <el-button @click="handleLogout" type="text">
+                                <div class="logout-button">
+                                    <i class="icon-logout"/>
+                                    {{$t('menu.logout')}}
+                                </div>
+                            </el-button>
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+            </div>
         </a-header>
         <el-container>
             <a-sidebar :links="links" :collapsed="isCallapsed">
@@ -85,6 +75,7 @@
     import AHeader from 'components/AdminHeader';
     import ASidebar from 'components/AdminSidebar';
     import AFooter from 'components/AdminFooter';
+    import Avatar from 'components/Avatar';
     import VRouterTransition from 'v-router-transition';
     import {mapActions, mapState} from "vuex";
 
@@ -94,6 +85,7 @@
             AHeader,
             ASidebar,
             AFooter,
+            Avatar,
             VRouterTransition
         },
 
@@ -107,8 +99,6 @@
 
                 activeIndex: '1',
                 activeIndex2: '1',
-
-                userName: null,
 
                 languages: [
                     {name: 'Français', symbol: 'fr', flag: 'flag-icon flag-icon-fr'},
@@ -326,17 +316,23 @@
                     }
                 }
             });
-        },
-
-        created() {
-            this.userName = this.user.name;
         }
 
 
     }
 </script>
+<style lang="scss">
+    .el-button--text {
+        color: #909399 !important;
+    }
+    .el-dropdown-menu {
+        width: 139px;
+        margin: 16px 0 !important;    
+    }
+</style>
 
 <style lang="scss" scoped>
+
     .el-container {
         background-color: #F2F4F9;
         height: 100%;
@@ -404,27 +400,21 @@
                 }
             }
         }
-
-        .dropdown{
-            position: absolute;
-            width: 106%;
-            top: 56px;
-            left: 0px;
-
-            &-list{
-                list-style: none;
-                background: #fff;
-                width: 100%;
-                padding: 0 10px 10px 10px;
-                margin: 0;
-                box-shadow: -5px 4px 6px -5px;
-                border-bottom-left-radius: 5px;
-                overflow: hidden;
+        .dropdown-menu {
+            .avatar {
+                margin-right: 3%;
+                border: solid #c2c2c2 2px;
+            }
+            .el-dropdown-link {
+                cursor: pointer;
+                color: #909399;
+                .el-icon-arrow-down {
+                    font-size: 12px;
+                }
             }
         }
 
-
-        .language{
+        .language {
             position: relative;
             width: 35px;
             height: 35px;

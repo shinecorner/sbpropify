@@ -97,20 +97,13 @@ export default {
                 breakpoint: 1650,
                 options: {
                     chart: {
-                        width: 320,
+                        width: '100%',
                         height: 'auto'
                     },
                     legend: {
                         position: 'bottom',
                         horizontalAlign: 'center',
                         width: undefined
-                    }
-                }
-            }, {
-                breakpoint: 1300,
-                options: {
-                    chart: {
-                        width: '100%',
                     }
                 }
             }];
@@ -223,46 +216,63 @@ export default {
 }
 </script>
 <style lang="scss">
-    .piechart {
-        //max-height: 420px;
-        position: relative;
-
-        .apexcharts-canvas {
-            position: unset;
+    .chart-card {
+        @media screen and (max-width: 1200px) {
+            .piechart .apexcharts-canvas {
+                margin-top: 30px;
+            }
         }
 
-        .apexcharts-legend {
-            display: flex;
-            //flex-direction: column;
-            justify-content: center !important;
+        @media screen and (max-width: 1650px) {
+            &.col-3 .piechart .apexcharts-canvas {
+                margin-top: 30px;
+            }
         }
+        .piechart {
+            //max-height: 420px;
+            position: relative;
 
-        .chart-filter {
-            .show-button {
-                cursor: pointer;
-                padding: 5px 0;
-                color: #6E8192;
-                font-size: 17px;
-
-                &:hover {
-                    color: #333;
-                }
+            .apexcharts-canvas {
+                position: unset;
             }
 
-            .hide-button {
-                cursor: pointer;
-                position: absolute;
-                padding: 7px;
-                top: 0;
-                right: 0;
-                color: #C0C4CC;
-
-                &:hover {
-                    color: #333;
-                }
+            .apexcharts-legend {
+                display: flex;
+                //flex-direction: column;
+                justify-content: center !important;
             }
-            .el-input__icon.el-range__close-icon {
-                display: none;
+
+            .chart-filter {
+                .show-button {
+                    cursor: pointer;
+                    padding: 5px 0;
+                    color: #6E8192;
+                    font-size: 17px;
+
+                    &:hover {
+                        color: #333;
+                    }
+                }
+
+                .hide-button {
+                    cursor: pointer;
+                    position: absolute;
+                    padding: 7px;
+                    top: 0;
+                    right: 0;
+                    color: #C0C4CC;
+
+                    &:hover {
+                        color: #333;
+                    }
+                }
+                .el-input__icon.el-range__close-icon {
+                    display: none;
+                }
+
+                .el-range-editor {
+                    padding-right: 15px;
+                }
             }
         }
     }

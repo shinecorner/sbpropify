@@ -7,7 +7,7 @@
                     <el-tab-pane :label="$t('menu.requests')" name="requests">
                         <el-row type="flex">
                             <el-col :span="24">
-                                <dashboard-statistics-card :totalRequest="totalRequest" :data="reqStatusCount" :avgReqDuration="avgReqDuration"></dashboard-statistics-card>
+                                <dashboard-statistics-card :totalRequest="totalRequest" :data="reqStatusCount" :avgReqDuration="avgReqDuration" :animationTrigger="activeName"></dashboard-statistics-card>
                             </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
@@ -19,17 +19,17 @@
                          </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="8">
-                                <el-card class="chart-card" :header="$t('dashboard.requests_by_status')">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.requests_by_status')">
                                     <chart-pie-and-donut type="request_by_status" :colNum="3"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
-                                <el-card class="chart-card" :header="$t('dashboard.requests_by_category')">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.requests_by_category')">
                                     <chart-pie-and-donut type="request_by_category" :colNum="3"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
-                                <el-card class="chart-card" :header="$t('dashboard.requests_by_category')">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.requests_by_category')">
                                     <chart-pie-and-donut type="request_by_category" :colNum="3"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
@@ -39,7 +39,16 @@
                                 <el-card class="chart-card no-filter">
                                     <el-tabs v-model="activeChart" @tab-click="handleHeatmapTabClick">
                                         <el-tab-pane :label="$t('dashboard.week_hour')" name="week">
-                                            <chart-heat-map type="week-hour" :tab="activeChart"></chart-heat-map>
+                                            <div class="chart-filter in-toolbar">              
+                                                <el-date-picker
+                                                    v-model="weekSelected"
+                                                    type="week"
+                                                    :format="$t('date_range.week') + ' WW.yyyy'"
+                                                    value-format="dd.MM.yyyy"
+                                                    :placeholder="$t('date_range.peek_week')">
+                                                </el-date-picker>
+                                            </div>
+                                            <chart-heat-map type="week-hour" :tab="activeChart" :week="weekSelected"></chart-heat-map>
                                         </el-tab-pane>
                                         <el-tab-pane :label="$t('dashboard.month_date')" name="month">
                                             <chart-heat-map type="month-date" :tab="activeChart"></chart-heat-map>
@@ -52,7 +61,7 @@
                     <el-tab-pane :label="$t('menu.buildings')" name="buildings">
                         <el-row type="flex">
                             <el-col :span="24">
-                                <buildings-statistics-card :data="buildingStatistics"></buildings-statistics-card>
+                                <buildings-statistics-card :data="buildingStatistics" :animationTrigger="activeName"></buildings-statistics-card>
                             </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
@@ -103,7 +112,7 @@
                     <el-tab-pane :label="$t('menu.tenants')" name="tenants">
                         <el-row type="flex">
                             <el-col :span="24">
-                                <tenants-statistics-card :data="tenantsStatistics"></tenants-statistics-card>
+                                <tenants-statistics-card :data="tenantsStatistics" :animationTrigger="activeName"></tenants-statistics-card>
                             </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
@@ -210,6 +219,7 @@
                 headingIcon: 'icon-chat-empty',
                 activeName: 'requests',
                 activeChart: 'week',
+                weekSelected: null,
             }
         },
         computed: {
@@ -255,8 +265,7 @@
         },
         created(){
             this.getReqStatastics();
-        },
-
+        }
     }
 </script>
 
@@ -380,6 +389,23 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
+
+                    &.el-range__close-icon {
+                        display: none;
+                    }
+                }
+            }
+
+            .el-date-editor--week {
+                width: 160px;
+
+                input {
+                    text-align: center;
+                    padding-right: 10px;
+                }
+
+                .el-input__suffix {
+                    display: none;
                 }
             }
 

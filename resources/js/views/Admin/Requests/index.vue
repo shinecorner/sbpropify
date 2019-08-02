@@ -1,4 +1,4 @@
-<template>
+<template>  
     <div class="services">
         <heading :title="$t('models.request.title')" icon="icon-chat-empty" shadow="heavy">
             <template v-if="$can($permissions.create.request)">
