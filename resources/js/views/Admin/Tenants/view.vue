@@ -1,6 +1,6 @@
 <template>
     <div class="tenants-view">
-        <heading :title="$t('models.tenant.view_title')" icon="icon-group">
+        <heading :title="$t('models.tenant.view_title')" :subtitle="model.tenant_format" icon="icon-group">
             <el-form label-position="top" label-width="192px" ref="form">
                 <el-form-item>
                     <el-button
