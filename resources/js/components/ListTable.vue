@@ -7,7 +7,7 @@
                       v-model="search"
             >
                 <template slot="suffix" v-if="search.length">
-                    <el-button @click="clearSearch()"
+                    <el-button @click="clearSearch()"   
                                circle
                                icon="ti-close"
                                size="mini"/>
