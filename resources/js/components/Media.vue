@@ -1,6 +1,6 @@
 <template>
     <div :class="['media', {[`media-${layout}-layout`]: true}]">
-        <uploader ref="uploader" v-bind="uploadOptions" :value="value" :input-id="`upload-${$_uid}`" :headers="headers" :custom-action="customAction" @input="value => $emit('input', value)" @input-filter="onUploadFilter" />
+        <uploader ref="uploader" v-bind="uploaderProps" :value="value" :input-id="`upload-${$_uid}`" :headers="headers" :custom-action="customAction" @input="value => $emit('input', value)" @input-filter="onUploadFilter" />
         <draggable class="media-list" tag="transition-group" :componentData="{type: 'transition', name: 'flip-list', mode: 'out-in'}" ghost-class="is-ghost" :list="value" :handle="draggableHandler" :animation="240" :disabled="isDraggableDisabled" :move="onDraggableMove">
             <div :class="['media-item', {'is-draggable': uploadOptions.draggable && value.length && !$refs.uploader.uploaded}, $refs.uploader.active && {'is-active': +file.progress && !file.success, 'is-pending': !+file.progress}, {'is-success': file.success, 'is-failed': file.error}]" v-for="(file, idx) in value" :key="file.id" :style="{'transition-delay': `calc(0.16 * ${idx}s)`}">
                 <div class="media-content">
@@ -14,9 +14,9 @@
                     <div class="media-icon icon-doc" @click="previewFile(file, idx)" v-else></div>
                     <div class="media-filename" v-if="isListLayout || !isFileImage(file)">
                         {{file.name}}
-                        <small class="media-filesize">
+                        <div class="media-filesize">
                             {{file.size | formatBytes}}
-                        </small>
+                        </div>
                     </div>
                     <transition-group class="media-progress" tag="div" name="fade" v-if="canShowProgress(file)">
                         <el-progress :width="80" :type="progressType" key="progress" :stroke-width="3" :percentage="+file.progress" :status="getProgressStatus(file)" />
@@ -32,26 +32,38 @@
             </div>
             <el-button-group slot="footer" key="footer" v-if="isListLayout">
                 <el-button class="media-trigger" icon="icon-plus" @click="selectFiles()">
-                    Drop files or click to select...
+                    <template v-if="uploadOptions.drop">
+                        {{$t('components.common.media.buttons.selectFiles.withDrop')}}
+                    </template>
+                    <template v-else>
+                        {{$t('components.common.media.buttons.selectFiles.withoutDrop')}}
+                    </template>
                 </el-button>
                 <el-button type="primary" icon="icon-upload-cloud" @click="startUploading()" v-if="canShowUploadButton">
-                    Upload
+                    {{$t('components.common.media.buttons.upload')}}
                 </el-button>
             </el-button-group>
             <template slot="footer" v-else-if="isGridLayout">
                 <el-button key="media-trigger" class="media-upload-trigger" @click="selectFiles()">
                     <div class="icon-plus"></div>
-                    Drop files or click to select...
+                    <template v-if="uploadOptions.drop">
+                        {{$t('components.common.media.buttons.selectFiles.withDrop')}}
+                    </template>
+                    <template v-else>
+                        {{$t('components.common.media.buttons.selectFiles.withoutDrop')}}
+                    </template>
                 </el-button>
                 <el-button key="media-upload" type="primary" icon="icon-upload-cloud" @click="startUploading()" v-if="canShowUploadButton">
-                    Upload
+                    {{$t('components.common.media.buttons.upload')}}
                 </el-button>
             </template>
         </draggable>
         <div v-if="$refs.uploader && $refs.uploader.dropActive" class="media-drop-active">
             <i class="icon-upload-cloud"></i>
-            Drop your files here
-            <small>Only the files with the following <b></b> extensions are allowed.</small>
+            {{$t('components.common.media.dropActive.title')}}
+            <div class="description">
+                {{$t('components.common.media.dropActive.description')}}
+            </div>
         </div>
     </div>
 </template>
@@ -86,6 +98,7 @@
             uploadOptions: {
                 type: Object,
                 default: () => ({
+                    drop: true,
                     auto: false,
                     clear: false,
                     draggable: true,
@@ -101,7 +114,7 @@
         filters: {
             formatBytes (bytes) {
                 const i = Math.floor(Math.log(bytes) / Math.log(1024))
-                const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
 
                 return (bytes / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + sizes[i]
             }
@@ -124,7 +137,7 @@
                 } else if (this.canFileBePreviewed(file)) {
                     window.open(file.file.blob)
                 } else {
-                    this.$message.warning('This file cannot be previewed.', {
+                    this.$message.warning(this.$t('components.common.media.messages.preview'), {
                         duration: 2400
                     })
                 }
@@ -134,6 +147,21 @@
             },
             onUploadFilter (newFile, oldFile, prevent) {
                 if (newFile) {
+                    if (this.uploadOptions.size) {
+                        if (this.uploadOptions.size < newFile.size) {
+                            this.$message({
+                                type: 'warning',
+                                message: this.$t('components.common.media.messages.size', {
+                                    bytes: this.$options.filters.formatBytes(this.uploadOptions.size)
+                                }),
+                                duration: 8000,
+                                showClose: true
+                            })
+
+                            return prevent()
+                        }
+                    }
+                    
                     if (this.uploadOptions.extensions) {
                         const fileExtension = newFile.type.substring(newFile.type.lastIndexOf('/') + 1)
 
@@ -144,7 +172,7 @@
                                 if (!this.uploadOptions.extensions.split(',').includes(fileExtension)) {
                                     this.$message({
                                         type: 'warning',
-                                        message: 'Oops! Some files have had an extension that was not allowed. Skipping...',
+                                        message: this.$t('components.common.media.messages.extensions'),
                                         duration: 8000,
                                         showClose: true
                                     })
@@ -157,7 +185,7 @@
                                 if (!this.uploadOptions.extensions.includes(fileExtension)) {
                                     this.$message({
                                         type: 'warning',
-                                        message: 'Oops! Some files have had an extension that was not allowed. Skipping...',
+                                        message: this.$t('components.common.media.messages.extensions'),
                                         duration: 8000,
                                         showClose: true
                                     })
@@ -170,7 +198,7 @@
                                 if (!this.uploadOptions.extensions.test(fileExtension)) {
                                     this.$message({
                                         type: 'warning',
-                                        message: 'Oops! Some files have had an extension that was not allowed. Skipping...',
+                                        message: this.$t('components.common.media.messages.extensions'),
                                         duration: 8000,
                                         showClose: true
                                     })
@@ -218,7 +246,7 @@
                 return this.isListLayout && active && +progress
             },
             canShowListDraggableHandler ({active, success, error}) {
-                return this.isListLayout && this.uploadOptions.draggable && !active && !success && !error
+                return this.isListLayout && this.uploadOptions.draggable
             },
             onDraggableMove ({draggedContext}, originalEvent) {
                 if (!draggedContext.element) {
@@ -233,6 +261,11 @@
                     'Content-Type': 'application/json;charset=UTF-8',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
+            },
+            uploaderProps () {
+                const {auto, clear, draggable, hideButton, ...restProps} = this.uploadOptions
+
+                return restProps
             },
             galleryImages () {
                 return this.value.filter(file => this.isFileImage(file)).map(({file}) => file.blob)
@@ -265,7 +298,7 @@
 
                             this.$message({
                                 type: 'info',
-                                message: 'Uploading...',
+                                message: this.$t('components.common.media.messages.uploading'),
                                 duration: 8000,
                                 showClose: true
                             })
@@ -277,7 +310,7 @@
 
                                 this.$message({
                                     type: 'success',
-                                    message: 'Media files have been succesfully uploaded.',
+                                    message: this.$t('components.common.media.messages.uploaded'),
                                     duration: 8000,
                                     showClose: true
                                 })
@@ -376,7 +409,7 @@
 
                         .media-progress {
                             width: 100%;
-                            margin-left: 58px;
+                            margin-left: 62px;
 
                             .media-progress-speed {
                                 font-size: 12px;
@@ -642,8 +675,8 @@
                 margin: 4px;
             }
 
-            small {
-                font-size: 56%;
+            .description {
+                font-size: 12px;
                 color: darken(#DCDFE6, 48%);
             }
         }
