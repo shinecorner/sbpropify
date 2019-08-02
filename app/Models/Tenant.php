@@ -299,6 +299,12 @@ class Tenant extends Model implements HasMedia
             ->where('service_requests.status', ServiceRequest::StatusArchived);
     }
 
+    public function getActivationCodeAttribute()
+    {
+        $hashids = new Hashids('', 25);
+        return $hashids->encode($this->id);
+    }
+
     public function setCredentialsPDF($tenant_id)
     {
         $hashids = new Hashids('', 25);
@@ -309,14 +315,16 @@ class Tenant extends Model implements HasMedia
             'url' => url('/activate'),
             'code' => $hashids->encode($tenant_id)
         ]);
-        Storage::disk('tenant_credentials')->put($this->pdfXFileName(), $pdf->output());
+        $language = $this->user->settings->language;
+
+        Storage::disk('tenant_credentials')->put($this->pdfXFileName($language), $pdf->output());
         $pdf = PDF::loadView('pdfs.tenantCredentials', [
             'tenant' => $this,
             're' => $re,
             'url' => url('/activate'),
             'code' => $hashids->encode($tenant_id)
         ]);
-        Storage::disk('tenant_credentials')->put($this->pdfFilename(), $pdf->output());
+        Storage::disk('tenant_credentials')->put($this->pdfFilename($language), $pdf->output());
     }
 
     public function pdfXFileName(string $language = "")
