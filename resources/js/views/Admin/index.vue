@@ -389,14 +389,23 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
+
+                    &.el-range__close-icon {
+                        display: none;
+                    }
                 }
             }
 
             .el-date-editor--week {
-                width: 170px;
+                width: 160px;
 
                 input {
                     text-align: center;
+                    padding-right: 5px;
+                }
+
+                .el-input__suffix {
+                    display: none;
                 }
             }
 
