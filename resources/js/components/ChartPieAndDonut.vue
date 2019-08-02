@@ -216,6 +216,19 @@ export default {
 }
 </script>
 <style lang="scss">
+    .chart-card {
+        @media screen and (max-width: 1200px) {
+            .piechart .apexcharts-canvas {
+                margin-top: 30px;
+            }
+        }
+
+        @media screen and (max-width: 1650px) {
+            &.col-3 .piechart .apexcharts-canvas {
+                margin-top: 30px;
+            }
+        }
+    }
     .piechart {
         //max-height: 420px;
         position: relative;

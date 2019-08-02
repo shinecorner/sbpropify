@@ -19,17 +19,17 @@
                          </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="8">
-                                <el-card class="chart-card" :header="$t('dashboard.requests_by_status')">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.requests_by_status')">
                                     <chart-pie-and-donut type="request_by_status" :colNum="3"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
-                                <el-card class="chart-card" :header="$t('dashboard.requests_by_category')">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.requests_by_category')">
                                     <chart-pie-and-donut type="request_by_category" :colNum="3"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
-                                <el-card class="chart-card" :header="$t('dashboard.requests_by_category')">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.requests_by_category')">
                                     <chart-pie-and-donut type="request_by_category" :colNum="3"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
