@@ -332,7 +332,7 @@
 
     }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .el-button--text {
         color: #909399 !important;
     }
