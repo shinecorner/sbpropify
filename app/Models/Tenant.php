@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HashId;
 use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -114,7 +115,7 @@ use Hashids\Hashids;
  */
 class Tenant extends Model implements HasMedia
 {
-    use HasMediaTrait, UniqueIDFormat;
+    use HasMediaTrait, UniqueIDFormat, HashId;
 
     const Title = [
         'mr',
@@ -201,6 +202,7 @@ class Tenant extends Model implements HasMedia
 
         static::created(function ($tenant) {
             $tenant->tenant_format = $tenant->getUniqueIDFormat($tenant->id);
+            $tenant->activation_code = $this->shortHashId($tenant->id);
             $tenant->save();
         });
 
@@ -297,17 +299,6 @@ class Tenant extends Model implements HasMedia
     {
         return $this->hasMany(ServiceRequest::class, 'tenant_id', 'id')
             ->where('service_requests.status', ServiceRequest::StatusArchived);
-    }
-
-    public function getActivationCodeAttribute()
-    {
-        return $this->hashId($this->id);
-    }
-
-    protected function hashId($id)
-    {
-        $hashids = new Hashids('', 25);
-        return $hashids->encode($id);
     }
 
     /**
