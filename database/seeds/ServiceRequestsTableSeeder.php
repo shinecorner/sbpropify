@@ -57,7 +57,7 @@ class ServiceRequestsTableSeeder extends Seeder
 
     private function addRequestComments(ServiceRequest $serviceRequest)
     {
-        $totalComments = $this->faker->numberBetween(2, 20);
+        $totalComments = $this->faker->numberBetween(1, 2);
         $users = [
             $serviceRequest->tenant->user,
         ];
