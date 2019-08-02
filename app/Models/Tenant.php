@@ -301,29 +301,30 @@ class Tenant extends Model implements HasMedia
 
     public function getActivationCodeAttribute()
     {
+        return $this->hashId($this->id);
+    }
+
+    protected function hashId($id)
+    {
         $hashids = new Hashids('', 25);
-        return $hashids->encode($this->id);
+        return $hashids->encode($id);
     }
 
     public function setCredentialsPDF($tenant_id)
     {
-        $hashids = new Hashids('', 25);
         $re = RealEstate::firstOrFail();
-        $pdf = PDF::loadView('pdfs.tenantCredentialsXtended', [
+        $data = [
             'tenant' => $this,
             're' => $re,
             'url' => url('/activate'),
-            'code' => $hashids->encode($tenant_id)
-        ]);
+            'code' => $this->hashId($tenant_id)
+        ];
+
+        $pdf = PDF::loadView('pdfs.tenantCredentialsXtended', $data);
         $language = $this->user->settings->language;
 
         Storage::disk('tenant_credentials')->put($this->pdfXFileName($language), $pdf->output());
-        $pdf = PDF::loadView('pdfs.tenantCredentials', [
-            'tenant' => $this,
-            're' => $re,
-            'url' => url('/activate'),
-            'code' => $hashids->encode($tenant_id)
-        ]);
+        $pdf = PDF::loadView('pdfs.tenantCredentials', $data);
         Storage::disk('tenant_credentials')->put($this->pdfFilename($language), $pdf->output());
     }
 
