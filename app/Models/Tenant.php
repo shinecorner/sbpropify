@@ -299,24 +299,36 @@ class Tenant extends Model implements HasMedia
             ->where('service_requests.status', ServiceRequest::StatusArchived);
     }
 
-    public function setCredentialsPDF($tenant_id)
+    public function getActivationCodeAttribute()
+    {
+        return $this->hashId($this->id);
+    }
+
+    protected function hashId($id)
     {
         $hashids = new Hashids('', 25);
+        return $hashids->encode($id);
+    }
+
+    /**
+     * @param $tenant_id
+     * @param $language
+     */
+    public function setCredentialsPDF($tenant_id, $language)
+    {
         $re = RealEstate::firstOrFail();
-        $pdf = PDF::loadView('pdfs.tenantCredentialsXtended', [
+        $data = [
             'tenant' => $this,
             're' => $re,
             'url' => url('/activate'),
-            'code' => $hashids->encode($tenant_id)
-        ]);
-        Storage::disk('tenant_credentials')->put($this->pdfXFileName(), $pdf->output());
-        $pdf = PDF::loadView('pdfs.tenantCredentials', [
-            'tenant' => $this,
-            're' => $re,
-            'url' => url('/activate'),
-            'code' => $hashids->encode($tenant_id)
-        ]);
-        Storage::disk('tenant_credentials')->put($this->pdfFilename(), $pdf->output());
+            'code' => $this->hashId($tenant_id)
+        ];
+
+        $pdf = PDF::loadView('pdfs.tenantCredentialsXtended', $data);
+
+        Storage::disk('tenant_credentials')->put($this->pdfXFileName($language), $pdf->output());
+        $pdf = PDF::loadView('pdfs.tenantCredentials', $data);
+        Storage::disk('tenant_credentials')->put($this->pdfFilename($language), $pdf->output());
     }
 
     public function pdfXFileName(string $language = "")

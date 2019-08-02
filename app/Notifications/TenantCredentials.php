@@ -53,10 +53,13 @@ class TenantCredentials extends Notification implements ShouldQueue
         $tRepo = new TemplateRepository(app());
         $data = $tRepo->getTenantCredentialsParsedTemplate($this->tenant);
         $data['userName'] = $notifiable->name;
+        $data['activationCode'] = $this->tenant->activation_code;
+        $data['activationUrl'] = url(sprintf('/activate?&code=%s', $this->tenant->activation_code));
 
-        $pdfName = $this->tenant->pdfXFileName();
+        $language = $this->tenant->user->settings->language;
+        $pdfName = $this->tenant->pdfXFileName($language);
         if ($data['company'] && $data['company']->blank_pdf) {
-            $pdfName = $this->tenant->pdfFileName();
+            $pdfName = $this->tenant->pdfFileName($language);
         }
         $disk = \Storage::disk('tenant_credentials');
 

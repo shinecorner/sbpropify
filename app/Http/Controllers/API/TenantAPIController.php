@@ -666,16 +666,11 @@ class TenantAPIController extends AppBaseController
      */
     public function downloadCredentials($id, DownloadCredentialsRequest $r)
     {
-        $t = $this->tenantRepository->findWithoutFail($id);
+        $t = $this->tenantRepository->findForCredentials($id);
         if (empty($t)) {
             return $this->sendError('Tenant not found');
         }
-        $t->setCredentialsPDF($t->id);
-        $re = RealEstate::firstOrFail();
-        $pdfName = $t->pdfXFileName();
-        if ($re && $re->blank_pdf) {
-            $pdfName = $t->pdfFileName();
-        }
+        $pdfName = $this->getPdfName($t);
 
         if (!\Storage::disk('tenant_credentials')->exists($pdfName)) {
             return $this->sendError($this->credentialsFileNotFound);
@@ -691,16 +686,11 @@ class TenantAPIController extends AppBaseController
      */
     public function sendCredentials($id, SendCredentialsRequest $r, TemplateRepository $tRepo)
     {
-        $t = $this->tenantRepository->findWithoutFail($id);
+        $t = $this->tenantRepository->findForCredentials($id);
         if (empty($t)) {
             return $this->sendError('Tenant not found');
         }
-        $t->setCredentialsPDF($t->id);
-        $re = RealEstate::firstOrFail();
-        $pdfName = $t->pdfXFileName($t->user->settings->language);
-        if ($re && $re->blank_pdf) {
-            $pdfName = $t->pdfFileName($t->user->settings->language);
-        }
+        $pdfName = $this->getPdfName($t);
         if (!\Storage::disk('tenant_credentials')->exists($pdfName)) {
             return $this->sendError($this->credentialsFileNotFound);
         }
@@ -708,6 +698,25 @@ class TenantAPIController extends AppBaseController
         $t->user->notify(new TenantCredentials($t));
 
         return $this->sendResponse($id, 'Tenant credentials sent successfully');
+    }
+
+    /**
+     * @param $tenant
+     * @return mixed
+     */
+    protected function getPdfName(Tenant $tenant)
+    {
+        $language  = $tenant->user->settings->language;
+        $tenant->setCredentialsPDF($tenant->id, $language);
+
+        $re = RealEstate::firstOrFail();
+
+        $pdfName = $tenant->pdfXFileName($language);
+        if ($re && $re->blank_pdf) {
+            $pdfName = $tenant->pdfFileName($language);
+        }
+
+        return $pdfName ;
     }
 
     /**

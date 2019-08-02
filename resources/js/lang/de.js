@@ -63,6 +63,8 @@ export default {
     incorrect_password: "Altes Passwort stimmt nicht",
     password_changed: "Passwort erfolgreich geändert",
     details_saved: 'Angaben gespeichert',
+    please_wait: 'Bitte warten...',
+    no_data_available: 'Keine Daten verfügbar',
     password_validation: {
         required: "Passwort ist obligatorisch",
         confirm: 'Passwort bestätigen',
