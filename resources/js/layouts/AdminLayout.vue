@@ -306,7 +306,7 @@
                 localStorage.setItem('selectedFlag', this.selectedFlag);
             },
 
-            getWindowWidth() {
+            getDropdownWidth() {
                 this.dropdownwidth = this.$refs.prev.clientWidth;
             }
 
@@ -326,7 +326,7 @@
                 }
             });
 
-            this.getWindowWidth();
+            this.getDropdownWidth();
         }
 
 
