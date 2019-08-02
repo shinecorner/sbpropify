@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
+use App\Criteria\Products\FilterByTenantCriteria;
 use App\Criteria\Products\FilterByTypeCriteria;
 use App\Criteria\Products\FilterByUserCriteria;
 use App\Criteria\Products\FilterByStatusCriteria;
@@ -101,6 +102,7 @@ class ProductAPIController extends AppBaseController
     {
         $this->productRepository->pushCriteria(new RequestCriteria($request));
         $this->productRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $this->productRepository->pushCriteria(new FilterByTenantCriteria($request));
         $this->productRepository->pushCriteria(new FilterByUserCriteria($request));
         $this->productRepository->pushCriteria(new FilterByTypeCriteria($request));
         $this->productRepository->pushCriteria(new FilterByStatusCriteria($request));
