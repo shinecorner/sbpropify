@@ -74,7 +74,7 @@ class TenantsTableSeeder extends Seeder
 
             $data = array_merge($data, $this->getDateColumns($date));
             $tenant = factory(App\Models\Tenant::class)->create($data);
-            $tenant->setCredentialsPDF($user->email);
+            $tenant->setCredentialsPDF();
         }
     }
 

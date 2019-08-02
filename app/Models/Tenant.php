@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HashId;
 use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -114,7 +115,7 @@ use Hashids\Hashids;
  */
 class Tenant extends Model implements HasMedia
 {
-    use HasMediaTrait, UniqueIDFormat;
+    use HasMediaTrait, UniqueIDFormat, HashId;
 
     const Title = [
         'mr',
@@ -201,6 +202,7 @@ class Tenant extends Model implements HasMedia
 
         static::created(function ($tenant) {
             $tenant->tenant_format = $tenant->getUniqueIDFormat($tenant->id);
+            $tenant->activation_code = $this->shortHashId($tenant->id);
             $tenant->save();
         });
 
@@ -299,51 +301,36 @@ class Tenant extends Model implements HasMedia
             ->where('service_requests.status', ServiceRequest::StatusArchived);
     }
 
-    public function getActivationCodeAttribute()
-    {
-        return $this->hashId($this->id);
-    }
-
-    protected function hashId($id)
-    {
-        $hashids = new Hashids('', 25);
-        return $hashids->encode($id);
-    }
-
     /**
      * @param $tenant_id
      * @param $language
      */
-    public function setCredentialsPDF($tenant_id, $language)
+    public function setCredentialsPDF()
     {
         $re = RealEstate::firstOrFail();
         $data = [
             'tenant' => $this,
             're' => $re,
             'url' => url('/activate'),
-            'code' => $this->hashId($tenant_id)
+            'code' => $this->activation_code
         ];
 
         $pdf = PDF::loadView('pdfs.tenantCredentialsXtended', $data);
 
-        Storage::disk('tenant_credentials')->put($this->pdfXFileName($language), $pdf->output());
+        Storage::disk('tenant_credentials')->put($this->pdfXFileName(), $pdf->output());
         $pdf = PDF::loadView('pdfs.tenantCredentials', $data);
-        Storage::disk('tenant_credentials')->put($this->pdfFilename($language), $pdf->output());
+        Storage::disk('tenant_credentials')->put($this->pdfFilename(), $pdf->output());
     }
 
-    public function pdfXFileName(string $language = "")
+    public function pdfXFileName()
     {
-        if (!$language) {
-            $language = \App::getLocale();
-        }
+        $language  = $this->user->settings->language;
         return $this->id . '-' . $language . '-X.pdf';
     }
 
-    public function pdfFileName(string $language = "")
+    public function pdfFileName()
     {
-        if (!$language) {
-            $language = \App::getLocale();
-        }
+        $language  = $this->user->settings->language;
         return $this->id . '-' . $language . '.pdf';
     }
 

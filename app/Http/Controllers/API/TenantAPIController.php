@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
+use App\Criteria\Common\WhereCriteria;
 use App\Criteria\Tenants\FilterByBuildingCriteria;
 use App\Criteria\Tenants\FilterByDistrictCriteria;
 use App\Criteria\Tenants\FilterByRequestCriteria;
@@ -266,7 +267,7 @@ class TenantAPIController extends AppBaseController
 
         $tenant->load('user', 'building', 'unit', 'address');
         $pr->newTenantPost($tenant);
-        //$tenant->setCredentialsPDF($userPass);
+        //$tenant->setCredentialsPDF();
 
         $response = (new TenantTransformer)->transform($tenant);
         return $this->sendResponse($response, 'Tenant saved successfully');
@@ -452,7 +453,7 @@ class TenantAPIController extends AppBaseController
             $pr->newTenantPost($tenant);
         }
         //if ($userPass) {
-            //$tenant->setCredentialsPDF($userPass);
+            //$tenant->setCredentialsPDF();
         //}
         $response = (new TenantTransformer)->transform($tenant);
         return $this->sendResponse($response, 'Tenant updated successfully');
@@ -706,14 +707,13 @@ class TenantAPIController extends AppBaseController
      */
     protected function getPdfName(Tenant $tenant)
     {
-        $language  = $tenant->user->settings->language;
-        $tenant->setCredentialsPDF($tenant->id, $language);
+        $tenant->setCredentialsPDF();
 
         $re = RealEstate::firstOrFail();
 
-        $pdfName = $tenant->pdfXFileName($language);
+        $pdfName = $tenant->pdfXFileName();
         if ($re && $re->blank_pdf) {
-            $pdfName = $tenant->pdfFileName($language);
+            $pdfName = $tenant->pdfFileName();
         }
 
         return $pdfName ;
@@ -722,19 +722,22 @@ class TenantAPIController extends AppBaseController
     /**
      * @param Request $request
      * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function resetPassword(Request $request){
-        $hashids = new Hashids('', 25);
-        $tenant_id[0] = $hashids->decode($request->token);
-        $tenant = $this->tenantRepository->findWithoutFail($tenant_id[0])->first();
+
+        $this->tenantRepository->pushCriteria(new WhereCriteria('activation_code', $request->token));
+        $tenant = $this->tenantRepository->with('user:id,email')->first();
+
         if (empty($tenant)) {
             return $this->sendError('Tenant not found');
         }
+
         $user = $tenant->user;
         if($user->email == $request->email) {
             $user->password = bcrypt($request->password);
             $user->save();
-            return $this->sendResponse($tenant_id[0], 'Tenant password reset successfully');
+            return $this->sendResponse($tenant->id, 'Tenant password reset successfully');
         } else {
             return $this->sendError('Incorrect email address');
         }
@@ -743,30 +746,25 @@ class TenantAPIController extends AppBaseController
     /**
      * @param Request $request
      * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function activateTenant(Request $request){
-
-        if (empty($request->activation_token) || empty($request->email) || empty($request->password)) {
-            return $this->sendError('activation_token, email, password required');
+    public function activateTenant(Request $request)
+    {
+        // @TODO fix query hard coding
+        if (empty($request->code) || empty($request->email) || empty($request->password)) {
+            return $this->sendError('code, email, password required');
+        }
+        $this->tenantRepository->pushCriteria(new WhereCriteria('activation_code', $request->code));
+        $tenant = $this->tenantRepository->with('user:id,email')->first();
+        if (empty($tenant )) {
+            return $this->sendError('Code is invalid');
         }
 
-        $hashids = new Hashids('', 25);
-        $decoded = $hashids->decode($request->activation_token);
-        if (empty($decoded[0])) {
-            return $this->sendError('Token is invalid');
-        }
-
-        $tenantId = $decoded[0];
-
-        $tenant = $this->tenantRepository->findWithoutFail($tenantId)->first();
-        if (empty($tenant)) {
-            return $this->sendError('Tenant not found');
-        }
         $user = $tenant->user;
         if($user->email == $request->email) {
             $user->password = bcrypt($request->password);
             $user->save();
-            return $this->sendResponse($tenantId, 'Tenant password reset successfully');
+            return $this->sendResponse($tenant->id, 'Tenant password reset successfully');
         } else {
             return $this->sendError('Incorrect email address');
         }
