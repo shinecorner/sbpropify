@@ -23,7 +23,7 @@ $factory->define(App\Models\ServiceProvider::class, function (Faker $faker, arra
         'category' => $category,
         'name' => $faker->name,
         'email' => $faker->email,       
-        'phone' => $faker->phoneNumber,       
+        'phone' => $faker->phoneNumber,
     ];
 });
  

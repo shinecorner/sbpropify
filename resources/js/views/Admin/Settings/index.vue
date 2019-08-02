@@ -242,7 +242,10 @@
                         console.log(valid);
                         this.updateRealEstate(this.model).then((resp) => {
                             this.fetchRealEstate();
-                            displaySuccess(resp);
+                            displaySuccess({
+                                success: true,
+                                message: 'models.user.realEstateSaved'
+                            });
                         }).catch((error) => {
                             displayError(error);
                         });

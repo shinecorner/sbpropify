@@ -1,13 +1,13 @@
 <template>
     <div class="columnchart">
-        <div class="chart-filter">
+        <div class="chart-filter in-toolbar">
           <el-radio-group v-model="period" class="stack-radios">                
               <el-radio-button label="day">{{$t('timestamps.days')}}</el-radio-button>
-              <el-radio-button label="month">{{$t('timestamps.months')}}</el-radio-button>
               <el-radio-button label="week">{{$t('timestamps.weeks')}}</el-radio-button>
+              <el-radio-button label="month">{{$t('timestamps.months')}}</el-radio-button>
               <el-radio-button label="year">{{$t('timestamps.years')}}</el-radio-button>
           </el-radio-group>
-          <custom-date-range-picker
+          <custom-date-range-picker :rangeType="period" :initialRange="dateRange"
             :pickHandler="pickHandler">
           </custom-date-range-picker>
         </div>    
@@ -134,6 +134,9 @@ export default {
 </script>
 
 <style scoped>
+  .columnchart {
+    position: relative;
+  }
   .stack-radios {
     margin-right: 5px;
   }

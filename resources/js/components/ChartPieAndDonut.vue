@@ -1,9 +1,11 @@
 <template>
     <div class="piechart">
-        <div class="chart-filter">              
-            <custom-date-range-picker
-                :pickHandler="pickHandler">
+        <div class="chart-filter in-toolbar">              
+            <custom-date-range-picker rangeType="day" :initialRange="dateRange"
+                :pickHandler="pickHandler" :style="{display: showPicker ? 'inline-flex' : 'none'}">
             </custom-date-range-picker>
+            <div class="show-button" v-if="!showPicker" @click="handleShowClick(true)"><i class="el-icon-date"></i></div>
+            <div class="hide-button" v-if="showPicker" @click="handleShowClick(false)"><i class="el-icon-circle-close"></i></div>
         </div>
         <el-row type="flex">
             <el-col :span="24">
@@ -25,17 +27,21 @@ export default {
     CustomDateRangePicker
   },
   props: {            
-            type: {
-                type: String,
-                required: true
-            }
-    },  
+    type: {
+        type: String,
+        required: true
+    },
+    colNum: {
+        type: Number
+    }
+  },  
   data() {
     return {        
         chartType: 'pie',
-        dateRange: [format(subDays(new Date(), 28), 'DD.MM.YYYY'), format(new Date(), 'DD.MM.YYYY')],
+        dateRange: null,
         xData: [],
         yData: [],
+        showPicker: false
     }
   },
   computed:{
@@ -43,9 +49,9 @@ export default {
         return this.yData;
     },
     chartOptions: function(){
-        return {
-            labels: this.xData,
-            responsive: [{
+        let responsive = [];
+        if (this.colNum == 2) {
+            responsive = [{
                 breakpoint: 1300,
                 options: {
                     chart: {
@@ -74,7 +80,37 @@ export default {
                         show: false
                     }
                 }
-            }],
+            }];
+        }
+        else {
+            responsive = [{
+                breakpoint: 1800,
+                options: {
+                    chart: {
+                        width: 490,
+                    },
+                    legend: {
+                        width: 170,
+                    }
+                }
+            }, {
+                breakpoint: 1650,
+                options: {
+                    chart: {
+                        width: '100%',
+                        height: 'auto'
+                    },
+                    legend: {
+                        position: 'bottom',
+                        horizontalAlign: 'center',
+                        width: undefined
+                    }
+                }
+            }];
+        }
+        return {
+            labels: this.xData,
+            responsive: responsive,
             legend: {
                 show: true,
                 width: 220
@@ -86,6 +122,9 @@ export default {
                 autoSelected: '',
                 width: 540,
                 height: 320
+            },
+            tooltip: {
+                followCursor: false
             }
         }
     }
@@ -161,6 +200,9 @@ export default {
         pickHandler(val) {
             this.dateRange = val;
             this.fetchData();
+        },
+        handleShowClick(val) {
+            this.showPicker = val;
         }
     },
     created(){        
@@ -174,29 +216,63 @@ export default {
 }
 </script>
 <style lang="scss">
-    .piechart {
-        max-height: 420px;
-        position: relative;
-
-        .apexcharts-canvas {
-            position: unset;
+    .chart-card {
+        @media screen and (max-width: 1200px) {
+            .piechart .apexcharts-canvas {
+                margin-top: 30px;
+            }
         }
 
-        .apexcharts-legend {
-            display: flex;
-            flex-direction: column;
-            justify-content: center !important;
+        @media screen and (max-width: 1650px) {
+            &.col-3 .piechart .apexcharts-canvas {
+                margin-top: 30px;
+            }
         }
+        .piechart {
+            //max-height: 420px;
+            position: relative;
 
-        @media screen and (min-width: 1800px) {
+            .apexcharts-canvas {
+                position: unset;
+            }
+
+            .apexcharts-legend {
+                display: flex;
+                //flex-direction: column;
+                justify-content: center !important;
+            }
+
             .chart-filter {
-                position: absolute;
-                top: -42px;
-                right: 50px;
+                .show-button {
+                    cursor: pointer;
+                    padding: 5px 0;
+                    color: #6E8192;
+                    font-size: 17px;
 
-                background-color: transparent;
-                border-bottom: none;
-                padding: 0;
+                    &:hover {
+                        color: #333;
+                    }
+                }
+
+                .hide-button {
+                    cursor: pointer;
+                    position: absolute;
+                    padding: 7px;
+                    top: 0;
+                    right: 0;
+                    color: #C0C4CC;
+
+                    &:hover {
+                        color: #333;
+                    }
+                }
+                .el-input__icon.el-range__close-icon {
+                    display: none;
+                }
+
+                .el-range-editor {
+                    padding-right: 15px;
+                }
             }
         }
     }

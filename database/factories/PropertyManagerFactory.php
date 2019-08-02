@@ -6,7 +6,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\PropertyManager::class, function (Faker $faker, array $attr) {
     $title = Tenant::Title[$faker->numberBetween(0, count(Tenant::Title) - 1)];
-    $user_id = isset($attr['user_id']) ? $attr['user_id'] : User::whithRole('manager')->inRandomOrder->first();
+    $user_id = isset($attr['user_id']) ? $attr['user_id'] : User::withRole('manager')->inRandomOrder()->first();
 
     return [
         'user_id' => $user_id,

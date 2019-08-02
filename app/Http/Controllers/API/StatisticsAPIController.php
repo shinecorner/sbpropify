@@ -10,6 +10,7 @@ use App\Models\ServiceRequestCategory;
 use App\Models\Tenant;
 use App\Models\Product;
 use App\Models\Post;
+use App\Models\UserSettings;
 use App\Repositories\BuildingRepository;
 use App\Repositories\ServiceRequestRepository;
 use App\Repositories\TenantRepository;
@@ -47,6 +48,92 @@ class StatisticsAPIController extends AppBaseController
         self::YEAR,
     ];
 
+    /**
+     *
+     *      @SWG\Parameter(
+     *          name="start_date",
+     *          in="query",
+     *          description="format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. It is corrected by period value | default value is one month ago of end_date",
+     *          type="string",
+     *          format="full-date"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="end_date",
+     *          in="query",
+     *          description="format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. It is corrected by period value | default value today",
+     *          type="string",
+     *          format="full-date"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="period",
+     *          in="query",
+     *          description="get statistic by period related start_date, end_date",
+     *          type="string",
+     *          default="day",
+     *          enum={"day", "week", "month", "year"}
+     *      ),
+     *
+     *      @SWG\Definition(
+     *          definition="StatisticByCreationDate",
+     *              @SWG\Property(
+     *                  property="requests_per_day_xdata",
+     *                  type="array",
+     *                  items={"type"="string", "format"="full-date"},
+     *                  example={"01.07.2019", "02.07.2019", ".......", "01.08.2019"}
+     *              ),
+     *              @SWG\Property(
+     *                  property="requests_per_day_ydata",
+     *                  type="array",
+     *                  items={
+     *                      "type"="object",
+     *                  },
+     *                  example={
+     *                      {
+     *                          "name"="unpublished",
+     *                          "data"={0,1, "..."}
+     *                      },
+     *                      ".....",
+     *                      {
+     *                          "name"="published",
+     *                          "data"={0,1, "..."}
+     *                      },
+     *                  }
+     *              ),
+     *          )
+     *      )
+     *      @SWG\Definition(
+     *          definition="Donut",
+     *          @SWG\Property(
+     *              property="labels",
+     *              description="Labels for statistics",
+     *              type="array",
+     *              items={"type"="string"},
+     *              example={"received", "in_processing", "....."}
+     *          ),
+     *          @SWG\Property(
+     *              property="ids",
+     *              description="key correspond labels",
+     *              type="array",
+     *              items={"type"="string"},
+     *              example={"1", "2", "..."}
+     *          ),
+     *          @SWG\Property(
+     *              property="data",
+     *              description="data correspond labels",
+     *              type="array",
+     *              items={"type"="integer"},
+     *              example={"65", "130", "..."}
+     *          ),
+     *          @SWG\Property(
+     *              property="tag_percentage",
+     *              description="percentage correspond data",
+     *              type="array",
+     *              items={"type"="integer"},
+     *              example={"30", "60"}
+     *          )
+     *      )
+     *
+     */
     const QUERY_PARAMS = [
         'year' => 'year',
         'period' => 'period',
@@ -213,8 +300,7 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     * @param bool $isConvertResponse
-     * @return array|mixed
+     * @return array
      */
     protected function allBuildingStatistics()
     {
@@ -336,6 +422,77 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     * @SWG\Get(
+     *      path="tenants/gender-statistics",
+     *      summary="Tenants gender statistics for Donut Chart",
+     *      tags={"Tenant", "Donut"},
+     *      description="Get tenants gender statistics",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  @SWG\Property(
+     *                      property="labels",
+     *                      description="Labels for statistics",
+     *                      type="array",
+     *                      items={"type"="string"},
+     *                      example={"mr", "mrs"}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="data",
+     *                      description="data correspond labels",
+     *                      type="array",
+     *                      items={"type"="integer"},
+     *                      example={"65", "72"}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="tag_percentage",
+     *                      description="percentage correspond data",
+     *                      type="array",
+     *                      items={"type"="integer"},
+     *                      example={"47", "53"}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="average_age",
+     *                      description="associative array show average emage",
+     *                      type="object",
+     *                      @SWG\Property(
+     *                          property="mr",
+     *                          description="data correspond labels",
+     *                          type="integer",
+     *                          example=30
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="mrs",
+     *                          description="data correspond labels",
+     *                          type="integer",
+     *                          example=24
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="both",
+     *                          description="data correspond labels",
+     *                          type="integer",
+     *                          example=26
+     *                      )
+     *                  )
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *              )
+     *          )
+     *      )
+     * )
+     *
      * @return mixed
      */
     public function tenantsGenderStatistics()
@@ -473,6 +630,130 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+
+     * @SWG\Get(
+     *      path="admin/statistics",
+     *      summary="statistics for request, building, post, product",
+     *      tags={"ServiceRequest", "Post", "Tenant", "Product"},
+     *      description="statistics for request, building, post, product",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  @SWG\Property(
+     *                      property="avg_request_duration",
+     *                      type="string",
+     *                      example="01:07"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="total_requests",
+     *                      type="string",
+     *                      example="1'000"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="requests_per_status",
+     *                      ref="#/definitions/Donut"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="requests_per_category",
+     *                      type="object",
+     *                      @SWG\Property(
+     *                          property="labels",
+     *                          type="array",
+     *                          items={"type"="string"},
+     *                          example={"Disturbance", "Defect", "...."}
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="data",
+     *                          type="array",
+     *                          items={"type"="integer"},
+     *                          example={"320", "425", "...."}
+     *                      ),
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="total_tenants",
+     *                      type="string",
+     *                      example="200"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="tenants_per_status",
+     *                      ref="#/definitions/Donut"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="total_buildings",
+     *                      type="string",
+     *                      example="200"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="buildings_per_status",
+     *                      ref="#/definitions/Donut"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="total_products",
+     *                      type="string",
+     *                      example="200"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="products_per_status",
+     *                      ref="#/definitions/Donut"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="total_posts",
+     *                      type="string",
+     *                      example="200"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="posts_per_status",
+     *                      ref="#/definitions/Donut"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="all_start_dates",
+     *                      type="object",
+     *                      @SWG\Property(
+     *                          property="requests",
+     *                          type="string",
+     *                          example="01.01.2019"
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="tenants",
+     *                          type="string",
+     *                          example="01.01.2019"
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="buildings",
+     *                          type="string",
+     *                          example="01.01.2019"
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="products",
+     *                          type="string",
+     *                          example="01.01.2019"
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="posts",
+     *                          type="string",
+     *                          example="01.01.2019"
+     *                      ),
+     *                  ),
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Request services statistics formatted successfully"
+     *              )
+     *          )
+     *      )
+     * )
+     *
      * @param Request $request
      * @return mixed
      */
@@ -487,6 +768,14 @@ class StatisticsAPIController extends AppBaseController
         $query = "select coalesce(floor(avg(time_to_sec(timediff(solved_date, created_at)))), 0) 
                                                       duration from service_requests where solved_date is not null;";
         $avgReqFix = DB::select($query);
+
+        $allStartDates = [
+            'requests' => $this->timeFormat(ServiceRequest::min('created_at')),
+            'tenants' => $this->timeFormat(Tenant::min('created_at')),
+            'buildings' => $this->timeFormat(Building::min('created_at')),
+            'products' => $this->timeFormat(Product::min('created_at')),
+            'posts' => $this->timeFormat(Post::min('created_at')),
+        ];
 
         $ret = [
             'avg_request_duration' => $avgReqFix ? gmdate("H:i",$avgReqFix[0]->duration) : 0,
@@ -508,12 +797,51 @@ class StatisticsAPIController extends AppBaseController
 
             'total_posts' => $this->thousandsFormat(Post::count('id')),
             'posts_per_status' => $this->donutChartByTable($request, $optionalArgs, 'posts'),
+            'all_start_dates' => $allStartDates
         ];
 
         return $this->sendResponse($ret, 'Admin statistics retrieved successfully');
     }
 
     /**
+     * @SWG\Get(
+     *      path="admin/chartRequestByCreationDate",
+     *      summary="get statistics for Grouped Report for request",
+     *      tags={"ServiceRequest", "CreationDate"},
+     *      description="get statistics for Grouped Report for request",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          ref="#/parameters/period",
+     *      ),
+     *      @SWG\Parameter(
+     *          ref="#/parameters/start_date",
+     *      ),
+     *      @SWG\Parameter(
+     *          ref="#/parameters/end_date",
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/StatisticByCreationDate"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Request services statistics formatted successfully"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     *
      * @param Request $request
      * @param array $optionalArgs
      * @return mixed
@@ -542,6 +870,59 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     * @SWG\Get(
+     *      path="admin/chartByCreationDate",
+     *      summary="get statistics for Grouped Report by products:status | tenants:status | posts:status ",
+     *      tags={"Tenant", "Product", "Post", "CreationDate"},
+     *      description="get statistics for Grouped Report by products:status | tenants:status | posts:status",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="table",
+     *          in="query",
+     *          description="The table used for get statistic data based db table",
+     *          type="string",
+     *          default="products",
+     *          enum={"products", "tenants", "posts"}
+     *      ),
+     *      @SWG\Parameter(
+     *          name="column",
+     *          in="query",
+     *          description="The column used for get statistic according that column",
+     *          type="string",
+     *          default="status",
+     *          enum={"status"}
+     *      ),
+     *      @SWG\Parameter(
+     *          ref="#/parameters/period",
+     *      ),
+     *      @SWG\Parameter(
+     *          ref="#/parameters/start_date",
+     *      ),
+     *      @SWG\Parameter(
+     *          ref="#/parameters/end_date",
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/StatisticByCreationDate"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="products statistics formatted successfully by status"
+     *              )
+     *          )
+     *      )
+     * )
+     *
      * @param Request $request
      * @param array $optionalArgs
      * @return mixed
@@ -572,6 +953,56 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     * @SWG\Get(
+     *      path="admin/chartBuildingsByCreationDate",
+     *      summary="get statistics for Grouped Report for buildings",
+     *      tags={"Building", "CreationDate"},
+     *      description="get statistics for Grouped Report for buildings",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          ref="#/parameters/period",
+     *      ),
+     *      @SWG\Parameter(
+     *          ref="#/parameters/start_date",
+     *      ),
+     *      @SWG\Parameter(
+     *          ref="#/parameters/end_date",
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  @SWG\Property(
+     *                      property="requests_per_day_xdata",
+     *                      type="array",
+     *                      items={"type"="string", "format"="full-date"},
+     *                      example={"01.07.2019", "02.07.2019", ".......", "01.08.2019"}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="requests_per_day_ydata",
+     *                      type="array",
+     *                      items={"type"="numeric"},
+     *                      example={"4", "5", ".......", "2"}
+     *                  ),
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Building statistics formatted successfully"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     *
      * @param Request $request
      * @param array $optionalArgs
      * @return mixed
@@ -607,6 +1038,65 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     * @SWG\Get(
+     *      path="admin/donutChart",
+     *      summary="service_requests, products, tenants,  posts statistics for Donut Chart",
+     *      tags={"Tenant", "ServiceRequest", "Post", "Product", "Donut"},
+     *      description="service_requests:status | tenants:status,title | products:status,type |  posts:status,type statistics for Donut Chart",
+     *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="table",
+     *          in="query",
+     *          description="The table used for get statistic data based db table",
+     *          type="string",
+     *          default="service_requests",
+     *          enum={"service_requests", "tenants", "products", "posts"}
+     *      ),
+     *      @SWG\Parameter(
+     *          name="column",
+     *          in="query",
+     *          description="The column used for get statistic according that column | permitted values for each table [service_requests:status | tenants:status,title | products:status,type |  posts:status,type]",
+     *          type="string",
+     *          default="status",
+     *          enum={"status", "type", "title"}
+     *      ),
+     *      @SWG\Parameter(
+     *          name="start_date",
+     *          in="query",
+     *          description="format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. default value is one month ago of end_date",
+     *          type="string",
+     *          format="full-date"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="end_date",
+     *          in="query",
+     *          description="format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. | default value today",
+     *          type="string",
+     *          format="full-date"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/Donut"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="service_requests statistics by status retrieved successfully for DonutChart"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     *
      * @param Request $request
      * @param array $optionalArgs
      * @return mixed
@@ -631,11 +1121,68 @@ class StatisticsAPIController extends AppBaseController
 
         $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
-            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for ' . $table . ' for ' . $column)
+            ? $this->sendResponse($response, sprintf('%s statistics by %s retrieved successfully for DonutChart', $table, $column))
             : $response;
     }
 
     /**
+     *
+     * @SWG\Get(
+     *      path="admin/donutChartRequestByCategory",
+     *      summary="Get request statistics for Donut Chart by service_request_categories",
+     *      tags={"ServiceRequest", "Donut"},
+     *      description="Get request statistics for Donut Chart by service_request_categories",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="start_date",
+     *          in="query",
+     *          description="format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. default value is one month ago of end_date",
+     *          type="string",
+     *          format="full-date"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="end_date",
+     *          in="query",
+     *          description="format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. | default value today",
+     *          type="string",
+     *          format="full-date"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  @SWG\Property(
+     *                      property="labels",
+     *                      description="Labels for statistics",
+     *                      type="array",
+     *                      items={"type"="string"},
+     *                      example={"Disturbance", "Defect", "....."}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="data",
+     *                      description="data correspond labels",
+     *                      type="array",
+     *                      items={"type"="integer"},
+     *                      example={"65", "130", "..."}
+     *                  ),
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Request statistics retrieved successfully By service_request_categories"
+     *              )
+     *          )
+     *      )
+     * )
+     *
      * @param Request $request
      * @param array $optionalArgs
      * @return mixed
@@ -669,11 +1216,162 @@ class StatisticsAPIController extends AppBaseController
 
         $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
-            ? $this->sendResponse($response, 'Admin statistics retrieved successfully')
+            ? $this->sendResponse($response, 'Request statistics retrieved successfully By service_request_categories')
             : $response;
     }
 
     /**
+     *
+     * @SWG\Get(
+     *      path="admin/chartRequestByAssignedProvider",
+     *      summary="Requests by service_providers statistics for donut chart",
+     *      tags={"ServiceRequest", "Donut"},
+     *      description="Requests by service_providers statistics for donut chart",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          ref="#/parameters/start_date",
+     *      ),
+     *      @SWG\Parameter(
+     *          ref="#/parameters/end_date",
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  @SWG\Property(
+     *                      property="labels",
+     *                      type="array",
+     *                      items={"type"="string", "format"="full-date"},
+     *                      example={"requests_with_service_providers", "request_wihout_service_providers"}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="data",
+     *                      type="array",
+     *                      items={"type"="numeric"},
+     *                      example={"45", "96"}
+     *                  ),
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Requests by service_providers statistics retrieved successfully"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @param Request $request
+     * @param array $optionalArgs
+     * @return mixed
+     */
+    public function chartRequestByAssignedProvider(Request $request, $optionalArgs = [])
+    {
+        if (empty($optionalArgs) && empty($request->only(self::QUERY_PARAMS['start_date'], self::QUERY_PARAMS['end_date']))) {
+            $startDate = null;
+            $endDate = null;
+        } else {
+            [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
+        }
+        
+        $serviceRequestCount = ServiceRequest
+            ::when($startDate, function ($q) use ($startDate) {$q->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'));})
+            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'));})
+            ->count();
+
+        $serviceRequestHasProviderCount = ServiceRequest
+            ::has('providers')->
+            when($startDate, function ($q) use ($startDate) {$q->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'));})
+            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'));})
+            ->count();
+
+        $response = [
+            'labels' => [
+                'requests_with_service_providers',
+                'request_wihout_service_providers'
+            ],
+            'data' => [
+                $serviceRequestHasProviderCount,
+                $serviceRequestCount - $serviceRequestHasProviderCount,
+            ],
+        ];
+
+        return $this->sendResponse($response, 'Requests by service_providers statistics retrieved successfully');
+    }
+
+    /**
+
+     * @SWG\Get(
+     *      path="admin/donutChartTenantsByDateAndStatus",
+     *      summary="Tenants statistics for Donut Chart by service_requests status",
+     *      tags={"Tenant", "Donut"},
+     *      description="Tenants statistics for Donut Chart by service_requests status",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="start_date",
+     *          in="query",
+     *          description="format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. default value is one month ago of end_date",
+     *          type="string",
+     *          format="full-date"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="end_date",
+     *          in="query",
+     *          description="format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. | default value today",
+     *          type="string",
+     *          format="full-date"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  @SWG\Property(
+     *                      property="labels",
+     *                      description="Labels for statistics",
+     *                      type="array",
+     *                      items={"type"="string"},
+     *                      example={"received", "in_processing", "....."}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="ids",
+     *                      description="key correspond labels",
+     *                      type="array",
+     *                      items={"type"="string"},
+     *                      example={"1", "2", "..."}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="data",
+     *                      description="data correspond labels",
+     *                      type="array",
+     *                      items={"type"="integer"},
+     *                      example={"65", "130", "..."}
+     *                  ),
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Admin statistics retrieved successfully for tenants by request status"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     *
      * @param Request $request
      * @param array $optionalArgs
      * @return mixed
@@ -695,13 +1393,86 @@ class StatisticsAPIController extends AppBaseController
 
         $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
         return $isConvertResponse
-            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for tenants')
+            ? $this->sendResponse($response, 'Admin statistics retrieved successfully for tenants by request status')
             : $response;
     }
 
     /**
-     * @TODO improve
      *
+     * @SWG\Get(
+     *      path="admin/heatMapByDatePeriod",
+     *      summary="Get Service Request statistics for Heat Map Graph",
+     *      tags={"ServiceRequest", "HeatMap"},
+     *      description="Get Service Request statistics for Heat Map Graph",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="period",
+     *          in="query",
+     *          description="The column used for get statistic for year period or week period",
+     *          type="string",
+     *          default="week",
+     *          enum={"week", "year"}
+     *      ),
+     *      @SWG\Parameter(
+     *          name="date",
+     *          in="query",
+     *          description="Format: dd.mm.yyyy | The column used for get statistic that date correspond week or year",
+     *          type="string",
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  items={"type"="object"},
+     *                  example={
+     *                      {
+     *                          "name" : 1,
+     *                          "data": {
+     *                               {
+     *                                  "x": 1,
+     *                                  "y": "6"
+     *                              },
+     *                              ".....",
+     *                              {
+     *                                  "x": 31,
+     *                                  "y": "16"
+     *                              },
+     *                          }
+     *                      },
+     *                      ".........",
+     *                      {
+     *                          "name" : 12,
+     *                          "data": {
+     *                               {
+     *                                  "x": 1,
+     *                                  "y": "6"
+     *                              },
+     *                              ".....",
+     *                              {
+     *                                  "x": 31,
+     *                                  "y": "16"
+     *                              },
+     *                          }
+     *                      }
+     *                  }
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Request services statistics formatted successfully for Heat Map"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @TODO improve
      * @param Request $request
      * @return mixed
      */
@@ -724,7 +1495,7 @@ class StatisticsAPIController extends AppBaseController
             ];
         }
 
-        return $this->sendResponse($response, 'Request services statistics formatted successfully');
+        return $this->sendResponse($response, 'Request services statistics formatted successfully for Heat Map');
     }
 
     /**
@@ -813,7 +1584,66 @@ class StatisticsAPIController extends AppBaseController
         return $colStats;
     }
 
+
     /**
+     *
+     * @SWG\Get(
+     *      path="admin/chartLoginDevice",
+     *      summary="Get statistics for Donut Chart by login device",
+     *      tags={"Auth", "Donut"},
+     *      description="Get all time statistics for Donut Chart by login device",
+     *      produces={"application/json"},
+     *
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  @SWG\Property(
+     *                      property="labels",
+     *                      description="Labels for statistics",
+     *                      type="array",
+     *                      items={"type"="string"},
+     *                      example={"Desktop", "Tablet", "Mobile"}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="ids",
+     *                      description="key correspond labels",
+     *                      type="array",
+     *                      items={"type"="string"},
+     *                      example={"1", "2", "3"}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="data",
+     *                      description="data correspond labels",
+     *                      type="array",
+     *                      items={"type"="integer"},
+     *                      example={"65", "130", "32"}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="tag_percentage",
+     *                      description="percentage correspond data",
+     *                      type="array",
+     *                      items={"type"="integer"},
+     *                      example={"30", "60", "10"}
+     *                  )
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Statistics by login device retrieved successfully"
+     *              )
+     *          )
+     *      )
+     * )
+     *
      * @return mixed
      */
     protected function chartLoginDevice()
@@ -840,10 +1670,86 @@ class StatisticsAPIController extends AppBaseController
         $values = [
             1 => 'Desktop',
             2 => 'Tablet',
-            3 => 'mobile',
+            3 => 'Mobile',
         ];
 
-        return $this->formatForDonutChart($statistics, 'login', $values, true);
+        $response =  $this->formatForDonutChart($statistics, 'login', $values, true);
+        return $this->sendResponse($response, 'Statistics by login device retrieved successfully');
+
+    }
+
+    /**
+     *
+     * @SWG\Get(
+     *      path="admin/chartTenantLanguage",
+     *      summary="Tenants statistics for Donut Chart by language",
+     *      tags={"Tenant", "Donut"},
+     *      description="Tenants statistics for Donut Chart by language",
+     *      produces={"application/json"},
+     *
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  @SWG\Property(
+     *                      property="labels",
+     *                      description="Labels for statistics",
+     *                      type="array",
+     *                      items={"type"="string"},
+     *                      example={"Douche", "English", "....."}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="ids",
+     *                      description="key correspond labels",
+     *                      type="array",
+     *                      items={"type"="string"},
+     *                      example={"de", "en", "..."}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="data",
+     *                      description="data correspond labels",
+     *                      type="array",
+     *                      items={"type"="integer"},
+     *                      example={"65", "130", "..."}
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="tag_percentage",
+     *                      description="percentage correspond data",
+     *                      type="array",
+     *                      items={"type"="integer"},
+     *                      example={"30", "60", "..."}
+     *                  )
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Tenants statistics by language retrieved successfully"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @return mixed
+     */
+    public function chartTenantLanguage()
+    {
+        $languages = config('app.locales');
+//        $languages[null] = 'Unknown'; @TODO need or not
+
+        $tenants = UserSettings::has('tenant')->selectRaw('count(id) as count, language')
+            ->groupBy('language')
+            ->get();
+
+        $response = $this->formatForDonutChart($tenants, 'language', $languages, true);
+        return $this->sendResponse($response, 'Tenants statistics by language retrieved successfully');
     }
 
     /**
@@ -911,6 +1817,7 @@ class StatisticsAPIController extends AppBaseController
      */
     protected function formatForDonutChart($statistics, $column, $columnValues, $includePercentage = false)
     {
+        $statistics = $statistics->whereIn($column, array_keys($columnValues));
         $existingStatuses = $statistics->pluck($column)->all();
         foreach ($columnValues as $value => $__) {
             if (! in_array($value, $existingStatuses)) {
@@ -1147,5 +2054,14 @@ class StatisticsAPIController extends AppBaseController
         }
 
         return number_format($number, 0, ".", "'");
+    }
+
+    /**
+     * @param $date
+     * @return string
+     */
+    protected function timeFormat($date)
+    {
+        return Carbon::parse($date)->format('d.m.Y');
     }
 }

@@ -7,7 +7,7 @@
                       v-model="search"
             >
                 <template slot="suffix" v-if="search.length">
-                    <el-button @click="clearSearch()"
+                    <el-button @click="clearSearch()"   
                                circle
                                icon="ti-close"
                                size="mini"/>
@@ -340,7 +340,7 @@
         },
         computed: {
             emptyText() {
-                return this.loading.state ? 'Please wait...' : 'No data available';
+                return this.loading.state ? this.$t('please_wait') : this.$t('no_data_available');
             },
             page() {
                 return {

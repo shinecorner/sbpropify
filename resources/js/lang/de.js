@@ -63,6 +63,8 @@ export default {
     incorrect_password: "Altes Passwort stimmt nicht",
     password_changed: "Passwort erfolgreich geändert",
     details_saved: 'Angaben gespeichert',
+    please_wait: 'Bitte warten...',
+    no_data_available: 'Keine Daten verfügbar',
     password_validation: {
         required: "Passwort ist obligatorisch",
         confirm: 'Passwort bestätigen',
@@ -192,6 +194,7 @@ export default {
             address: 'Addresse',
             blank_pdf: 'Blank pdf',
             realEstateSaved: "Einstellung gespeichert",
+            serviceRequestCategorySaved: "Kategorie der Serviceanfrage gespeichert",
             validation: {
                 name: {
                     required: 'Name ist obligatorisch'
@@ -952,6 +955,8 @@ export default {
             name: 'Name',
             edit: 'Öffnen',
             delete: 'Löschen',
+            saved: 'Vorlage gespeichert',
+            deleted: 'Vorlage gelöscht',
             add: 'Hinzufügen',
             title: 'Vorlagen',
             subject: 'Betreff',

@@ -145,6 +145,14 @@
                         data: [],
                         fetch: this.getFilterDistricts
                     },
+                    {
+                        name: this.$t('filters.tenant'),
+                        type: 'remote-select',
+                        key: 'tenant_id',
+                        data: [],
+                        remoteLoading: false,
+                        fetch: this.fetchRemoteTenants
+                    }
                 ]
             },
             productConstants() {
@@ -153,7 +161,7 @@
 
         },
         methods: {
-            ...mapActions(['changeProductPublish', 'getBuildings']),
+            ...mapActions(['changeProductPublish', 'getBuildings', 'getTenants']),
             async getFilterBuildings() {
                 this.loading = true;
                 const buildings = await this.getBuildings({
@@ -162,6 +170,16 @@
                 this.loading = false;
 
                 return buildings.data;
+            },
+            async fetchRemoteTenants(search) {
+                const tenants = await this.getTenants({get_all: true, search});
+
+                return tenants.data.map((tenant) => {
+                    return {
+                        name: `${tenant.first_name} ${tenant.last_name}`,
+                        id: tenant.id
+                    };
+                });
             },
             add() {
                 this.$router.push({
