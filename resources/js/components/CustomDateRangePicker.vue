@@ -135,11 +135,13 @@ export default {
         }
       }
 
+      const that = this;
+
       const allTime = {
         text: this.$t('date_range.all_time'),
         onClick(picker) {
           const end = new Date();
-          const start = new Date(this.startDate);
+          const start = new Date(that.startDate);
           picker.$emit('pick', [start, end]);
         }
       }
@@ -157,6 +159,11 @@ export default {
         return {
           shortcuts: [lastMonth, last3Months, last6Months, lastYear, last2Years]
         };
+      }
+      else if (this.rangeType == 'all') {
+        return {
+          shortcuts: [last7Days, last14Days, last30Days, lastWeek, lastMonth, last3Months, last6Months, lastYear, last2Years, allTime]
+        }
       }
       else {
         return {

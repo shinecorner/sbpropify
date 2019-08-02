@@ -220,7 +220,13 @@
                 activeName: 'requests',
                 activeChart: 'week',
                 weekSelected: null,
-                startDates: {}
+                startDates: {
+                    requests: '',
+                    buildings: '',
+                    posts: '',
+                    products: '',
+                    tenants: ''
+                }
             }
         },
         computed: {

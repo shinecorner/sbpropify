@@ -1,7 +1,7 @@
 <template>
-    <div class="piechart">
+    <div v-if="startDate" class="piechart">
         <div class="chart-filter in-toolbar">              
-            <custom-date-range-picker rangeType="day" :initialRange="dateRange"
+            <custom-date-range-picker rangeType="all" :initialRange="dateRange"
                 :pickHandler="pickHandler" :style="{display: showPicker ? 'inline-flex' : 'none'}" :startDate="startDate">
             </custom-date-range-picker>
             <div class="show-button" v-if="!showPicker" @click="handleShowClick(true)"><i class="el-icon-date"></i></div>
@@ -135,6 +135,9 @@ export default {
   },
     methods: {
         fetchData(){
+            if (this.dateRange == null) {
+                return;
+            }
             let that = this;                                               
             let url = '';						
             if(this.type === 'request_by_status'){
@@ -165,14 +168,12 @@ export default {
                 this.chartType = 'donut';
                 url = 'admin/donutChart?table=tenants&column=status';
             }
-            let params = {};
-            if (this.dateRange != null) {
-              params.start_date = this.dateRange[0],
-              params.end_date = this.dateRange[1]
-            }
 
             return axios.get(url,{
-            	params: params
+            	params: {
+                    start_date: this.dateRange[0],
+                    end_date: this.dateRange[1]
+                }
             })
             .then(function (response) {
                 that.yData = response.data.data.data.map(val => parseFloat(val) || 0);
@@ -215,6 +216,12 @@ export default {
     watch: {
       '$i18n.locale' : function(val) {
         this.fetchData();
+      },
+      'startDate': function(val) {
+          if (val) {
+            this.dateRange = [val, format(new Date(), 'DD.MM.YYYY')];
+            this.fetchData();
+          }
       }
     }
 }
