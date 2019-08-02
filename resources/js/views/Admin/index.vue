@@ -39,7 +39,16 @@
                                 <el-card class="chart-card no-filter">
                                     <el-tabs v-model="activeChart" @tab-click="handleHeatmapTabClick">
                                         <el-tab-pane :label="$t('dashboard.week_hour')" name="week">
-                                            <chart-heat-map type="week-hour" :tab="activeChart"></chart-heat-map>
+                                            <div class="chart-filter in-toolbar">              
+                                                <el-date-picker
+                                                    v-model="weekSelected"
+                                                    type="week"
+                                                    format="Week WW.yyyy"
+                                                    value-format="dd.MM.yyyy"
+                                                    placeholder="Pick a week">
+                                                </el-date-picker>
+                                            </div>
+                                            <chart-heat-map type="week-hour" :tab="activeChart" :week="weekSelected"></chart-heat-map>
                                         </el-tab-pane>
                                         <el-tab-pane :label="$t('dashboard.month_date')" name="month">
                                             <chart-heat-map type="month-date" :tab="activeChart"></chart-heat-map>
@@ -210,6 +219,7 @@
                 headingIcon: 'icon-chat-empty',
                 activeName: 'requests',
                 activeChart: 'week',
+                weekSelected: null,
             }
         },
         computed: {
@@ -255,8 +265,7 @@
         },
         created(){
             this.getReqStatastics();
-        },
-
+        }
     }
 </script>
 
@@ -380,6 +389,14 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                }
+            }
+
+            .el-date-editor--week {
+                width: 170px;
+
+                input {
+                    text-align: center;
                 }
             }
 

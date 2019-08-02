@@ -23,6 +23,9 @@ export default {
       },
       tab: {
         type: String,
+      },
+      week: {
+        type: String,
       }
     },
     data() {
@@ -103,13 +106,19 @@ export default {
       fetchData(){
         let that = this;                                               
         let url = '';						
+        let params = {};
         if(this.type === 'week-hour') {
             url = 'admin/heatMapByDatePeriod';
+            if (this.week != null) {
+              params.date = this.week;
+            }
         }
         else if(this.type === 'month-date'){
             url = 'admin/heatMapByDatePeriod?period=year';
         }
-        return axios.get(url)
+        return axios.get(url, {
+          params: params
+        })
         .then(function (response) {
             //that.series = response.data.data;
             const data = response.data.data;
@@ -134,6 +143,12 @@ export default {
       },
       tab: function(val) {
         this.fetchData();
+      },
+      
+      week: function(val) {
+        if (this.type == 'week-hour') {
+          this.fetchData();
+        }
       }
     }
 }
