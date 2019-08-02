@@ -16,7 +16,6 @@ $factory->define(App\Models\ServiceProvider::class, function (Faker $faker, arra
     $category = isset($attr['category']) ? $attr['category']: $serviceCategories[$randomCat];
     $user_id = isset($attr['user_id']) ? $attr['user_id'] : 1;
     $address_id = isset($attr['address_id']) ? $attr['address_id'] : 1;
-    $languages = config('app.locales');
 
     return [
         'user_id' => $user_id,
@@ -25,7 +24,6 @@ $factory->define(App\Models\ServiceProvider::class, function (Faker $faker, arra
         'name' => $faker->name,
         'email' => $faker->email,       
         'phone' => $faker->phoneNumber,
-        'language' => array_rand($languages)
     ];
 });
  

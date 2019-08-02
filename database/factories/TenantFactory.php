@@ -5,7 +5,6 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\Tenant::class, function (Faker $faker) {
     $title = Tenant::Title[$faker->numberBetween(0, count(Tenant::Title) - 1)];
-    $languages = config('app.locales');;
 
     $company = null;
     if ($title == 'company') {
@@ -23,6 +22,5 @@ $factory->define(App\Models\Tenant::class, function (Faker $faker) {
         'private_phone' => $faker->phoneNumber,
         'work_phone' => $faker->phoneNumber,
         'status' => $faker->numberBetween(Tenant::StatusActive, Tenant::StatusNotActive),
-        'language' => array_rand($languages)
     ];
 });

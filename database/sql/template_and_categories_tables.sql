@@ -1,37 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.8.4
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Generation Time: Jul 31, 2019 at 05:11 PM
--- Server version: 5.7.27-0ubuntu0.18.04.1
--- PHP Version: 7.2.19-0ubuntu0.18.04.1
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `myhome_dev`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `templates`
---
-
-
---
--- Dumping data for table `templates`
---
 
 INSERT INTO `templates` (`id`, `category_id`, `type`, `name`, `subject`, `body`, `default`, `system`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 9, 1, 'User - new_admin', 'New admin created', '<p>Hello {{name}}</p>\n<p>A new admin account was created:</p>\n<p>User {{subjectName}}</p>\n<p>Email {{subjectEmail}}</p>', 1, 0, '2019-07-30 01:36:02', '2019-07-30 01:36:02', NULL),
@@ -61,15 +27,6 @@ INSERT INTO `templates` (`id`, `category_id`, `type`, `name`, `subject`, `body`,
 (25, 22, 1, 'Service Grreting 2', 'Hello {{subjectSalutation}} {{subjectName}}. My name is {{name}} How can I help you?', '', 1, 0, '2019-07-30 01:36:02', '2019-07-30 01:36:02', NULL),
 (26, 22, 1, 'Service Goodbye 1', 'Have a nice day {{subjectSalutation}} {{subjectName}}.', '', 1, 0, '2019-07-30 01:36:02', '2019-07-30 01:36:02', NULL);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `template_categories`
---
-
---
--- Dumping data for table `template_categories`
---
 
 INSERT INTO `template_categories` (`id`, `parent_id`, `name`, `description`, `subject`, `body`, `tag_map`, `created_at`, `updated_at`, `deleted_at`, `type`, `system`) VALUES
 (1, NULL, 'user', '', '', '', NULL, '2019-07-30 01:36:01', '2019-07-30 01:36:01', NULL, 1, 0),
@@ -103,57 +60,3 @@ INSERT INTO `template_categories` (`id`, `parent_id`, `name`, `description`, `su
 (29, 5, 'request_due_date_reminder', 'Send reminder email to property manager / admin 1 day before the due date is reached', 'Request: {{title}} is approaching its due date', '<p>Hello {{salutation}} {{name}},</p>\n<p>Due date for request {{title}} is {{dueDate}}</p>\n<p>Use <a href=\"{{autologin}}\">this link</a> to view the request.</p>', '{\"salutation\":\"receiver.title\",\"name\":\"receiver.name\",\"title\":\"request.title\",\"description\":\"request.description\",\"dueDate\":\"request.due_date\",\"category\":\"request.category.name\",\"autologin\":\"receiver.autologinUrl\"}', '2019-07-30 01:36:01', '2019-07-30 01:36:01', NULL, 1, 0),
 (30, 8, 'cleanify_request_email', 'Email sent to Cleanify when the tenant makes a request.', 'New Cleanify request from: {{salutation}} {{firstName}} {{lastName}}', '<p>New Cleanify request,</p>\n<p>Name : {{salutation}} {{firstName}} {{lastName}}.</p>\n<p>Phone : {{phone}}.</p>\n<p>Email : {{email}}.</p>\n<p>Address:</p>\n<p>{{address}}, {{city}} {{zip}}.</p>', '{\"salutation\":\"form.title\",\"firstName\":\"form.first_name\",\"lastName\":\"form.last_name\",\"address\":\"form.address\",\"zip\":\"form.zip\",\"city\":\"form.city\",\"email\":\"form.email\",\"phone\":\"form.phone\"}', '2019-07-30 01:36:01', '2019-07-30 01:36:01', NULL, 1, 0);
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `templates`
---
-ALTER TABLE `templates`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `templates_category_id_foreign` (`category_id`);
-
---
--- Indexes for table `template_categories`
---
-ALTER TABLE `template_categories`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `template_categories_parent_id_foreign` (`parent_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `templates`
---
-ALTER TABLE `templates`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
---
--- AUTO_INCREMENT for table `template_categories`
---
-ALTER TABLE `template_categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `templates`
---
-ALTER TABLE `templates`
-  ADD CONSTRAINT `templates_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `template_categories` (`id`);
-
---
--- Constraints for table `template_categories`
---
-ALTER TABLE `template_categories`
-  ADD CONSTRAINT `template_categories_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `template_categories` (`id`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -13,4 +13,5 @@ return [
     'username' => 'Username',
     'password' => 'Password',
     'url' => 'URL',
+    'code' => 'Code',
 ];
