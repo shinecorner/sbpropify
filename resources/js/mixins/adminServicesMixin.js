@@ -31,6 +31,7 @@ export default (config = {}) => {
                         id: '',
                         email: ''
                     },
+                    service_provider_format: '',
                     name: '',
                     phone: '',
                     category: '',
@@ -298,6 +299,7 @@ export default (config = {}) => {
                         this.model.category = data.category;
                         this.model.user.avatar = data.user.avatar;
                         this.model.user.id = data.user.id;
+                        this.model.service_provider_format = data.service_provider_format;
 
                         const respAddress = data.address;
 
