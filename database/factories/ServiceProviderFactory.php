@@ -17,13 +17,6 @@ $factory->define(App\Models\ServiceProvider::class, function (Faker $faker, arra
     $user_id = isset($attr['user_id']) ? $attr['user_id'] : 1;
     $address_id = isset($attr['address_id']) ? $attr['address_id'] : 1;
 
-    $languages = [
-        'en',
-        'fr',
-        'de',
-        'it'
-    ];
-
     return [
         'user_id' => $user_id,
         'address_id' => $address_id,      
@@ -31,7 +24,6 @@ $factory->define(App\Models\ServiceProvider::class, function (Faker $faker, arra
         'name' => $faker->name,
         'email' => $faker->email,       
         'phone' => $faker->phoneNumber,
-        'language' => $languages[array_rand($languages)]
     ];
 });
  

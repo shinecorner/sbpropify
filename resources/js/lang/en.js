@@ -192,6 +192,7 @@ export default {
             address: 'Address',
             blank_pdf: 'Blank pdf',
             realEstateSaved: "Real Estate settings saved",
+            serviceRequestCategorySaved: "Service request category saved",
             validation: {
                 name: {
                     required: 'Name is required'
@@ -952,6 +953,8 @@ export default {
             name: 'Name',
             edit: 'Edit',
             delete: 'Delete',
+            saved: 'Template saved',
+            deleted: 'Template deleted',
             add: 'Add',
             title: 'Templates',
             subject: 'Subject',
@@ -1127,6 +1130,26 @@ export default {
                 loadingTemplates: 'Loading templates...',
                 saveShortcut: 'or use {shortcut} shortcut',
                 emptyTemplatesPlaceholder: 'No templates available.'
+            },
+            media: {
+                buttons: {
+                    selectFiles: {
+                        withDrop: 'Drop files or click to select...',
+                        withoutDrop: 'Click to select...'
+                    },
+                    upload: 'Upload'
+                },
+                dropActive: {
+                    title: 'Drop your files here...',
+                    description: 'Only the files with a certain extension are allowed.'
+                },
+                messages: {
+                    preview: 'This file cannot be previewed.',
+                    uploading: 'Uploading...',
+                    uploaded: 'Media files have been succesfully uploaded.',
+                    size: 'Oops! Some files had the size bigger than the maximum allowed of {bytes}.',
+                    extensions: 'Oops! Some files have had an extension that was not allowed. Skipping...'
+                }
             }
         },
         tenant: {
@@ -1137,6 +1160,13 @@ export default {
                 cloudiness: 'cloudiness',
                 humidity: 'humidity',
                 pressure: 'pressure'
+            },
+            postAdd: {
+                visibility: {
+                    address: 'Address',
+                    district: 'District',
+                    all: 'All'
+                }
             }
         },
         admin: {
@@ -1171,6 +1201,8 @@ export default {
         last_3_months: 'Last 3 months',
         last_6_months: 'Last 6 months',
         last_year: 'Last year',
-        last_2_years: 'Last 2 years'
+        last_2_years: 'Last 2 years',
+        week: 'Week',
+        peek_week: 'Pick a week'
     }
 }

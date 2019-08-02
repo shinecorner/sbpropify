@@ -39,7 +39,7 @@
                         {{ data.card_data.data[n - 1] }}
                     </div>
                     <div class="box-card-progress">
-                        <el-progress type="circle" :percentage="data.card_data.tag_percentage[n - 1]" :width="70" :color="getUnitsCountColor(data.card_data.labels[n - 1], 'name')" :stroke-width="5"></el-progress>
+                        <el-progress type="circle" :percentage="percentage[n - 1]" :width="70" :color="getUnitsCountColor(data.card_data.labels[n - 1], 'name')" :stroke-width="5"></el-progress>
                     </div>
                 </div>
             </el-card>
@@ -61,6 +61,25 @@
                 type: Object,
                 required: true
             },
+            animationTrigger: {
+                type: String
+            }
+        },
+        data() {
+            return {
+                percentage: []
+            }
+        },
+        watch: {
+            animationTrigger: function(val) {
+                const that = this;
+                if (val == 'buildings' && this.data.card_data.tag_percentage) {
+                    this.percentage = this.data.card_data.tag_percentage.map(val => 0);
+                    setTimeout(function() {
+                        that.percentage = that.data.card_data.tag_percentage;
+                    }, 200);
+                }
+            }
         }
     }
 </script>

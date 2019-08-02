@@ -127,6 +127,63 @@ class TenantAPIController extends AppBaseController
 
     /**
      * @param ListRequest $request
+     * @return Response
+     * @throws \Exception
+     *
+     * @SWG\Get(
+     *      path="/tenants/latest",
+     *      summary="Get a latest 5 Tenants",
+     *      tags={"Tenant"},
+     *      description="Get a latest 5(limit) Tenants",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="limit",
+     *          in="query",
+     *          description="How many tenants get",
+     *          type="integer",
+     *          default=5
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  example="true"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @SWG\Items(
+     *                      @SWG\Property(
+     *                          property="id",
+     *                          type="integer",
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="first_name",
+     *                          type="string"
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="last_name",
+     *                          type="string"
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="status",
+     *                          type="integer"
+     *                      )
+     *                  )
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @param ListRequest $request
      * @return mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
@@ -144,7 +201,9 @@ class TenantAPIController extends AppBaseController
     /**
      * @param CreateRequest $request
      * @param PostRepository $pr
-     * @return Response
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     *
      *
      * @SWG\Post(
      *      path="/tenants",
@@ -652,12 +711,9 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
-    * @param $id
-    * @param token
-    * @param email
-    * @param password
-    * @return void
-    */
+     * @param Request $request
+     * @return mixed
+     */
     public function resetPassword(Request $request){
         $hashids = new Hashids('', 25);
         $tenant_id[0] = $hashids->decode($request->token);
@@ -675,9 +731,108 @@ class TenantAPIController extends AppBaseController
         }
     }
 
-     /**
-     * @param $id
-     * @param tenantreview
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function activateTenant(Request $request){
+
+        if (empty($request->activation_token) || empty($request->email) || empty($request->password)) {
+            return $this->sendError('activation_token, email, password required');
+        }
+
+        $hashids = new Hashids('', 25);
+        $decoded = $hashids->decode($request->activation_token);
+        if (empty($decoded[0])) {
+            return $this->sendError('Token is invalid');
+        }
+
+        $tenantId = $decoded[0];
+
+        $tenant = $this->tenantRepository->findWithoutFail($tenantId)->first();
+        if (empty($tenant)) {
+            return $this->sendError('Tenant not found');
+        }
+        $user = $tenant->user;
+        if($user->email == $request->email) {
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return $this->sendResponse($tenantId, 'Tenant password reset successfully');
+        } else {
+            return $this->sendError('Incorrect email address');
+        }
+    }
+
+    /**
+
+     * @SWG\Post(
+     *      path="/addReview",
+     *      summary="Update Tenant review and rating",
+     *      tags={"Tenant"},
+     *      description="Update Tenant review and rating",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="tenant_id",
+     *          description="tenant_id of Tenant",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="rating",
+     *          description="rating of Tenant",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="review",
+     *          description="review of Tenant",
+     *          type="string",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Response(
+     *          response=404,
+     *          description="not found",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  example="false"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Tenant not found"
+     *              )
+     *          )
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successfully updated",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  example="true"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="integer",
+     *                  example=1
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @param Request $request
      * @return mixed
      */
     public function addReview(Request $request){

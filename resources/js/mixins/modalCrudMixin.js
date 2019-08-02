@@ -66,7 +66,15 @@ export default (config) => {
 
                         await this.fetchMore();
                         this.showModal = false;
-                        displaySuccess(data);
+                        if(actions.update == 'updateRequestCategory'){
+                            displaySuccess({
+                                success: true,
+                                message: 'models.user.serviceRequestCategorySaved'
+                            });
+                        }
+                        else{
+                            displaySuccess(data);
+                        }                        
                     }
                 } catch (e) {
                     displayError(e);
