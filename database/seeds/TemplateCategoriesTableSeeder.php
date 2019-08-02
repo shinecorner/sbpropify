@@ -164,16 +164,12 @@ HTML
                     'phone' => 'tenant.phone',
                     'title' => 'constant.tenant.title',
                     'tenantCredentials' => 'tenantCredentials',
-                    'activationUrl' => 'activationUrl',
-                    'activationCode' => 'tenant.activation_code',
                 ],
                 'subject' => 'Account created',
                 'body' => <<<HTML
 <p>Hello {{title}} {{name}}</p>
 <p>Your account was created.</p>
 <p>Here is an pdf with credentials.</p>
-<p>Url {{activationUrl}}</p>
-<p>Code {{activationCode}}</p>
 HTML
             ],
         ];
