@@ -243,6 +243,10 @@ export default {
             }
 
             .chart-filter {
+                &.in-toolbar {
+                    right: 40px;
+                }
+
                 .show-button {
                     cursor: pointer;
                     padding: 5px 0;
