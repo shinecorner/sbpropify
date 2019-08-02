@@ -22,13 +22,13 @@ class RealEstateTableSeeder extends Seeder
         $realEstate->free_apartments_enable = false;
         $realEstate->opening_hours = json_encode($this->getOpeningHours());
         $realEstate->news_receiver_ids = [];
-        $realEstate->mail_host = env('MAIL_HOST');
-        $realEstate->mail_port = env('MAIL_PORT');
+        $realEstate->mail_host = env('MAIL_HOST', 'smtp.mailgun.org');
+        $realEstate->mail_port = env('MAIL_PORT', 587);
         $realEstate->mail_username = env('MAIL_USERNAME');
         $realEstate->mail_password = env('MAIL_PASSWORD');
-        $realEstate->mail_encryption = env('MAIL_ENCRYPTION');
-        $realEstate->mail_from_address = env('MAIL_FROM_ADDRESS');
-        $realEstate->mail_from_name = env('MAIL_FROM_NAME');
+        $realEstate->mail_encryption = env('MAIL_ENCRYPTION', 'tls');
+        $realEstate->mail_from_address = env('MAIL_FROM_ADDRESS', 'hello@example.com');
+        $realEstate->mail_from_name = env('MAIL_FROM_NAME', 'Example');
 
         $address = factory(App\Models\Address::class, 1)->create()[0];
         $address->zip = 3172;
