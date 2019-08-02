@@ -63,6 +63,8 @@ export default {
     incorrect_password: "L'ancien mot de passe est incorect",
     password_changed: "Mot de passe modifié avec succès",
     details_saved: 'Détails sauvegardés',
+    please_wait: 'Veuillez patienter...',
+    no_data_available: 'Pas de données disponibles',
     password_validation: {
         required: "Mot de passe requis",
         confirm: 'Veuillez saisir à nouveau le mot de passe',

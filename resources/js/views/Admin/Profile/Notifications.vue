@@ -88,14 +88,6 @@
                     message: this.$t('settings.updated'),
                 });
 
-                this.updateSettings(this.user).then((resp) => {
-
-                    this.$i18n.locale = this.user.settings.language;
-
-                }).catch((err) => {
-                    displayError(err);
-                })
-
             },
         },
 

@@ -342,6 +342,65 @@ class UnitAPIController extends AppBaseController
     }
 
     /**
+     * @SWG\Post(
+     *      path="units/{id}/assignees/{assignee_id}",
+     *      summary="Assign the tenant to unit",
+     *      tags={"Unit", "Tenant"},
+     *      description="Assign the tenant to unit",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="unit id",
+     *          type="integer",
+     *      ),
+     *      @SWG\Parameter(
+     *          name="assignee_id",
+     *          in="path",
+     *          required=true,
+     *          description="tenant id",
+     *          type="integer",
+     *      ),
+     *      @SWG\Response(
+     *          response=404,
+     *          description="not found",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  example="false"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Incorrect tenant"
+     *              )
+     *          )
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="integer"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="tenant assigned unit successfully"
+     *              )
+     *          )
+     *      )
+     * )
+     *
      * @param $unitId
      * @param $tenantId
      * @return mixed
@@ -367,6 +426,65 @@ class UnitAPIController extends AppBaseController
     }
 
     /**
+     * @SWG\Delete(
+     *      path="units/{id}/assignees/{assignee_id}",
+     *      summary="Un assign the tenant to unit",
+     *      tags={"Unit", "Tenant"},
+     *      description="Un assign the tenant to unit",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="unit id",
+     *          type="integer",
+     *      ),
+     *      @SWG\Parameter(
+     *          name="assignee_id",
+     *          in="path",
+     *          required=true,
+     *          description="tenant id",
+     *          type="integer",
+     *      ),
+     *      @SWG\Response(
+     *          response=404,
+     *          description="not found",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  example="false"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Incorrect tenant"
+     *              )
+     *          )
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="integer"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="tenant un assigned unit successfully"
+     *              )
+     *          )
+     *      )
+     * )
+     *
      * @param $unitId
      * @param $tenantId
      * @return mixed

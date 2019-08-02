@@ -1,6 +1,6 @@
 <template>
     <div class="buildings-edit ">
-        <heading :title="$t('models.building.edit_title')" icon="icon-commerical-building" shadow="heavy">
+        <heading :title="$t('models.building.edit_title')" :subtitle="model.building_format" icon="icon-commerical-building" shadow="heavy">
             <template>
                 <div class="action-group">
                     <el-button @click="submit" size="small" type="primary" round> {{this.$t('actions.save')}}</el-button>
