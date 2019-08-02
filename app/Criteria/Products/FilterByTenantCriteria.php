@@ -43,12 +43,13 @@ class FilterByTenantCriteria implements CriteriaInterface
 //        if ($user_id) {
 //            $model->where('products.user_id', $user_id);
 //        }
-
-        $model->whereHas('user', function($q) use ($tenant_id) {
-            $q->whereHas('tenant', function($q)  use ($tenant_id) {
-                $q->where('id', $tenant_id);
+        if ($tenant_id) {
+            $model->whereHas('user', function($q) use ($tenant_id) {
+                $q->whereHas('tenant', function($q)  use ($tenant_id) {
+                    $q->where('id', $tenant_id);
+                });
             });
-        });
+        }
 
         return $model;
     }
