@@ -25,7 +25,7 @@ class ServiceRequestsTableSeeder extends Seeder
             })->get();
 
             $serviceRequests = [];
-            for ($i = 0; $i < 1000; $i++) {
+            for ($i = 0; $i < 500; $i++) {
                 $date = $this->getRandomTime();
                 $serviceRequests[] = factory(App\Models\ServiceRequest::class)->create($this->getDateColumns($date));
             }
