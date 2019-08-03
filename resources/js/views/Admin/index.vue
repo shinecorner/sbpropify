@@ -246,6 +246,7 @@
                         total_buildings: response.data.data.total_buildings,
                         card_data: response.data.data.buildings_per_status
                     };
+                    console.log('buildingStatistics', that.buildingStatistics);
 
                     that.tenantsStatistics = {
                         total_tenants: response.data.data.total_tenants,

@@ -20,38 +20,26 @@ import {format, subDays, isBefore, isAfter, parse} from 'date-fns'
 import axios from '@/axios';
 
 import CustomDateRangePicker from 'components/CustomDateRangePicker';
+import chartMixin from '../mixins/adminDashboardChartMixin';
 
 export default {
   components: {
     'apexchart': VueApexCharts,
     CustomDateRangePicker
   },
-  props: {            
-    type: {
-        type: String,
-        required: true
-    },
+  mixins: [chartMixin()],
+  props: {
     colNum: {
         type: Number
-    },
-    startDate: {
-        type: String
     }
   },  
   data() {
     return {        
         chartType: 'pie',
-        dateRange: null,
-        xData: [],
-        yData: [],
         showPicker: false,
-        
     }
   },
   computed:{
-    series: function(){        
-        return this.yData;
-    },
     chartOptions: function(){
         let responsive = [];
         if (this.colNum == 2) {
@@ -120,16 +108,11 @@ export default {
                 width: 220
             },
             chart:{
-                toolbar: {
-                    show: true,
-                },
-                autoSelected: '',
+                toolbar: this.toolbar,
                 width: 540,
                 height: 320
             },
-            tooltip: {
-                followCursor: false
-            }
+            colors: this.colors
         }
     }
   },
@@ -202,21 +185,11 @@ export default {
                 console.log(error);
             })
         },
-        pickHandler(val) {
-            this.dateRange = val;
-            this.fetchData();
-        },
         handleShowClick(val) {
             this.showPicker = val;
         }
     },
-    created(){        
-        this.fetchData();        
-    },
     watch: {
-      '$i18n.locale' : function(val) {
-        this.fetchData();
-      },
       'startDate': function(val) {
           if (val) {
             this.dateRange = [val, format(new Date(), 'DD.MM.YYYY')];
