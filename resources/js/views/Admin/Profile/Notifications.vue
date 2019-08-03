@@ -79,8 +79,6 @@
                     message: this.$t('settings.updated'),
                 });
 
-                console.log(this.user.settings.language);
-
             },
         }
 

@@ -24,11 +24,13 @@ export default {
         let languagesArray = Object.keys(languagesObject).map(function(key) {
             return [String(key), languagesObject[key]];
         });
+       
         this.languages = languagesArray.map(item => { 
-            let flag = 'flag-icon flag-icon-' + item[0]
+            let flag_class = 'flag-icon flag-icon-';
+            let flag = flag_class + item[0];
             if( item[0] == 'en')
             {
-                flag = 'flag-icon flag-icon-us'
+                flag = flag_class + 'us'
             }
             return {
                 name: item[1],
