@@ -22,6 +22,8 @@ use Intervention\Image\ImageManager as Image;
  */
 class UserRepository extends BaseRepository
 {
+    use App\Traits\UpdateSettings;
+
     /**
      * @var array
      */
@@ -102,8 +104,8 @@ class UserRepository extends BaseRepository
                 $model->attachRole($role);
             }
         }
-
-        $model = $this->updateRelations($model, $attributes);
+// @TODO tell
+//        $model = $this->updateRelations($model, $attributes);
         $model->save();
 
         return $this->parserResult($model);
