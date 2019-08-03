@@ -220,6 +220,11 @@ class Tenant extends Model implements HasMedia
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function settings()
+    {
+        return $this->hasOne(UserSettings::class, 'user_id', 'user_id');
+    }
+
     /**
      * @return BelongsTo
      **/

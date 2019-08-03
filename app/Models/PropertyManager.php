@@ -148,6 +148,14 @@ class PropertyManager extends Model
     }
 
     /**
+     * @return mixed
+     */
+    public function settings()
+    {
+        return $this->hasOne(UserSettings::class, 'user_id', 'user_id');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      **/
     public function buildings()
