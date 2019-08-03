@@ -42,7 +42,7 @@
     .el-menu {
         &.el-menu--horizontal {
             z-index: 10;
-            box-shadow: 0 1px 5px 5px transparentize(#000, .9);
+            box-shadow: 0 1px 5px 5px transparentize(#000, .9); 
             display: flex;
             align-items: center;
             flex-shrink: 0;

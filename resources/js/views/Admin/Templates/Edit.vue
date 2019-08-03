@@ -12,20 +12,7 @@
                                       v-model="model.name"></el-input>
                         </el-form-item>
                         <el-form-item>
-                            <el-radio-group v-model="language">
-                                <el-radio-button label="fr">
-                                    <span class="flag-icon flag-icon-fr"></span> {{$t('languages.fr')}}
-                                </el-radio-button>
-                                <el-radio-button label="de">
-                                    <span class="flag-icon flag-icon-de"></span> {{$t('languages.de')}}
-                                </el-radio-button>
-                                <el-radio-button label="en">
-                                    <span class="flag-icon flag-icon-us"></span> {{$t('languages.en')}}
-                                </el-radio-button>
-                                <el-radio-button label="it">
-                                    <span class="flag-icon flag-icon-it"></span> {{$t('languages.it')}}
-                                </el-radio-button>
-                            </el-radio-group>
+                           <select-language :model.sync="language"/>
                         </el-form-item>
                         <el-form-item :label="$t('models.template.subject')" :prop="`translations.${language}.subject`"
                                       :rules="validationRules.subject">
@@ -87,6 +74,7 @@
     import Heading from 'components/Heading';
     import Card from 'components/Card';
     import EditActions from 'components/EditViewActions';
+    import SelectLanguage from 'components/SelectLanguage';
     import TemplatesMixin from 'mixins/adminTemplatesMixin';
 
     export default {
@@ -97,7 +85,8 @@
             Heading,
             Card,
             EditActions,
-            quillEditor
+            quillEditor,
+            SelectLanguage
         }
     }
 </script>
