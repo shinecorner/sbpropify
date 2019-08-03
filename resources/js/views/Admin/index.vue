@@ -13,33 +13,33 @@
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
                                 <el-card class="chart-card" :header="$t('dashboard.requests_by_creation_date')">
-                                    <chart-stacked-column type="request_by_creation_date"></chart-stacked-column>
+                                    <chart-stacked-column type="request_by_creation_date" :startDate="startDates.requests"></chart-stacked-column>
                                 </el-card>
                             </el-col>
                          </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.requests_by_status')">
-                                    <chart-pie-and-donut type="request_by_status" :colNum="3"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="request_by_status" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.requests_by_category')">
-                                    <chart-pie-and-donut type="request_by_category" :colNum="3"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="request_by_category" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.requests_by_category')">
-                                    <chart-pie-and-donut type="request_by_category" :colNum="3"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="request_by_category" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                         </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="24">
-                                <el-card class="chart-card no-filter">
+                                <el-card class="chart-card">
                                     <el-tabs v-model="activeChart" @tab-click="handleHeatmapTabClick">
-                                        <el-tab-pane :label="$t('dashboard.week_hour')" name="week">
-                                            <div class="chart-filter in-toolbar">              
+                                        <el-tab-pane :label="$t('dashboard.week_hour')" name="week" class="heat-week-hour">
+                                            <div class="chart-filter">              
                                                 <el-date-picker
                                                     v-model="weekSelected"
                                                     type="week"
@@ -67,7 +67,7 @@
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
                                 <el-card class="chart-card" :header="$t('dashboard.buildings.buildings_by_creation_date')">
-                                    <chart-column type="buildings_by_creation_date"></chart-column>
+                                    <chart-column type="buildings_by_creation_date" :startDate="startDates.buildings"></chart-column>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -76,19 +76,19 @@
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
                                 <el-card class="chart-card" :header="$t('dashboard.news_by_creation_date')">
-                                    <chart-stacked-column type="news_by_creation_date"></chart-stacked-column>
+                                    <chart-stacked-column type="news_by_creation_date" :startDate="startDates.posts"></chart-stacked-column>
                                 </el-card>
                             </el-col>
                          </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
-                            <el-col :span="12">
-                                <el-card class="chart-card" :header="$t('dashboard.news_by_status')">
-                                    <chart-pie-and-donut type="news_by_status" :colNum="2"></chart-pie-and-donut>
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.news_by_status')">
+                                    <chart-pie-and-donut type="news_by_status" :colNum="3" :startDate="startDates.posts"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
-                            <el-col :span="12">
-                                <el-card class="chart-card" :header="$t('dashboard.news_by_type')">
-                                    <chart-pie-and-donut type="news_by_type" :colNum="2"></chart-pie-and-donut>
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.news_by_type')">
+                                    <chart-pie-and-donut type="news_by_type" :colNum="3" :startDate="startDates.posts"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -97,14 +97,14 @@
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
                                 <el-card class="chart-card" :header="$t('dashboard.products_by_creation_date')">
-                                    <chart-stacked-column type="products_by_creation_date"></chart-stacked-column>
+                                    <chart-stacked-column type="products_by_creation_date" :startDate="startDates.products"></chart-stacked-column>
                                 </el-card>
                             </el-col>
                          </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
-                            <el-col :span="12">
-                                <el-card class="chart-card" :header="$t('dashboard.products_by_type')">
-                                    <chart-pie-and-donut type="products_by_type" :colNum="2"></chart-pie-and-donut>
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.products_by_type')">
+                                    <chart-pie-and-donut type="products_by_type" :colNum="3" :startDate="startDates.products"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -118,19 +118,19 @@
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
                                 <el-card class="chart-card" :header="$t('dashboard.tenants_by_creation_date')">
-                                    <chart-stacked-column type="tenants_by_creation_date"></chart-stacked-column>
+                                    <chart-stacked-column type="tenants_by_creation_date" :startDate="startDates.tenants"></chart-stacked-column>
                                 </el-card>
                             </el-col>
                          </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
-                            <el-col :span="12">
-                                <el-card class="chart-card" :header="$t('dashboard.tenants_by_request_status')">
-                                    <chart-pie-and-donut type="tenants_by_request_status" :colNum="2"></chart-pie-and-donut>
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_request_status')">
+                                    <chart-pie-and-donut type="tenants_by_request_status" :colNum="3" :startDate="startDates.tenants"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
-                            <el-col :span="12">
-                                <el-card class="chart-card" :header="$t('dashboard.tenants_by_status')">
-                                    <chart-pie-and-donut type="tenants_by_status" :colNum="2"></chart-pie-and-donut>
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_status')">
+                                    <chart-pie-and-donut type="tenants_by_status" :colNum="3" :startDate="startDates.tenants"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -220,6 +220,13 @@
                 activeName: 'requests',
                 activeChart: 'week',
                 weekSelected: null,
+                startDates: {
+                    requests: '',
+                    buildings: '',
+                    posts: '',
+                    products: '',
+                    tenants: ''
+                }
             }
         },
         computed: {
@@ -244,6 +251,7 @@
                         total_tenants: response.data.data.total_tenants,
                         card_data: response.data.data.tenants_per_status
                     };
+                    that.startDates = response.data.data.all_start_dates;
                 }).catch(function (error) {
                     console.log(error);
                 })
@@ -450,6 +458,15 @@
 
             .el-tabs__content {
                 overflow: visible;
+            }
+
+            .heat-week-hour {
+                .chart-filter {
+                    justify-content: flex-end;
+                }
+                .apexcharts-toolbar {
+                    margin-top: -88px;
+                }
             }
         }
     }
