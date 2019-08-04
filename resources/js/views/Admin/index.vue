@@ -133,6 +133,11 @@
                                     <chart-pie-and-donut type="tenants_by_status" :colNum="3" :startDate="startDates.tenants"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_language')">
+                                    <chart-pie-and-donut type="tenants_by_language" :colNum="3" :startDate="startDates.tenants"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
                         </el-row>
                     </el-tab-pane>
                 </el-tabs>
