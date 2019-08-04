@@ -315,6 +315,7 @@ class TenantAPIController extends AppBaseController
     {
         /** @var Tenant $tenant */
         $tenant = $this->tenantRepository->findWithoutFail($id);
+        $tenant->load('settings');
         if (empty($tenant)) {
             return $this->sendError('Tenant not found');
         }

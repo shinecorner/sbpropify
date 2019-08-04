@@ -17,20 +17,7 @@
                 <el-switch v-model="user.settings.admin_notification"></el-switch>
             </el-form-item>
             <el-form-item :label="$t('settings.language')">
-                <el-radio-group v-model="user.settings.language">
-                    <el-radio-button label="fr">
-                        <span class="flag-icon flag-icon-fr"></span> {{$t('languages.fr')}}
-                    </el-radio-button>
-                    <el-radio-button label="de">
-                        <span class="flag-icon flag-icon-de"></span> {{$t('languages.de')}}
-                    </el-radio-button>
-                    <el-radio-button label="en">
-                        <span class="flag-icon flag-icon-us"></span> {{$t('languages.en')}}
-                    </el-radio-button>
-                    <el-radio-button label="it">
-                        <span class="flag-icon flag-icon-it"></span> {{$t('languages.it')}}
-                    </el-radio-button>
-                </el-radio-group>
+                <select-language :model.sync="user.settings.language"/>
             </el-form-item>
             <el-form-item>
                 <el-button @click="settingsUpdated" icon="ti-save" type="primary">{{$t('models.user.save')}}</el-button>
@@ -43,9 +30,13 @@
 <script>
     import {mapGetters, mapState, mapActions} from 'vuex';
     import {displayError, displaySuccess} from 'helpers/messages';
+    import SelectLanguage from 'components/SelectLanguage';
 
     export default {
         name: 'AdminSettingsAccount',
+        components: {
+            SelectLanguage
+        },
         data() {
             return {
                 validationRules: {
@@ -89,7 +80,7 @@
                 });
 
             },
-        },
+        }
 
     }
 </script>

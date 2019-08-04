@@ -202,7 +202,7 @@ class Tenant extends Model implements HasMedia
 
         static::created(function ($tenant) {
             $tenant->tenant_format = $tenant->getUniqueIDFormat($tenant->id);
-            $tenant->activation_code = $this->shortHashId($tenant->id);
+            $tenant->activation_code = $tenant->shortHashId($tenant->id);
             $tenant->save();
         });
 
@@ -218,6 +218,11 @@ class Tenant extends Model implements HasMedia
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function settings()
+    {
+        return $this->hasOne(UserSettings::class, 'user_id', 'user_id');
     }
 
     /**

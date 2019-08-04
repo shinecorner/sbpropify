@@ -13,9 +13,9 @@
                             {{$t('chooseLanguage')}}
                         </div>
                         <div class="language-check-box-body">
-                            <ul class="language-check-box-body-item" v-for='language in this.languages' @click='itemClicked(language.symbol, language.flag)'>
+                            <ul class="language-check-box-body-item" v-for='language in this.languages' :key="language.symbol" @click='itemClicked(language.symbol, language.flag)'>
                                 <li>
-                                    <span  v-bind:class="language.flag"></span>
+                                    <span v-bind:class="language.flag"></span>
                                     <p>{{language.name}}</p>
                                 </li>
                             </ul>
@@ -101,12 +101,7 @@
                 activeIndex: '1',
                 activeIndex2: '1',
 
-                languages: [
-                    {name: 'Français', symbol: 'fr', flag: 'flag-icon flag-icon-fr'},
-                    {name: 'Italiano', symbol: 'it', flag: 'flag-icon flag-icon-it'},
-                    {name: 'Deutsch', symbol: 'de', flag: 'flag-icon flag-icon-de'},
-                    {name: 'English', symbol: 'en', flag: 'flag-icon flag-icon-us'}
-                ],
+                languages: [],
 
                 isCallapsed: false,
                 dropdownwidth: 0,
@@ -332,6 +327,25 @@
             });
 
             this.getDropdownWidth();
+            
+            let languagesObject = this.$constants.app.languages;
+            let languagesArray = Object.keys(languagesObject).map(function(key) {
+                return [String(key), languagesObject[key]];
+            });
+
+            this.languages = languagesArray.map(item => { 
+                let flag = 'flag-icon flag-icon-' + item[0]
+                if( item[0] == 'en')
+                {
+                    flag = 'flag-icon flag-icon-us'
+                }
+                return {
+                    name: item[1],
+                    symbol: item[0],
+                    flag: flag
+                }
+            });
+            
         }
 
 
