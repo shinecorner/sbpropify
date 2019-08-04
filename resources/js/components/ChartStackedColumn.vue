@@ -38,21 +38,7 @@ export default {
       options.chart.stacked = true;
       options.legend = {
         position: 'bottom',              
-        horizontalAlign: 'center',
-        formatter: value => {
-          const realValue = value.toString();
-          if (realValue.match(/[a-zA-Z]+/gi)) {
-            switch (this.type) {
-              case 'news_by_creation_date':
-                return this.$t('models.post.status.' + realValue);
-              case 'products_by_creation_date':
-                return this.$t('models.product.status.' + realValue);
-              case 'tenants_by_creation_date':
-                return this.$t('models.tenant.status.' + realValue);
-            }
-          }
-          return realValue;
-        }
+        horizontalAlign: 'center'
       };
       return options;
     }        
@@ -60,18 +46,22 @@ export default {
   methods: {
     fetchData(){
       let that = this;                                               
-      let url = '';						
+      let url = '';
+      let langPrefix = '';
       if(this.type === 'request_by_creation_date'){
         url = 'admin/chartRequestByCreationDate';
       }
       else if (this.type === 'news_by_creation_date') {
         url = 'admin/chartByCreationDate?table=posts';
+        langPrefix = 'models.post.status.';
       }
       else if (this.type === 'products_by_creation_date') {
         url = 'admin/chartByCreationDate?table=products';
+        langPrefix = 'models.product.status.';
       }
       else if (this.type === 'tenants_by_creation_date') {
         url = 'admin/chartByCreationDate?table=tenants';
+        langPrefix = 'models.tenant.status.';
       }
       let params = {
         period: that.period
@@ -84,7 +74,12 @@ export default {
         params: params
       })
       .then(function (response) {
-        that.yData = response.data.data.requests_per_day_ydata;
+        that.yData = response.data.data.requests_per_day_ydata.map(value => {
+          if (langPrefix !== '') {
+            value.name = that.$t(langPrefix + value.name);
+          }
+          return value;
+        });
         that.xData = response.data.data.requests_per_day_xdata;
       }).catch(function (error) {
         console.log(error);
