@@ -23,7 +23,7 @@ class AuditRepository extends BaseRepository
         'user_id',
         'auditable_type',
         'auditable_id',
-        'id_address',
+        'ip_address',
     ];
 
     /**
