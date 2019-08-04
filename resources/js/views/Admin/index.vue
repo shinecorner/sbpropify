@@ -67,7 +67,7 @@
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
                                 <el-card class="chart-card" :header="$t('dashboard.buildings.buildings_by_creation_date')">
-                                    <chart-column type="buildings_by_creation_date" :startDate="startDates.buildings"></chart-column>
+                                    <chart-line type="buildings_by_creation_date" :startDate="startDates.buildings"></chart-line>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -155,6 +155,7 @@
 
     import BuildingsStatisticsCard from 'components/BuildingsStatisticsCard';
     import ChartColumn from 'components/ChartColumn';
+    import ChartLine from 'components/ChartLine';
     import TenantsStatisticsCard from 'components/TenantsStatisticsCard';
 
     export default {
@@ -170,6 +171,7 @@
             ChartHeatMap,
             BuildingsStatisticsCard,
             ChartColumn,
+            ChartLine,
             TenantsStatisticsCard
         },
         data() {

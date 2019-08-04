@@ -1,5 +1,5 @@
 <template>
-    <div v-if="startDate" class="columnchart">
+    <div v-if="startDate" class="linechart">
         <div class="chart-filter in-toolbar">
           <el-radio-group v-model="period" class="stack-radios">                
               <el-radio-button label="day">{{$t('timestamps.days')}}</el-radio-button>
@@ -13,7 +13,7 @@
         </div>    
         <el-row type="flex">
             <el-col :span="24">
-                <apexchart width="100%" height="310" type="bar" :options="chartOptions" :series="series"></apexchart>
+                <apexchart width="100%" height="310" type="line" :options="chartOptions" :series="series"></apexchart>
             </el-col>
         </el-row>        
     </div>
@@ -23,17 +23,21 @@ import VueApexCharts from 'vue-apexcharts'
 import axios from '@/axios';
 
 import CustomDateRangePicker from 'components/CustomDateRangePicker';
-import columChartMixin from '../mixins/adminDashboardColumnChartMixin';
+import columnChartMixin from '../mixins/adminDashboardColumnChartMixin';
 
 export default {  
   components: {
     'apexchart': VueApexCharts,
     CustomDateRangePicker
   },
-  mixins: [columChartMixin()],
+  mixins: [columnChartMixin()],
   computed: {
     chartOptions: function() {
-      return this.columnChartOptions;
+      const options = this.columnChartOptions;
+      options.stroke = {
+        curve: 'straight'
+      }
+      return options;
     }
   },
   methods: {
@@ -56,6 +60,7 @@ export default {
         params: params
       })
       .then(function (response) {
+        
         that.yData = [{name: toolTipSeriesName, data: response.data.data.requests_per_day_ydata}];
         that.xData = response.data.data.requests_per_day_xdata;
       }).catch(function (error) {
@@ -67,7 +72,7 @@ export default {
 </script>
 
 <style scoped>
-  .columnchart {
+  .linechart {
     position: relative;
   }
   .stack-radios {

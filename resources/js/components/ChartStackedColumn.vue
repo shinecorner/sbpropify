@@ -59,7 +59,6 @@ export default {
   },
   methods: {
     fetchData(){
-      console.log(this.chartOptions);
       let that = this;                                               
       let url = '';						
       if(this.type === 'request_by_creation_date'){
