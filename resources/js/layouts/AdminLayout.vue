@@ -1,6 +1,6 @@
 <template>
     <el-container class="admin-layout" direction="vertical">
-        <a-header>
+        <a-header :toggleSidebar="toggleSidebar">
             <div class="header-link">
                 <div  v-bind:class="[{ active: showMenu }, language]">
                     <div class="language-iconBorder" @click="toggleShow">
@@ -13,9 +13,9 @@
                             {{$t('chooseLanguage')}}
                         </div>
                         <div class="language-check-box-body">
-                            <ul class="language-check-box-body-item" v-for='language in this.languages' @click='itemClicked(language.symbol, language.flag)'>
+                            <ul class="language-check-box-body-item" v-for='language in this.languages' :key="language.symbol" @click='itemClicked(language.symbol, language.flag)'>
                                 <li>
-                                    <span  v-bind:class="language.flag"></span>
+                                    <span v-bind:class="language.flag"></span>
                                     <p>{{language.name}}</p>
                                 </li>
                             </ul>
@@ -23,53 +23,43 @@
                     </div>
                 </div>
             </div>
-
-
-            <el-menu class="dropdown-menu" menu-trigger="hover" mode="horizontal">
-                <el-submenu index="2"  popper-class="profile-popper">
-                    <template slot="title">
-
-                        <div class="user-params">
-                            <div class="user-params-img" :style="`background-image: url('${user.avatar}')`"></div>
-
-                            <div class="user-params-wrap">
-                                <span class="user-params-name">{{userName}}</span>
-                                <i class="el-submenu__icon-arrow el-icon-arrow-down user-params-wrap-icon"></i>
-                            </div>
-                        </div>
-
-
-                    </template>
-                    <el-menu-item index="2-1" class="el-menu-item-d">
-                        <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
-                            <i class="ti-user"/>
-                            {{$t('menu.profile')}}
-                        </router-link>
-                    </el-menu-item>
-                    <el-menu-item index="2-2" class="el-menu-item-d">
-                        <template v-if="$can($permissions.view.realEstate)">
-                            <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
-                                <i class="ti-settings"/>
-                                {{$t('menu.settings')}}
+            
+            <div id="dropdown" class="dropdown-menu" ref="prev">
+                <avatar :src="user.avatar" :name="user.name" :size="33"/>
+                <el-dropdown trigger="click">
+                    <span class="el-dropdown-link">
+                        {{user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    
+                    <el-dropdown-menu slot="dropdown" :style="dropmenuwidth">
+                        <el-dropdown-item>
+                            <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
+                                <i class="icon-user"/>
+                                {{$t('menu.profile')}}
                             </router-link>
-                        </template>
-                    </el-menu-item>
-                    <el-menu-item index="2-3">
-                        <el-button @click="handleLogout" type="text">
-                            <div class="logout-button">
-                                <i class="ti-power-off"/>
-                                {{$t('menu.logout')}}
-                            </div>
-                        </el-button>
-                    </el-menu-item>
-                </el-submenu>
-            </el-menu>
-
-
-
+                        </el-dropdown-item>
+                        <el-dropdown-item>
+                            <template v-if="$can($permissions.view.realEstate)">
+                                <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
+                                    <i class="icon-cog"/>
+                                    {{$t('menu.settings')}}
+                                </router-link>
+                            </template>
+                        </el-dropdown-item>
+                        <el-dropdown-item>
+                            <el-button @click="handleLogout" type="text">
+                                <div class="logout-button">
+                                    <i class="icon-logout"/>
+                                    {{$t('menu.logout')}}
+                                </div>
+                            </el-button>
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+            </div>
         </a-header>
         <el-container>
-            <a-sidebar :links="links">
+            <a-sidebar :links="links" :collapsed="isCallapsed">
             </a-sidebar>
             <el-main sticky-container>
                 <v-router-transition transition="slide-left">
@@ -85,8 +75,10 @@
     import AHeader from 'components/AdminHeader';
     import ASidebar from 'components/AdminSidebar';
     import AFooter from 'components/AdminFooter';
+    import Avatar from 'components/Avatar';
     import VRouterTransition from 'v-router-transition';
     import {mapActions, mapState} from "vuex";
+    import { EventBus } from '../event-bus.js';
 
     export default {
         name: 'AdminLayout',
@@ -94,6 +86,7 @@
             AHeader,
             ASidebar,
             AFooter,
+            Avatar,
             VRouterTransition
         },
 
@@ -108,14 +101,10 @@
                 activeIndex: '1',
                 activeIndex2: '1',
 
-                userName: null,
+                languages: [],
 
-                languages: [
-                    {name: 'Français', symbol: 'fr', flag: 'flag-icon flag-icon-fr'},
-                    {name: 'Italiano', symbol: 'it', flag: 'flag-icon flag-icon-it'},
-                    {name: 'Deutsch', symbol: 'de', flag: 'flag-icon flag-icon-de'},
-                    {name: 'English', symbol: 'en', flag: 'flag-icon flag-icon-us'}
-                ]
+                isCallapsed: false,
+                dropdownwidth: 0,
             }
         },
 
@@ -228,6 +217,9 @@
                         }
                     }]
                 }];
+            },
+            dropmenuwidth () {
+                return `width: ${this.dropdownwidth + 13.5}px;`
             }
         },
 
@@ -247,8 +239,12 @@
                 }
             },
 
+            toggleSidebar() {
+                this.isCallapsed = !this.isCallapsed;
+            },
+
             handleLogout() {
-                this.$confirm('You will be logged out.', 'Are you sure?', {
+                this.$confirm(this.$t('swal.logout_confirm'), this.$t('swal.delete.title'), {
                     type: 'warning'
                 }).then(() => {
                     //this.$router.push({name: 'login'});
@@ -305,6 +301,11 @@
                 localStorage.setItem('locale', this.$i18n.locale);
                 localStorage.setItem('selectedFlag', this.selectedFlag);
             },
+
+            getDropdownWidth() {
+                this.dropdownwidth = this.$refs.prev.clientWidth;
+            }
+
         },
 
         mounted(){
@@ -320,17 +321,50 @@
                     }
                 }
             });
-        },
 
-        created() {
-            this.userName = this.user.name;
+            EventBus.$on('profile-username-change', () => {
+                this.dropdownwidth = this.$refs.prev.clientWidth;
+            });
+
+            this.getDropdownWidth();
+            
+            let languagesObject = this.$constants.app.languages;
+            let languagesArray = Object.keys(languagesObject).map(function(key) {
+                return [String(key), languagesObject[key]];
+            });
+
+            this.languages = languagesArray.map(item => { 
+                let flag = 'flag-icon flag-icon-' + item[0]
+                if( item[0] == 'en')
+                {
+                    flag = 'flag-icon flag-icon-us'
+                }
+                return {
+                    name: item[1],
+                    symbol: item[0],
+                    flag: flag
+                }
+            });
+            
         }
 
 
     }
 </script>
+<style lang="scss" scoped>
+    .el-button--text {
+        color: #909399 !important;
+    }
+    .el-dropdown-menu {
+        margin: 16px 10px 16px 0px !important;
+        .el-dropdown-menu__item {
+            padding: 0px 12px !important;
+        }
+    }
+</style>
 
 <style lang="scss" scoped>
+
     .el-container {
         background-color: #F2F4F9;
         height: 100%;
@@ -398,27 +432,24 @@
                 }
             }
         }
-
-        .dropdown{
-            position: absolute;
-            width: 106%;
-            top: 56px;
-            left: 0px;
-
-            &-list{
-                list-style: none;
-                background: #fff;
-                width: 100%;
-                padding: 0 10px 10px 10px;
-                margin: 0;
-                box-shadow: -5px 4px 6px -5px;
-                border-bottom-left-radius: 5px;
-                overflow: hidden;
+        .dropdown-menu {
+            width: 100%;
+            .avatar {
+                margin-right: 3%;
+                border: solid #c2c2c2 2px;
+                background-color: rgb(205, 220, 57)!important;
+                color: white !important;
+            }
+            .el-dropdown-link {
+                cursor: pointer;
+                color: #909399;
+                .el-icon-arrow-down {
+                    font-size: 12px;
+                }
             }
         }
 
-
-        .language{
+        .language {
             position: relative;
             width: 35px;
             height: 35px;
@@ -431,7 +462,7 @@
             &:after{
                 content: "";
                 position: absolute;
-                right: -25px;
+                right: -21px;
                 height: 90%;
                 width: 1px;
                 background: #c2c2c2;;

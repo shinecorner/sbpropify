@@ -223,6 +223,8 @@ class PropertyManagerAPIController extends AppBaseController
     {
         /** @var PropertyManager $propertyManager */
         $propertyManager = $this->propertyManagerRepository->find($id);
+        $propertyManager->load('settings');
+
         if (empty($propertyManager)) {
             return $this->sendError('Property Manager not found');
         }

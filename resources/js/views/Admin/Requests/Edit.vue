@@ -1,6 +1,6 @@
 <template>
     <div class="services-edit mb20" v-if="constants">
-        <heading :title="$t('models.request.edit_title')" icon="ti-user" shadow="heavy">
+        <heading :title="$t('models.request.edit_title')" :subtitle="model.service_request_format" icon="icon-chat-empty" shadow="heavy">
             <edit-actions :saveAction="submit" :deleteAction="deleteRequest" route="adminRequests"/>
         </heading>
         <div class="crud-view">
@@ -293,7 +293,7 @@
                         <card class="mt15" v-if="model.id">
                             <el-tabs v-model="activeTab2">
                                 <el-tab-pane :label="$t('models.request.comments')" name="comments">
-                                    <chat :id="model.id" type="request"/>
+                                    <chat :id="model.id" type="request" show-templates />
                                 </el-tab-pane>
                                 <el-tab-pane>
                                     <span slot="label">
@@ -328,7 +328,6 @@
     import Card from 'components/Card';
     import RequestsMixin from 'mixins/adminRequestsMixin';
     import ServiceModalMixin from 'mixins/adminServiceModalMixin';
-    import Chat from 'components/Chat2';
     import {mapActions} from 'vuex';
     import RelationList from 'components/RelationListing';
     import EditActions from 'components/EditViewActions';
@@ -347,7 +346,6 @@
         components: {
             Heading,
             Card,
-            Chat,
             ServiceDialog,
             RelationList,
             EditActions,
@@ -399,12 +397,12 @@
                         }, {});
                 }
             },
-            selectedRequestData() {      
-                return {             
+            selectedRequestData() {
+                return {
                     tenant: this.model.tenant,
                     service_request_format: this.model.service_request_format,
                     category: (this.model.category.parent_id == null)? this.model.category.name : this.model.category.parentCategory.name + " > " + this.model.category.name
-                }                
+                }
             },
             mediaCount() {
                 if(this.model.media) {
@@ -461,7 +459,7 @@
                     this.loading.status = false;
                 });
             },
-            openNotifyProvider(provider) {            
+            openNotifyProvider(provider) {
                 this.selectedServiceRequest = provider;
                 this.showServiceMailModal = true;
             },
@@ -471,7 +469,7 @@
                     this.selectedConversation = row;
                     this.conversationVisible = true;
                 })
-            },            
+            },
         }
     };
 </script>

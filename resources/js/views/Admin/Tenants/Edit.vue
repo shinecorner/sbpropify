@@ -1,6 +1,6 @@
 <template>
     <div class="tenants-edit mb20">
-        <heading :title="$t('models.tenant.edit_title')" icon="ti-home" shadow="heavy">
+        <heading :title="$t('models.tenant.edit_title')" :subtitle="model.tenant_format" icon="icon-group" shadow="heavy">
             <edit-actions :saveAction="submit" :deleteAction="deleteTenant" route="adminTenants"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
@@ -459,7 +459,10 @@
                     id: this.model.id,
                     media_id: this.lastMedia.id
                 }).then(r => {
-                    displaySuccess(r);
+                    displaySuccess({
+                        success: true,
+                        message: 'swal.media.deleted'
+                    });
 
                     this.model.media.splice(-1, 1);
                 }).catch(err => {

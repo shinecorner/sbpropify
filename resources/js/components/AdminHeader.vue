@@ -4,7 +4,12 @@
             <slot name="prefix"></slot>
         </el-menu-item>
         <el-menu-item class="logo" index="logo">
-            <img src="~img/logo3.png"/>
+            <div class="menu-icon" @click="handletoggle">
+                <i class="icon-menu"></i>
+            </div>
+            <div class="logo-image">
+                <img src="~img/logo3.png"/>
+            </div>
         </el-menu-item>
         <el-menu-item class="header-menu-links" index="content" v-if="hasSlot()">
             <slot/>
@@ -15,6 +20,9 @@
 <script>
     export default {
         name: 'AdminHeader',
+        props: {
+            toggleSidebar: { type: Function },
+        },
         methods: {
             hasSlot(slot) {
                 if (slot) {
@@ -22,6 +30,9 @@
                 }
 
                 return !!this.$slots.default;
+            },
+            handletoggle() {
+                this.toggleSidebar();
             }
         }
     }
@@ -31,7 +42,7 @@
     .el-menu {
         &.el-menu--horizontal {
             z-index: 10;
-            box-shadow: 0 1px 5px 5px transparentize(#000, .9);
+            box-shadow: 0 1px 5px 5px transparentize(#000, .9); 
             display: flex;
             align-items: center;
             flex-shrink: 0;
@@ -51,10 +62,38 @@
                 &.logo {
                     flex: 1;
                     padding: 1em;
-
-                    img {
-                        height: 100%;
-                        vertical-align: baseline;
+                    padding-left: 0px;
+                    display: flex;
+            
+                    .logo-image {
+                        width: 220px;
+                        position: relative;
+                        transition: 0.3s linear;
+                        img {
+                            height: 100%;
+                            vertical-align: baseline;
+                            margin-left: 30px;
+                        }
+                        &:before {
+                            content: "";
+                            position: absolute;
+                            left: 10px;
+                            height: 31.5px;
+                            width: 1px;
+                            background: #c2c2c2;
+                            margin-top:6px;
+                        }
+                    }
+                    
+                    .menu-icon {
+                        margin-right: 9px;
+                        margin-left: 9px;
+                        i {
+                            color: #909399;
+                            &:hover {
+                                color:black; 
+                            }
+                        }
                     }
                 }
             }
@@ -170,8 +209,9 @@
     }
 
     .el-menu--popup {
-        top: 13px;
-        left: -16px;
+        // top: 13px;
+        // left: -16px;
+        left: -3px;
         min-width: 142px !important;
     }
 

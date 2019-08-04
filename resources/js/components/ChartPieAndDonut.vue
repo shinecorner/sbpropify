@@ -1,9 +1,11 @@
 <template>
-    <div class="piechart">
-        <div class="chart-filter">              
-            <custom-date-range-picker
-                :pickHandler="pickHandler">
+    <div v-if="startDate" class="piechart">
+        <div class="chart-filter in-toolbar">              
+            <custom-date-range-picker rangeType="all" :initialRange="dateRange"
+                :pickHandler="pickHandler" :style="{display: showPicker ? 'inline-flex' : 'none'}" :startDate="startDate">
             </custom-date-range-picker>
+            <div class="show-button" v-if="!showPicker" @click="handleShowClick(true)"><i class="el-icon-date"></i></div>
+            <div class="hide-button" v-if="showPicker" @click="handleShowClick(false)"><i class="el-icon-circle-close"></i></div>
         </div>
         <el-row type="flex">
             <el-col :span="24">
@@ -18,43 +20,41 @@ import {format, subDays, isBefore, isAfter, parse} from 'date-fns'
 import axios from '@/axios';
 
 import CustomDateRangePicker from 'components/CustomDateRangePicker';
+import chartMixin from '../mixins/adminDashboardChartMixin';
 
 export default {
   components: {
     'apexchart': VueApexCharts,
     CustomDateRangePicker
   },
-  props: {            
-            type: {
-                type: String,
-                required: true
-            }
-    },  
+  mixins: [chartMixin()],
+  props: {
+    colNum: {
+        type: Number
+    }
+  },  
   data() {
     return {        
         chartType: 'pie',
-        dateRange: [subDays(new Date(), 28), new Date()],
-        xData: [],
-        yData: [],
+        showPicker: false,
     }
   },
   computed:{
-    chartWidth: function() {
-        if (this.type === 'request_by_status') {
-            return 490;
-        }
-        else {
-            return 490;
-        }
-    },
-    series: function(){        
-        return this.yData;
-    },
     chartOptions: function(){
-        return {
-            labels: this.xData,
-            responsive: [{
-                breakpoint: 1210,
+        let responsive = [];
+        if (this.colNum == 2) {
+            responsive = [{
+                breakpoint: 1300,
+                options: {
+                    chart: {
+                        width: 490,
+                    },
+                    legend: {
+                        width: 170,
+                    }
+                }
+            }, {
+                breakpoint: 1200,
                 options: {
                     chart: {
                         width: '100%',
@@ -72,24 +72,55 @@ export default {
                         show: false
                     }
                 }
-            }],
+            }];
+        }
+        else {
+            responsive = [{
+                breakpoint: 1800,
+                options: {
+                    chart: {
+                        width: 490,
+                    },
+                    legend: {
+                        width: 170,
+                    }
+                }
+            }, {
+                breakpoint: 1650,
+                options: {
+                    chart: {
+                        width: '100%',
+                        height: 'auto'
+                    },
+                    legend: {
+                        position: 'bottom',
+                        horizontalAlign: 'center',
+                        width: undefined
+                    }
+                }
+            }];
+        }
+        return {
+            labels: this.xData,
+            responsive: responsive,
             legend: {
                 show: true,
-                width: 170
+                width: 220
             },
             chart:{
-                toolbar: {
-                    show: true,
-                },
-                autoSelected: '',
-                width: this.chartWidth,
+                toolbar: this.toolbar,
+                width: 540,
                 height: 320
-            }
+            },
+            colors: this.colors
         }
     }
   },
     methods: {
         fetchData(){
+            if (this.dateRange == null) {
+                return;
+            }
             let that = this;                                               
             let url = '';						
             if(this.type === 'request_by_status'){
@@ -100,44 +131,137 @@ export default {
                 this.chartType = 'donut';
                 url = 'admin/donutChartRequestByCategory';
             }
-            let params = {};
-            if (this.dateRange != null) {
-              params.start_date = this.dateRange[0],
-              params.end_date = this.dateRange[1]
+            else if (this.type === 'news_by_status') {
+                this.chartType = 'donut';
+                url = 'admin/donutChart?table=posts&column=status';
+            }
+            else if (this.type === 'news_by_type') {
+                this.chartType = 'donut';
+                url = 'admin/donutChart?table=posts&column=type';
+            }
+            else if (this.type === 'products_by_type') {
+                this.chartType = 'donut';
+                url = 'admin/donutChart?table=products&column=type';
+            }
+            else if (this.type === 'tenants_by_request_status') {
+                this.chartType = 'donut';
+                url = 'admin/donutChartTenantsByDateAndStatus';
+            }
+            else if (this.type === 'tenants_by_status') {
+                this.chartType = 'donut';
+                url = 'admin/donutChart?table=tenants&column=status';
             }
 
             return axios.get(url,{
-            	params: params
+            	params: {
+                    start_date: this.dateRange[0],
+                    end_date: this.dateRange[1]
+                }
             })
             .then(function (response) {
-                if(that.type === 'request_by_status'){                    
-                    that.yData = response.data.data.data;
+                that.yData = response.data.data.data.map(val => parseFloat(val) || 0);
+                if(that.type === 'request_by_status'){
                     that.xData = response.data.data.labels.map(function(e){return that.$t('models.request.status.'+e)});
                 }
                 else if(that.type === 'request_by_category'){
-                    that.yData = response.data.data.data;
                     that.xData = response.data.data.labels;
-                }                
+                }
+                else if (that.type === 'news_by_status') {
+                    that.xData = response.data.data.labels.map(label => that.$t('models.post.status.' + label));
+                }
+                else if (that.type === 'news_by_type') {
+                    that.xData = response.data.data.labels.map(label => that.$t('models.post.type.' + label));
+                }
+                else if (that.type === 'products_by_type') {
+                    that.xData = response.data.data.labels.map(label => that.$t('models.product.type.' + label));
+                }
+                else if (that.type === 'tenants_by_request_status') {
+                    that.xData = response.data.data.labels.map(function(e){return that.$t('models.request.status.'+e)});
+                }
+                else if (that.type === 'tenants_by_status') {
+                    that.xData = response.data.data.labels.map(label => that.$t('models.tenant.status.' + label));
+                }
             }).catch(function (error) {
                 console.log(error);
             })
         },
-        pickHandler(val) {
-            this.dateRange = val;
-            this.fetchData();
+        handleShowClick(val) {
+            this.showPicker = val;
         }
     },
-    created(){        
-        this.fetchData();        
-    },
+    watch: {
+      'startDate': function(val) {
+          if (val) {
+            this.dateRange = [val, format(new Date(), 'DD.MM.YYYY')];
+            this.fetchData();
+          }
+      }
+    }
 }
 </script>
 <style lang="scss">
-    .piechart {
-        max-height: 420px;
+    .chart-card {
+        @media screen and (max-width: 1200px) {
+            .piechart .apexcharts-canvas {
+                margin-top: 30px;
+            }
+        }
 
-        .apexcharts-canvas {
-            position: unset;
+        @media screen and (max-width: 1650px) {
+            &.col-3 .piechart .apexcharts-canvas {
+                margin-top: 30px;
+            }
+        }
+        .piechart {
+            //max-height: 420px;
+            position: relative;
+
+            .apexcharts-canvas {
+                position: unset;
+            }
+
+            .apexcharts-legend {
+                display: flex;
+                //flex-direction: column;
+                justify-content: center !important;
+            }
+
+            .chart-filter {
+                &.in-toolbar {
+                    right: 40px;
+                }
+
+                .show-button {
+                    cursor: pointer;
+                    padding: 5px 0;
+                    color: #6E8192;
+                    font-size: 17px;
+
+                    &:hover {
+                        color: #333;
+                    }
+                }
+
+                .hide-button {
+                    cursor: pointer;
+                    position: absolute;
+                    padding: 7px;
+                    top: 0;
+                    right: 0;
+                    color: #C0C4CC;
+
+                    &:hover {
+                        color: #333;
+                    }
+                }
+                .el-input__icon.el-range__close-icon {
+                    display: none;
+                }
+
+                .el-range-editor {
+                    padding-right: 15px;
+                }
+            }
         }
     }
 </style>

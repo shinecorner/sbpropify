@@ -1,6 +1,6 @@
 <template>
     <div class="units-edit mb20">
-        <heading :title="$t('models.product.edit_title')" icon="ti-user" shadow="heavy" style="margin-bottom: 20px;">
+        <heading :title="$t('models.product.edit_title')" icon="icon-basket" shadow="heavy" style="margin-bottom: 20px;">
             <edit-actions :saveAction="submit" :deleteAction="deleteProduct" route="adminProducts"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
@@ -188,7 +188,6 @@
 <script>
     import {mapActions} from 'vuex';
     import ProductsMixin from 'mixins/adminProductsMixin';
-    import Chat from 'components/Chat2';
     import EditActions from 'components/EditViewActions';
     import {Avatar} from 'vue-avatar'
 
@@ -199,7 +198,6 @@
             mixin
         ],
         components: {
-            Chat,
             EditActions,
             Avatar
         },

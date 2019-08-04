@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 
 class ServiceRequestsTableSeeder extends Seeder
 {
+    use  \Traits\TimeTrait;
     var $faker;
 
     /**
@@ -22,7 +23,13 @@ class ServiceRequestsTableSeeder extends Seeder
             $admins = User::whereHas('roles', function ($query) {
                 $query->where('name', 'super_admin');
             })->get();
-            $serviceRequests = factory(App\Models\ServiceRequest::class, 50)->create();
+
+            $serviceRequests = [];
+            for ($i = 0; $i < 500; $i++) {
+                $date = $this->getRandomTime();
+                $serviceRequests[] = factory(App\Models\ServiceRequest::class)->create($this->getDateColumns($date));
+            }
+
             $user = App\Models\User::where('email', 'tenant@example.com')->first();
             foreach ($serviceRequests as $key => $serviceRequest) {
                 $this->addRequestComments($serviceRequest);
@@ -50,7 +57,7 @@ class ServiceRequestsTableSeeder extends Seeder
 
     private function addRequestComments(ServiceRequest $serviceRequest)
     {
-        $totalComments = $this->faker->numberBetween(2, 20);
+        $totalComments = $this->faker->numberBetween(1, 2);
         $users = [
             $serviceRequest->tenant->user,
         ];

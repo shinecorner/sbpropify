@@ -1,6 +1,6 @@
 <template>
     <div class="buildings">
-        <heading :title="$t('models.building.title')" icon="ti-home" shadow="heavy">
+        <heading :title="$t('models.building.title')" icon="icon-commerical-building" shadow="heavy">
             <template v-if="$can($permissions.create.building)">
                 <el-button @click="add" icon="ti-plus" round size="small" type="primary">{{$t('models.building.add')}}
                 </el-button>
@@ -332,7 +332,7 @@
                     this.delBuildingStatus = resp.data;
 
                     if(this.delBuildingStatus == -1) {
-                        this.$confirm('This action is irreversible. Please proceed with caution.', 'Are you sure?', {
+                        this.$confirm(this.$t('swal.delete.text'), this.$t('swal.delete.title'), {
                             type: 'warning'
                         }).then(() => {
                             Promise.all(this.selectedItems.map((item) => {

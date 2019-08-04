@@ -51,7 +51,7 @@ export default ({
             this.selectedItems = rows;
         },
         batchDelete() {
-            this.$confirm('This action is irreversible. Please proceed with caution.', 'Are you sure?', {
+            this.$confirm(this.$t('swal.delete.text'), this.$t('swal.delete.title'), {
                 type: 'warning'
             }).then(() => {
                 Promise.all(this.selectedItems.map((item) => {

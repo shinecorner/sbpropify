@@ -103,7 +103,7 @@ class PropertyManager extends Model
         'slogan',
         'xing_url',
         'linkedin_url',
-        'property_manager_format'
+        'property_manager_format',
     ];
 
     protected $dates = ['deleted_at'];
@@ -123,7 +123,7 @@ class PropertyManager extends Model
         'slogan' => 'string',
         'xing_url' => 'string',
         'linkedin_url' => 'string',
-        'property_manager_format' => 'string'
+        'property_manager_format' => 'string',
     ];
 
     /**
@@ -145,6 +145,14 @@ class PropertyManager extends Model
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function settings()
+    {
+        return $this->hasOne(UserSettings::class, 'user_id', 'user_id');
     }
 
     /**

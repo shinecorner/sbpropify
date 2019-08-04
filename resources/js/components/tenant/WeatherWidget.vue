@@ -1,5 +1,5 @@
 <template>
-    <el-card class="weather-widget" v-loading="loading" element-loading-background="rgba(255, 255, 255, 0)">
+    <el-card v-loading="loading" element-loading-background="rgba(255, 255, 255, 0)">
         <template v-if="data">
             <div :class="`owi owi-${data.weather[0].icon}`"></div>
             <div class="content">
@@ -12,7 +12,7 @@
                     </small>
                 </div>
                 <div class="description">{{ data.weather[0].description }}</div>
-                <table class="extra">
+                <table>
                     <tr>
                         <td class="wind">
                             <small>{{$t('components.tenant.weatherWidget.wind')}}</small>
@@ -57,29 +57,24 @@
                 return ~~(value - 273.15)
             }
         },
-        methods: {
-            async get() {
-                try {
-                    this.loading = true
-
-                    const {data} = await axios.get('news/weather.json')
-
-                    this.data = data
-                } catch (err) {
-                    displayError(err)
-                } finally {
-                    this.loading = false
-                }
-            }
-        },
         async mounted() {
-            await this.get()
+            try {
+                this.loading = true
+
+                const {data} = await axios.get('news/weather.json')
+
+                this.data = data
+            } catch (error) {
+                displayError(error)
+            } finally {
+                this.loading = false
+            }
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    .weather-widget {
+    .el-card {
         color: lighten(#000, 32%);
         min-height: 167px;
 
@@ -142,7 +137,7 @@
                     font-weight: bold;
                 }
 
-                table.extra {
+                table {
                     margin: 0 -6px;
 
                     td {

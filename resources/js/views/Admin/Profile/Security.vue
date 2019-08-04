@@ -67,8 +67,11 @@
                 this.form.validate(async valid => {
                     if (valid) {
                         try {
-                            displaySuccess(await this.changeUserPassword(this.model));
-
+                            await this.changeUserPassword(this.model);
+                            displaySuccess({
+                                success: true,
+                                message: 'password_changed'
+                            });
                             this.form.resetFields();
                         } catch (err) {
                             displayError(err);

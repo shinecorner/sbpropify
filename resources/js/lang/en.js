@@ -63,6 +63,8 @@ export default {
     incorrect_password: "Old password is incorect",
     password_changed: "Password changed successfully",
     details_saved: 'Details saved',
+    please_wait: 'Please wait...',
+    no_data_available: 'No data available',
     password_validation: {
         required: "Password is required",
         confirm: 'Please input the password again',
@@ -119,12 +121,23 @@ export default {
         average_request_duration: 'Resolution time',
         week_hour: 'Week vs. Hour',
         month_date: 'Month vs. Date',
+        news_by_creation_date: 'News by creation date',
+        news_by_status: 'News by status',
+        news_by_type: 'News by type',
+        products_by_creation_date: 'Market place products by creation date',
+        products_by_type: 'Market place products by type',
+        tenants_by_creation_date: 'Tenants by creation date',
+        tenants_by_request_status: 'Tenants by Requests status',
+        tenants_by_status: 'Tenants by status',
         buildings: {
             total_building: 'Total Count',
             total_units: 'Total Units',
             occupied_units: 'Occupied Units',
             free_units: 'Free Units',
             buildings_by_creation_date: 'Buildings by creation date'
+        },
+        tenants: {
+            total_tenants: 'Total Count'
         }
     },
     pages: {
@@ -170,6 +183,7 @@ export default {
             add: 'Add user',
             save: 'Save',
             saved: 'User saved successfully',
+            deleted: 'User deleted',
             edit: 'Edit user',
             not_found: 'User not found',
             profile_image: 'Profile image',
@@ -180,6 +194,7 @@ export default {
             address: 'Address',
             blank_pdf: 'Blank pdf',
             realEstateSaved: "Real Estate settings saved",
+            serviceRequestCategorySaved: "Service request category saved",
             validation: {
                 name: {
                     required: 'Name is required'
@@ -200,6 +215,8 @@ export default {
             credentials_download_failed: 'Credentials file not found. Try updating the tenant password to regenerate it',
             add: 'Add tenant',
             save: 'Save',
+            saved: 'Tenant saved',
+            deleted: 'Tenant deleted',
             update: 'Update',
             name: 'Name',
             first_name: 'First name',
@@ -298,6 +315,7 @@ export default {
             created_at: 'Date',
             edit: 'Edit',
             delete: 'Delete',
+            deleted: 'Building deleted successfully',
             units: 'Units',
             save: 'Save',
             saved: 'Building saved',
@@ -392,6 +410,7 @@ export default {
             created_at: 'Date',
             edit: 'Edit',
             delete: 'Remove',
+            deleted: 'Unit deleted',
             save: 'Save',
             saved: "Unit saved",
             floor: 'Floor',
@@ -488,6 +507,9 @@ export default {
             add: 'Add',
             add_pinned: 'Add pinned post',
             save: 'Save',
+            saved: 'News saved',
+            updated: 'News updated',
+            deleted: 'News deleted',
             edit: 'Edit',
             edit_title: 'Edit post',
             show: 'Details',
@@ -584,6 +606,8 @@ export default {
             edit_title: 'Edit Service',
             edit: 'Edit',
             delete: 'Delete',
+            saved: 'Service saved',
+            deleted: 'Service deleted',
             category: 'Category',
             electrician: "Electrician",
             heating_company: 'Heating company',
@@ -631,8 +655,11 @@ export default {
             description: 'Description',
             add: 'Add district',
             edit: 'Edit district',
+            save: 'Save',
+            saved: 'District saved',
             edit_action: 'Edit',
             delete: 'Delete',
+            deleted: 'District deleted',
             cancel: 'Cancel',
             required: 'This field is required',
             details: 'Details',
@@ -666,6 +693,8 @@ export default {
             deleted: 'Deleted',
             title: 'Requests',
             created: 'Created',
+            saved: 'Request saved',
+            deleted: 'Request deleted',
             prop_title: 'Title',
             description: 'Description',
             category: 'Category',
@@ -699,8 +728,9 @@ export default {
                 managers: 'Managers'
             },
             media: {
-                removed: 'Media removed',
-                deleted: 'Media deleted',
+                added: 'Document added',
+                removed: 'Document removed',
+                deleted: 'Document deleted',
                 delete: 'Delete'
             },
             priority: {
@@ -814,6 +844,8 @@ export default {
             title_label: 'Title',
             add: 'Add property manager',
             save: 'Save',
+            saved: 'Property manager saved',
+            deleted: 'Property manager deleted',
             edit: 'Edit',
             edit_title: 'Edit property manager',
             delete: 'Delete',
@@ -890,6 +922,8 @@ export default {
             unpublish: 'Unpublish',
             likes: 'Likes',
             save: 'Save',
+            saved: 'Product saved',
+            deleted: 'Product deleted',
             comments: 'Comments',
             user: 'User',
             contact: 'Contact',
@@ -921,6 +955,8 @@ export default {
             name: 'Name',
             edit: 'Edit',
             delete: 'Delete',
+            saved: 'Template saved',
+            deleted: 'Template deleted',
             add: 'Add',
             title: 'Templates',
             subject: 'Subject',
@@ -956,7 +992,12 @@ export default {
         },
         add: {
             added: 'Added successfully'
-        }
+        },
+        media: {
+            added: 'Document/Photo added',
+            deleted: 'Document/Photo deleted',                        
+        },
+        logout_confirm: 'You will be logged out.'
     },
     roles: {
         label: 'Role',
@@ -1091,6 +1132,26 @@ export default {
                 loadingTemplates: 'Loading templates...',
                 saveShortcut: 'or use {shortcut} shortcut',
                 emptyTemplatesPlaceholder: 'No templates available.'
+            },
+            media: {
+                buttons: {
+                    selectFiles: {
+                        withDrop: 'Drop files or click to select...',
+                        withoutDrop: 'Click to select...'
+                    },
+                    upload: 'Upload'
+                },
+                dropActive: {
+                    title: 'Drop your files here...',
+                    description: 'Only the files with a certain extension are allowed.'
+                },
+                messages: {
+                    preview: 'This file cannot be previewed.',
+                    uploading: 'Uploading...',
+                    uploaded: 'Media files have been succesfully uploaded.',
+                    size: 'Oops! Some files had the size bigger than the maximum allowed of {bytes}.',
+                    extensions: 'Oops! Some files have had an extension that was not allowed. Skipping...'
+                }
             }
         },
         tenant: {
@@ -1101,6 +1162,13 @@ export default {
                 cloudiness: 'cloudiness',
                 humidity: 'humidity',
                 pressure: 'pressure'
+            },
+            postAdd: {
+                visibility: {
+                    address: 'Address',
+                    district: 'District',
+                    all: 'All'
+                }
             }
         },
         admin: {
@@ -1127,11 +1195,17 @@ export default {
         range_separator: 'To',
         start_date: 'Start date',
         end_date: 'End date',
+        last_7_days: 'Last 7 days',
         last_week: 'Last week',
-        last_month: 'Last Month',
+        last_14_days: 'Last 14 days',
+        last_30_days: 'Last 30 days',
+        last_month: 'Last month',
         last_3_months: 'Last 3 months',
         last_6_months: 'Last 6 months',
         last_year: 'Last year',
-        last_2_years: 'Last 2 years'
+        last_2_years: 'Last 2 years',
+        all_time: 'All time',
+        week: 'Week',
+        peek_week: 'Pick a week'
     }
 }

@@ -413,6 +413,18 @@
       "css": "zoom-in-outline",
       "code": 59437,
       "src": "typicons"
+    },
+    {
+      "uid": "37910a1398001a5ccb541cb2a253a2c7",
+      "css": "right-open",
+      "code": 61446,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "877a233d7fdca8a1d82615b96ed0d7a2",
+      "css": "right-small",
+      "code": 59438,
+      "src": "typicons"
     }
   ]
 }
