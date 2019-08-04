@@ -45,7 +45,7 @@
                     <i class="ti-gallery"></i>
                     Audit
                 </div>
-                <audit :id="openedRequest.id" type="request" />
+                <audit :id="openedRequest.id" type="request" showFilter/>
             </el-tab-pane>
         </el-tabs>
         <div slot="content" class="container" v-infinite-scroll="fetch">

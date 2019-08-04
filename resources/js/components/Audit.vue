@@ -4,26 +4,39 @@
             No activity available for now!
             <small>All available activities will appear here in chronological order.</small>
         </placeholder>
-        <el-timeline v-infinite-scroll="fetch" v-else>
-            <el-timeline-item v-for="(audit, date) in audits.data" :key="audit.id" :timestamp="date | formatDate">
-                {{audit.content}}
-            </el-timeline-item>
-            <el-timeline-item v-if="loading">
-                Loading...
-            </el-timeline-item>
-        </el-timeline>
+        <template v-else>
+            <el-col class="filter-col" v-if="showFilter">
+                <filters :data="filters.data" :schema="filters.schema" @changed="filtersChanged"/>
+            </el-col>
+            <el-timeline v-infinite-scroll="fetch" >
+                <template v-for="(audit, date) in audits.data">
+                    <el-timeline-item v-for="(content, index) in audit.content" :key="audit.id+'-'+index" :timestamp="`${audit.userName} • ${formatDatetime(date)}`">
+                        {{content}}
+                    </el-timeline-item>
+                </template>
+                <el-timeline-item v-if="loading">
+                    Loading...
+                </el-timeline-item>
+            </el-timeline>
+        </template>
     </div>
 </template>
 
 <script>
     import Placeholder from 'components/Placeholder'
     import {format} from 'date-fns'
+    import queryString from 'query-string'
+    import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
+    import Filters from 'components/Filters';
 
     export default {
+        mixins: [FormatDateTimeMixin],
+
         props: {
             id: {
                 type: Number
             },
+            showFilter: Boolean,
             type: {
                 type: String,
                 required: true,
@@ -31,240 +44,168 @@
             }
         },
         components: {
-            Placeholder
+            Placeholder,
+            Filters
         },
         data () {
+            const filterSchema = [{
+                type: 'el-select',
+                title: 'Filters',
+                name: 'event',
+                props: {
+                    clearable: true
+                },
+                children: [{
+                    type: 'el-option',
+                    props: {
+                        label: 'All',
+                        value: null
+                    }
+                }]
+            }];
+
+            const filterData = {
+                category: null
+            };
             return {
                 audits: {
                     data: {}
+                },
+                filters: {
+                    schema: filterSchema,
+                    data: filterData
                 },
                 categories: [],
                 loading: true
             }
         },
-        filters: {
-            formatDate (date) {
-                return format(date, 'DD.MM.YYYY hh:mma')
-            }
-        },
         methods: {
+            async filtersChanged (filters) {
+                this.audits.data = undefined
+                this.audits.current_page = undefined
+                await this.fetch();
+            },
             async fetch (params) {
+
+                // Get current page and last page of the displayed audits
                 const {
                     current_page,
                     last_page
                 } = this.audits
 
+                // If current page and last page are set, and current page is the last page then don't fetch the next audits
                 if (current_page && last_page &&
                     current_page == last_page) {
-                    return
+                    return;
                 }
 
+                // Display loading in timeline
                 this.loading = true
 
                 let page = current_page || 0
 
                 page++
+                // Fetch audits
+                const {data:{data}} = await this.axios.get('audits?' + queryString.stringify({
+                    sortedBy: 'desc',
+                    orderBy: 'created_at',
+                    page,
+                    per_page: 25,
+                    auditable_id: this.id,
+                    auditable_type: this.type,
+                    ...params,
+                    ...this.filters.data
+                }))
 
-                try {
-                    await this.$store.dispatch('application/fetchAudits', {
-                        sortedBy: 'desc',
-                        orderBy: 'created_at',
-                        page,
-                        per_page: 25,
-                        auditable_id: this.id,
-                        auditable_type: this.type,
-                        ...params
-                    })
+                try{
 
-                    const {data, ...rest} = this.$store.getters['application/getAudit'](this.id, this.type)
-            
-                    switch (this.type) {
-                        case 'post':
-                            // TBD
-
-                            break
-                        case 'product':
-                            // TBD
-
-                            break
-                        case 'request':
-                            const {
-                                status,
-                                priority,
-                                qualification
-                            } = this.$constants.service_requests
-
-                            const audits = data.reduce((obj, {
-                                id,
-                                user,
-                                event,
-                                user_id,
-                                created_at,
-                                new_values: {
-                                    user_name,
-                                    provider_name,
-                                    title: newTitle,
-                                    status: newStatus,
-                                    due_date: newDueDate,
-                                    priority: newPriority,
-                                    category_id: newCategory,
-                                    qualification: newQualification
-                                },
-                                old_values: {
-                                    title: oldTitle,
-                                    status: oldStatus,
-                                    due_date: oldDueDate,
-                                    priority: oldPriority,
-                                    category_id: oldCategory,
-                                    qualification: oldQualification
-                                },
-                                auditable_id,
-                                auditable_type
-                            }, idx) => {
-                                let content
-
-                                switch (event) {
-                                    case 'created':
-                                        content = `${user.name} opened this ${auditable_type}.`
-
-                                        if (!this.id) {
-                                            content = `${user.name} opened ${auditable_type} #${auditable_id}.`
-                                        }
-
-                                        obj[created_at] = {id, event, content}
-
-                                        break
-                                    case 'updated':
-                                        if (newTitle && oldTitle) {
-                                            content = `The title changed from ${oldTitle} to ${newTitle}.`
-
-                                            if (!this.id) {
-                                                content = `The title changed from ${oldTitle} to ${newTitle} on ${auditable_type} #${auditable_id}.`
-                                            }
-
-                                            obj[created_at] = {id, event, content}
-                                        }
-
-                                        if (newStatus && oldStatus) {
-                                            oldStatus = status[oldStatus]
-                                            newStatus = status[newStatus]
-
-                                            content = `The status changed from ${oldStatus} to ${newStatus}.`
-
-                                            if (!this.id) {
-                                                content = `The status changed from ${oldStatus} to ${newStatus} on ${auditable_type} #${auditable_id}.`
-                                            }
-
-                                            obj[created_at] = {id, event, content}
-                                        }
-
-                                        if (newDueDate && oldDueDate) {
-                                            oldDueDate = format(oldDueDate, 'dddd DD, MMMM YYYY')
-                                            newDueDate = format(newDueDate, 'dddd DD, MMMM YYYY')
-
-                                            content = `The due date changed from ${oldDueDate} to ${newDueDate}.`
-
-                                            if (!this.id) {
-                                                content = `The due date changed from ${oldDueDate} to ${newDueDate} on ${auditable_type} #${auditable_id}.`
-                                            }
-
-                                            obj[created_at] = {id, event, content}
-                                        }
-
-                                        if (newPriority && oldPriority) {
-                                            oldPriority = priority[oldPriority]
-                                            newPriority = priority[newPriority]
-
-                                            content = `The priority changed from ${oldPriority} to ${newPriority}.`
-
-                                            if (!this.id) {
-                                                content = `The priority changed from ${oldPriority} to ${newPriority} on ${auditable_type} #${auditable_id}.`
-                                            }
-
-                                            obj[created_at] = {id, event, content}
-                                        }
-
-                                        if (newCategory && oldCategory) {
-                                            oldCategory = this.categories[oldCategory]
-                                            newCategory = this.categories[newCategory]
-
-                                            content = `The category changed from ${oldCategory} to ${newCategory}.`
-
-                                            if (!this.id) {
-                                                content = `The category changed from ${oldCategory} to ${newCategory} on ${auditable_type} #${auditable_id}.`
-                                            }
-
-                                            obj[created_at] = {id, event, content}
-                                        }
-
-                                        if (newQualification && oldQualification) {
-                                            oldQualification = this.$t(`models.request.qualification.${qualification[oldQualification]}`).toLowerCase()
-                                            newQualification = this.$t(`models.request.qualification.${qualification[newQualification]}`).toLowerCase()
-
-                                            content = `The qualification changed from ${oldQualification} to ${newQualification}.`
-
-                                            if (!this.id) {
-                                                content = `The qualification changed from ${oldQualification} to ${newQualification} on ${auditable_type} #${auditable_id}.`
-                                            }
-
-                                            obj[created_at] = {id, event, content}
-                                        }
-
-                                        break
-                                    case 'provider_assigned':
-                                        content = `${provider_name} has been assigned as provider.`
-
-                                        if (!this.id) {
-                                            content = `${provider_name} has been assigned as provider on ${auditable_type} #${auditable_id}.`
-                                        }
-
-                                        obj[created_at] = {id, event, content}
-
-                                        break
-                                    case 'user_assigned':
-                                        content = `${user_name} has been assigned as manager.`
-
-                                        if (!this.id) {
-                                            content = `${user_name} has been assigned as manager on ${auditable_type} #${auditable_id}.`
-                                        }
-
-                                        obj[created_at] = {id, event, content}
-
-                                        break
-                                    case 'media_uploaded':
-                                        content = `Media uploaded.`
-
-                                        if (!this.id) {
-                                            content = `Media uploaded on ${auditable_type} #${auditable_id}.`
-                                        }
-
-                                        obj[created_at] = {id, event, content}
-                                        
-                                        break
-                                    case 'media_deleted':
-                                        content = `Media deleted.`
-
-                                        if (!this.id) {
-                                            content = `Media deleted on ${auditable_type} #${auditable_id}.`
-                                        }
-
-                                        obj[created_at] = {id, event, content}
-
-                                    break
+                // Extract audits from response
+                
+                    // Force no id for testing
+                    // @TODO: remove 
+                    // this.id = undefined
+                
+                const service_requests = this.$constants.service_requests
+                const translation_with_id = this.id ? 'withId': 'withNoId'
+                const audits = data.data.reduce((obj, current, idx) => {
+                    let audit_replacer = [];
+                    let content = [];
+                    const translated_auditable_type = this.$t(`components.common.audit.type.${current.auditable_type}`);
+                    switch(current.event){
+                        //  If audit event is updated
+                        case 'updated':
+                            //  Build new values array for type
+                            Object.values(current.new_values).map((new_value, new_idx) => {
+                                audit_replacer[Object.keys(current.new_values)[new_idx]] = []
+                                const type = Object.keys(current.new_values)[new_idx];
+                                if(type in service_requests){
+                                    audit_replacer[type]['new'] = this.$t(`models.${this.type}.${type}.${service_requests[type][new_value]}`)
+                                }else{
+                                    switch (type) {
+                                        case 'category_id':
+                                            audit_replacer[type]['new'] = this.$t(`models.${this.type}.category.${this.categories[new_value]}`);
+                                        break;
+                                        case 'due_date':
+                                            audit_replacer[type]['new'] = this.formatDatetime(new_value);
+                                        break;
+                                        default: audit_replacer[type]['new'] = new_value
+                                    }
                                 }
+                            })
+                            //  Build old values array for type
+                            Object.values(current.old_values).map((old_value, old_idx) => {
+                                const type = Object.keys(current.old_values)[old_idx];
+                                if(type in service_requests){
+                                    audit_replacer[type]['old'] = this.$t(`models.${this.type}.${type}.${service_requests[type][old_value]}`)
+                                }else{
+                                    switch (type) {
+                                        case 'category_id':
+                                            audit_replacer[type]['old'] = this.$t(`models.${this.type}.category.${this.categories[old_value]}`);
+                                        break;
+                                        case 'due_date':
+                                            audit_replacer[type]['old'] = this.formatDatetime(old_value);
+                                        break;
+                                        default: audit_replacer[type]['old'] = old_value
+                                    }
+                                }
+                            })
 
-                                return obj
-                            }, {})
+                            //  For each type find the content text located in the translation file, 
+                            //  then replace the old and new values
+                            
+                            content = Object.values(audit_replacer).map(( current_line, index) => {
+                                return this.$t(`components.common.audit.content.${translation_with_id}.${current.auditable_type}.updated.${Object.keys(audit_replacer)[index]}`,{old: current_line.old, new: current_line.new, auditable_id: current.auditable_id, auditable_type: translated_auditable_type})
+                            })
 
-                            this.audits = {data: {...this.audits.data, ...audits}, ...rest}
-
-                            break
+                            //  Build audit object
+                            obj[current.created_at] = {id:current.id, event:current.event, content:content, userName:current.user.name}
+                        break;
+                        case 'created':
+                            content[0] = this.$t(`components.common.audit.content.${translation_with_id}.${current.auditable_type}.created`,{userName: current.user.name, auditable_id: current.auditable_id, auditable_type: translated_auditable_type})
+                            obj[current.created_at] = {id:current.id, event:current.event, content:content, userName:current.user.name}
+                        break;
+                        case 'user_assigned':
+                            content[0] = this.$t(`components.common.audit.content.${translation_with_id}.${current.auditable_type}.user_assigned`,{userName: current.new_values.user_name, auditable_id: current.auditable_id, auditable_type: translated_auditable_type})
+                            obj[current.created_at] = {id:current.id, event:current.event, content:content, userName:current.user.name}
+                        break;
+                        default:
+                            content[0] = this.$t(`components.common.audit.content.${translation_with_id}.${current.auditable_type}.${current.event}`,{ auditable_id: current.auditable_id, auditable_type: translated_auditable_type})
+                             obj[current.created_at] = {id:current.id, event:current.event, content:content, userName:current.user.name}
+                        break;
                     }
-                } catch (err) {
+                    return obj
+                },{})
+
+                // Delete fetched audits from object so they don't merge with the procesed ones 
+                delete data.data
+
+                // Concatenate to the existing audits and also update the extra data like current page and last page that come from the request
+                this.audits = {data: {...this.audits.data, ...audits}, ...data}
+                }catch (err) {
                     this.$message.error(err, {
                         offset: 88
                     })
-                } finally {
+                }finally {
                     this.loading = false
                 }
             }
@@ -275,21 +216,33 @@
             }
         },
         async mounted () {
-            let {data} = await this.$store.dispatch('getRequestCategoriesTree', {get_all: true})
-
+            const {data:{data}} = await this.axios.get('requestCategories/tree?get_all=true');
+            // Get filter options from translation file and add the to filter object
+            const filter_event_translations = this.$t(`components.common.audit.filter.${this.type}`);
+            const filter_event_options = Object.keys(filter_event_translations).map((key, index) => {
+                this.filters.schema[0].children.push({
+                    type: 'el-option',
+                    props: {
+                        label: filter_event_translations[key],
+                        value: key
+                    }
+                })
+            });
+            // console.log(filter_event_options)
             const flattenCategories = categories => categories.reduce((obj, category) => {
-                obj[category.id] = category.name.toLowerCase()
+                obj[category.id] = category.name.toLowerCase().replace(/ /g,"_");
 
                 if (category.categories) {
                     obj = {...obj, ...flattenCategories(category.categories)}
 
                     delete category.categories;
                 }
-
                 return obj
             }, {})
 
             this.categories = flattenCategories(data)
+
+
         }
     }
 </script>
@@ -305,10 +258,17 @@
                 color: darken(#fff, 28%);
             }
         }
+        .filter-col{
+            padding:24px;
+        }
         .el-timeline {
             padding: 0;
             height: 100%;
             overflow: auto;
+            .audit-timestamp{
+                font-size:11px;
+                color:#9e9e9e;
+            }
         }
     }
 </style>
