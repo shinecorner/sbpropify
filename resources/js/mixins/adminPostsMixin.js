@@ -319,7 +319,10 @@ export default (config = {}) => {
                             }
                             this.form.resetFields();
                             this.media = [];
-                            displaySuccess(resp);
+                            displaySuccess({
+                                success: true,
+                                message: 'models.post.saved'
+                            });
                             return resp;
                         } catch (err) {
                             displayError(err);
@@ -360,7 +363,10 @@ export default (config = {}) => {
                                         status: this.model.status
                                     });
 
-                                    displaySuccess(resp);
+                                    displaySuccess({
+                                        success: true,
+                                        message: 'models.post.saved'
+                                    });
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

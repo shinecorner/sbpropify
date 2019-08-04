@@ -2,7 +2,7 @@
 
 
     <aside class="el-menu-aside">
-        <el-menu :default-active="currActive" :unique-opened="true">
+        <el-menu :default-active="currActive" :unique-opened="true" class="el-menu-vertical-demo" :collapse="collapsed">
             <li class="slot" index="slot" v-if="hasSlot">
                 <slot/>
             </li>
@@ -17,13 +17,14 @@
                         v-if="!link.children && ($can(link.permission) || !link.permission)">
                     <router-link :to="{name: link.route.name}">
                         <i :class="[link.icon, 'icon']"/>
-                        <span class="title">{{ link.title }}</span>
+                        <span class="title" slot="title">{{ link.title }}</span>
                     </router-link>
+                    <span slot="title">{{ link.title }}</span>
                 </el-menu-item>
                 <el-submenu :index="link.title" v-else-if="($can(link.permission) || !link.permission)">
                     <template slot="title">
                         <i :class="[link.icon, 'icon']"/>
-                        <span class="title">{{ link.title }}</span>
+                        <span class="title" slot="title">{{ link.title }}</span>
                     </template>
                     <el-menu-item
                             :index="child.title"
@@ -32,7 +33,7 @@
                             v-for="(child, childKey) in link.children">
 
                         <router-link :to="child.route">
-                            <i :class="['icon-right-1', 'icon']"/>
+                            <i :class="['icon-right-open', 'icon']"/>
                             <span class="title">{{ child.title }}</span>
                         </router-link>
                     </el-menu-item>
@@ -54,15 +55,19 @@
             },
             defaultActive: {
                 default: '0'
+            },
+            collapsed: {
+                type: Boolean,
+                default: false
             }
         },
         data() {
             return {
-                currActive: this.defaultActive
+                currActive: this.defaultActive,
             }
         },
         methods: {
-            handleLink(ev, key, {route, action, children, icon}) {
+            async handleLink(ev, key, {route, action, children, icon}) {
                 //this.currActive = key.toString();
 
                 !children && route && this.$router.push(route);
@@ -80,21 +85,27 @@
 
                 if (action) {
                     if (action.showConfirmation) {
-                        action && this.$confirm('Please proceed with caution.', 'Are you sure?', {
-                            confirmButtonText: 'OK',
-                            cancelButtonText: 'Cancel',
-                            type: 'warning',
-                            roundButton: true
-                        }).then(() => {
-                            this.$store.dispatch(action.name)
-                                .then(r => displaySuccess(r))
-                                .catch(err => displayError(err));
-                        }).catch(() => {
-                        });
+                        try {
+
+                            if (action && this.$confirm(this.$t('swal.delete.text'), this.$t('swal.delete.title'), {
+                                confirmButtonText: 'OK',
+                                cancelButtonText: 'Cancel',
+                                type: 'warning',
+                                roundButton: true
+                            })) {
+                                await this.$store.dispatch(action.name);
+                            }
+                        } catch (error) {
+                            displayError(error)
+                        }
                     } else {
-                        this.$store.dispatch(action.name)
-                            .then(r => displaySuccess(r))
-                            .catch(err => displayError(err));
+
+                        try {
+                            await this.$store.dispatch(action.name);
+                        } catch (error) {
+                            displayError(error)
+                        }
+                        
                     }
                 }
             }
@@ -105,16 +116,15 @@
             }
         },
         created() {
-            const routeName = this.$route.name;
             
+            const routeName = this.$route.name;
             this.links.map(link => {
                 if (link.route && link.route.name == routeName) {
                     this.currActive = link.title;
-                }
-                else if (link.children) {
+                } else if (link.children) {
                     let dActive = '';
                     link.children.map(child => {
-                        if (child.route &&  child.route.name == routeName) {
+                        if (child.route && child.route.name == routeName) {
                             this.currActive = child.title;
                         }
                     });
@@ -123,15 +133,50 @@
         }
     }
 </script>
+<style lang="scss">
+    .el-submenu {
+        .el-submenu__title {
+            .el-icon-arrow-right {
+                display: none !important;
+            }
+        }
+    }
+</style>
+
 
 <style lang="scss" scoped>
-    .el-menu {
+    .el-menu-vertical-demo:not(.el-menu--collapse) {
         width: 256px;
+    }
+    .el-menu--collapse {
+        .el-menu-item {
+            span.title {
+                display: none;
+            }
+        }
+        .el-submenu {
+            .el-submenu__title {
+                span.title {
+                    display: none;
+                }
+            }
+        }
+    }
+    .el-menu--vertical {
+        .el-menu--popup {
+            a {
+                color: #303133 !important;
+                text-decoration: none;
+            }
+        }
+    }
+    .el-menu {
+        width: 56px;
         display: flex;
         flex-direction: column;
         border-right: none !important;
 
-        &-aside{
+        &-aside {
             background: #fff;
         }
 
@@ -146,6 +191,7 @@
 
             .is-active:not(.el-submenu) {
                 background-color: #f0f9f1;
+
                 > a {
                     font-weight: bold;
                 }
@@ -163,6 +209,13 @@
 
                 &.nested {
                     padding: 0 40px !important;
+                }
+            }
+
+            .icon-right-open {
+                &.icon {
+                    font-size: 14px;
+                    margin-right: 0px;
                 }
             }
         }

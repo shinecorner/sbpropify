@@ -162,7 +162,10 @@ export default (config = {}) => {
 
                                     await this.uploadNewMedia(resp.data.id);
 
-                                    displaySuccess(resp);
+                                    displaySuccess({
+                                        success: true,
+                                        message: 'models.product.saved'
+                                    });
 
                                     this.media = [];
 
@@ -196,7 +199,10 @@ export default (config = {}) => {
                                     const resp = await this.updateProduct(this.model);
                                     this.model = Object.assign({}, this.model, resp.data);
                                     this.media = [];
-                                    displaySuccess(resp);
+                                    displaySuccess({
+                                        success: true,
+                                        message: 'models.product.saved'
+                                    });
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

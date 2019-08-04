@@ -1,6 +1,6 @@
 <template>
     <div class="districts">
-        <heading :title="$t('models.district.title')" icon="ti-house" shadow="heavy">
+        <heading :title="$t('models.district.title')" icon="icon-share" shadow="heavy">
             <template v-if="$can($permissions.create.district)">
                 <el-button @click="openAdd" icon="ti-plus" round size="small" type="primary">
                     {{$t('models.district.add')}}

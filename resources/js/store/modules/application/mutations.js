@@ -1,8 +1,8 @@
 export default {
-    set_constants(state, payload) {
-        state.constants = payload;
+    SET_CONSTANTS(state, payload) {
+        state.constants = payload
     },
-    set_audits(state, { id, type, data }) {
+    SET_AUDITS(state, {id, type, data}) {
         if (id) {
             state.audits[type][id] = data
         } else {

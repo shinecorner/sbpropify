@@ -1,6 +1,6 @@
-<template>
+<template>  
     <div class="services">
-        <heading :title="$t('models.request.title')" icon="ti-user" shadow="heavy">
+        <heading :title="$t('models.request.title')" icon="icon-chat-empty" shadow="heavy">
             <template v-if="$can($permissions.create.request)">
                 <el-button @click="add" icon="ti-plus" round size="small" type="primary">
                     {{$t('models.request.add_title')}}

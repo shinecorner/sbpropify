@@ -13,9 +13,10 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        $pRepo = new PostRepository(app());
+//        $pRepo = new PostRepository(app());
         if (App::environment('local')) {
-            $posts = factory(App\Models\Post::class, 10)->create();
+            $totalPosts = 200;
+            $posts = factory(App\Models\Post::class, $totalPosts)->create(['status' => Post::StatusPublished]);
             foreach ($posts as $post) {
                 $u = $post->user;
                 if ($u->tenant && $u->tenant->building) {
@@ -24,7 +25,7 @@ class PostsTableSeeder extends Seeder
                         $post->districts()->sync($u->tenant->building->district_id);
                     }
                 }
-                $pRepo->setStatus($post->id, Post::StatusPublished, now());
+                //$pRepo->setStatus($post->id, Post::StatusPublished, now());
             }
         }
     }

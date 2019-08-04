@@ -31,6 +31,7 @@ export default (config = {}) => {
                         id: '',
                         email: ''
                     },
+                    service_provider_format: '',
                     name: '',
                     phone: '',
                     category: '',
@@ -214,7 +215,10 @@ export default (config = {}) => {
                                     await this.uploadAvatarIfNeeded(resp.data.user.id);
                                 }
 
-                                displaySuccess(resp);
+                                displaySuccess({
+                                    success: true,
+                                    message: 'models.service.saved'
+                                });
 
                                 this.form.resetFields();
                                 return resp;
@@ -265,7 +269,10 @@ export default (config = {}) => {
                                         await this.uploadAvatarIfNeeded(resp.data.user.id);
                                     }
 
-                                    displaySuccess(resp);
+                                    displaySuccess({
+                                        success: true,
+                                        message: 'models.service.saved'
+                                    });
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);
@@ -292,6 +299,7 @@ export default (config = {}) => {
                         this.model.category = data.category;
                         this.model.user.avatar = data.user.avatar;
                         this.model.user.id = data.user.id;
+                        this.model.service_provider_format = data.service_provider_format;
 
                         const respAddress = data.address;
 

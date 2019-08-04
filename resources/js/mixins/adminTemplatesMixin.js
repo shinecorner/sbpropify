@@ -122,7 +122,10 @@ export default (config = {}) => {
                         try {
                             this.model = Object.assign({}, this.model, this.model.translations[this.loggedInUser.settings.language]);
                             const resp = await this.createTemplate(this.model);
-                            displaySuccess(resp);
+                            displaySuccess({
+                                success: true,
+                                message: 'models.template.saved'
+                            });
                             this.form.resetFields();
                             return resp;
                         } catch (err) {
@@ -159,7 +162,10 @@ export default (config = {}) => {
 
                                     const resp = await this.updateTemplate(this.model);
                                     // this.model = Object.assign({}, this.model, resp.data);
-                                    displaySuccess(resp);
+                                    displaySuccess({
+                                        success: true,
+                                        message: 'models.template.saved'
+                                    });
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

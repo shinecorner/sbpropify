@@ -35,7 +35,7 @@
                         {{ data.data[n -1 + (m - 1) * 3] }}
                     </div>
                     <div class="box-card-progress">
-                        <el-progress type="circle" :percentage="data.tag_percentage[n -1 + (m - 1) * 3]" :width="70" :color="getRequestStatusColor(data.labels[n -1 + (m - 1) * 3], 'name')" :stroke-width="5"></el-progress>
+                        <el-progress type="circle" :percentage="/*data.tag_percentage[n -1 + (m - 1) * 3]*/percentage[n -1 + (m - 1) * 3]" :width="70" :color="getRequestStatusColor(data.labels[n -1 + (m - 1) * 3], 'name')" :stroke-width="5"></el-progress>
                     </div>
                 </div>
             </el-card>
@@ -62,13 +62,36 @@
                 default: 3
             },
             totalRequest: {
-                type: Number,
+                type: String,
                 default: 0
             },
-            avgReqDuration: [String, Number]
+            avgReqDuration: [String, Number],
+            animationTrigger: {
+                type: String
+            }
         },
         data(){
-            return {}
+            return {
+                percentage: []
+            }
+        },
+        watch: {
+            'data.tag_percentage': function(val) {
+                const that = this;
+                this.percentage = val.map(val => 0);
+                setTimeout(function() {
+                    that.percentage = val;
+                }, 200);
+            },
+            animationTrigger: function(val) {
+                const that = this;
+                if (val == 'requests' && this.data.tag_percentage) {
+                    this.percentage = this.data.tag_percentage.map(val => 0);
+                    setTimeout(function() {
+                        that.percentage = that.data.tag_percentage;
+                    }, 100);
+                }
+            }
         }
     }
 </script>

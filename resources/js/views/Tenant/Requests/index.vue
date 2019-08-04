@@ -31,13 +31,14 @@
                     </el-divider>
                     <el-alert type="warning" title="Once confirmed the uploaded files, you can no longer delete them. Please proceed with caution!" :closable="false" center />
                     <el-divider />
-                    <media-upload ref="upload" v-model="uploadedMedia" :loading="uploadingMedia" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="2" :gallery-options="{container: '#gallery'}">
+                    <media-upload ref="upload" v-model="uploadedMedia" :loading="uploadingMedia" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="2" >
                         <template slot="trigger" slot-scope="scope">
                             <el-tooltip key="trigger" content="Drop files or click here to select" effect="dark" placement="bottom" >
                                 <el-button class="trigger" icon="el-icon-plus" :style="scope.mediaItemStyle" @click="scope.triggerSelect" :disabled="uploadingMedia" />
                             </el-tooltip>
                         </template>
                     </media-upload>
+                    <media ref="media" :id="4" type="requests" layout="list" v-model="uploadedMedia" :upload-options="{drop: true, draggable: true, multiple: true, extensions: 'jpg'}" />
                 </div>
             </el-tab-pane>
             <el-tab-pane name="audit" lazy>
@@ -112,7 +113,6 @@
 
 <script>
     import {MEDIA_UPLOAD_MAX_SIZE} from '@/config'
-    import Chat from 'components/Chat2'
     import Audit from 'components/Audit'
     import Avatar from 'components/Avatar'
     import Drawer from 'components/Drawer'
@@ -126,10 +126,10 @@
     import PQueue from 'p-queue'
     import {format} from 'date-fns'
     import VueSticky from 'vue-sticky'
+    import Media from 'components/Media'
 
     export default {
         components: {
-            Chat,
             Audit,
             Avatar,
             Drawer,
@@ -140,6 +140,7 @@
             MediaGallery,
             RequestCard,
             RequestAddForm,
+            Media
         },
         directives: {
             sticky: VueSticky

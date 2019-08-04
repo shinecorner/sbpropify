@@ -66,5 +66,9 @@
     <td class="detail-key">{{ __("tenant.url") }}</td>
     <td>{{ $url }}</td>
   </tr>
+  <tr>
+    <td class="detail-key">{{ __("tenant.code") }}</td>
+    <td>{{ $code }}</td>
+  </tr>
 </table>
 @endsection

@@ -1,6 +1,6 @@
 <template>
     <div class="services-edit">
-        <heading :title="$t('models.propertyManager.edit_title')" icon="ti-user" shadow="heavy">
+        <heading :title="$t('models.propertyManager.edit_title')" :subtitle="model.property_manager_format" icon="icon-users" shadow="heavy">
             <edit-actions :saveAction="submit" :deleteAction="deletePropertyManager" route="adminPropertyManagers"/>
         </heading>
         <div class="crud-view">

@@ -8,4 +8,5 @@
     <p>{{ __("tenant.url") }}: <a href="{{ url('/') }}">{{ url('/') }}</a></p>
     <p>{{ __("tenant.username") }}: {{ $tenant->user->email }}</p>
     <p>{{ __("tenant.url") }}: {{ $url }}</p>
+    <p>{{ __("tenant.code") }}: {{ $code }}</p>
 @endsection

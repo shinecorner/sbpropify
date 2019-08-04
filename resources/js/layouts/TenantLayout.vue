@@ -1,17 +1,7 @@
 <template>
-    <div v-if="loading">
-        Loading
-    </div>
+    <div v-loading="loading" v-if="loading" style="width: 100%; height: 100%;"></div>
     <div class="layout" v-else>
         <el-menu mode="horizontal" background-color="#fff">
-            <!-- <el-menu-item class="toggler">
-                <div :class="['button', {'active': visibleSidebar}]" @click="toggleSidebar">
-                    <span class="lines"></span>
-                </div>
-            </el-menu-item>
-            <el-menu-item>
-                <el-divider direction="vertical" />
-            </el-menu-item> -->
             <el-menu-item class="logo">
                 <img src="~img/logo3.png" />
             </el-menu-item>
@@ -70,7 +60,7 @@ export default {
             this.visibleSidebar = !this.visibleSidebar;
         },
         logout() {
-            this.$confirm('Please proceed with caution.', 'Are you sure?', {
+            this.$confirm(this.$t('swal.delete.text'), this.$t('swal.delete.title'), {
                 confirmButtonText: 'OK',
                 cancelButtonText: 'Cancel',
                 type: 'warning',
@@ -142,13 +132,14 @@ export default {
                     route: {
                         name: 'tenantMyDocuments'
                     }
+                    // do not show if no documents
                 }, {
                     icon: 'icon-contacts',
                     title: this.$t('layouts.tenant.sidebar.myContactPersons'),
                     route: {
                         name: 'tenantMyContacts'
                     },
-                    visible: this.realEstate && this.realEstate.contact_enable
+                    visible: this.realEstate && this.realEstate.contact_enable // OR no service partners for the building
                 }]
             }, {
                 icon: 'icon-megaphone-1',

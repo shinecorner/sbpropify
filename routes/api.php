@@ -20,6 +20,7 @@ Route::group([
 // Constants
 Route::get('/constants', 'UtilsAPIController@constants')->name('constants');
 Route::put('/tenants/resetpassword', 'TenantAPIController@resetPassword');
+Route::put('/tenants/activateTenant', 'TenantAPIController@activateTenant');
 
 // private routes
 Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
@@ -238,6 +239,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::resource('translations', 'TranslationAPIController');
     Route::get('/admin/statistics', 'StatisticsAPIController@adminStats');
     Route::get('/admin/chartRequestByCreationDate', 'StatisticsAPIController@chartRequestByCreationDate');
+    Route::get('/admin/chartRequestByAssignedProvider', 'StatisticsAPIController@chartRequestByAssignedProvider');
     Route::get('/admin/chartBuildingsByCreationDate', 'StatisticsAPIController@chartBuildingsByCreationDate');
     Route::get('/admin/chartByCreationDate', 'StatisticsAPIController@chartByCreationDate');
 
@@ -247,6 +249,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     Route::get('/admin/heatMapByDatePeriod', 'StatisticsAPIController@heatMapByDatePeriod');
     Route::get('/admin/chartLoginDevice', 'StatisticsAPIController@chartLoginDevice');
+    Route::get('/admin/chartTenantLanguage', 'StatisticsAPIController@chartTenantLanguage');
 });
 
 

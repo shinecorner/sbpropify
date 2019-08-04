@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\ServiceRequest;
 use App\Models\Tenant;
 use App\Models\Unit;
+use App\Traits\UpdateSettings;
 use InfyOm\Generator\Common\BaseRepository;
 use Prettus\Repository\Events\RepositoryEntityDeleted;
 
@@ -19,6 +20,8 @@ use Prettus\Repository\Events\RepositoryEntityDeleted;
  */
 class TenantRepository extends BaseRepository
 {
+    use UpdateSettings;
+
     /**
      * @var array
      */
@@ -262,5 +265,26 @@ class TenantRepository extends BaseRepository
     public function count()
     {
         return $this->model->count();
+    }
+
+    /**
+     * @param $id
+     * @param array $columns
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Model[]|null|void
+     */
+    public function findForCredentials($id, $columns = ['*'])
+    {
+         try {
+             if (["*"] != $columns) {
+                 $columns[] = 'user_id';
+                 $columns = array_unique($columns);
+             }
+
+             return $this->model->with(['user' => function($q) {
+                 $q->with('settings:user_id,language');
+             }])->find($id, $columns);
+         } catch (\Exception $e) {
+             return;
+         }
     }
 }

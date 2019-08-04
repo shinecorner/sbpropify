@@ -62,7 +62,7 @@
             <reactions :id="data.id" type="posts">
                 <el-button @click="$refs.addComment.focus()" icon="ti-comment-alt" type="text">Comment</el-button>
             </reactions>
-            <comments-list ref="comments" :id="data.id" type="post" :use-placeholder="false" />
+            <comments ref="comments" :id="data.id" type="post" :use-placeholder="false" />
             <add-comment ref="addComment" :id="data.id" type="post"/>
         </template>
     </card>
@@ -74,7 +74,6 @@
     import Avatar from 'components/Avatar'
     import Reactions from 'components/Reactions'
     import AddComment from 'components/AddComment'
-    import CommentsList from 'components/CommentsList'
     import MediaGalleryCarousel from 'components/MediaGalleryCarousel'
     import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
     import {format, isSameDay} from 'date-fns'
@@ -92,7 +91,6 @@
             Avatar,
             Reactions,
             AddComment,
-            CommentsList,
             MediaGalleryCarousel
         },
         methods: {
@@ -124,8 +122,9 @@
 <style lang="scss" scoped>
     .el-card.post {
         color: lighten(#000, 32%);
+
         &.pinned {
-            /deep/ .el-card__body {
+            :global(.el-card__body) {
                 border-width: 8px;
                 border-style: solid;
                 border-image: linear-gradient(to bottom, darken(#fff, 4%), transparent) 1;
@@ -173,7 +172,7 @@
         }
 
         .media-gallery-carousel {
-            margin: 12px -16px;
+            margin: 12px -16px -17px -16px;
             box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
         }
 
@@ -183,7 +182,7 @@
             display: flex;
             align-items: center;
 
-            /deep/ .avatar {
+            :global(.avatar) {
                 border: 2px #fff solid;
 
                 &:not(:first-of-type) {
@@ -201,7 +200,7 @@
             }
         }
 
-        /deep/ .reactions {
+        :global(.reactions) {
             border-width: 1px;
             border-color: darken(#fff, 6%);
             border-style: solid none;

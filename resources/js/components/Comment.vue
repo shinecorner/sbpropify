@@ -41,7 +41,7 @@
             <el-button type="text" size="small" :loading="idState.loading.visible" @click="getChildren" v-if="data.children_count !== data.children.data.length">
                 {{$tc('components.common.comment.loadMore', data.children_count - data.children.data.length)}}
             </el-button>
-            <comments-list :id="id" :parent-id="data.id" :type="type" :data="data.children" :use-placeholder="false" v-if="data.children.data.length" />
+            <comments :id="id" :parent-id="data.id" :type="type" :data="data.children" :use-placeholder="false" v-if="data.children.data.length" />
             <add-comment ref="addComment" :id="id" :parent-id="data.id" :type="type" :reversed="reversed" />
         </div>
     </div>
@@ -93,9 +93,7 @@
         },
         components: {
             Avatar,
-            Loader,
-            AddComment,
-            CommentsList: () => import('./CommentsList')
+            Loader
         },
         idState () {
             return {

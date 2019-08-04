@@ -98,7 +98,7 @@ class TemplateRepository extends BaseRepository
     {
         $tags = [];
         foreach ($tagMap as $tag => $val) {
-            if (in_array($tag, ['autologinUrl', 'passwordResetUrl', 'tenantCredentials'])) {
+            if (in_array($tag, ['autologinUrl', 'passwordResetUrl', 'tenantCredentials', 'activationUrl'])) {
                 $tags[$tag] = $this->getStaticTagValue($tag, $val, $context);
                 continue;
             }
@@ -158,6 +158,13 @@ class TemplateRepository extends BaseRepository
         if ($tag == 'tenantCredentials' && $tenant) {
             $linkHref = env('APP_URL') . \Storage::url($tenant->pdfXFileName());
             $linkText = __('Download Credentials');
+            return $this->button($linkHref, $linkText);
+        }
+
+        if ($tag == 'activationUrl' && $tenant) {
+            // @TODO hard code query params
+            $linkHref = url(sprintf('/activate?&code=%s', $tenant->activation_code));
+            $linkText = __('Activate Account');
             return $this->button($linkHref, $linkText);
         }
 

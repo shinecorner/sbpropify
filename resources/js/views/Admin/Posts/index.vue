@@ -1,6 +1,6 @@
 <template>
     <div class="posts">
-        <heading :title="$t('models.post.title')" icon="ti-announcement" shadow="heavy">
+        <heading :title="$t('models.post.title')" icon="icon-megaphone-1" shadow="heavy">
             <template v-if="$can($permissions.create.post)">
                 <el-button @click="add" icon="ti-plus" round size="small" type="primary">
                     {{$t('models.post.add')}}
@@ -218,7 +218,10 @@
                 this.changePostPublish({id, status}).then((resp) => {
                     this.fetchMore();
                     this.postDetailsVisible = false;
-                    displaySuccess(resp);
+                    displaySuccess({
+                        success: true,
+                        message: 'models.post.updated'
+                    });
                 }).catch((error) => {
                     displayError(error);
                 });
@@ -230,11 +233,13 @@
                     type: 'warning'
                 }).then(async () => {
                     try {
-                        this.loading = true;
-
-                        const resp = await this.updatePost(row);
+                        this.loading = true;                    
+                        const resp = await this.changePostStatus(row.id, row.status);
                         await this.fetchMore();
-                        displaySuccess(resp);
+                        displaySuccess({
+                            success: true,
+                            message: 'models.post.updated'
+                        });
                     } catch (err) {
                         displayError(err);
                     } finally {

@@ -3,6 +3,7 @@
         <i :class="['icon', icon]" v-if="icon"></i>
         <div class="content">
             <div class="title">{{title}}</div>
+            <div v-if="subtitle" class="subtitle">{{subtitle}}</div>
             <slot name="description" />
         </div>
         <slot />
@@ -17,6 +18,7 @@
                 type: String,
                 required: true
             },
+            subtitle: String,
             shadow: {
                 type: String,
                 default: 'light',
@@ -74,6 +76,11 @@
                 min-width: 0;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+            }
+
+            .subtitle {
+                margin-top: 4px;
+                font-size: 14px;
             }
         }
     }

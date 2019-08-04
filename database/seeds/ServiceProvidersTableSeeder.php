@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 
 class ServiceProvidersTableSeeder extends Seeder
 {
+    use \Traits\TimeTrait;
     /**
      * Run the database seeds.
      *
@@ -33,41 +34,53 @@ class ServiceProvidersTableSeeder extends Seeder
             'real_estate_service',
         ];
 
+        $providerCount = 200;
+        $categoryCount = floor($providerCount / count($serviceCategories));
         foreach ($serviceCategories as $category) {
+            for ($i  = 0; $i < $categoryCount; $i++) {
+                $email = $faker->email;
+                $date = $this->getRandomTime();
 
-            //create User
-            $email = $faker->email;
-            $attr = [
-                'name' => $faker->name,
-                'email' => $email,
-                'phone' => $faker->phoneNumber,
-                'password' => bcrypt($email),
-            ];
-            $user = factory(User::class, 1)->create($attr)->first();
+                $attr = [
+                    'name' => $faker->name,
+                    'email' => $email,
+                    'phone' => $faker->phoneNumber,
+                    'password' => bcrypt($email),
+                ];
+                $attr = array_merge($attr, $this->getDateColumns($date));
 
-            $user->attachRole($serviceRole);
+                $user = factory(User::class, 1)->create($attr)->first();
 
-            $user->settings()->save($settings->replicate());
+                $user->attachRole($serviceRole);
 
-            $address = factory(App\Models\Address::class, 1)->create()->first();
+                $user->settings()->save($settings->replicate());
 
-            $attr = [
-                'category' => $category,
-                'user_id' => $user->id,
-                'address_id' => $address->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'phone' => $user->phone,
-            ];
+                //create User
+                $date = $this->getRandomTime($user->created_at);
+                $address = factory(App\Models\Address::class, 1)->create($this->getDateColumns($date))->first();
 
-            factory(App\Models\ServiceProvider::class, 1)->create($attr);
+                $attr = [
+                    'category' => $category,
+                    'user_id' => $user->id,
+                    'address_id' => $address->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'phone' => $user->phone,
+                ];
+                $date = $this->getRandomTime($address->created_at);
+                $attr = array_merge($attr, $this->getDateColumns($date));
+
+                factory(App\Models\ServiceProvider::class, 1)->create($attr);
+            }
         }
     }
 
     private function getSettings()
     {
+        $languages = config('app.locales');
+
         $settings = new UserSettings();
-        $settings->language = 'en';
+        $settings->language = array_rand($languages);
         $settings->summary = 'daily';
         $settings->admin_notification = 1;
         $settings->news_notification = 1;

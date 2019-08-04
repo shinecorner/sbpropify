@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
+use App\Criteria\Common\WhereCriteria;
 use App\Criteria\Tenants\FilterByBuildingCriteria;
 use App\Criteria\Tenants\FilterByDistrictCriteria;
 use App\Criteria\Tenants\FilterByRequestCriteria;
@@ -127,6 +128,63 @@ class TenantAPIController extends AppBaseController
 
     /**
      * @param ListRequest $request
+     * @return Response
+     * @throws \Exception
+     *
+     * @SWG\Get(
+     *      path="/tenants/latest",
+     *      summary="Get a latest 5 Tenants",
+     *      tags={"Tenant"},
+     *      description="Get a latest 5(limit) Tenants",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="limit",
+     *          in="query",
+     *          description="How many tenants get",
+     *          type="integer",
+     *          default=5
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  example="true"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @SWG\Items(
+     *                      @SWG\Property(
+     *                          property="id",
+     *                          type="integer",
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="first_name",
+     *                          type="string"
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="last_name",
+     *                          type="string"
+     *                      ),
+     *                      @SWG\Property(
+     *                          property="status",
+     *                          type="integer"
+     *                      )
+     *                  )
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @param ListRequest $request
      * @return mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
@@ -144,7 +202,9 @@ class TenantAPIController extends AppBaseController
     /**
      * @param CreateRequest $request
      * @param PostRepository $pr
-     * @return Response
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     *
      *
      * @SWG\Post(
      *      path="/tenants",
@@ -207,7 +267,7 @@ class TenantAPIController extends AppBaseController
 
         $tenant->load('user', 'building', 'unit', 'address');
         $pr->newTenantPost($tenant);
-        //$tenant->setCredentialsPDF($userPass);
+        //$tenant->setCredentialsPDF();
 
         $response = (new TenantTransformer)->transform($tenant);
         return $this->sendResponse($response, 'Tenant saved successfully');
@@ -255,6 +315,7 @@ class TenantAPIController extends AppBaseController
     {
         /** @var Tenant $tenant */
         $tenant = $this->tenantRepository->findWithoutFail($id);
+        $tenant->load('settings');
         if (empty($tenant)) {
             return $this->sendError('Tenant not found');
         }
@@ -393,7 +454,7 @@ class TenantAPIController extends AppBaseController
             $pr->newTenantPost($tenant);
         }
         //if ($userPass) {
-            //$tenant->setCredentialsPDF($userPass);
+            //$tenant->setCredentialsPDF();
         //}
         $response = (new TenantTransformer)->transform($tenant);
         return $this->sendResponse($response, 'Tenant updated successfully');
@@ -607,16 +668,11 @@ class TenantAPIController extends AppBaseController
      */
     public function downloadCredentials($id, DownloadCredentialsRequest $r)
     {
-        $t = $this->tenantRepository->findWithoutFail($id);
+        $t = $this->tenantRepository->findForCredentials($id);
         if (empty($t)) {
             return $this->sendError('Tenant not found');
         }
-        $t->setCredentialsPDF($t->id);
-        $re = RealEstate::firstOrFail();
-        $pdfName = $t->pdfXFileName();
-        if ($re && $re->blank_pdf) {
-            $pdfName = $t->pdfFileName();
-        }
+        $pdfName = $this->getPdfName($t);
 
         if (!\Storage::disk('tenant_credentials')->exists($pdfName)) {
             return $this->sendError($this->credentialsFileNotFound);
@@ -632,16 +688,11 @@ class TenantAPIController extends AppBaseController
      */
     public function sendCredentials($id, SendCredentialsRequest $r, TemplateRepository $tRepo)
     {
-        $t = $this->tenantRepository->findWithoutFail($id);
+        $t = $this->tenantRepository->findForCredentials($id);
         if (empty($t)) {
             return $this->sendError('Tenant not found');
         }
-        $t->setCredentialsPDF($t->id);
-        $re = RealEstate::firstOrFail();
-        $pdfName = $t->pdfXFileName($t->user->settings->language);
-        if ($re && $re->blank_pdf) {
-            $pdfName = $t->pdfFileName($t->user->settings->language);
-        }
+        $pdfName = $this->getPdfName($t);
         if (!\Storage::disk('tenant_credentials')->exists($pdfName)) {
             return $this->sendError($this->credentialsFileNotFound);
         }
@@ -652,32 +703,144 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
-    * @param $id
-    * @param token
-    * @param email
-    * @param password
-    * @return void
-    */
+     * @param $tenant
+     * @return mixed
+     */
+    protected function getPdfName(Tenant $tenant)
+    {
+        $tenant->setCredentialsPDF();
+
+        $re = RealEstate::firstOrFail();
+
+        $pdfName = $tenant->pdfXFileName();
+        if ($re && $re->blank_pdf) {
+            $pdfName = $tenant->pdfFileName();
+        }
+
+        return $pdfName ;
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
     public function resetPassword(Request $request){
-        $hashids = new Hashids('', 25);
-        $tenant_id[0] = $hashids->decode($request->token);
-        $tenant = $this->tenantRepository->findWithoutFail($tenant_id[0])->first();
+
+        $this->tenantRepository->pushCriteria(new WhereCriteria('activation_code', $request->token));
+        $tenant = $this->tenantRepository->with('user:id,email')->first();
+
         if (empty($tenant)) {
             return $this->sendError('Tenant not found');
         }
+
         $user = $tenant->user;
         if($user->email == $request->email) {
             $user->password = bcrypt($request->password);
             $user->save();
-            return $this->sendResponse($tenant_id[0], 'Tenant password reset successfully');
+            return $this->sendResponse($tenant->id, 'Tenant password reset successfully');
         } else {
             return $this->sendError('Incorrect email address');
         }
     }
 
-     /**
-     * @param $id
-     * @param tenantreview
+    /**
+     * @param Request $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function activateTenant(Request $request)
+    {
+        // @TODO fix query hard coding
+        if (empty($request->code) || empty($request->email) || empty($request->password)) {
+            return $this->sendError('code, email, password required');
+        }
+        $this->tenantRepository->pushCriteria(new WhereCriteria('activation_code', $request->code));
+        $tenant = $this->tenantRepository->with('user:id,email')->first();
+        if (empty($tenant )) {
+            return $this->sendError('Code is invalid');
+        }
+
+        $user = $tenant->user;
+        if($user->email == $request->email) {
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return $this->sendResponse($tenant->id, 'Tenant password reset successfully');
+        } else {
+            return $this->sendError('Incorrect email address');
+        }
+    }
+
+    /**
+
+     * @SWG\Post(
+     *      path="/addReview",
+     *      summary="Update Tenant review and rating",
+     *      tags={"Tenant"},
+     *      description="Update Tenant review and rating",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="tenant_id",
+     *          description="tenant_id of Tenant",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="rating",
+     *          description="rating of Tenant",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="review",
+     *          description="review of Tenant",
+     *          type="string",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Response(
+     *          response=404,
+     *          description="not found",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  example="false"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Tenant not found"
+     *              )
+     *          )
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successfully updated",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  example="true"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="integer",
+     *                  example=1
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @param Request $request
      * @return mixed
      */
     public function addReview(Request $request){
