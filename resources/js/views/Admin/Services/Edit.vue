@@ -123,6 +123,14 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
+
+                        <el-row :gutter="20">
+                            <el-col :md="24">
+                                <el-form-item :label="$t('models.tenant.language')" prop="settings.language">
+                                    <select-language :model.sync="model.settings.language"/>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
                     </el-form>
                 </card>
             </el-col>
@@ -210,6 +218,7 @@
     import RelationList from 'components/RelationListing';
     import {mapActions} from 'vuex';
     import {displayError, displaySuccess} from "helpers/messages";
+    import SelectLanguage from 'components/SelectLanguage';
 
 
     export default {
@@ -222,7 +231,8 @@
             Card,
             Cropper,
             EditActions,
-            RelationList
+            RelationList,
+            SelectLanguage
         },
         data() {
             return {

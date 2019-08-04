@@ -5,7 +5,7 @@
         </heading>
         <div class="crud-view">
             <card :loading="loading">
-                <el-form :model="model" label-width="192px" ref="form" style="max-width: 512px;">
+                <el-form :model="model" label-width="192px" ref="form" style="max-width: 641px;">
                     <el-form-item :label="$t('models.user.name')" :rules="validationRules.name" prop="name">
                         <el-input type="text" v-model="model.name"/>
                     </el-form-item>
@@ -27,6 +27,9 @@
                             <el-option :key="role" :label="$t('roles.' + role )" :value="role" v-for="role in allRoles"/>
                         </el-select>
                     </el-form-item>
+                    <el-form-item :label="$t('models.tenant.language')" prop="language">
+                        <select-language :model.sync="model.language"/>
+                    </el-form-item>
                 </el-form>
             </card>
         </div>
@@ -38,6 +41,7 @@
     import Card from 'components/Card';
     import AdminUsersMixin from 'mixins/adminUsersMixin';
     import AddActions from 'components/EditViewActions';
+    import SelectLanguage from 'components/SelectLanguage';
 
     export default {
         name: 'AdminUsersAdd',
@@ -47,7 +51,8 @@
         components: {
             Heading,
             Card,
-            AddActions
+            AddActions,
+            SelectLanguage
         },
         created() {
             this.model.role = this.$route.params.role;

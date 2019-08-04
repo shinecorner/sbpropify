@@ -74,11 +74,14 @@
                                                             value-format="yyyy-MM-dd"/>
                                                 </el-form-item>
                                             </el-col>
-
                                         </el-row>
                                     </el-col>
                                     <el-col :md='10' class="user-info">
-                                  
+                                        <el-row :gutter="20" id="language_select">
+                                            <el-form-item :label="$t('models.tenant.language')" prop="settings.language">
+                                                <select-language :model.sync="model.settings.language" />
+                                            </el-form-item>
+                                        </el-row>
                                     </el-col>
                                 </el-row>
                           </el-card>
@@ -298,6 +301,7 @@
     import {displayError, displaySuccess} from "helpers/messages";
     import Cropper from 'components/Cropper';
     import EditActions from 'components/EditViewActions';
+    import SelectLanguage from 'components/SelectLanguage';
 
     const mixin = AdminTenantsMixin({
         mode: 'edit'
@@ -314,7 +318,8 @@
             ProgressStatisticsCard,
             UploadDocument,
             Cropper,
-            EditActions
+            EditActions,
+            SelectLanguage
         },
         data() {
             return {
@@ -498,9 +503,9 @@
             border-radius: 4px;
             box-shadow: 0 1px 1px 0 transparentize(#000, .2);
         }
-        .user-info {
-            border-left: 2px dashed #ccc;
-        }
+        // .user-info {
+        //     border-left: 2px dashed #ccc;
+        // }
         > .el-row > .el-col {
             &:first-of-type .el-card:not(:last-of-type) {
                 margin-bottom: 2em;
@@ -521,6 +526,10 @@
             color: white;
             padding: 5px 10px;
             cursor: pointer;
+        }
+        #language_select {
+            margin-left: 0px !important;
+            margin-right: 0px !important;
         }
     }
 </style>

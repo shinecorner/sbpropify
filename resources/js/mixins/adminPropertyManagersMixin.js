@@ -22,6 +22,7 @@ export default (config = {}) => {
                         name: '',
                         phone: '',
                     },
+                    settings: []
                 },
                 validationRules: {
                     first_name: [{
