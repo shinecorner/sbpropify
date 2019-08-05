@@ -307,7 +307,7 @@ export default (config = {}) => {
                         
                         this.user = user;
                         this.model = Object.assign({}, this.model, r);
-                        this.origin_email = this.user.email;
+                        this.original_email = this.user.email;
                         this.model.email = user.email;
                         this.model.avatar = user.avatar;
                         

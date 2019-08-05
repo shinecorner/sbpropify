@@ -1,14 +1,21 @@
 import axios from '@/axios';
+import {buildFetchUrl} from 'helpers/url';
 export default (config = {}) => {
     const {model = 'model'} = config;
     return {
         methods: {
-            checkavailabilityEmail(rule, value, callback) {
+            async checkavailabilityEmail(rule, value, callback) {
                 let validateObject = this[model];
-                if(this.origin_email !== validateObject.email) {
-                    axios.get('http://localhost:8000/api/v1/users/check-email?email=' + validateObject.email)
-                        .then(({data: r}) => {callback(new Error(r.message))})
-                        .catch(err => {callback();});
+                if(this.original_email !== validateObject.email) {
+                    try {
+                        const resp =await axios.get('/users/check-email?email=' + validateObject.email)
+                        if(resp)
+                        {
+                            callback(new Error(resp.data.message));
+                        }                  
+                    } catch {
+                        callback();
+                    }
                 }
             }
         }
