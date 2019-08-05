@@ -34,7 +34,9 @@ export default (config = {}) => {
                     building_id: '',
                     unit_id: '',
                     media: [],
-                    settings: []
+                    settings: {
+                        language: '',
+                    }
                 },
                 validationRules: {
                     first_name: [{
@@ -44,6 +46,10 @@ export default (config = {}) => {
                     last_name: [{
                         required: true,
                         message: this.$t('models.tenant.validation.last_name.required')
+                    }],
+                    language: [{
+                        required: true,
+                        message: this.$t('models.tenant.validation.language.required')
                     }],
                     email: [{
                         required: true,

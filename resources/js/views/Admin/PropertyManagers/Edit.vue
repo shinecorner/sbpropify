@@ -86,7 +86,8 @@
                                          style="width: 100%;max-width: 200px;"
                                          v-if="!avatar.length && model.user.avatar">
                                 </el-form-item>
-                                <el-form-item :label="$t('models.tenant.language')" prop="settings.language">
+                                <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" 
+                                        prop="settings.language">
                                     <select-language :model.sync="model.settings.language"/>
                                 </el-form-item>
                             </el-tab-pane>

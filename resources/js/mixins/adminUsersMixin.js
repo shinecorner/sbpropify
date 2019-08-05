@@ -19,10 +19,16 @@ export default (config = {}) => {
                     password_confirmation: '',
                     phone: '',
                     role: '',
-                    settings: []
+                    settings: {
+                        language: ''
+                    }
                 },
                 validationRules: {
                     name: [{
+                        required: true,
+                        message: 'This field is required'
+                    }],
+                    language: [{
                         required: true,
                         message: 'This field is required'
                     }],

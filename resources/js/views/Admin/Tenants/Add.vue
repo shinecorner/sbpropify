@@ -46,8 +46,9 @@
                                         v-model="model.birth_date"
                                         value-format="yyyy-MM-dd"/>
                             </el-form-item>
-                            <el-form-item :label="$t('models.tenant.language')" prop="language">
-                                <select-language :model.sync="model.language"/>
+                            <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language"
+                                          prop="settings.language">
+                                <select-language :model.sync="model.settings.language"/>
                             </el-form-item>
                             <el-divider class="column-divider" content-position="left">
                                 {{$t('models.tenant.contact_info_card')}}
