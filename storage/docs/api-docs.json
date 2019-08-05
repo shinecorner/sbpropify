@@ -6405,6 +6405,79 @@
                 }
             }
         },
+        "/tenants/activateTenant": {
+            "put": {
+                "tags": [
+                    "Tenant"
+                ],
+                "summary": "Activate tenant",
+                "description": "Activate tenant",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "in": "query",
+                        "description": "activation code of Tenant",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "email of Tenant",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "new password for Tenant can login",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "401": {
+                        "description": "wrong operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": "false"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "code, email, password required"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": "true"
+                                },
+                                "data": {
+                                    "type": "string",
+                                    "example": "2"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Tenant password reset successfully"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/addReview": {
             "post": {
                 "tags": [
