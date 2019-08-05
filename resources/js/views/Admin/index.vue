@@ -67,7 +67,7 @@
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
                                 <el-card class="chart-card" :header="$t('dashboard.buildings.buildings_by_creation_date')">
-                                    <chart-column type="buildings_by_creation_date" :startDate="startDates.buildings"></chart-column>
+                                    <chart-line type="buildings_by_creation_date" :startDate="startDates.buildings"></chart-line>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -133,6 +133,11 @@
                                     <chart-pie-and-donut type="tenants_by_status" :colNum="3" :startDate="startDates.tenants"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_language')">
+                                    <chart-pie-and-donut type="tenants_by_language" :colNum="3" :startDate="startDates.tenants"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
                         </el-row>
                     </el-tab-pane>
                 </el-tabs>
@@ -155,6 +160,7 @@
 
     import BuildingsStatisticsCard from 'components/BuildingsStatisticsCard';
     import ChartColumn from 'components/ChartColumn';
+    import ChartLine from 'components/ChartLine';
     import TenantsStatisticsCard from 'components/TenantsStatisticsCard';
 
     export default {
@@ -170,6 +176,7 @@
             ChartHeatMap,
             BuildingsStatisticsCard,
             ChartColumn,
+            ChartLine,
             TenantsStatisticsCard
         },
         data() {
@@ -246,7 +253,6 @@
                         total_buildings: response.data.data.total_buildings,
                         card_data: response.data.data.buildings_per_status
                     };
-                    console.log('buildingStatistics', that.buildingStatistics);
 
                     that.tenantsStatistics = {
                         total_tenants: response.data.data.total_tenants,

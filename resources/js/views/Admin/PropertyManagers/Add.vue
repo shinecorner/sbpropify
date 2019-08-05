@@ -65,6 +65,10 @@
                                           prop="user.password_confirmation">
                                 <el-input type="password" v-model="model.user.password_confirmation"/>
                             </el-form-item>
+                            <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language"
+                                          prop="settings.language">
+                                <select-language :model.sync="model.settings.language"/>
+                            </el-form-item>
                         </card>
                     </el-col>
                     <el-col :md="12">
@@ -107,6 +111,7 @@
     import PropertyManagersMixin from 'mixins/adminPropertyManagersMixin';
     import Cropper from 'components/Cropper';
     import AddActions from 'components/EditViewActions';
+    import SelectLanguage from 'components/SelectLanguage';
 
     export default {
         name: 'AdminPropertyManagersAdd',
@@ -117,7 +122,8 @@
             Heading,
             Card,
             Cropper,
-            AddActions
+            AddActions,
+            SelectLanguage
         }
     }
 </script>

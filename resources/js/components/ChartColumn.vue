@@ -38,10 +38,12 @@ export default {
   },
   methods: {
     fetchData(){
-      let that = this;                                               
-      let url = '';						
+      let that = this;
+      let url = '';
+      let toolTipSeriesName = '';
       if(this.type === 'buildings_by_creation_date'){
         url = 'admin/chartBuildingsByCreationDate';
+        toolTipSeriesName = this.$t('models.building.title');
       }
       let params = {
         period: that.period
@@ -54,7 +56,7 @@ export default {
         params: params
       })
       .then(function (response) {
-        that.yData = [{name: 'count', data: response.data.data.requests_per_day_ydata}];
+        that.yData = [{name: toolTipSeriesName, data: response.data.data.requests_per_day_ydata}];
         that.xData = response.data.data.requests_per_day_xdata;
       }).catch(function (error) {
           console.log(error);

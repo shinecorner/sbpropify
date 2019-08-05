@@ -222,6 +222,7 @@ export default {
             first_name: 'Vorname',
             last_name: 'Name',
             birth_date: 'Geburtsdatum',
+            language: 'Sprache',
             title: 'Anrede',
             mobile_phone: 'Mobile',
             work_phone: 'Arbeit',
@@ -270,6 +271,9 @@ export default {
                 title: {
                     required: 'Anrede ist obligatorisch',
                 },
+                language: {
+                    required: 'Sprache ist obligatorisch'
+                }
             },
             building_card: 'Liegenschaft zuweisen',
             personal_details_card: 'Persönliche Angaben',

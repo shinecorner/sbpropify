@@ -423,7 +423,7 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="tenants/gender-statistics",
+     *      path="/tenants/gender-statistics",
      *      summary="Tenants gender statistics for Donut Chart",
      *      tags={"Tenant", "Donut"},
      *      description="Get tenants gender statistics",
@@ -632,7 +632,7 @@ class StatisticsAPIController extends AppBaseController
     /**
 
      * @SWG\Get(
-     *      path="admin/statistics",
+     *      path="/admin/statistics",
      *      summary="statistics for request, building, post, product",
      *      tags={"ServiceRequest", "Post", "Tenant", "Product"},
      *      description="statistics for request, building, post, product",
@@ -805,7 +805,7 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="admin/chartRequestByCreationDate",
+     *      path="/admin/chartRequestByCreationDate",
      *      summary="get statistics for Grouped Report for request",
      *      tags={"ServiceRequest", "CreationDate"},
      *      description="get statistics for Grouped Report for request",
@@ -871,7 +871,7 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="admin/chartByCreationDate",
+     *      path="/admin/chartByCreationDate",
      *      summary="get statistics for Grouped Report by products:status | tenants:status | posts:status ",
      *      tags={"Tenant", "Product", "Post", "CreationDate"},
      *      description="get statistics for Grouped Report by products:status | tenants:status | posts:status",
@@ -954,7 +954,7 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="admin/chartBuildingsByCreationDate",
+     *      path="/admin/chartBuildingsByCreationDate",
      *      summary="get statistics for Grouped Report for buildings",
      *      tags={"Building", "CreationDate"},
      *      description="get statistics for Grouped Report for buildings",
@@ -1039,7 +1039,7 @@ class StatisticsAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="admin/donutChart",
+     *      path="/admin/donutChart",
      *      summary="service_requests, products, tenants,  posts statistics for Donut Chart",
      *      tags={"Tenant", "ServiceRequest", "Post", "Product", "Donut"},
      *      description="service_requests:status | tenants:status,title | products:status,type |  posts:status,type statistics for Donut Chart",
@@ -1128,7 +1128,7 @@ class StatisticsAPIController extends AppBaseController
     /**
      *
      * @SWG\Get(
-     *      path="admin/donutChartRequestByCategory",
+     *      path="/admin/donutChartRequestByCategory",
      *      summary="Get request statistics for Donut Chart by service_request_categories",
      *      tags={"ServiceRequest", "Donut"},
      *      description="Get request statistics for Donut Chart by service_request_categories",
@@ -1223,7 +1223,7 @@ class StatisticsAPIController extends AppBaseController
     /**
      *
      * @SWG\Get(
-     *      path="admin/chartRequestByAssignedProvider",
+     *      path="/admin/chartRequestByAssignedProvider",
      *      summary="Requests by service_providers statistics for donut chart",
      *      tags={"ServiceRequest", "Donut"},
      *      description="Requests by service_providers statistics for donut chart",
@@ -1309,7 +1309,7 @@ class StatisticsAPIController extends AppBaseController
     /**
 
      * @SWG\Get(
-     *      path="admin/donutChartTenantsByDateAndStatus",
+     *      path="/admin/donutChartTenantsByDateAndStatus",
      *      summary="Tenants statistics for Donut Chart by service_requests status",
      *      tags={"Tenant", "Donut"},
      *      description="Tenants statistics for Donut Chart by service_requests status",
@@ -1400,7 +1400,7 @@ class StatisticsAPIController extends AppBaseController
     /**
      *
      * @SWG\Get(
-     *      path="admin/heatMapByDatePeriod",
+     *      path="/admin/heatMapByDatePeriod",
      *      summary="Get Service Request statistics for Heat Map Graph",
      *      tags={"ServiceRequest", "HeatMap"},
      *      description="Get Service Request statistics for Heat Map Graph",
@@ -1588,7 +1588,7 @@ class StatisticsAPIController extends AppBaseController
     /**
      *
      * @SWG\Get(
-     *      path="admin/chartLoginDevice",
+     *      path="/admin/chartLoginDevice",
      *      summary="Get statistics for Donut Chart by login device",
      *      tags={"Auth", "Donut"},
      *      description="Get all time statistics for Donut Chart by login device",
@@ -1681,7 +1681,7 @@ class StatisticsAPIController extends AppBaseController
     /**
      *
      * @SWG\Get(
-     *      path="admin/chartTenantLanguage",
+     *      path="/admin/chartTenantLanguage",
      *      summary="Tenants statistics for Donut Chart by language",
      *      tags={"Tenant", "Donut"},
      *      description="Tenants statistics for Donut Chart by language",

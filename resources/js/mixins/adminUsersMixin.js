@@ -19,9 +19,16 @@ export default (config = {}) => {
                     password_confirmation: '',
                     phone: '',
                     role: '',
+                    settings: {
+                        language: ''
+                    }
                 },
                 validationRules: {
                     name: [{
+                        required: true,
+                        message: 'This field is required'
+                    }],
+                    language: [{
                         required: true,
                         message: 'This field is required'
                     }],
@@ -161,6 +168,7 @@ export default (config = {}) => {
                         this.model.email = data.email;
                         this.model.phone = data.phone;
                         this.model.role = data.roles[0].name; // what if returns no roles?
+                        this.model.settings = data.settings;
                     } catch (err) {
                         // TODO - probably a better alternative, will do later
                         let route = {
