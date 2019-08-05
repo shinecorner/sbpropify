@@ -38,8 +38,8 @@
                             <el-col :span="24">
                                 <el-card class="chart-card">
                                     <el-tabs v-model="activeChart" @tab-click="handleHeatmapTabClick">
-                                        <el-tab-pane :label="$t('dashboard.week_hour')" name="week" class="heat-week-hour">
-                                            <div class="chart-filter">              
+                                        <el-tab-pane :label="$t('dashboard.week_hour')" name="week">
+                                            <div class="chart-filter in-toolbar">              
                                                 <el-date-picker
                                                     v-model="weekSelected"
                                                     type="week"
@@ -479,15 +479,6 @@
 
             .el-tabs__content {
                 overflow: visible;
-            }
-
-            .heat-week-hour {
-                .chart-filter {
-                    justify-content: flex-end;
-                }
-                .apexcharts-toolbar {
-                    margin-top: -88px;
-                }
             }
         }
     }
