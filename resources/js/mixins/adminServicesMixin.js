@@ -35,6 +35,7 @@ export default (config = {}) => {
                     name: '',
                     phone: '',
                     category: '',
+                    settings: []
                 },
                 validationRules: {
                     name: [{

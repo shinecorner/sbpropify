@@ -222,6 +222,7 @@ export default {
             first_name: 'First name',
             last_name: 'Last name',
             birth_date: 'Birth date',
+            language: 'Language',
             title: 'Title',
             mobile_phone: 'Mobile phone',
             work_phone: 'Work phone',
@@ -270,6 +271,9 @@ export default {
                 title: {
                     required: 'Title is required',
                 },
+                language: {
+                    required: 'Language is required'
+                }
             },
             building_card: 'Assign unit',
             personal_details_card: 'Personal details',
