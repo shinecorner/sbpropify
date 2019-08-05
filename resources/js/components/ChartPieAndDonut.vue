@@ -169,16 +169,6 @@ export default {
                 url = 'admin/donutChart?table=tenants&column=title';
                 langPrefix = 'models.tenant.titles.';
             }
-            else if (this.type === 'users_by_device') {
-                this.chartType = 'donut';
-                url = 'admin/chartLoginDevice';
-                langPrefix = '';
-            }
-            else if (this.type === 'tenants_by_gender') {
-                this.chartType = 'donut';
-                url = 'tenants/gender-statistics';
-                langPrefix = '';
-            }
 
             return axios.get(url,{
             	params: {
