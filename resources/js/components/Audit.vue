@@ -1,14 +1,13 @@
 <template>
     <div class="audit">
+        <el-col class="filter-col" v-if="showFilter">
+            <filters :data="filters.data" :schema="filters.schema" @changed="filtersChanged"/>
+        </el-col>
         <placeholder :src="require('img/5ce8f4e279cb2.png')" v-if="isEmpty">
             No activity available for now!
             <small>All available activities will appear here in chronological order.</small>
         </placeholder>
-        <template v-else>
-            <el-col class="filter-col" v-if="showFilter">
-                <filters :data="filters.data" :schema="filters.schema" @changed="filtersChanged"/>
-            </el-col>
-            <el-timeline v-infinite-scroll="fetch" >
+            <el-timeline v-infinite-scroll="fetch" v-else>
                 <template v-for="(audit, date) in audits.data">
                     <el-timeline-item v-for="(content, index) in audit.content" :key="audit.id+'-'+index" :timestamp="`${audit.userName} • ${formatDatetime(date)}`">
                         {{content}}
@@ -18,7 +17,6 @@
                     Loading...
                 </el-timeline-item>
             </el-timeline>
-        </template>
     </div>
 </template>
 
@@ -103,9 +101,10 @@
                 this.loading = true
 
                 let page = current_page || 0
-
                 page++
                 // Fetch audits
+                // this.type='product'
+                // this.id = 153
                 const {data:{data}} = await this.axios.get('audits?' + queryString.stringify({
                     sortedBy: 'desc',
                     orderBy: 'created_at',
@@ -124,8 +123,16 @@
                     // Force no id for testing
                     // @TODO: remove 
                     // this.id = undefined
-                
-                const service_requests = this.$constants.service_requests
+
+                let constant_variables = {}
+                switch (this.type) {
+                    case 'request': constant_variables = this.$constants.service_requests
+                    break;
+                    case 'post': constant_variables = this.$constants.posts;
+                    break;
+                    case 'product': constant_variables = this.$constants.products;
+                    break;
+                }
                 const translation_with_id = this.id ? 'withId': 'withNoId'
                 const audits = data.data.reduce((obj, current, idx) => {
                     let audit_replacer = [];
@@ -138,14 +145,17 @@
                             Object.values(current.new_values).map((new_value, new_idx) => {
                                 audit_replacer[Object.keys(current.new_values)[new_idx]] = []
                                 const type = Object.keys(current.new_values)[new_idx];
-                                if(type in service_requests){
-                                    audit_replacer[type]['new'] = this.$t(`models.${this.type}.${type}.${service_requests[type][new_value]}`)
+                                if(type in constant_variables){
+                                    audit_replacer[type]['new'] = this.$t(`models.${this.type}.${type}.${constant_variables[type][new_value]}`)
                                 }else{
                                     switch (type) {
                                         case 'category_id':
-                                            audit_replacer[type]['new'] = this.$t(`models.${this.type}.category.${this.categories[new_value]}`);
+                                            audit_replacer[type]['new'] = this.$t(`models.${this.type}.category_options.${this.categories[new_value]}`);
                                         break;
                                         case 'due_date':
+                                            audit_replacer[type]['new'] = this.formatDatetime(new_value);
+                                        break;
+                                        case 'published_at':
                                             audit_replacer[type]['new'] = this.formatDatetime(new_value);
                                         break;
                                         default: audit_replacer[type]['new'] = new_value
@@ -155,12 +165,12 @@
                             //  Build old values array for type
                             Object.values(current.old_values).map((old_value, old_idx) => {
                                 const type = Object.keys(current.old_values)[old_idx];
-                                if(type in service_requests){
-                                    audit_replacer[type]['old'] = this.$t(`models.${this.type}.${type}.${service_requests[type][old_value]}`)
+                                if(type in constant_variables){
+                                    audit_replacer[type]['old'] = this.$t(`models.${this.type}.${type}.${constant_variables[type][old_value]}`)
                                 }else{
                                     switch (type) {
                                         case 'category_id':
-                                            audit_replacer[type]['old'] = this.$t(`models.${this.type}.category.${this.categories[old_value]}`);
+                                            audit_replacer[type]['old'] = this.$t(`models.${this.type}.category_options.${this.categories[old_value]}`);
                                         break;
                                         case 'due_date':
                                             audit_replacer[type]['old'] = this.formatDatetime(old_value);
@@ -186,6 +196,10 @@
                         break;
                         case 'user_assigned':
                             content[0] = this.$t(`components.common.audit.content.${translation_with_id}.${current.auditable_type}.user_assigned`,{userName: current.new_values.user_name, auditable_id: current.auditable_id, auditable_type: translated_auditable_type})
+                            obj[current.created_at] = {id:current.id, event:current.event, content:content, userName:current.user.name}
+                        break;
+                        case 'provider_assigned':
+                            content[0] = this.$t(`components.common.audit.content.${translation_with_id}.${current.auditable_type}.provider_assigned`,{providerName: current.new_values.provider_name, auditable_id: current.auditable_id, auditable_type: translated_auditable_type})
                             obj[current.created_at] = {id:current.id, event:current.event, content:content, userName:current.user.name}
                         break;
                         default:

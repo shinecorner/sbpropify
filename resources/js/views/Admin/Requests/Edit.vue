@@ -300,6 +300,12 @@
                                         <el-badge value="0" :max="99" class="admin-layout">{{ $t('models.request.internal_notices') }}</el-badge>
                                     </span>
                                 </el-tab-pane>
+                                <el-tab-pane name="audit" style="max-height: 400px;overflow:auto;">
+                                    <span slot="label">
+                                        {{ $t('models.request.audits') }}
+                                    </span>
+                                    <audit :id="model.id" type="request" showFilter/>
+                                </el-tab-pane>
                             </el-tabs>
                         </card>
                     </el-col>
@@ -333,7 +339,8 @@
     import EditActions from 'components/EditViewActions';
     import ServiceDialog from 'components/ServiceAttachModal';
     import {displaySuccess} from "../../../helpers/messages";
-    import {Avatar} from 'vue-avatar'
+    import {Avatar} from 'vue-avatar';
+    import Audit from 'components/Audit';
 
 
     export default {
@@ -349,7 +356,8 @@
             ServiceDialog,
             RelationList,
             EditActions,
-            Avatar
+            Avatar,
+            Audit
         },
         data() {
             return {

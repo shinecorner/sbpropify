@@ -688,6 +688,7 @@ export default {
             }
         },
         request: {
+            audits: 'Audits',
             edit: 'Edit',
             delete: 'Delete',
             deleted: 'Deleted',
@@ -762,7 +763,7 @@ export default {
                 reactivated: 'Reactivated',
                 archived: 'Archived'
             },
-            category:{
+            category_options:{
                 disturbance: 'Disturbance',
                 defect: 'Defect',
                 order_documents: 'Order documents',
@@ -1136,8 +1137,16 @@ export default {
                 },
                 content:{
                     withId:{
-                        post: {},
-                        product: {},
+                        post: {  
+                            created: '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
+                            updated: {
+                                status: 'The status changed from "{old}" to "{new}".',
+                                published_at: 'Post published on {new}.',
+                            }
+                        },
+                        product: {
+                            created: '{userName} opened this {auditable_type}.',
+                        },
                         request: {
                             created: '{userName} opened this {auditable_type}.',
                             updated: {
@@ -1146,7 +1155,8 @@ export default {
                                 due_date: 'The due date changed from "{old}" to "{new}".',
                                 priority: 'The priority changed from "{old}" to "{new}".',
                                 category_id: 'The category changed from "{old}" to "{new}".',
-                                qualification: 'The qualification changed from "{old}" to "{new}".'   
+                                qualification: 'The qualification changed from "{old}" to "{new}".',   
+                                visibility: 'The visibility changed from "{old}" to "{new}".'   
                             },
                             provider_assigned: '{providerName} has been assigned as provider.',
                             user_assigned: '{userName} has been assigned as manager.',
@@ -1155,8 +1165,16 @@ export default {
                         }
                     },
                     withNoId:{
-                        post: {},
-                        product: {},
+                        post: {  
+                            created: '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
+                            updated: {
+                                published_at: 'Post published on {new} on {auditable_type} #{auditable_id}.',
+                                status: 'The status changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                            }
+                        },
+                        product: {
+                            created: '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
+                        },
                         request: {
                             created: '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
                             updated: {
@@ -1165,7 +1183,8 @@ export default {
                                 due_date: 'The due date changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
                                 priority: 'The priority changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
                                 category_id: 'The category changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
-                                qualification: 'The qualification changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.'   
+                                qualification: 'The qualification changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',   
+                                visibility: 'The visibility changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.'   
                             },
                             provider_assigned: '{providerName} has been assigned as provider on {auditable_type} #{auditable_id}.',
                             user_assigned: '{userName} has been assigned as manager on {auditable_type} #{auditable_id}.',

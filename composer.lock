@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "ee99a15d0f0afec4d7d97c678b13d3bb",
@@ -3722,16 +3722,16 @@
         },
         {
             "name": "spatie/image",
-            "version": "1.7.2",
+            "version": "1.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/image.git",
-                "reference": "61fa48fa4cb85eda4ef4f8f20b1c27edd9d38e85"
+                "reference": "8aac77a3ee18d7e0e5cb51cd67eb9558f1f491ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/image/zipball/61fa48fa4cb85eda4ef4f8f20b1c27edd9d38e85",
-                "reference": "61fa48fa4cb85eda4ef4f8f20b1c27edd9d38e85",
+                "url": "https://api.github.com/repos/spatie/image/zipball/8aac77a3ee18d7e0e5cb51cd67eb9558f1f491ef",
+                "reference": "8aac77a3ee18d7e0e5cb51cd67eb9558f1f491ef",
                 "shasum": ""
             },
             "require": {
@@ -3760,9 +3760,9 @@
             "authors": [
                 {
                     "name": "Freek Van der Herten",
+                    "role": "Developer",
                     "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
+                    "homepage": "https://spatie.be"
                 }
             ],
             "description": "Manipulate images with an expressive API",
@@ -3771,7 +3771,7 @@
                 "image",
                 "spatie"
             ],
-            "time": "2019-05-13T11:38:22+00:00"
+            "time": "2019-08-02T23:57:44+00:00"
         },
         {
             "name": "spatie/image-optimizer",
@@ -4004,16 +4004,16 @@
         },
         {
             "name": "swagger-api/swagger-ui",
-            "version": "v3.23.3",
+            "version": "v3.23.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swagger-api/swagger-ui.git",
-                "reference": "fb47aa27d774068ac930d45a12d95e68da1b3fe8"
+                "reference": "551007fe473980427e8b08ff8796ddea5585210e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/fb47aa27d774068ac930d45a12d95e68da1b3fe8",
-                "reference": "fb47aa27d774068ac930d45a12d95e68da1b3fe8",
+                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/551007fe473980427e8b08ff8796ddea5585210e",
+                "reference": "551007fe473980427e8b08ff8796ddea5585210e",
                 "shasum": ""
             },
             "type": "library",
@@ -4057,7 +4057,7 @@
                 "swagger",
                 "ui"
             ],
-            "time": "2019-07-30T18:26:20+00:00"
+            "time": "2019-08-03T06:49:45+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -6157,12 +6157,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/InfyOmLabs/laravel-generator.git",
-                "reference": "cc0b3c7eb0d0c4f985419d6dabc1230e9d5d688d"
+                "reference": "4e8357759c15b18ae4c43906cd3c7dc784f6063c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/cc0b3c7eb0d0c4f985419d6dabc1230e9d5d688d",
-                "reference": "cc0b3c7eb0d0c4f985419d6dabc1230e9d5d688d",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator/zipball/4e8357759c15b18ae4c43906cd3c7dc784f6063c",
+                "reference": "4e8357759c15b18ae4c43906cd3c7dc784f6063c",
                 "shasum": ""
             },
             "require": {
@@ -6215,7 +6215,7 @@
                 "test",
                 "view"
             ],
-            "time": "2019-05-25T04:09:48+00:00"
+            "time": "2019-08-03T09:08:58+00:00"
         },
         {
             "name": "laracasts/flash",
