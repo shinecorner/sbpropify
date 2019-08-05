@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\ServiceRequest;
 use App\Models\Tenant;
 use App\Models\Unit;
+use App\Traits\UpdateSettings;
 use InfyOm\Generator\Common\BaseRepository;
 use Prettus\Repository\Events\RepositoryEntityDeleted;
 
@@ -19,6 +20,8 @@ use Prettus\Repository\Events\RepositoryEntityDeleted;
  */
 class TenantRepository extends BaseRepository
 {
+    use UpdateSettings;
+
     /**
      * @var array
      */
