@@ -130,6 +130,8 @@ export default {
         tenants_by_request_status: 'Tenants by Requests status',
         tenants_by_status: 'Tenants by status',
         tenants_by_language: 'Tenants by language',
+        tenants_by_title: 'Tenants by title',
+        tenants_by_device: 'Tenants by device',
         buildings: {
             total_building: 'Total Count',
             total_units: 'Total Units',

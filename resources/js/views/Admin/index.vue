@@ -121,7 +121,7 @@
                                     <chart-stacked-column type="tenants_by_creation_date" :startDate="startDates.tenants"></chart-stacked-column>
                                 </el-card>
                             </el-col>
-                         </el-row>
+                        </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_request_status')">
@@ -136,6 +136,18 @@
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_language')">
                                     <chart-pie-and-donut type="tenants_by_language" :colNum="3" :startDate="startDates.tenants"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                        </el-row>
+                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_title')">
+                                    <chart-pie-and-donut type="tenants_by_title" :colNum="3" :startDate="startDates.tenants"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_device')">
+                                    <chart-users-by-device type="users_by_device" :colNum="3" :startDate="startDates.tenants"></chart-users-by-device>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -161,6 +173,7 @@
     import BuildingsStatisticsCard from 'components/BuildingsStatisticsCard';
     import ChartColumn from 'components/ChartColumn';
     import ChartLine from 'components/ChartLine';
+    import ChartUsersByDevice from 'components/ChartUsersByDevice';
     import TenantsStatisticsCard from 'components/TenantsStatisticsCard';
 
     export default {
@@ -177,6 +190,7 @@
             BuildingsStatisticsCard,
             ChartColumn,
             ChartLine,
+            ChartUsersByDevice,
             TenantsStatisticsCard
         },
         data() {
