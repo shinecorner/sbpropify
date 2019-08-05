@@ -65,8 +65,9 @@
                                           prop="user.password_confirmation">
                                 <el-input type="password" v-model="model.user.password_confirmation"/>
                             </el-form-item>
-                            <el-form-item :label="$t('models.tenant.language')" prop="language">
-                                <select-language :model.sync="model.language"/>
+                            <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language"
+                                          prop="settings.language">
+                                <select-language :model.sync="model.settings.language"/>
                             </el-form-item>
                         </card>
                     </el-col>

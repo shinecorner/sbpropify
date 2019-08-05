@@ -271,6 +271,9 @@ export default {
                 title: {
                     required: 'Anrede ist obligatorisch',
                 },
+                language: {
+                    required: 'Sprache ist obligatorisch'
+                }
             },
             building_card: 'Liegenschaft zuweisen',
             personal_details_card: 'Persönliche Angaben',

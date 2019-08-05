@@ -55,7 +55,8 @@
                 </el-col>
                 <el-col :md="12" id="right_card">
                     <card :loading="loading">
-                        <el-form-item :label="$t('models.tenant.language')" prop="settings.language">
+                        <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" 
+                            prop="settings.language">
                             <select-language :model.sync="model.settings.language"/>
                         </el-form-item>
                     </card>

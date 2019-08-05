@@ -272,6 +272,9 @@ export default {
                 title: {
                     required: 'Title is required',
                 },
+                language: {
+                    required: 'Language is required'
+                }
             },
             building_card: 'Assign unit',
             personal_details_card: 'Personal details',

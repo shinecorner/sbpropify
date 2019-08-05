@@ -27,8 +27,8 @@
                             <el-option :key="role" :label="$t('roles.' + role )" :value="role" v-for="role in allRoles"/>
                         </el-select>
                     </el-form-item>
-                    <el-form-item :label="$t('models.tenant.language')" prop="language">
-                        <select-language :model.sync="model.language"/>
+                    <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" prop="settings.language">
+                        <select-language :model.sync="model.settings.language"/>
                     </el-form-item>
                 </el-form>
             </card>
