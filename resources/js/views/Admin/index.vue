@@ -107,6 +107,11 @@
                                     <chart-pie-and-donut type="products_by_type" :colNum="3" :startDate="startDates.products"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
+                            <el-col :span="16">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.latest_products')">
+                                    
+                                </el-card>
+                            </el-col>
                         </el-row>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.tenants')" name="tenants">

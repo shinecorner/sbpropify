@@ -126,6 +126,7 @@ export default {
         news_by_type: 'News by type',
         products_by_creation_date: 'Market place products by creation date',
         products_by_type: 'Market place products by type',
+        latest_products: 'Latest products',
         tenants_by_creation_date: 'Tenants by creation date',
         tenants_by_request_status: 'Tenants by Requests status',
         tenants_by_status: 'Tenants by status',
