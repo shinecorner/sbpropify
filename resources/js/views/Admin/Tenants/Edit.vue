@@ -74,7 +74,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12">
-
+                                    
                                 </el-col>
                             </el-row>
 
@@ -356,6 +356,7 @@
     import RelationList from 'components/RelationListing';
     import EditActions from 'components/EditViewActions';
     import globalFunction from "helpers/globalFunction";
+    import SelectLanguage from 'components/SelectLanguage';
 
     const mixin = AdminTenantsMixin({
         mode: 'edit'
@@ -373,7 +374,8 @@
             UploadDocument,
             Cropper,
             RelationList,
-            EditActions
+            EditActions,
+            SelectLanguage
         },
         data() {
             return {

@@ -745,6 +745,78 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
+     *
+     * @SWG\Put(
+     *      path="/tenants/activateTenant",
+     *      summary="Activate tenant",
+     *      tags={"Tenant"},
+     *      description="Activate tenant",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="code",
+     *          description="activation code of Tenant",
+     *          type="string",
+     *          required=true,
+     *          in="query"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="email",
+     *          description="email of Tenant",
+     *          type="string",
+     *          required=true,
+     *          in="query"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="password",
+     *          description="new password for Tenant can login",
+     *          type="string",
+     *          required=true,
+     *          in="query"
+     *      ),
+     *
+     *      @SWG\Response(
+     *          response=401,
+     *          description="wrong operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  example="false"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="code, email, password required"
+     *              )
+     *          )
+     *      ),
+     *
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *                  example="true"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="string",
+     *                  example="2"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="Tenant password reset successfully"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     *
      * @param Request $request
      * @return mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
@@ -760,7 +832,7 @@ class TenantAPIController extends AppBaseController
         if (empty($tenant )) {
             return $this->sendError('Code is invalid');
         }
-
+        // @TODO discuss if already active,
         $user = $tenant->user;
         if($user->email == $request->email) {
             $user->password = bcrypt($request->password);

@@ -46,6 +46,10 @@
                                         v-model="model.birth_date"
                                         value-format="yyyy-MM-dd"/>
                             </el-form-item>
+                            <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language"
+                                          prop="settings.language">
+                                <select-language :model.sync="model.settings.language"/>
+                            </el-form-item>
                             <el-divider class="column-divider" content-position="left">
                                 {{$t('models.tenant.contact_info_card')}}
                             </el-divider>
@@ -183,6 +187,7 @@
     import Cropper from 'components/Cropper';
     import UploadDocument from 'components/UploadDocument';
     import AddActions from 'components/EditViewActions';
+    import SelectLanguage from 'components/SelectLanguage';
 
 
     export default {
@@ -194,7 +199,8 @@
             Card,
             Cropper,
             UploadDocument,
-            AddActions
+            AddActions,
+            SelectLanguage
         },
         data() {
             return {
