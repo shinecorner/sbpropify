@@ -32,28 +32,28 @@
                     </span>
                     
                     <el-dropdown-menu slot="dropdown" :style="dropmenuwidth">
-                        <el-dropdown-item>
                             <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
-                                <i class="icon-user"/>
-                                {{$t('menu.profile')}}
+                                <el-dropdown-item>
+                                    <i class="icon-user"/>
+                                    {{$t('menu.profile')}}
+                                </el-dropdown-item>
                             </router-link>
-                        </el-dropdown-item>
-                        <el-dropdown-item>
                             <template v-if="$can($permissions.view.realEstate)">
-                                <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
-                                    <i class="icon-cog"/>
-                                    {{$t('menu.settings')}}
-                                </router-link>
+                                    <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
+                                        <el-dropdown-item>
+                                            <i class="icon-cog"/>
+                                            {{$t('menu.settings')}}
+                                        </el-dropdown-item>
+                                    </router-link>
                             </template>
-                        </el-dropdown-item>
-                        <el-dropdown-item>
-                            <el-button @click="handleLogout" type="text">
-                                <div class="logout-button">
-                                    <i class="icon-logout"/>
-                                    {{$t('menu.logout')}}
-                                </div>
-                            </el-button>
-                        </el-dropdown-item>
+                            <el-dropdown-item>
+                                <el-button @click="handleLogout" type="text">
+                                    <div class="logout-button">
+                                        <i class="icon-logout"/>
+                                        {{$t('menu.logout')}}
+                                    </div>
+                                </el-button>
+                            </el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
@@ -311,17 +311,6 @@
         mounted(){
             this.init();
 
-            this.$store.subscribe((mutation, state) => {
-                if(mutation.type === "SET_LOGGED_IN_USER"){
-
-                    if(this.user.settings.language === 'en'){
-                        this.selectedFlag = `flag-icon flag-icon-us`;
-                    }else {
-                        this.selectedFlag = `flag-icon flag-icon-${mutation.payload.settings.language}`;
-                    }
-                }
-            });
-
             EventBus.$on('profile-username-change', () => {
                 this.dropdownwidth = this.$refs.prev.clientWidth;
             });
@@ -334,10 +323,11 @@
             });
 
             this.languages = languagesArray.map(item => { 
-                let flag = 'flag-icon flag-icon-' + item[0]
+                let flag_class = 'flag-icon flag-icon-';
+                let flag = flag_class + item[0];
                 if( item[0] == 'en')
                 {
-                    flag = 'flag-icon flag-icon-us'
+                    flag = flag_class + 'us'
                 }
                 return {
                     name: item[1],
@@ -359,6 +349,11 @@
         margin: 16px 10px 16px 0px !important;
         .el-dropdown-menu__item {
             padding: 0px 12px !important;
+            text-align: left;
+            color: #909399;
+            &:hover {
+                color: #909399;
+            }
         }
     }
 </style>
@@ -433,7 +428,7 @@
             }
         }
         .dropdown-menu {
-            width: 100%;
+            min-width: 118px;
             .avatar {
                 margin-right: 3%;
                 border: solid #c2c2c2 2px;

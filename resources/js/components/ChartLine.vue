@@ -1,5 +1,5 @@
 <template>
-    <div v-if="startDate" class="stackchart">
+    <div v-if="startDate" class="linechart">
         <div class="chart-filter in-toolbar">
           <el-radio-group v-model="period" class="stack-radios">                
               <el-radio-button label="day">{{$t('timestamps.days')}}</el-radio-button>
@@ -13,55 +13,41 @@
         </div>    
         <el-row type="flex">
             <el-col :span="24">
-                <apexchart ref="stackColumnChart" width="100%" height="310" type="bar" :options="chartOptions" :series="series"></apexchart>
+                <apexchart width="100%" height="310" type="line" :options="chartOptions" :series="series"></apexchart>
             </el-col>
         </el-row>        
     </div>
 </template>
 <script>
 import VueApexCharts from 'vue-apexcharts'
-import {format, subDays, isBefore, isAfter, parse} from 'date-fns'
 import axios from '@/axios';
 
 import CustomDateRangePicker from 'components/CustomDateRangePicker';
-import columChartMixin from '../mixins/adminDashboardColumnChartMixin';
+import columnChartMixin from '../mixins/adminDashboardColumnChartMixin';
 
 export default {  
   components: {
     'apexchart': VueApexCharts,
     CustomDateRangePicker
   },
-  mixins: [columChartMixin()],  
+  mixins: [columnChartMixin()],
   computed: {
-    chartOptions: function(){
+    chartOptions: function() {
       const options = this.columnChartOptions;
-      options.chart.stacked = true;
-      options.legend = {
-        position: 'bottom',              
-        horizontalAlign: 'center'
-      };
+      options.stroke = {
+        curve: 'straight'
+      }
       return options;
-    }        
+    }
   },
   methods: {
     fetchData(){
-      let that = this;                                               
+      let that = this;
       let url = '';
-      let langPrefix = '';
-      if(this.type === 'request_by_creation_date'){
-        url = 'admin/chartRequestByCreationDate';
-      }
-      else if (this.type === 'news_by_creation_date') {
-        url = 'admin/chartByCreationDate?table=posts';
-        langPrefix = 'models.post.status.';
-      }
-      else if (this.type === 'products_by_creation_date') {
-        url = 'admin/chartByCreationDate?table=products';
-        langPrefix = 'models.product.status.';
-      }
-      else if (this.type === 'tenants_by_creation_date') {
-        url = 'admin/chartByCreationDate?table=tenants';
-        langPrefix = 'models.tenant.status.';
+      let toolTipSeriesName = '';
+      if(this.type === 'buildings_by_creation_date'){
+        url = 'admin/chartBuildingsByCreationDate';
+        toolTipSeriesName = this.$t('models.building.title');
       }
       let params = {
         period: that.period
@@ -74,15 +60,11 @@ export default {
         params: params
       })
       .then(function (response) {
-        that.yData = response.data.data.requests_per_day_ydata.map(value => {
-          if (langPrefix !== '') {
-            value.name = that.$t(langPrefix + value.name);
-          }
-          return value;
-        });
+        
+        that.yData = [{name: toolTipSeriesName, data: response.data.data.requests_per_day_ydata}];
         that.xData = response.data.data.requests_per_day_xdata;
       }).catch(function (error) {
-        console.log(error);
+          console.log(error);
       })
     }
   }
@@ -90,7 +72,7 @@ export default {
 </script>
 
 <style scoped>
-  .stackchart {
+  .linechart {
     position: relative;
   }
   .stack-radios {
