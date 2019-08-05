@@ -343,7 +343,7 @@ class UnitAPIController extends AppBaseController
 
     /**
      * @SWG\Post(
-     *      path="units/{id}/assignees/{assignee_id}",
+     *      path="/units/{id}/assignees/{assignee_id}",
      *      summary="Assign the tenant to unit",
      *      tags={"Unit", "Tenant"},
      *      description="Assign the tenant to unit",
@@ -427,7 +427,7 @@ class UnitAPIController extends AppBaseController
 
     /**
      * @SWG\Delete(
-     *      path="units/{id}/assignees/{assignee_id}",
+     *      path="/units/{id}/assignees/{assignee_id}",
      *      summary="Un assign the tenant to unit",
      *      tags={"Unit", "Tenant"},
      *      description="Un assign the tenant to unit",

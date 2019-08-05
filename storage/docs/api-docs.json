@@ -4810,7 +4810,7 @@
                 }
             }
         },
-        "tenants/gender-statistics": {
+        "/tenants/gender-statistics": {
             "get": {
                 "tags": [
                     "Tenant",
@@ -4938,7 +4938,7 @@
                 }
             }
         },
-        "admin/statistics": {
+        "/admin/statistics": {
             "get": {
                 "tags": [
                     "ServiceRequest",
@@ -5066,7 +5066,7 @@
                 }
             }
         },
-        "admin/chartRequestByCreationDate": {
+        "/admin/chartRequestByCreationDate": {
             "get": {
                 "tags": [
                     "ServiceRequest",
@@ -5110,7 +5110,7 @@
                 }
             }
         },
-        "admin/chartByCreationDate": {
+        "/admin/chartByCreationDate": {
             "get": {
                 "tags": [
                     "Tenant",
@@ -5178,7 +5178,7 @@
                 }
             }
         },
-        "admin/chartBuildingsByCreationDate": {
+        "/admin/chartBuildingsByCreationDate": {
             "get": {
                 "tags": [
                     "Building",
@@ -5249,7 +5249,7 @@
                 }
             }
         },
-        "admin/donutChart": {
+        "/admin/donutChart": {
             "get": {
                 "tags": [
                     "Tenant",
@@ -5326,7 +5326,7 @@
                 }
             }
         },
-        "admin/donutChartRequestByCategory": {
+        "/admin/donutChartRequestByCategory": {
             "get": {
                 "tags": [
                     "ServiceRequest",
@@ -5401,7 +5401,7 @@
                 }
             }
         },
-        "admin/chartRequestByAssignedProvider": {
+        "/admin/chartRequestByAssignedProvider": {
             "get": {
                 "tags": [
                     "ServiceRequest",
@@ -5465,7 +5465,7 @@
                 }
             }
         },
-        "admin/donutChartTenantsByDateAndStatus": {
+        "/admin/donutChartTenantsByDateAndStatus": {
             "get": {
                 "tags": [
                     "Tenant",
@@ -5552,7 +5552,7 @@
                 }
             }
         },
-        "admin/heatMapByDatePeriod": {
+        "/admin/heatMapByDatePeriod": {
             "get": {
                 "tags": [
                     "ServiceRequest",
@@ -5637,7 +5637,7 @@
                 }
             }
         },
-        "admin/chartLoginDevice": {
+        "/admin/chartLoginDevice": {
             "get": {
                 "tags": [
                     "Auth",
@@ -5720,7 +5720,7 @@
                 }
             }
         },
-        "admin/chartTenantLanguage": {
+        "/admin/chartTenantLanguage": {
             "get": {
                 "tags": [
                     "Tenant",
@@ -6875,7 +6875,7 @@
                 }
             }
         },
-        "units/{id}/assignees/{assignee_id}": {
+        "/units/{id}/assignees/{assignee_id}": {
             "post": {
                 "tags": [
                     "Unit",
@@ -6944,8 +6944,8 @@
                     "Unit",
                     "Tenant"
                 ],
-                "summary": "Assign the tenant to unit",
-                "description": "Assign the tenant to unit",
+                "summary": "Un assign the tenant to unit",
+                "description": "Un assign the tenant to unit",
                 "produces": [
                     "application/json"
                 ],
