@@ -122,34 +122,47 @@ export default {
                 return;
             }
             let that = this;                                               
-            let url = '';						
+            let url = '';
+            let langPrefix = '';
             if(this.type === 'request_by_status'){
                 this.chartType = 'pie';
                 url = 'admin/donutChart';
+                langPrefix = 'models.request.status.';
             }
             else if(this.type === 'request_by_category'){
                 this.chartType = 'donut';
                 url = 'admin/donutChartRequestByCategory';
+                langPrefix = '';
             }
             else if (this.type === 'news_by_status') {
                 this.chartType = 'donut';
                 url = 'admin/donutChart?table=posts&column=status';
+                langPrefix = 'models.post.status.';
             }
             else if (this.type === 'news_by_type') {
                 this.chartType = 'donut';
                 url = 'admin/donutChart?table=posts&column=type';
+                langPrefix = 'models.post.type.';
             }
             else if (this.type === 'products_by_type') {
                 this.chartType = 'donut';
                 url = 'admin/donutChart?table=products&column=type';
+                langPrefix = 'models.product.type.';
             }
             else if (this.type === 'tenants_by_request_status') {
                 this.chartType = 'donut';
                 url = 'admin/donutChartTenantsByDateAndStatus';
+                langPrefix = 'models.request.status.';
             }
             else if (this.type === 'tenants_by_status') {
                 this.chartType = 'donut';
                 url = 'admin/donutChart?table=tenants&column=status';
+                langPrefix = 'models.tenant.status.';
+            }
+            else if (this.type === 'tenants_by_language') {
+                this.chartType = 'donut';
+                url = 'admin/chartTenantLanguage';
+                langPrefix = '';
             }
 
             return axios.get(url,{
@@ -160,27 +173,14 @@ export default {
             })
             .then(function (response) {
                 that.yData = response.data.data.data.map(val => parseFloat(val) || 0);
-                if(that.type === 'request_by_status'){
-                    that.xData = response.data.data.labels.map(function(e){return that.$t('models.request.status.'+e)});
-                }
-                else if(that.type === 'request_by_category'){
-                    that.xData = response.data.data.labels;
-                }
-                else if (that.type === 'news_by_status') {
-                    that.xData = response.data.data.labels.map(label => that.$t('models.post.status.' + label));
-                }
-                else if (that.type === 'news_by_type') {
-                    that.xData = response.data.data.labels.map(label => that.$t('models.post.type.' + label));
-                }
-                else if (that.type === 'products_by_type') {
-                    that.xData = response.data.data.labels.map(label => that.$t('models.product.type.' + label));
-                }
-                else if (that.type === 'tenants_by_request_status') {
-                    that.xData = response.data.data.labels.map(function(e){return that.$t('models.request.status.'+e)});
-                }
-                else if (that.type === 'tenants_by_status') {
-                    that.xData = response.data.data.labels.map(label => that.$t('models.tenant.status.' + label));
-                }
+                that.xData = response.data.data.labels.map(function(e) {
+                    if (langPrefix !== '') {
+                        return that.$t(langPrefix + e);
+                    }
+                    else {
+                        return e;
+                    }
+                });
             }).catch(function (error) {
                 console.log(error);
             })
