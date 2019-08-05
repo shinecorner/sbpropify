@@ -67,7 +67,7 @@
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
                                 <el-card class="chart-card" :header="$t('dashboard.buildings.buildings_by_creation_date')">
-                                    <chart-line type="buildings_by_creation_date" :startDate="startDates.buildings"></chart-line>
+                                    <chart-column-line type="buildings_by_creation_date" :startDate="startDates.buildings"></chart-column-line>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -171,8 +171,7 @@
     import CircularProgressStatisticsCard from 'components/CircularProgressStatisticsCard.vue';
 
     import BuildingsStatisticsCard from 'components/BuildingsStatisticsCard';
-    import ChartColumn from 'components/ChartColumn';
-    import ChartLine from 'components/ChartLine';
+    import ChartColumnLine from 'components/ChartColumnLine';
     import ChartUsersByDevice from 'components/ChartUsersByDevice';
     import TenantsStatisticsCard from 'components/TenantsStatisticsCard';
 
@@ -188,8 +187,7 @@
             ChartPieAndDonut,
             ChartHeatMap,
             BuildingsStatisticsCard,
-            ChartColumn,
-            ChartLine,
+            ChartColumnLine,
             ChartUsersByDevice,
             TenantsStatisticsCard
         },
