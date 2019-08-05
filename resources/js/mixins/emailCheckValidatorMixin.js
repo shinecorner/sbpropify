@@ -1,5 +1,4 @@
 import axios from '@/axios';
-import {buildFetchUrl} from 'helpers/url';
 export default (config = {}) => {
     const {model = 'model'} = config;
     return {
