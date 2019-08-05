@@ -146,13 +146,13 @@
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
-                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_device')">
-                                    <chart-users-by-device type="tenants_by_device" :colNum="3" :startDate="startDates.tenants"></chart-users-by-device>
+                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_gender')">
+                                    <chart-tenants-by-gender type="tenants_by_gender" :colNum="3" :startDate="startDates.tenants"></chart-tenants-by-gender>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
-                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_gender')">
-                                    <chart-tenants-by-gender type="tenants_by_device" :colNum="3" :startDate="startDates.tenants"></chart-tenants-by-gender>
+                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_device')">
+                                    <chart-users-by-device type="tenants_by_device" :colNum="3" :startDate="startDates.tenants"></chart-users-by-device>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -178,6 +178,7 @@
     import BuildingsStatisticsCard from 'components/BuildingsStatisticsCard';
     import ChartColumnLine from 'components/ChartColumnLine';
     import ChartUsersByDevice from 'components/ChartUsersByDevice';
+    import ChartTenantsByGender from 'components/ChartTenantsByGender';
     import TenantsStatisticsCard from 'components/TenantsStatisticsCard';
 
     export default {
@@ -193,6 +194,7 @@
             ChartHeatMap,
             BuildingsStatisticsCard,
             ChartColumnLine,
+            ChartTenantsByGender,
             ChartUsersByDevice,
             TenantsStatisticsCard
         },

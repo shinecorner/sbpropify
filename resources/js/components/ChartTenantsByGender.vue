@@ -5,12 +5,17 @@
                 <apexchart type="donut" :options="chartOptions" :series="series" />
             </el-col>
         </el-row>
-        <el-row type="flex" class="legend-container">
-            <el-col :span="8" v-for="(item, index) in yData" :key="index">
+        <div v-if="averageAge" class="average-age">
+          {{ `${$t('dashboard.tenants.average_age')} ${averageAge.both}` }}
+        </div>
+        <el-row class="legend-container">
+            <el-col :md="12" :sm="24" v-for="(item, index) in yData" :key="index">
                 <div class="custom-legend">
-                  <img :src="icons[index]" />
-                  <p>{{ xData[index] }}</p>
-                  <p v-if="sum > 0">{{ Math.round(item * 1000 / sum) / 10 + '%' }}</p>
+                  <div class="title">
+                    <img :src="icons[index]" />
+                    <span>{{ index == 0 ? averageAge.mr : averageAge.mrs }}</span>
+                  </div>
+                  <p>{{ `${xData[index]} ${$t('dashboard.tenants.average_age_acr')}` }}</p>
                 </div>
             </el-col>
         </el-row>
@@ -22,9 +27,8 @@ import axios from '@/axios';
 
 import chartMixin from '../mixins/adminDashboardChartMixin';
 
-import iconDesktop from '../../img/desktop.png';
-import iconTablet from '../../img/tablet.png';
-import iconMobile from '../../img/mobile.png';
+import iconMale from '../../img/male.png';
+import iconFemale from '../../img/female.png';
 
 export default {
   components: {
@@ -33,8 +37,8 @@ export default {
   mixins: [chartMixin()],
   data() {
     return {
-      icons: [iconDesktop, iconTablet, iconMobile],
-      sum: 0,
+      icons: [iconMale, iconFemale],
+      averageAge: {},
     }
   },
   props: {
@@ -47,22 +51,58 @@ export default {
       let responsive = [];
       if (this.colNum == 2) {
         responsive = [{
-          breakpoint: 900,
+          breakpoint: 1300,
+          options: {
+            chart: {
+              width: 490,
+            },
+            legend: {
+              width: 170,
+            }
+          }
+        }, {
+          breakpoint: 1200,
           options: {
             chart: {
               width: '100%',
               height: 'auto'
+            },
+            legend: {
+              position: 'bottom',
+              width: undefined
+            }
+          }
+        }, {
+          breakpoint: 480,
+          options: {
+            legend: {
+              show: false
             }
           }
         }];
       }
       else {
         responsive = [{
-          breakpoint: 1200,
+          breakpoint: 1800,
+          options: {
+            chart: {
+              width: 490,
+            },
+            legend: {
+              width: 170,
+            }
+          }
+        }, {
+          breakpoint: 1650,
           options: {
             chart: {
               width: '100%',
               height: 'auto'
+            },
+            legend: {
+              position: 'bottom',
+              horizontalAlign: 'center',
+              width: undefined
             }
           }
         }];
@@ -71,23 +111,26 @@ export default {
         labels: this.xData,
         responsive: responsive,
         legend: {
-          show: false
+          show: true,
+          width: 220
         },
         chart:{
           toolbar: this.toolbar,
-          width: '100%',
-          height: 230
+          width: 540,
+          height: 320
         },
-        colors: ['#218BFB', '#84BFFD', '#B5D8FD'],
         plotOptions: {
           pie: {
             donut: {
-              size: '80%'
+              size: '32%'
             }
           }
         },
-        dataLabels:{
-          enabled: false,
+        colors: this.colors,
+        dataLabels: {
+          formatter: function(value, { seriesIndex, dataPointIndex, w }) {
+            return w.config.series[seriesIndex] + "(" + value.toFixed(0) + '%)';
+          }
         }
       }
     }
@@ -95,14 +138,14 @@ export default {
   methods: {
     fetchData() {
       let that = this;                                               
-      let url = 'admin/chartLoginDevice';
-      langPrefix = 'models.tenant.titles.';
+      let url = 'tenants/gender-statistics';
+      const langPrefix = 'models.tenant.titles.';
 
       return axios.get(url)
       .then(function (response) {
         that.yData = response.data.data.data.map(val => parseFloat(val) || 0);
-        that.xData = response.data.data.labels;
-        that.sum = that.yData.reduce(function(a, b) { return a + b; }, 0);
+        that.xData = response.data.data.labels.map(val => that.$t(langPrefix + val));
+        that.averageAge = response.data.data.average_age;
       }).catch(function (error) {
         console.log(error);
       })
@@ -113,7 +156,6 @@ export default {
 <style lang="scss">
   .chart-card {
     .tenants-by-gender-chart .apexcharts-canvas {
-      margin-top: 25px;
       @media screen and (max-width: 1650px) {
         margin-top: 30px;
       }
@@ -122,19 +164,42 @@ export default {
       position: relative;
 
       .apexcharts-canvas {
-          position: unset;
+        position: unset;
+      }
+
+      .apexcharts-legend {
+        display: flex;
+        justify-content: center !important;
+      }
+
+      .average-age {
+        margin: 20px;
+        text-align: center;
+        font-size: 18px;
+        padding: 10px;
+        border-bottom: 3px double #e3e3e3;
+        border-top: 3px double #e3e3e3;
       }
 
       .legend-container {
-        max-width: 300px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .custom-legend {
-        text-align: center;
+        .custom-legend {
+          text-align: center;
 
-        p {
-          margin: 3px;
+          .title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img {
+              max-width: 80px;
+            }
+
+            span {
+              font-size: 18px;
+              margin-left: 10px;
+              padding-bottom: 5px;
+            }
+          }
         }
       }
     }
