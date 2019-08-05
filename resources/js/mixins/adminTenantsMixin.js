@@ -34,6 +34,7 @@ export default (config = {}) => {
                     building_id: '',
                     unit_id: '',
                     media: [],
+                    settings: []
                 },
                 validationRules: {
                     first_name: [{
@@ -294,10 +295,12 @@ export default (config = {}) => {
                         this.loading.state = true;
 
                         const {address, building, unit, user, ...r} = await this.getTenant({id: this.$route.params.id});
+                        
                         this.user = user;
                         this.model = Object.assign({}, this.model, r);
                         this.model.email = user.email;
                         this.model.avatar = user.avatar;
+                        
                         if (building) {
                             this.model.building_id = building.id;
                             this.remoteSearchBuildings(building.name);

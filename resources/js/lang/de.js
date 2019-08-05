@@ -222,6 +222,7 @@ export default {
             first_name: 'Vorname',
             last_name: 'Name',
             birth_date: 'Geburtsdatum',
+            language: 'Sprache',
             title: 'Anrede',
             mobile_phone: 'Mobile',
             work_phone: 'Arbeit',

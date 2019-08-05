@@ -79,6 +79,8 @@
                     message: this.$t('settings.updated'),
                 });
 
+                this.updateSettings(this.user);
+
             },
         }
 

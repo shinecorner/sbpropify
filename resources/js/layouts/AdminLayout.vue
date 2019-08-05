@@ -311,17 +311,6 @@
         mounted(){
             this.init();
 
-            this.$store.subscribe((mutation, state) => {
-                if(mutation.type === "SET_LOGGED_IN_USER"){
-
-                    if(this.user.settings.language === 'en'){
-                        this.selectedFlag = `flag-icon flag-icon-us`;
-                    }else {
-                        this.selectedFlag = `flag-icon flag-icon-${mutation.payload.settings.language}`;
-                    }
-                }
-            });
-
             EventBus.$on('profile-username-change', () => {
                 this.dropdownwidth = this.$refs.prev.clientWidth;
             });
@@ -334,10 +323,11 @@
             });
 
             this.languages = languagesArray.map(item => { 
-                let flag = 'flag-icon flag-icon-' + item[0]
+                let flag_class = 'flag-icon flag-icon-';
+                let flag = flag_class + item[0];
                 if( item[0] == 'en')
                 {
-                    flag = 'flag-icon flag-icon-us'
+                    flag = flag_class + 'us'
                 }
                 return {
                     name: item[1],

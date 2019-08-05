@@ -86,6 +86,9 @@
                                          style="width: 100%;max-width: 200px;"
                                          v-if="!avatar.length && model.user.avatar">
                                 </el-form-item>
+                                <el-form-item :label="$t('models.tenant.language')" prop="settings.language">
+                                    <select-language :model.sync="model.settings.language"/>
+                                </el-form-item>
                             </el-tab-pane>
                             <el-tab-pane :label="$t('models.propertyManager.social_card')" name="social">
                                 <el-row :gutter="20">
@@ -196,6 +199,7 @@
     import EditActions from 'components/EditViewActions';
     import {mapGetters, mapActions} from 'vuex';
     import globalFunction from "helpers/globalFunction";
+    import SelectLanguage from 'components/SelectLanguage';
 
     export default {
         name: 'AdminPropertyManagersEdit',
@@ -207,7 +211,8 @@
             Card,
             Cropper,
             RelationList,
-            EditActions
+            EditActions,
+            SelectLanguage
         },
         data() {
             return {
