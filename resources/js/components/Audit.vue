@@ -1,13 +1,21 @@
 <template>
-    <div class="audit">
+    <div class="audit" v-infinite-scroll="fetch">
         <el-col class="filter-col" v-if="showFilter">
-            <filters :data="filters.data" :schema="filters.schema" @changed="filtersChanged"/>
+            <el-divider content-position="right">
+                    <el-popover
+                    placement="bottom"
+                    width="200"
+                    trigger="click">
+                        <el-button type="success" icon="el-icon-sort" size="mini" slot="reference" plain round>Filters</el-button>
+                        <filters :data="filters.data" :schema="filters.schema" @changed="filtersChanged"/>
+                  </el-popover>
+            </el-divider>
         </el-col>
         <placeholder :src="require('img/5ce8f4e279cb2.png')" v-if="isEmpty">
             No activity available for now!
             <small>All available activities will appear here in chronological order.</small>
         </placeholder>
-            <el-timeline v-infinite-scroll="fetch" v-else>
+            <el-timeline v-else>
                 <template v-for="(audit, date) in audits.data">
                     <el-timeline-item v-for="(content, index) in audit.content" :key="audit.id+'-'+index" :timestamp="`${audit.userName} • ${formatDatetime(date)}`">
                         {{content}}
@@ -272,8 +280,12 @@
                 color: darken(#fff, 28%);
             }
         }
+        .el-divider__text.is-right{
+            right: 0;
+            padding:0;
+        }
         .filter-col{
-            padding:24px;
+            padding-bottom:20px;
         }
         .el-timeline {
             padding: 0;
