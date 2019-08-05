@@ -25,7 +25,7 @@ class ServiceRequestsTableSeeder extends Seeder
             })->get();
 
             $serviceRequests = [];
-            for ($i = 0; $i < 1000; $i++) {
+            for ($i = 0; $i < 500; $i++) {
                 $date = $this->getRandomTime();
                 $serviceRequests[] = factory(App\Models\ServiceRequest::class)->create($this->getDateColumns($date));
             }
@@ -57,7 +57,7 @@ class ServiceRequestsTableSeeder extends Seeder
 
     private function addRequestComments(ServiceRequest $serviceRequest)
     {
-        $totalComments = $this->faker->numberBetween(2, 20);
+        $totalComments = $this->faker->numberBetween(1, 2);
         $users = [
             $serviceRequest->tenant->user,
         ];

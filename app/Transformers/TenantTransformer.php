@@ -39,6 +39,10 @@ class TenantTransformer extends BaseTransformer
             'tenant_format' => $model->tenant_format,
         ];
 
+        if ($model->relationExists('settings')) {
+            $response['settings'] = $model->settings;
+        }
+
         if ($model->relationExists('user')) {
             $response['user'] = (new UserTransformer)->transform($model->user);
         }

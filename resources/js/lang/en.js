@@ -129,6 +129,7 @@ export default {
         tenants_by_creation_date: 'Tenants by creation date',
         tenants_by_request_status: 'Tenants by Requests status',
         tenants_by_status: 'Tenants by status',
+        tenants_by_language: 'Tenants by language',
         buildings: {
             total_building: 'Total Count',
             total_units: 'Total Units',
@@ -222,6 +223,7 @@ export default {
             first_name: 'First name',
             last_name: 'Last name',
             birth_date: 'Birth date',
+            language: 'Language',
             title: 'Title',
             mobile_phone: 'Mobile phone',
             work_phone: 'Work phone',
@@ -1204,6 +1206,7 @@ export default {
         last_6_months: 'Last 6 months',
         last_year: 'Last year',
         last_2_years: 'Last 2 years',
+        all_time: 'All time',
         week: 'Week',
         peek_week: 'Pick a week'
     }

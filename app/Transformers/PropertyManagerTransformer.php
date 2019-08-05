@@ -33,6 +33,10 @@ class PropertyManagerTransformer extends BaseTransformer
             'linkedin_url' => $model->linkedin_url,
         ];
 
+        if ($model->relationExists('settings')) {
+            $response['settings'] = $model->settings;
+        }
+
         if ($model->relationExists('user')) {
             if (!empty($model->user)) {
                 $attributes = $model->user->getAttributes();

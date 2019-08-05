@@ -108,27 +108,27 @@ export default {
         let url = '';						
         let params = {};
         if(this.type === 'week-hour') {
-            url = 'admin/heatMapByDatePeriod';
-            if (this.week != null) {
-              params.date = this.week;
-            }
+          url = 'admin/heatMapByDatePeriod';
+          if (this.week != null) {
+            params.date = this.week;
+          }
         }
         else if(this.type === 'month-date'){
-            url = 'admin/heatMapByDatePeriod?period=year';
+          url = 'admin/heatMapByDatePeriod?period=year';
         }
         return axios.get(url, {
           params: params
         })
         .then(function (response) {
-            //that.series = response.data.data;
-            const data = response.data.data;
-            for (let i = 0; i < data.length; i++) {
-              for (let j = 0; j < data[i].data.length; j++) {
-                data[i].data[j].x = 'd' + data[i].data[j].x;
-              }
+          // that.series = response.data.data;
+          const data = response.data.data;
+          for (let i = 0; i < data.length; i++) {
+            for (let j = 0; j < data[i].data.length; j++) {
+              data[i].data[j].x = 'd' + data[i].data[j].x;
             }
-            //console.log(data);
-            that.series = data;
+          }
+          // console.log('heatmap data:', data);
+          that.series = data;
         }).catch(function (error) {
             console.log(error);
         })

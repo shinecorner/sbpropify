@@ -14,12 +14,12 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        $pRepo = new ProductRepository(app());
+        //$pRepo = new ProductRepository(app());
         if (App::environment('local')) {
             $products = factory(App\Models\Product::class, 200)->create();
-            foreach ($products as $product) {
-                $pRepo->notify($product);
-            }
+//            foreach ($products as $product) {
+//                $pRepo->notify($product);
+//            }
         }
     }
 }

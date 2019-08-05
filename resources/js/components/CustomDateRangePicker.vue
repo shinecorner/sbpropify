@@ -27,6 +27,9 @@ export default {
     },
     initialRange: {
       type: Array
+    },
+    startDate: {
+      type: String
     }
   },
   data() {
@@ -131,9 +134,20 @@ export default {
           picker.$emit('pick', [start, end]);
         }
       }
+
+      const that = this;
+
+      const allTime = {
+        text: this.$t('date_range.all_time'),
+        onClick(picker) {
+          const end = new Date();
+          const start = new Date(that.startDate);
+          picker.$emit('pick', [start, end]);
+        }
+      }
       if (this.rangeType == 'day') {
         return {
-          shortcuts: [last7Days, lastWeek, last14Days, last30Days, lastMonth]
+          shortcuts: [last7Days, last14Days, last30Days, lastWeek, lastMonth, last3Months]
         };
       }
       else if (this.rangeType == 'week') {
@@ -143,12 +157,17 @@ export default {
       }
       else if (this.rangeType == 'month') {
         return {
-          shortcuts: [lastMonth, last3Months, last6Months, lastYear, last2Years]
+          shortcuts: [lastMonth, last3Months, last6Months, lastYear, last2Years, allTime]
+        };
+      }
+      else if (this.rangeType == 'all') {
+        return {
+          shortcuts: [last7Days, last14Days, last30Days, lastWeek, lastMonth, last3Months, last6Months, lastYear, last2Years, allTime]
         };
       }
       else {
         return {
-          shortcuts: [lastYear, last2Years]
+          shortcuts: [lastYear, last2Years, allTime]
         };
       }
     },

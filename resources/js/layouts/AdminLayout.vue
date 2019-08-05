@@ -13,9 +13,9 @@
                             {{$t('chooseLanguage')}}
                         </div>
                         <div class="language-check-box-body">
-                            <ul class="language-check-box-body-item" v-for='language in this.languages' @click='itemClicked(language.symbol, language.flag)'>
+                            <ul class="language-check-box-body-item" v-for='language in this.languages' :key="language.symbol" @click='itemClicked(language.symbol, language.flag)'>
                                 <li>
-                                    <span  v-bind:class="language.flag"></span>
+                                    <span v-bind:class="language.flag"></span>
                                     <p>{{language.name}}</p>
                                 </li>
                             </ul>
@@ -26,7 +26,7 @@
             
             <div id="dropdown" class="dropdown-menu" ref="prev">
                 <avatar :src="user.avatar" :name="user.name" :size="33"/>
-                <el-dropdown>
+                <el-dropdown trigger="click">
                     <span class="el-dropdown-link">
                         {{user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
                     </span>
@@ -78,6 +78,7 @@
     import Avatar from 'components/Avatar';
     import VRouterTransition from 'v-router-transition';
     import {mapActions, mapState} from "vuex";
+    import { EventBus } from '../event-bus.js';
 
     export default {
         name: 'AdminLayout',
@@ -100,15 +101,10 @@
                 activeIndex: '1',
                 activeIndex2: '1',
 
-                languages: [
-                    {name: 'Français', symbol: 'fr', flag: 'flag-icon flag-icon-fr'},
-                    {name: 'Italiano', symbol: 'it', flag: 'flag-icon flag-icon-it'},
-                    {name: 'Deutsch', symbol: 'de', flag: 'flag-icon flag-icon-de'},
-                    {name: 'English', symbol: 'en', flag: 'flag-icon flag-icon-us'}
-                ],
+                languages: [],
 
                 isCallapsed: false,
-                dropdownwidth: 0
+                dropdownwidth: 0,
             }
         },
 
@@ -223,7 +219,7 @@
                 }];
             },
             dropmenuwidth () {
-                return `width: ${this.dropdownwidth + 9.5}px;`
+                return `width: ${this.dropdownwidth + 13.5}px;`
             }
         },
 
@@ -315,29 +311,45 @@
         mounted(){
             this.init();
 
-            this.$store.subscribe((mutation, state) => {
-                if(mutation.type === "SET_LOGGED_IN_USER"){
-
-                    if(this.user.settings.language === 'en'){
-                        this.selectedFlag = `flag-icon flag-icon-us`;
-                    }else {
-                        this.selectedFlag = `flag-icon flag-icon-${mutation.payload.settings.language}`;
-                    }
-                }
+            EventBus.$on('profile-username-change', () => {
+                this.dropdownwidth = this.$refs.prev.clientWidth;
             });
 
             this.getDropdownWidth();
+            
+            let languagesObject = this.$constants.app.languages;
+            let languagesArray = Object.keys(languagesObject).map(function(key) {
+                return [String(key), languagesObject[key]];
+            });
+
+            this.languages = languagesArray.map(item => { 
+                let flag_class = 'flag-icon flag-icon-';
+                let flag = flag_class + item[0];
+                if( item[0] == 'en')
+                {
+                    flag = flag_class + 'us'
+                }
+                return {
+                    name: item[1],
+                    symbol: item[0],
+                    flag: flag
+                }
+            });
+            
         }
 
 
     }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .el-button--text {
         color: #909399 !important;
     }
     .el-dropdown-menu {
-        margin: 16px 10px 16px 0px !important;    
+        margin: 16px 10px 16px 0px !important;
+        .el-dropdown-menu__item {
+            padding: 0px 12px !important;
+        }
     }
 </style>
 
@@ -415,6 +427,8 @@
             .avatar {
                 margin-right: 3%;
                 border: solid #c2c2c2 2px;
+                background-color: rgb(205, 220, 57)!important;
+                color: white !important;
             }
             .el-dropdown-link {
                 cursor: pointer;
@@ -438,7 +452,7 @@
             &:after{
                 content: "";
                 position: absolute;
-                right: -25px;
+                right: -21px;
                 height: 90%;
                 width: 1px;
                 background: #c2c2c2;;

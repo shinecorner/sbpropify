@@ -1,17 +1,7 @@
 <template>
-    <div v-if="loading">
-        Loading
-    </div>
+    <div v-loading="loading" v-if="loading" style="width: 100%; height: 100%;"></div>
     <div class="layout" v-else>
         <el-menu mode="horizontal" background-color="#fff">
-            <!-- <el-menu-item class="toggler">
-                <div :class="['button', {'active': visibleSidebar}]" @click="toggleSidebar">
-                    <span class="lines"></span>
-                </div>
-            </el-menu-item>
-            <el-menu-item>
-                <el-divider direction="vertical" />
-            </el-menu-item> -->
             <el-menu-item class="logo">
                 <img src="~img/logo3.png" />
             </el-menu-item>

@@ -171,7 +171,7 @@
         }
     }
     .el-menu {
-        width: 60px;
+        width: 56px;
         display: flex;
         flex-direction: column;
         border-right: none !important;

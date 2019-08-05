@@ -42,7 +42,7 @@
     .el-menu {
         &.el-menu--horizontal {
             z-index: 10;
-            box-shadow: 0 1px 5px 5px transparentize(#000, .9);
+            box-shadow: 0 1px 5px 5px transparentize(#000, .9); 
             display: flex;
             align-items: center;
             flex-shrink: 0;
@@ -72,27 +72,27 @@
                         img {
                             height: 100%;
                             vertical-align: baseline;
-                            margin-left: 13px;
+                            margin-left: 30px;
+                        }
+                        &:before {
+                            content: "";
+                            position: absolute;
+                            left: 10px;
+                            height: 31.5px;
+                            width: 1px;
+                            background: #c2c2c2;
+                            margin-top:6px;
                         }
                     }
                     
                     .menu-icon {
-                        margin-right: 30px;
-                        margin-left: 8px;
+                        margin-right: 9px;
+                        margin-left: 9px;
                         i {
                             color: #909399;
                             &:hover {
                                 color:black; 
                             }
-                        }
-                        &:after {
-                            content: "";
-                            position: absolute;
-                            left: 46px;
-                            height: 31.5px;
-                            width: 1px;
-                            background: #c2c2c2;
-                            margin-top:6px;
                         }
                     }
                 }
@@ -211,7 +211,7 @@
     .el-menu--popup {
         // top: 13px;
         // left: -16px;
-        left: -2px;
+        left: -3px;
         min-width: 142px !important;
     }
 

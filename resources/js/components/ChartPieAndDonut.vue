@@ -1,8 +1,8 @@
 <template>
-    <div class="piechart">
+    <div v-if="startDate" class="piechart">
         <div class="chart-filter in-toolbar">              
-            <custom-date-range-picker rangeType="day" :initialRange="dateRange"
-                :pickHandler="pickHandler" :style="{display: showPicker ? 'inline-flex' : 'none'}">
+            <custom-date-range-picker rangeType="all" :initialRange="dateRange"
+                :pickHandler="pickHandler" :style="{display: showPicker ? 'inline-flex' : 'none'}" :startDate="startDate">
             </custom-date-range-picker>
             <div class="show-button" v-if="!showPicker" @click="handleShowClick(true)"><i class="el-icon-date"></i></div>
             <div class="hide-button" v-if="showPicker" @click="handleShowClick(false)"><i class="el-icon-circle-close"></i></div>
@@ -20,17 +20,15 @@ import {format, subDays, isBefore, isAfter, parse} from 'date-fns'
 import axios from '@/axios';
 
 import CustomDateRangePicker from 'components/CustomDateRangePicker';
+import chartMixin from '../mixins/adminDashboardChartMixin';
 
 export default {
   components: {
     'apexchart': VueApexCharts,
     CustomDateRangePicker
   },
-  props: {            
-    type: {
-        type: String,
-        required: true
-    },
+  mixins: [chartMixin()],
+  props: {
     colNum: {
         type: Number
     }
@@ -38,16 +36,10 @@ export default {
   data() {
     return {        
         chartType: 'pie',
-        dateRange: null,
-        xData: [],
-        yData: [],
-        showPicker: false
+        showPicker: false,
     }
   },
   computed:{
-    series: function(){        
-        return this.yData;
-    },
     chartOptions: function(){
         let responsive = [];
         if (this.colNum == 2) {
@@ -116,101 +108,93 @@ export default {
                 width: 220
             },
             chart:{
-                toolbar: {
-                    show: true,
-                },
-                autoSelected: '',
+                toolbar: this.toolbar,
                 width: 540,
                 height: 320
             },
-            tooltip: {
-                followCursor: false
-            }
+            colors: this.colors
         }
     }
   },
     methods: {
         fetchData(){
+            if (this.dateRange == null) {
+                return;
+            }
             let that = this;                                               
-            let url = '';						
+            let url = '';
+            let langPrefix = '';
             if(this.type === 'request_by_status'){
                 this.chartType = 'pie';
                 url = 'admin/donutChart';
+                langPrefix = 'models.request.status.';
             }
             else if(this.type === 'request_by_category'){
                 this.chartType = 'donut';
                 url = 'admin/donutChartRequestByCategory';
+                langPrefix = '';
             }
             else if (this.type === 'news_by_status') {
                 this.chartType = 'donut';
                 url = 'admin/donutChart?table=posts&column=status';
+                langPrefix = 'models.post.status.';
             }
             else if (this.type === 'news_by_type') {
                 this.chartType = 'donut';
                 url = 'admin/donutChart?table=posts&column=type';
+                langPrefix = 'models.post.type.';
             }
             else if (this.type === 'products_by_type') {
                 this.chartType = 'donut';
                 url = 'admin/donutChart?table=products&column=type';
+                langPrefix = 'models.product.type.';
             }
             else if (this.type === 'tenants_by_request_status') {
                 this.chartType = 'donut';
                 url = 'admin/donutChartTenantsByDateAndStatus';
+                langPrefix = 'models.request.status.';
             }
             else if (this.type === 'tenants_by_status') {
                 this.chartType = 'donut';
                 url = 'admin/donutChart?table=tenants&column=status';
+                langPrefix = 'models.tenant.status.';
             }
-            let params = {};
-            if (this.dateRange != null) {
-              params.start_date = this.dateRange[0],
-              params.end_date = this.dateRange[1]
+            else if (this.type === 'tenants_by_language') {
+                this.chartType = 'donut';
+                url = 'admin/chartTenantLanguage';
+                langPrefix = '';
             }
 
             return axios.get(url,{
-            	params: params
+            	params: {
+                    start_date: this.dateRange[0],
+                    end_date: this.dateRange[1]
+                }
             })
             .then(function (response) {
                 that.yData = response.data.data.data.map(val => parseFloat(val) || 0);
-                if(that.type === 'request_by_status'){
-                    that.xData = response.data.data.labels.map(function(e){return that.$t('models.request.status.'+e)});
-                }
-                else if(that.type === 'request_by_category'){
-                    that.xData = response.data.data.labels;
-                }
-                else if (that.type === 'news_by_status') {
-                    that.xData = response.data.data.labels.map(label => that.$t('models.post.status.' + label));
-                }
-                else if (that.type === 'news_by_type') {
-                    that.xData = response.data.data.labels.map(label => that.$t('models.post.type.' + label));
-                }
-                else if (that.type === 'products_by_type') {
-                    that.xData = response.data.data.labels.map(label => that.$t('models.product.type.' + label));
-                }
-                else if (that.type === 'tenants_by_request_status') {
-                    that.xData = response.data.data.labels.map(function(e){return that.$t('models.request.status.'+e)});
-                }
-                else if (that.type === 'tenants_by_status') {
-                    that.xData = response.data.data.labels.map(label => that.$t('models.tenant.status.' + label));
-                }
+                that.xData = response.data.data.labels.map(function(e) {
+                    if (langPrefix !== '') {
+                        return that.$t(langPrefix + e);
+                    }
+                    else {
+                        return e;
+                    }
+                });
             }).catch(function (error) {
                 console.log(error);
             })
-        },
-        pickHandler(val) {
-            this.dateRange = val;
-            this.fetchData();
         },
         handleShowClick(val) {
             this.showPicker = val;
         }
     },
-    created(){        
-        this.fetchData();        
-    },
     watch: {
-      '$i18n.locale' : function(val) {
-        this.fetchData();
+      'startDate': function(val) {
+          if (val) {
+            this.dateRange = [val, format(new Date(), 'DD.MM.YYYY')];
+            this.fetchData();
+          }
       }
     }
 }
@@ -243,6 +227,10 @@ export default {
             }
 
             .chart-filter {
+                &.in-toolbar {
+                    right: 40px;
+                }
+
                 .show-button {
                     cursor: pointer;
                     padding: 5px 0;

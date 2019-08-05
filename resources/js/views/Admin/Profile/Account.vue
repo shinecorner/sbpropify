@@ -25,6 +25,7 @@
     import {mapState, mapMutations, mapActions} from 'vuex';
     import {displayError, displaySuccess} from 'helpers/messages';
     import Card from 'components/Card';
+    import { EventBus } from '../../../event-bus.js';
 
 
     export default {
@@ -61,6 +62,8 @@
                         try {
                             const {data, ...message} = await this.changeDetails(this.model);
 
+                            
+
                             displaySuccess({
                                 success: true,
                                 message: 'models.user.saved'
@@ -68,6 +71,8 @@
 
 
                             this.me();
+
+                            setTimeout(() => {EventBus.$emit('profile-username-change', {})}, 1000);
                         } catch (err) {
                             displayError(err);
                         }
