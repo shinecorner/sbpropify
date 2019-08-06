@@ -1129,7 +1129,19 @@ export default {
                     request: 'Request'
                 },
                 filter:{
-                    post: {},
+                    type:{
+                        post: 'Post',
+                        product: 'Product',
+                        request: 'Request'
+                    },
+                    post: {
+                        created: 'Created',
+                        updated: 'Updates',
+                        provider_assigned: 'Provider assigned',
+                        user_assigned: 'User assigned',
+                        media_uploaded: 'Media uploaded',
+                        media_deleted: 'Media deleted'
+                    },
                     product: {},
                     request: {
                         created: 'Created',
