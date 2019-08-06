@@ -126,10 +126,14 @@ export default {
         news_by_type: 'News by type',
         products_by_creation_date: 'Market place products by creation date',
         products_by_type: 'Market place products by type',
+        latest_products: 'Latest products',
         tenants_by_creation_date: 'Tenants by creation date',
         tenants_by_request_status: 'Tenants by Requests status',
         tenants_by_status: 'Tenants by status',
         tenants_by_language: 'Tenants by language',
+        tenants_by_title: 'Tenants by title',
+        tenants_by_device: 'Tenants by device',
+        tenants_by_gender: 'Tenants by gender',
         buildings: {
             total_building: 'Total Count',
             total_units: 'Total Units',
@@ -138,7 +142,9 @@ export default {
             buildings_by_creation_date: 'Buildings by creation date'
         },
         tenants: {
-            total_tenants: 'Total Count'
+            total_tenants: 'Total Count',
+            average_age: 'Average Age',
+            average_age_acr: 'Avg. Age'
         }
     },
     pages: {
