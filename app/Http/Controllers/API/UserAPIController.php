@@ -14,6 +14,7 @@ use App\Http\Requests\API\User\ShowRequest;
 use App\Http\Requests\API\User\UpdateLoggedInRequest;
 use App\Http\Requests\API\User\UpdateRequest;
 use App\Http\Requests\API\User\UploadImageRequest;
+use App\Models\RealEstate;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Transformers\UserTransformer;
@@ -21,6 +22,7 @@ use Auth;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 
 /**
@@ -333,6 +335,8 @@ class UserAPIController extends AppBaseController
 
         $user->load(['settings', 'roles.perms', 'tenant.media']);
         $user->unread_notifications_count = $user->unreadNotifications()->count();
+        $re = RealEstate::first(['primary_color', 'accent_color']);
+        $user->colors = $re->only(['primary_color', 'accent_color']);
         return $this->sendResponse($user->toArray(), 'User retrieved successfully');
     }
 
