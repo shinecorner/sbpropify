@@ -6,6 +6,7 @@ use App\Traits\HasComments;
 use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\AuditableObserver;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -296,16 +297,6 @@ class ServiceRequest extends Model implements HasMedia, Auditable
     public static $rulesPutService = [
         'status' => 'integer'
     ];
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($serviceRequest) {
-            $serviceRequest->service_request_format = $serviceRequest->getUniqueIDFormat($serviceRequest->id);
-            $serviceRequest->save();
-        });
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

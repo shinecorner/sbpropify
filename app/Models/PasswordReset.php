@@ -68,9 +68,4 @@ class PasswordReset extends Model
         'email' => 'required|string|email|max:255|unique:users',
         'token' => 'string',
     ];
-
-    public static function boot()
-    {
-        parent::boot();
-    }
 }
