@@ -151,6 +151,9 @@ export default {
             total_tenants: 'Total Count',
             average_age: 'Average Age',
             average_age_acr: 'Avg. Age'
+        },
+        marketplace: {
+            go_to_marketplace: 'go to marketplace'
         }
     },
     pages: {

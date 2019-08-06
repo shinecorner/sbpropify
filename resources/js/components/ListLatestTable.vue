@@ -421,6 +421,9 @@
         .el-table .el-table__body-wrapper {
             box-shadow: none;
         }
+        .el-table {
+            border-bottom: 1px solid #EBEEF5;
+        }
         text-align: center;
 
         .multi-text-title {

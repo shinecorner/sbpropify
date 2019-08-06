@@ -1,5 +1,5 @@
 <template>
-    <div class="products">
+    <div class="latest-products">
         <list-latest-table
             :header="header"
             :items="items"
@@ -9,6 +9,12 @@
             @selectionChanged="selectionChanged"
         >
         </list-latest-table>
+        <div class="link-container">
+            <router-link :to="{name: 'adminProducts'}">
+                <span class="title">{{ $t('dashboard.marketplace.go_to_marketplace') }} </span>
+                <i class="el-icon-right icon"/>
+            </router-link>
+        </div>
     </div>
 </template>
 
@@ -125,3 +131,22 @@
         }
     }
 </script>
+
+<style lang="scss">
+    .latest-products {
+        .link-container {
+            text-align: right;
+            padding: 20px 15px;
+            font-size: 16px;
+
+            a {
+                text-decoration: none;
+                color: #525252;
+
+                &:hover {
+                    color: #303133;
+                }
+            }
+        }
+    }
+</style>
