@@ -15,6 +15,8 @@
 <script>
     import {mapActions} from 'vuex';
     import axios from '@/axios';
+    import {format} from 'date-fns'
+
     import {displayError, displaySuccess} from "helpers/messages";
     import LatestListMixin from 'mixins/LatestListMixin';
     
@@ -31,7 +33,7 @@
             return {
                 header: [{
                     type: 'multi-props',
-                    label: this.$t('models.product.product_title'),
+                    label: this.$t('models.product.details'),
                     props: ['title', 'user_email', 'created_at'],
                     minWidth: '250px'
                 }, {
@@ -99,12 +101,23 @@
                   item.type_label = that.$t(`models.product.type.${that.productConstants.type[item.type]}`);
                   item.price = '$' + item.price;
                   item.user_email = item.user.email;
+                  item.title = that.getReducedTitle(item.title);
+                  item.created_at = that.getReadableTime(item.created_at);
                   return item;
                 });
                 that.items = items;
               }).catch(function (error) {
                   console.log(error);
               })
+            },
+            getReducedTitle(val) {
+                if (val.length > 30) {
+                    val = val.substring(0, 30) + '...';
+                }
+                return val;
+            },
+            getReadableTime(timeString) {
+                return format(new Date(timeString), 'D MMMM YYYY HH:mm');
             }
         },
         created() {
