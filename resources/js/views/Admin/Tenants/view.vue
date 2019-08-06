@@ -32,7 +32,7 @@
                             size="mini"
                             type="warning"
                             round
-                    > {{this.$t('actions.close')}}
+                    > {{this.$t('general.actions.close')}}
                     </el-button>
                 </el-form-item>
             </el-form>
@@ -78,7 +78,7 @@
                                         {{ model.work_phone}}
                                     </el-col>
 
-                                    <el-col :sm="8" :xs="12">{{$t('email')}}:</el-col>
+                                    <el-col :sm="8" :xs="12">{{$t('general.email')}}:</el-col>
                                     <el-col :sm="16" :xs="12" class="text-secondary">
                                        {{ model.email}}
                                     </el-col>

@@ -55,6 +55,7 @@ return [
       'first_name' => 'First name',
       'last_name' => 'Last name',
       'birth_date' => 'Birth date',
+      'language' => 'Language',
       'title' => 'Title',
       'mobile_phone' => 'Mobile phone',
       'work_phone' => 'Work phone',
@@ -113,6 +114,10 @@ return [
         [
           'required' => 'Title is required',
         ],
+        'language' => 
+        [
+          'required' => 'Language is required',
+        ]
       ],
       'building_card' => 'Assign unit',
       'personal_details_card' => 'Personal details',
@@ -595,6 +600,7 @@ return [
     ],
     'request' => 
     [
+      'audits' => 'Audits',
       'edit' => 'Edit',
       'delete' => 'Delete',
       'deleted' => 
@@ -677,6 +683,21 @@ return [
         'done' => 'Done',
         'reactivated' => 'Reactivated',
         'archived' => 'Archived',
+      ],
+      'category_options' => 
+      [
+          'disturbance' => 'Disturbance',
+          'defect' => 'Defect',
+          'order_documents' => 'Order documents',
+          'order_a_payment_slip' => 'Order a payment slip',
+          'questions_about_the_tenancy' => 'Questions about the tenancy',
+          'other' => 'Other',
+          'environment' => 'Environment',
+          'house' => 'House',
+          'apartment' => 'Apartment',
+          'environment' => 'Environment',
+          'house' => 'House',
+          'apartment' => 'Apartment'
       ],
       'placeholders' => 
       [

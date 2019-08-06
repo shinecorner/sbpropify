@@ -11,11 +11,17 @@ return  [
     'news_by_creation_date' => 'Actualités par date de création',
     'news_by_status' => 'Actualités par statut',
     'news_by_type' => 'Actualités par type',
+    'latest_products' => 'Derniers produits',
     'products_by_creation_date' => 'Marché des produits par date de création',
     'products_by_type' => 'Produits du marché par type',
     'tenants_by_creation_date' => 'Locataires par date de création',
     'tenants_by_request_status' => 'Locataires selon le statut des demandes',
     'tenants_by_status' => 'Locataires par statut',
+    'tenants_by_language' => 'Tenants by language',
+    'tenants_by_title' => 'Tenants by title',
+    'tenants_by_device' => 'Tenants by device',
+    'tenants_by_gender' => 'Tenants by gender',
+    'actions' => 'Actions',
     'buildings' => 
     [
       'total_building' => 'Total Count',
@@ -27,5 +33,7 @@ return  [
     'tenants' => 
     [
       'total_tenants' => 'Total Count',
+      'average_age' => 'Average Age',
+      'average_age_acr' => 'Avg. Age'
     ],
 ];

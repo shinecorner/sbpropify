@@ -1,10 +1,10 @@
 <template>
     <div class="action-group">
-        <el-button @click="SaveAndEdit" size="small" type="primary" round> {{this.$t('actions.save')}}</el-button>
-        <el-button @click="saveAndClose" size="small" type="primary" round> {{this.$t('actions.saveAndClose')}}
+        <el-button @click="SaveAndEdit" size="small" type="primary" round> {{this.$t('general.actions.save')}}</el-button>
+        <el-button @click="saveAndClose" size="small" type="primary" round> {{this.$t('general.actions.saveAndClose')}}
         </el-button>
-        <el-button v-if="deleteAction || undefined"  @click="deleteAndClose" size="small" type="danger" round icon="ti-trash"> {{this.$t('actions.delete')}}</el-button>
-        <el-button @click="goToListing" size="small" type="warning" round> {{this.$t('actions.close')}}
+        <el-button v-if="deleteAction || undefined"  @click="deleteAndClose" size="small" type="danger" round icon="ti-trash"> {{this.$t('general.actions.delete')}}</el-button>
+        <el-button @click="goToListing" size="small" type="warning" round> {{this.$t('general.actions.close')}}
         </el-button>
     </div>
 </template>
@@ -55,7 +55,7 @@
                 }
             },
             deleteAndClose() {
-                this.$confirm(this.$t('swal.delete.text'), this.$t('swal.delete.title'), {
+                this.$confirm(this.$t('general.swal.delete.text'), this.$t('general.swal.delete.title'), {
                         type: 'warning'
                     }).then(() => {
                         this.callDeleteAction();

@@ -3,11 +3,11 @@
         <heading :title="$t('models.building.edit_title')" :subtitle="model.building_format" icon="icon-commerical-building" shadow="heavy">
             <template>
                 <div class="action-group">
-                    <el-button @click="submit" size="small" type="primary" round> {{this.$t('actions.save')}}</el-button>
-                    <el-button @click="saveAndClose" size="small" type="primary" round> {{this.$t('actions.saveAndClose')}}
+                    <el-button @click="submit" size="small" type="primary" round> {{this.$t('general.actions.save')}}</el-button>
+                    <el-button @click="saveAndClose" size="small" type="primary" round> {{this.$t('general.actions.saveAndClose')}}
                     </el-button>
-                    <el-button @click="batchDeleteBuilding" size="small" type="danger" round icon="ti-trash"> {{this.$t('actions.delete')}}</el-button>
-                    <el-button @click="goToListing" size="small" type="warning" round> {{this.$t('actions.close')}}
+                    <el-button @click="batchDeleteBuilding" size="small" type="danger" round icon="ti-trash"> {{this.$t('general.actions.delete')}}</el-button>
+                    <el-button @click="goToListing" size="small" type="warning" round> {{this.$t('general.actions.close')}}
                     </el-button>
                 </div>
             </template>
@@ -38,7 +38,7 @@
                                             style="width: 100%;"
                                             v-model="model.district_id">
                                             <el-option
-                                                :label="$t('none')"
+                                                :label="$t('general.none')"
                                                 value=""
                                             />
                                             <el-option
@@ -562,7 +562,7 @@
                     this.delBuildingStatus = resp.data;
 
                     if(this.delBuildingStatus == -1) {
-                        this.$confirm(this.$t('swal.delete.text'), this.$t('swal.delete.title'), {
+                        this.$confirm(this.$t('general.swal.delete.text'), this.$t('general.swal.delete.title'), {
                             type: 'warning'
                         }).then(() => {
                             this.deleteBuilding({id:this.model.id})

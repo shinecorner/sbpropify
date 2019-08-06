@@ -10,7 +10,7 @@
                     </div>
                     <div class="language-check-box">
                         <div class="language-check-box-title">
-                            {{$t('chooseLanguage')}}
+                            {{$t('general.chooseLanguage')}}
                         </div>
                         <div class="language-check-box-body">
                             <ul class="language-check-box-body-item" v-for='language in this.languages' :key="language.symbol" @click='itemClicked(language.symbol, language.flag)'>
@@ -244,7 +244,7 @@
             },
 
             handleLogout() {
-                this.$confirm(this.$t('swal.logout_confirm'), this.$t('swal.delete.title'), {
+                this.$confirm(this.$t('general.swal.logout_confirm'), this.$t('general.swal.delete.title'), {
                     type: 'warning'
                 }).then(() => {
                     //this.$router.push({name: 'login'});

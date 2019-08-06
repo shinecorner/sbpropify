@@ -55,6 +55,7 @@ return [
       'first_name' => 'Vorname',
       'last_name' => 'Name',
       'birth_date' => 'Geburtsdatum',
+      'language' => 'Sprache',
       'title' => 'Anrede',
       'mobile_phone' => 'Mobile',
       'work_phone' => 'Arbeit',
@@ -113,6 +114,10 @@ return [
         [
           'required' => 'Anrede ist obligatorisch',
         ],
+        'language' => 
+        [
+          'required' => 'Sprache ist obligatorisch',
+        ]
       ],
       'building_card' => 'Liegenschaft zuweisen',
       'personal_details_card' => 'Persönliche Angaben',
@@ -595,6 +600,7 @@ return [
     ],
     'request' => 
     [
+      'audits' => 'Audits',
       'edit' => 'Öffnen',
       'delete' => 'Löschen',
       'deleted' => 
@@ -677,6 +683,21 @@ return [
         'done' => 'Erledigt',
         'reactivated' => 'Reaktiviert',
         'archived' => 'Archiviert',
+      ],
+      'category_options' => 
+      [
+          'disturbance' => 'Störung',
+          'defect' => 'Fehler',
+          'order_documents' => 'Bestellunterlagen',
+          'order_a_payment_slip' => 'Einen Einzahlungsschein bestellen',
+          'questions_about_the_tenancy' => 'Fragen zum Mietverhältnis',
+          'other' => 'Sonstiges',
+          'environment' => 'Umgebung',
+          'house' => 'Haus',
+          'apartment' => 'Appartement',
+          'environment' => 'Umgebung',
+          'house' => 'Haus',
+          'apartment' => 'Appartement'
       ],
       'placeholders' => 
       [

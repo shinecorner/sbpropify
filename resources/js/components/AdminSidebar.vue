@@ -87,7 +87,7 @@
                     if (action.showConfirmation) {
                         try {
 
-                            if (action && this.$confirm(this.$t('swal.delete.text'), this.$t('swal.delete.title'), {
+                            if (action && this.$confirm(this.$t('general.swal.delete.text'), this.$t('general.swal.delete.title'), {
                                 confirmButtonText: 'OK',
                                 cancelButtonText: 'Cancel',
                                 type: 'warning',
