@@ -132,10 +132,10 @@
                                        class="category-select"
                                        v-model="selectedFileCategory">
                                 <el-option
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value"
-                                    v-for="item in fileCategories">
+                                    :key="item"
+                                    :label="$t('models.building.' + item)"
+                                    :value="item"
+                                    v-for="item in model.media_category">
                                 </el-option>
                             </el-select>
                             <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple
@@ -308,16 +308,6 @@
         },
         data() {
             return {
-                fileCategories: [
-                    {
-                        label: this.$t('models.building.house_rules'),
-                        value: 'house_rules'
-                    },
-                    {
-                        label: this.$t('models.building.operating_instructions'),
-                        value: 'operating_instructions'
-                    }
-                ],
                 selectedFileCategory: 'house_rules',
                 activeTab: 'details',
                 activeRightTab: 'tenants',

@@ -342,6 +342,7 @@ export default {
             not_found: 'Building not found',
             house_rules: 'House rules',
             operating_instructions: 'Operating instructions',
+            other: 'Other',
             files: 'Files',
             add_files: 'Add files',
             add_companies: 'Add companies',
