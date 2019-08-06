@@ -6,9 +6,28 @@ use BeyondCode\Comments\Traits\HasComments as OriginalHasTraits;
 use BeyondCode\Comments\Contracts\Commentator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use OwenIt\Auditing\AuditableObserver;
 
 trait UniqueIDFormat
 {
+    /**
+     * Auto save table table_format column and not save this in audits tabke.
+     *
+     * @return void
+     */
+    public static function bootUniqueIDFormat()
+    {
+        static::created(function (self $model) {
+            $old = AuditableObserver::$restoring;
+            AuditableObserver::$restoring = true;
+            $propName = $model->getTable();
+            $propName = Str::singular($propName) . '_format';
+            $model->{$propName} = $model->getUniqueIDFormat($model->getKey());
+            $model->save();
+            AuditableObserver::$restoring = $old;
+        });
+    }
+
     /**
      * @param $id
      * @return mixed

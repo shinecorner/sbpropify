@@ -134,17 +134,7 @@ class Unit extends Model
         'floor' => 'required'
     ];
 
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($unit) {
-            $unit->unit_format = $unit->getUniqueIDFormat($unit->id);
-            $unit->save();
-        });
-    }
-
-        /**
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
     public function building()
