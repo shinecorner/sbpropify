@@ -42,5 +42,8 @@
     .full-button {
         width: 100%;
     }
+    .btn-hover{
+         padding: 2px 5px !important;
+    }
 </style>
 

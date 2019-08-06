@@ -230,6 +230,7 @@ export default {
             personal_phone: 'Personal phone',
             private_phone: 'Personal phone',
             created_at: 'Date',
+            created_date: 'Data di creazione',
             edit: 'Edit',
             delete: 'Delete',
             id: 'ID',

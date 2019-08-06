@@ -4,15 +4,16 @@
             <el-timeline>
                 <el-timeline-item
                         v-for="(element, index) in list"
-                        :key="index">
+                        :key="index"
+                        :color="'#6AC06F'">
                         <el-row :gutter="20" class="main-section">
-                            <el-col :md="2" class="avatar-square">
+                            <el-col :md="2" class="avatar-square" v-if="element.media.length > 0">
                                  <el-tooltip
                                     :content="$t('models.post.images')"
                                     class="item"
                                     effect="light" placement="top">
                                     <span>
-                                        <el-avatar v-if="element.media.length > 0" shape="square" :size="40" :src="element.media[0].url"></el-avatar>
+                                        <el-avatar  shape="square" :size="40" :src="element.media[0].url"></el-avatar>
                                     </span>
                                  </el-tooltip>
                             </el-col>
@@ -38,7 +39,7 @@
                                             </span>
                                          </el-tooltip>
                                     </template>
-                                     <template>
+                                     <template v-if="loggedInUser.roles[0].name === 'super_admin' || fetchAction === 'getRequests'">
                                         <span
                                             class="btn-view"
                                           >
@@ -47,8 +48,9 @@
                                                 <el-button
                                                     type="success"
                                                     size="mini"
+                                                    @click="viewPage(element,fetchAction)"
                                                 >
-                                                    view
+                                                   {{$t('models.tenant.view')}}
                                                 </el-button>
                                             </template>
                                         </span>
@@ -56,7 +58,7 @@
                                 </h4>
                             <p class="subtitle text-secondary" v-if="element.category.name">
                                 <el-tooltip
-                                    :content="(element.category.parentCategory && element.category.parentCategory.name ? $t('models.requestCategory.parent')  + ' > ' : '') + $t('models.post.category.label')"
+                                    :content="(element.category.parentCategory && element.category.parentCategory.name ? '' : '') + $t('models.post.category.label')"
                                     class="item"
                                     effect="light" placement="top">
                                     <span>
@@ -66,7 +68,7 @@
                             </p>
                             <p class="activity-date text-secondary">
                                 <el-tooltip
-                                    :content="$t('models.tenant.created_at')"
+                                    :content="$t('models.tenant.created_date')"
                                     class="item"
                                     effect="light" placement="top">
                                         <span>{{ new Date(element.created_at) | formatDate}}</span>
@@ -100,6 +102,7 @@
 <script>
     import TimelineStatus from 'components/TimelineStatus';
     import {format} from 'date-fns'
+import { mapGetters } from 'vuex';
     export default {
         async created() {
             await this.fetch();
@@ -132,7 +135,38 @@
                 return format(date, 'DD.MM.YYYY')
             }
         },
+        computed: {
+            ...mapGetters({
+                loggedInUser : 'loggedInUser'
+            })
+        },
         methods: {
+            viewPage(data, action) {
+                if (action === 'getRequests') {
+                    this.$router.push({
+                       name: 'adminRequestsEdit',
+                       params: {
+                           id : data.id
+                       }
+                   });
+                }
+                if (action === 'getProducts') {
+                    this.$router.push({
+                       name: 'adminProductsEdit',
+                       params: {
+                           id : data.id
+                       }
+                   });
+                }
+                if (action === 'getPostsTruncated') {
+                    this.$router.push({
+                       name: 'adminPostsEdit',
+                       params: {
+                           id : data.id
+                       }
+                   });
+                }
+            },
             async fetch(page = 1) {
                 try {
                     const resp = await this.$store.dispatch(this.fetchAction, {
