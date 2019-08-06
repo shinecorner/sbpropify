@@ -4,11 +4,9 @@ export default {
     methods: {
         ...mapActions(['getPropertyManagers']),
         async getFilterPropertyManagers() {
-            this.loading = true;
             const propertyManagers = await this.getPropertyManagers({
                 get_all: true
             });
-            this.loading = false;
 
             let data = this.managersMapper(propertyManagers.data);
 
