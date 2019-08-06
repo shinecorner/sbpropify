@@ -7,7 +7,7 @@
                     width="200"
                     trigger="click">
                         <el-button type="success" icon="icon-filter" size="mini" slot="reference" plain round>Filters</el-button>
-                        <filters :data="filters.data" :schema="filters.schema" @changed="filtersChanged" @update:data="filterReset"/>
+                        <filters :data="filters.data" :schema="filters.schema" @changed="filtersChanged" @update:data="filterReset" />
                   </el-popover>
             </el-divider>
         </el-col>
@@ -45,6 +45,7 @@
             showFilter: Boolean,
             type: {
                 type: String,
+                validator: type => ['post', 'product', 'request'].includes(type)
             }
         },
         components: {
