@@ -117,8 +117,9 @@ class MediaAPIController extends AppBaseController
     public function buildingUpload(int $id, BuildingUploadRequest $request)
     {
         $rules = array(
-            'house_rules_upload' => 'required_without:operating_instructions_upload|string',
-            'operating_instructions_upload' => 'required_without:house_rules_upload|string',
+            'house_rules_upload' => 'required_without:operating_instructions_upload,other_upload|string',
+            'operating_instructions_upload' => 'required_without:house_rules_upload,other_upload|string',
+            'other_upload' => 'required_without:house_rules_upload,operating_instructions_upload|string',
         );
 
         $validator = Validator::make($request->all(), $rules);
@@ -142,6 +143,11 @@ class MediaAPIController extends AppBaseController
         if ($request->has('operating_instructions_upload')) {
             $collectionName = 'operating_instructions';
             $data = $request->get('operating_instructions_upload', '');
+        }
+
+        if ($request->has('other_upload')) {
+            $collectionName = 'other';
+            $data = $request->get('other_upload', '');
         }
 
         if (!$media = $this->buildingRepository->uploadFiles($collectionName, $data, $building)) {

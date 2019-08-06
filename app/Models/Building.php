@@ -74,6 +74,12 @@ class Building extends Model implements HasMedia
 {
     use SoftDeletes, HasMediaTrait, UniqueIDFormat;
 
+    const BuildingMediaCategories = [
+        'house_rules',
+        'operating_instructions',
+        'other',
+    ];
+
     public $table = 'buildings';
 
     protected $dates = ['deleted_at'];
@@ -241,5 +247,6 @@ class Building extends Model implements HasMedia
     {
         $this->addMediaCollection('house_rules');
         $this->addMediaCollection('operating_instructions');
+        $this->addMediaCollection('other');
     }
 }
