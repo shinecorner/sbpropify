@@ -6,6 +6,7 @@ use App\Traits\HashId;
 use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use OwenIt\Auditing\AuditableObserver;
 use PDF;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -201,9 +202,13 @@ class Tenant extends Model implements HasMedia
         parent::boot();
 
         static::created(function ($tenant) {
-            $tenant->tenant_format = $tenant->getUniqueIDFormat($tenant->id);
+            $old = AuditableObserver::$restoring;
+            AuditableObserver::$restoring = true;
+
             $tenant->activation_code = $tenant->shortHashId($tenant->id);
             $tenant->save();
+
+            AuditableObserver::$restoring = $old;
         });
 
         static::deleting(function ($tenant) {
