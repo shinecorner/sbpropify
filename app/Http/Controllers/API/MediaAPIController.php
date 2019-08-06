@@ -121,7 +121,7 @@ class MediaAPIController extends AppBaseController
         $rules = [];
         foreach ($categories as $category) {
             $requiredWithout = implode('_upload,', array_diff($categories, [$category])) . '_upload';
-            $rules[$category . '_upload'] = sprintf('required_without:%s|string', $requiredWithout);
+            $rules[$category . '_upload'] = sprintf('required_without_all:%s|string', $requiredWithout);
         }
 
         $validator = Validator::make($request->all(), $rules);
