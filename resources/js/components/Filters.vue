@@ -6,7 +6,7 @@
                 <component v-if="field.children" v-for="child in field.children" :key="child.name" :is="child.type" v-bind="child.props" />
             </component>
         </template>
-        <el-button class="reset-btn" @click="reset" type="success">Reset filters</el-button>
+        <el-button class="reset-btn" size="mini" icon="icon-eraser" @click="reset" type="success">Reset filters</el-button>
     </div>
 </template>
 
@@ -88,8 +88,8 @@
                 margin: 4px 0;
             }
         }
-        .el-select{
-            margin-top: 10px;
+        .el-button [class*="icon-"] + span{
+            margin-left: 5px;
         }
         .reset-btn{
             margin-top: 10px;

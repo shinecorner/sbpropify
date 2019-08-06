@@ -1,12 +1,12 @@
 <template>
     <div class="audit" v-infinite-scroll="fetch">
         <el-col class="filter-col" v-if="showFilter">
-            <el-divider content-position="right">
+            <el-divider content-position="left">
                     <el-popover
                     placement="bottom"
                     width="200"
                     trigger="click">
-                        <el-button type="success" icon="el-icon-sort" size="mini" slot="reference" plain round>Filters</el-button>
+                        <el-button type="success" icon="icon-filter" size="mini" slot="reference" plain round>Filters</el-button>
                         <filters :data="filters.data" :schema="filters.schema" @changed="filtersChanged" @update:data="filterReset"/>
                   </el-popover>
             </el-divider>
@@ -56,7 +56,7 @@
 
             const filterData = {
                 event: null,
-                type: null,
+                auditable_type: null,
             };
             return {
                 audits: {
@@ -78,7 +78,7 @@
                     schema: [],
                     data: {
                         event: null,
-                        type: null,
+                        auditable_type: null,
                     }
                 };
                 schema_children.push({
@@ -106,7 +106,7 @@
                 }else{
                     // If there is no type prop on audit component then show type select
                     // Get filter translations from file
-                    filter_name = 'type'
+                    filter_name = 'auditable_type'
                     const filter_type_translations = this.$t(`components.common.audit.filter.type`);
                     const filter_type_options = Object.keys(filter_type_translations).map((key, index) => {
                     schema_children.push({
@@ -120,19 +120,19 @@
                 }
                 this.filters.schema.push({
                     type: 'el-select',
-                    title: 'Filters',
+                    title: 'Type',
                     name: filter_name,
                     props: {
-                        clearable: true,
+                        size: 'mini'
                     },
                     children: schema_children
                 })
                 },
                 async filtersChanged (filters) {
                     // If type filter is set search for second select
-                    if(filters.type && filters.type != ''){
+                    if(filters.auditable_type && filters.auditable_type != ''){
                         let schema_children = [];
-                        const filter_event_translations = this.$t(`components.common.audit.filter.${filters.type}`);
+                        const filter_event_translations = this.$t(`components.common.audit.filter.${filters.auditable_type}`);
                         const filter_event_options = Object.keys(filter_event_translations).map((key, index) => {
                             // Push to schema array
                             schema_children.push({
@@ -152,9 +152,10 @@
                         }
                         this.filters.schema.push({
                             type: 'el-select',
+                            title: 'Event type',
                             name: 'event',
                             props: {
-                                clearable: true
+                                size: 'mini'
                             },
                             children: schema_children
                         });
@@ -218,6 +219,8 @@
                     case 'product': constant_variables = this.$constants.products;
                     break;
                 }
+                console.log('constant_variables')
+                console.log(constant_variables)
                 const translation_with_id = this.id ? 'withId': 'withNoId'
                 const audits = data.data.reduce((obj, current, idx) => {
                     let audit_replacer = [];
@@ -346,12 +349,15 @@
                 color: darken(#fff, 28%);
             }
         }
-        .el-divider__text.is-right{
-            right: 0;
+        .el-divider__text.is-left{
+            left: 0;
             padding:0;
         }
         .filter-col{
             padding-bottom:20px;
+            .el-button [class*="icon-"] + span{
+                margin-left: 5px;
+            }
         }
         .el-timeline {
             padding: 0;
