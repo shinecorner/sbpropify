@@ -1,0 +1,207 @@
+<template>
+    <div class="tenants-by-gender-chart">
+        <el-row type="flex">
+            <el-col :span="24">
+                <apexchart type="donut" :options="chartOptions" :series="series" />
+            </el-col>
+        </el-row>
+        <div v-if="averageAge" class="average-age">
+          {{ `${$t('dashboard.tenants.average_age')} ${averageAge.both}` }}
+        </div>
+        <el-row class="legend-container">
+            <el-col :md="12" :sm="24" v-for="(item, index) in yData" :key="index">
+                <div class="custom-legend">
+                  <div class="title">
+                    <img :src="icons[index]" />
+                    <span>{{ index == 0 ? averageAge.mr : averageAge.mrs }}</span>
+                  </div>
+                  <p>{{ `${xData[index]} ${$t('dashboard.tenants.average_age_acr')}` }}</p>
+                </div>
+            </el-col>
+        </el-row>
+    </div>
+</template>
+<script>
+import VueApexCharts from 'vue-apexcharts'
+import axios from '@/axios';
+
+import chartMixin from '../mixins/adminDashboardChartMixin';
+
+import iconMale from '../../img/male.png';
+import iconFemale from '../../img/female.png';
+
+export default {
+  components: {
+    'apexchart': VueApexCharts
+  },
+  mixins: [chartMixin()],
+  data() {
+    return {
+      icons: [iconMale, iconFemale],
+      averageAge: {},
+    }
+  },
+  props: {
+    colNum: {
+        type: Number
+    }
+  },
+  computed:{
+    chartOptions: function(){
+      let responsive = [];
+      if (this.colNum == 2) {
+        responsive = [{
+          breakpoint: 1300,
+          options: {
+            chart: {
+              width: 490,
+            },
+            legend: {
+              width: 170,
+            }
+          }
+        }, {
+          breakpoint: 1200,
+          options: {
+            chart: {
+              width: '100%',
+              height: 'auto'
+            },
+            legend: {
+              position: 'bottom',
+              width: undefined
+            }
+          }
+        }, {
+          breakpoint: 480,
+          options: {
+            legend: {
+              show: false
+            }
+          }
+        }];
+      }
+      else {
+        responsive = [{
+          breakpoint: 1800,
+          options: {
+            chart: {
+              width: 490,
+            },
+            legend: {
+              width: 170,
+            }
+          }
+        }, {
+          breakpoint: 1650,
+          options: {
+            chart: {
+              width: '100%',
+              height: 'auto'
+            },
+            legend: {
+              position: 'bottom',
+              horizontalAlign: 'center',
+              width: undefined
+            }
+          }
+        }];
+      }
+      return {
+        labels: this.xData,
+        responsive: responsive,
+        legend: {
+          show: true,
+          width: 220
+        },
+        chart:{
+          toolbar: this.toolbar,
+          width: 540,
+          height: 320
+        },
+        plotOptions: {
+          pie: {
+            donut: {
+              size: '32%'
+            }
+          }
+        },
+        colors: this.colors,
+        dataLabels: {
+          formatter: function(value, { seriesIndex, dataPointIndex, w }) {
+            return w.config.series[seriesIndex] + "(" + value.toFixed(0) + '%)';
+          }
+        }
+      }
+    }
+  },
+  methods: {
+    fetchData() {
+      let that = this;                                               
+      let url = 'tenants/gender-statistics';
+      const langPrefix = 'models.tenant.titles.';
+
+      return axios.get(url)
+      .then(function (response) {
+        that.yData = response.data.data.data.map(val => parseFloat(val) || 0);
+        that.xData = response.data.data.labels.map(val => that.$t(langPrefix + val));
+        that.averageAge = response.data.data.average_age;
+      }).catch(function (error) {
+        console.log(error);
+      })
+    }
+  }
+}
+</script>
+<style lang="scss">
+  .chart-card {
+    .tenants-by-gender-chart .apexcharts-canvas {
+      @media screen and (max-width: 1650px) {
+        margin-top: 30px;
+      }
+    }
+    .tenants-by-gender-chart {
+      position: relative;
+
+      .apexcharts-canvas {
+        position: unset;
+      }
+
+      .apexcharts-legend {
+        display: flex;
+        justify-content: center !important;
+      }
+
+      .average-age {
+        margin: 20px;
+        text-align: center;
+        font-size: 18px;
+        padding: 10px;
+        border-bottom: 3px double #e3e3e3;
+        border-top: 3px double #e3e3e3;
+      }
+
+      .legend-container {
+        .custom-legend {
+          text-align: center;
+
+          .title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img {
+              max-width: 80px;
+            }
+
+            span {
+              font-size: 18px;
+              margin-left: 10px;
+              padding-bottom: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

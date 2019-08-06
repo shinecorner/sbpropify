@@ -127,19 +127,6 @@ class PropertyManager extends Model
     ];
 
     /**
-     *
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($building) {
-            $building->property_manager_format = $building->getUniqueIDFormat($building->id);
-            $building->save();
-        });
-    }
-
-    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      **/
     public function user()

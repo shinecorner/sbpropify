@@ -378,6 +378,7 @@ class BuildingAPIController extends AppBaseController
             'propertyManagers', 'media', 'district');
 
         $response = (new BuildingTransformer)->transform($building);
+        $response['media_category'] = Building::BuildingMediaCategories;
         return $this->sendResponse($response, 'Building retrieved successfully');
     }
 

@@ -76,6 +76,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'buildings_other' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/buildings/other'),
+            'url' => env('APP_URL').'/storage/buildings/other',
+            'visibility' => 'public',
+        ],
+
         'posts_media' => [
             'driver' => 'local',
             'root' => storage_path('app/public/posts/media'),

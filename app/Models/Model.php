@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Eloquent;
-
-class Model extends Eloquent
+class Model extends \Illuminate\Database\Eloquent\Model
 {
     // relationExists returns whether the relation named $key exists, is loaded
     // and is not null

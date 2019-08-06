@@ -126,19 +126,6 @@ class ServiceProvider extends Model
     ];
 
     /**
-     *
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($building) {
-            $building->service_provider_format = $building->getUniqueIDFormat($building->id);
-            $building->save();
-        });
-    }
-
-    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      **/
     public function user()
