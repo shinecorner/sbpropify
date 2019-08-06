@@ -116,11 +116,13 @@ class MediaAPIController extends AppBaseController
      */
     public function buildingUpload(int $id, BuildingUploadRequest $request)
     {
-        $rules = array(
-            'house_rules_upload' => 'required_without:operating_instructions_upload,other_upload|string',
-            'operating_instructions_upload' => 'required_without:house_rules_upload,other_upload|string',
-            'other_upload' => 'required_without:house_rules_upload,operating_instructions_upload|string',
-        );
+
+        $categories = \App\Models\Building::BuildingMediaCategories;
+        $rules = [];
+        foreach ($categories as $category) {
+            $requiredWithout = implode('_upload,', array_diff($categories, [$category])) . '_upload';
+            $rules[$category . '_upload'] = sprintf('required_without:%s|string', $requiredWithout);
+        }
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
