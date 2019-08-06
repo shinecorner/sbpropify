@@ -10,6 +10,7 @@ use App\Models\ServiceRequestCategory;
 use App\Models\Tenant;
 use App\Models\Product;
 use App\Models\Post;
+use App\Models\Unit;
 use App\Models\UserSettings;
 use App\Repositories\BuildingRepository;
 use App\Repositories\ServiceRequestRepository;
@@ -1019,14 +1020,28 @@ class StatisticsAPIController extends AppBaseController
             ->groupBy('period')
             ->get();
 
+        $raw = str_replace('building', 'unit', $raw);
+        $units = Unit::selectRaw($raw . ', count(id) `count`')
+            ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
+            ->whereDate('created_at', '<=', $endDate->format('Y-m-d'))
+            ->groupBy('period')
+            ->get();
+
 
         $dayStatistic = [];
         foreach ($periodValues as $period => $__) {
-            $dayStatistic[$period] = 0;
+            $dayStatistic[$period] = [
+                'buildings' => 0,
+                'units' => 0
+            ];
         }
 
         foreach ($statistics as $statistic) {
-            $dayStatistic[$statistic['period']] = $this->thousandsFormat($statistic['count']);
+            $dayStatistic[$statistic['period']]['buildings'] = $this->thousandsFormat($statistic['count']);
+        }
+
+        foreach ($units as $unit) {
+            $dayStatistic[$unit['period']]['units'] = $this->thousandsFormat($unit['count']);
         }
 
         $response['requests_per_day_xdata'] = array_values($periodValues);
@@ -1280,7 +1295,7 @@ class StatisticsAPIController extends AppBaseController
         } else {
             [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         }
-        
+
         $serviceRequestCount = ServiceRequest
             ::when($startDate, function ($q) use ($startDate) {$q->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'));})
             ->when($endDate, function ($q) use ($endDate) {$q->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'));})
@@ -1857,7 +1872,7 @@ class StatisticsAPIController extends AppBaseController
         if (0 == $sum) {
             return 0;
         }
-        
+
         $tagPercentages = $rsPerStatus->map(function($el) use ($sum) {
             return round($el['count']  * 100 / $sum);
         });
