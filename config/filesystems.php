@@ -1,6 +1,6 @@
 <?php
 
-$config = [
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -62,6 +62,27 @@ $config = [
             'visibility' => 'public',
         ],
 
+        'buildings_house_rules' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/buildings/house_rules'),
+            'url' => env('APP_URL').'/storage/buildings/house_rules',
+            'visibility' => 'public',
+        ],
+
+        'buildings_operating_instructions' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/buildings/operating_instructions'),
+            'url' => env('APP_URL').'/storage/buildings/operating_instructions',
+            'visibility' => 'public',
+        ],
+
+        'buildings_other' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/buildings/other'),
+            'url' => env('APP_URL').'/storage/buildings/other',
+            'visibility' => 'public',
+        ],
+
         'posts_media' => [
             'driver' => 'local',
             'root' => storage_path('app/public/posts/media'),
@@ -107,16 +128,3 @@ $config = [
     ],
 
 ];
-
-$buildingCategories = \App\Models\Building::BuildingMediaCategories;
-
-foreach ($buildingCategories  as $category) {
-    $config['disks']['1buildings_' . $category] = [
-        'driver' => 'local',
-        'root' => storage_path('app/public/buildings/' . $category),
-        'url' => env('APP_URL').'/storage/buildings/' . $category,
-        'visibility' => 'public',
-    ];
-}
-
-return $config;
