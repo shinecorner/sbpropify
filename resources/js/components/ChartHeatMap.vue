@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="heatmapchart">
         <apexchart type=heatmap height="310" :options="chartOptions" :series="series" />
     </div>
 </template>
@@ -54,25 +54,6 @@ export default {
             enabled: false
           },
           colors: ["#008FFB"],
-          yaxis: {
-            labels: {
-              formatter: (value) => {
-                const realValue = value.toString();
-                if (realValue == '') {
-                  return;
-                }
-                else if (this.type == 'week-hour' && realValue.match(/[a-zA-Z]+/gi)) {
-                  return this.$t('days.' + realValue.toLowerCase());
-                }
-                else if (this.type == 'month-date' && value > 0) {
-                  return format(new Date(2019, value - 1), 'MMMM', {locale: dateLocale[this.$i18n.locale]});
-                }
-                else {
-                  return realValue;
-                }
-              }
-            }
-          },
           xaxis: {
             type: 'category',
             labels: {
@@ -85,19 +66,13 @@ export default {
           },
           tooltip: {
             y: {
-                title: {
-                    formatter: (seriesName) => {
-                      const realValue = seriesName.toString();
-                      if (this.type == 'week-hour' && realValue.match(/[a-zA-Z]+/gi)) {
-                        return this.$t('days.' + realValue.toLowerCase());
-                      }
-                      else if (this.type == 'month-date' && (parseInt(realValue) || 0) > 0) {
-                        return format(new Date(2019, parseInt(realValue) - 1), 'MMMM', {locale: dateLocale[this.$i18n.locale]});
-                      }
-                      return realValue;
-                    },
-                },
+              formatter: function(value, { series, seriesIndex, dataPointIndex, w }) {
+                return value;
+              }
             },
+            custom: function({series, seriesIndex, dataPointIndex, w}) {
+              return '<span class="heatmap-tooltip">' + series[seriesIndex][dataPointIndex] + '</span>'
+            }
           }
         }
       }
@@ -120,14 +95,23 @@ export default {
           params: params
         })
         .then(function (response) {
-          // that.series = response.data.data;
           const data = response.data.data;
           for (let i = 0; i < data.length; i++) {
             for (let j = 0; j < data[i].data.length; j++) {
               data[i].data[j].x = 'd' + data[i].data[j].x;
             }
           }
-          // console.log('heatmap data:', data);
+          data.map(value => {
+            let name = value.name;
+            if (that.type == 'week-hour' && name.match(/[a-zA-Z]+/gi)) {
+              name = that.$t('days.' + name.toLowerCase());
+            }
+            else if (that.type == 'month-date' && name > 0) {
+              name = format(new Date(2019, name - 1), 'MMMM', {locale: dateLocale[that.$i18n.locale]});
+            }
+            value.name = name;
+            return value;
+          });
           that.series = data;
         }).catch(function (error) {
             console.log(error);
@@ -153,3 +137,14 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+  .heatmapchart {
+    .apexcharts-tooltip {
+      text-align: right;
+      transform: translateX(30px);
+    }
+  }
+  .heatmap-tooltip {
+    padding: 5px 10px;
+  }
+</style>

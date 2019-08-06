@@ -1,9 +1,13 @@
 <template>
     <div v-if="startDate" class="piechart">
         <div class="chart-filter in-toolbar">              
-            <custom-date-range-picker rangeType="all" :initialRange="dateRange"
-                :pickHandler="pickHandler" :style="{display: showPicker ? 'inline-flex' : 'none'}" :startDate="startDate">
-            </custom-date-range-picker>
+            <custom-date-range-picker 
+                rangeType="all"
+                :initialRange="dateRange"
+                :pickHandler="pickHandler"
+                :style="{display: showPicker ? 'inline-flex' : 'none'}"
+                :startDate="startDate"
+            />
             <div class="show-button" v-if="!showPicker" @click="handleShowClick(true)"><i class="el-icon-date"></i></div>
             <div class="hide-button" v-if="showPicker" @click="handleShowClick(false)"><i class="el-icon-circle-close"></i></div>
         </div>
@@ -163,6 +167,11 @@ export default {
                 this.chartType = 'donut';
                 url = 'admin/chartTenantLanguage';
                 langPrefix = '';
+            }
+            else if (this.type === 'tenants_by_title') {
+                this.chartType = 'donut';
+                url = 'admin/donutChart?table=tenants&column=title';
+                langPrefix = 'models.tenant.titles.';
             }
 
             return axios.get(url,{
