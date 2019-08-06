@@ -134,6 +134,7 @@ export default {
         tenants_by_title: 'Tenants by title',
         tenants_by_device: 'Tenants by device',
         tenants_by_gender: 'Tenants by gender',
+        actions: 'Actions',
         buildings: {
             total_building: 'Total Count',
             total_units: 'Total Units',
