@@ -235,7 +235,8 @@
                         data: this.prepareFilters("status")
                     }
                 ];
-            }
+            },
+            
         },
         methods: {
             ...mapActions(['getPropertyManagers', 'batchAssignUsersToBuilding', 'deleteBuildingWithIds', 'checkUnitRequestWidthIds']),

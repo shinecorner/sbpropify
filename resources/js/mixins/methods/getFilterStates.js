@@ -9,7 +9,7 @@ export default {
                 filters: true
             });
             this.loading = false;
-
+            
             return states.data;
         }
     }
