@@ -245,8 +245,8 @@ class Building extends Model implements HasMedia
 
     public function registerMediaCollections()
     {
-        $this->addMediaCollection('house_rules');
-        $this->addMediaCollection('operating_instructions');
-        $this->addMediaCollection('other');
+        foreach (self::BuildingMediaCategories as $category)  {
+            $this->addMediaCollection($category);
+        }
     }
 }
