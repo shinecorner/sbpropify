@@ -340,13 +340,7 @@
         },
         computed: {
             emptyText() {
-                if (this.loading.state) {
-                    return this.$t('please_wait')
-                } else if (this.items.length > 0) {
-                    return '';
-                } else {
-                    return  this.$t('no_data_available');
-                }
+                return this.loading.state ?  ' ' : (this.items.length > 0) ? '' : this.$t('no_data_available');
             },
             page() {
                 return {
