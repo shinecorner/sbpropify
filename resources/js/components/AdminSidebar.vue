@@ -150,6 +150,7 @@
     }
     .el-menu--collapse {
         .el-menu-item {
+            will-change: transform;
             span.title {
                 display: none;
             }
@@ -199,6 +200,7 @@
 
             .el-menu-item,
             :global(.el-submenu__title) {
+                will-change: transform;
                 .icon {
                     vertical-align: middle;
                     margin-right: 5px;

@@ -38,8 +38,8 @@
                             <el-col :span="24">
                                 <el-card class="chart-card">
                                     <el-tabs v-model="activeChart" @tab-click="handleHeatmapTabClick">
-                                        <el-tab-pane :label="$t('dashboard.week_hour')" name="week" class="heat-week-hour">
-                                            <div class="chart-filter">              
+                                        <el-tab-pane :label="$t('dashboard.week_hour')" name="week">
+                                            <div class="chart-filter in-toolbar">              
                                                 <el-date-picker
                                                     v-model="weekSelected"
                                                     type="week"
@@ -67,7 +67,7 @@
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
                                 <el-card class="chart-card" :header="$t('dashboard.buildings.buildings_by_creation_date')">
-                                    <chart-line type="buildings_by_creation_date" :startDate="startDates.buildings"></chart-line>
+                                    <chart-column-line type="buildings_by_creation_date" :startDate="startDates.buildings"></chart-column-line>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -107,6 +107,11 @@
                                     <chart-pie-and-donut type="products_by_type" :colNum="3" :startDate="startDates.products"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
+                            <el-col :span="16">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.latest_products')">
+                                    
+                                </el-card>
+                            </el-col>
                         </el-row>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.tenants')" name="tenants">
@@ -121,7 +126,7 @@
                                     <chart-stacked-column type="tenants_by_creation_date" :startDate="startDates.tenants"></chart-stacked-column>
                                 </el-card>
                             </el-col>
-                         </el-row>
+                        </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_request_status')">
@@ -136,6 +141,23 @@
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_language')">
                                     <chart-pie-and-donut type="tenants_by_language" :colNum="3" :startDate="startDates.tenants"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                        </el-row>
+                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_title')">
+                                    <chart-pie-and-donut type="tenants_by_title" :colNum="3" :startDate="startDates.tenants"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_gender')">
+                                    <chart-tenants-by-gender type="tenants_by_gender" :colNum="3" :startDate="startDates.tenants"></chart-tenants-by-gender>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_device')">
+                                    <chart-users-by-device type="tenants_by_device" :colNum="3" :startDate="startDates.tenants"></chart-users-by-device>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -159,8 +181,9 @@
     import CircularProgressStatisticsCard from 'components/CircularProgressStatisticsCard.vue';
 
     import BuildingsStatisticsCard from 'components/BuildingsStatisticsCard';
-    import ChartColumn from 'components/ChartColumn';
-    import ChartLine from 'components/ChartLine';
+    import ChartColumnLine from 'components/ChartColumnLine';
+    import ChartUsersByDevice from 'components/ChartUsersByDevice';
+    import ChartTenantsByGender from 'components/ChartTenantsByGender';
     import TenantsStatisticsCard from 'components/TenantsStatisticsCard';
 
     export default {
@@ -175,8 +198,9 @@
             ChartPieAndDonut,
             ChartHeatMap,
             BuildingsStatisticsCard,
-            ChartColumn,
-            ChartLine,
+            ChartColumnLine,
+            ChartTenantsByGender,
+            ChartUsersByDevice,
             TenantsStatisticsCard
         },
         data() {
@@ -465,15 +489,6 @@
 
             .el-tabs__content {
                 overflow: visible;
-            }
-
-            .heat-week-hour {
-                .chart-filter {
-                    justify-content: flex-end;
-                }
-                .apexcharts-toolbar {
-                    margin-top: -88px;
-                }
             }
         }
     }

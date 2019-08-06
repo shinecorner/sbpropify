@@ -22,7 +22,9 @@ export default (config = {}) => {
                         name: '',
                         phone: '',
                     },
-                    settings: []
+                    settings: {
+                        language: ''
+                    }
                 },
                 validationRules: {
                     first_name: [{
@@ -30,6 +32,10 @@ export default (config = {}) => {
                         message: 'This field is required'
                     }],
                     last_name: [{
+                        required: true,
+                        message: 'This field is required'
+                    }],
+                    language: [{
                         required: true,
                         message: 'This field is required'
                     }],

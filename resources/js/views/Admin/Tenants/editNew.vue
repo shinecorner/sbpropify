@@ -78,7 +78,8 @@
                                     </el-col>
                                     <el-col :md='10' class="user-info">
                                         <el-row :gutter="20" id="language_select">
-                                            <el-form-item :label="$t('models.tenant.language')" prop="settings.language">
+                                            <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" 
+                                                    prop="settings.language">
                                                 <select-language :model.sync="model.settings.language" />
                                             </el-form-item>
                                         </el-row>

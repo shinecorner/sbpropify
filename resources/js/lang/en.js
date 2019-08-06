@@ -126,10 +126,14 @@ export default {
         news_by_type: 'News by type',
         products_by_creation_date: 'Market place products by creation date',
         products_by_type: 'Market place products by type',
+        latest_products: 'Latest products',
         tenants_by_creation_date: 'Tenants by creation date',
         tenants_by_request_status: 'Tenants by Requests status',
         tenants_by_status: 'Tenants by status',
         tenants_by_language: 'Tenants by language',
+        tenants_by_title: 'Tenants by title',
+        tenants_by_device: 'Tenants by device',
+        tenants_by_gender: 'Tenants by gender',
         buildings: {
             total_building: 'Total Count',
             total_units: 'Total Units',
@@ -138,7 +142,9 @@ export default {
             buildings_by_creation_date: 'Buildings by creation date'
         },
         tenants: {
-            total_tenants: 'Total Count'
+            total_tenants: 'Total Count',
+            average_age: 'Average Age',
+            average_age_acr: 'Avg. Age'
         }
     },
     pages: {
@@ -272,6 +278,9 @@ export default {
                 title: {
                     required: 'Title is required',
                 },
+                language: {
+                    required: 'Language is required'
+                }
             },
             building_card: 'Assign unit',
             personal_details_card: 'Personal details',
@@ -690,6 +699,7 @@ export default {
             }
         },
         request: {
+            audits: 'Audits',
             edit: 'Edit',
             delete: 'Delete',
             deleted: 'Deleted',
@@ -763,6 +773,20 @@ export default {
                 done: 'Done',
                 reactivated: 'Reactivated',
                 archived: 'Archived'
+            },
+            category_options:{
+                disturbance: 'Disturbance',
+                defect: 'Defect',
+                order_documents: 'Order documents',
+                order_a_payment_slip: 'Order a payment slip',
+                questions_about_the_tenancy: 'Questions about the tenancy',
+                other: 'Other',
+                environment: 'Environment',
+                house: 'House',
+                apartment: 'Apartment',
+                environment: 'Environment',
+                house: 'House',
+                apartment: 'Apartment'
             },
             placeholders: {
                 category: 'Select category',
@@ -1105,7 +1129,81 @@ export default {
     components: {
         common: {
             audit: {
-
+                type:{
+                    post: 'Post',
+                    product: 'Product',
+                    request: 'Request'
+                },
+                filter:{
+                    post: {},
+                    product: {},
+                    request: {
+                        created: 'Created',
+                        updated: 'Updates',
+                        provider_assigned: 'Provider assigned',
+                        user_assigned: 'User assigned',
+                        media_uploaded: 'Media uploaded',
+                        media_deleted: 'Media deleted'
+                    }
+                },
+                content:{
+                    withId:{
+                        post: {  
+                            created: '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
+                            updated: {
+                                status: 'The status changed from "{old}" to "{new}".',
+                                published_at: 'Post published on {new}.',
+                            }
+                        },
+                        product: {
+                            created: '{userName} opened this {auditable_type}.',
+                        },
+                        request: {
+                            created: '{userName} opened this {auditable_type}.',
+                            updated: {
+                                title: 'The title changed from "{old}" to "{new}".',
+                                status: 'The status changed from "{old}" to "{new}".',
+                                due_date: 'The due date changed from "{old}" to "{new}".',
+                                priority: 'The priority changed from "{old}" to "{new}".',
+                                category_id: 'The category changed from "{old}" to "{new}".',
+                                qualification: 'The qualification changed from "{old}" to "{new}".',   
+                                visibility: 'The visibility changed from "{old}" to "{new}".'   
+                            },
+                            provider_assigned: '{providerName} has been assigned as provider.',
+                            user_assigned: '{userName} has been assigned as manager.',
+                            media_uploaded: 'Media uploaded',
+                            media_deleted: 'Media deleted'
+                        }
+                    },
+                    withNoId:{
+                        post: {  
+                            created: '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
+                            updated: {
+                                published_at: 'Post published on {new} on {auditable_type} #{auditable_id}.',
+                                status: 'The status changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                            }
+                        },
+                        product: {
+                            created: '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
+                        },
+                        request: {
+                            created: '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
+                            updated: {
+                                title: 'The title changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                                status: 'The status changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                                due_date: 'The due date changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                                priority: 'The priority changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                                category_id: 'The category changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                                qualification: 'The qualification changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',   
+                                visibility: 'The visibility changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.'   
+                            },
+                            provider_assigned: '{providerName} has been assigned as provider on {auditable_type} #{auditable_id}.',
+                            user_assigned: '{userName} has been assigned as manager on {auditable_type} #{auditable_id}.',
+                            media_uploaded: 'Media uploaded on {auditable_type} #{auditable_id}.',
+                            media_deleted: 'Media deleted on {auditable_type} #{auditable_id}.'
+                        }
+                    }
+                },
             },
             commentsList: {
                 loading: 'Loading...',

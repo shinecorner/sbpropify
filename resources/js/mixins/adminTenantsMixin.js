@@ -1,5 +1,6 @@
 import {mapActions} from 'vuex';
 import PasswordValidatorMixin from './passwordValidatorMixin';
+import EmailCheckValidatorMixin from './emailCheckValidatorMixin';
 import TenantTitleTypes from './methods/tenantTitleTypes';
 import {displayError, displaySuccess} from '../helpers/messages';
 import UploadUserAvatarMixin from './adminUploadUserAvatarMixin';
@@ -34,7 +35,9 @@ export default (config = {}) => {
                     building_id: '',
                     unit_id: '',
                     media: [],
-                    settings: []
+                    settings: {
+                        language: '',
+                    }
                 },
                 validationRules: {
                     first_name: [{
@@ -45,12 +48,18 @@ export default (config = {}) => {
                         required: true,
                         message: this.$t('models.tenant.validation.last_name.required')
                     }],
+                    language: [{
+                        required: true,
+                        message: this.$t('models.tenant.validation.language.required')
+                    }],
                     email: [{
                         required: true,
                         message: this.$t("email_validation.required")
                     }, {
                         type: 'email',
                         message: this.$t("email_validation.email")
+                    },{
+                        validator: this.checkavailabilityEmail
                     }],
                     password: [{
                         validator: this.validatePassword
@@ -165,7 +174,7 @@ export default (config = {}) => {
     if (config.mode) {
         switch (config.mode) {
             case 'add':
-                mixin.mixins = [PasswordValidatorMixin(), TenantTitleTypes, UploadUserAvatarMixin];
+                mixin.mixins = [PasswordValidatorMixin(), EmailCheckValidatorMixin(), TenantTitleTypes, UploadUserAvatarMixin];
 
                 mixin.methods = {
                     async contractUpl(id) {
@@ -232,7 +241,7 @@ export default (config = {}) => {
 
                 break;
             case 'edit':
-                mixin.mixins = [PasswordValidatorMixin({required: false}), TenantTitleTypes, UploadUserAvatarMixin];
+                mixin.mixins = [PasswordValidatorMixin({required: false}), EmailCheckValidatorMixin(), TenantTitleTypes, UploadUserAvatarMixin];
 
                 mixin.methods = {
                     submit() {
@@ -276,7 +285,7 @@ export default (config = {}) => {
                 };
 
             case 'view':
-                mixin.mixins = [PasswordValidatorMixin({required: false}), TenantTitleTypes, UploadUserAvatarMixin];
+                mixin.mixins = [PasswordValidatorMixin({required: false}), EmailCheckValidatorMixin(), TenantTitleTypes, UploadUserAvatarMixin];
                 mixin.methods = {
                     ...mixin.methods,
                     ...mapActions(['getTenant'])
@@ -298,6 +307,7 @@ export default (config = {}) => {
                         
                         this.user = user;
                         this.model = Object.assign({}, this.model, r);
+                        this.original_email = this.user.email;
                         this.model.email = user.email;
                         this.model.avatar = user.avatar;
                         
