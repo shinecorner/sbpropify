@@ -60,7 +60,6 @@ export default {
         params: params
       })
       .then(function (response) {
-        console.log('response', response);
         if (that.type == 'buildings_by_creation_date') {
           const buildings = {name: that.$t('models.building.title'), type: 'bar', data: []};
           const units = {name: that.$t('models.building.units'), type: 'line', data: []};
