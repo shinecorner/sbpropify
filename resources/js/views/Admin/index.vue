@@ -45,7 +45,9 @@
                                                     type="week"
                                                     :format="$t('general.date_range.week') + ' WW.yyyy'"
                                                     value-format="dd.MM.yyyy"
-                                                    :placeholder="$t('general.date_range.peek_week')">
+                                                    :placeholder="$t('general.date_range.peek_week')"
+                                                    popper-class="custom-week-panel"
+                                                >
                                                 </el-date-picker>
                                             </div>
                                             <chart-heat-map type="week-hour" :tab="activeChart" :week="weekSelected"></chart-heat-map>
@@ -565,5 +567,49 @@
             }
         }
     }
-}  
+}
+.el-picker-panel.custom-week-panel {
+    line-height: normal;
+    width: min-content;
+
+    .el-picker-panel__body-wrapper {
+        .el-date-picker__header {
+            margin: 10px 7px 0px;
+
+            .el-picker-panel__icon-btn {
+                margin-top: 4px;
+                padding: 1px 1px;
+            }
+            .el-date-picker__header-label {
+                font-size: 15px;
+                padding: 0 2px;
+            }
+        }
+        .el-picker-panel__content {
+            padding: 7px 5px 5px 5px;
+            margin: 0;
+            width: 202px;
+
+            th {
+                width: 25px;
+                height: 25px;
+                padding:2px;
+            }
+
+            td {
+                padding: 0;
+                width: 25px;
+                height: 25px;
+                max-width: 25px;
+
+                div {
+                    width: 25px;
+                    height: 25px;
+                    padding: 0;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
 </style>
