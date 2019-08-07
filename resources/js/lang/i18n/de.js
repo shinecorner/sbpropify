@@ -298,29 +298,29 @@ export default {
             "services": "Partnerfirmen",
             "activity": "Aktivität",
             "propertyManagers": "Bewirtschafter",
-            "templates": "Vorlagen",
-            "pages": {
-                "profile": {
-                    "pageTitle": "Profil-Einstellungen",
-                    "profile": "Profil",
-                    "account": "Konto",
-                    "security": "Sicherheit",
-                    "notifications": "Benachrichtigungen"
-                },
-                "user": {
-                    "title": "Benutzer"
-                },
-                "request_activities": {
-                    "title": "Tracking von Anfrage-Aktivitäten"
-                },
-                "tenant": {
-                    "title": "Mieter"
-                }
-            }
+            "templates": "Vorlagen"
         },
         "auth": {
             "failed": "Diese Kombination aus Zugangsdaten wurde nicht in unserer Datenbank gefunden.",
             "throttle": "Zu viele Loginversuche. Versuchen Sie es bitte in {seconds} Sekunden nochmal."
+        },
+        "pages": {
+            "profile": {
+                "pageTitle": "Profil-Einstellungen",
+                "profile": "Profil",
+                "account": "Konto",
+                "security": "Sicherheit",
+                "notifications": "Benachrichtigungen"
+            },
+            "user": {
+                "title": "Benutzer"
+            },
+            "request_activities": {
+                "title": "Tracking von Anfrage-Aktivitäten"
+            },
+            "tenant": {
+                "title": "Mieter"
+            }
         },
         "components": {
             "common": {
@@ -1045,6 +1045,13 @@ export default {
                 "contact_enable": "Meine Kontakte aktivieren",
                 "templates": "Templates",
                 "cleanify_email": "Cleanify email",
+                "mail_encryption": "Verschlüsselung",
+                "mail_from_address": "Von Adresse",
+                "mail_from_name": "Von Name",
+                "mail_host": "Wirt",
+                "mail_password": "Passwort",
+                "mail_port": "Hafen",
+                "mail_username": "Benutzername",
                 "iframe_url": {
                     "label": "Iframe URL",
                     "validation": "Bitte geben Sie eine korrekte URL ein."

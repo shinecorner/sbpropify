@@ -29,28 +29,5 @@ return [
     'services' => 'Partenaires de service',
     'activity' => 'Activité',
     'propertyManagers' => 'Gestionnaires immobiliers',
-    'templates' => 'Modèles',
-    'pages' => 
-    [
-      'profile' => 
-      [
-        'pageTitle' => 'Profile',
-        'profile' => 'Profile',
-        'account' => 'Account',
-        'security' => 'Security',
-        'notifications' => 'Notifications',
-      ],
-      'user' => 
-      [
-        'title' => 'Users',
-      ],
-      'request_activities' => 
-      [
-        'title' => 'Request activities',
-      ],
-      'tenant' => 
-      [
-        'title' => 'Tenants',
-      ],
-    ], 
+    'templates' => 'Modèles'
 ];
