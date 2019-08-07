@@ -6,8 +6,6 @@ use App\Traits\HasComments;
 use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use OwenIt\Auditing\AuditableObserver;
-use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
@@ -92,12 +90,11 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *      )
  * )
  */
-class ServiceRequest extends Model implements HasMedia, Auditable
+class ServiceRequest extends AuditableModel implements HasMedia
 {
     use SoftDeletes;
     use HasMediaTrait;
     use HasComments;
-    use \OwenIt\Auditing\Auditable;
     use UniqueIDFormat;
 
     public $table = 'service_requests';
