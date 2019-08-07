@@ -62,6 +62,7 @@ return [
       'email' => 'Email',
       'personal_phone' => 'Personal phone',
       'private_phone' => 'Personal phone',
+      'created_date' => 'Data di creazione',
       'created_at' => 'Date',
       'edit' => 'Edit',
       'delete' => 'Delete',

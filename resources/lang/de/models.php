@@ -62,6 +62,7 @@ return [
       'email' => 'E-Mail',
       'personal_phone' => 'Telefon privat',
       'private_phone' => 'Telefon privat',
+      'created_date' => 'Aangemaakte datum',
       'created_at' => 'Datum',
       'edit' => 'Öffnen',
       'delete' => 'Löschen',
