@@ -4,6 +4,7 @@ return [
     'requests_by_creation_date' => 'Richieste per data di creazione',
     'requests_by_status' => 'Richieste per stato',
     'requests_by_category' => 'Richieste per categoria',
+    'requests_by_assigned_status' => 'Requests by assigned status',
     'each_hour_request' => 'Ogni ora richiede',
     'average_request_duration' => 'Tempo di risoluzione',
     'week_hour' => 'Settimana vs. Ora',
@@ -22,6 +23,10 @@ return [
     'tenants_by_device' => 'Tenants by device',
     'tenants_by_gender' => 'Tenants by gender',
     'actions' => 'Actions',    
+    'requests' => [
+      'requests_with_service_providers' => 'With service providers',
+      'request_wihout_service_providers' => 'Without service providers'
+    ],
     'buildings' => 
     [
       'total_building' => 'Total Count',
@@ -36,4 +41,7 @@ return [
       'average_age' => 'Average Age',
       'average_age_acr' => 'Avg. Age'
     ],
+    'marketplace' => [
+      'go_to_marketplace' => 'go to marketplace'
+    ]
 ];

@@ -4,10 +4,10 @@ import frLocale from 'element-ui/lib/locale/lang/fr';
 import itLocale from 'element-ui/lib/locale/lang/it';
 
 
-import deMsg from './de'
-import enMsg from './en'
-import frMsg from './fr'
-import itMsg from './it'
+import deMsg from './i18n/de'
+import enMsg from './i18n/en'
+import frMsg from './i18n/fr'
+import itMsg from './i18n/it'
 
 
 export default {

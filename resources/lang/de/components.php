@@ -10,7 +10,19 @@ return [
           'request' => 'Request'
         ],
         'filter' => [
-          'post' => [],
+          'type' => [
+            'post' => 'Post',
+            'product' => 'Product',
+            'request' => 'Request'
+          ],
+          'post' => [
+            'created' => 'Created',
+            'updated' => 'Updates',
+            'provider_assigned' => 'Provider assigned',
+            'user_assigned' => 'User assigned',
+            'media_uploaded' => 'Media uploaded',
+            'media_deleted' => 'Media deleted'  
+          ],
           'product' => [],
           'request' => [
             'created' => 'Created',
@@ -31,7 +43,20 @@ return [
                 ]              
               ],
               'product' => [
-                'created' => '{userName} opened this {auditable_type}.'
+                'created' => '{userName} opened this {auditable_type}.',
+                'updated' => [
+                  'title' => 'The title changed from "{old}" to "{new}".',
+                  'status' => 'The status changed from "{old}" to "{new}".',
+                  'due_date' => 'The due date changed from "{old}" to "{new}".',
+                  'priority' => 'The priority changed from "{old}" to "{new}".',
+                  'category_id' => 'The category changed from "{old}" to "{new}".',
+                  'qualification' => 'The qualification changed from "{old}" to "{new}".',
+                  'visibility' => 'The visibility changed from "{old}" to "{new}".',   
+                ],
+                'provider_assigned' => '{providerName} has been assigned as provider.',
+                'user_assigned' => '{userName} has been assigned as manager.',
+                'media_uploaded' => 'Media uploaded',
+                'media_deleted' => 'Media deleted',
               ],
               'request' => [
                 'created' => '{userName} opened this {auditable_type}.',
@@ -59,7 +84,20 @@ return [
                 ]              
               ],
               'product' => [
-                'created' => '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.'
+                'created' => '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
+                'updated' => [
+                  'title' => 'The title changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                  'status' => 'The status changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                  'due_date' => 'The due date changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                  'priority' => 'The priority changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                  'category_id' => 'The category changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                  'qualification' => 'The qualification changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                  'visibility' => 'The visibility changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',  
+                ],
+                'provider_assigned' => '{providerName} has been assigned as provider on {auditable_type} #{auditable_id}.',
+                'user_assigned' => '{userName} has been assigned as manager on {auditable_type} #{auditable_id}.',
+                'media_uploaded' => 'Media uploaded on {auditable_type} #{auditable_id}.',
+                'media_deleted' => 'Media deleted on {auditable_type} #{auditable_id}.',
               ],
               'request' => [
                 'created' => '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
@@ -114,6 +152,31 @@ return [
         'saveShortcut' => 'oder Verwendung {shortcut} Abkürzung',
         'emptyTemplatesPlaceholder' => 'Keine Vorlagen vorhanden',
       ],
+      'media' => 
+      [
+        'buttons' => 
+        [
+          'selectFiles' => 
+          [
+            'withDrop' => 'Drop files or click to select...',
+            'withoutDrop' => 'Click to select...',
+          ],
+          'upload' => 'Upload',
+        ],
+        'dropActive' => 
+        [
+          'title' => 'Drop your files here...',
+          'description' => 'Only the files with a certain extension are allowed.',
+        ],
+        'messages' => 
+        [
+          'preview' => 'This file cannot be previewed.',
+          'uploading' => 'Uploading...',
+          'uploaded' => 'Media files have been succesfully uploaded.',
+          'size' => 'Oops! Some files had the size bigger than the maximum allowed of {bytes}.',
+          'extensions' => 'Oops! Some files have had an extension that was not allowed. Skipping...',
+        ],
+      ],
     ],
     'tenant' => 
     [
@@ -125,6 +188,15 @@ return [
         'cloudiness' => 'Bewölkung',
         'humidity' => 'Luftfeuchte',
         'pressure' => 'Druck',
+      ],
+      'postAdd' => 
+      [
+        'visibility' => 
+        [
+          'address' => 'Address',
+          'district' => 'District',
+          'all' => 'All',
+        ],
       ],
     ],
     'admin' => 
