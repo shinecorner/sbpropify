@@ -44,8 +44,8 @@ class initDB extends Command
         system('composer dump-autoload');
         $bar->advance();
 
-        // $this->call('passport:install', ['--force' => true]);
-        // $bar->advance();
+         $this->call('passport:install', ['--force' => true]);
+         $bar->advance();
 
         $this->call('migrate:fresh');
         $bar->advance();

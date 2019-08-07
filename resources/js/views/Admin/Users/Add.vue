@@ -12,19 +12,19 @@
                     <el-form-item :label="$t('models.user.email')" :rules="validationRules.email" prop="email">
                         <el-input type="email" v-model="model.email"/>
                     </el-form-item>
-                    <el-form-item :label="$t('password')" :rules="validationRules.password" prop="password">
+                    <el-form-item :label="$t('general.password')" :rules="validationRules.password" prop="password">
                         <el-input type="password" v-model="model.password"/>
                     </el-form-item>
-                    <el-form-item :label="$t('confirm_password')" :rules="validationRules.password_confirmation"
+                    <el-form-item :label="$t('general.confirm_password')" :rules="validationRules.password_confirmation"
                                   prop="password_confirmation">
                         <el-input type="password" v-model="model.password_confirmation"/>
                     </el-form-item>
                     <el-form-item :label="$t('models.user.phone')" prop="phone">
                         <el-input type="text" v-model="model.phone"/>
                     </el-form-item>
-                    <el-form-item :label="$t('roles.label')" :rules="validationRules.role" prop="role">
+                    <el-form-item :label="$t('general.roles.label')" :rules="validationRules.role" prop="role">
                         <el-select style="width: 100%;" v-model="model.role">
-                            <el-option :key="role" :label="$t('roles.' + role )" :value="role" v-for="role in allRoles"/>
+                            <el-option :key="role" :label="$t('general.roles.' + role )" :value="role" v-for="role in allRoles"/>
                         </el-select>
                     </el-form-item>
                     <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" prop="settings.language">

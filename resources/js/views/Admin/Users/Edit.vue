@@ -22,14 +22,14 @@
                         </el-row>
                         <el-row :gutter="20">
                             <el-col :md="12">
-                                <el-form-item :label="$t('password')" :rules="validationRules.password"
+                                <el-form-item :label="$t('general.password')" :rules="validationRules.password"
                                             autocomplete="off"
                                             prop="password">
                                     <el-input type="password" v-model="model.password"/>
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12">
-                                <el-form-item :label="$t('confirm_password')"
+                                <el-form-item :label="$t('general.confirm_password')"
                                             :rules="validationRules.password_confirmation"
                                             prop="password_confirmation">
                                     <el-input type="password" v-model="model.password_confirmation"/>
@@ -43,9 +43,9 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12">
-                                <el-form-item :label="$t('roles.label')" :rules="validationRules.role" prop="role">
+                                <el-form-item :label="$t('general.roles.label')" :rules="validationRules.role" prop="role">
                                     <el-select style="width: 100%;" v-model="model.role">
-                                        <el-option :key="role" :label="$t('roles.' + role )" :value="role"
+                                        <el-option :key="role" :label="$t('general.roles.' + role )" :value="role"
                                                 v-for="role in allRoles"/>
                                     </el-select>
                                 </el-form-item>

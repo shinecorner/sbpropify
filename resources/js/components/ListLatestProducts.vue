@@ -1,5 +1,5 @@
 <template>
-    <div class="products">
+    <div class="latest-products">
         <list-latest-table
             :header="header"
             :items="items"
@@ -9,12 +9,20 @@
             @selectionChanged="selectionChanged"
         >
         </list-latest-table>
+        <div class="link-container">
+            <router-link :to="{name: 'adminProducts'}">
+                <span class="title">{{ $t('dashboard.marketplace.go_to_marketplace') }} </span>
+                <i class="el-icon-right icon"/>
+            </router-link>
+        </div>
     </div>
 </template>
 
 <script>
     import {mapActions} from 'vuex';
     import axios from '@/axios';
+    import {format} from 'date-fns'
+
     import {displayError, displaySuccess} from "helpers/messages";
     import LatestListMixin from 'mixins/LatestListMixin';
     
@@ -31,7 +39,7 @@
             return {
                 header: [{
                     type: 'multi-props',
-                    label: this.$t('models.product.product_title'),
+                    label: this.$t('models.product.details'),
                     props: ['title', 'user_email', 'created_at'],
                     minWidth: '250px'
                 }, {
@@ -99,12 +107,23 @@
                   item.type_label = that.$t(`models.product.type.${that.productConstants.type[item.type]}`);
                   item.price = '$' + item.price;
                   item.user_email = item.user.email;
+                  item.title = that.getReducedTitle(item.title);
+                  item.created_at = that.getReadableTime(item.created_at);
                   return item;
                 });
                 that.items = items;
               }).catch(function (error) {
                   console.log(error);
               })
+            },
+            getReducedTitle(val) {
+                if (val.length > 30) {
+                    val = val.substring(0, 30) + '...';
+                }
+                return val;
+            },
+            getReadableTime(timeString) {
+                return format(new Date(timeString), 'D MMMM YYYY HH:mm');
             }
         },
         created() {
@@ -112,3 +131,22 @@
         }
     }
 </script>
+
+<style lang="scss">
+    .latest-products {
+        .link-container {
+            text-align: right;
+            padding: 20px 15px;
+            font-size: 16px;
+
+            a {
+                text-decoration: none;
+                color: #525252;
+
+                &:hover {
+                    color: #303133;
+                }
+            }
+        }
+    }
+</style>

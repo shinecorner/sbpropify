@@ -19,7 +19,7 @@ base.interceptors.request.use(config => {
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
-
+    config.headers.Localization = localStorage.getItem('locale');
     return config;
 }, err => Promise.reject(err));
 

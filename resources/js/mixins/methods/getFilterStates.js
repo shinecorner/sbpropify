@@ -7,7 +7,6 @@ export default {
             const states = await this.getStates({
                 filters: true
             });
-
             return states.data;
         }
     }

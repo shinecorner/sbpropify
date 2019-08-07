@@ -4,9 +4,9 @@
     :type="pickerType"
     align="right"
     unlink-panels
-    :range-separator="$t('date_range.range_separator')"
-    :start-placeholder="$t('date_range.start_date')"
-    :end-placeholder="$t('date_range.end_date')"
+    :range-separator="$t('general.date_range.range_separator')"
+    :start-placeholder="$t('general.date_range.start_date')"
+    :end-placeholder="$t('general.date_range.end_date')"
     :format="viewFormat"
     value-format="dd.MM.yyyy"
     :picker-options="pickerOptions">
@@ -52,7 +52,7 @@ export default {
     },
     pickerOptions: function() {
       const lastWeek = {
-        text: this.$t('date_range.last_week'),
+        text: this.$t('general.date_range.last_week'),
         onClick(picker) {
           let end = subDays(new Date(), 7);
           const start = startOfWeek(end);
@@ -62,7 +62,7 @@ export default {
         }
       };
       const last7Days = {
-        text: this.$t('date_range.last_7_days'),
+        text: this.$t('general.date_range.last_7_days'),
         onClick(picker) {
           const end = new Date();
           const start = new Date();
@@ -71,7 +71,7 @@ export default {
         }
       };
       const last14Days = {
-        text: this.$t('date_range.last_14_days'),
+        text: this.$t('general.date_range.last_14_days'),
         onClick(picker) {
           const end = new Date();
           const start = new Date();
@@ -80,7 +80,7 @@ export default {
         }
       };
       const last30Days = {
-        text: this.$t('date_range.last_30_days'),
+        text: this.$t('general.date_range.last_30_days'),
         onClick(picker) {
           const end = new Date();
           const start = new Date();
@@ -89,7 +89,7 @@ export default {
         }
       };
       const lastMonth = {
-        text: this.$t('date_range.last_month'),
+        text: this.$t('general.date_range.last_month'),
         onClick(picker) {
           let end = subMonths(new Date(), 1);
           const start = startOfMonth(end);
@@ -99,7 +99,7 @@ export default {
         }
       };
       const last3Months = {
-        text: this.$t('date_range.last_3_months'),
+        text: this.$t('general.date_range.last_3_months'),
         onClick(picker) {
           const end = new Date();
           const start = new Date();
@@ -108,7 +108,7 @@ export default {
         }
       };
       const last6Months = {
-        text: this.$t('date_range.last_6_months'),
+        text: this.$t('general.date_range.last_6_months'),
         onClick(picker) {
           const end = new Date();
           const start = new Date();
@@ -117,7 +117,7 @@ export default {
         }
       };
       const lastYear = {
-        text: this.$t('date_range.last_year'),
+        text: this.$t('general.date_range.last_year'),
         onClick(picker) {
           const end = new Date();
           const start = new Date();
@@ -126,7 +126,7 @@ export default {
         }
       };
       const last2Years = {
-        text: this.$t('date_range.last_2_years'),
+        text: this.$t('general.date_range.last_2_years'),
         onClick(picker) {
           const end = new Date();
           const start = new Date();
@@ -138,7 +138,7 @@ export default {
       const that = this;
 
       const allTime = {
-        text: this.$t('date_range.all_time'),
+        text: this.$t('general.date_range.all_time'),
         onClick(picker) {
           const end = new Date();
           const start = new Date(that.startDate);

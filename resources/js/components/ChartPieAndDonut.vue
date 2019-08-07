@@ -138,6 +138,11 @@ export default {
                 url = 'admin/donutChartRequestByCategory';
                 langPrefix = '';
             }
+            else if(this.type === 'request_by_assigned_status'){
+                this.chartType = 'donut';
+                url = 'admin/chartRequestByAssignedProvider';
+                langPrefix = 'dashboard.requests.';
+            }
             else if (this.type === 'news_by_status') {
                 this.chartType = 'donut';
                 url = 'admin/donutChart?table=posts&column=status';

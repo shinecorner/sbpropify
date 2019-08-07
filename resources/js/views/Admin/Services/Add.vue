@@ -26,11 +26,11 @@
                     <el-form-item :label="$t('models.user.email')" :rules="validationRules.email" prop="email">
                         <el-input type="email" v-model="model.email"/>
                     </el-form-item>
-                    <el-form-item :label="$t('password')" :rules="validationRules.password" autocomplete="off"
+                    <el-form-item :label="$t('general.password')" :rules="validationRules.password" autocomplete="off"
                                   prop="user.password">
                         <el-input type="password" v-model="model.user.password"/>
                     </el-form-item>
-                    <el-form-item :label="$t('confirm_password')" :rules="validationRules.password_confirmation"
+                    <el-form-item :label="$t('general.confirm_password')" :rules="validationRules.password_confirmation"
                                   prop="user.password_confirmation">
                         <el-input type="password" v-model="model.user.password_confirmation"/>
                     </el-form-item>

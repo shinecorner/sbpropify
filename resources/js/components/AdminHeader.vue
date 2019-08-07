@@ -54,6 +54,7 @@
                 padding: 0 1em;
                 background: none !important;
                 border-bottom-style: none !important;
+                cursor: default;
 
                 :global(.el-button i) {
                     color: inherit;
@@ -73,6 +74,7 @@
                             height: 100%;
                             vertical-align: baseline;
                             margin-left: 30px;
+                            cursor: pointer;
                         }
                         &:before {
                             content: "";
@@ -90,6 +92,7 @@
                         margin-left: 9px;
                         i {
                             color: #909399;
+                            cursor: pointer;
                             &:hover {
                                 color:black; 
                             }
