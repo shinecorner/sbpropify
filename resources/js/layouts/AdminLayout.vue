@@ -42,12 +42,14 @@
                                     </router-link>
                                 </el-button>
                                 <template v-if="$can($permissions.view.realEstate)">
+                                    <el-button @click="removeMenuActive" type="text">
                                         <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
                                             <el-dropdown-item>
                                                 <i class="icon-cog"/>
                                                 {{$t('menu.settings')}}
                                             </el-dropdown-item>
                                         </router-link>
+                                    </el-button>
                                 </template>
                                 <el-button @click="handleLogout" type="text">
                                     <el-dropdown-item id="logout">
@@ -266,7 +268,10 @@
             },
 
             removeMenuActive() {
-                this.$el.querySelector('.content .is-active').classList.remove('is-active');
+                while( this.$el.querySelector('.content .is-active') != null) 
+                {
+                    this.$el.querySelector('.content .is-active').classList.remove('is-active');
+                }
             },
 
             toggleShow: function() {
@@ -356,6 +361,10 @@
 <style lang="scss" scoped>
     .el-button {
         padding: 0px !important;
+        width: 100%;
+        + .el-button {
+            margin-left: 0px !important;
+        }
     }
     .el-button--text {
         color: #909399 !important;
