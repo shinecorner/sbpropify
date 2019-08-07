@@ -6,6 +6,7 @@
             effect="light" placement="top">
             <template >
                 <el-button :style="{
+                    'padding': '2px 5px',
                     'border-color': getRequestStatusColor(setStatus(status), 'name'),
                     'color' : getRequestStatusColor(setStatus(status), 'name')
                     }" plain :type="setStatus(status)" class="btn-priority-badge btn-hover" size="mini" round>{{ $t(('models.request.status.'+ setStatus(status))) }}</el-button>

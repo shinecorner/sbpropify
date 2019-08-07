@@ -32,7 +32,7 @@
                                                     type="succcess"
                                                     size="mini"
                                                     round
-                                                    :style="{'border-color': '#d2ecd4','color' : '#6AC06F','background-color': '#f0f9f1'}"
+                                                    :style="{'padding': '2px 5px' ,'border-color': '#d2ecd4','color' : '#6AC06F','background-color': '#f0f9f1'}"
                                                 >
                                                     {{element.pinned ? $t('models.post.pinned') : $t('models.post.type.article')}}
                                                 </el-button>
