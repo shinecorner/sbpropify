@@ -8,7 +8,7 @@ return [
     'each_hour_request' => 'Stündlich',
     'average_request_duration' => 'Ø Bearbeitungszeit',
     'week_hour' => 'Woche vs. Stunde',
-    'month_date' => 'Monat vs. Datum',
+    'month_date' => 'Monat vs. Tag',
     'news_by_creation_date' => 'Nachrichten nach Erstellungsdatum',
     'news_by_status' => 'Nachrichten nach Status',
     'news_by_type' => 'Nachrichten nach Typ',
