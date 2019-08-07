@@ -109,7 +109,7 @@
                             </el-col>
                             <el-col :span="16">
                                 <el-card class="chart-card" :header="$t('dashboard.latest_products')">
-                                    <list-latest-products type="latest_products"></list-latest-products>
+                                    <dashboard-latest-products type="latest_products"></dashboard-latest-products>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -186,7 +186,7 @@
     import ChartTenantsByGender from 'components/ChartTenantsByGender';
     import TenantsStatisticsCard from 'components/TenantsStatisticsCard';
 
-    import ListLatestProducts from 'components/ListLatestProducts';
+    import DashboardLatestProducts from 'components/DashboardLatestProducts';
 
     export default {
         name: 'AdminDashboard',
@@ -204,7 +204,7 @@
             ChartTenantsByGender,
             ChartUsersByDevice,
             TenantsStatisticsCard,
-            ListLatestProducts
+            DashboardLatestProducts
         },
         data() {
             return {
