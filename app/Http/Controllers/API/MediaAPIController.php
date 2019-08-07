@@ -487,6 +487,7 @@ class MediaAPIController extends AppBaseController
         }
 
         $data = $request->get('media', '');
+
         if (!$media = $this->serviceRequestRepository->uploadFile('media', $data, $serviceRequest)) {
             return $this->sendError('Media upload error');
         }
@@ -548,7 +549,7 @@ class MediaAPIController extends AppBaseController
     {
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
-            return $this->sendError('Post not found');
+            return $this->sendError('Service Request not found');
         }
 
         $media = $serviceRequest->media->find($media_id);
