@@ -19,9 +19,9 @@ return [
             'created' => 'Erstellt',
             'updated' => 'Aktualisiert',
             'provider_assigned' => 'Dienstleister zugewiesen',
-            'user_assigned' => 'Benutzer Dienstleister',
-            'media_uploaded' => 'Medien hinaufgeladen',
-            'media_deleted' => 'Medien gelöscht'  
+            'user_assigned' => 'Benutzer zugewiesen',
+            'media_uploaded' => 'Mediendateien hinaufgeladen',
+            'media_deleted' => 'Mediendateien gelöscht'  
           ],
           'product' => [],
           'request' => [
@@ -54,7 +54,7 @@ return [
                   'visibility' => 'Die Sichtbarkeit wurde von "{old}" zu "{new}" geändert.',   
                 ],
                 'provider_assigned' => '{providerName} wurde als Dienstleistern zugewiesen.',
-                'user_assigned' => '{userName} wurde als zuständige Person zugewisen.',
+                'user_assigned' => '{userName} wurde als zuständige Person zugewiesen.',
                 'media_uploaded' => 'Mediendateien aktualisiert',
                 'media_deleted' => 'Mediendateien gelöscht',
               ],
@@ -79,7 +79,7 @@ return [
             'post' => [
               'created' => '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
               'updated' => [
-                  'status' => 'The status changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                  'status' => 'Der Status wurde von "{old}" zu "{new}" im {auditable_type} #{auditable_id} geändert.',
                   'published_at' => 'Post published on {new} on {auditable_type} #{auditable_id}.'
                 ]              
               ],
