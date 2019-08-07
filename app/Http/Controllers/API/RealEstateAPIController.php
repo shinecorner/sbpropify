@@ -117,6 +117,9 @@ class RealEstateAPIController extends AppBaseController
     public function update(UpdateRequest $request)
     {
         $input = $request->all();
+        if (key_exists('iframe_url', $input) && is_null($input['iframe_url'])) {
+            $input['iframe_url'] = '';
+        }
 
         /** @var RealEstate $realEstate */
         $realEstate = $this->realEstateRepository->first();

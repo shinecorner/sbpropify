@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Validation\Rule;
 
 /**
  * @SWG\Definition(
@@ -101,7 +100,7 @@ use Illuminate\Validation\Rule;
  *      )
  * )
  */
-class RealEstate extends Model
+class RealEstate extends AuditableModel
 {
     use SoftDeletes;
 
