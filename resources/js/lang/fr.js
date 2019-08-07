@@ -249,6 +249,7 @@ export default {
             },
             search_building: 'Search building',
             search_unit: 'Search unit',
+            search: 'Search',
             confirmDelete: {
                 title: "This will permanently delete the tenant.",
                 text: 'Are you sure?'

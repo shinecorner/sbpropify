@@ -2,15 +2,15 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-content-left">
-                <p class="footer-content-left-text" v-html="$t('footerText.leftSideText')"></p>
+                <p class="footer-content-left-text" v-html="$t('general.footerText.leftSideText')"></p>
             </div>
             <div class="footer-content-right">
                 <a href="https://www.propify.ch " target="_blank">
                     <img class="footer-content-right-logo" src="~img/propify-logo.svg"/>
                 </a>
                 <div class="footer-content-right-text">
-                    <span>&copy; {{currentYear}} {{$t('footerText.companyName')}} <br>
-                        {{$t('footerText.allRightsSaved')}}</span>
+                    <span>&copy; {{currentYear}} {{$t('general.footerText.companyName')}} <br>
+                        {{$t('general.footerText.allRightsSaved')}}</span>
                 </div>
             </div>
         </div>

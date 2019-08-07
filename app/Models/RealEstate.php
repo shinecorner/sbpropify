@@ -137,6 +137,8 @@ class RealEstate extends Model
         'mail_encryption',
         'mail_from_address',
         'mail_from_name',
+        'primary_color',
+        'accent_color'
     ];
 
     /**
@@ -171,6 +173,8 @@ class RealEstate extends Model
         'mail_encryption' => 'string',
         'mail_from_address' => 'string',
         'mail_from_name' => 'string',
+        'primary_color' => 'string',
+        'accent_color' => 'string'
     ];
 
     /**

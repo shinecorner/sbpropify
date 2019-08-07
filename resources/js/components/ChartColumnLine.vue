@@ -2,10 +2,10 @@
     <div v-if="startDate" class="columnchart">
         <div class="chart-filter in-toolbar">
           <el-radio-group v-model="period" class="stack-radios">                
-              <el-radio-button label="day">{{$t('timestamps.days')}}</el-radio-button>
-              <el-radio-button label="week">{{$t('timestamps.weeks')}}</el-radio-button>
-              <el-radio-button label="month">{{$t('timestamps.months')}}</el-radio-button>
-              <el-radio-button label="year">{{$t('timestamps.years')}}</el-radio-button>
+              <el-radio-button label="day">{{$t('general.timestamps.days')}}</el-radio-button>
+              <el-radio-button label="week">{{$t('general.timestamps.weeks')}}</el-radio-button>
+              <el-radio-button label="month">{{$t('general.timestamps.months')}}</el-radio-button>
+              <el-radio-button label="year">{{$t('general.timestamps.years')}}</el-radio-button>
           </el-radio-group>
           <custom-date-range-picker :rangeType="period" :initialRange="dateRange"
             :pickHandler="pickHandler" :startDate="startDate">
@@ -60,10 +60,18 @@ export default {
         params: params
       })
       .then(function (response) {
-        that.yData = [
-          {name: toolTipSeriesName, type: 'bar', data: response.data.data.requests_per_day_ydata},
-          {name: 'Units', type: 'line', data: response.data.data.requests_per_day_ydata} // until new api is given.
-        ];
+        if (that.type == 'buildings_by_creation_date') {
+          const buildings = {name: that.$t('models.building.title'), type: 'bar', data: []};
+          const units = {name: that.$t('models.building.units'), type: 'line', data: []};
+          response.data.data.requests_per_day_ydata.forEach(item => {
+            buildings.data.push(item.buildings);
+            units.data.push(item.units);
+          });
+          that.yData = [buildings, units];
+        }
+        else {
+          that.yData = response.data.data.requests_per_day_ydata;
+        }
         that.xData = response.data.data.requests_per_day_xdata;
       }).catch(function (error) {
           console.log(error);

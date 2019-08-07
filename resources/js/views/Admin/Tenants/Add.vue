@@ -53,7 +53,7 @@
                             <el-divider class="column-divider" content-position="left">
                                 {{$t('models.tenant.contact_info_card')}}
                             </el-divider>
-                            <el-form-item :label="$t('email')" :rules="validationRules.email" prop="email">
+                            <el-form-item :label="$t('general.email')" :rules="validationRules.email" prop="email" >
                                 <el-input autocomplete="off" type="email" v-model="model.email"></el-input>
                             </el-form-item>
                             <el-form-item :label="$t('models.tenant.mobile_phone')" prop="mobile_phone">
@@ -75,10 +75,10 @@
                             <!--                            <el-form-item :label="$t('models.user.profile_image')">-->
                             <!--                                <cropper :resize="false" :viewportType="'circle'" @cropped="cropped"/>-->
                             <!--                            </el-form-item>-->
-                            <el-form-item :label="$t('password')" :rules="validationRules.password" prop="password">
+                            <el-form-item :label="$t('general.password')" :rules="validationRules.password" prop="password">
                                 <el-input autocomplete="off" type="password" v-model="model.password"></el-input>
                             </el-form-item>
-                            <el-form-item :label="$t('confirm_password')" :rules="validationRules.password_confirmation"
+                            <el-form-item :label="$t('general.confirm_password')" :rules="validationRules.password_confirmation"
                                           prop="password_confirmation">
                                 <el-input autocomplete="off" type="password"
                                           v-model="model.password_confirmation"></el-input>

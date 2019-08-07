@@ -174,4 +174,35 @@ return [
         'available'             => 'disponible',
         'size'                  => 'taille',
     ],
+    'general' => [
+      'required' => 'This field is required',
+    ],
+    'price' => [
+      'valid' => 'Please enter a valid price',
+      'required' => 'Price is required',
+    ],
+    'firstName' => [
+      'required' => 'First name is required',
+    ],
+    'lastName' => [
+      'required' => 'Last name is required',
+    ],
+    'phone' => [
+      'required' => 'Phone is required',
+    ],
+    'address' => [
+      'required' => 'Address is required',
+    ],
+    'zip' => [
+      'required' => 'Zip is required',
+    ],
+    'city' => [
+      'required' => 'City is required',
+    ],
+    'title' => [
+      'required' => 'Title is required',
+    ],
+    'terms' => [
+      'required' => 'Please approve with terms and conditions',
+    ],
 ];

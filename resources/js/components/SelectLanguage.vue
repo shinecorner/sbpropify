@@ -1,7 +1,7 @@
 <template>
     <el-radio-group :value="model" @input="$emit('update:model', $event)">
         <el-radio-button :label="language.symbol" v-for="language in languages" :key="language.symbol">
-            <span :class="language.flag"></span> {{$t(`languages.`+ language.symbol)}}
+            <span :class="language.flag"></span> {{$t(`general.languages.`+ language.symbol)}}
         </el-radio-button>
     </el-radio-group>
 </template>

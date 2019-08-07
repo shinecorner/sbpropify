@@ -39,7 +39,7 @@
                         </el-form-item>
                         <el-form-item>
                             <el-button @click="saveRealEstate('realEstateForm')" icon="ti-save" type="primary">
-                                {{$t('actions.save')}}
+                                {{$t('general.actions.save')}}
                             </el-button>
                         </el-form-item>
                     </el-form>
@@ -95,7 +95,7 @@
                                 <el-form-item>
                                     <el-button @click="saveRealEstate('realEstateSettingsForm')" icon="ti-save"
                                                type="primary">
-                                        {{$t('actions.save')}}
+                                        {{$t('general.actions.save')}}
                                     </el-button>
                                 </el-form-item>
                             </el-form>
@@ -108,7 +108,7 @@
                                 <div :key="schedule.day" :md="12"
                                      class="day-wrapper mb20" v-for="schedule in model.opening_hours ">
                                     <div class="day-name">
-                                        <div class="group-name">{{$t(`days.${schedule.day}`)}}</div>
+                                        <div class="group-name">{{$t(`general.days.${schedule.day}`)}}</div>
                                         <el-switch
                                             size="mini"
                                             v-model="schedule.closed"
