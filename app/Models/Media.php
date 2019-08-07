@@ -2,15 +2,59 @@
 
 namespace App\Models;
 
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Facades\Auditor;
 use Spatie\MediaLibrary\Models\Media as SpatieMedia;
 
-class Media extends SpatieMedia
+class Media extends SpatieMedia implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
+    /**
+     * @var array
+     */
+    protected $auditEvents = [
+        'media_uploaded',
+        'media_deleted',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $auditInclude = [
+        'collection_name',
+        'name',
+        'file_name',
+        'mime_type',
+        'disk',
+        'size',
+        'order_column',
+    ];
+
     public static function boot()
     {
         parent::boot();
 
         static::created(function ($model) {
+            Auditor::execute($model->setAuditEvent('media_uploaded'));
         });
+
+        static::deleted(function ($model) {
+            Auditor::execute($model->setAuditEvent('media_deleted'));
+        });
+    }
+
+    public function getMedia_uploadedEventAttributes()
+    {
+        $values = $this->getCreatedEventAttributes();
+        $values[1]['media_id'] = $this->id;
+        $values[1]['media_url'] = $this->getFullUrl();
+        return $values ;
+    }
+
+    public function transformAudit(array $data): array
+    {
+        $data['auditable_id'] = $this->model_id;
+        $data['auditable_type'] = $this->model_type;
+        return $data;
     }
 }
