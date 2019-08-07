@@ -24,7 +24,7 @@ return [
     'before_or_equal'      => ':attribute muss ein Datum vor dem :date oder gleich dem :date sein.',
     'between'              => [
         'numeric' => ':attribute muss zwischen :min & :max liegen.',
-        'file'    => ':attribute muss zwischen :min & :max Kilobytes groß sein.',
+        'file'    => ':attribute muss zwischen :min & :max Kilobytes gross sein.',
         'string'  => ':attribute muss zwischen :min & :max Zeichen lang sein.',
         'array'   => ':attribute muss zwischen :min & :max Elemente haben.',
     ],
@@ -44,7 +44,7 @@ return [
     'filled'               => ':attribute muss ausgefüllt sein.',
     'gt'                   => [
         'numeric' => ':attribute muss mindestens :value sein.',
-        'file'    => ':attribute muss mindestens :value Kilobytes groß sein.',
+        'file'    => ':attribute muss mindestens :value Kilobytes gross sein.',
         'string'  => ':attribute muss mindestens :value Zeichen lang sein.',
         'array'   => ':attribute muss mindestens :value Elemente haben.',
     ],
@@ -64,7 +64,7 @@ return [
     'json'                 => ':attribute muss ein gültiger JSON-String sein.',
     'lt'                   => [
         'numeric' => ':attribute muss kleiner :value sein.',
-        'file'    => ':attribute muss kleiner :value Kilobytes groß sein.',
+        'file'    => ':attribute muss kleiner :value Kilobytes gross sein.',
         'string'  => ':attribute muss kleiner :value Zeichen lang sein.',
         'array'   => ':attribute muss kleiner :value Elemente haben.',
     ],
@@ -76,7 +76,7 @@ return [
     ],
     'max'                  => [
         'numeric' => ':attribute darf maximal :max sein.',
-        'file'    => ':attribute darf maximal :max Kilobytes groß sein.',
+        'file'    => ':attribute darf maximal :max Kilobytes gross sein.',
         'string'  => ':attribute darf maximal :max Zeichen haben.',
         'array'   => ':attribute darf nicht mehr als :max Elemente haben.',
     ],
@@ -84,7 +84,7 @@ return [
     'mimetypes'            => ':attribute muss den Dateityp :values haben.',
     'min'                  => [
         'numeric' => ':attribute muss mindestens :min sein.',
-        'file'    => ':attribute muss mindestens :min Kilobytes groß sein.',
+        'file'    => ':attribute muss mindestens :min Kilobytes gross sein.',
         'string'  => ':attribute muss mindestens :min Zeichen lang sein.',
         'array'   => ':attribute muss mindestens :min Elemente haben.',
     ],
@@ -103,7 +103,7 @@ return [
     'same'                 => ':attribute und :other müssen übereinstimmen.',
     'size'                 => [
         'numeric' => ':attribute muss gleich :size sein.',
-        'file'    => ':attribute muss :size Kilobyte groß sein.',
+        'file'    => ':attribute muss :size Kilobyte gros sein.',
         'string'  => ':attribute muss :size Zeichen lang sein.',
         'array'   => ':attribute muss genau :size Elemente haben.',
     ],
@@ -172,14 +172,14 @@ return [
         'date'                  => 'Datum',
         'time'                  => 'Uhrzeit',
         'available'             => 'verfügbar',
-        'size'                  => 'Größe',
+        'size'                  => 'Grösse',
     ],
     'general' => [
       'required' => 'Dies ist ein Pflichtfeld',
     ],
     'price' => [
-      'valid' => 'Bitte gib einen gültigen Preis ein.',
-      'required' => 'Preis ist ein Pflichtfeld',
+      'valid' => 'Bitte geben Sie einen gültigen Preis ein.',
+      'required' => 'Der Preis ist ein Pflichtfeld',
     ],
     'firstName' => [
       'required' => 'Vorname ist obligatorisch',
@@ -197,7 +197,7 @@ return [
       'required' => 'Postleitzahl ist obligatorisch',
     ],
     'city' => [
-      'required' => 'Ort ist obligatorisch',
+      'required' => 'Ortschaft ist obligatorisch',
     ],
     'title' => [
       'required' => 'Anrede',
