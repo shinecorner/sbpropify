@@ -17,8 +17,9 @@
                         v-if="!link.children && ($can(link.permission) || !link.permission)">
                     <router-link :to="{name: link.route.name}">
                         <i :class="[link.icon, 'icon']"/>
-                        <span class="title">{{ link.title }}</span>
+                        <span class="title" v-if="!collapsed">{{ link.title }}</span>
                     </router-link>
+                    <span class="title" slot="title" v-if="collapsed">{{ link.title }}</span>
                 </el-menu-item>
                 <el-submenu :index="link.title" v-else-if="($can(link.permission) || !link.permission)">
                     <template slot="title">
