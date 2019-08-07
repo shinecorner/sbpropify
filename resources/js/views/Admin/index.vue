@@ -147,12 +147,12 @@
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_title')">
-                                    <chart-pie-and-donut type="tenants_by_title" :colNum="3" :startDate="startDates.tenants"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="tenants_by_title" :colNum="3" :startDate="startDates.tenants" :centered="true"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_gender')">
-                                    <chart-tenants-by-gender type="tenants_by_gender" :colNum="3" :startDate="startDates.tenants"></chart-tenants-by-gender>
+                                    <chart-tenants-by-gender type="tenants_by_gender" :startDate="startDates.tenants"></chart-tenants-by-gender>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">

@@ -76,7 +76,7 @@ export default {
         chart:{
           toolbar: this.toolbar,
           width: '100%',
-          height: 230
+          height: 300
         },
         colors: ['#218BFB', '#84BFFD', '#B5D8FD'],
         plotOptions: {
@@ -126,6 +126,7 @@ export default {
 
       .legend-container {
         max-width: 300px;
+        margin-top: 30px;
         margin-left: auto;
         margin-right: auto;
       }
