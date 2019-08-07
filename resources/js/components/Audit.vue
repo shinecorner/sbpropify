@@ -1,13 +1,15 @@
 <template>
     <div class="audit" v-infinite-scroll="fetch">
         <el-col class="filter-col" v-if="showFilter">
-            <el-divider content-position="left">
+            <el-divider :content-position="filterPosition">
                     <el-popover
+                    popper-class="popover-filter"
                     placement="bottom"
                     width="200"
                     trigger="click">
                         <el-button type="success" icon="icon-filter" size="mini" slot="reference" plain round>Filters</el-button>
-                        <filters :data="filters.data" :schema="filters.schema" @changed="filtersChanged" @update:data="filterReset" />
+                        <filters ref="filters" :data="filters.data" :schema="filters.schema" @changed="filtersChanged" @update:data="filterReset" />
+                        <el-button size="mini" icon="icon-eraser" @click="filterReset" type="success">Reset filters</el-button>
                   </el-popover>
             </el-divider>
         </el-col>
@@ -17,7 +19,7 @@
         </placeholder>
             <el-timeline v-else>
                 <template v-for="(audit, date) in audits.data">
-                    <el-timeline-item v-for="(content, index) in audit.content" :key="audit.id+'-'+index" :timestamp="`${audit.userName} • ${formatDatetime(date)}`">
+                    <el-timeline-item v-html="content" v-for="(content, index) in audit.content" :key="audit.id+'-'+index" :timestamp="`${audit.userName} • ${formatDatetime(date)}`">
                         {{content}}
                     </el-timeline-item>
                 </template>
@@ -41,6 +43,11 @@
         props: {
             id: {
                 type: Number
+            },
+            filterPosition: {
+                default: 'right',
+                type: String,
+                validator: filterPosition => ['left', 'right'].includes(filterPosition)
             },
             showFilter: Boolean,
             type: {
@@ -170,8 +177,7 @@
                     this.audits.current_page = undefined
                     await this.fetch();
             },
-            async fetch (params) {
-
+            async fetch (params) {              
                 // Get current page and last page of the displayed audits
                 const {
                     current_page,
@@ -189,30 +195,25 @@
 
                 let page = current_page || 0
                 page++
+                const auditable_type = this.type ? this.type : this.filters.data.auditable_type
                 // Fetch audits
-                // this.type='product'
-                // this.id = 153
                 const {data:{data}} = await this.axios.get('audits?' + queryString.stringify({
                     sortedBy: 'desc',
                     orderBy: 'created_at',
                     page,
                     per_page: 25,
                     auditable_id: this.id,
-                    auditable_type: this.type,
+                    auditable_type: auditable_type,
+                    event: this.filters.data.event,
                     ...params,
-                    ...this.filters.data
                 }))
-
+                
                 try{
 
                 // Extract audits from response
                 
-                    // Force no id for testing
-                    // @TODO: remove 
-                    // this.id = undefined
-
                 let constant_variables = {}
-                switch (this.type) {
+                switch (auditable_type) {
                     case 'request': constant_variables = this.$constants.service_requests
                     break;
                     case 'post': constant_variables = this.$constants.posts;
@@ -220,8 +221,6 @@
                     case 'product': constant_variables = this.$constants.products;
                     break;
                 }
-                console.log('constant_variables')
-                console.log(constant_variables)
                 const translation_with_id = this.id ? 'withId': 'withNoId'
                 const audits = data.data.reduce((obj, current, idx) => {
                     let audit_replacer = [];
@@ -235,11 +234,11 @@
                                 audit_replacer[Object.keys(current.new_values)[new_idx]] = []
                                 const type = Object.keys(current.new_values)[new_idx];
                                 if(type in constant_variables){
-                                    audit_replacer[type]['new'] = this.$t(`models.${this.type}.${type}.${constant_variables[type][new_value]}`)
+                                    audit_replacer[type]['new'] = this.$t(`models.${auditable_type}.${type}.${constant_variables[type][new_value]}`)
                                 }else{
                                     switch (type) {
                                         case 'category_id':
-                                            audit_replacer[type]['new'] = this.$t(`models.${this.type}.category_options.${this.categories[new_value]}`);
+                                            audit_replacer[type]['new'] = this.$t(`models.${auditable_type}.category_options.${this.categories[new_value]}`);
                                         break;
                                         case 'due_date':
                                             audit_replacer[type]['new'] = this.formatDatetime(new_value);
@@ -250,16 +249,18 @@
                                         default: audit_replacer[type]['new'] = new_value
                                     }
                                 }
+                                audit_replacer[type]['new'] = "<i>" + audit_replacer[type]['new'] + "</i>"
+
                             })
                             //  Build old values array for type
                             Object.values(current.old_values).map((old_value, old_idx) => {
                                 const type = Object.keys(current.old_values)[old_idx];
                                 if(type in constant_variables){
-                                    audit_replacer[type]['old'] = this.$t(`models.${this.type}.${type}.${constant_variables[type][old_value]}`)
+                                    audit_replacer[type]['old'] = this.$t(`models.${auditable_type}.${type}.${constant_variables[type][old_value]}`)
                                 }else{
                                     switch (type) {
                                         case 'category_id':
-                                            audit_replacer[type]['old'] = this.$t(`models.${this.type}.category_options.${this.categories[old_value]}`);
+                                            audit_replacer[type]['old'] = this.$t(`models.${auditable_type}.category_options.${this.categories[old_value]}`);
                                         break;
                                         case 'due_date':
                                             audit_replacer[type]['old'] = this.formatDatetime(old_value);
@@ -267,6 +268,7 @@
                                         default: audit_replacer[type]['old'] = old_value
                                     }
                                 }
+                                audit_replacer[type]['old'] = "<i>" + audit_replacer[type]['old'] + "</i>"
                             })
 
                             //  For each type find the content text located in the translation file, 
@@ -354,20 +356,37 @@
             left: 0;
             padding:0;
         }
+        .el-divider__text.is-right{
+            right: 0;
+            padding:0;
+        }
         .filter-col{
-            padding-bottom:20px;
-            .el-button [class*="icon-"] + span{
-                margin-left: 5px;
-            }
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            padding-bottom: 20px;
+            
         }
         .el-timeline {
-            padding: 0;
+            padding: 0 0 0 1px;
             height: 100%;
-            overflow: auto;
+            overflow-y: auto;
+            overflow-x: hidden;
             .audit-timestamp{
                 font-size:11px;
                 color:#9e9e9e;
             }
         }
+        
+}
+</style>
+<style lang="scss">
+.popover-filter {
+    .el-button [class*="icon-"] + span{
+        margin-left: 5px;
     }
+    .el-button{
+        width: 100%;
+        margin-top: 10px;
+    }
+}
 </style>
