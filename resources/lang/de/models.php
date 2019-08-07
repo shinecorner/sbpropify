@@ -599,6 +599,13 @@ return [
       'contact_enable' => 'Meine Kontakte aktivieren',
       'templates' => 'Templates',
       'cleanify_email' => 'Cleanify email',
+      'mail_encryption' => 'Verschlüsselung',
+      'mail_from_address' => 'Von Adresse',
+      'mail_from_name' => 'Von Name',
+      'mail_host' => 'Wirt',
+      'mail_password' => 'Passwort',
+      'mail_port' => 'Hafen',
+      'mail_username' => 'Benutzername',
       'iframe_url' => 
       [
         'label' => 'Iframe URL',

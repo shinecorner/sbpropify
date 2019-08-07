@@ -29,28 +29,5 @@ return [
     'services' => 'Service Partners',
     'activity' => 'Activity',
     'propertyManagers' => 'Property managers',
-    'templates' => 'Templates',
-    'pages' => 
-    [
-      'profile' => 
-      [
-        'pageTitle' => 'Profile',
-        'profile' => 'Profile',
-        'account' => 'Account',
-        'security' => 'Security',
-        'notifications' => 'Notifications',
-      ],
-      'user' => 
-      [
-        'title' => 'Users',
-      ],
-      'request_activities' => 
-      [
-        'title' => 'Request activities',
-      ],
-      'tenant' => 
-      [
-        'title' => 'Tenants',
-      ],
-    ],
+    'templates' => 'Templates'
 ];
