@@ -579,6 +579,7 @@ export default {
                 "email": "E-Mail",
                 "personal_phone": "Telefon privat",
                 "private_phone": "Telefon privat",
+                "created_date": "Aangemaakte datum",
                 "created_at": "Datum",
                 "edit": "Öffnen",
                 "delete": "Löschen",
@@ -598,6 +599,7 @@ export default {
                 },
                 "search_building": "Liegenschaft suchen",
                 "search_unit": "Einheit suchen",
+                "search": "Suchen",
                 "confirmDelete": {
                     "title": "Der Mieter wird endgültig gelöscht",
                     "text": "Sind Sie sicher?"
@@ -761,6 +763,10 @@ export default {
                 "title": "Einheiten",
                 "not_found": "Einheit nicht gefunden",
                 "add": "Einheit hinzufügen",
+                "tenantType": {
+                    "attached": "Mieter erfolgreich gebunden",
+                    "detached": "Mieter erfolgreich abgezogen"
+                },
                 "name": "Einheit Nummer",
                 "created_at": "Datum",
                 "edit": "Öffnen",
