@@ -307,25 +307,7 @@ export default {
             "services": "Service Partners",
             "activity": "Activity",
             "propertyManagers": "Property managers",
-            "templates": "Templates",
-            "pages": {
-                "profile": {
-                    "pageTitle": "Profile",
-                    "profile": "Profile",
-                    "account": "Account",
-                    "security": "Security",
-                    "notifications": "Notifications"
-                },
-                "user": {
-                    "title": "Users"
-                },
-                "request_activities": {
-                    "title": "Request activities"
-                },
-                "tenant": {
-                    "title": "Tenants"
-                }
-            }
+            "templates": "Templates"
         },
         "auth": {
             "failed": "These credentials do not match our records.",
@@ -345,6 +327,24 @@ export default {
             "password": "Password",
             "url": "URL",
             "code": "Code"
+        },
+        "pages": {
+            "profile": {
+                "pageTitle": "Profile",
+                "profile": "Profile",
+                "account": "Account",
+                "security": "Security",
+                "notifications": "Notifications"
+            },
+            "user": {
+                "title": "Users"
+            },
+            "request_activities": {
+                "title": "Request activities"
+            },
+            "tenant": {
+                "title": "Tenants"
+            }
         },
         "components": {
             "common": {
@@ -1069,6 +1069,13 @@ export default {
                 "templates": "Templates",
                 "contact_enable": "Enable 'My contacts'",
                 "cleanify_email": "Cleanify email",
+                "mail_encryption": "Encryption",
+                "mail_from_address": "From address",
+                "mail_from_name": "From Name",
+                "mail_host": "Host",
+                "mail_password": "Password",
+                "mail_port": "Port",
+                "mail_username": "Username",
                 "iframe_url": {
                     "label": "Iframe URL",
                     "validation": "Iframe URL should be a valid URL"

@@ -246,6 +246,7 @@ export default {
             personal_phone: 'Personal phone',
             private_phone: 'Personal phone',
             created_at: 'Date',
+            created_date: 'Created Date',
             edit: 'Edit',
             delete: 'Delete',
             id: 'ID',
