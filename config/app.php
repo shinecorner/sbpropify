@@ -181,7 +181,7 @@ return [
         Laravel\Passport\PassportServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-
+        MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
 
         /*

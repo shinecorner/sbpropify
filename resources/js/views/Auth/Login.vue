@@ -1,21 +1,21 @@
 <template>
     <el-form :model="model" ref="form">
-        <el-form-item prop="email" :label="$t('email')" :rules="validationRules.email">
+        <el-form-item prop="email" :label="$t('general.email')" :rules="validationRules.email">
             <el-input type="email" v-model="model.email" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item prop="password" :label="$t('password')" :rules="validationRules.password">
+        <el-form-item prop="password" :label="$t('general.password')" :rules="validationRules.password">
             <el-input type="password" v-model="model.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
-            <el-checkbox>{{$t('remember_me')}}</el-checkbox>
+            <el-checkbox>{{$t('general.remember_me')}}</el-checkbox>
             <router-link :to="{name: 'forgot'}">
                 <el-button type="text">
-                    {{$t('forgot_password')}}
+                    {{$t('general.forgot_password')}}
                 </el-button>
             </router-link>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" class="text-center w100p" @click="submit">{{$t('login')}}</el-button>
+            <el-button type="primary" class="text-center w100p" @click="submit">{{$t('general.login')}}</el-button>
         </el-form-item>
     </el-form>
 </template>

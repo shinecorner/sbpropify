@@ -1,13 +1,13 @@
 <template>
     <div class="audit" v-infinite-scroll="fetch">
         <el-col class="filter-col" v-if="showFilter">
-            <el-divider content-position="right">
+            <el-divider content-position="left">
                     <el-popover
                     placement="bottom"
                     width="200"
                     trigger="click">
-                        <el-button type="success" icon="el-icon-sort" size="mini" slot="reference" plain round>Filters</el-button>
-                        <filters :data="filters.data" :schema="filters.schema" @changed="filtersChanged"/>
+                        <el-button type="success" icon="icon-filter" size="mini" slot="reference" plain round>Filters</el-button>
+                        <filters :data="filters.data" :schema="filters.schema" @changed="filtersChanged" @update:data="filterReset" />
                   </el-popover>
             </el-divider>
         </el-col>
@@ -45,7 +45,6 @@
             showFilter: Boolean,
             type: {
                 type: String,
-                required: true,
                 validator: type => ['post', 'product', 'request'].includes(type)
             }
         },
@@ -54,24 +53,11 @@
             Filters
         },
         data () {
-            const filterSchema = [{
-                type: 'el-select',
-                title: 'Filters',
-                name: 'event',
-                props: {
-                    clearable: true
-                },
-                children: [{
-                    type: 'el-option',
-                    props: {
-                        label: 'All',
-                        value: null
-                    }
-                }]
-            }];
+            const filterSchema = [];
 
             const filterData = {
-                category: null
+                event: null,
+                auditable_type: null,
             };
             return {
                 audits: {
@@ -86,10 +72,103 @@
             }
         },
         methods: {
-            async filtersChanged (filters) {
-                this.audits.data = undefined
-                this.audits.current_page = undefined
-                await this.fetch();
+            async filterReset(){
+                let schema_children = [];
+                let filter_name = '';
+                this.filters = {
+                    schema: [],
+                    data: {
+                        event: null,
+                        auditable_type: null,
+                    }
+                };
+                schema_children.push({
+                            type: 'el-option',
+                            props: {
+                                label: 'All',
+                                value: null
+                            }
+                        });
+                if(this.type){
+                    // If there is type then only show event options
+                    // Get type options from translation files
+                    filter_name = 'event'
+                    const filter_event_translations = this.$t(`components.common.audit.filter.${this.type}`);
+                    const filter_event_options = Object.keys(filter_event_translations).map((key, index) => {
+                        // Push to schema array
+                        schema_children.push({
+                            type: 'el-option',
+                            props: {
+                                label: filter_event_translations[key],
+                                value: key
+                            }
+                        })
+                    });                
+                }else{
+                    // If there is no type prop on audit component then show type select
+                    // Get filter translations from file
+                    filter_name = 'auditable_type'
+                    const filter_type_translations = this.$t(`components.common.audit.filter.type`);
+                    const filter_type_options = Object.keys(filter_type_translations).map((key, index) => {
+                    schema_children.push({
+                        type: 'el-option',
+                        props: {
+                            label: filter_type_translations[key],
+                            value: key
+                            }
+                        })
+                    });
+                }
+                this.filters.schema.push({
+                    type: 'el-select',
+                    title: 'Type',
+                    name: filter_name,
+                    props: {
+                        size: 'mini'
+                    },
+                    children: schema_children
+                })
+                },
+                async filtersChanged (filters) {
+                    // If type filter is set search for second select
+                    if(filters.auditable_type && filters.auditable_type != ''){
+                        let schema_children = [];
+                        const filter_event_translations = this.$t(`components.common.audit.filter.${filters.auditable_type}`);
+                        const filter_event_options = Object.keys(filter_event_translations).map((key, index) => {
+                            // Push to schema array
+                            schema_children.push({
+                                type: 'el-option',
+                                props: {
+                                    label: filter_event_translations[key],
+                                    value: key
+                                }
+                            })
+                        });
+                        //remove previous select if exists
+                        this.filters.schema.splice(1,1)
+                        //remove any set event data in filter
+                        if(!Object.keys(filter_event_translations).includes(this.filters.data.event))
+                        {
+                        this.filters.data.event = null
+                        }
+                        this.filters.schema.push({
+                            type: 'el-select',
+                            title: 'Event type',
+                            name: 'event',
+                            props: {
+                                size: 'mini'
+                            },
+                            children: schema_children
+                        });
+                    }else{
+                        this.filters.schema.splice(1,1)
+                        if(this.filters.schema.findIndex(x => x.name == 'type') != -1){
+                            this.filters.data.event = null
+                        }
+                    }
+                    this.audits.data = undefined
+                    this.audits.current_page = undefined
+                    await this.fetch();
             },
             async fetch (params) {
 
@@ -141,6 +220,8 @@
                     case 'product': constant_variables = this.$constants.products;
                     break;
                 }
+                console.log('constant_variables')
+                console.log(constant_variables)
                 const translation_with_id = this.id ? 'withId': 'withNoId'
                 const audits = data.data.reduce((obj, current, idx) => {
                     let audit_replacer = [];
@@ -240,17 +321,7 @@
         async mounted () {
             const {data:{data}} = await this.axios.get('requestCategories/tree?get_all=true');
             // Get filter options from translation file and add the to filter object
-            const filter_event_translations = this.$t(`components.common.audit.filter.${this.type}`);
-            const filter_event_options = Object.keys(filter_event_translations).map((key, index) => {
-                this.filters.schema[0].children.push({
-                    type: 'el-option',
-                    props: {
-                        label: filter_event_translations[key],
-                        value: key
-                    }
-                })
-            });
-            // console.log(filter_event_options)
+            
             const flattenCategories = categories => categories.reduce((obj, category) => {
                 obj[category.id] = category.name.toLowerCase().replace(/ /g,"_");
 
@@ -263,8 +334,7 @@
             }, {})
 
             this.categories = flattenCategories(data)
-
-
+            await this.filterReset();
         }
     }
 </script>
@@ -280,12 +350,15 @@
                 color: darken(#fff, 28%);
             }
         }
-        .el-divider__text.is-right{
-            right: 0;
+        .el-divider__text.is-left{
+            left: 0;
             padding:0;
         }
         .filter-col{
             padding-bottom:20px;
+            .el-button [class*="icon-"] + span{
+                margin-left: 5px;
+            }
         }
         .el-timeline {
             padding: 0;

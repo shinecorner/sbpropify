@@ -248,6 +248,7 @@ export default {
             },
             search_building: 'Liegenschaft suchen',
             search_unit: 'Einheit suchen',
+            search: 'Suchen',
             confirmDelete: {
                 title: "Der Mieter wird endgültig gelöscht",
                 text: 'Sind Sie sicher?'

@@ -1,24 +1,24 @@
 <template>
     <card>
         <el-form :model="model" label-width="224px" ref="form">
-            <el-form-item :label="$t('old_password')" :rules="validationRules.password_old"
+            <el-form-item :label="$t('general.old_password')" :rules="validationRules.password_old"
                           prop="password_old">
                 <el-input autocomplete="off" type="password"
                           v-model="model.password_old"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('new_password')" :rules="validationRules.password"
+            <el-form-item :label="$t('general.new_password')" :rules="validationRules.password"
                           prop="password">
                 <el-input autocomplete="off" type="password"
                           v-model="model.password"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('new_password_confirmation')" :rules="validationRules.password_confirmation"
+            <el-form-item :label="$t('general.new_password_confirmation')" :rules="validationRules.password_confirmation"
                           prop="password_confirmation">
                 <el-input autocomplete="off" type="password"
                           v-model="model.password_confirmation"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button @click="submit" icon="ti-save" type="primary">
-                    {{$t('change')}}
+                    {{$t('general.change')}}
                 </el-button>
             </el-form-item>
         </el-form>

@@ -1,4 +1,4 @@
-<template>
+    <template>
     <div class="units-edit ">
         <heading :title="title" icon="ti-user" shadow="heavy" style="margin-bottom: 20px;">
             <edit-actions :saveAction="submit" route="adminUnits"/>

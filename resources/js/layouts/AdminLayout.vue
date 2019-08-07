@@ -10,7 +10,7 @@
                     </div>
                     <div class="language-check-box">
                         <div class="language-check-box-title">
-                            {{$t('chooseLanguage')}}
+                            {{$t('general.chooseLanguage')}}
                         </div>
                         <div class="language-check-box-body">
                             <ul class="language-check-box-body-item" v-for='language in this.languages' :key="language.symbol" @click='itemClicked(language.symbol, language.flag)'>
@@ -25,36 +25,42 @@
             </div>
             
             <div id="dropdown" class="dropdown-menu" ref="prev">
-                <avatar :src="user.avatar" :name="user.name" :size="33"/>
                 <el-dropdown trigger="click">
-                    <span class="el-dropdown-link">
-                        {{user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
-                    </span>
-                    
-                    <el-dropdown-menu slot="dropdown" :style="dropmenuwidth">
-                            <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
-                                <el-dropdown-item>
-                                    <i class="icon-user"/>
-                                    {{$t('menu.profile')}}
-                                </el-dropdown-item>
-                            </router-link>
-                            <template v-if="$can($permissions.view.realEstate)">
-                                    <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
+                    <div>
+                        <avatar :src="user.avatar" :name="user.name" :size="33" />
+                        <span class="el-dropdown-link">
+                            {{user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
+                        </span>
+                        
+                        <el-dropdown-menu slot="dropdown" :style="dropmenuwidth">
+                                <el-button @click="removeMenuActive" type="text">
+                                    <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
                                         <el-dropdown-item>
-                                            <i class="icon-cog"/>
-                                            {{$t('menu.settings')}}
+                                            <i class="icon-user"/>
+                                            {{$t('menu.profile')}}
                                         </el-dropdown-item>
                                     </router-link>
-                            </template>
-                            <el-dropdown-item>
-                                <el-button @click="handleLogout" type="text">
-                                    <div class="logout-button">
-                                        <i class="icon-logout"/>
-                                        {{$t('menu.logout')}}
-                                    </div>
                                 </el-button>
-                            </el-dropdown-item>
-                    </el-dropdown-menu>
+                                <template v-if="$can($permissions.view.realEstate)">
+                                    <el-button @click="removeMenuActive" type="text">
+                                        <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
+                                            <el-dropdown-item>
+                                                <i class="icon-cog"/>
+                                                {{$t('menu.settings')}}
+                                            </el-dropdown-item>
+                                        </router-link>
+                                    </el-button>
+                                </template>
+                                <el-button @click="handleLogout" type="text">
+                                    <el-dropdown-item id="logout">
+                                        <div class="logout-button">
+                                            <i class="icon-logout"/>
+                                            {{$t('menu.logout')}}
+                                        </div>
+                                    </el-dropdown-item>
+                                </el-button>
+                        </el-dropdown-menu>
+                    </div>
                 </el-dropdown>
             </div>
         </a-header>
@@ -105,6 +111,7 @@
 
                 isCallapsed: false,
                 dropdownwidth: 0,
+                currActive: ''
             }
         },
 
@@ -219,7 +226,7 @@
                 }];
             },
             dropmenuwidth () {
-                return `width: ${this.dropdownwidth + 13.5}px;`
+                return `width: ${this.dropdownwidth + 12}px;`
             }
         },
 
@@ -244,7 +251,7 @@
             },
 
             handleLogout() {
-                this.$confirm(this.$t('swal.logout_confirm'), this.$t('swal.delete.title'), {
+                this.$confirm(this.$t('general.swal.logout_confirm'), this.$t('general.swal.delete.title'), {
                     type: 'warning'
                 }).then(() => {
                     //this.$router.push({name: 'login'});
@@ -260,6 +267,13 @@
                 });
             },
 
+            removeMenuActive() {
+                while( this.$el.querySelector('.content .is-active') != null) 
+                {
+                    this.$el.querySelector('.content .is-active').classList.remove('is-active');
+                }
+            },
+
             toggleShow: function() {
                 this.showMenu = !this.showMenu;
             },
@@ -267,6 +281,9 @@
             itemClicked: function(item, flag) {
                 // this.toggleShow();
                 this.onClick(item, flag);
+                //this.$router.push({ name: 'adminBuildings' });
+                //this.$router.push({ path: `/` })
+                //this.$router.push({ path: `/admin/buildings` })
             },
 
             changeLanguage: function(language) {
@@ -304,7 +321,7 @@
 
             getDropdownWidth() {
                 this.dropdownwidth = this.$refs.prev.clientWidth;
-            }
+            },
 
         },
 
@@ -342,11 +359,20 @@
     }
 </script>
 <style lang="scss" scoped>
+    .el-button {
+        padding: 0px !important;
+        width: 100%;
+        + .el-button {
+            margin-left: 0px !important;
+        }
+    }
     .el-button--text {
         color: #909399 !important;
+        width: 100%;
+        text-align: left;
     }
     .el-dropdown-menu {
-        margin: 16px 10px 16px 0px !important;
+        margin: 16px 8px 16px 0px !important;
         .el-dropdown-menu__item {
             padding: 0px 12px !important;
             text-align: left;
@@ -429,6 +455,7 @@
         }
         .dropdown-menu {
             min-width: 118px;
+            cursor: pointer;
             .avatar {
                 margin-right: 3%;
                 border: solid #c2c2c2 2px;
@@ -436,7 +463,6 @@
                 color: white !important;
             }
             .el-dropdown-link {
-                cursor: pointer;
                 color: #909399;
                 .el-icon-arrow-down {
                     font-size: 12px;
@@ -484,6 +510,7 @@
                 justify-content: center;
                 align-items: center;
                 transition: 0.2s ease-in;
+                cursor: pointer;
 
                 &:hover{
                     background: #B4B4B4;
@@ -533,7 +560,7 @@
                 .language-check-box-body-item{
                     padding: 0;
                     margin: 0;
-
+                    cursor: pointer;
                     li{
                         display: flex;
                         justify-content: flex-start;

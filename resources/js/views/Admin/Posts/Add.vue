@@ -70,7 +70,7 @@
                         <el-form-item :label="$t('models.post.content')" :rules="validationRules.content"
                                       prop="content">
                             <el-input
-                                :autosize="{minRows: 5}"
+                                :autosize="{minRows: 15}"
                                 type="textarea"
                                 v-model="model.content">
                             </el-input>
@@ -90,6 +90,9 @@
                 </el-col>
                 <el-col :md="12">
                     <card :loading="loading" class="mb20">
+                        <el-divider class="column-divider" content-position="left">
+                            {{$t('models.post.buildings')}}
+                        </el-divider>
                         <el-row :gutter="10">
                             <el-col :lg="6">
                                 <el-select @change="resetToAssignList"
@@ -131,6 +134,9 @@
                     <template v-if="model.pinned">
 
                         <card :loading="loading" class="mt15">
+                            <el-divider class="column-divider" content-position="left">
+                                {{$t('models.post.placeholders.search_provider')}}
+                            </el-divider>
                             <el-row :gutter="10">
                                 <el-col :lg="24" :xl="24">
                                     <el-select
@@ -158,6 +164,9 @@
                         </card>
 
                         <card :loading="loading" class="mt15">
+                            <el-divider class="column-divider" content-position="left">
+                                {{$t('models.post.pinned')}}
+                            </el-divider>
                             <el-row :gutter="20">
                                 <el-col :md="12">
                                     <el-form-item :label="$t('models.post.execution_interval.start')"
@@ -207,6 +216,7 @@
                                 <el-switch style="margin-left: 10px" v-model="model.notify_email">
                                 </el-switch>
                             </el-form-item>
+                            <span>Pinned Notification</span>
                         </card>
                     </template>
 

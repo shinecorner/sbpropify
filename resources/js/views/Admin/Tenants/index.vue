@@ -136,20 +136,16 @@
                 });
             },
             async getStateBuildings() {
-                this.loading = true;
                 const buildings = await this.getBuildings({
                     get_all: true
                 });
-                this.loading = false;
 
                 return buildings.data;
             },
             async getBuildingUnits() {
-                this.loading = true;
                 const units = await this.getUnits({
                     get_all: true
                 });
-                this.loading = false;
 
                 return units.data;
             },

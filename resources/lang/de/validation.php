@@ -174,4 +174,35 @@ return [
         'available'             => 'verfügbar',
         'size'                  => 'Größe',
     ],
+    'general' => [
+      'required' => 'Dies ist ein Pflichtfeld',
+    ],
+    'price' => [
+      'valid' => 'Bitte gib einen gültigen Preis ein.',
+      'required' => 'Preis ist ein Pflichtfeld',
+    ],
+    'firstName' => [
+      'required' => 'Vorname ist obligatorisch',
+    ],
+    'lastName' => [
+      'required' => 'Name ist obligatorisch',
+    ],
+    'phone' => [
+      'required' => 'Telefon ist obligatorisch',
+    ],
+    'address' => [
+      'required' => 'Adresse ist obligatorisch',
+    ],
+    'zip' => [
+      'required' => 'Postleitzahl ist obligatorisch',
+    ],
+    'city' => [
+      'required' => 'Ort ist obligatorisch',
+    ],
+    'title' => [
+      'required' => 'Anrede',
+    ],
+    'terms' => [
+      'required' => 'Please approve with terms and conditions',
+    ],
 ];
