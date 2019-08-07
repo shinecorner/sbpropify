@@ -17,7 +17,7 @@ trait UniqueIDFormat
      */
     public static function bootUniqueIDFormat()
     {
-        static::created(function (self $model) {
+        static::created(function ($model) {
             $old = AuditableObserver::$restoring;
             AuditableObserver::$restoring = true;
             $propName = $model->getTable();
