@@ -7,7 +7,7 @@ export default (config = {}) => {
                 let validateObject = this[model];
                 if(this.original_email !== validateObject.email) {
                     try {
-                        const resp = await axios.get('users/check-email?email=' + validateObject.email)
+                        const resp = await axios.get('users/check-email?email=' + validateObject.email);
                         if(resp)
                         {
                             callback(new Error(resp.data.message));

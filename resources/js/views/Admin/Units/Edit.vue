@@ -134,6 +134,49 @@
                     />
                 </card>
             </el-col>
+            <el-col :md="12">
+                <card class="mt15" :loading="loading">
+                    <el-row :gutter="20">   
+                        <el-col :lg="12" :xl="14">
+                            <el-select
+                                :loading="remoteLoading"
+                                :placeholder="$t('models.tenant.search')"
+                                :remote-method="remoteSearchTenants"
+                                class="custom-remote-select"
+                                filterable
+                                remote
+                                reserve-keyword
+                                style="width: 100%;"
+                                v-model="toAssign"
+                            >
+                                <div class="custom-prefix-wrapper" slot="prefix">
+                                    <i class="el-icon-search custom-icon"></i>
+                                </div>
+                                <el-option
+                                    :key="tenant.id"
+                                    :label="tenant.name"
+                                    :value="tenant.id"
+                                    v-for="tenant in tenants"/>
+                            </el-select>
+                        </el-col>
+                        <el-col :lg="6" :xl="4">
+                            <el-button :disabled="!toAssign" @click="assignTenant" class="full-button"
+                                        icon="ti-save" type="primary">
+                                {{$t('models.request.assign')}}
+                            </el-button>
+                        </el-col>
+                    </el-row>
+                    <relation-list
+                        :actions="assigneesActions"
+                        :columns="assigneesColumns"
+                        :filterValue="model.id"
+                        fetchAction="getTenantAssignees"
+                        filter="unit_id"
+                        ref="assigneesList"
+                        v-if="model.id"
+                    />
+                </card>
+            </el-col>
         </el-row>
     </div>
 </template>
@@ -156,6 +199,28 @@
             Card,
             EditActions,
             RelationList
+        },
+        data() {
+            return {
+                assigneesColumns: [{
+                    prop: 'name',
+                    label: this.$t('models.propertyManager.name')
+                }, {
+                    prop: 'statusString',
+                    label: this.$t('models.request.userType.label'),
+                    i18n: this.translateType
+                }],
+                assigneesActions: [{
+                    width: '180px',
+                    buttons: [{
+                        title: this.$t('models.request.unassign'),
+                        tooltipMode: true,
+                        type: 'danger',
+                        icon: 'el-icon-close',
+                        onClick: this.notifyUnassignment
+                    }]
+                }]
+            }
         },
         methods: {            
             ...mapActions([
