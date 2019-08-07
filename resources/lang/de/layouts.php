@@ -10,9 +10,9 @@ return [
     [
       'dashboard' => 'Dashboard',
       'myTenancy' => 'Mein Dossier',
-      'myPersonalData' => 'PersÃ¶nliche Angaben',
+      'myPersonalData' => 'Persönliche Angaben',
       'myRecentContract' => 'Mietvertrag',
-      'myDocuments' => 'Dokumentation',
+      'myDocuments' => 'Objekt-Dokumentation',
       'myContactPersons' => 'Kontaktpersonen',
       'posts' => 'Pinnwand',
       'requests' => 'Anfragen',
