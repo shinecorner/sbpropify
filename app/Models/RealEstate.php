@@ -214,12 +214,25 @@ class RealEstate extends AuditableModel
         return $this->hasOne(Address::class, 'id', 'address_id');
     }
 
+    /**
+     * @param $val
+     * @return mixed
+     */
     public function getMailPasswordAttribute($val)
     {
         return \Crypt::decryptString($val);
     }
+
+    /**
+     * @param $val
+     */
     public function setMailPasswordAttribute($val)
     {
-        $this->attributes['mail_password'] = \Crypt::encryptString($val);
+        $original = $this->getOriginal('mail_password');
+        if (\Crypt::decryptString($original) == $val) {
+            $this->attributes['mail_password'] = $original;
+        } else {
+            $this->attributes['mail_password'] = \Crypt::encryptString($val);
+        }
     }
 }
