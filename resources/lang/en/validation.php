@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Validation Language Lines
@@ -144,6 +143,66 @@ return [
     |
     */
 
-    'attributes' => [],
-
+    'attributes' => [
+        'name'                  => 'Name',
+        'username'              => 'Username',
+        'email'                 => 'E-Mail',
+        'first_name'            => 'Firstname',
+        'last_name'             => 'Lastname',
+        'password'              => 'Password',
+        'password_confirmation' => 'Confirm Password',
+        'city'                  => 'City',
+        'country'               => 'Country',
+        'address'               => 'Address',
+        'phone'                 => 'Phone',
+        'mobile'                => 'Mobile',
+        'age'                   => 'Age',
+        'sex'                   => 'Sex',
+        'gender'                => 'Gender',
+        'day'                   => 'Day',
+        'month'                 => 'Month',
+        'year'                  => 'Year',
+        'hour'                  => 'Hour',
+        'minute'                => 'Minute',
+        'second'                => 'Second',
+        'title'                 => 'Title',
+        'content'               => 'Content',
+        'description'           => 'Description',
+        'excerpt'               => 'Except',
+        'date'                  => 'Date',
+        'time'                  => 'Time',
+        'available'             => 'Available',
+        'size'                  => 'Size',
+    ],
+    'general' => [
+      'required' => 'This field is required',
+    ],
+    'price' => [
+      'valid' => 'Please enter a valid price',
+      'required' => 'Price is required',
+    ],
+    'firstName' => [
+      'required' => 'First name is required',
+    ],
+    'lastName' => [
+      'required' => 'Last name is required',
+    ],
+    'phone' => [
+      'required' => 'Phone is required',
+    ],
+    'address' => [
+      'required' => 'Address is required',
+    ],
+    'zip' => [
+      'required' => 'Zip is required',
+    ],
+    'city' => [
+      'required' => 'City is required',
+    ],
+    'title' => [
+      'required' => 'Title is required',
+    ],
+    'terms' => [
+      'required' => 'Please approve with terms and conditions',
+    ]
 ];

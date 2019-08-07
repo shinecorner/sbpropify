@@ -332,7 +332,7 @@
                     this.delBuildingStatus = resp.data;
 
                     if(this.delBuildingStatus == -1) {
-                        this.$confirm(this.$t('swal.delete.text'), this.$t('swal.delete.title'), {
+                        this.$confirm(this.$t('general.swal.delete.text'), this.$t('general.swal.delete.title'), {
                             type: 'warning'
                         }).then(() => {
                             Promise.all(this.selectedItems.map((item) => {

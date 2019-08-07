@@ -43,9 +43,9 @@
                                                 <el-date-picker
                                                     v-model="weekSelected"
                                                     type="week"
-                                                    :format="$t('date_range.week') + ' WW.yyyy'"
+                                                    :format="$t('general.date_range.week') + ' WW.yyyy'"
                                                     value-format="dd.MM.yyyy"
-                                                    :placeholder="$t('date_range.peek_week')">
+                                                    :placeholder="$t('general.date_range.peek_week')">
                                                 </el-date-picker>
                                             </div>
                                             <chart-heat-map type="week-hour" :tab="activeChart" :week="weekSelected"></chart-heat-map>
