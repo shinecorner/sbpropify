@@ -29,7 +29,7 @@ return [
       ],
     'buildings' => 
     [
-        'total_building' => 'Gesamtzahl',
+        'total_building' => 'Anzahl Liegenschaften',
         'total_units' => 'Anzahl Enheiten',
         'occupied_units' => 'Vermiete Einheiten',
         'free_units' => 'Freie Einheiten',
