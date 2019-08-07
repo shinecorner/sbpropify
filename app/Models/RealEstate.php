@@ -229,7 +229,7 @@ class RealEstate extends AuditableModel
     public function setMailPasswordAttribute($val)
     {
         $original = $this->getOriginal('mail_password');
-        if (\Crypt::decryptString($original) == $val) {
+        if ($original && \Crypt::decryptString($original) == $val) {
             $this->attributes['mail_password'] = $original;
         } else {
             $this->attributes['mail_password'] = \Crypt::encryptString($val);
