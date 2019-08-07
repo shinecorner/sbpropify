@@ -53,7 +53,7 @@
                             <el-divider class="column-divider" content-position="left">
                                 {{$t('models.tenant.contact_info_card')}}
                             </el-divider>
-                            <el-form-item :label="$t('general.email')" :rules="validationRules.email" prop="email">
+                            <el-form-item :label="$t('general.email')" :rules="validationRules.email" prop="email" >
                                 <el-input autocomplete="off" type="email" v-model="model.email"></el-input>
                             </el-form-item>
                             <el-form-item :label="$t('models.tenant.mobile_phone')" prop="mobile_phone">

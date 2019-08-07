@@ -207,26 +207,20 @@
         methods: {
             ...mapActions(['updateRequest', 'getRequestCategoriesTree', 'getServices', 'getBuildings', 'getTenants']),
             async getFilterBuildings() {
-                this.loading = true;
                 const buildings = await this.getBuildings({
                     get_all: true
                 });
-                this.loading = false;
 
                 return buildings.data;
             },
             async getFilterCategories() {
-                this.loading = true;
                 const categoriesResp = await this.getRequestCategoriesTree({});
                 const categories = this.prepareCategories(categoriesResp.data);
-                this.loading = false;
 
                 return categories;
             },
             async getFilterServices() {
-                this.loading = true;
                 const services = await this.getServices({get_all: true});
-                this.loading = false;
 
                 return services.data;
             },

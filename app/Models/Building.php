@@ -74,6 +74,12 @@ class Building extends Model implements HasMedia
 {
     use SoftDeletes, HasMediaTrait, UniqueIDFormat;
 
+    const BuildingMediaCategories = [
+        'house_rules',
+        'operating_instructions',
+        'other',
+    ];
+
     public $table = 'buildings';
 
     protected $dates = ['deleted_at'];
@@ -118,19 +124,6 @@ class Building extends Model implements HasMedia
         'name' => 'required',
         'floor_nr' => 'required'
     ];
-
-    /**
-     *
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($building) {
-            $building->building_format = $building->getUniqueIDFormat($building->id);
-            $building->save();
-        });
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -239,7 +232,8 @@ class Building extends Model implements HasMedia
 
     public function registerMediaCollections()
     {
-        $this->addMediaCollection('house_rules');
-        $this->addMediaCollection('operating_instructions');
+        foreach (self::BuildingMediaCategories as $category)  {
+            $this->addMediaCollection($category);
+        }
     }
 }

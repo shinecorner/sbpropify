@@ -29,8 +29,8 @@
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
-                                <el-card class="chart-card col-3" :header="$t('dashboard.requests_by_category')">
-                                    <chart-pie-and-donut type="request_by_category" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
+                                <el-card class="chart-card col-3" :header="$t('dashboard.requests_by_assigned_status')">
+                                    <chart-pie-and-donut type="request_by_assigned_status" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -108,8 +108,8 @@
                                 </el-card>
                             </el-col>
                             <el-col :span="16">
-                                <el-card class="chart-card col-3" :header="$t('dashboard.latest_products')">
-                                    
+                                <el-card class="chart-card" :header="$t('dashboard.latest_products')">
+                                    <list-latest-products type="latest_products"></list-latest-products>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -186,6 +186,8 @@
     import ChartTenantsByGender from 'components/ChartTenantsByGender';
     import TenantsStatisticsCard from 'components/TenantsStatisticsCard';
 
+    import ListLatestProducts from 'components/ListLatestProducts';
+
     export default {
         name: 'AdminDashboard',
         components: {
@@ -201,7 +203,8 @@
             ChartColumnLine,
             ChartTenantsByGender,
             ChartUsersByDevice,
-            TenantsStatisticsCard
+            TenantsStatisticsCard,
+            ListLatestProducts
         },
         data() {
             return {

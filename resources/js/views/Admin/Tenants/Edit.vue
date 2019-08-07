@@ -451,7 +451,7 @@
                         type: 'primary',
                         onClick: this.productEditView
                     }]
-                }],
+                }]
             }
         },
         methods: {
@@ -553,7 +553,7 @@
             },
             requestStatusConstants() {
                 return this.constants.serviceRequests.status
-            }
+            },
         }
     }
 </script>
