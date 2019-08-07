@@ -1,12 +1,12 @@
 <?php
 return [  
   'header' => 'Filter',
-  'districts' => 'Ãœberbauungen',
+  'districts' => 'Überbauungen',
   'buildings' => 'Liegenschaften',
   'requests' => 'Anfragen',
   'open_requests' => 'Offene Anfragen',
   'units' => 'Einheiten',
-  'states' => 'Kantone',
+  'states' => 'Kanton',
   'status' => 'Status',
   'search' => 'Suchen',
   'requestStatus' => 'Anfrage Status',
@@ -15,5 +15,5 @@ return [
   'created_from' => 'Erstellt vom',
   'created_to' => 'Erstellt bis',
   'services' => 'Partnerfirmen',
-  'tenant' => 'Typ der Mieter',
+  'tenant' => 'Mieter-Typ',
 ];

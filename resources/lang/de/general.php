@@ -104,9 +104,9 @@ return [
     'delete' => 
     [
       'title' => 'Sind Sie sicher?',
-      'text' => 'Dies kann nicht mehr rückgänging gemacht werden',
+      'text' => 'Dies kann nicht mehr rückgänging gemacht werden!',
       'confirmText' => 'Ja, ich will löschen!',
-      'deleted' => 'Erfolgreich gelöscht',
+      'deleted' => 'Erfolgreich gelöscht!',
     ],
     'add' => 
     [
@@ -117,7 +117,7 @@ return [
       'added' => 'Dokument/Foto hinzugefügt',
       'deleted' => 'Dokument/Foto gelöscht',
     ],
-    'logout_confirm' => 'Du wirst ausgeloggt.',
+    'logout_confirm' => 'Sie werden eingelogt ausgeloggt.',
   ],
   'roles' => 
   [
@@ -135,10 +135,10 @@ return [
   ],
   'errors' => 
   [
-    'files_extension_images' => 'Nur Dateien in der Formaten .jpg und .png erlaubt',
+    'files_extension_images' => 'Nur Dateien in der Formaten .jpg und .png erlaubt.',
   ],  
  
-  'dateTimeFormat' => '{date} bei {time}',
+  'dateTimeFormat' => '{date} um {time}',
   'date_range' => 
   [
     'range_separator' => 'Bis',
