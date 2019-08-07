@@ -11,8 +11,8 @@ import itMsg from './i18n/it'
 
 
 export default {
-    de: _.assign({}, deMsg.de, deLocale),    
-    en: _.assign({}, enMsg.en, enLocale),
-    fr: _.assign({}, frMsg.fr, frLocale),
-    it: _.assign({}, itMsg.it, itLocale),
+    de: Object.assign({}, deMsg.de, deLocale),    
+    en: Object.assign({}, enMsg.en, enLocale),
+    fr: Object.assign({}, frMsg.fr, frLocale),
+    it: Object.assign({}, itMsg.it, itLocale),
 }
