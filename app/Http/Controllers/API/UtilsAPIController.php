@@ -80,6 +80,16 @@ class UtilsAPIController extends AppBaseController
             'languages' => Config::get('app.locales'),
         ];
 
+        $re = App\Models\RealEstate::first(['primary_color', 'accent_color']);
+
+        if ($re) {
+            $colors = $re->only(['primary_color', 'accent_color']);
+        } else {
+            $colors = [
+                'primary_color' => '#6AC06F',
+                'accent_color' => '#F7CA18'
+            ];
+        }
         $response = [
             'app' => $app,
             'buildings' => [],
@@ -94,6 +104,7 @@ class UtilsAPIController extends AppBaseController
             'products' => self::getProductConstants(),
             'templates' => self::getTemplateConstants(),
             'audits' => self::getAuditConstants(),
+            'colors' => $colors
         ];
 
         return $this->sendResponse($response, 'App constants statistics retrieved successfully');
