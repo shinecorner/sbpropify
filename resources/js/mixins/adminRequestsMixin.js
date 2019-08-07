@@ -178,7 +178,7 @@ export default (config = {}) => {
                 } else {
                     displayError({
                         success: false,
-                        message: this.$t('errors.files_extension_images')
+                        message: this.$t('general.errors.files_extension_images')
                     });
                 }
             },

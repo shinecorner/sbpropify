@@ -1,19 +1,19 @@
 <template>
     <el-form :model="resetPassword" ref="resetPasswordForm" :rules="validationRules">
-        <el-form-item prop="password" :label="$t('password')">
+        <el-form-item prop="password" :label="$t('general.password')">
             <el-input type="password" v-model="resetPassword.password" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item prop="password_confirmation" :label="$t('confirm_password')">
+        <el-form-item prop="password_confirmation" :label="$t('general.confirm_password')">
             <el-input type="password" v-model="resetPassword.password_confirmation" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item v-loading="loading">
             <el-button type="primary"  class="text-center w100p" @click="submitResetPasswordForm">
-                {{$t('reset_password')}}
+                {{$t('general.reset_password')}}
             </el-button>
         </el-form-item>
         <el-form-item>
             <router-link :to="{name: 'login'}" class="w100p">
-                <el-button class="text-center w100p">{{$t('back_to_login')}}</el-button>
+                <el-button class="text-center w100p">{{$t('general.back_to_login')}}</el-button>
             </router-link>
         </el-form-item>
     </el-form>
@@ -131,9 +131,9 @@
             },
             validateConfirmPassword(rule, value, callback) {
                 if (value === '') {
-                    callback(new Error(this.$t('password_validation.confirm')));
+                    callback(new Error(this.$t('general.password_validation.confirm')));
                 } else if (value !== this.resetPassword.password) {
-                    callback(new Error(this.$t('password_validation.match')));
+                    callback(new Error(this.$t('general.password_validation.match')));
                 } else {
                     callback();
                 }

@@ -104,7 +104,7 @@ export default {
           data.map(value => {
             let name = value.name;
             if (that.type == 'week-hour' && name.match(/[a-zA-Z]+/gi)) {
-              name = that.$t('days.' + name.toLowerCase());
+              name = that.$t('general.days.' + name.toLowerCase());
             }
             else if (that.type == 'month-date' && name > 0) {
               name = format(new Date(2019, name - 1), 'MMMM', {locale: dateLocale[that.$i18n.locale]});

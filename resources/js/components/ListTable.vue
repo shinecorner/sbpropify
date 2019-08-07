@@ -72,7 +72,7 @@
                                     style="width: 100%;"
                                     v-model="filterModel[filter.key]">
                                     <el-option
-                                        :label="$t('all')"
+                                        :label="$t('general.all')"
                                         value=""
                                     >
                                     </el-option>
@@ -92,7 +92,7 @@
 
         <!--        <div class="pull-right">-->
         <!--            <el-button :disabled="!selectedItems.length" @click="batchDelete" size="mini" type="danger">-->
-        <!--                {{$t('actions.delete')}}-->
+        <!--                {{$t('general.actions.delete')}}-->
         <!--            </el-button>-->
         <!--        </div>-->
 
@@ -340,7 +340,7 @@
         },
         computed: {
             emptyText() {
-                return this.loading.state ?  ' ' : (this.items.length > 0) ? '' : this.$t('no_data_available');
+                return this.loading.state ?  ' ' : (this.items.length > 0) ? '' : this.$t('general.no_data_available');
             },
             page() {
                 return {

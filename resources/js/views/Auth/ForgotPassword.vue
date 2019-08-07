@@ -1,16 +1,16 @@
 <template>
     <el-form :model="resetPassword" @submit.native.prevent="" ref="resetPasswordEmailForm">
-        <el-form-item :label="$t('email')" :rules="validationRules.email" prop="email">
+        <el-form-item :label="$t('general.email')" :rules="validationRules.email" prop="email">
             <el-input autocomplete="off" type="email" v-model="resetPassword.email"></el-input>
         </el-form-item>
         <el-form-item v-loading.lock="loading">
             <el-button @click.prevent="submitResetPasswordForm" class="text-center w100p" type="primary">
-                {{$t('reset_password_mail')}}
+                {{$t('general.reset_password_mail')}}
             </el-button>
         </el-form-item>
         <el-form-item>
             <router-link :to="{name: 'login'}" class="w100p">
-                <el-button class="text-center w100p">{{$t('back_to_login')}}</el-button>
+                <el-button class="text-center w100p">{{$t('general.back_to_login')}}</el-button>
             </router-link>
         </el-form-item>
     </el-form>

@@ -82,7 +82,7 @@
                 </el-timeline-item>
             </el-timeline>
             <div v-if="meta.current_page < meta.last_page">
-                <el-button @click="loadMore" size="mini" style="margin-top: 15px" type="text">{{$t('loadMore')}}</el-button>
+                <el-button @click="loadMore" size="mini" style="margin-top: 15px" type="text">{{$t('general.loadMore')}}</el-button>
             </div>
         </div>
         <div v-else>
