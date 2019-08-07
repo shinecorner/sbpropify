@@ -169,6 +169,10 @@ class AuthController extends Controller
     protected function saveLoginDevice($user)
     {
         // @TODO this is tmp for testing purpose
+        if (empty($user->tenant->id)) {
+            return;
+        }
+
         $agent = new Agent();
         $data = [
             'created_by' => now()->toDateTimeString(),
