@@ -4,8 +4,8 @@ return [
     'requests_by_creation_date' => 'Anfragen nach Erstellungsdatum',
     'requests_by_status' => 'Anfragen nach Status',
     'requests_by_category' => 'Anfragen nach Kategorie',
-    'requests_by_assigned_status' => 'Anfragen nach zugewiesenem Status',
-    'each_hour_request' => 'Jede Stunde fordert',
+    'requests_by_assigned_status' => 'Einbezug von Dienstleistern',
+    'each_hour_request' => 'Stündlich',
     'average_request_duration' => 'Ø Bearbeitungszeit',
     'week_hour' => 'Woche vs. Stunde',
     'month_date' => 'Monat vs. Datum',
@@ -18,10 +18,10 @@ return [
     'tenants_by_creation_date' => 'Mieter nach Erstellungsdatum',
     'tenants_by_request_status' => 'Mieter nach Anforderungsstatus',
     'tenants_by_status' => 'Mieter nach Status',
-    'tenants_by_language' => 'Mieter nach Sprache',
-    'tenants_by_title' => 'Mieter nach Titel',
-    'tenants_by_device' => 'Mieter nach Gerät',
-    'tenants_by_gender' => 'Mieter nach Geschlecht',
+    'tenants_by_language' => 'Mieter Sprache',
+    'tenants_by_title' => 'Mieter-Anrede',
+    'tenants_by_device' => 'Geräte-Typen',
+    'tenants_by_gender' => 'Geschlecht und Alter',
     'actions' => 'Aktionen',
     'requests' => [
         'requests_with_service_providers' => 'Mit Dienstleistern',
@@ -30,16 +30,16 @@ return [
     'buildings' => 
     [
         'total_building' => 'Gesamtzahl',
-        'total_units' => 'Gesamteinheiten',
-        'occupied_units' => 'Besetzte Einheiten',
-        'free_units' => 'Kostenlose Einheiten',
+        'total_units' => 'Anzahl Enheiten',
+        'occupied_units' => 'Vermiete Einheiten',
+        'free_units' => 'Freie Einheiten',
         'buildings_by_creation_date' => 'Gebäude nach Erstellungsdatum',
     ],
     'tenants' => 
     [
-        'total_tenants' => 'Total Count',
-        'average_age' => 'Durchschnittsalter',
-        'average_age_acr' => 'Dur. Alter'
+        'total_tenants' => 'Total Mieter',
+        'average_age' => 'Durchschnittsalter:',
+        'average_age_acr' => 'Ø Alter'
     ],
     'marketplace' => [
         'go_to_marketplace' => 'zum Marktplatz gehen'
