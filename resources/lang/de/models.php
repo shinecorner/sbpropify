@@ -183,6 +183,7 @@ return [
       'not_found' => 'Liegenschaft nicht gefunden',
       'house_rules' => 'Hausordnung',
       'operating_instructions' => 'Nenutzungsanleitungen',
+      'other' =>  'Sonstiges',
       'files' => 'Dokumente',
       'add_files' => 'Dokumente hinzufügen',
       'add_companies' => 'Partnerfirma hinzufügen',
