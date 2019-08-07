@@ -134,6 +134,7 @@ export default {
         tenants_by_title: 'Tenants by title',
         tenants_by_device: 'Tenants by device',
         tenants_by_gender: 'Tenants by gender',
+        actions: 'Actions',
         buildings: {
             total_building: 'Total Count',
             total_units: 'Total Units',
@@ -342,6 +343,7 @@ export default {
             not_found: 'Building not found',
             house_rules: 'House rules',
             operating_instructions: 'Operating instructions',
+            other: 'Other',
             files: 'Files',
             add_files: 'Add files',
             add_companies: 'Add companies',
@@ -1140,8 +1142,22 @@ export default {
                     request: 'Request'
                 },
                 filter:{
-                    post: {},
-                    product: {},
+                    type:{
+                        post: 'Post',
+                        product: 'Product',
+                        request: 'Request'
+                    },
+                    post: {
+                        created: 'Created',
+                        updated: 'Updates',
+                        provider_assigned: 'Provider assigned',
+                        user_assigned: 'User assigned',
+                        media_uploaded: 'Media uploaded',
+                        media_deleted: 'Media deleted'
+                    },
+                    product: {
+                        
+                    },
                     request: {
                         created: 'Created',
                         updated: 'Updates',
@@ -1162,6 +1178,19 @@ export default {
                         },
                         product: {
                             created: '{userName} opened this {auditable_type}.',
+                            updated: {
+                                title: 'The title changed from "{old}" to "{new}".',
+                                status: 'The status changed from "{old}" to "{new}".',
+                                due_date: 'The due date changed from "{old}" to "{new}".',
+                                priority: 'The priority changed from "{old}" to "{new}".',
+                                category_id: 'The category changed from "{old}" to "{new}".',
+                                qualification: 'The qualification changed from "{old}" to "{new}".',   
+                                visibility: 'The visibility changed from "{old}" to "{new}".'   
+                            },
+                            provider_assigned: '{providerName} has been assigned as provider.',
+                            user_assigned: '{userName} has been assigned as manager.',
+                            media_uploaded: 'Media uploaded',
+                            media_deleted: 'Media deleted'
                         },
                         request: {
                             created: '{userName} opened this {auditable_type}.',
@@ -1190,6 +1219,19 @@ export default {
                         },
                         product: {
                             created: '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
+                            updated: {
+                                title: 'The title changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                                status: 'The status changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                                due_date: 'The due date changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                                priority: 'The priority changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                                category_id: 'The category changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
+                                qualification: 'The qualification changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',   
+                                visibility: 'The visibility changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.'   
+                            },
+                            provider_assigned: '{providerName} has been assigned as provider on {auditable_type} #{auditable_id}.',
+                            user_assigned: '{userName} has been assigned as manager on {auditable_type} #{auditable_id}.',
+                            media_uploaded: 'Media uploaded on {auditable_type} #{auditable_id}.',
+                            media_deleted: 'Media deleted on {auditable_type} #{auditable_id}.'
                         },
                         request: {
                             created: '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',

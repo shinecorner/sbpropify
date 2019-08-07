@@ -269,6 +269,9 @@
             itemClicked: function(item, flag) {
                 // this.toggleShow();
                 this.onClick(item, flag);
+                //this.$router.push({ name: 'adminBuildings' });
+                //this.$router.push({ path: `/` })
+                //this.$router.push({ path: `/admin/buildings` })
             },
 
             changeLanguage: function(language) {
@@ -306,7 +309,7 @@
 
             getDropdownWidth() {
                 this.dropdownwidth = this.$refs.prev.clientWidth;
-            }
+            },
 
         },
 

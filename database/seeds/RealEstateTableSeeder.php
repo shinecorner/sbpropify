@@ -18,6 +18,8 @@ class RealEstateTableSeeder extends Seeder
         $realEstate->phone = env('RL_PHONE', '071112244');
         $realEstate->language = env('RL_LANG', 'en');
         $realEstate->cleanify_email = env('CLEANIFY_EMAIL', '');
+        $realEstate->primary_color = '#6AC06F';
+        $realEstate->accent_color = '#F7CA18';
 
         $realEstate->free_apartments_enable = false;
         $realEstate->opening_hours = json_encode($this->getOpeningHours());

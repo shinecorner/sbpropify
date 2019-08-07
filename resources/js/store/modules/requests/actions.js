@@ -124,7 +124,6 @@ export default {
         return new Promise((resolve, reject) => {
                 axios.get(buildFetchUrl(`requests/${payload.request_id}/assignees`, payload))
                     .then(({data: r}) => {
-                        console.log('assignees', r);
                         if (!Array.isArray(r.data.data)) {
                             r.data.data = Object.values(r.data.data);
                         }

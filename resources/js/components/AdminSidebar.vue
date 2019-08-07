@@ -17,9 +17,9 @@
                         v-if="!link.children && ($can(link.permission) || !link.permission)">
                     <router-link :to="{name: link.route.name}">
                         <i :class="[link.icon, 'icon']"/>
-                        <span class="title" slot="title">{{ link.title }}</span>
+                        <span class="title">{{ link.title }}</span>
                     </router-link>
-                    <span slot="title">{{ link.title }}</span>
+                    <!-- <span slot="title">{{ link.title }}</span> -->
                 </el-menu-item>
                 <el-submenu :index="link.title" v-else-if="($can(link.permission) || !link.permission)">
                     <template slot="title">
@@ -69,7 +69,6 @@
         methods: {
             async handleLink(ev, key, {route, action, children, icon}) {
                 //this.currActive = key.toString();
-
                 !children && route && this.$router.push(route);
 
                 /*if (!children && !!icon) {

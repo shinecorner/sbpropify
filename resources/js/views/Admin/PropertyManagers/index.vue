@@ -157,11 +157,9 @@
         methods: {
             ...mapActions(["remoteSearchManagers", "batchDeletePropertyManagers", "getBuildings", "getIDsAssignmentsCount"]),
             async getFilterBuildings() {
-                this.loading = true;
                 const buildings = await this.getBuildings({
                     get_all: true
                 });
-                this.loading = false;
 
                 return buildings.data;
             },
