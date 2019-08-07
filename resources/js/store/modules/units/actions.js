@@ -14,6 +14,34 @@ export default {
                  .then(({data: r}) => resolve(r.data))
                  .catch(({response: {data: err}}) => reject(err)));
     },
+    getTenantAssignees(_, payload) {
+        return new Promise((resolve, reject) => 
+            axios.get(buildFetchUrl(`units/${payload.unit_id}`))
+                .then(({data: r}) => {
+                    let tenants = r.data.tenants;
+                    let res = {
+                        data: {
+                            data : []
+                        }
+                    }
+                    
+
+                    res.data.data = tenants
+
+                    res.data.data = res.data.data.map((user) => {
+                        if (user.status == 1) {
+                            user.statusString = 'Active';
+                        } else {
+                            user.statusString = 'Not Active';
+                        }
+                        user.name = user.first_name + " " + user.last_name;
+                        return user;
+                    });
+
+                    resolve(res);
+                })
+                .catch(({response: {data: err}}) => reject(err)));
+    },
     createUnit(_, payload) {
         return new Promise((resolve, reject) => 
             axios.post('units', payload)

@@ -1,6 +1,7 @@
 import {mapGetters, mapActions} from 'vuex';
 import {displayError, displaySuccess} from 'helpers/messages';
 import unitTypes from 'mixins/methods/unitTypes';
+import axios from '@/axios';
 
 export default (config = {}) => {
     let mixin = {
@@ -27,7 +28,8 @@ export default (config = {}) => {
                     basement: false,
                     attic: false,
                     building_id: this.$route.params.id,
-                    selected_tenant: ''
+                    selected_tenant: '',
+                    tenants: []
                 },
                 validationRules: {
                     tenant_id: [{
@@ -74,6 +76,7 @@ export default (config = {}) => {
                         onClick: this.requestEditView
                     }]
                 }],
+                toAssign: '',
             }
         },
         methods: {
@@ -120,7 +123,61 @@ export default (config = {}) => {
                         this.remoteLoading = false;
                     }
                 }
-            }
+            },
+            async assignTenant() {
+                if (!this.toAssign || !this.model.id) {
+                    return false;
+                }
+                let resp; 
+                try {
+                    resp = await axios.post(`units/`+ this.model.id + `/assignees/` + this.toAssign);              
+                } catch {
+                    console.log(e);
+                }
+
+                if (resp && resp.data) {
+                    this.toAssign = '';
+                    this.$refs.assigneesList.fetch();
+                    displaySuccess({
+                        success: true,
+                        message: this.$t(`models.unit.tenantType.attached`)
+                    })
+                }
+            },
+            notifyUnassignment(tenant) {
+                this.$confirm(this.$t(`models.request.confirmUnassign.title`), this.$t('models.request.confirmUnassign.warning'), {
+                    confirmButtonText: this.$t(`models.request.confirmUnassign.confirmBtnText`),
+                    cancelButtonText: this.$t(`models.request.confirmUnassign.cancelBtnText`),
+                    type: 'warning'
+                }).then(async () => {
+                    try {
+                        this.loading.status = true;
+
+                        let resp;
+
+                        try {
+                            resp = await axios.delete(`units/`+ this.model.id + `/assignees/` + tenant.id);               
+                        } catch {
+                            console.log(e);
+                        }
+
+                        if (resp && resp.data) {
+                            this.$refs.assigneesList.fetch();
+                            displaySuccess({
+                                success: true,
+                                message: this.$t(`models.unit.tenantType.detached`)
+                            })
+                        }
+
+                    } catch (err) {
+                        displayError(err);
+                    } finally {
+                        this.loading.status = false;
+                    }
+                }).catch(async () => {
+                    this.loading.status = false;
+                });
+            },
         },
         computed: {
             form() {

@@ -62,6 +62,7 @@ return [
       'email' => 'E-Mail',
       'personal_phone' => 'Telefon privat',
       'private_phone' => 'Telefon privat',
+      'created_date' => 'Aangemaakte datum',
       'created_at' => 'Datum',
       'edit' => 'Öffnen',
       'delete' => 'Löschen',
@@ -83,6 +84,7 @@ return [
       ],
       'search_building' => 'Liegenschaft suchen',
       'search_unit' => 'Einheit suchen',
+      'search' => 'Suchen',
       'confirmDelete' => 
       [
         'title' => 'Der Mieter wird endgültig gelöscht',
@@ -183,6 +185,7 @@ return [
       'not_found' => 'Liegenschaft nicht gefunden',
       'house_rules' => 'Hausordnung',
       'operating_instructions' => 'Nenutzungsanleitungen',
+      'other' =>  'Sonstiges',
       'files' => 'Dokumente',
       'add_files' => 'Dokumente hinzufügen',
       'add_companies' => 'Partnerfirma hinzufügen',
@@ -273,6 +276,10 @@ return [
       'title' => 'Einheiten',
       'not_found' => 'Einheit nicht gefunden',
       'add' => 'Einheit hinzufügen',
+      'tenantType' => [
+        'attached' => 'Mieter erfolgreich gebunden',
+        'detached' => 'Mieter erfolgreich abgezogen'
+      ],
       'name' => 'Einheit Nummer',
       'created_at' => 'Datum',
       'edit' => 'Öffnen',

@@ -24,6 +24,7 @@ export default {
             "requests_by_creation_date": "Richieste per data di creazione",
             "requests_by_status": "Richieste per stato",
             "requests_by_category": "Richieste per categoria",
+            "requests_by_assigned_status": "Requests by assigned status",
             "each_hour_request": "Ogni ora richiede",
             "average_request_duration": "Tempo di risoluzione",
             "week_hour": "Settimana vs. Ora",
@@ -42,6 +43,10 @@ export default {
             "tenants_by_device": "Tenants by device",
             "tenants_by_gender": "Tenants by gender",
             "actions": "Actions",
+            "requests": {
+                "requests_with_service_providers": "With service providers",
+                "request_wihout_service_providers": "Without service providers"
+            },
             "buildings": {
                 "total_building": "Total Count",
                 "total_units": "Total Units",
@@ -53,6 +58,9 @@ export default {
                 "total_tenants": "Total Count",
                 "average_age": "Average Age",
                 "average_age_acr": "Avg. Age"
+            },
+            "marketplace": {
+                "go_to_marketplace": "go to marketplace"
             }
         },
         "passwords": {
@@ -304,7 +312,19 @@ export default {
                         "request": "Request"
                     },
                     "filter": {
-                        "post": [],
+                        "type": {
+                            "post": "Post",
+                            "product": "Product",
+                            "request": "Request"
+                        },
+                        "post": {
+                            "created": "Created",
+                            "updated": "Updates",
+                            "provider_assigned": "Provider assigned",
+                            "user_assigned": "User assigned",
+                            "media_uploaded": "Media uploaded",
+                            "media_deleted": "Media deleted"
+                        },
                         "product": [],
                         "request": {
                             "created": "Created",
@@ -325,7 +345,20 @@ export default {
                                 }
                             },
                             "product": {
-                                "created": "{userName} opened this {auditable_type}."
+                                "created": "{userName} opened this {auditable_type}.",
+                                "updated": {
+                                    "title": "The title changed from \"{old}\" to \"{new}\".",
+                                    "status": "The status changed from \"{old}\" to \"{new}\".",
+                                    "due_date": "The due date changed from \"{old}\" to \"{new}\".",
+                                    "priority": "The priority changed from \"{old}\" to \"{new}\".",
+                                    "category_id": "The category changed from \"{old}\" to \"{new}\".",
+                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\".",
+                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\"."
+                                },
+                                "provider_assigned": "{providerName} has been assigned as provider.",
+                                "user_assigned": "{userName} has been assigned as manager.",
+                                "media_uploaded": "Media uploaded",
+                                "media_deleted": "Media deleted"
                             },
                             "request": {
                                 "created": "{userName} opened this {auditable_type}.",
@@ -353,7 +386,20 @@ export default {
                                 }
                             },
                             "product": {
-                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}."
+                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
+                                "updated": {
+                                    "title": "The title changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "status": "The status changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "due_date": "The due date changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "priority": "The priority changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "category_id": "The category changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}."
+                                },
+                                "provider_assigned": "{providerName} has been assigned as provider on {auditable_type} #{auditable_id}.",
+                                "user_assigned": "{userName} has been assigned as manager on {auditable_type} #{auditable_id}.",
+                                "media_uploaded": "Media uploaded on {auditable_type} #{auditable_id}.",
+                                "media_deleted": "Media deleted on {auditable_type} #{auditable_id}."
                             },
                             "request": {
                                 "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
@@ -401,6 +447,26 @@ export default {
                     "loadingTemplates": "Loading templates...",
                     "saveShortcut": "or use {shortcut} shortcut",
                     "emptyTemplatesPlaceholder": "No templates available."
+                },
+                "media": {
+                    "buttons": {
+                        "selectFiles": {
+                            "withDrop": "Drop files or click to select...",
+                            "withoutDrop": "Click to select..."
+                        },
+                        "upload": "Upload"
+                    },
+                    "dropActive": {
+                        "title": "Drop your files here...",
+                        "description": "Only the files with a certain extension are allowed."
+                    },
+                    "messages": {
+                        "preview": "This file cannot be previewed.",
+                        "uploading": "Uploading...",
+                        "uploaded": "Media files have been succesfully uploaded.",
+                        "size": "Oops! Some files had the size bigger than the maximum allowed of {bytes}.",
+                        "extensions": "Oops! Some files have had an extension that was not allowed. Skipping..."
+                    }
                 }
             },
             "tenant": {
@@ -411,6 +477,13 @@ export default {
                     "cloudiness": "cloudiness",
                     "humidity": "humidity",
                     "pressure": "pressure"
+                },
+                "postAdd": {
+                    "visibility": {
+                        "address": "Address",
+                        "district": "District",
+                        "all": "All"
+                    }
                 }
             },
             "admin": []
@@ -487,6 +560,7 @@ export default {
                 "email": "Email",
                 "personal_phone": "Personal phone",
                 "private_phone": "Personal phone",
+                "created_date": "Data di creazione",
                 "created_at": "Date",
                 "edit": "Edit",
                 "delete": "Delete",
@@ -506,6 +580,7 @@ export default {
                 },
                 "search_building": "Search building",
                 "search_unit": "Search unit",
+                "search": "Search",
                 "confirmDelete": {
                     "title": "This will permanently delete the tenant.",
                     "text": "Are you sure?"
@@ -592,6 +667,7 @@ export default {
                 "not_found": "Building not found",
                 "house_rules": "House rules",
                 "operating_instructions": "Operating instructions",
+                "other": "Other",
                 "files": "Files",
                 "add_files": "Add files",
                 "add_companies": "Add companies",
@@ -668,6 +744,10 @@ export default {
                 "title": "Units",
                 "not_found": "Unit not found",
                 "add": "Add unit",
+                "tenantType": {
+                    "attached": "Tenant attached successfully",
+                    "detached": "Tenant detached successfully"
+                },
                 "name": "Unit number",
                 "created_at": "Date",
                 "edit": "Edit",

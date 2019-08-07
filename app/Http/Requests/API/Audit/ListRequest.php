@@ -21,7 +21,12 @@ class ListRequest extends APIRequest
             return true;
         }
 
-        if ($u->tenant && Relation::$morphMap[$this->auditable_type] == ServiceRequest::class) {
+        if (
+            $u->tenant
+            && !empty($this->auditable_type)
+            && !empty(Relation::$morphMap[$this->auditable_type])
+            && Relation::$morphMap[$this->auditable_type] == ServiceRequest::class
+        ) {
             return true;
         }
 

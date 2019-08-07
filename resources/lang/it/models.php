@@ -62,6 +62,7 @@ return [
       'email' => 'Email',
       'personal_phone' => 'Personal phone',
       'private_phone' => 'Personal phone',
+      'created_date' => 'Data di creazione',
       'created_at' => 'Date',
       'edit' => 'Edit',
       'delete' => 'Delete',
@@ -83,6 +84,7 @@ return [
       ],
       'search_building' => 'Search building',
       'search_unit' => 'Search unit',
+      'search' => 'Search',
       'confirmDelete' => 
       [
         'title' => 'This will permanently delete the tenant.',
@@ -183,6 +185,7 @@ return [
       'not_found' => 'Building not found',
       'house_rules' => 'House rules',
       'operating_instructions' => 'Operating instructions',
+      'other' =>  'Other',
       'files' => 'Files',
       'add_files' => 'Add files',
       'add_companies' => 'Add companies',
@@ -273,6 +276,10 @@ return [
       'title' => 'Units',
       'not_found' => 'Unit not found',
       'add' => 'Add unit',
+      'tenantType' => [
+        'attached' => 'Tenant attached successfully',
+        'detached' => 'Tenant detached successfully'
+      ],
       'name' => 'Unit number',
       'created_at' => 'Date',
       'edit' => 'Edit',

@@ -80,7 +80,7 @@ export default (config = {}) => {
                     text: 'Please wait...'
                 },
                 allServices: [],
-                districts: []
+                districts: [],
             };
         },
         methods: {
@@ -101,7 +101,7 @@ export default (config = {}) => {
                         this.remoteLoading = false;
                     }
                 }
-            },
+            }
         },
         computed: {
             form() {
