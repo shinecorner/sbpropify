@@ -33,12 +33,14 @@
                         </span>
                         
                         <el-dropdown-menu slot="dropdown" :style="dropmenuwidth">
-                                <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
-                                    <el-dropdown-item>
-                                        <i class="icon-user"/>
-                                        {{$t('menu.profile')}}
-                                    </el-dropdown-item>
-                                </router-link>
+                                <el-button @click="removeMenuActive" type="text">
+                                    <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
+                                        <el-dropdown-item>
+                                            <i class="icon-user"/>
+                                            {{$t('menu.profile')}}
+                                        </el-dropdown-item>
+                                    </router-link>
+                                </el-button>
                                 <template v-if="$can($permissions.view.realEstate)">
                                         <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
                                             <el-dropdown-item>
@@ -107,6 +109,7 @@
 
                 isCallapsed: false,
                 dropdownwidth: 0,
+                currActive: ''
             }
         },
 
@@ -260,6 +263,10 @@
                 }).catch(() => {
 
                 });
+            },
+
+            removeMenuActive() {
+                this.$el.querySelector('.content .is-active').classList.remove('is-active');
             },
 
             toggleShow: function() {
