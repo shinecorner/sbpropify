@@ -603,6 +603,7 @@ export default {
                 "email": "Email",
                 "personal_phone": "Personal phone",
                 "private_phone": "Personal phone",
+                "created_date": "Created Date",
                 "created_at": "Date",
                 "edit": "Edit",
                 "delete": "Delete",
@@ -622,6 +623,7 @@ export default {
                 },
                 "search_building": "Search building",
                 "search_unit": "Search unit",
+                "search": "Search",
                 "confirmDelete": {
                     "title": "This will permanently delete the tenant.",
                     "text": "Are you sure?"
@@ -785,6 +787,10 @@ export default {
                 "title": "Units",
                 "not_found": "Unit not found",
                 "add": "Add unit",
+                "tenantType": {
+                    "attached": "Tenant attached successfully",
+                    "detached": "Tenant detached successfully"
+                },
                 "name": "Unit number",
                 "created_at": "Date",
                 "edit": "Edit",
