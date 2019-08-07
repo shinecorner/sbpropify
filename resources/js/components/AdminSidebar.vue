@@ -19,7 +19,6 @@
                         <i :class="[link.icon, 'icon']"/>
                         <span class="title">{{ link.title }}</span>
                     </router-link>
-                    <!-- <span slot="title">{{ link.title }}</span> -->
                 </el-menu-item>
                 <el-submenu :index="link.title" v-else-if="($can(link.permission) || !link.permission)">
                     <template slot="title">
