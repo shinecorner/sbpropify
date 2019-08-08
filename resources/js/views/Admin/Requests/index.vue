@@ -105,7 +105,13 @@
                             this.$permissions.update.serviceRequest
                         ]
                     }]
-                }]
+                }],
+                categories:{},
+                districts:{},
+                buildings:{},
+                propertyManagers:{},
+                tenants: {},
+                services: {}
             }
         },
         computed: {
@@ -132,8 +138,8 @@
                         name: this.$t('filters.categories'),
                         type: 'select',
                         key: 'category_id',
-                        data: [],
-                        fetch: this.getFilterCategories
+                        data: this.categories,
+                        // fetch: this.getFilterCategories
                     },
                     {
                         name: this.$t('models.request.status.label'),
@@ -151,35 +157,35 @@
                         name: this.$t('filters.districts'),
                         type: 'select',
                         key: 'district_id',
-                        data: [],
-                        fetch: this.getFilterDistricts
+                        data: this.districts,
+                        // fetch: this.getFilterDistricts
                     },
                     {
                         name: this.$t('filters.buildings'),
                         type: 'select',
                         key: 'building_id',
-                        data: [],
-                        fetch: this.getFilterBuildings
+                        data: this.buildings,
+                        // fetch: this.getFilterBuildings
                     },
                     {
                         name: this.$t('filters.propertyManagers'),
                         type: 'select',
                         key: 'assignee_id',
-                        data: [],
-                        fetch: this.getFilterPropertyManagers
+                        data: this.propertyManagers,
+                        // fetch: this.getFilterPropertyManagers
                     },
                     {
                         name: this.$t('filters.services'),
                         type: 'select',
                         key: 'service_id',
-                        data: [],
-                        fetch: this.getFilterServices
+                        data: this.services,
+                        // fetch: this.getFilterServices
                     },
                     {
                         name: this.$t('filters.tenant'),
                         type: 'remote-select',
                         key: 'tenant_id',
-                        data: [],
+                        data: this.tenants,
                         remoteLoading: false,
                         fetch: this.fetchRemoteTenants
                     },
@@ -297,6 +303,26 @@
                     }
                 })
             }
+        },
+        async created(){
+            const districts = await this.axios.get('districts')
+            this.districts = districts.data.data.data;
+
+            const propertyManagers = await this.axios.get('propertyManagers?get_all=true')
+            this.propertyManagers = propertyManagers.data.data.map((propertyManager) => {
+                return {
+                    id: propertyManager.id,
+                    name: propertyManager.user.name
+                }
+            });
+
+            const states = await this.axios.get('states?filters=true')
+            this.states = states.data.data;
+
+            this.buildings = await this.getFilterBuildings()
+            this.categories = await this.getFilterCategories()
+            this.services = await this.getFilterServices()
+            this.tenants = await this.fetchRemoteTenants()
         }
     }
 </script>

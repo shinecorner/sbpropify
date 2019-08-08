@@ -121,7 +121,10 @@
                 }],
                 post: {},
                 postDetailsVisible: false,
-                postConstants
+                postConstants,
+                districts:{},
+                buildings:{},
+                tenants:{}
             };
         },
         computed: {
@@ -162,21 +165,19 @@
                         name: this.$t('filters.districts'),
                         type: 'select',
                         key: 'district_id',
-                        data: [],
-                        fetch: this.getFilterDistricts
+                        data: this.districts,
                     },
                     {
                         name: this.$t('filters.buildings'),
                         type: 'select',
                         key: 'building_id',
-                        data: [],
-                        fetch: this.getFilterBuildings
+                        data: this.buildings,
                     },
                     {
                         name: this.$t('filters.tenant'),
                         type: 'remote-select',
                         key: 'tenant_id',
-                        data: [],
+                        data: this.tenants,
                         remoteLoading: false,
                         fetch: this.fetchRemoteTenants
                     },
@@ -267,6 +268,12 @@
                     };
                 });
             },
+        },
+        async created(){
+            this.buildings = await this.getFilterBuildings();
+            this.tenants = this.fetchRemoteTenants();
+            const districts = await this.axios.get('districts')
+            this.districts = districts.data.data.data;
         }
     }
 </script>
