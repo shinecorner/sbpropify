@@ -16,5 +16,33 @@ export default [{
             middleware: [auth, admin],
             permission: permissions.list.district
         }
+    }, {
+        path: 'add',
+        name: 'adminDistrictsAdd',
+        component: () =>
+            import ( /* webpackChunkName: "admin/serviceRequests/add" */ 'views/Admin/Districts/Add'),
+        props: {
+            title: 'Add district'
+        },
+        meta: {
+            title: 'Add District',
+            middleware: [auth, admin],
+            permission: permissions.create.district,
+            breadcrumb: 'Add districts'
+        }
+    }, {
+        path: ':id',
+        name: 'adminDistrictsEdit',
+        component: () =>
+            import ( /* webpackChunkName: "admin/serviceRequests/edit" */ 'views/Admin/Districts/Edit'),
+        props: {
+            title: 'Edit district'
+        },
+        meta: {
+            title: 'Edit District',
+            middleware: [auth, admin],
+            permission: [permissions.update.district, permissions.update.serviceDistrict],
+            breadcrumb: 'Edit district'
+        }
     }]
 }];
