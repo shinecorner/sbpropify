@@ -59,6 +59,18 @@
                                 </el-card>
                             </el-col>
                         </el-row>
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="/*$t('dashboard.requests.property_managers')*/'Property managers'">
+                                    <dashboard-managers-list type="property-managers"></dashboard-managers-list>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="/*$t('dashboard.requests.service_partners')*/'Service partners'">
+                                    <dashboard-services-list type="service-partners"></dashboard-services-list>
+                                </el-card>
+                            </el-col>
+                        </el-row>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.buildings')" name="buildings">
                         <el-row type="flex">
@@ -213,6 +225,8 @@
     import DashboardGoogleMap from 'components/DashboardGoogleMap';
     import DashboardLatestBuildings from 'components/DashboardLatestBuildings';
     import DashboardLatestTenants from 'components/DashboardLatestTenants';
+    import DashboardManagersList from 'components/DashboardManagersList';
+    import DashboardServicesList from 'components/DashboardServicesList';
 
     export default {
         name: 'AdminDashboard',
@@ -233,7 +247,9 @@
             DashboardLatestProducts,
             DashboardGoogleMap,
             DashboardLatestBuildings,
-            DashboardLatestTenants
+            DashboardLatestTenants,
+            DashboardManagersList,
+            DashboardServicesList
         },
         data() {
             return {

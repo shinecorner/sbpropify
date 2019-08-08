@@ -8,6 +8,7 @@
             :empty-text="emptyText"
             @selection-change="handleSelectionChange"
             v-loading="loading.state"
+            :height="height"
         >
             <el-table-column
                 :key="column.prop"
@@ -188,6 +189,9 @@
                     icon: 'el-icon-loading',
                     background: 'rgba(0, 0, 0, 0.8)'
                 })
+            },
+            height: {
+                default: () => (undefined)
             }
         },
         data() {
