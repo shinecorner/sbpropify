@@ -107,6 +107,8 @@
                 }],
                 product: {},
                 productDetailsVisible: false,
+                tenants: {},
+                districts: {}
             };
         },
         computed: {
@@ -142,14 +144,14 @@
                         name: this.$t('filters.districts'),
                         type: 'select',
                         key: 'district_id',
-                        data: [],
-                        fetch: this.getFilterDistricts
+                        data: this.districts,
+                        // fetch: this.getFilterDistricts
                     },
                     {
                         name: this.$t('filters.tenant'),
                         type: 'remote-select',
                         key: 'tenant_id',
-                        data: [],
+                        data: this.tenants,
                         remoteLoading: false,
                         fetch: this.fetchRemoteTenants
                     }
@@ -215,6 +217,11 @@
                     };
                 });
             },
+        },
+        async created(){
+            this.tenants = await this.fetchRemoteTenants();
+            const districts = await this.axios.get('districts')
+            this.districts = districts.data.data.data;
         }
     }
 </script>

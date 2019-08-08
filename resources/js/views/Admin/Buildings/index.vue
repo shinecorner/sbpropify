@@ -105,7 +105,11 @@
                 processAssignment: false,
                 managersForm: {},
                 toAssignList: '',
+                states:{},
+                propertyManagers:{},
+                districts:{},
                 toAssign: [],
+                districts: {},
                 remoteLoading: false,
                 delBuildingStatus: -1, // 0: unit, 1: request, 2: both
                 header: [{
@@ -193,6 +197,21 @@
                 }]
             };
         },
+        async created(){
+            const districts = await this.axios.get('districts')
+            this.districts = districts.data.data.data;
+
+            const propertyManagers = await this.axios.get('propertyManagers?get_all=true')
+            this.propertyManagers = propertyManagers.data.data.map((propertyManager) => {
+                return {
+                    id: propertyManager.id,
+                    name: propertyManager.user.name
+                }
+            });
+
+            const states = await this.axios.get('states?filters=true')
+            this.states = states.data.data;
+        },
         computed: {
             ...mapState("application", {
                 requestConstants(state) {
@@ -211,22 +230,22 @@
                         name: this.$t('filters.states'),
                         type: 'select',
                         key: 'state_id',
-                        data: [],
-                        fetch: this.getFilterStates
+                        data: this.states,
+                        // fetch: this.getFilterStates
                     },
                     {
                         name: this.$t('filters.districts'),
                         type: 'select',
                         key: 'district_id',
-                        data: [],
-                        fetch: this.getFilterDistricts
+                        data: this.districts,
+                        // fetch: this.getFilterDistricts
                     },
                     {
                         name: this.$t('filters.propertyManagers'),
                         type: 'select',
                         key: 'manager_id',
-                        data: [],
-                        fetch: this.getFilterPropertyManagers
+                        data: this.propertyManagers,
+                        // fetch: this.getFilterPropertyManagers
                     },
                     {
                         name: this.$t('filters.requestStatus'),
