@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Validation\Rule;
 
 /**
  * @SWG\Definition(
@@ -101,7 +100,7 @@ use Illuminate\Validation\Rule;
  *      )
  * )
  */
-class RealEstate extends Model
+class RealEstate extends AuditableModel
 {
     use SoftDeletes;
 
@@ -215,12 +214,25 @@ class RealEstate extends Model
         return $this->hasOne(Address::class, 'id', 'address_id');
     }
 
+    /**
+     * @param $val
+     * @return mixed
+     */
     public function getMailPasswordAttribute($val)
     {
         return \Crypt::decryptString($val);
     }
+
+    /**
+     * @param $val
+     */
     public function setMailPasswordAttribute($val)
     {
-        $this->attributes['mail_password'] = \Crypt::encryptString($val);
+        $original = $this->getOriginal('mail_password');
+        if ($original && \Crypt::decryptString($original) == $val) {
+            $this->attributes['mail_password'] = $original;
+        } else {
+            $this->attributes['mail_password'] = \Crypt::encryptString($val);
+        }
     }
 }

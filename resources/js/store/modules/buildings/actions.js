@@ -17,10 +17,7 @@ export default {
     createBuilding(_, payload) {
         return new Promise((resolve, reject) =>
             axios.post('buildings', payload)
-                .then(({data: r}) => resolve({
-                    success: true,
-                    message: 'models.building.saved'
-                }))
+                .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
     updateBuilding(_, {id, ...restPayload}) {
@@ -32,10 +29,7 @@ export default {
     deleteBuilding(_, {id}) {
         return new Promise((resolve, reject) =>
             axios.delete(`buildings/${id}`)
-                .then(({data: r}) => resolve({
-                    success: true,
-                    message: 'models.building.deleted'
-                }))
+                .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
     getBuildingStatistics(_, {id}) {
@@ -50,7 +44,7 @@ export default {
                 .then((resp) => {
                     resolve({
                         success: true,
-                        message: 'models.building.document.uploaded',
+                        message: resp.data.message,
                         media: resp.data.data
                     });
                 }).catch((error) => reject(error));
@@ -60,20 +54,14 @@ export default {
         return new Promise((resolve, reject) => {
             axios.delete(`buildings/${payload.id}/media/${payload.media_id}`)
                 .then((resp) => {
-                    resolve({
-                        success: true,
-                        message: 'models.building.document.deleted'
-                    });
+                    resolve(resp.data);
                 }).catch((error) => reject(error));
         });
     },
     deleteBuildingService(_, {building_id, id}) {
         return new Promise((resolve, reject) => {
             axios.delete(`buildings/${building_id}/service/${id}`).then((resp) => {
-                resolve({
-                    success: true,
-                    message: 'models.building.service.deleted'
-                });
+                resolve(resp.data);
             }).catch((error) => reject(error));
         });
     },
@@ -81,30 +69,21 @@ export default {
         return new Promise((resolve, reject) => {
             axios.post(`buildings/${payload.id}/propertyManagers`, {...payload})
                 .then((resp) => {
-                    resolve({
-                        success: true,
-                        message: 'models.building.managers_assigned'
-                    });
+                    resolve(resp.data);
                 }).catch((error) => reject(error));
         })
     },
     unassignBuildingManager(_, {building_id, id}) {
         return new Promise((resolve, reject) => {
             axios.delete(`buildings/${building_id}/propertyManagers/${id}`).then((resp) => {
-                resolve({
-                    success: true,
-                    message: 'models.building.manager.unassigned'
-                });
+                resolve(resp.data);
             }).catch((error) => reject(error));
         });
     },
     deleteBuildingWithIds({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`buildings/deletewithids`, {...payload}).then((resp) => {                
-                resolve({
-                    success: true,
-                    message: 'models.building.deleted'
-                });
+                resolve(resp.data);
             }).catch((error) => reject(error));
         });
     },

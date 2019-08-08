@@ -170,7 +170,7 @@ class Building extends Model implements HasMedia
      **/
     public function lastPropertyManagers()
     {
-        return $this->belongsToMany(PropertyManager::class)->orderBy('id', 'DESC')->limit(2);
+        return $this->belongsToMany(PropertyManager::class)->orderBy('id', 'DESC');
     }
 
     /**
@@ -186,7 +186,7 @@ class Building extends Model implements HasMedia
      **/
     public function lastTenants()
     {
-        return $this->hasMany(Tenant::class)->orderBy('id', 'DESC')->limit(2);
+        return $this->hasMany(Tenant::class)->orderBy('id', 'DESC');
     }
 
     public function requests()
