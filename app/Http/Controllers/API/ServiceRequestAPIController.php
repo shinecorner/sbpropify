@@ -719,6 +719,7 @@ class ServiceRequestAPIController extends AppBaseController
         if (empty($sr)) {
             return $this->sendError('Service Request not found');
         }
+
         $u = $uRepo->findWithoutFail($uid);
         if (empty($u)) {
             return $this->sendError('User not found');
@@ -727,14 +728,6 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->assignees()->sync($u, false);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address', 'providers.user', 'assignees');
-
-        $a = $this->newRequestAudit($sr->id);
-        $a->event = 'user_assigned';
-        $a->new_values = [
-            'user_id' => $uid,
-            'user_name' => $u->name,
-        ];
-        $a->save();
 
         foreach ($sr->providers as $p) {
             $sr->conversationFor($p->user, $u);
@@ -791,14 +784,6 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->assignees()->detach($u);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address', 'providers.user', 'assignees');
-
-        $a = $this->newRequestAudit($sr->id);
-        $a->event = 'user_unassigned';
-        $a->old_values = [
-            'user_id' => $uid,
-            'user_name' => $u->name,
-        ];
-        $a->save();
 
         return $this->sendResponse($sr, 'User unassigned successfully');
     }
