@@ -76,7 +76,14 @@
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
                                 <el-card class="chart-card" :header="/*$t('dashboard.buildings.buildings_map')*/'Buildings map'">
-                                    <dashboard-google-map type="buildings" :startDate="startDates.buildings"></dashboard-google-map>
+                                    <dashboard-google-map type="buildings"></dashboard-google-map>
+                                </el-card>
+                            </el-col>
+                        </el-row>
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="/*$t('dashboard.buildings.latest_buildings')*/'Latest buildings'">
+                                    <dashboard-latest-buildings type="buildings"></dashboard-latest-buildings>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -197,6 +204,7 @@
 
     import DashboardLatestProducts from 'components/DashboardLatestProducts';
     import DashboardGoogleMap from 'components/DashboardGoogleMap';
+    import DashboardLatestBuildings from 'components/DashboardLatestBuildings';
 
     export default {
         name: 'AdminDashboard',
@@ -215,7 +223,8 @@
             ChartUsersByDevice,
             TenantsStatisticsCard,
             DashboardLatestProducts,
-            DashboardGoogleMap
+            DashboardGoogleMap,
+            DashboardLatestBuildings
         },
         data() {
             return {
