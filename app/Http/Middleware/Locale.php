@@ -10,11 +10,13 @@ use Session;
 class Locale
 {
     public function handle($request, Closure $next)
-    {
-        if ($request->user() && $request->user()->settings) {
+    {                
+        if($request->header('Localization')){        
+            App::setLocale($request->header('Localization'));
+        }        
+        elseif ($request->user() && $request->user()->settings) {
             App::setLocale($request->user()->settings->language);
-        }
-
+        }        
         return $next($request);
     }
  }

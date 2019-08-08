@@ -80,7 +80,7 @@ export default (config = {}) => {
                     text: 'Please wait...'
                 },
                 allServices: [],
-                districts: [],
+                districts: []
             };
         },
         methods: {
@@ -101,7 +101,7 @@ export default (config = {}) => {
                         this.remoteLoading = false;
                     }
                 }
-            }
+            },
         },
         computed: {
             form() {
@@ -182,10 +182,7 @@ export default (config = {}) => {
 
                                     this.model.service_providers_ids = [];
 
-                                    displaySuccess({
-                                        success: true,
-                                        message: 'models.building.saved'
-                                    });
+                                    displaySuccess(data);
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

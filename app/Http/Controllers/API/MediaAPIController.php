@@ -157,7 +157,7 @@ class MediaAPIController extends AppBaseController
         }
 
         $response = (new MediaTransformer)->transform($media);
-        return $this->sendResponse($response, 'Media saved successfully');
+        return $this->sendResponse($response, __('models.building.document.uploaded'));
     }
 
     /**
@@ -214,7 +214,7 @@ class MediaAPIController extends AppBaseController
 
         $media->delete();
 
-        return $this->sendResponse($media_id, 'Media deleted successfully');
+        return $this->sendResponse($media_id, __('models.building.document.deleted'));
     }
 
     /**
