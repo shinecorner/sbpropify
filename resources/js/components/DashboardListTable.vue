@@ -33,6 +33,18 @@
                         </component>
                     </div>
 
+                    <div v-if="column.type == 'product-details'" class="product-details">
+                        <div class="image" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
+                        <div class="text">
+                            <div class="title">
+                                {{ scope.row['title'] }}
+                            </div>
+                            <div class="date">
+                                {{ scope.row['created_at'] }}
+                            </div>
+                        </div>
+                    </div>
+
                     <div v-if="column.type == 'users'" class="avatars-wrapper">
                         <span :key="index" v-for="(user, index) in scope.row[column.prop]">
                             <el-tooltip
@@ -96,7 +108,7 @@
 
                     <el-tag
                         v-if="column.type == 'tag'"
-                        :class="`tag-${scope.row[column.classSuffix]}`"
+                        :class="`tag-${scope.row[column.classSuffix] % 6}`"
                         :size="column.size"
                     >
                         {{ scope.row[column.prop] }}
@@ -426,44 +438,74 @@
         }
         text-align: center;
 
-        .multi-text-title {
-            font-weight: bold;
+        .product-details {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            width: 100%;
+
+            .image {
+                border: 1px solid #e2e5ea;
+                border-radius: 7px;
+                width: 55px;
+                height: 55px;
+                min-width: 55px;
+                min-height: 55px;
+                margin-right: 20px;
+                background-size: cover;
+                background-position: center;
+            }
+
+            .text {
+                width: calc(100% - 75px);
+                .title {
+                    max-width: 100%;
+                    font-weight: bold;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .date {
+                    font-size: 0.75rem;
+                    color: #919bac;
+                }
+            }
         }
-        .multi-text-user_email {
-            font-size: 0.75rem;
-            color: #919bac;
-        }
-        .multi-text-created_at {
-            font-size: 0.75rem;
-            color: #919bac;
-        }
+
         .el-tag {
-            color: white;
+            color: #606266;
+            border: 1px solid #dcdfe6;
+            background-color: #fff;
             min-width: 64px;
             border-radius: 16px;
             text-align: center;
 
-            &.tag-0 {
-                background-color: #409eff;
-            }
             &.tag-1 {
-                background-color: #67c23a;
+                color: #409eff;
+                background: #ecf5ff;
+                border-color: #b3d8ff;
             }
             &.tag-2 {
-                background-color: #f5b63f;
+                color: #67c23a;
+                background: #f0f9eb;
+                border-color: #c2e7b0;
             }
             &.tag-3 {
-                background-color: #f56c6c;
+                color: #67c23a;
+                background: #f0f9eb;
+                border-color: #c2e7b0;
             }
             &.tag-4 {
-                background-color: #b52e40;
+                color: #e6a23c;
+                background: #fdf6ec;
+                border-color: #f5dab1;
             }
             &.tag-5 {
-                background-color: #5cc279;
-                color: black;
-            }
-            &.tag-6 {
-                background-color: #909399;
+                color: #f56c6c;
+                background: #fef0f0;
+                border-color: #fbc4c4;
             }
         }
     }
