@@ -35,6 +35,9 @@ export default {
   props: {
     colNum: {
         type: Number
+    },
+    centered: {
+        type: Boolean
     }
   },  
   data() {
@@ -78,6 +81,22 @@ export default {
                 }
             }];
         }
+        else if (this.colNum == 3 && this.centered == true) {
+            responsive = [{
+                breakpoint: 1500,
+                options: {
+                    chart: {
+                        width: '100%',
+                        height: 'auto'
+                    },
+                    legend: {
+                        position: 'bottom',
+                        horizontalAlign: 'center',
+                        width: undefined
+                    }
+                }
+            }];
+        }
         else {
             responsive = [{
                 breakpoint: 1800,
@@ -109,11 +128,11 @@ export default {
             responsive: responsive,
             legend: {
                 show: true,
-                width: 220
+                width: this.centered ? undefined : 220
             },
             chart:{
                 toolbar: this.toolbar,
-                width: 540,
+                width: this.centered? '100%' : 540,
                 height: 320
             },
             colors: this.colors

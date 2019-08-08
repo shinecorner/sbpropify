@@ -136,8 +136,11 @@
             </el-col>
             <el-col :md="12">
                 <card class="mt15" :loading="loading">
-                    <el-row :gutter="20">   
-                        <el-col :lg="12" :xl="14">
+                    <div slot="header">
+                        <span>Tenants</span>
+                    </div>
+                    <el-row :gutter="20">
+                        <el-col :lg="20" :xl="20">
                             <el-select
                                 :loading="remoteLoading"
                                 :placeholder="$t('models.tenant.search')"
@@ -159,7 +162,7 @@
                                     v-for="tenant in tenants"/>
                             </el-select>
                         </el-col>
-                        <el-col :lg="6" :xl="4">
+                        <el-col :lg="4" :xl="4">
                             <el-button :disabled="!toAssign" @click="assignTenant" class="full-button"
                                         icon="ti-save" type="primary">
                                 {{$t('models.request.assign')}}

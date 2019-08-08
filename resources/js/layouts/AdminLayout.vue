@@ -32,33 +32,25 @@
                             {{user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
                         </span>
                         
-                        <el-dropdown-menu slot="dropdown" :style="dropmenuwidth">
-                                <el-button @click="removeMenuActive" type="text">
-                                    <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
+                        <el-dropdown-menu slot="dropdown" :style="dropmenuwidth" @click.native="removeMenuActive">
+                                <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
+                                    <el-dropdown-item>
+                                        <i class="icon-user"/>
+                                        {{$t('menu.profile')}}
+                                    </el-dropdown-item>
+                                </router-link>
+                                <template v-if="$can($permissions.view.realEstate)">
+                                    <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
                                         <el-dropdown-item>
-                                            <i class="icon-user"/>
-                                            {{$t('menu.profile')}}
+                                            <i class="icon-cog"/>
+                                            {{$t('menu.settings')}}
                                         </el-dropdown-item>
                                     </router-link>
-                                </el-button>
-                                <template v-if="$can($permissions.view.realEstate)">
-                                    <el-button @click="removeMenuActive" type="text">
-                                        <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
-                                            <el-dropdown-item>
-                                                <i class="icon-cog"/>
-                                                {{$t('menu.settings')}}
-                                            </el-dropdown-item>
-                                        </router-link>
-                                    </el-button>
                                 </template>
-                                <el-button @click="handleLogout" type="text">
-                                    <el-dropdown-item id="logout">
-                                        <div class="logout-button">
-                                            <i class="icon-logout"/>
-                                            {{$t('menu.logout')}}
-                                        </div>
-                                    </el-dropdown-item>
-                                </el-button>
+                                <el-dropdown-item id="logout" @click.native="handleLogout">
+                                    <i class="icon-logout"/>
+                                    {{$t('menu.logout')}}
+                                </el-dropdown-item>
                         </el-dropdown-menu>
                     </div>
                 </el-dropdown>

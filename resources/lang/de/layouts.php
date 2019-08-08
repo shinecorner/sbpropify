@@ -12,7 +12,7 @@ return [
       'myTenancy' => 'Mein Dossier',
       'myPersonalData' => 'Persönliche Angaben',
       'myRecentContract' => 'Mietvertrag',
-      'myDocuments' => 'Dokumentation',
+      'myDocuments' => 'Objekt-Dokumentation',
       'myContactPersons' => 'Kontaktpersonen',
       'posts' => 'Pinnwand',
       'requests' => 'Anfragen',

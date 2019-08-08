@@ -84,6 +84,7 @@ return [
       ],
       'search_building' => 'Search building',
       'search_unit' => 'Search unit',
+      'search' => 'Search',
       'confirmDelete' => 
       [
         'title' => 'This will permanently delete the tenant.',
@@ -275,6 +276,10 @@ return [
       'title' => 'Units',
       'not_found' => 'Unit not found',
       'add' => 'Add unit',
+      'tenantType' => [
+        'attached' => 'Tenant attached successfully',
+        'detached' => 'Tenant detached successfully'
+      ],
       'name' => 'Unit number',
       'created_at' => 'Date',
       'edit' => 'Edit',
@@ -594,6 +599,13 @@ return [
       'templates' => 'Templates',
       'contact_enable' => 'Enable \'My contacts\'',
       'cleanify_email' => 'Cleanify email',
+      'mail_encryption' => 'Encryption',
+      'mail_from_address' => 'From address',
+      'mail_from_name' => 'From Name',
+      'mail_host' => 'Host',
+      'mail_password' => 'Password',
+      'mail_port' => 'Port',
+      'mail_username' => 'Username',
       'iframe_url' => 
       [
         'label' => 'Iframe URL',

@@ -10,7 +10,7 @@ export default {
                     "myTenancy": "Mein Dossier",
                     "myPersonalData": "Persönliche Angaben",
                     "myRecentContract": "Mietvertrag",
-                    "myDocuments": "Dokumentation",
+                    "myDocuments": "Objekt-Dokumentation",
                     "myContactPersons": "Kontaktpersonen",
                     "posts": "Pinnwand",
                     "requests": "Anfragen",
@@ -24,11 +24,11 @@ export default {
             "requests_by_creation_date": "Anfragen nach Erstellungsdatum",
             "requests_by_status": "Anfragen nach Status",
             "requests_by_category": "Anfragen nach Kategorie",
-            "requests_by_assigned_status": "Anfragen nach zugewiesenem Status",
-            "each_hour_request": "Jede Stunde fordert",
+            "requests_by_assigned_status": "Einbezug von Dienstleistern",
+            "each_hour_request": "Stündlich",
             "average_request_duration": "Ø Bearbeitungszeit",
-            "week_hour": "Woche vs. Stunde",
-            "month_date": "Monat vs. Datum",
+            "week_hour": "Woche und Stunden",
+            "month_date": "Monat und Tag",
             "news_by_creation_date": "Nachrichten nach Erstellungsdatum",
             "news_by_status": "Nachrichten nach Status",
             "news_by_type": "Nachrichten nach Typ",
@@ -38,26 +38,26 @@ export default {
             "tenants_by_creation_date": "Mieter nach Erstellungsdatum",
             "tenants_by_request_status": "Mieter nach Anforderungsstatus",
             "tenants_by_status": "Mieter nach Status",
-            "tenants_by_language": "Mieter nach Sprache",
-            "tenants_by_title": "Mieter nach Titel",
-            "tenants_by_device": "Mieter nach Gerät",
-            "tenants_by_gender": "Mieter nach Geschlecht",
+            "tenants_by_language": "Mieter Sprache",
+            "tenants_by_title": "Anrede",
+            "tenants_by_device": "Geräte",
+            "tenants_by_gender": "Demografische Merkmale",
             "actions": "Aktionen",
             "requests": {
                 "requests_with_service_providers": "Mit Dienstleistern",
                 "request_wihout_service_providers": "Ohne Dienstleister"
             },
             "buildings": {
-                "total_building": "Gesamtzahl",
-                "total_units": "Gesamteinheiten",
-                "occupied_units": "Besetzte Einheiten",
-                "free_units": "Kostenlose Einheiten",
+                "total_building": "Anzahl Liegenschaften",
+                "total_units": "Anzahl Enheiten",
+                "occupied_units": "Vermiete Einheiten",
+                "free_units": "Freie Einheiten",
                 "buildings_by_creation_date": "Gebäude nach Erstellungsdatum"
             },
             "tenants": {
-                "total_tenants": "Total Count",
-                "average_age": "Durchschnittsalter",
-                "average_age_acr": "Dur. Alter"
+                "total_tenants": "Total Mieter",
+                "average_age": "Durchschnittsalter:",
+                "average_age_acr": "Ø Alter"
             },
             "marketplace": {
                 "go_to_marketplace": "zum Marktplatz gehen"
@@ -65,8 +65,8 @@ export default {
         },
         "passwords": {
             "password": "Passwörter müssen mindestens 6 Zeichen lang sein und korrekt bestätigt werden.",
-            "reset": "Das Passwort wurde zurückgesetzt!",
-            "sent": "Passworterinnerung wurde gesendet!",
+            "reset": "Das Passwort wurde erfolgreich zurückgesetzt!",
+            "sent": "Passworterinnerung wurde an die angegebene E-Mail-Adresse  gesendet!",
             "token": "Der Passwort-Wiederherstellungs-Schlüssel ist ungültig oder abgelaufen.",
             "user": "Es konnte leider kein Nutzer mit dieser E-Mail-Adresse gefunden werden."
         },
@@ -180,9 +180,9 @@ export default {
             "swal": {
                 "delete": {
                     "title": "Sind Sie sicher?",
-                    "text": "Dies kann nicht mehr rückgänging gemacht werden",
+                    "text": "Dies kann nicht mehr rückgänging gemacht werden!",
                     "confirmText": "Ja, ich will löschen!",
-                    "deleted": "Erfolgreich gelöscht"
+                    "deleted": "Erfolgreich gelöscht!"
                 },
                 "add": {
                     "added": "Erfolgreich hinzugefügt"
@@ -191,7 +191,7 @@ export default {
                     "added": "Dokument/Foto hinzugefügt",
                     "deleted": "Dokument/Foto gelöscht"
                 },
-                "logout_confirm": "Du wirst ausgeloggt."
+                "logout_confirm": "Sie werden eingelogt ausgeloggt."
             },
             "roles": {
                 "label": "Rolle",
@@ -206,9 +206,9 @@ export default {
                 "placeholder": "Suchen"
             },
             "errors": {
-                "files_extension_images": "Nur Dateien in der Formaten .jpg und .png erlaubt"
+                "files_extension_images": "Nur Dateien in der Formaten .jpg und .png erlaubt."
             },
-            "dateTimeFormat": "{date} bei {time}",
+            "dateTimeFormat": "{date} um {time}",
             "date_range": {
                 "range_separator": "Bis",
                 "start_date": "Startdatum",
@@ -231,7 +231,7 @@ export default {
             "requests": "Anfragen",
             "open_requests": "Offene Anfragen",
             "units": "Einheiten",
-            "states": "Kantone",
+            "states": "Kanton",
             "status": "Status",
             "search": "Suchen",
             "requestStatus": "Anfrage Status",
@@ -240,33 +240,33 @@ export default {
             "created_from": "Erstellt vom",
             "created_to": "Erstellt bis",
             "services": "Partnerfirmen",
-            "tenant": "Typ der Mieter"
+            "tenant": "Mieter-Typ"
         },
         "pagination": {
             "previous": "&laquo; Zurück",
             "next": "Weiter &raquo;"
         },
         "common": {
-            "mr": "Mr",
-            "mrs": "Mrs",
-            "company": "Company",
-            "request_status_1": "Received",
-            "request_status_2": "In Processing",
-            "request_status_3": "Assigned",
-            "request_status_4": "Done",
-            "request_status_5": "Reactivated",
-            "request_status_6": "Archived",
-            "originalRequest_status_1": "Received",
-            "originalRequest_status_2": "In Processing",
-            "originalRequest_status_3": "Assigned",
-            "originalRequest_status_4": "Done",
-            "originalRequest_status_5": "Reactivated",
-            "originalRequest_status_6": "Archived",
-            "email_footer_message1": "This email was automatically generated for {UserName}.",
-            "email_footer_message2": "You get this automatically generated e-mail as a user of {CompanyName}.",
-            "email_link_contacts": "Contacts.",
-            "email_link_terms_of_use": "Terms of Use",
-            "email_link_data_protection": "Data protection"
+            "mr": "Herr",
+            "mrs": "Frau",
+            "company": "Firma",
+            "request_status_1": "Erhalten",
+            "request_status_2": "In Bearbeitung",
+            "request_status_3": "Avisiert",
+            "request_status_4": "Erledigt",
+            "request_status_5": "Reaktiviert",
+            "request_status_6": "Archiviert",
+            "originalRequest_status_1": "Erhalten",
+            "originalRequest_status_2": "In Bearbeitung",
+            "originalRequest_status_3": "Avisiert",
+            "originalRequest_status_4": "Erledigt",
+            "originalRequest_status_5": "Reaktiviert",
+            "originalRequest_status_6": "Archiviert",
+            "email_footer_message1": "Diese automatisierte Nachricht wurde für {UserName} erstellt.",
+            "email_footer_message2": "Sie erhalten Sie Mitteilung, da Sie Nutzer von {CompanyName} sind.",
+            "email_link_contacts": "Kontakt",
+            "email_link_terms_of_use": "Nutzungsbedingungen",
+            "email_link_data_protection": "Datenschutz"
         },
         "menu": {
             "dashboard": "Dashboard",
@@ -298,60 +298,60 @@ export default {
             "services": "Partnerfirmen",
             "activity": "Aktivität",
             "propertyManagers": "Bewirtschafter",
-            "templates": "Vorlagen",
-            "pages": {
-                "profile": {
-                    "pageTitle": "Profil-Einstellungen",
-                    "profile": "Profil",
-                    "account": "Konto",
-                    "security": "Sicherheit",
-                    "notifications": "Benachrichtigungen"
-                },
-                "user": {
-                    "title": "Benutzer"
-                },
-                "request_activities": {
-                    "title": "Tracking von Anfrage-Aktivitäten"
-                },
-                "tenant": {
-                    "title": "Mieter"
-                }
-            }
+            "templates": "Vorlagen"
         },
         "auth": {
             "failed": "Diese Kombination aus Zugangsdaten wurde nicht in unserer Datenbank gefunden.",
             "throttle": "Zu viele Loginversuche. Versuchen Sie es bitte in {seconds} Sekunden nochmal."
         },
+        "pages": {
+            "profile": {
+                "pageTitle": "Profil-Einstellungen",
+                "profile": "Profil",
+                "account": "Konto",
+                "security": "Sicherheit",
+                "notifications": "Benachrichtigungen"
+            },
+            "user": {
+                "title": "Benutzer"
+            },
+            "request_activities": {
+                "title": "Tracking von Anfrage-Aktivitäten"
+            },
+            "tenant": {
+                "title": "Mieter"
+            }
+        },
         "components": {
             "common": {
                 "audit": {
                     "type": {
-                        "post": "Post",
-                        "product": "Product",
-                        "request": "Request"
+                        "post": "Pinnwand",
+                        "product": "Markplatz",
+                        "request": "Anfragen"
                     },
                     "filter": {
                         "type": {
-                            "post": "Post",
-                            "product": "Product",
-                            "request": "Request"
+                            "post": "Pinnwand",
+                            "product": "Markplatz",
+                            "request": "Anfragen"
                         },
                         "post": {
-                            "created": "Created",
-                            "updated": "Updates",
-                            "provider_assigned": "Provider assigned",
-                            "user_assigned": "User assigned",
-                            "media_uploaded": "Media uploaded",
-                            "media_deleted": "Media deleted"
+                            "created": "Erstellt",
+                            "updated": "Aktualisiert",
+                            "provider_assigned": "Dienstleister zugewiesen",
+                            "user_assigned": "Benutzer zugewiesen",
+                            "media_uploaded": "Mediendateien hinaufgeladen",
+                            "media_deleted": "Mediendateien gelöscht"
                         },
                         "product": [],
                         "request": {
-                            "created": "Created",
-                            "updated": "Updates",
-                            "provider_assigned": "Provider assigned",
-                            "user_assigned": "User assigned",
-                            "media_uploaded": "Media uploaded",
-                            "media_deleted": "Media deleted"
+                            "created": "Erstellt",
+                            "updated": "Aktualisiert",
+                            "provider_assigned": "Dienstleister zugewiesen",
+                            "user_assigned": "Benutzer Dienstleister",
+                            "media_uploaded": "Medien hinaufgeladen",
+                            "media_deleted": "Medien gelöscht"
                         }
                     },
                     "content": {
@@ -359,48 +359,48 @@ export default {
                             "post": {
                                 "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
                                 "updated": {
-                                    "status": "The status changed from \"{old}\" to \"{new}\".",
-                                    "published_at": "Post published on {new}."
+                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "published_at": "Beitrag wurde veröffentlicht am {new}."
                                 }
                             },
                             "product": {
                                 "created": "{userName} opened this {auditable_type}.",
                                 "updated": {
-                                    "title": "The title changed from \"{old}\" to \"{new}\".",
-                                    "status": "The status changed from \"{old}\" to \"{new}\".",
-                                    "due_date": "The due date changed from \"{old}\" to \"{new}\".",
-                                    "priority": "The priority changed from \"{old}\" to \"{new}\".",
-                                    "category_id": "The category changed from \"{old}\" to \"{new}\".",
-                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\".",
-                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\"."
+                                    "title": "Der Titel wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "due_date": "Das Erledigungsdatum wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "priority": "Die Priorität wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "category_id": "Die Kategorie wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "qualification": "Die Qualifikation wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "visibility": "Die Sichtbarkeit wurde von \"{old}\" zu \"{new}\" geändert."
                                 },
-                                "provider_assigned": "{providerName} has been assigned as provider.",
-                                "user_assigned": "{userName} has been assigned as manager.",
-                                "media_uploaded": "Media uploaded",
-                                "media_deleted": "Media deleted"
+                                "provider_assigned": "{providerName} wurde als Dienstleistern zugewiesen.",
+                                "user_assigned": "{userName} wurde als zuständige Person zugewiesen.",
+                                "media_uploaded": "Mediendateien aktualisiert",
+                                "media_deleted": "Mediendateien gelöscht"
                             },
                             "request": {
                                 "created": "{userName} opened this {auditable_type}.",
                                 "updated": {
-                                    "title": "The title changed from \"{old}\" to \"{new}\".",
-                                    "status": "The status changed from \"{old}\" to \"{new}\".",
-                                    "due_date": "The due date changed from \"{old}\" to \"{new}\".",
-                                    "priority": "The priority changed from \"{old}\" to \"{new}\".",
-                                    "category_id": "The category changed from \"{old}\" to \"{new}\".",
-                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\".",
-                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\"."
+                                    "title": "Der Titel wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "due_date": "Das Erledigungsdatum wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "priority": "Die Priorität wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "category_id": "Die Kategorie wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "qualification": "Die Qualifikation wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "visibility": "Die Sichtbarkeit wurde von \"{old}\" zu \"{new}\" geändert."
                                 },
-                                "provider_assigned": "{providerName} has been assigned as provider.",
-                                "user_assigned": "{userName} has been assigned as manager.",
-                                "media_uploaded": "Media uploaded",
-                                "media_deleted": "Media deleted"
+                                "provider_assigned": "{providerName} wurde als Dienstleistern zugewiesen.",
+                                "user_assigned": "{userName} wurde als zuständige Person zugewisen.",
+                                "media_uploaded": "Mediendateien aktualisiert",
+                                "media_deleted": "Mediendateien gelöscht"
                             }
                         },
                         "withNoId": {
                             "post": {
                                 "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
                                 "updated": {
-                                    "status": "The status changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" im {auditable_type} #{auditable_id} geändert.",
                                     "published_at": "Post published on {new} on {auditable_type} #{auditable_id}."
                                 }
                             },
@@ -464,27 +464,27 @@ export default {
                     "placeholder": "Schreibe einen Kommentar...",
                     "tooltipTemplates": "Wählen Sie eine Vorlage",
                     "loadingTemplates": "Vorlagen werden geladen...",
-                    "saveShortcut": "oder Verwendung {shortcut} Abkürzung",
+                    "saveShortcut": "oder verwende {shortcut} Abkürzung",
                     "emptyTemplatesPlaceholder": "Keine Vorlagen vorhanden"
                 },
                 "media": {
                     "buttons": {
                         "selectFiles": {
-                            "withDrop": "Drop files or click to select...",
-                            "withoutDrop": "Click to select..."
+                            "withDrop": "Schieben oder wählen Sie die Dateien...",
+                            "withoutDrop": "Datei wählen..."
                         },
-                        "upload": "Upload"
+                        "upload": "Hinauflauden"
                     },
                     "dropActive": {
-                        "title": "Drop your files here...",
-                        "description": "Only the files with a certain extension are allowed."
+                        "title": "Schieben Sie die Datein hier hinein..",
+                        "description": "Nur die Dateien mit eines bestimmten Typs sind erlaubt..."
                     },
                     "messages": {
-                        "preview": "This file cannot be previewed.",
-                        "uploading": "Uploading...",
-                        "uploaded": "Media files have been succesfully uploaded.",
-                        "size": "Oops! Some files had the size bigger than the maximum allowed of {bytes}.",
-                        "extensions": "Oops! Some files have had an extension that was not allowed. Skipping..."
+                        "preview": "Es kann keine Vorschau angezeigt werden.",
+                        "uploading": "Hinaufladen...",
+                        "uploaded": "Mediendateien wurden erfolgreich hochgeladen.",
+                        "size": "Hoppla! Einige Dateien hatten die Größe grösser als die maximal zulässige Anzahl von {bytes}.",
+                        "extensions": "Hoppla! Einige Datei-Typen wurde ausgewählt, die nicht erlaubt sind. Überspringen..."
                     }
                 }
             },
@@ -499,9 +499,9 @@ export default {
                 },
                 "postAdd": {
                     "visibility": {
-                        "address": "Address",
-                        "district": "District",
-                        "all": "All"
+                        "address": "Nachbarn",
+                        "district": "Überbauung",
+                        "all": "Alle"
                     }
                 }
             },
@@ -538,11 +538,11 @@ export default {
                 "not_found": "Benutzer nicht gefunden",
                 "profile_image": "Profil-Bild",
                 "profile_text": "Profil-Text",
-                "avatar_uploaded": "Avatar aktualisiert",
+                "avatar_uploaded": "Profilbild aktualisiert",
                 "logo_uploaded": "Logo aktualisiert",
-                "logo": "Logo",
-                "address": "Addresse",
-                "blank_pdf": "Blank pdf",
+                "logo": "Firmenlogo",
+                "address": "Adresse",
+                "blank_pdf": "Leeres PDF Template verwenden",
                 "realEstateSaved": "Einstellung gespeichert",
                 "serviceRequestCategorySaved": "Kategorie der Serviceanfrage gespeichert",
                 "validation": {
@@ -558,9 +558,9 @@ export default {
                 "view": "Aussicht",
                 "view_title": "Mieter anzeigen",
                 "edit_title": "Mieter bearbeiten",
-                "download_credentials": "Download credentials",
-                "send_credentials": "Send credentials",
-                "credentials_sent": "Credentials sent",
+                "download_credentials": "Zugangsdaten (pdf)",
+                "send_credentials": "Zugangsdaten (email)",
+                "credentials_sent": "Zugangsdaten wurden erfolgreich gesendet.",
                 "credentials_send_fail": "Credentials file not found. Try updating the tenant password to regenerate it",
                 "credentials_download_failed": "Credentials file not found. Try updating the tenant password to regenerate it",
                 "add": "Mieter hinzufügen",
@@ -579,6 +579,7 @@ export default {
                 "email": "E-Mail",
                 "personal_phone": "Telefon privat",
                 "private_phone": "Telefon privat",
+                "created_date": "Aangemaakte datum",
                 "created_at": "Datum",
                 "edit": "Öffnen",
                 "delete": "Löschen",
@@ -588,7 +589,7 @@ export default {
                 "posts": "Beiträge",
                 "products": "Marktplatz",
                 "requests": "Anfragen",
-                "company": "Company name",
+                "company": "Firmenname",
                 "no_building": "Keine Liegenschaften",
                 "building": {
                     "name": "Liegenschaft"
@@ -598,8 +599,9 @@ export default {
                 },
                 "search_building": "Liegenschaft suchen",
                 "search_unit": "Einheit suchen",
+                "search": "Suchen",
                 "confirmDelete": {
-                    "title": "Der Mieter wird endgültig gelöscht",
+                    "title": "Der Mieter wird endgültig gelöscht.",
                     "text": "Sind Sie sicher?"
                 },
                 "validation": {
@@ -761,6 +763,10 @@ export default {
                 "title": "Einheiten",
                 "not_found": "Einheit nicht gefunden",
                 "add": "Einheit hinzufügen",
+                "tenantType": {
+                    "attached": "Mieter erfolgreich gebunden",
+                    "detached": "Mieter erfolgreich abgezogen"
+                },
                 "name": "Einheit Nummer",
                 "created_at": "Datum",
                 "edit": "Öffnen",
@@ -1037,15 +1043,22 @@ export default {
                 "to": "An",
                 "categories": "Kategorien",
                 "contact_enable": "Meine Kontakte aktivieren",
-                "templates": "Templates",
+                "templates": "Vorlagen",
                 "cleanify_email": "Cleanify email",
+                "mail_encryption": "Verschlüsselung",
+                "mail_from_address": "Abesender E-Mail",
+                "mail_from_name": "Absender Name",
+                "mail_host": "Host",
+                "mail_password": "Passwort",
+                "mail_port": "Hafen",
+                "mail_username": "Benutzername (E-Mail)",
                 "iframe_url": {
                     "label": "Iframe URL",
                     "validation": "Bitte geben Sie eine korrekte URL ein."
                 }
             },
             "request": {
-                "audits": "Audits",
+                "audits": "Hystorx",
                 "edit": "Öffnen",
                 "delete": "Löschen",
                 "deleted": [
@@ -1102,7 +1115,7 @@ export default {
                 "defect_location": {
                     "label": "Örtlichkeit",
                     "apartment": "Wohnung",
-                    "building": "Liegenschaft",
+                    "building": "Haus",
                     "environment": "Ungebung"
                 },
                 "qualification": {
@@ -1124,14 +1137,14 @@ export default {
                 },
                 "category_options": {
                     "disturbance": "Störung",
-                    "defect": "Fehler",
-                    "order_documents": "Bestellunterlagen",
-                    "order_a_payment_slip": "Einen Einzahlungsschein bestellen",
+                    "defect": "Mängel",
+                    "order_documents": "Unterlagen bestellen",
+                    "order_a_payment_slip": "Einzahlungsschein(e) bestellen",
                     "questions_about_the_tenancy": "Fragen zum Mietverhältnis",
                     "other": "Sonstiges",
                     "environment": "Umgebung",
                     "house": "Haus",
-                    "apartment": "Appartement"
+                    "apartment": "Wohnung"
                 },
                 "placeholders": {
                     "category": "Kategorie wählen",
@@ -1198,7 +1211,7 @@ export default {
                     "building": "Liegenschaft"
                 },
                 "requestID": "Anfrage ID",
-                "requestCategory": "Anfordern Kategorie "
+                "requestCategory": "Anfrage Kategorie "
             },
             "requestCategory": {
                 "title": "Anfrage Kategorien",
@@ -1245,7 +1258,7 @@ export default {
                 "unassign": "Entfernen",
                 "delete_with_reassign_modal": {
                     "title": "Neu zuweisen und Benutzer löschen",
-                    "description": "Der gewählte Bewirtschafter ist mit Liegenschaften verlinkt. Sie können die Liegenschaft(en) an eine anderen Person zuweisen. Wählen Sie hierzu einen Bewirtschafter aus der Liste aus.",
+                    "description": "Der gewählte Bewirtschafter ist mit Liegenschaften verbunden. Sie können die Liegenschaft(en) an eine anderen Person zuweisen. Wählen Sie hierzu einen Bewirtschafter aus der Liste aus.",
                     "search_title": "Bewirtaschafter suchen"
                 },
                 "delete_without_reassign": "Löschen",
@@ -1264,8 +1277,8 @@ export default {
                     "search": "Suchen"
                 },
                 "attached": {
-                    "building": "Liegenschaft wurde verlinkt.",
-                    "district": "Überbauung wurde verlinkt"
+                    "building": "Liegenschaft wurde zugewiesen.",
+                    "district": "Überbauung wurde zugewiesen"
                 },
                 "detached": {
                     "building": "Liegenschaft wurde entfernt.",
@@ -1369,7 +1382,7 @@ export default {
             "before_or_equal": "{attribute} muss ein Datum vor dem {date} oder gleich dem {date} sein.",
             "between": {
                 "numeric": "{attribute} muss zwischen {min} & {max} liegen.",
-                "file": "{attribute} muss zwischen {min} & {max} Kilobytes groß sein.",
+                "file": "{attribute} muss zwischen {min} & {max} Kilobytes gross sein.",
                 "string": "{attribute} muss zwischen {min} & {max} Zeichen lang sein.",
                 "array": "{attribute} muss zwischen {min} & {max} Elemente haben."
             },
@@ -1389,7 +1402,7 @@ export default {
             "filled": "{attribute} muss ausgefüllt sein.",
             "gt": {
                 "numeric": "{attribute} muss mindestens {value} sein.",
-                "file": "{attribute} muss mindestens {value} Kilobytes groß sein.",
+                "file": "{attribute} muss mindestens {value} Kilobytes gross sein.",
                 "string": "{attribute} muss mindestens {value} Zeichen lang sein.",
                 "array": "{attribute} muss mindestens {value} Elemente haben."
             },
@@ -1409,7 +1422,7 @@ export default {
             "json": "{attribute} muss ein gültiger JSON-String sein.",
             "lt": {
                 "numeric": "{attribute} muss kleiner {value} sein.",
-                "file": "{attribute} muss kleiner {value} Kilobytes groß sein.",
+                "file": "{attribute} muss kleiner {value} Kilobytes gross sein.",
                 "string": "{attribute} muss kleiner {value} Zeichen lang sein.",
                 "array": "{attribute} muss kleiner {value} Elemente haben."
             },
@@ -1421,7 +1434,7 @@ export default {
             },
             "max": {
                 "numeric": "{attribute} darf maximal {max} sein.",
-                "file": "{attribute} darf maximal {max} Kilobytes groß sein.",
+                "file": "{attribute} darf maximal {max} Kilobytes gross sein.",
                 "string": "{attribute} darf maximal {max} Zeichen haben.",
                 "array": "{attribute} darf nicht mehr als {max} Elemente haben."
             },
@@ -1429,7 +1442,7 @@ export default {
             "mimetypes": "{attribute} muss den Dateityp {values} haben.",
             "min": {
                 "numeric": "{attribute} muss mindestens {min} sein.",
-                "file": "{attribute} muss mindestens {min} Kilobytes groß sein.",
+                "file": "{attribute} muss mindestens {min} Kilobytes gross sein.",
                 "string": "{attribute} muss mindestens {min} Zeichen lang sein.",
                 "array": "{attribute} muss mindestens {min} Elemente haben."
             },
@@ -1448,7 +1461,7 @@ export default {
             "same": "{attribute} und {other} müssen übereinstimmen.",
             "size": {
                 "numeric": "{attribute} muss gleich {size} sein.",
-                "file": "{attribute} muss {size} Kilobyte groß sein.",
+                "file": "{attribute} muss {size} Kilobyte gros sein.",
                 "string": "{attribute} muss {size} Zeichen lang sein.",
                 "array": "{attribute} muss genau {size} Elemente haben."
             },
@@ -1493,14 +1506,14 @@ export default {
                 "date": "Datum",
                 "time": "Uhrzeit",
                 "available": "verfügbar",
-                "size": "Größe"
+                "size": "Grösse"
             },
             "general": {
                 "required": "Dies ist ein Pflichtfeld"
             },
             "price": {
-                "valid": "Bitte gib einen gültigen Preis ein.",
-                "required": "Preis ist ein Pflichtfeld"
+                "valid": "Bitte geben Sie einen gültigen Preis ein.",
+                "required": "Der Preis ist ein Pflichtfeld"
             },
             "firstName": {
                 "required": "Vorname ist obligatorisch"
@@ -1518,7 +1531,7 @@ export default {
                 "required": "Postleitzahl ist obligatorisch"
             },
             "city": {
-                "required": "Ort ist obligatorisch"
+                "required": "Ortschaft ist obligatorisch"
             },
             "title": {
                 "required": "Anrede"

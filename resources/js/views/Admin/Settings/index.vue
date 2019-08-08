@@ -128,6 +128,68 @@
                                 </div>
                             </el-form>
                         </el-card>
+
+                        <el-card class="mt15">
+                            <el-form :model="model"
+                                     label-width="200px"
+                                     :rules="validationRules"
+                                     ref="realEstateEmailSettingsForm"
+                            >
+                                <el-form-item :label="$t('models.realEstate.mail_from_name')"
+                                              :rules="validationRules.name"
+                                >
+                                    <el-input autocomplete="off" type="text"
+                                              v-model="model.mail_from_name"></el-input>
+                                </el-form-item>
+                                <el-form-item :label="$t('models.realEstate.mail_from_address')"
+                                              :rules="validationRules.email"
+                                >
+                                    <el-input autocomplete="off" type="text"
+                                              v-model="model.mail_from_address"></el-input>
+                                </el-form-item>
+                                <el-form-item :label="$t('models.realEstate.mail_host')"
+                                >
+                                    <el-input autocomplete="off" type="text"
+                                              v-model="model.mail_host"
+                                              class="dis-autofill"
+                                              readonly
+                                              onfocus="this.removeAttribute('readonly');"
+                                    ></el-input>
+                                </el-form-item>
+                                <el-form-item :label="$t('models.realEstate.mail_port')"
+                                >
+                                    <el-input autocomplete="off" type="text"
+                                              v-model="model.mail_port"></el-input>
+                                </el-form-item>
+                                <el-form-item :label="$t('models.realEstate.mail_encryption')"
+                                >
+                                    <el-select :placeholder="$t('models.realEstate.mail_encryption')" style="display: block"
+                                               v-model="model.mail_encryption">
+                                        <el-option :key="item.id"
+                                                   :label="item"
+                                                   :value="item"
+                                                   v-for="item in mailEncryption"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                                <el-form-item :label="$t('models.realEstate.mail_username')"
+                                >
+                                    <el-input autocomplete="off" type="text"
+                                              v-model="model.mail_username"></el-input>
+                                </el-form-item>
+                                <el-form-item :label="$t('models.realEstate.mail_password')"
+                                >
+                                    <el-input autocomplete="new-password"
+                                              show-password
+                                              v-model="model.mail_password"
+                                    ></el-input>
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-button @click="saveRealEstate('realEstateEmailSettingsForm')" icon="ti-save" type="primary">
+                                        {{$t('general.actions.save')}}
+                                    </el-button>
+                                </el-form-item>
+                            </el-form>
+                        </el-card>
                     </el-col>
                 </el-row>
             </el-tab-pane>
@@ -200,7 +262,12 @@
                     }]
                 },
                 activeName: 'details',
-                states: []
+                states: [],
+                mailEncryption: [
+                    'tls',
+                    'ssl'
+                ],
+                passwordType: 'password',
             }
         },
         async created() {
@@ -270,6 +337,18 @@
 
 </script>
 <style lang="scss" scoped>
+    .dis-autofill input {
+        cursor: text;
+    }
+    .show-pwd {
+        position: absolute;
+        right: 10px;
+        top: 0;
+        font-size: 18px;
+        color: #DCDFE6;
+        cursor: pointer;
+        user-select: none;
+    }
     .settings {
         /*height: 100% !important;*/
 

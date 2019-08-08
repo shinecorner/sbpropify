@@ -17,11 +17,11 @@ return [
       'not_found' => 'Benutzer nicht gefunden',
       'profile_image' => 'Profil-Bild',
       'profile_text' => 'Profil-Text',
-      'avatar_uploaded' => 'Avatar aktualisiert',
+      'avatar_uploaded' => 'Profilbild aktualisiert',
       'logo_uploaded' => 'Logo aktualisiert',
-      'logo' => 'Logo',
-      'address' => 'Addresse',
-      'blank_pdf' => 'Blank pdf',
+      'logo' => 'Firmenlogo',
+      'address' => 'Adresse',
+      'blank_pdf' => 'Leeres PDF Template verwenden',
       'realEstateSaved' => 'Einstellung gespeichert',
       'serviceRequestCategorySaved' => 'Kategorie der Serviceanfrage gespeichert',
       'validation' => 
@@ -41,9 +41,9 @@ return [
       'view' => 'Aussicht',
       'view_title' => 'Mieter anzeigen',
       'edit_title' => 'Mieter bearbeiten',
-      'download_credentials' => 'Download credentials',
-      'send_credentials' => 'Send credentials',
-      'credentials_sent' => 'Credentials sent',
+      'download_credentials' => 'Zugangsdaten (pdf)',
+      'send_credentials' => 'Zugangsdaten (email)',
+      'credentials_sent' => 'Zugangsdaten wurden erfolgreich gesendet.',
       'credentials_send_fail' => 'Credentials file not found. Try updating the tenant password to regenerate it',
       'credentials_download_failed' => 'Credentials file not found. Try updating the tenant password to regenerate it',
       'add' => 'Mieter hinzufügen',
@@ -72,7 +72,7 @@ return [
       'posts' => 'Beiträge',
       'products' => 'Marktplatz',
       'requests' => 'Anfragen',
-      'company' => 'Company name',
+      'company' => 'Firmenname',
       'no_building' => 'Keine Liegenschaften',
       'building' => 
       [
@@ -84,9 +84,10 @@ return [
       ],
       'search_building' => 'Liegenschaft suchen',
       'search_unit' => 'Einheit suchen',
+      'search' => 'Suchen',
       'confirmDelete' => 
       [
-        'title' => 'Der Mieter wird endgültig gelöscht',
+        'title' => 'Der Mieter wird endgültig gelöscht.',
         'text' => 'Sind Sie sicher?',
       ],
       'validation' => 
@@ -275,6 +276,10 @@ return [
       'title' => 'Einheiten',
       'not_found' => 'Einheit nicht gefunden',
       'add' => 'Einheit hinzufügen',
+      'tenantType' => [
+        'attached' => 'Mieter erfolgreich gebunden',
+        'detached' => 'Mieter erfolgreich abgezogen'
+      ],
       'name' => 'Einheit Nummer',
       'created_at' => 'Datum',
       'edit' => 'Öffnen',
@@ -592,8 +597,15 @@ return [
       'to' => 'An',
       'categories' => 'Kategorien',
       'contact_enable' => 'Meine Kontakte aktivieren',
-      'templates' => 'Templates',
+      'templates' => 'Vorlagen',
       'cleanify_email' => 'Cleanify email',
+      'mail_encryption' => 'Verschlüsselung',
+      'mail_from_address' => 'Abesender E-Mail',
+      'mail_from_name' => 'Absender Name',
+      'mail_host' => 'Host',
+      'mail_password' => 'Passwort',
+      'mail_port' => 'Hafen',
+      'mail_username' => 'Benutzername (E-Mail)',
       'iframe_url' => 
       [
         'label' => 'Iframe URL',
@@ -602,7 +614,7 @@ return [
     ],
     'request' => 
     [
-      'audits' => 'Audits',
+      'audits' => 'Hystorx',
       'edit' => 'Öffnen',
       'delete' => 'Löschen',
       'deleted' => 
@@ -664,7 +676,7 @@ return [
       [
         'label' => 'Örtlichkeit',
         'apartment' => 'Wohnung',
-        'building' => 'Liegenschaft',
+        'building' => 'Haus',
         'environment' => 'Ungebung',
       ],
       'qualification' => 
@@ -689,17 +701,17 @@ return [
       'category_options' => 
       [
           'disturbance' => 'Störung',
-          'defect' => 'Fehler',
-          'order_documents' => 'Bestellunterlagen',
-          'order_a_payment_slip' => 'Einen Einzahlungsschein bestellen',
+          'defect' => 'Mängel',
+          'order_documents' => 'Unterlagen bestellen',
+          'order_a_payment_slip' => 'Einzahlungsschein(e) bestellen',
           'questions_about_the_tenancy' => 'Fragen zum Mietverhältnis',
           'other' => 'Sonstiges',
           'environment' => 'Umgebung',
           'house' => 'Haus',
-          'apartment' => 'Appartement',
+          'apartment' => 'Wohnung',
           'environment' => 'Umgebung',
           'house' => 'Haus',
-          'apartment' => 'Appartement'
+          'apartment' => 'Wohnung'
       ],
       'placeholders' => 
       [
@@ -775,7 +787,7 @@ return [
         'building' => 'Liegenschaft',
       ],
       'requestID' => 'Anfrage ID',
-      'requestCategory' => 'Anfordern Kategorie ',
+      'requestCategory' => 'Anfrage Kategorie ',
     ],
     'requestCategory' => 
     [
@@ -826,7 +838,7 @@ return [
       'delete_with_reassign_modal' => 
       [
         'title' => 'Neu zuweisen und Benutzer löschen',
-        'description' => 'Der gewählte Bewirtschafter ist mit Liegenschaften verlinkt. Sie können die Liegenschaft(en) an eine anderen Person zuweisen. Wählen Sie hierzu einen Bewirtschafter aus der Liste aus.',
+        'description' => 'Der gewählte Bewirtschafter ist mit Liegenschaften verbunden. Sie können die Liegenschaft(en) an eine anderen Person zuweisen. Wählen Sie hierzu einen Bewirtschafter aus der Liste aus.',
         'search_title' => 'Bewirtaschafter suchen',
       ],
       'delete_without_reassign' => 'Löschen',
@@ -849,8 +861,8 @@ return [
       ],
       'attached' => 
       [
-        'building' => 'Liegenschaft wurde verlinkt.',
-        'district' => 'Überbauung wurde verlinkt',
+        'building' => 'Liegenschaft wurde zugewiesen.',
+        'district' => 'Überbauung wurde zugewiesen',
       ],
       'detached' => 
       [
