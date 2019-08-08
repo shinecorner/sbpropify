@@ -585,8 +585,7 @@ class ServiceRequestAPIController extends AppBaseController
      *      )
      * )
      */
-    public function assignProvider(int $id, int $pid,
-                                   ServiceProviderRepository $spRepo, AssignRequest $r)
+    public function assignProvider(int $id, int $pid, ServiceProviderRepository $spRepo, AssignRequest $r)
     {
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
@@ -600,14 +599,6 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->providers()->sync($sp, false);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address', 'providers.user', 'assignees');
-
-        $a = $this->newRequestAudit($sr->id);
-        $a->event = 'provider_assigned';
-        $a->new_values = [
-            'provider_id' => $pid,
-            'provider_name' => $sp->name,
-        ];
-        $a->save();
 
         foreach ($sr->assignees as $a) {
             $sr->conversationFor($a, $sp->user);
@@ -652,13 +643,13 @@ class ServiceRequestAPIController extends AppBaseController
      *      )
      * )
      */
-    public function unassignProvider(int $id, int $pid,
-                                     ServiceProviderRepository $spRepo, AssignRequest $r)
+    public function unassignProvider(int $id, int $pid, ServiceProviderRepository $spRepo, AssignRequest $r)
     {
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
             return $this->sendError('Service Request not found');
         }
+
         $sp = $spRepo->findWithoutFail($pid);
         if (empty($sp)) {
             return $this->sendError('Service Provider not found');
@@ -667,14 +658,6 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->providers()->detach($sp);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address', 'providers.user', 'assignees');
-
-        $a = $this->newRequestAudit($sr->id);
-        $a->event = 'provider_unassigned';
-        $a->old_values = [
-            'provider_id' => $pid,
-            'provider_name' => $sp->name,
-        ];
-        $a->save();
 
         return $this->sendResponse($sr, 'Service provider unassigned successfully');
     }

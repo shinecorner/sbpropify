@@ -308,10 +308,13 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'deleted',
         'request_assign_user',
         'request_unassign_user',
+        'request_assign_provider',
+        'request_unassign_provider',
     ];
 
     protected $syncAuditable = [
-        'assignees' => ['name']
+        'assignees' => ['name'],
+        'providers' => ['name'],
     ];
 
     /**
@@ -324,7 +327,10 @@ class ServiceRequest extends AuditableModel implements HasMedia
         static::belongsToManyDetached(function ( $relation, $parent, $ids, $attributes) {
             if ('assignees' == $relation) {
                 $auditType = 'request_unassign_user';
+            } elseif ('providers' == $relation) {
+                $auditType = 'request_unassign_provider';
             }
+
             self::auditManyRelations($relation, $parent, $ids, $auditType);
         });
 
@@ -332,6 +338,8 @@ class ServiceRequest extends AuditableModel implements HasMedia
             $auditType  = '';
             if ('assignees' == $relation) {
                 $auditType = 'request_assign_user';
+            } elseif ('providers' == $relation) {
+                $auditType = 'request_assign_provider';
             }
 
             self::auditManyRelations($relation, $parent, $ids, $auditType);
@@ -350,6 +358,22 @@ class ServiceRequest extends AuditableModel implements HasMedia
      * @return array
      */
     public function getRequest_assign_userEventAttributes(): array
+    {
+        return $this->getSyncEventAttributes('attach');
+    }
+
+    /**
+     * @return array
+     */
+    public function getRequest_unassign_providerEventAttributes(): array
+    {
+        return $this->getSyncEventAttributes('detach');
+    }
+
+    /**
+     * @return array
+     */
+    public function getRequest_assign_providerEventAttributes(): array
     {
         return $this->getSyncEventAttributes('attach');
     }
