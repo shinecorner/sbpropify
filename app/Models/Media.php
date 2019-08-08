@@ -58,6 +58,17 @@ class Media extends SpatieMedia implements Auditable
     }
 
     /**
+     * @return array
+     */
+    public function getMedia_deletedEventAttributes()
+    {
+        $values = $this->getDeletedEventAttributes();
+        $values[0]['media_id'] = $this->id;
+        $values[0]['media_url'] = $this->getFullUrl();
+        return $values ;
+    }
+
+    /**
      * @param array $data
      * @return array
      */

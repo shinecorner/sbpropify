@@ -548,15 +548,6 @@ class MediaAPIController extends AppBaseController
         }
 
         $media->delete();
-
-        $a = $this->newRequestAudit($serviceRequest->id);
-        $a->event = 'media_deleted';
-        $a->old_values = [
-            'media_id' => $media->id,
-            'media_url' => $media->getFullUrl(),
-        ];
-        $a->save();
-
         return $this->sendResponse($media_id, 'Media deleted successfully');
     }
 
