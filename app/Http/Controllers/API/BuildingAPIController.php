@@ -324,7 +324,7 @@ class BuildingAPIController extends AppBaseController
         $building = $this->buildingRepository->create($input);
         $response = (new BuildingTransformer)->transform($building);
 
-        return $this->sendResponse($response, 'Building saved successfully');
+        return $this->sendResponse($response, __('models.building.saved'));
     }
 
     /**
@@ -458,7 +458,7 @@ class BuildingAPIController extends AppBaseController
 
         $building->load(['address.state', 'media', 'serviceProviders']);
         $response = (new BuildingTransformer)->transform($building);
-        return $this->sendResponse($response, 'Building updated successfully');
+        return $this->sendResponse($response, __('models.building.saved'));
     }
 
     /**
@@ -514,7 +514,7 @@ class BuildingAPIController extends AppBaseController
             return $this->sendError('Building deleted error: ' . $e->getMessage());
         }
 
-        return $this->sendResponse($id, 'Building deleted successfully');
+        return $this->sendResponse($id, __('models.building.deleted'));
     }
 
     public function destroyWithIds(Request $request)
@@ -539,7 +539,7 @@ class BuildingAPIController extends AppBaseController
                 $this->unitRepository->deleteUnitWithBuilding($buildings->pluck('id'));                
             }            
 
-            return $this->sendResponse('', 'Building deleted successfully');
+            return $this->sendResponse('', __('models.building.deleted'));
 
         } catch (\Exception $e) {
             return $this->sendError('Building deleted error: ' . $e->getMessage());
@@ -576,7 +576,7 @@ class BuildingAPIController extends AppBaseController
             else if(!$request['isUnitExist'] && $request['isRequestExist'])
                 $returnValue = 1;
 
-            return $this->sendResponse($returnValue, 'Building deleted successfully');
+            return $this->sendResponse($returnValue, __('models.building.deleted'));
 
         } catch (\Exception $e) {
             return $this->sendError('Building deleted error: ' . $e->getMessage());
@@ -636,7 +636,7 @@ class BuildingAPIController extends AppBaseController
             return $this->sendError('ServiceProvider deleted error: ' . $e->getMessage());
         }
 
-        return $this->sendResponse($id, 'Service Provider deleted successfully');
+        return $this->sendResponse($id, __('models.building.service.deleted'));
     }
 
     /**
@@ -691,7 +691,7 @@ class BuildingAPIController extends AppBaseController
 
         $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers']);
         $response = (new BuildingTransformer)->transform($building);
-        return $this->sendResponse($response, 'Property Managers assigned successfully');
+        return $this->sendResponse($response, __('models.building.managers_assigned'));
     }
 
     /**
@@ -743,7 +743,7 @@ class BuildingAPIController extends AppBaseController
 
         $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers']);
         $response = (new BuildingTransformer)->transform($building);
-        return $this->sendResponse($response, 'Property unassigned successfully');
+        return $this->sendResponse($response, __('models.building.manager.unassigned'));
     }
 
     /**
