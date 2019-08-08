@@ -18,6 +18,7 @@
         </div>
         <script src="{{ (env('APP_ENV') === 'local') ? mix('js/manifest.js') : asset('js/manifest.js') }}"></script>
         <script src="{{ (env('APP_ENV') === 'local') ? mix('js/vendor.js') : asset('js/vendor.js') }}"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAPS_API')}}"></script>
         <script src="{{ (env('APP_ENV') === 'local') ? mix('js/app.js') : asset('js/app.js') }}"></script>
     </body>
 </html>

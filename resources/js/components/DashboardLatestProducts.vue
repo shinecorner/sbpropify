@@ -108,7 +108,6 @@
                   return item;
                 });
                 that.items = items;
-                console.log(items);
               }).catch(function (error) {
                   console.log(error);
               })
