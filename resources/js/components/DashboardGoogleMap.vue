@@ -79,6 +79,7 @@
       },
       attachToolTip(marker, markerData) {
         const content = `
+          <h3>${markerData.name}</h3>
           <p>Count of managers: <b>${markerData.property_managers_count}</b></p>
           <p>Count of Tenants : <b>${markerData.tenants_count}</b></p>
           <p>Count of requests: <b>${markerData.requests_count}</b></p>
