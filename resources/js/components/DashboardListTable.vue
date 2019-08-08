@@ -202,7 +202,7 @@
         },
         computed: {
             emptyText() {
-                return this.loading.state ? this.$t('please_wait') : this.$t('no_data_available');
+                return this.loading.state ? this.$t('please_wait') : this.$t('general.no_data_available');
             }
         },
         methods: {
