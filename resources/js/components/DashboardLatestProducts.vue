@@ -1,6 +1,12 @@
 <template>
     <div class="latest-products">
-        <list-latest-table
+        <div class="link-container">
+            <router-link :to="{name: 'adminProducts'}">
+                <span class="title">{{ $t('dashboard.marketplace.go_to_marketplace') }} </span>
+                <i class="icon-right icon"/>
+            </router-link>
+        </div>
+        <dashboard-list-table
             :header="header"
             :items="items"
             :loading="{state: loading}"
@@ -8,25 +14,18 @@
             :withCheckSelection="false"
             @selectionChanged="selectionChanged"
         >
-        </list-latest-table>
-        <div class="link-container">
-            <router-link :to="{name: 'adminProducts'}">
-                <span class="title">{{ $t('dashboard.marketplace.go_to_marketplace') }} </span>
-                <i class="el-icon-right icon"/>
-            </router-link>
-        </div>
+        </dashboard-list-table>
     </div>
 </template>
 
 <script>
     import {mapActions} from 'vuex';
     import axios from '@/axios';
-    import {format} from 'date-fns'
 
     import {displayError, displaySuccess} from "helpers/messages";
-    import LatestListMixin from 'mixins/LatestListMixin';
+    import DashboardListMixin from 'mixins/DashboardListMixin';
     
-    const mixin = LatestListMixin();
+    const mixin = DashboardListMixin();
 
     export default {
         mixins: [mixin],
@@ -38,10 +37,10 @@
         data() {
             return {
                 header: [{
-                    type: 'multi-props',
+                    type: 'product-details',
                     label: this.$t('models.product.details'),
-                    props: ['title', 'user_email', 'created_at'],
-                    minWidth: '250px'
+                    props: ['title', 'created_at', 'image_url'],
+                    minWidth: '300px'
                 }, {
                     type: 'tag',
                     label: this.$t('models.product.type.label'),
@@ -102,28 +101,17 @@
               return axios.get(url)
               .then(function (response) {
                 const items = response.data.data.data.map(item => {
-                  item.status_label = that.$t(`models.product.status.${that.productConstants.status[item.status]}`);
                   item.visibility_label = that.$t(`models.product.visibility.${that.productConstants.visibility[item.visibility]}`);
                   item.type_label = that.$t(`models.product.type.${that.productConstants.type[item.type]}`);
                   item.price = '$' + item.price;
-                  item.user_email = item.user.email;
-                  item.title = that.getReducedTitle(item.title);
-                  item.created_at = that.getReadableTime(item.created_at);
+                  item.image_url = item.media.length == 0 ? '' : item.media[0].url;
                   return item;
                 });
                 that.items = items;
+                console.log(items);
               }).catch(function (error) {
                   console.log(error);
               })
-            },
-            getReducedTitle(val) {
-                if (val.length > 30) {
-                    val = val.substring(0, 30) + '...';
-                }
-                return val;
-            },
-            getReadableTime(timeString) {
-                return format(new Date(timeString), 'D MMMM YYYY HH:mm');
             }
         },
         created() {
@@ -134,7 +122,12 @@
 
 <style lang="scss">
     .latest-products {
+        position: relative;
+
         .link-container {
+            position: absolute;
+            top: -58px;
+            right: 0px;
             text-align: right;
             padding: 20px 15px;
             font-size: 16px;

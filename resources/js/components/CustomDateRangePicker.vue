@@ -9,7 +9,9 @@
     :end-placeholder="$t('general.date_range.end_date')"
     :format="viewFormat"
     value-format="dd.MM.yyyy"
-    :picker-options="pickerOptions">
+    :picker-options="pickerOptions"
+    popper-class="custom-picker-panel"
+  >
   </el-date-picker>
 </template>
 
@@ -180,3 +182,51 @@ export default {
 }
 </script>
 
+<style lang="scss">
+  .el-picker-panel.custom-picker-panel.has-sidebar {
+    line-height: normal;
+    width: min-content;
+
+    .el-picker-panel__body-wrapper {
+      .el-picker-panel__body {
+        min-width: 428px;
+      }
+      .el-picker-panel__content {
+        padding: 7px 5px 5px 5px;
+
+        .el-date-range-picker__header {
+          margin: 10px 5px 0px;
+
+          .el-picker-panel__icon-btn {
+            margin-top: 2px;
+            padding: 1px 1px;
+          }
+          div {
+            font-size: 15px;
+            margin: 0 auto;
+          }
+        }
+
+        th {
+          width: 25px;
+          height: 25px;
+          padding:2px;
+        }
+
+        td {
+          padding: 0;
+          width: 25px;
+          height: 25px;
+          max-width: 25px;
+
+          div {
+            width: 25px;
+            height: 25px;
+            padding: 0;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+</style>

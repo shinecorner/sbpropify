@@ -18,6 +18,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use OwenIt\Auditing\Models\Audit;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 	    Schema::defaultStringLength(191);
+
+        Audit::creating(function (Audit $model) {
+            if (empty($model->old_values) && empty($model->new_values)) {
+                return false;
+            }
+        });
 
 	    Relation::morphMap([
             'post' => Post::class,

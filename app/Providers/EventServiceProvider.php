@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Notifications\Listeners\NotificationSendingListener;
 
+use Illuminate\Mail\Events\MessageSent;
+use Illuminate\Notifications\Events\NotificationSent;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -23,6 +25,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         NotificationSending::class => [
             NotificationSendingListener::class,
+        ],
+        NotificationSent::class => [
+            // @TODO audit
+        ],
+        MessageSent::class => [
+            // @TODO audit
         ],
     ];
 

@@ -41,82 +41,28 @@ export default {
       averageAge: {},
     }
   },
-  props: {
-    colNum: {
-        type: Number
-    }
-  },
   computed:{
     chartOptions: function(){
-      let responsive = [];
-      if (this.colNum == 2) {
-        responsive = [{
-          breakpoint: 1300,
-          options: {
-            chart: {
-              width: 490,
-            },
-            legend: {
-              width: 170,
-            }
+      let responsive = [{
+        breakpoint: 1500,
+        options: {
+          chart: {
+            width: '100%',
+            height: 'auto'
+          },
+          legend: {
+            position: 'bottom',
+            horizontalAlign: 'center',
+            width: undefined
           }
-        }, {
-          breakpoint: 1200,
-          options: {
-            chart: {
-              width: '100%',
-              height: 'auto'
-            },
-            legend: {
-              position: 'bottom',
-              width: undefined
-            }
-          }
-        }, {
-          breakpoint: 480,
-          options: {
-            legend: {
-              show: false
-            }
-          }
-        }];
-      }
-      else {
-        responsive = [{
-          breakpoint: 1800,
-          options: {
-            chart: {
-              width: 490,
-            },
-            legend: {
-              width: 170,
-            }
-          }
-        }, {
-          breakpoint: 1650,
-          options: {
-            chart: {
-              width: '100%',
-              height: 'auto'
-            },
-            legend: {
-              position: 'bottom',
-              horizontalAlign: 'center',
-              width: undefined
-            }
-          }
-        }];
-      }
+        }
+      }];
       return {
         labels: this.xData,
         responsive: responsive,
-        legend: {
-          show: true,
-          width: 220
-        },
         chart:{
           toolbar: this.toolbar,
-          width: 540,
+          width: '100%',
           height: 320
         },
         plotOptions: {

@@ -24,12 +24,12 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.7",
         "league/fractal": "^0.17.0",
+        "martinlindhe/laravel-vue-i18n-generator": "0.1.39",
         "owen-it/laravel-auditing": "^9.0",
         "spatie/geocoder": "*",
         "spatie/laravel-medialibrary": "^7.0.0",
         "vinkla/hashids": "*",
-        "zizaco/entrust": "^1.9",
-        "martinlindhe/laravel-vue-i18n-generator": "0.1.39"
+        "zizaco/entrust": "^1.9"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
