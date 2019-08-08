@@ -177,6 +177,13 @@
                                 </el-card>
                             </el-col>
                         </el-row>
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="/*$t('dashboard.tenants.latest_tenants')*/'Latest tenants'">
+                                    <dashboard-latest-tenants type="tenants"></dashboard-latest-tenants>
+                                </el-card>
+                            </el-col>
+                        </el-row>
                     </el-tab-pane>
                 </el-tabs>
             </el-col>
@@ -205,6 +212,7 @@
     import DashboardLatestProducts from 'components/DashboardLatestProducts';
     import DashboardGoogleMap from 'components/DashboardGoogleMap';
     import DashboardLatestBuildings from 'components/DashboardLatestBuildings';
+    import DashboardLatestTenants from 'components/DashboardLatestTenants';
 
     export default {
         name: 'AdminDashboard',
@@ -224,7 +232,8 @@
             TenantsStatisticsCard,
             DashboardLatestProducts,
             DashboardGoogleMap,
-            DashboardLatestBuildings
+            DashboardLatestBuildings,
+            DashboardLatestTenants
         },
         data() {
             return {
