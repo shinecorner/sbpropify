@@ -487,21 +487,11 @@ class MediaAPIController extends AppBaseController
         }
 
         $data = $request->get('media', '');
-
         if (!$media = $this->serviceRequestRepository->uploadFile('media', $data, $serviceRequest)) {
             return $this->sendError('Media upload error');
         }
 
-        $a = $this->newRequestAudit($serviceRequest->id);
-        $a->event = 'media_uploaded';
-        $a->new_values = [
-            'media_id' => $media->id,
-            'media_url' => $media->getFullUrl(),
-        ];
-        $a->save();
-
         $this->serviceRequestRepository->notifyMedia($serviceRequest, \Auth::user(), $media);
-
         $response = (new MediaTransformer)->transform($media);
         return $this->sendResponse($response, 'Media saved successfully');
     }

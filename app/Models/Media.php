@@ -30,6 +30,9 @@ class Media extends SpatieMedia implements Auditable
         'order_column',
     ];
 
+    /**
+     *
+     */
     public static function boot()
     {
         parent::boot();
@@ -43,6 +46,9 @@ class Media extends SpatieMedia implements Auditable
         });
     }
 
+    /**
+     * @return array
+     */
     public function getMedia_uploadedEventAttributes()
     {
         $values = $this->getCreatedEventAttributes();
@@ -51,6 +57,10 @@ class Media extends SpatieMedia implements Auditable
         return $values ;
     }
 
+    /**
+     * @param array $data
+     * @return array
+     */
     public function transformAudit(array $data): array
     {
         $data['auditable_id'] = $this->model_id;
