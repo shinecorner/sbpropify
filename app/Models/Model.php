@@ -10,4 +10,9 @@ class Model extends \Illuminate\Database\Eloquent\Model
     {
         return parent::relationLoaded($key) && isset($this->$key);
     }
+
+    public function getDiskPreName()
+    {
+        return $this->getTable() . '_';
+    }
 }

@@ -491,16 +491,7 @@ class MediaAPIController extends AppBaseController
             return $this->sendError('Media upload error');
         }
 
-        $a = $this->newRequestAudit($serviceRequest->id);
-        $a->event = 'media_uploaded';
-        $a->new_values = [
-            'media_id' => $media->id,
-            'media_url' => $media->getFullUrl(),
-        ];
-        $a->save();
-
         $this->serviceRequestRepository->notifyMedia($serviceRequest, \Auth::user(), $media);
-
         $response = (new MediaTransformer)->transform($media);
         return $this->sendResponse($response, 'Media saved successfully');
     }
@@ -548,7 +539,7 @@ class MediaAPIController extends AppBaseController
     {
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
-            return $this->sendError('Post not found');
+            return $this->sendError('Service Request not found');
         }
 
         $media = $serviceRequest->media->find($media_id);
@@ -557,15 +548,6 @@ class MediaAPIController extends AppBaseController
         }
 
         $media->delete();
-
-        $a = $this->newRequestAudit($serviceRequest->id);
-        $a->event = 'media_deleted';
-        $a->old_values = [
-            'media_id' => $media->id,
-            'media_url' => $media->getFullUrl(),
-        ];
-        $a->save();
-
         return $this->sendResponse($media_id, 'Media deleted successfully');
     }
 
