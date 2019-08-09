@@ -14,7 +14,7 @@ return [
     ],
     'request_activities' => 
     [
-      'title' => 'Tracking von Anfrage-AktivitÃ¤ten',
+      'title' => 'Aktivit„ten Tracking',
     ],
     'tenant' => 
     [

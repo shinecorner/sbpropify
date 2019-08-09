@@ -59,6 +59,10 @@
             return {
                 isReady: false,
                 fetchParams: {},
+                states:{},
+                propertyManagers:{},
+                districts:{},
+                buildings:{},
                 header: [{
                     label: this.$t('models.unit.name'),
                     prop: 'name'
@@ -145,29 +149,25 @@
                         name: this.$t('filters.states'),
                         type: 'select',
                         key: 'state_id',
-                        data: [],
-                        fetch: this.getFilterStates
+                        data: this.states,
                     },
                     {
                         name: this.$t('filters.districts'),
                         type: 'select',
                         key: 'district_id',
-                        data: [],
-                        fetch: this.getFilterDistricts
+                        data: this.districts,
                     },
                     {
                         name: this.$t('filters.buildings'),
                         type: 'select',
                         key: 'building_id',
-                        data: [],
-                        fetch: this.getFilterBuildings
+                        data: this.buildings,
                     },
                     {
                         name: this.$t('filters.propertyManagers'),
                         type: 'select',
                         key: 'manager_id',
-                        data: [],
-                        fetch: this.getFilterPropertyManagers
+                        data: this.propertyManagers,
                     },
                     {
                         name: this.$t('filters.requests'),
@@ -181,8 +181,24 @@
                 ]
             }
         },
-        created() {
+        async created() {
             this.isReady = true;
+            const districts = await this.axios.get('districts')
+            this.districts = districts.data.data.data;
+
+            const propertyManagers = await this.axios.get('propertyManagers?get_all=true')
+            this.propertyManagers = propertyManagers.data.data.map((propertyManager) => {
+                return {
+                    id: propertyManager.id,
+                    name: propertyManager.user.name
+                }
+            });
+
+            const states = await this.axios.get('states?filters=true')
+            this.states = states.data.data;
+
+            const buildings = await this.axios.get('buildings?get_all=true')
+            this.buildings = buildings.data.data;
         }
     }
 </script>

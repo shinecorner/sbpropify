@@ -39,8 +39,8 @@ return [
     ],
     'tenant' => 
     [
-      'view' => 'Aussicht',
-      'view_title' => 'Mieter anzeigen',
+      'view' => 'Mieter-Profil',
+      'view_title' => 'Mieter-Profil',
       'edit_title' => 'Mieter bearbeiten',
       'download_credentials' => 'Zugangsdaten (pdf)',
       'send_credentials' => 'Zugangsdaten (email)',
@@ -67,7 +67,7 @@ return [
       'private_phone' => 'Telefon privat',
       'created_date' => 'Aangemaakte datum',
       'created_at' => 'Datum',
-      'edit' => 'Öffnen',
+      'edit' => 'Bearbeiten',
       'delete' => 'Löschen',
       'id' => 'ID',
       'details' => 'Details',
@@ -76,7 +76,7 @@ return [
       'products' => 'Marktplatz',
       'requests' => 'Anfragen',
       'company' => 'Firmenname',
-      'no_building' => 'Keine Liegenschaften',
+      'no_building' => 'Keiner Liegenschaft zugewiesen.',
       'building' => 
       [
         'name' => 'Liegenschaft',
@@ -132,7 +132,7 @@ return [
       'my_documents' => 'Dokumente',
       'my_contract' => 'Mietvertrag',
       'contact_persons' => 'Kontakte',
-      'no_contacts' => 'Keine Kontakte verfügbar.',
+      'no_contacts' => 'Keine Kontaktpersonen verfügbar.',
       'rent_end' => 'Mietende',
       'rent_start' => 'Mietbeginn',
       'rent_contract' => 'Mietvertrag',
@@ -152,7 +152,7 @@ return [
       'status' => 
       [
         'label' => 'Status',
-        'active' => 'Aktiv',
+        'active' => 'Inaktiv',
         'not_active' => 'Deaktiv',
       ],
       'confirmChange' => 
@@ -191,11 +191,11 @@ return [
       'other' =>  'Sonstiges',
       'files' => 'Dokumente',
       'add_files' => 'Dokumente hinzufügen',
-      'add_companies' => 'Partnerfirma hinzufügen',
+      'add_companies' => 'Dienstleister hinzufügen',
       'companies' => 'Partnerfirmen',
       'no_services' => 'Keine Partnerfirmen gewählt.',
       'details' => 'Details',
-      'select_media_category' => 'Selected media category',
+      'select_media_category' => 'Katagorie der Mediendatei wählen',
       'district' => 'Überbauung',
       'tenants' => 'Mieter',
       'managers' => 'Bewirtschafter',
@@ -218,7 +218,7 @@ return [
       ],
       'service' => 
       [
-        'deleted' => 'Partnerfirma entfernt',
+        'deleted' => 'Dienstleister entfernt',
       ],
       'confirmDelete' => 
       [
@@ -264,34 +264,34 @@ return [
       ],
       'delete_building_modal' => 
       [
-        'title' => 'Delete Building(s)',
-        'description_unit' => 'Der ausgewählten Liegenschaft sind Einheiten zugewiesen. Wenn dieses auch gelöscht werden sollen, dann aktivieren Sie die unten stehende Option.',
-        'description_request' => 'Der ausgewählten Liegenschaft sind Anfragen zugewiesen. Wenn dieses auch gelöscht werden sollen, dann aktivieren Sie die unten stehende Option.',
-        'description_both' => 'Der ausgewählten Liegenschaft sind Einheiten und Anfragen zugewiesen. Wenn diese auch gelöscht werden sollen, dann aktivieren Sie die unten stehende Optionen.',
-        'delete_units' => 'Löschen Einheiten',
-        'dont_delete_units' => 'Nicht Löschen Einheiten',
-        'delete_requests' => 'Löschen Anfragen',
-        'dont_delete_requests' => 'Nicht Löschen Anfragen',
+        'title' => 'Liegenschaft(en) löschen – Warnung!',
+        'description_unit' => 'Der ausgewählten Liegenschaft(en) sind Einheiten zugewiesen. Wenn diese ebenfalls gelöscht werden sollen, dann aktivieren Sie die unten stehende Option.',
+        'description_request' => 'Der ausgewählten Liegenschaft(en) sind Anfragen zugewiesen. Wenn diese ebenfalls gelöscht werden sollen, dann aktivieren Sie die unten stehende Option.',
+        'description_both' => 'Der ausgewählten Liegenschaft(en) sind Einheiten und Anfragen zugewiesen. Wenn diese ebenfalls gelöscht werden sollen, dann aktivieren Sie die unten stehende Optionen.',
+        'delete_units' => ' Löschen',
+        'dont_delete_units' => 'Nicht löschen',
+        'delete_requests' => 'Löschen',
+        'dont_delete_requests' => 'Nicht löschen',
       ],
     ],
     'unit' => 
     [
       'title' => 'Einheiten',
-      'not_found' => 'Einheit nicht gefunden',
+      'not_found' => 'Einheit nicht gefunden.',
       'add' => 'Einheit hinzufügen',
       'tenantType' => [
-        'attached' => 'Mieter erfolgreich gebunden',
-        'detached' => 'Mieter erfolgreich abgezogen'
+        'attached' => 'Mieter erfolgreich zugewiesen.',
+        'detached' => 'Mieter erfolgreich entfernt.'
       ],
-      'name' => 'Einheit Nummer',
+      'name' => 'Einheit-ID',
       'created_at' => 'Datum',
-      'edit' => 'Öffnen',
+      'edit' => 'Bearbeiten',
       'delete' => 'Löschen',
       'deleted' => 'Einheit gelöscht',
       'save' => 'Speichern',
       'saved' => 'Einheit gespeichert',
       'floor' => 'Stockwerk',
-      'sq_meter' => 'Quadratmeter',
+      'sq_meter' => 'Fläche',
       'room_no' => 'Anzahl Zimmer',
       'monthly_rent' => 'Monatsmiete',
       'building_search' => 'Bitte nach einer Liegenschaft suchen',
@@ -430,7 +430,7 @@ return [
       [
         'buildings' => 'Liegenschaft wählen',
         'search' => 'Suche',
-        'search_provider' => 'Partnerfirma suchen',
+        'search_provider' => 'Dienstleister suchen',
       ],
       'media' => 
       [
@@ -478,13 +478,13 @@ return [
       [
         'building' => 'Liegenschaft wurde verlinkt',
         'district' => 'Überbauung wurde verlinkt',
-        'provider' => 'Partnerfirma wurde verlinkt',
+        'provider' => 'Dienstleister wurde verlinkt',
       ],
       'detached' => 
       [
         'building' => 'Liegenschaft wurde entfernt',
         'district' => 'Überbbauung wurde entfernt',
-        'provider' => 'Partnerfirma wurde wurde entfernt',
+        'provider' => 'Dienstleister wurde wurde entfernt',
       ],
       'buildingAlreadyAssigned' => 'Building is already inside on a district',
       'confirmUnassign' => 
@@ -593,7 +593,7 @@ return [
       'comment_update_timeout' => 'Comment update timeout',
       'closed' => 'Geschlossen',
       'saved' => 'Eingesparte Immobilien',
-      'schedule' => 'Schedule',
+      'schedule' => 'Terminplanung',
       'endTime' => 'Ende',
       'startTime' => 'Start',
       'to' => 'An',
@@ -606,7 +606,7 @@ return [
       'mail_from_name' => 'Absender Name',
       'mail_host' => 'Host',
       'mail_password' => 'Passwort',
-      'mail_port' => 'Hafen',
+      'mail_port' => 'Port',
       'mail_username' => 'Benutzername (E-Mail)',
       'iframe_url' => 
       [
@@ -632,7 +632,7 @@ return [
       'tenant' => 'Mieter',
       'due_date' => 'Zu erledigen bis',
       'closed_date' => 'Erledigt am',
-      'service' => 'Partnerfirma',
+      'service' => 'Dienstleister',
       'created_by' => 'Erstellt durch',
       'is_public' => 'Öffentlich machen',
       'comments' => 'Nachrichten',
@@ -655,7 +655,7 @@ return [
       'priority_changed' => 'Priorität geändert',
       'assignmentTypes' => 
       [
-        'services' => 'Partnerfirma',
+        'services' => 'Dienstleister',
         'managers' => 'Bewirtschafter',
       ],
       'media' => 
@@ -722,7 +722,7 @@ return [
         'status' => 'Status wählen',
         'due_date' => 'Zu erledigen bis',
         'tenant' => 'Mieter suchen',
-        'service' => 'Partnerfirma suchen',
+        'service' => 'Dienstleister suchen',
         'propertyManagers' => 'Bewirtschafter suchen',
         'search' => 'Suchen',
         'visibility' => 'Sichtbar für',
@@ -749,7 +749,7 @@ return [
         'title' => 'Benachrichtigungen',
         'notify' => 'E-Mail senden',
         'bodyPlaceholder' => 'Bitte geben Sie hier eine Nachricht ein',
-        'provider' => 'Partnerfirma',
+        'provider' => 'Dienstleister',
         'manager' => 'Bewirtschafter',
         'cancel' => 'Schliessen',
         'send' => 'Senden',
@@ -765,30 +765,30 @@ return [
       ],
       'attached' => 
       [
-        'services' => 'Partnerfirma wurde hinzugefügt.',
+        'services' => 'Dienstleister wurde hinzugefügt.',
         'managers' => 'Bewirtschafter wurde hinzugefügt.',
         'user' => 'Benutzer erfolgreich zugeordnet',
       ],
       'detached' => 
       [
-        'service' => 'Partnerfirma wurde entfernt.',
+        'service' => 'Dienstleister wurde entfernt.',
         'manager' => 'Bewirtschafter wurde entfernt.',
         'user' => 'Benutzer erfolgreich nicht zugeordnet',
       ],
       'userType' => 
       [
         'label' => 'Typ',
-        'provider' => 'Partnerfirma',
+        'provider' => 'Dienstleister',
         'user' => 'Bewirtschafter',
       ],
       'visibility' => 
       [
         'label' => 'Sichtbarkeit',
-        'tenant' => 'Mieter',
+        'tenant' => 'Nachbarn',
         'district' => 'Überbauung',
         'building' => 'Liegenschaft',
       ],
-      'requestID' => 'Anfrage ID',
+      'requestID' => 'Anfrage-ID',
       'requestCategory' => 'Anfrage Kategorie ',
     ],
     'requestCategory' => 

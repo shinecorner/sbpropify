@@ -109,8 +109,22 @@
                             this.$permissions.view.tenant
                         ]
                     }]
-                }]
+                }],
+                buildings:{},
+                units:{},
+                states:{},
+                districts:{}
             };
+        },
+        async created(){
+            const districts = await this.axios.get('districts')
+            this.districts = districts.data.data.data;
+
+            const states = await this.axios.get('states?filters=true')
+            this.states = states.data.data;
+
+            this.buildings = await this.getStateBuildings()
+            this.units = await this.getBuildingUnits();
         },
         methods: {
             ...mapActions(['getBuildings', 'getUnits', 'changeTenantStatus']),
@@ -208,26 +222,22 @@
                         name: this.$t('filters.states'),
                         type: 'select',
                         key: 'state_id',
-                        data: [],
-                        fetch: this.getFilterStates
+                        data: this.states,
                     }, {
                         name: this.$t('filters.buildings'),
                         type: 'select',
                         key: 'building_id',
-                        data: [],
-                        fetch: this.getStateBuildings
+                        data: this.buildings,
                     }, {
                         name: this.$t('filters.units'),
                         type: 'select',
                         key: 'unit_id',
-                        data: [],
-                        fetch: this.getBuildingUnits
+                        data: this.units,
                     }, {
                         name: this.$t('filters.districts'),
                         type: 'select',
                         key: 'district_id',
-                        data: [],
-                        fetch: this.getFilterDistricts
+                        data: this.districts,
                     }, {
                         name: this.$t('filters.requestStatus'),
                         type: 'select',
