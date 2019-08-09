@@ -152,6 +152,6 @@ class RealEstateAPIController extends AppBaseController
         $realEstate->news_receivers = User::whereIn('id', $realEstate->news_receiver_ids)->get();
 
         $response = (new RealEstateTransformer)->transform($realEstate);
-        return $this->sendResponse($response, 'RealEstate updated successfully');
+        return $this->sendResponse($response, __('models.user.realEstateSaved'));
     }
 }

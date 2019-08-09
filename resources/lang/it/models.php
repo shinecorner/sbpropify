@@ -24,6 +24,7 @@ return [
       'blank_pdf' => 'Blank pdf',
       'realEstateSaved' => 'Real Estate settings saved',
       'serviceRequestCategorySaved' => 'Categoria della richiesta di servizio salvata',
+      'serviceRequestCategoryDeleted' => 'Categoria richiesta di servizio cancellata',
       'validation' => 
       [
         'name' => 
@@ -50,6 +51,8 @@ return [
       'save' => 'Save',
       'saved' => 'Inquilino salvato',
       'deleted' => 'Inquilino cancellato',
+      'status_changed' => 'Status changed',
+      'password_reset' => 'Tenant password reset successfully',
       'update' => 'Update',
       'name' => 'Name',
       'first_name' => 'First name',
@@ -300,6 +303,8 @@ return [
       'tenant' => 'Tenant',
       'empty_requests' => 'No requests',
       'assigned_tenant' => 'Assigned tenant',
+      'tenant_assigned' => 'Tenant assigned',
+      'tenant_unassigned' => 'Tenant unassigned',
       'type' => 
       [
         'label' => 'Type',
@@ -514,11 +519,7 @@ return [
       'edit' => 'Edit',
       'delete' => 'Delete',
       'saved' => 'Servizio salvato',
-      'deleted' => 
-      [
-        0 => 'Servizio cancellato',
-        1 => 'Deleted',
-      ],
+      'deleted' => 'Servizio cancellato',
       'category' => 'Category',
       'electrician' => 'Electrician',
       'heating_company' => 'Heating company',
@@ -591,6 +592,7 @@ return [
       'news_approval_enable' => 'News approval',
       'comment_update_timeout' => 'Comment update timeout',
       'closed' => 'Closed',
+      'saved' => 'Real estate saved',
       'schedule' => 'Schedule',
       'endTime' => 'End time',
       'startTime' => 'Start time',
@@ -617,11 +619,7 @@ return [
       'audits' => 'Audits',
       'edit' => 'Edit',
       'delete' => 'Delete',
-      'deleted' => 
-      [
-        0 => 'Deleted',
-        1 => 'Richiesta cancellata',
-      ],
+      'deleted' => 'Richiesta cancellata',
       'title' => 'Requests',
       'created' => 'Created',
       'saved' => 'Richiesta salvata',
@@ -653,6 +651,8 @@ return [
       'no_images_message' => 'No files uploaded',
       'request_details' => 'Request details',
       'internal_notices' => 'Internal notices',
+      'status_changed' => 'Status changed',
+      'priority_changed' => 'Priority changed',
       'assignmentTypes' => 
       [
         'services' => 'Services',
@@ -767,11 +767,13 @@ return [
       [
         'services' => 'Provider attached successfully',
         'managers' => 'Manager attached successfully',
+        'user' => 'User assigned successfully',
       ],
       'detached' => 
       [
         'service' => 'Provider detached successfully',
         'manager' => 'Manager detached successfully',
+        'user' => 'User unassigned successfully',
       ],
       'userType' => 
       [
@@ -807,11 +809,7 @@ return [
       'add' => 'Add property manager',
       'save' => 'Save',
       'saved' => 'Property manager salvato',
-      'deleted' => 
-      [
-        0 => 'Property manager cancellato',
-        1 => 'Deleted',
-      ],
+      'deleted' => 'Property manager cancellato',
       'edit' => 'Edit',
       'edit_title' => 'Edit property manager',
       'delete' => 'Delete',

@@ -194,7 +194,7 @@ class PostAPIController extends AppBaseController
         $post = $this->postRepository->create($input);
         $this->postRepository->notifyAdmins($post);
         $data = $this->transformer->transform($post);
-        return $this->sendResponse($data, 'Post saved successfully');
+        return $this->sendResponse($data, __('models.post.saved'));
     }
 
     /**
@@ -335,7 +335,7 @@ class PostAPIController extends AppBaseController
         ])->withCount('allComments')->findWithoutFail($id);
         $post->status = $status;
         $data = $this->transformer->transform($post);
-        return $this->sendResponse($data, 'Post updated successfully');
+        return $this->sendResponse($data, __('models.post.saved'));
     }
 
     /**
@@ -387,7 +387,7 @@ class PostAPIController extends AppBaseController
 
         $post->delete();
 
-        return $this->sendResponse($id, 'Post deleted successfully');
+        return $this->sendResponse($id, __('models.post.deleted'));
     }
 
     /**
@@ -447,7 +447,7 @@ class PostAPIController extends AppBaseController
 
         $post = $this->postRepository->setStatus($id, $newStatus, Carbon::now());
 
-        return $this->sendResponse($post, 'Post published successfully');
+        return $this->sendResponse($post, __('models.post.status.published'));
     }
 
     /**
@@ -506,7 +506,7 @@ class PostAPIController extends AppBaseController
             $post->user->notify(new PostLiked($post, $u->tenant));
         }
         return $this->sendResponse($this->uTransformer->transform($u),
-            'Post liked successfully');
+        __('models.post.liked'));
     }
 
     /**
@@ -557,7 +557,7 @@ class PostAPIController extends AppBaseController
         $u = \Auth::user();
         $u->unlike($post);
         return $this->sendResponse($this->uTransformer->transform($u),
-            'Post unliked successfully');
+        __('models.post.unliked'));
     }
 
     /**
@@ -620,7 +620,7 @@ class PostAPIController extends AppBaseController
         $p->likers = $p->collectLikers();
 
 
-        return $this->sendResponse($p, 'Building assigned successfully');
+        return $this->sendResponse($p, __('models.post.attached.building'));
     }
 
     /**
@@ -683,7 +683,7 @@ class PostAPIController extends AppBaseController
         $p->likers = $p->collectLikers();
 
 
-        return $this->sendResponse($p, 'Building unassigned successfully');
+        return $this->sendResponse($p, __('models.post.detached.building'));
     }
 
     /**
@@ -746,7 +746,7 @@ class PostAPIController extends AppBaseController
         $p->likers = $p->collectLikers();
 
 
-        return $this->sendResponse($p, 'District assigned successfully');
+        return $this->sendResponse($p, __('models.post.attached.district'));
     }
 
     /**
@@ -809,7 +809,7 @@ class PostAPIController extends AppBaseController
         $p->likers = $p->collectLikers();
 
 
-        return $this->sendResponse($p, 'District unassigned successfully');
+        return $this->sendResponse($p, __('models.post.detached.district'));
     }
 
     /**
@@ -920,7 +920,7 @@ class PostAPIController extends AppBaseController
         $p->likers = $p->collectLikers();
 
 
-        return $this->sendResponse($p, 'ServiceProvider assigned successfully');
+        return $this->sendResponse($p, __('models.post.attached.provider'));
     }
 
     /**
@@ -983,7 +983,7 @@ class PostAPIController extends AppBaseController
         ])->withCount('allComments')->findWithoutFail($id);
         $p->likers = $p->collectLikers();
 
-        return $this->sendResponse($p, 'ServiceProvider unassigned successfully');
+        return $this->sendResponse($p, __('models.post.detached.provider'));
     }
 
     /**

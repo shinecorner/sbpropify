@@ -8,6 +8,7 @@
             :empty-text="emptyText"
             @selection-change="handleSelectionChange"
             v-loading="loading.state"
+            :height="height"
         >
             <el-table-column
                 :key="column.prop"
@@ -108,7 +109,7 @@
 
                     <el-tag
                         v-if="column.type == 'tag'"
-                        :class="`tag-${scope.row[column.classSuffix] % 6}`"
+                        :class="`tag-${scope.row[column.classSuffix]}`"
                         :size="column.size"
                     >
                         {{ scope.row[column.prop] }}
@@ -188,6 +189,9 @@
                     icon: 'el-icon-loading',
                     background: 'rgba(0, 0, 0, 0.8)'
                 })
+            },
+            height: {
+                default: () => (undefined)
             }
         },
         data() {
@@ -198,7 +202,7 @@
         },
         computed: {
             emptyText() {
-                return this.loading.state ? this.$t('please_wait') : this.$t('no_data_available');
+                return this.loading.state ? this.$t('please_wait') : this.$t('general.no_data_available');
             }
         },
         methods: {
@@ -493,9 +497,9 @@
                 border-color: #c2e7b0;
             }
             &.tag-3 {
-                color: #67c23a;
-                background: #f0f9eb;
-                border-color: #c2e7b0;
+                color: #909399;
+                background: #f4f4f5;
+                border-color: #d3d4d6;
             }
             &.tag-4 {
                 color: #e6a23c;
@@ -506,6 +510,17 @@
                 color: #f56c6c;
                 background: #fef0f0;
                 border-color: #fbc4c4;
+            }
+
+            &.tag-active {
+                color: #5fad64;
+                background: #f0f9eb;
+                border-color: #b2d7c0;
+            }
+            &.tag-not_active {
+                color: #dd6161;;
+                background: #fef0f0;
+                border-color: #ebb4b4;
             }
         }
     }

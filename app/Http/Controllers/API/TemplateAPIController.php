@@ -184,7 +184,7 @@ class TemplateAPIController extends AppBaseController
 
         $template->load('translations');
         $response = (new TemplateTransformer)->transform($template);
-        return $this->sendResponse($response, 'Template saved successfully');
+        return $this->sendResponse($response, __('models.template.saved'));
     }
 
     /**
@@ -302,7 +302,7 @@ class TemplateAPIController extends AppBaseController
 
         $template->load('translations');
         $response = (new TemplateTransformer)->transform($template);
-        return $this->sendResponse($response, 'Template updated successfully');
+        return $this->sendResponse($response, __('models.template.saved'));
     }
 
     /**
@@ -355,6 +355,6 @@ class TemplateAPIController extends AppBaseController
 
         $template->delete();
 
-        return $this->sendResponse($id, 'Template deleted successfully');
+        return $this->sendResponse($id, __('models.template.deleted'));
     }
 }
