@@ -45,7 +45,9 @@
                                                     type="week"
                                                     :format="$t('general.date_range.week') + ' WW.yyyy'"
                                                     value-format="dd.MM.yyyy"
-                                                    :placeholder="$t('general.date_range.peek_week')">
+                                                    :placeholder="$t('general.date_range.peek_week')"
+                                                    popper-class="custom-week-panel"
+                                                >
                                                 </el-date-picker>
                                             </div>
                                             <chart-heat-map type="week-hour" :tab="activeChart" :week="weekSelected"></chart-heat-map>
@@ -109,7 +111,7 @@
                             </el-col>
                             <el-col :span="16">
                                 <el-card class="chart-card" :header="$t('dashboard.latest_products')">
-                                    <list-latest-products type="latest_products"></list-latest-products>
+                                    <dashboard-latest-products type="latest_products"></dashboard-latest-products>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -147,12 +149,12 @@
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_title')">
-                                    <chart-pie-and-donut type="tenants_by_title" :colNum="3" :startDate="startDates.tenants"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="tenants_by_title" :colNum="3" :startDate="startDates.tenants" :centered="true"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_gender')">
-                                    <chart-tenants-by-gender type="tenants_by_gender" :colNum="3" :startDate="startDates.tenants"></chart-tenants-by-gender>
+                                    <chart-tenants-by-gender type="tenants_by_gender" :startDate="startDates.tenants"></chart-tenants-by-gender>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
@@ -186,7 +188,7 @@
     import ChartTenantsByGender from 'components/ChartTenantsByGender';
     import TenantsStatisticsCard from 'components/TenantsStatisticsCard';
 
-    import ListLatestProducts from 'components/ListLatestProducts';
+    import DashboardLatestProducts from 'components/DashboardLatestProducts';
 
     export default {
         name: 'AdminDashboard',
@@ -204,7 +206,7 @@
             ChartTenantsByGender,
             ChartUsersByDevice,
             TenantsStatisticsCard,
-            ListLatestProducts
+            DashboardLatestProducts
         },
         data() {
             return {
@@ -565,5 +567,49 @@
             }
         }
     }
-}  
+}
+.el-picker-panel.custom-week-panel {
+    line-height: normal;
+    width: min-content;
+
+    .el-picker-panel__body-wrapper {
+        .el-date-picker__header {
+            margin: 10px 7px 0px;
+
+            .el-picker-panel__icon-btn {
+                margin-top: 4px;
+                padding: 1px 1px;
+            }
+            .el-date-picker__header-label {
+                font-size: 15px;
+                padding: 0 2px;
+            }
+        }
+        .el-picker-panel__content {
+            padding: 7px 5px 5px 5px;
+            margin: 0;
+            width: 202px;
+
+            th {
+                width: 25px;
+                height: 25px;
+                padding:2px;
+            }
+
+            td {
+                padding: 0;
+                width: 25px;
+                height: 25px;
+                max-width: 25px;
+
+                div {
+                    width: 25px;
+                    height: 25px;
+                    padding: 0;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
 </style>

@@ -125,7 +125,9 @@
                 processAssignment: false,
                 toAssignList: '',
                 toAssign: '',
-                remoteLoading: false
+                remoteLoading: false,
+                districts: {},
+                buildings:{}
             }
         },
         computed: {
@@ -141,15 +143,13 @@
                         name: this.$t('filters.districts'),
                         type: 'select',
                         key: 'district_id',
-                        data: [],
-                        fetch: this.getFilterDistricts
+                        data: this.districts,
                     },
                     {
                         name: this.$t('filters.buildings'),
                         type: 'select',
                         key: 'building_id',
-                        data: [],
-                        fetch: this.getFilterBuildings
+                        data: this.buildings,
                     }
                 ]
             }
@@ -246,7 +246,13 @@
                 }
             },
             
-        }
+        },
+        async created(){
+            const districts = await this.axios.get('districts')
+            this.districts = districts.data.data.data;
+
+            this.buildings = await this.getFilterBuildings()
+        },
     }
 </script>
 

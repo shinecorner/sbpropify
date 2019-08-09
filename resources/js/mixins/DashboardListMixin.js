@@ -1,8 +1,8 @@
-import ListLatestTable from 'components/ListLatestTable';
+import DashboardListTable from 'components/DashboardListTable';
 
 export default () => ({
     components: {
-        ListLatestTable
+        DashboardListTable
     },
     data() {
         return {
