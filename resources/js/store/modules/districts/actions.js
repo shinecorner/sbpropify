@@ -40,5 +40,5 @@ export default {
                     message: 'models.district.deleted'
                 }))
                 .catch(({response: {data: err}}) => reject(err)));
-    }
+    },
 }
