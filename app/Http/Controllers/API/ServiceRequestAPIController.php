@@ -165,7 +165,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
-        return $this->sendResponse($response, 'Service Request saved successfully');
+        return $this->sendResponse($response, __('models.request.saved'));
     }
 
     /**
@@ -297,7 +297,7 @@ class ServiceRequestAPIController extends AppBaseController
             'comments.user', 'providers.address', 'providers.user',
         ]);
         $response = (new ServiceRequestTransformer)->transform($updatedServiceRequest);
-        return $this->sendResponse($response, 'ServiceRequest updated successfully');
+        return $this->sendResponse($response, __('models.request.saved'));
     }
 
     /**
@@ -359,7 +359,7 @@ class ServiceRequestAPIController extends AppBaseController
         $serviceRequest = $this->serviceRequestRepository->update($input, $id);
 
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
-        return $this->sendResponse($response, 'Status Changed successfully');
+        return $this->sendResponse($response, __('models.request.status_changed'));
     }
 
     /**
@@ -417,7 +417,7 @@ class ServiceRequestAPIController extends AppBaseController
         $serviceRequest = $this->serviceRequestRepository->update($input, $id);
 
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
-        return $this->sendResponse($response, 'Priority Changed successfully');
+        return $this->sendResponse($response, __('models.request.priority_changed'));
     }
 
     /**
@@ -468,7 +468,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $serviceRequest->delete();
 
-        return $this->sendResponse($id, 'Service Request deleted successfully');
+        return $this->sendResponse($id, __('models.request.deleted'));
     }
 
     /**
@@ -548,7 +548,7 @@ class ServiceRequestAPIController extends AppBaseController
         ];
         $a->save();
 
-        return $this->sendResponse($sr, 'Email notification sent successfully');
+        return $this->sendResponse($sr, __('models.request.mail.success'));
     }
 
     /**
@@ -615,7 +615,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $sr->conversationFor(Auth::user(), $sp->user);
 
-        return $this->sendResponse($sr, 'Service provider assigned successfully');
+        return $this->sendResponse($sr, __('models.request.attached.services'));
     }
 
     /**
@@ -676,7 +676,7 @@ class ServiceRequestAPIController extends AppBaseController
         ];
         $a->save();
 
-        return $this->sendResponse($sr, 'Service provider unassigned successfully');
+        return $this->sendResponse($sr, __('models.request.detached.service'));
     }
 
     /**
@@ -740,7 +740,7 @@ class ServiceRequestAPIController extends AppBaseController
             $sr->conversationFor($p->user, $u);
         }
 
-        return $this->sendResponse($sr, 'User assigned successfully');
+        return $this->sendResponse($sr, __('models.request.attached.user'));
     }
 
     /**
@@ -800,7 +800,7 @@ class ServiceRequestAPIController extends AppBaseController
         ];
         $a->save();
 
-        return $this->sendResponse($sr, 'User unassigned successfully');
+        return $this->sendResponse($sr, __('models.request.detached.user'));
     }
 
     /**
