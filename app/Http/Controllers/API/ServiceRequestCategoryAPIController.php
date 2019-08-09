@@ -205,7 +205,7 @@ class ServiceRequestCategoryAPIController extends AppBaseController
         $serviceRequestCategories = $this->serviceRequestCategoryRepository->create($input);
 
         $response = (new ServiceRequestCategoryTransformer)->transform($serviceRequestCategories);
-        return $this->sendResponse($response, 'Service Request Category saved successfully');
+        return $this->sendResponse($response, __('models.user.serviceRequestCategorySaved'));
     }
 
     /**
@@ -335,7 +335,7 @@ class ServiceRequestCategoryAPIController extends AppBaseController
         $serviceRequestCategory = $this->serviceRequestCategoryRepository->update($input, $id);
 
         $response = (new ServiceRequestCategoryTransformer())->transform($serviceRequestCategory);
-        return $this->sendResponse($response, 'ServiceRequestCategory updated successfully');
+        return $this->sendResponse($response, __('models.user.serviceRequestCategorySaved'));
     }
 
     /**
@@ -390,7 +390,7 @@ class ServiceRequestCategoryAPIController extends AppBaseController
             return $this->sendError('Service Request Category it is used by a Service Request');
         }
 
-        $serviceRequestCategory->delete();
-        return $this->sendResponse($id, 'Service Request Category deleted successfully');
+        $serviceRequestCategory->delete();        
+        return $this->sendResponse($id, __('models.user.serviceRequestCategorySaved'));
     }
 }

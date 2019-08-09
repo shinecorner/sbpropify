@@ -240,7 +240,7 @@ class ServiceProviderAPIController extends AppBaseController
         $serviceProvider->load(['user', 'address']);
         $response = (new ServiceProviderTransformer)->transform($serviceProvider);
 
-        return $this->sendResponse($response, 'Service Provider saved successfully');
+        return $this->sendResponse($response, __('models.service.saved'));
     }
 
     /**
@@ -382,7 +382,7 @@ class ServiceProviderAPIController extends AppBaseController
         $serviceProvider->load(['user', 'address']);
         $response = (new ServiceProviderTransformer)->transform($serviceProvider);
 
-        return $this->sendResponse($response, 'ServiceProvider updated successfully');
+        return $this->sendResponse($response, __('models.service.saved'));
     }
 
     /**
@@ -443,7 +443,7 @@ class ServiceProviderAPIController extends AppBaseController
             return $this->sendError('Service Provider deleted error: ' . $e->getMessage());
         }
 
-        return $this->sendResponse($id, 'Service Provider deleted successfully');
+        return $this->sendResponse($id, __('models.service.deleted'));
     }
 
     /**
@@ -496,7 +496,7 @@ class ServiceProviderAPIController extends AppBaseController
         $sp->load('user', 'address', 'districts', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
-        return $this->sendResponse($ret, 'District assigned successfully');
+        return $this->sendResponse($ret, __('models.service.attached.district'));
     }
 
     /**
@@ -549,7 +549,7 @@ class ServiceProviderAPIController extends AppBaseController
         $sp->load('user', 'address', 'districts', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
-        return $this->sendResponse($ret, 'District unassigned successfully');
+        return $this->sendResponse($ret, __('models.service.detached.district'));
     }
 
     /**
@@ -607,7 +607,7 @@ class ServiceProviderAPIController extends AppBaseController
         $sp->load('user', 'address', 'districts', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
-        return $this->sendResponse($ret, 'Building assigned successfully');
+        return $this->sendResponse($ret, __('models.service.attached.building'));
     }
 
     /**
@@ -660,7 +660,7 @@ class ServiceProviderAPIController extends AppBaseController
         $sp->load('user', 'address', 'districts', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
-        return $this->sendResponse($ret, 'Building unassigned successfully');
+        return $this->sendResponse($ret, __('models.service.detached.district'));
     }
 
     /**
