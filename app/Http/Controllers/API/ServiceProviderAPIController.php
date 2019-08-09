@@ -88,7 +88,7 @@ class ServiceProviderAPIController extends AppBaseController
 
             $reqCount = $request->get('req_count');
             if ($reqCount) {
-                $query = $this->serviceProviderRepository->withCount([
+                $this->serviceProviderRepository->withCount([
                     'requestsReceived',
                     'requestsInProcessing',
                     'requestsAssigned',
@@ -101,7 +101,6 @@ class ServiceProviderAPIController extends AppBaseController
             $serviceProviders = $this->serviceProviderRepository->with([
                 'user',
             ])->get();
-
 
             return $this->sendResponse($serviceProviders->toArray(), 'Service Providers successfully');
         }
