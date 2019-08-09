@@ -270,7 +270,7 @@ class TenantAPIController extends AppBaseController
         //$tenant->setCredentialsPDF();
 
         $response = (new TenantTransformer)->transform($tenant);
-        return $this->sendResponse($response, 'Tenant saved successfully');
+        return $this->sendResponse($response, __('models.tenant.saved'));
     }
 
     /**
@@ -457,7 +457,7 @@ class TenantAPIController extends AppBaseController
             //$tenant->setCredentialsPDF();
         //}
         $response = (new TenantTransformer)->transform($tenant);
-        return $this->sendResponse($response, 'Tenant updated successfully');
+        return $this->sendResponse($response, __('models.tenant.saved'));
     }
 
     /**
@@ -531,7 +531,7 @@ class TenantAPIController extends AppBaseController
 
         $tenant->load('user', 'address', 'building', 'unit', 'media');
         $response = (new TenantTransformer)->transform($tenant);
-        return $this->sendResponse($response, 'Tenant updated successfully');
+        return $this->sendResponse($response, __('models.tenant.saved'));
     }
 
     /**
@@ -608,7 +608,7 @@ class TenantAPIController extends AppBaseController
 
         $tenant->load('user', 'address', 'building', 'unit', 'media');
         $response = (new TenantTransformer)->transform($tenant);
-        return $this->sendResponse($response, 'Status Changed successfully');
+        return $this->sendResponse($response, __('models.tenant.status_changed'));
     }
 
     /**
@@ -658,7 +658,7 @@ class TenantAPIController extends AppBaseController
             return $this->sendError('Delete error: ' . $e->getMessage());
         }
 
-        return $this->sendResponse($id, 'Tenant deleted successfully');
+        return $this->sendResponse($id, __('models.tenant.deleted'));
     }
 
     /**
@@ -699,7 +699,7 @@ class TenantAPIController extends AppBaseController
 
         $t->user->notify(new TenantCredentials($t));
 
-        return $this->sendResponse($id, 'Tenant credentials sent successfully');
+        return $this->sendResponse($id, __('models.tenant.credentials_sent'));
     }
 
     /**
@@ -738,7 +738,7 @@ class TenantAPIController extends AppBaseController
         if($user->email == $request->email) {
             $user->password = bcrypt($request->password);
             $user->save();
-            return $this->sendResponse($tenant->id, 'Tenant password reset successfully');
+            return $this->sendResponse($tenant->id, __('models.tenant.password_reset'));
         } else {
             return $this->sendError('Incorrect email address');
         }
@@ -837,7 +837,7 @@ class TenantAPIController extends AppBaseController
         if($user->email == $request->email) {
             $user->password = bcrypt($request->password);
             $user->save();
-            return $this->sendResponse($tenant->id, 'Tenant password reset successfully');
+            return $this->sendResponse($tenant->id, __('models.tenant.saved'));
         } else {
             return $this->sendError('Incorrect email address');
         }
@@ -926,6 +926,6 @@ class TenantAPIController extends AppBaseController
         $data['rating']=$input['rating'];
         Tenant::where('id',$input['tenant_id'])->update($data);
         
-        return $this->sendResponse($input['tenant_id'], 'Tenant review sent successfully');
+        return $this->sendResponse($input['tenant_id'], __('models.tenant.saved'));
     }
 }

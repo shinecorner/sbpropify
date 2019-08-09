@@ -239,7 +239,7 @@ class UserAPIController extends AppBaseController
         $users = $this->userRepository->create($input);
         $users->load('settings')->load('roles');
 
-        return $this->sendResponse($users->toArray(), 'User saved successfully');
+        return $this->sendResponse($users->toArray(), __('models.user.saved'));
     }
 
     /**
@@ -409,7 +409,7 @@ class UserAPIController extends AppBaseController
         $user->load('settings')->load('roles');
 
         $response = (new UserTransformer)->transform($user);
-        return $this->sendResponse($response, 'User updated successfully');
+        return $this->sendResponse($response, __('models.user.saved'));
     }
 
     /**
@@ -480,7 +480,7 @@ class UserAPIController extends AppBaseController
 
         $user->load('settings')->load('roles');
         $response = (new UserTransformer)->transform($user);
-        return $this->sendResponse($response, 'User updated successfully');
+        return $this->sendResponse($response, __('models.user.saved'));
     }
 
     /**
@@ -540,7 +540,7 @@ class UserAPIController extends AppBaseController
         $user = $this->userRepository->with(['settings'])->update($input, $id);
 
         $response = (new UserTransformer)->transform($user);
-        return $this->sendResponse($response, 'User updated successfully');
+        return $this->sendResponse($response, __('models.user.saved'));
     }
 
     /**
@@ -606,7 +606,7 @@ class UserAPIController extends AppBaseController
         $user = $this->userRepository->with(['settings'])->update($input, $id);
 
         $response = (new UserTransformer)->transform($user);
-        return $this->sendResponse($response, 'User updated successfully');
+        return $this->sendResponse($response, __('models.user.saved'));
     }
 
     /**
@@ -672,7 +672,7 @@ class UserAPIController extends AppBaseController
         $user = $this->userRepository->with(['settings'])->update($input, $id);
 
         $response = (new UserTransformer)->transform($user);
-        return $this->sendResponse($response, 'User updated successfully');
+        return $this->sendResponse($response, __('models.user.saved'));
     }
 
     /**
@@ -723,7 +723,7 @@ class UserAPIController extends AppBaseController
         }
 
         $user->forceDelete();
-        return $this->sendResponse($id, 'User deleted successfully');
+        return $this->sendResponse($id, __('models.user.deleted'));
     }
 
     /**

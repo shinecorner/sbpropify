@@ -152,7 +152,7 @@ class UnitAPIController extends AppBaseController
 
         $unit->load('tenant');
         $response = (new UnitTransformer)->transform($unit);
-        return $this->sendResponse($response, 'Unit saved successfully');
+        return $this->sendResponse($response, __('models.unit.saved'));
     }
 
     /**
@@ -285,7 +285,7 @@ class UnitAPIController extends AppBaseController
         }
 
         $response = (new UnitTransformer)->transform($unit);
-        return $this->sendResponse($response, 'Unit updated successfully');
+        return $this->sendResponse($response, __('models.unit.saved'));
     }
 
     /**
@@ -338,7 +338,7 @@ class UnitAPIController extends AppBaseController
         // TODO: unassign Tenant from deleted Unit
         $unit->delete();
 
-        return $this->sendResponse($id, 'Unit deleted successfully');
+        return $this->sendResponse($id, __('models.unit.deleted'));
     }
 
     /**
@@ -422,7 +422,7 @@ class UnitAPIController extends AppBaseController
             'unit_id' => $unit->id,
         ];
         $this->tenantRepository->update($data, $tenantId);
-        return $this->sendResponse($unitId, 'tenant assigned unit successfully');
+        return $this->sendResponse($unitId, __('models.unit.tenant_assigned'));
     }
 
     /**
@@ -508,6 +508,6 @@ class UnitAPIController extends AppBaseController
         ];
         $this->tenantRepository->update($data, $tenantId);
 
-        return $this->sendResponse($unitId, 'tenant un assigned unit successfully');
+        return $this->sendResponse($unitId, __('models.unit.tenant_unassigned'));
     }
 }

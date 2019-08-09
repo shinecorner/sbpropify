@@ -70,7 +70,7 @@ class CleanifyRequestAPIController extends AppBaseController
         ])->paginate($perPage);
 
         $out = $this->transformer->transformPaginator($reqs);
-        return $this->sendResponse($out, 'Cleanify requests retrieved successfully');
+        return $this->sendResponse($out, __('models.cleanify.retrieved'));
     }
 
     /**
@@ -124,6 +124,6 @@ class CleanifyRequestAPIController extends AppBaseController
 
         $this->repo->notify($creq, $re->cleanify_email);
         $out = $this->transformer->transform($creq);
-        return $this->sendResponse($out, 'Cleanify request saved successfully');
+        return $this->sendResponse($out, __('models.cleanify.saved'));
     }
 }
