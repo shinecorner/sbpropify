@@ -1,6 +1,6 @@
 export default (config = {}) => {
     const {model = 'model', form = 'form', required = true, nestedModel = ''} = config;
-
+    
     return {
         methods: {
             validatePassword(rule, value, callback) {

@@ -4,6 +4,7 @@ import Login from 'views/Auth/Login';
 import AutoLogin from 'views/Auth/AutoLogin';
 import ForgotPassword from 'views/Auth/ForgotPassword';
 import ResetPassword from 'views/Auth/ResetPassword';
+import ActivateAccount from 'views/Auth/ActivateAccount';
 
 export default [{
     path: '/',
@@ -37,6 +38,14 @@ export default [{
         name: 'resetPassword',
         meta: {
             title: 'Reset Password',
+            middleware: guest
+        }
+    }, {
+        path: 'activate',
+        component: ActivateAccount,
+        name: 'activateAccount',
+        meta: {
+            title: 'Activate Account',
             middleware: guest
         }
     }]

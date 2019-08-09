@@ -42,6 +42,8 @@ return [
   'all' => 'All',
   'loadMore' => 'Load more',
   'account' => 'Account',
+  'activate_account' => 'Activate Account',
+  'activate' => 'Activate',
   'unauthenticated' => 'Unauthenticated',
   'logged_out' => 'Logged out',
   'logged_in' => 'Logged in',
