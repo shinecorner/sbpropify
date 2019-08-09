@@ -1,0 +1,144 @@
+<template>
+    <div class="services-list">
+        <div class="link-container">
+            <router-link :to="{name: 'adminServices'}">
+                <span class="title">{{ /*$t('dashboard.requests.go_to_managers')*/'go to service partners' }} </span>
+                <i class="icon-right icon"/>
+            </router-link>
+        </div>
+        <dashboard-list-table
+            :header="header"
+            :items="items"
+            :loading="{state: loading}"
+            @selectionChanged="selectionChanged"
+            :height="250"
+        >
+        </dashboard-list-table>
+    </div>
+</template>
+
+<script>
+    import {mapActions} from 'vuex';
+    import axios from '@/axios';
+
+    import {displayError, displaySuccess} from "helpers/messages";
+    import DashboardListMixin from 'mixins/DashboardListMixin';
+    
+    const mixin = DashboardListMixin();
+
+    export default {
+        mixins: [mixin],
+        props: {
+          type: {
+            type: String
+          }
+        },
+        data() {
+            return {
+                header: [{
+                    type: 'plain',
+                    label: this.$t('models.service.name'),
+                    prop: 'name',
+                    minWidth: '150px'
+                }, {
+                    type: 'counts',
+                    minWidth: '150px',
+                    label: this.$t('models.service.requests'),
+                    counts: [{
+                            prop: 'requests_received_count',
+                            background: '#bbb',
+                            color: '#fff',
+                            label: this.$t('models.building.requestStatuses.received')
+                        }, {
+                            prop: 'requests_assigned_count',
+                            background: '#ebb563',
+                            color: '#fff',
+                            label: this.$t('models.building.requestStatuses.assigned')
+                        }, {
+                            prop: 'requests_in_processing_count',
+                            background: '#ebb563',
+                            color: '#fff',
+                            label: this.$t('models.building.requestStatuses.in_processing')
+                        }, {
+                            prop: 'requests_reactivated_count',
+                            background: '#ebb563',
+                            color: '#fff',
+                            label: this.$t('models.building.requestStatuses.reactivated')
+                        }, {
+                            prop: 'requests_done_count',
+                            background: '#67C23A',
+                            color: '#fff',
+                            label: this.$t('models.building.requestStatuses.done')
+                        }, {
+                            prop: 'requests_archived_count',
+                            background: '#67C23A',
+                            color: '#fff',
+                            label: this.$t('models.building.requestStatuses.archived')
+                        }
+                    ]
+                }, {
+                    type: 'actions',
+                    label: this.$t('dashboard.actions'),
+                    width: 85,
+                    actions: [ 
+                        {
+                            type: 'success',
+                            title: this.$t('models.service.edit'),
+                            onClick: this.edit,
+                            permissions: [
+                                this.$permissions.update.provider
+                            ]
+                        }
+                    ]
+                }],
+            };
+        },
+        methods: {
+            edit({id}) {
+                this.$router.push({
+                    name: 'adminServicesEdit',
+                    params: {
+                        id
+                    }
+                });
+            },
+            fetchData() {
+              let that = this;
+              let url = 'services?req_count=true';
+              return axios.get(url)
+              .then(function (response) {
+                that.items = response.data.data.data;
+              }).catch(function (error) {
+                  console.log(error);
+              })
+            }
+        },
+        created() {
+          this.fetchData();
+        }
+    }
+</script>
+
+<style lang="scss">
+    .services-list {
+        position: relative;
+
+        .link-container {
+            position: absolute;
+            top: -58px;
+            right: 0px;
+            text-align: right;
+            padding: 20px 15px;
+            font-size: 16px;
+
+            a {
+                text-decoration: none;
+                color: #525252;
+
+                &:hover {
+                    color: #303133;
+                }
+            }
+        }
+    }
+</style>
