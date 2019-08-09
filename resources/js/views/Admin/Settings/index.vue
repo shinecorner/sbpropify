@@ -107,16 +107,16 @@
                                          v-show="realEstateLogo || model.logo_upload"
                                          width="300px">
                                 </el-form-item>
+                                <el-form-item :label="$t('models.user.primary_color')">
+                                    <el-color-picker
+                                            size="medium"
+                                            v-model="model.primary_color"></el-color-picker>
+                                </el-form-item>
                                 <el-form-item :label="$t('models.user.accent_color')">
                                     <el-color-picker
                                             size="medium"
                                             v-model="model.accent_color">
                                     </el-color-picker>
-                                </el-form-item>
-                                <el-form-item :label="$t('models.user.primary_color')">
-                                    <el-color-picker
-                                            size="medium"
-                                            v-model="model.primary_color"></el-color-picker>
                                 </el-form-item>
                                 <el-form-item>
                                     <el-button @click="saveRealEstate('styleSettingsForm')" icon="ti-save"
