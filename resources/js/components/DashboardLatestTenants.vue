@@ -1,8 +1,8 @@
 <template>
-    <div class="latest-products">
+    <div class="latest-tenants">
         <div class="link-container">
-            <router-link :to="{name: 'adminProducts'}">
-                <span class="title">{{ $t('dashboard.marketplace.go_to_marketplace') }} </span>
+            <router-link :to="{name: 'adminTenants'}">
+                <span class="title">{{ /*$t('dashboard.tenants.go_to_tenants')*/'go to tenants' }} </span>
                 <i class="icon-right icon"/>
             </router-link>
         </div>
@@ -10,8 +10,6 @@
             :header="header"
             :items="items"
             :loading="{state: loading}"
-            :withSearch="false"
-            :withCheckSelection="false"
             @selectionChanged="selectionChanged"
         >
         </dashboard-list-table>
@@ -37,26 +35,15 @@
         data() {
             return {
                 header: [{
-                    type: 'product-details',
-                    label: this.$t('models.product.details'),
-                    props: ['title', 'created_at', 'image_url'],
-                    minWidth: '300px'
+                    type: 'plain',
+                    label: this.$t('models.tenant.name'),
+                    prop: 'name',
+                    minWidth: '100px'
                 }, {
                     type: 'tag',
-                    label: this.$t('models.product.type.label'),
-                    prop: 'type_label',
-                    classSuffix: 'type'
-                }, {
-                    type: 'plain',
-                    label: this.$t('models.product.visibility.label'),
-                    prop: 'visibility_label'
-                }, {
-                    type: 'plain',
-                    label: this.$t('models.product.price'),
-                    prop: 'price',
-                    style: {
-                        color: '#5CC279'
-                    }
+                    label: this.$t('models.tenant.status.label'),
+                    prop: 'status_label',
+                    classSuffix: 'status_class_suffix'
                 }, {
                     type: 'actions',
                     label: this.$t('dashboard.actions'),
@@ -64,27 +51,25 @@
                     actions: [ 
                         {
                             type: 'success',
-                            title: this.$t('models.product.edit'),
+                            title: this.$t('models.tenant.edit'),
                             onClick: this.edit,
                             permissions: [
-                                this.$permissions.update.product
+                                this.$permissions.update.tenant
                             ]
                         }
                     ]
                 }],
-                product: {},
             };
         },
         computed: {
-            productConstants() {
-                return this.$store.getters['application/constants'].products;
+            tenantConstants() {
+                return this.$store.getters['application/constants'].tenants;
             },
-
         },
         methods: {
             edit({id}) {
                 this.$router.push({
-                    name: 'adminProductsEdit',
+                    name: 'adminTenantsEdit',
                     params: {
                         id
                     }
@@ -92,19 +77,13 @@
             },
             fetchData() {
               let that = this;
-              let url = '';
-              let toolTipSeriesName = '';
-              if(this.type === 'latest_products'){
-                url = 'products?per_page=5';
-                toolTipSeriesName = this.$t('models.building.title');
-              }
+              let url = 'tenants/latest';
               return axios.get(url)
               .then(function (response) {
-                const items = response.data.data.data.map(item => {
-                  item.visibility_label = that.$t(`models.product.visibility.${that.productConstants.visibility[item.visibility]}`);
-                  item.type_label = that.$t(`models.product.type.${that.productConstants.type[item.type]}`);
-                  item.price = '$' + item.price;
-                  item.image_url = item.media.length == 0 ? '' : item.media[0].url;
+                const items = response.data.data.map(item => {
+                  item.status_label = that.$t(`models.tenant.status.${that.tenantConstants.status[item.status]}`);
+                  item.name = item.first_name + ' ' + item.last_name;
+                  item.status_class_suffix = that.tenantConstants.status[item.status];
                   return item;
                 });
                 that.items = items;
@@ -120,7 +99,7 @@
 </script>
 
 <style lang="scss">
-    .latest-products {
+    .latest-tenants {
         position: relative;
 
         .link-container {

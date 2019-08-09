@@ -24,6 +24,7 @@ return [
       'blank_pdf' => 'Leeres PDF Template verwenden',
       'realEstateSaved' => 'Einstellung gespeichert',
       'serviceRequestCategorySaved' => 'Kategorie der Serviceanfrage gespeichert',
+      'serviceRequestCategoryDeleted' => 'Serviceanforderungskategorie gelöscht',
       'validation' => 
       [
         'name' => 
@@ -50,6 +51,8 @@ return [
       'save' => 'Speichern',
       'saved' => 'Mieter gespeichert',
       'deleted' => 'Mieter gelöscht',
+      'status_changed' => 'Status geändert',
+      'password_reset' => 'Mandantenpasswort erfolgreich zurückgesetzt',
       'update' => 'Update',
       'name' => 'Name',
       'first_name' => 'Vorname',
@@ -300,6 +303,8 @@ return [
       'tenant' => 'Mieter',
       'empty_requests' => 'Keine Anfragen',
       'assigned_tenant' => 'Derzeitiger Mieter',
+      'tenant_assigned' => 'Zugeordneter Mieter',
+      'tenant_unassigned' => 'Mieter nicht zugeordnet',
       'type' => 
       [
         'label' => 'Typ',
@@ -514,11 +519,7 @@ return [
       'edit' => 'Öffnen',
       'delete' => 'Löschen',
       'saved' => 'Firma gespeichert',
-      'deleted' => 
-      [
-        0 => 'Firma gelöscht',
-        1 => 'Gelöscht',
-      ],
+      'deleted' => 'Firma gelöscht',
       'category' => 'Kategorie',
       'electrician' => 'Elektro',
       'heating_company' => 'Heizung',
@@ -591,6 +592,7 @@ return [
       'news_approval_enable' => 'Pinnwand-Beiträge zuerst prüfen',
       'comment_update_timeout' => 'Comment update timeout',
       'closed' => 'Geschlossen',
+      'saved' => 'Eingesparte Immobilien',
       'schedule' => 'Terminplanung',
       'endTime' => 'Ende',
       'startTime' => 'Start',
@@ -617,11 +619,7 @@ return [
       'audits' => 'Hystorx',
       'edit' => 'Öffnen',
       'delete' => 'Löschen',
-      'deleted' => 
-      [
-        0 => 'Gelöscht',
-        1 => 'Anfrage gelöscht',
-      ],
+      'deleted' => 'Anfrage gelöscht',     
       'title' => 'Anfragen',
       'created' => 'Erstellt',
       'saved' => 'Anfrage gespeichert',
@@ -653,6 +651,8 @@ return [
       'no_images_message' => 'Keine Dateien hochgeladen',
       'request_details' => 'Beschreibung',
       'internal_notices' => 'Interne Notizen',
+      'status_changed' => 'Status geändert',
+      'priority_changed' => 'Priorität geändert',
       'assignmentTypes' => 
       [
         'services' => 'Dienstleister',
@@ -767,11 +767,13 @@ return [
       [
         'services' => 'Dienstleister wurde hinzugefügt.',
         'managers' => 'Bewirtschafter wurde hinzugefügt.',
+        'user' => 'Benutzer erfolgreich zugeordnet',
       ],
       'detached' => 
       [
         'service' => 'Dienstleister wurde entfernt.',
         'manager' => 'Bewirtschafter wurde entfernt.',
+        'user' => 'Benutzer erfolgreich nicht zugeordnet',
       ],
       'userType' => 
       [
@@ -807,11 +809,7 @@ return [
       'add' => 'Bewirtschafter hinzufügen',
       'save' => 'Speichern',
       'saved' => 'Bewirtschafter gespeichert',
-      'deleted' => 
-      [
-        0 => 'Bewirtschafter gelöscht',
-        1 => 'Gelöscht',
-      ],
+      'deleted' => 'Bewirtschafter gelöscht',
       'edit' => 'Öffnen',
       'edit_title' => 'Bewirtschafter bearbeiten',
       'delete' => 'Löschen',

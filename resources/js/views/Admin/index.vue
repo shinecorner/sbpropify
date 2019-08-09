@@ -59,6 +59,18 @@
                                 </el-card>
                             </el-col>
                         </el-row>
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="/*$t('dashboard.requests.property_managers')*/'Property managers'">
+                                    <dashboard-managers-list type="property-managers"></dashboard-managers-list>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="/*$t('dashboard.requests.service_partners')*/'Service partners'">
+                                    <dashboard-services-list type="service-partners"></dashboard-services-list>
+                                </el-card>
+                            </el-col>
+                        </el-row>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.buildings')" name="buildings">
                         <el-row type="flex">
@@ -70,6 +82,20 @@
                             <el-col :span="24">
                                 <el-card class="chart-card" :header="$t('dashboard.buildings.buildings_by_creation_date')">
                                     <chart-column-line type="buildings_by_creation_date" :startDate="startDates.buildings"></chart-column-line>
+                                </el-card>
+                            </el-col>
+                        </el-row>
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="24">
+                                <el-card class="chart-card" :header="/*$t('dashboard.buildings.buildings_map')*/'Buildings map'">
+                                    <dashboard-google-map type="buildings"></dashboard-google-map>
+                                </el-card>
+                            </el-col>
+                        </el-row>
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="/*$t('dashboard.buildings.latest_buildings')*/'Latest buildings'">
+                                    <dashboard-latest-buildings type="buildings"></dashboard-latest-buildings>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -163,6 +189,13 @@
                                 </el-card>
                             </el-col>
                         </el-row>
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="12">
+                                <el-card class="chart-card" :header="/*$t('dashboard.tenants.latest_tenants')*/'Latest tenants'">
+                                    <dashboard-latest-tenants type="tenants"></dashboard-latest-tenants>
+                                </el-card>
+                            </el-col>
+                        </el-row>
                     </el-tab-pane>
                 </el-tabs>
             </el-col>
@@ -189,6 +222,11 @@
     import TenantsStatisticsCard from 'components/TenantsStatisticsCard';
 
     import DashboardLatestProducts from 'components/DashboardLatestProducts';
+    import DashboardGoogleMap from 'components/DashboardGoogleMap';
+    import DashboardLatestBuildings from 'components/DashboardLatestBuildings';
+    import DashboardLatestTenants from 'components/DashboardLatestTenants';
+    import DashboardManagersList from 'components/DashboardManagersList';
+    import DashboardServicesList from 'components/DashboardServicesList';
 
     export default {
         name: 'AdminDashboard',
@@ -206,7 +244,12 @@
             ChartTenantsByGender,
             ChartUsersByDevice,
             TenantsStatisticsCard,
-            DashboardLatestProducts
+            DashboardLatestProducts,
+            DashboardGoogleMap,
+            DashboardLatestBuildings,
+            DashboardLatestTenants,
+            DashboardManagersList,
+            DashboardServicesList
         },
         data() {
             return {

@@ -178,7 +178,7 @@ class PropertyManagerAPIController extends AppBaseController
 
         $propertyManagers->load('user', 'buildings', 'districts');
         $response = (new PropertyManagerTransformer)->transform($propertyManagers);
-        return $this->sendResponse($response, 'Property Manager saved successfully');
+        return $this->sendResponse($response, __('models.propertyManager.saved'));
     }
 
     /**
@@ -312,7 +312,7 @@ class PropertyManagerAPIController extends AppBaseController
 
         $propertyManager->load('user', 'buildings', 'districts');
         $response = (new PropertyManagerTransformer)->transform($propertyManager);
-        return $this->sendResponse($response, 'PropertyManager updated successfully');
+        return $this->sendResponse($response, __('models.propertyManager.saved'));
     }
 
     /**
@@ -364,7 +364,7 @@ class PropertyManagerAPIController extends AppBaseController
 
         $propertyManager->delete();
 
-        return $this->sendResponse($id, 'Property Manager deleted successfully');
+        return $this->sendResponse($id, __('models.propertyManager.deleted'));
     }
 
     /**
@@ -416,7 +416,7 @@ class PropertyManagerAPIController extends AppBaseController
         $pm->districts()->sync($d, false);
         $pm->load('districts', 'buildings');
 
-        return $this->sendResponse($pm, 'District assigned successfully');
+        return $this->sendResponse($pm, __('models.propertyManager.attached.district'));
     }
 
     /**
@@ -468,7 +468,7 @@ class PropertyManagerAPIController extends AppBaseController
         $pm->districts()->detach($d);
         $pm->load('districts', 'buildings');
 
-        return $this->sendResponse($pm, 'District unassigned successfully');
+        return $this->sendResponse($pm, __('models.propertyManager.detached.district'));
     }
 
     /**
@@ -524,7 +524,7 @@ class PropertyManagerAPIController extends AppBaseController
         $pm->buildings()->sync($b, false);
         $pm->load('districts', 'buildings');
 
-        return $this->sendResponse($pm, 'Building assigned successfully');
+        return $this->sendResponse($pm, __('models.propertyManager.attached.building'));
     }
 
     /**
@@ -576,7 +576,7 @@ class PropertyManagerAPIController extends AppBaseController
         $pm->buildings()->detach($b);
         $pm->load('districts', 'buildings');
 
-        return $this->sendResponse($pm, 'Building assigned successfully');
+        return $this->sendResponse($pm, __('models.propertyManager.detached.building'));
     }
 
     /**
@@ -658,7 +658,7 @@ class PropertyManagerAPIController extends AppBaseController
             $propertyManager->buildings()->sync($buildingIds, false);
         }
 
-        return $this->sendResponse($response, 'Property Manager deleted successfully');
+        return $this->sendResponse($response, __('models.propertyManager.deleted'));
     }
 
     /**

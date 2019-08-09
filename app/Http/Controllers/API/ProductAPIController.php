@@ -176,7 +176,7 @@ class ProductAPIController extends AppBaseController
         $product = $this->productRepository->create($input);
 
         $data = $this->transformer->transform($product);
-        return $this->sendResponse($data, 'Product saved successfully');
+        return $this->sendResponse($data, __('models.product.saved'));
     }
 
     /**
@@ -298,7 +298,7 @@ class ProductAPIController extends AppBaseController
         $product = $this->productRepository->update($input, $id);
 
         $data = $this->transformer->transform($product);
-        return $this->sendResponse($data, 'Product updated successfully');
+        return $this->sendResponse($data, __('models.product.saved'));
     }
 
     /**
@@ -350,7 +350,7 @@ class ProductAPIController extends AppBaseController
 
         $product->delete();
 
-        return $this->sendResponse($id, 'Product deleted successfully');
+        return $this->sendResponse($id, __('models.product.deleted'));
     }
 
     /**
@@ -408,7 +408,7 @@ class ProductAPIController extends AppBaseController
             $product->user->notify(new ProductLiked($product, $u->tenant));
         }
         return $this->sendResponse($this->uTransformer->transform($u),
-            'Product liked successfully');
+        __('models.product.liked'));
     }
 
     /**
@@ -459,7 +459,7 @@ class ProductAPIController extends AppBaseController
         $u = \Auth::user();
         $u->unlike($product);
         return $this->sendResponse($this->uTransformer->transform($u),
-            'Product unliked successfully');
+        __('models.product.unliked'));
     }
 
     /**
@@ -519,6 +519,6 @@ class ProductAPIController extends AppBaseController
 
         $post = $this->productRepository->setStatus($id, $newStatus);
 
-        return $this->sendResponse($id, 'Product published successfully');
+        return $this->sendResponse($id, __('models.product.status.published'));
     }
 }

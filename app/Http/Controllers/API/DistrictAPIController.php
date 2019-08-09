@@ -127,7 +127,7 @@ class DistrictAPIController extends AppBaseController
         $district = $this->districtRepository->create($input);
         $response = (new DistrictTransformer)->transform($district);
 
-        return $this->sendResponse($response, 'District saved successfully');
+        return $this->sendResponse($response, __('models.district.saved'));
     }
 
     /**
@@ -241,7 +241,7 @@ class DistrictAPIController extends AppBaseController
         $district = $this->districtRepository->update($input, $id);
 
         $response = (new DistrictTransformer)->transform($district);
-        return $this->sendResponse($response, 'District updated successfully');
+        return $this->sendResponse($response, __('models.district.saved'));
     }
 
     /**
@@ -293,6 +293,6 @@ class DistrictAPIController extends AppBaseController
 
         $district->delete();
 
-        return $this->sendResponse($id, 'District deleted successfully');
+        return $this->sendResponse($id, __('models.district.deleted'));
     }
 }
