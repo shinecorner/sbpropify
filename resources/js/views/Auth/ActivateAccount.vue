@@ -4,7 +4,7 @@
             <el-form-item prop="email" :label="$t('general.email')" :rules="validationRules.email">
                 <el-input type="email" v-model="model.email" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item prop="act_code" :label="$t('general.activate_account')" :rules="validationRules.act_code">
+            <el-form-item prop="act_code" :label="$t('general.activate_code')" :rules="validationRules.act_code">
                 <el-input type="text" v-model="model.act_code" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item prop="password" :label="$t('general.password')" :rules="validationRules.password">
@@ -42,10 +42,10 @@
                 validationRules: {
                     email: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t("general.email_validation.required")
                     }, {
                         type: 'email',
-                        message: 'Please enter a valid Email'
+                        message: this.$t("general.email_validation.email")
                     }],
                     act_code: [{
                         required: true,
@@ -53,13 +53,13 @@
                     }],
                     password: [{
                         required: true,
-                        message: this.$t("password.required")
+                        message: this.$t("general.password_validation.required")
                     }, {
                         validator: this.validatePassword,
                     }],
                     password_confirmation: [{
                         required: true,
-                        message: this.$t("password.required")
+                        message: this.$t("general.password_validation.required")
                     },{
                         validator: this.validateConfirmPassword,
                     }]
@@ -72,6 +72,9 @@
                     return users.loggedInUser;
                 }
             })
+        },
+        mounted() {
+            this.model.act_code = this.$route.query.code;
         },
         methods: {
             submit() {
@@ -93,7 +96,7 @@
                 let validateObject = this.model;
 
                 if (value === '' && validateObject.password_confirmation) {
-                    callback(new Error('This field is required.'))
+                    callback(new Error($t("general.password_validation.required")))
                 } else {
                     this.$refs.form.validateField('password_confirmation');
                     callback();
@@ -106,7 +109,7 @@
                 if (value && !validateObject.password) {
                     this.$refs.form.validateField('password');
                 } else if (value !== validateObject.password) {
-                    callback(new Error('The passwords do not match.'));
+                    callback(new Error($t("general.password_validation.match")));
                 } else {
                     callback();
                 }

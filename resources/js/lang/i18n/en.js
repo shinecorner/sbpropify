@@ -319,6 +319,7 @@ export default {
             "loadMore": "Load more",
             "account": "Account",
             "activate_account": "Activate Account",
+            "activate_code": "Activate Code",
             "activate": "Activate",
             "unauthenticated": "Unauthenticated",
             "logged_out": "Logged out",
