@@ -104,10 +104,10 @@
             },
             fetchData() {
               let that = this;
-              let url = 'services?req_count=true';
+              let url = 'services?req_count=true&get_all=true';
               return axios.get(url)
               .then(function (response) {
-                that.items = response.data.data.data;
+                that.items = response.data.data;
               }).catch(function (error) {
                   console.log(error);
               })
