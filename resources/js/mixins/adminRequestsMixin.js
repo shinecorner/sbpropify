@@ -158,10 +158,7 @@ export default (config = {}) => {
                     await this.fetchCurrentRequest();
                     this.toAssign = '';
                     this.$refs.assigneesList.fetch();
-                    displaySuccess({
-                        success: true,
-                        message: this.$t(`models.request.attached.${this.assignmentType}`)
-                    })
+                    displaySuccess(resp.data)
                 }
             },
             uploadFiles(file) {
@@ -200,20 +197,17 @@ export default (config = {}) => {
                     });
                     displaySuccess({
                         success: true,
-                        message: this.$t('models.request.media.removed')
+                        message: this.$t('models.request.media.deleted')
                     });
                 } else {
-                    await this.deleteRequestMedia({
+                    const resp = await this.deleteRequestMedia({
                         id: image.model_id,
                         media_id: image.id
                     });
                     this.model.media = this.model.media.filter((files) => {
                         return files.id !== image.id;
                     });
-                    displaySuccess({
-                        success: true,
-                        message: this.$t('models.request.media.deleted')
-                    });
+                    displaySuccess(resp);
                 }
             },
             selectedCategoryHasQualification(categoryId) {
@@ -259,10 +253,7 @@ export default (config = {}) => {
                             try {
                                 const resp = await this.saveRequest();
 
-                                displaySuccess({
-                                    success: true,
-                                    message: this.$t('models.request.saved')
-                                });
+                                displaySuccess(resp);
                                 return resp;
                             } catch (err) {
                                 displayError(err);
@@ -327,10 +318,7 @@ export default (config = {}) => {
                                     this.$set(this.model, 'providers', resp.data.providers);
                                     this.$set(this.model, 'media', resp.data.media);
                                     this.$set(this.model, 'assignees', resp.data.assignees);
-                                    displaySuccess({
-                                        success: true,
-                                        message: this.$t('models.request.saved')
-                                    });
+                                    displaySuccess(resp);
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

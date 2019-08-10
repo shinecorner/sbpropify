@@ -524,8 +524,10 @@ export default {
                 "logo": "Logo",
                 "address": "Address",
                 "blank_pdf": "Blank pdf",
+                "notificationSaved": "Notificatin setting saved",
                 "realEstateSaved": "Real Estate settings saved",
                 "serviceRequestCategorySaved": "Catégorie de demande de service sauvegardée",
+                "serviceRequestCategoryDeleted": "Catégorie de demande de service supprimée",
                 "validation": {
                     "name": {
                         "required": "Name is required"
@@ -548,6 +550,8 @@ export default {
                 "save": "Save",
                 "saved": "Locataire épargné",
                 "deleted": "Locataire supprimé",
+                "status_changed": "Status changed",
+                "password_reset": "Tenant password reset successfully",
                 "update": "Update",
                 "name": "Name",
                 "first_name": "First name",
@@ -572,6 +576,10 @@ export default {
                 "requests": "Requests",
                 "company": "Company name",
                 "no_building": "No building",
+                "media": {
+                    "deleted": "Document/Photo Deleted",
+                    "uploaded": "Document/Photo Uploaded"
+                },
                 "building": {
                     "name": "Building"
                 },
@@ -768,6 +776,8 @@ export default {
                 "tenant": "Tenant",
                 "empty_requests": "No requests",
                 "assigned_tenant": "Assigned tenant",
+                "tenant_assigned": "Tenant assigned",
+                "tenant_unassigned": "Tenant unassigned",
                 "type": {
                     "label": "Type",
                     "apartment": "Apartment",
@@ -875,8 +885,8 @@ export default {
                     "search_provider": "Search provider"
                 },
                 "media": {
-                    "deleted": "Media deleted",
-                    "removed": "Media removed"
+                    "deleted": "Document/Photo Deleted",
+                    "uploaded": "Document/Photo Uploaded"
                 },
                 "type": {
                     "label": "Type",
@@ -949,10 +959,7 @@ export default {
                 "edit": "Edit",
                 "delete": "Delete",
                 "saved": "Service sauvé",
-                "deleted": [
-                    "Service supprimé",
-                    "Deleted"
-                ],
+                "deleted": "Service supprimé",
                 "category": "Category",
                 "electrician": "Electrician",
                 "heating_company": "Heating company",
@@ -1018,6 +1025,7 @@ export default {
                 "news_approval_enable": "News approval",
                 "comment_update_timeout": "Comment update timeout",
                 "closed": "Closed",
+                "saved": "Real estate saved",
                 "schedule": "Schedule",
                 "endTime": "End time",
                 "startTime": "Start time",
@@ -1042,10 +1050,7 @@ export default {
                 "audits": "Audits",
                 "edit": "Edit",
                 "delete": "Delete",
-                "deleted": [
-                    "Deleted",
-                    "Richiesta supprimée"
-                ],
+                "deleted": "Richiesta supprimée",
                 "title": "Requests",
                 "created": "Created",
                 "saved": "Requête sauvegardée",
@@ -1077,6 +1082,8 @@ export default {
                 "no_images_message": "No files uploaded",
                 "request_details": "Request details",
                 "internal_notices": "Internal notices",
+                "status_changed": "Status changed",
+                "priority_changed": "Priority changed",
                 "assignmentTypes": {
                     "services": "Services",
                     "managers": "Managers"
@@ -1174,11 +1181,13 @@ export default {
                 },
                 "attached": {
                     "services": "Provider attached successfully",
-                    "managers": "Manager attached successfully"
+                    "managers": "Manager attached successfully",
+                    "user": "User assigned successfully"
                 },
                 "detached": {
                     "service": "Provider detached successfully",
-                    "manager": "Manager detached successfully"
+                    "manager": "Manager detached successfully",
+                    "user": "User unassigned successfully"
                 },
                 "userType": {
                     "label": "Type",
@@ -1210,10 +1219,7 @@ export default {
                 "add": "Add property manager",
                 "save": "Save",
                 "saved": "Gestionnaire immobilier sauvé",
-                "deleted": [
-                    "Gestionnaire immobilier supprimé",
-                    "Deleted"
-                ],
+                "deleted": "Gestionnaire immobilier supprimé",
                 "edit": "Edit",
                 "edit_title": "Edit property manager",
                 "delete": "Delete",
@@ -1296,8 +1302,8 @@ export default {
                 "contact": "Contact",
                 "price": "Price",
                 "media": {
-                    "removed": "Media removed",
-                    "deleted": "Media deleted"
+                    "deleted": "Document/Photo Deleted",
+                    "uploaded": "Document/Photo Uploaded"
                 },
                 "type": {
                     "label": "Type",

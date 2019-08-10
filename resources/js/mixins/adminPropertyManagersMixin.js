@@ -155,11 +155,8 @@ export default (config = {}) => {
                         await this.fetchCurrentManager();
                         this.$refs.assignmentsList.fetch();
                         this.toAssign = '';
-                        this.toAssignList = [];
-                        displaySuccess({
-                            success: true,
-                            message: this.$t(`models.propertyManager.attached.${this.assignmentType}`)
-                        })
+                        this.toAssignList = [];                        
+                        displaySuccess(resp)
                     }
                 } catch (e) {
                     if (!e.response.data.success) {
@@ -191,12 +188,8 @@ export default (config = {}) => {
 
                     this.toAssign = '';
 
-                    const type = toUnassign.aType == 1 ? 'building' : 'district';
-
-                    displaySuccess({
-                        success: true,
-                        message: this.$t(`models.propertyManager.detached.${type}`)
-                    })
+                    const type = toUnassign.aType == 1 ? 'building' : 'district';                    
+                    displaySuccess(resp)
                 }
             }
         }
@@ -219,12 +212,8 @@ export default (config = {}) => {
 
                                 if (resp.data.user && resp.data.user.id) {
                                     await this.uploadAvatarIfNeeded(resp.data.user.id);
-                                }
-
-                                displaySuccess({
-                                    success: true,
-                                    message: 'models.propertyManager.saved'
-                                });
+                                }                                  
+                                displaySuccess(resp);
 
                                 this.form.resetFields();
                                 this.model.buildings = [];
@@ -271,11 +260,8 @@ export default (config = {}) => {
                                         await this.uploadAvatarIfNeeded(resp.data.user.id);
                                     }
 
-                                    this.model = Object.assign({}, this.model, resp.data);
-                                    displaySuccess({
-                                        success: true,
-                                        message: 'models.propertyManager.saved'
-                                    });
+                                    this.model = Object.assign({}, this.model, resp.data);                                    
+                                    displaySuccess(resp);
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

@@ -22,6 +22,7 @@ return [
       'logo' => 'Firmenlogo',
       'address' => 'Adresse',
       'blank_pdf' => 'Leeres PDF Template verwenden',
+      'notificationSaved' => 'Benachrichtigungseinstellung gespeichert',
       'realEstateSaved' => 'Einstellung gespeichert',
       'serviceRequestCategorySaved' => 'Kategorie der Serviceanfrage gespeichert',
       'serviceRequestCategoryDeleted' => 'Serviceanforderungskategorie gelöscht',
@@ -77,6 +78,11 @@ return [
       'requests' => 'Anfragen',
       'company' => 'Firmenname',
       'no_building' => 'Keiner Liegenschaft zugewiesen.',
+      'media' => 
+      [
+        'deleted' => 'Dokument/Foto gelöscht',
+        'uploaded' => 'Dokument/Foto hochgeladen',
+      ],
       'building' => 
       [
         'name' => 'Liegenschaft',
@@ -435,7 +441,7 @@ return [
       'media' => 
       [
         'deleted' => 'Dokument/Foto gelöscht',
-        'removed' => 'Dokument/Foto entfernt',
+        'uploaded' => 'Dokument / Foto hochgeladen',
       ],
       'type' => 
       [
@@ -901,8 +907,8 @@ return [
       'price' => 'Preis',
       'media' => 
       [
-        'removed' => 'Bild entfernt',
-        'deleted' => 'Bild gelöscht',
+        'deleted' => 'Dokument/Foto gelöscht',
+        'uploaded' => 'Dokument/Foto hochgeladen',
       ],
       'type' => 
       [

@@ -150,11 +150,8 @@ export default (config = {}) => {
                 this.uploadMediaFile({
                     id: this.model.id,
                     media: file.src
-                }).then(r => {
-                    displaySuccess({
-                        success: true,
-                        message: 'swal.media.added'
-                    });
+                }).then(r => {                    
+                    displaySuccess(r);
 
                     this.model.media.push(r.data);
                 }).catch(err => {
@@ -182,10 +179,7 @@ export default (config = {}) => {
                             id,
                             media: this.toUploadContract.src
                         }).then(r => {
-                            displaySuccess({
-                                success: true,
-                                message: 'swal.media.added'
-                            });
+                            displaySuccess(r.data);
                         }).catch(err => {
                             displayError(err);
                         });
@@ -218,11 +212,8 @@ export default (config = {}) => {
                                 if (resp.data && resp.data.id && !_.isEmpty(this.toUploadContract)) {
                                     await this.contractUpl(resp.data.id);
                                 }
-
-                                displaySuccess({
-                                        success: true,
-                                        message: 'models.tenant.saved'
-                                    });
+                                
+                                displaySuccess(resp);
 
                                 this.toUploadContract = {};
                                 this.model.rent_start = '';
@@ -265,10 +256,7 @@ export default (config = {}) => {
                                         this.uploadAvatarIfNeeded(resp.data.user.id);
                                     }
 
-                                    displaySuccess({
-                                        success: true,
-                                        message: 'models.tenant.saved'
-                                    });
+                                    displaySuccess(resp);
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

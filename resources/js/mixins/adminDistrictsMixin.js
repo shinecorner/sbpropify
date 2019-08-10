@@ -48,10 +48,7 @@ export default (config = {}) => {
                             try {
                                 const resp = await this.saveDistrict();
 
-                                displaySuccess({
-                                    success: true,
-                                    message: 'The District is saved successfully.'
-                                });
+                                displaySuccess(resp);
                                 return resp;
                             } catch (err) {
                                 displayError(err);
@@ -89,10 +86,7 @@ export default (config = {}) => {
                                 try {
                                     const resp = await this.updateDistrict(this.model);
                                     
-                                    displaySuccess({
-                                        success: true,
-                                        message: 'The District is updated successfully.'
-                                    });
+                                    displaySuccess(resp);
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

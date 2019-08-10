@@ -119,7 +119,7 @@ class UserSettingsAPIController extends AppBaseController
 
         $userSettings = $this->userSettingsRepository->update($input, $user->settings->id);
 
-        return $this->sendResponse($userSettings->toArray(), 'UserSettings updated successfully');
+        return $this->sendResponse($userSettings->toArray(), __('models.user.notificationSaved'));
     }
 
     /**
@@ -173,7 +173,7 @@ class UserSettingsAPIController extends AppBaseController
 
         $userSettings = $this->userSettingsRepository->update($input, $user->settings->id);
 
-        return $this->sendResponse($userSettings->toArray(), 'UserSettings updated successfully');
+        return $this->sendResponse($userSettings->toArray(), __('models.user.notificationSaved'));
     }
 
     public function destroy($id)
