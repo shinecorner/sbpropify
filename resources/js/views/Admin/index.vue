@@ -61,12 +61,12 @@
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="12">
-                                <el-card class="chart-card" :header="/*$t('dashboard.requests.property_managers')*/'Property managers'">
+                                <el-card class="chart-card" :header="$t('dashboard.requests.property_managers')">
                                     <dashboard-managers-list type="property-managers"></dashboard-managers-list>
                                 </el-card>
                             </el-col>
                             <el-col :span="12">
-                                <el-card class="chart-card" :header="/*$t('dashboard.requests.service_partners')*/'Service partners'">
+                                <el-card class="chart-card" :header="$t('dashboard.requests.service_partners')">
                                     <dashboard-services-list type="service-partners"></dashboard-services-list>
                                 </el-card>
                             </el-col>
@@ -87,14 +87,14 @@
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
-                                <el-card class="chart-card" :header="/*$t('dashboard.buildings.buildings_map')*/'Buildings map'">
+                                <el-card class="chart-card" :header="$t('dashboard.buildings.buildings_map')">
                                     <dashboard-google-map type="buildings"></dashboard-google-map>
                                 </el-card>
                             </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="12">
-                                <el-card class="chart-card" :header="/*$t('dashboard.buildings.latest_buildings')*/'Latest buildings'">
+                                <el-card class="chart-card" :header="$t('dashboard.buildings.latest_buildings')">
                                     <dashboard-latest-buildings type="buildings"></dashboard-latest-buildings>
                                 </el-card>
                             </el-col>
@@ -191,7 +191,7 @@
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="12">
-                                <el-card class="chart-card" :header="/*$t('dashboard.tenants.latest_tenants')*/'Latest tenants'">
+                                <el-card class="chart-card" :header="$t('dashboard.tenants.latest_tenants')">
                                     <dashboard-latest-tenants type="tenants"></dashboard-latest-tenants>
                                 </el-card>
                             </el-col>

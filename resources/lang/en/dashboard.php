@@ -25,7 +25,11 @@ return [
     'actions' => 'Actions',
     'requests' => [
       'requests_with_service_providers' => 'With service providers',
-      'request_wihout_service_providers' => 'Without service providers'
+      'request_wihout_service_providers' => 'Without service providers',
+      'property_managers' => 'Property managers',
+      'service_partners' => 'Service partners',
+      'go_to_property_managers' => 'go to property managers',
+      'go_to_service_partners' => 'go to service partners'
     ],
     'buildings' => 
     [
@@ -34,12 +38,20 @@ return [
       'occupied_units' => 'Occupied Units',
       'free_units' => 'Free Units',
       'buildings_by_creation_date' => 'Buildings by creation date',
+      'buildings_map' => 'Buildings map',
+      'latest_buildings' => 'Latest buildings',
+      'count_of_managers' => 'Count of managers',
+      'count_of_tenants' => 'Count of tenants',
+      'count_of_requests' => 'Count of requests',
+      'go_to_buildings' => 'go to buildings'
     ],
     'tenants' => 
     [
       'total_tenants' => 'Total Count',
       'average_age' => 'Average Age',
-      'average_age_acr' => 'Avg. Age'
+      'average_age_acr' => 'Avg. Age',
+      'latest_tenants' => 'Latest tenants',
+      'go_to_tenants' => 'go to tenants'
     ],
     'marketplace' => [
       'go_to_marketplace' => 'go to marketplace'
