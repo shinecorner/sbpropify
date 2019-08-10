@@ -103,7 +103,9 @@
 
                 isCallapsed: false,
                 dropdownwidth: 0,
-                currActive: ''
+                currActive: '',
+                requests: [],
+                requests_num: null
             }
         },
 
@@ -148,18 +150,48 @@
                     children: [{
                         title: this.$t('menu.all_requests'),
                         permission: this.$permissions.list.request,
+                        value: this.requests_num,
                         route: {
                             name: 'adminRequests'
                         }
-                    }, {
-                        title: this.$t('menu.activity'),
-                        nestedItem: true,
-                        permission: this.$permissions.list.audit,
+                    },  {
+                        title: this.$t('layouts.tenant.sidebar.myRequests'),
+                        permission: this.$permissions.list.request,
+                        value: 1,
                         route: {
-                            name: 'adminRequestsActivity'
+                            name: ''
+                        }
+                    },  {
+                        title: this.$t('layouts.tenant.sidebar.myPendingRequests'),
+                        permission: this.$permissions.list.request,
+                        value: 3,
+                        route: {
+                            name: ''
+                        }
+                    },  {
+                        title: this.$t('layouts.tenant.sidebar.notAssigned'),
+                        permission: this.$permissions.list.request,
+                        value: 4,
+                        route: {
+                            name: ''
+                        }
+                    },  {
+                        title: this.$t('layouts.tenant.sidebar.allPendingRequests'),
+                        permission: this.$permissions.list.request,
+                        value: 5,
+                        route: {
+                            name: ''
                         }
                     }]
                 }, {
+                    icon: 'icon-gauge-1',
+                    title: this.$t('menu.activity'),
+                    permission: this.$permissions.list.audit,
+                    route: {
+                        name: 'adminRequestsActivity'
+                    }
+                },
+                {
                     title: this.$t('menu.tenants'),
                     icon: 'icon-group',
                     permission: this.$permissions.list.tenant,
@@ -345,6 +377,11 @@
                 }
             });
             
+        },
+        async created(){
+            const requests = await this.axios.get('requests?get_all=true');
+            this.requests = requests.data.data;
+            this.requests_num = this.requests.length;
         }
 
 
