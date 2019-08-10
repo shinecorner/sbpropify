@@ -48,6 +48,10 @@ class PostTransformer extends BaseTransformer
             'notify_email' => $model->notify_email,
         ];
 
+        if (key_exists('views_count', $model->getAttributes())) {
+            $ret['views_count'] = $model->views_count;
+        }
+
         if ($model->relationExists('buildings')) {
             $ret['buildings'] = (new BuildingTransformer)->transformCollection($model->buildings);
         }
