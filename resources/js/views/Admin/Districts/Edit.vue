@@ -7,7 +7,7 @@
             <el-col :md="12">
                 <card :loading="loading">
                     <el-divider class="column-divider" content-position="left">
-                        District Details
+                        {{this.$t('models.district.details')}}
                     </el-divider>
                     <el-form :model="model" label-width="192px" ref="form">
                         <el-form-item label="Name" :rules="validationRules.name"
@@ -20,7 +20,7 @@
             <el-col :md="12">
                 <card :loading="loading">
                     <div slot="header">
-                        <span>Buildings</span>
+                        <span>{{this.$t('models.district.buildings')}}</span>
                     </div>
                     <relation-list
                         :columns="districtColumns"
