@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "302be5fed89e57dd0441c388df32248e",
+    "content-hash": "2b99bebdddb81a57c1fdb4cf0d5b4999",
     "packages": [
         {
             "name": "appointer/swaggervel",
