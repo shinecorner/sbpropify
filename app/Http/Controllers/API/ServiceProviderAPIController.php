@@ -85,9 +85,23 @@ class ServiceProviderAPIController extends AppBaseController
         if ($getAll) {
             $request->merge(['limit' => env('APP_PAGINATE', 10)]);
             $this->serviceProviderRepository->pushCriteria(new LimitOffsetCriteria($request));
+
+            $reqCount = $request->get('req_count');
+            if ($reqCount) {
+                $this->serviceProviderRepository->withCount([
+                    'requestsReceived',
+                    'requestsInProcessing',
+                    'requestsAssigned',
+                    'requestsDone',
+                    'requestsReactivated',
+                    'requestsArchived',
+                ]);
+            }
+
             $serviceProviders = $this->serviceProviderRepository->with([
                 'user',
             ])->get();
+
             return $this->sendResponse($serviceProviders->toArray(), 'Service Providers successfully');
         }
 

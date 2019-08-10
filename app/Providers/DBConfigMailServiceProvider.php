@@ -5,10 +5,17 @@ namespace App\Providers;
 use Illuminate\Mail\MailServiceProvider;
 use App\Models\RealEstate;
 
-class DBConfigMailServiceProvider extends MailServiceProvider{
-
+class DBConfigMailServiceProvider extends MailServiceProvider
+{
+    /**
+     *
+     */
     protected function registerSwiftTransport(){
-        if ('cli' == php_sapi_name()) {
+        $queueWork = [
+            'artisan',
+            'queue:work'
+        ];
+        if ('cli' == php_sapi_name() && isset($_SERVER['argv']) && array_diff($queueWork, $_SERVER['argv'])) {
             return;
         }
         $re = RealEstate::first();

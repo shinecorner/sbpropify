@@ -24,7 +24,7 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.7",
         "league/fractal": "^0.17.0",
-        "martinlindhe/laravel-vue-i18n-generator": "0.1.39",
+        "martinlindhe/laravel-vue-i18n-generator": "^0.1.39",
         "owen-it/laravel-auditing": "^9.0",
         "spatie/geocoder": "*",
         "spatie/laravel-medialibrary": "^7.0.0",

@@ -31,5 +31,5 @@ export default {
             axios.delete(`districts/${id}`)
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
-    }
+    },
 }

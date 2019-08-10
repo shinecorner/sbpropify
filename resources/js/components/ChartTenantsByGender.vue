@@ -13,7 +13,7 @@
                 <div class="custom-legend">
                   <div class="title">
                     <img :src="icons[index]" />
-                    <span>{{ index == 0 ? averageAge.mr : averageAge.mrs }}</span>
+                    <span>Ø {{ index == 0 ? averageAge.mr : averageAge.mrs }}</span>
                   </div>
                   <p>{{ `${xData[index]} ${$t('dashboard.tenants.average_age_acr')}` }}</p>
                 </div>
