@@ -34,7 +34,7 @@ export default (config = {}) => {
                 validationRules: {
                     tenant_id: [{
                         required: false,
-                        message: 'This field is required'
+                        message: this.$t("models.unit.validation.tenant.required")
                     }],
                     name: [{
                         required: true,

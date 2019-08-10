@@ -15,12 +15,12 @@ export default (config = {}) => {
                 validationRules: {
                     name: [{
                         required: true,
-                        message: 'This field is required.'
+                        message: this.$t('models.district.required')
                     }]
                 },
                 loading: {
                     state: false,
-                    text: 'Please wait...'
+                    text: this.$t('general.please_wait')
                 },
             }
         },
@@ -84,8 +84,7 @@ export default (config = {}) => {
                                 this.loading.state = true;
                                 
                                 try {
-                                    const resp = await this.updateDistrict(this.model);
-                                    
+                                    const resp = await this.updateDistrict(this.model);                                    
                                     displaySuccess(resp);
                                     resolve(true);
                                 } catch (err) {

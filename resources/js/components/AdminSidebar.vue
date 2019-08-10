@@ -36,6 +36,7 @@
                             <i :class="['icon-right-open', 'icon']"/>
                             <span class="title">{{ child.title }}</span>
                         </router-link>
+                        <el-badge :value="child.value" class="item" type="primary"></el-badge>
                     </el-menu-item>
                 </el-submenu>
             </ul>
@@ -139,6 +140,9 @@
                 display: none !important;
             }
         }
+        .el-badge {
+            float: right;
+        }
     }
 </style>
 
@@ -217,6 +221,12 @@
                 &.icon {
                     font-size: 14px;
                     margin-right: 0px;
+                }
+            }
+
+            .el-submenu {
+                .el-menu-item {
+                    padding: 0px 21px 0px 40px !important;
                 }
             }
         }

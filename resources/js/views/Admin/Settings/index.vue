@@ -52,12 +52,6 @@
                         <el-card>
                             <el-form :model="model" :rules="validationRules" label-width="200px"
                                      ref="realEstateSettingsForm">
-                                <el-form-item :label="$t('models.user.logo')">
-                                    <cropper @cropped="setLogoUpload"/>
-                                    <img :src="realEstateLogo" ref="realEstateLogo"
-                                         v-show="realEstateLogo || model.logo_upload"
-                                         width="300px">
-                                </el-form-item>
                                 <el-form-item :label="$t('models.user.blank_pdf')" prop="blank_pdf">
                                     <el-switch v-model="model.blank_pdf"/>
                                 </el-form-item>
@@ -76,6 +70,9 @@
                                               prop="contact_enable">
                                     <el-switch v-model="model.contact_enable"/>
                                 </el-form-item>
+                                <el-form-item :label="$t('models.realEstate.iframe_enable')">
+                                    <el-switch v-model="model.iframe_enable"/>
+                                </el-form-item>
                                 <el-form-item :label="$t('models.realEstate.comment_update_timeout')"
                                               :rules="validationRules.comment_update_timeout"
                                               prop="comment_update_timeout">
@@ -84,7 +81,8 @@
                                 </el-form-item>
                                 <el-form-item :label="$t('models.realEstate.iframe_url.label')"
                                               :rules="validationRules.iframe_url"
-                                              prop="iframe_url">
+                                              prop="iframe_url"
+                                              v-if="model.iframe_enable">
                                     <el-input autocomplete="off" type="text"
                                               v-model="model.iframe_url"></el-input>
                                 </el-form-item>
@@ -100,36 +98,64 @@
                                 </el-form-item>
                             </el-form>
                         </el-card>
-                    </el-col>
-                    <el-col :md="12">
-                        <el-card class="mb20">
-                            <el-form :model="model" size="mini"
-                            >
-                                <div :key="schedule.day" :md="12"
-                                     class="day-wrapper mb20" v-for="schedule in model.opening_hours ">
-                                    <div class="day-name">
-                                        <div class="group-name">{{$t(`general.days.${schedule.day}`)}}</div>
-                                        <el-switch
-                                            size="mini"
-                                            v-model="schedule.closed"
-                                        >
-                                        </el-switch>
-                                    </div>
-                                    <el-time-picker
-                                        :end-placeholder="$t('models.realEstate.endTime')"
-                                        :range-separator="$t('models.realEstate.to')"
-                                        :start-placeholder="$t('models.realEstate.startTime')"
-                                        format="HH:mm"
-                                        is-range
-                                        style="width: 100%"
-                                        v-model="schedule.time"
-                                        value-format="HH:mm">
-                                    </el-time-picker>
-                                </div>
+                        <el-card>
+                            <el-form :model="$constants" :rules="validationRules" label-width="200px"
+                                     ref="styleSettingsForm">
+                                <el-form-item :label="$t('models.user.logo')">
+                                    <cropper @cropped="setLogoUpload"/>
+                                    <img :src="realEstateLogo" ref="realEstateLogo"
+                                         v-show="realEstateLogo || model.logo_upload"
+                                         width="300px">
+                                </el-form-item>
+                                <el-form-item :label="$t('models.user.primary_color')">
+                                    <el-color-picker
+                                            size="medium"
+                                            v-model="model.primary_color"></el-color-picker>
+                                </el-form-item>
+                                <el-form-item :label="$t('models.user.accent_color')">
+                                    <el-color-picker
+                                            size="medium"
+                                            v-model="model.accent_color">
+                                    </el-color-picker>
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-button @click="saveRealEstate('styleSettingsForm')" icon="ti-save"
+                                               type="primary">
+                                        {{$t('general.actions.save')}}
+                                    </el-button>
+                                </el-form-item>
                             </el-form>
                         </el-card>
+                    </el-col>
+                    <el-col :md="12">
+<!--                        <el-card class="mb20">-->
+<!--                            <el-form :model="model" size="mini"-->
+<!--                            >-->
+<!--                                <div :key="schedule.day" :md="12"-->
+<!--                                     class="day-wrapper mb20" v-for="schedule in model.opening_hours ">-->
+<!--                                    <div class="day-name">-->
+<!--                                        <div class="group-name">{{$t(`general.days.${schedule.day}`)}}</div>-->
+<!--                                        <el-switch-->
+<!--                                            size="mini"-->
+<!--                                            v-model="schedule.closed"-->
+<!--                                        >-->
+<!--                                        </el-switch>-->
+<!--                                    </div>-->
+<!--                                    <el-time-picker-->
+<!--                                        :end-placeholder="$t('models.realEstate.endTime')"-->
+<!--                                        :range-separator="$t('models.realEstate.to')"-->
+<!--                                        :start-placeholder="$t('models.realEstate.startTime')"-->
+<!--                                        format="HH:mm"-->
+<!--                                        is-range-->
+<!--                                        style="width: 100%"-->
+<!--                                        v-model="schedule.time"-->
+<!--                                        value-format="HH:mm">-->
+<!--                                    </el-time-picker>-->
+<!--                                </div>-->
+<!--                            </el-form>-->
+<!--                        </el-card>-->
 
-                        <el-card class="mt15">
+                        <el-card>
                             <el-form :model="model"
                                      label-width="200px"
                                      :rules="validationRules"
@@ -236,7 +262,9 @@
                     address: {
                         state: {}
                     },
-                    contact_enable: false
+                    contact_enable: false,
+                    accent_color: '',
+                    primary_color: '',
                 },
                 validationRules: {
                     email: [{
@@ -267,7 +295,6 @@
                     'tls',
                     'ssl'
                 ],
-                passwordType: 'password',
             }
         },
         async created() {
@@ -276,6 +303,15 @@
             if (this.$route.query.tab) {
                 this.goToTab(this.$route.query.tab);
             }
+        },
+        mounted() {
+            this.model.accent_color = this.model.accent_color ?
+                this.model.accent_color :
+                this.$constants.colors.accent_color;
+
+            this.model.primary_color = this.model.primary_color ?
+                this.model.primary_color :
+                this.$constants.colors.primary_color;
         },
         computed: {
             realEstateLogo() {
@@ -358,6 +394,10 @@
             box-shadow: 0 1px 3px transparentize(#000, .88),
             0 1px 2px transparentize(#000, .76);
             position: relative;
+
+            + .el-card {
+                margin-top: 20px;
+            }
 
             .el-form {
                 max-width: 512px;

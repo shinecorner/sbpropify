@@ -14,6 +14,10 @@ export default {
                     "myContactPersons": "Contact persons",
                     "posts": "News",
                     "requests": "Requests",
+                    "myRequests": "My Requests",
+                    "myPendingRequests": "My pending requests",
+                    "notAssigned": "Not Assigned",
+                    "allPendingRequests": "All pending requests",
                     "products": "Marketplace",
                     "settings": "Settings"
                 }
@@ -124,6 +128,11 @@ export default {
             "all": "All",
             "loadMore": "Load more",
             "account": "Account",
+            "activate_account": "Activate Account",
+            "activate_code": "Activate Code",
+            "activate_code_required": "Activate Code is required",
+            "back": "Back",
+            "activate": "Activate",
             "unauthenticated": "Unauthenticated",
             "logged_out": "Logged out",
             "logged_in": "Logged in",
@@ -570,7 +579,7 @@ export default {
                 "notificationSaved": "Notificatin setting saved",
                 "realEstateSaved": "Real Estate settings saved",
                 "serviceRequestCategorySaved": "Service request category saved",
-                "serviceRequestCategoryDeleted": "Service request category deleted12",
+                "serviceRequestCategoryDeleted": "Service request category deleted",
                 "validation": {
                     "name": {
                         "required": "Name is required"
@@ -848,6 +857,9 @@ export default {
                     },
                     "description": {
                         "required": "Description is required"
+                    },
+                    "tenant": {
+                        "required": "Tenant is required"
                     }
                 },
                 "placeholders": {

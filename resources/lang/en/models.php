@@ -348,6 +348,10 @@ return [
         [
           'required' => 'Description is required',
         ],
+        'tenant' => 
+        [
+          'required' => 'Tenant is required',
+        ]
       ],
       'placeholders' => 
       [
