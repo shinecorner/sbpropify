@@ -320,6 +320,8 @@ export default {
             "account": "Account",
             "activate_account": "Activate Account",
             "activate_code": "Activate Code",
+            "activate_code_required": "Activate Code is required",
+            "back": "Back",
             "activate": "Activate",
             "unauthenticated": "Unauthenticated",
             "logged_out": "Logged out",

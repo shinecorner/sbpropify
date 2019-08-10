@@ -19,7 +19,7 @@
             </el-form-item>
         </el-form>
         <router-link :to="{name: 'login'}" class="el-menu-item-link">
-            <el-button type="primary" class="text-center w100p">Back</el-button>
+            <el-button type="primary" class="text-center w100p">{{this.$t("general.back")}}</el-button>
         </router-link>
     </div>
 </template>
@@ -49,7 +49,7 @@
                     }],
                     act_code: [{
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t("general.activate_code_required")
                     }],
                     password: [{
                         required: true,
