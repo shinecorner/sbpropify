@@ -238,21 +238,16 @@
                                 <el-divider class="column-divider" content-position="left">
                                     {{$t('models.post.assignment')}}
                                 </el-divider>
-                                <el-row :gutter="20">
-                                    <assignment-type 
-                                        :model.sync="assignmentType" 
-                                        :assignmentTypes="assignmentTypes" 
-                                        :method="resetToAssignList" 
-                                    />
-                                    <assignment
-                                        :model.sync="toAssign"
-                                        :toAssignList="toAssignList"
-                                        :toAssign="toAssign"
-                                        :method="assignUser"
-                                        :loading="remoteLoading"
-                                        :remotemethod="remoteSearchAssignees"  
-                                    />
-                                </el-row>
+                                <assignment-by-type
+                                    :resetToAssignList="resetToAssignList"
+                                    :assignmentType.sync="assignmentType"
+                                    :toAssign.sync="toAssign"
+                                    :assignmentTypes="assignmentTypes"
+                                    :assign="assignUser"
+                                    :toAssignList="toAssignList"
+                                    :remoteLoading="remoteLoading"
+                                    :remoteSearch="remoteSearchAssignees"
+                                />
                                 <relation-list
                                     :actions="assigneesActions"
                                     :columns="assigneesColumns"
@@ -316,8 +311,7 @@
     import {displaySuccess} from "../../../helpers/messages";
     import {Avatar} from 'vue-avatar';
     import Audit from 'components/Audit';
-    import Assignment from 'components/Assignment';
-    import AssignmentType from 'components/AssignmentType';
+    import AssignmentByType from 'components/AssignmentByType';
 
 
     export default {
@@ -335,8 +329,7 @@
             EditActions,
             Avatar,
             Audit,
-            Assignment,
-            AssignmentType
+            AssignmentByType
         },
         data() {
             return {

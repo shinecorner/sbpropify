@@ -113,49 +113,16 @@
                         <el-divider class="column-divider" content-position="left">
                             {{$t('models.post.assignment')}}
                         </el-divider>
-                        <el-row :gutter="10">
-                            <el-col :lg="6">
-                                <el-select @change="resetToAssignList"
-                                           class="custom-select"
-                                           v-model="assignmentType"
-                                >
-                                    <el-option
-                                        :key="type"
-                                        :label="$t(`models.post.assignmentTypes.${type}`)"
-                                        :value="type"
-                                        v-for="(type) in assignmentTypes">
-                                    </el-option>
-                                </el-select>
-                            </el-col>
-                            <el-col :lg="12" :xl="14">
-                                <el-select
-                                    :loading="remoteLoading"
-                                    :placeholder="$t('models.post.placeholders.search')"
-                                    :remote-method="remoteSearchBuildings"
-                                    class="custom-remote-select"
-                                    filterable
-                                    remote
-                                    reserve-keyword
-                                    style="width: 100%;"
-                                    v-model="toAssign"
-                                >
-                                    <div class="custom-prefix-wrapper" slot="prefix">
-                                        <i class="el-icon-search custom-icon"></i>
-                                    </div>
-                                    <el-option
-                                        :key="building.id"
-                                        :label="building.name"
-                                        :value="building.id"
-                                        v-for="building in toAssignList"/>
-                                </el-select>
-                            </el-col>
-                            <el-col :lg="6" :xl="4">
-                                <el-button :disabled="!toAssign" @click="attachBuilding" class="full-button"
-                                           icon="ti-save" type="primary">
-                                    {{$t('models.post.assign')}}
-                                </el-button>
-                            </el-col>
-                        </el-row>
+                        <assignment-by-type
+                            :resetToAssignList="resetToAssignList"
+                            :assignmentType.sync="assignmentType"
+                            :toAssign.sync="toAssign"
+                            :assignmentTypes="assignmentTypes"
+                            :assign="attachBuilding"
+                            :toAssignList="toAssignList"
+                            :remoteLoading="remoteLoading"
+                            :remoteSearch="remoteSearchBuildings"
+                        />
                         <relation-list
                             :actions="assignmentsActions"
                             :columns="assignmentsColumns"
@@ -391,6 +358,7 @@
     import {displayError, displaySuccess} from "helpers/messages";
     import {mapActions} from 'vuex';
     import {Avatar} from 'vue-avatar'
+    import AssignmentByType from 'components/AssignmentByType';
 
     const mixin = PostsMixin({mode: 'edit'});
 
@@ -399,7 +367,8 @@
         components: {
             EditActions,
             RelationList,
-            Avatar
+            Avatar,
+            AssignmentByType
         },
         data() {
             return {

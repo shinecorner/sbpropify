@@ -76,8 +76,8 @@ export default (config = {}) => {
                 },
                 buildings: [],
                 requests: [],
-                assignmentTypes: ['building', 'district'],
-                assignmentType: 'building',
+                assignmentTypes: ['Building', 'District'],
+                assignmentType: 'Building',
                 toAssign: '',
                 toAssignList: [],
                 alreadyAssigned: {
@@ -102,7 +102,7 @@ export default (config = {}) => {
 
                     try {
                         let resp = [];
-                        if (this.assignmentType === 'building') {
+                        if (this.assignmentType === 'Building') {
                             resp = await this.getBuildings({
                                 get_all: true,
                                 search,
@@ -139,7 +139,7 @@ export default (config = {}) => {
 
                     let resp;
 
-                    if (this.assignmentType === 'building') {
+                    if (this.assignmentType === 'Building') {
                         resp = await this.assignBuilding({
                             id: this.model.id,
                             toAssignId: this.toAssign
@@ -191,7 +191,7 @@ export default (config = {}) => {
 
                     this.toAssign = '';
 
-                    const type = toUnassign.aType == 1 ? 'building' : 'district';
+                    const type = toUnassign.aType == 1 ? 'Building' : 'District';
 
                     displaySuccess({
                         success: true,

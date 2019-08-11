@@ -67,8 +67,8 @@ export default (config = {}) => {
                     text: 'Please wait...'
                 },
                 media: [],
-                assignmentTypes: ['building', 'district'],
-                assignmentType: 'building',
+                assignmentTypes: ['Building', 'District'],
+                assignmentType: 'Building',
                 toAssign: '',
                 toAssignList: [],
                 toAssignProvider: '',
@@ -152,7 +152,7 @@ export default (config = {}) => {
 
                     try {
                         let resp = [];
-                        if (this.assignmentType === 'building') {
+                        if (this.assignmentType === 'Building') {
                             resp = await this.getBuildings({
                                 get_all: true,
                                 search,
@@ -173,7 +173,6 @@ export default (config = {}) => {
             attachBuilding() {
                 return new Promise(async (resolve, reject) => {
                     if (!this.toAssign || (!this.model.id && config.mode === 'edit')) {
-                        reject(false);
                         return false;
                     }
 
@@ -181,7 +180,7 @@ export default (config = {}) => {
 
                         let resp;
 
-                        if (this.assignmentType === 'building') {
+                        if (this.assignmentType === 'Building') {
                             resp = await this.assignPostBuilding({
                                 id: this.model.id,
                                 toAssignId: this.toAssign

@@ -45,7 +45,7 @@
                                             :key="tenant.id"
                                             :label="tenant.name"
                                             :value="tenant.id"
-                                            v-for="tenant in tenants"/>
+                                            v-for="tenant in toAssignList"/>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
@@ -139,38 +139,14 @@
                     <el-divider class="column-divider" content-position="left">
                         {{$t('models.post.assignment')}}
                     </el-divider>
-                    <el-row :gutter="20" id="tenant_search">
-                        <el-col id="search">
-                            <el-select
-                                :loading="remoteLoading"
-                                :placeholder="$t('models.tenant.search')"
-                                :remote-method="remoteSearchTenants"
-                                class="custom-remote-select"
-                                filterable
-                                remote
-                                reserve-keyword
-                                style="width: 100%;"
-                                v-model="toAssign"
-                            >
-                                <div class="custom-prefix-wrapper" slot="prefix">
-                                    <i class="el-icon-search custom-icon"></i>
-                                </div>
-                                <el-option
-                                    :key="tenant.id"
-                                    :label="tenant.name"
-                                    :value="tenant.id"
-                                    v-for="tenant in tenants"/>
-                            </el-select>
-                        </el-col>
-                        <el-col id="assignBtn" :style="innerBtnWidth">
-                            <el-button :disabled="!toAssign" @click="assignTenant" class="full-button" type="primary">
-                                <div id="innerBtn" ref="innerBtn">
-                                    <i class="ti-save"></i>
-                                    <span>&nbsp;{{$t('models.unit.assign')}}</span>
-                                </div>
-                            </el-button>
-                        </el-col>
-                    </el-row>
+                    <assignment
+                        :toAssign.sync="toAssign"
+                        :assign="assignTenant"
+                        :toAssignList="toAssignList"
+                        :remoteLoading="remoteLoading"
+                        :remoteSearch="remoteSearchTenants"
+                        :multiple="multiple"
+                    />
                     <relation-list
                         :actions="assigneesActions"
                         :columns="assigneesColumns"
@@ -193,6 +169,7 @@
     import EditActions from 'components/EditViewActions';
     import UnitsMixin from 'mixins/adminUnitsMixin';
     import RelationList from 'components/RelationListing';
+    import Assignment from 'components/Assignment';
 
     export default {
         mixins: [UnitsMixin({
@@ -203,7 +180,8 @@
             Heading,
             Card,
             EditActions,
-            RelationList
+            RelationList,
+            Assignment
         },
         data() {
             return {
@@ -225,25 +203,16 @@
                         onClick: this.notifyUnassignment
                     }]
                 }],
-                innerBtnWidth: null
+                innerBtnWidth: null,
+                multiple: false
             }
         },
         methods: {            
             ...mapActions([
                 "deleteUnit"
-            ]),
-            getBtnWidth() {
-                this.innerBtnWidth = this.$refs.innerBtn.clientWidth;
-            }
-        },
-        computed: {
-            BtnWidth() {
-                return this.innerBtnWidth;
-            }
-        },
-        mounted() {
-            this.getBtnWidth();
+            ])
         }
+        
        
     }
 </script>

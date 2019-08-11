@@ -15,7 +15,7 @@ export default (config = {}) => {
         data() {
             return {
                 remoteLoading: false,
-                tenants: [],
+                toAssignList: [],
                 buildings: [],
                 model: {
                     tenant_id: '',
@@ -108,15 +108,15 @@ export default (config = {}) => {
             },
             async remoteSearchTenants(search) {
                 if (search === '') {
-                    this.tenants = [];
+                    this.toAssignList = [];
                 } else {
                     this.remoteLoading = true;
 
                     try {
                         const {data} = await this.getTenants({get_all: true, search});
 
-                        this.tenants = data;
-                        this.tenants.forEach(t => t.name = `${t.first_name} ${t.last_name}`);
+                        this.toAssignList = data;
+                        this.toAssignList.forEach(t => t.name = `${t.first_name} ${t.last_name}`);
                     } catch (err) {
                         displayError(err);
                     } finally {

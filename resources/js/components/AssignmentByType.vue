@@ -1,13 +1,25 @@
 <template>
     <el-row :gutter="20">
-        <el-col :md="18">
+        <el-col :lg="6">
+            <el-select @change="resetToAssignList"
+                        class="custom-select"
+                        :value="assignmentType" @input="$emit('update:assignmentType', $event)"
+            >
+                <el-option
+                    :key="type"
+                    :label="type"
+                    :value="type"
+                    v-for="(type) in assignmentTypes">
+                </el-option>
+            </el-select>
+        </el-col>
+        <el-col :lg="12" :xl="14">
             <el-select
                 :loading="remoteLoading"
-                :placeholder="$t('models.propertyManager.placeholders.search')"
+                :placeholder="$t('models.request.placeholders.search')"
                 :remote-method="remoteSearch"
                 class="custom-remote-select"
                 filterable
-                :multiple="multiple"
                 remote
                 reserve-keyword
                 style="width: 100%;"
@@ -18,15 +30,15 @@
                 </div>
                 <el-option
                     :key="item.id"
-                    :label="`${item.first_name} ${item.last_name}`"
+                    :label="item.name"
                     :value="item.id"
                     v-for="item in toAssignList"/>
             </el-select>
         </el-col>
-        <el-col :md="6">
+        <el-col :lg="6" :xl="4">
             <el-button :disabled="!toAssign" @click="assign" class="full-button"
                         icon="ti-save" type="primary">
-                {{$t('models.building.assign')}}
+                {{$t('models.request.assign')}}
             </el-button>
         </el-col>
     </el-row>
@@ -34,6 +46,15 @@
 <script>
     export default {
         props: {
+            resetToAssignList: { 
+                type: Function 
+            },
+            assignmentType: {
+                required: true
+            },
+            assignmentTypes: {
+                type: Array
+            },
             toAssign: {
                 required: true
             },
@@ -48,12 +69,10 @@
             },
             remoteSearch: {
                 type: Function 
-            },
-            multiple: {
-                type: Boolean
             }
         },
         created() {
+            this.resetToAssignList();
             this.assign();
             this.remoteSearch();
         }
