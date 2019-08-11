@@ -121,9 +121,9 @@
             </el-col>
             <el-col :md="12">
                 <card :loading="loading">
-                    <div slot="header">
-                        <span>{{$t('models.unit.requests')}}</span>
-                    </div>
+                    <el-divider class="column-divider" content-position="left">
+                        {{$t('models.unit.requests')}}
+                    </el-divider>
                     <relation-list
                         :actions="requestActions"
                         :columns="requestColumns"
@@ -136,11 +136,11 @@
             </el-col>
             <el-col :md="12">
                 <card class="mt15" :loading="loading">
-                    <div slot="header">
-                        <span>Tenants</span>
-                    </div>
-                    <el-row :gutter="20">
-                        <el-col :lg="20" :xl="20">
+                    <el-divider class="column-divider" content-position="left">
+                        {{$t('models.post.assignment')}}
+                    </el-divider>
+                    <el-row :gutter="20" id="tenant_search">
+                        <el-col id="search">
                             <el-select
                                 :loading="remoteLoading"
                                 :placeholder="$t('models.tenant.search')"
@@ -162,10 +162,12 @@
                                     v-for="tenant in tenants"/>
                             </el-select>
                         </el-col>
-                        <el-col :lg="4" :xl="4">
-                            <el-button :disabled="!toAssign" @click="assignTenant" class="full-button"
-                                        icon="ti-save" type="primary">
-                                {{$t('models.request.assign')}}
+                        <el-col id="assignBtn" :style="innerBtnWidth">
+                            <el-button :disabled="!toAssign" @click="assignTenant" class="full-button" type="primary">
+                                <div id="innerBtn" ref="innerBtn">
+                                    <i class="ti-save"></i>
+                                    <span>&nbsp;{{$t('models.unit.assign')}}</span>
+                                </div>
                             </el-button>
                         </el-col>
                     </el-row>
@@ -222,13 +224,41 @@
                         icon: 'el-icon-close',
                         onClick: this.notifyUnassignment
                     }]
-                }]
+                }],
+                innerBtnWidth: null
             }
         },
         methods: {            
             ...mapActions([
                 "deleteUnit"
             ]),
+            getBtnWidth() {
+                this.innerBtnWidth = this.$refs.innerBtn.clientWidth;
+            }
+        },
+        computed: {
+            BtnWidth() {
+                return this.innerBtnWidth;
+            }
+        },
+        mounted() {
+            this.getBtnWidth();
         }
+       
     }
 </script>
+<style lang="less">
+    .el-divider__text {
+        font-size: 16px;
+    }
+</style>
+
+<style lang="less" scoped>
+    #tenant_search {
+        display: flex;
+        #assignBtn {
+            flex: 1;
+        }
+    }
+</style>
+

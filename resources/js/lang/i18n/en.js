@@ -750,6 +750,7 @@ export default {
                 "tenant": "Tenant",
                 "empty_requests": "No requests",
                 "assigned_tenant": "Assigned tenant",
+                "assign": "Assign",
                 "tenant_assigned": "Tenant assigned",
                 "tenant_unassigned": "Tenant unassigned",
                 "type": {
@@ -833,7 +834,7 @@ export default {
                 "title_label": "Title",
                 "content": "Content",
                 "preview": "Preview",
-                "add": "Add",
+                "add": "Add Post",
                 "add_pinned": "Add pinned post",
                 "save": "Save",
                 "saved": "News saved",
@@ -894,6 +895,7 @@ export default {
                     "building": "Building",
                     "district": "District"
                 },
+                "assignment": "Assignment",
                 "assignType": "Type",
                 "unassign": "Unassign",
                 "assign": "Assign",

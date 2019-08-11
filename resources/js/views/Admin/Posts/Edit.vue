@@ -110,6 +110,9 @@
                     </el-card>
 
                     <el-card :loading="loading" v-if="!model.pinned && (!model.tenant)">
+                        <el-divider class="column-divider" content-position="left">
+                            {{$t('models.post.assignment')}}
+                        </el-divider>
                         <el-row :gutter="10">
                             <el-col :lg="6">
                                 <el-select @change="resetToAssignList"
@@ -368,7 +371,9 @@
                     </el-card>
 
                     <el-card class="mt15" v-if="model.id && !model.pinned">
-                        <div slot="header">{{$t('models.post.comments')}}</div>
+                        <el-divider class="column-divider" content-position="left">
+                            {{$t('models.post.comments')}}
+                        </el-divider>
                         <chat class="edit-post-chat" :id="model.id" size="480px" type="post"/>
                     </el-card>
                 </el-col>

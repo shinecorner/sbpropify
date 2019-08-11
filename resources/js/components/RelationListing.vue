@@ -40,9 +40,16 @@
                         :style="button.style"
                         :type="button.type"
                         @click="button.onClick(scope.row)"
-                        size="mini"
+                        size="default"
                         v-for="button in action.buttons"
-                        v-if="!button.tooltipMode">{{button.title}}
+                        v-if="!button.tooltipMode">
+                        <template v-if="button.title == 'Edit'">
+                            <i class="ti-pencil"></i>
+                            <span>&nbsp;{{button.title}}</span>    
+                        </template>
+                        <template v-else>
+                            {{button.title}}
+                        </template>
                     </el-button>
                     <el-tooltip
                         :content="button.title"

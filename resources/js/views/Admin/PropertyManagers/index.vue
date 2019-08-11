@@ -2,13 +2,13 @@
     <div class="services">
         <heading :title="$t('models.propertyManager.title')" icon="icon-users" shadow="heavy">
             <template v-if="$can($permissions.create.propertyManager)">            
-                <el-button @click="add" icon="ti-plus" round size="small" type="primary">
+                <el-button @click="add" icon="ti-plus" round size="mini" type="primary">
                     {{$t('models.propertyManager.add')}}
                 </el-button>
             </template>
             <template v-if="$can($permissions.delete.propertyManager)">
                 <el-button :disabled="!selectedItems.length" @click="openDeleteWithReassignment" icon="ti-trash" round
-                           size="small"
+                           size="mini"
                            type="danger">
                     {{$t('models.propertyManager.delete')}}
                 </el-button>

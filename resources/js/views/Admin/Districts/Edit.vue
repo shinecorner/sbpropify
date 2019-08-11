@@ -19,9 +19,9 @@
             </el-col>
             <el-col :md="12">
                 <card :loading="loading">
-                    <div slot="header">
-                        <span>{{this.$t('models.district.buildings')}}</span>
-                    </div>
+                    <el-divider class="column-divider" content-position="left">
+                        {{$t('models.district.buildings')}}
+                    </el-divider>
                     <relation-list
                         :columns="districtColumns"
                         :filterValue="model.id"

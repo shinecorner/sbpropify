@@ -117,6 +117,9 @@
                     </el-col>
                     <el-col :md="12">
                         <card :loading="loading">
+                            <el-divider class="column-divider" content-position="left">
+                                {{$t('models.post.assignment')}}
+                            </el-divider>
                             <el-row :gutter="10">
                                 <el-col :lg="6">
                                     <el-select @change="resetToAssignList"

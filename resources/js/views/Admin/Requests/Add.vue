@@ -137,9 +137,9 @@
             </el-col>
             <el-col :md="12">
                 <card>
-                    <div slot="header">
-                        <p class="comments-header">{{$t('models.request.images')}}</p>
-                    </div>
+                    <el-divider class="column-divider" content-position="left">
+                        {{$t('models.request.images')}}
+                    </el-divider>
                     <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
                     <div class="mt15">
                         <request-media :data="media" @deleteMedia="deleteMedia" v-if="media.length"></request-media>

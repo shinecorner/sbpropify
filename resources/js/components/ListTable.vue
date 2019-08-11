@@ -223,7 +223,7 @@
             </el-table-column>
             <el-table-column
                 :key="key"
-                :width="column.width"
+                width="110"
                 v-for="(column, key) in headerWithActions">
                 <template slot-scope="scope">
                     <span
@@ -236,9 +236,15 @@
                                 :style="action.style"
                                 :type="action.type"
                                 @click="action.onClick(scope.row)"
-                                size="mini"
+                                size="default"
                             >
-                                {{action.title}}
+                                <template v-if="action.title == 'Edit'">
+                                    <i class="ti-pencil"></i>
+                                    <span>&nbsp;{{action.title}}</span>    
+                                </template>
+                                <template v-else>
+                                    {{action.title}}
+                                </template>
                             </el-button>
                         </template>
                     </span>
@@ -634,6 +640,7 @@
         &:before {
             display: none;
         }
+        
 
         :global(.el-table__body-wrapper) {
             box-shadow: 0 1px 3px transparentize(#000, .88),
@@ -659,7 +666,7 @@
             }
 
             :global(td) {
-                padding: 4px;
+                padding-left: 0px;
             }
         }
 
@@ -772,6 +779,18 @@
 </style>
 
 <style lang="scss">
+    .el-table {
+        tbody {
+            tr {
+                td:last-child {
+                    .cell {
+                        padding-left: 0px !important;
+                    }
+                }
+            }
+        }
+    }
+
     .filters-card {
         .el-card__body {
             padding: 22px;
