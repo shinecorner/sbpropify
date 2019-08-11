@@ -1,6 +1,6 @@
 <template>
-    <el-row :gutter="20">
-        <el-col :md="18">
+    <el-row :gutter="20" id="assignment">
+        <el-col id="search">
             <el-select
                 :loading="remoteLoading"
                 :placeholder="$t('models.propertyManager.placeholders.search')"
@@ -23,10 +23,12 @@
                     v-for="item in toAssignList"/>
             </el-select>
         </el-col>
-        <el-col :md="6">
-            <el-button :disabled="!toAssign" @click="assign" class="full-button"
-                        icon="ti-save" type="primary">
-                {{$t('models.building.assign')}}
+        <el-col id="assignBtn" :style="innerBtnWidth">
+            <el-button :disabled="!toAssign" @click="assign" type="primary">
+                <div id="innerBtn" ref="innerBtn">
+                    <i class="ti-save"></i>
+                    <span>&nbsp;{{$t('models.unit.assign')}}</span>
+                </div>
             </el-button>
         </el-col>
     </el-row>
@@ -53,9 +55,35 @@
                 type: Boolean
             }
         },
+        data() {
+            return {
+                innerBtnWidth: null,
+            }
+        },
+        computed: {
+            BtnWidth() {
+                return this.innerBtnWidth;
+            }
+        },
+        methods: {
+            getBtnWidth() {
+                this.innerBtnWidth = this.$refs.innerBtn.clientWidth;
+            }
+        },
+        mounted() {
+            this.getBtnWidth();
+        },
         created() {
             this.assign();
             this.remoteSearch();
         }
     }
 </script>
+<style lang="less" scoped>
+    #assignment {
+        display: flex;
+        #assignBtn {
+            flex: 1;
+        }
+    }
+</style>

@@ -203,7 +203,6 @@
                         onClick: this.notifyUnassignment
                     }]
                 }],
-                innerBtnWidth: null,
                 multiple: false
             }
         },
@@ -219,15 +218,6 @@
 <style lang="less">
     .el-divider__text {
         font-size: 16px;
-    }
-</style>
-
-<style lang="less" scoped>
-    #tenant_search {
-        display: flex;
-        #assignBtn {
-            flex: 1;
-        }
     }
 </style>
 

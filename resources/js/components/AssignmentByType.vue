@@ -1,6 +1,6 @@
 <template>
-    <el-row :gutter="20">
-        <el-col :lg="6">
+    <el-row :gutter="20" id="assignment_type">
+        <el-col id="type">
             <el-select @change="resetToAssignList"
                         class="custom-select"
                         :value="assignmentType" @input="$emit('update:assignmentType', $event)"
@@ -13,7 +13,7 @@
                 </el-option>
             </el-select>
         </el-col>
-        <el-col :lg="12" :xl="14">
+        <el-col id="search">
             <el-select
                 :loading="remoteLoading"
                 :placeholder="$t('models.request.placeholders.search')"
@@ -35,10 +35,12 @@
                     v-for="item in toAssignList"/>
             </el-select>
         </el-col>
-        <el-col :lg="6" :xl="4">
-            <el-button :disabled="!toAssign" @click="assign" class="full-button"
-                        icon="ti-save" type="primary">
-                {{$t('models.request.assign')}}
+        <el-col id="assignBtn" :style="innerBtnWidth">
+            <el-button :disabled="!toAssign" @click="assign" type="primary">
+                <div id="innerBtn" ref="innerBtn">
+                    <i class="ti-save"></i>
+                    <span>&nbsp;{{$t('models.unit.assign')}}</span>
+                </div>
             </el-button>
         </el-col>
     </el-row>
@@ -71,6 +73,24 @@
                 type: Function 
             }
         },
+        data() {
+            return {
+                innerBtnWidth: null,
+            }
+        },
+        computed: {
+            BtnWidth() {
+                return this.innerBtnWidth;
+            }
+        },
+        methods: {
+            getBtnWidth() {
+                this.innerBtnWidth = this.$refs.innerBtn.clientWidth;
+            }
+        },
+        mounted() {
+            this.getBtnWidth();
+        },
         created() {
             this.resetToAssignList();
             this.assign();
@@ -78,3 +98,16 @@
         }
     }
 </script>
+<style lang="less" scoped>
+    #assignment_type {
+        display: flex;
+        #type {
+            .custom-select {
+                width: 100%;
+            }
+        }
+        #assignBtn {
+            flex: 1;
+        }
+    }
+</style>
