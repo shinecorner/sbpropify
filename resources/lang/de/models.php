@@ -21,10 +21,10 @@ return [
       'logo_uploaded' => 'Logo aktualisiert',
       'logo' => 'Firmenlogo',
       'address' => 'Adresse',
-      'blank_pdf' => 'Leeres PDF Template verwenden',
-      'realEstateSaved' => 'Einstellung gespeichert',
-      'serviceRequestCategorySaved' => 'Kategorie der Serviceanfrage gespeichert',
-      'serviceRequestCategoryDeleted' => 'Serviceanforderungskategorie gelöscht',
+      'blank_pdf' => 'PDF ohne Briefkopf verwenden',
+      'realEstateSaved' => 'Einstellungen gespeichert.',
+      'serviceRequestCategorySaved' => 'Anfrage-Kategorie gespeichert',
+      'serviceRequestCategoryDeleted' => 'Anfrage-Kategorie gelöscht',
       'validation' => 
       [
         'name' => 
@@ -76,7 +76,7 @@ return [
       'products' => 'Marktplatz',
       'requests' => 'Anfragen',
       'company' => 'Firmenname',
-      'no_building' => 'Keiner Liegenschaft zugewiesen.',
+      'no_building' => 'Zu keiner Liegenschaft zugewiesen.',
       'building' => 
       [
         'name' => 'Liegenschaft',
@@ -187,7 +187,7 @@ return [
       'address_search' => 'Bitte Adresse eingeben',
       'not_found' => 'Liegenschaft nicht gefunden',
       'house_rules' => 'Hausordnung',
-      'operating_instructions' => 'Nenutzungsanleitungen',
+      'operating_instructions' => 'Benutzungsanleitungen',
       'other' =>  'Sonstiges',
       'files' => 'Dokumente',
       'add_files' => 'Dokumente hinzufügen',
@@ -455,9 +455,9 @@ return [
       'visibility' => 
       [
         'label' => 'Sichtbarkeit',
-        'address' => 'Liegenschaft',
+        'address' => 'Nachbarn',
         'district' => 'Überbauung',
-        'all' => 'Alle',
+        'all' => 'Alle App-Nutzer',
       ],
       'confirmChange' => 
       [
@@ -543,7 +543,7 @@ return [
       'assign' => 'Zuweisen',
       'attached' => 
       [
-        'building' => 'Liegenschaft wurde verlinkt',
+        'building' => 'Liegenschaft wurde zugewiesen',
         'district' => 'Überbauung wurde entfernt',
       ],
       'detached' => 
@@ -592,13 +592,13 @@ return [
       'news_approval_enable' => 'Pinnwand-Beiträge zuerst prüfen',
       'comment_update_timeout' => 'Comment update timeout',
       'closed' => 'Geschlossen',
-      'saved' => 'Eingesparte Immobilien',
+      'saved' => 'Gespeichert',
       'schedule' => 'Terminplanung',
       'endTime' => 'Ende',
       'startTime' => 'Start',
       'to' => 'An',
       'categories' => 'Kategorien',
-      'contact_enable' => 'Meine Kontakte aktivieren',
+      'contact_enable' => 'Dienstleister-Kontakte für Mieter aktivieren',
       'templates' => 'Vorlagen',
       'cleanify_email' => 'Cleanify email',
       'mail_encryption' => 'Verschlüsselung',
@@ -616,11 +616,11 @@ return [
     ],
     'request' => 
     [
-      'audits' => 'Hystorx',
+      'audits' => 'History',
       'edit' => 'Öffnen',
       'delete' => 'Löschen',
       'deleted' => 'Anfrage gelöscht',     
-      'title' => 'Anfragen',
+      'title' => 'Übersicht Mieter-Anfragen',
       'created' => 'Erstellt',
       'saved' => 'Anfrage gespeichert',
       'prop_title' => 'Titel',
@@ -682,7 +682,7 @@ return [
       'qualification' => 
       [
         'label' => 'Qualifikation',
-        'none' => 'Nicht gewählt',
+        'none' => 'Keine',
         'optical' => 'Optisch',
         'sia' => 'SIA',
         '2_year_warranty' => '2-Jahresgarantie',
@@ -717,7 +717,7 @@ return [
       [
         'category' => 'Kategorie wählen',
         'priority' => 'Priorität wählen',
-        'defect_location' => 'Bitte Örtlichkeite wählen',
+        'defect_location' => 'Bitte die Örtlichkeit angeben',
         'qualification' => 'Qualifikation wählen',
         'status' => 'Status wählen',
         'due_date' => 'Zu erledigen bis',
@@ -765,15 +765,15 @@ return [
       ],
       'attached' => 
       [
-        'services' => 'Dienstleister wurde hinzugefügt.',
-        'managers' => 'Bewirtschafter wurde hinzugefügt.',
-        'user' => 'Benutzer erfolgreich zugeordnet',
+        'services' => 'Dienstleister wurde zugewiesen.',
+        'managers' => 'Bewirtschafter wurde zugewiesen.',
+        'user' => 'Benutzer erfolgreich zugewiesen',
       ],
       'detached' => 
       [
         'service' => 'Dienstleister wurde entfernt.',
         'manager' => 'Bewirtschafter wurde entfernt.',
-        'user' => 'Benutzer erfolgreich nicht zugeordnet',
+        'user' => 'Benutzer wurde entfernt.',
       ],
       'userType' => 
       [
@@ -789,7 +789,7 @@ return [
         'building' => 'Liegenschaft',
       ],
       'requestID' => 'Anfrage-ID',
-      'requestCategory' => 'Anfrage Kategorie ',
+      'requestCategory' => 'Anfrage-Kategorie ',
     ],
     'requestCategory' => 
     [
