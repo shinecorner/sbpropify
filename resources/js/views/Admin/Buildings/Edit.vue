@@ -486,7 +486,6 @@
                 if (!this.toAssign || !this.model.id) {
                     return false;
                 }
-                console.log(this.toAssign);
                 try {
                     const resp = await this.batchAssignUsersToBuilding({
                         id: this.model.id,
