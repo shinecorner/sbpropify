@@ -43,7 +43,8 @@ return [
       'count_of_managers' => 'Count of managers',
       'count_of_tenants' => 'Count of tenants',
       'count_of_requests' => 'Count of requests',
-      'go_to_buildings' => 'go to buildings'
+      'go_to_buildings' => 'go to buildings',
+      'buildings_by_state' => 'Buildings by state'
     ],
     'tenants' => 
     [
@@ -55,5 +56,10 @@ return [
     ],
     'marketplace' => [
       'go_to_marketplace' => 'go to marketplace'
+    ],
+    'news' => [
+      'latest_news' => 'Latest news',
+      'go_to_news' => 'go to news',
+      'counts' => 'Counts'
     ]
 ];

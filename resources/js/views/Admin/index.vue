@@ -93,9 +93,14 @@
                             </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
-                            <el-col :span="12">
+                            <el-col :span="16">
                                 <el-card class="chart-card" :header="$t('dashboard.buildings.latest_buildings')">
                                     <dashboard-latest-buildings type="buildings"></dashboard-latest-buildings>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.buildings.buildings_by_state')">
+                                    <chart-pie-and-donut type="buildings_by_state" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -117,6 +122,13 @@
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.news_by_type')">
                                     <chart-pie-and-donut type="news_by_type" :colNum="3" :startDate="startDates.posts"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                        </el-row>
+                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+                            <el-col :span="16">
+                                <el-card class="chart-card" :header="$t('dashboard.news.latest_news')">
+                                    <dashboard-latest-news type="latest_news"></dashboard-latest-news>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -227,6 +239,7 @@
     import DashboardLatestTenants from 'components/DashboardLatestTenants';
     import DashboardManagersList from 'components/DashboardManagersList';
     import DashboardServicesList from 'components/DashboardServicesList';
+    import DashboardLatestNews from 'components/DashboardLatestNews';
 
     export default {
         name: 'AdminDashboard',
@@ -249,7 +262,8 @@
             DashboardLatestBuildings,
             DashboardLatestTenants,
             DashboardManagersList,
-            DashboardServicesList
+            DashboardServicesList,
+            DashboardLatestNews
         },
         data() {
             return {
