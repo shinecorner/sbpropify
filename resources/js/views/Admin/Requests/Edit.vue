@@ -99,9 +99,9 @@
                                     <span slot="label">
                                         <el-badge :value="mediaCount" :max="99" class="admin-layout">{{ $t('models.request.images') }}</el-badge>
                                     </span>
-                                    <div slot="header">
-                                        <p class="comments-header">{{$t('models.request.images')}}</p>
-                                    </div>
+                                    <el-divider class="column-divider" content-position="left">
+                                        {{$t('models.request.images')}}
+                                    </el-divider>
                                     <el-alert
                                         v-if="!media.length || (!model.media && !model.media.length)"
                                         :title="$t('models.request.no_images_message')"
@@ -141,9 +141,9 @@
                         </card>
                         <template v-if="$can($permissions.update.serviceRequest)">
                             <card class="mt15" v-if="model.id">
-                                <div slot="header">
-                                    <p class="comments-header">{{$t('models.request.conversation')}}</p>
-                                </div>
+                                <el-divider class="column-divider" content-position="left">
+                                    {{$t('models.request.conversation')}}
+                                </el-divider>
                                 <el-table
                                     :data="conversations"
                                     style="width: 100%">
@@ -210,49 +210,19 @@
                                 </el-row>
                             </card>
                             <card class="mt15" :loading="loading">
-                                <el-row :gutter="20">
-                                    <el-col :lg="6">
-                                        <el-select @change="resetToAssignList"
-                                                   class="custom-select"
-                                                   v-model="assignmentType"
-                                        >
-                                            <el-option
-                                                :key="type"
-                                                :label="$t(`models.request.assignmentTypes.${type}`)"
-                                                :value="type"
-                                                v-for="(type) in assignmentTypes">
-                                            </el-option>
-                                        </el-select>
-                                    </el-col>
-                                    <el-col :lg="12" :xl="14">
-                                        <el-select
-                                            :loading="remoteLoading"
-                                            :placeholder="$t('models.request.placeholders.search')"
-                                            :remote-method="remoteSearchAssignees"
-                                            class="custom-remote-select"
-                                            filterable
-                                            remote
-                                            reserve-keyword
-                                            style="width: 100%;"
-                                            v-model="toAssign"
-                                        >
-                                            <div class="custom-prefix-wrapper" slot="prefix">
-                                                <i class="el-icon-search custom-icon"></i>
-                                            </div>
-                                            <el-option
-                                                :key="service.id"
-                                                :label="service.name"
-                                                :value="service.id"
-                                                v-for="service in toAssignList"/>
-                                        </el-select>
-                                    </el-col>
-                                    <el-col :lg="6" :xl="4">
-                                        <el-button :disabled="!toAssign" @click="assignUser" class="full-button"
-                                                   icon="ti-save" type="primary">
-                                            {{$t('models.request.assign')}}
-                                        </el-button>
-                                    </el-col>
-                                </el-row>
+                                <el-divider class="column-divider" content-position="left">
+                                    {{$t('models.post.assignment')}}
+                                </el-divider>
+                                <assignment-by-type
+                                    :resetToAssignList="resetToAssignList"
+                                    :assignmentType.sync="assignmentType"
+                                    :toAssign.sync="toAssign"
+                                    :assignmentTypes="assignmentTypes"
+                                    :assign="assignUser"
+                                    :toAssignList="toAssignList"
+                                    :remoteLoading="remoteLoading"
+                                    :remoteSearch="remoteSearchAssignees"
+                                />
                                 <relation-list
                                     :actions="assigneesActions"
                                     :columns="assigneesColumns"
@@ -316,6 +286,7 @@
     import {displaySuccess} from "../../../helpers/messages";
     import {Avatar} from 'vue-avatar';
     import Audit from 'components/Audit';
+    import AssignmentByType from 'components/AssignmentByType';
 
 
     export default {
@@ -332,7 +303,8 @@
             RelationList,
             EditActions,
             Avatar,
-            Audit
+            Audit,
+            AssignmentByType
         },
         data() {
             return {

@@ -2,12 +2,12 @@
     <div class="units">
         <heading :title="$t('models.unit.title')" icon="icon-unit" shadow="heavy">
             <template v-if="$can($permissions.create.unit)">
-                <el-button @click="add" icon="ti-plus" round size="small" type="primary">
+                <el-button @click="add" icon="ti-plus" round size="mini" type="primary">
                     {{$t('models.unit.add')}}
                 </el-button>
             </template>
             <template v-if="$can($permissions.delete.unit)">
-                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="small"
+                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="mini"
                            type="danger">
                     {{$t('models.unit.delete')}}
                 </el-button>

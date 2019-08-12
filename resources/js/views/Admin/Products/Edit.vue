@@ -165,9 +165,9 @@
                     </el-row> 
                 </card>
                 <card :loading="loading">
-                    <div slot="header">
-                        <p class="comments-header">{{$t('models.request.images')}}</p>
-                    </div>
+                    <el-divider class="column-divider" content-position="left">
+                        {{$t('models.request.images')}}
+                    </el-divider>
                     <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
                     <div class="mt15">
                         <media :data="mediaFiles" @deleteMedia="deleteMedia"
@@ -175,9 +175,9 @@
                     </div>
                 </card>
                 <card class="mt15" v-if="model.id">
-                    <div slot="header">
-                        <p class="comments-header">{{$t('models.product.comments')}}</p>
-                    </div>
+                    <el-divider class="column-divider" content-position="left">
+                        {{$t('models.product.comments')}}
+                    </el-divider>
                     <chat :id="model.id" type="product"/>
                 </card>
             </el-col>

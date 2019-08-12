@@ -68,9 +68,9 @@
             </el-col>
             <el-col :md="12">
                 <card :loading="loading">
-                    <div slot="header">
-                        <span>Requests</span>
-                    </div>
+                    <el-divider class="column-divider" content-position="left">
+                        {{$t('models.requests')}}
+                    </el-divider>
                     <relation-list
                         :actions="requestActions"
                         :columns="requestColumns"

@@ -2,11 +2,11 @@
     <div class="tenants">
         <heading :title="$t('pages.tenant.title')" icon="icon-group" shadow="heavy">
             <template v-if="$can($permissions.create.tenant)">
-                <el-button @click="add" icon="ti-plus" round size="small" type="primary">{{$t('models.tenant.add')}}
+                <el-button @click="add" icon="ti-plus" round size="mini" type="primary">{{$t('models.tenant.add')}}
                 </el-button>
             </template>
             <template v-if="$can($permissions.delete.tenant)">
-                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="small"
+                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="mini"
                            type="danger">
                     {{$t('models.tenant.delete')}}
                 </el-button>
