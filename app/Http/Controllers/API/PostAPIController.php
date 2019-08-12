@@ -125,7 +125,7 @@ class PostAPIController extends AppBaseController
             'buildings.serviceProviders',
             'buildings.media',
             'providers',
-        ])->paginate($perPage);
+        ])->withCount('views')->paginate($perPage);
         $posts->getCollection()->loadCount('allComments');
 
 
