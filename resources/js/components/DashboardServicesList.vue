@@ -45,6 +45,11 @@
                     minWidth: '150px',
                     label: this.$t('models.service.requests'),
                     counts: [{
+                            prop: 'requests_count',
+                            background: '#aaa',
+                            color: '#fff',
+                            label: this.$t('models.building.requestStatuses.total')
+                        }, {
                             prop: 'requests_received_count',
                             background: '#bbb',
                             color: '#fff',
@@ -107,7 +112,17 @@
               let url = 'services?req_count=true&get_all=true';
               return axios.get(url)
               .then(function (response) {
-                that.items = response.data.data;
+                that.items = response.data.data.map((item) => {
+                    item.requests_count = item.requests_received_count
+                                        + item.requests_assigned_count
+                                        + item.requests_in_processing_count
+                                        + item.requests_reactivated_count
+                                        + item.requests_done_count
+                                        + item.requests_archived_count;
+                    return item;
+                })
+                
+                console.log(that.items);
               }).catch(function (error) {
                   console.log(error);
               })

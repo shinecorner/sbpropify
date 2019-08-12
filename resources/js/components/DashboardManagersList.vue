@@ -45,6 +45,11 @@
                     minWidth: '150px',
                     label: this.$t('models.propertyManager.requests'),
                     counts: [{
+                            prop: 'requests_count',
+                            background: '#aaa',
+                            color: '#fff',
+                            label: this.$t('models.building.requestStatuses.total')
+                        }, {
                             prop: 'requests_received_count',
                             background: '#bbb',
                             color: '#fff',
@@ -109,6 +114,12 @@
               .then(function (response) {
                 const items = response.data.data.map(item => {
                   item.name = item.first_name + ' ' + item.last_name;
+                  item.requests_count = item.requests_received_count
+                                        + item.requests_assigned_count
+                                        + item.requests_in_processing_count
+                                        + item.requests_reactivated_count
+                                        + item.requests_done_count
+                                        + item.requests_archived_count;
                   return item;
                 });
                 that.items = items;

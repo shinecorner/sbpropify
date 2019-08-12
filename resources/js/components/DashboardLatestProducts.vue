@@ -12,6 +12,7 @@
             :loading="{state: loading}"
             :withSearch="false"
             :withCheckSelection="false"
+            :defaultImg="defaultImg"
             @selectionChanged="selectionChanged"
         >
         </dashboard-list-table>
@@ -32,6 +33,10 @@
         props: {
           type: {
             type: String
+          },
+          defaultImg: {
+              type: String,
+              default: () => (undefined)
           }
         },
         data() {

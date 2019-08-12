@@ -35,7 +35,8 @@
                     </div>
 
                     <div v-if="column.type == 'product-details'" class="product-details">
-                        <div class="image" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
+                        <div class="image" v-if="scope.row['image_url']" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
+                        <div class="image" v-else :style="{backgroundImage: `url(${defaultImg})`}"></div>
                         <div class="text">
                             <div class="title">
                                 {{ scope.row['title'] }}
@@ -200,6 +201,9 @@
                 })
             },
             height: {
+                default: () => (undefined)
+            },
+            defaultImg: {
                 default: () => (undefined)
             }
         },

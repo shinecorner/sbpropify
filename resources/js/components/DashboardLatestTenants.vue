@@ -40,6 +40,10 @@
                     prop: 'name',
                     minWidth: '100px'
                 }, {
+                    type: 'plain',
+                    label: this.$t('models.address.name'),
+                    prop: 'address'
+                },{
                     type: 'tag',
                     label: this.$t('models.tenant.status.label'),
                     prop: 'status_label',
@@ -83,6 +87,7 @@
                 const items = response.data.data.map(item => {
                   item.status_label = that.$t(`models.tenant.status.${that.tenantConstants.status[item.status]}`);
                   item.name = item.first_name + ' ' + item.last_name;
+                  item.address = item.city;
                   item.status_class_suffix = that.tenantConstants.status[item.status];
                   return item;
                 });

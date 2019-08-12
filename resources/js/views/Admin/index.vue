@@ -151,7 +151,7 @@
                             </el-col>
                             <el-col :span="16">
                                 <el-card class="chart-card" :header="$t('dashboard.latest_products')">
-                                    <dashboard-latest-products type="latest_products"></dashboard-latest-products>
+                                    <dashboard-latest-products type="latest_products" :defaultImg="defaultImg"></dashboard-latest-products>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -219,6 +219,8 @@
 </template>
 
 <script>
+    import defaultImg from '../../../img/latest-product-default.png';
+
     import axios from '@/axios';
     import DashboardStatisticsCard from 'components/DashboardStatisticsCard';
     import ChartStackedColumn from 'components/ChartStackedColumn';
@@ -322,7 +324,8 @@
                     posts: '',
                     products: '',
                     tenants: ''
-                }
+                },
+                defaultImg: defaultImg
             }
         },
         computed: {
