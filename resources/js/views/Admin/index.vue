@@ -457,7 +457,7 @@
 
         .el-card__header {
             padding: 15px;
-            font-size: 16px;
+            font-size: 15px;
         }
 
         .chart-filter {

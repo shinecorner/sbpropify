@@ -125,11 +125,11 @@
 
         .link-container {
             position: absolute;
-            top: -58px;
+            top: -55px;
             right: 0px;
             text-align: right;
             padding: 20px 15px;
-            font-size: 16px;
+            font-size: 14px;
 
             a {
                 text-decoration: none;
