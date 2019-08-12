@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Landing from 'views/Landing';
 import AuthRoutes from './auth';
+import Auth2Routes from './auth2';
 import TenantRoutes from './tenant';
 import AdminRoutes from './admin';
 import store from '@/store';
@@ -17,7 +18,7 @@ const routes = [{
 }];
 
 const router = new VueRouter({
-    routes: [...routes, ...AuthRoutes, ...TenantRoutes, ...AdminRoutes],
+    routes: [...routes, ...AuthRoutes, ...Auth2Routes, ...TenantRoutes, ...AdminRoutes],
     mode: 'history',
     linkActiveClass: 'active',
     scrollBehavior: (to, from, savedPosition) => savedPosition || {x: 0, y: 0}

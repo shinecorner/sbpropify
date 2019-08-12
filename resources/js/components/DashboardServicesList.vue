@@ -2,7 +2,7 @@
     <div class="services-list">
         <div class="link-container">
             <router-link :to="{name: 'adminServices'}">
-                <span class="title">{{ /*$t('dashboard.requests.go_to_managers')*/'go to service partners' }} </span>
+                <span class="title">{{ $t('dashboard.requests.go_to_service_partners') }} </span>
                 <i class="icon-right icon"/>
             </router-link>
         </div>
@@ -104,10 +104,10 @@
             },
             fetchData() {
               let that = this;
-              let url = 'services?req_count=true';
+              let url = 'services?req_count=true&get_all=true';
               return axios.get(url)
               .then(function (response) {
-                that.items = response.data.data.data;
+                that.items = response.data.data;
               }).catch(function (error) {
                   console.log(error);
               })
