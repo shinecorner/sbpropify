@@ -303,8 +303,8 @@
                 tenantActions: [{
                     width: '90px',
                     buttons: [{
+                        icon: 'ti-pencil',
                         title: this.$t('models.tenant.edit'),
-                        type: 'primary',
                         onClick: this.tenantEditView
                     }]
                 }],
@@ -340,8 +340,8 @@
                 requestActions: [{
                     width: '180px',
                     buttons: [{
+                        icon: 'ti-pencil',
                         title: this.$t('models.request.edit'),
-                        type: 'primary',
                         onClick: this.requestEditView
                     }]
                 }],
