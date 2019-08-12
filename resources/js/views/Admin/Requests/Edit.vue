@@ -46,38 +46,13 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12">
-                                    <el-form-item :label="$t('models.request.priority.label')"
-                                                  :rules="validationRules.priority"
-                                                  prop="priority">
-                                        <el-select :placeholder="$t('models.request.placeholders.priority')"
-                                                   class="custom-select"
-                                                   v-model="model.priority"
-                                        >
-                                            <el-option
-                                                :key="k"
-                                                :label="$t(`models.request.priority.${priority}`)"
-                                                :value="parseInt(k)"
-                                                v-for="(priority, k) in constants.service_requests.priority">
-                                            </el-option>
-                                        </el-select>
+                                    <el-form-item :label="$t('models.request.priority.label')">
+                                        {{$constants.service_requests.priority[model.priority]}}
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12">
-                                    <el-form-item :label="$t('models.request.visibility.label')"
-                                                  :rules="validationRules.visibility"
-                                                  prop="visibility"
-                                    >
-                                        <el-select :disabled="$can($permissions.update.serviceRequest)"
-                                                   :placeholder="$t('models.request.placeholders.visibility')"
-                                                   class="custom-select"
-                                                   v-model="model.visibility">
-                                            <el-option
-                                                :key="k"
-                                                :label="$t(`models.request.visibility.${visibility}`)"
-                                                :value="parseInt(k)"
-                                                v-for="(visibility, k) in visibilities">
-                                            </el-option>
-                                        </el-select>
+                                    <el-form-item :label="$t('models.request.visibility.label')">
+                                        {{$constants.serviceRequests.visibility[model.visibility]}}
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12">
