@@ -46,6 +46,15 @@
                         </div>
                     </div>
 
+                    <div v-if="column.type == 'news-title'" class="product-details">
+                        <div class="image" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
+                        <div class="text">
+                            <div class="title">
+                                {{ scope.row['content'] }}
+                            </div>
+                        </div>
+                    </div>
+
                     <div v-if="column.type == 'users'" class="avatars-wrapper">
                         <span :key="index" v-for="(user, index) in scope.row[column.prop]">
                             <el-tooltip

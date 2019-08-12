@@ -27,7 +27,8 @@ export default () => {
             reset: false            
           },
         },
-        colors: [
+        colorsAdded: [],
+        colorsPredefined: [
           '#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0', '#3F51B5',
           '#03A9F4', '#4CAF50', '#F9CE1D', '#FF9800', '#33B2DF', '#546E7A'
         ]
@@ -37,6 +38,25 @@ export default () => {
       series: function() {
         return this.yData;
       },
+      colors: function() {
+        const that = this;
+        return this.yData.map((val, index) => {
+          if(index < 12) {
+            return that.colorsPredefined[index];
+          }
+          else {
+            let isSelected = false;
+            while (!isSelected) {
+              var randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+              if (!that.colorsAdded.includes(randomColor) && !that.colorsPredefined.includes(randomColor)) {
+                isSelected = true;
+                that.colorsAdded.push(randomColor);
+              }
+            }
+            return randomColor;
+          }
+        });
+      }
     },
     methods: {
       fetchData(){
@@ -45,7 +65,7 @@ export default () => {
       pickHandler(val) {
         this.dateRange = val;
         this.fetchData();
-      }
+      },
     },
     created(){
       this.fetchData();

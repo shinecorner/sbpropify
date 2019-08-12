@@ -1,16 +1,22 @@
 <?php
 
+namespace Tests\Traits;
+
+use App;
 use Faker\Factory as Faker;
 use App\Models\Address;
 use App\Repositories\AddressRepository;
 
+/**
+ * Trait MakeAddressTrait
+ * @package Tests\traits
+ */
 trait MakeAddressTrait
 {
     /**
-     * Create fake instance of Address and save it in database
-     *
      * @param array $addressFields
-     * @return Address
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function makeAddress($addressFields = [])
     {
@@ -32,9 +38,7 @@ trait MakeAddressTrait
     }
 
     /**
-     * Get fake data of Address
-     *
-     * @param array $postFields
+     * @param array $addressFields
      * @return array
      */
     public function fakeAddressData($addressFields = [])
@@ -42,14 +46,13 @@ trait MakeAddressTrait
         $fake = Faker::create();
 
         return array_merge([
-            'country_id' => $fake->randomDigitNotNull,
+            'country_id' => 210,
             'state_id' => $fake->randomDigitNotNull,
             'city' => $fake->word,
-            'address' => $fake->word,
-            'address_nr' => $fake->word,
-            'zip' => $fake->word,
-            'created_at' => $fake->word,
-            'updated_at' => $fake->word
+            'street' => $fake->streetAddress,
+            'street_nr' => $fake->buildingNumber,
+            'zip' => $fake->word
         ], $addressFields);
     }
 }
+

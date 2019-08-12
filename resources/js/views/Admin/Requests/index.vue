@@ -2,12 +2,12 @@
     <div class="services">
         <heading :title="$t('models.request.title')" icon="icon-chat-empty" shadow="heavy">
             <template v-if="$can($permissions.create.request)">
-                <el-button @click="add" icon="ti-plus" round size="small" type="primary">
+                <el-button @click="add" icon="ti-plus" round size="mini" type="primary">
                     {{$t('models.request.add_title')}}
                 </el-button>
             </template>
             <template v-if="$can($permissions.delete.request)">
-                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="small"
+                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="mini"
                            type="danger">
                     {{$t('models.request.delete')}}
                 </el-button>

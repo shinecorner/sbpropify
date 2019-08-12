@@ -303,6 +303,7 @@ return [
       'tenant' => 'Tenant',
       'empty_requests' => 'No requests',
       'assigned_tenant' => 'Assigned tenant',
+      'assign' => 'Assign',
       'tenant_assigned' => 'Tenant assigned',
       'tenant_unassigned' => 'Tenant unassigned',
       'type' => 
@@ -342,6 +343,10 @@ return [
         [
           'required' => 'Description is required',
         ],
+        'tenant' => 
+        [
+          'required' => 'Tenant is required',
+        ]
       ],
       'placeholders' => 
       [
@@ -403,7 +408,7 @@ return [
       'title_label' => 'Title',
       'content' => 'Content',
       'preview' => 'Preview',
-      'add' => 'Add',
+      'add' => 'Add Post',
       'add_pinned' => 'Add pinned post',
       'save' => 'Save',
       'saved' => 'News saved',
@@ -471,6 +476,7 @@ return [
         'building' => 'Building',
         'district' => 'District',
       ],
+      'assignment' => 'Assignment',
       'assignType' => 'Type',
       'unassign' => 'Unassign',
       'assign' => 'Assign',

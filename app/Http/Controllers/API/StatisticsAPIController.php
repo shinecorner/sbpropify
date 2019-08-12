@@ -7,6 +7,7 @@ use App\Models\Building;
 use App\Models\LoginDevice;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestCategory;
+use App\Models\State;
 use App\Models\Tenant;
 use App\Models\Product;
 use App\Models\Post;
@@ -1412,7 +1413,30 @@ class StatisticsAPIController extends AppBaseController
             : $response;
     }
 
-    /**
+    public function pieChartBuildingByState(Request $request, $optionalArgs = [])
+    {
+        [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
+        $statistics = Building::selectRaw('loc_states.id, count(buildings.id) `count`')
+            ->join('loc_addresses', 'loc_addresses.id', '=', 'buildings.address_id')
+            ->join('loc_states', 'loc_addresses.state_id', '=', 'loc_states.id')
+
+            ->when($startDate, function ($q) use ($startDate) {$q->whereDate('buildings.created_at', '>=', $startDate->format('Y-m-d'));})
+            ->when($endDate, function ($q) use ($endDate) {$q->whereDate('buildings.created_at', '<=', $endDate->format('Y-m-d'));})
+            ->groupBy('loc_states.id')
+            ->orderBy('loc_states.id')
+            ->get();
+
+        $stateIds = $statistics->pluck('id');
+        $states = State::whereIn('id', $stateIds)->pluck('name', 'id')->all();
+        $response = $this->formatForDonutChart($statistics, 'id', $states, true);
+
+        $isConvertResponse = $optionalArgs['isConvertResponse'] ?? true;
+        return $isConvertResponse
+            ? $this->sendResponse($response, 'Building statistics by by state')
+            : $response;
+    }
+
+        /**
      *
      * @SWG\Get(
      *      path="/admin/heatMapByDatePeriod",

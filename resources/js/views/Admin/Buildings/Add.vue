@@ -6,8 +6,16 @@
         <div class="crud-view">
             <card :loading="loading">
                 <el-form :model="model" label-position="right" label-width="192px" ref="form">
-                    <el-form-item :label="$t('models.building.name')" :rules="validationRules.name" prop="name"
+                    <el-form-item :label="$t('models.address.street')" :rules="validationRules.street" prop="street"
                                   style="max-width: 512px;">
+                        <el-input type="text" v-model="model.street" v-on:change="setBuildingName"></el-input>
+                    </el-form-item>
+                    <el-form-item :label="$t('models.address.street_nr')" :rules="validationRules.street_nr"
+                                  prop="street_nr" style="max-width: 512px;">
+                        <el-input type="text" v-model="model.street_nr" v-on:change="setBuildingName"></el-input>
+                    </el-form-item>
+                    <el-form-item :label="$t('models.building.name')" :rules="validationRules.name" prop="name"
+                                  style="max-width: 512px;" ref="name">
                         <el-input type="text" v-model="model.name"></el-input>
                     </el-form-item>
                     <!--<el-form-item prop="description" :label="$t('models.building.description')" :rules="validationRules.description" style="max-width: 512px;">-->
@@ -16,15 +24,6 @@
                     <el-form-item :label="$t('models.building.floor_nr')" :rules="validationRules.floor_nr" prop="floor_nr"
                                   style="max-width: 512px;">
                         <el-input type="number" v-model="model.floor_nr"></el-input>
-                    </el-form-item>
-
-                    <el-form-item :label="$t('models.address.street')" :rules="validationRules.street" prop="street"
-                                  style="max-width: 512px;">
-                        <el-input type="text" v-model="model.street"></el-input>
-                    </el-form-item>
-                    <el-form-item :label="$t('models.address.street_nr')" :rules="validationRules.street_nr"
-                                  prop="street_nr" style="max-width: 512px;">
-                        <el-input type="text" v-model="model.street_nr"></el-input>
                     </el-form-item>
                     <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip" prop="zip"
                                   style="max-width: 512px;">
@@ -80,6 +79,11 @@
             Card,
             AddActions
         },
+        methods: {
+            setBuildingName(event ) {
+                this.model.name = this.model.street + ' ' + this.model.street_nr;
+            }
+        }
     }
 </script>
 

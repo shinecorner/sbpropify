@@ -2,7 +2,7 @@
     <div class="managers-list">
         <div class="link-container">
             <router-link :to="{name: 'adminPropertyManagers'}">
-                <span class="title">{{ /*$t('dashboard.requests.go_to_managers')*/'go to property managers' }} </span>
+                <span class="title">{{ $t('dashboard.requests.go_to_property_managers') }} </span>
                 <i class="icon-right icon"/>
             </router-link>
         </div>

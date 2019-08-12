@@ -15,12 +15,12 @@ export default (config = {}) => {
                 validationRules: {
                     name: [{
                         required: true,
-                        message: 'This field is required.'
+                        message: this.$t('models.district.required')
                     }]
                 },
                 loading: {
                     state: false,
-                    text: 'Please wait...'
+                    text: this.$t('general.please_wait')
                 },
             }
         },
@@ -50,7 +50,7 @@ export default (config = {}) => {
 
                                 displaySuccess({
                                     success: true,
-                                    message: 'The District is saved successfully.'
+                                    message: this.$t('models.district.saved')
                                 });
                                 return resp;
                             } catch (err) {
@@ -91,7 +91,7 @@ export default (config = {}) => {
                                     
                                     displaySuccess({
                                         success: true,
-                                        message: 'The District is updated successfully.'
+                                        message: this.$t('models.district.saved')
                                     });
                                     resolve(true);
                                 } catch (err) {

@@ -1,23 +1,28 @@
 <template>
-    <el-form :model="model" ref="form">
-        <el-form-item prop="email" :label="$t('general.email')" :rules="validationRules.email">
-            <el-input type="email" v-model="model.email" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item prop="password" :label="$t('general.password')" :rules="validationRules.password">
-            <el-input type="password" v-model="model.password" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item>
-            <el-checkbox>{{$t('general.remember_me')}}</el-checkbox>
-            <router-link :to="{name: 'forgot'}">
-                <el-button type="text">
-                    {{$t('general.forgot_password')}}
-                </el-button>
-            </router-link>
-        </el-form-item>
-        <el-form-item>
-            <el-button type="primary" class="text-center w100p" @click="submit">{{$t('general.login')}}</el-button>
-        </el-form-item>
-    </el-form>
+    <div>
+        <el-form :model="model" ref="form">
+            <el-form-item prop="email" :label="$t('general.email')" :rules="validationRules.email">
+                <el-input type="email" v-model="model.email" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item prop="password" :label="$t('general.password')" :rules="validationRules.password">
+                <el-input type="password" v-model="model.password" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-checkbox>{{$t('general.remember_me')}}</el-checkbox>
+                <router-link :to="{name: 'forgot'}">
+                    <el-button type="text">
+                        {{$t('general.forgot_password')}}
+                    </el-button>
+                </router-link>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" class="text-center w100p" @click="submit">{{$t('general.login')}}</el-button>
+            </el-form-item>
+        </el-form>
+        <router-link :to="{name: 'activateAccount'}" class="el-menu-item-link">
+            <el-button type="primary" class="text-center w100p">{{$t('general.activate_account')}}</el-button>
+        </router-link>
+    </div>
 </template>
 <script>
     import {mapActions, mapState} from 'vuex';
@@ -87,7 +92,12 @@
                 margin: 0;
             }
         }
-         .el-button {
+        .el-button {
+            width: 100%;
+        }
+    }
+    .el-menu-item-link {
+        .el-button {
             width: 100%;
         }
     }

@@ -136,49 +136,19 @@
             </el-col>
             <el-col :md="12">
                 <card :loading="loading">
-                    <el-row :gutter="10">
-                        <el-col :lg="6">
-                            <el-select @change="resetToAssignList"
-                                       class="custom-select"
-                                       v-model="assignmentType"
-                            >
-                                <el-option
-                                    :key="type"
-                                    :label="$t(`models.service.assignmentTypes.${type}`)"
-                                    :value="type"
-                                    v-for="(type) in assignmentTypes">
-                                </el-option>
-                            </el-select>
-                        </el-col>
-                        <el-col :lg="12" :xl="14">
-                            <el-select
-                                :loading="remoteLoading"
-                                :placeholder="$t('models.service.placeholders.search')"
-                                :remote-method="remoteSearchBuildings"
-                                class="custom-remote-select"
-                                filterable
-                                remote
-                                reserve-keyword
-                                style="width: 100%;"
-                                v-model="toAssign"
-                            >
-                                <div class="custom-prefix-wrapper" slot="prefix">
-                                    <i class="el-icon-search custom-icon"></i>
-                                </div>
-                                <el-option
-                                    :key="building.id"
-                                    :label="building.name"
-                                    :value="building.id"
-                                    v-for="building in toAssignList"/>
-                            </el-select>
-                        </el-col>
-                        <el-col :lg="6" :xl="4">
-                            <el-button :disabled="!toAssign" @click="attachBuilding" class="full-button"
-                                       icon="ti-save" type="primary">
-                                {{$t('models.service.assign')}}
-                            </el-button>
-                        </el-col>
-                    </el-row>
+                    <el-divider class="column-divider" content-position="left">
+                        {{$t('models.post.assignment')}}
+                    </el-divider>
+                    <assignment-by-type
+                        :resetToAssignList="resetToAssignList"
+                        :assignmentType.sync="assignmentType"
+                        :toAssign.sync="toAssign"
+                        :assignmentTypes="assignmentTypes"
+                        :assign="attachBuilding"
+                        :toAssignList="toAssignList"
+                        :remoteLoading="remoteLoading"
+                        :remoteSearch="remoteSearchBuildings"
+                    />
                     <relation-list
                         :actions="assignmentsActions"
                         :columns="assignmentsColumns"
@@ -219,6 +189,7 @@
     import {mapActions} from 'vuex';
     import {displayError, displaySuccess} from "helpers/messages";
     import SelectLanguage from 'components/SelectLanguage';
+    import AssignmentByType from 'components/AssignmentByType';
 
 
     export default {
@@ -232,7 +203,8 @@
             Cropper,
             EditActions,
             RelationList,
-            SelectLanguage
+            SelectLanguage,
+            AssignmentByType
         },
         data() {
             return {

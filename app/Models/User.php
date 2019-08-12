@@ -213,7 +213,7 @@ class User extends Authenticatable implements LikerContract, Commentator
 
     public function requests()
     {
-        return $this->belongsToMany(ServiceRequest::class, 'request_assignee', 'request_id', 'user_id');
+        return $this->belongsToMany(ServiceRequest::class, 'request_assignee', 'user_id', 'request_id');
     }
 
     public function scopeWithRoles($query, array $roles)

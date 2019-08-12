@@ -1,8 +1,16 @@
 <?php
+declare(strict_types=1);
+
+namespace Tests;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\Traits\MakeAddressTrait;
+use App\Models\User;
 
+/**
+ * Class AddressApiTest
+ */
 class AddressApiTest extends TestCase
 {
     use MakeAddressTrait, ApiTestTrait, WithoutMiddleware, DatabaseTransactions;
@@ -13,46 +21,59 @@ class AddressApiTest extends TestCase
     public function testCreateAddress()
     {
         $address = $this->fakeAddressData();
-        $this->json('POST', '/api/v1/addresses', $address);
+
+        $this->response = $this->actingAs($this->user)
+            ->withSession(['test' => 'session'])
+            ->json('POST', '/api/v1/addresses', $address);
 
         $this->assertApiResponse($address);
     }
 
     /**
-     * @test
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testReadAddress()
     {
         $address = $this->makeAddress();
-        $this->json('GET', '/api/v1/addresses/'.$address->id);
+
+        $this->response = $this->actingAs($this->user)
+            ->withSession(['test' => 'session'])
+            ->json('GET', '/api/v1/addresses/' . $address->id);
 
         $this->assertApiResponse($address->toArray());
     }
 
     /**
-     * @test
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testUpdateAddress()
     {
         $address = $this->makeAddress();
         $editedAddress = $this->fakeAddressData();
 
-        $this->json('PUT', '/api/v1/addresses/'.$address->id, $editedAddress);
+        $this->response = $this->actingAs($this->user)
+            ->withSession(['test' => 'session'])
+            ->json('PUT', '/api/v1/addresses/' . $address->id, $editedAddress);
 
         $this->assertApiResponse($editedAddress);
     }
 
     /**
-     * @test
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testDeleteAddress()
     {
         $address = $this->makeAddress();
-        $this->json('DELETE', '/api/v1/addresses/'.$address->id);
+        $this->response = $this->actingAs($this->user)
+            ->withSession(['test' => 'session'])
+            ->json('DELETE', '/api/v1/addresses/' . $address->id);
 
         $this->assertApiSuccess();
-        $this->json('GET', '/api/v1/addresses/'.$address->id);
 
-        $this->assertResponseStatus(404);
+        $this->response = $this->actingAs($this->user)
+            ->withSession(['test' => 'session'])
+            ->json('GET', '/api/v1/addresses/' . $address->id);
+
+        $this->response->assertStatus(404);
     }
 }
