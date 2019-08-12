@@ -223,7 +223,7 @@
             </el-table-column>
             <el-table-column
                 :key="key"
-                width="110"
+                :width="110"
                 v-for="(column, key) in headerWithActions">
                 <template slot-scope="scope">
                     <span
@@ -237,6 +237,7 @@
                                 :type="action.type"
                                 @click="action.onClick(scope.row)"
                                 size="default"
+                                class="default"
                             >
                                 <template v-if="action.title == 'Edit'">
                                     <i class="ti-pencil"></i>
@@ -640,7 +641,6 @@
         &:before {
             display: none;
         }
-        
 
         :global(.el-table__body-wrapper) {
             box-shadow: 0 1px 3px transparentize(#000, .88),
@@ -666,7 +666,7 @@
             }
 
             :global(td) {
-                padding-left: 0px;
+                padding: 4px;
             }
         }
 

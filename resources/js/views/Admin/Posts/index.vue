@@ -109,7 +109,6 @@
                         //     hidden: this.checkPostType
                         // }, 
                         {
-                            type: 'success',
                             title: this.$t('models.post.edit'),
                             onClick: this.edit,
                             permissions: [

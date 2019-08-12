@@ -96,7 +96,6 @@
                         //     ]
                         // }, 
                         {
-                            type: 'success',
                             title: this.$t('models.product.edit'),
                             onClick: this.edit,
                             permissions: [

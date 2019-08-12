@@ -16,7 +16,7 @@
                 </router-link>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" class="text-center w100p" @click="submit">{{$t('general.login')}}</el-button>
+                <el-button type="primary" class="text-center w100p" @click="submit" ref="prev">{{$t('general.login')}}</el-button>
             </el-form-item>
         </el-form>
         <router-link :to="{name: 'activateAccount'}" class="el-menu-item-link">
@@ -97,6 +97,10 @@
         }
     }
     .el-menu-item-link {
+        position:absolute;
+        bottom:0;
+        margin-bottom: 5%;
+        width: calc(100% - 6em);
         .el-button {
             width: 100%;
         }

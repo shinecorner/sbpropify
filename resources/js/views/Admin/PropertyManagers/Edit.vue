@@ -35,11 +35,8 @@
                                         </el-form-item>
                                     </el-col>
                                     <el-col :md="12">
-
-                                        <el-form-item :label="$t('models.propertyManager.slogan')"
-                                                      :rules="validationRules.slogan"
-                                                      prop="slogan">
-                                            <el-input type="text" v-model="model.slogan"/>
+                                        <el-form-item :label="$t('models.propertyManager.phone')" prop="user.phone">
+                                            <el-input type="text" v-model="model.user.phone"/>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
@@ -47,15 +44,20 @@
 
                                 <el-row :gutter="20">
                                     <el-col :md="12">
-                                        <el-form-item :label="$t('models.propertyManager.phone')" prop="user.phone">
-                                            <el-input type="text" v-model="model.user.phone"/>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :md="12">
                                         <el-form-item :label="$t('models.propertyManager.email')"
                                                       :rules="validationRules.email"
                                                       prop="user.email">
                                             <el-input type="email" v-model="model.user.email"/>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+
+                                <el-row :gutter="20">
+                                    <el-col :md="24">
+                                        <el-form-item :label="$t('models.propertyManager.slogan')"
+                                                      :rules="validationRules.slogan"
+                                                      prop="slogan">
+                                            <el-input type="text" v-model="model.slogan"/>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
