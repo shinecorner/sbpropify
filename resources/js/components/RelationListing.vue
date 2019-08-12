@@ -3,13 +3,62 @@
         <el-table
             :data="list"
             style="width: 100%">
+
+            <el-table-column
+                    width="75"
+                    align="center"
+                    :key="tenantAvatar.prop"
+                    :label="tenantAvatar.label"
+                    v-for="tenantAvatar in tenantAvatars"
+            >
+                <template slot-scope="scope">
+                    <router-link :to="{name: 'adminTenantsEdit', params: {id: scope.row.tenant.id}}"
+                                 class="tenant-link">
+                        <el-tooltip
+                                :content="`${scope.row.tenant.first_name} ${scope.row.tenant.last_name}`"
+                                class="item"
+                                effect="light" placement="top"
+                        >
+                            <avatar :size="30"
+                                    :src="'/' + scope.row.tenant.user.avatar"
+                                    v-if="scope.row.tenant.user.avatar"></avatar>
+                            <avatar :size="28"
+                                    backgroundColor="rgb(205, 220, 57)"
+                                    color="#fff"
+                                    :username="scope.row.tenant.user.first_name ? `${scope.row.tenant.user.first_name} ${scope.row.tenant.user.last_name}`: `${scope.row.tenant.user.name}`"
+                                    v-if="!scope.row.tenant.user.avatar"></avatar>
+                        </el-tooltip>
+                    </router-link>
+                </template>
+            </el-table-column>
             <el-table-column
                 :key="column.prop"
                 :label="column.label"
                 :prop="column.prop"
                 v-for="column in columns"
-                v-if="!column.i18n"
+                v-if="!column.i18n && column.prop !== 'title'"
             >
+            </el-table-column>
+            <el-table-column
+                :key="column.prop"
+                :label="column.label"
+                v-for="column in columns"
+                v-if="!column.i18n && column.prop === 'title'"
+            >
+                <template slot-scope="scope">
+                    <div>{{scope.row.title}}</div>
+                    <div style="color: #909399;">{{scope.row.category.name}}</div>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    v-if="status.prop === 'status'"
+                    :key="status.prop"
+                    :label="status.label"
+                    v-for="status in statuses"
+            >
+                <template slot-scope="scope">
+                    {{$t(`models.request.status.${$constants.serviceRequests.status[scope.row.status]}`)}}
+                </template>
             </el-table-column>
             <el-table-column
                 :key="column.prop"
@@ -76,7 +125,12 @@
 </template>
 
 <script>
+    import {Avatar} from 'vue-avatar'
+
     export default {
+        components: {
+            Avatar,
+        },
         props: {
             filter: {
                 type: String,
@@ -91,6 +145,18 @@
                 required: true
             },
             columns: {
+                type: Array,
+                default() {
+                    return [];
+                }
+            },
+            statuses: {
+                type: Array,
+                default() {
+                    return [];
+                }
+            },
+            tenantAvatars: {
                 type: Array,
                 default() {
                     return [];
@@ -144,6 +210,10 @@
 </script>
 
 <style scoped>
+    .tenant-link {
+        display: inline-block;
+        text-decoration: none;
+    }
     .badge {
         color: #fff;
         display: flex;

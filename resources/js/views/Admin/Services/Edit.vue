@@ -167,6 +167,8 @@
                     <relation-list
                         :actions="requestActions"
                         :columns="requestColumns"
+                        :statuses="requestStatuses"
+                        :tenantAvatars="requestTenantAvatars"
                         :filterValue="model.id"
                         fetchAction="getRequests"
                         filter="service_id"
@@ -211,6 +213,14 @@
                 requestColumns: [{
                     prop: 'title',
                     label: this.$t('models.request.prop_title')
+                }],
+                requestStatuses: [{
+                    prop: 'status',
+                    label: this.$t('models.request.status.label')
+                }],
+                requestTenantAvatars: [{
+                    prop: 'avatar',
+                    label: this.$t('models.building.tenants')
                 }],
                 requestActions: [{
                     width: '90px',
