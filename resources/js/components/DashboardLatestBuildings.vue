@@ -2,7 +2,7 @@
     <div class="latest-buildings">
         <div class="link-container">
             <router-link :to="{name: 'adminBuildings'}">
-                <span class="title">{{ /*$t('dashboard.marketplace.go_to_buildings')*/'go to buildings' }} </span>
+                <span class="title">{{ $t('dashboard.buildings.go_to_buildings') }} </span>
                 <i class="icon-right icon"/>
             </router-link>
         </div>

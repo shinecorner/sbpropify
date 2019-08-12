@@ -1,8 +1,8 @@
 <template>
-    <div class="managers-list">
+    <div class="latest-news">
         <div class="link-container">
-            <router-link :to="{name: 'adminPropertyManagers'}">
-                <span class="title">{{ $t('dashboard.requests.go_to_property_managers') }} </span>
+            <router-link :to="{name: 'adminPosts'}">
+                <span class="title">{{ $t('dashboard.news.go_to_news') }} </span>
                 <i class="icon-right icon"/>
             </router-link>
         </div>
@@ -11,7 +11,6 @@
             :items="items"
             :loading="{state: loading}"
             @selectionChanged="selectionChanged"
-            :height="250"
         >
         </dashboard-list-table>
     </div>
@@ -36,44 +35,28 @@
         data() {
             return {
                 header: [{
-                    type: 'plain',
-                    label: this.$t('models.propertyManager.name'),
-                    prop: 'name',
-                    minWidth: '150px'
+                    type: 'news-title',
+                    label: this.$t('models.post.title'),
+                    props: ['content', 'image_url'],
+                    minWidth: '300px'
+                }, {
+                    type: 'tag',
+                    label: this.$t('models.post.status.label'),
+                    prop: 'status_label',
+                    classSuffix: 'status'
                 }, {
                     type: 'counts',
-                    minWidth: '150px',
-                    label: this.$t('models.propertyManager.requests'),
+                    label: this.$t('dashboard.news.counts'),
                     counts: [{
-                            prop: 'requests_received_count',
+                            prop: 'comments_count',
                             background: '#bbb',
                             color: '#fff',
-                            label: this.$t('models.building.requestStatuses.received')
+                            label: this.$t('models.post.comments')
                         }, {
-                            prop: 'requests_assigned_count',
+                            prop: 'likes_count',
                             background: '#ebb563',
                             color: '#fff',
-                            label: this.$t('models.building.requestStatuses.assigned')
-                        }, {
-                            prop: 'requests_in_processing_count',
-                            background: '#ebb563',
-                            color: '#fff',
-                            label: this.$t('models.building.requestStatuses.in_processing')
-                        }, {
-                            prop: 'requests_reactivated_count',
-                            background: '#ebb563',
-                            color: '#fff',
-                            label: this.$t('models.building.requestStatuses.reactivated')
-                        }, {
-                            prop: 'requests_done_count',
-                            background: '#67C23A',
-                            color: '#fff',
-                            label: this.$t('models.building.requestStatuses.done')
-                        }, {
-                            prop: 'requests_archived_count',
-                            background: '#67C23A',
-                            color: '#fff',
-                            label: this.$t('models.building.requestStatuses.archived')
+                            label: this.$t('models.post.likes')
                         }
                     ]
                 }, {
@@ -83,20 +66,27 @@
                     actions: [ 
                         {
                             type: 'success',
-                            title: this.$t('models.propertyManager.edit'),
+                            title: this.$t('models.product.edit'),
                             onClick: this.edit,
                             permissions: [
-                                this.$permissions.update.propertyManager
+                                this.$permissions.update.product
                             ]
                         }
                     ]
                 }],
+                product: {},
             };
+        },
+        computed: {
+            newsConstants() {
+                return this.$store.getters['application/constants'].posts;
+            },
+
         },
         methods: {
             edit({id}) {
                 this.$router.push({
-                    name: 'adminPropertyManagersEdit',
+                    name: 'adminPostsEdit',
                     params: {
                         id
                     }
@@ -104,11 +94,13 @@
             },
             fetchData() {
               let that = this;
-              let url = 'propertyManagers?req_count=true&get_all=true';
+              const url = 'posts?per_page=5';
+
               return axios.get(url)
               .then(function (response) {
-                const items = response.data.data.map(item => {
-                  item.name = item.first_name + ' ' + item.last_name;
+                const items = response.data.data.data.map(item => {
+                  item.status_label = that.$t(`models.post.status.${that.newsConstants.status[item.type]}`);
+                  item.image_url = item.media.length == 0 ? '' : item.media[0].url;
                   return item;
                 });
                 that.items = items;
@@ -124,7 +116,7 @@
 </script>
 
 <style lang="scss">
-    .managers-list {
+    .latest-news {
         position: relative;
 
         .link-container {
