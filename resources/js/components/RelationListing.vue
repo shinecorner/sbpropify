@@ -2,7 +2,8 @@
     <div class="listing" v-loading="loading">
         <el-table
             :data="list"
-            style="width: 100%">
+            style="width: 100%"
+            @row-click="editLink">
             <el-table-column
                 :key="column.prop"
                 :label="column.label"
@@ -130,6 +131,15 @@
             loadMore() {
                 if (this.meta.current_page < this.meta.last_page) {
                     this.fetch(this.meta.current_page + 1);
+                }
+            },
+            editLink(row) {
+                let id = row.id;
+                if(row.type == 'user') {
+                    this.$router.push({ name: 'adminPropertyManagersEdit', params: { id } });
+                }
+                else if(row.type == 'provider') {
+                    this.$router.push({ name: 'adminServicesEdit', params: { id } });
                 }
             }
         }
