@@ -2,9 +2,7 @@
     <div class="listing" v-loading="loading">
         <el-table
             :data="list"
-            style="width: 100%"
-            @row-click="editLink"
-            >
+            style="width: 100%">
             <el-table-column
                 :key="column.prop"
                 :label="column.label"
@@ -42,16 +40,9 @@
                         :style="button.style"
                         :type="button.type"
                         @click="button.onClick(scope.row)"
-                        size="default"
+                        size="mini"
                         v-for="button in action.buttons"
-                        v-if="!button.tooltipMode">
-                        <template v-if="button.title == 'Edit'">
-                            <i class="ti-pencil"></i>
-                            <span>&nbsp;{{button.title}}</span>    
-                        </template>
-                        <template v-else>
-                            {{button.title}}
-                        </template>
+                        v-if="!button.tooltipMode">{{button.title}}
                     </el-button>
                     <el-tooltip
                         :content="button.title"
@@ -72,7 +63,7 @@
             </el-table-column>
         </el-table>
         <div v-if="meta.current_page < meta.last_page">
-            <el-button @click="loadMore" size="mini" style="margin-top: 15px" type="text">{{$t('general.loadMore')}}</el-button>
+            <el-button @click="loadMore" size="mini" style="margin-top: 15px" type="text">{{$t('loadMore')}}</el-button>
         </div>
     </div>
 </template>
@@ -139,15 +130,6 @@
             loadMore() {
                 if (this.meta.current_page < this.meta.last_page) {
                     this.fetch(this.meta.current_page + 1);
-                }
-            },
-            editLink(row) {
-                let id = row.id;
-                if(row.type == "provider") {
-                    this.$router.push({ name: 'adminServicesEdit', params: { id } })
-                }
-                else if(row.type == "user") {
-                    this.$router.push({ name: 'adminPropertyManagersEdit', params: { id } })
                 }
             }
         }
