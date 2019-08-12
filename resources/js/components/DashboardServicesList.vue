@@ -84,7 +84,7 @@
                 }, {
                     type: 'actions',
                     label: this.$t('dashboard.actions'),
-                    width: 85,
+                    width: 100,
                     actions: [ 
                         {
                             type: 'success',

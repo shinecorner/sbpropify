@@ -155,9 +155,15 @@
                                 :style="action.style"
                                 :type="action.type"
                                 @click="action.onClick(scope.row)"
-                                size="mini"
+                                size="default"
                             >
-                                {{action.title}}
+                                <template v-if="action.title == 'Edit'">
+                                    <i class="ti-pencil"></i>
+                                    <span>&nbsp;{{action.title}}</span>    
+                                </template>
+                                <template v-else>
+                                    {{action.title}}
+                                </template>
                             </el-button>
                         </template>
                     </span>
@@ -496,8 +502,11 @@
             border: 1px solid #dcdfe6;
             background-color: #fff;
             min-width: 64px;
-            border-radius: 16px;
             text-align: center;
+            height: 25px; 
+            line-height: 25px; 
+            padding: 0px 7px;
+            border-radius: 3px;
 
             &.tag-1 {
                 color: #409eff;
