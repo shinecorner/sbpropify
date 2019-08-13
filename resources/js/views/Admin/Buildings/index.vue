@@ -2,18 +2,18 @@
     <div class="buildings">
         <heading :title="$t('models.building.title')" icon="icon-commerical-building" shadow="heavy">
             <template v-if="$can($permissions.create.building)">
-                <el-button @click="add" icon="ti-plus" round size="small" type="primary">{{$t('models.building.add')}}
+                <el-button @click="add" icon="ti-plus" round size="mini" type="primary">{{$t('models.building.add')}}
                 </el-button>
             </template>
             <template v-if="$can($permissions.assign.manager)">
                 <el-button :disabled="!selectedItems.length" @click="batchAssignManagers" icon="ti-user" round
-                           size="small"
+                           size="mini"
                            type="info">
                     {{$t('models.building.assign_managers')}}
                 </el-button>
             </template>
             <template v-if="$can($permissions.delete.building)">
-                <el-button :disabled="!selectedItems.length" @click="batchDeleteBuilding" icon="ti-trash" round size="small"
+                <el-button :disabled="!selectedItems.length" @click="batchDeleteBuilding" icon="ti-trash" round size="mini"
                            type="danger">
                     {{$t('models.building.delete')}}
                 </el-button>
@@ -133,18 +133,19 @@
                 }, {
                     label: this.$t('models.building.tenants'),
                     withUsers: true,
-                    count: 'tenants_count',
-                    width: '150px',
-                    prop: 'tenants_last'
+                    count: 'tenantscount',
+                    width: '250px',
+                    prop: 'tenants'
                 }, {
                     label: this.$t('models.building.managers'),
                     withUsers: true,
-                    width: '150px',
-                    prop: 'managers_last',
-                    count: 'property_managers_count'
+                    width: '450px',
+                    prop: 'managers',
+                    count: 'managerscount'
                 }, {
                     label: this.$t('models.building.requests'),
                     withCounts: true,
+                    width: '350px',
                     counts: [
                         {
                             prop: 'requests_count',
@@ -187,7 +188,6 @@
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        type: 'success',
                         title: this.$t('models.service.edit'),
                         onClick: this.edit,
                         permissions: [

@@ -36,7 +36,7 @@ return [
         'content' => [
           'withId' => [
             'post' => [
-              'created' => '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
+              'created' => '{userName} hat diesen Beitrag erstellt.',
               'updated' => [
                   'status' => 'Der Status wurde von "{old}" zu "{new}" geändert.',
                   'published_at' => 'Beitrag wurde veröffentlicht am {new}.'
@@ -59,7 +59,7 @@ return [
                 'media_deleted' => 'Mediendateien gelöscht',
               ],
               'request' => [
-                'created' => '{userName} opened this {auditable_type}.',
+                'created' => '{userName} hat diese Anfrage erstellt.',
                 'updated' => [
                   'title' => 'Der Titel wurde von "{old}" zu "{new}" geändert.',
                   'status' => 'Der Status wurde von "{old}" zu "{new}" geändert.',
@@ -69,22 +69,22 @@ return [
                   'qualification' => 'Die Qualifikation wurde von "{old}" zu "{new}" geändert.',
                   'visibility' => 'Die Sichtbarkeit wurde von "{old}" zu "{new}" geändert.',   
                 ],
-                'provider_assigned' => '{providerName} wurde als Dienstleistern zugewiesen.',
-                'user_assigned' => '{userName} wurde als zuständige Person zugewisen.',
+                'provider_assigned' => '{providerName} wurde als Dienstleister zugewiesen.',
+                'user_assigned' => '{userName} wurde als zuständige Person zugewiesen.',
                 'media_uploaded' => 'Mediendateien aktualisiert',
                 'media_deleted' => 'Mediendateien gelöscht',
               ]
           ],
           'withNoId' => [
             'post' => [
-              'created' => '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
+              'created' => '{userName} hat die Anfrage {auditable_type} on {auditable_type} #{auditable_id}.',
               'updated' => [
                   'status' => 'Der Status wurde von "{old}" zu "{new}" im {auditable_type} #{auditable_id} geändert.',
                   'published_at' => 'Post published on {new} on {auditable_type} #{auditable_id}.'
                 ]              
               ],
               'product' => [
-                'created' => '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
+                'created' => '{userName} hat dieses Inserat erstellt #{auditable_id}.',
                 'updated' => [
                   'title' => 'The title changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
                   'status' => 'The status changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
@@ -96,24 +96,24 @@ return [
                 ],
                 'provider_assigned' => '{providerName} has been assigned as provider on {auditable_type} #{auditable_id}.',
                 'user_assigned' => '{userName} has been assigned as manager on {auditable_type} #{auditable_id}.',
-                'media_uploaded' => 'Media uploaded on {auditable_type} #{auditable_id}.',
-                'media_deleted' => 'Media deleted on {auditable_type} #{auditable_id}.',
+                'media_uploaded' => 'Mediendateien aktualisiert',
+                'media_deleted' => 'Mediendateien gelöscht',
               ],
               'request' => [
-                'created' => '{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.',
+                'created' => '{userName} hat diese Anfrage erstellt.',
                 'updated' => [
-                  'title' => 'The title changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
-                  'status' => 'The status changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
-                  'due_date' => 'The due date changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
-                  'priority' => 'The priority changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
-                  'category_id' => 'The category changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
-                  'qualification' => 'The qualification changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
-                  'visibility' => 'The visibility changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',  
+                  'title' => 'Der Titel wurde von "{old}" zu "{new}" geändert.',
+                  'status' => 'Der Status wurde von "{old}" zu "{new}" geändert.',
+                  'due_date' => 'Das Erledigungsdatum wurde von "{old}" zu "{new}" geändert.',
+                  'priority' => 'Die Priorität wurde von "{old}" zu "{new}" geändert.',
+                  'category_id' => 'Die Kategorie wurde von "{old}" zu "{new}" geändert.',
+                  'qualification' => 'Die Qualifikation wurde von "{old}" zu "{new}" geändert.',
+                  'visibility' => 'Die Sichtbarkeit wurde von "{old}" zu "{new}" geändert.',  
                 ],
-                'provider_assigned' => '{providerName} has been assigned as provider on {auditable_type} #{auditable_id}.',
-                'user_assigned' => '{userName} has been assigned as manager on {auditable_type} #{auditable_id}.',
-                'media_uploaded' => 'Media uploaded on {auditable_type} #{auditable_id}.',
-                'media_deleted' => 'Media deleted on {auditable_type} #{auditable_id}.',
+                'provider_assigned' => '{providerName} wurde als Dienstleister zugewiesen.',
+                'user_assigned' => '{userName} wurde als zuständige Person zugewiesen.',
+                'media_uploaded' => 'Mediendateien aktualisiert',
+                'media_deleted' => 'Mediendateien gelöscht',
               ]
           ]
         ],
@@ -165,7 +165,7 @@ return [
         ],
         'dropActive' => 
         [
-          'title' => 'Schieben Sie die Datein hier hinein..',
+          'title' => 'Schieben Sie die Dateien hier hinein..',
           'description' => 'Nur die Dateien mit eines bestimmten Typs sind erlaubt...',
         ],
         'messages' => 
@@ -173,8 +173,8 @@ return [
           'preview' => 'Es kann keine Vorschau angezeigt werden.',
           'uploading' => 'Hinaufladen...',
           'uploaded' => 'Mediendateien wurden erfolgreich hochgeladen.',
-          'size' => 'Hoppla! Einige Dateien hatten die Größe grösser als die maximal zulässige Anzahl von {bytes}.',
-          'extensions' => 'Hoppla! Einige Datei-Typen wurde ausgewählt, die nicht erlaubt sind. Überspringen...',
+          'size' => 'Hoppla! Einige Dateien sind grösser als die maximal zulässige Anzahl von {bytes}.',
+          'extensions' => 'Hoppla! Einige Datei-Typen wurden ausgewählt, die nicht erlaubt sind. Überspringen...',
         ],
       ],
     ],

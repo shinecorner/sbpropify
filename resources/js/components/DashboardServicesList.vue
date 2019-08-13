@@ -1,8 +1,8 @@
 <template>
-    <div class="services-list">
+    <div class="services-list dashboard-table">
         <div class="link-container">
             <router-link :to="{name: 'adminServices'}">
-                <span class="title">{{ /*$t('dashboard.requests.go_to_managers')*/'go to service partners' }} </span>
+                <span class="title">{{ $t('dashboard.requests.go_to_service_partners') }} </span>
                 <i class="icon-right icon"/>
             </router-link>
         </div>
@@ -45,6 +45,11 @@
                     minWidth: '150px',
                     label: this.$t('models.service.requests'),
                     counts: [{
+                            prop: 'requests_count',
+                            background: '#aaa',
+                            color: '#fff',
+                            label: this.$t('models.building.requestStatuses.total')
+                        }, {
                             prop: 'requests_received_count',
                             background: '#bbb',
                             color: '#fff',
@@ -79,7 +84,7 @@
                 }, {
                     type: 'actions',
                     label: this.$t('dashboard.actions'),
-                    width: 85,
+                    width: 100,
                     actions: [ 
                         {
                             type: 'success',
@@ -104,10 +109,18 @@
             },
             fetchData() {
               let that = this;
-              let url = 'services?req_count=true';
+              let url = 'services?req_count=true&get_all=true';
               return axios.get(url)
               .then(function (response) {
-                that.items = response.data.data.data;
+                that.items = response.data.data.map((item) => {
+                    item.requests_count = item.requests_received_count
+                                        + item.requests_assigned_count
+                                        + item.requests_in_processing_count
+                                        + item.requests_reactivated_count
+                                        + item.requests_done_count
+                                        + item.requests_archived_count;
+                    return item;
+                });
               }).catch(function (error) {
                   console.log(error);
               })
@@ -118,27 +131,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .services-list {
-        position: relative;
-
-        .link-container {
-            position: absolute;
-            top: -58px;
-            right: 0px;
-            text-align: right;
-            padding: 20px 15px;
-            font-size: 16px;
-
-            a {
-                text-decoration: none;
-                color: #525252;
-
-                &:hover {
-                    color: #303133;
-                }
-            }
-        }
-    }
-</style>

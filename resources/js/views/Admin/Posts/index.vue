@@ -2,12 +2,12 @@
     <div class="posts">
         <heading :title="$t('models.post.title')" icon="icon-megaphone-1" shadow="heavy">
             <template v-if="$can($permissions.create.post)">
-                <el-button @click="add" icon="ti-plus" round size="small" type="primary">
+                <el-button @click="add" icon="ti-plus" round size="mini" type="primary">
                     {{$t('models.post.add')}}
                 </el-button>
             </template>
             <template v-if="$can($permissions.delete.post)">
-                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="small"
+                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="mini"
                            type="danger">
                     {{$t('models.post.delete')}}
                 </el-button>
@@ -109,7 +109,6 @@
                         //     hidden: this.checkPostType
                         // }, 
                         {
-                            type: 'success',
                             title: this.$t('models.post.edit'),
                             onClick: this.edit,
                             permissions: [

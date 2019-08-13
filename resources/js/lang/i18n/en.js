@@ -49,22 +49,40 @@ export default {
             "actions": "Actions",
             "requests": {
                 "requests_with_service_providers": "With service providers",
-                "request_wihout_service_providers": "Without service providers"
+                "request_wihout_service_providers": "Without service providers",
+                "property_managers": "Property managers",
+                "service_partners": "Service partners",
+                "go_to_property_managers": "go to property managers",
+                "go_to_service_partners": "go to service partners"
             },
             "buildings": {
                 "total_building": "Total Count",
                 "total_units": "Total Units",
                 "occupied_units": "Occupied Units",
                 "free_units": "Free Units",
-                "buildings_by_creation_date": "Buildings by creation date"
+                "buildings_by_creation_date": "Buildings by creation date",
+                "buildings_map": "Buildings map",
+                "latest_buildings": "Latest buildings",
+                "count_of_managers": "Count of managers",
+                "count_of_tenants": "Count of tenants",
+                "count_of_requests": "Count of requests",
+                "go_to_buildings": "go to buildings",
+                "buildings_by_state": "Buildings by state"
             },
             "tenants": {
                 "total_tenants": "Total Count",
                 "average_age": "Average Age",
-                "average_age_acr": "Avg. Age"
+                "average_age_acr": "Avg. Age",
+                "latest_tenants": "Latest tenants",
+                "go_to_tenants": "go to tenants"
             },
             "marketplace": {
                 "go_to_marketplace": "go to marketplace"
+            },
+            "news": {
+                "latest_news": "Latest news",
+                "go_to_news": "go to news",
+                "counts": "Counts"
             }
         },
         "passwords": {
@@ -320,7 +338,8 @@ export default {
         },
         "auth": {
             "failed": "These credentials do not match our records.",
-            "throttle": "Too many login attempts. Please try again in {seconds} seconds."
+            "throttle": "Too many login attempts. Please try again in {seconds} seconds.",
+            "login_welcome": "Welcome back, please login to your account."
         },
         "tenant": {
             "tenant_credentials": "Tenant credentials",
@@ -828,6 +847,7 @@ export default {
                 "tenant": "Tenant",
                 "empty_requests": "No requests",
                 "assigned_tenant": "Assigned tenant",
+                "assign": "Assign",
                 "tenant_assigned": "Tenant assigned",
                 "tenant_unassigned": "Tenant unassigned",
                 "type": {
@@ -911,7 +931,7 @@ export default {
                 "title_label": "Title",
                 "content": "Content",
                 "preview": "Preview",
-                "add": "Add",
+                "add": "Add Post",
                 "add_pinned": "Add pinned post",
                 "save": "Save",
                 "saved": "News saved",
@@ -972,6 +992,7 @@ export default {
                     "building": "Building",
                     "district": "District"
                 },
+                "assignment": "Assignment",
                 "assignType": "Type",
                 "unassign": "Unassign",
                 "assign": "Assign",

@@ -2,10 +2,10 @@
     <div class="services">
         <heading icon="icon-user" :title="$t('pages.user.title')" shadow="heavy">
             <template v-if="$can($permissions.create.user)">
-                <el-button @click="add" icon="ti-plus" round size="small" type="primary">{{$t('general.actions.add')}}</el-button>
+                <el-button @click="add" icon="ti-plus" round size="mini" type="primary">{{$t('general.actions.add')}}</el-button>
             </template>
             <template v-if="$can($permissions.delete.user)">
-                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="small"
+                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="mini"
                            type="danger">
                     {{$t('models.user.delete')}}
                 </el-button>
@@ -62,7 +62,6 @@
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        type: 'success',
                         title: this.$t('models.user.edit_action'),
                         onClick: this.edit,
                         permissions: [

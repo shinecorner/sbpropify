@@ -208,36 +208,14 @@
                         />
                     </el-tab-pane>
                     <el-tab-pane :label="$t('models.building.managers')" name="managers">
-                        <el-row :gutter="20">
-                            <el-col :md="18">
-                                <el-select
-                                    :loading="remoteLoading"
-                                    :placeholder="$t('models.propertyManager.placeholders.search')"
-                                    :remote-method="remoteSearchManagers"
-                                    class="custom-remote-select"
-                                    filterable
-                                    multiple
-                                    remote
-                                    reserve-keyword
-                                    style="width: 100%;"
-                                    v-model="toAssign"
-                                >
-                                    <div class="custom-prefix-wrapper" slot="prefix">
-                                        <i class="el-icon-search custom-icon"></i>
-                                    </div>
-                                    <el-option
-                                        :key="manager.id"
-                                        :label="`${manager.first_name} ${manager.last_name}`"
-                                        :value="manager.id"
-                                        v-for="manager in toAssignList"/>
-                                </el-select>
-                            </el-col>
-                            <el-col :md="6">
-                                <el-button @click="assignManagers" type="primary" class="btn-assign">
-                                    <i class="ti-save"></i> {{$t('models.building.assign')}}
-                                </el-button>
-                            </el-col>
-                        </el-row>
+                        <assignment
+                            :toAssign.sync="toAssign"
+                            :assign="assignManagers"
+                            :toAssignList="toAssignList"
+                            :remoteLoading="remoteLoading"
+                            :remoteSearch="remoteSearchManagers"
+                            :multiple="multiple"
+                        />
                         <relation-list
                             :actions="managerActions"
                             :columns="managerColumns"
@@ -290,6 +268,7 @@
     import RelationList from 'components/RelationListing';    
     import globalFunction from "helpers/globalFunction";
     import DeleteBuildingModal from 'components/DeleteBuildingModal';
+    import Assignment from 'components/Assignment';
 
     export default {
         mixins: [globalFunction, BuildingsMixin({
@@ -304,7 +283,8 @@
             UploadDocument,
             draggable,
             RelationList,
-            DeleteBuildingModal            
+            DeleteBuildingModal,
+            Assignment       
         },
         data() {
             return {
@@ -323,8 +303,8 @@
                 tenantActions: [{
                     width: '90px',
                     buttons: [{
+                        icon: 'ti-pencil',
                         title: this.$t('models.tenant.edit'),
-                        type: 'primary',
                         onClick: this.tenantEditView
                     }]
                 }],
@@ -360,15 +340,16 @@
                 requestActions: [{
                     width: '180px',
                     buttons: [{
+                        icon: 'ti-pencil',
                         title: this.$t('models.request.edit'),
-                        type: 'primary',
                         onClick: this.requestEditView
                     }]
                 }],
-                toAssignList: '',
-                toAssign: [],
+                toAssignList: [],
+                toAssign: '',
                 remoteLoading: false,
                 deleteBuildingVisible: false,
+                multiple: true,
                 delBuildingStatus: -1, // 0: unit, 1: request, 2: both
             };
         },
@@ -502,6 +483,9 @@
             },
 
             async assignManagers() {
+                if (!this.toAssign || !this.model.id) {
+                    return false;
+                }
                 try {
                     const resp = await this.batchAssignUsersToBuilding({
                         id: this.model.id,
@@ -546,7 +530,7 @@
                 this.toAssignList = [];
                 this.toAssign = [];
             },
-             async batchDeleteBuilding() {
+            async batchDeleteBuilding() {
                 try {              
                     const resp = await this.checkUnitRequestWidthIds({ids:[this.model.id]});                    
                     this.delBuildingStatus = resp.data;

@@ -5,7 +5,7 @@
             <!--{{$t('models.product.add')}}-->
             <!--</el-button>-->
             <template v-if="$can($permissions.delete.product)">
-                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="small"
+                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="mini"
                            type="danger">
                     {{$t('models.product.delete_action')}}
                 </el-button>
@@ -96,7 +96,6 @@
                         //     ]
                         // }, 
                         {
-                            type: 'success',
                             title: this.$t('models.product.edit'),
                             onClick: this.edit,
                             permissions: [

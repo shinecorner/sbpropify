@@ -162,6 +162,11 @@ export default {
                 url = 'admin/chartRequestByAssignedProvider';
                 langPrefix = 'dashboard.requests.';
             }
+            else if(this.type === 'buildings_by_state'){
+                this.chartType = 'pie';
+                url = 'admin/pieChartBuildingByState';
+                langPrefix = '';
+            }
             else if (this.type === 'news_by_status') {
                 this.chartType = 'donut';
                 url = 'admin/donutChart?table=posts&column=status';

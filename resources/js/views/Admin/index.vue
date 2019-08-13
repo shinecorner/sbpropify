@@ -60,13 +60,15 @@
                             </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
-                            <el-col :span="12">
-                                <el-card class="chart-card" :header="/*$t('dashboard.requests.property_managers')*/'Property managers'">
+                            <el-col :span="16">
+                                <el-card class="chart-card" :header="$t('dashboard.requests.property_managers')">
                                     <dashboard-managers-list type="property-managers"></dashboard-managers-list>
                                 </el-card>
                             </el-col>
-                            <el-col :span="12">
-                                <el-card class="chart-card" :header="/*$t('dashboard.requests.service_partners')*/'Service partners'">
+                        </el-row>
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="16">
+                                <el-card class="chart-card" :header="$t('dashboard.requests.service_partners')">
                                     <dashboard-services-list type="service-partners"></dashboard-services-list>
                                 </el-card>
                             </el-col>
@@ -87,15 +89,20 @@
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
-                                <el-card class="chart-card" :header="/*$t('dashboard.buildings.buildings_map')*/'Buildings map'">
+                                <el-card class="chart-card" :header="$t('dashboard.buildings.buildings_map')">
                                     <dashboard-google-map type="buildings"></dashboard-google-map>
                                 </el-card>
                             </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
-                            <el-col :span="12">
-                                <el-card class="chart-card" :header="/*$t('dashboard.buildings.latest_buildings')*/'Latest buildings'">
+                            <el-col :span="16">
+                                <el-card class="chart-card" :header="$t('dashboard.buildings.latest_buildings')">
                                     <dashboard-latest-buildings type="buildings"></dashboard-latest-buildings>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.buildings.buildings_by_state')">
+                                    <chart-pie-and-donut type="buildings_by_state" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -120,6 +127,13 @@
                                 </el-card>
                             </el-col>
                         </el-row>
+                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+                            <el-col :span="16">
+                                <el-card class="chart-card" :header="$t('dashboard.news.latest_news')">
+                                    <dashboard-latest-news type="latest_news"></dashboard-latest-news>
+                                </el-card>
+                            </el-col>
+                        </el-row>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.marketplace')" name="marketplace">
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
@@ -137,7 +151,7 @@
                             </el-col>
                             <el-col :span="16">
                                 <el-card class="chart-card" :header="$t('dashboard.latest_products')">
-                                    <dashboard-latest-products type="latest_products"></dashboard-latest-products>
+                                    <dashboard-latest-products type="latest_products" :defaultImg="defaultImg"></dashboard-latest-products>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -172,6 +186,13 @@
                                 </el-card>
                             </el-col>
                         </el-row>
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="16">
+                                <el-card class="chart-card" :header="$t('dashboard.tenants.latest_tenants')">
+                                    <dashboard-latest-tenants type="tenants"></dashboard-latest-tenants>
+                                </el-card>
+                            </el-col>
+                        </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_title')">
@@ -189,13 +210,7 @@
                                 </el-card>
                             </el-col>
                         </el-row>
-                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
-                            <el-col :span="12">
-                                <el-card class="chart-card" :header="/*$t('dashboard.tenants.latest_tenants')*/'Latest tenants'">
-                                    <dashboard-latest-tenants type="tenants"></dashboard-latest-tenants>
-                                </el-card>
-                            </el-col>
-                        </el-row>
+                     
                     </el-tab-pane>
                 </el-tabs>
             </el-col>
@@ -204,6 +219,8 @@
 </template>
 
 <script>
+    import defaultImg from '../../../img/latest-product-default.png';
+
     import axios from '@/axios';
     import DashboardStatisticsCard from 'components/DashboardStatisticsCard';
     import ChartStackedColumn from 'components/ChartStackedColumn';
@@ -227,6 +244,7 @@
     import DashboardLatestTenants from 'components/DashboardLatestTenants';
     import DashboardManagersList from 'components/DashboardManagersList';
     import DashboardServicesList from 'components/DashboardServicesList';
+    import DashboardLatestNews from 'components/DashboardLatestNews';
 
     export default {
         name: 'AdminDashboard',
@@ -249,7 +267,8 @@
             DashboardLatestBuildings,
             DashboardLatestTenants,
             DashboardManagersList,
-            DashboardServicesList
+            DashboardServicesList,
+            DashboardLatestNews
         },
         data() {
             return {
@@ -305,7 +324,8 @@
                     posts: '',
                     products: '',
                     tenants: ''
-                }
+                },
+                defaultImg: defaultImg
             }
         },
         computed: {
@@ -437,13 +457,34 @@
     }
     .chart-card{
         //height: 420px;
-        height: 100%;
 
         overflow: visible;
 
         .el-card__header {
             padding: 15px;
-            font-size: 16px;
+            font-size: 15px;
+        }
+
+        .dashboard-table {
+            position: relative;
+
+            .link-container {
+                position: absolute;
+                top: -55px;
+                right: 0px;
+                text-align: right;
+                padding: 20px 15px;
+                font-size: 14px;
+
+                a {
+                    text-decoration: none;
+                    color: #525252;
+
+                    &:hover {
+                        color: #303133;
+                    }
+                }
+            }
         }
 
         .chart-filter {

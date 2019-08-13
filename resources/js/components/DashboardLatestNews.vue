@@ -1,8 +1,8 @@
 <template>
-    <div class="latest-tenants dashboard-table">
+    <div class="latest-news dashboard-table">
         <div class="link-container">
-            <router-link :to="{name: 'adminTenants'}">
-                <span class="title">{{ $t('dashboard.tenants.go_to_tenants') }} </span>
+            <router-link :to="{name: 'adminPosts'}">
+                <span class="title">{{ $t('dashboard.news.go_to_news') }} </span>
                 <i class="icon-right icon"/>
             </router-link>
         </div>
@@ -35,19 +35,30 @@
         data() {
             return {
                 header: [{
-                    type: 'plain',
-                    label: this.$t('models.tenant.name'),
-                    prop: 'name',
-                    minWidth: '100px'
+                    type: 'news-title',
+                    label: this.$t('models.post.title'),
+                    props: ['content', 'image_url'],
+                    minWidth: '300px'
                 }, {
-                    type: 'plain',
-                    label: this.$t('models.address.name'),
-                    prop: 'address'
-                },{
                     type: 'tag',
-                    label: this.$t('models.tenant.status.label'),
+                    label: this.$t('models.post.status.label'),
                     prop: 'status_label',
-                    classSuffix: 'status_class_suffix'
+                    classSuffix: 'status'
+                }, {
+                    type: 'counts',
+                    label: this.$t('dashboard.news.counts'),
+                    counts: [{
+                            prop: 'comments_count',
+                            background: '#bbb',
+                            color: '#fff',
+                            label: this.$t('models.post.comments')
+                        }, {
+                            prop: 'likes_count',
+                            background: '#ebb563',
+                            color: '#fff',
+                            label: this.$t('models.post.likes')
+                        }
+                    ]
                 }, {
                     type: 'actions',
                     label: this.$t('dashboard.actions'),
@@ -55,25 +66,27 @@
                     actions: [ 
                         {
                             type: 'success',
-                            title: this.$t('models.tenant.edit'),
+                            title: this.$t('models.product.edit'),
                             onClick: this.edit,
                             permissions: [
-                                this.$permissions.update.tenant
+                                this.$permissions.update.product
                             ]
                         }
                     ]
                 }],
+                product: {},
             };
         },
         computed: {
-            tenantConstants() {
-                return this.$store.getters['application/constants'].tenants;
+            newsConstants() {
+                return this.$store.getters['application/constants'].posts;
             },
+
         },
         methods: {
             edit({id}) {
                 this.$router.push({
-                    name: 'adminTenantsEdit',
+                    name: 'adminPostsEdit',
                     params: {
                         id
                     }
@@ -81,14 +94,13 @@
             },
             fetchData() {
               let that = this;
-              let url = 'tenants/latest';
+              const url = 'posts?per_page=5';
+
               return axios.get(url)
               .then(function (response) {
-                const items = response.data.data.map(item => {
-                  item.status_label = that.$t(`models.tenant.status.${that.tenantConstants.status[item.status]}`);
-                  item.name = item.first_name + ' ' + item.last_name;
-                  item.address = item.city;
-                  item.status_class_suffix = that.tenantConstants.status[item.status];
+                const items = response.data.data.data.map(item => {
+                  item.status_label = that.$t(`models.post.status.${that.newsConstants.status[item.type]}`);
+                  item.image_url = item.media.length == 0 ? '' : item.media[0].url;
                   return item;
                 });
                 that.items = items;

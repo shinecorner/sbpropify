@@ -36,7 +36,7 @@ export default {
             "products_by_creation_date": "Marktplatz-Produkte nach Erstellungsdatum",
             "products_by_type": "Marktplatz-Produkte nach Typ",
             "tenants_by_creation_date": "Mieter nach Erstellungsdatum",
-            "tenants_by_request_status": "Mieter nach Anforderungsstatus",
+            "tenants_by_request_status": "Mieter nach Anfrage-Status",
             "tenants_by_status": "Mieter nach Status",
             "tenants_by_language": "Mieter Sprache",
             "tenants_by_title": "Anrede",
@@ -44,7 +44,7 @@ export default {
             "tenants_by_gender": "Demografische Merkmale",
             "actions": "Aktionen",
             "requests": {
-                "requests_with_service_providers": "Mit Dienstleistern",
+                "requests_with_service_providers": "Mit Dienstleister",
                 "request_wihout_service_providers": "Ohne Dienstleister"
             },
             "buildings": {
@@ -52,7 +52,7 @@ export default {
                 "total_units": "Anzahl Enheiten",
                 "occupied_units": "Vermiete Einheiten",
                 "free_units": "Freie Einheiten",
-                "buildings_by_creation_date": "Gebäude nach Erstellungsdatum"
+                "buildings_by_creation_date": "Liegenschaften nach Erstellungsdatum"
             },
             "tenants": {
                 "total_tenants": "Total Mieter",
@@ -252,18 +252,18 @@ export default {
             "company": "Firma",
             "request_status_1": "Erhalten",
             "request_status_2": "In Bearbeitung",
-            "request_status_3": "Avisiert",
+            "request_status_3": "Anvisiert",
             "request_status_4": "Erledigt",
             "request_status_5": "Reaktiviert",
             "request_status_6": "Archiviert",
             "originalRequest_status_1": "Erhalten",
             "originalRequest_status_2": "In Bearbeitung",
-            "originalRequest_status_3": "Avisiert",
+            "originalRequest_status_3": "Anvisiert",
             "originalRequest_status_4": "Erledigt",
             "originalRequest_status_5": "Reaktiviert",
             "originalRequest_status_6": "Archiviert",
-            "email_footer_message1": "Diese automatisierte Nachricht wurde für {UserName} erstellt.",
-            "email_footer_message2": "Sie erhalten Sie Mitteilung, da Sie Nutzer von {CompanyName} sind.",
+            "email_footer_message1": "Sie erhalten Sie Mitteilung, weil Sie Nutzer vom Mieterportal der {CompanyName} sind.",
+            "email_footer_message2": "...",
             "email_link_contacts": "Kontakt",
             "email_link_terms_of_use": "Nutzungsbedingungen",
             "email_link_data_protection": "Datenschutz"
@@ -316,7 +316,7 @@ export default {
                 "title": "Benutzer"
             },
             "request_activities": {
-                "title": "Aktivit ten Tracking"
+                "title": "Aktivitäten Tracking"
             },
             "tenant": {
                 "title": "Mieter"
@@ -357,7 +357,7 @@ export default {
                     "content": {
                         "withId": {
                             "post": {
-                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
+                                "created": "{userName} hat diesen Beitrag erstellt.",
                                 "updated": {
                                     "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
                                     "published_at": "Beitrag wurde veröffentlicht am {new}."
@@ -380,7 +380,7 @@ export default {
                                 "media_deleted": "Mediendateien gelöscht"
                             },
                             "request": {
-                                "created": "{userName} opened this {auditable_type}.",
+                                "created": "{userName} hat diese Anfrage erstellt.",
                                 "updated": {
                                     "title": "Der Titel wurde von \"{old}\" zu \"{new}\" geändert.",
                                     "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
@@ -390,22 +390,22 @@ export default {
                                     "qualification": "Die Qualifikation wurde von \"{old}\" zu \"{new}\" geändert.",
                                     "visibility": "Die Sichtbarkeit wurde von \"{old}\" zu \"{new}\" geändert."
                                 },
-                                "provider_assigned": "{providerName} wurde als Dienstleistern zugewiesen.",
-                                "user_assigned": "{userName} wurde als zuständige Person zugewisen.",
+                                "provider_assigned": "{providerName} wurde als Dienstleister zugewiesen.",
+                                "user_assigned": "{userName} wurde als zuständige Person zugewiesen.",
                                 "media_uploaded": "Mediendateien aktualisiert",
                                 "media_deleted": "Mediendateien gelöscht"
                             }
                         },
                         "withNoId": {
                             "post": {
-                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
+                                "created": "{userName} hat die Anfrage {auditable_type} on {auditable_type} #{auditable_id}.",
                                 "updated": {
                                     "status": "Der Status wurde von \"{old}\" zu \"{new}\" im {auditable_type} #{auditable_id} geändert.",
                                     "published_at": "Post published on {new} on {auditable_type} #{auditable_id}."
                                 }
                             },
                             "product": {
-                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
+                                "created": "{userName} hat dieses Inserat erstellt #{auditable_id}.",
                                 "updated": {
                                     "title": "The title changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
                                     "status": "The status changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
@@ -417,24 +417,24 @@ export default {
                                 },
                                 "provider_assigned": "{providerName} has been assigned as provider on {auditable_type} #{auditable_id}.",
                                 "user_assigned": "{userName} has been assigned as manager on {auditable_type} #{auditable_id}.",
-                                "media_uploaded": "Media uploaded on {auditable_type} #{auditable_id}.",
-                                "media_deleted": "Media deleted on {auditable_type} #{auditable_id}."
+                                "media_uploaded": "Mediendateien aktualisiert",
+                                "media_deleted": "Mediendateien gelöscht"
                             },
                             "request": {
-                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
+                                "created": "{userName} hat diese Anfrage erstellt.",
                                 "updated": {
-                                    "title": "The title changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "status": "The status changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "due_date": "The due date changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "priority": "The priority changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "category_id": "The category changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}."
+                                    "title": "Der Titel wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "due_date": "Das Erledigungsdatum wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "priority": "Die Priorität wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "category_id": "Die Kategorie wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "qualification": "Die Qualifikation wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "visibility": "Die Sichtbarkeit wurde von \"{old}\" zu \"{new}\" geändert."
                                 },
-                                "provider_assigned": "{providerName} has been assigned as provider on {auditable_type} #{auditable_id}.",
-                                "user_assigned": "{userName} has been assigned as manager on {auditable_type} #{auditable_id}.",
-                                "media_uploaded": "Media uploaded on {auditable_type} #{auditable_id}.",
-                                "media_deleted": "Media deleted on {auditable_type} #{auditable_id}."
+                                "provider_assigned": "{providerName} wurde als Dienstleister zugewiesen.",
+                                "user_assigned": "{userName} wurde als zuständige Person zugewiesen.",
+                                "media_uploaded": "Mediendateien aktualisiert",
+                                "media_deleted": "Mediendateien gelöscht"
                             }
                         }
                     }
@@ -476,15 +476,15 @@ export default {
                         "upload": "Hinauflauden"
                     },
                     "dropActive": {
-                        "title": "Schieben Sie die Datein hier hinein..",
+                        "title": "Schieben Sie die Dateien hier hinein..",
                         "description": "Nur die Dateien mit eines bestimmten Typs sind erlaubt..."
                     },
                     "messages": {
                         "preview": "Es kann keine Vorschau angezeigt werden.",
                         "uploading": "Hinaufladen...",
                         "uploaded": "Mediendateien wurden erfolgreich hochgeladen.",
-                        "size": "Hoppla! Einige Dateien hatten die Größe grösser als die maximal zulässige Anzahl von {bytes}.",
-                        "extensions": "Hoppla! Einige Datei-Typen wurde ausgewählt, die nicht erlaubt sind. Überspringen..."
+                        "size": "Hoppla! Einige Dateien sind grösser als die maximal zulässige Anzahl von {bytes}.",
+                        "extensions": "Hoppla! Einige Datei-Typen wurden ausgewählt, die nicht erlaubt sind. Überspringen..."
                     }
                 }
             },
@@ -542,11 +542,11 @@ export default {
                 "logo_uploaded": "Logo aktualisiert",
                 "logo": "Firmenlogo",
                 "address": "Adresse",
-                "blank_pdf": "Leeres PDF Template verwenden",
+                "blank_pdf": "PDF ohne Briefkopf verwenden",
                 "notificationSaved": "Benachrichtigungseinstellung gespeichert",
-                "realEstateSaved": "Einstellung gespeichert",
-                "serviceRequestCategorySaved": "Kategorie der Serviceanfrage gespeichert",
-                "serviceRequestCategoryDeleted": "Serviceanforderungskategorie gelöscht",
+                "realEstateSaved": "Einstellungen gespeichert.",
+                "serviceRequestCategorySaved": "Anfrage-Kategorie gespeichert",
+                "serviceRequestCategoryDeleted": "Anfrage-Kategorie gelöscht",
                 "validation": {
                     "name": {
                         "required": "Name ist obligatorisch"
@@ -594,7 +594,7 @@ export default {
                 "products": "Marktplatz",
                 "requests": "Anfragen",
                 "company": "Firmenname",
-                "no_building": "Keiner Liegenschaft zugewiesen.",
+                "no_building": "Zu keiner Liegenschaft zugewiesen.",
                 "media": {
                     "deleted": "Dokument/Foto gelöscht",
                     "uploaded": "Dokument/Foto hochgeladen"
@@ -693,7 +693,7 @@ export default {
                 "address_search": "Bitte Adresse eingeben",
                 "not_found": "Liegenschaft nicht gefunden",
                 "house_rules": "Hausordnung",
-                "operating_instructions": "Nenutzungsanleitungen",
+                "operating_instructions": "Benutzungsanleitungen",
                 "other": "Sonstiges",
                 "files": "Dokumente",
                 "add_files": "Dokumente hinzufügen",
@@ -922,9 +922,9 @@ export default {
                 },
                 "visibility": {
                     "label": "Sichtbarkeit",
-                    "address": "Liegenschaft",
+                    "address": "Nachbarn",
                     "district": "Überbauung",
-                    "all": "Alle"
+                    "all": "Alle App-Nutzer"
                 },
                 "confirmChange": {
                     "title": "Wollen Sie wirklich weiterfahren?",
@@ -1000,7 +1000,7 @@ export default {
                 "unassign": "Entfernen",
                 "assign": "Zuweisen",
                 "attached": {
-                    "building": "Liegenschaft wurde verlinkt",
+                    "building": "Liegenschaft wurde zugewiesen",
                     "district": "Überbauung wurde entfernt"
                 },
                 "detached": {
@@ -1044,13 +1044,13 @@ export default {
                 "news_approval_enable": "Pinnwand-Beiträge zuerst prüfen",
                 "comment_update_timeout": "Comment update timeout",
                 "closed": "Geschlossen",
-                "saved": "Eingesparte Immobilien",
+                "saved": "Gespeichert",
                 "schedule": "Terminplanung",
                 "endTime": "Ende",
                 "startTime": "Start",
                 "to": "An",
                 "categories": "Kategorien",
-                "contact_enable": "Meine Kontakte aktivieren",
+                "contact_enable": "Dienstleister-Kontakte für Mieter aktivieren",
                 "templates": "Vorlagen",
                 "cleanify_email": "Cleanify email",
                 "mail_encryption": "Verschlüsselung",
@@ -1066,11 +1066,11 @@ export default {
                 }
             },
             "request": {
-                "audits": "Hystorx",
+                "audits": "History",
                 "edit": "Öffnen",
                 "delete": "Löschen",
                 "deleted": "Anfrage gelöscht",
-                "title": "Anfragen",
+                "title": "Übersicht Mieter-Anfragen",
                 "created": "Erstellt",
                 "saved": "Anfrage gespeichert",
                 "prop_title": "Titel",
@@ -1127,7 +1127,7 @@ export default {
                 },
                 "qualification": {
                     "label": "Qualifikation",
-                    "none": "Nicht gewählt",
+                    "none": "Keine",
                     "optical": "Optisch",
                     "sia": "SIA",
                     "2_year_warranty": "2-Jahresgarantie",
@@ -1156,7 +1156,7 @@ export default {
                 "placeholders": {
                     "category": "Kategorie wählen",
                     "priority": "Priorität wählen",
-                    "defect_location": "Bitte Örtlichkeite wählen",
+                    "defect_location": "Bitte die Örtlichkeit angeben",
                     "qualification": "Qualifikation wählen",
                     "status": "Status wählen",
                     "due_date": "Zu erledigen bis",
@@ -1199,14 +1199,14 @@ export default {
                     "fail_cc": "CC/BCC/TO müssen korrekte Email Adressen enthalten."
                 },
                 "attached": {
-                    "services": "Dienstleister wurde hinzugefügt.",
-                    "managers": "Bewirtschafter wurde hinzugefügt.",
-                    "user": "Benutzer erfolgreich zugeordnet"
+                    "services": "Dienstleister wurde zugewiesen.",
+                    "managers": "Bewirtschafter wurde zugewiesen.",
+                    "user": "Benutzer erfolgreich zugewiesen"
                 },
                 "detached": {
                     "service": "Dienstleister wurde entfernt.",
                     "manager": "Bewirtschafter wurde entfernt.",
-                    "user": "Benutzer erfolgreich nicht zugeordnet"
+                    "user": "Benutzer wurde entfernt."
                 },
                 "userType": {
                     "label": "Typ",
@@ -1220,7 +1220,7 @@ export default {
                     "building": "Liegenschaft"
                 },
                 "requestID": "Anfrage-ID",
-                "requestCategory": "Anfrage Kategorie "
+                "requestCategory": "Anfrage-Kategorie "
             },
             "requestCategory": {
                 "title": "Anfrage Kategorien",

@@ -35,13 +35,23 @@
                     </div>
 
                     <div v-if="column.type == 'product-details'" class="product-details">
-                        <div class="image" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
+                        <div class="image" v-if="scope.row['image_url']" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
+                        <div class="image" v-else :style="{backgroundImage: `url(${defaultImg})`}"></div>
                         <div class="text">
                             <div class="title">
                                 {{ scope.row['title'] }}
                             </div>
                             <div class="date">
                                 {{ scope.row['created_at'] }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-if="column.type == 'news-title'" class="product-details">
+                        <div class="image" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
+                        <div class="text">
+                            <div class="title">
+                                {{ scope.row['content'] }}
                             </div>
                         </div>
                     </div>
@@ -110,7 +120,7 @@
                     <el-tag
                         v-if="column.type == 'tag'"
                         :class="`tag-${scope.row[column.classSuffix]}`"
-                        :size="column.size"
+                        :size="column.size" class="btn-priority-badge"
                     >
                         {{ scope.row[column.prop] }}
                     </el-tag>
@@ -145,9 +155,15 @@
                                 :style="action.style"
                                 :type="action.type"
                                 @click="action.onClick(scope.row)"
-                                size="mini"
+                                size="default"
                             >
-                                {{action.title}}
+                                <template v-if="action.title == 'Edit'">
+                                    <i class="ti-pencil"></i>
+                                    <span>&nbsp;{{action.title}}</span>    
+                                </template>
+                                <template v-else>
+                                    {{action.title}}
+                                </template>
                             </el-button>
                         </template>
                     </span>
@@ -191,6 +207,9 @@
                 })
             },
             height: {
+                default: () => (undefined)
+            },
+            defaultImg: {
                 default: () => (undefined)
             }
         },
@@ -482,8 +501,6 @@
             color: #606266;
             border: 1px solid #dcdfe6;
             background-color: #fff;
-            min-width: 64px;
-            border-radius: 16px;
             text-align: center;
 
             &.tag-1 {

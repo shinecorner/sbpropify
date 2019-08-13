@@ -5,7 +5,7 @@
                 <el-form-item>
                     <el-button
                             @click="downloadCredentials"
-                            size="small"
+                            size="mini"
                             type="primary"
                             round
                     >
@@ -13,7 +13,7 @@
                     </el-button>
                     <el-button
                             @click="sendCredentials"
-                            size="small"
+                            size="mini"
                             type="primary"
                             round
                     >
@@ -23,7 +23,7 @@
                             @click="edit"
                             icon="ti-pencil"
                             round
-                            size="small"
+                            size="mini"
                             type="primary"
                     ><span>&nbsp;</span>{{$t('models.tenant.edit')}}
                     </el-button>

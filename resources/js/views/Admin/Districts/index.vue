@@ -2,12 +2,12 @@
     <div class="districts">
         <heading :title="$t('models.district.title')" icon="icon-share" shadow="heavy">
             <template v-if="$can($permissions.create.district)">
-                <el-button @click="add" icon="ti-plus" round size="small" type="primary">
+                <el-button @click="add" icon="ti-plus" round size="mini" type="primary">
                     {{$t('models.district.add')}}
                 </el-button>
             </template>
             <template v-if="$can($permissions.delete.district)">
-                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="small"
+                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="mini"
                            type="danger">
                     {{$t('models.district.delete')}}
                 </el-button>
@@ -60,7 +60,6 @@
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        type: 'success',
                         title: this.$t('models.district.edit_action'),
                         onClick: this.edit,
                         permissions: [

@@ -45,7 +45,7 @@
                                             :key="tenant.id"
                                             :label="tenant.name"
                                             :value="tenant.id"
-                                            v-for="tenant in tenants"/>
+                                            v-for="tenant in toAssignList"/>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
@@ -121,9 +121,9 @@
             </el-col>
             <el-col :md="12">
                 <card :loading="loading">
-                    <div slot="header">
-                        <span>{{$t('models.unit.requests')}}</span>
-                    </div>
+                    <el-divider class="column-divider" content-position="left">
+                        {{$t('models.unit.requests')}}
+                    </el-divider>
                     <relation-list
                         :actions="requestActions"
                         :columns="requestColumns"
@@ -136,39 +136,17 @@
             </el-col>
             <el-col :md="12">
                 <card class="mt15" :loading="loading">
-                    <div slot="header">
-                        <span>Tenants</span>
-                    </div>
-                    <el-row :gutter="20">
-                        <el-col :lg="20" :xl="20">
-                            <el-select
-                                :loading="remoteLoading"
-                                :placeholder="$t('models.tenant.search')"
-                                :remote-method="remoteSearchTenants"
-                                class="custom-remote-select"
-                                filterable
-                                remote
-                                reserve-keyword
-                                style="width: 100%;"
-                                v-model="toAssign"
-                            >
-                                <div class="custom-prefix-wrapper" slot="prefix">
-                                    <i class="el-icon-search custom-icon"></i>
-                                </div>
-                                <el-option
-                                    :key="tenant.id"
-                                    :label="tenant.name"
-                                    :value="tenant.id"
-                                    v-for="tenant in tenants"/>
-                            </el-select>
-                        </el-col>
-                        <el-col :lg="4" :xl="4">
-                            <el-button :disabled="!toAssign" @click="assignTenant" class="full-button"
-                                        icon="ti-save" type="primary">
-                                {{$t('models.request.assign')}}
-                            </el-button>
-                        </el-col>
-                    </el-row>
+                    <el-divider class="column-divider" content-position="left">
+                        {{$t('models.post.assignment')}}
+                    </el-divider>
+                    <assignment
+                        :toAssign.sync="toAssign"
+                        :assign="assignTenant"
+                        :toAssignList="toAssignList"
+                        :remoteLoading="remoteLoading"
+                        :remoteSearch="remoteSearchTenants"
+                        :multiple="multiple"
+                    />
                     <relation-list
                         :actions="assigneesActions"
                         :columns="assigneesColumns"
@@ -191,6 +169,7 @@
     import EditActions from 'components/EditViewActions';
     import UnitsMixin from 'mixins/adminUnitsMixin';
     import RelationList from 'components/RelationListing';
+    import Assignment from 'components/Assignment';
 
     export default {
         mixins: [UnitsMixin({
@@ -201,7 +180,8 @@
             Heading,
             Card,
             EditActions,
-            RelationList
+            RelationList,
+            Assignment
         },
         data() {
             return {
@@ -222,13 +202,22 @@
                         icon: 'el-icon-close',
                         onClick: this.notifyUnassignment
                     }]
-                }]
+                }],
+                multiple: false
             }
         },
         methods: {            
             ...mapActions([
                 "deleteUnit"
-            ]),
+            ])
         }
+        
+       
     }
 </script>
+<style lang="less">
+    .el-divider__text {
+        font-size: 16px;
+    }
+</style>
+

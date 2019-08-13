@@ -2,7 +2,8 @@
     <div class="listing" v-loading="loading">
         <el-table
             :data="list"
-            style="width: 100%">
+            style="width: 100%"
+            @row-click="editLink">
             <el-table-column
                 :key="column.prop"
                 :label="column.label"
@@ -42,7 +43,8 @@
                         @click="button.onClick(scope.row)"
                         size="mini"
                         v-for="button in action.buttons"
-                        v-if="!button.tooltipMode">{{button.title}}
+                        v-if="!button.tooltipMode">
+                        &nbsp;{{button.title}}
                     </el-button>
                     <el-tooltip
                         :content="button.title"
@@ -63,7 +65,7 @@
             </el-table-column>
         </el-table>
         <div v-if="meta.current_page < meta.last_page">
-            <el-button @click="loadMore" size="mini" style="margin-top: 15px" type="text">{{$t('general.loadMore')}}</el-button>
+            <el-button @click="loadMore" size="mini" style="margin-top: 15px" type="text">{{$t('loadMore')}}</el-button>
         </div>
     </div>
 </template>
@@ -130,6 +132,15 @@
             loadMore() {
                 if (this.meta.current_page < this.meta.last_page) {
                     this.fetch(this.meta.current_page + 1);
+                }
+            },
+            editLink(row) {
+                let id = row.id;
+                if(row.type == 'user') {
+                    this.$router.push({ name: 'adminPropertyManagersEdit', params: { id } });
+                }
+                else if(row.type == 'provider') {
+                    this.$router.push({ name: 'adminServicesEdit', params: { id } });
                 }
             }
         }

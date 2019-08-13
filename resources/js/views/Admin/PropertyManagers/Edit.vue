@@ -35,11 +35,8 @@
                                         </el-form-item>
                                     </el-col>
                                     <el-col :md="12">
-
-                                        <el-form-item :label="$t('models.propertyManager.slogan')"
-                                                      :rules="validationRules.slogan"
-                                                      prop="slogan">
-                                            <el-input type="text" v-model="model.slogan"/>
+                                        <el-form-item :label="$t('models.propertyManager.phone')" prop="user.phone">
+                                            <el-input type="text" v-model="model.user.phone"/>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
@@ -47,15 +44,20 @@
 
                                 <el-row :gutter="20">
                                     <el-col :md="12">
-                                        <el-form-item :label="$t('models.propertyManager.phone')" prop="user.phone">
-                                            <el-input type="text" v-model="model.user.phone"/>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :md="12">
                                         <el-form-item :label="$t('models.propertyManager.email')"
                                                       :rules="validationRules.email"
                                                       prop="user.email">
                                             <el-input type="email" v-model="model.user.email"/>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+
+                                <el-row :gutter="20">
+                                    <el-col :md="24">
+                                        <el-form-item :label="$t('models.propertyManager.slogan')"
+                                                      :rules="validationRules.slogan"
+                                                      prop="slogan">
+                                            <el-input type="text" v-model="model.slogan"/>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
@@ -117,49 +119,19 @@
                     </el-col>
                     <el-col :md="12">
                         <card :loading="loading">
-                            <el-row :gutter="10">
-                                <el-col :lg="6">
-                                    <el-select @change="resetToAssignList"
-                                               class="custom-select"
-                                               v-model="assignmentType"
-                                    >
-                                        <el-option
-                                            :key="type"
-                                            :label="$t(`models.propertyManager.assignmentTypes.${type}`)"
-                                            :value="type"
-                                            v-for="(type) in assignmentTypes">
-                                        </el-option>
-                                    </el-select>
-                                </el-col>
-                                <el-col :lg="12" :xl="14">
-                                    <el-select
-                                        :loading="remoteLoading"
-                                        :placeholder="$t('models.propertyManager.placeholders.search')"
-                                        :remote-method="remoteSearchBuildings"
-                                        class="custom-remote-select"
-                                        filterable
-                                        remote
-                                        reserve-keyword
-                                        style="width: 100%;"
-                                        v-model="toAssign"
-                                    >
-                                        <div class="custom-prefix-wrapper" slot="prefix">
-                                            <i class="el-icon-search custom-icon"></i>
-                                        </div>
-                                        <el-option
-                                            :key="building.id"
-                                            :label="building.name"
-                                            :value="building.id"
-                                            v-for="building in toAssignList"/>
-                                    </el-select>
-                                </el-col>
-                                <el-col :lg="6" :xl="4">
-                                    <el-button :disabled="!toAssign" @click="attachBuilding" class="full-button"
-                                               icon="ti-save" type="primary">
-                                        {{$t('models.propertyManager.assign')}}
-                                    </el-button>
-                                </el-col>
-                            </el-row>
+                            <el-divider class="column-divider" content-position="left">
+                                {{$t('models.post.assignment')}}
+                            </el-divider>
+                            <assignment-by-type
+                                :resetToAssignList="resetToAssignList"
+                                :assignmentType.sync="assignmentType"
+                                :toAssign.sync="toAssign"
+                                :assignmentTypes="assignmentTypes"
+                                :assign="attachBuilding"
+                                :toAssignList="toAssignList"
+                                :remoteLoading="remoteLoading"
+                                :remoteSearch="remoteSearchBuildings"
+                            />
                             <relation-list
                                 :actions="assignmentsActions"
                                 :columns="assignmentsColumns"
@@ -201,6 +173,7 @@
     import {mapGetters, mapActions} from 'vuex';
     import globalFunction from "helpers/globalFunction";
     import SelectLanguage from 'components/SelectLanguage';
+    import AssignmentByType from 'components/AssignmentByType';
 
     export default {
         name: 'AdminPropertyManagersEdit',
@@ -213,7 +186,8 @@
             Cropper,
             RelationList,
             EditActions,
-            SelectLanguage
+            SelectLanguage,
+            AssignmentByType
         },
         data() {
             return {
@@ -230,8 +204,8 @@
                 requestActions: [{
                     width: '90px',
                     buttons: [{
+                        icon: 'ti-pencil',
                         title: this.$t('models.request.edit'),
-                        type: 'primary',
                         onClick: this.requestEditView
                     }]
                 }],
