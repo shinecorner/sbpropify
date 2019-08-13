@@ -120,7 +120,7 @@
                     <el-tag
                         v-if="column.type == 'tag'"
                         :class="`tag-${scope.row[column.classSuffix]}`"
-                        :size="column.size" class="btn-priority-badge"
+                        :size="column.size" class="btn-badge"
                     >
                         {{ scope.row[column.prop] }}
                     </el-tag>

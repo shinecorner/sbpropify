@@ -197,9 +197,9 @@
                 :width="column.width"
                 v-for="(column, key) in headerWithBadges">
                 <template slot-scope="scope">
-                    <el-button v-if="scope.row[column.prop] == 'low'" class="btn-priority-badge" :size="column.size" round>{{ scope.row[column.prop] }}</el-button>
-                    <el-button v-else-if="scope.row[column.prop] == 'normal'" plain type="warning" class="btn-priority-badge" :size="column.size" round>{{ scope.row[column.prop] }}</el-button>
-                    <el-button v-else-if="scope.row[column.prop] == 'urgent'" plain type="danger" class="btn-priority-badge" :size="column.size" round>{{ scope.row[column.prop] }}</el-button>
+                    <el-button v-if="scope.row[column.prop] == 'low'" class="btn-priority-badge btn-badge" :size="column.size" round>{{ scope.row[column.prop] }}</el-button>
+                    <el-button v-else-if="scope.row[column.prop] == 'normal'" plain type="warning" class="btn-priority-badge btn-badge" :size="column.size" round>{{ scope.row[column.prop] }}</el-button>
+                    <el-button v-else-if="scope.row[column.prop] == 'urgent'" plain type="danger" class="btn-priority-badge btn-badge" :size="column.size" round>{{ scope.row[column.prop] }}</el-button>
                 </template>
             </el-table-column>
             <el-table-column
