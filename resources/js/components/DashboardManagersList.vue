@@ -112,6 +112,8 @@
               let url = 'propertyManagers?req_count=true&get_all=true';
               return axios.get(url)
               .then(function (response) {
+                  
+                console.log(response.data.data);
                 const items = response.data.data.map(item => {
                   item.name = item.first_name + ' ' + item.last_name;
                   item.requests_count = item.requests_received_count

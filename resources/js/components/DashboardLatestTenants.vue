@@ -35,6 +35,11 @@
         data() {
             return {
                 header: [{
+                    type: 'news-title',
+                    label: "",
+                    props: ['image_url'],
+                    minWidth: '30px'
+                },{
                     type: 'plain',
                     label: this.$t('models.tenant.name'),
                     prop: 'name',
