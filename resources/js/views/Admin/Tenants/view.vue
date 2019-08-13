@@ -355,16 +355,13 @@
             },
             async sendCredentials() {
                 try {
-                    const resp = await this.sendTenantCredentials({id: this.model.id});
+                    const resp = await this.sendTenantCredentials({id: this.model.id});                    
                     if (resp && resp.data) {
-                        displaySuccess({
-                            success: true,
-                            message: this.$t('models.tenant.credentials_sent')
-                        });
+                        displaySuccess(resp.data);
                     }
                 } catch (e) {
                     displayError({
-                        success: true,
+                        success: false,
                         message: this.$t('models.tenant.credentials_send_fail')
                     });
                 }

@@ -138,10 +138,7 @@ export default (config = {}) => {
                 if (resp && resp.data) {
                     this.toAssign = '';
                     this.$refs.assigneesList.fetch();
-                    displaySuccess({
-                        success: true,
-                        message: this.$t(`models.unit.tenantType.attached`)
-                    })
+                    displaySuccess(resp.data)
                 }
             },
             notifyUnassignment(tenant) {
@@ -163,10 +160,7 @@ export default (config = {}) => {
 
                         if (resp && resp.data) {
                             this.$refs.assigneesList.fetch();
-                            displaySuccess({
-                                success: true,
-                                message: this.$t(`models.unit.tenantType.detached`)
-                            })
+                            displaySuccess(resp.data)
                         }
 
                     } catch (err) {

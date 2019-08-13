@@ -22,6 +22,7 @@ return [
       'logo' => 'Logo',
       'address' => 'Address',
       'blank_pdf' => 'Blank pdf',
+      'notificationSaved' => 'Notificatin setting saved',
       'realEstateSaved' => 'Real Estate settings saved',
       'serviceRequestCategorySaved' => 'Service request category saved',
       'serviceRequestCategoryDeleted' => 'Service request category deleted',
@@ -77,6 +78,11 @@ return [
       'requests' => 'Requests',
       'company' => 'Company name',
       'no_building' => 'No building',
+      'media' => 
+      [
+        'deleted' => 'Document/Photo Deleted',
+        'uploaded' => 'Document/Photo Uploaded',
+      ],
       'building' => 
       [
         'name' => 'Building',
@@ -439,8 +445,8 @@ return [
       ],
       'media' => 
       [
-        'deleted' => 'Media deleted',
-        'removed' => 'Media removed',
+        'deleted' => 'Document/Photo Deleted',
+        'uploaded' => 'Document/Photo Uploaded',
       ],
       'type' => 
       [
@@ -907,8 +913,8 @@ return [
       'price' => 'Price',
       'media' => 
       [
-        'removed' => 'Media removed',
-        'deleted' => 'Media deleted',
+        'deleted' => 'Document/Photo Deleted',
+        'uploaded' => 'Document/Photo Uploaded',
       ],
       'type' => 
       [
