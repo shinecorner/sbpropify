@@ -391,6 +391,6 @@ class ServiceRequestCategoryAPIController extends AppBaseController
         }
 
         $serviceRequestCategory->delete();        
-        return $this->sendResponse($id, __('models.user.serviceRequestCategorySaved'));
+        return $this->sendResponse($id, __('models.user.serviceRequestCategoryDeleted'));
     }
 }

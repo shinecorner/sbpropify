@@ -40,10 +40,7 @@ export default {
     deleteTenant(_, {id}) {
         return new Promise((resolve, reject) =>
             axios.delete(`tenants/${id}`)
-                .then(({data: r}) => resolve({
-                    success: true,
-                    message: 'models.tenant.deleted'
-                }))
+                .then(({data: r}) => resolve(r.data))
                 .catch(({response: {data: err}}) => reject(err)));
     },
     myTenancy(_, payload) {
@@ -71,10 +68,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios.delete(`tenants/${id}/media/${payload.media_id}`)
                 .then((resp) => {
-                    resolve({
-                        success: true,
-                        message: 'models.building.document.deleted'
-                    });
+                    resolve(resp.data);
                 }).catch((error) => reject(error));
         });
     },

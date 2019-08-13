@@ -39,10 +39,7 @@ export default {
     deleteRequest({commit}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`requests/${payload.id}`).then((response) => {
-                resolve({
-                    success: true,
-                    message: 'models.request.deleted'
-                })
+                resolve(response.data)
             }).catch((error) => {
                 reject(error.response.data)
             })

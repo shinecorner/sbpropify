@@ -48,10 +48,7 @@ export default (config = {}) => {
                             try {
                                 const resp = await this.saveDistrict();
 
-                                displaySuccess({
-                                    success: true,
-                                    message: this.$t('models.district.saved')
-                                });
+                                displaySuccess(resp);
                                 return resp;
                             } catch (err) {
                                 displayError(err);
@@ -87,12 +84,8 @@ export default (config = {}) => {
                                 this.loading.state = true;
                                 
                                 try {
-                                    const resp = await this.updateDistrict(this.model);
-                                    
-                                    displaySuccess({
-                                        success: true,
-                                        message: this.$t('models.district.saved')
-                                    });
+                                    const resp = await this.updateDistrict(this.model);                                    
+                                    displaySuccess(resp);
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

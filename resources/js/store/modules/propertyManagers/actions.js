@@ -51,10 +51,7 @@ export default {
     deletePropertyManager({commit}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`propertyManagers/${payload.id}`).then((response) => {
-                resolve({
-                    success: true,
-                    message: 'models.propertyManager.deleted'
-                })
+                resolve(response.data)
             }).catch((error) => {
                 reject(error.response.data)
             })
@@ -63,7 +60,7 @@ export default {
     assignDistrict({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`propertyManagers/${payload.id}/districts/${payload.toAssignId}`, {}).then((resp) => {
-                resolve(resp);
+                resolve(resp.data);
             }).catch((error) => {
                 reject(error);
             })
@@ -72,7 +69,7 @@ export default {
     assignBuilding({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`propertyManagers/${payload.id}/buildings/${payload.toAssignId}`, {}).then((resp) => {
-                resolve(resp);
+                resolve(resp.data);
             }).catch((error) => {
                 reject(error);
             })
@@ -81,10 +78,7 @@ export default {
     unassignBuilding({}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`propertyManagers/${payload.id}/buildings/${payload.toAssignId}`).then((response) => {
-                resolve({
-                    success: true,
-                    message: 'models.propertyManager.unassigned.building'
-                })
+                resolve(response.data)
             }).catch((error) => {
                 reject(error.response.data)
             })
@@ -93,10 +87,7 @@ export default {
     unassignDistrict({}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`propertyManagers/${payload.id}/districts/${payload.toAssignId}`).then((response) => {
-                resolve({
-                    success: true,
-                    message: 'models.propertyManager.unassigned.district'
-                })
+                resolve(response.data)
             }).catch((error) => {
                 reject(error.response.data)
             })
@@ -105,10 +96,7 @@ export default {
     batchDeletePropertyManagers({commit}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`propertyManagers/batchDelete`, {data: payload}).then((response) => {
-                resolve({
-                    success: true,
-                    message: 'models.propertyManager.deleted'
-                })
+                resolve(response.data)
             }).catch((error) => {
                 reject(error.response.data)
             })

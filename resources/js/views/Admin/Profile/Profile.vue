@@ -33,11 +33,8 @@
             },
             upload() {
                 this.uploadAvatar({image_upload: this.image})
-                    .then(r => {
-                        displaySuccess({
-                                success: true,
-                                message: 'models.user.avatar_uploaded'
-                            });
+                    .then(r => {                        
+                        displaySuccess(r);
                         this.me();
                     })
                     .catch(err => displayError(err));

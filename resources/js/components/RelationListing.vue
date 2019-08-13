@@ -41,7 +41,7 @@
                         :style="button.style"
                         :type="button.type"
                         @click="button.onClick(scope.row)"
-                        size="default"
+                        size="mini"
                         v-for="button in action.buttons"
                         v-if="!button.tooltipMode">
                         &nbsp;{{button.title}}
