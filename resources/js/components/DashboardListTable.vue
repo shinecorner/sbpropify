@@ -160,7 +160,7 @@
                             >
                                 <template v-if="action.title == 'Edit'">
                                     <i class="ti-pencil"></i>
-                                    <span>&nbsp;{{action.title}}</span>    
+                                    <span>{{action.title}}</span>    
                                 </template>
                                 <template v-else>
                                     {{action.title}}
