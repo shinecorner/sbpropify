@@ -212,10 +212,21 @@
     }
 
     .el-menu--popup {
-        // top: 13px;
-        // left: -16px;
-        left: -3px;
         min-width: 142px !important;
+        margin-top: 9px !important;
+        margin-left: -19px !important;
+        .el-dropdown-menu__item {
+            padding: 0px 12px !important;
+            text-align: left;
+            color: #909399;
+            &:hover {
+                color: #909399 !important;
+            }
+            &:focus {
+                color: #909399 !important;
+                background-color: white;
+            }
+        }
     }
 
     body > .el-menu--horizontal.profile-popper {

@@ -23,37 +23,33 @@
                     </div>
                 </div>
             </div>
-            
-            <div id="dropdown" class="dropdown-menu" ref="prev">
-                <el-dropdown trigger="click">
-                    <div>
+            <div id="dropdown" ref="prev">
+                <el-submenu index="1" menu-trigger="click">
+                    <template slot="title">
                         <avatar :src="user.avatar" :name="user.name" :size="33" />
-                        <span class="el-dropdown-link">
-                            {{user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
-                        </span>
-                        
-                        <el-dropdown-menu slot="dropdown" :style="dropmenuwidth" @click.native="removeMenuActive">
-                                <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
-                                    <el-dropdown-item>
-                                        <i class="icon-user"/>
-                                        {{$t('menu.profile')}}
-                                    </el-dropdown-item>
-                                </router-link>
-                                <template v-if="$can($permissions.view.realEstate)">
-                                    <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
-                                        <el-dropdown-item>
-                                            <i class="icon-cog"/>
-                                            {{$t('menu.settings')}}
-                                        </el-dropdown-item>
-                                    </router-link>
-                                </template>
-                                <el-dropdown-item id="logout" @click.native="handleLogout">
-                                    <i class="icon-logout"/>
-                                    {{$t('menu.logout')}}
-                                </el-dropdown-item>
-                        </el-dropdown-menu>
+                        <span class="username">{{user.name}}</span>
+                    </template>
+                    <div class="droplist" :style="dropmenuwidth" @click="removeMenuActive">
+                        <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
+                            <el-menu-item>
+                                <i class="icon-user"/>
+                                {{$t('menu.profile')}}
+                            </el-menu-item>
+                        </router-link>
+                        <template v-if="$can($permissions.view.realEstate)">
+                            <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
+                                <el-menu-item>
+                                    <i class="icon-cog"/>
+                                    {{$t('menu.settings')}}
+                                </el-menu-item>
+                            </router-link>
+                        </template>
+                        <el-menu-item id="logout" @click.native="handleLogout">
+                            <i class="icon-logout"/>
+                            {{$t('menu.logout')}}
+                        </el-menu-item>
                     </div>
-                </el-dropdown>
+                </el-submenu>
             </div>
         </a-header>
         <el-container>
@@ -250,7 +246,7 @@
                 }];
             },
             dropmenuwidth () {
-                return `width: ${this.dropdownwidth + 12}px;`
+                return `width: ${this.dropdownwidth}px;`
             }
         },
 
@@ -410,6 +406,40 @@
             }
         }
     }
+
+    // new right sidebar style
+    .username {
+        padding-left: 5px;
+        padding-right: 18px;
+    }
+    .el-menu-item-link {
+        li {
+            text-align: left;
+            i {
+                margin-right: 5px;
+            }
+        }
+    }
+    .el-menu-item {
+        i {
+            margin-right: 5px;
+        }
+    }
+    #dropdown {
+        margin-left: 20px;
+        .el-submenu {
+            :hover {
+                background-color: rgb(255, 255, 255) !important;
+            }
+            .el-submenu__title {
+                padding: 0px !important;
+                .avatar {
+                    background-color: rgb(205, 220, 57)!important;
+                    color: white !important; 
+                }
+            }
+        }
+    }
 </style>
 
 <style lang="scss" scoped>
@@ -511,7 +541,7 @@
             &:after{
                 content: "";
                 position: absolute;
-                right: -21px;
+                right: -42px;
                 height: 90%;
                 width: 1px;
                 background: #c2c2c2;;
@@ -612,7 +642,6 @@
                     }
                 }
             }
-
         }
     }
 </style>
