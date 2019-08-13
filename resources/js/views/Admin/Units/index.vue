@@ -89,7 +89,6 @@
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        type: 'success',
                         title: this.$t('models.unit.edit'),
                         onClick: this.edit,
                         permissions: [

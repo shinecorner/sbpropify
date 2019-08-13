@@ -379,9 +379,8 @@
             
         },
         async created(){
-            const requests = await this.axios.get('requests?get_all=true');
-            this.requests = requests.data.data;
-            this.requests_num = this.requests.length;
+            const requests = await this.axios.get('requests?&page=1&per_page=20');
+            this.requests_num = requests.data.data.total;
         }
 
 
