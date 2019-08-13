@@ -1,5 +1,5 @@
 <template>
-    <div class="latest-products">
+    <div class="latest-products dashboard-table">
         <div class="link-container">
             <router-link :to="{name: 'adminProducts'}">
                 <span class="title">{{ $t('dashboard.marketplace.go_to_marketplace') }} </span>
@@ -123,27 +123,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .latest-products {
-        position: relative;
-
-        .link-container {
-            position: absolute;
-            top: -55px;
-            right: 0px;
-            text-align: right;
-            padding: 20px 15px;
-            font-size: 14px;
-
-            a {
-                text-decoration: none;
-                color: #525252;
-
-                &:hover {
-                    color: #303133;
-                }
-            }
-        }
-    }
-</style>

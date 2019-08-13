@@ -129,6 +129,7 @@ export default {
       .legend-container {
         .custom-legend {
           text-align: center;
+          margin-bottom: 20px;
 
           .title {
             display: flex;

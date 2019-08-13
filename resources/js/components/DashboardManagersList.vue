@@ -1,5 +1,5 @@
 <template>
-    <div class="managers-list">
+    <div class="managers-list dashboard-table">
         <div class="link-container">
             <router-link :to="{name: 'adminPropertyManagers'}">
                 <span class="title">{{ $t('dashboard.requests.go_to_property_managers') }} </span>
@@ -133,27 +133,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .managers-list {
-        position: relative;
-
-        .link-container {
-            position: absolute;
-            top: -55px;
-            right: 0px;
-            text-align: right;
-            padding: 20px 15px;
-            font-size: 14px;
-
-            a {
-                text-decoration: none;
-                color: #525252;
-
-                &:hover {
-                    color: #303133;
-                }
-            }
-        }
-    }
-</style>

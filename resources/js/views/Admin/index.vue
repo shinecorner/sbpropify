@@ -465,6 +465,28 @@
             font-size: 15px;
         }
 
+        .dashboard-table {
+            position: relative;
+
+            .link-container {
+                position: absolute;
+                top: -55px;
+                right: 0px;
+                text-align: right;
+                padding: 20px 15px;
+                font-size: 14px;
+
+                a {
+                    text-decoration: none;
+                    color: #525252;
+
+                    &:hover {
+                        color: #303133;
+                    }
+                }
+            }
+        }
+
         .chart-filter {
             display: flex;
             align-items: center;

@@ -1,5 +1,5 @@
 <template>
-    <div class="latest-buildings">
+    <div class="latest-buildings dashboard-table">
         <div class="link-container">
             <router-link :to="{name: 'adminBuildings'}">
                 <span class="title">{{ $t('dashboard.buildings.go_to_buildings') }} </span>
@@ -89,27 +89,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .latest-buildings {
-        position: relative;
-
-        .link-container {
-            position: absolute;
-            top: -55px;
-            right: 0px;
-            text-align: right;
-            padding: 20px 15px;
-            font-size: 14px;
-
-            a {
-                text-decoration: none;
-                color: #525252;
-
-                &:hover {
-                    color: #303133;
-                }
-            }
-        }
-    }
-</style>

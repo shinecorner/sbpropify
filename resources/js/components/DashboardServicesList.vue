@@ -1,5 +1,5 @@
 <template>
-    <div class="services-list">
+    <div class="services-list dashboard-table">
         <div class="link-container">
             <router-link :to="{name: 'adminServices'}">
                 <span class="title">{{ $t('dashboard.requests.go_to_service_partners') }} </span>
@@ -120,9 +120,7 @@
                                         + item.requests_done_count
                                         + item.requests_archived_count;
                     return item;
-                })
-                
-                console.log(that.items);
+                });
               }).catch(function (error) {
                   console.log(error);
               })
@@ -133,27 +131,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .services-list {
-        position: relative;
-
-        .link-container {
-            position: absolute;
-            top: -55px;
-            right: 0px;
-            text-align: right;
-            padding: 20px 15px;
-            font-size: 14px;
-
-            a {
-                text-decoration: none;
-                color: #525252;
-
-                &:hover {
-                    color: #303133;
-                }
-            }
-        }
-    }
-</style>
