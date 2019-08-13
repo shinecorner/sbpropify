@@ -120,7 +120,7 @@
                     <el-tag
                         v-if="column.type == 'tag'"
                         :class="`tag-${scope.row[column.classSuffix]}`"
-                        :size="column.size" class="btn-priority-badge"
+                        :size="column.size" class="btn-badge"
                     >
                         {{ scope.row[column.prop] }}
                     </el-tag>
@@ -155,7 +155,8 @@
                                 :style="action.style"
                                 :type="action.type"
                                 @click="action.onClick(scope.row)"
-                                size="default"
+                                size="mini"
+                                class="default"
                             >
                                 <template v-if="action.title == 'Edit'">
                                     <i class="ti-pencil"></i>
