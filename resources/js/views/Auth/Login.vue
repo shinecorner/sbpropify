@@ -1,15 +1,41 @@
 <template>
-    <div>
+    <div v-bind:class="{'login2-container': loginMode ==2 }" >
+        <div v-if="loginMode == 2" class="form-header">
+            <h3>{{ $t('general.login') }}</h3>
+            <p>{{ $t('auth.login_welcome') }}</p>
+        </div>
         <el-form :model="model" ref="form">
             <el-form-item prop="email" :label="$t('general.email')" :rules="validationRules.email">
-                <el-input type="email" v-model="model.email" autocomplete="off"></el-input>
+                <el-input v-if="loginMode == 1"
+                    type="email" 
+                    v-model="model.email" 
+                    autocomplete="off"
+                ></el-input>
+                <el-input v-if="loginMode == 2"
+                    type="email" 
+                    v-model="model.email" 
+                    autocomplete="off"
+                    prefix-icon="el-icon-user"
+                    :placeholder="$t('general.email')"
+                ></el-input>
             </el-form-item>
             <el-form-item prop="password" :label="$t('general.password')" :rules="validationRules.password">
-                <el-input type="password" v-model="model.password" autocomplete="off"></el-input>
+                <el-input v-if="loginMode == 1" 
+                    type="password" 
+                    v-model="model.password" 
+                    autocomplete="off"
+                ></el-input>
+                <el-input v-if="loginMode == 2" 
+                    type="password" 
+                    v-model="model.password" 
+                    autocomplete="off"
+                    prefix-icon="el-icon-lock"
+                    :placeholder="$t('general.password')"
+                ></el-input>
             </el-form-item>
             <el-form-item>
                 <el-checkbox>{{$t('general.remember_me')}}</el-checkbox>
-                <router-link :to="{name: 'forgot'}">
+                <router-link :to="{name: `${loginMode == 1 ? 'forgot': 'forgot2'}`}">
                     <el-button type="text">
                         {{$t('general.forgot_password')}}
                     </el-button>
@@ -19,7 +45,7 @@
                 <el-button type="primary" class="text-center w100p" @click="submit">{{$t('general.login')}}</el-button>
             </el-form-item>
         </el-form>
-        <router-link :to="{name: 'activateAccount'}" class="el-menu-item-link">
+        <router-link :to="{name: `${loginMode == 1 ? 'activateAccount':'activateAccount2'}`}" class="el-menu-item-link">
             <el-button type="primary" class="text-center w100p">{{$t('general.activate_account')}}</el-button>
         </router-link>
     </div>
@@ -50,12 +76,23 @@
                 }
             }
         },
+        props: {
+            loginMode: {
+                type: Number,
+                default: () => {
+                    return 1;
+                }
+            }
+        },
         computed: {
             ...mapState({
                 loggedInUser: ({users}) => {
                     return users.loggedInUser;
                 }
-            })
+            }),
+            login2_container() {
+                return 'login2-conatiner';
+            }
         },
         methods: {
             submit() {
@@ -83,6 +120,14 @@
     }
 </script>
 <style lang="scss" scoped>
+    .form-header {
+        h3 {
+            font-size: 18.48px;
+            font-weight: 500;
+            margin-top: 0;
+            margin-bottom: 14px;
+        }
+    }
     .el-form-item {
         &:nth-last-child(2) :global(.el-form-item__content) {
             display: flex;
@@ -95,10 +140,34 @@
         .el-button {
             width: 100%;
         }
+        .el-form-item__label {
+                color: rgba(0, 0, 0, 0.4);
+                line-height: 24px;
+                font-size: 0.75rem;
+            }
     }
     .el-menu-item-link {
         .el-button {
             width: 100%;
+        }
+    }
+   
+</style>
+<style lang="scss">
+    .login2-container {
+        .el-form-item {
+            .el-form-item__label {
+                color: rgba(0, 0, 0, 0.4);
+                line-height: 24px;
+                font-size: 0.75rem;
+            }
+            input {
+                padding-left: 42px;
+            }
+            .el-input__icon {
+                color: rgba(0, 0, 0, 0.4);
+                padding-left: 2px;
+            }
         }
     }
 </style>

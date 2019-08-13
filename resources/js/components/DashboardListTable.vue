@@ -120,7 +120,7 @@
                     <el-tag
                         v-if="column.type == 'tag'"
                         :class="`tag-${scope.row[column.classSuffix]}`"
-                        :size="column.size"
+                        :size="column.size" class="btn-priority-badge"
                     >
                         {{ scope.row[column.prop] }}
                     </el-tag>
@@ -501,12 +501,7 @@
             color: #606266;
             border: 1px solid #dcdfe6;
             background-color: #fff;
-            min-width: 64px;
             text-align: center;
-            height: 25px; 
-            line-height: 25px; 
-            padding: 0px 7px;
-            border-radius: 3px;
 
             &.tag-1 {
                 color: #409eff;

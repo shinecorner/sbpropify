@@ -67,8 +67,15 @@ body {
     .el-form--label-top .el-form-item__label {
         padding: 0;
     }
+    .el-button.btn-priority-badge,
+    .el-tag.btn-priority-badge {
+        height: 25px ; 
+        line-height: 25px; 
+        padding: 0px 7px;
+        border-radius: 3px;
+        min-width: 64px;
+    }
 }
-
 .crud-view {
     padding: 0 20px;
 }
