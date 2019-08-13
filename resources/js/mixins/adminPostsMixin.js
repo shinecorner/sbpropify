@@ -131,17 +131,14 @@ export default (config = {}) => {
                         message: this.$t('models.post.media.removed')
                     });
                 } else {
-                    await this.deletePostMedia({
+                    const resp = await this.deletePostMedia({
                         id: image.model_id,
                         media_id: image.id
                     });
                     this.model.media = this.model.media.filter((files) => {
                         return files.id !== image.id;
-                    });
-                    displaySuccess({
-                        success: true,
-                        message: this.$t('models.post.media.deleted')
-                    });
+                    });                    
+                    displaySuccess(resp);
                 }
             },
             async remoteSearchBuildings(search) {
@@ -195,11 +192,8 @@ export default (config = {}) => {
                         if (resp && resp.data && config.mode === 'edit') {
                             await this.fetchCurrentPost();
                             this.$refs.assignmentsList.fetch();
-                            this.toAssign = '';
-                            displaySuccess({
-                                success: true,
-                                message: this.$t(`models.post.attached.${this.assignmentType}`)
-                            })
+                            this.toAssign = '';                            
+                            displaySuccess(resp)
                         }
 
                         resolve(true);
@@ -260,10 +254,7 @@ export default (config = {}) => {
                             await this.fetchCurrentPost();
                             this.$refs.assignmentsProviderList.fetch();
                             this.toAssignProvider = '';
-                            displaySuccess({
-                                success: true,
-                                message: this.$t(`models.post.attached.provider`)
-                            })
+                            displaySuccess(resp)
                         }
 
                         resolve(true);
@@ -318,10 +309,7 @@ export default (config = {}) => {
                             }
                             this.form.resetFields();
                             this.media = [];
-                            displaySuccess({
-                                success: true,
-                                message: 'models.post.saved'
-                            });
+                            displaySuccess(resp);
                             return resp;
                         } catch (err) {
                             displayError(err);
@@ -361,11 +349,7 @@ export default (config = {}) => {
                                         id: resp.data.id,
                                         status: this.model.status
                                     });
-
-                                    displaySuccess({
-                                        success: true,
-                                        message: 'models.post.saved'
-                                    });
+                                    displaySuccess(resp);
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

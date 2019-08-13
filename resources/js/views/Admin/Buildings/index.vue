@@ -133,18 +133,19 @@
                 }, {
                     label: this.$t('models.building.tenants'),
                     withUsers: true,
-                    count: 'tenants_count',
-                    width: '150px',
-                    prop: 'tenants_last'
+                    count: 'tenantscount',
+                    width: '250px',
+                    prop: 'tenants'
                 }, {
                     label: this.$t('models.building.managers'),
                     withUsers: true,
-                    width: '150px',
-                    prop: 'managers_last',
-                    count: 'property_managers_count'
+                    width: '450px',
+                    prop: 'managers',
+                    count: 'managerscount'
                 }, {
                     label: this.$t('models.building.requests'),
                     withCounts: true,
+                    width: '350px',
                     counts: [
                         {
                             prop: 'requests_count',
@@ -187,7 +188,6 @@
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        type: 'success',
                         title: this.$t('models.service.edit'),
                         onClick: this.edit,
                         permissions: [

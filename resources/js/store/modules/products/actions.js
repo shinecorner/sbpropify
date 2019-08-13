@@ -29,10 +29,7 @@ export default {
     deleteProduct(_, {id}) {
         return new Promise((resolve, reject) =>
             axios.delete(`products/${id}`)
-                .then(({data: r}) => resolve({
-                    success: true,
-                    message: 'models.product.deleted'
-                }))
+                .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
     likeProduct(_, id) {

@@ -599,6 +599,7 @@ class UserAPIController extends AppBaseController
             try {
                 $input['avatar'] = $this->userRepository->uploadImage($fileData, $user);
             } catch (\Exception $e) {
+                return $this->sendError('kaliyo kutor');
                 return $this->sendError('User image upload: ' . $e->getMessage());
             }
         }

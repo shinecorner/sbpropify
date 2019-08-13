@@ -29,10 +29,7 @@ export default {
     deleteUser(_, {id}) {
         return new Promise((resolve, reject) =>
             axios.delete(`users/${id}`)
-                .then(({data: r}) => resolve({
-                    success: true,
-                    message: 'models.user.deleted'
-                }))
+                .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
 
@@ -134,7 +131,7 @@ export default {
                 .then(({data: r}) => {
                     commit('SET_LOGGED_IN_USER', payload);
 
-                    resolve(r.data);
+                    resolve(r);
                 })
                 .catch(({response: {data: err}}) => reject(err)));
     },

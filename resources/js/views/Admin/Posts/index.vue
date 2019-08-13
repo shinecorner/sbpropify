@@ -109,7 +109,6 @@
                         //     hidden: this.checkPostType
                         // }, 
                         {
-                            type: 'success',
                             title: this.$t('models.post.edit'),
                             onClick: this.edit,
                             permissions: [
@@ -216,11 +215,8 @@
             changePostStatus(id, status) {
                 this.changePostPublish({id, status}).then((resp) => {
                     this.fetchMore();
-                    this.postDetailsVisible = false;
-                    displaySuccess({
-                        success: true,
-                        message: 'models.post.updated'
-                    });
+                    this.postDetailsVisible = false;                    
+                    displaySuccess(resp);
                 }).catch((error) => {
                     displayError(error);
                 });
@@ -234,11 +230,8 @@
                     try {
                         this.loading = true;                    
                         const resp = await this.changePostStatus(row.id, row.status);
-                        await this.fetchMore();
-                        displaySuccess({
-                            success: true,
-                            message: 'models.post.updated'
-                        });
+                        await this.fetchMore();                        
+                        displaySuccess(resp);
                     } catch (err) {
                         displayError(err);
                     } finally {

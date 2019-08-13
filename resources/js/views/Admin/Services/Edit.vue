@@ -225,8 +225,8 @@
                 requestActions: [{
                     width: '90px',
                     buttons: [{
+                        icon: 'ti-pencil',
                         title: this.$t('models.request.edit'),
-                        type: 'primary',
                         onClick: this.requestEditView
                     }]
                 }],
@@ -300,10 +300,7 @@
 
                     const type = toUnassign.aType == 1 ? 'building' : 'district';
 
-                    displaySuccess({
-                        success: true,
-                        message: this.$t(`models.service.detached.${type}`)
-                    })
+                    displaySuccess(resp)
                 }
             }
         }

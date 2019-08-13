@@ -60,7 +60,6 @@
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        type: 'success',
                         title: this.$t('models.district.edit_action'),
                         onClick: this.edit,
                         permissions: [
