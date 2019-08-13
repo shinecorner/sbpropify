@@ -15,7 +15,6 @@
                     <img :src="icons[index]" />
                     <span>Ø {{ index == 0 ? averageAge.mr : averageAge.mrs }}</span>
                   </div>
-                  <p>{{ `${xData[index]} ${$t('dashboard.tenants.average_age_acr')}` }}</p>
                 </div>
             </el-col>
         </el-row>
@@ -121,8 +120,8 @@ export default {
       .average-age {
         margin: 20px;
         text-align: center;
-        font-size: 18px;
-        padding: 10px;
+        font-size: 15px;
+        padding: 5px;
         border-bottom: 3px double #e3e3e3;
         border-top: 3px double #e3e3e3;
       }
@@ -130,6 +129,7 @@ export default {
       .legend-container {
         .custom-legend {
           text-align: center;
+          margin-bottom: 20px;
 
           .title {
             display: flex;
@@ -141,7 +141,7 @@ export default {
             }
 
             span {
-              font-size: 18px;
+              font-size: 15px;
               margin-left: 10px;
               padding-bottom: 5px;
             }

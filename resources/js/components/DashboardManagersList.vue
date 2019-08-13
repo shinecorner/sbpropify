@@ -1,5 +1,5 @@
 <template>
-    <div class="managers-list">
+    <div class="managers-list dashboard-table">
         <div class="link-container">
             <router-link :to="{name: 'adminPropertyManagers'}">
                 <span class="title">{{ $t('dashboard.requests.go_to_property_managers') }} </span>
@@ -45,6 +45,11 @@
                     minWidth: '150px',
                     label: this.$t('models.propertyManager.requests'),
                     counts: [{
+                            prop: 'requests_count',
+                            background: '#aaa',
+                            color: '#fff',
+                            label: this.$t('models.building.requestStatuses.total')
+                        }, {
                             prop: 'requests_received_count',
                             background: '#bbb',
                             color: '#fff',
@@ -79,7 +84,7 @@
                 }, {
                     type: 'actions',
                     label: this.$t('dashboard.actions'),
-                    width: 85,
+                    width: 100,
                     actions: [ 
                         {
                             type: 'success',
@@ -109,6 +114,12 @@
               .then(function (response) {
                 const items = response.data.data.map(item => {
                   item.name = item.first_name + ' ' + item.last_name;
+                  item.requests_count = item.requests_received_count
+                                        + item.requests_assigned_count
+                                        + item.requests_in_processing_count
+                                        + item.requests_reactivated_count
+                                        + item.requests_done_count
+                                        + item.requests_archived_count;
                   return item;
                 });
                 that.items = items;
@@ -122,27 +133,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .managers-list {
-        position: relative;
-
-        .link-container {
-            position: absolute;
-            top: -58px;
-            right: 0px;
-            text-align: right;
-            padding: 20px 15px;
-            font-size: 16px;
-
-            a {
-                text-decoration: none;
-                color: #525252;
-
-                &:hover {
-                    color: #303133;
-                }
-            }
-        }
-    }
-</style>

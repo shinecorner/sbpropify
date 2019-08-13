@@ -210,9 +210,6 @@ export default {
                 }
             })
             .then(function (response) {
-                // if (that.type == 'buildings_by_state') {
-                //     console.log('response', response);
-                // }
                 that.yData = response.data.data.data.map(val => parseFloat(val) || 0);
                 that.xData = response.data.data.labels.map(function(e) {
                     if (langPrefix !== '') {

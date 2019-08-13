@@ -1,5 +1,5 @@
 <template>
-    <div class="latest-tenants">
+    <div class="latest-tenants dashboard-table">
         <div class="link-container">
             <router-link :to="{name: 'adminTenants'}">
                 <span class="title">{{ $t('dashboard.tenants.go_to_tenants') }} </span>
@@ -40,6 +40,10 @@
                     prop: 'name',
                     minWidth: '100px'
                 }, {
+                    type: 'plain',
+                    label: this.$t('models.address.name'),
+                    prop: 'address'
+                },{
                     type: 'tag',
                     label: this.$t('models.tenant.status.label'),
                     prop: 'status_label',
@@ -47,7 +51,7 @@
                 }, {
                     type: 'actions',
                     label: this.$t('dashboard.actions'),
-                    width: 85,
+                    width: 100,
                     actions: [ 
                         {
                             type: 'success',
@@ -83,6 +87,7 @@
                 const items = response.data.data.map(item => {
                   item.status_label = that.$t(`models.tenant.status.${that.tenantConstants.status[item.status]}`);
                   item.name = item.first_name + ' ' + item.last_name;
+                  item.address = item.city;
                   item.status_class_suffix = that.tenantConstants.status[item.status];
                   return item;
                 });
@@ -97,27 +102,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .latest-tenants {
-        position: relative;
-
-        .link-container {
-            position: absolute;
-            top: -58px;
-            right: 0px;
-            text-align: right;
-            padding: 20px 15px;
-            font-size: 16px;
-
-            a {
-                text-decoration: none;
-                color: #525252;
-
-                &:hover {
-                    color: #303133;
-                }
-            }
-        }
-    }
-</style>

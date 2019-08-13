@@ -1,5 +1,5 @@
 <template>
-    <div class="latest-products">
+    <div class="latest-products dashboard-table">
         <div class="link-container">
             <router-link :to="{name: 'adminProducts'}">
                 <span class="title">{{ $t('dashboard.marketplace.go_to_marketplace') }} </span>
@@ -12,6 +12,7 @@
             :loading="{state: loading}"
             :withSearch="false"
             :withCheckSelection="false"
+            :defaultImg="defaultImg"
             @selectionChanged="selectionChanged"
         >
         </dashboard-list-table>
@@ -32,6 +33,10 @@
         props: {
           type: {
             type: String
+          },
+          defaultImg: {
+              type: String,
+              default: () => (undefined)
           }
         },
         data() {
@@ -60,7 +65,7 @@
                 }, {
                     type: 'actions',
                     label: this.$t('dashboard.actions'),
-                    width: 85,
+                    width: 100,
                     actions: [ 
                         {
                             type: 'success',
@@ -118,27 +123,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    .latest-products {
-        position: relative;
-
-        .link-container {
-            position: absolute;
-            top: -58px;
-            right: 0px;
-            text-align: right;
-            padding: 20px 15px;
-            font-size: 16px;
-
-            a {
-                text-decoration: none;
-                color: #525252;
-
-                &:hover {
-                    color: #303133;
-                }
-            }
-        }
-    }
-</style>
