@@ -87,7 +87,7 @@
                     width: 100,
                     actions: [ 
                         {
-                            type: 'success',
+                            type: 'default',
                             title: this.$t('models.propertyManager.edit'),
                             onClick: this.edit,
                             permissions: [
