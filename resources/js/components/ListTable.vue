@@ -236,8 +236,7 @@
                                 :style="action.style"
                                 :type="action.type"
                                 @click="action.onClick(scope.row)"
-                                size="default"
-                                class="default"
+                                size="mini"
                             >
                                 <template v-if="action.title == 'Edit'">
                                     <i class="ti-pencil"></i>

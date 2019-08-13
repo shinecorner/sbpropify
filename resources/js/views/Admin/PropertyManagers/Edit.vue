@@ -204,8 +204,8 @@
                 requestActions: [{
                     width: '90px',
                     buttons: [{
+                        icon: 'ti-pencil',
                         title: this.$t('models.request.edit'),
-                        type: 'primary',
                         onClick: this.requestEditView
                     }]
                 }],
