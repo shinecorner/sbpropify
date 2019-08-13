@@ -83,6 +83,7 @@
                     size: 'small'
                 }, {
                     label: this.$t('models.request.status.label'),
+                    width: 150,
                     prop: 'status',
                     i18nPath: 'models.request.status',
                     class: 'rounded-select',
@@ -97,7 +98,6 @@
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        type: 'success',
                         title: this.$t('models.request.edit'),
                         onClick: this.edit,
                         permissions: [
