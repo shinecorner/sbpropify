@@ -5,7 +5,7 @@ import Card from 'components/Card';
 import uuid from "uuid/v1";
 import UploadDocument from 'components/UploadDocument';
 import Media from 'components/RequestMedia';
-
+import RequestMedia from 'components/RequestMedia';
 
 // TODO make a common mixin for posts and products mixins(media upload at least)
 export default (config = {}) => {
@@ -14,7 +14,8 @@ export default (config = {}) => {
             Heading,
             Card,
             UploadDocument,
-            Media
+            Media,
+            RequestMedia
         },
         props: {
             title: {
