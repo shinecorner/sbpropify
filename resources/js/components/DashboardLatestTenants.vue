@@ -38,7 +38,7 @@
                     type: 'news-title',
                     label: "",
                     props: ['image_url'],
-                    minWidth: '30px'
+                    minWidth: '40px'
                 },{
                     type: 'plain',
                     label: this.$t('models.tenant.name'),

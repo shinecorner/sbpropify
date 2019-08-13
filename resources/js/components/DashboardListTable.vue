@@ -213,9 +213,6 @@
             height: {
                 default: () => (undefined)
             },
-            defaultImg: {
-                default: () => (undefined)
-            },
         },
         data() {
             return {
