@@ -155,7 +155,7 @@
                                 :style="action.style"
                                 :type="action.type"
                                 @click="action.onClick(scope.row)"
-                                size="default"
+                                size="mini"
                                 class="default"
                             >
                                 <template v-if="action.title == 'Edit'">
