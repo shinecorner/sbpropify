@@ -1,5 +1,5 @@
 <template>
-    <div v-bind:class="{'login2-container': loginMode ==2 }" >
+    <div :class="{'login2-container': loginMode ==2 }" >
         <div v-if="loginMode == 2" class="form-header">
             <h3>{{ $t('general.login') }}</h3>
             <p>{{ $t('auth.login_welcome') }}</p>
@@ -141,14 +141,12 @@
             width: 100%;
         }
         .el-form-item__label {
-                color: rgba(0, 0, 0, 0.4);
-                line-height: 24px;
-                font-size: 0.75rem;
-            }
+            color: rgba(0, 0, 0, 0.4);
+            line-height: 24px;
+            font-size: 0.75rem;
+        }
     }
     .el-menu-item-link {
-        position:absolute;
-        bottom:0;
         margin-bottom: 5%;
         width: calc(100% - 6em);
         .el-button {
@@ -159,6 +157,8 @@
 </style>
 <style lang="scss">
     .login2-container {
+        position: relative;
+
         .el-form-item {
             .el-form-item__label {
                 color: rgba(0, 0, 0, 0.4);
