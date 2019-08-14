@@ -49,7 +49,7 @@
 
                     <div v-if="column.type == 'news-title'" class="product-details">
                         <div class="image" v-if="scope.row['image_url']" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
-                        <div class="image" v-else :style="{backgroundImage: `url(${userDefaultImg})`}"></div>
+                        <div class="image" v-else :style="{backgroundImage: `url(${userMaleDefaultImg})`}"></div>
                         <div v-if="scope.row['content']" class="text">
                             <div class="title">
                                 {{ scope.row['content'] }}
@@ -177,7 +177,8 @@
 </template>
 
 <script>
-    import userDefaultImg from '../../img/male.png'; 
+    import userMaleDefaultImg from '../../img/male.png'; 
+    import userFemaleDefaultImg from '../../img/female.png'; 
     import productDefaultImg from '../../img/latest-product-default.png';
     // TODO - add transition to do things smoothly
     import {Avatar} from 'vue-avatar'
@@ -218,7 +219,8 @@
             return {
                 uuid,
                 selectedItems: [],
-                userDefaultImg: userDefaultImg,
+                userMaleDefaultImg: userMaleDefaultImg,
+                userFemaleDefaultImg: userFemaleDefaultImg,
                 productDefaultImg: productDefaultImg,
             }
         },
