@@ -87,29 +87,29 @@ return [
   'support' => 'Support',
   'actions' => 
   [
-    'label' => 'Operations',
-    'edit' => 'Edit',
-    'add' => 'Add',
-    'delete' => 'Delete',
-    'create' => 'Create',
-    'view' => 'Details',
-    'save' => 'Save',
-    'close' => 'Close',
-    'saveAndClose' => 'Save & Close',
-    'upload' => 'Upload',
+    "label"=>"Opérations",
+    "edit"=>"Modifier",
+    "add"=>"Ajouter",
+    "delete"=>"Supprimer",
+    "create"=>"Créer",
+    "view"=>"Détails",
+    "save"=>"Sauvegarder",
+    "close"=>"Presque",
+    "saveAndClose"=>"Enregistrer et fermer",
+    "upload"=>"Télécharger",
   ],
   'swal' => 
   [
     'delete' => 
     [
-      'title' => 'Are you sure?',
-      'text' => 'You won\'t be able to revert this!',
-      'confirmText' => 'Yes, delete it!',
-      'deleted' => 'Deleted successfully',
+      'title' => "T'es sûr de toi ?",
+      'text' => "Tu ne pourras pas revenir en arrière !",
+      'confirmText' => "Oui, effacez-le !",
+      'deleted' => "Supprimé avec succès",
     ],
     'add' => 
     [
-      'added' => 'Added successfully',
+      'added' => 'Ajouté avec succès',
     ],
     'media' => 
     [
@@ -119,38 +119,38 @@ return [
     'logout_confirm' => 'Vous serez déconnecté.',
   ],
   'roles' => 
-  [
-    'label' => 'Role',
-    'administrator' => 'Administrator',
-    'homeowner' => 'Home Owner',
-    'manager' => 'Manager',
-    'registered' => 'Registered',
-    'service' => 'Service',
+  [    
+    'label' => 'Rôle',
+    'administrator' => 'Administrateur',
+    'homeowner' => 'Propriétaire de maison',
+    'manager' => 'Directeur',
+    'registered' => 'Enregistré',
+    'service' => 'Service après-vente',
     'super_admin' => 'Super Admin',
   ],
   'search' => 
   [
-    'placeholder' => 'Search',
+    'placeholder' => 'Rechercher',
   ],
   'errors' => 
   [
-    'files_extension_images' => 'Only jpg and png files accepted',
+    'files_extension_images' => 'Seuls les fichiers jpg et png sont acceptés',
   ],
-  'dateTimeFormat' => '{date} at {time}',
+  'dateTimeFormat' => '{date} au {time}',
   'date_range' => 
   [
-    'range_separator' => 'To',
-    'start_date' => 'Start date',
-    'end_date' => 'End date',
+    'range_separator' => 'Pour',
+    'start_date' => 'Date de début',
+    'end_date' => 'Date de fin',
     'last_7_days' => '7 derniers jours',
-    'last_week' => 'Last week',
+    'last_week' => 'La semaine dernière',
     'last_14_days' => '14 derniers jours',
-    'last_30_days' => '30 derniers jours',
-    'last_month' => 'Last Month',
-    'last_3_months' => 'Last 3 months',
-    'last_6_months' => 'Last 6 months',
-    'last_year' => 'Last year',
-    'last_2_years' => 'Last 2 years',
+    'last_30_days' => '30 derniers jours',    
+    'last_month' => 'Dernier mois',
+    'last_3_months' => '3 derniers mois',
+    'last_6_months' => '6 derniers mois',
+    'last_year' => "L'année dernière",
+    'last_2_years' => '2 dernières années',
     'all_time' => 'Tous les temps',
     'week' => 'Semaine',
     'peek_week' => 'Choisir une semaine',

@@ -35,6 +35,11 @@
         data() {
             return {
                 header: [{
+                    type: 'news-title',
+                    label: "",
+                    props: ['image_url'],
+                    minWidth: '40px'
+                },{
                     type: 'plain',
                     label: this.$t('models.tenant.name'),
                     prop: 'name',
@@ -92,6 +97,7 @@
                   return item;
                 });
                 that.items = items;
+                console.log(that.items);
               }).catch(function (error) {
                   console.log(error);
               })

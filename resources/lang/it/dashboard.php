@@ -18,30 +18,30 @@ return [
     'tenants_by_creation_date' => 'Gli inquilini per data di creazione',
     'tenants_by_request_status' => 'Situazione degli inquilini in base alle richieste',
     'tenants_by_status' => 'Affittuari per stato',
-    'tenants_by_language' => 'Tenants by language',
-    'tenants_by_title' => 'Tenants by title',
-    'tenants_by_device' => 'Tenants by device',
-    'tenants_by_gender' => 'Tenants by gender',
-    'actions' => 'Actions',    
+    'tenants_by_language' => 'Affittuari per lingua',
+    'tenants_by_title' => 'Affittuari per titolo',
+    'tenants_by_device' => 'Affittuari per dispositivo',
+    'tenants_by_gender' => 'Affittuari per sesso',
+    'actions' => 'Azioni',    
     'requests' => [
-      'requests_with_service_providers' => 'With service providers',
-      'request_wihout_service_providers' => 'Without service providers'
+      'requests_with_service_providers' => 'Con i fornitori di servizi',
+      'request_wihout_service_providers' => 'Senza fornitori di servizi'
     ],
     'buildings' => 
     [
-      'total_building' => 'Total Count',
-      'total_units' => 'Total Units',
-      'occupied_units' => 'Occupied Units',
-      'free_units' => 'Free Units',
-      'buildings_by_creation_date' => 'Buildings by creation date',
+      'total_building' => 'Totale',
+      'total_units' => 'Totale unità',
+      'occupied_units' => 'Unità occupate',
+      'free_units' => 'Unità libere',
+      'buildings_by_creation_date' => 'Edifici per data di creazione',
     ],
     'tenants' => 
     [
-      'total_tenants' => 'Total Count',
-      'average_age' => 'Average Age',
-      'average_age_acr' => 'Avg. Age'
+      'total_tenants' => 'Totale',
+      'average_age' => 'Età media',
+      'average_age_acr' => 'Media Età'
     ],
     'marketplace' => [
-      'go_to_marketplace' => 'go to marketplace'
+      'go_to_marketplace' => 'vai al mercato'
     ]
 ];
