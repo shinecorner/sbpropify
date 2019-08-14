@@ -46,6 +46,11 @@ class BuildingsTableSeeder extends Seeder
      */
     protected function getGeoDataByAddress($address)
     {
+        // @TODO remove when have correct geoapi key
+        return [
+            'longitude' => 0,
+            'latitude' => 0
+        ];
         $_address = sprintf('%s %s, %s %s', $address->street, $address->street_nr, $address->zip, $address->city);
         $client = new \GuzzleHttp\Client();
         $geocoder = new \Spatie\Geocoder\Geocoder($client);
