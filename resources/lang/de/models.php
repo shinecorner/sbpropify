@@ -577,7 +577,6 @@ return [
       'name' => 'Name',
       'description' => 'Beschreibung',
       'add' => 'Überbauung hinzufügen',
-      'edit' => 'Überbauung bearbeiten',
       'save' => 'Speichern',
       'saved' => 'Überbauung gespeichert',
       'edit_action' => 'Öffnen',

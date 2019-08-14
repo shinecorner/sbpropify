@@ -223,7 +223,7 @@
             </el-table-column>
             <el-table-column
                 :key="key"
-                :width="110"
+                :width="200"
                 v-for="(column, key) in headerWithActions">
                 <template slot-scope="scope">
                     <span
@@ -240,7 +240,11 @@
                             >
                                 <template v-if="action.title == 'Edit'">
                                     <i class="ti-pencil"></i>
-                                    <span>&nbsp;{{action.title}}</span>    
+                                    <span>{{action.title}}</span>    
+                                </template>
+                                <template v-else-if="action.title == 'Delete'">
+                                    <i class="ti-close"></i>
+                                    <span>{{action.title}}</span>    
                                 </template>
                                 <template v-else>
                                     {{action.title}}
@@ -788,6 +792,10 @@
                 }
             }
         }
+    }
+
+    .el-table__body {
+        cursor: pointer;
     }
 
     .filters-card {
