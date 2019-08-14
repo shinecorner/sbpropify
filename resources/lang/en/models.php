@@ -614,17 +614,37 @@ return [
       'contact_enable' => 'Enable \'My contacts\'',
       'cleanify_email' => 'Cleanify email',
       'mail_encryption' => 'Encryption',
-      'mail_from_address' => 'From address',
-      'mail_from_name' => 'From Name',
-      'mail_host' => 'Host',
-      'mail_password' => 'Password',
-      'mail_port' => 'Port',
-      'mail_username' => 'Username',
-      'iframe_url' => 
+      'iframe_url' =>
       [
         'label' => 'Iframe URL',
         'validation' => 'Iframe URL should be a valid URL',
       ],
+      "mail_from_name" =>
+      [
+        "label" => "From Name",
+        "validation" => "Enter from Name"
+      ],
+      "mail_from_address" => [
+        "label" => "From address",
+        "required" => "Enter from email address",
+        "email" => "Please enter a valid Email"
+      ],
+      "mail_host" => [
+        "label" => "Host",
+        "validation" => "Host should be a valid URL"
+      ],
+      "mail_port" => [
+        "label" => "Port",
+        "validation" => "Enter email port"
+      ],
+      "mail_username" => [
+        "label" => "Username",
+        "validation" => "Enter email username"
+      ],
+      "mail_password" => [
+        "label" => "Password",
+        "validation" => "Enter email password"
+      ]
     ],
     'request' => 
     [

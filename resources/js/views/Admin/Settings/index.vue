@@ -69,18 +69,18 @@
                                 <el-form-item :label="$t('models.realEstate.iframe_enable')">
                                     <el-switch v-model="model.iframe_enable"/>
                                 </el-form-item>
-                                <el-form-item :label="$t('models.realEstate.comment_update_timeout')"
-                                              :rules="validationRules.comment_update_timeout"
-                                              prop="comment_update_timeout">
-                                    <el-input autocomplete="off" type="number"
-                                              v-model="model.comment_update_timeout"></el-input>
-                                </el-form-item>
                                 <el-form-item :label="$t('models.realEstate.iframe_url.label')"
                                               :rules="validationRules.iframe_url"
                                               prop="iframe_url"
                                               v-if="model.iframe_enable">
                                     <el-input autocomplete="off" type="text"
                                               v-model="model.iframe_url"></el-input>
+                                </el-form-item>
+                                <el-form-item :label="$t('models.realEstate.comment_update_timeout')"
+                                              :rules="validationRules.comment_update_timeout"
+                                              prop="comment_update_timeout">
+                                    <el-input autocomplete="off" type="number"
+                                              v-model="model.comment_update_timeout"></el-input>
                                 </el-form-item>
                                 <el-form-item :label="$t('models.realEstate.cleanify_email')"
                                               :rules="validationRules.cleanify_email" prop="cleanify_email">
@@ -157,33 +157,42 @@
                                      :rules="validationRules"
                                      ref="realEstateEmailSettingsForm"
                             >
-                                <el-form-item :label="$t('models.realEstate.mail_from_name')"
-                                              :rules="validationRules.name"
+                                <el-form-item :label="$t('models.realEstate.mail_from_name.label')"
+                                              prop="mail_from_name"
+                                              :rules="validationRules.mail_from_name"
                                 >
                                     <el-input autocomplete="off" type="text"
                                               v-model="model.mail_from_name"></el-input>
                                 </el-form-item>
-                                <el-form-item :label="$t('models.realEstate.mail_from_address')"
-                                              :rules="validationRules.email"
+                                <el-form-item :label="$t('models.realEstate.mail_from_address.label')"
+                                              prop="mail_from_address"
+                                              :rules="validationRules.mail_from_address"
                                 >
                                     <el-input autocomplete="off" type="text"
                                               v-model="model.mail_from_address"></el-input>
                                 </el-form-item>
-                                <el-form-item :label="$t('models.realEstate.mail_host')"
+                                <el-form-item :label="$t('models.realEstate.mail_host.label')"
+                                              prop="mail_host"
+                                              :rules="validationRules.mail_host"
                                 >
-                                    <el-input autocomplete="off" type="text"
+                                    <el-input autocomplete="off"
+                                              type="url"
                                               v-model="model.mail_host"
                                               class="dis-autofill"
                                               readonly
                                               onfocus="this.removeAttribute('readonly');"
                                     ></el-input>
                                 </el-form-item>
-                                <el-form-item :label="$t('models.realEstate.mail_port')"
+                                <el-form-item :label="$t('models.realEstate.mail_port.label')"
+                                              prop="mail_port"
+                                              :rules="validationRules.mail_port"
                                 >
                                     <el-input autocomplete="off" type="text"
                                               v-model="model.mail_port"></el-input>
                                 </el-form-item>
                                 <el-form-item :label="$t('models.realEstate.mail_encryption')"
+                                              required
+                                              :rules="validationRules.requiredField"
                                 >
                                     <el-select :placeholder="$t('models.realEstate.mail_encryption')" style="display: block"
                                                v-model="model.mail_encryption">
@@ -193,12 +202,16 @@
                                                    v-for="item in mailEncryption"></el-option>
                                     </el-select>
                                 </el-form-item>
-                                <el-form-item :label="$t('models.realEstate.mail_username')"
+                                <el-form-item :label="$t('models.realEstate.mail_username.label')"
+                                              prop="mail_username"
+                                              :rules="validationRules.mail_username"
                                 >
                                     <el-input autocomplete="off" type="text"
                                               v-model="model.mail_username"></el-input>
                                 </el-form-item>
-                                <el-form-item :label="$t('models.realEstate.mail_password')"
+                                <el-form-item :label="$t('models.realEstate.mail_password.label')"
+                                              :rules="validationRules.mail_password"
+                                              prop="mail_password"
                                 >
                                     <el-input autocomplete="new-password"
                                               show-password
@@ -254,6 +267,12 @@
                     news_approval_enable: false,
                     comment_update_timeout: 60,
                     iframe_url: '',
+                    mail_from_name: '',
+                    mail_from_email: '',
+                    mail_host: '',
+                    mail_port: '',
+                    mail_username: '',
+                    mail_password: '',
                     cleanify_email: '',
                     address: {
                         state: {}
@@ -283,6 +302,36 @@
                     cleanify_email: [{
                         type: 'email',
                         message: this.$t("email_validation.email")
+                    }],
+                    mail_from_name:[{
+                        required: true,
+                        message: this.$t("models.realEstate.mail_from_name.validation")
+                    }],
+                    mail_from_address:[{
+                            required: true,
+                            message: this.$t("models.realEstate.mail_from_address.required")
+                        },
+                        {
+                            type: 'email',
+                            message: this.$t("models.realEstate.mail_from_address.email")
+                        }
+                    ],
+                    mail_host: [{
+                        required: true,
+                        type: 'url',
+                        message: this.$t("models.realEstate.mail_host.validation")
+                    }],
+                    mail_port: [{
+                        required: true,
+                        message: this.$t("models.realEstate.mail_port.validation")
+                    }],
+                    mail_username: [{
+                        required: true,
+                        message: this.$t("models.realEstate.mail_username.validation")
+                    }],
+                    mail_password: [{
+                        required: true,
+                        message: this.$t("models.realEstate.mail_password.validation")
                     }]
                 },
                 activeName: 'details',
