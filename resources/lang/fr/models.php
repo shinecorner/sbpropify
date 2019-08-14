@@ -607,17 +607,37 @@ return [
       'templates' => 'Templates',
       'contact_enable' => 'Enable \'My contacts\'',
       'cleanify_email' => 'Cleanify email',
-      'mail_encryption' => 'Encryption',
-      'mail_from_address' => 'From address',
-      'mail_from_name' => 'From Name',
-      'mail_host' => 'Host',
-      'mail_password' => 'Password',
-      'mail_port' => 'Port',
-      'mail_username' => 'Username',
-      'iframe_url' => 
+      'mail_encryption' => 'Chiffrement',
+      'iframe_url' =>
       [
         'label' => 'Iframe URL',
         'validation' => 'Iframe URL should be a valid URL',
+      ],
+      "mail_from_name" =>
+        [
+          "label" => "Nom de l'expéditeur",
+          "validation" => "Entrer le nom de l'expéditeur"
+        ],
+      "mail_from_address" => [
+        "label" => "Adresse électronique de l'expéditeur",
+        "required" => "Entrez l'adresse e-mail de l'expéditeur",
+        "email" => "Veuillez saisir un Email valide"
+      ],
+      "mail_host" => [
+        "label" => "Hôte",
+        "validation" => "Entrer le nom de l'hébergeur de messagerie"
+      ],
+      "mail_port" => [
+        "label" => "Port",
+        "validation" => "Entrer le port de messagerie"
+      ],
+      "mail_username" => [
+        "label" => "Nom d'utilisateur",
+        "validation" => "Entrez votre nom d'utilisateur e-mail"
+      ],
+      "mail_password" => [
+        "label" => "Mot de passe",
+        "validation" => "Entrer le mot de passe de l'email"
       ],
     ],
     'request' => 

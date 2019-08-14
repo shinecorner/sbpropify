@@ -318,7 +318,6 @@
                     ],
                     mail_host: [{
                         required: true,
-                        type: 'url',
                         message: this.$t("models.realEstate.mail_host.validation")
                     }],
                     mail_port: [{
