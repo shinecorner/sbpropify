@@ -5,6 +5,7 @@ import Heading from 'components/Heading';
 import Card from 'components/Card';
 import UploadDocument from 'components/UploadDocument';
 import Media from 'components/RequestMedia';
+import RequestMedia from 'components/RequestMedia';
 
 
 export default (config = {}) => {
@@ -13,7 +14,8 @@ export default (config = {}) => {
             Heading,
             Card,
             UploadDocument,
-            Media
+            Media,
+            RequestMedia
         },
         data() {
             return {
