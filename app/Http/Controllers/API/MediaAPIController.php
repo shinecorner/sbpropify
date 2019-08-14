@@ -269,7 +269,7 @@ class MediaAPIController extends AppBaseController
         }
 
         $response = (new MediaTransformer)->transform($media);
-        return $this->sendResponse($response, 'Media saved successfully');
+        return $this->sendResponse($response, __('models.post.media.uploaded'));
     }
 
     /**
@@ -325,7 +325,7 @@ class MediaAPIController extends AppBaseController
 
         $media->delete();
 
-        return $this->sendResponse($media_id, 'Media deleted successfully');
+        return $this->sendResponse($media_id, __('models.post.media.deleted'));
     }
 
     /**
@@ -380,7 +380,7 @@ class MediaAPIController extends AppBaseController
         }
 
         $response = (new MediaTransformer)->transform($media);
-        return $this->sendResponse($response, 'Media saved successfully');
+        return $this->sendResponse($response, __('models.tenant.media.uploaded'));
     }
 
     /**
@@ -437,7 +437,7 @@ class MediaAPIController extends AppBaseController
 
         $media->delete();
 
-        return $this->sendResponse($media_id, 'Media deleted successfully');
+        return $this->sendResponse($media_id, __('models.tenant.media.deleted'));
     }
 
     /**
@@ -493,7 +493,7 @@ class MediaAPIController extends AppBaseController
 
         $this->serviceRequestRepository->notifyMedia($serviceRequest, \Auth::user(), $media);
         $response = (new MediaTransformer)->transform($media);
-        return $this->sendResponse($response, 'Media saved successfully');
+        return $this->sendResponse($response, __('models.request.media.added'));
     }
 
     /**
@@ -548,7 +548,7 @@ class MediaAPIController extends AppBaseController
         }
 
         $media->delete();
-        return $this->sendResponse($media_id, 'Media deleted successfully');
+        return $this->sendResponse($media_id, __('models.request.media.deleted'));
     }
 
     /**
@@ -603,7 +603,7 @@ class MediaAPIController extends AppBaseController
         }
 
         $response = (new MediaTransformer)->transform($media);
-        return $this->sendResponse($response, 'Media saved successfully');
+        return $this->sendResponse($response, __('models.product.media.uploaded'));
     }
 
     /**
@@ -659,6 +659,6 @@ class MediaAPIController extends AppBaseController
 
         $media->delete();
 
-        return $this->sendResponse($media_id, 'Media deleted successfully');
+        return $this->sendResponse($media_id, __('models.product.media.deleted'));
     }
 }

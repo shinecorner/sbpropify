@@ -1,5 +1,12 @@
 export default {
     "fr": {
+        "passwords": {
+            "password": "Les mots de passe doivent contenir au moins six caractères et être identiques.",
+            "reset": "Votre mot de passe a été réinitialisé !",
+            "sent": "Nous vous avons envoyé par email le lien de réinitialisation du mot de passe !",
+            "token": "Ce jeton de réinitialisation du mot de passe n'est pas valide.",
+            "user": "Aucun utilisateur n'a été trouvé avec cette adresse email."
+        },
         "models": {
             "user": {
                 "edit_action": "Edit",
@@ -22,6 +29,7 @@ export default {
                 "logo": "Logo",
                 "address": "Address",
                 "blank_pdf": "Blank pdf",
+                "notificationSaved": "Notificatin setting saved",
                 "realEstateSaved": "Real Estate settings saved",
                 "serviceRequestCategorySaved": "Catégorie de demande de service sauvegardée",
                 "serviceRequestCategoryDeleted": "Catégorie de demande de service supprimée",
@@ -73,6 +81,10 @@ export default {
                 "requests": "Requests",
                 "company": "Company name",
                 "no_building": "No building",
+                "media": {
+                    "deleted": "Document/Photo Deleted",
+                    "uploaded": "Document/Photo Uploaded"
+                },
                 "building": {
                     "name": "Building"
                 },
@@ -378,8 +390,8 @@ export default {
                     "search_provider": "Search provider"
                 },
                 "media": {
-                    "deleted": "Media deleted",
-                    "removed": "Media removed"
+                    "deleted": "Document/Photo Deleted",
+                    "uploaded": "Document/Photo Uploaded"
                 },
                 "type": {
                     "label": "Type",
@@ -795,8 +807,8 @@ export default {
                 "contact": "Contact",
                 "price": "Price",
                 "media": {
-                    "removed": "Media removed",
-                    "deleted": "Media deleted"
+                    "deleted": "Document/Photo Deleted",
+                    "uploaded": "Document/Photo Uploaded"
                 },
                 "type": {
                     "label": "Type",
@@ -849,43 +861,6 @@ export default {
                 "terms_text": "Terms text here, long text"
             }
         },
-        "layouts": {
-            "tenant": {
-                "menu": {
-                    "logout": "Logout"
-                },
-                "sidebar": {
-                    "dashboard": "Dashboard",
-                    "myTenancy": "My tenancy",
-                    "myPersonalData": "My personal data",
-                    "myRecentContract": "My recent contract",
-                    "myDocuments": "Documents",
-                    "myContactPersons": "Contact persons",
-                    "posts": "News",
-                    "requests": "Requests",
-                    "products": "Marketplace",
-                    "settings": "Settings"
-                }
-            }
-        },
-        "auth": {
-            "failed": "Ces identifiants ne correspondent pas à nos enregistrements",
-            "throttle": "Tentatives de connexion trop nombreuses. Veuillez essayer de nouveau dans {seconds} secondes."
-        },
-        "views": {
-            "tenant": {
-                "my": {
-                    "personal": {
-                        "title": "Personal data",
-                        "description": "My personal details.",
-                        "placeholder": {
-                            "title": "No personal data available.",
-                            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                        }
-                    }
-                }
-            }
-        },
         "filters": {
             "header": "Filters",
             "districts": "Districts",
@@ -903,148 +878,6 @@ export default {
             "created_to": "Created to",
             "services": "Services",
             "tenant": "Type tenants"
-        },
-        "general": {
-            "en": "EN",
-            "fr": "FR",
-            "it": "IT",
-            "de": "DE",
-            "yes": "Yes",
-            "timestamps": {
-                "hours": "Heures",
-                "days": "Jours",
-                "weeks": "Semaines",
-                "months": "Mois",
-                "years": "Années"
-            },
-            "chooseLanguage": "Choisir la langue",
-            "languages": {
-                "fr": "Français",
-                "it": "Italiano",
-                "de": "Deutsch",
-                "en": "English"
-            },
-            "footerText": {
-                "companyName": "Propify",
-                "leftSideText": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.",
-                "allRightsSaved": "Tous droits réservés"
-            },
-            "days": {
-                "monday": "lundi",
-                "tuesday": "mardi",
-                "wednesday": "mercredi",
-                "thursday": "jeudi",
-                "friday": "vendredi",
-                "saturday": "samedi",
-                "sunday": "dimanche"
-            },
-            "no": "Non",
-            "none": "Aucun",
-            "all": "Tous",
-            "loadMore": "Charger plus",
-            "account": "Compte",
-            "unauthenticated": "Non authentifié",
-            "logged_out": "Déconnecté",
-            "logged_in": "Connecté(e)",
-            "invalid_credentials": "Pouvoirs non valides",
-            "server_error": "Erreur de serveur",
-            "reset_password": "Réinitialiser le mot de passe",
-            "reset_password_mail": "Envoyer un e-mail avec mot de passe réinitialisé",
-            "reset_password_mail_sent": "Réinitialiser le mot de passe e-mail envoyé, s'il vous plaît vérifier votre boîte de réception",
-            "back_to_login": "Retour à la page d'ouverture de session",
-            "forgot_password": "Mot de passe oublié",
-            "remember_me": "Se souvenir de moi",
-            "password": "Mot de passe",
-            "change_password": "Modifier le mot de passe",
-            "new_password": "Nouveau mot de passe",
-            "old_password": "Ancien mot de passe",
-            "new_password_confirmation": "Confirmation du nouveau mot de passe",
-            "change": "Changer",
-            "cancel": "Annuler",
-            "confirm": "Confirmer",
-            "confirm_password": "Confirmer le mot de passe",
-            "incorrect_password": "L'ancien mot de passe est incorect",
-            "password_changed": "Mot de passe modifié avec succès",
-            "details_saved": "Détails sauvegardés",
-            "please_wait": "Veuillez patienter...",
-            "no_data_available": "Pas de données disponibles",
-            "password_validation": {
-                "required": "Mot de passe requis",
-                "confirm": "Veuillez saisir à nouveau le mot de passe",
-                "match": "Les mots de passe ne sont pas égaux",
-                "min": "Le mot de passe doit comporter au moins 6 caractères.",
-                "old_password_min": "L'ancien mot de passe doit comporter au moins 6 caractères.",
-                "old_password_required": "Ancien mot de passe requis"
-            },
-            "email": "Courriel",
-            "email_validation": {
-                "required": "email est requis",
-                "email": "Veuillez saisir un Email valide"
-            },
-            "token_invalid": "Jeton non valable",
-            "login": "Connexion",
-            "support": "Support",
-            "actions": {
-                "label": "Operations",
-                "edit": "Edit",
-                "add": "Add",
-                "delete": "Delete",
-                "create": "Create",
-                "view": "Details",
-                "save": "Save",
-                "close": "Close",
-                "saveAndClose": "Save & Close",
-                "upload": "Upload"
-            },
-            "swal": {
-                "delete": {
-                    "title": "Are you sure?",
-                    "text": "You won't be able to revert this!",
-                    "confirmText": "Yes, delete it!",
-                    "deleted": "Deleted successfully"
-                },
-                "add": {
-                    "added": "Added successfully"
-                },
-                "media": {
-                    "added": "Document/Photo ajoutée",
-                    "deleted": "Document/Photo supprimée"
-                },
-                "logout_confirm": "Vous serez déconnecté."
-            },
-            "roles": {
-                "label": "Role",
-                "administrator": "Administrator",
-                "homeowner": "Home Owner",
-                "manager": "Manager",
-                "registered": "Registered",
-                "service": "Service",
-                "super_admin": "Super Admin"
-            },
-            "search": {
-                "placeholder": "Search"
-            },
-            "errors": {
-                "files_extension_images": "Only jpg and png files accepted"
-            },
-            "dateTimeFormat": "{date} at {time}",
-            "date_range": {
-                "range_separator": "To",
-                "start_date": "Start date",
-                "end_date": "End date",
-                "last_7_days": "7 derniers jours",
-                "last_week": "Last week",
-                "last_14_days": "14 derniers jours",
-                "last_30_days": "30 derniers jours",
-                "last_month": "Last Month",
-                "last_3_months": "Last 3 months",
-                "last_6_months": "Last 6 months",
-                "last_year": "Last year",
-                "last_2_years": "Last 2 years",
-                "all_time": "Tous les temps",
-                "week": "Semaine",
-                "peek_week": "Choisir une semaine"
-            }
         },
         "dashboard": {
             "statistics": "Statistiques",
@@ -1090,200 +923,41 @@ export default {
                 "go_to_marketplace": "go to marketplace"
             }
         },
-        "validation": {
-            "accepted": "Le champ {attribute} doit être accepté.",
-            "active_url": "Le champ {attribute} n'est pas une URL valide.",
-            "after": "Le champ {attribute} doit être une date postérieure au {date}.",
-            "after_or_equal": "Le champ {attribute} doit être une date postérieure ou égale au {date}.",
-            "alpha": "Le champ {attribute} doit contenir uniquement des lettres.",
-            "alpha_dash": "Le champ {attribute} doit contenir uniquement des lettres, des chiffres et des tirets.",
-            "alpha_num": "Le champ {attribute} doit contenir uniquement des chiffres et des lettres.",
-            "array": "Le champ {attribute} doit être un tableau.",
-            "before": "Le champ {attribute} doit être une date antérieure au {date}.",
-            "before_or_equal": "Le champ {attribute} doit être une date antérieure ou égale au {date}.",
-            "between": {
-                "numeric": "La valeur de {attribute} doit être comprise entre {min} et {max}.",
-                "file": "La taille du fichier de {attribute} doit être comprise entre {min} et {max} kilo-octets.",
-                "string": "Le texte {attribute} doit contenir entre {min} et {max} caractères.",
-                "array": "Le tableau {attribute} doit contenir entre {min} et {max} éléments."
-            },
-            "boolean": "Le champ {attribute} doit être vrai ou faux.",
-            "confirmed": "Le champ de confirmation {attribute} ne correspond pas.",
-            "date": "Le champ {attribute} n'est pas une date valide.",
-            "date_equals": "Le champ {attribute} doit être une date égale à {date}.",
-            "date_format": "Le champ {attribute} ne correspond pas au format {format}.",
-            "different": "Les champs {attribute} et {other} doivent être différents.",
-            "digits": "Le champ {attribute} doit contenir {digits} chiffres.",
-            "digits_between": "Le champ {attribute} doit contenir entre {min} et {max} chiffres.",
-            "dimensions": "La taille de l'image {attribute} n'est pas conforme.",
-            "distinct": "Le champ {attribute} a une valeur en double.",
-            "email": "Le champ {attribute} doit être une adresse email valide.",
-            "exists": "Le champ {attribute} sélectionné est invalide.",
-            "file": "Le champ {attribute} doit être un fichier.",
-            "filled": "Le champ {attribute} doit avoir une valeur.",
-            "gt": {
-                "numeric": "La valeur de {attribute} doit être supérieure à {value}.",
-                "file": "La taille du fichier de {attribute} doit être supérieure à {value} kilo-octets.",
-                "string": "Le texte {attribute} doit contenir plus de {value} caractères.",
-                "array": "Le tableau {attribute} doit contenir plus de {value} éléments."
-            },
-            "gte": {
-                "numeric": "La valeur de {attribute} doit être supérieure ou égale à {value}.",
-                "file": "La taille du fichier de {attribute} doit être supérieure ou égale à {value} kilo-octets.",
-                "string": "Le texte {attribute} doit contenir au moins {value} caractères.",
-                "array": "Le tableau {attribute} doit contenir au moins {value} éléments."
-            },
-            "image": "Le champ {attribute} doit être une image.",
-            "in": "Le champ {attribute} est invalide.",
-            "in_array": "Le champ {attribute} n'existe pas dans {other}.",
-            "integer": "Le champ {attribute} doit être un entier.",
-            "ip": "Le champ {attribute} doit être une adresse IP valide.",
-            "ipv4": "Le champ {attribute} doit être une adresse IPv4 valide.",
-            "ipv6": "Le champ {attribute} doit être une adresse IPv6 valide.",
-            "json": "Le champ {attribute} doit être un document JSON valide.",
-            "lt": {
-                "numeric": "La valeur de {attribute} doit être inférieure à {value}.",
-                "file": "La taille du fichier de {attribute} doit être inférieure à {value} kilo-octets.",
-                "string": "Le texte {attribute} doit contenir moins de {value} caractères.",
-                "array": "Le tableau {attribute} doit contenir moins de {value} éléments."
-            },
-            "lte": {
-                "numeric": "La valeur de {attribute} doit être inférieure ou égale à {value}.",
-                "file": "La taille du fichier de {attribute} doit être inférieure ou égale à {value} kilo-octets.",
-                "string": "Le texte {attribute} doit contenir au plus {value} caractères.",
-                "array": "Le tableau {attribute} doit contenir au plus {value} éléments."
-            },
-            "max": {
-                "numeric": "La valeur de {attribute} ne peut être supérieure à {max}.",
-                "file": "La taille du fichier de {attribute} ne peut pas dépasser {max} kilo-octets.",
-                "string": "Le texte de {attribute} ne peut contenir plus de {max} caractères.",
-                "array": "Le tableau {attribute} ne peut contenir plus de {max} éléments."
-            },
-            "mimes": "Le champ {attribute} doit être un fichier de type : {values}.",
-            "mimetypes": "Le champ {attribute} doit être un fichier de type : {values}.",
-            "min": {
-                "numeric": "La valeur de {attribute} doit être supérieure ou égale à {min}.",
-                "file": "La taille du fichier de {attribute} doit être supérieure à {min} kilo-octets.",
-                "string": "Le texte {attribute} doit contenir au moins {min} caractères.",
-                "array": "Le tableau {attribute} doit contenir au moins {min} éléments."
-            },
-            "not_in": "Le champ {attribute} sélectionné n'est pas valide.",
-            "not_regex": "Le format du champ {attribute} n'est pas valide.",
-            "numeric": "Le champ {attribute} doit contenir un nombre.",
-            "present": "Le champ {attribute} doit être présent.",
-            "regex": "Le format du champ {attribute} est invalide.",
-            "required": "Le champ {attribute} est obligatoire.",
-            "required_if": "Le champ {attribute} est obligatoire quand la valeur de {other} est {value}.",
-            "required_unless": "Le champ {attribute} est obligatoire sauf si {other} est {values}.",
-            "required_with": "Le champ {attribute} est obligatoire quand {values} est présent.",
-            "required_with_all": "Le champ {attribute} est obligatoire quand {values} sont présents.",
-            "required_without": "Le champ {attribute} est obligatoire quand {values} n'est pas présent.",
-            "required_without_all": "Le champ {attribute} est requis quand aucun de {values} n'est présent.",
-            "same": "Les champs {attribute} et {other} doivent être identiques.",
-            "size": {
-                "numeric": "La valeur de {attribute} doit être {size}.",
-                "file": "La taille du fichier de {attribute} doit être de {size} kilo-octets.",
-                "string": "Le texte de {attribute} doit contenir {size} caractères.",
-                "array": "Le tableau {attribute} doit contenir {size} éléments."
-            },
-            "starts_with": "Le champ {attribute} doit commencer avec une des valeurs suivantes : {values}",
-            "string": "Le champ {attribute} doit être une chaîne de caractères.",
-            "timezone": "Le champ {attribute} doit être un fuseau horaire valide.",
-            "unique": "La valeur du champ {attribute} est déjà utilisée.",
-            "uploaded": "Le fichier du champ {attribute} n'a pu être téléversé.",
-            "url": "Le format de l'URL de {attribute} n'est pas valide.",
-            "uuid": "Le champ {attribute} doit être un UUID valide",
-            "custom": {
-                "attribute-name": {
-                    "rule-name": "custom-message"
-                }
-            },
-            "attributes": {
-                "name": "nom",
-                "username": "nom d'utilisateur",
-                "email": "adresse email",
-                "first_name": "prénom",
-                "last_name": "nom",
-                "password": "mot de passe",
-                "password_confirmation": "confirmation du mot de passe",
-                "city": "ville",
-                "country": "pays",
-                "address": "adresse",
-                "phone": "téléphone",
-                "mobile": "portable",
-                "age": "âge",
-                "sex": "sexe",
-                "gender": "genre",
-                "day": "jour",
-                "month": "mois",
-                "year": "année",
-                "hour": "heure",
-                "minute": "minute",
-                "second": "seconde",
-                "title": "titre",
-                "content": "contenu",
-                "description": "description",
-                "excerpt": "extrait",
-                "date": "date",
-                "time": "heure",
-                "available": "disponible",
-                "size": "taille"
-            },
-            "general": {
-                "required": "This field is required"
-            },
-            "price": {
-                "valid": "Please enter a valid price",
-                "required": "Price is required"
-            },
-            "firstName": {
-                "required": "First name is required"
-            },
-            "lastName": {
-                "required": "Last name is required"
-            },
-            "phone": {
-                "required": "Phone is required"
-            },
-            "address": {
-                "required": "Address is required"
-            },
-            "zip": {
-                "required": "Zip is required"
-            },
-            "city": {
-                "required": "City is required"
-            },
-            "title": {
-                "required": "Title is required"
-            },
-            "terms": {
-                "required": "Please approve with terms and conditions"
+        "auth": {
+            "failed": "Ces identifiants ne correspondent pas à nos enregistrements",
+            "throttle": "Tentatives de connexion trop nombreuses. Veuillez essayer de nouveau dans {seconds} secondes."
+        },
+        "settings": {
+            "notifications": "Notifications and language",
+            "admin": "Admin notifications",
+            "news": "News notifications",
+            "marketplace": "Marketplace notifications",
+            "service": "Service notifications",
+            "updated": "Settings updated",
+            "language": "Language",
+            "summary": {
+                "label": "Summary statistics",
+                "daily": "Daily",
+                "monthly": "Monthly",
+                "yearly": "Yearly"
             }
         },
-        "passwords": {
-            "password": "Les mots de passe doivent contenir au moins six caractères et être identiques.",
-            "reset": "Votre mot de passe a été réinitialisé !",
-            "sent": "Nous vous avons envoyé par email le lien de réinitialisation du mot de passe !",
-            "token": "Ce jeton de réinitialisation du mot de passe n'est pas valide.",
-            "user": "Aucun utilisateur n'a été trouvé avec cette adresse email."
+        "pagination": {
+            "previous": "&laquo; Précédent",
+            "next": "Suivant &raquo;"
         },
-        "pages": {
-            "profile": {
-                "pageTitle": "Profile",
-                "profile": "Profile",
-                "account": "Account",
-                "security": "Security",
-                "notifications": "Notifications"
-            },
-            "user": {
-                "title": "Users"
-            },
-            "request_activities": {
-                "title": "Request activities"
-            },
+        "views": {
             "tenant": {
-                "title": "Tenants"
+                "my": {
+                    "personal": {
+                        "title": "Personal data",
+                        "description": "My personal details.",
+                        "placeholder": {
+                            "title": "No personal data available.",
+                            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                        }
+                    }
+                }
             }
         },
         "menu": {
@@ -1317,21 +991,6 @@ export default {
             "activity": "Activité",
             "propertyManagers": "Gestionnaires immobiliers",
             "templates": "Modèles"
-        },
-        "settings": {
-            "notifications": "Notifications and language",
-            "admin": "Admin notifications",
-            "news": "News notifications",
-            "marketplace": "Marketplace notifications",
-            "service": "Service notifications",
-            "updated": "Settings updated",
-            "language": "Language",
-            "summary": {
-                "label": "Summary statistics",
-                "daily": "Daily",
-                "monthly": "Monthly",
-                "yearly": "Yearly"
-            }
         },
         "components": {
             "common": {
@@ -1518,9 +1177,355 @@ export default {
             },
             "admin": []
         },
-        "pagination": {
-            "previous": "&laquo; Précédent",
-            "next": "Suivant &raquo;"
+        "layouts": {
+            "tenant": {
+                "menu": {
+                    "logout": "Logout"
+                },
+                "sidebar": {
+                    "dashboard": "Dashboard",
+                    "myTenancy": "My tenancy",
+                    "myPersonalData": "My personal data",
+                    "myRecentContract": "My recent contract",
+                    "myDocuments": "Documents",
+                    "myContactPersons": "Contact persons",
+                    "posts": "News",
+                    "requests": "Requests",
+                    "products": "Marketplace",
+                    "settings": "Settings"
+                }
+            }
+        },
+        "validation": {
+            "accepted": "Le champ {attribute} doit être accepté.",
+            "active_url": "Le champ {attribute} n'est pas une URL valide.",
+            "after": "Le champ {attribute} doit être une date postérieure au {date}.",
+            "after_or_equal": "Le champ {attribute} doit être une date postérieure ou égale au {date}.",
+            "alpha": "Le champ {attribute} doit contenir uniquement des lettres.",
+            "alpha_dash": "Le champ {attribute} doit contenir uniquement des lettres, des chiffres et des tirets.",
+            "alpha_num": "Le champ {attribute} doit contenir uniquement des chiffres et des lettres.",
+            "array": "Le champ {attribute} doit être un tableau.",
+            "before": "Le champ {attribute} doit être une date antérieure au {date}.",
+            "before_or_equal": "Le champ {attribute} doit être une date antérieure ou égale au {date}.",
+            "between": {
+                "numeric": "La valeur de {attribute} doit être comprise entre {min} et {max}.",
+                "file": "La taille du fichier de {attribute} doit être comprise entre {min} et {max} kilo-octets.",
+                "string": "Le texte {attribute} doit contenir entre {min} et {max} caractères.",
+                "array": "Le tableau {attribute} doit contenir entre {min} et {max} éléments."
+            },
+            "boolean": "Le champ {attribute} doit être vrai ou faux.",
+            "confirmed": "Le champ de confirmation {attribute} ne correspond pas.",
+            "date": "Le champ {attribute} n'est pas une date valide.",
+            "date_equals": "Le champ {attribute} doit être une date égale à {date}.",
+            "date_format": "Le champ {attribute} ne correspond pas au format {format}.",
+            "different": "Les champs {attribute} et {other} doivent être différents.",
+            "digits": "Le champ {attribute} doit contenir {digits} chiffres.",
+            "digits_between": "Le champ {attribute} doit contenir entre {min} et {max} chiffres.",
+            "dimensions": "La taille de l'image {attribute} n'est pas conforme.",
+            "distinct": "Le champ {attribute} a une valeur en double.",
+            "email": "Le champ {attribute} doit être une adresse email valide.",
+            "exists": "Le champ {attribute} sélectionné est invalide.",
+            "file": "Le champ {attribute} doit être un fichier.",
+            "filled": "Le champ {attribute} doit avoir une valeur.",
+            "gt": {
+                "numeric": "La valeur de {attribute} doit être supérieure à {value}.",
+                "file": "La taille du fichier de {attribute} doit être supérieure à {value} kilo-octets.",
+                "string": "Le texte {attribute} doit contenir plus de {value} caractères.",
+                "array": "Le tableau {attribute} doit contenir plus de {value} éléments."
+            },
+            "gte": {
+                "numeric": "La valeur de {attribute} doit être supérieure ou égale à {value}.",
+                "file": "La taille du fichier de {attribute} doit être supérieure ou égale à {value} kilo-octets.",
+                "string": "Le texte {attribute} doit contenir au moins {value} caractères.",
+                "array": "Le tableau {attribute} doit contenir au moins {value} éléments."
+            },
+            "image": "Le champ {attribute} doit être une image.",
+            "in": "Le champ {attribute} est invalide.",
+            "in_array": "Le champ {attribute} n'existe pas dans {other}.",
+            "integer": "Le champ {attribute} doit être un entier.",
+            "ip": "Le champ {attribute} doit être une adresse IP valide.",
+            "ipv4": "Le champ {attribute} doit être une adresse IPv4 valide.",
+            "ipv6": "Le champ {attribute} doit être une adresse IPv6 valide.",
+            "json": "Le champ {attribute} doit être un document JSON valide.",
+            "lt": {
+                "numeric": "La valeur de {attribute} doit être inférieure à {value}.",
+                "file": "La taille du fichier de {attribute} doit être inférieure à {value} kilo-octets.",
+                "string": "Le texte {attribute} doit contenir moins de {value} caractères.",
+                "array": "Le tableau {attribute} doit contenir moins de {value} éléments."
+            },
+            "lte": {
+                "numeric": "La valeur de {attribute} doit être inférieure ou égale à {value}.",
+                "file": "La taille du fichier de {attribute} doit être inférieure ou égale à {value} kilo-octets.",
+                "string": "Le texte {attribute} doit contenir au plus {value} caractères.",
+                "array": "Le tableau {attribute} doit contenir au plus {value} éléments."
+            },
+            "max": {
+                "numeric": "La valeur de {attribute} ne peut être supérieure à {max}.",
+                "file": "La taille du fichier de {attribute} ne peut pas dépasser {max} kilo-octets.",
+                "string": "Le texte de {attribute} ne peut contenir plus de {max} caractères.",
+                "array": "Le tableau {attribute} ne peut contenir plus de {max} éléments."
+            },
+            "mimes": "Le champ {attribute} doit être un fichier de type : {values}.",
+            "mimetypes": "Le champ {attribute} doit être un fichier de type : {values}.",
+            "min": {
+                "numeric": "La valeur de {attribute} doit être supérieure ou égale à {min}.",
+                "file": "La taille du fichier de {attribute} doit être supérieure à {min} kilo-octets.",
+                "string": "Le texte {attribute} doit contenir au moins {min} caractères.",
+                "array": "Le tableau {attribute} doit contenir au moins {min} éléments."
+            },
+            "not_in": "Le champ {attribute} sélectionné n'est pas valide.",
+            "not_regex": "Le format du champ {attribute} n'est pas valide.",
+            "numeric": "Le champ {attribute} doit contenir un nombre.",
+            "present": "Le champ {attribute} doit être présent.",
+            "regex": "Le format du champ {attribute} est invalide.",
+            "required": "Le champ {attribute} est obligatoire.",
+            "required_if": "Le champ {attribute} est obligatoire quand la valeur de {other} est {value}.",
+            "required_unless": "Le champ {attribute} est obligatoire sauf si {other} est {values}.",
+            "required_with": "Le champ {attribute} est obligatoire quand {values} est présent.",
+            "required_with_all": "Le champ {attribute} est obligatoire quand {values} sont présents.",
+            "required_without": "Le champ {attribute} est obligatoire quand {values} n'est pas présent.",
+            "required_without_all": "Le champ {attribute} est requis quand aucun de {values} n'est présent.",
+            "same": "Les champs {attribute} et {other} doivent être identiques.",
+            "size": {
+                "numeric": "La valeur de {attribute} doit être {size}.",
+                "file": "La taille du fichier de {attribute} doit être de {size} kilo-octets.",
+                "string": "Le texte de {attribute} doit contenir {size} caractères.",
+                "array": "Le tableau {attribute} doit contenir {size} éléments."
+            },
+            "starts_with": "Le champ {attribute} doit commencer avec une des valeurs suivantes : {values}",
+            "string": "Le champ {attribute} doit être une chaîne de caractères.",
+            "timezone": "Le champ {attribute} doit être un fuseau horaire valide.",
+            "unique": "La valeur du champ {attribute} est déjà utilisée.",
+            "uploaded": "Le fichier du champ {attribute} n'a pu être téléversé.",
+            "url": "Le format de l'URL de {attribute} n'est pas valide.",
+            "uuid": "Le champ {attribute} doit être un UUID valide",
+            "custom": {
+                "attribute-name": {
+                    "rule-name": "custom-message"
+                }
+            },
+            "attributes": {
+                "name": "nom",
+                "username": "nom d'utilisateur",
+                "email": "adresse email",
+                "first_name": "prénom",
+                "last_name": "nom",
+                "password": "mot de passe",
+                "password_confirmation": "confirmation du mot de passe",
+                "city": "ville",
+                "country": "pays",
+                "address": "adresse",
+                "phone": "téléphone",
+                "mobile": "portable",
+                "age": "âge",
+                "sex": "sexe",
+                "gender": "genre",
+                "day": "jour",
+                "month": "mois",
+                "year": "année",
+                "hour": "heure",
+                "minute": "minute",
+                "second": "seconde",
+                "title": "titre",
+                "content": "contenu",
+                "description": "description",
+                "excerpt": "extrait",
+                "date": "date",
+                "time": "heure",
+                "available": "disponible",
+                "size": "taille"
+            },
+            "general": {
+                "required": "This field is required"
+            },
+            "price": {
+                "valid": "Please enter a valid price",
+                "required": "Price is required"
+            },
+            "firstName": {
+                "required": "First name is required"
+            },
+            "lastName": {
+                "required": "Last name is required"
+            },
+            "phone": {
+                "required": "Phone is required"
+            },
+            "address": {
+                "required": "Address is required"
+            },
+            "zip": {
+                "required": "Zip is required"
+            },
+            "city": {
+                "required": "City is required"
+            },
+            "title": {
+                "required": "Title is required"
+            },
+            "terms": {
+                "required": "Please approve with terms and conditions"
+            }
+        },
+        "general": {
+            "en": "EN",
+            "fr": "FR",
+            "it": "IT",
+            "de": "DE",
+            "yes": "Yes",
+            "timestamps": {
+                "hours": "Heures",
+                "days": "Jours",
+                "weeks": "Semaines",
+                "months": "Mois",
+                "years": "Années"
+            },
+            "chooseLanguage": "Choisir la langue",
+            "languages": {
+                "fr": "Français",
+                "it": "Italiano",
+                "de": "Deutsch",
+                "en": "English"
+            },
+            "footerText": {
+                "companyName": "Propify",
+                "leftSideText": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.",
+                "allRightsSaved": "Tous droits réservés"
+            },
+            "days": {
+                "monday": "lundi",
+                "tuesday": "mardi",
+                "wednesday": "mercredi",
+                "thursday": "jeudi",
+                "friday": "vendredi",
+                "saturday": "samedi",
+                "sunday": "dimanche"
+            },
+            "no": "Non",
+            "none": "Aucun",
+            "all": "Tous",
+            "loadMore": "Charger plus",
+            "account": "Compte",
+            "unauthenticated": "Non authentifié",
+            "logged_out": "Déconnecté",
+            "logged_in": "Connecté(e)",
+            "invalid_credentials": "Pouvoirs non valides",
+            "server_error": "Erreur de serveur",
+            "reset_password": "Réinitialiser le mot de passe",
+            "reset_password_mail": "Envoyer un e-mail avec mot de passe réinitialisé",
+            "reset_password_mail_sent": "Réinitialiser le mot de passe e-mail envoyé, s'il vous plaît vérifier votre boîte de réception",
+            "back_to_login": "Retour à la page d'ouverture de session",
+            "forgot_password": "Mot de passe oublié",
+            "remember_me": "Se souvenir de moi",
+            "password": "Mot de passe",
+            "change_password": "Modifier le mot de passe",
+            "new_password": "Nouveau mot de passe",
+            "old_password": "Ancien mot de passe",
+            "new_password_confirmation": "Confirmation du nouveau mot de passe",
+            "change": "Changer",
+            "cancel": "Annuler",
+            "confirm": "Confirmer",
+            "confirm_password": "Confirmer le mot de passe",
+            "incorrect_password": "L'ancien mot de passe est incorect",
+            "password_changed": "Mot de passe modifié avec succès",
+            "details_saved": "Détails sauvegardés",
+            "please_wait": "Veuillez patienter...",
+            "no_data_available": "Pas de données disponibles",
+            "password_validation": {
+                "required": "Mot de passe requis",
+                "confirm": "Veuillez saisir à nouveau le mot de passe",
+                "match": "Les mots de passe ne sont pas égaux",
+                "min": "Le mot de passe doit comporter au moins 6 caractères.",
+                "old_password_min": "L'ancien mot de passe doit comporter au moins 6 caractères.",
+                "old_password_required": "Ancien mot de passe requis"
+            },
+            "email": "Courriel",
+            "email_validation": {
+                "required": "email est requis",
+                "email": "Veuillez saisir un Email valide"
+            },
+            "token_invalid": "Jeton non valable",
+            "login": "Connexion",
+            "support": "Support",
+            "actions": {
+                "label": "Operations",
+                "edit": "Edit",
+                "add": "Add",
+                "delete": "Delete",
+                "create": "Create",
+                "view": "Details",
+                "save": "Save",
+                "close": "Close",
+                "saveAndClose": "Save & Close",
+                "upload": "Upload"
+            },
+            "swal": {
+                "delete": {
+                    "title": "Are you sure?",
+                    "text": "You won't be able to revert this!",
+                    "confirmText": "Yes, delete it!",
+                    "deleted": "Deleted successfully"
+                },
+                "add": {
+                    "added": "Added successfully"
+                },
+                "media": {
+                    "added": "Document/Photo ajoutée",
+                    "deleted": "Document/Photo supprimée"
+                },
+                "logout_confirm": "Vous serez déconnecté."
+            },
+            "roles": {
+                "label": "Role",
+                "administrator": "Administrator",
+                "homeowner": "Home Owner",
+                "manager": "Manager",
+                "registered": "Registered",
+                "service": "Service",
+                "super_admin": "Super Admin"
+            },
+            "search": {
+                "placeholder": "Search"
+            },
+            "errors": {
+                "files_extension_images": "Only jpg and png files accepted"
+            },
+            "dateTimeFormat": "{date} at {time}",
+            "date_range": {
+                "range_separator": "To",
+                "start_date": "Start date",
+                "end_date": "End date",
+                "last_7_days": "7 derniers jours",
+                "last_week": "Last week",
+                "last_14_days": "14 derniers jours",
+                "last_30_days": "30 derniers jours",
+                "last_month": "Last Month",
+                "last_3_months": "Last 3 months",
+                "last_6_months": "Last 6 months",
+                "last_year": "Last year",
+                "last_2_years": "Last 2 years",
+                "all_time": "Tous les temps",
+                "week": "Semaine",
+                "peek_week": "Choisir une semaine"
+            }
+        },
+        "pages": {
+            "profile": {
+                "pageTitle": "Profile",
+                "profile": "Profile",
+                "account": "Account",
+                "security": "Security",
+                "notifications": "Notifications"
+            },
+            "user": {
+                "title": "Users"
+            },
+            "request_activities": {
+                "title": "Request activities"
+            },
+            "tenant": {
+                "title": "Tenants"
+            }
         }
     }
 }

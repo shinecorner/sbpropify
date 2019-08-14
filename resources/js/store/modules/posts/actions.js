@@ -29,10 +29,7 @@ export default {
     deletePost(_, {id}) {
         return new Promise((resolve, reject) =>
             axios.delete(`posts/${id}`)
-                .then(({data: r}) => resolve({
-                    success: true,
-                    message: 'models.post.deleted'
-                }))
+                .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
     likePost(_, id) {
@@ -89,7 +86,7 @@ export default {
     assignPostDistrict({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`posts/${payload.id}/districts/${payload.toAssignId}`, {}).then((resp) => {
-                resolve(resp);
+                resolve(resp.data);
             }).catch((error) => {
                 reject(error);
             })
@@ -98,7 +95,7 @@ export default {
     assignPostBuilding({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`posts/${payload.id}/buildings/${payload.toAssignId}`, {}).then((resp) => {
-                resolve(resp);
+                resolve(resp.data);
             }).catch((error) => {
                 reject(error);
             })
@@ -107,10 +104,7 @@ export default {
     unassignPostBuilding({}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`posts/${payload.id}/buildings/${payload.toAssignId}`).then((response) => {
-                resolve({
-                    success: true,
-                    message: 'models.post.unassigned.building'
-                })
+                resolve(response.data)
             }).catch((error) => {
                 reject(error.response.data)
             })
@@ -119,10 +113,7 @@ export default {
     unassignPostDistrict({}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`posts/${payload.id}/districts/${payload.toAssignId}`).then((response) => {
-                resolve({
-                    success: true,
-                    message: 'models.post.unassigned.district'
-                })
+                resolve(response.data)
             }).catch((error) => {
                 reject(error.response.data)
             })
@@ -150,7 +141,7 @@ export default {
     assignPostProvider({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`posts/${payload.id}/providers/${payload.toAssignId}`, {}).then((resp) => {
-                resolve(resp);
+                resolve(resp.data);
             }).catch((error) => {
                 reject(error);
             })
@@ -159,10 +150,7 @@ export default {
     unassignPostProvider({}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`posts/${payload.id}/providers/${payload.toAssignId}`).then((response) => {
-                resolve({
-                    success: true,
-                    message: 'models.post.unassigned.provider'
-                })
+                resolve(response.data)
             }).catch((error) => {
                 reject(error.response.data)
             })

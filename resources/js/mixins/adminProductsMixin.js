@@ -5,6 +5,7 @@ import Heading from 'components/Heading';
 import Card from 'components/Card';
 import UploadDocument from 'components/UploadDocument';
 import Media from 'components/RequestMedia';
+import RequestMedia from 'components/RequestMedia';
 
 
 export default (config = {}) => {
@@ -13,7 +14,8 @@ export default (config = {}) => {
             Heading,
             Card,
             UploadDocument,
-            Media
+            Media,
+            RequestMedia
         },
         data() {
             return {
@@ -106,17 +108,14 @@ export default (config = {}) => {
                         message: this.$t('models.product.media.removed')
                     });
                 } else {
-                    await this.deleteProductMedia({
+                    const resp = await this.deleteProductMedia({
                         id: image.model_id,
                         media_id: image.id
                     });
                     this.model.media = this.model.media.filter((files) => {
                         return files.id !== image.id;
                     });
-                    displaySuccess({
-                        success: true,
-                        message: this.$t('models.product.media.deleted')
-                    });
+                    displaySuccess(resp);
                 }
             },
             validatePrice(rule, value, callback) {
@@ -162,10 +161,7 @@ export default (config = {}) => {
 
                                     await this.uploadNewMedia(resp.data.id);
 
-                                    displaySuccess({
-                                        success: true,
-                                        message: 'models.product.saved'
-                                    });
+                                    displaySuccess(resp);
 
                                     this.media = [];
 
@@ -199,10 +195,7 @@ export default (config = {}) => {
                                     const resp = await this.updateProduct(this.model);
                                     this.model = Object.assign({}, this.model, resp.data);
                                     this.media = [];
-                                    displaySuccess({
-                                        success: true,
-                                        message: 'models.product.saved'
-                                    });
+                                    displaySuccess(resp);
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

@@ -44,8 +44,7 @@ export default (config) => {
                 }).then(() => {
                     this[actions.delete](row)
                         .then(r => {
-                            this.fetchMore();
-
+                            this.fetchMore();                            
                             displaySuccess(r);
                         })
                         .catch(err => displayError(err));
@@ -65,16 +64,8 @@ export default (config) => {
                         }
 
                         await this.fetchMore();
-                        this.showModal = false;
-                        if(actions.update == 'updateRequestCategory'){
-                            displaySuccess({
-                                success: true,
-                                message: 'models.user.serviceRequestCategorySaved'
-                            });
-                        }
-                        else{
-                            displaySuccess(data);
-                        }                        
+                        this.showModal = false;                        
+                        displaySuccess(data);                        
                     }
                 } catch (e) {
                     displayError(e);

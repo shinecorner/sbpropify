@@ -400,10 +400,7 @@
                             await this.fetchCurrentRequest();
                             this.$refs.assigneesList.fetch();
                             const detachedType = provider.uType === 1 ? 'service' : 'manager';
-                            displaySuccess({
-                                success: true,
-                                message: this.$t(`models.request.detached.${detachedType}`)
-                            })
+                            displaySuccess(resp.data);
                         }
                     } catch (err) {
                         displayError(err);

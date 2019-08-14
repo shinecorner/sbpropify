@@ -92,10 +92,7 @@ export default (config = {}) => {
 
                         try {
                             const resp = await this.createUser(this.model);
-                            displaySuccess({
-                                success: true,
-                                message: 'models.user.saved'
-                            });
+                            displaySuccess(resp);
 
                             this.form.resetFields();
                             return resp;
@@ -133,10 +130,7 @@ export default (config = {}) => {
 
                                 try {
                                     const resp = await this.updateUser(params);
-                                    displaySuccess({
-                                        success: true,
-                                        message: 'models.user.saved'
-                                    });
+                                    displaySuccess(resp);
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

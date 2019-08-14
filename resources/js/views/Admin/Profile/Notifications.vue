@@ -73,14 +73,9 @@
         methods: {
             ...mapActions(['updateSettings']),
 
-            settingsUpdated() {
-
-                displaySuccess({
-                    message: this.$t('settings.updated'),
-                });
-
-                this.updateSettings(this.user);
-
+            async settingsUpdated() {
+                const resp = await this.updateSettings(this.user);                 
+                displaySuccess(resp);
             },
         }
 

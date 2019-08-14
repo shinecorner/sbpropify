@@ -44,10 +44,7 @@ export default {
     deleteService({commit}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`services/${payload.id}`).then((response) => {
-                resolve({
-                    success: true,
-                    message: 'models.service.deleted'
-                })
+                resolve(response.data)
             }).catch((error) => {
                 reject(error.response.data)
             })
@@ -56,7 +53,7 @@ export default {
     assignServiceDistrict({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`services/${payload.id}/districts/${payload.toAssignId}`, {}).then((resp) => {
-                resolve(resp);
+                resolve(resp.data);
             }).catch((error) => {
                 reject(error);
             })
@@ -65,7 +62,7 @@ export default {
     assignServiceBuilding({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`services/${payload.id}/buildings/${payload.toAssignId}`, {}).then((resp) => {
-                resolve(resp);
+                resolve(resp.data);
             }).catch((error) => {
                 reject(error);
             })
@@ -74,10 +71,7 @@ export default {
     unassignServiceBuilding({}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`services/${payload.id}/buildings/${payload.toAssignId}`).then((response) => {
-                resolve({
-                    success: true,
-                    message: 'models.service.unassigned.building'
-                })
+                resolve(response.data)
             }).catch((error) => {
                 reject(error.response.data)
             })
@@ -86,10 +80,7 @@ export default {
     unassignServiceDistrict({}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`services/${payload.id}/districts/${payload.toAssignId}`).then((response) => {
-                resolve({
-                    success: true,
-                    message: 'models.service.unassigned.district'
-                })
+                resolve(response.data)
             }).catch((error) => {
                 reject(error.response.data)
             })

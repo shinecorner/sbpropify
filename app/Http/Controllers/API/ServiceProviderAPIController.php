@@ -674,7 +674,7 @@ class ServiceProviderAPIController extends AppBaseController
         $sp->load('user', 'address', 'districts', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
-        return $this->sendResponse($ret, __('models.service.detached.district'));
+        return $this->sendResponse($ret, __('models.service.detached.building'));
     }
 
     /**

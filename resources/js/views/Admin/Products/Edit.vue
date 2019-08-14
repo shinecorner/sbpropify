@@ -170,8 +170,8 @@
                     </el-divider>
                     <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
                     <div class="mt15">
-                        <media :data="mediaFiles" @deleteMedia="deleteMedia"
-                               v-if="media.length || (model.media && model.media.length)"></media>
+                        <request-media :data="[...model.media, ...media]" @deleteMedia="deleteMedia"
+                                                       v-if="media.length || (model.media && model.media.length)"></request-media>
                     </div>
                 </card>
                 <card class="mt15" v-if="model.id">

@@ -1,5 +1,12 @@
 export default {
     "it": {
+        "passwords": {
+            "password": "Le password devono essere di almeno 6 caratteri e devono coincidere.",
+            "reset": "La password è stata reimpostata!",
+            "sent": "Promemoria della password inviato!",
+            "token": "Questo token per la reimpostazione della password non è valido.",
+            "user": "Non esiste un utente associato a questo indirizzo e-mail."
+        },
         "models": {
             "user": {
                 "edit_action": "Edit",
@@ -22,6 +29,7 @@ export default {
                 "logo": "Logo",
                 "address": "Address",
                 "blank_pdf": "Blank pdf",
+                "notificationSaved": "Notificatin setting saved",
                 "realEstateSaved": "Real Estate settings saved",
                 "serviceRequestCategorySaved": "Categoria della richiesta di servizio salvata",
                 "serviceRequestCategoryDeleted": "Categoria richiesta di servizio cancellata",
@@ -73,6 +81,10 @@ export default {
                 "requests": "Requests",
                 "company": "Company name",
                 "no_building": "No building",
+                "media": {
+                    "deleted": "Document/Photo Deleted",
+                    "uploaded": "Document/Photo Uploaded"
+                },
                 "building": {
                     "name": "Building"
                 },
@@ -378,8 +390,8 @@ export default {
                     "search_provider": "Search provider"
                 },
                 "media": {
-                    "deleted": "Media deleted",
-                    "removed": "Media removed"
+                    "deleted": "Document/Photo Deleted",
+                    "uploaded": "Document/Photo Uploaded"
                 },
                 "type": {
                     "label": "Type",
@@ -795,8 +807,8 @@ export default {
                 "contact": "Contact",
                 "price": "Price",
                 "media": {
-                    "removed": "Media removed",
-                    "deleted": "Media deleted"
+                    "deleted": "Document/Photo Deleted",
+                    "uploaded": "Document/Photo Uploaded"
                 },
                 "type": {
                     "label": "Type",
@@ -849,43 +861,6 @@ export default {
                 "terms_text": "Terms text here, long text"
             }
         },
-        "layouts": {
-            "tenant": {
-                "menu": {
-                    "logout": "Logout"
-                },
-                "sidebar": {
-                    "dashboard": "Dashboard",
-                    "myTenancy": "My tenancy",
-                    "myPersonalData": "My personal data",
-                    "myRecentContract": "My recent contract",
-                    "myDocuments": "Documents",
-                    "myContactPersons": "Contact persons",
-                    "posts": "News",
-                    "requests": "Requests",
-                    "products": "Marketplace",
-                    "settings": "Settings"
-                }
-            }
-        },
-        "auth": {
-            "failed": "Credenziali non corrispondenti ai dati registrati.",
-            "throttle": "Troppi tentativi di accesso. Riprova tra {seconds} secondi."
-        },
-        "views": {
-            "tenant": {
-                "my": {
-                    "personal": {
-                        "title": "Personal data",
-                        "description": "My personal details.",
-                        "placeholder": {
-                            "title": "No personal data available.",
-                            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                        }
-                    }
-                }
-            }
-        },
         "filters": {
             "header": "Filters",
             "districts": "Districts",
@@ -903,148 +878,6 @@ export default {
             "created_to": "Created to",
             "services": "Services",
             "tenant": "Type tenants"
-        },
-        "general": {
-            "en": "EN",
-            "fr": "FR",
-            "it": "IT",
-            "de": "DE",
-            "yes": "Yes",
-            "timestamps": {
-                "hours": "Orario",
-                "days": "Giorni",
-                "weeks": "Settimane",
-                "months": "Mesi",
-                "years": "Anni"
-            },
-            "chooseLanguage": "Scegliere la lingua",
-            "languages": {
-                "fr": "Français",
-                "it": "Italiano",
-                "de": "Deutsch",
-                "en": "English"
-            },
-            "footerText": {
-                "companyName": "Propify",
-                "leftSideText": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.",
-                "allRightsSaved": "Tutti i diritti riservati"
-            },
-            "days": {
-                "monday": "lunedì",
-                "tuesday": "martedì",
-                "wednesday": "mercoledì",
-                "thursday": "Giovedì",
-                "friday": "venerdì",
-                "saturday": "sabato",
-                "sunday": "domenicale"
-            },
-            "no": "No",
-            "none": "Nessuna",
-            "all": "Tutti",
-            "loadMore": "Carica di più",
-            "account": "Conto",
-            "unauthenticated": "Non autenticato",
-            "logged_out": "Disconnesso",
-            "logged_in": "Loggato",
-            "invalid_credentials": "Credenziali non valide",
-            "server_error": "Errore del server",
-            "reset_password": "Reimpostare la password",
-            "reset_password_mail": "Inviare la mail di reset della password",
-            "reset_password_mail_sent": "Reimposta la password inviata, controlla la tua casella di posta in arrivo",
-            "back_to_login": "Torna al login",
-            "forgot_password": "Password dimenticata",
-            "remember_me": "Ricordati di me",
-            "password": "La password",
-            "change_password": "Cambiare la password",
-            "new_password": "Nuova password",
-            "old_password": "Vecchia password",
-            "new_password_confirmation": "Conferma della nuova password",
-            "change": "Cambiamento",
-            "cancel": "Annulla",
-            "confirm": "Conferma",
-            "confirm_password": "Conferma la password",
-            "incorrect_password": "La vecchia password è incorect",
-            "password_changed": "Password modificata con successo",
-            "details_saved": "Dettagli salvati",
-            "please_wait": "Attendere per favore...",
-            "no_data_available": "Nessun dato disponibile",
-            "password_validation": {
-                "required": "La password è richiesta",
-                "confirm": "Inserisci nuovamente la password",
-                "match": "Le password non sono uguali",
-                "min": "La password deve essere di almeno 6 caratteri",
-                "old_password_min": "La vecchia password deve essere di almeno 6 caratteri",
-                "old_password_required": "È richiesta una vecchia password"
-            },
-            "email": "eMail",
-            "email_validation": {
-                "required": "è richiesta una e-mail",
-                "email": "Inserisci un'e-mail valida"
-            },
-            "token_invalid": "Gettone non valido",
-            "login": "Accedi",
-            "support": "Support",
-            "actions": {
-                "label": "Operations",
-                "edit": "Edit",
-                "add": "Add",
-                "delete": "Delete",
-                "create": "Create",
-                "view": "Details",
-                "save": "Save",
-                "close": "Close",
-                "saveAndClose": "Save & Close",
-                "upload": "Upload"
-            },
-            "swal": {
-                "delete": {
-                    "title": "Are you sure?",
-                    "text": "You won't be able to revert this!",
-                    "confirmText": "Yes, delete it!",
-                    "deleted": "Deleted successfully"
-                },
-                "add": {
-                    "added": "Added successfully"
-                },
-                "media": {
-                    "added": "Documento/foto aggiunto",
-                    "deleted": "Documento/foto soppresso"
-                },
-                "logout_confirm": "Sarai disconnesso."
-            },
-            "roles": {
-                "label": "Role",
-                "administrator": "Administrator",
-                "homeowner": "Home Owner",
-                "manager": "Manager",
-                "registered": "Registered",
-                "service": "Service",
-                "super_admin": "Super Admin"
-            },
-            "search": {
-                "placeholder": "Search"
-            },
-            "errors": {
-                "files_extension_images": "Only jpg and png files accepted"
-            },
-            "dateTimeFormat": "{date} at {time}",
-            "date_range": {
-                "range_separator": "To",
-                "start_date": "Start date",
-                "end_date": "End date",
-                "last_7_days": "Ultimi 7 giorni",
-                "last_week": "Last week",
-                "last_14_days": "Ultimi 14 giorni",
-                "last_30_days": "Ultimi 30 giorni",
-                "last_month": "Last Month",
-                "last_3_months": "Last 3 months",
-                "last_6_months": "Last 6 months",
-                "last_year": "Last year",
-                "last_2_years": "Last 2 years",
-                "all_time": "Tutto il tempo",
-                "week": "Settimana",
-                "peek_week": "Scegli una settimana"
-            }
         },
         "dashboard": {
             "statistics": "Statistiche",
@@ -1090,200 +923,41 @@ export default {
                 "go_to_marketplace": "go to marketplace"
             }
         },
-        "validation": {
-            "accepted": "{attribute} deve essere accettato.",
-            "active_url": "{attribute} non è un URL valido.",
-            "after": "{attribute} deve essere una data successiva al {date}.",
-            "after_or_equal": "{attribute} deve essere una data successiva o uguale al {date}.",
-            "alpha": "{attribute} può contenere solo lettere.",
-            "alpha_dash": "{attribute} può contenere solo lettere, numeri e trattini.",
-            "alpha_num": "{attribute} può contenere solo lettere e numeri.",
-            "array": "{attribute} deve essere un array.",
-            "before": "{attribute} deve essere una data precedente al {date}.",
-            "before_or_equal": "{attribute} deve essere una data precedente o uguale al {date}.",
-            "between": {
-                "numeric": "{attribute} deve trovarsi tra {min} - {max}.",
-                "file": "{attribute} deve trovarsi tra {min} - {max} kilobyte.",
-                "string": "{attribute} deve trovarsi tra {min} - {max} caratteri.",
-                "array": "{attribute} deve avere tra {min} - {max} elementi."
-            },
-            "boolean": "Il campo {attribute} deve essere vero o falso.",
-            "confirmed": "Il campo di conferma per {attribute} non coincide.",
-            "date": "{attribute} non è una data valida.",
-            "date_equals": "The {attribute} must be a date equal to {date}.",
-            "date_format": "{attribute} non coincide con il formato {format}.",
-            "different": "{attribute} e {other} devono essere differenti.",
-            "digits": "{attribute} deve essere di {digits} cifre.",
-            "digits_between": "{attribute} deve essere tra {min} e {max} cifre.",
-            "dimensions": "Le dimensioni dell'immagine di {attribute} non sono valide.",
-            "distinct": "{attribute} contiene un valore duplicato.",
-            "email": "{attribute} non è valido.",
-            "exists": "{attribute} selezionato non è valido.",
-            "file": "{attribute} deve essere un file.",
-            "filled": "Il campo {attribute} deve contenere un valore.",
-            "gt": {
-                "numeric": "{attribute} deve essere maggiore di {value}.",
-                "file": "{attribute} deve essere maggiore di {value} kilobyte.",
-                "string": "{attribute} deve contenere più di {value} caratteri.",
-                "array": "{attribute} deve contenere più di {value} elementi."
-            },
-            "gte": {
-                "numeric": "{attribute} deve essere uguale o maggiore di {value}.",
-                "file": "{attribute} deve essere uguale o maggiore di {value} kilobyte.",
-                "string": "{attribute} deve contenere un numero di caratteri uguale o maggiore di {value}.",
-                "array": "{attribute} deve contenere un numero di elementi uguale o maggiore di {value}."
-            },
-            "image": "{attribute} deve essere un'immagine.",
-            "in": "{attribute} selezionato non è valido.",
-            "in_array": "Il valore del campo {attribute} non esiste in {other}.",
-            "integer": "{attribute} deve essere un numero intero.",
-            "ip": "{attribute} deve essere un indirizzo IP valido.",
-            "ipv4": "{attribute} deve essere un indirizzo IPv4 valido.",
-            "ipv6": "{attribute} deve essere un indirizzo IPv6 valido.",
-            "json": "{attribute} deve essere una stringa JSON valida.",
-            "lt": {
-                "numeric": "{attribute} deve essere minore di {value}.",
-                "file": "{attribute} deve essere minore di {value} kilobyte.",
-                "string": "{attribute} deve contenere meno di {value} caratteri.",
-                "array": "{attribute} deve contenere meno di {value} elementi."
-            },
-            "lte": {
-                "numeric": "{attribute} deve essere minore o uguale a {value}.",
-                "file": "{attribute} deve essere minore o uguale a {value} kilobyte.",
-                "string": "{attribute} deve contenere un numero di caratteri minore o uguale a {value}.",
-                "array": "{attribute} deve contenere un numero di elementi minore o uguale a {value}."
-            },
-            "max": {
-                "numeric": "{attribute} non può essere superiore a {max}.",
-                "file": "{attribute} non può essere superiore a {max} kilobyte.",
-                "string": "{attribute} non può contenere più di {max} caratteri.",
-                "array": "{attribute} non può avere più di {max} elementi."
-            },
-            "mimes": "{attribute} deve essere del tipo: {values}.",
-            "mimetypes": "{attribute} deve essere del tipo: {values}.",
-            "min": {
-                "numeric": "{attribute} deve essere almeno {min}.",
-                "file": "{attribute} deve essere almeno di {min} kilobyte.",
-                "string": "{attribute} deve contenere almeno {min} caratteri.",
-                "array": "{attribute} deve avere almeno {min} elementi."
-            },
-            "not_in": "Il valore selezionato per {attribute} non è valido.",
-            "not_regex": "Il formato di {attribute} non è valido.",
-            "numeric": "{attribute} deve essere un numero.",
-            "present": "Il campo {attribute} deve essere presente.",
-            "regex": "Il formato del campo {attribute} non è valido.",
-            "required": "Il campo {attribute} è richiesto.",
-            "required_if": "Il campo {attribute} è richiesto quando {other} è {value}.",
-            "required_unless": "Il campo {attribute} è richiesto a meno che {other} sia in {values}.",
-            "required_with": "Il campo {attribute} è richiesto quando {values} è presente.",
-            "required_with_all": "Il campo {attribute} è richiesto quando {values} sono presenti.",
-            "required_without": "Il campo {attribute} è richiesto quando {values} non è presente.",
-            "required_without_all": "Il campo {attribute} è richiesto quando nessuno di {values} è presente.",
-            "same": "{attribute} e {other} devono coincidere.",
-            "size": {
-                "numeric": "{attribute} deve essere {size}.",
-                "file": "{attribute} deve essere {size} kilobyte.",
-                "string": "{attribute} deve contenere {size} caratteri.",
-                "array": "{attribute} deve contenere {size} elementi."
-            },
-            "starts_with": "The {attribute} must start with one of the following: {values}",
-            "string": "{attribute} deve essere una stringa.",
-            "timezone": "{attribute} deve essere una zona valida.",
-            "unique": "{attribute} è stato già utilizzato.",
-            "uploaded": "{attribute} non è stato caricato.",
-            "url": "Il formato del campo {attribute} non è valido.",
-            "uuid": "The {attribute} must be a valid UUID.",
-            "custom": {
-                "attribute-name": {
-                    "rule-name": "custom-message"
-                }
-            },
-            "attributes": {
-                "name": "nome",
-                "username": "nome utente",
-                "email": "email",
-                "first_name": "nome",
-                "last_name": "cognome",
-                "password": "password",
-                "password_confirmation": "conferma password",
-                "city": "città",
-                "country": "paese",
-                "address": "indirizzo",
-                "phone": "telefono",
-                "mobile": "cellulare",
-                "age": "età",
-                "sex": "sesso",
-                "gender": "genere",
-                "day": "giorno",
-                "month": "mese",
-                "year": "anno",
-                "hour": "ora",
-                "minute": "minuto",
-                "second": "secondo",
-                "title": "titolo",
-                "content": "contenuto",
-                "description": "descrizione",
-                "excerpt": "estratto",
-                "date": "data",
-                "time": "ora",
-                "available": "disponibile",
-                "size": "dimensione"
-            },
-            "general": {
-                "required": "This field is required"
-            },
-            "price": {
-                "valid": "Please enter a valid price",
-                "required": "Price is required"
-            },
-            "firstName": {
-                "required": "First name is required"
-            },
-            "lastName": {
-                "required": "Last name is required"
-            },
-            "phone": {
-                "required": "Phone is required"
-            },
-            "address": {
-                "required": "Address is required"
-            },
-            "zip": {
-                "required": "Zip is required"
-            },
-            "city": {
-                "required": "City is required"
-            },
-            "title": {
-                "required": "Title is required"
-            },
-            "terms": {
-                "required": "Please approve with terms and conditions"
+        "auth": {
+            "failed": "Credenziali non corrispondenti ai dati registrati.",
+            "throttle": "Troppi tentativi di accesso. Riprova tra {seconds} secondi."
+        },
+        "settings": {
+            "notifications": "Notifications and language",
+            "admin": "Admin notifications",
+            "news": "News notifications",
+            "marketplace": "Marketplace notifications",
+            "service": "Service notifications",
+            "updated": "Settings updated",
+            "language": "Language",
+            "summary": {
+                "label": "Summary statistics",
+                "daily": "Daily",
+                "monthly": "Monthly",
+                "yearly": "Yearly"
             }
         },
-        "passwords": {
-            "password": "Le password devono essere di almeno 6 caratteri e devono coincidere.",
-            "reset": "La password è stata reimpostata!",
-            "sent": "Promemoria della password inviato!",
-            "token": "Questo token per la reimpostazione della password non è valido.",
-            "user": "Non esiste un utente associato a questo indirizzo e-mail."
+        "pagination": {
+            "previous": "&laquo; Precedente",
+            "next": "Successivo &raquo;"
         },
-        "pages": {
-            "profile": {
-                "pageTitle": "Profile",
-                "profile": "Profile",
-                "account": "Account",
-                "security": "Security",
-                "notifications": "Notifications"
-            },
-            "user": {
-                "title": "Users"
-            },
-            "request_activities": {
-                "title": "Request activities"
-            },
+        "views": {
             "tenant": {
-                "title": "Tenants"
+                "my": {
+                    "personal": {
+                        "title": "Personal data",
+                        "description": "My personal details.",
+                        "placeholder": {
+                            "title": "No personal data available.",
+                            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                        }
+                    }
+                }
             }
         },
         "menu": {
@@ -1317,21 +991,6 @@ export default {
             "activity": "Attività",
             "propertyManagers": "Gestori",
             "templates": "Modelli"
-        },
-        "settings": {
-            "notifications": "Notifications and language",
-            "admin": "Admin notifications",
-            "news": "News notifications",
-            "marketplace": "Marketplace notifications",
-            "service": "Service notifications",
-            "updated": "Settings updated",
-            "language": "Language",
-            "summary": {
-                "label": "Summary statistics",
-                "daily": "Daily",
-                "monthly": "Monthly",
-                "yearly": "Yearly"
-            }
         },
         "components": {
             "common": {
@@ -1518,9 +1177,355 @@ export default {
             },
             "admin": []
         },
-        "pagination": {
-            "previous": "&laquo; Precedente",
-            "next": "Successivo &raquo;"
+        "layouts": {
+            "tenant": {
+                "menu": {
+                    "logout": "Logout"
+                },
+                "sidebar": {
+                    "dashboard": "Dashboard",
+                    "myTenancy": "My tenancy",
+                    "myPersonalData": "My personal data",
+                    "myRecentContract": "My recent contract",
+                    "myDocuments": "Documents",
+                    "myContactPersons": "Contact persons",
+                    "posts": "News",
+                    "requests": "Requests",
+                    "products": "Marketplace",
+                    "settings": "Settings"
+                }
+            }
+        },
+        "validation": {
+            "accepted": "{attribute} deve essere accettato.",
+            "active_url": "{attribute} non è un URL valido.",
+            "after": "{attribute} deve essere una data successiva al {date}.",
+            "after_or_equal": "{attribute} deve essere una data successiva o uguale al {date}.",
+            "alpha": "{attribute} può contenere solo lettere.",
+            "alpha_dash": "{attribute} può contenere solo lettere, numeri e trattini.",
+            "alpha_num": "{attribute} può contenere solo lettere e numeri.",
+            "array": "{attribute} deve essere un array.",
+            "before": "{attribute} deve essere una data precedente al {date}.",
+            "before_or_equal": "{attribute} deve essere una data precedente o uguale al {date}.",
+            "between": {
+                "numeric": "{attribute} deve trovarsi tra {min} - {max}.",
+                "file": "{attribute} deve trovarsi tra {min} - {max} kilobyte.",
+                "string": "{attribute} deve trovarsi tra {min} - {max} caratteri.",
+                "array": "{attribute} deve avere tra {min} - {max} elementi."
+            },
+            "boolean": "Il campo {attribute} deve essere vero o falso.",
+            "confirmed": "Il campo di conferma per {attribute} non coincide.",
+            "date": "{attribute} non è una data valida.",
+            "date_equals": "The {attribute} must be a date equal to {date}.",
+            "date_format": "{attribute} non coincide con il formato {format}.",
+            "different": "{attribute} e {other} devono essere differenti.",
+            "digits": "{attribute} deve essere di {digits} cifre.",
+            "digits_between": "{attribute} deve essere tra {min} e {max} cifre.",
+            "dimensions": "Le dimensioni dell'immagine di {attribute} non sono valide.",
+            "distinct": "{attribute} contiene un valore duplicato.",
+            "email": "{attribute} non è valido.",
+            "exists": "{attribute} selezionato non è valido.",
+            "file": "{attribute} deve essere un file.",
+            "filled": "Il campo {attribute} deve contenere un valore.",
+            "gt": {
+                "numeric": "{attribute} deve essere maggiore di {value}.",
+                "file": "{attribute} deve essere maggiore di {value} kilobyte.",
+                "string": "{attribute} deve contenere più di {value} caratteri.",
+                "array": "{attribute} deve contenere più di {value} elementi."
+            },
+            "gte": {
+                "numeric": "{attribute} deve essere uguale o maggiore di {value}.",
+                "file": "{attribute} deve essere uguale o maggiore di {value} kilobyte.",
+                "string": "{attribute} deve contenere un numero di caratteri uguale o maggiore di {value}.",
+                "array": "{attribute} deve contenere un numero di elementi uguale o maggiore di {value}."
+            },
+            "image": "{attribute} deve essere un'immagine.",
+            "in": "{attribute} selezionato non è valido.",
+            "in_array": "Il valore del campo {attribute} non esiste in {other}.",
+            "integer": "{attribute} deve essere un numero intero.",
+            "ip": "{attribute} deve essere un indirizzo IP valido.",
+            "ipv4": "{attribute} deve essere un indirizzo IPv4 valido.",
+            "ipv6": "{attribute} deve essere un indirizzo IPv6 valido.",
+            "json": "{attribute} deve essere una stringa JSON valida.",
+            "lt": {
+                "numeric": "{attribute} deve essere minore di {value}.",
+                "file": "{attribute} deve essere minore di {value} kilobyte.",
+                "string": "{attribute} deve contenere meno di {value} caratteri.",
+                "array": "{attribute} deve contenere meno di {value} elementi."
+            },
+            "lte": {
+                "numeric": "{attribute} deve essere minore o uguale a {value}.",
+                "file": "{attribute} deve essere minore o uguale a {value} kilobyte.",
+                "string": "{attribute} deve contenere un numero di caratteri minore o uguale a {value}.",
+                "array": "{attribute} deve contenere un numero di elementi minore o uguale a {value}."
+            },
+            "max": {
+                "numeric": "{attribute} non può essere superiore a {max}.",
+                "file": "{attribute} non può essere superiore a {max} kilobyte.",
+                "string": "{attribute} non può contenere più di {max} caratteri.",
+                "array": "{attribute} non può avere più di {max} elementi."
+            },
+            "mimes": "{attribute} deve essere del tipo: {values}.",
+            "mimetypes": "{attribute} deve essere del tipo: {values}.",
+            "min": {
+                "numeric": "{attribute} deve essere almeno {min}.",
+                "file": "{attribute} deve essere almeno di {min} kilobyte.",
+                "string": "{attribute} deve contenere almeno {min} caratteri.",
+                "array": "{attribute} deve avere almeno {min} elementi."
+            },
+            "not_in": "Il valore selezionato per {attribute} non è valido.",
+            "not_regex": "Il formato di {attribute} non è valido.",
+            "numeric": "{attribute} deve essere un numero.",
+            "present": "Il campo {attribute} deve essere presente.",
+            "regex": "Il formato del campo {attribute} non è valido.",
+            "required": "Il campo {attribute} è richiesto.",
+            "required_if": "Il campo {attribute} è richiesto quando {other} è {value}.",
+            "required_unless": "Il campo {attribute} è richiesto a meno che {other} sia in {values}.",
+            "required_with": "Il campo {attribute} è richiesto quando {values} è presente.",
+            "required_with_all": "Il campo {attribute} è richiesto quando {values} sono presenti.",
+            "required_without": "Il campo {attribute} è richiesto quando {values} non è presente.",
+            "required_without_all": "Il campo {attribute} è richiesto quando nessuno di {values} è presente.",
+            "same": "{attribute} e {other} devono coincidere.",
+            "size": {
+                "numeric": "{attribute} deve essere {size}.",
+                "file": "{attribute} deve essere {size} kilobyte.",
+                "string": "{attribute} deve contenere {size} caratteri.",
+                "array": "{attribute} deve contenere {size} elementi."
+            },
+            "starts_with": "The {attribute} must start with one of the following: {values}",
+            "string": "{attribute} deve essere una stringa.",
+            "timezone": "{attribute} deve essere una zona valida.",
+            "unique": "{attribute} è stato già utilizzato.",
+            "uploaded": "{attribute} non è stato caricato.",
+            "url": "Il formato del campo {attribute} non è valido.",
+            "uuid": "The {attribute} must be a valid UUID.",
+            "custom": {
+                "attribute-name": {
+                    "rule-name": "custom-message"
+                }
+            },
+            "attributes": {
+                "name": "nome",
+                "username": "nome utente",
+                "email": "email",
+                "first_name": "nome",
+                "last_name": "cognome",
+                "password": "password",
+                "password_confirmation": "conferma password",
+                "city": "città",
+                "country": "paese",
+                "address": "indirizzo",
+                "phone": "telefono",
+                "mobile": "cellulare",
+                "age": "età",
+                "sex": "sesso",
+                "gender": "genere",
+                "day": "giorno",
+                "month": "mese",
+                "year": "anno",
+                "hour": "ora",
+                "minute": "minuto",
+                "second": "secondo",
+                "title": "titolo",
+                "content": "contenuto",
+                "description": "descrizione",
+                "excerpt": "estratto",
+                "date": "data",
+                "time": "ora",
+                "available": "disponibile",
+                "size": "dimensione"
+            },
+            "general": {
+                "required": "This field is required"
+            },
+            "price": {
+                "valid": "Please enter a valid price",
+                "required": "Price is required"
+            },
+            "firstName": {
+                "required": "First name is required"
+            },
+            "lastName": {
+                "required": "Last name is required"
+            },
+            "phone": {
+                "required": "Phone is required"
+            },
+            "address": {
+                "required": "Address is required"
+            },
+            "zip": {
+                "required": "Zip is required"
+            },
+            "city": {
+                "required": "City is required"
+            },
+            "title": {
+                "required": "Title is required"
+            },
+            "terms": {
+                "required": "Please approve with terms and conditions"
+            }
+        },
+        "general": {
+            "en": "EN",
+            "fr": "FR",
+            "it": "IT",
+            "de": "DE",
+            "yes": "Yes",
+            "timestamps": {
+                "hours": "Orario",
+                "days": "Giorni",
+                "weeks": "Settimane",
+                "months": "Mesi",
+                "years": "Anni"
+            },
+            "chooseLanguage": "Scegliere la lingua",
+            "languages": {
+                "fr": "Français",
+                "it": "Italiano",
+                "de": "Deutsch",
+                "en": "English"
+            },
+            "footerText": {
+                "companyName": "Propify",
+                "leftSideText": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.",
+                "allRightsSaved": "Tutti i diritti riservati"
+            },
+            "days": {
+                "monday": "lunedì",
+                "tuesday": "martedì",
+                "wednesday": "mercoledì",
+                "thursday": "Giovedì",
+                "friday": "venerdì",
+                "saturday": "sabato",
+                "sunday": "domenicale"
+            },
+            "no": "No",
+            "none": "Nessuna",
+            "all": "Tutti",
+            "loadMore": "Carica di più",
+            "account": "Conto",
+            "unauthenticated": "Non autenticato",
+            "logged_out": "Disconnesso",
+            "logged_in": "Loggato",
+            "invalid_credentials": "Credenziali non valide",
+            "server_error": "Errore del server",
+            "reset_password": "Reimpostare la password",
+            "reset_password_mail": "Inviare la mail di reset della password",
+            "reset_password_mail_sent": "Reimposta la password inviata, controlla la tua casella di posta in arrivo",
+            "back_to_login": "Torna al login",
+            "forgot_password": "Password dimenticata",
+            "remember_me": "Ricordati di me",
+            "password": "La password",
+            "change_password": "Cambiare la password",
+            "new_password": "Nuova password",
+            "old_password": "Vecchia password",
+            "new_password_confirmation": "Conferma della nuova password",
+            "change": "Cambiamento",
+            "cancel": "Annulla",
+            "confirm": "Conferma",
+            "confirm_password": "Conferma la password",
+            "incorrect_password": "La vecchia password è incorect",
+            "password_changed": "Password modificata con successo",
+            "details_saved": "Dettagli salvati",
+            "please_wait": "Attendere per favore...",
+            "no_data_available": "Nessun dato disponibile",
+            "password_validation": {
+                "required": "La password è richiesta",
+                "confirm": "Inserisci nuovamente la password",
+                "match": "Le password non sono uguali",
+                "min": "La password deve essere di almeno 6 caratteri",
+                "old_password_min": "La vecchia password deve essere di almeno 6 caratteri",
+                "old_password_required": "È richiesta una vecchia password"
+            },
+            "email": "eMail",
+            "email_validation": {
+                "required": "è richiesta una e-mail",
+                "email": "Inserisci un'e-mail valida"
+            },
+            "token_invalid": "Gettone non valido",
+            "login": "Accedi",
+            "support": "Support",
+            "actions": {
+                "label": "Operations",
+                "edit": "Edit",
+                "add": "Add",
+                "delete": "Delete",
+                "create": "Create",
+                "view": "Details",
+                "save": "Save",
+                "close": "Close",
+                "saveAndClose": "Save & Close",
+                "upload": "Upload"
+            },
+            "swal": {
+                "delete": {
+                    "title": "Are you sure?",
+                    "text": "You won't be able to revert this!",
+                    "confirmText": "Yes, delete it!",
+                    "deleted": "Deleted successfully"
+                },
+                "add": {
+                    "added": "Added successfully"
+                },
+                "media": {
+                    "added": "Documento/foto aggiunto",
+                    "deleted": "Documento/foto soppresso"
+                },
+                "logout_confirm": "Sarai disconnesso."
+            },
+            "roles": {
+                "label": "Role",
+                "administrator": "Administrator",
+                "homeowner": "Home Owner",
+                "manager": "Manager",
+                "registered": "Registered",
+                "service": "Service",
+                "super_admin": "Super Admin"
+            },
+            "search": {
+                "placeholder": "Search"
+            },
+            "errors": {
+                "files_extension_images": "Only jpg and png files accepted"
+            },
+            "dateTimeFormat": "{date} at {time}",
+            "date_range": {
+                "range_separator": "To",
+                "start_date": "Start date",
+                "end_date": "End date",
+                "last_7_days": "Ultimi 7 giorni",
+                "last_week": "Last week",
+                "last_14_days": "Ultimi 14 giorni",
+                "last_30_days": "Ultimi 30 giorni",
+                "last_month": "Last Month",
+                "last_3_months": "Last 3 months",
+                "last_6_months": "Last 6 months",
+                "last_year": "Last year",
+                "last_2_years": "Last 2 years",
+                "all_time": "Tutto il tempo",
+                "week": "Settimana",
+                "peek_week": "Scegli una settimana"
+            }
+        },
+        "pages": {
+            "profile": {
+                "pageTitle": "Profile",
+                "profile": "Profile",
+                "account": "Account",
+                "security": "Security",
+                "notifications": "Notifications"
+            },
+            "user": {
+                "title": "Users"
+            },
+            "request_activities": {
+                "title": "Request activities"
+            },
+            "tenant": {
+                "title": "Tenants"
+            }
         }
     }
 }

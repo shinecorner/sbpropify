@@ -166,10 +166,7 @@ export default (config = {}) => {
                         if (resp && resp.data && config.mode === 'edit') {
                             this.$refs.assignmentsList.fetch();
                             this.toAssign = '';
-                            displaySuccess({
-                                success: true,
-                                message: this.$t(`models.service.attached.${this.assignmentType}`)
-                            })
+                            displaySuccess(resp)
                         }
 
                         resolve(true);
@@ -215,10 +212,7 @@ export default (config = {}) => {
                                     await this.uploadAvatarIfNeeded(resp.data.user.id);
                                 }
 
-                                displaySuccess({
-                                    success: true,
-                                    message: 'models.service.saved'
-                                });
+                                displaySuccess(resp);
 
                                 this.form.resetFields();
                                 return resp;
@@ -269,10 +263,7 @@ export default (config = {}) => {
                                         await this.uploadAvatarIfNeeded(resp.data.user.id);
                                     }
 
-                                    displaySuccess({
-                                        success: true,
-                                        message: 'models.service.saved'
-                                    });
+                                    displaySuccess(resp);
                                     resolve(true);
                                 } catch (err) {
                                     displayError(err);

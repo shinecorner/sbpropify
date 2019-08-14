@@ -461,11 +461,8 @@
                     id: this.model.id,
                     media_id: this.lastMedia.id
                 }).then(r => {
-                    displaySuccess({
-                        success: true,
-                        message: 'swal.media.deleted'
-                    });
-
+                    console.log(r);
+                    displaySuccess(r);
                     this.model.media.splice(-1, 1);
                 }).catch(err => {
                     displayError(err);
@@ -523,10 +520,7 @@
                 try {
                     const resp = await this.sendTenantCredentials({id: this.model.id});
                     if (resp && resp.data) {
-                        displaySuccess({
-                            success: true,
-                            message: this.$t('models.tenant.credentials_sent')
-                        });
+                        displaySuccess(resp.data);
                     }
                 } catch (e) {
                     displayError({

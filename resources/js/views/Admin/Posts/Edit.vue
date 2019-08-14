@@ -102,8 +102,8 @@
                             >
                                 <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
                                 <div class="mt15" v-if="media.length || (model.media && model.media.length)">
-                                    <media :data="mediaFiles" @deleteMedia="deleteMedia"
-                                        v-if="media.length || (model.media && model.media.length)"></media>
+                                    <request-media :data="[...model.media, ...media]" @deleteMedia="deleteMedia"
+                                                       v-if="media.length || (model.media && model.media.length)"></request-media>
                                 </div>
                             </el-form-item>
                         </template>                        
@@ -456,11 +456,7 @@
                     this.toAssign = '';
 
                     const type = toUnassign.aType == 1 ? 'building' : 'district';
-
-                    displaySuccess({
-                        success: true,
-                        message: this.$t(`models.post.detached.${type}`)
-                    })
+                    displaySuccess(resp)
                 }
             },
             async unassignProvider(toUnassign) {
@@ -473,11 +469,7 @@
                 this.$refs.assignmentsProviderList.fetch();
 
                 this.toAssignProvider = '';
-
-                displaySuccess({
-                    success: true,
-                    message: this.$t(`models.post.detached.provider`)
-                })
+                displaySuccess(resp)
             },
             notifyProviderUnassignment(row) {
                 this.$confirm(this.$t(`models.post.confirmUnassign.title`), this.$t('models.post.confirmUnassign.warning'), {
