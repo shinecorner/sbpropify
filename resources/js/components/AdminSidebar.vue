@@ -1,6 +1,4 @@
 <template>
-
-
     <aside class="el-menu-aside">
         <el-menu :default-active="currActive" :unique-opened="true" class="el-menu-vertical-demo" :collapse="collapsed">
             <li class="slot" index="slot" v-if="hasSlot">
