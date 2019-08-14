@@ -143,7 +143,18 @@
                         </div>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('models.building.companies')" name="companies">
-                        <div v-if="model.service_providers && model.service_providers.length">
+                        <el-select
+                                placeholder="Chose"
+                                style="width: 100%;"
+                                v-model="model.contact_enable"
+                        >
+                            <el-option
+                                    :key="contactEnableValue.id"
+                                    :label="contactEnableValue.label"
+                                    :value="contactEnableValue.value"
+                                    v-for="contactEnableValue in contactEnableValues"/>
+                        </el-select>
+                        <div v-if="model.service_providers && model.service_providers.length" class="mt15">
                             <el-row :gutter="10" :key="service.id" class="list-complete-item"
                                     v-for="service in model.service_providers">
                                 <el-col :md="7">
@@ -160,7 +171,7 @@
                                 </el-col>
                             </el-row>
                         </div>
-                        <div v-else>
+                        <div v-else class="mt15">
                             {{$t('models.building.no_services')}}
                         </div>
                         <div class="mt15">
@@ -231,13 +242,13 @@
                 <el-row :gutter="15" type="flex">
                     <el-col :span="12">
                         <circular-progress-statistics-card
-                            :percentage="statistics.percentage.occupied_units"
+                            :percentage="+statistics.percentage.occupied_units"
                             :title="$t('models.building.occupied_units')"
                             :color="getUnitsCountColor('occupied_units', 'name')"/>
                     </el-col>
                     <el-col :span="12">
                         <circular-progress-statistics-card
-                            :percentage="statistics.percentage.free_units"
+                            :percentage="+statistics.percentage.free_units"
                             :title="$t('models.building.free_units')"
                             :color="getUnitsCountColor('free_units', 'name')"/>
                     </el-col>
@@ -351,10 +362,21 @@
                 deleteBuildingVisible: false,
                 multiple: true,
                 delBuildingStatus: -1, // 0: unit, 1: request, 2: both
+                contactEnableValues: [{
+                    value: 2,
+                    label: 'show',
+                }, {
+                    value: 3,
+                    label: 'hide',
+                }],
             };
+        },
+        async created() {
+            await this.fetchRealEstate();
         },
         methods: {
             ...mapActions([
+                'getRealEstate',
                 "uploadBuildingFile",
                 "deleteBuildingFile",
                 "deleteBuildingService",
@@ -365,6 +387,16 @@
                 'deleteBuildingWithIds', 
                 'checkUnitRequestWidthIds'
             ]),
+            fetchRealEstate() {
+                this.getRealEstate().then((resp) => {
+                    this.contactEnableValues.unshift({
+                        value: 1,
+                        label: `use global (${resp.data.contact_enable ? 'Show' : 'Hide'})`,
+                    });
+                }).catch((error) => {
+                    displayError(error);
+                });
+            },
             unassignManager(manager) {
                 this.$confirm(this.$t(`models.request.confirmUnassign.title`), this.$t('models.request.confirmUnassign.warning'), {
                     confirmButtonText: this.$t(`models.request.confirmUnassign.confirmBtnText`),
@@ -606,6 +638,10 @@
 </script>
 
 <style lang="scss" scoped>
+    .mt15 {
+        margin-top: 15px;
+    }
+
     .buildings-edit {
         .heading {
             margin-bottom: 20px;
