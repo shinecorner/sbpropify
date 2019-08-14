@@ -20,7 +20,7 @@ return [
      *
      * More info: https://developers.google.com/maps/documentation/geocoding/intro#RegionCodes
      */
-    'region' => '',
+    'region' => 'ch',
 
     /*
      * The bounds param used to finetune the geocoding process.
