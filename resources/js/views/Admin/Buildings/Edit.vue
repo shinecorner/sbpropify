@@ -364,10 +364,10 @@
                 delBuildingStatus: -1, // 0: unit, 1: request, 2: both
                 contactEnableValues: [{
                     value: 2,
-                    label: 'show',
+                    label: this.$t('settings.contact_enable.show'),
                 }, {
                     value: 3,
-                    label: 'hide',
+                    label: this.$t('settings.contact_enable.hide'),
                 }],
             };
         },
@@ -391,7 +391,7 @@
                 this.getRealEstate().then((resp) => {
                     this.contactEnableValues.unshift({
                         value: 1,
-                        label: `use global (${resp.data.contact_enable ? 'Show' : 'Hide'})`,
+                        label: `${this.$t('settings.contact_enable.use_global')} (${resp.data.contact_enable ? this.$t('settings.contact_enable.show') : this.$t('settings.contact_enable.show')})`,
                     });
                 }).catch((error) => {
                     displayError(error);
