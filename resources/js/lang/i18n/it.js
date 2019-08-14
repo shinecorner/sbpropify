@@ -2,188 +2,217 @@ export default {
     "it": {
         "auth": {
             "failed": "Credenziali non corrispondenti ai dati registrati.",
-            "throttle": "Troppi tentativi di accesso. Riprova tra {seconds} secondi."
+            "throttle": "Troppi tentativi di accesso. Riprova tra {seconds} secondi.",
+            "login_welcome": "Bentornato, accedi al tuo account."
+        },
+        "common": {
+            "mr": "Sig.",
+            "mrs": "Signora",
+            "company": "L'azienda",
+            "user_title_mr": "Sig.",
+            "user_title_mrs": "Signora",
+            "user_title_company": "L'azienda",
+            "tenant_title_mr": "Sig.",
+            "tenant_title_mrs": "Signora",
+            "tenant_title_company": "L'azienda",
+            "request_status_1": "Ricevuto",
+            "request_status_2": "In Elaborazione",
+            "request_status_3": "Assegnato",
+            "request_status_4": "Fatto",
+            "request_status_5": "Riattivati",
+            "request_status_6": "Archiviato",
+            "originalRequest_status_1": "Ricevuto",
+            "originalRequest_status_2": "In Elaborazione",
+            "originalRequest_status_3": "Assegnato",
+            "originalRequest_status_4": "Fatto",
+            "originalRequest_status_5": "Riattivati",
+            "originalRequest_status_6": "Archiviato",
+            "email_footer_message1": "Questa e-mail è stata generata automaticamente per {UserName}.",
+            "email_footer_message2": "Si ottiene questa e-mail generata automaticamente come utente di {CompanyName}.",
+            "email_link_contacts": "Contatti.",
+            "email_link_terms_of_use": "Condizioni d'uso",
+            "email_link_data_protection": "Protezione dei dati"
         },
         "components": {
             "common": {
                 "audit": {
                     "type": {
-                        "post": "Post",
-                        "product": "Product",
-                        "request": "Request"
+                        "post": "Messaggio",
+                        "product": "Prodotto",
+                        "request": "Richiesta"
                     },
                     "filter": {
                         "type": {
-                            "post": "Post",
-                            "product": "Product",
-                            "request": "Request"
+                            "post": "Messaggio",
+                            "product": "Prodotto",
+                            "request": "Richiesta"
                         },
                         "post": {
-                            "created": "Created",
-                            "updated": "Updates",
-                            "provider_assigned": "Provider assigned",
-                            "user_assigned": "User assigned",
-                            "media_uploaded": "Media uploaded",
-                            "media_deleted": "Media deleted"
+                            "created": "Creato",
+                            "updated": "Aggiornamenti",
+                            "provider_assigned": "Fornitore assegnato",
+                            "user_assigned": "Utente assegnato",
+                            "media_uploaded": "Media caricati",
+                            "media_deleted": "Supporti cancellati"
                         },
                         "product": [],
                         "request": {
-                            "created": "Created",
-                            "updated": "Updates",
-                            "provider_assigned": "Provider assigned",
-                            "user_assigned": "User assigned",
-                            "media_uploaded": "Media uploaded",
-                            "media_deleted": "Media deleted"
+                            "created": "Creato",
+                            "updated": "Aggiornamenti",
+                            "provider_assigned": "Fornitore assegnato",
+                            "user_assigned": "Utente assegnato",
+                            "media_uploaded": "Media caricati",
+                            "media_deleted": "Supporti cancellati"
                         }
                     },
                     "content": {
                         "withId": {
                             "post": {
-                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
+                                "created": "{userName} ha aperto questo {auditable_type} su {auditable_type} #{auditable_id}.",
                                 "updated": {
-                                    "status": "The status changed from \"{old}\" to \"{new}\".",
-                                    "published_at": "Post published on {new}."
+                                    "status": "Lo stato è cambiato da \"{old}\" al \"{new}\".",
+                                    "published_at": "Messaggio pubblicato su {new}."
                                 }
                             },
                             "product": {
-                                "created": "{userName} opened this {auditable_type}.",
+                                "created": "{userName} ha aperto questo {auditable_type}.",
                                 "updated": {
-                                    "title": "The title changed from \"{old}\" to \"{new}\".",
-                                    "status": "The status changed from \"{old}\" to \"{new}\".",
-                                    "due_date": "The due date changed from \"{old}\" to \"{new}\".",
-                                    "priority": "The priority changed from \"{old}\" to \"{new}\".",
-                                    "category_id": "The category changed from \"{old}\" to \"{new}\".",
-                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\".",
-                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\"."
+                                    "title": "Il titolo è cambiato da \"{old}\" al \"{new}\".",
+                                    "status": "Lo stato è cambiato da \"{old}\" al \"{new}\".",
+                                    "due_date": "La data di scadenza è cambiata da \"{old}\" al \"{new}\".",
+                                    "priority": "La categoria è cambiata da \"{old}\" al \"{new}\".",
+                                    "category_id": "La categoria è cambiata da \"{old}\" al \"{new}\".",
+                                    "qualification": "La qualifica è cambiata da \"{old}\" al \"{new}\".",
+                                    "visibility": "La visibilità è cambiata da \"{old}\" al \"{new}\"."
                                 },
-                                "provider_assigned": "{providerName} has been assigned as provider.",
-                                "user_assigned": "{userName} has been assigned as manager.",
-                                "media_uploaded": "Media uploaded",
-                                "media_deleted": "Media deleted"
+                                "provider_assigned": "{providerName} è stato assegnato come fornitore.",
+                                "user_assigned": "{userName} è stato assegnato come manager.",
+                                "media_uploaded": "Media caricati",
+                                "media_deleted": "Supporti cancellati"
                             },
                             "request": {
-                                "created": "{userName} opened this {auditable_type}.",
+                                "created": "{userName} ha aperto questo {auditable_type}.",
                                 "updated": {
-                                    "title": "The title changed from \"{old}\" to \"{new}\".",
-                                    "status": "The status changed from \"{old}\" to \"{new}\".",
-                                    "due_date": "The due date changed from \"{old}\" to \"{new}\".",
-                                    "priority": "The priority changed from \"{old}\" to \"{new}\".",
-                                    "category_id": "The category changed from \"{old}\" to \"{new}\".",
-                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\".",
-                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\"."
+                                    "title": "Il titolo è cambiato da \"{old}\" al \"{new}\".",
+                                    "status": "Lo stato è cambiato da \"{old}\" al \"{new}\".",
+                                    "due_date": "La data di scadenza è cambiata da \"{old}\" al \"{new}\".",
+                                    "priority": "La categoria è cambiata da \"{old}\" al \"{new}\".",
+                                    "category_id": "La categoria è cambiata da \"{old}\" al \"{new}\".",
+                                    "qualification": "La qualifica è cambiata da \"{old}\" al \"{new}\".",
+                                    "visibility": "La visibilità è cambiata da \"{old}\" al \"{new}\"."
                                 },
-                                "provider_assigned": "{providerName} has been assigned as provider.",
-                                "user_assigned": "{userName} has been assigned as manager.",
-                                "media_uploaded": "Media uploaded",
-                                "media_deleted": "Media deleted"
+                                "provider_assigned": "{providerName} è stato assegnato come fornitore.",
+                                "user_assigned": "{userName} è stato assegnato come manager.",
+                                "media_uploaded": "Media caricati",
+                                "media_deleted": "Supporti cancellati"
                             }
                         },
                         "withNoId": {
                             "post": {
-                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
+                                "created": "{userName} ha aperto questo {auditable_type} su {auditable_type} #{auditable_id}.",
                                 "updated": {
-                                    "status": "The status changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "published_at": "Post published on {new} on {auditable_type} #{auditable_id}."
+                                    "status": "Lo stato è cambiato da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
+                                    "published_at": "Messaggio pubblicato su {new} su {auditable_type} #{auditable_id}."
                                 }
                             },
                             "product": {
-                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
+                                "created": "{userName} ha aperto questo {auditable_type} su {auditable_type} #{auditable_id}.",
                                 "updated": {
-                                    "title": "The title changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "status": "The status changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "due_date": "The due date changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "priority": "The priority changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "category_id": "The category changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}."
+                                    "title": "Il titolo è cambiato da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
+                                    "status": "Lo stato è cambiato da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
+                                    "due_date": "La data di scadenza è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
+                                    "priority": "La categoria è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
+                                    "category_id": "La categoria è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
+                                    "qualification": "La qualifica è cambiata da \"{old}\" al \"{new}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
+                                    "visibility": "La visibilità è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}."
                                 },
-                                "provider_assigned": "{providerName} has been assigned as provider on {auditable_type} #{auditable_id}.",
-                                "user_assigned": "{userName} has been assigned as manager on {auditable_type} #{auditable_id}.",
-                                "media_uploaded": "Media uploaded on {auditable_type} #{auditable_id}.",
-                                "media_deleted": "Media deleted on {auditable_type} #{auditable_id}."
+                                "provider_assigned": "{providerName} è stato assegnato come fornitore su {auditable_type} #{auditable_id}.",
+                                "user_assigned": "{userName} è stato assegnato come manager su {auditable_type} #{auditable_id}.",
+                                "media_uploaded": "Media caricati su {auditable_type} #{auditable_id}.",
+                                "media_deleted": "Supporti cancellati su {auditable_type} #{auditable_id}."
                             },
                             "request": {
-                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
+                                "created": "{userName} opened this {auditable_type} su {auditable_type} #{auditable_id}.",
                                 "updated": {
-                                    "title": "The title changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "status": "The status changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "due_date": "The due date changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "priority": "The priority changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "category_id": "The category changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}."
+                                    "title": "Il titolo è cambiato da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
+                                    "status": "Lo stato è cambiato da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
+                                    "due_date": "La data di scadenza è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
+                                    "priority": "La categoria è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
+                                    "category_id": "La categoria è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
+                                    "qualification": "La qualifica è cambiata da \"{old}\" al \"{new}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
+                                    "visibility": "La visibilità è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}."
                                 },
-                                "provider_assigned": "{providerName} has been assigned as provider on {auditable_type} #{auditable_id}.",
-                                "user_assigned": "{userName} has been assigned as manager on {auditable_type} #{auditable_id}.",
-                                "media_uploaded": "Media uploaded on {auditable_type} #{auditable_id}.",
-                                "media_deleted": "Media deleted on {auditable_type} #{auditable_id}."
+                                "provider_assigned": "{providerName} è stato assegnato come fornitore su {auditable_type} #{auditable_id}.",
+                                "user_assigned": "{userName} è stato assegnato come manager su {auditable_type} #{auditable_id}.",
+                                "media_uploaded": "Media caricati su {auditable_type} #{auditable_id}.",
+                                "media_deleted": "Supporti cancellati su {auditable_type} #{auditable_id}."
                             }
                         }
                     }
                 },
                 "commentsList": {
-                    "loading": "Loading...",
+                    "loading": "Caricamento...",
                     "loadMore": {
-                        "simple": "Load {count} more",
-                        "detailed": "Load {count} more comments"
+                        "simple": "Carico {count} ",
+                        "detailed": "Carico {count} altri commenti"
                     },
                     "emptyPlaceholder": {
-                        "title": "There are no messages yet...",
-                        "description": "Start messaging by using the below form and press enter."
+                        "title": "Non ci sono ancora messaggi...",
+                        "description": "Avviare la messaggistica utilizzando il modulo sottostante e premere Invio."
                     }
                 },
                 "comment": {
-                    "updateShortcut": "or use {shortcut} shortcut",
-                    "updateOrCancel": "{update} or press {esc} to {cancel}",
-                    "update": "update",
+                    "updateShortcut": "o l'uso {shortcut} scorciatoia",
+                    "updateOrCancel": "{update} o premere {esc} al {cancel}",
+                    "update": "attualizzazione",
                     "esc": "ESC",
-                    "cancel": "cancel",
-                    "addChildComment": "Comment",
-                    "loadMore": "Load 1 more comment | Load {count} more comments",
-                    "deletedCommentPlaceholder": "This comment was deleted."
+                    "cancel": "stornare",
+                    "addChildComment": "Commento",
+                    "loadMore": "Carica 1 commento in più | Carica {count} più commenti",
+                    "deletedCommentPlaceholder": "Questo commento è stato cancellato."
                 },
                 "addComment": {
-                    "placeholder": "Type a comment...",
-                    "tooltipTemplates": "Choose a template",
-                    "loadingTemplates": "Loading templates...",
-                    "saveShortcut": "or use {shortcut} shortcut",
-                    "emptyTemplatesPlaceholder": "No templates available."
+                    "placeholder": "Scrivi un commento...",
+                    "tooltipTemplates": "Scegliere un modello",
+                    "loadingTemplates": "Caricamento dei modelli...",
+                    "saveShortcut": "o l'uso {shortcut} scorciatoia",
+                    "emptyTemplatesPlaceholder": "Nessun modello disponibile."
                 },
                 "media": {
                     "buttons": {
                         "selectFiles": {
-                            "withDrop": "Drop files or click to select...",
-                            "withoutDrop": "Click to select..."
+                            "withDrop": "Rilasciare i file o fare clic per selezionare...",
+                            "withoutDrop": "Fare clic per selezionare..."
                         },
-                        "upload": "Upload"
+                        "upload": "Carica"
                     },
                     "dropActive": {
-                        "title": "Drop your files here...",
-                        "description": "Only the files with a certain extension are allowed."
+                        "title": "Lascia qui i tuoi file...",
+                        "description": "Sono ammessi solo i file con una certa estensione."
                     },
                     "messages": {
-                        "preview": "This file cannot be previewed.",
-                        "uploading": "Uploading...",
-                        "uploaded": "Media files have been succesfully uploaded.",
-                        "size": "Oops! Some files had the size bigger than the maximum allowed of {bytes}.",
-                        "extensions": "Oops! Some files have had an extension that was not allowed. Skipping..."
+                        "preview": "Questo file non può essere visualizzato in anteprima.",
+                        "uploading": "Caricamento...",
+                        "uploaded": "I file multimediali sono stati caricati con successo.",
+                        "size": "Ops! Alcuni file avevano dimensioni maggiori del massimo consentito di {bytes}.",
+                        "extensions": "Ops! Alcuni file hanno avuto un'estensione non consentita. Saltare..."
                     }
                 }
             },
             "tenant": {
                 "weatherWidget": {
                     "minTemp": "min",
-                    "maxTemp": "max",
-                    "wind": "wind",
-                    "cloudiness": "cloudiness",
-                    "humidity": "humidity",
-                    "pressure": "pressure"
+                    "maxTemp": "massimo",
+                    "wind": "eolico",
+                    "cloudiness": "nebulosità",
+                    "humidity": "umidità",
+                    "pressure": "pressione"
                 },
                 "postAdd": {
                     "visibility": {
-                        "address": "Address",
-                        "district": "District",
-                        "all": "All"
+                        "address": "Indirizzo",
+                        "district": "Distretto",
+                        "all": "Tutti"
                     }
                 }
             },
@@ -208,48 +237,48 @@ export default {
             "tenants_by_creation_date": "Gli inquilini per data di creazione",
             "tenants_by_request_status": "Situazione degli inquilini in base alle richieste",
             "tenants_by_status": "Affittuari per stato",
-            "tenants_by_language": "Tenants by language",
-            "tenants_by_title": "Tenants by title",
-            "tenants_by_device": "Tenants by device",
-            "tenants_by_gender": "Tenants by gender",
-            "actions": "Actions",
+            "tenants_by_language": "Affittuari per lingua",
+            "tenants_by_title": "Affittuari per titolo",
+            "tenants_by_device": "Affittuari per dispositivo",
+            "tenants_by_gender": "Affittuari per sesso",
+            "actions": "Azioni",
             "requests": {
-                "requests_with_service_providers": "With service providers",
-                "request_wihout_service_providers": "Without service providers"
+                "requests_with_service_providers": "Con i fornitori di servizi",
+                "request_wihout_service_providers": "Senza fornitori di servizi"
             },
             "buildings": {
-                "total_building": "Total Count",
-                "total_units": "Total Units",
-                "occupied_units": "Occupied Units",
-                "free_units": "Free Units",
-                "buildings_by_creation_date": "Buildings by creation date"
+                "total_building": "Totale",
+                "total_units": "Totale unità",
+                "occupied_units": "Unità occupate",
+                "free_units": "Unità libere",
+                "buildings_by_creation_date": "Edifici per data di creazione"
             },
             "tenants": {
-                "total_tenants": "Total Count",
-                "average_age": "Average Age",
-                "average_age_acr": "Avg. Age"
+                "total_tenants": "Totale",
+                "average_age": "Età media",
+                "average_age_acr": "Media Età"
             },
             "marketplace": {
-                "go_to_marketplace": "go to marketplace"
+                "go_to_marketplace": "vai al mercato"
             }
         },
         "filters": {
-            "header": "Filters",
-            "districts": "Districts",
-            "buildings": "Buildings",
-            "requests": "Requests",
-            "open_requests": "Open requests",
-            "units": "Units",
-            "states": "States",
-            "status": "Status",
-            "search": "Search",
-            "requestStatus": "Request status",
-            "propertyManagers": "Property Manager",
-            "categories": "Categories",
-            "created_from": "Created from",
-            "created_to": "Created to",
-            "services": "Services",
-            "tenant": "Type tenants"
+            "header": "Filtri",
+            "districts": "Distretti",
+            "buildings": "Edifici",
+            "requests": "Richieste",
+            "open_requests": "Richieste aperte",
+            "units": "Unità",
+            "states": "Stati",
+            "status": "Stato",
+            "search": "Ricerca",
+            "requestStatus": "Stato della richiesta",
+            "propertyManagers": "Proprietà Manager",
+            "categories": "Categorie",
+            "created_from": "Creato da",
+            "created_to": "Creato per",
+            "services": "Servizi",
+            "tenant": "Tipo inquilini"
         },
         "general": {
             "en": "EN",
@@ -332,62 +361,62 @@ export default {
             "login": "Accedi",
             "support": "Support",
             "actions": {
-                "label": "Operations",
-                "edit": "Edit",
-                "add": "Add",
-                "delete": "Delete",
-                "create": "Create",
-                "view": "Details",
-                "save": "Save",
-                "close": "Close",
-                "saveAndClose": "Save & Close",
-                "upload": "Upload"
+                "label": "Operazioni",
+                "edit": "Modifica",
+                "add": "Aggiungi",
+                "delete": "Cancellare",
+                "create": "Creare",
+                "view": "Dettagli",
+                "save": "Risparmiate",
+                "close": "Chiuditi",
+                "saveAndClose": "Salva & Chiudi",
+                "upload": "Carica"
             },
             "swal": {
                 "delete": {
-                    "title": "Are you sure?",
-                    "text": "You won't be able to revert this!",
-                    "confirmText": "Yes, delete it!",
-                    "deleted": "Deleted successfully"
+                    "title": "Ne sei sicuro?",
+                    "text": "Non sarai in grado di tornare indietro!",
+                    "confirmText": "Sì, cancellalo!",
+                    "deleted": "Eliminato con successo"
                 },
                 "add": {
-                    "added": "Added successfully"
+                    "added": "Aggiunto con successo"
                 },
                 "media": {
-                    "deleted": "Document/Photo Deleted",
-                    "uploaded": "Document/Photo Uploaded"
+                    "added": "Documento/foto aggiunto",
+                    "deleted": "Documento/foto soppresso"
                 },
                 "logout_confirm": "Sarai disconnesso."
             },
             "roles": {
-                "label": "Role",
-                "administrator": "Administrator",
-                "homeowner": "Home Owner",
+                "label": "Ruolo",
+                "administrator": "Amministratore",
+                "homeowner": "Proprietario",
                 "manager": "Manager",
-                "registered": "Registered",
-                "service": "Service",
+                "registered": "Registrato",
+                "service": "Servizio",
                 "super_admin": "Super Admin"
             },
             "search": {
-                "placeholder": "Search"
+                "placeholder": "Ricerca"
             },
             "errors": {
-                "files_extension_images": "Only jpg and png files accepted"
+                "files_extension_images": "Si accettano solo file jpg e png"
             },
-            "dateTimeFormat": "{date} at {time}",
+            "dateTimeFormat": "{date} in {time}",
             "date_range": {
-                "range_separator": "To",
-                "start_date": "Start date",
-                "end_date": "End date",
+                "range_separator": "in",
+                "start_date": "Data d'inizio",
+                "end_date": "Data di fine",
                 "last_7_days": "Ultimi 7 giorni",
-                "last_week": "Last week",
+                "last_week": "Ultima settimana",
                 "last_14_days": "Ultimi 14 giorni",
                 "last_30_days": "Ultimi 30 giorni",
-                "last_month": "Last Month",
-                "last_3_months": "Last 3 months",
-                "last_6_months": "Last 6 months",
-                "last_year": "Last year",
-                "last_2_years": "Last 2 years",
+                "last_month": "Ultimo mese",
+                "last_3_months": "Ultimi 3 mesi",
+                "last_6_months": "Ultimi 6 mesi",
+                "last_year": "L'anno scorso",
+                "last_2_years": "Ultimi 2 anni",
                 "all_time": "Tutto il tempo",
                 "week": "Settimana",
                 "peek_week": "Scegli una settimana"
@@ -1297,347 +1326,6 @@ export default {
                 "terms_text": "Terms text here, long text"
             }
         },
-        "filters": {
-            "header": "Filtri",
-            "districts": "Distretti",
-            "buildings": "Edifici",
-            "requests": "Richieste",
-            "open_requests": "Richieste aperte",
-            "units": "Unità",
-            "states": "Stati",
-            "status": "Stato",
-            "search": "Ricerca",
-            "requestStatus": "Stato della richiesta",
-            "propertyManagers": "Proprietà Manager",
-            "categories": "Categorie",
-            "created_from": "Creato da",
-            "created_to": "Creato per",
-            "services": "Servizi",
-            "tenant": "Tipo inquilini"
-        },
-        "dashboard": {
-            "statistics": "Statistiche",
-            "requests_by_creation_date": "Richieste per data di creazione",
-            "requests_by_status": "Richieste per stato",
-            "requests_by_category": "Richieste per categoria",
-            "requests_by_assigned_status": "Requests by assigned status",
-            "each_hour_request": "Ogni ora richiede",
-            "average_request_duration": "Tempo di risoluzione",
-            "week_hour": "Settimana vs. Ora",
-            "month_date": "Mese vs. data",
-            "news_by_creation_date": "Notizie per data di creazione",
-            "news_by_status": "Notizie per stato",
-            "news_by_type": "Notizie per tipo",
-            "latest_products": "Ultimi prodotti",
-            "products_by_creation_date": "Mercato dei prodotti per data di creazione",
-            "products_by_type": "Piazza del mercato prodotti per tipologia",
-            "tenants_by_creation_date": "Gli inquilini per data di creazione",
-            "tenants_by_request_status": "Situazione degli inquilini in base alle richieste",
-            "tenants_by_status": "Affittuari per stato",
-            "tenants_by_language": "Affittuari per lingua",
-            "tenants_by_title": "Affittuari per titolo",
-            "tenants_by_device": "Affittuari per dispositivo",
-            "tenants_by_gender": "Affittuari per sesso",
-            "actions": "Azioni",
-            "requests": {
-                "requests_with_service_providers": "Con i fornitori di servizi",
-                "request_wihout_service_providers": "Senza fornitori di servizi"
-            },
-            "buildings": {
-                "total_building": "Totale",
-                "total_units": "Totale unità",
-                "occupied_units": "Unità occupate",
-                "free_units": "Unità libere",
-                "buildings_by_creation_date": "Edifici per data di creazione"
-            },
-            "tenants": {
-                "total_tenants": "Totale",
-                "average_age": "Età media",
-                "average_age_acr": "Media Età"
-            },
-            "marketplace": {
-                "go_to_marketplace": "vai al mercato"
-            }
-        },
-        "auth": {
-            "failed": "Credenziali non corrispondenti ai dati registrati.",
-            "throttle": "Troppi tentativi di accesso. Riprova tra {seconds} secondi.",
-            "login_welcome": "Bentornato, accedi al tuo account."
-        },
-        "settings": {
-            "notifications": "Notifications and language",
-            "admin": "Admin notifications",
-            "news": "News notifications",
-            "marketplace": "Marketplace notifications",
-            "service": "Service notifications",
-            "updated": "Settings updated",
-            "language": "Language",
-            "summary": {
-                "label": "Summary statistics",
-                "daily": "Daily",
-                "monthly": "Monthly",
-                "yearly": "Yearly"
-            },
-            "contact_enable": {
-                "use_global": "Usa globale",
-                "show": "Mostrare",
-                "hide": "Nascondere"
-            }
-        },
-        "pagination": {
-            "previous": "&laquo; Precedente",
-            "next": "Successivo &raquo;"
-        },
-        "views": {
-            "tenant": {
-                "my": {
-                    "personal": {
-                        "title": "Personal data",
-                        "description": "My personal details.",
-                        "placeholder": {
-                            "title": "No personal data available.",
-                            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                        }
-                    }
-                }
-            }
-        },
-        "menu": {
-            "dashboard": "Cruscotto",
-            "news": "Notizie",
-            "requests": "Richieste",
-            "all_requests": "Tutte le richieste",
-            "marketplace": "Mercato",
-            "settings": "Impostazioni",
-            "logout": "Logout",
-            "profile": "Profilo",
-            "users": "Utenti",
-            "employees": "Dirigenti",
-            "companies": "Servizi",
-            "admins": "Amministratori",
-            "super_admins": "Super amministratori",
-            "home_owners": "Proprietari",
-            "registered": "Registrato",
-            "about": "A proposito di",
-            "feedback": "Feedback",
-            "tenants": "Gli inquilini",
-            "buildings": "Edifici",
-            "all_buildings": "Tutti gli edifici",
-            "units": "Unità",
-            "addresses": "Indirizzi",
-            "posts": "Notizie",
-            "districts": "Distretti",
-            "products": "Prodotti",
-            "requestCategories": "Richiesta categorie",
-            "services": "Partner di servizio",
-            "activity": "Attività",
-            "propertyManagers": "Gestori",
-            "templates": "Modelli"
-        },
-        "components": {
-            "common": {
-                "audit": {
-                    "type": {
-                        "post": "Messaggio",
-                        "product": "Prodotto",
-                        "request": "Richiesta"
-                    },
-                    "filter": {
-                        "type": {
-                            "post": "Messaggio",
-                            "product": "Prodotto",
-                            "request": "Richiesta"
-                        },
-                        "post": {
-                            "created": "Creato",
-                            "updated": "Aggiornamenti",
-                            "provider_assigned": "Fornitore assegnato",
-                            "user_assigned": "Utente assegnato",
-                            "media_uploaded": "Media caricati",
-                            "media_deleted": "Supporti cancellati"
-                        },
-                        "product": [],
-                        "request": {
-                            "created": "Creato",
-                            "updated": "Aggiornamenti",
-                            "provider_assigned": "Fornitore assegnato",
-                            "user_assigned": "Utente assegnato",
-                            "media_uploaded": "Media caricati",
-                            "media_deleted": "Supporti cancellati"
-                        }
-                    },
-                    "content": {
-                        "withId": {
-                            "post": {
-                                "created": "{userName} ha aperto questo {auditable_type} su {auditable_type} #{auditable_id}.",
-                                "updated": {
-                                    "status": "Lo stato è cambiato da \"{old}\" al \"{new}\".",
-                                    "published_at": "Messaggio pubblicato su {new}."
-                                }
-                            },
-                            "product": {
-                                "created": "{userName} ha aperto questo {auditable_type}.",
-                                "updated": {
-                                    "title": "Il titolo è cambiato da \"{old}\" al \"{new}\".",
-                                    "status": "Lo stato è cambiato da \"{old}\" al \"{new}\".",
-                                    "due_date": "La data di scadenza è cambiata da \"{old}\" al \"{new}\".",
-                                    "priority": "La categoria è cambiata da \"{old}\" al \"{new}\".",
-                                    "category_id": "La categoria è cambiata da \"{old}\" al \"{new}\".",
-                                    "qualification": "La qualifica è cambiata da \"{old}\" al \"{new}\".",
-                                    "visibility": "La visibilità è cambiata da \"{old}\" al \"{new}\"."
-                                },
-                                "provider_assigned": "{providerName} è stato assegnato come fornitore.",
-                                "user_assigned": "{userName} è stato assegnato come manager.",
-                                "media_uploaded": "Media caricati",
-                                "media_deleted": "Supporti cancellati"
-                            },
-                            "request": {
-                                "created": "{userName} ha aperto questo {auditable_type}.",
-                                "updated": {
-                                    "title": "Il titolo è cambiato da \"{old}\" al \"{new}\".",
-                                    "status": "Lo stato è cambiato da \"{old}\" al \"{new}\".",
-                                    "due_date": "La data di scadenza è cambiata da \"{old}\" al \"{new}\".",
-                                    "priority": "La categoria è cambiata da \"{old}\" al \"{new}\".",
-                                    "category_id": "La categoria è cambiata da \"{old}\" al \"{new}\".",
-                                    "qualification": "La qualifica è cambiata da \"{old}\" al \"{new}\".",
-                                    "visibility": "La visibilità è cambiata da \"{old}\" al \"{new}\"."
-                                },
-                                "provider_assigned": "{providerName} è stato assegnato come fornitore.",
-                                "user_assigned": "{userName} è stato assegnato come manager.",
-                                "media_uploaded": "Media caricati",
-                                "media_deleted": "Supporti cancellati"
-                            }
-                        },
-                        "withNoId": {
-                            "post": {
-                                "created": "{userName} ha aperto questo {auditable_type} su {auditable_type} #{auditable_id}.",
-                                "updated": {
-                                    "status": "Lo stato è cambiato da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
-                                    "published_at": "Messaggio pubblicato su {new} su {auditable_type} #{auditable_id}."
-                                }
-                            },
-                            "product": {
-                                "created": "{userName} ha aperto questo {auditable_type} su {auditable_type} #{auditable_id}.",
-                                "updated": {
-                                    "title": "Il titolo è cambiato da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
-                                    "status": "Lo stato è cambiato da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
-                                    "due_date": "La data di scadenza è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
-                                    "priority": "La categoria è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
-                                    "category_id": "La categoria è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
-                                    "qualification": "La qualifica è cambiata da \"{old}\" al \"{new}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
-                                    "visibility": "La visibilità è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}."
-                                },
-                                "provider_assigned": "{providerName} è stato assegnato come fornitore su {auditable_type} #{auditable_id}.",
-                                "user_assigned": "{userName} è stato assegnato come manager su {auditable_type} #{auditable_id}.",
-                                "media_uploaded": "Media caricati su {auditable_type} #{auditable_id}.",
-                                "media_deleted": "Supporti cancellati su {auditable_type} #{auditable_id}."
-                            },
-                            "request": {
-                                "created": "{userName} opened this {auditable_type} su {auditable_type} #{auditable_id}.",
-                                "updated": {
-                                    "title": "Il titolo è cambiato da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
-                                    "status": "Lo stato è cambiato da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
-                                    "due_date": "La data di scadenza è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
-                                    "priority": "La categoria è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
-                                    "category_id": "La categoria è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
-                                    "qualification": "La qualifica è cambiata da \"{old}\" al \"{new}\" al \"{new}\" su {auditable_type} #{auditable_id}.",
-                                    "visibility": "La visibilità è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}."
-                                },
-                                "provider_assigned": "{providerName} è stato assegnato come fornitore su {auditable_type} #{auditable_id}.",
-                                "user_assigned": "{userName} è stato assegnato come manager su {auditable_type} #{auditable_id}.",
-                                "media_uploaded": "Media caricati su {auditable_type} #{auditable_id}.",
-                                "media_deleted": "Supporti cancellati su {auditable_type} #{auditable_id}."
-                            }
-                        }
-                    }
-                },
-                "commentsList": {
-                    "loading": "Caricamento...",
-                    "loadMore": {
-                        "simple": "Carico {count} ",
-                        "detailed": "Carico {count} altri commenti"
-                    },
-                    "emptyPlaceholder": {
-                        "title": "Non ci sono ancora messaggi...",
-                        "description": "Avviare la messaggistica utilizzando il modulo sottostante e premere Invio."
-                    }
-                },
-                "comment": {
-                    "updateShortcut": "o l'uso {shortcut} scorciatoia",
-                    "updateOrCancel": "{update} o premere {esc} al {cancel}",
-                    "update": "attualizzazione",
-                    "esc": "ESC",
-                    "cancel": "stornare",
-                    "addChildComment": "Commento",
-                    "loadMore": "Carica 1 commento in più | Carica {count} più commenti",
-                    "deletedCommentPlaceholder": "Questo commento è stato cancellato."
-                },
-                "addComment": {
-                    "placeholder": "Scrivi un commento...",
-                    "tooltipTemplates": "Scegliere un modello",
-                    "loadingTemplates": "Caricamento dei modelli...",
-                    "saveShortcut": "o l'uso {shortcut} scorciatoia",
-                    "emptyTemplatesPlaceholder": "Nessun modello disponibile."
-                },
-                "media": {
-                    "buttons": {
-                        "selectFiles": {
-                            "withDrop": "Rilasciare i file o fare clic per selezionare...",
-                            "withoutDrop": "Fare clic per selezionare..."
-                        },
-                        "upload": "Carica"
-                    },
-                    "dropActive": {
-                        "title": "Lascia qui i tuoi file...",
-                        "description": "Sono ammessi solo i file con una certa estensione."
-                    },
-                    "messages": {
-                        "preview": "Questo file non può essere visualizzato in anteprima.",
-                        "uploading": "Caricamento...",
-                        "uploaded": "I file multimediali sono stati caricati con successo.",
-                        "size": "Ops! Alcuni file avevano dimensioni maggiori del massimo consentito di {bytes}.",
-                        "extensions": "Ops! Alcuni file hanno avuto un'estensione non consentita. Saltare..."
-                    }
-                }
-            },
-            "tenant": {
-                "weatherWidget": {
-                    "minTemp": "min",
-                    "maxTemp": "massimo",
-                    "wind": "eolico",
-                    "cloudiness": "nebulosità",
-                    "humidity": "umidità",
-                    "pressure": "pressione"
-                },
-                "postAdd": {
-                    "visibility": {
-                        "address": "Indirizzo",
-                        "district": "Distretto",
-                        "all": "Tutti"
-                    }
-                }
-            },
-            "admin": []
-        },
-        "layouts": {
-            "tenant": {
-                "menu": {
-                    "logout": "Logout"
-                },
-                "sidebar": {
-                    "dashboard": "Dashboard",
-                    "myTenancy": "My tenancy",
-                    "myPersonalData": "My personal data",
-                    "myRecentContract": "My recent contract",
-                    "myDocuments": "Documents",
-                    "myContactPersons": "Contact persons",
-                    "posts": "News",
-                    "requests": "Requests",
-                    "products": "Marketplace",
-                    "settings": "Settings"
-                }
-            }
-        },
         "pages": {
             "profile": {
                 "pageTitle": "Profile",
@@ -1680,6 +1368,11 @@ export default {
                 "daily": "Daily",
                 "monthly": "Monthly",
                 "yearly": "Yearly"
+            },
+            "contact_enable": {
+                "use_global": "Usa globale",
+                "show": "Mostrare",
+                "hide": "Nascondere"
             }
         },
         "validation": {
