@@ -33,10 +33,10 @@
                             {{scope.row[prop]}}
                         </component>
                     </div>
-
+               
                     <div v-if="column.type == 'product-details'" class="product-details">
                         <div class="image" v-if="scope.row['image_url']" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
-                        <div class="image" v-else :style="{backgroundImage: `url(${defaultImg})`}"></div>
+                        <div class="image" v-else :style="{backgroundImage: `url(${productDefaultImg})`}"></div>
                         <div class="text">
                             <div class="title">
                                 {{ scope.row['title'] }}
@@ -48,14 +48,15 @@
                     </div>
 
                     <div v-if="column.type == 'news-title'" class="product-details">
-                        <div class="image" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
-                        <div class="text">
+                        <div class="image" v-if="scope.row['image_url']" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
+                        <div class="image" v-else :style="{backgroundImage: `url(${userMaleDefaultImg})`}"></div>
+                        <div v-if="scope.row['content']" class="text">
                             <div class="title">
                                 {{ scope.row['content'] }}
                             </div>
                         </div>
                     </div>
-
+                   
                     <div v-if="column.type == 'users'" class="avatars-wrapper">
                         <span :key="index" v-for="(user, index) in scope.row[column.prop]">
                             <el-tooltip
@@ -160,7 +161,7 @@
                             >
                                 <template v-if="action.title == 'Edit'">
                                     <i class="ti-pencil"></i>
-                                    <span>&nbsp;{{action.title}}</span>    
+                                    <span>{{action.title}}</span>    
                                 </template>
                                 <template v-else>
                                     {{action.title}}
@@ -176,6 +177,9 @@
 </template>
 
 <script>
+    import userMaleDefaultImg from '../../img/male.png'; 
+    import userFemaleDefaultImg from '../../img/female.png'; 
+    import productDefaultImg from '../../img/latest-product-default.png';
     // TODO - add transition to do things smoothly
     import {Avatar} from 'vue-avatar'
     import uuid from 'uuid/v1'
@@ -210,14 +214,14 @@
             height: {
                 default: () => (undefined)
             },
-            defaultImg: {
-                default: () => (undefined)
-            }
         },
         data() {
             return {
                 uuid,
-                selectedItems: []
+                selectedItems: [],
+                userMaleDefaultImg: userMaleDefaultImg,
+                userFemaleDefaultImg: userFemaleDefaultImg,
+                productDefaultImg: productDefaultImg,
             }
         },
         computed: {

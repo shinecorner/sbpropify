@@ -151,7 +151,7 @@
                             </el-col>
                             <el-col :span="16">
                                 <el-card class="chart-card" :header="$t('dashboard.latest_products')">
-                                    <dashboard-latest-products type="latest_products" :defaultImg="defaultImg"></dashboard-latest-products>
+                                    <dashboard-latest-products type="latest_products"></dashboard-latest-products>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -192,6 +192,11 @@
                                     <dashboard-latest-tenants type="tenants"></dashboard-latest-tenants>
                                 </el-card>
                             </el-col>
+                             <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_device')">
+                                    <chart-users-by-device type="tenants_by_device" :colNum="3" :startDate="startDates.tenants"></chart-users-by-device>
+                                </el-card>
+                            </el-col>
                         </el-row>
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="8">
@@ -204,11 +209,7 @@
                                     <chart-tenants-by-gender type="tenants_by_gender" :startDate="startDates.tenants"></chart-tenants-by-gender>
                                 </el-card>
                             </el-col>
-                            <el-col :span="8">
-                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_device')">
-                                    <chart-users-by-device type="tenants_by_device" :colNum="3" :startDate="startDates.tenants"></chart-users-by-device>
-                                </el-card>
-                            </el-col>
+                           
                         </el-row>
                      
                     </el-tab-pane>
@@ -219,8 +220,6 @@
 </template>
 
 <script>
-    import defaultImg from '../../../img/latest-product-default.png';
-
     import axios from '@/axios';
     import DashboardStatisticsCard from 'components/DashboardStatisticsCard';
     import ChartStackedColumn from 'components/ChartStackedColumn';
@@ -325,7 +324,6 @@
                     products: '',
                     tenants: ''
                 },
-                defaultImg: defaultImg
             }
         },
         computed: {

@@ -42,7 +42,8 @@
                 }, {
                     type: 'plain',
                     label: this.$t('models.building.units'),
-                    prop: 'units_count'
+                    prop: 'units_count',
+                    
                 }, {
                     type: 'plain',
                     label: this.$t('models.building.tenants'),

@@ -129,6 +129,7 @@ export default {
         margin-top: 30px;
         margin-left: auto;
         margin-right: auto;
+        margin-bottom: 23px;
       }
       .custom-legend {
         text-align: center;
