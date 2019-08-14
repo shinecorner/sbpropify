@@ -19,5 +19,5 @@ return [
       'use_global' => 'Use global',
       'show' => 'Show',
       'hide' => 'Hide',
-    ]
+    ],
 ];

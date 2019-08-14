@@ -941,6 +941,11 @@ export default {
                 "daily": "Täglich",
                 "monthly": "Wöchentlich",
                 "yearly": "Jährlich"
+            },
+            "contact_enable": {
+                "use_global": "Verwenden Sie global",
+                "show": "Show",
+                "hide": "Мerbergen"
             }
         },
         "pagination": {
