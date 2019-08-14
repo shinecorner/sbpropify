@@ -13,5 +13,11 @@ return [
       'daily' => 'Daily',
       'monthly' => 'Monthly',
       'yearly' => 'Yearly',
-    ], 
+    ],
+    'contact_enable' =>
+    [
+      'use_global' => 'Usa globale',
+      'show' => 'Mostrare',
+      'hide' => 'Nascondere',
+    ],
 ];
