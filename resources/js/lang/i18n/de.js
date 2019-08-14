@@ -302,7 +302,8 @@ export default {
         },
         "auth": {
             "failed": "Diese Kombination aus Zugangsdaten wurde nicht in unserer Datenbank gefunden.",
-            "throttle": "Zu viele Loginversuche. Versuchen Sie es bitte in {seconds} Sekunden nochmal."
+            "throttle": "Zu viele Loginversuche. Versuchen Sie es bitte in {seconds} Sekunden nochmal.",
+            "login_welcome": "Willkommen zurück, bitte melden Sie sich bei Ihrem Konto an."
         },
         "pages": {
             "profile": {
