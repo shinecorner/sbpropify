@@ -583,7 +583,6 @@ return [
       'name' => 'Name',
       'description' => 'Description',
       'add' => 'Add district',
-      'edit' => 'Edit district',
       'save' => 'Save',
       'saved' => 'District saved',
       'edit_action' => 'Edit',
