@@ -1,6 +1,5 @@
 export default {
     "en": {
-<<<<<<< HEAD
         "auth": {
             "failed": "These credentials do not match our records.",
             "throttle": "Too many login attempts. Please try again in {seconds} seconds.",
@@ -596,110 +595,6 @@ export default {
                     "first_name": {
                         "required": "First name is required"
                     },
-=======
-        "passwords": {
-            "password": "Passwords must be at least six characters and match the confirmation.",
-            "reset": "Your password has been reset!",
-            "sent": "We have e-mailed your password reset link!",
-            "token": "This password reset token is invalid.",
-            "user": "We can't find a user with that e-mail address."
-        },
-        "models": {
-            "user": {
-                "edit_action": "Edit",
-                "delete": "Delete",
-                "name": "Name",
-                "phone": "Phone",
-                "date": "Date",
-                "email": "Email",
-                "id": "ID",
-                "add": "Add user",
-                "save": "Save",
-                "saved": "User saved successfully",
-                "deleted": "User deleted",
-                "edit": "Edit user",
-                "not_found": "User not found",
-                "profile_image": "Profile image",
-                "profile_text": "Profile text",
-                "avatar_uploaded": "Avatar uploaded",
-                "logo_uploaded": "Logo uploaded",
-                "logo": "Logo",
-                "address": "Address",
-                "blank_pdf": "Blank pdf",
-                "notificationSaved": "Notificatin setting saved",
-                "realEstateSaved": "Real Estate settings saved",
-                "serviceRequestCategorySaved": "Service request category saved",
-                "serviceRequestCategoryDeleted": "Service request category deleted",
-                "validation": {
-                    "name": {
-                        "required": "Name is required"
-                    },
-                    "role": {
-                        "required": "Role is required"
-                    }
-                }
-            },
-            "tenant": {
-                "view": "View",
-                "view_title": "View tenant",
-                "edit_title": "Edit tenant",
-                "download_credentials": "Download credentials",
-                "send_credentials": "Send credentials",
-                "credentials_sent": "Credentials sent",
-                "credentials_send_fail": "Credentials file not found. Try updating the tenant password to regenerate it",
-                "credentials_download_failed": "Credentials file not found. Try updating the tenant password to regenerate it",
-                "add": "Add tenant",
-                "save": "Save",
-                "saved": "Tenant saved",
-                "deleted": "Tenant deleted",
-                "status_changed": "Status changed",
-                "password_reset": "Tenant password reset successfully",
-                "update": "Update",
-                "name": "Name",
-                "first_name": "First name",
-                "last_name": "Last name",
-                "birth_date": "Birth date",
-                "language": "Language",
-                "title": "Title",
-                "mobile_phone": "Mobile phone",
-                "work_phone": "Work phone",
-                "email": "Email",
-                "personal_phone": "Personal phone",
-                "private_phone": "Personal phone",
-                "created_date": "Created Date",
-                "created_at": "Date",
-                "edit": "Edit",
-                "delete": "Delete",
-                "id": "ID",
-                "details": "Details",
-                "contract": "Contract",
-                "posts": "Posts",
-                "products": "Products",
-                "requests": "Requests",
-                "company": "Company name",
-                "no_building": "No building",
-                "media": {
-                    "deleted": "Document/Photo Deleted",
-                    "uploaded": "Document/Photo Uploaded"
-                },
-                "building": {
-                    "name": "Building"
-                },
-                "unit": {
-                    "name": "Unit"
-                },
-                "search_building": "Search building",
-                "search_unit": "Search unit",
-                "search": "Search",
-                "confirmDelete": {
-                    "title": "This will permanently delete the tenant.",
-                    "text": "Are you sure?"
-                },
-                "validation": {
-                    "first_name": {
-                        "required": "First name is required"
-                    },
->>>>>>> 41e3dd6425bfed490ea01d9586336c947cf5d124
                     "last_name": {
                         "required": "Last name is required"
                     },
@@ -1860,7 +1755,6 @@ export default {
                 }
             }
         },
-<<<<<<< HEAD
         "pages": {
             "profile": {
                 "pageTitle": "Profile",
@@ -1919,35 +1813,6 @@ export default {
             "password": "Password",
             "url": "URL",
             "code": "Code"
-=======
-        "common": {
-            "mr": "Mr",
-            "mrs": "Mrs",
-            "company": "Company",
-            "user_title_mr": "Mr",
-            "user_title_mrs": "Mrs",
-            "user_title_company": "Company",
-            "tenant_title_mr": "Mr",
-            "tenant_title_mrs": "Mrs",
-            "tenant_title_company": "Company",
-            "request_status_1": "Received",
-            "request_status_2": "In Processing",
-            "request_status_3": "Assigned",
-            "request_status_4": "Done",
-            "request_status_5": "Reactivated",
-            "request_status_6": "Archived",
-            "originalRequest_status_1": "Received",
-            "originalRequest_status_2": "In Processing",
-            "originalRequest_status_3": "Assigned",
-            "originalRequest_status_4": "Done",
-            "originalRequest_status_5": "Reactivated",
-            "originalRequest_status_6": "Archived",
-            "email_footer_message1": "This email was automatically generated for {UserName}.",
-            "email_footer_message2": "You get this automatically generated e-mail as a user of {CompanyName}.",
-            "email_link_contacts": "Contacts.",
-            "email_link_terms_of_use": "Terms of Use",
-            "email_link_data_protection": "Data protection"
->>>>>>> 41e3dd6425bfed490ea01d9586336c947cf5d124
         },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
@@ -2120,7 +1985,6 @@ export default {
                 "required": "Please approve with terms and conditions"
             }
         },
-<<<<<<< HEAD
         "views": {
             "tenant": {
                 "my": {
@@ -2133,171 +1997,6 @@ export default {
                         }
                     }
                 }
-=======
-        "general": {
-            "en": "EN",
-            "fr": "FR",
-            "it": "IT",
-            "de": "DE",
-            "yes": "Yes",
-            "timestamps": {
-                "hours": "Hours",
-                "days": "Days",
-                "weeks": "Weeks",
-                "months": "Months",
-                "years": "Years"
-            },
-            "chooseLanguage": "Choose Language",
-            "languages": {
-                "fr": "Français",
-                "it": "Italiano",
-                "de": "Deutsch",
-                "en": "English"
-            },
-            "footerText": {
-                "companyName": "Propify",
-                "leftSideText": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.",
-                "allRightsSaved": "All rights reserved"
-            },
-            "days": {
-                "monday": "Monday",
-                "tuesday": "Tuesday",
-                "wednesday": "Wednesday",
-                "thursday": "Thursday",
-                "friday": "Friday",
-                "saturday": "Saturday",
-                "sunday": "Sunday"
-            },
-            "no": "No",
-            "none": "None",
-            "all": "All",
-            "loadMore": "Load more",
-            "account": "Account",
-            "activate_account": "Activate Account",
-            "activate_code": "Activate Code",
-            "activate_code_required": "Activate Code is required",
-            "back": "Back",
-            "activate": "Activate",
-            "unauthenticated": "Unauthenticated",
-            "logged_out": "Logged out",
-            "logged_in": "Logged in",
-            "invalid_credentials": "Invalid Credentials",
-            "server_error": "Server error",
-            "reset_password": "Reset Password",
-            "reset_password_mail": "Send reset password mail",
-            "reset_password_mail_sent": "Reset password mail sent, please check your inbox",
-            "back_to_login": "Go back to login",
-            "forgot_password": "Forgot password",
-            "remember_me": "Remember me",
-            "password": "Password",
-            "change_password": "Change password",
-            "new_password": "New password",
-            "old_password": "Old password",
-            "new_password_confirmation": "New password confirmation",
-            "change": "Change",
-            "cancel": "Cancel",
-            "confirm": "Confirm",
-            "confirm_password": "Confirm password",
-            "incorrect_password": "Old password is incorect",
-            "password_changed": "Password changed successfully",
-            "details_saved": "Details saved",
-            "please_wait": "Please wait...",
-            "no_data_available": "No data available",
-            "password_validation": {
-                "required": "Password is required",
-                "confirm": "Please input the password again",
-                "match": "The passwords aren't equal",
-                "min": "Password must be at least 6 characters",
-                "old_password_min": "Old password must be at least 6 characters",
-                "old_password_required": "Old password is required"
-            },
-            "email": "Email",
-            "email_validation": {
-                "required": "Email is required",
-                "email": "Please enter a valid Email"
-            },
-            "token_invalid": "Invalid token",
-            "login": "Login",
-            "support": "Support",
-            "actions": {
-                "label": "Operations",
-                "edit": "Edit",
-                "add": "Add",
-                "delete": "Delete",
-                "create": "Create",
-                "view": "Details",
-                "save": "Save",
-                "close": "Close",
-                "saveAndClose": "Save & Close",
-                "upload": "Upload"
-            },
-            "swal": {
-                "delete": {
-                    "title": "Are you sure?",
-                    "text": "You won't be able to revert this!",
-                    "confirmText": "Yes, delete it!",
-                    "deleted": "Deleted successfully"
-                },
-                "add": {
-                    "added": "Added successfully"
-                },
-                "media": {
-                    "added": "Document/Photo added",
-                    "deleted": "Document/Photo deleted"
-                },
-                "logout_confirm": "You will be logged out."
-            },
-            "roles": {
-                "label": "Role",
-                "administrator": "Administrator",
-                "homeowner": "Home Owner",
-                "manager": "Manager",
-                "registered": "Registered",
-                "service": "Service",
-                "super_admin": "Super Admin"
-            },
-            "search": {
-                "placeholder": "Search"
-            },
-            "errors": {
-                "files_extension_images": "Only jpg and png files accepted"
-            },
-            "dateTimeFormat": "{date} at {time}",
-            "date_range": {
-                "range_separator": "To",
-                "start_date": "Start date",
-                "end_date": "End date",
-                "last_7_days": "Last 7 days",
-                "last_week": "Last week",
-                "last_14_days": "Last 14 days",
-                "last_30_days": "Last 30 days",
-                "last_month": "Last month",
-                "last_3_months": "Last 3 months",
-                "last_6_months": "Last 6 months",
-                "last_year": "Last year",
-                "last_2_years": "Last 2 years",
-                "all_time": "All time",
-                "week": "Week",
-                "peek_week": "Pick a week"
-            }
-        },
-        "pages": {
-            "profile": {
-                "pageTitle": "Profile",
-                "profile": "Profile",
-                "account": "Account",
-                "security": "Security",
-                "notifications": "Notifications"
-            },
-            "user": {
-                "title": "Users"
-            },
-            "request_activities": {
-                "title": "Request activities"
-            },
-            "tenant": {
-                "title": "Tenants"
->>>>>>> 41e3dd6425bfed490ea01d9586336c947cf5d124
             }
         }
     }

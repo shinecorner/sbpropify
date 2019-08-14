@@ -1,6 +1,5 @@
 export default {
     "it": {
-<<<<<<< HEAD
         "auth": {
             "failed": "Credenziali non corrispondenti ai dati registrati.",
             "throttle": "Troppi tentativi di accesso. Riprova tra {seconds} secondi."
@@ -354,94 +353,10 @@ export default {
                 "add": {
                     "added": "Added successfully"
                 },
-=======
-        "passwords": {
-            "password": "Le password devono essere di almeno 6 caratteri e devono coincidere.",
-            "reset": "La password è stata reimpostata!",
-            "sent": "Promemoria della password inviato!",
-            "token": "Questo token per la reimpostazione della password non è valido.",
-            "user": "Non esiste un utente associato a questo indirizzo e-mail."
-        },
-        "models": {
-            "user": {
-                "edit_action": "Edit",
-                "delete": "Delete",
-                "name": "Name",
-                "phone": "Phone",
-                "date": "Date",
-                "email": "Email",
-                "id": "ID",
-                "add": "Add user",
-                "save": "Save",
-                "saved": "User saved successfully",
-                "deleted": "Utente cancellato",
-                "edit": "Edit user",
-                "not_found": "User not found",
-                "profile_image": "Profile image",
-                "profile_text": "Profile text",
-                "avatar_uploaded": "Avatar uploaded",
-                "logo_uploaded": "Logo uploaded",
-                "logo": "Logo",
-                "address": "Address",
-                "blank_pdf": "Blank pdf",
-                "notificationSaved": "Notificatin setting saved",
-                "realEstateSaved": "Real Estate settings saved",
-                "serviceRequestCategorySaved": "Categoria della richiesta di servizio salvata",
-                "serviceRequestCategoryDeleted": "Categoria richiesta di servizio cancellata",
-                "validation": {
-                    "name": {
-                        "required": "Name is required"
-                    },
-                    "role": {
-                        "required": "Role is required"
-                    }
-                }
-            },
-            "tenant": {
-                "view": "View",
-                "view_title": "View tenant",
-                "edit_title": "Edit tenant",
-                "download_credentials": "Download credentials",
-                "send_credentials": "Send credentials",
-                "credentials_sent": "Credentials sent",
-                "credentials_send_fail": "Credentials file not found. Try updating the tenant password to regenerate it",
-                "credentials_download_failed": "Credentials file not found. Try updating the tenant password to regenerate it",
-                "add": "Add tenant",
-                "save": "Save",
-                "saved": "Inquilino salvato",
-                "deleted": "Inquilino cancellato",
-                "status_changed": "Status changed",
-                "password_reset": "Tenant password reset successfully",
-                "update": "Update",
-                "name": "Name",
-                "first_name": "First name",
-                "last_name": "Last name",
-                "birth_date": "Birth date",
-                "language": "Language",
-                "title": "Title",
-                "mobile_phone": "Mobile phone",
-                "work_phone": "Work phone",
-                "email": "Email",
-                "personal_phone": "Personal phone",
-                "private_phone": "Personal phone",
-                "created_date": "Data di creazione",
-                "created_at": "Date",
-                "edit": "Edit",
-                "delete": "Delete",
-                "id": "ID",
-                "details": "Details",
-                "contract": "Contract",
-                "posts": "Posts",
-                "products": "Products",
-                "requests": "Requests",
-                "company": "Company name",
-                "no_building": "No building",
->>>>>>> 41e3dd6425bfed490ea01d9586336c947cf5d124
                 "media": {
                     "deleted": "Document/Photo Deleted",
                     "uploaded": "Document/Photo Uploaded"
                 },
-<<<<<<< HEAD
                 "logout_confirm": "Sarai disconnesso."
             },
             "roles": {
@@ -775,176 +690,6 @@ export default {
                     "dont_delete_requests": "Don't Delete Request(s)"
                 }
             },
-=======
-                "building": {
-                    "name": "Building"
-                },
-                "unit": {
-                    "name": "Unit"
-                },
-                "search_building": "Search building",
-                "search_unit": "Search unit",
-                "search": "Search",
-                "confirmDelete": {
-                    "title": "This will permanently delete the tenant.",
-                    "text": "Are you sure?"
-                },
-                "validation": {
-                    "first_name": {
-                        "required": "First name is required"
-                    },
-                    "last_name": {
-                        "required": "Last name is required"
-                    },
-                    "birth_date": {
-                        "required": "Birth date is required"
-                    },
-                    "building": {
-                        "required": "Building is required"
-                    },
-                    "unit": {
-                        "required": "Unit is required"
-                    },
-                    "title": {
-                        "required": "Title is required"
-                    },
-                    "language": {
-                        "required": "Language is required"
-                    }
-                },
-                "building_card": "Assign unit",
-                "personal_details_card": "Personal details",
-                "account_info_card": "User login",
-                "contact_info_card": "Contact details",
-                "personal_data": "Personal data",
-                "my_documents": "My documents",
-                "my_contract": "My contract",
-                "contact_persons": "My contacts",
-                "no_contacts": "No contacts available",
-                "rent_end": "Rent end",
-                "rent_start": "Rent start",
-                "rent_contract": "Rent contract",
-                "contact": {
-                    "category": "Category",
-                    "name": "Name",
-                    "email": "Email",
-                    "phone": "Phone"
-                },
-                "titles": {
-                    "mr": "Mr.",
-                    "mrs": "Mrs.",
-                    "company": "Company"
-                },
-                "status": {
-                    "label": "Status",
-                    "active": "Active",
-                    "not_active": "Not active"
-                },
-                "confirmChange": {
-                    "title": "Are you sure you want to continue?",
-                    "warning": "Warning",
-                    "confirmBtnText": "Ok",
-                    "cancelBtnText": "Cancel"
-                }
-            },
-            "building": {
-                "title": "Buildings",
-                "edit_title": "Edit Building",
-                "add": "Add building",
-                "name": "Name",
-                "cancel": "Cancel",
-                "created_at": "Date",
-                "edit": "Edit",
-                "delete": "Delete",
-                "deleted": "Building deleted successfully",
-                "units": "Units",
-                "save": "Save",
-                "saved": "Building saved",
-                "floors": "Floors",
-                "basement": "Basement",
-                "attic": "Attic",
-                "description": "Description",
-                "floor_nr": "Number of floors",
-                "label": "Label",
-                "address": "Address",
-                "address_search": "Please enter address",
-                "not_found": "Building not found",
-                "house_rules": "House rules",
-                "operating_instructions": "Operating instructions",
-                "other": "Other",
-                "files": "Files",
-                "add_files": "Add files",
-                "add_companies": "Add companies",
-                "companies": "Services companies",
-                "no_services": "No services added",
-                "details": "Details",
-                "select_media_category": "Selected media category",
-                "district": "District",
-                "tenants": "Tenants",
-                "managers": "Managers",
-                "requests": "Requests",
-                "house_nr": "House Nr.",
-                "assign": "Assign",
-                "assign_managers": "Assign managers",
-                "unassign_manager": "Unassign",
-                "managers_assigned": "Managers assigned",
-                "occupied_units": "Ocuppied units",
-                "free_units": "Free units",
-                "manager": {
-                    "unassigned": "Manager unassigned"
-                },
-                "document": {
-                    "uploaded": "Document uploaded",
-                    "deleted": "Document deleted"
-                },
-                "service": {
-                    "deleted": "Service removed from this building"
-                },
-                "confirmDelete": {
-                    "title": "This will permanently delete the building.",
-                    "text": "Are you sure?"
-                },
-                "validation": {
-                    "name": {
-                        "required": "Name is required"
-                    },
-                    "floor_nr": {
-                        "required": "Floor number is required"
-                    },
-                    "description": {
-                        "required": "Description is required"
-                    },
-                    "label": {
-                        "required": "Label is required"
-                    },
-                    "address_id": {
-                        "required": "Address is required"
-                    }
-                },
-                "requestStatuses": {
-                    "total": "Total requests",
-                    "received": "Received requests",
-                    "assigned": "Assigned requests",
-                    "in_processing": "In processing requests",
-                    "reactivated": "Reactivated requests",
-                    "done": "Done requests",
-                    "archived": "Archived requests"
-                },
-                "placeholders": {
-                    "search": "Search"
-                },
-                "delete_building_modal": {
-                    "title": "Delete Building(s)",
-                    "description_unit": "Units are assigned to the selected property. If you want to delete the units as well, please activate the option below.",
-                    "description_request": "Requests are assigned to the selected property. If you also want to delete request as well, please activate the option below.",
-                    "description_both": "Units and requests are assigned to the selected property. If you also want to delete them, please activate the options below.",
-                    "delete_units": "Delete Unit(s)",
-                    "dont_delete_units": "Don't Delete Unit(s)",
-                    "delete_requests": "Delete Request(s)",
-                    "dont_delete_requests": "Don't Delete Request(s)"
-                }
-            },
->>>>>>> 41e3dd6425bfed490ea01d9586336c947cf5d124
             "unit": {
                 "title": "Units",
                 "not_found": "Unit not found",
@@ -1893,7 +1638,6 @@ export default {
                 }
             }
         },
-<<<<<<< HEAD
         "pages": {
             "profile": {
                 "pageTitle": "Profile",
@@ -1937,35 +1681,6 @@ export default {
                 "monthly": "Monthly",
                 "yearly": "Yearly"
             }
-=======
-        "common": {
-            "mr": "Sig.",
-            "mrs": "Signora",
-            "company": "L'azienda",
-            "user_title_mr": "Sig.",
-            "user_title_mrs": "Signora",
-            "user_title_company": "L'azienda",
-            "tenant_title_mr": "Sig.",
-            "tenant_title_mrs": "Signora",
-            "tenant_title_company": "L'azienda",
-            "request_status_1": "Ricevuto",
-            "request_status_2": "In Elaborazione",
-            "request_status_3": "Assegnato",
-            "request_status_4": "Fatto",
-            "request_status_5": "Riattivati",
-            "request_status_6": "Archiviato",
-            "originalRequest_status_1": "Ricevuto",
-            "originalRequest_status_2": "In Elaborazione",
-            "originalRequest_status_3": "Assegnato",
-            "originalRequest_status_4": "Fatto",
-            "originalRequest_status_5": "Riattivati",
-            "originalRequest_status_6": "Archiviato",
-            "email_footer_message1": "Questa e-mail è stata generata automaticamente per {UserName}.",
-            "email_footer_message2": "Si ottiene questa e-mail generata automaticamente come utente di {CompanyName}.",
-            "email_link_contacts": "Contatti.",
-            "email_link_terms_of_use": "Condizioni d'uso",
-            "email_link_data_protection": "Protezione dei dati"
->>>>>>> 41e3dd6425bfed490ea01d9586336c947cf5d124
         },
         "validation": {
             "accepted": "{attribute} deve essere accettato.",
@@ -2138,7 +1853,6 @@ export default {
                 "required": "Please approve with terms and conditions"
             }
         },
-<<<<<<< HEAD
         "views": {
             "tenant": {
                 "my": {
@@ -2151,166 +1865,6 @@ export default {
                         }
                     }
                 }
-=======
-        "general": {
-            "en": "EN",
-            "fr": "FR",
-            "it": "IT",
-            "de": "DE",
-            "yes": "Yes",
-            "timestamps": {
-                "hours": "Orario",
-                "days": "Giorni",
-                "weeks": "Settimane",
-                "months": "Mesi",
-                "years": "Anni"
-            },
-            "chooseLanguage": "Scegliere la lingua",
-            "languages": {
-                "fr": "Français",
-                "it": "Italiano",
-                "de": "Deutsch",
-                "en": "English"
-            },
-            "footerText": {
-                "companyName": "Propify",
-                "leftSideText": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.",
-                "allRightsSaved": "Tutti i diritti riservati"
-            },
-            "days": {
-                "monday": "lunedì",
-                "tuesday": "martedì",
-                "wednesday": "mercoledì",
-                "thursday": "Giovedì",
-                "friday": "venerdì",
-                "saturday": "sabato",
-                "sunday": "domenicale"
-            },
-            "no": "No",
-            "none": "Nessuna",
-            "all": "Tutti",
-            "loadMore": "Carica di più",
-            "account": "Conto",
-            "unauthenticated": "Non autenticato",
-            "logged_out": "Disconnesso",
-            "logged_in": "Loggato",
-            "invalid_credentials": "Credenziali non valide",
-            "server_error": "Errore del server",
-            "reset_password": "Reimpostare la password",
-            "reset_password_mail": "Inviare la mail di reset della password",
-            "reset_password_mail_sent": "Reimposta la password inviata, controlla la tua casella di posta in arrivo",
-            "back_to_login": "Torna al login",
-            "forgot_password": "Password dimenticata",
-            "remember_me": "Ricordati di me",
-            "password": "La password",
-            "change_password": "Cambiare la password",
-            "new_password": "Nuova password",
-            "old_password": "Vecchia password",
-            "new_password_confirmation": "Conferma della nuova password",
-            "change": "Cambiamento",
-            "cancel": "Annulla",
-            "confirm": "Conferma",
-            "confirm_password": "Conferma la password",
-            "incorrect_password": "La vecchia password è incorect",
-            "password_changed": "Password modificata con successo",
-            "details_saved": "Dettagli salvati",
-            "please_wait": "Attendere per favore...",
-            "no_data_available": "Nessun dato disponibile",
-            "password_validation": {
-                "required": "La password è richiesta",
-                "confirm": "Inserisci nuovamente la password",
-                "match": "Le password non sono uguali",
-                "min": "La password deve essere di almeno 6 caratteri",
-                "old_password_min": "La vecchia password deve essere di almeno 6 caratteri",
-                "old_password_required": "È richiesta una vecchia password"
-            },
-            "email": "eMail",
-            "email_validation": {
-                "required": "è richiesta una e-mail",
-                "email": "Inserisci un'e-mail valida"
-            },
-            "token_invalid": "Gettone non valido",
-            "login": "Accedi",
-            "support": "Support",
-            "actions": {
-                "label": "Operazioni",
-                "edit": "Modifica",
-                "add": "Aggiungi",
-                "delete": "Cancellare",
-                "create": "Creare",
-                "view": "Dettagli",
-                "save": "Risparmiate",
-                "close": "Chiuditi",
-                "saveAndClose": "Salva & Chiudi",
-                "upload": "Carica"
-            },
-            "swal": {
-                "delete": {
-                    "title": "Ne sei sicuro?",
-                    "text": "Non sarai in grado di tornare indietro!",
-                    "confirmText": "Sì, cancellalo!",
-                    "deleted": "Eliminato con successo"
-                },
-                "add": {
-                    "added": "Aggiunto con successo"
-                },
-                "media": {
-                    "added": "Documento/foto aggiunto",
-                    "deleted": "Documento/foto soppresso"
-                },
-                "logout_confirm": "Sarai disconnesso."
-            },
-            "roles": {
-                "label": "Ruolo",
-                "administrator": "Amministratore",
-                "homeowner": "Proprietario",
-                "manager": "Manager",
-                "registered": "Registrato",
-                "service": "Servizio",
-                "super_admin": "Super Admin"
-            },
-            "search": {
-                "placeholder": "Ricerca"
-            },
-            "errors": {
-                "files_extension_images": "Si accettano solo file jpg e png"
-            },
-            "dateTimeFormat": "{date} in {time}",
-            "date_range": {
-                "range_separator": "in",
-                "start_date": "Data d'inizio",
-                "end_date": "Data di fine",
-                "last_7_days": "Ultimi 7 giorni",
-                "last_week": "Ultima settimana",
-                "last_14_days": "Ultimi 14 giorni",
-                "last_30_days": "Ultimi 30 giorni",
-                "last_month": "Ultimo mese",
-                "last_3_months": "Ultimi 3 mesi",
-                "last_6_months": "Ultimi 6 mesi",
-                "last_year": "L'anno scorso",
-                "last_2_years": "Ultimi 2 anni",
-                "all_time": "Tutto il tempo",
-                "week": "Settimana",
-                "peek_week": "Scegli una settimana"
-            }
-        },
-        "pages": {
-            "profile": {
-                "pageTitle": "Profile",
-                "profile": "Profile",
-                "account": "Account",
-                "security": "Security",
-                "notifications": "Notifications"
-            },
-            "user": {
-                "title": "Users"
-            },
-            "request_activities": {
-                "title": "Request activities"
-            },
-            "tenant": {
-                "title": "Tenants"
->>>>>>> 41e3dd6425bfed490ea01d9586336c947cf5d124
             }
         }
     }
