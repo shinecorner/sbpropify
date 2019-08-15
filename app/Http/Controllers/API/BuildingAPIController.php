@@ -16,6 +16,7 @@ use App\Http\Requests\API\Building\ViewRequest;
 use App\Http\Requests\API\PropertyManager\AssignRequest;
 use App\Models\Address;
 use App\Models\Building;
+use App\Models\RealEstate;
 use App\Repositories\AddressRepository;
 use App\Repositories\BuildingRepository;
 use App\Repositories\PropertyManagerRepository;
@@ -379,6 +380,13 @@ class BuildingAPIController extends AppBaseController
 
         $response = (new BuildingTransformer)->transform($building);
         $response['media_category'] = Building::BuildingMediaCategories;
+
+        $contactEnableList = Building::BuildingContactEnables;
+        $realEstate = RealEstate::first('contact_enable');
+        $dynamic = ($realEstate && $realEstate->contact_enable) ? 'Show': 'Hide';
+        $contactEnableList[Building::ContactEnablesBasedRealEstate] = sprintf('Use Global (%s)', $dynamic);
+        $response['contact_enable_list'] = $contactEnableList;
+
         return $this->sendResponse($response, 'Building retrieved successfully');
     }
 
