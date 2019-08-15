@@ -195,6 +195,25 @@ class Building extends Model implements HasMedia
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function activeTenants()
+    {
+        return $this->tenants()
+            ->where('tenants.status', Tenant::StatusActive);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function inActiveTenants()
+    {
+        return $this->tenants()
+            ->where('tenants.status', Tenant::StatusNotActive);
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
     public function lastTenants()
     {
