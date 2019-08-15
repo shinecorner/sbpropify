@@ -1577,6 +1577,13 @@ export default {
                 "all_time": "Tutto il tempo",
                 "week": "Settimana",
                 "peek_week": "Scegli una settimana"
+            },
+            "tenant": {
+                "activate_required_credentials": "codice, e-mail, password richiesta",
+                "incorrect_email": "Indirizzo e-mail errato",
+                "user_not_tenant": "Questo utente non è inquilino",
+                "invalid_code": "Il codice non è valido",
+                "not_active_tenant": "L'inquilino non è attivo e non può cambiare la password"
             }
         },
         "pages": {
