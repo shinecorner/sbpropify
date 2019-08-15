@@ -5,6 +5,7 @@
 /vendor
 /public/myAdmin
 .env
+.rnd
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
