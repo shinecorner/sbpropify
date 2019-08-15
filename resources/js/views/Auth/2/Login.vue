@@ -1,17 +1,12 @@
 <template>
-    <div :class="{'login2-container': loginMode ==2 }" >
-        <div v-if="loginMode == 2" class="form-header">
+    <div class='login2-container'>
+        <div class="form-header">
             <h3>{{ $t('general.login') }}</h3>
             <p>{{ $t('auth.login_welcome') }}</p>
         </div>
         <el-form :model="model" ref="form">
             <el-form-item prop="email" :label="$t('general.email')" :rules="validationRules.email">
-                <el-input v-if="loginMode == 1"
-                    type="email" 
-                    v-model="model.email" 
-                    autocomplete="off"
-                ></el-input>
-                <el-input v-if="loginMode == 2"
+                <el-input
                     type="email" 
                     v-model="model.email" 
                     autocomplete="off"
@@ -20,12 +15,7 @@
                 ></el-input>
             </el-form-item>
             <el-form-item prop="password" :label="$t('general.password')" :rules="validationRules.password">
-                <el-input v-if="loginMode == 1" 
-                    type="password" 
-                    v-model="model.password" 
-                    autocomplete="off"
-                ></el-input>
-                <el-input v-if="loginMode == 2" 
+                <el-input
                     type="password" 
                     v-model="model.password" 
                     autocomplete="off"
@@ -35,7 +25,7 @@
             </el-form-item>
             <el-form-item>
                 <el-checkbox>{{$t('general.remember_me')}}</el-checkbox>
-                <router-link :to="{name: `${loginMode == 1 ? 'forgot': 'forgot2'}`}">
+                <router-link :to="{name: 'forgot2'}">
                     <el-button type="text">
                         {{$t('general.forgot_password')}}
                     </el-button>
@@ -45,7 +35,7 @@
                 <el-button type="primary" class="text-center w100p" @click="submit" ref="prev">{{$t('general.login')}}</el-button>
             </el-form-item>
         </el-form>
-        <router-link :to="{name: `${loginMode == 1 ? 'activateAccount':'activateAccount2'}`}" class="el-menu-item-link">
+        <router-link :to="{name: 'activateAccount2'}" class="el-menu-item-link">
             <el-button type="primary" class="text-center w100p">{{$t('general.activate_account')}}</el-button>
         </router-link>
     </div>
@@ -77,12 +67,7 @@
             }
         },
         props: {
-            loginMode: {
-                type: Number,
-                default: () => {
-                    return 1;
-                }
-            }
+          
         },
         computed: {
             ...mapState({
@@ -90,9 +75,7 @@
                     return users.loggedInUser;
                 }
             }),
-            login2_container() {
-                return 'login2-conatiner';
-            }
+         
         },
         methods: {
             submit() {

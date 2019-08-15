@@ -17,8 +17,8 @@
     </div>
 </template>
 <script>
-import loginImage from '../../img/login2-left.png';
-import backImage from '../../img/login2-bg.jpg';
+import loginImage from '../../../../img/login2-left.png';
+import backImage from '../../../../img/login2-bg.jpg';
 export default {
     data() {
         return {
@@ -49,11 +49,14 @@ export default {
 
             .auth-card {
                 width: 100%;
+                max-width: 920px;
                 background: #fff;
                 display: block;
                 box-shadow: 0 4px 25px 0 rgba(0,0,0,.1);
                 position: relative;
                 transition: all .3s ease-in-out;
+                margin-right: auto;
+                margin-left: auto;
 
                 .image-container {
                     display: flex;
@@ -72,6 +75,19 @@ export default {
 
                 .form-container {
                     padding: 2rem;
+                }
+            }
+        }
+    }
+</style>
+<style lang="scss">
+     .login2-layout {
+        .container-row {
+            .auth-card {
+                .form-container {
+                    .el-form-item {
+                        margin-bottom: 15px !important;
+                    }
                 }
             }
         }
