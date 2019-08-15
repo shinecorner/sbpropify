@@ -755,7 +755,7 @@ class TenantAPIController extends AppBaseController
 
     /**
      *
-     * @SWG\Put(
+     * @SWG\Post(
      *      path="/tenants/activateTenant",
      *      summary="Activate tenant",
      *      tags={"Tenant"},
@@ -833,10 +833,10 @@ class TenantAPIController extends AppBaseController
     public function activateTenant(Request $request)
     {
         // @TODO fix query hard coding
-        if (empty($request->activation_token) || empty($request->email) || empty($request->password)) {
+        if (empty($request->code) || empty($request->email) || empty($request->password)) {
             return $this->sendError('code, email, password required');
         }
-        $this->tenantRepository->pushCriteria(new WhereCriteria('activation_code', $request->activation_token));
+        $this->tenantRepository->pushCriteria(new WhereCriteria('activation_code', $request->code));
         $tenant = $this->tenantRepository->with('user:id,email')->first();
         if (empty($tenant )) {
             return $this->sendError('Code is invalid');
