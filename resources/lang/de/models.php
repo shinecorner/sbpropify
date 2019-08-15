@@ -349,7 +349,7 @@ return [
         [
           'required' => 'Beschreibung ist obligatorisch',
         ],
-        'tenant' => 
+        'tenant' =>
         [
           'required' => 'Mieter ist erforderlich',
         ]
@@ -613,13 +613,7 @@ return [
       'templates' => 'Vorlagen',
       'cleanify_email' => 'Cleanify email',
       'mail_encryption' => 'Verschlüsselung',
-      'mail_from_address' => 'Abesender E-Mail',
-      'mail_from_name' => 'Absender Name',
-      'mail_host' => 'Host',
-      'mail_password' => 'Passwort',
-      'mail_port' => 'Port',
-      'mail_username' => 'Benutzername (E-Mail)',
-      'iframe_url' => 
+      'iframe_url' =>
       [
         'label' => 'Iframe URL',
         'validation' => 'Bitte geben Sie eine korrekte URL ein.',

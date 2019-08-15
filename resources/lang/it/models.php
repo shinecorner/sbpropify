@@ -349,7 +349,7 @@ return [
         [
           "required" => "È necessaria una descrizione",
         ],
-        'tenant' => 
+        'tenant' =>
         [
           "required" => "È necessaria una descrizione",
         ]
@@ -614,12 +614,6 @@ return [
       "contact_enable" => "Attivare 'I miei contatti'",
       "cleanify_email" => "Pulire le e-mail",
       "mail_encryption" => "Crittografia",
-      "mail_from_address" => "Dall'indirizzo",
-      "mail_from_name" => "Da Nome",
-      "mail_host" => "Ospite",
-      "mail_password" => "La password",
-      "mail_port" => "Porto",
-      "mail_username" => "Nome utente",
       'iframe_url' => 
       [
         "label" => "URL Iframe",
@@ -633,7 +627,7 @@ return [
       "mail_from_address" => [
         "label" => "Dall'indirizzo",
         "required" => "Inserisci dall'indirizzo e-mail",
-        "email" => "Inserisci un'e-mail valida",  
+        "email" => "Inserisci un'e-mail valida",
       ],
       "mail_host" => [
         "label" => "Ospite",

@@ -349,7 +349,7 @@ return [
         [
           "required" => "Une description est requise",
         ],
-        'tenant' => 
+        'tenant' =>
         [
           "required" => "Un locataire est requis",
         ]
@@ -614,12 +614,6 @@ return [
       "contact_enable" => "Activez'Mes contacts'",
       "cleanify_email" => "Nettoyer les e-mails",
       "mail_encryption" => "Cryptage",
-      "mail_from_address" => "De l'adresse",
-      "mail_from_name" => "Du nom",
-      "mail_host" => "Hôte",
-      "mail_password" => "Mot de passe",
-      "mail_port" => "Port",
-      "mail_username" => "Nom d'utilisateur",
       'iframe_url' => 
       [
         "label" => "URL de l'iframe",

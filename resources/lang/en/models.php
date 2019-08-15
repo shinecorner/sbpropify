@@ -636,7 +636,7 @@ return [
       ],
       "mail_host" => [
         "label" => "Host",
-        "validation" => "Host should be a valid URL"
+        "validation" => "Enter email host"
       ],
       "mail_port" => [
         "label" => "Port",
@@ -649,7 +649,7 @@ return [
       "mail_password" => [
         "label" => "Password",
         "validation" => "Enter email password"
-      ]
+      ],
     ],
     'request' => 
     [
