@@ -6,11 +6,11 @@ return [
       [
         'personal' => 
         [
-          'title' => 'Personal data',
-          'description' => 'My personal details.',
+          "title" => "Données personnelles",
+          "description" => "Mes données personnelles.",
           'placeholder' => 
           [
-            'title' => 'No personal data available.',
+            "title" => "Aucune donnée personnelle disponible.",
             'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
           ],
         ],

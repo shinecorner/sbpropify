@@ -583,7 +583,6 @@ return [
       'name' => 'Name',
       'description' => 'Description',
       'add' => 'Add district',
-      'edit' => 'Edit district',
       'save' => 'Save',
       'saved' => 'District saved',
       'edit_action' => 'Edit',
@@ -614,6 +613,9 @@ return [
       'contact_enable' => 'Enable \'My contacts\'',
       'cleanify_email' => 'Cleanify email',
       'mail_encryption' => 'Encryption',
+      'primary_color' => 'Primary color',
+      'accent_color' => 'Accent color',
+      'iframe_enable' => 'Iframe enable',
       'iframe_url' =>
       [
         'label' => 'Iframe URL',
@@ -631,7 +633,7 @@ return [
       ],
       "mail_host" => [
         "label" => "Host",
-        "validation" => "Host should be a valid URL"
+        "validation" => "Enter email host"
       ],
       "mail_port" => [
         "label" => "Port",
@@ -644,7 +646,7 @@ return [
       "mail_password" => [
         "label" => "Password",
         "validation" => "Enter email password"
-      ]
+      ],
     ],
     'request' => 
     [

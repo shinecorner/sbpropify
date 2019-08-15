@@ -212,10 +212,8 @@
     }
 
     .el-menu--popup {
-        // top: 13px;
-        // left: -16px;
-        left: -3px;
         min-width: 142px !important;
+        left: -3px;
     }
 
     body > .el-menu--horizontal.profile-popper {

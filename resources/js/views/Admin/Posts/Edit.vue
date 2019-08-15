@@ -79,8 +79,8 @@
                                 <el-form-item :label="$t('models.post.images')">
                                     <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
                                     <div class="mt15" v-if="media.length || (model.media && model.media.length)">
-                                        <media :data="mediaFiles" @deleteMedia="deleteMedia"
-                                            v-if="media.length || (model.media && model.media.length)"></media>
+                                        <request-media :data="[...model.media, ...media]" @deleteMedia="deleteMedia"
+                                                       v-if="media.length || (model.media && model.media.length)"></request-media>
                                     </div>
                                 </el-form-item>
                             </el-tab-pane>

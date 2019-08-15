@@ -281,6 +281,7 @@ export default {
                 "tenant": "Mieter",
                 "empty_requests": "Keine Anfragen",
                 "assigned_tenant": "Derzeitiger Mieter",
+                "assign": "Zuweisen",
                 "tenant_assigned": "Zugeordneter Mieter",
                 "tenant_unassigned": "Mieter nicht zugeordnet",
                 "type": {
@@ -310,6 +311,9 @@ export default {
                     },
                     "description": {
                         "required": "Beschreibung ist obligatorisch"
+                    },
+                    "tenant": {
+                        "required": "Mieter ist erforderlich"
                     }
                 },
                 "placeholders": {
@@ -422,6 +426,7 @@ export default {
                     "building": "Liegenschaft",
                     "district": "Überbauung"
                 },
+                "assignment": "Zuweisung",
                 "assignType": "Typ",
                 "unassign": "Entfernen",
                 "assign": "Zuweisen",
@@ -510,7 +515,6 @@ export default {
                 "name": "Name",
                 "description": "Beschreibung",
                 "add": "Überbauung hinzufügen",
-                "edit": "Überbauung bearbeiten",
                 "save": "Speichern",
                 "saved": "Überbauung gespeichert",
                 "edit_action": "Öffnen",
@@ -540,15 +544,37 @@ export default {
                 "templates": "Vorlagen",
                 "cleanify_email": "Cleanify email",
                 "mail_encryption": "Verschlüsselung",
-                "mail_from_address": "Abesender E-Mail",
-                "mail_from_name": "Absender Name",
-                "mail_host": "Host",
-                "mail_password": "Passwort",
-                "mail_port": "Port",
-                "mail_username": "Benutzername (E-Mail)",
+                "primary_color": "Primärfarbe",
+                "accent_color": "Akzentfarbe",
+                "iframe_enable": "Iframe aktivieren",
                 "iframe_url": {
                     "label": "Iframe URL",
                     "validation": "Bitte geben Sie eine korrekte URL ein."
+                },
+                "mail_from_name": {
+                    "label": "Von Name",
+                    "validation": "Eingabe von Name"
+                },
+                "mail_from_address": {
+                    "label": "Von Adresse",
+                    "required": "Von der E-Mail-Adresse eingeben",
+                    "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein"
+                },
+                "mail_host": {
+                    "label": "Gastgeber",
+                    "validation": "Der Host sollte eine gültige URL sein."
+                },
+                "mail_port": {
+                    "label": "Port",
+                    "validation": "E-Mail-Port eingeben"
+                },
+                "mail_username": {
+                    "label": "Benutzername",
+                    "validation": "E-Mail-Benutzername eingeben"
+                },
+                "mail_password": {
+                    "label": "Passwort",
+                    "validation": "E-Mail-Passwort eingeben"
                 }
             },
             "request": {
@@ -925,7 +951,8 @@ export default {
         },
         "auth": {
             "failed": "Diese Kombination aus Zugangsdaten wurde nicht in unserer Datenbank gefunden.",
-            "throttle": "Zu viele Loginversuche. Versuchen Sie es bitte in {seconds} Sekunden nochmal."
+            "throttle": "Zu viele Loginversuche. Versuchen Sie es bitte in {seconds} Sekunden nochmal.",
+            "login_welcome": "Willkommen zurück, bitte melden Sie sich bei Ihrem Konto an."
         },
         "settings": {
             "notifications": "Benachrichtigungen und Sprache",
@@ -940,6 +967,11 @@ export default {
                 "daily": "Täglich",
                 "monthly": "Wöchentlich",
                 "yearly": "Jährlich"
+            },
+            "contact_enable": {
+                "use_global": "Verwenden Sie global",
+                "show": "Show",
+                "hide": "Мerbergen"
             }
         },
         "pagination": {
@@ -1191,6 +1223,10 @@ export default {
                     "myContactPersons": "Kontaktpersonen",
                     "posts": "Pinnwand",
                     "requests": "Anfragen",
+                    "myRequests": "Meine Anfragen",
+                    "myPendingRequests": "Meine ausstehenden Anträge",
+                    "notAssigned": "Nicht zugeordnet",
+                    "allPendingRequests": "Alle ausstehenden Anfragen",
                     "products": "Marktplatz",
                     "settings": "Einstellungen"
                 }
@@ -1428,6 +1464,11 @@ export default {
             "all": "Alle",
             "loadMore": "Mehr laden",
             "account": "Konto",
+            "activate_account": "Activate Account",
+            "activate_code": "Activate Code",
+            "activate_code_required": "Activate Code is required",
+            "back": "Back",
+            "activate": "Activate",
             "unauthenticated": "Unauthenticated",
             "logged_out": "Ausgeloggt",
             "logged_in": "Eingeloggt",
@@ -1517,7 +1558,10 @@ export default {
                 "range_separator": "Bis",
                 "start_date": "Startdatum",
                 "end_date": "Enddatum",
+                "last_7_days": "Letzte 7 Tage",
                 "last_week": "Letzte Woche",
+                "last_14_days": "Letzte 14 Tage",
+                "last_30_days": "Letzte 30 Tage",
                 "last_month": "Letzte Monat",
                 "last_3_months": "Letzte 3 Monate",
                 "last_6_months": "Letzte 3 Monate",

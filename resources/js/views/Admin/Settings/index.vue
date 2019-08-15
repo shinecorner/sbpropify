@@ -103,12 +103,12 @@
                                          v-show="realEstateLogo || model.logo_upload"
                                          width="300px">
                                 </el-form-item>
-                                <el-form-item :label="$t('models.user.primary_color')">
+                                <el-form-item :label="$t('models.realEstate.primary_color')">
                                     <el-color-picker
                                             size="medium"
                                             v-model="model.primary_color"></el-color-picker>
                                 </el-form-item>
-                                <el-form-item :label="$t('models.user.accent_color')">
+                                <el-form-item :label="$t('models.realEstate.accent_color')">
                                     <el-color-picker
                                             size="medium"
                                             v-model="model.accent_color">
@@ -318,7 +318,6 @@
                     ],
                     mail_host: [{
                         required: true,
-                        type: 'url',
                         message: this.$t("models.realEstate.mail_host.validation")
                     }],
                     mail_port: [{

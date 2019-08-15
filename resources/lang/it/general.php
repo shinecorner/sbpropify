@@ -42,6 +42,11 @@ return [
   'all' => 'Tutti',
   'loadMore' => 'Carica di più',
   'account' => 'Conto',
+  'activate_account' => "Attivare l'account",
+  'activate_code' => 'Attivare il codice',
+  'activate_code_required' => 'Attivare il codice è obbligatorio',
+  'back' => 'Indietro',
+  'activate' => 'Attivare',
   'unauthenticated' => 'Non autenticato',
   'logged_out' => 'Disconnesso',
   'logged_in' => 'Loggato',
@@ -87,29 +92,29 @@ return [
   'support' => 'Support',
   'actions' => 
   [
-    'label' => 'Operations',
-    'edit' => 'Edit',
-    'add' => 'Add',
-    'delete' => 'Delete',
-    'create' => 'Create',
-    'view' => 'Details',
-    'save' => 'Save',
-    'close' => 'Close',
-    'saveAndClose' => 'Save & Close',
-    'upload' => 'Upload',
+    "label" => "Operazioni",
+    "edit" => "Modifica",
+    "add" => "Aggiungi",
+    "delete" => "Cancellare",
+    "create" => "Creare",
+    "view" => "Dettagli",
+    "save" => "Risparmiate",
+    "close" => "Chiuditi",
+    "saveAndClose" => "Salva & Chiudi",
+    "upload" => "Carica",
   ],
   'swal' => 
   [
     'delete' => 
     [
-      'title' => 'Are you sure?',
-      'text' => 'You won\'t be able to revert this!',
-      'confirmText' => 'Yes, delete it!',
-      'deleted' => 'Deleted successfully',
+      'title' => "Ne sei sicuro?",
+      'text' => "Non sarai in grado di tornare indietro!",
+      'confirmText' => "Sì, cancellalo!",
+      'deleted' => "Eliminato con successo"
     ],
     'add' => 
     [
-      'added' => 'Added successfully',
+      'added' => 'Aggiunto con successo',
     ],
     'media' => 
     [
@@ -120,37 +125,37 @@ return [
   ],
   'roles' => 
   [
-    'label' => 'Role',
-    'administrator' => 'Administrator',
-    'homeowner' => 'Home Owner',
+    'label' => 'Ruolo',
+    'administrator' => 'Amministratore',
+    'homeowner' => 'Proprietario',
     'manager' => 'Manager',
-    'registered' => 'Registered',
-    'service' => 'Service',
+    'registered' => 'Registrato',
+    'service' => 'Servizio',
     'super_admin' => 'Super Admin',
   ],
   'search' => 
   [
-    'placeholder' => 'Search',
+    'placeholder' => 'Ricerca',
   ],
   'errors' => 
   [
-    'files_extension_images' => 'Only jpg and png files accepted',
+    'files_extension_images' => 'Si accettano solo file jpg e png',
   ],
-  'dateTimeFormat' => '{date} at {time}',
+  'dateTimeFormat' => '{date} in {time}',
   'date_range' => 
   [
-    'range_separator' => 'To',
-    'start_date' => 'Start date',
-    'end_date' => 'End date',
+    'range_separator' => "in",
+    'start_date' => "Data d'inizio",
+    'end_date' => 'Data di fine',
     'last_7_days' => 'Ultimi 7 giorni',
-    'last_week' => 'Last week',
+    'last_week' => 'Ultima settimana',
     'last_14_days' => 'Ultimi 14 giorni',
     'last_30_days' => 'Ultimi 30 giorni',
-    'last_month' => 'Last Month',
-    'last_3_months' => 'Last 3 months',
-    'last_6_months' => 'Last 6 months',
-    'last_year' => 'Last year',
-    'last_2_years' => 'Last 2 years',
+    'last_month' => 'Ultimo mese',
+    'last_3_months' => 'Ultimi 3 mesi',
+    'last_6_months' => 'Ultimi 6 mesi',
+    'last_year' => "L'anno scorso",
+    'last_2_years' => 'Ultimi 2 anni',
     'all_time' => 'Tutto il tempo',
     'week' => 'Settimana',
     'peek_week' => 'Scegli una settimana',
