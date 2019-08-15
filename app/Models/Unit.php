@@ -100,7 +100,7 @@ class Unit extends Model
         'basement',
         'attic',
         'unit_format',
-        'sq_meter'
+        'sq_meter' => 0
     ];
 
     /**
@@ -156,5 +156,10 @@ class Unit extends Model
     public function tenants()
     {
         return $this->hasMany(Tenant::class, 'unit_id', 'id');
+    }
+
+    public function getSqMeterAttribute($attribute)
+    {
+        return 0 == $attribute ? '' : $attribute;
     }
 }
