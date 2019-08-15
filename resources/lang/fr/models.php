@@ -614,6 +614,9 @@ return [
       "contact_enable" => "Activez'Mes contacts'",
       "cleanify_email" => "Nettoyer les e-mails",
       "mail_encryption" => "Cryptage",
+      'primary_color' => 'Couleur primaire',
+      'accent_color' => 'Couleur d\'accent',
+      'iframe_enable' => 'Activation de l\'iframe',
       'iframe_url' => 
       [
         "label" => "URL de l'iframe",
