@@ -1,18 +1,18 @@
 <?php
 return [
-    'notifications' => 'Notifications and language',
-    'admin' => 'Admin notifications',
-    'news' => 'News notifications',
-    'marketplace' => 'Marketplace notifications',
-    'service' => 'Service notifications',
-    'updated' => 'Settings updated',
-    'language' => 'Language',
+    "notifications" => "Notifiche e lingua",
+    "admin" => "Notifiche dell'amministrazione",
+    "news" => "Notifiche di notizie",
+    "marketplace" => "Notifiche di mercato",
+    "service" => "Notifiche di servizio",
+    "updated" => "Impostazioni aggiornate",
+    "language" => "La lingua",
     'summary' => 
     [
-      'label' => 'Summary statistics',
-      'daily' => 'Daily',
-      'monthly' => 'Monthly',
-      'yearly' => 'Yearly',
+      "label" => "Statistiche riassuntive",
+      "daily" => "Tutti i giorni",
+      "monthly" => "Mensile",
+      "yearly" => "Annuale",
     ],
     'contact_enable' =>
     [

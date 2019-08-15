@@ -75,18 +75,18 @@ export default {
             "user": "Non esiste un utente associato a questo indirizzo e-mail."
         },
         "settings": {
-            "notifications": "Notifications and language",
-            "admin": "Admin notifications",
-            "news": "News notifications",
-            "marketplace": "Marketplace notifications",
-            "service": "Service notifications",
-            "updated": "Settings updated",
-            "language": "Language",
+            "notifications": "Notifiche e lingua",
+            "admin": "Notifiche dell'amministrazione",
+            "news": "Notifiche di notizie",
+            "marketplace": "Notifiche di mercato",
+            "service": "Notifiche di servizio",
+            "updated": "Impostazioni aggiornate",
+            "language": "La lingua",
             "summary": {
-                "label": "Summary statistics",
-                "daily": "Daily",
-                "monthly": "Monthly",
-                "yearly": "Yearly"
+                "label": "Statistiche riassuntive",
+                "daily": "Tutti i giorni",
+                "monthly": "Mensile",
+                "yearly": "Annuale"
             },
             "contact_enable": {
                 "use_global": "Usa globale",
@@ -330,20 +330,20 @@ export default {
         },
         "pages": {
             "profile": {
-                "pageTitle": "Profile",
-                "profile": "Profile",
-                "account": "Account",
-                "security": "Security",
-                "notifications": "Notifications"
+                "pageTitle": "Profilo",
+                "profile": "Profilo",
+                "account": "Conto",
+                "security": "Sicurezza",
+                "notifications": "Notifiche"
             },
             "user": {
-                "title": "Users"
+                "title": "Utenti"
             },
             "request_activities": {
-                "title": "Request activities"
+                "title": "Richiedi attività"
             },
             "tenant": {
-                "title": "Tenants"
+                "title": "Gli inquilini"
             }
         },
         "components": {
@@ -535,10 +535,10 @@ export default {
             "tenant": {
                 "my": {
                     "personal": {
-                        "title": "Personal data",
-                        "description": "My personal details.",
+                        "title": "Dati personali",
+                        "description": "I miei dati personali",
                         "placeholder": {
-                            "title": "No personal data available.",
+                            "title": "Nessun dato personale disponibile",
                             "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                         }
                     }
@@ -1563,35 +1563,35 @@ export default {
                 "size": "dimensione"
             },
             "general": {
-                "required": "This field is required"
+                "required": "Questo campo è obbligatorio"
             },
             "price": {
-                "valid": "Please enter a valid price",
-                "required": "Price is required"
+                "valid": "Inserisci un prezzo valido",
+                "required": "Il prezzo è obbligatorio"
             },
             "firstName": {
-                "required": "First name is required"
+                "required": "Il nome è obbligatorio"
             },
             "lastName": {
-                "required": "Last name is required"
+                "required": "Il cognome è obbligatorio"
             },
             "phone": {
-                "required": "Phone is required"
+                "required": "Il telefono è obbligatorio"
             },
             "address": {
-                "required": "Address is required"
+                "required": "L'indirizzo è obbligatorio"
             },
             "zip": {
-                "required": "Zip is required"
+                "required": "E' richiesta la chiusura lampo"
             },
             "city": {
-                "required": "City is required"
+                "required": "La città è obbligatoria"
             },
             "title": {
-                "required": "Title is required"
+                "required": "Il titolo è richiesto"
             },
             "terms": {
-                "required": "Please approve with terms and conditions"
+                "required": "Si prega di approvare i termini e le condizioni"
             }
         }
     }
