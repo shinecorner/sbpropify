@@ -838,7 +838,7 @@ class TenantAPIController extends AppBaseController
         }
         
         $this->userRepository->pushCriteria(new WhereCriteria('email', $request->email));
-        $user = $this->userRepository->with('tenant:id,user_id,activation_code')->first();
+        $user = $this->userRepository->with('tenant:id,user_id,activation_code,status')->first();
 
         if (empty($user)) {
             return $this->sendError('Incorrect email address');
@@ -850,6 +850,10 @@ class TenantAPIController extends AppBaseController
 
         if ($user->tenant->activation_code != $request->code) {
             return $this->sendError('Code is invalid');
+        }
+
+        if (Tenant::StatusActive != $user->tenant->status) {
+            return $this->sendError('Tenant is not active and can not change password');
         }
 
         // @TODO discuss if already active,
