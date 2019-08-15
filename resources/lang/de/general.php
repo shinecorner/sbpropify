@@ -160,4 +160,11 @@ return [
     'week' => 'Woche',
     'peek_week' => 'Wählen Sie eine Woche',
   ],
+  'tenant' => [
+    'activate_required_credentials' => 'Code, E-Mail, Passwort erforderlich',
+    'incorrect_email' => 'Falsche E-Mail-Adresse',
+    'user_not_tenant' => 'Dieser Benutzer ist nicht Mieter.',
+    'invalid_code' => 'Der Code ist ungültig',
+    'not_active_tenant' => 'Der Mieter ist nicht aktiv und kann das Passwort nicht ändern.',
+  ]
 ];

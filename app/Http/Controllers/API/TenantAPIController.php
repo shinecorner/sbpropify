@@ -834,26 +834,27 @@ class TenantAPIController extends AppBaseController
     {
         // @TODO fix query hard coding
         if (empty($request->code) || empty($request->email) || empty($request->password)) {
-            return $this->sendError('code, email, password required');
+            return $this->sendError(__('general.tenant.activate_required_credentials'));
         }
         
         $this->userRepository->pushCriteria(new WhereCriteria('email', $request->email));
         $user = $this->userRepository->with('tenant:id,user_id,activation_code,status')->first();
 
         if (empty($user)) {
-            return $this->sendError('Incorrect email address');
+            return $this->sendError(__('general.tenant.incorrect_email'));
         }
 
         if (empty($user->tenant)) {
-            return $this->sendError('This user is not tenant');
+            return $this->sendError(__('general.tenant.user_not_tenant'));
         }
 
         if ($user->tenant->activation_code != $request->code) {
-            return $this->sendError('Code is invalid');
+
+            return $this->sendError(__('general.tenant.invalid_code'));
         }
 
         if (Tenant::StatusActive != $user->tenant->status) {
-            return $this->sendError('Tenant is not active and can not change password');
+            return $this->sendError(__('general.tenant.not_active_tenant'));
         }
 
         // @TODO discuss if already active,
