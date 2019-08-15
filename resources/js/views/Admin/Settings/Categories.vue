@@ -83,7 +83,6 @@
                     width: 200,
                     actions: [{
                         icon: 'ti-pencil',
-                        type: 'success',
                         title: this.$t('models.requestCategory.edit'),
                         onClick: this.openEdit
                     }, {

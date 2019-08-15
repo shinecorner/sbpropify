@@ -577,7 +577,6 @@ return [
       'name' => 'Name',
       'description' => 'Description',
       'add' => 'Add district',
-      'edit' => 'Edit district',
       'save' => 'Save',
       'saved' => 'Distretto salvato',
       'edit_action' => 'Edit',

@@ -22,6 +22,7 @@ $factory->define(App\Models\Post::class, function (Faker $faker) {
         'visibility' => Post::VisibilityAll,
         'content' => $faker->paragraph(),
         'notify_email' => true,
+        'pinned' => $faker->boolean,
         'created_at' => $now,
         'updated_at' => $now,
     ];
