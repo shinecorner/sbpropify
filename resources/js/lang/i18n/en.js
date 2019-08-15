@@ -1111,22 +1111,22 @@ export default {
                 "contact_enable": "Enable 'My contacts'",
                 "cleanify_email": "Cleanify email",
                 "mail_encryption": "Encryption",
-                "iframe_url": {
-                    "label": "Iframe URL",
-                    "validation": "Iframe URL should be a valid URL"
-                },
-                "mail_from_name": {
-                    "label": "From Name",
-                    "validation": "Enter from Name"
-                },
                 "mail_from_address": {
                     "label": "From address",
                     "required": "Enter from email address",
                     "email": "Please enter a valid Email"
                 },
+                "mail_from_name": {
+                    "label": "From Name",
+                    "validation": "Enter from Name"
+                },
                 "mail_host": {
                     "label": "Host",
                     "validation": "Host should be a valid URL"
+                },
+                "mail_password": {
+                    "label": "Password",
+                    "validation": "Enter email password"
                 },
                 "mail_port": {
                     "label": "Port",
@@ -1136,9 +1136,9 @@ export default {
                     "label": "Username",
                     "validation": "Enter email username"
                 },
-                "mail_password": {
-                    "label": "Password",
-                    "validation": "Enter email password"
+                "iframe_url": {
+                    "label": "Iframe URL",
+                    "validation": "Iframe URL should be a valid URL"
                 }
             },
             "request": {

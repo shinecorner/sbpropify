@@ -6,16 +6,20 @@ export default {
                     "logout": "Logout"
                 },
                 "sidebar": {
-                    "dashboard": "Dashboard",
-                    "myTenancy": "My tenancy",
-                    "myPersonalData": "My personal data",
-                    "myRecentContract": "My recent contract",
-                    "myDocuments": "Documents",
-                    "myContactPersons": "Contact persons",
-                    "posts": "News",
-                    "requests": "Requests",
-                    "products": "Marketplace",
-                    "settings": "Settings"
+                    "dashboard": "Cruscotto",
+                    "myTenancy": "La mia locazione",
+                    "myPersonalData": "I miei dati personali",
+                    "myRecentContract": "Il mio recente contratto",
+                    "myDocuments": "Documenti",
+                    "myContactPersons": "Persone di contatto",
+                    "posts": "Notizie",
+                    "requests": "Richieste",
+                    "myRequests": "Le mie richieste",
+                    "myPendingRequests": "Le mie richieste pendenti",
+                    "notAssigned": "Non assegnato",
+                    "allPendingRequests": "Tutte le richieste pendenti",
+                    "products": "Mercato",
+                    "settings": "Impostazioni"
                 }
             }
         },
@@ -124,6 +128,11 @@ export default {
             "all": "Tutti",
             "loadMore": "Carica di più",
             "account": "Conto",
+            "activate_account": "Attivare l'account",
+            "activate_code": "Attivare il codice",
+            "activate_code_required": "Attivare il codice è obbligatorio",
+            "back": "Indietro",
+            "activate": "Attivare",
             "unauthenticated": "Non autenticato",
             "logged_out": "Disconnesso",
             "logged_in": "Loggato",
@@ -533,856 +542,880 @@ export default {
         },
         "models": {
             "user": {
-                "edit_action": "Edit",
-                "delete": "Delete",
-                "name": "Name",
-                "phone": "Phone",
-                "date": "Date",
+                "edit_action": "Modifica",
+                "delete": "Cancellare",
+                "name": "Nome",
+                "phone": "Telefono",
+                "date": "Appuntamento",
                 "email": "Email",
                 "id": "ID",
-                "add": "Add user",
-                "save": "Save",
-                "saved": "User saved successfully",
+                "add": "Aggiungi utente",
+                "save": "Risparmiate",
+                "saved": "Utente salvato con successo",
                 "deleted": "Utente cancellato",
-                "edit": "Edit user",
-                "not_found": "User not found",
-                "profile_image": "Profile image",
-                "profile_text": "Profile text",
-                "avatar_uploaded": "Avatar uploaded",
-                "logo_uploaded": "Logo uploaded",
+                "edit": "Modifica utente",
+                "not_found": "Utente non trovato",
+                "profile_image": "Immagine del profilo",
+                "profile_text": "Testo del profilo",
+                "avatar_uploaded": "Avatar caricato",
+                "logo_uploaded": "Logo caricato",
                 "logo": "Logo",
-                "address": "Address",
-                "blank_pdf": "Blank pdf",
-                "notificationSaved": "Notificatin setting saved",
-                "realEstateSaved": "Real Estate settings saved",
+                "address": "Indirizzo",
+                "blank_pdf": "PDF in bianco",
+                "notificationSaved": "Impostazione della notifica salvata",
+                "realEstateSaved": "Impostazioni immobiliari salvate",
                 "serviceRequestCategorySaved": "Categoria della richiesta di servizio salvata",
-                "serviceRequestCategoryDeleted": "Categoria richiesta di servizio cancellata",
+                "serviceRequestCategoryDeleted": "Categoria della richiesta di servizio cancellata",
                 "validation": {
                     "name": {
-                        "required": "Name is required"
+                        "required": "Il nome è obbligatorio"
                     },
                     "role": {
-                        "required": "Role is required"
+                        "required": "Il ruolo è richiesto"
                     }
                 }
             },
             "tenant": {
-                "view": "View",
-                "view_title": "View tenant",
-                "edit_title": "Edit tenant",
-                "download_credentials": "Download credentials",
-                "send_credentials": "Send credentials",
-                "credentials_sent": "Credentials sent",
-                "credentials_send_fail": "Credentials file not found. Try updating the tenant password to regenerate it",
-                "credentials_download_failed": "Credentials file not found. Try updating the tenant password to regenerate it",
-                "add": "Add tenant",
-                "save": "Save",
-                "saved": "Inquilino salvato",
-                "deleted": "Inquilino cancellato",
-                "status_changed": "Status changed",
-                "password_reset": "Tenant password reset successfully",
-                "update": "Update",
-                "name": "Name",
-                "first_name": "First name",
-                "last_name": "Last name",
-                "birth_date": "Birth date",
-                "language": "Language",
-                "title": "Title",
-                "mobile_phone": "Mobile phone",
-                "work_phone": "Work phone",
+                "view": "Vista",
+                "view_title": "Vedi inquilino",
+                "edit_title": "Editore inquilino",
+                "download_credentials": "Scarica le credenziali",
+                "send_credentials": "Mandare le credenziali",
+                "credentials_sent": "Invio delle credenziali",
+                "credentials_send_fail": "File delle credenziali non trovato. Prova ad aggiornare la password dell'inquilino per rigenerarla",
+                "credentials_download_failed": "File delle credenziali non trovato. Prova ad aggiornare la password dell'inquilino per rigenerarla",
+                "add": "Aggiungi inquilino",
+                "save": "Risparmiate",
+                "saved": "L'inquilino salvato",
+                "deleted": "L'inquilino è stato cancellato",
+                "status_changed": "Stato cambiato",
+                "password_reset": "Il reset della password dell'inquilino ha avuto successo",
+                "update": "Aggiornamento",
+                "name": "Nome",
+                "first_name": "Nome",
+                "last_name": "Cognome",
+                "birth_date": "Data di nascita",
+                "language": "La lingua",
+                "title": "Titolo",
+                "mobile_phone": "Telefono cellulare",
+                "work_phone": "Telefono di lavoro",
                 "email": "Email",
-                "personal_phone": "Personal phone",
-                "private_phone": "Personal phone",
+                "personal_phone": "Telefono personale",
+                "private_phone": "Telefono personale",
                 "created_date": "Data di creazione",
-                "created_at": "Date",
-                "edit": "Edit",
-                "delete": "Delete",
+                "created_at": "Appuntamento",
+                "edit": "Modifica",
+                "delete": "Cancellare",
                 "id": "ID",
-                "details": "Details",
-                "contract": "Contract",
-                "posts": "Posts",
-                "products": "Products",
-                "requests": "Requests",
-                "company": "Company name",
-                "no_building": "No building",
+                "details": "Dettagli",
+                "contract": "Contratto",
+                "posts": "Messaggi",
+                "products": "Prodotti",
+                "requests": "Richieste",
+                "company": "Nome dell'azienda",
+                "no_building": "Niente edificio",
                 "media": {
-                    "deleted": "Document/Photo Deleted",
-                    "uploaded": "Document/Photo Uploaded"
+                    "deleted": "Documento/foto eliminato",
+                    "uploaded": "Documento/foto caricato"
                 },
                 "building": {
-                    "name": "Building"
+                    "name": "Bâtiment"
                 },
                 "unit": {
-                    "name": "Unit"
+                    "name": "Unità"
                 },
-                "search_building": "Search building",
-                "search_unit": "Search unit",
-                "search": "Search",
+                "search_building": "Ricerca edificio",
+                "search_unit": "Unità di ricerca",
+                "search": "Ricerca",
                 "confirmDelete": {
-                    "title": "This will permanently delete the tenant.",
-                    "text": "Are you sure?"
+                    "title": "Questo cancellerà definitivamente l'inquilino.",
+                    "text": "Sei sicuro?"
                 },
                 "validation": {
                     "first_name": {
-                        "required": "First name is required"
+                        "required": "Il nome è obbligatorio"
                     },
                     "last_name": {
-                        "required": "Last name is required"
+                        "required": "Il cognome è obbligatorio"
                     },
                     "birth_date": {
-                        "required": "Birth date is required"
+                        "required": "La data di nascita è obbligatoria"
                     },
                     "building": {
-                        "required": "Building is required"
+                        "required": "L'edificio è richiesto"
                     },
                     "unit": {
-                        "required": "Unit is required"
+                        "required": "L'unità è richiesta"
                     },
                     "title": {
-                        "required": "Title is required"
+                        "required": "Il titolo è richiesto"
                     },
                     "language": {
-                        "required": "Language is required"
+                        "required": "La lingua è richiesta"
                     }
                 },
-                "building_card": "Assign unit",
-                "personal_details_card": "Personal details",
-                "account_info_card": "User login",
-                "contact_info_card": "Contact details",
-                "personal_data": "Personal data",
-                "my_documents": "My documents",
-                "my_contract": "My contract",
-                "contact_persons": "My contacts",
-                "no_contacts": "No contacts available",
-                "rent_end": "Rent end",
-                "rent_start": "Rent start",
-                "rent_contract": "Rent contract",
+                "building_card": "Assegnare l'unità",
+                "personal_details_card": "Dati personali",
+                "account_info_card": "Accesso utente",
+                "contact_info_card": "Dati di contatto",
+                "personal_data": "Dati personali",
+                "my_documents": "I miei documenti",
+                "my_contract": "Il mio contratto",
+                "contact_persons": "I miei contatti",
+                "no_contacts": "Nessun contatto disponibile",
+                "rent_end": "Fine affitto",
+                "rent_start": "Inizio affitto",
+                "rent_contract": "Contratto d'affitto",
                 "contact": {
-                    "category": "Category",
-                    "name": "Name",
+                    "category": "Categoria",
+                    "name": "Nome",
                     "email": "Email",
-                    "phone": "Phone"
+                    "phone": "Telefono"
                 },
                 "titles": {
-                    "mr": "Mr.",
-                    "mrs": "Mrs.",
-                    "company": "Company"
+                    "mr": "Signor",
+                    "mrs": "Signora",
+                    "company": "Azienda"
                 },
                 "status": {
-                    "label": "Status",
-                    "active": "Active",
-                    "not_active": "Not active"
+                    "label": "Situazione",
+                    "active": "Attivo",
+                    "not_active": "Non attivo"
                 },
                 "confirmChange": {
-                    "title": "Are you sure you want to continue?",
-                    "warning": "Warning",
+                    "title": "Sei sicuro di voler continuare?",
+                    "warning": "Attenzione",
                     "confirmBtnText": "Ok",
-                    "cancelBtnText": "Cancel"
+                    "cancelBtnText": "Annulla"
                 }
             },
             "building": {
-                "title": "Buildings",
-                "edit_title": "Edit Building",
-                "add": "Add building",
-                "name": "Name",
-                "cancel": "Cancel",
-                "created_at": "Date",
-                "edit": "Edit",
-                "delete": "Delete",
-                "deleted": "Building deleted successfully",
-                "units": "Units",
-                "save": "Save",
-                "saved": "Building saved",
-                "floors": "Floors",
-                "basement": "Basement",
-                "attic": "Attic",
-                "description": "Description",
-                "floor_nr": "Number of floors",
-                "label": "Label",
-                "address": "Address",
-                "address_search": "Please enter address",
-                "not_found": "Building not found",
-                "house_rules": "House rules",
-                "operating_instructions": "Operating instructions",
-                "other": "Other",
-                "files": "Files",
-                "add_files": "Add files",
-                "add_companies": "Add companies",
-                "companies": "Services companies",
-                "no_services": "No services added",
-                "details": "Details",
-                "select_media_category": "Selected media category",
-                "district": "District",
-                "tenants": "Tenants",
-                "managers": "Managers",
-                "requests": "Requests",
-                "house_nr": "House Nr.",
-                "assign": "Assign",
-                "assign_managers": "Assign managers",
-                "unassign_manager": "Unassign",
-                "managers_assigned": "Managers assigned",
-                "occupied_units": "Ocuppied units",
-                "free_units": "Free units",
+                "title": "Edifici",
+                "edit_title": "Modifica Edificio",
+                "add": "Aggiungere edificio",
+                "name": "Nome",
+                "cancel": "Annulla",
+                "created_at": "Appuntamento",
+                "edit": "Modifica",
+                "delete": "Cancellare",
+                "deleted": "Edificio cancellato con successo",
+                "units": "Unità",
+                "save": "Risparmiate",
+                "saved": "Edificio salvato",
+                "floors": "Pavimenti",
+                "basement": "Nel seminterrato",
+                "attic": "In soffitta",
+                "description": "Descrizione",
+                "floor_nr": "Numero di piani",
+                "label": "Etichetta",
+                "address": "Indirizzo",
+                "address_search": "Inserire l'indirizzo",
+                "not_found": "Edificio non trovato",
+                "house_rules": "Le regole della casa",
+                "operating_instructions": "Istruzioni per l'uso",
+                "other": "Altro",
+                "files": "I file",
+                "add_files": "Aggiungere file",
+                "add_companies": "Aggiungere aziende",
+                "companies": "Società di servizi",
+                "no_services": "Nessun servizio aggiunto",
+                "details": "Dettagli",
+                "select_media_category": "Categoria di supporti selezionati",
+                "district": "Distretto",
+                "tenants": "Gli inquilini",
+                "managers": "Manager",
+                "requests": "Richieste",
+                "house_nr": "Casa Nr...",
+                "assign": "Assegnare",
+                "assign_managers": "Assegnare i manager",
+                "unassign_manager": "Disassegnare",
+                "managers_assigned": "Dirigenti assegnati",
+                "occupied_units": "Unità ossessionate",
+                "free_units": "Unità libere",
                 "manager": {
-                    "unassigned": "Manager unassigned"
+                    "unassigned": "Manager non assegnato"
                 },
                 "document": {
-                    "uploaded": "Document uploaded",
-                    "deleted": "Document deleted"
+                    "uploaded": "Documento caricato",
+                    "deleted": "Documento cancellato"
                 },
                 "service": {
-                    "deleted": "Service removed from this building"
+                    "deleted": "Servizio rimosso da questo edificio"
                 },
                 "confirmDelete": {
-                    "title": "This will permanently delete the building.",
-                    "text": "Are you sure?"
+                    "title": "Questo cancellerà definitivamente l'edificio...",
+                    "text": "Sei sicuro?"
                 },
                 "validation": {
                     "name": {
-                        "required": "Name is required"
+                        "required": "Il nome è obbligatorio"
                     },
                     "floor_nr": {
-                        "required": "Floor number is required"
+                        "required": "Il numero di piano è obbligatorio"
                     },
                     "description": {
-                        "required": "Description is required"
+                        "required": "È necessaria una descrizione"
                     },
                     "label": {
-                        "required": "Label is required"
+                        "required": "L'etichetta è obbligatoria"
                     },
                     "address_id": {
-                        "required": "Address is required"
+                        "required": "L'indirizzo è obbligatorio"
                     }
                 },
                 "requestStatuses": {
-                    "total": "Total requests",
-                    "received": "Received requests",
-                    "assigned": "Assigned requests",
-                    "in_processing": "In processing requests",
-                    "reactivated": "Reactivated requests",
-                    "done": "Done requests",
-                    "archived": "Archived requests"
+                    "total": "Totale richieste",
+                    "received": "Richieste ricevute",
+                    "assigned": "Richieste assegnate",
+                    "in_processing": "Nell'elaborazione delle richieste",
+                    "reactivated": "Richieste riattivate",
+                    "done": "Richieste fatte",
+                    "archived": "Richieste archiviate"
                 },
                 "placeholders": {
-                    "search": "Search"
+                    "search": "Cerca"
                 },
                 "delete_building_modal": {
-                    "title": "Delete Building(s)",
-                    "description_unit": "Units are assigned to the selected property. If you want to delete the units as well, please activate the option below.",
-                    "description_request": "Requests are assigned to the selected property. If you also want to delete request as well, please activate the option below.",
-                    "description_both": "Units and requests are assigned to the selected property. If you also want to delete them, please activate the options below.",
-                    "delete_units": "Delete Unit(s)",
-                    "dont_delete_units": "Don't Delete Unit(s)",
-                    "delete_requests": "Delete Request(s)",
-                    "dont_delete_requests": "Don't Delete Request(s)"
+                    "title": "Cancellare l'edificio o gli edifici",
+                    "description_unit": "Le unità vengono assegnate alla proprietà selezionata. Se si desidera cancellare anche le unità, attivare l'opzione sottostante",
+                    "description_request": "Le richieste vengono assegnate alla proprietà selezionata. Se si desidera cancellare anche la richiesta, attivare l'opzione sottostante",
+                    "description_both": "Le unità e le richieste vengono assegnate alla proprietà selezionata. Se anche voi volete cancellarle, attivate le opzioni sottostanti",
+                    "delete_units": "Elimina unità",
+                    "dont_delete_units": "Non cancellare l'unità (o le unità)",
+                    "delete_requests": "Cancellare la richiesta (o le richieste)",
+                    "dont_delete_requests": "Non cancellare una o più richieste di cancellazione"
                 }
             },
             "unit": {
-                "title": "Units",
-                "not_found": "Unit not found",
-                "add": "Add unit",
+                "title": "Unità",
+                "not_found": "Unità non trovata",
+                "add": "Aggiungere unità",
                 "tenantType": {
-                    "attached": "Tenant attached successfully",
-                    "detached": "Tenant detached successfully"
+                    "attached": "L'inquilino attaccato con successo",
+                    "detached": "L'inquilino si è staccato con successo"
                 },
-                "name": "Unit number",
-                "created_at": "Date",
-                "edit": "Edit",
-                "delete": "Remove",
+                "name": "Numero di unità",
+                "created_at": "Appuntamento",
+                "edit": "Modifica",
+                "delete": "Rimuovi",
                 "deleted": "Unità cancellata",
-                "save": "Save",
-                "saved": "Unit saved",
-                "floor": "Floor",
-                "sq_meter": "Sq Meter",
-                "room_no": "Number of rooms",
-                "monthly_rent": "Monthly rent",
-                "building_search": "Please enter a building name and select it",
-                "building": "Building",
-                "description": "Description",
-                "basement": "Basement",
-                "attic": "Attic",
-                "requests": "Requests",
-                "tenant": "Tenant",
-                "empty_requests": "No requests",
-                "assigned_tenant": "Assigned tenant",
-                "tenant_assigned": "Tenant assigned",
-                "tenant_unassigned": "Tenant unassigned",
+                "save": "Risparmiate",
+                "saved": "Unità salvata",
+                "floor": "Piano",
+                "sq_meter": "Misuratore di mq",
+                "room_no": "Numero di camere",
+                "monthly_rent": "Affitto mensile",
+                "building_search": "Inserire il nome di un edificio e selezionarlo",
+                "building": "Edificio",
+                "description": "Descrizione",
+                "basement": "Nel seminterrato",
+                "attic": "In soffitta",
+                "requests": "Richieste",
+                "tenant": "Un inquilino",
+                "empty_requests": "Nessuna richiesta",
+                "assigned_tenant": "Assegnato inquilino",
+                "assign": "Assegnare",
+                "tenant_assigned": "L'inquilino assegnato",
+                "tenant_unassigned": "Un inquilino non assegnato",
                 "type": {
-                    "label": "Type",
-                    "apartment": "Apartment",
-                    "business": "Business"
+                    "label": "Tipo",
+                    "apartment": "Appartamento",
+                    "business": "Affari"
                 },
                 "confirmDelete": {
-                    "title": "This will permanently delete the unit.",
-                    "text": "Are you sure?"
+                    "title": "Questo cancellerà definitivamente l'unità",
+                    "text": "Sei sicuro?"
                 },
                 "validation": {
                     "name": {
-                        "required": "Name is required"
+                        "required": "Il nome è obbligatorio"
                     },
                     "building": {
-                        "required": "Building is required"
+                        "required": "L'edificio è obbligatorio"
                     },
                     "monthly_rent": {
-                        "required": "Monthly rent is required"
+                        "required": "L'affitto mensile è richiesto"
                     },
                     "floor": {
-                        "required": "Floor is required"
+                        "required": "Il pavimento è obbligatorio"
                     },
                     "room_no": {
-                        "required": "Room number is required"
+                        "required": "Il numero della camera è obbligatorio"
                     },
                     "description": {
-                        "required": "Description is required"
+                        "required": "È necessaria una descrizione"
+                    },
+                    "tenant": {
+                        "required": "È necessaria una descrizione"
                     }
                 },
                 "placeholders": {
-                    "search": "Search",
-                    "select": "Select"
+                    "search": "Cerca",
+                    "select": "Selezionare"
                 }
             },
             "address": {
-                "add": "Add address",
-                "created_at": "Date",
-                "name": "Address",
-                "edit": "Edit",
-                "delete": "Remove",
-                "save": "Save",
-                "city": "City",
-                "country": "Country",
-                "street": "Street",
-                "street_nr": "Street Nr.",
+                "add": "Aggiungi indirizzo",
+                "created_at": "Appuntamento",
+                "name": "Indirizzo",
+                "edit": "Modifica",
+                "delete": "Rimuovi",
+                "save": "Risparmiate",
+                "city": "La citta'",
+                "country": "Paese",
+                "street": "Strada",
+                "street_nr": "Via Nr...",
                 "zip": "Zip",
-                "not_found": "Address not found",
-                "saved": "Address saved",
+                "not_found": "Indirizzo non trovato",
+                "saved": "Indirizzo salvato",
                 "confirmDelete": {
-                    "title": "This will permanently delete the address.",
-                    "text": "Are you sure?"
+                    "title": "Questo cancellerà definitivamente l'indirizzo..",
+                    "text": "Sei sicuro?"
                 },
                 "state": {
-                    "label": "State"
+                    "label": "Stato"
                 },
                 "validation": {
                     "state": {
-                        "required": "State is required"
+                        "required": "Lo stato è obbligatorio"
                     },
                     "city": {
-                        "required": "City is required"
+                        "required": "La città è obbligatoria"
                     },
                     "street": {
-                        "required": "Street is required"
+                        "required": "La strada è obbligatoria"
                     },
                     "street_nr": {
-                        "required": "Street number is required"
+                        "required": "Il numero civico è obbligatorio"
                     },
                     "zip": {
-                        "required": "Zip is required"
+                        "required": "E' richiesta la chiusura lampo"
                     }
                 }
             },
             "post": {
-                "title": "News",
-                "title_label": "Title",
-                "content": "Content",
-                "preview": "Preview",
-                "add": "Add",
-                "add_pinned": "Add pinned post",
-                "save": "Save",
-                "saved": "Notizie salvate",
+                "title": "Notizie",
+                "title_label": "Titolo",
+                "content": "Contenuto",
+                "preview": "Anteprima",
+                "add": "Aggiungi",
+                "add_pinned": "Aggiungere posta bloccata",
+                "save": "Risparmiate",
+                "saved": "Notizie salvare",
                 "updated": "Notizie aggiornate",
-                "deleted": "Notizie cancellate",
-                "edit": "Edit",
-                "edit_title": "Edit post",
-                "show": "Details",
-                "user": "User",
-                "delete": "Delete",
-                "likes": "Likes",
-                "details": "Post Details",
-                "published_at": "Published",
-                "publish": "Publish",
-                "unpublish": "Unpublish",
-                "buildings": "Buildings",
-                "pinned": "Pinned",
-                "notify_email": "Notify email",
-                "pinned_to": "Pinned to",
-                "comments": "Comments",
-                "images": "Images",
-                "details_title": "Details",
+                "deleted": "Notizie Cancellate",
+                "edit": "Modifica",
+                "edit_title": "Modifica post",
+                "show": "Dettagli",
+                "user": "Utente",
+                "delete": "Cancellare",
+                "likes": "Gli piace",
+                "details": "Pubblicare i dettagli",
+                "published_at": "Pubblicato",
+                "publish": "Pubblicare",
+                "unpublish": "Non pubblicare",
+                "buildings": "Edifici",
+                "pinned": "Inchiodato",
+                "notify_email": "Notifica e-mail",
+                "pinned_to": "Inchiodato a",
+                "comments": "Commenti",
+                "images": "Immagini",
+                "details_title": "Dettagli",
                 "placeholders": {
-                    "buildings": "Choose buildings",
-                    "search": "Search",
-                    "search_provider": "Search provider"
+                    "buildings": "Scegliere gli edifici",
+                    "search": "Cerca",
+                    "search_provider": "Fornitore di ricerca"
                 },
                 "media": {
-                    "deleted": "Document/Photo Deleted",
-                    "uploaded": "Document/Photo Uploaded"
+                    "deleted": "Documento/foto eliminato",
+                    "uploaded": "Documento/foto caricato"
                 },
                 "type": {
-                    "label": "Type",
-                    "article": "Article",
-                    "new_neighbour": "New neighbour",
-                    "pinned": "Pinned"
+                    "label": "Tipo",
+                    "article": "Articolo",
+                    "new_neighbour": "Nuovo vicino",
+                    "pinned": "Inchiodato"
                 },
                 "status": {
-                    "label": "Status",
-                    "new": "New",
-                    "published": "Published",
-                    "unpublished": "Unpublished",
-                    "not_approved": "Not approved"
+                    "label": "Situazione",
+                    "new": "Nuovo",
+                    "published": "Pubblicato",
+                    "unpublished": "Inedito",
+                    "not_approved": "Non approvato"
                 },
                 "visibility": {
-                    "label": "Visibility",
-                    "address": "Address",
-                    "district": "District",
-                    "all": "All"
+                    "label": "Visibilità",
+                    "address": "Indirizzo",
+                    "district": "Distretto",
+                    "all": "Tutti"
                 },
                 "confirmChange": {
-                    "title": "Are you sure you want to continue?",
-                    "warning": "Warning",
+                    "title": "Sei sicuro di voler continuare?",
+                    "warning": "Attenzione",
                     "confirmBtnText": "Ok",
-                    "cancelBtnText": "Cancel"
+                    "cancelBtnText": "Annulla"
                 },
                 "assignmentTypes": {
-                    "building": "Building",
-                    "district": "District"
+                    "building": "Edificio",
+                    "district": "Distretto"
                 },
-                "assignType": "Type",
-                "unassign": "Unassign",
-                "assign": "Assign",
+                "assignment": "Assegnazione",
+                "assignType": "Tipo",
+                "unassign": "Disassegnare",
+                "assign": "Assegnare",
                 "attached": {
-                    "building": "Building assigned",
-                    "district": "District assigned",
-                    "provider": "Provider assigned"
+                    "building": "Edificio assegnato",
+                    "district": "Distretto assegnato",
+                    "provider": "Fornitore assegnato"
                 },
                 "detached": {
-                    "building": "Buiding unassigned",
-                    "district": "District unassigned",
-                    "provider": "Provider unassigned"
+                    "building": "Costruire senza assegnazione",
+                    "district": "Distretto non assegnato",
+                    "provider": "Fornitore non assegnato"
                 },
-                "buildingAlreadyAssigned": "Building is already inside on a district",
+                "buildingAlreadyAssigned": "L'edificio e' gia' all'interno di un quartiere",
                 "confirmUnassign": {
-                    "title": "Are you sure you want to continue?",
-                    "warning": "Warning",
+                    "title": "Sei sicuro di voler continuare?",
+                    "warning": "Attenzione",
                     "confirmBtnText": "Ok",
-                    "cancelBtnText": "Cancel"
+                    "cancelBtnText": "Annulla"
                 },
                 "execution_interval": {
-                    "label": "Execution interval",
-                    "end": "Execution End",
-                    "start": "Execution Start",
-                    "separator": "To"
+                    "label": "Intervallo di esecuzione",
+                    "end": "Fine dell'esecuzione",
+                    "start": "Inizio esecuzione",
+                    "separator": "A"
                 },
                 "category": {
-                    "label": "Category",
-                    "general": "General",
-                    "maintenance": "Maintenance",
-                    "electricity": "Electricity",
-                    "heating": "Heating",
-                    "sanitary": "Sanitary"
+                    "label": "Categoria",
+                    "general": "Generale",
+                    "maintenance": "Manutenzione",
+                    "electricity": "Elettricità",
+                    "heating": "Riscaldamento",
+                    "sanitary": "Sanitario"
                 }
             },
             "service": {
-                "title": "Services",
-                "add_title": "Add Service",
-                "edit_title": "Edit Service",
-                "edit": "Edit",
-                "delete": "Delete",
+                "title": "Servizi",
+                "add_title": "Aggiungi servizio",
+                "edit_title": "Modifica servizio",
+                "edit": "Modifica",
+                "delete": "Cancellare",
                 "saved": "Servizio salvato",
                 "deleted": "Servizio cancellato",
-                "category": "Category",
-                "electrician": "Electrician",
-                "heating_company": "Heating company",
-                "lift": "Lift",
-                "sanitary": "Sanitary",
-                "key_service": "Key service",
-                "caretaker": "Caretaker",
-                "real_estate_service": "Real estate service",
-                "name": "Name",
-                "requests": "Requests",
-                "contact_details": "Contact details",
-                "user_credentials": "User credentials",
-                "company_details": "Company details",
+                "category": "Categoria",
+                "electrician": "Elettricista",
+                "heating_company": "Azienda di riscaldamento",
+                "lift": "Sollevare",
+                "sanitary": "Sanitario",
+                "key_service": "Servizio chiave",
+                "caretaker": "Custode",
+                "real_estate_service": "Servizio immobiliare",
+                "name": "Nome",
+                "requests": "Richieste",
+                "contact_details": "Dati di contatto",
+                "user_credentials": "Credenziali utente",
+                "company_details": "Dettagli dell'azienda",
                 "assignmentTypes": {
-                    "building": "Building",
-                    "district": "District"
+                    "building": "Edificio",
+                    "district": "Distretto"
                 },
-                "assignType": "Type",
-                "unassign": "Unassign",
-                "assign": "Assign",
+                "assignType": "Tipo",
+                "unassign": "Disassegnare",
+                "assign": "Assegnare",
                 "attached": {
-                    "building": "Building assigned",
-                    "district": "District assigned"
+                    "building": "Edificio assegnato",
+                    "district": "Distretto assegnato"
                 },
                 "detached": {
-                    "building": "Buiding unassigned",
-                    "district": "District unassigned"
+                    "building": "Edificio assegnato",
+                    "district": "Distretto assegnato"
                 },
-                "buildingAlreadyAssigned": "Building is already inside on a district",
+                "buildingAlreadyAssigned": "L'edificio e' gia' all'interno di un quartiere",
                 "confirmUnassign": {
-                    "title": "Are you sure you want to continue?",
-                    "warning": "Warning",
+                    "title": "Sei sicuro di voler continuare?",
+                    "warning": "Attenzione",
                     "confirmBtnText": "Ok",
-                    "cancelBtnText": "Cancel"
+                    "cancelBtnText": "Annulla"
                 },
                 "placeholders": {
-                    "search": "Search",
-                    "category": "Select category"
+                    "search": "Cerca",
+                    "category": "Selezionare la categoria"
                 }
             },
             "district": {
-                "title": "Districts",
-                "name": "Name",
-                "description": "Description",
-                "add": "Add district",
-                "edit": "Edit district",
-                "save": "Save",
+                "title": "Distretti",
+                "name": "Nome",
+                "description": "Descrizione",
+                "add": "Aggiungi distretto",
+                "edit": "Modificare il distretto",
+                "save": "Risparmiate",
                 "saved": "Distretto salvato",
-                "edit_action": "Edit",
-                "delete": "Delete",
+                "edit_action": "Modifica",
+                "delete": "Cancellare",
                 "deleted": "Distretto soppresso",
-                "cancel": "Cancel",
-                "required": "This field is required",
-                "details": "Details",
-                "buildings": "Buildings"
+                "cancel": "Annulla",
+                "required": "Questo campo è obbligatorio",
+                "details": "Dettagli",
+                "buildings": "Edifici"
             },
             "realEstate": {
-                "title": "Settings real estate",
-                "details": "Details",
-                "settings": "Settings",
-                "district_enable": "District",
-                "marketplace_approval_enable": "Enable Market",
-                "news_approval_enable": "News approval",
-                "comment_update_timeout": "Comment update timeout",
-                "closed": "Closed",
-                "saved": "Real estate saved",
-                "schedule": "Schedule",
-                "endTime": "End time",
-                "startTime": "Start time",
-                "to": "To",
-                "categories": "Categories",
-                "templates": "Templates",
-                "contact_enable": "Enable 'My contacts'",
-                "cleanify_email": "Cleanify email",
-                "mail_encryption": "Encryption",
-                "mail_from_address": "From address",
-                "mail_from_name": "From Name",
-                "mail_host": "Host",
-                "mail_password": "Password",
-                "mail_port": "Port",
-                "mail_username": "Username",
+                "title": "Impostazioni immobiliari",
+                "details": "Dettagli",
+                "settings": "Impostazioni",
+                "district_enable": "Distretto",
+                "marketplace_approval_enable": "Attivare il mercato",
+                "news_approval_enable": "Approvazione delle notizie",
+                "comment_update_timeout": "Timeout aggiornamento commento",
+                "closed": "Chiuso",
+                "saved": "Beni immobili salvati",
+                "schedule": "Programmazione",
+                "endTime": "E' l'ora della fine",
+                "startTime": "Ora di inizio",
+                "to": "A",
+                "categories": "Categorie",
+                "templates": "Modelli",
+                "contact_enable": "Attivare 'I miei contatti'",
+                "cleanify_email": "Pulire le e-mail",
+                "mail_encryption": "Crittografia",
+                "mail_from_address": {
+                    "label": "Dall'indirizzo",
+                    "required": "Inserisci dall'indirizzo e-mail",
+                    "email": "Inserisci un'e-mail valida"
+                },
+                "mail_from_name": {
+                    "label": "Da Nome",
+                    "validation": "Inserisci da Nome"
+                },
+                "mail_host": {
+                    "label": "Ospite",
+                    "validation": "Host dovrebbe essere un URL valido"
+                },
+                "mail_password": {
+                    "label": "La password",
+                    "validation": "Inserisci la password e-mail"
+                },
+                "mail_port": {
+                    "label": "Porto",
+                    "validation": "Inserire la porta e-mail"
+                },
+                "mail_username": {
+                    "label": "Nome utente",
+                    "validation": "Inserisci il nome utente e-mail"
+                },
                 "iframe_url": {
-                    "label": "Iframe URL",
-                    "validation": "Iframe URL should be a valid URL"
+                    "label": "URL Iframe",
+                    "validation": "Iframe URL dovrebbe essere un URL valido"
                 }
             },
             "request": {
-                "audits": "Audits",
-                "edit": "Edit",
-                "delete": "Delete",
-                "deleted": "Richiesta cancellata",
-                "title": "Requests",
-                "created": "Created",
-                "saved": "Richiesta salvata",
-                "prop_title": "Title",
-                "description": "Description",
-                "category": "Category",
-                "address": "Address",
-                "edit_title": "Edit request",
-                "add_title": "Add request",
-                "tenant": "Tenant",
-                "due_date": "Due date",
-                "closed_date": "Closed date",
-                "service": "Service",
-                "created_by": "Created by",
-                "is_public": "Public",
-                "comments": "Comments",
-                "assigned_to": "Assigned to",
-                "assign_providers": "Assign providers",
-                "assign_managers": "Assign managers",
-                "unassign": "Unassign",
-                "notify": "Notify",
-                "public_legend": "Set this option to make the request visible to all tenant neighbours",
-                "conversation": "Conversation",
-                "open_conversation": "Open",
-                "other_recipients": "Other recipients",
-                "recipients": "Recipients",
-                "assign": "Assign",
-                "images": "Images",
-                "no_images_message": "No files uploaded",
-                "request_details": "Request details",
-                "internal_notices": "Internal notices",
-                "status_changed": "Status changed",
-                "priority_changed": "Priority changed",
+                "audits": "Audit",
+                "edit": "Modifica",
+                "delete": "Cancellare",
+                "deleted": "Richiesta supprimée",
+                "title": "Richieste",
+                "created": "Creato",
+                "saved": "Requête sauvegardée",
+                "prop_title": "Titolo",
+                "description": "Descrizione",
+                "category": "Categoria",
+                "address": "Indirizzo",
+                "edit_title": "Modifica richiesta",
+                "add_title": "Aggiungi richiesta",
+                "tenant": "Un inquilino",
+                "due_date": "Scadenza",
+                "closed_date": "Data di chiusura",
+                "service": "Servizio",
+                "created_by": "Creato da",
+                "is_public": "Pubblico",
+                "comments": "Commenti",
+                "assigned_to": "Assegnato a",
+                "assign_providers": "Assegnare i fornitori",
+                "assign_managers": "Assegnare i manager",
+                "unassign": "Disassegnare",
+                "notify": "Avvisare",
+                "public_legend": "Impostare questa opzione per rendere la richiesta visibile a tutti i vicini inquilini",
+                "conversation": "Conversazione",
+                "open_conversation": "Aprite",
+                "other_recipients": "Altri destinatari",
+                "recipients": "Destinatari",
+                "assign": "Assegnare",
+                "images": "Immagini",
+                "no_images_message": "Nessun file caricato",
+                "request_details": "Richiedi dettagli",
+                "internal_notices": "Avvisi interni",
+                "status_changed": "Stato cambiato",
+                "priority_changed": "La priorità è cambiata",
                 "assignmentTypes": {
-                    "services": "Services",
-                    "managers": "Managers"
+                    "services": "Servizi",
+                    "managers": "Manager"
                 },
                 "media": {
-                    "added": "Documento aggiunto",
-                    "removed": "Media removed",
-                    "deleted": "Media deleted",
-                    "delete": "Delete"
+                    "added": "Documento ajouté",
+                    "removed": "Supporti rimossi",
+                    "deleted": "Media cancellati",
+                    "delete": "Cancellare"
                 },
                 "priority": {
-                    "label": "Priority",
-                    "urgent": "Urgent",
-                    "low": "Low",
-                    "normal": "Normal"
+                    "label": "Priorità",
+                    "urgent": "E' urgente",
+                    "low": "Basso",
+                    "normal": "Normale"
                 },
                 "defect_location": {
-                    "label": "Defect location",
-                    "apartment": "Apartment",
-                    "building": "Building",
-                    "environment": "Environment"
+                    "label": "Posizione del difetto",
+                    "apartment": "Appartamento",
+                    "building": "Edificio",
+                    "environment": "Ambiente"
                 },
                 "qualification": {
-                    "label": "Qualification",
-                    "none": "None",
-                    "optical": "Optical",
+                    "label": "Qualificazione",
+                    "none": "Nessuna",
+                    "optical": "Ottico",
                     "sia": "Sia",
-                    "2_year_warranty": "2 Year Warranty",
-                    "cost_consequences": "Cost consequences"
+                    "2_year_warranty": "2 anni di garanzia",
+                    "cost_consequences": "Conseguenze dei costi"
                 },
                 "status": {
-                    "label": "Status",
-                    "received": "Received",
-                    "in_processing": "In processing",
-                    "assigned": "Assigned",
-                    "done": "Done",
-                    "reactivated": "Reactivated",
-                    "archived": "Archived"
+                    "label": "Situazione",
+                    "received": "Ricevuto",
+                    "in_processing": "In lavorazione",
+                    "assigned": "Assegnato",
+                    "done": "Fatto",
+                    "reactivated": "Riattivato",
+                    "archived": "Archiviato"
                 },
                 "category_options": {
-                    "disturbance": "Disturbance",
-                    "defect": "Defect",
-                    "order_documents": "Order documents",
-                    "order_a_payment_slip": "Order a payment slip",
-                    "questions_about_the_tenancy": "Questions about the tenancy",
-                    "other": "Other",
-                    "environment": "Environment",
-                    "house": "House",
-                    "apartment": "Apartment"
+                    "disturbance": "Perturbazione",
+                    "defect": "Difetto",
+                    "order_documents": "Ordinare i documenti",
+                    "order_a_payment_slip": "Ordina una polizza di pagamento",
+                    "questions_about_the_tenancy": "Domande sull'affitto",
+                    "other": "Altro",
+                    "environment": "Ambiente",
+                    "house": "Casa",
+                    "apartment": "Appartamento"
                 },
                 "placeholders": {
-                    "category": "Select category",
-                    "priority": "Select priority",
-                    "defect_location": "Select defect location",
-                    "qualification": "Select qualification",
-                    "status": "Select status",
-                    "due_date": "Pick due date",
-                    "tenant": "Search for a tenant",
-                    "service": "Search for a service",
-                    "propertyManagers": "Search for managers",
-                    "search": "Search",
-                    "visibility": "Select visibility"
+                    "category": "Selezionare la categoria",
+                    "priority": "Selezionare la priorità",
+                    "defect_location": "Selezionare la posizione del difetto",
+                    "qualification": "Selezionare la qualifica",
+                    "status": "Selezionare lo stato",
+                    "due_date": "Scegli la data di scadenza",
+                    "tenant": "Cercate un inquilino",
+                    "service": "Cerca un servizio",
+                    "propertyManagers": "Ricerca di manager",
+                    "search": "Cerca",
+                    "visibility": "Selezionare la visibilità"
                 },
                 "confirmChange": {
-                    "title": "Are you sure you want to continue?",
-                    "warning": "Warning",
+                    "title": "Sei sicuro di voler continuare?",
+                    "warning": "Attenzione",
                     "confirmBtnText": "Ok",
-                    "cancelBtnText": "Cancel"
+                    "cancelBtnText": "Annulla"
                 },
                 "confirmUnassign": {
-                    "title": "Are you sure you want to continue?",
-                    "warning": "Warning",
+                    "title": "Sei sicuro di voler continuare?",
+                    "warning": "Attenzione",
                     "confirmBtnText": "Ok",
-                    "cancelBtnText": "Cancel"
+                    "cancelBtnText": "Annulla"
                 },
                 "mail": {
-                    "body": "Body",
-                    "subject": "Subject",
-                    "to": "To",
-                    "title": "Notify service",
-                    "notify": "Send Email",
-                    "bodyPlaceholder": "Please write your message here",
-                    "provider": "Provider",
+                    "body": "Corpo",
+                    "subject": "Oggetto",
+                    "to": "A",
+                    "title": "Avvisare il servizio di assistenza",
+                    "notify": "Invia e-mail",
+                    "bodyPlaceholder": "Scrivi qui il tuo messaggio",
+                    "provider": "Fornitore",
                     "manager": "Manager",
-                    "cancel": "Cancel",
-                    "send": "Send",
+                    "cancel": "Annulla",
+                    "send": "Invia",
                     "cc": "CC",
                     "bcc": "BCC",
-                    "success": "Notification mail sent successfully",
+                    "success": "Messaggio di notifica inviato con successo",
                     "validation": {
-                        "required": "This field is required",
-                        "email": "This field should be a valid email"
+                        "required": "Questo campo è obbligatorio",
+                        "email": "Questo campo deve essere un'e-mail valida"
                     },
-                    "fail_cc": "CC/BCC/TO fields must be valid emails"
+                    "fail_cc": "I campi CC/BCC/TO devono essere e-mail valide"
                 },
                 "attached": {
-                    "services": "Provider attached successfully",
-                    "managers": "Manager attached successfully",
-                    "user": "User assigned successfully"
+                    "services": "Fornitore collegato con successo",
+                    "managers": "Manager attaccato con successo",
+                    "user": "Utente assegnato con successo"
                 },
                 "detached": {
-                    "service": "Provider detached successfully",
-                    "manager": "Manager detached successfully",
-                    "user": "User unassigned successfully"
+                    "service": "Fornitore staccato con successo",
+                    "manager": "Manager staccato con successo",
+                    "user": "Utente non assegnato con successo"
                 },
                 "userType": {
-                    "label": "Type",
-                    "provider": "Service",
+                    "label": "Tipo",
+                    "provider": "Servizio",
                     "user": "Manager"
                 },
                 "visibility": {
-                    "label": "Visibility",
-                    "tenant": "Private",
-                    "district": "District",
-                    "building": "Building"
+                    "label": "Visibilità",
+                    "tenant": "Soldato",
+                    "district": "Distretto",
+                    "building": "Edificio"
                 },
-                "requestID": "Request ID",
-                "requestCategory": "Request Category"
+                "requestID": "Richiedi un documento d'identità",
+                "requestCategory": "Richiedi categoria"
             },
             "requestCategory": {
-                "title": "Request categories",
-                "add": "Add category",
-                "edit": "Edit",
-                "delete": "Delete",
-                "name": "Name",
-                "cancel": "Cancel",
-                "required": "This field is required",
-                "parent": "Parent category"
+                "title": "Richiedi categorie",
+                "add": "Aggiungi categoria",
+                "edit": "Modifica",
+                "delete": "Cancellare",
+                "name": "Nome",
+                "cancel": "Annulla",
+                "required": "Questo campo è obbligatorio",
+                "parent": "Categoria genitore"
             },
             "propertyManager": {
-                "title": "Property managers",
-                "title_label": "Title",
-                "add": "Add property manager",
-                "save": "Save",
-                "saved": "Property manager salvato",
-                "deleted": "Property manager cancellato",
-                "edit": "Edit",
-                "edit_title": "Edit property manager",
-                "delete": "Delete",
-                "firstName": "First name",
-                "lastName": "Last name",
-                "name": "Name",
-                "profession": "Profession",
+                "title": "Gestori immobiliari",
+                "title_label": "Titolo",
+                "add": "Aggiungi gestore di proprietà",
+                "save": "Risparmiate",
+                "saved": "Gestionnaire immobilier sauvé",
+                "deleted": "Gestionnaire immobilier supprimé",
+                "edit": "Modifica",
+                "edit_title": "Modifica gestore di proprietà",
+                "delete": "Cancellare",
+                "firstName": "Nome",
+                "lastName": "Cognome",
+                "name": "Nome",
+                "profession": "Professione",
                 "slogan": "Slogan",
-                "linkedin_url": "Linkedin URL",
-                "xing_url": "Xing URL",
+                "linkedin_url": "URL di linkedin",
+                "xing_url": "URL Xing",
                 "email": "Email",
-                "password": "Password",
-                "confirm_password": "Confirm password",
-                "phone": "Phone",
-                "building_card": "Assign buildings",
-                "details_card": "Details",
-                "no_buildings": "There are no buildings assigned",
-                "add_buildings": "Add buildings",
-                "buildings_search": "Search for buildings",
-                "districts": "Districts",
-                "requests": "Requests",
-                "assign": "Assign",
-                "unassign": "Unassign",
+                "password": "La password",
+                "confirm_password": "Confermare la password",
+                "phone": "Telefono",
+                "building_card": "Assegnare gli edifici",
+                "details_card": "Dettagli",
+                "no_buildings": "Non ci sono edifici assegnati",
+                "add_buildings": "Aggiungere edifici",
+                "buildings_search": "Ricerca di edifici",
+                "districts": "Distretti",
+                "requests": "Richieste",
+                "assign": "Assegnare",
+                "unassign": "Disassegnare",
                 "delete_with_reassign_modal": {
-                    "title": "Delete & reassign buildings",
-                    "description": "The selected property manager is linked to properties. You can assign the properties to another person. To do this, select a property manager from the list.",
-                    "search_title": "Search Property Manager"
+                    "title": "Cancellare e riassegnare gli edifici",
+                    "description": "Il gestore di proprietà selezionato è collegato alle proprietà. È possibile assegnare le proprietà ad un'altra persona. Per fare questo, selezionare un gestore di proprietà dall'elenco",
+                    "search_title": "Cerca Property Manager"
                 },
-                "delete_without_reassign": "Delete",
-                "profile_card": "User Profile",
+                "delete_without_reassign": "Cancellare",
+                "profile_card": "Profilo utente",
                 "social_card": "Social Media",
                 "titles": {
-                    "mr": "Mr.",
-                    "mrs": "Mrs."
+                    "mr": "Signor",
+                    "mrs": "Signora"
                 },
                 "assignmentTypes": {
-                    "building": "Building",
-                    "district": "District"
+                    "building": "Edificio",
+                    "district": "Distretto"
                 },
-                "assignType": "Type",
+                "assignType": "Tipo",
                 "placeholders": {
-                    "search": "Search"
+                    "search": "Cerca"
                 },
                 "attached": {
-                    "building": "Building assigned",
-                    "district": "District assigned"
+                    "building": "Edificio assegnato",
+                    "district": "Distretto assegnato"
                 },
                 "detached": {
-                    "building": "Buiding unassigned",
-                    "district": "District unassigned"
+                    "building": "Costruire senza assegnazione",
+                    "district": "Distretto non assegnato"
                 },
-                "buildingAlreadyAssigned": "Building is already inside on a district",
+                "buildingAlreadyAssigned": "L'edificio e' gia' all'interno di un quartiere",
                 "confirmUnassign": {
-                    "title": "Are you sure you want to continue?",
-                    "warning": "Warning",
+                    "title": "Sei sicuro di voler continuare?",
+                    "warning": "Attenzione",
                     "confirmBtnText": "Ok",
-                    "cancelBtnText": "Cancel"
+                    "cancelBtnText": "Annulla"
                 }
             },
             "product": {
-                "title": "Products",
-                "add": "Add product",
-                "edit_title": "Edit product",
-                "edit": "Edit",
-                "delete_action": "Delete",
-                "show": "Details",
-                "details": "Product details",
-                "delete": "Delete product",
-                "content": "Content",
-                "product_title": "Title",
-                "published_at": "Published",
-                "publish": "Publish",
-                "unpublish": "Unpublish",
-                "likes": "Likes",
-                "save": "Save",
+                "title": "Prodotti",
+                "add": "Aggiungi prodotto",
+                "edit_title": "Modifica prodotto",
+                "edit": "Modifica",
+                "delete_action": "Cancellare",
+                "show": "Dettagli",
+                "details": "Dettagli del prodotto",
+                "delete": "Cancellare il prodotto",
+                "content": "Contenuto",
+                "product_title": "Titolo",
+                "published_at": "Pubblicato",
+                "publish": "Pubblicare",
+                "unpublish": "Non pubblicare",
+                "likes": "Gli piace",
+                "save": "Risparmiate",
                 "saved": "Prodotto salvato",
                 "deleted": "Prodotto cancellato",
-                "comments": "Comments",
-                "user": "User",
-                "contact": "Contact",
-                "price": "Price",
+                "comments": "Commenti",
+                "user": "Utente",
+                "contact": "Contatto",
+                "price": "Prezzo",
                 "media": {
-                    "deleted": "Document/Photo Deleted",
-                    "uploaded": "Document/Photo Uploaded"
+                    "deleted": "Documento/foto eliminato",
+                    "uploaded": "Documento/foto caricato"
                 },
                 "type": {
-                    "label": "Type",
-                    "sell": "Sell",
-                    "lend": "Lend",
-                    "service": "Service",
-                    "giveaway": "Give away"
+                    "label": "Tipo",
+                    "sell": "Vendere",
+                    "lend": "Prestito",
+                    "service": "Servizio",
+                    "giveaway": "Dare via"
                 },
                 "status": {
-                    "label": "Status",
-                    "published": "Published",
-                    "unpublished": "Unpublished"
+                    "label": "Stato",
+                    "published": "Pubblicato",
+                    "unpublished": "Inedito"
                 },
                 "visibility": {
-                    "label": "Visibility",
-                    "address": "Address",
-                    "district": "District",
-                    "all": "All"
+                    "label": "Visibilità",
+                    "address": "Indirizzo",
+                    "district": "Distretto",
+                    "all": "Tutti"
                 }
             },
             "template": {
-                "name": "Name",
-                "edit": "Edit",
-                "delete": "Delete",
+                "name": "Nome",
+                "edit": "Modifica",
+                "delete": "Cancellare",
                 "saved": "Modello salvato",
                 "deleted": "Modello cancellato",
-                "add": "Add",
-                "title": "Templates",
-                "subject": "Subject",
-                "body": "Body",
-                "category": "Category",
+                "add": "Aggiungi",
+                "title": "Modelli",
+                "subject": "Oggetto",
+                "body": "Corpo",
+                "category": "Categoria",
                 "tags": "Tags",
                 "placeholders": {
-                    "category": "Choose category"
+                    "category": "Scegli la categoria"
                 }
             },
             "cleanify": {
-                "pageTitle": "Cleanify request",
-                "title": "Title",
-                "lastName": "Last name",
-                "firstName": "First name",
-                "address": "Address",
-                "city": "City",
-                "zip": "Zip",
+                "pageTitle": "Pulire la richiesta",
+                "title": "Titolo",
+                "lastName": "Cognome",
+                "firstName": "Nome",
+                "address": "Indirizzo",
+                "city": "La citta'",
+                "zip": "La cerniera",
                 "email": "Email",
-                "phone": "Phone",
-                "save": "Send request",
-                "success": "Cleanify request sent successfully",
-                "terms_and_conditions": "Accept Terms & Conditions",
-                "terms_text": "Terms text here, long text"
+                "phone": "Telefono",
+                "save": "Invia richiesta",
+                "success": "Pulire la richiesta inviata con successo",
+                "terms_and_conditions": "Accettare i termini e le condizioni",
+                "terms_text": "Termini testo qui, testo lungo"
             }
         },
         "validation": {
