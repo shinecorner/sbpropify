@@ -16,6 +16,7 @@ return [
     ],
     'contact_enable' =>
     [
+      'label' => 'Activer mes contacts',
       'use_global' => 'Utilisez global',
       'show' => 'Spectacle',
       'hide' => 'Cacher',

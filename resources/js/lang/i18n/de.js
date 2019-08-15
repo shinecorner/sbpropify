@@ -969,6 +969,7 @@ export default {
                 "yearly": "Jährlich"
             },
             "contact_enable": {
+                "label": "Meine Kontakte aktivieren",
                 "use_global": "Verwenden Sie global",
                 "show": "Show",
                 "hide": "Мerbergen"

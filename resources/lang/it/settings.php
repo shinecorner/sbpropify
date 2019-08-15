@@ -16,6 +16,7 @@ return [
     ],
     'contact_enable' =>
     [
+      'label' => 'Attivare i miei contatti',
       'use_global' => 'Usa globale',
       'show' => 'Mostrare',
       'hide' => 'Nascondere',

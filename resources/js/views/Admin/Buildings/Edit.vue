@@ -143,6 +143,7 @@
                         </div>
                     </el-tab-pane>
                     <el-tab-pane :label="$t('models.building.companies')" name="companies">
+                        <label class="card-label">{{$t('settings.contact_enable.label')}}</label>
                         <el-select
                                 placeholder="Chose"
                                 style="width: 100%;"

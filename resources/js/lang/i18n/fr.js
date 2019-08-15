@@ -970,6 +970,7 @@ export default {
                 "yearly": "Tous les ans"
             },
             "contact_enable": {
+                "label": "Activer mes contacts",
                 "use_global": "Utilisez global",
                 "show": "Spectacle",
                 "hide": "Cacher"
