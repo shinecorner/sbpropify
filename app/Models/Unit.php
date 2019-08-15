@@ -100,7 +100,7 @@ class Unit extends Model
         'basement',
         'attic',
         'unit_format',
-        'sq_meter' => 0
+        'sq_meter'
     ];
 
     /**
