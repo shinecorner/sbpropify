@@ -613,6 +613,9 @@ return [
       'templates' => 'Vorlagen',
       'cleanify_email' => 'Cleanify email',
       'mail_encryption' => 'Verschlüsselung',
+      'primary_color' => 'Primärfarbe',
+      'accent_color' => 'Akzentfarbe',
+      'iframe_enable' => 'Iframe aktivieren',
       'iframe_url' =>
       [
         'label' => 'Iframe URL',
