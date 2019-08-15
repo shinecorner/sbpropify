@@ -146,7 +146,7 @@
                 }, {
                     icon: 'icon-chat-empty',
                     title: this.$t('menu.requests'),
-                    permission: this.$permissions.list.request,
+                    permission: this.$permissions.list.user,
                     children: [{
                         title: this.$t('menu.all_requests'),
                         permission: this.$permissions.list.request,
