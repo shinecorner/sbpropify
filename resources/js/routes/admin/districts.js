@@ -35,9 +35,7 @@ export default [{
         name: 'adminDistrictsEdit',
         component: () =>
             import ( /* webpackChunkName: "admin/serviceRequests/edit" */ 'views/Admin/Districts/Edit'),
-        props: {
-            title: 'Edit district'
-        },
+        props: {},
         meta: {
             title: 'Edit District',
             middleware: [auth, admin],

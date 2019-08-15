@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\PropertyManagers\FilterByRelatedFieldsCriteria;
+use App\Criteria\PropertyManagers\HasRequestCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\PropertyManager\AssignRequest;
 use App\Http\Requests\API\PropertyManager\BatchDeleteRequest;
@@ -80,6 +81,11 @@ class PropertyManagerAPIController extends AppBaseController
         $this->propertyManagerRepository->pushCriteria(new RequestCriteria($request));
         $this->propertyManagerRepository->pushCriteria(new LimitOffsetCriteria($request));
         $this->propertyManagerRepository->pushCriteria(new FilterByRelatedFieldsCriteria($request));
+
+        $hasRequest = $request->get('has_req', false);
+        if ($hasRequest) {
+            $this->propertyManagerRepository->pushCriteria(new HasRequestCriteria());
+        }
 
         $getAll = $request->get('get_all', false);
         $reqCount = $request->get('req_count');

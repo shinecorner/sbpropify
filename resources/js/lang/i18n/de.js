@@ -87,6 +87,11 @@ export default {
                 "daily": "Täglich",
                 "monthly": "Wöchentlich",
                 "yearly": "Jährlich"
+            },
+            "contact_enable": {
+                "use_global": "Verwenden Sie global",
+                "show": "Show",
+                "hide": "Мerbergen"
             }
         },
         "general": {
@@ -1042,7 +1047,6 @@ export default {
                 "name": "Name",
                 "description": "Beschreibung",
                 "add": "Überbauung hinzufügen",
-                "edit": "Überbauung bearbeiten",
                 "save": "Speichern",
                 "saved": "Überbauung gespeichert",
                 "edit_action": "Öffnen",

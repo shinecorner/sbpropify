@@ -25,7 +25,7 @@
             </div>
             
             <div id="dropdown" class="dropdown-menu" ref="prev">
-                <el-dropdown trigger="click">
+                <el-dropdown trigger="click" @visible-change="handlerDropdownVisibleChange">
                     <div>
                         <avatar :src="user.avatar" :name="user.name" :size="33" />
                         <span class="el-dropdown-link">
@@ -347,6 +347,16 @@
                 this.dropdownwidth = this.$refs.prev.clientWidth;
             },
 
+            handlerDropdownVisibleChange() {
+                let Itag = this.$el.querySelector("i[style]");
+                if(!Itag) {
+                    let initialItag = this.$el.querySelector('.el-icon-arrow-down');
+                    initialItag.setAttribute('style', 'transform: rotateZ(180deg)');
+                }
+                else {
+                    Itag.removeAttribute('style');
+                }
+            }
         },
 
         mounted(){
@@ -494,6 +504,7 @@
                 color: #909399;
                 .el-icon-arrow-down {
                     font-size: 12px;
+                    transition: .4s;
                 }
             }
         }
@@ -612,7 +623,6 @@
                     }
                 }
             }
-
         }
     }
 </style>

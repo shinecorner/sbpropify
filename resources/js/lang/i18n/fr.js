@@ -87,6 +87,11 @@ export default {
                 "daily": "Daily",
                 "monthly": "Monthly",
                 "yearly": "Yearly"
+            },
+            "contact_enable": {
+                "use_global": "Utilisez global",
+                "show": "Spectacle",
+                "hide": "Cacher"
             }
         },
         "general": {

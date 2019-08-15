@@ -105,6 +105,11 @@ export default {
                 "daily": "Daily",
                 "monthly": "Monthly",
                 "yearly": "Yearly"
+            },
+            "contact_enable": {
+                "use_global": "Use global",
+                "show": "Show",
+                "hide": "Hide"
             }
         },
         "general": {
@@ -1081,7 +1086,6 @@ export default {
                 "name": "Name",
                 "description": "Description",
                 "add": "Add district",
-                "edit": "Edit district",
                 "save": "Save",
                 "saved": "District saved",
                 "edit_action": "Edit",
