@@ -115,13 +115,11 @@
                 header: [{
                     label: this.$t('models.request.address'),
                     withMultipleProps: true,
-                    width: '300px',
                     props: ['address_row', 'address_zip']
                 }, {
                     label: this.$t('models.building.units'),
                     withMultipleProps: true,
                     withLinks: true,
-                    width: '90px',
                     route: {
                         name: 'adminBuildingUnits',
                         paramsKeys: {
@@ -134,18 +132,15 @@
                     label: this.$t('models.building.tenants'),
                     withUsers: true,
                     count: 'tenantscount',
-                    width: '250px',
                     prop: 'tenants'
                 }, {
                     label: this.$t('models.building.managers'),
                     withUsers: true,
-                    width: '450px',
                     prop: 'managers',
                     count: 'managerscount'
                 }, {
                     label: this.$t('models.building.requests'),
                     withCounts: true,
-                    width: '350px',
                     counts: [
                         {
                             prop: 'requests_count',

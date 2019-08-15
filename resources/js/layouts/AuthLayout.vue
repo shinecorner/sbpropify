@@ -168,3 +168,8 @@
     }
 
 </style>
+<style>
+    .el-divider__text {
+        font-size: 15px !important;
+    }
+</style>

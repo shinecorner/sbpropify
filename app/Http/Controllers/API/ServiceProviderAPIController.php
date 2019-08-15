@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\ServiceProviders\FilterByPostCriteria;
+use App\Criteria\Common\HasRequestCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\ServiceProvider\AssignRequest;
 use App\Http\Requests\API\ServiceProvider\CreateRequest;
@@ -82,6 +83,13 @@ class ServiceProviderAPIController extends AppBaseController
         $this->serviceProviderRepository->pushCriteria(new FilterByPostCriteria($request));
 
         $getAll = $request->get('get_all', false);
+
+        $hasRequest = $request->get('has_req', false);
+        if ($hasRequest) {
+            $this->serviceProviderRepository->pushCriteria(new HasRequestCriteria());
+        }
+
+
         if ($getAll) {
 //            $request->merge(['limit' => env('APP_PAGINATE', 10)]);
 //            $this->serviceProviderRepository->pushCriteria(new LimitOffsetCriteria($request));

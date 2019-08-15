@@ -117,12 +117,13 @@ class TenantAPIController extends AppBaseController
             $request->merge(['limit' => env('APP_PAGINATE', 10)]);
             $this->tenantRepository->pushCriteria(new LimitOffsetCriteria($request));
             $tenants = $this->tenantRepository->get();
+            $this->fixCreatedBy($tenants);
             return $this->sendResponse($tenants->toArray(), 'Tenants retrieved successfully');
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $tenants = $this->tenantRepository->with(['user', 'building.address', 'unit'])->paginate($perPage);
-
+        $this->fixCreatedBy($tenants);
         return $this->sendResponse($tenants->toArray(), 'Tenants retrieved successfully');
     }
 
@@ -195,8 +196,16 @@ class TenantAPIController extends AppBaseController
             'limit' => $limit,
         ]);
         $this->tenantRepository->pushCriteria(new LimitOffsetCriteria($request));
-        $tenants = $this->tenantRepository->get(['id', 'first_name', 'last_name', 'status']);
+        $tenants = $this->tenantRepository->with('address:id,street,street_nr')->get(['id', 'address_id', 'first_name', 'last_name', 'status', 'created_at']);
+        $this->fixCreatedBy($tenants);
         return $this->sendResponse($tenants->toArray(), 'Tenants retrieved successfully');
+    }
+
+    protected function fixCreatedBy($tenants)
+    {
+        foreach ($tenants as $tenant) {
+            $tenant->created_by = $tenant->created_at->format('d.m.Y');
+        }
     }
 
     /**

@@ -42,6 +42,11 @@ return [
   'all' => 'Alle',
   'loadMore' => 'Mehr laden',
   'account' => 'Konto',
+  'activate_account' => 'Activate Account',
+  'activate_code' => 'Activate Code',
+  'activate_code_required' => 'Activate Code is required',
+  'back' => 'Back',
+  'activate' => 'Activate',
   'unauthenticated' => 'Unauthenticated',
   'logged_out' => 'Ausgeloggt',
   'logged_in' => 'Eingeloggt',
@@ -98,7 +103,6 @@ return [
     'saveAndClose' => 'Speichern & schliessen',
     'upload' => 'Herunterladen',
   ],
-  
   'swal' => 
   [
     'delete' => 
@@ -137,14 +141,16 @@ return [
   [
     'files_extension_images' => 'Nur Dateien in der Formaten .jpg und .png erlaubt.',
   ],  
- 
   'dateTimeFormat' => '{date} um {time}',
   'date_range' => 
   [
     'range_separator' => 'Bis',
     'start_date' => 'Startdatum',
     'end_date' => 'Enddatum',
+    'last_7_days' => 'Letzte 7 Tage',
     'last_week' => 'Letzte Woche',
+    'last_14_days' => 'Letzte 14 Tage',
+    'last_30_days' => 'Letzte 30 Tage',
     'last_month' => 'Letzte Monat',
     'last_3_months' => 'Letzte 3 Monate',
     'last_6_months' => 'Letzte 3 Monate',

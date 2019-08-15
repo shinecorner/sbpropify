@@ -309,6 +309,7 @@ return [
       'tenant' => 'Mieter',
       'empty_requests' => 'Keine Anfragen',
       'assigned_tenant' => 'Derzeitiger Mieter',
+      'assign' => 'Zuweisen',
       'tenant_assigned' => 'Zugeordneter Mieter',
       'tenant_unassigned' => 'Mieter nicht zugeordnet',
       'type' => 
@@ -348,6 +349,10 @@ return [
         [
           'required' => 'Beschreibung ist obligatorisch',
         ],
+        'tenant' =>
+        [
+          'required' => 'Mieter ist erforderlich',
+        ]
       ],
       'placeholders' => 
       [
@@ -477,6 +482,7 @@ return [
         'building' => 'Liegenschaft',
         'district' => 'Überbauung',
       ],
+      'assignment' => 'Zuweisung',
       'assignType' => 'Typ',
       'unassign' => 'Entfernen',
       'assign' => 'Zuweisen',
@@ -577,7 +583,6 @@ return [
       'name' => 'Name',
       'description' => 'Beschreibung',
       'add' => 'Überbauung hinzufügen',
-      'edit' => 'Überbauung bearbeiten',
       'save' => 'Speichern',
       'saved' => 'Überbauung gespeichert',
       'edit_action' => 'Öffnen',
@@ -614,31 +619,31 @@ return [
         'validation' => 'Bitte geben Sie eine korrekte URL ein.',
       ],
       "mail_from_name" =>
-        [
-          "label" => "Absender Name",
-          "validation" => "Eintreten absender Name"
-        ],
+      [
+        "label" => "Von Name",
+        "validation" => "Eingabe von Name"
+      ],
       "mail_from_address" => [
-        "label" => "Abesender E-Mail",
-        "required" => "Absender-E-Mail-Adresse eingeben",
-        "email" => "Bitte geben Sie eine gültige E-Mail Adresse ein"
+        "label" => "Von Adresse",
+        "required" => "Von der E-Mail-Adresse eingeben",
+        "email" => "Bitte geben Sie eine gültige E-Mail-Adresse ein"
       ],
       "mail_host" => [
-        "label" => "Host",
-        "validation" => "E-Mail-Host eingeben"
+        "label" => "Gastgeber",
+        "validation" => "Der Host sollte eine gültige URL sein."
       ],
       "mail_port" => [
         "label" => "Port",
         "validation" => "E-Mail-Port eingeben"
       ],
       "mail_username" => [
-        "label" => "Benutzername (E-Mail)",
+        "label" => "Benutzername",
         "validation" => "E-Mail-Benutzername eingeben"
       ],
       "mail_password" => [
         "label" => "Passwort",
         "validation" => "E-Mail-Passwort eingeben"
-      ],
+      ]
     ],
     'request' => 
     [
