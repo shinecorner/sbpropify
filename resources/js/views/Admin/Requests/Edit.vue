@@ -45,17 +45,19 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="12">
+                            </el-row>
+                            <el-row :gutter="20">
+                                <el-col :md="8">
                                     <el-form-item :label="$t('models.request.priority.label')">
-                                        {{$constants.service_requests.priority[model.priority]}}
+                                        <strong>{{$constants.service_requests.priority[model.priority]}}</strong>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="12">
+                                <el-col :md="8">
                                     <el-form-item :label="$t('models.request.visibility.label')">
-                                        {{$constants.serviceRequests.visibility[model.visibility]}}
+                                        <strong>{{$constants.serviceRequests.visibility[model.visibility]}}</strong>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="12">
+                                <el-col :md="8">
                                     <el-form-item v-if="model.tenant">
                                         <label slot="label">
                                             {{$t('models.request.tenant')}}
