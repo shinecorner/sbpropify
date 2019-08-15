@@ -113,10 +113,12 @@
                 buildings:{},
                 units:{},
                 states:{},
-                districts:{}
+                districts:{},
+                isLoadingFilters: false,
             };
         },
         async created(){
+            this.isLoadingFilters = true;
             const districts = await this.axios.get('districts')
             this.districts = districts.data.data.data;
 
@@ -125,6 +127,7 @@
 
             this.buildings = await this.getStateBuildings()
             this.units = await this.getBuildingUnits();
+            this.isLoadingFilters = false;
         },
         methods: {
             ...mapActions(['getBuildings', 'getUnits', 'changeTenantStatus']),
@@ -212,44 +215,46 @@
                 }
             }),
             filters() {
-                return [
-                    {
-                        name: this.$t('filters.search'),
-                        type: 'text',
-                        icon: 'el-icon-search',
-                        key: 'search'
-                    }, {
-                        name: this.$t('filters.states'),
-                        type: 'select',
-                        key: 'state_id',
-                        data: this.states,
-                    }, {
-                        name: this.$t('filters.buildings'),
-                        type: 'select',
-                        key: 'building_id',
-                        data: this.buildings,
-                    }, {
-                        name: this.$t('filters.units'),
-                        type: 'select',
-                        key: 'unit_id',
-                        data: this.units,
-                    }, {
-                        name: this.$t('filters.districts'),
-                        type: 'select',
-                        key: 'district_id',
-                        data: this.districts,
-                    }, {
-                        name: this.$t('filters.requestStatus'),
-                        type: 'select',
-                        key: 'request_status',
-                        data: this.prepareRequestFilters("status")
-                    }, {
-                        name: this.$t('filters.status'),
-                        type: 'select',
-                        key: 'status',
-                        data: this.prepareFilters('status'),
-                    },
-                ]
+                if(this.isLoadingFilters == false) {
+                    return [
+                        {
+                            name: this.$t('filters.search'),
+                            type: 'text',
+                            icon: 'el-icon-search',
+                            key: 'search'
+                        }, {
+                            name: this.$t('filters.states'),
+                            type: 'select',
+                            key: 'state_id',
+                            data: this.states,
+                        }, {
+                            name: this.$t('filters.buildings'),
+                            type: 'select',
+                            key: 'building_id',
+                            data: this.buildings,
+                        }, {
+                            name: this.$t('filters.units'),
+                            type: 'select',
+                            key: 'unit_id',
+                            data: this.units,
+                        }, {
+                            name: this.$t('filters.districts'),
+                            type: 'select',
+                            key: 'district_id',
+                            data: this.districts,
+                        }, {
+                            name: this.$t('filters.requestStatus'),
+                            type: 'select',
+                            key: 'request_status',
+                            data: this.prepareRequestFilters("status")
+                        }, {
+                            name: this.$t('filters.status'),
+                            type: 'select',
+                            key: 'status',
+                            data: this.prepareFilters('status'),
+                        },
+                    ]
+                }
             }
         }
     };

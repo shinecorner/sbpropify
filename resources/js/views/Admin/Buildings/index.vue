@@ -107,7 +107,7 @@
                 toAssignList: '',
                 states:{},
                 propertyManagers:{},
-                districts:{},
+                isLoadingFilters: false,
                 toAssign: [],
                 districts: {},
                 remoteLoading: false,
@@ -193,6 +193,10 @@
             };
         },
         async created(){
+            this.isLoadingFilters = true;
+            const states = await this.axios.get('states?filters=true')
+            this.states = states.data.data;
+
             const districts = await this.axios.get('districts')
             this.districts = districts.data.data.data;
 
@@ -203,9 +207,7 @@
                     name: propertyManager.user.name
                 }
             });
-
-            const states = await this.axios.get('states?filters=true')
-            this.states = states.data.data;
+            this.isLoadingFilters = false;
         },
         computed: {
             ...mapState("application", {
@@ -214,41 +216,44 @@
                 }
             }),
             filters() {
-                return [
-                    {
-                        name: this.$t('filters.search'),
-                        type: 'text',
-                        icon: 'el-icon-search',
-                        key: 'search'
-                    },
-                    {
-                        name: this.$t('filters.states'),
-                        type: 'select',
-                        key: 'state_id',
-                        data: this.states,
-                        // fetch: this.getFilterStates
-                    },
-                    {
-                        name: this.$t('filters.districts'),
-                        type: 'select',
-                        key: 'district_id',
-                        data: this.districts,
-                        // fetch: this.getFilterDistricts
-                    },
-                    {
-                        name: this.$t('filters.propertyManagers'),
-                        type: 'select',
-                        key: 'manager_id',
-                        data: this.propertyManagers,
-                        // fetch: this.getFilterPropertyManagers
-                    },
-                    {
-                        name: this.$t('filters.requestStatus'),
-                        type: 'select',
-                        key: 'request_status',
-                        data: this.prepareFilters("status")
-                    }
-                ];
+                if(this.isLoadingFilters == false)
+                {
+                    return [
+                        {
+                            name: this.$t('filters.search'),
+                            type: 'text',
+                            icon: 'el-icon-search',
+                            key: 'search'
+                        },
+                        {
+                            name: this.$t('filters.states'),
+                            type: 'select',
+                            key: 'state_id',
+                            data: this.states,
+                            // fetch: this.getFilterStates
+                        },
+                        {
+                            name: this.$t('filters.districts'),
+                            type: 'select',
+                            key: 'district_id',
+                            data: this.districts,
+                            // fetch: this.getFilterDistricts
+                        },
+                        {
+                            name: this.$t('filters.propertyManagers'),
+                            type: 'select',
+                            key: 'manager_id',
+                            data: this.propertyManagers,
+                            // fetch: this.getFilterPropertyManagers
+                        },
+                        {
+                            name: this.$t('filters.requestStatus'),
+                            type: 'select',
+                            key: 'request_status',
+                            data: this.prepareFilters("status")
+                        }
+                    ];
+                }
             },
             
         },
