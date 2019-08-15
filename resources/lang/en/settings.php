@@ -16,6 +16,7 @@ return [
     ],
     'contact_enable' =>
     [
+      'label' => 'Enable my contacts',
       'use_global' => 'Use global',
       'show' => 'Show',
       'hide' => 'Hide',
