@@ -29,6 +29,7 @@ class BuildingTransformer extends BaseTransformer
             'name' => $model->name,
             'building_format' => $model->building_format,
             'label' => $model->label,
+            'contact_enable' => $model->contact_enable,
             'description' => $model->description,
             'floor_nr' => $model->floor_nr,
             'basement' => $model->basement,
