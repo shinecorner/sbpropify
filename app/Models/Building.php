@@ -80,6 +80,16 @@ class Building extends Model implements HasMedia
         'other',
     ];
 
+    const ContactEnablesBasedRealEstate = 1;
+    const ContactEnablesShow = 2;
+    const ContactEnablesHide = 3;
+
+    const BuildingContactEnables = [
+        self::ContactEnablesBasedRealEstate => 'Reference Real Estate',
+        self::ContactEnablesShow => 'Show',
+        self::ContactEnablesHide => 'Hide',
+    ];
+
     public $table = 'buildings';
 
     protected $dates = ['deleted_at'];
@@ -95,7 +105,8 @@ class Building extends Model implements HasMedia
         'attic',
         'building_format',
         'longitude',
-        'latitude'
+        'latitude',
+        'contact_enable'
     ];
 
     /**
@@ -110,6 +121,7 @@ class Building extends Model implements HasMedia
         'address_id' => 'integer',
         'district_id' => 'integer',
         'floor_nr' => 'integer',
+        'contact_enable' => 'integer',
         'basement' => 'boolean',
         'attic' => 'boolean',
         'building_format' => 'string'
@@ -180,6 +192,25 @@ class Building extends Model implements HasMedia
     {
         return $this->hasMany(Tenant::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function activeTenants()
+    {
+        return $this->tenants()
+            ->where('tenants.status', Tenant::StatusActive);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function inActiveTenants()
+    {
+        return $this->tenants()
+            ->where('tenants.status', Tenant::StatusNotActive);
+    }
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

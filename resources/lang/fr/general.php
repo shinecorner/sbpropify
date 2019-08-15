@@ -42,6 +42,11 @@ return [
   'all' => 'Tous',
   'loadMore' => 'Charger plus',
   'account' => 'Compte',
+  'activate_account' => 'Activer un compte',
+  'activate_code' => 'Activer le code',
+  'activate_code_required' => 'Activer le code est nécessaire',
+  'back' => 'Retour',
+  'activate' => 'Activer',
   'unauthenticated' => 'Non authentifié',
   'logged_out' => 'Déconnecté',
   'logged_in' => 'Connecté(e)',
@@ -155,4 +160,11 @@ return [
     'week' => 'Semaine',
     'peek_week' => 'Choisir une semaine',
   ],
+  'tenant' => [
+    'activate_required_credentials' => 'code, email, mot de passe requis',
+    'incorrect_email' => 'Adresse e-mail incorrecte',
+    'user_not_tenant' => 'Cet utilisateur n\'est pas locataire',
+    'invalid_code' => 'Le code n\'est pas valide',
+    'not_active_tenant' => 'Le locataire n\'est pas actif et ne peut pas changer de mot de passe',
+  ]
 ];

@@ -2,22 +2,22 @@
 return [  
     'profile' => 
     [
-    'pageTitle' => 'Profile',
-    'profile' => 'Profile',
-    'account' => 'Account',
-    'security' => 'Security',
-    'notifications' => 'Notifications',
+    "pageTitle" => "Profilo",
+    "profile" => "Profilo",
+    "account" => "Conto",
+    "security" => "Sicurezza",
+    "notifications" => "Notifiche",
     ],
     'user' => 
     [
-    'title' => 'Users',
+        "title" => "Utenti",
     ],
     'request_activities' => 
     [
-    'title' => 'Request activities',
+        "title" => "Richiedi attività",
     ],
     'tenant' => 
     [
-    'title' => 'Tenants',
+        "title" => "Gli inquilini",
     ],
 ];

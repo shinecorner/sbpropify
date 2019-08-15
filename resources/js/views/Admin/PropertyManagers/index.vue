@@ -126,31 +126,34 @@
                 toAssign: '',
                 remoteLoading: false,
                 districts: {},
-                buildings:{}
+                buildings:{},
+                isLoadingFilters: false,
             }
         },
         computed: {
             filters() {
-                return [
-                    {
-                        name: this.$t('filters.search'),
-                        type: 'text',
-                        icon: 'el-icon-search',
-                        key: 'search'
-                    },
-                    {
-                        name: this.$t('filters.districts'),
-                        type: 'select',
-                        key: 'district_id',
-                        data: this.districts,
-                    },
-                    {
-                        name: this.$t('filters.buildings'),
-                        type: 'select',
-                        key: 'building_id',
-                        data: this.buildings,
-                    }
-                ]
+                if(this.isLoadingFilters == false) {
+                    return [
+                        {
+                            name: this.$t('filters.search'),
+                            type: 'text',
+                            icon: 'el-icon-search',
+                            key: 'search'
+                        },
+                        {
+                            name: this.$t('filters.districts'),
+                            type: 'select',
+                            key: 'district_id',
+                            data: this.districts,
+                        },
+                        {
+                            name: this.$t('filters.buildings'),
+                            type: 'select',
+                            key: 'building_id',
+                            data: this.buildings,
+                        }
+                    ]
+                }
             }
         },
         methods: {
@@ -247,10 +250,12 @@
             
         },
         async created(){
+            this.isLoadingFilters = true;
             const districts = await this.axios.get('districts')
             this.districts = districts.data.data.data;
 
             this.buildings = await this.getFilterBuildings()
+            this.isLoadingFilters = false;
         },
     }
 </script>

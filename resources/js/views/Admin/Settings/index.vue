@@ -103,12 +103,12 @@
                                          v-show="realEstateLogo || model.logo_upload"
                                          width="300px">
                                 </el-form-item>
-                                <el-form-item :label="$t('models.user.primary_color')">
+                                <el-form-item :label="$t('models.realEstate.primary_color')">
                                     <el-color-picker
                                             size="medium"
                                             v-model="model.primary_color"></el-color-picker>
                                 </el-form-item>
-                                <el-form-item :label="$t('models.user.accent_color')">
+                                <el-form-item :label="$t('models.realEstate.accent_color')">
                                     <el-color-picker
                                             size="medium"
                                             v-model="model.accent_color">
@@ -281,59 +281,6 @@
                     accent_color: '',
                     primary_color: '',
                 },
-                validationRules: {
-                    email: [{
-                        required: true,
-                        message: this.$t("email_validation.required")
-                    },
-                        {
-                            type: 'email',
-                            message: this.$t("email_validation.email")
-                        }
-                    ],
-                    name: [{
-                        required: true,
-                        message: this.$t("models.user.validation.name.required")
-                    }],
-                    iframe_url: [{
-                        type: 'url',
-                        message: this.$t("models.realEstate.iframe_url.validation")
-                    }],
-                    cleanify_email: [{
-                        type: 'email',
-                        message: this.$t("email_validation.email")
-                    }],
-                    mail_from_name:[{
-                        required: true,
-                        message: this.$t("models.realEstate.mail_from_name.validation")
-                    }],
-                    mail_from_address:[{
-                            required: true,
-                            message: this.$t("models.realEstate.mail_from_address.required")
-                        },
-                        {
-                            type: 'email',
-                            message: this.$t("models.realEstate.mail_from_address.email")
-                        }
-                    ],
-                    mail_host: [{
-                        required: true,
-                        type: 'url',
-                        message: this.$t("models.realEstate.mail_host.validation")
-                    }],
-                    mail_port: [{
-                        required: true,
-                        message: this.$t("models.realEstate.mail_port.validation")
-                    }],
-                    mail_username: [{
-                        required: true,
-                        message: this.$t("models.realEstate.mail_username.validation")
-                    }],
-                    mail_password: [{
-                        required: true,
-                        message: this.$t("models.realEstate.mail_password.validation")
-                    }]
-                },
                 activeName: 'details',
                 states: [],
                 mailEncryption: [
@@ -361,12 +308,70 @@
         computed: {
             realEstateLogo() {
                 return this.model.logo ? `/${this.model.logo}?${Date.now()}` : '';
+            },
+            validationRules() {
+                setTimeout(() => {this.validateForm('realEstateEmailSettingsForm')}, 0);
+                return {
+                    email: [{
+                        required: true,
+                        message: this.$t("email_validation.required")
+                    },
+                        {
+                            type: 'email',
+                            message: this.$t("email_validation.email")
+                        }
+                    ],
+                    name: [{
+                        required: true,
+                        message: this.$t("models.user.validation.name.required")
+                    }],
+                    iframe_url: [{
+                        type: 'url',
+                        message: this.$t("models.realEstate.iframe_url.validation")
+                    }],
+                    cleanify_email: [{
+                        type: 'email',
+                        message: this.$t("email_validation.email")
+                    }],
+                    mail_from_name: [{
+                        required: true,
+                        message: this.$t("models.realEstate.mail_from_name.validation")
+                    }],
+                    mail_from_address: [{
+                        required: true,
+                        message: this.$t("models.realEstate.mail_from_address.required")
+                    },
+                        {
+                            type: 'email',
+                            message: this.$t("models.realEstate.mail_from_address.email")
+                        }
+                    ],
+                    mail_host: [{
+                        required: true,
+                        message: this.$t("models.realEstate.mail_host.validation")
+                    }],
+                    mail_port: [{
+                        required: true,
+                        message: this.$t("models.realEstate.mail_port.validation")
+                    }],
+                    mail_username: [{
+                        required: true,
+                        message: this.$t("models.realEstate.mail_username.validation")
+                    }],
+                    mail_password: [{
+                        required: true,
+                        message: this.$t("models.realEstate.mail_password.validation")
+                    }]
+                }
             }
         },
         methods: {
             ...mapActions(['getRealEstate', 'updateRealEstate', 'getStates']),
             goToTab(tabName) {
                 this.activeName = tabName;
+            },
+            validateForm(formName) {
+                this.$refs[formName].clearValidate();
             },
             fetchRealEstate() {
                 this.getStates().then((resp) => {

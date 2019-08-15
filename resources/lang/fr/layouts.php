@@ -4,20 +4,24 @@ return [
     [
       'menu' => 
       [
-        'logout' => 'Logout',
+        'logout' => 'Déconnexion',
       ],
       'sidebar' => 
       [
-        'dashboard' => 'Dashboard',
-        'myTenancy' => 'My tenancy',
-        'myPersonalData' => 'My personal data',
-        'myRecentContract' => 'My recent contract',
-        'myDocuments' => 'Documents',
-        'myContactPersons' => 'Contact persons',
-        'posts' => 'News',
-        'requests' => 'Requests',
-        'products' => 'Marketplace',
-        'settings' => 'Settings',
+        'dashboard' => 'Tableau de bord',
+        'myTenancy' => 'Mon bail',
+        'myPersonalData' => 'Mes données personnelles',
+        'myRecentContract' => 'Mon récent contrat',
+        'myDocuments' => 'Les documents',
+        'myContactPersons' => 'Personnes de contact',
+        'posts' => 'Actualités',
+        'requests' => 'Demandes',
+        'myRequests' => 'Mes demandes',
+        'myPendingRequests' => 'Mes demandes en attente',
+        'notAssigned' => 'Non assigné',
+        'allPendingRequests' => 'Toutes les demandes en attente',
+        'products' => 'Marché en ligne',
+        'settings' => 'Réglages',
       ],
     ],
 ];
