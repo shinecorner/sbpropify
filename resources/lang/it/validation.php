@@ -175,34 +175,34 @@ return [
         'size'                  => 'dimensione',
     ],
     'general' => [
-      'required' => 'This field is required',
+      "required" => "Questo campo è obbligatorio",
     ],
     'price' => [
-      'valid' => 'Please enter a valid price',
-      'required' => 'Price is required',
+      "valid" => "Inserisci un prezzo valido",
+      "required" => "Il prezzo è obbligatorio",
     ],
     'firstName' => [
-      'required' => 'First name is required',
+      "required" => "Il nome è obbligatorio",
     ],
     'lastName' => [
-      'required' => 'Last name is required',
+      "required" => "Il cognome è obbligatorio",
     ],
     'phone' => [
-      'required' => 'Phone is required',
+      "required" => "Il telefono è obbligatorio",
     ],
     'address' => [
-      'required' => 'Address is required',
+      "required" => "L'indirizzo è obbligatorio",
     ],
     'zip' => [
-      'required' => 'Zip is required',
+      "required" => "E' richiesta la chiusura lampo",
     ],
     'city' => [
-      'required' => 'City is required',
+      "required" => "La città è obbligatoria",
     ],
     'title' => [
-      'required' => 'Title is required',
+      "required" => "Il titolo è richiesto",
     ],
     'terms' => [
-      'required' => 'Please approve with terms and conditions',
+      "required" => "Si prega di approvare i termini e le condizioni",
     ],
 ];

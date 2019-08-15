@@ -83,7 +83,7 @@ return [
     'locale' => 'en',
     'locales' => [
         'en' => 'English',
-        'de' => 'Douche',
+        'de' => 'German',
         'it' => 'Italian',
         'fr' => 'French'
     ],
