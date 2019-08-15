@@ -19,6 +19,22 @@
                         <el-form :model="model" label-position="top" label-width="192px" ref="form">
                             <el-row :gutter="20">
                                 <el-col :md="12">
+                                    <el-form-item :label="$t('models.address.street')" :rules="validationRules.street"
+                                                  prop="street"
+                                                  style="max-width: 512px;">
+                                        <el-input type="text" v-model="model.street" v-on:change="setBuildingName"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.building.house_nr')"
+                                                  :rules="validationRules.street_nr"
+                                                  prop="street_nr" style="max-width: 512px;">
+                                        <el-input type="text" v-model="model.street_nr" v-on:change="setBuildingName"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row :gutter="20">
+                                <el-col :md="12">
                                     <el-form-item :label="$t('models.building.name')" :rules="validationRules.name"
                                                   prop="name"
                                                   style="max-width: 512px;">
@@ -56,22 +72,6 @@
                                                   :rules="validationRules.floor_nr"
                                                   prop="floor_nr" style="max-width: 512px;">
                                         <el-input type="number" v-model="model.floor_nr"></el-input>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :md="12">
-                                    <el-form-item :label="$t('models.address.street')" :rules="validationRules.street"
-                                                  prop="street"
-                                                  style="max-width: 512px;">
-                                        <el-input type="text" v-model="model.street"></el-input>
-                                    </el-form-item>
-                                </el-col>
-                            </el-row>
-                            <el-row :gutter="20">
-                                <el-col :md="12">
-                                    <el-form-item :label="$t('models.building.house_nr')"
-                                                  :rules="validationRules.street_nr"
-                                                  prop="street_nr" style="max-width: 512px;">
-                                        <el-input type="text" v-model="model.street_nr"></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12">
@@ -622,6 +622,9 @@
                     query: this.queryParams
                 })
             },
+            setBuildingName(event ) {
+                this.model.name = this.model.street + ' ' + this.model.street_nr;
+            }
         },
         computed: {
             ...mapGetters('application', {

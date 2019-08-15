@@ -26,6 +26,7 @@
             :header="header"
             :items="items"
             :loading="{state: loading}"
+            :isLoadingFilters="isLoadingFilters"
             :pagination="{total, currPage, currSize}"
             :withSearch="false"
             @selectionChanged="selectionChanged"
@@ -107,8 +108,8 @@
                 toAssignList: '',
                 states:{},
                 propertyManagers:{},
-                isLoadingFilters: false,
                 toAssign: [],
+                isLoadingFilters: false,
                 districts: {},
                 remoteLoading: false,
                 delBuildingStatus: -1, // 0: unit, 1: request, 2: both
@@ -216,43 +217,42 @@
                 }
             }),
             filters() {
-                if(this.isLoadingFilters == false)
-                {
-                    return [
-                        {
-                            name: this.$t('filters.search'),
-                            type: 'text',
-                            icon: 'el-icon-search',
-                            key: 'search'
-                        },
-                        {
-                            name: this.$t('filters.states'),
-                            type: 'select',
-                            key: 'state_id',
-                            data: this.states,
-                            // fetch: this.getFilterStates
-                        },
-                        {
-                            name: this.$t('filters.districts'),
-                            type: 'select',
-                            key: 'district_id',
-                            data: this.districts,
-                            // fetch: this.getFilterDistricts
-                        },
-                        {
-                            name: this.$t('filters.propertyManagers'),
-                            type: 'select',
-                            key: 'manager_id',
-                            data: this.propertyManagers,
-                            // fetch: this.getFilterPropertyManagers
-                        },
-                        {
-                            name: this.$t('filters.requestStatus'),
-                            type: 'select',
-                            key: 'request_status',
-                            data: this.prepareFilters("status")
-                        }
-                    ];
+                if(this.loading == true || this.isLoadingFilters == false) {
+                     return [
+                    {
+                        name: this.$t('filters.search'),
+                        type: 'text',
+                        icon: 'el-icon-search',
+                        key: 'search'
+                    },
+                    {
+                        name: this.$t('filters.states'),
+                        type: 'select',
+                        key: 'state_id',
+                        data: this.states,
+                        // fetch: this.getFilterStates
+                    },
+                    {
+                        name: this.$t('filters.districts'),
+                        type: 'select',
+                        key: 'district_id',
+                        data: this.districts,
+                        // fetch: this.getFilterDistricts
+                    },
+                    {
+                        name: this.$t('filters.propertyManagers'),
+                        type: 'select',
+                        key: 'manager_id',
+                        data: this.propertyManagers,
+                        // fetch: this.getFilterPropertyManagers
+                    },
+                    {
+                        name: this.$t('filters.requestStatus'),
+                        type: 'select',
+                        key: 'request_status',
+                        data: this.prepareFilters("status")
+                    }
+                ];
                 }
             },
             

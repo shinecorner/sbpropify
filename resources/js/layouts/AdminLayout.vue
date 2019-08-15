@@ -105,7 +105,8 @@
                 dropdownwidth: 0,
                 currActive: '',
                 requests: [],
-                requests_num: null
+                requests_num: null,
+                rolename: null
             }
         },
 
@@ -114,140 +115,266 @@
                 user: ({users}) => users.loggedInUser
             }),
             links() {
-                return [{
-                    icon: 'icon-chart-bar',
-                    title: 'Dashboard',
-                    route: {
-                        name: 'adminDashboard'
-                    }
-                }, {
-                    icon: 'icon-commerical-building',
-                    title: this.$t('menu.buildings'),
-                    permission: this.$permissions.list.user,
-                    children: [{
-                        title: this.$t('menu.all_buildings'),
-                        permission: this.$permissions.list.building,
-                        route: {
-                            name: 'adminBuildings'
-                        }
-                    }, {
-                        title: this.$t('menu.units'),
-                        permission: this.$permissions.list.unit,
-                        route: {
-                            name: 'adminUnits'
-                        }
-                    }, {
-                        title: this.$t('menu.districts'),
-                        permission: this.$permissions.list.district,
-                        route: {
-                            name: 'adminDistricts'
-                        }
-                    }]
-                }, {
-                    icon: 'icon-chat-empty',
-                    title: this.$t('menu.requests'),
-                    permission: this.$permissions.list.user,
-                    children: [{
-                        title: this.$t('menu.all_requests'),
-                        permission: this.$permissions.list.request,
-                        value: this.requests_num,
-                        route: {
-                            name: 'adminRequests'
-                        }
-                    },  {
-                        title: this.$t('layouts.tenant.sidebar.myRequests'),
-                        permission: this.$permissions.list.request,
-                        value: 1,
-                        route: {
-                            name: ''
-                        }
-                    },  {
-                        title: this.$t('layouts.tenant.sidebar.myPendingRequests'),
-                        permission: this.$permissions.list.request,
-                        value: 3,
-                        route: {
-                            name: ''
-                        }
-                    },  {
-                        title: this.$t('layouts.tenant.sidebar.notAssigned'),
-                        permission: this.$permissions.list.request,
-                        value: 4,
-                        route: {
-                            name: ''
-                        }
-                    },  {
-                        title: this.$t('layouts.tenant.sidebar.allPendingRequests'),
-                        permission: this.$permissions.list.request,
-                        value: 5,
-                        route: {
-                            name: ''
-                        }
-                    }]
-                }, {
-                    icon: 'icon-gauge-1',
-                    title: this.$t('menu.activity'),
-                    permission: this.$permissions.list.audit,
-                    route: {
-                        name: 'adminRequestsActivity'
-                    }
-                },
-                {
-                    title: this.$t('menu.tenants'),
-                    icon: 'icon-group',
-                    permission: this.$permissions.list.tenant,
-                    route: {
-                        name: 'adminTenants'
-                    }
-                }, {
-                    icon: 'icon-users',
-                    title: this.$t('menu.propertyManagers'),
-                    permission: this.$permissions.list.propertyManager,
-                    route: {
-                        name: 'adminPropertyManagers'
-                    }
-                }, {
-                    icon: 'icon-tools',
-                    title: this.$t('menu.services'),
-                    permission: this.$permissions.list.provider,
-                    route: {
-                        name: 'adminServices'
-                    }
-                }, {
-                    title: this.$t('menu.posts'),
-                    icon: 'icon-megaphone-1',
-                    permission: this.$permissions.list.post,
-                    route: {
-                        name: 'adminPosts'
-                    }
-                }, {
-                    title: this.$t('menu.products'),
-                    icon: 'icon-basket',
-                    permission: this.$permissions.list.product,
-                    route: {
-                        name: 'adminProducts'
-                    }
-                }, {
-                    icon: 'icon-user',
-                    title: this.$t('menu.users'),
-                    permission: this.$permissions.list.user,
-                    children: [{
-                        title: this.$t('menu.admins'),
-                        route: {
-                            name: 'adminUsers',
-                            query: {
-                                role: 'administrator'
+                let links = [];
+                if(this.rolename == 'super_admin') {
+                    links = [{
+                            icon: 'icon-chart-bar',
+                            title: 'Dashboard',
+                            route: {
+                                name: 'adminDashboard'
                             }
-                        }
-                    }, {
-                        title: this.$t('menu.super_admins'),
-                        route: {
-                            name: 'adminUsers',
-                            query: {
-                                role: 'super_admin'
+                        }, {
+                            icon: 'icon-commerical-building',
+                            title: this.$t('menu.buildings'),
+                            permission: this.$permissions.list.user,
+                            children: [{
+                                title: this.$t('menu.all_buildings'),
+                                permission: this.$permissions.list.building,
+                                route: {
+                                    name: 'adminBuildings'
+                                }
+                            }, {
+                                title: this.$t('menu.units'),
+                                permission: this.$permissions.list.unit,
+                                route: {
+                                    name: 'adminUnits'
+                                }
+                            }, {
+                                title: this.$t('menu.districts'),
+                                permission: this.$permissions.list.district,
+                                route: {
+                                    name: 'adminDistricts'
+                                }
+                            }]
+                        }, {
+                            icon: 'icon-chat-empty',
+                            title: this.$t('menu.requests'),
+                            permission: this.$permissions.list.user,
+                            children: [{
+                                title: this.$t('menu.all_requests'),
+                                permission: this.$permissions.list.request,
+                                value: this.requests_num,
+                                route: {
+                                    name: 'adminRequests'
+                                }
+                            },  {
+                                title: this.$t('layouts.tenant.sidebar.notAssigned'),
+                                permission: this.$permissions.list.request,
+                                value: 4,
+                                route: {
+                                    name: ''
+                                }
+                            },  {
+                                title: this.$t('layouts.tenant.sidebar.allPendingRequests'),
+                                permission: this.$permissions.list.request,
+                                value: 5,
+                                route: {
+                                    name: ''
+                                }
+                            }]
+                        }, {
+                            icon: 'icon-gauge-1',
+                            title: this.$t('menu.activity'),
+                            permission: this.$permissions.list.audit,
+                            route: {
+                                name: 'adminRequestsActivity'
                             }
-                        }
-                    }]
-                }];
+                        },
+                        {
+                            title: this.$t('menu.tenants'),
+                            icon: 'icon-group',
+                            permission: this.$permissions.list.tenant,
+                            route: {
+                                name: 'adminTenants'
+                            }
+                        }, {
+                            icon: 'icon-users',
+                            title: this.$t('menu.propertyManagers'),
+                            permission: this.$permissions.list.propertyManager,
+                            route: {
+                                name: 'adminPropertyManagers'
+                            }
+                        }, {
+                            icon: 'icon-tools',
+                            title: this.$t('menu.services'),
+                            permission: this.$permissions.list.provider,
+                            route: {
+                                name: 'adminServices'
+                            }
+                        }, {
+                            title: this.$t('menu.posts'),
+                            icon: 'icon-megaphone-1',
+                            permission: this.$permissions.list.post,
+                            route: {
+                                name: 'adminPosts'
+                            }
+                        }, {
+                            title: this.$t('menu.products'),
+                            icon: 'icon-basket',
+                            permission: this.$permissions.list.product,
+                            route: {
+                                name: 'adminProducts'
+                            }
+                        }, {
+                            icon: 'icon-user',
+                            title: this.$t('menu.users'),
+                            permission: this.$permissions.list.user,
+                            children: [{
+                                title: this.$t('menu.admins'),
+                                route: {
+                                    name: 'adminUsers',
+                                    query: {
+                                        role: 'administrator'
+                                    }
+                                }
+                            }, {
+                                title: this.$t('menu.super_admins'),
+                                route: {
+                                    name: 'adminUsers',
+                                    query: {
+                                        role: 'super_admin'
+                                    }
+                                }
+                            }]
+                        }];
+                }
+                else if (this.rolename == 'administrator' || this.rolename == 'manager') {
+                    links = [{
+                            icon: 'icon-chart-bar',
+                            title: 'Dashboard',
+                            route: {
+                                name: 'adminDashboard'
+                            }
+                        }, {
+                            icon: 'icon-commerical-building',
+                            title: this.$t('menu.buildings'),
+                            permission: this.$permissions.list.user,
+                            children: [{
+                                title: this.$t('menu.all_buildings'),
+                                permission: this.$permissions.list.building,
+                                route: {
+                                    name: 'adminBuildings'
+                                }
+                            }, {
+                                title: this.$t('menu.units'),
+                                permission: this.$permissions.list.unit,
+                                route: {
+                                    name: 'adminUnits'
+                                }
+                            }, {
+                                title: this.$t('menu.districts'),
+                                permission: this.$permissions.list.district,
+                                route: {
+                                    name: 'adminDistricts'
+                                }
+                            }]
+                        }, {
+                            icon: 'icon-chat-empty',
+                            title: this.$t('menu.requests'),
+                            permission: this.$permissions.list.user,
+                            children: [{
+                                title: this.$t('menu.all_requests'),
+                                permission: this.$permissions.list.request,
+                                value: this.requests_num,
+                                route: {
+                                    name: 'adminRequests'
+                                }
+                            },  {
+                                title: this.$t('layouts.tenant.sidebar.myRequests'),
+                                permission: this.$permissions.list.audit,
+                                value: 1,
+                                route: {
+                                    name: ''
+                                }
+                            },  {
+                                title: this.$t('layouts.tenant.sidebar.myPendingRequests'),
+                                permission: this.$permissions.list.audit,
+                                value: 3,
+                                route: {
+                                    name: ''
+                                }
+                            },  {
+                                title: this.$t('layouts.tenant.sidebar.notAssigned'),
+                                permission: this.$permissions.list.request,
+                                value: 4,
+                                route: {
+                                    name: ''
+                                }
+                            },  {
+                                title: this.$t('layouts.tenant.sidebar.allPendingRequests'),
+                                permission: this.$permissions.list.request,
+                                value: 5,
+                                route: {
+                                    name: ''
+                                }
+                            }]
+                        }, {
+                            icon: 'icon-gauge-1',
+                            title: this.$t('menu.activity'),
+                            permission: this.$permissions.list.audit,
+                            route: {
+                                name: 'adminRequestsActivity'
+                            }
+                        },
+                        {
+                            title: this.$t('menu.tenants'),
+                            icon: 'icon-group',
+                            permission: this.$permissions.list.tenant,
+                            route: {
+                                name: 'adminTenants'
+                            }
+                        }, {
+                            icon: 'icon-users',
+                            title: this.$t('menu.propertyManagers'),
+                            permission: this.$permissions.list.propertyManager,
+                            route: {
+                                name: 'adminPropertyManagers'
+                            }
+                        }, {
+                            icon: 'icon-tools',
+                            title: this.$t('menu.services'),
+                            permission: this.$permissions.list.provider,
+                            route: {
+                                name: 'adminServices'
+                            }
+                        }, {
+                            title: this.$t('menu.posts'),
+                            icon: 'icon-megaphone-1',
+                            permission: this.$permissions.list.post,
+                            route: {
+                                name: 'adminPosts'
+                            }
+                        }, {
+                            title: this.$t('menu.products'),
+                            icon: 'icon-basket',
+                            permission: this.$permissions.list.product,
+                            route: {
+                                name: 'adminProducts'
+                            }
+                        }, {
+                            icon: 'icon-user',
+                            title: this.$t('menu.users'),
+                            permission: this.$permissions.list.user,
+                            children: [{
+                                title: this.$t('menu.admins'),
+                                route: {
+                                    name: 'adminUsers',
+                                    query: {
+                                        role: 'administrator'
+                                    }
+                                }
+                            }, {
+                                title: this.$t('menu.super_admins'),
+                                route: {
+                                    name: 'adminUsers',
+                                    query: {
+                                        role: 'super_admin'
+                                    }
+                                }
+                            }]
+                        }];
+                }
+                return links;
             },
             dropmenuwidth () {
                 return `width: ${this.dropdownwidth + 12}px;`
@@ -386,11 +513,18 @@
                     flag: flag
                 }
             });
+
+
             
         },
         async created(){
             const requests = await this.axios.get('requests?&page=1&per_page=20');
             this.requests_num = requests.data.data.total;
+
+            const me = await this.axios.get('users/me');
+            const roles = me.data.data.roles;
+            const rolename = roles[0].name;
+            this.rolename = rolename;
         }
 
 
