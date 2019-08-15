@@ -836,20 +836,26 @@ class TenantAPIController extends AppBaseController
         if (empty($request->code) || empty($request->email) || empty($request->password)) {
             return $this->sendError('code, email, password required');
         }
-        $this->tenantRepository->pushCriteria(new WhereCriteria('activation_code', $request->code));
-        $tenant = $this->tenantRepository->with('user:id,email')->first();
-        if (empty($tenant )) {
-            return $this->sendError('Code is invalid');
-        }
-        // @TODO discuss if already active,
-        $user = $tenant->user;
-        if($user->email == $request->email) {
-            $user->password = bcrypt($request->password);
-            $user->save();
-            return $this->sendResponse($tenant->id, __('models.tenant.saved'));
-        } else {
+        
+        $this->userRepository->pushCriteria(new WhereCriteria('email', $request->email));
+        $user = $this->userRepository->with('tenant:id,user_id,activation_code')->first();
+
+        if (empty($user)) {
             return $this->sendError('Incorrect email address');
         }
+
+        if (empty($user->tenant)) {
+            return $this->sendError('This user is not tenant');
+        }
+
+        if ($user->tenant->activation_code != $request->code) {
+            return $this->sendError('Code is invalid');
+        }
+
+        // @TODO discuss if already active,
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return $this->sendResponse($user->tenant->id, __('models.tenant.saved'));
     }
 
     /**
