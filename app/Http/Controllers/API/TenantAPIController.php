@@ -755,7 +755,7 @@ class TenantAPIController extends AppBaseController
 
     /**
      *
-     * @SWG\Put(
+     * @SWG\Post(
      *      path="/tenants/activateTenant",
      *      summary="Activate tenant",
      *      tags={"Tenant"},
