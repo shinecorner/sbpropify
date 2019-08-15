@@ -39,6 +39,8 @@ class BuildingTransformer extends BaseTransformer
 
             'units_count' => $model->units_count,
             'tenants_count' => 0,
+            'active_tenants_count' => 0,
+            'in_active_tenants_count' => 0,
             'property_managers_count' => 0,
             'requests_count' => 0,
             'requests_received_count' => 0,
