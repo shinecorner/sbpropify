@@ -58,10 +58,12 @@ class NotificationAPIController extends AppBaseController
     public function index(Request $request)
     {
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $notifications = $request->user()
-                                 ->notifications()
-                                 ->paginate($perPage);
+        $user = $request->user();
+        $notifications = $user->notifications()->paginate($perPage);
 
+        $notifications->map(function ($item) use ($user) {
+            $item->setRelation('user', $user);
+        });
         $out = $this->transformer->transformPaginator($notifications);
         return $this->sendResponse($out, 'Notifications retrieved successfully');
     }
