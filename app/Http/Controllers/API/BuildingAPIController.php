@@ -457,11 +457,23 @@ class BuildingAPIController extends AppBaseController
                 return $this->sendError($validator->errors());
             }
             $address = $this->addressRepository->update($addressInput, $building->address_id);
-            if ($address->getChanges()) {
+
+            $locationRelated = ['street', 'street_nr', 'zip', 'city'];
+            $changes = array_keys($address->getChanges());
+            if (array_intersect($locationRelated, $changes)) {
+
                 $geoData = $this->getGeoDataByAddress($address);
                 $input = array_merge($input, $geoData);
             }
             $input['address_id'] = $address->id;
+        }
+
+        if (isset($input['latitude']) && $input['latitude'] == $building->latitude) {
+            unset($input['latitude']);
+        }
+
+        if (isset($input['longitude']) && $input['longitude'] == $building->latitude) {
+            unset($input['longitude']);
         }
 
         $building = $this->buildingRepository->update($input, $id);

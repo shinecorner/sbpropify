@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Criteria\Common\WhereCriteria;
 use App\Http\Requests\API\CreateInternalNoticeAPIRequest;
 use App\Http\Requests\API\UpdateInternalNoticeAPIRequest;
 use App\Models\InternalNotice;
 use App\Repositories\InternalNoticeRepository;
+use App\Transformers\InternalNotesTransformer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -27,7 +29,9 @@ class InternalNoticeAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     *
      *
      * @SWG\Get(
      *      path="/internalNotices",
@@ -35,6 +39,18 @@ class InternalNoticeAPIController extends AppBaseController
      *      tags={"InternalNotice"},
      *      description="Get all InternalNotices",
      *      produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="get_all",
+     *          in="query",
+     *          description="Get all InternalNotices. if no pass it must be return paginated",
+     *          type="string",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="request_id",
+     *          in="query",
+     *          description="Get only request related InternalNotices",
+     *          type="integer",
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -60,8 +76,21 @@ class InternalNoticeAPIController extends AppBaseController
     public function index(Request $request)
     {
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $internalNotices = $this->internalNoticeRepository->paginate($perPage);
-        return $this->sendResponse($internalNotices->toArray(), 'Internal Notices retrieved successfully');
+        if (!empty($request->request_id)) {
+            $this->internalNoticeRepository->pushCriteria(new WhereCriteria('request_id', $request->request_id));
+        }
+
+        $getAll = $request->get('get_all', false);
+        if ($getAll) {
+            $internalNotices = $this->internalNoticeRepository->get();
+            $response = $internalNotices->toArray();
+        } else {
+            $internalNotices = $this->internalNoticeRepository->paginate($perPage);
+            $response = (new InternalNotesTransformer())->transformPaginator($internalNotices);
+        }
+
+
+        return $this->sendResponse($response, 'Internal Notices retrieved successfully');
     }
 
     /**
