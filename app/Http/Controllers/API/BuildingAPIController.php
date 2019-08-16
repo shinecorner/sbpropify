@@ -139,8 +139,6 @@ class BuildingAPIController extends AppBaseController
                 'units',
                 'propertyManagers',
                 'tenants',
-                'activeTenants',
-                'inActiveTenants',
                 'requests',
                 'requestsReceived',
                 'requestsInProcessing',
@@ -377,9 +375,9 @@ class BuildingAPIController extends AppBaseController
             return $this->sendError('Building not found');
         }
 
-        $building->load('address.state', 'serviceProviders', 'tenants.user',
-            'propertyManagers', 'media', 'district');
-
+        $building
+            ->load('address.state', 'serviceProviders', 'tenants.user', 'propertyManagers', 'media', 'district')
+            ->loadCount('activeTenants', 'inActiveTenants');
         $response = (new BuildingTransformer)->transform($building);
         $response['media_category'] = Building::BuildingMediaCategories;
 
