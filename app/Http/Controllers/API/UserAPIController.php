@@ -334,12 +334,34 @@ class UserAPIController extends AppBaseController
             return $this->sendError('User not found');
         }
 
-        $user->load(['settings', 'roles.perms', 'tenant.media']);
+        $user->load(['settings', 'roles.perms', 'tenant.media', 'tenant.building:id,contact_enable']);
         $user->unread_notifications_count = $user->unreadNotifications()->count();
+        $tenant = $user->tenant;
+
+        if ($tenant) {
+            $tenant->contact_enable = (bool) $this->getTenantContactEnable($tenant);
+        }
 
         return $this->sendResponse($user->toArray(), 'User retrieved successfully');
     }
 
+    /**
+     * @param $tenant
+     * @return bool
+     */
+    protected function getTenantContactEnable($tenant)
+    {
+        $default = true;
+        $building = $tenant->building;
+
+        if ( ! $building || Building::ContactEnablesBasedRealEstate == $building->contact_enable) {
+            $re = RealEstate::first('contact_enable');
+            return $re->contact_enable ?? $default;
+        }
+
+
+        return Building::ContactEnablesShow == $building->contact_enable;
+    }
 
     /**
      * @param int $id
