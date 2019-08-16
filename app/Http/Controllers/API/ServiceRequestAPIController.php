@@ -18,6 +18,7 @@ use App\Http\Requests\API\ServiceRequest\CreateRequest;
 use App\Http\Requests\API\ServiceRequest\DeleteRequest;
 use App\Http\Requests\API\ServiceRequest\ListRequest;
 use App\Http\Requests\API\ServiceRequest\NotifyProviderRequest;
+use App\Http\Requests\API\ServiceRequest\SeeRequestsCount;
 use App\Http\Requests\API\ServiceRequest\UpdateRequest;
 use App\Models\ServiceRequest;
 use App\Repositories\ServiceProviderRepository;
@@ -999,8 +1000,12 @@ class ServiceRequestAPIController extends AppBaseController
         return $this->sendResponse($response, 'Service Email Templates retrieved successfully');
     }
 
-    // @TODO permission
-    public function requestsCounts(Request $request)
+    /**
+     * @param SeeRequestsCount $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function requestsCounts(SeeRequestsCount $request)
     {
         $requestCount = $this->serviceRequestRepository->count();
 
