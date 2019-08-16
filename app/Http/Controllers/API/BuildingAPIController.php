@@ -223,7 +223,7 @@ class BuildingAPIController extends AppBaseController
     {
         $limit = $request->get('limit', 5);
         $model = $this->buildingRepository->getModel();
-        $buildings = $model->select(['id', 'name'])->limit($limit)->withCount([
+        $buildings = $model->select(['id', 'name'])->orderByDesc('id')->limit($limit)->withCount([
             'units',
             'tenants',
         ])->get();
