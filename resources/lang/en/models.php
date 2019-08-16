@@ -582,6 +582,7 @@ return [
       'title' => 'Districts',
       'name' => 'Name',
       'description' => 'Description',
+      "edit" => "Edit district",
       'add' => 'Add district',
       'save' => 'Save',
       'saved' => 'District saved',
