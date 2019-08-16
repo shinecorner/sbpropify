@@ -18,7 +18,7 @@
                 <el-button type="primary" class="text-center w100p" @click="submit">{{$t('general.activate')}}</el-button>
             </el-form-item>
         </el-form>
-        <router-link :to="{name: `${loginMode == 1? 'login':'login2'}`}" class="el-menu-item-link">
+        <router-link :to="{name: 'login'}" class="el-menu-item-link">
             <el-button type="primary" class="text-center w100p">{{this.$t("general.back")}}</el-button>
         </router-link>
     </div>
@@ -27,7 +27,7 @@
     import {mapActions, mapState} from 'vuex';
     import {displaySuccess, displayError} from 'helpers/messages';
     import axios from '@/axios';
-    import PasswordValidatorMixin from '../../mixins/passwordValidatorMixin';
+    import PasswordValidatorMixin from '../../../mixins/passwordValidatorMixin';
 
     export default {
         mixins: ['PasswordValidatorMixin'],
@@ -67,12 +67,7 @@
             }
         },
         props: {
-            loginMode: {
-                type: Number,
-                default: () => {
-                    return 1;
-                }
-            }
+          
         },
         computed: {
             ...mapState({

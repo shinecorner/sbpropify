@@ -97,7 +97,6 @@
                   return item;
                 });
                 that.items = items;
-                console.log(that.items);
               }).catch(function (error) {
                   console.log(error);
               })
