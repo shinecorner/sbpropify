@@ -1932,7 +1932,7 @@
                 "tags": [
                     "Notification"
                 ],
-                "summary": "Mark a notification as read",
+                "summary": "Mark a notification as read/unread",
                 "description": "Update notification",
                 "produces": [
                     "application/json"

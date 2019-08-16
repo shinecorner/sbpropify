@@ -223,7 +223,7 @@ class BuildingAPIController extends AppBaseController
     {
         $limit = $request->get('limit', 5);
         $model = $this->buildingRepository->getModel();
-        $buildings = $model->select(['id', 'name'])->limit($limit)->withCount([
+        $buildings = $model->select(['id', 'name'])->orderByDesc('id')->limit($limit)->withCount([
             'units',
             'tenants',
         ])->get();
@@ -382,12 +382,6 @@ class BuildingAPIController extends AppBaseController
 
         $response = (new BuildingTransformer)->transform($building);
         $response['media_category'] = Building::BuildingMediaCategories;
-
-        $contactEnableList = Building::BuildingContactEnables;
-        $realEstate = RealEstate::first('contact_enable');
-        $dynamic = ($realEstate && $realEstate->contact_enable) ? 'Show': 'Hide';
-        $contactEnableList[Building::ContactEnablesBasedRealEstate] = sprintf('Use Global (%s)', $dynamic);
-        $response['contact_enable_list'] = $contactEnableList;
 
         return $this->sendResponse($response, 'Building retrieved successfully');
     }

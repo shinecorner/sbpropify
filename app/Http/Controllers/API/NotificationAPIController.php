@@ -74,7 +74,7 @@ class NotificationAPIController extends AppBaseController
      *
      * @SWG\Post(
      *      path="/notifications/{id}",
-     *      summary="Mark a notification as read",
+     *      summary="Mark a notification as read/unread",
      *      tags={"Notification"},
      *      description="Update notification",
      *      produces={"application/json"},
@@ -98,12 +98,20 @@ class NotificationAPIController extends AppBaseController
      *      )
      * )
      */
-    public function markAsRead($id, Request $request)
+    public function markAsReadUnRead($id, Request $request)
     {
-        $request->user()->unreadNotifications()
+        $notification = $request->user()->notifications()
             ->where('id', $id)
-            ->get()->markAsRead();
-        return $this->sendResponse($id, 'Notification marked successfully');
+            ->first();
+        if ($notification) {
+            $notification->read_at = $notification->read_at ? null : now();
+            $notification->save();
+
+        }
+
+        $notification->setRelation('user', $request->user());
+        $response = (new NotificationTransformer)->transform($notification);
+        return $this->sendResponse($response, 'Notification marked successfully');
     }
 
 
