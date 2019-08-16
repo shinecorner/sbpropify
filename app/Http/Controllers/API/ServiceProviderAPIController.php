@@ -311,7 +311,8 @@ class ServiceProviderAPIController extends AppBaseController
             return $this->sendError('Service Provider not found');
         }
 
-        $serviceProvider->load(['user', 'address']);
+        $serviceProvider->load(['user', 'address'])
+            ->loadCount('requests',  'solvedRequests', 'pendingRequests', 'buildings');
         $response = (new ServiceProviderTransformer)->transform($serviceProvider);
 
         return $this->sendResponse($response, 'Service Provider retrieved successfully');
