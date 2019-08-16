@@ -392,7 +392,7 @@
                 this.getRealEstate().then((resp) => {
                     this.contactEnableValues.unshift({
                         value: 1,
-                        label: `${this.$t('settings.contact_enable.use_global')} (${resp.data.contact_enable ? this.$t('settings.contact_enable.show') : this.$t('settings.contact_enable.show')})`,
+                        label: `${this.$t('settings.contact_enable.use_global')} (${resp.data.contact_enable ? this.$t('settings.contact_enable.show') : this.$t('settings.contact_enable.hide')})`,
                     });
                 }).catch((error) => {
                     displayError(error);
