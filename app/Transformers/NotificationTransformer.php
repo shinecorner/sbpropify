@@ -32,7 +32,7 @@ class NotificationTransformer extends BaseTransformer
 
 
         if (key_exists('user', $model->relationsToArray())) {
-            $response['avatar'] = $model->user->name;
+            $response['avatar'] = $model->user->avatar;
         }
         return $response;
     }
