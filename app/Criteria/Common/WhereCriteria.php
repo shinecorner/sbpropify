@@ -26,19 +26,19 @@ class WhereCriteria implements CriteriaInterface
     /**
      * @var string
      */
-    protected $cmp;
+    protected $operator;
 
     /**
      * WhereCriteria constructor.
      * @param $col
-     * @param $value
-     * @param string $cmp
+     * @param null $operator
+     * @param null $value
      */
-    public function __construct($col, $value, $cmp = '=')
+    public function __construct($col, $operator = null, $value = null)
     {
         $this->col = $col;
         $this->value = $value;
-        $this->cmp = $cmp;
+        $this->operator = $operator;
     }
 
 
@@ -53,7 +53,7 @@ class WhereCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $model = $model->where($this->col, $this->cmp, $this->value);
+        $model = $model->where($this->col, $this->operator, $this->value);
 
         return $model;
     }

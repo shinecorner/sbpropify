@@ -583,6 +583,7 @@ return [
       'name' => 'Name',
       'description' => 'Beschreibung',
       'add' => 'Überbauung hinzufügen',
+      "edit" => "Bezirk bearbeiten",
       'save' => 'Speichern',
       'saved' => 'Überbauung gespeichert',
       'edit_action' => 'Öffnen',

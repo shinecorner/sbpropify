@@ -25,7 +25,11 @@ return [
     'actions' => 'Azioni',    
     'requests' => [
       'requests_with_service_providers' => 'Con i fornitori di servizi',
-      'request_wihout_service_providers' => 'Senza fornitori di servizi'
+      'request_wihout_service_providers' => 'Senza fornitori di servizi',
+      'property_managers' => 'Gestori',
+      'service_partners' => 'Partner di servizio',
+      'go_to_property_managers' => 'Vai ai gestori immobiliari',
+      'go_to_service_partners' => 'vai ai partner di servizio'      
     ],
     'buildings' => 
     [
@@ -34,14 +38,28 @@ return [
       'occupied_units' => 'Unità occupate',
       'free_units' => 'Unità libere',
       'buildings_by_creation_date' => 'Edifici per data di creazione',
+      'buildings_map' => 'Mappa degli edifici',
+      'latest_buildings' => 'Ultimi edifici',
+      'count_of_managers' => 'Conteggio dei manager',
+      'count_of_tenants' => 'Conteggio degli inquilini',
+      'count_of_requests' => 'Conteggio delle richieste',
+      'go_to_buildings' => 'vai agli edifici',
+      'buildings_by_state' => 'Edifici per stato'
     ],
     'tenants' => 
     [
       'total_tenants' => 'Totale',
       'average_age' => 'Età media',
-      'average_age_acr' => 'Media Età'
+      'average_age_acr' => 'Media Età',
+      'latest_tenants' => 'Ultimi inquilini',
+      'go_to_tenants' => 'andare dagli inquilini'
     ],
     'marketplace' => [
       'go_to_marketplace' => 'vai al mercato'
+    ],
+    'news' => [
+      'latest_news' => 'Ultime notizie',
+      'go_to_news' => 'vai alle notizie',
+      'counts' => 'Conta'
     ]
 ];

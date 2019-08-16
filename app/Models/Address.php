@@ -60,7 +60,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      )
  * )
  */
-class Address extends Model
+class Address extends AuditableModel
 {
     use SoftDeletes;
 
