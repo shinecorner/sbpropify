@@ -77,25 +77,25 @@ return [
           ],
           'withNoId' => [
             'post' => [
-              'created' => '{userName} hat die Anfrage {auditable_type} on {auditable_type} #{auditable_id}.',
+              'created' => '{userName} hat die Anfrage {auditable_type} im {auditable_type} #{auditable_id}.',
               'updated' => [
                   'status' => 'Der Status wurde von "{old}" zu "{new}" im {auditable_type} #{auditable_id} geändert.',
-                  'published_at' => 'Post published on {new} on {auditable_type} #{auditable_id}.'
+                  'published_at' => 'Post published im {new} im {auditable_type} #{auditable_id}.'
                 ]              
               ],
               'product' => [
                 'created' => '{userName} hat dieses Inserat erstellt #{auditable_id}.',
                 'updated' => [
-                  'title' => 'The title changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
-                  'status' => 'The status changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
-                  'due_date' => 'The due date changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
-                  'priority' => 'The priority changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
-                  'category_id' => 'The category changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
-                  'qualification' => 'The qualification changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',
-                  'visibility' => 'The visibility changed from "{old}" to "{new}" on {auditable_type} #{auditable_id}.',  
+                  'title' => 'Der Titel wurde von "{old}" zu "{new}" geändert im {auditable_type} #{auditable_id}.',
+                  'status' => 'Der Status wurde von "{old}" zu "{new}" geändert im {auditable_type} #{auditable_id}.',
+                  'due_date' => 'Das Erledigungsdatum wurde von "{old}" zu "{new}" geändert im {auditable_type} #{auditable_id}.',
+                  'priority' => 'Die Priorität wurde von "{old}" zu "{new}" geändert im {auditable_type} #{auditable_id}.',
+                  'category_id' => 'Die Kategorie wurde von "{old}" zu "{new}" geändert im {auditable_type} #{auditable_id}.',
+                  'qualification' => 'Die Qualifikation wurde von "{old}" zu "{new}" geändert im {auditable_type} #{auditable_id}.',
+                  'visibility' => 'Die Sichtbarkeit wurde von "{old}" zu "{new}" geändert im {auditable_type} #{auditable_id}.',  
                 ],
-                'provider_assigned' => '{providerName} has been assigned as provider on {auditable_type} #{auditable_id}.',
-                'user_assigned' => '{userName} has been assigned as manager on {auditable_type} #{auditable_id}.',
+                'provider_assigned' => '{providerName} has been assigned as provider im {auditable_type} #{auditable_id}.',
+                'user_assigned' => '{userName} has been assigned as manager im {auditable_type} #{auditable_id}.',
                 'media_uploaded' => 'Mediendateien aktualisiert',
                 'media_deleted' => 'Mediendateien gelöscht',
               ],
