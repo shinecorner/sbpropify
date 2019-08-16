@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
+use App\Criteria\Common\WhereCriteria;
+use App\Criteria\Common\WhereInCriteria;
 use App\Criteria\ServiceRequests\FilterByInternalFieldsCriteria;
 use App\Criteria\ServiceRequests\FilterByPermissionsCriteria;
 use App\Criteria\ServiceRequests\FilterByRelatedFieldsCriteria;
@@ -995,5 +997,34 @@ class ServiceRequestAPIController extends AppBaseController
 
         $response = (new TemplateTransformer)->transformCollection($templates);
         return $this->sendResponse($response, 'Service Email Templates retrieved successfully');
+    }
+
+    public function requestsCounts(Request $request)
+    {
+        $requestCount = $this->serviceRequestRepository->count();
+
+        $this->serviceRequestRepository->resetCriteria();
+        $this->serviceRequestRepository->doesntHave('assignees');
+        $notAssignedRequestsCount = $this->serviceRequestRepository->count();
+
+
+        $pendingStatues = [
+            ServiceRequest::StatusReceived,
+            ServiceRequest::StatusInProcessing,
+            ServiceRequest::StatusAssigned,
+            ServiceRequest::StatusReactivated,
+        ];
+
+        $this->serviceRequestRepository->resetCriteria();
+        $this->serviceRequestRepository->pushCriteria(new WhereInCriteria('status', $pendingStatues));
+        $allPendingCount = $this->serviceRequestRepository->count();
+
+        $response = [
+            'all_request_count' => $requestCount,
+            'all_unsigned_request_count' => $notAssignedRequestsCount,
+            'all_pending_request_count' => $allPendingCount
+        ];
+
+        return $this->sendResponse($response, 'Request countes');
     }
 }

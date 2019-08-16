@@ -181,6 +181,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     // Service Requests
     Route::get('/requests', 'ServiceRequestAPIController@index')->name('requests');
+    Route::get('/requestsCounts', 'ServiceRequestAPIController@requestsCounts')->name('requestsCounts');
     Route::get('/requests/statistics', 'StatisticsAPIController@requestsStatistics')->name('requests.statistics');
     Route::get('/requests/{id}', 'ServiceRequestAPIController@show')->name('requests.show');
     Route::post('/requests', 'ServiceRequestAPIController@store')->name('requests.store');
