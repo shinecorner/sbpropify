@@ -523,7 +523,6 @@
 
             const me = await this.axios.get('users/me');
             const roles = me.data.data.roles;
-            console.log(roles);
             const rolename = roles[0].name;
             this.rolename = rolename;
         }
