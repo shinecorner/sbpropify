@@ -330,7 +330,9 @@ class ServiceRequestRepository extends BaseRepository
         $conv->comment($comment);
         foreach ($assignees as $assignee) {
             $conv = $sr->conversationFor($u, $assignee);
-            $conv->comment($comment);
+            if ($conv) {
+                $conv->comment($comment);
+            }
         }
     }
 
