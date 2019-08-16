@@ -282,4 +282,14 @@ class User extends Authenticatable implements LikerContract, Commentator
     {
         return $this->requests()->where('service_requests.status', ServiceRequest::StatusArchived);
     }
+
+    public function pendingRequests()
+    {
+        return $this->requests()->whereIn('service_requests.status', ServiceRequest::PendingStatuses);
+    }
+
+    public function solvedRequests()
+    {
+        return $this->requests()->whereIn('service_requests.status', ServiceRequest::SolvedStatuses);
+    }
 }

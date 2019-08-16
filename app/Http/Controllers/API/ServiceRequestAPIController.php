@@ -1013,12 +1013,7 @@ class ServiceRequestAPIController extends AppBaseController
         $this->serviceRequestRepository->doesntHave('assignees');
         $notAssignedRequestsCount = $this->serviceRequestRepository->count();
 
-        $pendingStatues = [
-            ServiceRequest::StatusReceived,
-            ServiceRequest::StatusInProcessing,
-            ServiceRequest::StatusAssigned,
-            ServiceRequest::StatusReactivated,
-        ];
+        $pendingStatues = ServiceRequest::PendingStatuses;
 
         $this->serviceRequestRepository->resetCriteria();
         $this->serviceRequestRepository->pushCriteria(new WhereInCriteria('status', $pendingStatues));
