@@ -1,10 +1,10 @@
 import {guest} from 'middlewares';
-import Layout from 'layouts/AuthLayout';
-import Login from 'views/Auth/Login';
-import AutoLogin from 'views/Auth/AutoLogin';
-import ForgotPassword from 'views/Auth/ForgotPassword';
-import ResetPassword from 'views/Auth/ResetPassword';
-import ActivateAccount from 'views/Auth/ActivateAccount';
+import Layout from 'layouts/Auth/1/Layout';
+import Login from 'views/Auth/1/Login';
+import AutoLogin from 'views/Auth/1/AutoLogin';
+import ForgotPassword from 'views/Auth/1/ForgotPassword';
+import ResetPassword from 'views/Auth/1/ResetPassword';
+import ActivateAccount from 'views/Auth/1/ActivateAccount';
 
 export default [{
     path: '/',

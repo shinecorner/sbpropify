@@ -39,6 +39,8 @@ class BuildingTransformer extends BaseTransformer
 
             'units_count' => $model->units_count,
             'tenants_count' => 0,
+            'active_tenants_count' => 0,
+            'in_active_tenants_count' => 0,
             'property_managers_count' => 0,
             'requests_count' => 0,
             'requests_received_count' => 0,
@@ -57,9 +59,20 @@ class BuildingTransformer extends BaseTransformer
             $response['district'] = (new DistrictTransformer)->transform($model->district);
         }
 
+        if(! is_null($model->getAttribute('active_tenants_count'))) {
+            $response['active_tenants_count'] = $model->getAttribute('active_tenants_count');
+        }
+
+        if(! is_null($model->getAttribute('in_active_tenants_count'))) {
+            $response['in_active_tenants_count'] = $model->getAttribute('in_active_tenants_count');
+        }
+
+
         if ($model->relationExists('tenants')) {
             $response['tenants'] = (new TenantSimpleTransformer)->transformCollection($model->tenants);
             $response['tenants_last'] = (new TenantSimpleTransformer)->transformCollection($model->lastTenants);
+
+           // @TODO discuss why used this
             if ($model->tenants_count > 2) {
                 $response['tenants_count'] = $model->tenants_count - 2;
             }

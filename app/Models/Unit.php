@@ -157,4 +157,9 @@ class Unit extends Model
     {
         return $this->hasMany(Tenant::class, 'unit_id', 'id');
     }
+
+    public function getSqMeterAttribute($attribute)
+    {
+        return 0 == $attribute ? '' : $attribute;
+    }
 }

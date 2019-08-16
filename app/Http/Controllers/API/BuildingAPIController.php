@@ -139,6 +139,8 @@ class BuildingAPIController extends AppBaseController
                 'units',
                 'propertyManagers',
                 'tenants',
+                'activeTenants',
+                'inActiveTenants',
                 'requests',
                 'requestsReceived',
                 'requestsInProcessing',

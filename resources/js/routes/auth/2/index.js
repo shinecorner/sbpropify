@@ -1,10 +1,10 @@
 import {guest} from 'middlewares';
-import Layout from 'layouts/Auth2Layout';
-import Login from 'views/Auth/Login';
-import AutoLogin from 'views/Auth/AutoLogin';
-import ForgotPassword from 'views/Auth/ForgotPassword';
-import ResetPassword from 'views/Auth/ResetPassword';
-import ActivateAccount from 'views/Auth/ActivateAccount';
+import Layout from 'layouts/Auth/2/Layout';
+import Login from 'views/Auth/2/Login';
+import AutoLogin from 'views/Auth/2/AutoLogin';
+import ForgotPassword from 'views/Auth/2/ForgotPassword';
+import ResetPassword from 'views/Auth/2/ResetPassword';
+import ActivateAccount from 'views/Auth/2/ActivateAccount';
 
 export default [{
     path: '/',
@@ -17,7 +17,6 @@ export default [{
             title: 'Login',
             middleware: guest
         },
-        props: { loginMode: 2 }
     }, {
         path: 'autologin2',
         component: AutoLogin,
@@ -25,7 +24,6 @@ export default [{
         meta: {
             title: 'Auto Login'
         },
-        props: { loginMode: 2 }
     }, {
         path: 'forgot2',
         component: ForgotPassword,
@@ -34,7 +32,6 @@ export default [{
             title: 'Forgot Password',
             middleware: guest
         },
-        props: { loginMode: 2 }
     }, {
         path: 'reset-password2',
         component: ResetPassword,
@@ -43,7 +40,6 @@ export default [{
             title: 'Reset Password',
             middleware: guest
         },
-        props: { loginMode: 2 }
     }, {
         path: 'activate2',
         component: ActivateAccount,
@@ -52,6 +48,5 @@ export default [{
             title: 'Activate Account',
             middleware: guest
         },
-        props: { loginMode: 2 }
     }]
 }];

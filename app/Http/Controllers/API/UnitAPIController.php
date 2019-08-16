@@ -132,6 +132,7 @@ class UnitAPIController extends AppBaseController
     public function store(CreateRequest $request, PostRepository $pr)
     {
         $input = $request->all();
+        $input['sq_meter'] = $input['sq_meter'] ?? 0;
         try {
             $unit = $this->unitRepository->create($input);
         } catch (\Exception $e) {

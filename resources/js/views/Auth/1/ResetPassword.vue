@@ -12,7 +12,7 @@
             </el-button>
         </el-form-item>
         <el-form-item>
-            <router-link :to="{name: `${loginMode == 1? 'login':'login2'}`}" class="w100p">
+            <router-link :to="{name: 'login'}" class="w100p">
                 <el-button class="text-center w100p">{{$t('general.back_to_login')}}</el-button>
             </router-link>
         </el-form-item>
@@ -59,18 +59,13 @@
             }
         },
         props: {
-            loginMode: {
-                type: Number,
-                default: () => {
-                    return 1;
-                }
-            }
+           
         },
         created() {
             const query = this.$route.query;
 
             if (_.isEmpty(query)) {
-                this.$router.push({name: `${loginMode == 1? 'login':'login2'}`});
+                this.$router.push({name: 'login'});
             }
 
             Object.assign(this.resetPassword, query);
@@ -98,7 +93,7 @@
                                 this.loading = true;
                                 this.resetPasswordRequest(this.resetPassword).then((resp) => {
                                     this.loading = false;
-                                    this.$router.push({name: `${loginMode == 1? 'login':'login2'}`});
+                                    this.$router.push({name: 'login'});
                                     displaySuccess(resp);
                                 }).catch((err) => {
                                     this.loading = false;
