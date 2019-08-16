@@ -11,12 +11,28 @@
                             <el-tab-pane :label="$t('models.propertyManager.details_card')" name="details">
                                 <el-row :gutter="20">
                                     <el-col :md="12">
+                                        <el-form-item :label="$t('models.tenant.title')" :rules="validationRules.title"
+                                                    prop="title">
+                                            <el-select style="display: block" v-model="model.title">
+                                                <el-option
+                                                    :key="title"
+                                                    :label="$t(`models.propertyManager.titles.${title}`)"
+                                                    :value="title"
+                                                    v-for="title in titles">
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :md="12">
                                         <el-form-item :label="$t('models.propertyManager.firstName')"
                                                       :rules="validationRules.first_name"
                                                       prop="first_name">
                                             <el-input type="text" v-model="model.first_name"/>
                                         </el-form-item>
                                     </el-col>
+                                </el-row>
+
+                                <el-row :gutter="20">
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.propertyManager.lastName')"
                                                       :rules="validationRules.last_name"
@@ -24,9 +40,6 @@
                                             <el-input type="text" v-model="model.last_name"/>
                                         </el-form-item>
                                     </el-col>
-                                </el-row>
-
-                                <el-row :gutter="20">
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.propertyManager.profession')"
                                                       :rules="validationRules.profession"
@@ -34,15 +47,15 @@
                                             <el-input type="text" v-model="model.profession"/>
                                         </el-form-item>
                                     </el-col>
+                                </el-row>
+
+
+                                <el-row :gutter="20">
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.propertyManager.phone')" prop="user.phone">
                                             <el-input type="text" v-model="model.user.phone"/>
                                         </el-form-item>
                                     </el-col>
-                                </el-row>
-
-
-                                <el-row :gutter="20">
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.propertyManager.email')"
                                                       :rules="validationRules.email"

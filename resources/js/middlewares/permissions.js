@@ -97,5 +97,9 @@ export default {
         provider: 'assign-provider',
         request: 'assign-request',
         manager: 'assign-property_manager',
+    },
+    cleanify_request: {
+        list: 'list-cleanify_request',
+        post: 'post-cleanify_request'
     }
 };
