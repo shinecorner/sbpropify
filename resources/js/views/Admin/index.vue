@@ -60,19 +60,18 @@
                             </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
-                            <el-col :span="16">
+                            <el-col :span="12">
                                 <el-card class="chart-card" :header="$t('dashboard.requests.property_managers')">
                                     <dashboard-managers-list type="property-managers"></dashboard-managers-list>
                                 </el-card>
                             </el-col>
-                        </el-row>
-                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
-                            <el-col :span="16">
+                            <el-col :span="12">
                                 <el-card class="chart-card" :header="$t('dashboard.requests.service_partners')">
                                     <dashboard-services-list type="service-partners"></dashboard-services-list>
                                 </el-card>
                             </el-col>
                         </el-row>
+                     
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.buildings')" name="buildings">
                         <el-row type="flex">

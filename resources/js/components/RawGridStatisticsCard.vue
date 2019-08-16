@@ -2,7 +2,7 @@
     <card>
         <el-row>
             <el-col :span="cols" v-for="(item, index) in data" :key="index">
-                    <i :class="item.icon" :style="{'color': item.color}" />
+                    <!-- <i :class="item.icon" :style="{'color': item.color}" /> -->
                     <h3 :style="{'color': item.color}">
                         {{ item.value }}
                         <small>{{ item.description }}</small>
