@@ -46,7 +46,8 @@
         >
             <template slot-scope="scope">
                 <div>{{scope.row.title}}</div>
-                <div style="color: #909399;">{{scope.row.category.name}}</div>
+                <div class="category" v-if="scope.row.category.parentCategory">{{scope.row.category.parentCategory.name}}</div>
+                <div class="category" v-else>{{scope.row.category.name}}</div>
             </template>
         </el-table-column>
             <el-table-column
@@ -212,6 +213,9 @@
 </script>
 
 <style scoped>
+    .category {
+        color: #909399;
+    }
     .tenant-link {
         display: inline-block;
         text-decoration: none;
