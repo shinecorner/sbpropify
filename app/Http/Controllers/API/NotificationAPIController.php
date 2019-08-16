@@ -74,7 +74,7 @@ class NotificationAPIController extends AppBaseController
      *
      * @SWG\Post(
      *      path="/notifications/{id}",
-     *      summary="Mark a notification as read",
+     *      summary="Mark a notification as read if it is unreaded. If notification is readed mark as unread",
      *      tags={"Notification"},
      *      description="Update notification",
      *      produces={"application/json"},
