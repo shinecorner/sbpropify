@@ -282,14 +282,10 @@ class StatisticsAPIController extends AppBaseController
         }
 
         $tenants = $this->tenantRepo->getTotalTenantsFromBuilding($building->id);
-        $units = $this->unitRepo->getTotalUnitsFromBuilding($building->id);
-
-        $occupiedUnits = 0;
-        $freeUnit = 0;
-        if ($tenants > 0 && $units > 0) {
-            $occupiedUnits = round($tenants * 100 / $units);
-            $freeUnit = round(($units - $tenants) * 100 / $units);
-        }
+        $units = Unit::where('building_id', $id)->count();
+        $occupiedUnitsCount = Unit::where('building_id', $id)->has('tenant')->count();
+        $occupiedUnits = round($occupiedUnitsCount * 100 / $units);
+        $freeUnit = 100 - $occupiedUnits;
 
         $response = [
             'total_tenants' => $this->thousandsFormat($tenants),
@@ -306,15 +302,14 @@ class StatisticsAPIController extends AppBaseController
      */
     protected function allBuildingStatistics()
     {
+        $unitCount = Unit::count();
+        $occupiedUnitsCount = Unit::has('tenant')->count();
+        $occupiedUnits = round($occupiedUnitsCount * 100 / $unitCount);
+        $freeUnit = 100 - $occupiedUnits;
+
+
         $tenantCount = $this->tenantRepo->count();
         $unitCount = $this->unitRepo->count();
-
-        $occupiedUnits = 0;
-        $freeUnit = 0;
-        if ($tenantCount > 0 && $unitCount> 0) {
-            $occupiedUnits = round($tenantCount * 100 / $unitCount);
-            $freeUnit = 100 - $occupiedUnits;
-        }
 
         /**
          * @TODO adjust response for frontend
@@ -329,8 +324,8 @@ class StatisticsAPIController extends AppBaseController
                 'free_units'
             ],
             'data' => [
-                $this->thousandsFormat($tenantCount),
-                $this->thousandsFormat($unitCount - $tenantCount)
+                $this->thousandsFormat($occupiedUnitsCount),
+                $this->thousandsFormat($unitCount - $occupiedUnitsCount)
             ],
             'tag_percentage' => [
                 $occupiedUnits,
