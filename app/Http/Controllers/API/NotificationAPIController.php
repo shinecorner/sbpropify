@@ -108,7 +108,10 @@ class NotificationAPIController extends AppBaseController
             $notification->save();
 
         }
-        return $this->sendResponse($id, 'Notification marked successfully');
+
+        $notification->setRelation('user', $request->user());
+        $response = (new NotificationTransformer)->transform($notification);
+        return $this->sendResponse($response, 'Notification marked successfully');
     }
 
 
