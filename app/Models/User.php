@@ -194,6 +194,14 @@ class User extends Authenticatable implements LikerContract, Commentator
     }
 
     /**
+    * @return \Illuminate\Database\Eloquent\Relations\HasOne
+    **/
+    public function propertyManager()
+    {
+        return $this->hasOne(PropertyManager::class);
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      **/
     public function serviceProvider()

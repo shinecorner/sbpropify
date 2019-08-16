@@ -999,6 +999,7 @@ class ServiceRequestAPIController extends AppBaseController
         return $this->sendResponse($response, 'Service Email Templates retrieved successfully');
     }
 
+    // @TODO permission
     public function requestsCounts(Request $request)
     {
         $requestCount = $this->serviceRequestRepository->count();
@@ -1006,7 +1007,6 @@ class ServiceRequestAPIController extends AppBaseController
         $this->serviceRequestRepository->resetCriteria();
         $this->serviceRequestRepository->doesntHave('assignees');
         $notAssignedRequestsCount = $this->serviceRequestRepository->count();
-
 
         $pendingStatues = [
             ServiceRequest::StatusReceived,
@@ -1024,6 +1024,24 @@ class ServiceRequestAPIController extends AppBaseController
             'all_unsigned_request_count' => $notAssignedRequestsCount,
             'all_pending_request_count' => $allPendingCount
         ];
+
+        $user = $request->user();
+        if ($user->propertyManager()->exists()) {
+
+            $this->serviceRequestRepository->resetCriteria();
+            $this->serviceRequestRepository->whereHas('assignees', function ($q) use ($user) {
+                $q->where('id', $user->id);
+            });
+            $response['my_request_count'] = $this->serviceRequestRepository->count();
+
+
+            $this->serviceRequestRepository->resetCriteria();
+            $this->serviceRequestRepository->whereHas('assignees', function ($q) use ($user) {
+                $q->where('id', $user->id);
+            });
+            $this->serviceRequestRepository->pushCriteria(new WhereInCriteria('status', $pendingStatues));
+            $response['my_pending_request_count'] = $this->serviceRequestRepository->count();
+        }
 
         return $this->sendResponse($response, 'Request countes');
     }
