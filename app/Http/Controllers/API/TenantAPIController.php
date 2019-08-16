@@ -21,7 +21,6 @@ use App\Http\Requests\API\Tenant\UpdateLoggedInRequest;
 use App\Http\Requests\API\Tenant\UpdateRequest;
 use App\Http\Requests\API\Tenant\UpdateStatusRequest;
 use App\Mails\SendTenantCredentials;
-use App\Models\Building;
 use App\Models\RealEstate;
 use App\Models\Tenant;
 use App\Models\User;
@@ -377,33 +376,9 @@ class TenantAPIController extends AppBaseController
         }
 
         $user->tenant->load('user', 'building', 'unit', 'address', 'media');
-
-        $tenant = $user->tenant;
-
-        if ($tenant) {
-            $tenant->contact_enable = (bool) $this->getTenantContactEnable($tenant);
-        }
         $response = (new TenantTransformer)->transform($user->tenant);
 
         return $this->sendResponse($response, 'Tenant retrieved successfully');
-    }
-
-    /**
-     * @param $tenant
-     * @return bool
-     */
-    protected function getTenantContactEnable($tenant)
-    {
-        $default = true;
-        $building = $tenant->building;
-
-        if ( ! $building || Building::ContactEnablesBasedRealEstate == $building->contact_enable) {
-            $re = RealEstate::first('contact_enable');
-            return $re->contact_enable ?? $default;
-        }
-
-
-        return Building::ContactEnablesShow == $building->contact_enable;
     }
 
     /**

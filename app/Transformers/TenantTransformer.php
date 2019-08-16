@@ -37,7 +37,6 @@ class TenantTransformer extends BaseTransformer
             'work_phone' => $model->work_phone,
             'status' => $model->status,
             'tenant_format' => $model->tenant_format,
-            'contact_enable' => $model->contact_enable
         ];
 
         if ($model->relationExists('settings')) {
@@ -50,7 +49,6 @@ class TenantTransformer extends BaseTransformer
 
         if ($model->relationExists('building')) {
             $response['building'] = (new BuildingTransformer)->transform($model->building);
-
         }
 
         if ($model->relationExists('unit')) {
