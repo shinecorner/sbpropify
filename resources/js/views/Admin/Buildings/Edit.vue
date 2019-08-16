@@ -523,11 +523,8 @@
                     const resp = await this.batchAssignUsersToBuilding({
                         id: this.model.id,
                         managersIds: this.toAssign
-                    });
-                    displaySuccess({
-                        success: true,
-                        message: this.$t('models.building.managers_assigned')
-                    });
+                    });                    
+                    displaySuccess(resp);
                     this.resetToAssignList();
                     this.$refs.propertyManagersList.fetch();
                 } catch (e) {
