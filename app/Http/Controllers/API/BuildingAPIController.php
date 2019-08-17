@@ -374,7 +374,7 @@ class BuildingAPIController extends AppBaseController
         /** @var Building $building */
         $building = $this->buildingRepository->findWithoutFail($id);
         if (empty($building)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.building.errors.not_found'));
         }
 
         $building->load('address.state', 'serviceProviders', 'tenants.user',
@@ -438,7 +438,7 @@ class BuildingAPIController extends AppBaseController
         /** @var Building $building */
         $building = $this->buildingRepository->findWithoutFail($id);
         if (empty($building)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.building.errors.not_found'));
         }
 
         $input = $request->only((new Building)->getFillable());
@@ -521,7 +521,7 @@ class BuildingAPIController extends AppBaseController
         /** @var Building $building */
         $building = $this->buildingRepository->findWithoutFail($id);
         if (empty($building)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.building.errors.not_found'));
         }
 
         try {
@@ -538,7 +538,7 @@ class BuildingAPIController extends AppBaseController
         /** @var Building $building */        
         $buildings = $this->buildingRepository->findWithoutFail($request->get('ids'));
         if (empty($buildings)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.building.errors.not_found'));
         }        
         
         try {
@@ -566,7 +566,7 @@ class BuildingAPIController extends AppBaseController
     {
         $buildings = $this->buildingRepository->findWithoutFail($request->get('ids'));
         if (empty($buildings)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.building.errors.not_found'));
         }
 
         try {            
@@ -643,7 +643,7 @@ class BuildingAPIController extends AppBaseController
         /** @var Building $building */
         $building = $this->buildingRepository->findWithoutFail($id);
         if (empty($building)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.building.errors.not_found'));
         }
 
         try {
@@ -692,7 +692,7 @@ class BuildingAPIController extends AppBaseController
         /** @var Building $building */
         $building = $this->buildingRepository->findWithoutFail($id);
         if (empty($building)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.building.errors.not_found'));
         }
 
         $managersIds = $request->get('managersIds');
@@ -747,7 +747,7 @@ class BuildingAPIController extends AppBaseController
     {
         $building = $this->buildingRepository->findWithoutFail($building_id);
         if (empty($building)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.building.errors.not_found'));
         }
 
         $propertyManager = $this->propertyManagerRepository->findWithoutFail($manager_id);
