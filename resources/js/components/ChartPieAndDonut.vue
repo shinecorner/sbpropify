@@ -49,7 +49,23 @@ export default {
   computed:{
     chartOptions: function(){
         let responsive = [];
-        if (this.colNum == 2) {
+        if(this.colNum == 1) {
+            responsive = [{
+                breakpoint: 1900,
+                options: {
+                    chart: {
+                        width: 800,
+                    },
+                    plotOptions: {
+                        offsetX: 400
+                    },
+                    legend: {
+                        width: '100%',
+                        position: 'bottom'
+                    }
+                }
+            }]
+        } else if (this.colNum == 2) {
             responsive = [{
                 breakpoint: 1300,
                 options: {

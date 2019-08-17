@@ -60,19 +60,18 @@
                             </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
-                            <el-col :span="16">
+                            <el-col :span="12">
                                 <el-card class="chart-card" :header="$t('dashboard.requests.property_managers')">
                                     <dashboard-managers-list type="property-managers"></dashboard-managers-list>
                                 </el-card>
                             </el-col>
-                        </el-row>
-                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
-                            <el-col :span="16">
+                            <el-col :span="12">
                                 <el-card class="chart-card" :header="$t('dashboard.requests.service_partners')">
                                     <dashboard-services-list type="service-partners"></dashboard-services-list>
                                 </el-card>
                             </el-col>
                         </el-row>
+                     
                     </el-tab-pane>
                     <el-tab-pane :label="$t('menu.buildings')" name="buildings">
                         <el-row type="flex">
@@ -102,7 +101,7 @@
                             </el-col>
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.buildings.buildings_by_state')">
-                                    <chart-pie-and-donut type="buildings_by_state" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="buildings_by_state" :cented="true" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -191,25 +190,24 @@
                                 <el-card class="chart-card" :header="$t('dashboard.tenants.latest_tenants')">
                                     <dashboard-latest-tenants type="tenants"></dashboard-latest-tenants>
                                 </el-card>
+                                <el-row style="margin-top: 24px" :gutter="20" tyle="flex">
+                                    <el-col :span="12">
+                                        <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_title')">
+                                            <chart-pie-and-donut type="tenants_by_title" :colNum="3" :startDate="startDates.tenants" :centered="true"></chart-pie-and-donut>
+                                        </el-card>
+                                    </el-col>
+                                    <el-col :span="12">
+                                        <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_gender')">
+                                            <chart-tenants-by-gender type="tenants_by_gender" :startDate="startDates.tenants"></chart-tenants-by-gender>
+                                        </el-card>
+                                    </el-col>
+                                </el-row>
                             </el-col>
                              <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_device')">
                                     <chart-users-by-device type="tenants_by_device" :colNum="3" :startDate="startDates.tenants"></chart-users-by-device>
                                 </el-card>
                             </el-col>
-                        </el-row>
-                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
-                            <el-col :span="8">
-                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_title')">
-                                    <chart-pie-and-donut type="tenants_by_title" :colNum="3" :startDate="startDates.tenants" :centered="true"></chart-pie-and-donut>
-                                </el-card>
-                            </el-col>
-                            <el-col :span="8">
-                                <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_gender')">
-                                    <chart-tenants-by-gender type="tenants_by_gender" :startDate="startDates.tenants"></chart-tenants-by-gender>
-                                </el-card>
-                            </el-col>
-                           
                         </el-row>
                      
                     </el-tab-pane>
