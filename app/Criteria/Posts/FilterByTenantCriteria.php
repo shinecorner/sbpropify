@@ -36,11 +36,19 @@ class FilterByTenantCriteria implements CriteriaInterface
     public function apply($model, RepositoryInterface $repository)
     {
         $tenant_id = $this->request->get('tenant_id', null);
+
+        $createdByTenant = $this->request->get('createdby_tenant', false);
+        if ($createdByTenant) {
+            $model = $model->whereHas('user', function ($q) {
+                $q->has('tenant');
+            });
+        }
+
         if (!$tenant_id) {
             return $model;
         }
-
-        $model->where('id', $tenant_id);
+        // @TODO discuss
+        $model = $model->where('id', $tenant_id);
         return $model;
     }
 }
