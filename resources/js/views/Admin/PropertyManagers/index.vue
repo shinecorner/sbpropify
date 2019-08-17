@@ -21,6 +21,7 @@
             :header="header"
             :items="items"
             :loading="{state: loading}"
+            :isLoadingFilters="{state: isLoadingFilters}"
             :pagination="{total, currPage, currSize}"
             :withSearch="false"
             @selectionChanged="selectionChanged"
@@ -132,28 +133,26 @@
         },
         computed: {
             filters() {
-                if(this.loading == true || this.isLoadingFilters == false) {
-                    return [
-                        {
-                            name: this.$t('filters.search'),
-                            type: 'text',
-                            icon: 'el-icon-search',
-                            key: 'search'
-                        },
-                        {
-                            name: this.$t('filters.districts'),
-                            type: 'select',
-                            key: 'district_id',
-                            data: this.districts,
-                        },
-                        {
-                            name: this.$t('filters.buildings'),
-                            type: 'select',
-                            key: 'building_id',
-                            data: this.buildings,
-                        }
-                    ]
-                }
+                return [
+                    {
+                        name: this.$t('filters.search'),
+                        type: 'text',
+                        icon: 'el-icon-search',
+                        key: 'search'
+                    },
+                    {
+                        name: this.$t('filters.districts'),
+                        type: 'select',
+                        key: 'district_id',
+                        data: this.districts,
+                    },
+                    {
+                        name: this.$t('filters.buildings'),
+                        type: 'select',
+                        key: 'building_id',
+                        data: this.buildings,
+                    }
+                ];
             }
         },
         methods: {

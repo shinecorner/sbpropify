@@ -17,10 +17,10 @@
                      class="mb30 filters-card"
                      shadow="never"
                      v-if="this.filters.length"
-                     :element-loading-background="loading.background"
-                     :element-loading-spinner="loading.icon"
-                     :element-loading-text="loading.text"
-                     v-loading="loading.state"
+                    :element-loading-background="loading.background"
+                    :element-loading-spinner="loading.icon"
+                    :element-loading-text="loading.text"
+                    v-loading="isLoadingFilters.state"
             >
                 <el-row :gutter="10">
                     <el-col :key="key" :span="filterColSize" v-for="(filter, key) in filters">
@@ -290,6 +290,15 @@
                 default: () => ({})
             },
             loading: {
+                type: Object,
+                default: () => ({
+                    state: false,
+                    text: 'Loading...',
+                    icon: 'el-icon-loading',
+                    background: 'rgba(0, 0, 0, 0.8)'
+                })
+            },
+            isLoadingFilters: {
                 type: Object,
                 default: () => ({
                     state: false,

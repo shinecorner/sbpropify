@@ -26,7 +26,7 @@
             :header="header"
             :items="items"
             :loading="{state: loading}"
-            :isLoadingFilters="isLoadingFilters"
+            :isLoadingFilters="{state: isLoadingFilters}"
             :pagination="{total, currPage, currSize}"
             :withSearch="false"
             @selectionChanged="selectionChanged"
@@ -217,8 +217,7 @@
                 }
             }),
             filters() {
-                if(this.loading == true || this.isLoadingFilters == false) {
-                     return [
+                return [
                     {
                         name: this.$t('filters.search'),
                         type: 'text',
@@ -253,7 +252,6 @@
                         data: this.prepareFilters("status")
                     }
                 ];
-                }
             },
             
         },

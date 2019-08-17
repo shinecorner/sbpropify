@@ -19,6 +19,7 @@
                 :header="header"
                 :items="items"
                 :loading="{state: loading}"
+                :isLoadingFilters="{state: isLoadingFilters}"
                 :pagination="{total, currPage, currSize}"
                 :withSearch="false"
                 @selectionChanged="selectionChanged"
@@ -215,46 +216,44 @@
                 }
             }),
             filters() {
-                if(this.loading == true || this.isLoadingFilters == false) {
-                    return [
-                        {
-                            name: this.$t('filters.search'),
-                            type: 'text',
-                            icon: 'el-icon-search',
-                            key: 'search'
-                        }, {
-                            name: this.$t('filters.states'),
-                            type: 'select',
-                            key: 'state_id',
-                            data: this.states,
-                        }, {
-                            name: this.$t('filters.buildings'),
-                            type: 'select',
-                            key: 'building_id',
-                            data: this.buildings,
-                        }, {
-                            name: this.$t('filters.units'),
-                            type: 'select',
-                            key: 'unit_id',
-                            data: this.units,
-                        }, {
-                            name: this.$t('filters.districts'),
-                            type: 'select',
-                            key: 'district_id',
-                            data: this.districts,
-                        }, {
-                            name: this.$t('filters.requestStatus'),
-                            type: 'select',
-                            key: 'request_status',
-                            data: this.prepareRequestFilters("status")
-                        }, {
-                            name: this.$t('filters.status'),
-                            type: 'select',
-                            key: 'status',
-                            data: this.prepareFilters('status'),
-                        },
-                    ]
-                }
+                return [
+                    {
+                        name: this.$t('filters.search'),
+                        type: 'text',
+                        icon: 'el-icon-search',
+                        key: 'search'
+                    }, {
+                        name: this.$t('filters.states'),
+                        type: 'select',
+                        key: 'state_id',
+                        data: this.states,
+                    }, {
+                        name: this.$t('filters.buildings'),
+                        type: 'select',
+                        key: 'building_id',
+                        data: this.buildings,
+                    }, {
+                        name: this.$t('filters.units'),
+                        type: 'select',
+                        key: 'unit_id',
+                        data: this.units,
+                    }, {
+                        name: this.$t('filters.districts'),
+                        type: 'select',
+                        key: 'district_id',
+                        data: this.districts,
+                    }, {
+                        name: this.$t('filters.requestStatus'),
+                        type: 'select',
+                        key: 'request_status',
+                        data: this.prepareRequestFilters("status")
+                    }, {
+                        name: this.$t('filters.status'),
+                        type: 'select',
+                        key: 'status',
+                        data: this.prepareFilters('status'),
+                    },
+                ]
             }
         }
     };
