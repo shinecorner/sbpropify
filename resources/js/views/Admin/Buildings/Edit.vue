@@ -239,7 +239,7 @@
                         />
                     </el-tab-pane>
                 </el-tabs>
-                <raw-grid-statistics-card :data="statistics.raw"/>
+                <raw-grid-statistics-card :cols="8" :data="statistics.raw"/>
                 <el-row :gutter="15" type="flex">
                     <el-col :span="12">
                         <circular-progress-statistics-card

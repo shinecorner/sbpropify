@@ -1,12 +1,15 @@
 <template>
     <card>
         <el-row>
-            <el-col :span="cols" v-for="(item, index) in data" :key="index">
-                    <!-- <i :class="item.icon" :style="{'color': item.color}" /> -->
-                    <h3 :style="{'color': item.color}">
-                        {{ item.value }}
-                        <small>{{ item.description }}</small>
+            <el-col :span="cols" v-for="(item, index) in data" :key="index" :class="{'item-border': ((index/3)+3)<data.length}">
+                <!-- <i :class="item.icon" :style="{'color': item.color}" /> -->
+                <div class="item">
+                    <h3 >
+                        {{ item.description }}
+                        <small :style="{'color': item.color}">{{ item.value }}</small>
                     </h3>
+                </div>
+                    
             </el-col>
         </el-row>
     </card>
@@ -42,11 +45,13 @@
                 margin-bottom: -2px;
                 margin-right: -2px;
                 border: 1px darken(#fff, 4%) solid;
+                .item-border {
+                    border-bottom: 1px darken(#fff, 15%) solid;
+                }
                 .el-col {
                     position: relative;
-                    border-right: 1px darken(#fff, 4%) solid;
-                    border-bottom: 1px darken(#fff, 4%) solid;
-                    padding: 1em;
+                    padding-top: 1em;
+                    padding-bottom: 1em;
                     text-align: center;
                     display: flex;
                     align-items: center;
@@ -60,15 +65,20 @@
                         width: 40px;
                         height: 40px;
                     }
-                    h3 {
-                        margin: 0;
-                        font-size: 1.8em;
-                        small {
-                            font-size: 40%;
-                            font-weight: normal;
-                            display: block;
-                            text-transform: uppercase;
+                    .item {
+                        width: 100%;
+                        border-right: 1px darken(#fff, 15%) solid;
+                        h3 {
+                            margin: 0;
+                            font-size: 1em;
+                            font-weight: medium;
                             color: darken(#fff, 24%);
+                            small {
+                                font-size: 1.5em;
+                                font-weight: bold;
+                                display: block;
+                                text-transform: uppercase;
+                            }
                         }
                     }
                 }
