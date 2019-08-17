@@ -36,14 +36,14 @@ return [
         'content' => [
           'withId' => [
             'post' => [
-              'created' => '{userName} hat diesen Beitrag erstellt.',
+              'created' => '{userName} hat dieses Beitrag erstellt.',
               'updated' => [
                   'status' => 'Der Status wurde von "{old}" zu "{new}" geändert.',
                   'published_at' => 'Beitrag wurde veröffentlicht am {new}.'
                 ]              
               ],
               'product' => [
-                'created' => '{userName} opened this {auditable_type}.',
+                'created' => '{userName} dieses {auditable_type} erstellt.',
                 'updated' => [
                   'title' => 'Der Titel wurde von "{old}" zu "{new}" geändert.',
                   'status' => 'Der Status wurde von "{old}" zu "{new}" geändert.',

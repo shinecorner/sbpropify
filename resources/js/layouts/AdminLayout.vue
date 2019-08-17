@@ -149,7 +149,7 @@
                         }, {
                             icon: 'icon-chat-empty',
                             title: this.$t('menu.requests'),
-                            permission: this.$permissions.list.user,
+                            permission: this.$permissions.list.cleanify_request,
                             children: [{
                                 title: this.$t('menu.all_requests'),
                                 permission: this.$permissions.list.request,
@@ -281,14 +281,14 @@
                                 }
                             },  {
                                 title: this.$t('layouts.tenant.sidebar.myRequests'),
-                                permission: this.$permissions.list.audit,
+                                permission: this.$permissions.cleanify_request.list,
                                 value: 1,
                                 route: {
                                     name: ''
                                 }
                             },  {
                                 title: this.$t('layouts.tenant.sidebar.myPendingRequests'),
-                                permission: this.$permissions.list.audit,
+                                permission: this.$permissions.cleanify_request.list,
                                 value: 3,
                                 route: {
                                     name: ''

@@ -17,14 +17,14 @@ return [
     //Request
     'request_status_1' => 'Erhalten',
     'request_status_2' => 'In Bearbeitung',
-    'request_status_3' => 'Anvisiert',
+    'request_status_3' => 'Avisiert',
     'request_status_4' => 'Erledigt',
     'request_status_5' => 'Reaktiviert',
     'request_status_6' => 'Archiviert',
 
     'originalRequest_status_1' => 'Erhalten',
     'originalRequest_status_2' => 'In Bearbeitung',
-    'originalRequest_status_3' => 'Anvisiert',
+    'originalRequest_status_3' => 'Avisiert',
     'originalRequest_status_4' => 'Erledigt',
     'originalRequest_status_5' => 'Reaktiviert',
     'originalRequest_status_6' => 'Archiviert',
