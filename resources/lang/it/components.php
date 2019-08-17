@@ -185,8 +185,8 @@ return [
         'minTemp' => 'min',
         'maxTemp' => 'massimo',
         'wind' => 'eolico',
-        'cloudiness' => 'nebulosità',
-        'humidity' => 'umidità',
+        'cloudiness' => 'nebulosit',
+        'humidity' => 'umidit',
         'pressure' => 'pressione',
       ],
       'postAdd' => 

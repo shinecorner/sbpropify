@@ -20,6 +20,7 @@
             :header="header"
             :items="formattedItems"
             :loading="{state: loading}"
+            :isLoadingFilters="{state: isLoadingFilters}"
             :pagination="{total, currPage, currSize}"
             :withSearch="false"
             @selectionChanged="selectionChanged"
@@ -142,48 +143,46 @@
                 });
             },
             filters() {
-                if(this.loading == true || this.isLoadingFilters == false) {
-                    return [
-                        {
-                            name: this.$t('filters.search'),
-                            type: 'text',
-                            icon: 'el-icon-search',
-                            key: 'search'
-                        },
-                        {
-                            name: this.$t('models.post.status.label'),
-                            type: 'select',
-                            key: 'status',
-                            data: this.prepareFilters("status"),
-                        },
-                        {
-                            name: this.$t('models.post.type.label'),
-                            type: 'select',
-                            key: 'type',
-                            data: this.prepareFilters("type"),
-                        },
-                        {
-                            name: this.$t('filters.districts'),
-                            type: 'select',
-                            key: 'district_id',
-                            data: this.districts,
-                        },
-                        {
-                            name: this.$t('filters.buildings'),
-                            type: 'select',
-                            key: 'building_id',
-                            data: this.buildings,
-                        },
-                        {
-                            name: this.$t('filters.tenant'),
-                            type: 'remote-select',
-                            key: 'tenant_id',
-                            data: this.tenants,
-                            remoteLoading: false,
-                            fetch: this.fetchRemoteTenants
-                        },
-                    ]
-                }
+                return [
+                    {
+                        name: this.$t('filters.search'),
+                        type: 'text',
+                        icon: 'el-icon-search',
+                        key: 'search'
+                    },
+                    {
+                        name: this.$t('models.post.status.label'),
+                        type: 'select',
+                        key: 'status',
+                        data: this.prepareFilters("status"),
+                    },
+                    {
+                        name: this.$t('models.post.type.label'),
+                        type: 'select',
+                        key: 'type',
+                        data: this.prepareFilters("type"),
+                    },
+                    {
+                        name: this.$t('filters.districts'),
+                        type: 'select',
+                        key: 'district_id',
+                        data: this.districts,
+                    },
+                    {
+                        name: this.$t('filters.buildings'),
+                        type: 'select',
+                        key: 'building_id',
+                        data: this.buildings,
+                    },
+                    {
+                        name: this.$t('filters.tenant'),
+                        type: 'remote-select',
+                        key: 'tenant_id',
+                        data: this.tenants,
+                        remoteLoading: false,
+                        fetch: this.fetchRemoteTenants
+                    },
+                ];
             }
         },
         methods: {
