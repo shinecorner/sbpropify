@@ -17,6 +17,10 @@
                      class="mb30 filters-card"
                      shadow="never"
                      v-if="this.filters.length"
+                     :element-loading-background="loading.background"
+                     :element-loading-spinner="loading.icon"
+                     :element-loading-text="loading.text"
+                     v-loading="loading.state"
             >
                 <el-row :gutter="10">
                     <el-col :key="key" :span="filterColSize" v-for="(filter, key) in filters">
@@ -775,10 +779,15 @@
                 td:last-child {
                     .cell {
                         padding-left: 0px !important;
+                        text-align: right;
                     }
                 }
             }
         }
+    }
+
+    .el-button--danger {
+        margin-left: 5px !important;
     }
 
     .el-table__body {

@@ -69,6 +69,10 @@ export default (config = {}) => {
                         type: 'url',
                         message: 'This field should be valid url'
                     }],
+                    title: [{
+                        required: true,
+                        message: this.$t('models.tenant.validation.title.required')
+                    }]
                 },
                 loading: {
                     state: false,

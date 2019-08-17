@@ -165,7 +165,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::delete('/comments/{id}', 'CommentAPIController@destroyComment')->name('comments.destroy');
     Route::get('/notifications', 'NotificationAPIController@index')->name('notifications');
     Route::post('/notifications', 'NotificationAPIController@markAllAsRead')->name('notifications.markAll');
-    Route::post('/notifications/{id}', 'NotificationAPIController@markAsRead')->name('notifications.mark');
+    Route::post('/notifications/{id}', 'NotificationAPIController@markAsReadUnRead')->name('notifications.mark');
     Route::get('/conversations', 'ConversationAPIController@show');
     Route::post('/conversations/{id}/comments', 'ConversationAPIController@storeComment');
 

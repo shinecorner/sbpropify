@@ -1221,6 +1221,20 @@
                 "produces": [
                     "application/json"
                 ],
+                "parameters": [
+                    {
+                        "name": "get_all",
+                        "in": "query",
+                        "description": "Get all InternalNotices. if no pass it must be return paginated",
+                        "type": "string"
+                    },
+                    {
+                        "name": "request_id",
+                        "in": "query",
+                        "description": "Get only request related InternalNotices",
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation",
@@ -1918,7 +1932,7 @@
                 "tags": [
                     "Notification"
                 ],
-                "summary": "Mark a notification as read",
+                "summary": "Mark a notification as read/unread",
                 "description": "Update notification",
                 "produces": [
                     "application/json"
@@ -6406,7 +6420,7 @@
             }
         },
         "/tenants/activateTenant": {
-            "put": {
+            "post": {
                 "tags": [
                     "Tenant"
                 ],

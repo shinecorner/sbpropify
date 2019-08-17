@@ -25,7 +25,11 @@ return  [
     'actions' => 'Actions',
     'requests' => [
       'requests_with_service_providers' => 'Avec les fournisseurs de services',
-      'request_wihout_service_providers' => 'Sans fournisseurs de services'
+      'request_wihout_service_providers' => 'Sans fournisseurs de services',
+      'property_managers' => 'Gestionnaires immobiliers',
+      'service_partners' => 'Partenaires de service',
+      'go_to_property_managers' => 'Aller aux gestionnaires immobiliers',
+      'go_to_service_partners' => 'Aller aux partenaires de service'
     ],
     'buildings' => 
     [
@@ -34,14 +38,28 @@ return  [
       'occupied_units' => 'Unités occupées',
       'free_units' => 'Unités gratuites',
       'buildings_by_creation_date' => 'Bâtiments par date de création',
+      'buildings_map' => 'Carte des bâtiments',
+      'latest_buildings' => 'Derniers bâtiments',
+      'count_of_managers' => 'Nombre de gestionnaires',
+      'count_of_tenants' => 'Nombre de locataires',
+      'count_of_requests' => 'Nombre de demandes',
+      'go_to_buildings' => 'Aller aux bâtiments',
+      'buildings_by_state' => 'Immeubles par état'
     ],
     'tenants' => 
     [
       'total_tenants' => 'Nombre total',
       'average_age' => 'Âge moyen',
-      'average_age_acr' => 'Moy. Âge'
+      'average_age_acr' => 'Moy. Âge',
+      'latest_tenants' => 'Derniers locataires',
+      'go_to_tenants' => 'Aller aux locataires  '
     ],
     'marketplace' => [
       'go_to_marketplace' => 'Aller au marché'
+    ],
+    'news' => [
+      'latest_news' => 'Dernières nouvelles',
+      'go_to_news' => 'Aller aux actualités',
+      'counts' => 'Comptants'
     ]
 ];

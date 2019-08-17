@@ -70,7 +70,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *      )
  * )
  */
-class Building extends Model implements HasMedia
+class Building extends AuditableModel implements HasMedia
 {
     use SoftDeletes, HasMediaTrait, UniqueIDFormat;
 

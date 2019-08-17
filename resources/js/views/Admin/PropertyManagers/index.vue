@@ -132,7 +132,7 @@
         },
         computed: {
             filters() {
-                if(this.isLoadingFilters == false) {
+                if(this.loading == true || this.isLoadingFilters == false) {
                     return [
                         {
                             name: this.$t('filters.search'),

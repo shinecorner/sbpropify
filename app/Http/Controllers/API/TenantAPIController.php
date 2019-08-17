@@ -196,6 +196,7 @@ class TenantAPIController extends AppBaseController
             'limit' => $limit,
         ]);
         $this->tenantRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $this->tenantRepository->pushCriteria(new RequestCriteria($request));
         $tenants = $this->tenantRepository->with('address:id,street,street_nr')->get(['id', 'address_id', 'first_name', 'last_name', 'status', 'created_at']);
         $this->fixCreatedBy($tenants);
         return $this->sendResponse($tenants->toArray(), 'Tenants retrieved successfully');

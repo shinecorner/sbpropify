@@ -223,7 +223,7 @@ class BuildingAPIController extends AppBaseController
     {
         $limit = $request->get('limit', 5);
         $model = $this->buildingRepository->getModel();
-        $buildings = $model->select(['id', 'name'])->limit($limit)->withCount([
+        $buildings = $model->select(['id', 'name'])->orderByDesc('id')->limit($limit)->withCount([
             'units',
             'tenants',
         ])->get();
@@ -383,12 +383,6 @@ class BuildingAPIController extends AppBaseController
         $response = (new BuildingTransformer)->transform($building);
         $response['media_category'] = Building::BuildingMediaCategories;
 
-        $contactEnableList = Building::BuildingContactEnables;
-        $realEstate = RealEstate::first('contact_enable');
-        $dynamic = ($realEstate && $realEstate->contact_enable) ? 'Show': 'Hide';
-        $contactEnableList[Building::ContactEnablesBasedRealEstate] = sprintf('Use Global (%s)', $dynamic);
-        $response['contact_enable_list'] = $contactEnableList;
-
         return $this->sendResponse($response, 'Building retrieved successfully');
     }
 
@@ -457,11 +451,23 @@ class BuildingAPIController extends AppBaseController
                 return $this->sendError($validator->errors());
             }
             $address = $this->addressRepository->update($addressInput, $building->address_id);
-            if ($address->getChanges()) {
+
+            $locationRelated = ['street', 'street_nr', 'zip', 'city'];
+            $changes = array_keys($address->getChanges());
+            if (array_intersect($locationRelated, $changes)) {
+
                 $geoData = $this->getGeoDataByAddress($address);
                 $input = array_merge($input, $geoData);
             }
             $input['address_id'] = $address->id;
+        }
+
+        if (isset($input['latitude']) && $input['latitude'] == $building->latitude) {
+            unset($input['latitude']);
+        }
+
+        if (isset($input['longitude']) && $input['longitude'] == $building->latitude) {
+            unset($input['longitude']);
         }
 
         $building = $this->buildingRepository->update($input, $id);
