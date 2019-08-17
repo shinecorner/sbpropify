@@ -5,7 +5,7 @@ return [
     "tenancy_details" => "Mietdetails",
     "unit" => "Einheit",
     "floor" => "Boden",
-    "building" => "Gebäude",
+    "building" => "Liegenschaft",
     "address" => "Adresse",
     "rent_start" => "Mietbeginn",
     "login_credentials" => "Login-Daten",
@@ -14,7 +14,7 @@ return [
     "password" => "Passwort",
     "url" => "URL",
     "code" => "Code",
-    "no_posts" => "Bisland keine Beiträge veröffentlicht.",
+    "no_posts" => "Bislang keine BeitrÃ¤ge verÃ¶ffentlicht.",
     "no_requests" => "Bisland keine Anfragen gestellt.",
-    "no_listings" => "Bisland kein eInserate veröffentlicht.",
+    "no_listings" => "Bislang keine Inserate verÃ¶ffentlicht.",
 ];

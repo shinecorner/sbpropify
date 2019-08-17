@@ -17,10 +17,10 @@
                      class="mb30 filters-card"
                      shadow="never"
                      v-if="this.filters.length"
-                     :element-loading-background="loading.background"
-                     :element-loading-spinner="loading.icon"
-                     :element-loading-text="loading.text"
-                     v-loading="loading.state"
+                    :element-loading-background="loading.background"
+                    :element-loading-spinner="loading.icon"
+                    :element-loading-text="loading.text"
+                    v-loading="isLoadingFilters.state"
             >
                 <el-row :gutter="10">
                     <el-col :key="key" :span="filterColSize" v-for="(filter, key) in filters">
@@ -177,22 +177,7 @@
                 :width="column.width"
                 v-for="(column, key) in headerWithCounts">
                 <template slot-scope="scope">
-                    <div class="avatars-wrapper square-avatars">
-                        <span v-for="(count, index) in column.counts" v-if="scope.row[count.prop]">
-                            <el-tooltip
-                                :content="`${count.label}: ${scope.row[count.prop]}`"
-                                class="item"
-                                effect="light" placement="top">
-                                <avatar :background-color="count.background"
-                                    :color="count.color"
-                                    :initials="`${scope.row[count.prop]}`"
-                                    :size="30"
-                                    :style="{'z-index': (800 - index)}"
-                                    :username="`${scope.row[count.prop]}`"
-                                    v-if="scope.row[count.prop]"></avatar>
-                            </el-tooltip>
-                        </span>
-                    </div>
+                    <request-count :countsData="items[scope.$index]" :counts="column.counts"></request-count>
                 </template>
             </el-table-column>
             <el-table-column
@@ -275,11 +260,13 @@
     // TODO - add transition to do things smoothly
     import {Avatar} from 'vue-avatar'
     import uuid from 'uuid/v1'
+    import RequestCount from 'components/RequestCount.vue'
 
     export default {
         name: 'ListTable',
         components: {
-            Avatar
+            Avatar,
+            RequestCount
         },
         props: {
             header: {
@@ -303,6 +290,15 @@
                 default: () => ({})
             },
             loading: {
+                type: Object,
+                default: () => ({
+                    state: false,
+                    text: 'Loading...',
+                    icon: 'el-icon-loading',
+                    background: 'rgba(0, 0, 0, 0.8)'
+                })
+            },
+            isLoadingFilters: {
                 type: Object,
                 default: () => ({
                     state: false,

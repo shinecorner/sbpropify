@@ -10,7 +10,7 @@ return [
     [
       'dashboard' => 'Dashboard',
       'myTenancy' => 'Mein Dossier',
-      'myPersonalData' => 'Pers�nliche Angaben',
+      'myPersonalData' => 'Persönliche Angaben',
       'myRecentContract' => 'Mietvertrag',
       'myDocuments' => 'Objekt-Dokumentation',
       'myContactPersons' => 'Kontaktpersonen',

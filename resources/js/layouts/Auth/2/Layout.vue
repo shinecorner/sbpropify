@@ -17,13 +17,11 @@
     </div>
 </template>
 <script>
-import loginImage from '../../../../img/login2-left.png';
-import backImage from '../../../../img/login2-bg.jpg';
 export default {
     data() {
         return {
-            loginImage: loginImage,
-            backImage: backImage
+            loginImage: require('img/login2-left.png'),
+            backImage: require('img/login2-bg.jpg')
         }
     }
 }

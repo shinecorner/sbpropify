@@ -20,6 +20,7 @@
             :header="header"
             :items="formattedItems"
             :loading="{state: loading}"
+            :isLoadingFilters="{state: isLoadingFilters}"
             :pagination="{total, currPage, currSize}"
             :withSearch="false"
             @selectionChanged="selectionChanged"
@@ -128,89 +129,87 @@
                 });
             },
             filters() {
-                if(this.loading == true || this.isLoadingFilters == false) {
-                    return [
-                        {
-                            name: this.$t('filters.search'),
-                            type: 'text',
-                            icon: 'el-icon-search',
-                            key: 'search'
-                        },
-                        {
-                            name: this.$t('filters.categories'),
-                            type: 'select',
-                            key: 'category_id',
-                            data: this.categories,
-                            // fetch: this.getFilterCategories
-                        },
-                        {
-                            name: this.$t('models.request.status.label'),
-                            type: 'select',
-                            key: 'status',
-                            data: this.prepareFilters("status"),
-                        },
-                        {
-                            name: this.$t('models.request.priority.label'),
-                            type: 'select',
-                            key: 'priority',
-                            data: this.prepareFilters("priority"),
-                        },
-                        {
-                            name: this.$t('filters.districts'),
-                            type: 'select',
-                            key: 'district_id',
-                            data: this.districts,
-                            // fetch: this.getFilterDistricts
-                        },
-                        {
-                            name: this.$t('filters.buildings'),
-                            type: 'select',
-                            key: 'building_id',
-                            data: this.buildings,
-                            // fetch: this.getFilterBuildings
-                        },
-                        {
-                            name: this.$t('filters.propertyManagers'),
-                            type: 'select',
-                            key: 'assignee_id',
-                            data: this.propertyManagers,
-                            // fetch: this.getFilterPropertyManagers
-                        },
-                        {
-                            name: this.$t('filters.services'),
-                            type: 'select',
-                            key: 'service_id',
-                            data: this.services,
-                            // fetch: this.getFilterServices
-                        },
-                        {
-                            name: this.$t('filters.tenant'),
-                            type: 'remote-select',
-                            key: 'tenant_id',
-                            data: this.tenants,
-                            remoteLoading: false,
-                            fetch: this.fetchRemoteTenants
-                        },
-                        {
-                            name: this.$t('filters.created_from'),
-                            type: 'date',
-                            key: 'created_from',
-                            format: 'dd.MM.yyyy'
-                        },
-                        {
-                            name: this.$t('filters.created_to'),
-                            type: 'date',
-                            key: 'created_to',
-                            format: 'dd.MM.yyyy'
-                        },
-                        {
-                            name: this.$t('models.request.closed_date'),
-                            type: 'date',
-                            key: 'solved_date',
-                            format: 'dd.MM.yyyy'
-                        }
-                    ]
-                }
+                return [
+                    {
+                        name: this.$t('filters.search'),
+                        type: 'text',
+                        icon: 'el-icon-search',
+                        key: 'search'
+                    },
+                    {
+                        name: this.$t('filters.categories'),
+                        type: 'select',
+                        key: 'category_id',
+                        data: this.categories,
+                        // fetch: this.getFilterCategories
+                    },
+                    {
+                        name: this.$t('models.request.status.label'),
+                        type: 'select',
+                        key: 'status',
+                        data: this.prepareFilters("status"),
+                    },
+                    {
+                        name: this.$t('models.request.priority.label'),
+                        type: 'select',
+                        key: 'priority',
+                        data: this.prepareFilters("priority"),
+                    },
+                    {
+                        name: this.$t('filters.districts'),
+                        type: 'select',
+                        key: 'district_id',
+                        data: this.districts,
+                        // fetch: this.getFilterDistricts
+                    },
+                    {
+                        name: this.$t('filters.buildings'),
+                        type: 'select',
+                        key: 'building_id',
+                        data: this.buildings,
+                        // fetch: this.getFilterBuildings
+                    },
+                    {
+                        name: this.$t('filters.propertyManagers'),
+                        type: 'select',
+                        key: 'assignee_id',
+                        data: this.propertyManagers,
+                        // fetch: this.getFilterPropertyManagers
+                    },
+                    {
+                        name: this.$t('filters.services'),
+                        type: 'select',
+                        key: 'service_id',
+                        data: this.services,
+                        // fetch: this.getFilterServices
+                    },
+                    {
+                        name: this.$t('filters.tenant'),
+                        type: 'remote-select',
+                        key: 'tenant_id',
+                        data: this.tenants,
+                        remoteLoading: false,
+                        fetch: this.fetchRemoteTenants
+                    },
+                    {
+                        name: this.$t('filters.created_from'),
+                        type: 'date',
+                        key: 'created_from',
+                        format: 'dd.MM.yyyy'
+                    },
+                    {
+                        name: this.$t('filters.created_to'),
+                        type: 'date',
+                        key: 'created_to',
+                        format: 'dd.MM.yyyy'
+                    },
+                    {
+                        name: this.$t('models.request.closed_date'),
+                        type: 'date',
+                        key: 'solved_date',
+                        format: 'dd.MM.yyyy'
+                    }
+                ];
             }
         },
         methods: {

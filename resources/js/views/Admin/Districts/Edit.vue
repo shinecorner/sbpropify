@@ -1,6 +1,6 @@
 <template>
     <div class="districts-edit">
-        <heading :title="$t('models.request.edit')" :subtitle="district_format" icon="icon-chat-empty" shadow="heavy">
+        <heading :title="$t('models.district.edit')" :subtitle="district_format" icon="icon-chat-empty" shadow="heavy">
             <edit-actions :saveAction="submit" :deleteAction="deleteDistrict" route="adminDistricts"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
