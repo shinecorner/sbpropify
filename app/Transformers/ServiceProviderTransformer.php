@@ -30,6 +30,21 @@ class ServiceProviderTransformer extends BaseTransformer
             'service_provider_format' => $model->service_provider_format,
         ];
 
+        $relationCountAttributes = [
+            'buildings_count',
+            'requests_count',
+            'solved_requests_count',
+            'pending_requests_count',
+        ];
+
+        $attributes = $model->getAttributes();
+        foreach ($relationCountAttributes as $attribute) {
+            if (key_exists($attribute, $attributes)) {
+                $response[$attribute] = $attributes[$attribute];
+            }
+
+        }
+
         if ($model->relationExists('user')) {
             $response['user'] = (new UserTransformer)->transform($model->user);
         }

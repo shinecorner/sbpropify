@@ -194,6 +194,14 @@ class User extends Authenticatable implements LikerContract, Commentator
     }
 
     /**
+    * @return \Illuminate\Database\Eloquent\Relations\HasOne
+    **/
+    public function propertyManager()
+    {
+        return $this->hasOne(PropertyManager::class);
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      **/
     public function serviceProvider()
@@ -273,5 +281,15 @@ class User extends Authenticatable implements LikerContract, Commentator
     public function requestsArchived()
     {
         return $this->requests()->where('service_requests.status', ServiceRequest::StatusArchived);
+    }
+
+    public function pendingRequests()
+    {
+        return $this->requests()->whereIn('service_requests.status', ServiceRequest::PendingStatuses);
+    }
+
+    public function solvedRequests()
+    {
+        return $this->requests()->whereIn('service_requests.status', ServiceRequest::SolvedStatuses);
     }
 }
