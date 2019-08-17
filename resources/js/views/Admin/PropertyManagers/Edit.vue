@@ -156,6 +156,7 @@
                                 v-if="model.user && model.user.id"
                             />
                         </card>
+                        
                     </el-col>
                 </el-row>
             </el-form>

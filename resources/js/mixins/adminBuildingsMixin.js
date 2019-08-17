@@ -219,9 +219,12 @@ export default (config = {}) => {
                                 },
                                 ...restAddress
                             },
+                           
                             ...restData
                         } = await this.getBuilding({id: this.$route.params.id});
-
+                        this.statistics.raw[0].value = restData.active_tenants_count + restData.in_active_tenants_count;
+                        this.statistics.raw[1].value = restData.active_tenants_count;
+                        this.statistics.raw[2].value = restData.in_active_tenants_count;
 
                         this.model = {state_id, ...restAddress, ...restData, service_providers_ids: []};
 
@@ -239,8 +242,6 @@ export default (config = {}) => {
                             }
                         } = await this.getBuildingStatistics({id: this.$route.params.id});
 
-                        this.statistics.raw[0].value = total_tenants;
-                        this.statistics.raw[1].value = total_units;
 
                         this.statistics.percentage.occupied_units = occupied_units;
                         this.statistics.percentage.free_units = free_units;

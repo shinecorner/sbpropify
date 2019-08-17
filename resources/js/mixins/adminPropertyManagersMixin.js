@@ -304,6 +304,10 @@ export default (config = {}) => {
 
                     this.requests = reqResp.data;
 
+                    const {
+                        ...restData
+                    } = await this.getPropertyManager({id: this.$route.params.id});
+
                     this.loading.state = false;
                 };
 
