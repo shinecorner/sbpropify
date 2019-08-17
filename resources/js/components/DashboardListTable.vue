@@ -47,9 +47,9 @@
                         </div>
                     </div>
                     <div v-if="column.type == 'tenant-details'" class="user-details">
-                        <div class="image" v-if="scope.row['image_url']" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
-                        <div class="image" v-else :style="{backgroundImage: `url(${userMaleDefaultImg})`}"></div>
-                        
+                        <div class="image">
+                            <table-avatar :src="scope.row['image_url']" :name="scope.row['name']" :size="33" />
+                        </div>
                         <div class="title">
                             {{ scope.row['name'] }}
                         </div>
@@ -57,6 +57,7 @@
                     <div v-if="column.type == 'news-title'" class="product-details">
                         <div class="image" v-if="scope.row['image_url']" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
                         <div class="image" v-else :style="{backgroundImage: `url(${userMaleDefaultImg})`}"></div>
+
                         <div v-if="scope.row['content']" class="text">
                             <div class="title">
                                 {{ scope.row['content'] }}
@@ -172,12 +173,14 @@
     import {Avatar} from 'vue-avatar'
     import uuid from 'uuid/v1'
     import RequestCount from 'components/RequestCount.vue';
+    import tableAvatar from 'components/Avatar';
 
     export default {
         name: 'ListLatestTable',
         components: {
             Avatar,
-            RequestCount
+            RequestCount,
+            'table-avatar': tableAvatar
         },
         props: {
             header: {
