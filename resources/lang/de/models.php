@@ -254,6 +254,10 @@ return [
           'required' => 'Adresse ist obligatorisch',
         ],
       ],
+      'errors' => [
+        'not_found' => "Gebäude nicht gefunden",
+        'manager_not_found' => "Hausverwalter nicht gefunden",
+      ],
       'requestStatuses' => 
       [
         'total' => 'Total Anfragen',
@@ -822,6 +826,12 @@ return [
         'tenant' => 'Nachbarn',
         'district' => 'Überbauung',
         'building' => 'Liegenschaft',
+      ],
+      'errors' => [
+        'not_found' => 'Serviceanfrage nicht gefunden',
+        'not_allowed_change_status' => 'Du darfst den Status nicht ändern.',
+        'provider_not_found' => 'Dienstleister nicht gefunden',
+        'user_not_found' => 'Benutzer nicht gefunden',
       ],
       'requestID' => 'Anfrage-ID',
       'requestCategory' => 'Anfrage-Kategorie ',

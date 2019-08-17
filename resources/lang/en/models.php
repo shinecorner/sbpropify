@@ -254,6 +254,10 @@ return [
           'required' => 'Address is required',
         ],
       ],
+      'errors' => [
+        'not_found' => "Building not found",
+        'manager_not_found' => "Property manager not found"
+      ],
       'requestStatuses' => 
       [
         'total' => 'Total requests',
@@ -822,6 +826,12 @@ return [
         'tenant' => 'Private',
         'district' => 'District',
         'building' => 'Building',
+      ],
+      'errors' => [
+        'not_found' => 'Service Request not found',
+        'not_allowed_change_status' => 'You are not allowed to change status.',
+        'provider_not_found' => 'Service Provider not found',
+        'user_not_found' => 'User not found',
       ],
       'requestID' => 'Request ID',
       'requestCategory' => 'Request Category',

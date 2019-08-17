@@ -254,6 +254,10 @@ return [
           "required" => "L'adresse est requise",
         ],
       ],
+      'errors' => [
+        'not_found' => "Bâtiment non trouvé",
+        'manager_not_found' => "Gestionnaire immobilier introuvable",
+      ],
       'requestStatuses' => 
       [
         "total" => "Nombre total de demandes",
@@ -822,6 +826,12 @@ return [
         "tenant" => "Soldat",
         "district" => "District",
         "building" => "Bâtiment",
+      ],
+      'errors' => [
+        'not_found' => 'Demande de service introuvable',
+        'not_allowed_change_status' => "Vous n'êtes pas autorisé à changer de statut.",
+        'provider_not_found' => 'Fournisseur de services introuvable',
+        'user_not_found' => 'Utilisateur introuvable',
       ],
       "requestID" => "Demande ID",
       "requestCategory" => "Catégorie de demande",

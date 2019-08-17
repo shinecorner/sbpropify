@@ -254,6 +254,10 @@ return [
           "required" => "L'indirizzo è obbligatorio",
         ],
       ],
+      'errors' => [
+        'not_found' => "Edificio non trovato",
+        'manager_not_found' => "Property manager non trovato",
+      ],
       'requestStatuses' => 
       [
         "total" => "Totale richieste",
@@ -822,6 +826,12 @@ return [
         "tenant" => "Soldato",
         "district" => "Distretto",
         "building" => "Edificio",
+      ],
+      'errors' => [
+        'not_found' => 'Richiesta di servizio non trovata',
+        'not_allowed_change_status' => "Non sei autorizzato a cambiare stato",
+        'provider_not_found' => 'Fornitore di servizi non trovato',
+        'user_not_found' => 'Utente non trovato',
       ],
       "requestID" => "Richiedi un documento d'identità",
       "requestCategory" => "Richiedi categoria",
