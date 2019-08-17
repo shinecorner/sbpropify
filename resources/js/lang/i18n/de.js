@@ -1452,9 +1452,9 @@ export default {
             "password": "Passwort",
             "url": "URL",
             "code": "Code",
-            "no_posts": "Bisland keine Beitr�ge ver�ffentlicht.",
+            "no_posts": "Bislang keine Beiträge veröffentlicht.",
             "no_requests": "Bisland keine Anfragen gestellt.",
-            "no_listings": "Bisland kein eInserate ver�ffentlicht."
+            "no_listings": "Bislang keine Inserate veröffentlicht."
         },
         "validation": {
             "accepted": "{attribute} muss akzeptiert werden.",
