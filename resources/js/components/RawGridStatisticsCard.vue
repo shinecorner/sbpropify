@@ -74,7 +74,7 @@
                             font-weight: medium;
                             color: darken(#fff, 24%);
                             small {
-                                font-size: 1.5em;
+                                font-size: 2em;
                                 font-weight: bold;
                                 display: block;
                                 text-transform: uppercase;
