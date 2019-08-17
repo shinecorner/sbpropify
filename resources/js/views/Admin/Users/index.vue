@@ -1,6 +1,6 @@
 <template>
     <div class="services">
-        <heading icon="icon-user" :title="$t('pages.user.title')" shadow="heavy">
+        <heading icon="icon-user" :title="this.$route.query.role == 'administrator' ? $t('models.user.administrator') : $t('models.user.super_admin') " shadow="heavy">
             <template v-if="$can($permissions.create.user)">
                 <el-button @click="add" icon="ti-plus" round size="mini" type="primary">{{$t('general.actions.add')}}</el-button>
             </template>
@@ -68,7 +68,7 @@
                             this.$permissions.update.user
                         ]
                     }]
-                }]
+                }],
             }
         },
         computed: {
@@ -81,7 +81,7 @@
                         key: 'search'
                     }
                 ]
-            }
+            },
         },
         methods: {
             add() {
@@ -96,6 +96,7 @@
                 this.$router.push({
                     name: 'adminUsersEdit',
                     params: {
+                        role: this.$route.query.role,
                         id
                     }
                 });

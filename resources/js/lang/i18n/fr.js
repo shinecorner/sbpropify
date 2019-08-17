@@ -509,6 +509,12 @@ export default {
         },
         "models": {
             "user": {
+                "administrator": "Administrateurs",
+                "super_admin": "Super admins",
+                "add_admin": "Ajouter un administrateur",
+                "edit_admin": "Modifier l'administrateur",
+                "add_super_admin": "Ajouter Super admin",
+                "edit_super_admin": "Editer Super admin",
                 "edit_action": "Modifier",
                 "delete": "Supprimer",
                 "name": "Nom",
