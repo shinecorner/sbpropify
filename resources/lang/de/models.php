@@ -165,8 +165,8 @@ return [
       'status' => 
       [
         'label' => 'Status',
-        'active' => 'Inaktiv',
-        'not_active' => 'Deaktiv',
+        'active' => 'Aktiv',
+        'not_active' => 'Inaktiv',
       ],
       'confirmChange' => 
       [
