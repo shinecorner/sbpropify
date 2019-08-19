@@ -74,6 +74,21 @@ class Building extends AuditableModel implements HasMedia
 {
     use SoftDeletes, HasMediaTrait, UniqueIDFormat;
 
+    protected $auditEvents = [
+        'created' => 'createdEventAttributesIncludeAddress',
+    ];
+
+
+    public function createdEventAttributesIncludeAddress()
+    {
+        $changes = $this->getCreatedEventAttributes();
+        if ($this->address) {
+            $changes[1] += $this->address->only($this->address->getFillable());
+        }
+        return $changes;
+    }
+
+
     const BuildingMediaCategories = [
         'house_rules',
         'operating_instructions',
