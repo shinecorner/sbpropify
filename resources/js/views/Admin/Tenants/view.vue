@@ -258,6 +258,7 @@
                                 </h3>
                                 <Timeline
                                         :filterValue="user.id"
+                                        :noDataMessage="$t('tenant.no_posts')"
                                         fetchAction="getPostsTruncated"
                                         filter="user_id"
                                         v-if="!_.isEmpty(user)"
