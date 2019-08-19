@@ -140,11 +140,7 @@
                     </div>
                 </template>
             </el-table-column>
-<<<<<<< HEAD
-
-=======
             
->>>>>>> 7cb4e9141742b380ad21406810886f6264fd4f84
             <el-table-column
                 :key="column.label + key"
                 :label="column.label"
