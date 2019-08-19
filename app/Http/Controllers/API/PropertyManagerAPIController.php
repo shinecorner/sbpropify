@@ -88,8 +88,8 @@ class PropertyManagerAPIController extends AppBaseController
         }
 
         $getAll = $request->get('get_all', false);
-        $reqCount = $request->get('req_count');
-        if ($reqCount) {
+//        $reqCount = $request->get('req_count');
+//        if ($reqCount) {
             $this->propertyManagerRepository->with([
                 'user' => function ($q) {
                     $q->withCount([
@@ -103,11 +103,11 @@ class PropertyManagerAPIController extends AppBaseController
                     ]);
                 }
             ]);
-        } else {
-            $this->propertyManagerRepository->with([
-                'user',
-            ]);
-        }
+//        } else {
+//            $this->propertyManagerRepository->with([
+//                'user',
+//            ]);
+//        }
 
         if ($getAll) {
             $propertyManagers = $this->propertyManagerRepository->get();
