@@ -1,6 +1,6 @@
 <template>
     <div class="users-edit">
-        <heading :title="$t('models.user.edit')" icon="icon-user">
+        <heading :title="this.$route.params.role == 'administrator' ? $t('models.user.edit_admin')  : $t('models.user.edit_super_admin')" icon="icon-user">
             <edit-actions :saveAction="submit" :deleteAction="deleteUser" route="adminUsers" :queryParams="queryParams" shadow="heavy"/>
         </heading>
         <el-row class="crud-view">

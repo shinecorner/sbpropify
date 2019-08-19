@@ -284,8 +284,14 @@ class StatisticsAPIController extends AppBaseController
         $tenants = $this->tenantRepo->getTotalTenantsFromBuilding($building->id);
         $units = Unit::where('building_id', $id)->count();
         $occupiedUnitsCount = Unit::where('building_id', $id)->has('tenant')->count();
-        $occupiedUnits = round($occupiedUnitsCount * 100 / $units);
-        $freeUnit = 100 - $occupiedUnits;
+
+        if ($units) {
+            $occupiedUnits = round($occupiedUnitsCount * 100 / $units);
+            $freeUnit = 100 - $occupiedUnits;
+        } else {
+            $occupiedUnits = 0;
+            $freeUnit = 0;
+        }
 
         $response = [
             'total_tenants' => $this->thousandsFormat($tenants),
@@ -304,8 +310,14 @@ class StatisticsAPIController extends AppBaseController
     {
         $unitCount = Unit::count();
         $occupiedUnitsCount = Unit::has('tenant')->count();
-        $occupiedUnits = round($occupiedUnitsCount * 100 / $unitCount);
-        $freeUnit = 100 - $occupiedUnits;
+
+        if ($unitCount) {
+            $occupiedUnits = round($occupiedUnitsCount * 100 / $unitCount);
+            $freeUnit = 100 - $occupiedUnits;
+        } else {
+            $occupiedUnits = 0;
+            $freeUnit = 0;
+        }
 
 
         $tenantCount = $this->tenantRepo->count();

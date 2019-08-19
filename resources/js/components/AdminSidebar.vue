@@ -80,7 +80,6 @@
                         element1.querySelector('ul').style.display = 'none';
                     }
                 }*/
-
                 if (action) {
                     if (action.showConfirmation) {
                         try {
