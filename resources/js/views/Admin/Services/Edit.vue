@@ -7,9 +7,9 @@
             <el-col :md="12">
                 <card :loading="loading">
                     <el-form :model="model" label-position="top" label-width="192px" ref="form">
-                        <el-divider class="column-divider" content-position="left">
-                            {{$t('models.service.company_details')}}
-                        </el-divider>
+                        <p class="dividerletter">{{$t('models.service.company_details')}}</p>
+                        <el-divider class="column-divider"></el-divider>
+                    
                         <el-row :gutter="20">
                             <el-col :md="12">
                                 <el-form-item :label="$t('models.service.category')" prop="category">
@@ -31,10 +31,10 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
+                        
+                        <p class="dividerletter">{{$t('models.service.user_credentials')}}</p>
+                        <el-divider class="column-divider"></el-divider>
 
-                        <el-divider class="column-divider" content-position="left">
-                            {{$t('models.service.user_credentials')}}
-                        </el-divider>
                         <el-row :gutter="20">
                             <el-col :md="12">
                                 <el-form-item :label="$t('models.user.profile_image')">
@@ -67,10 +67,9 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
-
-                        <el-divider class="column-divider" content-position="left">
-                            {{$t('models.service.contact_details')}}
-                        </el-divider>
+                        
+                        <p class="dividerletter">{{$t('models.service.contact_details')}}</p>
+                        <el-divider class="column-divider"></el-divider>
 
                         <el-row :gutter="20">
                             <el-col :md="12">
@@ -131,9 +130,9 @@
             </el-col>
             <el-col :md="12">
                 <card :loading="loading">
-                    <el-divider class="column-divider" content-position="left">
-                        {{$t('models.post.assignment')}}
-                    </el-divider>
+                    <p class="dividerletter">{{$t('models.post.assignment')}}</p>
+                    <el-divider class="column-divider"></el-divider>
+            
                     <assignment-by-type
                         :resetToAssignList="resetToAssignList"
                         :assignmentType.sync="assignmentType"
@@ -156,8 +155,8 @@
 
                 </card>
                 <card :loading="loading" class="mt15">
-                    <el-divider class="column-divider" content-position="left">{{$t('models.service.requests')}}
-                    </el-divider>
+                    <p class="dividerletter">{{$t('models.service.requests')}}</p>
+                    <el-divider class="column-divider"></el-divider>
 
                     <relation-list
                         :actions="requestActions"

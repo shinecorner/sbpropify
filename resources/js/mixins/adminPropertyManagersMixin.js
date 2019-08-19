@@ -165,13 +165,11 @@ export default (config = {}) => {
                 
                 if(config.mode == 'add' || ( this.original_email != null && this.original_email !== validateObject.user.email)) {
                     try {
-                        const resp = await axios.get('users/check-email?email=' + validateObject.user.email);
-                        if(resp)
-                        {
-                            callback(new Error(resp.data.message));
-                        }                  
-                    } catch {
-                        callback();
+                        const resp = await axios.get('users/check-email?email=' + validateObject.user.email);                
+                    } catch(error) {
+                        if(error.response.data.success == false) {
+                            callback(new Error(error.response.data.message));
+                        }
                     }
                 }
             },
