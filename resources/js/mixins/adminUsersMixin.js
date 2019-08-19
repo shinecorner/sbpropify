@@ -1,7 +1,6 @@
 import {mapGetters, mapActions} from 'vuex';
 import {displayError, displaySuccess} from 'helpers/messages';
 import PasswordValidatorMixin from './passwordValidatorMixin';
-import EmailCheckValidatorMixin from './emailCheckValidatorMixin';
 import axios from '@/axios';
 
 export default (config = {}) => {
@@ -101,7 +100,7 @@ export default (config = {}) => {
     if (config.mode) {
         switch (config.mode) {
             case 'add':
-                mixin.mixins = [PasswordValidatorMixin(), EmailCheckValidatorMixin()];
+                mixin.mixins = [PasswordValidatorMixin()];
 
                 mixin.methods = {
                     async submit() {
@@ -130,7 +129,7 @@ export default (config = {}) => {
                 };
                 break;
             case 'edit':
-                mixin.mixins = [PasswordValidatorMixin({required: false}), EmailCheckValidatorMixin()];
+                mixin.mixins = [PasswordValidatorMixin({required: false})];
 
                 mixin.methods = {
                     submit() {

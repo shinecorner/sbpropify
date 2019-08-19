@@ -25,11 +25,7 @@ export default (config = {}) => {
                     category: '',
                     priority: '',
                     visibility: '',
-                    provider_ids: [],
-                    qualification: '',
-                    status: '',
-                    due_date: null,
-                    description: ''
+                    provider_ids: []
                 },
                 validationRules: {
                     category: [{
