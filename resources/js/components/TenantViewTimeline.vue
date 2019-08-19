@@ -89,7 +89,7 @@
         </div>
         <div v-else>
             <el-alert
-                :title="$t('views.tenant.my.personal.placeholder.title')"
+                :title="noDataMessage"
                 type="info"
                 show-icon
                 :closable="false"
@@ -126,6 +126,10 @@ import { mapGetters } from 'vuex';
                 type: String,
                 required: true
             },
+            noDataMessage: {
+                type: String,
+            }
+
         },
          components: {
             TimelineStatus

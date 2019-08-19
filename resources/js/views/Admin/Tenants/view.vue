@@ -243,6 +243,7 @@
                                 </h3>
                                 <Timeline
                                         :filterValue="model.id"
+                                        :noDataMessage="$t('tenant.no_requests')"
                                         fetchAction="getRequests"
                                         filter="tenant_id"
                                         v-if="model.id"
@@ -271,6 +272,7 @@
                                 </h3>
                                 <Timeline
                                         :filterValue="user.id"
+                                        :noDataMessage="$t('tenant.no_listings')"
                                         fetchAction="getProducts"
                                         filter="user_id"
                                         v-if="!_.isEmpty(user)"
