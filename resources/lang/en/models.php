@@ -32,6 +32,19 @@ return [
       'realEstateSaved' => 'Real Estate settings saved',
       'serviceRequestCategorySaved' => 'Service request category saved',
       'serviceRequestCategoryDeleted' => 'Service request category deleted',
+      'setting_saved' => "user setting saved",
+      'setting_deleted' => "user setting deleted",
+      'password_reset_request_sent' => "Password Reset Request send successfully", 
+      'errors' => [
+        'not_found' => "User not found",
+        'setting_not_found' => "user setting not found",
+        'image_upload' => "User image upload error :",
+        'incorrect_password' => "User password incorrect",
+        'email_missing' => "email is missing",
+        'email_already_exists' => "This [:email] email already exist, Select other email",
+        'email_not_exists' => "This [:email] email not exist",
+        'password_reset_token_invalid' => "This password reset token is invalid."
+      ],
       'validation' => 
       [
         'name' => 
@@ -697,6 +710,10 @@ return [
         "label" => "Password",
         "validation" => "Enter email password"
       ],
+      'errors' => [
+        'not_found' => "Real Estate not found",
+        'update' => "Real Estate update error: ",
+      ],
     ],
     'request' => 
     [
@@ -727,6 +744,10 @@ return [
       'notify' => 'Notify',
       'public_legend' => 'Set this option to make the request visible to all tenant neighbours',
       'conversation' => 'Conversation',
+      'conversation_created' => "Conversation comment created",
+      'internal_notice_saved' => "Internal Notice saved",
+      'internal_notice_updated' => "Internal Notice updated",
+      'internal_notice_deleted' => "Internal Notice deleted",
       'open_conversation' => 'Open',
       'other_recipients' => 'Other recipients',
       'recipients' => 'Recipients',
@@ -877,6 +898,9 @@ return [
         'not_allowed_change_status' => 'You are not allowed to change status.',
         'provider_not_found' => 'Service Provider not found',
         'user_not_found' => 'User not found',
+        'conversation_not_found' => "Conversation not found",
+        'statistics_error' => "Request statistics error: ",
+        'internal_notice_not_found' => "Internal Notice not found",
       ],
       'requestID' => 'Request ID',
       'requestCategory' => 'Request Category',
@@ -891,6 +915,12 @@ return [
       'cancel' => 'Cancel',
       'required' => 'This field is required',
       'parent' => 'Parent category',
+      'errors' => [
+        'not_found' => "Service Request Category not found",
+        'parent_not_found' => "Parent Service Request Category not found",
+        'multiple_level_not_found' => "Multiple level nested categories are not allowed",
+        'used_by_request' => "Service Request Category it is used by a Service Request"
+      ]
     ],
     'propertyManager' => 
     [
@@ -998,6 +1028,7 @@ return [
       'user' => 'User',
       'contact' => 'Contact',
       'price' => 'Price',
+      'comment_created' => "Comment successfully created",
       'media' => 
       [
         'deleted' => 'Document/Photo Deleted',
@@ -1045,6 +1076,9 @@ return [
       [
         'category' => 'Choose category',
       ],
+      'errors' => [
+        'not_found' => "Template not found",
+      ]
     ],
     'cleanify' => 
     [

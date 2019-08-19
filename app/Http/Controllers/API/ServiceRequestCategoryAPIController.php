@@ -192,11 +192,11 @@ class ServiceRequestCategoryAPIController extends AppBaseController
             /** @var ServiceRequestCategory $serviceRequestCategory */
             $parentCategory = $this->serviceRequestCategoryRepository->findWithoutFail((int)$parentId);
             if (empty($parentCategory)) {
-                return $this->sendError('Parent Service Request Category not found');
+                return $this->sendError(__('models.requestCategory.errors.parent_not_found'));
             }
 
             if ($parentCategory->parent_id) {
-                return $this->sendError('Multiple level nested categories are not allowed');
+                return $this->sendError(__('models.requestCategory.errors.multiple_level_not_found'));
             }
 
             $input['has_qualifications'] = $parentCategory->has_qualifications;
@@ -251,7 +251,7 @@ class ServiceRequestCategoryAPIController extends AppBaseController
         /** @var ServiceRequestCategory $serviceRequestCategory */
         $serviceRequestCategory = $this->serviceRequestCategoryRepository->findWithoutFail($id);
         if (empty($serviceRequestCategory)) {
-            return $this->sendError('Service Request Category not found');
+            return $this->sendError(__('models.requestCategory.errors.not_found'));
         }
 
         $response = (new ServiceRequestCategoryTransformer)->transform($serviceRequestCategory);
@@ -312,7 +312,7 @@ class ServiceRequestCategoryAPIController extends AppBaseController
         /** @var ServiceRequestCategory $serviceRequestCategory */
         $serviceRequestCategory = $this->serviceRequestCategoryRepository->findWithoutFail($id);
         if (empty($serviceRequestCategory)) {
-            return $this->sendError('Service Request Category not found');
+            return $this->sendError(__('models.requestCategory.errors.not_found'));
         }
 
         $input['has_qualifications'] = $serviceRequestCategory->has_qualifications;
@@ -322,11 +322,11 @@ class ServiceRequestCategoryAPIController extends AppBaseController
             /** @var ServiceRequestCategory $serviceRequestCategory */
             $parentCategory = $this->serviceRequestCategoryRepository->findWithoutFail((int)$parentId);
             if (empty($parentCategory)) {
-                return $this->sendError('Parent Service Request Category not found');
+                return $this->sendError(__('models.requestCategory.errors.parent_not_found'));
             }
 
             if ($parentCategory->parent_id) {
-                return $this->sendError('Multiple level nested categories are not allowed');
+                return $this->sendError(__('models.requestCategory.errors.multiple_level_not_found'));
             }
 
             $input['has_qualifications'] = $parentCategory->has_qualifications;
@@ -382,12 +382,12 @@ class ServiceRequestCategoryAPIController extends AppBaseController
         /** @var ServiceRequestCategory $serviceRequestCategory */
         $serviceRequestCategory = $this->serviceRequestCategoryRepository->findWithoutFail($id);
         if (empty($serviceRequestCategory)) {
-            return $this->sendError('Service Request Category not found');
+            return $this->sendError(__('models.requestCategory.errors.not_found'));
         }
 
         $usedCategory = ServiceRequest::where('category_id', $serviceRequestCategory->id)->first();
         if ($usedCategory) {
-            return $this->sendError('Service Request Category it is used by a Service Request');
+            return $this->sendError(__('models.requestCategory.errors.used_by_request'));
         }
 
         $serviceRequestCategory->delete();        

@@ -7,8 +7,7 @@ return [
       'add_admin' => 'Ajouter un administrateur',
       'edit_admin' => 'Modifier l\'administrateur',
       'add_super_admin' => 'Ajouter Super admin',
-      'edit_super_admin' => 'Editer Super admin',
-      'edit_action' => 'Edit',
+      'edit_super_admin' => 'Editer Super admin',      
       "edit_action" => "Modifier",
       "delete" => "Supprimer",
       "name" => "Nom",
@@ -33,6 +32,19 @@ return [
       "realEstateSaved" => "Options des biens immobiliers sauvegardées",
       "serviceRequestCategorySaved" => "Catégorie de demande de service sauvegardée",
       "serviceRequestCategoryDeleted" => "Catégorie de demande de service supprimée",
+      'setting_saved' => "réglage utilisateur sauvegardé",
+      'setting_deleted' => "Suppression du réglage utilisateur",      
+      'password_reset_request_sent' => "Réinitialisation du mot de passe Demande d'envoi réussie", 
+      'errors' => [
+        'not_found' => "Utilisateur introuvable",
+        'setting_not_found' => "réglage utilisateur introuvable",        
+        'image_upload' => "Erreur de téléchargement de l'image de l'utilisateur :",
+        'incorrect_password' => "Mot de passe utilisateur incorrect",
+        'email_missing' => "email est manquant",
+        'email_already_exists' => "Ce [:email] email existe déjà, Sélectionner un autre email",
+        'email_not_exists' => "Ce [:email] email n'existe pas",
+        'password_reset_token_invalid' => "Ce jeton de réinitialisation de mot de passe n'est pas valide.",
+      ],
       'validation' => 
       [
         'name' => 
@@ -697,7 +709,11 @@ return [
       "mail_password" => [
         "label" => "Mot de passe",
         "validation" => "Entrer le mot de passe de l'email"
-      ]
+      ],
+      'errors' => [
+        'not_found' => "Biens immobiliers non trouvés",
+        'update' => "Erreur de mise à jour des biens immobiliers : ",
+      ],
     ],
     'request' => 
     [
@@ -728,6 +744,10 @@ return [
       "notify" => "Avertissez",
       "public_legend" => "Définissez cette option pour rendre la demande visible à tous les voisins locataires",
       "conversation" => "Conversation",
+      'conversation_created' => "Création d'un commentaire de conversation",
+      'internal_notice_saved' => "Avis interne sauvegardé",
+      'internal_notice_updated' => "Avis interne mis à jour",
+      'internal_notice_deleted' => "Avis interne supprimé",
       "open_conversation" => "Ouvrez",
       "other_recipients" => "Autres bénéficiaires",
       "recipients" => "Destinataires",
@@ -878,6 +898,9 @@ return [
         'not_allowed_change_status' => "Vous n'êtes pas autorisé à changer de statut.",
         'provider_not_found' => 'Fournisseur de services introuvable',
         'user_not_found' => 'Utilisateur introuvable',
+        'conversation_not_found' => "Conversation non trouvée",
+        'statistics_error' => "demander des statistiques d'erreur : ",
+        'internal_notice_not_found' => "Avis interne non trouvé",
       ],
       "requestID" => "Demande ID",
       "requestCategory" => "Catégorie de demande",
@@ -892,6 +915,12 @@ return [
       "cancel" => "Annuler",
       "required" => "Ce champ est obligatoire",
       "parent" => "Catégorie de parents",
+      'errors' => [
+        'not_found' => "Catégorie de demande de service introuvable",
+        'parent_not_found' => "Catégorie de demande de service parent non trouvée",
+        'multiple_level_not_found' => "Les catégories imbriquées à plusieurs niveaux ne sont pas autorisées",
+        'used_by_request' => "Catégorie de demande de service utilisée par une demande de service",
+      ]
     ],
     'propertyManager' => 
     [
@@ -999,6 +1028,7 @@ return [
       "user" => "Utilisateur",
       "contact" => "Contact",
       "price" => "Prix",
+      'comment_created' => "Commentaire créé avec succès",
       'media' => 
       [
         'deleted' => 'Document/photo supprimée',
@@ -1046,6 +1076,9 @@ return [
       [
         'category' => 'Choisir une catégorie',
       ],
+      'errors' => [
+        'not_found' => "Modèle non trouvé",
+      ]
     ],
     'cleanify' => 
     [

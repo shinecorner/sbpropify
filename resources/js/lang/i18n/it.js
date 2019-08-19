@@ -182,6 +182,12 @@ export default {
             "details_saved": "Dettagli salvati",
             "please_wait": "Attendere per favore...",
             "no_data_available": "Nessun dato disponibile",
+            "upload_error": "Errore di caricamento dei media",
+            "media_not_found": "Media non trovati",
+            "comment_not_found": "Commento non trovato",
+            "comment_created": "Commento creato",
+            "comment_updated": "Commento aggiornato",
+            "comment_deleted": "Commento soppresso",
             "password_validation": {
                 "required": "La password è richiesta",
                 "confirm": "Inserisci nuovamente la password",
@@ -618,6 +624,19 @@ export default {
                 "realEstateSaved": "Impostazioni immobiliari salvate",
                 "serviceRequestCategorySaved": "Categoria della richiesta di servizio salvata",
                 "serviceRequestCategoryDeleted": "Categoria della richiesta di servizio cancellata",
+                "setting_saved": "impostazioni utente salvate",
+                "setting_deleted": "l'impostazione dell'utente è stata cancellata",
+                "password_reset_request_sent": "Richiesta di reimpostazione password inviata con successo",
+                "errors": {
+                    "not_found": "Utente non trovato",
+                    "setting_not_found": "impostazione utente non trovata",
+                    "image_upload": "Errore caricamento immagine utente : ",
+                    "incorrect_password": "Password utente non corretta",
+                    "email_missing": "manca l'email",
+                    "email_already_exists": "Questa email [{email}] esiste già, Seleziona un'altra email",
+                    "email_not_exists": "Questa [{email}] email non esiste",
+                    "password_reset_token_invalid": "Questo token per la reimpostazione della password non è valido."
+                },
                 "validation": {
                     "name": {
                         "required": "Il nome è obbligatorio"
@@ -705,6 +724,14 @@ export default {
                     "language": {
                         "required": "La lingua è richiesta"
                     }
+                },
+                "errors": {
+                    "not_found": "L'inquilino non trovato",
+                    "incorrect_email": "Indirizzo e-mail errato",
+                    "create": "L'inquilino crea un errore: ",
+                    "update": "Errore di aggiornamento dell'inquilino: ",
+                    "deleted": "Errore di cancellazione dell'inquilino: ",
+                    "not_allowed_change_status": "Non è consentito modificare lo stato."
                 },
                 "building_card": "Assegnare l'unità",
                 "personal_details_card": "Dati personali",
@@ -817,7 +844,10 @@ export default {
                 },
                 "errors": {
                     "not_found": "Edificio non trovato",
-                    "manager_not_found": "Property manager non trovato"
+                    "manager_not_found": "Property manager non trovato",
+                    "deleted": "Edificio cancellato errore: ",
+                    "manager_assigned": "I gestori di proprietà assegnano all'errore dell'edificio: ",
+                    "provider_deleted": "Il fornitore del servizio ha cancellato l'errore: "
                 },
                 "requestStatuses": {
                     "total": "Totale richieste",
@@ -905,6 +935,14 @@ export default {
                         "required": "È necessaria una descrizione"
                     }
                 },
+                "errors": {
+                    "not_found": "Unità non trovata",
+                    "create": "Unità crea errore: ",
+                    "update": "Errore di aggiornamento dell'unità: ",
+                    "tenant_assign": "L'inquilino assegna un errore: ",
+                    "tenant_not_assign": "Affittuario non assegnato a questa unità",
+                    "tenant_not_found": "L'inquilino non trovato"
+                },
                 "placeholders": {
                     "search": "Cerca",
                     "select": "Selezionare"
@@ -958,6 +996,7 @@ export default {
                 "add_pinned": "Aggiungere posta bloccata",
                 "save": "Risparmiate",
                 "saved": "Notizie salvare",
+                "view_incresead": "Le viste sono aumentate con successo",
                 "updated": "Notizie aggiornate",
                 "deleted": "Notizie Cancellate",
                 "edit": "Modifica",
@@ -992,6 +1031,12 @@ export default {
                     "article": "Articolo",
                     "new_neighbour": "Nuovo vicino",
                     "pinned": "Inchiodato"
+                },
+                "errors": {
+                    "not_found": "Posta non trovata",
+                    "district_not_found": "Distretto non trovato",
+                    "building_not_found": "Edificio non trovato",
+                    "provider_not_found": "Fornitore di servizi non trovato"
                 },
                 "status": {
                     "label": "Situazione",
@@ -1098,6 +1143,15 @@ export default {
                 "placeholders": {
                     "search": "Cerca",
                     "category": "Selezionare la categoria"
+                },
+                "errors": {
+                    "not_found": "Fornitore di servizi non trovato",
+                    "create": "Il fornitore di servizi crea un errore: ",
+                    "update": "Errore aggiornato del fornitore di servizi: ",
+                    "deleted": "Errore cancellato dal fornitore di servizi: ",
+                    "district_not_found": "Distretto non trovato",
+                    "building_not_found": "Edificio non trovato",
+                    "building_already_assign": "Edificio già assegnato attraverso il distretto"
                 }
             },
             "district": {
@@ -1114,7 +1168,10 @@ export default {
                 "cancel": "Annulla",
                 "required": "Questo campo è obbligatorio",
                 "details": "Dettagli",
-                "buildings": "Edifici"
+                "buildings": "Edifici",
+                "errors": {
+                    "not_found": "Distretto non trovato"
+                }
             },
             "realEstate": {
                 "title": "Impostazioni immobiliari",
@@ -1166,6 +1223,10 @@ export default {
                 "mail_password": {
                     "label": "La password",
                     "validation": "Inserisci la password e-mail"
+                },
+                "errors": {
+                    "not_found": "Immobili non trovati",
+                    "update": "Errore nell'aggiornamento immobiliare: "
                 }
             },
             "request": {
@@ -1196,6 +1257,10 @@ export default {
                 "notify": "Avvisare",
                 "public_legend": "Impostare questa opzione per rendere la richiesta visibile a tutti i vicini inquilini",
                 "conversation": "Conversazione",
+                "conversation_created": "Commento alla conversazione creato",
+                "internal_notice_saved": "Avviso interno salvato",
+                "internal_notice_updated": "Avviso interno aggiornato",
+                "internal_notice_deleted": "Soppressione dell'avviso interno",
                 "open_conversation": "Aprite",
                 "other_recipients": "Altri destinatari",
                 "recipients": "Destinatari",
@@ -1326,7 +1391,10 @@ export default {
                     "not_found": "Richiesta di servizio non trovata",
                     "not_allowed_change_status": "Non sei autorizzato a cambiare stato",
                     "provider_not_found": "Fornitore di servizi non trovato",
-                    "user_not_found": "Utente non trovato"
+                    "user_not_found": "Utente non trovato",
+                    "conversation_not_found": "Conversazione non trovata",
+                    "statistics_error": "richiesta errore di statistica: ",
+                    "internal_notice_not_found": "Avviso interno non trovato"
                 },
                 "requestID": "Richiedi un documento d'identità",
                 "requestCategory": "Richiedi categoria"
@@ -1339,7 +1407,13 @@ export default {
                 "name": "Nome",
                 "cancel": "Annulla",
                 "required": "Questo campo è obbligatorio",
-                "parent": "Categoria genitore"
+                "parent": "Categoria genitore",
+                "errors": {
+                    "not_found": "Richiesta di servizio Categoria non trovata",
+                    "parent_not_found": "Richiesta di servizio genitori Categoria non trovata",
+                    "multiple_level_not_found": "Non sono ammesse categorie nidificate a più livelli",
+                    "used_by_request": "Categoria di richiesta di servizio che viene utilizzata da una richiesta di servizio"
+                }
             },
             "propertyManager": {
                 "title": "Gestori immobiliari",
@@ -1405,6 +1479,15 @@ export default {
                     "warning": "Attenzione",
                     "confirmBtnText": "Ok",
                     "cancelBtnText": "Annulla"
+                },
+                "errors": {
+                    "not_found": "Property Manager non trovato",
+                    "create": "Property Manager crea un errore: ",
+                    "update": "Errore aggiornato Property Manager: ",
+                    "district_not_found": "Distretto non trovato",
+                    "building_not_found": "Edificio non trovato",
+                    "building_already_assign": "Edificio già assegnato attraverso il distretto",
+                    "building_assign_deleted_property_manager": "Non è possibile assegnare edifici a un gestore di proprietà cancellato"
                 }
             },
             "product": {
@@ -1429,9 +1512,13 @@ export default {
                 "user": "Utente",
                 "contact": "Contatto",
                 "price": "Prezzo",
+                "comment_created": "Commento creato con successo",
                 "media": {
                     "deleted": "Documento/foto eliminato",
                     "uploaded": "Documento/foto caricato"
+                },
+                "errors": {
+                    "not_found": "Prodotto non trovato"
                 },
                 "type": {
                     "label": "Tipo",
@@ -1466,6 +1553,9 @@ export default {
                 "tags": "Tags",
                 "placeholders": {
                     "category": "Scegli la categoria"
+                },
+                "errors": {
+                    "not_found": "Modello non trovato"
                 }
             },
             "cleanify": {

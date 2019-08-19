@@ -123,7 +123,7 @@ class CommentAPIController extends AppBaseController
     {
         $post = $this->postRepository->findWithoutFail($id);
         if (empty($post)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
 
         $comment = $post->comment($request->comment, $request->parent_id);
@@ -138,7 +138,7 @@ class CommentAPIController extends AppBaseController
             $post->user->notify(new PostCommented($post, $u->tenant, $comment));
         }
         $out = $this->transformer->transform($comment);
-        return $this->sendResponse($out, "Comment successfully created");
+        return $this->sendResponse($out, __('general.comment_created'));
     }
 
     /**
@@ -184,14 +184,14 @@ class CommentAPIController extends AppBaseController
     {
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $comment = $serviceRequest->comment($request->comment, $request->parent_id);
         $comment->load('user');
         $out = $this->transformer->transform($comment);
         $this->serviceRequestRepository->notifyNewComment($serviceRequest, $comment);
-        return $this->sendResponse($out, "Comment successfully created");
+        return $this->sendResponse($out, __('general.comment_created'));
     }
 
     /**
@@ -237,7 +237,7 @@ class CommentAPIController extends AppBaseController
     {
         $product = $this->productRepository->findWithoutFail($id);
         if (empty($product)) {
-            return $this->sendError('Product not found');
+            return $this->sendError(__('models.product.errors.not_found'));
         }
 
         $comment = $product->comment($request->comment, $request->parent_id);
@@ -251,7 +251,7 @@ class CommentAPIController extends AppBaseController
             $product->user->notify(new ProductCommented($product, $u->tenant, $comment));
         }
         $out = $this->transformer->transform($comment);
-        return $this->sendResponse($out, "Comment successfully created");
+        return $this->sendResponse($out, __('models.product.comment_created'));
     }
 
     /**
@@ -421,7 +421,7 @@ class CommentAPIController extends AppBaseController
     {
         $comment = $this->commentRepository->findWithoutFail($id);
         if (empty($comment)) {
-            return $this->sendError('Comment not found');
+            return $this->sendError(__('general.comment_not_found'));
         }
 
         $timeout = 120;
@@ -442,7 +442,7 @@ class CommentAPIController extends AppBaseController
         ]);
 
         $data = $this->transformer->transform($comment);
-        return $this->sendResponse($data, 'Comment updated successfully');
+        return $this->sendResponse($data, __('general.comment_updated'));
     }
 
     /**
@@ -490,9 +490,9 @@ class CommentAPIController extends AppBaseController
         $comment = $this->commentRepository->findWithoutFail($id);
 
         if (empty($comment)) {
-            return $this->sendError('Comment not found');
+            return $this->sendError(__('general.comment_not_found'));
         }
 
-        return $this->sendResponse($this->commentRepository->destroy($comment), 'Comment deleted successfully');
+        return $this->sendResponse($this->commentRepository->destroy($comment), __('general.comment_deleted'));
     }
 }

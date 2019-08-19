@@ -32,6 +32,19 @@ return [
       "realEstateSaved" => "Impostazioni immobiliari salvate",
       "serviceRequestCategorySaved" => "Categoria della richiesta di servizio salvata",
       "serviceRequestCategoryDeleted" => "Categoria della richiesta di servizio cancellata",
+      'setting_saved' => "impostazioni utente salvate",
+      'setting_deleted' => "l'impostazione dell'utente è stata cancellata",
+      'password_reset_request_sent' => "Richiesta di reimpostazione password inviata con successo", 
+      'errors' => [
+        'not_found' => "Utente non trovato",
+        'setting_not_found' => "impostazione utente non trovata",        
+        'image_upload' => "Errore caricamento immagine utente : ",
+        'incorrect_password' => "Password utente non corretta",
+        'email_missing' => "manca l'email",
+        'email_already_exists' => "Questa email [:email] esiste già, Seleziona un'altra email",
+        'email_not_exists' => "Questa [:email] email non esiste",
+        'password_reset_token_invalid' => "Questo token per la reimpostazione della password non è valido.",
+      ],
       'validation' => 
       [
         'name' => 
@@ -696,7 +709,11 @@ return [
       "mail_password" => [
         "label" => "La password",
         "validation" => "Inserisci la password e-mail"
-      ]
+      ],
+      'errors' => [
+        'not_found' => "Immobili non trovati",
+        'update' => "Errore nell'aggiornamento immobiliare: ",
+      ],
     ],
     'request' => 
     [
@@ -727,6 +744,10 @@ return [
       "notify" => "Avvisare",
       "public_legend" => "Impostare questa opzione per rendere la richiesta visibile a tutti i vicini inquilini",
       "conversation" => "Conversazione",
+      'conversation_created' => "Commento alla conversazione creato",
+      'internal_notice_saved' => "Avviso interno salvato",
+      'internal_notice_updated' => "Avviso interno aggiornato",
+      'internal_notice_deleted' => "Soppressione dell'avviso interno",
       "open_conversation" => "Aprite",
       "other_recipients" => "Altri destinatari",
       "recipients" => "Destinatari",
@@ -877,6 +898,9 @@ return [
         'not_allowed_change_status' => "Non sei autorizzato a cambiare stato",
         'provider_not_found' => 'Fornitore di servizi non trovato',
         'user_not_found' => 'Utente non trovato',
+        'conversation_not_found' => "Conversazione non trovata",
+        'statistics_error' => "richiesta errore di statistica: ",
+        'internal_notice_not_found' => "Avviso interno non trovato",
       ],
       "requestID" => "Richiedi un documento d'identità",
       "requestCategory" => "Richiedi categoria",
@@ -891,6 +915,12 @@ return [
       "cancel" => "Annulla",
       "required" => "Questo campo è obbligatorio",
       "parent" => "Categoria genitore",
+      'errors' => [
+        'not_found' => "Richiesta di servizio Categoria non trovata",
+        'parent_not_found' => "Richiesta di servizio genitori Categoria non trovata",
+        'multiple_level_not_found' => "Non sono ammesse categorie nidificate a più livelli",
+        'used_by_request' => "Categoria di richiesta di servizio che viene utilizzata da una richiesta di servizio",
+      ]
     ],
     'propertyManager' => 
     [
@@ -998,6 +1028,7 @@ return [
       "user" => "Utente",
       "contact" => "Contatto",
       "price" => "Prezzo",
+      'comment_created' => "Commento creato con successo",
       'media' => 
       [
         'deleted' => 'Documento/foto eliminato',
@@ -1044,6 +1075,9 @@ return [
       'placeholders' => 
       [
         'category' => 'Scegli la categoria',
+      ],
+      'errors' => [
+        'not_found' => "Modello non trovato",
       ],
     ],
     'cleanify' => 
