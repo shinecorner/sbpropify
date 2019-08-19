@@ -288,7 +288,7 @@ class UserAPIController extends AppBaseController
         /** @var User $user */
         $user = $this->userRepository->findWithoutFail($id);
         if (empty($user)) {
-            return $this->sendError('User not found');
+            return $this->sendError(__('models.user.errors.not_found'));
         }
 
         $user->load('settings')->load('roles');
@@ -331,7 +331,7 @@ class UserAPIController extends AppBaseController
         /** @var User $user */
         $user = $this->userRepository->findWithoutFail($request->user()->id);
         if (empty($user)) {
-            return $this->sendError('User not found');
+            return $this->sendError(__('models.user.errors.not_found'));
         }
 
         $user->load(['settings', 'roles.perms', 'tenant.media', 'tenant.building:id,contact_enable']);
@@ -417,7 +417,7 @@ class UserAPIController extends AppBaseController
         /** @var User $user */
         $user = $this->userRepository->findWithoutFail($id);
         if (empty($user)) {
-            return $this->sendError('User not found');
+            return $this->sendError(__('models.user.errors.not_found'));
         }
 
         // image upload
@@ -426,7 +426,7 @@ class UserAPIController extends AppBaseController
             try {
                 $input['avatar'] = $this->userRepository->uploadImage($fileData, $user);
             } catch (\Exception $e) {
-                return $this->sendError('User image upload: ' . $e->getMessage());
+                return $this->sendError(__('models.user.errors.image_upload') . $e->getMessage());
             }
         }
 
@@ -485,11 +485,11 @@ class UserAPIController extends AppBaseController
         /** @var User $user */
         $user = $this->userRepository->findWithoutFail($id);
         if (empty($user)) {
-            return $this->sendError('User not found');
+            return $this->sendError(__('models.user.errors.not_found'));
         }
 
         if (isset($input['password_old']) && !Hash::check($input['password_old'], $user->password)) {
-            return $this->sendError('User password incorrect');
+            return $this->sendError(__('models.user.errors.incorrect_password'));
         }
 
         // image upload
@@ -498,7 +498,7 @@ class UserAPIController extends AppBaseController
             try {
                 $input['avatar'] = $this->userRepository->uploadImage($fileData, $user);
             } catch (\Exception $e) {
-                return $this->sendError('User image upload: ' . $e->getMessage());
+                return $this->sendError(__('models.user.errors.image_upload') . $e->getMessage());
             }
         }
 
@@ -556,11 +556,11 @@ class UserAPIController extends AppBaseController
         /** @var User $user */
         $user = $this->userRepository->findWithoutFail($id);
         if (empty($user)) {
-            return $this->sendError('User not found');
+            return $this->sendError(__('models.user.errors.not_found'));
         }
 
         if (!isset($input['password_old']) || !Hash::check($input['password_old'], $user->password)) {
-            return $this->sendError('User password incorrect');
+            return $this->sendError(__('models.user.errors.incorrect_password'));
         }
 
         $user = $this->userRepository->with(['settings'])->update($input, $id);
@@ -616,7 +616,7 @@ class UserAPIController extends AppBaseController
         /** @var User $user */
         $user = $this->userRepository->findWithoutFail($id);
         if (empty($user)) {
-            return $this->sendError('User not found');
+            return $this->sendError(__('models.user.errors.not_found'));
         }
 
         // image upload
@@ -624,9 +624,8 @@ class UserAPIController extends AppBaseController
         if ($fileData) {
             try {
                 $input['avatar'] = $this->userRepository->uploadImage($fileData, $user);
-            } catch (\Exception $e) {
-                return $this->sendError('kaliyo kutor');
-                return $this->sendError('User image upload: ' . $e->getMessage());
+            } catch (\Exception $e) {                
+                return $this->sendError(__('models.user.errors.image_upload') . $e->getMessage());
             }
         }
 
@@ -683,7 +682,7 @@ class UserAPIController extends AppBaseController
         /** @var User $user */
         $user = $this->userRepository->findWithoutFail($id);
         if (empty($user)) {
-            return $this->sendError('User not found');
+            return $this->sendError(__('models.user.errors.not_found'));
         }
 
         // image upload
@@ -692,7 +691,7 @@ class UserAPIController extends AppBaseController
             try {
                 $input['avatar'] = $this->userRepository->uploadImage($fileData, $user);
             } catch (\Exception $e) {
-                return $this->sendError('User image upload: ' . $e->getMessage());
+                return $this->sendError(__('models.user.errors.image_upload') . $e->getMessage());
             }
         }
 
@@ -746,7 +745,7 @@ class UserAPIController extends AppBaseController
         /** @var User $user */
         $user = $this->userRepository->findWithoutFail($id);
         if (empty($user)) {
-            return $this->sendError('User not found');
+            return $this->sendError(__('models.user.errors.not_found'));
         }
 
         $user->forceDelete();
@@ -762,16 +761,16 @@ class UserAPIController extends AppBaseController
     {
         $email = $request->email;
         if (empty($email)) {
-            return $this->sendError('Pass email in query param');
+            return $this->sendError(__('models.user.errors.email_missing'));
         }
 
         $this->userRepository->pushCriteria(new WhereCriteria('email', $email));
         $isExists = $this->userRepository->exists();
         if ($isExists) {
-            return $this->sendResponse($email, 'This [' . $email. '] email exist, Select other email');
+            return $this->sendResponse($email, __('models.user.errors.email_already_exists', ['email' => $email]));
 
         }
-        return $this->sendError('This [' . $email. '] email not exist');
+        return $this->sendResponse($email, __('models.user.errors.email_not_exists', ['email' => $email]));
 
     }
 }

@@ -507,10 +507,7 @@
                         window.URL.revokeObjectURL(url);
                     }
                 } catch (e) {
-                    displayError({
-                        success: false,
-                        message: this.$t('models.tenant.credentials_download_failed')
-                    })
+                    displayError(e)
                 } finally {
                     this.loading.state = false;
                 }
@@ -523,10 +520,7 @@
                         displaySuccess(resp.data);
                     }
                 } catch (e) {
-                    displayError({
-                        success: true,
-                        message: this.$t('models.tenant.credentials_send_fail')
-                    });
+                    displayError(e);
                 } finally {
                     this.loading.state = false;
                 }

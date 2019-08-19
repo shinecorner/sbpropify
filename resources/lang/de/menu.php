@@ -2,7 +2,7 @@
 return [  
   'dashboard' => 'Dashboard',
   'news' => 'Pinnwand',
-  'requests' => 'Service Center',
+  'requests' => 'Servicezentrum',
   'all_requests' => 'Anfragen',
   'marketplace' => 'Marktplatz',
   'settings' => 'Einstellungen',

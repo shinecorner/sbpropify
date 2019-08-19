@@ -265,14 +265,14 @@ class TenantAPIController extends AppBaseController
             $userPass = $input['user']['password'];
             $user = $this->userRepository->create($input['user']);
         } catch (\Exception $e) {
-            return $this->sendError('Tenant create error: ' . $e->getMessage());
+            return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
         }
 
         $input['user_id'] = $user->id;
         try {
             $tenant = $this->tenantRepository->create($input);
         } catch (\Exception $e) {
-            return $this->sendError('Tenant create error: ' . $e->getMessage());
+            return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
         }
 
         $tenant->load('user', 'building', 'unit', 'address');
@@ -327,7 +327,7 @@ class TenantAPIController extends AppBaseController
         $tenant = $this->tenantRepository->findWithoutFail($id);
         $tenant->load('settings');
         if (empty($tenant)) {
-            return $this->sendError('Tenant not found');
+            return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
         $tenant->load('user', 'building', 'unit', 'address', 'media');
@@ -372,7 +372,7 @@ class TenantAPIController extends AppBaseController
         /** @var User $user */
         $user = $this->userRepository->with('tenant')->findWithoutFail($request->user()->id);
         if (empty($user) || empty($user->tenant)) {
-            return $this->sendError('Tenant not found');
+            return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
         $user->tenant->load('user', 'building', 'unit', 'address', 'media');
@@ -433,7 +433,7 @@ class TenantAPIController extends AppBaseController
         /** @var Tenant $tenant */
         $tenant = $this->tenantRepository->with('user')->findWithoutFail($id);
         if (empty($tenant)) {
-            return $this->sendError('Tenant not found');
+            return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
         $shouldPost = isset($input['unit_id']) && $input['unit_id'] != $tenant->unit_id;
@@ -450,13 +450,13 @@ class TenantAPIController extends AppBaseController
         try {
             $this->userRepository->update($input['user'], $tenant->user_id);
         } catch (\Exception $e) {
-            return $this->sendError('Tenant update error: ' . $e->getMessage());
+            return $this->sendError(__('models.tenant.errors.update') . $e->getMessage());
         }
 
         try {
             $tenant = $this->tenantRepository->update($input, $id);
         } catch (\Exception $e) {
-            return $this->sendError('Tenant create error: ' . $e->getMessage());
+            return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
         }
 
         $tenant->load('user', 'building', 'unit', 'address', 'media');
@@ -515,7 +515,7 @@ class TenantAPIController extends AppBaseController
         /** @var User $user */
         $user = $this->userRepository->with('tenant')->findWithoutFail($request->user()->id);
         if (empty($user)) {
-            return $this->sendError('Tenant not found');
+            return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
         $userInput = $request->get('user', []);
@@ -529,14 +529,14 @@ class TenantAPIController extends AppBaseController
         try {
             $this->userRepository->update($userInput, $user->id);
         } catch (\Exception $e) {
-            return $this->sendError('Tenant update error: ' . $e->getMessage());
+            return $this->sendError(__('models.tenant.errors.update') . $e->getMessage());
         }
 
 
         try {
             $tenant = $this->tenantRepository->update($input, $user->tenant->id);
         } catch (\Exception $e) {
-            return $this->sendError('Tenant update error: ' . $e->getMessage());
+            return $this->sendError(__('models.tenant.errors.update') . $e->getMessage());
         }
 
         $tenant->load('user', 'address', 'building', 'unit', 'media');
@@ -588,7 +588,7 @@ class TenantAPIController extends AppBaseController
         /** @var Tenant $tenant */
         $tenant = $this->tenantRepository->with('user')->findWithoutFail($id);
         if (empty($tenant)) {
-            return $this->sendError('Tenant not found');
+            return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
         $validator = Validator::make($request->all(), ['status' => 'required|integer|in:1,2']);
@@ -601,7 +601,7 @@ class TenantAPIController extends AppBaseController
         ];
 
         if (!$this->tenantRepository->checkStatusPermission($input, $tenant->status)) {
-            return $this->sendError('You are not allowed to change status');
+            return $this->sendError(__('models.tenant.errors.not_allowed_change_status'));
         }
 
         if ($input['status'] == Tenant::StatusNotActive) {
@@ -613,7 +613,7 @@ class TenantAPIController extends AppBaseController
         try {
             $tenant = $this->tenantRepository->update($input, $id);
         } catch (\Exception $e) {
-            return $this->sendError('Tenant update error: ' . $e->getMessage());
+            return $this->sendError(__('models.tenant.errors.update') . $e->getMessage());
         }
 
         $tenant->load('user', 'address', 'building', 'unit', 'media');
@@ -680,7 +680,7 @@ class TenantAPIController extends AppBaseController
     {
         $t = $this->tenantRepository->findForCredentials($id);
         if (empty($t)) {
-            return $this->sendError('Tenant not found');
+            return $this->sendError(__('models.tenant.errors.not_found'));
         }
         $pdfName = $this->getPdfName($t);
 
@@ -700,7 +700,7 @@ class TenantAPIController extends AppBaseController
     {
         $t = $this->tenantRepository->findForCredentials($id);
         if (empty($t)) {
-            return $this->sendError('Tenant not found');
+            return $this->sendError(__('models.tenant.errors.not_found'));
         }
         $pdfName = $this->getPdfName($t);
         if (!\Storage::disk('tenant_credentials')->exists($pdfName)) {
@@ -741,7 +741,7 @@ class TenantAPIController extends AppBaseController
         $tenant = $this->tenantRepository->with('user:id,email')->first();
 
         if (empty($tenant)) {
-            return $this->sendError('Tenant not found');
+            return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
         $user = $tenant->user;
@@ -750,7 +750,7 @@ class TenantAPIController extends AppBaseController
             $user->save();
             return $this->sendResponse($tenant->id, __('models.tenant.password_reset'));
         } else {
-            return $this->sendError('Incorrect email address');
+            return $this->sendError(__('models.tenant.errors.incorrect_email'));
         }
     }
 
@@ -941,7 +941,7 @@ class TenantAPIController extends AppBaseController
         $tenant = $this->tenantRepository->findWithoutFail($input['tenant_id']);
         
         if (empty($tenant)) {
-            return $this->sendError('Tenant not found');
+            return $this->sendError(__('models.tenant.errors.not_found'));
         }
         $data['review']=$input['review'];
         $data['rating']=$input['rating'];

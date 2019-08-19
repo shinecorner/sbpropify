@@ -54,10 +54,12 @@
                             {{ scope.row['name'] }}
                         </div>
                     </div>
-                    <div v-if="column.type == 'news-title'" class="product-details">
-                        <div class="image" v-if="scope.row['image_url']" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
-                        <div class="image" v-else :style="{backgroundImage: `url(${userMaleDefaultImg})`}"></div>
-
+                    <div v-if="column.type == 'news-title'" class="user-details">
+                        <!-- <div class="image" v-if="scope.row['image_url']" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
+                        <div class="image" v-else :style="{backgroundImage: `url(${userMaleDefaultImg})`}"></div> -->
+                        <div class="image">
+                            <table-avatar :src="scope.row['user'].avatar" :name="scope.row['user'].name" :size="33" />
+                        </div>
                         <div v-if="scope.row['content']" class="text">
                             <div class="title">
                                 {{ scope.row['content'] }}
@@ -108,7 +110,7 @@
 
                     
                     <div v-if="column.type == 'counts'" class="avatars-wrapper square-avatars">        
-                         <request-count :countsData="items[scope.$index]" :counts="column.counts"></request-count>
+                         <request-count :countsData="items[scope.$index]"></request-count>
                     </div>
                     <el-tag
                         v-if="column.type == 'tag'"

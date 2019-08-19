@@ -47,13 +47,13 @@
                 validationRules: {
                     password_old: [{
                         required: true,
-                        message: this.$t("password_validation.old_password_required")
+                        message: this.$t("general.password_validation.old_password_required")
                     }],
                     password: [{
                         validator: this.validatePassword
                     }, {
                         min: 6,
-                        message: this.$t("password_validation.min")
+                        message: this.$t("general.password_validation.min")
                     }],
                     password_confirmation: [{
                         validator: this.validateConfirmPassword

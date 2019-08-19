@@ -253,7 +253,7 @@ class PostAPIController extends AppBaseController
         ])->withCount('allComments')->findWithoutFail($id);
 
         if (empty($post)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
         $post->likers = $post->collectLikers();
 
@@ -318,7 +318,7 @@ class PostAPIController extends AppBaseController
         $post = $this->postRepository->findWithoutFail($id);
 
         if (empty($post)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
 
         $this->postRepository->update($input, $id);
@@ -382,7 +382,7 @@ class PostAPIController extends AppBaseController
         $post = $this->postRepository->findWithoutFail($id);
 
         if (empty($post)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
 
         $post->delete();
@@ -442,7 +442,7 @@ class PostAPIController extends AppBaseController
         $newStatus = $request->get('status');
         $post = $this->postRepository->findWithoutFail($id);
         if (empty($post)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
 
         $post = $this->postRepository->setStatus($id, $newStatus, Carbon::now());
@@ -493,7 +493,7 @@ class PostAPIController extends AppBaseController
     {
         $post = $this->postRepository->findWithoutFail($id);
         if (empty($post)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
 
         $u = \Auth::user();
@@ -551,7 +551,7 @@ class PostAPIController extends AppBaseController
     {
         $post = $this->postRepository->findWithoutFail($id);
         if (empty($post)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
 
         $u = \Auth::user();
@@ -598,11 +598,11 @@ class PostAPIController extends AppBaseController
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
         $b = $bRepo->findWithoutFail($bid);
         if (empty($b)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.post.errors.building_not_found'));
         }
 
         $p->buildings()->sync($b, false);
@@ -661,11 +661,11 @@ class PostAPIController extends AppBaseController
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
         $b = $bRepo->findWithoutFail($bid);
         if (empty($b)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.post.errors.building_not_found'));
         }
 
         $p->buildings()->detach($b);
@@ -724,11 +724,11 @@ class PostAPIController extends AppBaseController
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
         $d = $dRepo->findWithoutFail($did);
         if (empty($d)) {
-            return $this->sendError('District not found');
+            return $this->sendError(__('models.post.errors.district_not_found'));
         }
 
         $p->districts()->sync($d, false);
@@ -787,11 +787,11 @@ class PostAPIController extends AppBaseController
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
         $d = $dRepo->findWithoutFail($did);
         if (empty($d)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.post.errors.building_not_found'));
         }
 
         $p->districts()->detach($d);
@@ -850,7 +850,7 @@ class PostAPIController extends AppBaseController
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
@@ -897,11 +897,11 @@ class PostAPIController extends AppBaseController
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
         $provider = $pRepo->findWithoutFail($pid);
         if (empty($provider)) {
-            return $this->sendError('Service provider not found');
+            return $this->sendError(__('models.post.errors.provider_not_found'));
         }
 
         $p->providers()->sync($provider, false);
@@ -961,11 +961,11 @@ class PostAPIController extends AppBaseController
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
         $provider = $pRepo->findWithoutFail($pid);
         if (empty($provider)) {
-            return $this->sendError('Service provider not found');
+            return $this->sendError(__('models.post.errors.provider_not_found'));
         }
 
         $p->providers()->detach($provider);
@@ -1021,7 +1021,7 @@ class PostAPIController extends AppBaseController
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
 
         $p->incrementViews(\Auth::id());
@@ -1063,7 +1063,7 @@ class PostAPIController extends AppBaseController
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
 
         $perPage = $req->get('per_page', env('APP_PAGINATE', 10));

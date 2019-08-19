@@ -47,7 +47,7 @@ export default [{
             breadcrumb: 'Edit tenant'
         }
     }, {
-        path: ':id/new',
+        path: ':id',
         name: 'adminTenantsEdit',
         component: () =>
             import ( /* webpackChunkName: "admin/tenants/editNew" */ 'views/Admin/Tenants/editNew'),

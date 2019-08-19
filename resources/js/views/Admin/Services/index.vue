@@ -59,7 +59,11 @@
                     label: this.$t('models.service.contact_details'),
                     withMultipleProps: true,
                     props: ['email', 'phone']
-                }, {
+                },
+                 {
+                    label: this.$t('models.building.requests'),
+                    withCounts: true,
+                },  {
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',

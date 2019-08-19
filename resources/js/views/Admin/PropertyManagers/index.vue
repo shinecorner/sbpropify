@@ -110,7 +110,12 @@
                 }, {
                     label: this.$t('models.propertyManager.phone'),
                     prop: 'user.phone'
-                }, {
+                },  {
+                    label: this.$t('models.building.requests'),
+                    withCounts: true,
+                    
+                }, 
+                {
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
@@ -208,10 +213,7 @@
                     });
 
                     if (resp) {
-                        displaySuccess({
-                                    success: true,
-                                    message: 'models.propertyManager.deleted'
-                                });
+                        displaySuccess(resp);
                         this.closeModal();
                         this.fetchMore();
                     }

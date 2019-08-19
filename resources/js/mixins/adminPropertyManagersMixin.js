@@ -3,7 +3,7 @@ import {displayError, displaySuccess} from 'helpers/messages';
 import PasswordValidatorMixin from './passwordValidatorMixin';
 import UploadUserAvatarMixin from './adminUploadUserAvatarMixin';
 import PropertyManagerTitlesMixin from './methods/propertyManagerTitleTypes';
-
+import axios from '@/axios';
 export default (config = {}) => {
     let mixin = {
         props: {
@@ -26,6 +26,33 @@ export default (config = {}) => {
                         language: ''
                     }
                 },
+                statistics: {
+                    raw: [{
+                        icon: 'ti-plus',
+                        color: '#003171',
+                        value: 0,
+                        description: 'Total'
+                    },{
+                        icon: 'ti-plus',
+                        color: '#26A65B',
+                        value: 0,
+                        description: 'Solved Requests'
+                    },{
+                        icon: 'ti-plus',
+                        color: '#26A65B',
+                        value: 0,
+                        description: 'Pending Requests'
+                    },{
+                        icon: 'ti-user',
+                        color: '#003171',
+                        value: 0,
+                        description: 'Assigned Buildings'
+                    }, ],
+                    percentage: {
+                        occupied_units: 0,
+                        free_units: 0,
+                        }
+                    },
                 validationRules: {
                     first_name: [{
                         required: true,
@@ -45,6 +72,8 @@ export default (config = {}) => {
                     }, {
                         type: 'email',
                         message: 'This field is required'
+                    }, {
+                        validator: this.checkavailabilityEmail
                     }],
                     password: [{
                         validator: this.validatePassword
@@ -80,8 +109,8 @@ export default (config = {}) => {
                 },
                 buildings: [],
                 requests: [],
-                assignmentTypes: ['Building', 'District'],
-                assignmentType: 'Building',
+                assignmentTypes: ['building', 'district'],
+                assignmentType: 'building',
                 toAssign: '',
                 toAssignList: [],
                 alreadyAssigned: {
@@ -106,7 +135,7 @@ export default (config = {}) => {
 
                     try {
                         let resp = [];
-                        if (this.assignmentType === 'Building') {
+                        if (this.assignmentType === 'building') {
                             resp = await this.getBuildings({
                                 get_all: true,
                                 search,
@@ -130,6 +159,21 @@ export default (config = {}) => {
                         this.remoteLoading = false;
                     }
                 }
+            },  
+            async checkavailabilityEmail(rule, value, callback) {
+                let validateObject = this.model;
+                
+                if(config.mode == 'add' || ( this.original_email != null && this.original_email !== validateObject.user.email)) {
+                    try {
+                        const resp = await axios.get('users/check-email?email=' + validateObject.user.email);
+                        if(resp)
+                        {
+                            callback(new Error(resp.data.message));
+                        }                  
+                    } catch {
+                        callback();
+                    }
+                }
             },
             resetToAssignList() {
                 this.toAssignList = [];
@@ -143,7 +187,7 @@ export default (config = {}) => {
 
                     let resp;
 
-                    if (this.assignmentType === 'Building') {
+                    if (this.assignmentType === 'building') {
                         resp = await this.assignBuilding({
                             id: this.model.id,
                             toAssignId: this.toAssign
@@ -164,10 +208,7 @@ export default (config = {}) => {
                     }
                 } catch (e) {
                     if (!e.response.data.success) {
-                        displayError({
-                            success: false,
-                            message: this.$t('models.propertyManager.buildingAlreadyAssigned')
-                        })
+                        displayError(e.response)
                     }
                 }
 
@@ -298,6 +339,8 @@ export default (config = {}) => {
 
                     this.loading.state = true;
 
+                    
+
                     await this.fetchCurrentManager();
 
                     const reqResp = await this.getRequests({
@@ -309,10 +352,18 @@ export default (config = {}) => {
                     this.requests = reqResp.data;
 
                     const {
-                        ...restData
+                        data: {
+                            ...restData
+                        }
                     } = await this.getPropertyManager({id: this.$route.params.id});
-                    console.log(restData);
 
+                    this.statistics.raw[0].value = restData.requests_count;
+                    this.statistics.raw[1].value = restData.solved_requests_count;
+                    this.statistics.raw[2].value = restData.pending_requests_count;
+                    this.statistics.raw[3].value = restData.buildings_count;
+
+                    this.original_email = this.model.user.email;
+                    
                     this.loading.state = false;
                 };
 

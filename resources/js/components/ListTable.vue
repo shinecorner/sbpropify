@@ -113,12 +113,34 @@
                 v-if="withCheckSelection"
                 width="40">
             </el-table-column>
+
             <el-table-column
                 :key="column.prop"
                 :label="column.label"
                 :prop="column.prop"
                 :width="column.width"
                 v-for="column in headerWithoutActions"/>
+
+            <el-table-column
+                :key="column.prop"
+                :label="column.label"
+                :width="column.width"
+                v-for="column in headerWithAvatars">
+                
+                <template slot-scope="scope">
+                    <div class="avatars-wrapper">
+                        <div class="user-details" v-if="scope.row['user']">
+                            <div class="image">
+                                <table-avatar :src="scope.row['user'].avatar" :name="scope.row['user'].name" :size="33" />
+                            </div>
+                            <div class="title">
+                                {{ scope.row['user'].name }}
+                            </div>
+                        </div> 
+                    </div>
+                </template>
+            </el-table-column>
+            
             <el-table-column
                 :key="column.label + key"
                 :label="column.label"
@@ -135,6 +157,16 @@
             </el-table-column>
 
             <el-table-column
+                :key="column.label"
+                :label="column.label"
+                :width="column.width"
+                v-for="(column, key) in headerWithCounts">
+                <template slot-scope="scope">
+                    <request-count :countsData="items[scope.$index]" ></request-count>
+                </template>
+            </el-table-column>
+
+             <el-table-column
                 :key="column.prop"
                 :label="column.label"
                 :width="column.width"
@@ -169,15 +201,6 @@
                                 color="#fff"
                                 v-if="scope.row[column.count]"></avatar>
                     </div>
-                </template>
-            </el-table-column>
-            <el-table-column
-                :key="column.label"
-                :label="column.label"
-                :width="column.width"
-                v-for="(column, key) in headerWithCounts">
-                <template slot-scope="scope">
-                    <request-count :countsData="items[scope.$index]" :counts="column.counts"></request-count>
                 </template>
             </el-table-column>
             <el-table-column
@@ -261,12 +284,14 @@
     import {Avatar} from 'vue-avatar'
     import uuid from 'uuid/v1'
     import RequestCount from 'components/RequestCount.vue'
+    import tableAvatar from 'components/Avatar';
 
     export default {
         name: 'ListTable',
         components: {
             Avatar,
-            RequestCount
+            RequestCount,
+            'table-avatar': tableAvatar
         },
         props: {
             header: {
@@ -362,6 +387,7 @@
                 return this.header.reduce((acc, row) => (!row.actions
                 && !row.select
                 && !row.withUsers
+                && !row.withAvatars
                 && !row.withCounts
                 && !row.withMultipleProps
                 && !row.withBadgeProps
@@ -372,6 +398,9 @@
             },
             headerWithCounts() {
                 return this.header.reduce((acc, row) => (row.withCounts && acc.push(row), acc), []);
+            },
+            headerWithAvatars() {
+                return this.header.reduce((acc, row) => (row.withAvatars && acc.push(row), acc), []);
             },
             headerWithUsers() {
                 return this.header.reduce((acc, row) => (row.withUsers && acc.push(row), acc), []);
@@ -741,6 +770,37 @@
 
         .vue-avatar--wrapper {
             font-size: 12px !important;
+        }
+
+        .user-details {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            width: 100%;
+
+            .image {
+                border-radius: 7px;
+                width: 33px;
+                height: 33px;
+                min-width: 33px;
+                min-height: 33px;
+                margin-right: 15px;
+                background-size: cover;
+                background-position: center;
+            }
+
+            .text {
+                width: calc(100% - 75px);
+                .title {
+                    max-width: 100%;
+                    font-weight: bold;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
         }
     }
 

@@ -44,43 +44,6 @@
                     type: 'counts',
                     minWidth: '150px',
                     label: this.$t('models.propertyManager.requests'),
-                    counts: [{
-                            prop: 'requests_count',
-                            background: '#aaa',
-                            color: '#fff',
-                            label: this.$t('models.building.requestStatuses.total')
-                        }, {
-                            prop: 'requests_received_count',
-                            background: '#bbb',
-                            color: '#fff',
-                            label: this.$t('models.building.requestStatuses.received')
-                        }, {
-                            prop: 'requests_assigned_count',
-                            background: '#ebb563',
-                            color: '#fff',
-                            label: this.$t('models.building.requestStatuses.assigned')
-                        }, {
-                            prop: 'requests_in_processing_count',
-                            background: '#ebb563',
-                            color: '#fff',
-                            label: this.$t('models.building.requestStatuses.in_processing')
-                        }, {
-                            prop: 'requests_reactivated_count',
-                            background: '#ebb563',
-                            color: '#fff',
-                            label: this.$t('models.building.requestStatuses.reactivated')
-                        }, {
-                            prop: 'requests_done_count',
-                            background: '#67C23A',
-                            color: '#fff',
-                            label: this.$t('models.building.requestStatuses.done')
-                        }, {
-                            prop: 'requests_archived_count',
-                            background: '#67C23A',
-                            color: '#fff',
-                            label: this.$t('models.building.requestStatuses.archived')
-                        }
-                    ]
                 }, {
                     type: 'actions',
                     label: this.$t('dashboard.actions'),
@@ -109,7 +72,7 @@
             },
             fetchData() {
               let that = this;
-              let url = 'propertyManagers?req_count=true&get_all=true&has_req=1';
+              let url = 'propertyManagers?get_all=true&has_req=1';
               return axios.get(url)
               .then(function (response) {
                 const items = response.data.data.map(item => {
