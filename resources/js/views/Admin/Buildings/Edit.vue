@@ -528,10 +528,7 @@
                     this.resetToAssignList();
                     this.$refs.propertyManagersList.fetch();
                 } catch (e) {
-                    displayError({
-                        success: false,
-                        message: this.$t('models.building.managers_assign_failed')
-                    });
+                    displayError(e);
                     this.resetToAssignList();
                 }
             },

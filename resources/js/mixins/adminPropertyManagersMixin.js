@@ -107,8 +107,8 @@ export default (config = {}) => {
                 },
                 buildings: [],
                 requests: [],
-                assignmentTypes: ['Building', 'District'],
-                assignmentType: 'Building',
+                assignmentTypes: ['building', 'district'],
+                assignmentType: 'building',
                 toAssign: '',
                 toAssignList: [],
                 alreadyAssigned: {
@@ -133,7 +133,7 @@ export default (config = {}) => {
 
                     try {
                         let resp = [];
-                        if (this.assignmentType === 'Building') {
+                        if (this.assignmentType === 'building') {
                             resp = await this.getBuildings({
                                 get_all: true,
                                 search,
@@ -170,7 +170,7 @@ export default (config = {}) => {
 
                     let resp;
 
-                    if (this.assignmentType === 'Building') {
+                    if (this.assignmentType === 'building') {
                         resp = await this.assignBuilding({
                             id: this.model.id,
                             toAssignId: this.toAssign
@@ -191,10 +191,7 @@ export default (config = {}) => {
                     }
                 } catch (e) {
                     if (!e.response.data.success) {
-                        displayError({
-                            success: false,
-                            message: this.$t('models.propertyManager.buildingAlreadyAssigned')
-                        })
+                        displayError(e.response)
                     }
                 }
 

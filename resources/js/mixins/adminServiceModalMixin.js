@@ -54,10 +54,7 @@ export default (config = {}) => {
 
                     } catch (e) {
                         if (e.response.status == 422) {
-                            displayError({
-                                success: false,
-                                message: this.$t('models.request.mail.fail_cc')
-                            })
+                            displayError(e.response)
                         } else {
                             displayError(e)
                         }
