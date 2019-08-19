@@ -165,6 +165,7 @@
                     <request-count :countsData="items[scope.$index]" :counts="column.counts"></request-count>
                 </template>
             </el-table-column>
+
              <el-table-column
                 :key="column.prop"
                 :label="column.label"
