@@ -1,7 +1,9 @@
 <template>
     <div class="settings">
         <el-tabs class="settings-tabs" tab-position="left" v-model="activeName">
-            <el-tab-pane :label="$t('models.realEstate.settings')" name="settings">
+            <el-tab-pane name="settings">
+                <template slot="label"><i class="icon icon-cog"></i>{{$t('models.realEstate.settings')}}</template>
+
                 <heading :title="$t('models.realEstate.title')" class="custom-heading" icon="ti-settings" shadow="heavy" />
 
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
@@ -331,7 +333,9 @@
                 </div>
 
             </el-tab-pane>
-            <el-tab-pane :label="$t('models.realEstate.requests')" name="requests">
+            <el-tab-pane name="requests">
+                <template slot="label"><i class="icon icon-chat-empty"></i>{{$t('models.realEstate.requests')}}</template>
+
                 <heading :title="$t('models.realEstate.requests')" class="custom-heading" icon="ti-settings" shadow="heavy" />
 
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
@@ -548,13 +552,22 @@
             border-bottom-right-radius: 10px;
             background: #fff;
             .el-tabs__nav-wrap {
-                padding-top: 20px;
+                /*padding-top: 20px;*/
                 &:after {
                     background: transparent;
                 }
             }
+            .el-tabs__active-bar {
+                display: none;
+            }
             .el-tabs__item.is-left {
+                height: 50px;
+                line-height: 50px;
+                border-bottom: 1px #ebebeb solid;
                 text-align: left;
+                .icon {
+                    margin-right: 8px;
+                }
                 &:hover {
                     background: #f0f9f1;
                 }
