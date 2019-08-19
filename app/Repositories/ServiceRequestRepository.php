@@ -307,14 +307,13 @@ class ServiceRequestRepository extends BaseRepository
         $unregistered = collect();
         $registered = User::whereIn('email', $receivers)->get();
         $i = 0;
+
+        $unregistered = $receivers->diff($registered);
         foreach ($registered as $user) {
             $user->redirect = "/admin/requests/" . $sr->id;
             $when = now()->addSeconds($i++ * env("DELAY_BETWEEN_EMAILS", 10));
             \Mail::to($user)
                 ->later($when, new NotifyServiceProvider($sp, $sr, $mailDetails, $user));
-            $unregistered = $receivers->reject(function($val) use ($user) {
-                return $val == $user->email;
-            });
         }
         $i = 0;
         foreach ($unregistered as $unreg) {
