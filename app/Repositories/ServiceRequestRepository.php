@@ -296,32 +296,23 @@ class ServiceRequestRepository extends BaseRepository
      */
     public function notifyProvider(ServiceRequest $sr, ServiceProvider $sp, $assignees, $mailDetails)
     {
-        $receivers = collect(array_merge(
-            [$sp->user->email],
-            $mailDetails['cc'] ?? [],
-            $mailDetails['bcc'] ?? [],
-            isset($mailDetails['to']) ? [$mailDetails['to']] : [],
-            $assignees->map(function($u) {return $u->email;})->toArray()
-        ));
-
-        $unregistered = collect();
-        $registered = User::whereIn('email', $receivers)->get();
-        $i = 0;
-
-        $unregistered = $receivers->diff($registered);
-        foreach ($registered as $user) {
-            $user->redirect = "/admin/requests/" . $sr->id;
-            $when = now()->addSeconds($i++ * env("DELAY_BETWEEN_EMAILS", 10));
-            \Mail::to($user)
-                ->later($when, new NotifyServiceProvider($sp, $sr, $mailDetails, $user));
-        }
-        $i = 0;
-        foreach ($unregistered as $unreg) {
-            $when = now()->addSeconds($i++ * env("DELAY_BETWEEN_EMAILS", 10));
-            \Mail::to($unreg)
-                ->later($when, new NotifyServiceProvider($sp, $sr, $mailDetails));
+        $toEmails = [$sp->user->email];
+        if (!empty($mailDetails['to'])) {
+            $toEmails[] = $mailDetails['to'];
         }
 
+        $ccEmails = $assignees->pluck('email')->all();
+
+        if (!empty($mailDetails['cc']) && is_array($mailDetails['cc'])) {
+            $ccEmails = array_merge($ccEmails, $mailDetails['cc']);
+        }
+
+        $bccEmails = $mailDetails['bcc'] ?? [];
+
+        \Mail::to($toEmails)
+            ->cc($ccEmails)
+            ->bcc($bccEmails)
+            ->send( new NotifyServiceProvider($sp, $sr, $mailDetails));
 
         $u = \Auth::user();
         $conv = $sr->conversationFor($u, $sp->user);
