@@ -1,6 +1,6 @@
 <template>
     <div class="users-add">
-        <heading :title="$t('models.user.add')" icon="icon-user" shadow="heavy">
+        <heading :title="this.$route.params.role == 'administrator' ? $t('models.user.add_admin') : $t('models.user.add_super_admin')" icon="icon-user" shadow="heavy">
             <add-actions :saveAction="submit" route="adminUsers" editRoute="adminUsersEdit"/>
         </heading>
         <div class="crud-view">
