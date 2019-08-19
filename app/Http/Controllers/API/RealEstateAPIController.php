@@ -142,6 +142,9 @@ class RealEstateAPIController extends AppBaseController
                 $this->addressRepository->update($input['address'], $realEstate->address_id);
             }
             $input['address_id'] = $realEstate->address_id;
+            if (isset($input['login_variation_2_slider'])) {
+                $input['login_variation_2_slider'] = (int) $input['login_variation_2_slider'];
+            }
             $realEstate = $this->realEstateRepository->update($input, $realEstate->id);
             // Forget weather so the next request to weather
             // brings info from the new location

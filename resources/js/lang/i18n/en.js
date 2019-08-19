@@ -1575,6 +1575,7 @@ export default {
             }
         },
         "validation": {
+            "validation_main_message": "The given data was invalid.",
             "accepted": "The {attribute} must be accepted.",
             "active_url": "The {attribute} is not a valid URL.",
             "after": "The {attribute} must be a date after {date}.",

@@ -12,6 +12,8 @@ return [
     |
     */
 
+    'validation_main_message' => "I dati forniti non erano validi.",
+
     'accepted'             => ':attribute deve essere accettato.',
     'active_url'           => ':attribute non è un URL valido.',
     'after'                => ':attribute deve essere una data successiva al :date.',
