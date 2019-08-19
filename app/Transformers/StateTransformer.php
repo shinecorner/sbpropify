@@ -34,9 +34,11 @@ class StateTransformer extends BaseTransformer
         $rl = $userRepository->findWithoutFail(Auth::id());
 
         $languages = Config::get('app.locales');
-        foreach ($languages as $key => $language) {
-            $field = 'name_' . $rl->settings->language;
-            if (isset($model->{$field}) && $key == $rl->settings->language) {
+        $currentLanguage = config('app.locale');
+
+        if ('en' != $currentLanguage) {
+            $field = 'name_' . $currentLanguage;
+            if (isset($model->{$field})) {
                 $response['name'] = $model->{$field};
             }
         }
