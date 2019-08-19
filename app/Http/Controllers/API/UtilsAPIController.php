@@ -77,7 +77,7 @@ class UtilsAPIController extends AppBaseController
     public function constants()
     {
         $translations = __('general.languages');
-        $languages = array_intersect_key($translations, config('app.locales'));
+        $languages =  $translations + config('app.locales');
         $app = [
             'languages' => $languages,
         ];

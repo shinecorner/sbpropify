@@ -16,10 +16,10 @@ return [
   'chooseLanguage' => 'Choose Language',
   'languages' => 
   [
-    'fr' => 'Français',
-    'it' => 'Italiano',
-    'de' => 'Deutsch',
-    'en' => 'English',
+//    'fr' => 'Français',
+//    'it' => 'Italiano',
+//    'de' => 'Deutsch',
+    'en' => 'aaa',
   ],
   'footerText' => 
   [
