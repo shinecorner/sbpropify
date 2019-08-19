@@ -136,7 +136,7 @@ class UnitAPIController extends AppBaseController
         try {
             $unit = $this->unitRepository->create($input);
         } catch (\Exception $e) {
-            return $this->sendError('Unit create error: ' . $e->getMessage());
+            return $this->sendError(__('models.unit.errors.create') . $e->getMessage());
         }
 
         if (isset($input['tenant_id'])) {
@@ -147,7 +147,7 @@ class UnitAPIController extends AppBaseController
                 $tenant = $this->tenantRepository->update($attr, $input['tenant_id']);
                 $pr->newTenantPost($tenant);
             } catch (\Exception $e) {
-                return $this->sendError('Unit assign Tenant create error: ' . $e->getMessage());
+                return $this->sendError(__('models.unit.errors.tenant_assign') . $e->getMessage());
             }
         }
 
@@ -199,7 +199,7 @@ class UnitAPIController extends AppBaseController
         /** @var Unit $unit */
         $unit = $this->unitRepository->findWithoutFail($id);
         if (empty($unit)) {
-            return $this->sendError('Unit not found');
+            return $this->sendError(__('models.unit.errors.not_found'));
         }
 
         $unit->load('tenant');
@@ -260,7 +260,7 @@ class UnitAPIController extends AppBaseController
         /** @var Unit $unit */
         $unit = $this->unitRepository->findWithoutFail($id);
         if (empty($unit)) {
-            return $this->sendError('Unit not found');
+            return $this->sendError(__('models.unit.errors.not_found'));
         }
         $shouldPost = isset($input['tenant_id']) &&
             (!$unit->tenant || ($unit->tenant && $unit->tenant->id != $input['tenant_id']));
@@ -268,7 +268,7 @@ class UnitAPIController extends AppBaseController
         try {
             $unit = $this->unitRepository->update($input, $id);
         } catch (\Exception $e) {
-            return $this->sendError('Unit updated error: ' . $e->getMessage());
+            return $this->sendError(__('models.unit.errors.update') . $e->getMessage());
         }
 
         $currentTenant = $unit->tenan ? $unit->tenant->id : 0;
@@ -276,7 +276,7 @@ class UnitAPIController extends AppBaseController
             try {
                 $this->tenantRepository->moveTenantInUnit($input['tenant_id'], $unit);
             } catch (\Exception $e) {
-                return $this->sendError('Unit assign Tenant create error: ' . $e->getMessage());
+                return $this->sendError(__('models.unit.errors.create') . $e->getMessage());
             }
         }
 
@@ -333,7 +333,7 @@ class UnitAPIController extends AppBaseController
         $unit = $this->unitRepository->findWithoutFail($id);
 
         if (empty($unit)) {
-            return $this->sendError('Unit not found');
+            return $this->sendError(__('models.unit.errors.not_found'));
         }
 
         // TODO: unassign Tenant from deleted Unit
@@ -411,12 +411,12 @@ class UnitAPIController extends AppBaseController
     {
         $unit = $this->unitRepository->find($unitId, ['id']);
         if (empty($unit)) {
-            return $this->sendError('Incorrect unit');
+            return $this->sendError(__('models.unit.errors.not_found'));
         }
 
         $tenant = $this->tenantRepository->find($tenantId, ['id']);
         if (empty($tenant)) {
-            return $this->sendError('Incorrect tenant');
+            return $this->sendError(__('models.unit.errors.not_found'));
         }
 
         $data = [
@@ -495,11 +495,11 @@ class UnitAPIController extends AppBaseController
     {
         $tenant = $this->tenantRepository->find($tenantId, ['id', 'unit_id']);
         if (empty($tenant)) {
-            return $this->sendError('Incorrect tenant');
+            return $this->sendError(__('models.unit.errors.tenant_not_found'));
         }
 
         if ($tenant->unit_id !=  $unitId) {
-            return $this->sendError('This tenant not assigned in this unit');
+            return $this->sendError(__('models.unit.errors.tenant_not_assign'));
         }
 
         $data = [

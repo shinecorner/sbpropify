@@ -250,10 +250,7 @@
                     });
 
                     if (resp) {
-                        displaySuccess({
-                                    success: true,
-                                    message: 'models.propertyManager.deleted'
-                                });
+                        displaySuccess(resp);
                         this.closeModal();
                         this.fetchMore();
                     }

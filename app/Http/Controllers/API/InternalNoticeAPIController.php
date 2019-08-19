@@ -137,7 +137,7 @@ class InternalNoticeAPIController extends AppBaseController
 
         $internalNotice = $this->internalNoticeRepository->create($input);
 
-        return $this->sendResponse($internalNotice->toArray(), 'Internal Notice saved successfully');
+        return $this->sendResponse($internalNotice->toArray(), __('models.request.internal_notice_saved'));
     }
 
     /**
@@ -184,7 +184,7 @@ class InternalNoticeAPIController extends AppBaseController
         $internalNotice = $this->internalNoticeRepository->find($id);
 
         if (empty($internalNotice)) {
-            return $this->sendError('Internal Notice not found');
+            return $this->sendError(__('models.request.errors.internal_notice_not_found'));
         }
 
         return $this->sendResponse($internalNotice->toArray(), 'Internal Notice retrieved successfully');
@@ -244,12 +244,12 @@ class InternalNoticeAPIController extends AppBaseController
         $internalNotice = $this->internalNoticeRepository->find($id);
 
         if (empty($internalNotice)) {
-            return $this->sendError('Internal Notice not found');
+            return $this->sendError(__('models.request.errors.internal_notice_not_found'));
         }
 
         $internalNotice = $this->internalNoticeRepository->update($input, $id);
 
-        return $this->sendResponse($internalNotice->toArray(), 'InternalNotice updated successfully');
+        return $this->sendResponse($internalNotice->toArray(), __('models.request.internal_notice_updated'));
     }
 
     /**
@@ -296,11 +296,11 @@ class InternalNoticeAPIController extends AppBaseController
         $internalNotice = $this->internalNoticeRepository->find($id);
 
         if (empty($internalNotice)) {
-            return $this->sendError('Internal Notice not found');
+            return $this->sendError(__('models.request.errors.internal_notice_not_found'));
         }
 
         $internalNotice->delete();
 
-        return $this->sendResponse($id, 'Internal Notice deleted successfully');
+        return $this->sendResponse($id, __('models.request.internal_notice_deleted'));
     }
 }

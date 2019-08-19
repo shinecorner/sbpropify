@@ -232,7 +232,7 @@ class TemplateAPIController extends AppBaseController
         /** @var Template $template */
         $template = $this->templateRepository->with(['category'])->find($id);
         if (empty($template)) {
-            return $this->sendError('Template not found');
+            return $this->sendError(__('models.template.errors.not_found'));
         }
 
         $template->load('translations');
@@ -295,7 +295,7 @@ class TemplateAPIController extends AppBaseController
         $template = $this->templateRepository->find($id);
 
         if (empty($template)) {
-            return $this->sendError('Template not found');
+            return $this->sendError(__('models.template.errors.not_found'));
         }
 
         $template = $this->templateRepository->update($input, $id);
@@ -350,7 +350,7 @@ class TemplateAPIController extends AppBaseController
         $template = $this->templateRepository->find($id);
 
         if (empty($template)) {
-            return $this->sendError('Template not found');
+            return $this->sendError(__('models.template.errors.not_found'));
         }
 
         $template->delete();

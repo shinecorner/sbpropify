@@ -214,7 +214,7 @@ class ServiceRequestAPIController extends AppBaseController
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $serviceRequest->load([
@@ -279,12 +279,12 @@ class ServiceRequestAPIController extends AppBaseController
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $oldStatus = $serviceRequest->status;
         if (!$this->serviceRequestRepository->checkStatusPermission($input, $oldStatus)) {
-            return $this->sendError('You are not allowed to change status');
+            return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
         $attr = $this->serviceRequestRepository->getPutAttributes($input, $oldStatus);
@@ -348,7 +348,7 @@ class ServiceRequestAPIController extends AppBaseController
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $input = [
@@ -356,7 +356,7 @@ class ServiceRequestAPIController extends AppBaseController
         ];
 
         if (!$this->serviceRequestRepository->checkStatusPermission($input, $serviceRequest->status)) {
-            return $this->sendError('You are not allowed to change status');
+            return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
         $serviceRequest = $this->serviceRequestRepository->update($input, $id);
@@ -410,7 +410,7 @@ class ServiceRequestAPIController extends AppBaseController
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $input = [
@@ -466,7 +466,7 @@ class ServiceRequestAPIController extends AppBaseController
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $serviceRequest->delete();
@@ -527,11 +527,11 @@ class ServiceRequestAPIController extends AppBaseController
     {
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
         $sp = $spRepo->findWithoutFail($request->provider_id);
         if (empty($sp)) {
-            return $this->sendError('Service Provider not found');
+            return $this->sendError(__('models.request.errors.provider_not_found'));
         }
 
         $assignees = $uRepo->findWhereIn('id', $request->assignee_ids ?? []);
@@ -592,11 +592,11 @@ class ServiceRequestAPIController extends AppBaseController
     {
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
         $sp = $spRepo->findWithoutFail($pid);
         if (empty($sp)) {
-            return $this->sendError('Service Provider not found');
+            return $this->sendError(__('models.request.errors.provider_not_found'));
         }
 
         $sr->providers()->sync($sp, false);
@@ -650,12 +650,12 @@ class ServiceRequestAPIController extends AppBaseController
     {
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $sp = $spRepo->findWithoutFail($pid);
         if (empty($sp)) {
-            return $this->sendError('Service Provider not found');
+            return $this->sendError(__('models.request.errors.provider_not_found'));
         }
 
         $sr->providers()->detach($sp);
@@ -703,12 +703,12 @@ class ServiceRequestAPIController extends AppBaseController
     {
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $u = $uRepo->findWithoutFail($uid);
         if (empty($u)) {
-            return $this->sendError('User not found');
+            return $this->sendError(__('models.request.errors.user_not_found'));
         }
 
         $sr->assignees()->sync($u, false);
@@ -760,11 +760,11 @@ class ServiceRequestAPIController extends AppBaseController
     {
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
         $u = $uRepo->findWithoutFail($uid);
         if (empty($u)) {
-            return $this->sendError('User not found');
+            return $this->sendError(__('models.request.errors.user_not_found'));
         }
 
         $sr->assignees()->detach($u);
@@ -812,7 +812,7 @@ class ServiceRequestAPIController extends AppBaseController
     {
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
@@ -867,7 +867,7 @@ class ServiceRequestAPIController extends AppBaseController
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $serviceRequest->load([
@@ -927,7 +927,7 @@ class ServiceRequestAPIController extends AppBaseController
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $serviceRequest->load([
@@ -987,7 +987,7 @@ class ServiceRequestAPIController extends AppBaseController
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $serviceRequest->load([

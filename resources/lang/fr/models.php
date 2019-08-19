@@ -7,8 +7,7 @@ return [
       'add_admin' => 'Ajouter un administrateur',
       'edit_admin' => 'Modifier l\'administrateur',
       'add_super_admin' => 'Ajouter Super admin',
-      'edit_super_admin' => 'Editer Super admin',
-      'edit_action' => 'Edit',
+      'edit_super_admin' => 'Editer Super admin',      
       "edit_action" => "Modifier",
       "delete" => "Supprimer",
       "name" => "Nom",
@@ -33,6 +32,19 @@ return [
       "realEstateSaved" => "Options des biens immobiliers sauvegardées",
       "serviceRequestCategorySaved" => "Catégorie de demande de service sauvegardée",
       "serviceRequestCategoryDeleted" => "Catégorie de demande de service supprimée",
+      'setting_saved' => "réglage utilisateur sauvegardé",
+      'setting_deleted' => "Suppression du réglage utilisateur",      
+      'password_reset_request_sent' => "Réinitialisation du mot de passe Demande d'envoi réussie", 
+      'errors' => [
+        'not_found' => "Utilisateur introuvable",
+        'setting_not_found' => "réglage utilisateur introuvable",        
+        'image_upload' => "Erreur de téléchargement de l'image de l'utilisateur :",
+        'incorrect_password' => "Mot de passe utilisateur incorrect",
+        'email_missing' => "email est manquant",
+        'email_already_exists' => "Ce [:email] email existe déjà, Sélectionner un autre email",
+        'email_not_exists' => "Ce [:email] email n'existe pas",
+        'password_reset_token_invalid' => "Ce jeton de réinitialisation de mot de passe n'est pas valide.",
+      ],
       'validation' => 
       [
         'name' => 
@@ -137,6 +149,14 @@ return [
           'required' => "La langue est obligatoire",
         ]
       ],
+      'errors' => [
+        'not_found' => "Locataire introuvable",
+        'incorrect_email' => "Adresse e-mail incorrecte",
+        'create' => "Le locataire crée l'erreur : ",
+        'update' => "Erreur de mise à jour locataire : ",	
+        'deleted' => "Erreur de suppression du locataire : ",
+        'not_allowed_change_status' => "Vous n'êtes pas autorisé à changer de statut.",
+      ],      
       "building_card" => "Affecter unité",
       "personal_details_card" => "Données personnelles",
       "account_info_card" => "Connexion de l'utilisateur",
@@ -261,6 +281,13 @@ return [
           "required" => "L'adresse est requise",
         ],
       ],
+      'errors' => [
+        'not_found' => "Bâtiment non trouvé",
+        'manager_not_found' => "Gestionnaire immobilier introuvable",
+        'deleted' => "Erreur de suppression du bâtiment : ",
+        'manager_assigned' => "Les gestionnaires immobiliers attribuent à l'erreur de construction : ",
+        'provider_deleted' => "Erreur supprimée par le fournisseur de services : ",
+      ],
       'requestStatuses' => 
       [
         "total" => "Nombre total de demandes",
@@ -361,6 +388,14 @@ return [
           "required" => "Un locataire est requis",
         ]
       ],
+      'errors' => [
+        'not_found' => "Unité non trouvée",
+        'create' => "L'unité crée l'erreur : ",
+        'update' => "Erreur de mise à jour de l'unité : ",
+        'tenant_assign' => "Erreur d'affectation locataire : ",
+        'tenant_not_assign' => "Locataire non affecté à cette unité",
+        'tenant_not_found' => "Locataire introuvable",
+      ],
       'placeholders' => 
       [
         "search" => "Cherchez",
@@ -425,6 +460,7 @@ return [
       "add_pinned" => "Ajouter un poteau épinglé",
       "save" => "Sauvegarder",
       "saved" => "Notizie salvate",
+      'view_incresead' => "Le nombre de points de vue a augmenté avec succès",
       "updated" => "Notizie aggiornate",
       "deleted" => "Notizie cancellate",
       "edit" => "Modifier",
@@ -462,6 +498,12 @@ return [
         "article" => "Article",
         "new_neighbour" => "Nouveau voisin",
         "pinned" => "Épinglé",
+      ],
+      'errors' => [
+        'not_found' => "Message non trouvé",
+        'district_not_found' => "District non trouvé",
+        'building_not_found' => "Bâtiment non trouvé",
+        'provider_not_found' => "Fournisseur de services introuvable"
       ],
       'status' => 
       [
@@ -584,6 +626,15 @@ return [
         "search" => "Cherchez",
         "category" => "Sélectionnez une catégorie",
       ],
+      'errors' => [
+        'not_found' => "Fournisseur de services introuvable",
+        'create' => "Le fournisseur de services crée l'erreur : ",
+        'update' => "Erreur de mise à jour du fournisseur de services : ",	
+        'deleted' => "Erreur supprimée par le fournisseur de services : ",
+        'district_not_found' => "District non trouvé",
+        'building_not_found' => "Bâtiment non trouvé",
+        'building_already_assign' => "Bâtiment déjà attribué par le district",        
+      ],
     ],
     'district' => 
     [
@@ -601,6 +652,9 @@ return [
       "required" => "Ce champ est obligatoire",
       "details" => "Détails",
       "buildings" => "Bâtiments",
+      'errors' => [
+        'not_found' => "District non trouvé",
+      ],
     ],
     'realEstate' => 
     [
@@ -660,7 +714,11 @@ return [
       "mail_password" => [
         "label" => "Mot de passe",
         "validation" => "Entrer le mot de passe de l'email"
-      ]
+      ],
+      'errors' => [
+        'not_found' => "Biens immobiliers non trouvés",
+        'update' => "Erreur de mise à jour des biens immobiliers : ",
+      ],
     ],
     'request' => 
     [
@@ -691,6 +749,10 @@ return [
       "notify" => "Avertissez",
       "public_legend" => "Définissez cette option pour rendre la demande visible à tous les voisins locataires",
       "conversation" => "Conversation",
+      'conversation_created' => "Création d'un commentaire de conversation",
+      'internal_notice_saved' => "Avis interne sauvegardé",
+      'internal_notice_updated' => "Avis interne mis à jour",
+      'internal_notice_deleted' => "Avis interne supprimé",
       "open_conversation" => "Ouvrez",
       "other_recipients" => "Autres bénéficiaires",
       "recipients" => "Destinataires",
@@ -836,6 +898,15 @@ return [
         "district" => "District",
         "building" => "Bâtiment",
       ],
+      'errors' => [
+        'not_found' => 'Demande de service introuvable',
+        'not_allowed_change_status' => "Vous n'êtes pas autorisé à changer de statut.",
+        'provider_not_found' => 'Fournisseur de services introuvable',
+        'user_not_found' => 'Utilisateur introuvable',
+        'conversation_not_found' => "Conversation non trouvée",
+        'statistics_error' => "demander des statistiques d'erreur : ",
+        'internal_notice_not_found' => "Avis interne non trouvé",
+      ],
       "requestID" => "Demande ID",
       "requestCategory" => "Catégorie de demande",
     ],
@@ -849,6 +920,12 @@ return [
       "cancel" => "Annuler",
       "required" => "Ce champ est obligatoire",
       "parent" => "Catégorie de parents",
+      'errors' => [
+        'not_found' => "Catégorie de demande de service introuvable",
+        'parent_not_found' => "Catégorie de demande de service parent non trouvée",
+        'multiple_level_not_found' => "Les catégories imbriquées à plusieurs niveaux ne sont pas autorisées",
+        'used_by_request' => "Catégorie de demande de service utilisée par une demande de service",
+      ]
     ],
     'propertyManager' => 
     [
@@ -923,6 +1000,15 @@ return [
         "confirmBtnText" => "Ok",
         "cancelBtnText" => "Annuler",
       ],
+      'errors' => [
+        'not_found' => "Gestionnaire immobilier introuvable",
+        'create' => "Le gestionnaire immobilier crée l'erreur : ",
+        'update' => "Erreur de mise à jour du gestionnaire immobilier : ",
+        'district_not_found' => "District non trouvé",
+        'building_not_found' => "Bâtiment non trouvé",
+        'building_already_assign' => "Bâtiment déjà attribué par le district",
+        'building_assign_deleted_property_manager' => "Vous ne pouvez pas affecter de bâtiments à un gestionnaire immobilier supprimé.",
+      ],
     ],
     'product' => 
     [
@@ -947,10 +1033,14 @@ return [
       "user" => "Utilisateur",
       "contact" => "Contact",
       "price" => "Prix",
+      'comment_created' => "Commentaire créé avec succès",
       'media' => 
       [
         'deleted' => 'Document/photo supprimée',
         'uploaded' => 'Document/Photo téléchargée',
+      ],
+      'errors' => [
+        'not_found' => "Produit non trouvé",
       ],
       'type' => 
       [
@@ -991,6 +1081,9 @@ return [
       [
         'category' => 'Choisir une catégorie',
       ],
+      'errors' => [
+        'not_found' => "Modèle non trouvé",
+      ]
     ],
     'cleanify' => 
     [

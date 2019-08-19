@@ -173,7 +173,7 @@ class DistrictAPIController extends AppBaseController
         /** @var District $district */
         $district = $this->districtRepository->findWithoutFail($id);
         if (empty($district)) {
-            return $this->sendError('District not found');
+            return $this->sendError(__('models.district.errors.not_found'));
         }
 
         $response = (new DistrictTransformer)->transform($district);
@@ -235,7 +235,7 @@ class DistrictAPIController extends AppBaseController
         $district = $this->districtRepository->findWithoutFail($id);
 
         if (empty($district)) {
-            return $this->sendError('District not found');
+            return $this->sendError(__('models.district.errors.not_found'));
         }
 
         $district = $this->districtRepository->update($input, $id);
@@ -288,7 +288,7 @@ class DistrictAPIController extends AppBaseController
         $district = $this->districtRepository->findWithoutFail($id);
 
         if (empty($district)) {
-            return $this->sendError('District not found');
+            return $this->sendError(__('models.district.errors.not_found'));
         }
 
         $district->delete();

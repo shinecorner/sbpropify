@@ -66,7 +66,7 @@ class RealEstateAPIController extends AppBaseController
         /** @var RealEstate $realEstate */
         $realEstate = $this->realEstateRepository->first();
         if (empty($realEstate)) {
-            return $this->sendError('Real Estate not found');
+            return $this->sendError(__('models.realEstate.errors.not_found'));
         }
 
         $news_receiver_ids = $realEstate->news_receiver_ids ?? [];
@@ -124,7 +124,7 @@ class RealEstateAPIController extends AppBaseController
         /** @var RealEstate $realEstate */
         $realEstate = $this->realEstateRepository->first();
         if (empty($realEstate)) {
-            return $this->sendError('Real Estate not found');
+            return $this->sendError(__('models.realEstate.errors.not_found'));
         }
 
         // image upload
@@ -133,7 +133,7 @@ class RealEstateAPIController extends AppBaseController
             try {
                 $input['logo'] = $this->realEstateRepository->uploadImage($fileData, $realEstate);
             } catch (\Exception $e) {
-                return $this->sendError('User image upload: ' . $e->getMessage());
+                return $this->sendError(__('models.user.errors.image_upload') . $e->getMessage());
             }
         }
 
@@ -150,7 +150,7 @@ class RealEstateAPIController extends AppBaseController
             // brings info from the new location
             Cache::forget('weather_json');
         } catch (\Exception $e) {
-            return $this->sendError('RealEstate updated error');
+            return $this->sendError(__('models.realEstate.errors.update'));
         }
         $realEstate->news_receivers = User::whereIn('id', $realEstate->news_receiver_ids)->get();
 
