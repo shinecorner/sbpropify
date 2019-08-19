@@ -3,6 +3,7 @@ import {mapActions, mapGetters} from 'vuex';
 import {displayError, displaySuccess} from 'helpers/messages';
 import PasswordValidatorMixin from './passwordValidatorMixin';
 import UploadUserAvatarMixin from './adminUploadUserAvatarMixin';
+import axios from '@/axios';
 
 export default (config = {}) => {
     let mixin = {
@@ -79,6 +80,8 @@ export default (config = {}) => {
                     }, {
                         type: 'email',
                         message: 'This field is required'
+                    }, {
+                        validator: this.checkavailabilityEmail
                     }],
                     password: [{
                         validator: this.validatePassword
@@ -167,7 +170,21 @@ export default (config = {}) => {
                     }
                 }
             },
-
+            async checkavailabilityEmail(rule, value, callback) {
+                let validateObject = this.model;
+                
+                if(config.mode == 'add' || ( this.original_email != null && this.original_email !== validateObject.user.email)) {
+                    try {
+                        const resp = await axios.get('users/check-email?email=' + validateObject.user.email);
+                        if(resp)
+                        {
+                            callback(new Error(resp.data.message));
+                        }                  
+                    } catch {
+                        callback();
+                    }
+                }
+            },
             attachBuilding() {
                 return new Promise(async (resolve, reject) => {
                     if (!this.toAssign || (!this.model.id && config.mode === 'edit')) {
@@ -347,6 +364,8 @@ export default (config = {}) => {
                     const {password, password_confirmation} = this.validationRules;
 
                     [...password, ...password_confirmation].forEach(rule => rule.required = false);
+
+                    this.original_email = this.model.user.email;
 
                     await this.fetchCurrentProvider();
                 };

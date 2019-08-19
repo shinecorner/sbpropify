@@ -3,7 +3,7 @@ import {displayError, displaySuccess} from 'helpers/messages';
 import PasswordValidatorMixin from './passwordValidatorMixin';
 import UploadUserAvatarMixin from './adminUploadUserAvatarMixin';
 import PropertyManagerTitlesMixin from './methods/propertyManagerTitleTypes';
-
+import axios from '@/axios';
 export default (config = {}) => {
     let mixin = {
         props: {
@@ -72,6 +72,8 @@ export default (config = {}) => {
                     }, {
                         type: 'email',
                         message: 'This field is required'
+                    }, {
+                        validator: this.checkavailabilityEmail
                     }],
                     password: [{
                         validator: this.validatePassword
@@ -155,6 +157,21 @@ export default (config = {}) => {
                         displayError(err);
                     } finally {
                         this.remoteLoading = false;
+                    }
+                }
+            },  
+            async checkavailabilityEmail(rule, value, callback) {
+                let validateObject = this.model;
+                
+                if(config.mode == 'add' || ( this.original_email != null && this.original_email !== validateObject.user.email)) {
+                    try {
+                        const resp = await axios.get('users/check-email?email=' + validateObject.user.email);
+                        if(resp)
+                        {
+                            callback(new Error(resp.data.message));
+                        }                  
+                    } catch {
+                        callback();
                     }
                 }
             },
@@ -322,6 +339,8 @@ export default (config = {}) => {
 
                     this.loading.state = true;
 
+                    
+
                     await this.fetchCurrentManager();
 
                     const reqResp = await this.getRequests({
@@ -343,6 +362,8 @@ export default (config = {}) => {
                     this.statistics.raw[2].value = restData.pending_requests_count;
                     this.statistics.raw[3].value = restData.buildings_count;
 
+                    this.original_email = this.model.user.email;
+                    
                     this.loading.state = false;
                 };
 
