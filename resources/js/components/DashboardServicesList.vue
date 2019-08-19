@@ -109,7 +109,7 @@
             },
             fetchData() {
               let that = this;
-              let url = 'services?req_count=true&get_all=true&has_req=1';
+              let url = 'services?get_all=true&has_req=1';
               return axios.get(url)
               .then(function (response) {
                 that.items = response.data.data.map((item) => {

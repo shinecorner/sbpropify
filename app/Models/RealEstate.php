@@ -137,7 +137,9 @@ class RealEstate extends AuditableModel
         'mail_from_address',
         'mail_from_name',
         'primary_color',
-        'accent_color'
+        'accent_color',
+        'login_variation',
+        'login_variation_2_slider'
     ];
 
     /**
@@ -173,7 +175,9 @@ class RealEstate extends AuditableModel
         'mail_from_address' => 'string',
         'mail_from_name' => 'string',
         'primary_color' => 'string',
-        'accent_color' => 'string'
+        'accent_color' => 'string',
+        'login_variation' => 'integer',
+        'login_variation_2_slider' => 'integer',
     ];
 
     /**

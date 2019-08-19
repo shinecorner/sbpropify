@@ -229,7 +229,7 @@ class ProductAPIController extends AppBaseController
         ])->withCount('allComments')->findWithoutFail($id);
 
         if (empty($product)) {
-            return $this->sendError('Product not found');
+            return $this->sendError(__('models.product.errors.not_found'));
         }
         $product->likers = $product->collectLikers();
 
@@ -292,7 +292,7 @@ class ProductAPIController extends AppBaseController
         $product = $this->productRepository->findWithoutFail($id);
 
         if (empty($product)) {
-            return $this->sendError('Product not found');
+            return $this->sendError(__('models.product.errors.not_found'));
         }
 
         $product = $this->productRepository->update($input, $id);
@@ -345,7 +345,7 @@ class ProductAPIController extends AppBaseController
         $product = $this->productRepository->findWithoutFail($id);
 
         if (empty($product)) {
-            return $this->sendError('Product not found');
+            return $this->sendError(__('models.product.errors.not_found'));
         }
 
         $product->delete();
@@ -395,7 +395,7 @@ class ProductAPIController extends AppBaseController
     {
         $product = $this->productRepository->findWithoutFail($id);
         if (empty($product)) {
-            return $this->sendError('Product not found');
+            return $this->sendError(__('models.product.errors.not_found'));
         }
 
         $u = \Auth::user();
@@ -453,7 +453,7 @@ class ProductAPIController extends AppBaseController
     {
         $product = $this->productRepository->findWithoutFail($id);
         if (empty($product)) {
-            return $this->sendError('Product not found');
+            return $this->sendError(__('models.product.errors.not_found'));
         }
 
         $u = \Auth::user();
@@ -514,7 +514,7 @@ class ProductAPIController extends AppBaseController
         $newStatus = $request->get('status');
         $post = $this->productRepository->findWithoutFail($id);
         if (empty($post)) {
-            return $this->sendError('Product not found');
+            return $this->sendError(__('models.product.errors.not_found'));
         }
 
         $post = $this->productRepository->setStatus($id, $newStatus);

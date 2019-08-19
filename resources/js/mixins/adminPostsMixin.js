@@ -68,8 +68,8 @@ export default (config = {}) => {
                     text: 'Please wait...'
                 },
                 media: [],
-                assignmentTypes: ['Building', 'District'],
-                assignmentType: 'Building',
+                assignmentTypes: ['building', 'district'],
+                assignmentType: 'building',
                 toAssign: '',
                 toAssignList: [],
                 toAssignProvider: '',
@@ -150,7 +150,7 @@ export default (config = {}) => {
 
                     try {
                         let resp = [];
-                        if (this.assignmentType === 'Building') {
+                        if (this.assignmentType == 'building') {
                             resp = await this.getBuildings({
                                 get_all: true,
                                 search,
@@ -178,7 +178,7 @@ export default (config = {}) => {
 
                         let resp;
 
-                        if (this.assignmentType === 'Building') {
+                        if (this.assignmentType === 'building') {
                             resp = await this.assignPostBuilding({
                                 id: this.model.id,
                                 toAssignId: this.toAssign
@@ -201,10 +201,7 @@ export default (config = {}) => {
 
                     } catch (e) {
                         if (e.response && !e.response.data.success) {
-                            displayError({
-                                success: false,
-                                message: this.$t('models.post.buildingAlreadyAssigned')
-                            })
+                            displayError(resp)
                         }
 
                         reject(false);
@@ -262,10 +259,7 @@ export default (config = {}) => {
 
                     } catch (e) {
                         if (e.response && !e.response.data.success) {
-                            displayError({
-                                success: false,
-                                message: this.$t('models.post.attach.provider_error')
-                            })
+                            displayError(e.response)
                         }
 
                         reject(false);

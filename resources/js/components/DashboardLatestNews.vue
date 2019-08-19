@@ -37,7 +37,7 @@
                 header: [{
                     type: 'news-title',
                     label: this.$t('models.post.title'),
-                    props: ['content', 'image_url'],
+                    props: ['content', 'user'],
                     minWidth: '300px'
                 }, {
                     type: 'tag',

@@ -74,43 +74,33 @@
 
                         <el-row :gutter="20">
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.user.phone')" prop="phone">
-                                    <el-input type="text" v-model="model.phone"/>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :md="12">
                                 <el-form-item :label="$t('models.address.street')" :rules="validationRules.street"
                                               prop="address.street"
                                               style="max-width: 512px;">
                                     <el-input type="text" v-model="model.address.street"></el-input>
                                 </el-form-item>
                             </el-col>
+                            <el-col :md="12">
+                                <el-row :gutter="10">
+                                    <el-col :md="8">
+                                        <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip"
+                                                      prop="address.zip"
+                                                      style="max-width: 512px;">
+                                            <el-input type="text" v-model="model.address.zip"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :md="16">
+                                        <el-form-item :label="$t('models.address.city')" :rules="validationRules.city"
+                                                      prop="address.city"
+                                                      style="max-width: 512px;">
+                                            <el-input type="text" v-model="model.address.city"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                            </el-col>
                         </el-row>
 
                         <el-row :gutter="20">
-                            <el-col :md="12">
-                                <el-form-item :label="$t('models.address.street_nr')" :rules="validationRules.street_nr"
-                                              prop="address.street_nr" style="max-width: 512px;">
-                                    <el-input type="text" v-model="model.address.street_nr"></el-input>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :md="12">
-                                <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip"
-                                              prop="address.zip"
-                                              style="max-width: 512px;">
-                                    <el-input type="text" v-model="model.address.zip"></el-input>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-
-                        <el-row :gutter="20">
-                            <el-col :md="12">
-                                <el-form-item :label="$t('models.address.city')" :rules="validationRules.city"
-                                              prop="address.city"
-                                              style="max-width: 512px;">
-                                    <el-input type="text" v-model="model.address.city"></el-input>
-                                </el-form-item>
-                            </el-col>
                             <el-col :md="12">
                                 <el-form-item :label="$t('models.address.state.label')"
                                               :rules="validationRules.state_id"
@@ -120,6 +110,11 @@
                                         <el-option :key="state.id" :label="state.name" :value="state.id"
                                                    v-for="state in states"></el-option>
                                     </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :md="12">
+                                <el-form-item :label="$t('models.user.phone')" prop="phone">
+                                    <el-input type="text" v-model="model.phone"/>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -175,6 +170,8 @@
                         v-if="model && model.id"
                     />
                 </card>
+
+                <raw-grid-statistics-card :cols="8" :data="statistics.raw" class="mt15"/>
             </el-col>
         </el-row>
 
@@ -192,7 +189,7 @@
     import {displayError, displaySuccess} from "helpers/messages";
     import SelectLanguage from 'components/SelectLanguage';
     import AssignmentByType from 'components/AssignmentByType';
-
+    import RawGridStatisticsCard from 'components/RawGridStatisticsCard';
 
     export default {
         name: 'AdminServicesEdit',
@@ -206,7 +203,8 @@
             EditActions,
             RelationList,
             SelectLanguage,
-            AssignmentByType
+            AssignmentByType,
+            RawGridStatisticsCard
         },
         data() {
             return {

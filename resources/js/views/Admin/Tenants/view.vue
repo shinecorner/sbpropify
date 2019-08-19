@@ -243,6 +243,7 @@
                                 </h3>
                                 <Timeline
                                         :filterValue="model.id"
+                                        :noDataMessage="$t('tenant.no_requests')"
                                         fetchAction="getRequests"
                                         filter="tenant_id"
                                         v-if="model.id"
@@ -257,6 +258,7 @@
                                 </h3>
                                 <Timeline
                                         :filterValue="user.id"
+                                        :noDataMessage="$t('tenant.no_posts')"
                                         fetchAction="getPostsTruncated"
                                         filter="user_id"
                                         v-if="!_.isEmpty(user)"
@@ -271,6 +273,7 @@
                                 </h3>
                                 <Timeline
                                         :filterValue="user.id"
+                                        :noDataMessage="$t('tenant.no_listings')"
                                         fetchAction="getProducts"
                                         filter="user_id"
                                         v-if="!_.isEmpty(user)"
@@ -347,10 +350,7 @@
                         window.URL.revokeObjectURL(url);
                     }
                 } catch (e) {
-                    displayError({
-                        success: false,
-                        message: this.$t('models.tenant.credentials_download_failed')
-                    })
+                    displayError(e)
                 }
             },
             async sendCredentials() {
@@ -360,10 +360,7 @@
                         displaySuccess(resp.data);
                     }
                 } catch (e) {
-                    displayError({
-                        success: false,
-                        message: this.$t('models.tenant.credentials_send_fail')
-                    });
+                    displayError(e);
                 }
             },
             goToListing() {

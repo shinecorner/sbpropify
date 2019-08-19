@@ -32,6 +32,19 @@ return [
       'realEstateSaved' => 'Real Estate settings saved',
       'serviceRequestCategorySaved' => 'Service request category saved',
       'serviceRequestCategoryDeleted' => 'Service request category deleted',
+      'setting_saved' => "user setting saved",
+      'setting_deleted' => "user setting deleted",
+      'password_reset_request_sent' => "Password Reset Request send successfully", 
+      'errors' => [
+        'not_found' => "User not found",
+        'setting_not_found' => "user setting not found",
+        'image_upload' => "User image upload error :",
+        'incorrect_password' => "User password incorrect",
+        'email_missing' => "email is missing",
+        'email_already_exists' => "This [:email] email already exist, Select other email",
+        'email_not_exists' => "This [:email] email not exist",
+        'password_reset_token_invalid' => "This password reset token is invalid."
+      ],
       'validation' => 
       [
         'name' => 
@@ -136,6 +149,14 @@ return [
           'required' => 'Language is required',
         ]
       ],
+      'errors' => [
+        'not_found' => "Tenant not found",
+        'incorrect_email' => "Incorrect email address",
+        'create' => "Tenant create error: ",
+        'update' => "Tenant update error: ",	
+        'deleted' => "Tenant Delete error: ",
+        'not_allowed_change_status' => 'You are not allowed to change status.',
+      ],      
       'building_card' => 'Assign unit',
       'personal_details_card' => 'Personal details',
       'account_info_card' => 'User login',
@@ -260,6 +281,13 @@ return [
           'required' => 'Address is required',
         ],
       ],
+      'errors' => [
+        'not_found' => "Building not found",
+        'manager_not_found' => "Property manager not found",
+        'deleted' => "Building deleted error: ",
+        'manager_assigned' => "Property Managers assign to Building error: ",
+        'provider_deleted' => "Service Provider deleted error: ",
+      ],
       'requestStatuses' => 
       [
         'total' => 'Total requests',
@@ -360,6 +388,14 @@ return [
           'required' => 'Tenant is required',
         ]
       ],
+      'errors' => [
+        'not_found' => "Unit not found",        
+        'create' => "Unit create error: ",
+        'update' => "Unit update error: ",
+        'tenant_assign' => "Tenant assign error: ",
+        'tenant_not_assign' => "Tenant not assigned to this unit",
+        'tenant_not_found' => "Tenant not found",
+      ],
       'placeholders' => 
       [
         'search' => 'Search',
@@ -424,6 +460,7 @@ return [
       'add_pinned' => 'Add pinned post',
       'save' => 'Save',
       'saved' => 'News saved',
+      'view_incresead' => "Views increased successfully",
       'updated' => 'News updated',
       'deleted' => 'News deleted',
       'edit' => 'Edit',
@@ -462,6 +499,12 @@ return [
         'new_neighbour' => 'New neighbour',
         'pinned' => 'Pinned',
       ],
+      'errors' => [
+        'not_found' => "Post not found",        
+        'district_not_found' => "District not found",
+        'building_not_found' => "Building not found",
+        'provider_not_found' => "Service provider not found"
+      ],      
       'status' => 
       [
         'label' => 'Status',
@@ -583,6 +626,15 @@ return [
         'search' => 'Search',
         'category' => 'Select category',
       ],
+      'errors' => [
+        'not_found' => "Service Provider not found",
+        'create' => "Service Provider create error: ",
+        'update' => "Service Provider updated error: ",	
+        'deleted' => "Service Provider deleted error: ",
+        'district_not_found' => "District not found",
+        'building_not_found' => "Building not found",
+        'building_already_assign' => "Building already assigned through district",
+      ],
     ],
     'district' => 
     [
@@ -600,12 +652,20 @@ return [
       'required' => 'This field is required',
       'details' => 'Details',
       'buildings' => 'Buildings',
+      'errors' => [
+        'not_found' => "District not found",
+      ],
     ],
     'realEstate' => 
     [
       'title' => 'Settings real estate',
       'details' => 'Details',
       'settings' => 'Settings',
+      'iframe' => 'Iframe',
+      'theme' => 'Theme',
+      'requests' => 'Requests',
+      'login_variation' => 'Login variation',
+      'login_variation_slider' => 'Do you want to show slider?',
       'district_enable' => 'District',
       'marketplace_approval_enable' => 'Enable Market',
       'news_approval_enable' => 'News approval',
@@ -655,6 +715,10 @@ return [
         "label" => "Password",
         "validation" => "Enter email password"
       ],
+      'errors' => [
+        'not_found' => "Real Estate not found",
+        'update' => "Real Estate update error: ",
+      ],
     ],
     'request' => 
     [
@@ -685,6 +749,10 @@ return [
       'notify' => 'Notify',
       'public_legend' => 'Set this option to make the request visible to all tenant neighbours',
       'conversation' => 'Conversation',
+      'conversation_created' => "Conversation comment created",
+      'internal_notice_saved' => "Internal Notice saved",
+      'internal_notice_updated' => "Internal Notice updated",
+      'internal_notice_deleted' => "Internal Notice deleted",
       'open_conversation' => 'Open',
       'other_recipients' => 'Other recipients',
       'recipients' => 'Recipients',
@@ -830,6 +898,15 @@ return [
         'district' => 'District',
         'building' => 'Building',
       ],
+      'errors' => [
+        'not_found' => 'Service Request not found',
+        'not_allowed_change_status' => 'You are not allowed to change status.',
+        'provider_not_found' => 'Service Provider not found',
+        'user_not_found' => 'User not found',
+        'conversation_not_found' => "Conversation not found",
+        'statistics_error' => "Request statistics error: ",
+        'internal_notice_not_found' => "Internal Notice not found",
+      ],
       'requestID' => 'Request ID',
       'requestCategory' => 'Request Category',
     ],
@@ -843,6 +920,12 @@ return [
       'cancel' => 'Cancel',
       'required' => 'This field is required',
       'parent' => 'Parent category',
+      'errors' => [
+        'not_found' => "Service Request Category not found",
+        'parent_not_found' => "Parent Service Request Category not found",
+        'multiple_level_not_found' => "Multiple level nested categories are not allowed",
+        'used_by_request' => "Service Request Category it is used by a Service Request"
+      ]
     ],
     'propertyManager' => 
     [
@@ -917,6 +1000,15 @@ return [
         'confirmBtnText' => 'Ok',
         'cancelBtnText' => 'Cancel',
       ],
+      'errors' => [
+        'not_found' => "Property Manager not found",
+        'create' => "Property Manager create error: ",
+        'update' => "Property Manager updated error: ",	
+        'district_not_found' => "District not found",
+        'building_not_found' => "Building not found",
+        'building_already_assign' => "Building already assigned through district",
+        'building_assign_deleted_property_manager' => "You cannot assign buildings to an deleted Property Manager",
+      ],
     ],
     'product' => 
     [
@@ -941,10 +1033,14 @@ return [
       'user' => 'User',
       'contact' => 'Contact',
       'price' => 'Price',
+      'comment_created' => "Comment successfully created",
       'media' => 
       [
         'deleted' => 'Document/Photo Deleted',
         'uploaded' => 'Document/Photo Uploaded',
+      ],
+      'errors' => [
+        'not_found' => "Product not found",        
       ],
       'type' => 
       [
@@ -985,6 +1081,9 @@ return [
       [
         'category' => 'Choose category',
       ],
+      'errors' => [
+        'not_found' => "Template not found",
+      ]
     ],
     'cleanify' => 
     [

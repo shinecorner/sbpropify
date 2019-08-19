@@ -70,8 +70,8 @@ export default (config = {}) => {
                 tenants: [],
                 toAssignList: [],
                 media: [],
-                assignmentTypes: ['Managers', 'Services'],
-                assignmentType: 'Managers',
+                assignmentTypes: ['managers', 'services'],
+                assignmentType: 'managers',
                 toAssign: '',
                 conversations: [],
                 address: {},
@@ -114,7 +114,7 @@ export default (config = {}) => {
 
                     try {
                         let resp = [];
-                        if (this.assignmentType === 'Managers') {
+                        if (this.assignmentType === 'managers') {
                             resp = await this.getUsers({
                                 get_all: true,
                                 search,
@@ -142,7 +142,7 @@ export default (config = {}) => {
                 }
                 let resp;
 
-                if (this.assignmentType === 'Managers') {
+                if (this.assignmentType === 'managers') {
                     resp = await this.assignManager({
                         request: this.model.id,
                         toAssignId: this.toAssign

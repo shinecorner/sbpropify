@@ -38,6 +38,33 @@ export default (config = {}) => {
                     category: '',
                     settings: []
                 },
+                statistics: {
+                    raw: [{
+                        icon: 'ti-plus',
+                        color: '#003171',
+                        value: 0,
+                        description: 'Total'
+                        },{
+                        icon: 'ti-plus',
+                        color: '#26A65B',
+                        value: 0,
+                        description: 'Solved Requests'
+                    },{
+                        icon: 'ti-plus',
+                        color: '#26A65B',
+                        value: 0,
+                        description: 'Pending Requests'
+                    },{
+                        icon: 'ti-user',
+                        color: '#003171',
+                        value: 0,
+                        description: 'Assigned Buildings'
+                    }, ],
+                    percentage: {
+                        occupied_units: 0,
+                        free_units: 0,
+                    }
+                },
                 validationRules: {
                     name: [{
                         required: true,
@@ -100,8 +127,8 @@ export default (config = {}) => {
                     state: false,
                     text: 'Please wait...'
                 },
-                assignmentTypes: ['Building', 'District'],
-                assignmentType: 'Building',
+                assignmentTypes: ['building', 'district'],
+                assignmentType: 'building',
                 toAssign: '',
                 toAssignList: []
             };
@@ -126,7 +153,7 @@ export default (config = {}) => {
 
                     try {
                         let resp = [];
-                        if (this.assignmentType === 'Building') {
+                        if (this.assignmentType === 'building') {
                             resp = await this.getBuildings({
                                 get_all: true,
                                 search,
@@ -168,7 +195,7 @@ export default (config = {}) => {
 
                         let resp;
 
-                        if (this.assignmentType === 'Building') {
+                        if (this.assignmentType === 'building') {
                             resp = await this.assignServiceBuilding({
                                 id: this.model.id,
                                 toAssignId: this.toAssign
@@ -190,10 +217,7 @@ export default (config = {}) => {
 
                     } catch (e) {
                         if (e.response && !e.response.data.success) {
-                            displayError({
-                                success: false,
-                                message: this.$t('models.service.buildingAlreadyAssigned')
-                            })
+                            displayError(e.response)
                         }
 
                         reject(false);
@@ -308,6 +332,11 @@ export default (config = {}) => {
                         this.model.user.avatar = data.user.avatar;
                         this.model.user.id = data.user.id;
                         this.model.service_provider_format = data.service_provider_format;
+
+                        this.statistics.raw[0].value = data.requests_count;
+                        this.statistics.raw[1].value = data.solved_requests_count;
+                        this.statistics.raw[2].value = data.pending_requests_count;
+                        this.statistics.raw[3].value = data.buildings_count;
 
                         const respAddress = data.address;
 

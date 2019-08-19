@@ -89,7 +89,7 @@ class PasswordResetController extends AppBaseController
 
         $this->passwordResetRepository->createToken($input, $user);
 
-        return $this->sendResponse([], 'Password Reset Request send successfully');
+        return $this->sendResponse([], __('models.user.password_reset_request_sent'));
     }
 
     /**
@@ -135,12 +135,12 @@ class PasswordResetController extends AppBaseController
         /** @var PasswordReset $passwordReset */
         $passwordReset = $this->passwordResetRepository->findToken($token);
         if (empty($passwordReset)) {
-            return $this->sendError('This password reset token is invalid.');
+            return $this->sendError(__('models.user.errors.password_reset_token_invalid'));
         }
 
         if (Carbon::parse($passwordReset->updated_at)->addMinutes(720)->isPast()) {
             $passwordReset->delete();
-            return $this->sendError('This password reset token is invalid.');
+            return $this->sendError(__('models.user.errors.password_reset_token_invalid'));
         }
 
         return $this->sendResponse($passwordReset->toArray(), 'User retrieved successfully');
@@ -199,7 +199,7 @@ class PasswordResetController extends AppBaseController
             ['email', $input['email']]
         ])->first();
         if (!$passwordReset) {
-            return $this->sendError('This password reset token is invalid.');
+            return $this->sendError(__('models.user.errors.password_reset_token_invalid'));
         }
 
         $user = User::where('email', $passwordReset->email)->first();
@@ -210,6 +210,6 @@ class PasswordResetController extends AppBaseController
         $this->userRepository->resetPassword($input, $user->id);
         $passwordReset->delete();
 
-        return $this->sendResponse([], 'Password Reset Request send successfully');
+        return $this->sendResponse([], __('models.user.password_reset_request_sent'));
     }
 }
