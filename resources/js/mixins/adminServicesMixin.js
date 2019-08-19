@@ -37,6 +37,33 @@ export default (config = {}) => {
                     category: '',
                     settings: []
                 },
+                statistics: {
+                    raw: [{
+                        icon: 'ti-plus',
+                        color: '#003171',
+                        value: 0,
+                        description: 'Total'
+                    },{
+                        icon: 'ti-plus',
+                        color: '#26A65B',
+                        value: 0,
+                        description: 'Solved Requests'
+                    },{
+                        icon: 'ti-plus',
+                        color: '#26A65B',
+                        value: 0,
+                        description: 'Pending Requests'
+                    },{
+                        icon: 'ti-user',
+                        color: '#003171',
+                        value: 0,
+                        description: 'Assigned Buildings'
+                    }, ],
+                    percentage: {
+                        occupied_units: 0,
+                        free_units: 0,
+                    }
+                },
                 validationRules: {
                     name: [{
                         required: true,
@@ -291,6 +318,11 @@ export default (config = {}) => {
                         this.model.user.avatar = data.user.avatar;
                         this.model.user.id = data.user.id;
                         this.model.service_provider_format = data.service_provider_format;
+
+                        this.statistics.raw[0].value = data.requests_count;
+                        this.statistics.raw[1].value = data.solved_requests_count;
+                        this.statistics.raw[2].value = data.pending_requests_count;
+                        this.statistics.raw[3].value = data.buildings_count;
 
                         const respAddress = data.address;
 

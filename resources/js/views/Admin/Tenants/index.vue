@@ -62,8 +62,8 @@
                     width: 64
                 }, {
                     label: this.$t('models.tenant.name'),
-                    withMultipleProps: true,
-                    props: ['name', 'birth_date']
+                    withUsers: true,
+                    props: ['user']
                 }, {
                     label: this.$t('models.tenant.contact_info_card'),
                     withMultipleProps: true,
