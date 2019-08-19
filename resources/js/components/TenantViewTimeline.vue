@@ -50,7 +50,7 @@
                                                     size="mini"
                                                     @click="viewPage(element,fetchAction)"
                                                 >
-                                                   {{$t('models.tenant.view')}}
+                                                   {{$t('general.actions.view')}}
                                                 </el-button>
                                             </template>
                                         </span>
