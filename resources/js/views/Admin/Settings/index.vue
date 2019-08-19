@@ -270,9 +270,9 @@
                             </el-button>
                             <el-form :model="model" :rules="validationRules"
                                      ref="themeSettingsForm">
-                                <el-row :gutter="20">
-                                    <el-col :md="12">
-                                        <el-card>
+                                <el-card>
+                                    <el-row :gutter="20">
+                                        <el-col :md="12">
                                             <el-form-item :label="$t('models.user.logo')">
                                                 <cropper @cropped="setLogoUpload"/>
                                                 <img :src="realEstateLogo" ref="realEstateLogo"
@@ -290,43 +290,42 @@
                                                         v-model="model.accent_color">
                                                 </el-color-picker>
                                             </el-form-item>
-                                        </el-card>
-                                    </el-col>
-                                    <el-col :md="12">
-                                        <el-radio-group class="login-radio-group" v-model="model.login_variation">
-                                            <el-row :gutter="20">
-                                                <el-col :md="12">
-                                                    <el-radio class="login-radio" :label="1">
-                                                        <div class="login-card">
-                                                            <div class="login-card__img"></div>
-                                                            <div class="login-card__content">
-                                                                <div class="login-card__title">{{$t('models.realEstate.login_variation')}} 1</div>
+                                        </el-col>
+                                        <el-col :md="12">
+                                            <el-radio-group class="login-radio-group" v-model="model.login_variation">
+                                                <el-row :gutter="20">
+                                                    <el-col :md="12">
+                                                        <el-radio class="login-radio" :label="1">
+                                                            <div class="login-card">
+                                                                <div class="login-card__img"></div>
+                                                                <div class="login-card__content">
+                                                                    <div class="login-card__title">{{$t('models.realEstate.login_variation')}} 1</div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </el-radio>
-                                                </el-col>
-                                                <el-col :md="12">
-                                                    <el-radio class="login-radio" :label="2">
-                                                        <div class="login-card">
-                                                            <div class="login-card__img"></div>
-                                                            <div class="login-card__content">
-                                                                <div class="login-card__title">{{$t('models.realEstate.login_variation')}} 2</div>
+                                                        </el-radio>
+                                                    </el-col>
+                                                    <el-col :md="12">
+                                                        <el-radio class="login-radio" :label="2">
+                                                            <div class="login-card">
+                                                                <div class="login-card__img"></div>
+                                                                <div class="login-card__content">
+                                                                    <div class="login-card__title">{{$t('models.realEstate.login_variation')}} 2</div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </el-radio>
-                                                </el-col>
-                                            </el-row>
-                                        </el-radio-group>
-                                        <el-card class="mt-20" v-if="model.login_variation === 2">
-                                            <el-form-item class="switcher"
+                                                        </el-radio>
+                                                    </el-col>
+                                                </el-row>
+                                            </el-radio-group>
+                                            <el-form-item v-if="model.login_variation === 2"
+                                                          class="switcher mt-20"
                                                           prop="login_variation_2_slider"
                                             >
                                                 <label class="switcher__label">{{$t('models.realEstate.login_variation_slider')}}</label>
                                                 <el-switch v-model="model.login_variation_2_slider"/>
                                             </el-form-item>
-                                        </el-card>
-                                    </el-col>
-                                </el-row>
+                                        </el-col>
+                                    </el-row>
+                                </el-card>
                             </el-form>
                         </el-tab-pane>
                     </el-tabs>
@@ -544,15 +543,17 @@
     }
 
     .settings-tabs.el-tabs.el-tabs--left {
+        overflow: auto;
         height: 100%;
         > .el-tabs__header.is-left {
+            position: sticky;
+            top: 0;
             min-width: 200px;
-            height: calc(100% - 12px);
+            height: 100%;
             box-shadow: inset 7px 0 5px -7px rgba(0,0,0,0.2);
             border-bottom-right-radius: 10px;
             background: #fff;
             .el-tabs__nav-wrap {
-                /*padding-top: 20px;*/
                 &:after {
                     background: transparent;
                 }
@@ -655,7 +656,7 @@
     }
 
     .settings {
-        /*height: 100% !important;*/
+        min-height: calc(100% - 105px);
 
         .requestCategories {
             .heading {
