@@ -1,6 +1,8 @@
 import {mapGetters, mapActions} from 'vuex';
 import {displayError, displaySuccess} from 'helpers/messages';
 import PasswordValidatorMixin from './passwordValidatorMixin';
+import EmailCheckValidatorMixin from './emailCheckValidatorMixin';
+import axios from '@/axios';
 
 export default (config = {}) => {
     let mixin = {
@@ -38,6 +40,8 @@ export default (config = {}) => {
                     }, {
                         type: 'email',
                         message: 'This field is required'
+                    }, {
+                        validator: this.checkavailabilityEmail
                     }],
                     password: [{
                         validator: this.validatePassword
@@ -74,13 +78,30 @@ export default (config = {}) => {
             queryParams(){
                 return {role: this.model.role}
             }            
+        },
+        methods: {
+            async checkavailabilityEmail(rule, value, callback) {
+                let validateObject = this.model;
+                
+                if(config.mode == 'add' || ( this.original_email != null && this.original_email !== validateObject.email)) {
+                    try {
+                        const resp = await axios.get('users/check-email?email=' + validateObject.email);
+                        if(resp)
+                        {
+                            callback(new Error(resp.data.message));
+                        }                  
+                    } catch {
+                        callback();
+                    }
+                }
+            },
         }
     };
 
     if (config.mode) {
         switch (config.mode) {
             case 'add':
-                mixin.mixins = [PasswordValidatorMixin()];
+                mixin.mixins = [PasswordValidatorMixin(), EmailCheckValidatorMixin()];
 
                 mixin.methods = {
                     async submit() {
@@ -109,7 +130,7 @@ export default (config = {}) => {
                 };
                 break;
             case 'edit':
-                mixin.mixins = [PasswordValidatorMixin({required: false})];
+                mixin.mixins = [PasswordValidatorMixin({required: false}), EmailCheckValidatorMixin()];
 
                 mixin.methods = {
                     submit() {
@@ -160,6 +181,7 @@ export default (config = {}) => {
                         this.model.id = data.id;
                         this.model.name = data.name;
                         this.model.email = data.email;
+                        this.original_email = data.email;
                         this.model.phone = data.phone;
                         this.model.role = data.roles[0].name; // what if returns no roles?
                         this.model.settings = data.settings;

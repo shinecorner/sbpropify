@@ -25,18 +25,14 @@ export default (config = {}) => {
                     category: '',
                     priority: '',
                     visibility: '',
-                    provider_ids: []
+                    provider_ids: [],
+                    qualification: '',
+                    status: '',
+                    due_date: null,
+                    description: ''
                 },
                 validationRules: {
-                    title: [{
-                        required: true,
-                        message: this.$t('validation.general.required')
-                    }],
                     category: [{
-                        required: true,
-                        message: this.$t('validation.general.required')
-                    }],
-                    priority: [{
                         required: true,
                         message: this.$t('validation.general.required')
                     }],
@@ -44,7 +40,15 @@ export default (config = {}) => {
                         required: true,
                         message: this.$t('validation.general.required')
                     }],
+                    priority: [{
+                        required: true,
+                        message: this.$t('validation.general.required')
+                    }],
                     status: [{
+                        required: true,
+                        message: this.$t('validation.general.required')
+                    }],
+                    visibility: [{
                         required: true,
                         message: this.$t('validation.general.required')
                     }],
@@ -52,11 +56,11 @@ export default (config = {}) => {
                         required: true,
                         message: this.$t('validation.general.required')
                     }],
-                    description: [{
+                    title: [{
                         required: true,
                         message: this.$t('validation.general.required')
                     }],
-                    visibility: [{
+                    description: [{
                         required: true,
                         message: this.$t('validation.general.required')
                     }]

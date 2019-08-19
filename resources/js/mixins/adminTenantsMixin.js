@@ -218,6 +218,7 @@ export default (config = {}) => {
                                 this.toUploadContract = {};
                                 this.model.rent_start = '';
                                 this.form.resetFields();
+                                this.$router.push({ name: 'adminProfile' });
                             } catch (err) {
                                 displayError(err);
                             } finally {
