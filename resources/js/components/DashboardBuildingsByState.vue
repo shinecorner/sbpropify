@@ -1,5 +1,5 @@
 <template>
-    <progress-bar :value="50" :maxValue="100" :color="'#f56c6c'"></progress-bar>
+    <progress-bar :label="'abc'" :value="50" :maxValue="100" :color="'#f56c6c'" ></progress-bar>
 </template>
 <script>
 import VueApexCharts from 'vue-apexcharts'
@@ -12,133 +12,18 @@ import ProgressBar from 'components/ProgressBar';
 
 export default {
   components: {
-    'apexchart': VueApexCharts,
-    CustomDateRangePicker,
     ProgressBar
   },
   mixins: [chartMixin()],
   props: {
-    colNum: {
-        type: Number
-    },
-    centered: {
-        type: Boolean
-    }
   },  
   data() {
     return {        
-        chartType: 'pie',
-        showPicker: false,
+    
     }
   },
   computed:{
-    chartOptions: function(){
-        let responsive = [];
-        if(this.colNum == 1) {
-            responsive = [{
-                breakpoint: 1900,
-                options: {
-                    chart: {
-                        width: 800,
-                    },
-                    plotOptions: {
-                        offsetX: 400
-                    },
-                    legend: {
-                        width: '100%',
-                        position: 'bottom'
-                    }
-                }
-            }]
-        } else if (this.colNum == 2) {
-            responsive = [{
-                breakpoint: 1300,
-                options: {
-                    chart: {
-                        width: 490,
-                    },
-                    legend: {
-                        width: 170,
-                    }
-                }
-            }, {
-                breakpoint: 1200,
-                options: {
-                    chart: {
-                        width: '100%',
-                        height: 'auto'
-                    },
-                    legend: {
-                        position: 'bottom',
-                        width: undefined
-                    }
-                }
-            }, {
-                breakpoint: 480,
-                options: {
-                    legend: {
-                        show: false
-                    }
-                }
-            }];
-        }
-        else if (this.colNum == 3 && this.centered == true) {
-            responsive = [{
-                breakpoint: 1500,
-                options: {
-                    chart: {
-                        width: '100%',
-                        height: 'auto'
-                    },
-                    legend: {
-                        position: 'bottom',
-                        horizontalAlign: 'center',
-                        width: undefined
-                    }
-                }
-            }];
-        }
-        else {
-            responsive = [{
-                breakpoint: 1800,
-                options: {
-                    chart: {
-                        width: 490,
-                    },
-                    legend: {
-                        width: 170,
-                    }
-                }
-            }, {
-                breakpoint: 1650,
-                options: {
-                    chart: {
-                        width: '100%',
-                        height: 'auto'
-                    },
-                    legend: {
-                        position: 'bottom',
-                        horizontalAlign: 'center',
-                        width: undefined
-                    }
-                }
-            }];
-        }
-        return {
-            labels: this.xData,
-            responsive: responsive,
-            legend: {
-                show: true,
-                width: this.centered ? undefined : 220
-            },
-            chart:{
-                toolbar: this.toolbar,
-                width: this.centered? '100%' : 540,
-                height: 320
-            },
-            colors: this.colors
-        }
-    }
+  
   },
     methods: {
         fetchData(){
@@ -229,12 +114,7 @@ export default {
         }
     },
     watch: {
-      'startDate': function(val) {
-          if (val) {
-            this.dateRange = [val, format(new Date(), 'DD.MM.YYYY')];
-            this.fetchData();
-          }
-      }
+    
     }
 }
 </script>
