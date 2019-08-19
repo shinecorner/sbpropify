@@ -1,10 +1,21 @@
 <template>
-    <div class="progress-bar">
-        <div class="progress-status">
-            <span class="progress-value">{{ value }}</span>
-            <span class="progress-percent">{{ value*100/maxValue }}</span>
-        </div>
-        <el-progress :percentage="value*100/maxValue" :color="color" :show-text="false"></el-progress>
+    <div class="progress-bar-container">
+         <el-row :gutter="24" type="flex">
+            <el-col :span="12">
+                <div class="progress-label">
+                    {{ label }}
+                </div>
+            </el-col>
+            <el-col :span="12">
+                <div class="progress-bar">
+                    <div class="progress-status">
+                        <span class="progress-value">{{ value }}</span>
+                        <span class="progress-percent" :style="style" >{{ value*100/maxValue }}%</span>
+                    </div>
+                    <el-progress :percentage="value*100/maxValue" :color="color" :show-text="false"></el-progress>
+                </div>
+            </el-col>
+        </el-row>
     </div>
 </template>
 <script>
@@ -18,23 +29,49 @@ export default {
         },
         color: {
             type: String
+        },
+        label: {
+            type: String
         }
     },
     data() {
         return {
 
         }
-    }
+    },
+    computed: {
+      style () {
+        return 'color: ' + this.color;
+      }
+    },
 
 }
 </script>
 <style lang="scss" scoped>
-    .progress-bar {
-        .progress-status {
-            display: flex;
-            justify-content: space-between;
+    .progress-bar-container {
 
-            .progress-percent {
+        .el-row {
+            margin: 0 !important;
+            padding: 20 !important;
+
+            .progress-label {
+                font-size: 20px;
+                font-weight: 600;
+            }
+            .progress-bar {
+                width: 100%;
+                .progress-status {
+                    display: flex;
+                    justify-content: space-between;
+
+                    .progress-value {
+                        font-size: 14px;
+                    }
+                    .progress-percent {
+                        font-weight: bold;
+                        font-size: 14px;
+                    }
+                }
             }
         }
     }

@@ -101,7 +101,7 @@
                             </el-col>
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.buildings.buildings_by_state')">
-                                   <!-- <dashboard-buildings-by-state></dashboard-buildings-by-state> -->
+                                   <!-- <dashboard-buildings-by-state type="buildings_by_state"></dashboard-buildings-by-state> -->
                                     <chart-pie-and-donut type="buildings_by_state" :cented="true" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>

@@ -109,7 +109,7 @@
             },
             fetchData() {
               let that = this;
-              let url = 'propertyManagers?req_count=true&get_all=true&has_req=1';
+              let url = 'propertyManagers?get_all=true&has_req=1';
               return axios.get(url)
               .then(function (response) {
                 const items = response.data.data.map(item => {
