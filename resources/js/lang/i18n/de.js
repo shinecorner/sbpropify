@@ -591,6 +591,12 @@ export default {
         },
         "models": {
             "user": {
+                "administrator": "Administratoren",
+                "super_admin": "Super-Administratoren",
+                "add_admin": "Administrator hinzufügen",
+                "edit_admin": "Administrator bearbeiten",
+                "add_super_admin": "Super-Admin hinzufügen",
+                "edit_super_admin": "Super-Admin bearbeiten",
                 "edit_action": "Öffnen",
                 "delete": "Löschen",
                 "name": "Name",
@@ -728,8 +734,8 @@ export default {
                 },
                 "status": {
                     "label": "Status",
-                    "active": "Inaktiv",
-                    "not_active": "Deaktiv"
+                    "active": "Aktiv",
+                    "not_active": "Inaktiv"
                 },
                 "confirmChange": {
                     "title": "Wollen Sie wirklich weiterfahren?",
@@ -963,6 +969,7 @@ export default {
                 "user": "Benutzer",
                 "delete": "Löschen",
                 "likes": "Likes",
+                "views": "Ansichten",
                 "details": "Beitragsdetails",
                 "published_at": "Veröffentlichung",
                 "publish": "Veröffentlicht",

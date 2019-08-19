@@ -2,6 +2,13 @@
 return [
     'user' => 
     [
+      'administrator' => 'Administrateurs',
+      'super_admin' => 'Super admins',
+      'add_admin' => 'Ajouter un administrateur',
+      'edit_admin' => 'Modifier l\'administrateur',
+      'add_super_admin' => 'Ajouter Super admin',
+      'edit_super_admin' => 'Editer Super admin',
+      'edit_action' => 'Edit',
       "edit_action" => "Modifier",
       "delete" => "Supprimer",
       "name" => "Nom",
@@ -450,6 +457,7 @@ return [
       "user" => "Utilisateur",
       "delete" => "Supprimer",
       "likes" => "Aime",
+      "views" => "Vues",
       "details" => "Afficher les détails",
       "published_at" => "Publié",
       "publish" => "Publier",

@@ -2,6 +2,13 @@
 return [
     'user' => 
     [
+      'administrator' => 'Administratoren',
+      'super_admin' => 'Super-Administratoren',
+      'add_admin' => 'Administrator hinzufügen',
+      'edit_admin' => 'Administrator bearbeiten',
+      'add_super_admin' => 'Super-Admin hinzufügen',
+      'edit_super_admin' => 'Super-Admin bearbeiten',
+      'edit_action' => 'Edit',
       'edit_action' => 'Öffnen',
       'delete' => 'Löschen',
       'name' => 'Name',
@@ -166,8 +173,8 @@ return [
       'status' => 
       [
         'label' => 'Status',
-        'active' => 'Inaktiv',
-        'not_active' => 'Deaktiv',
+        'active' => 'Aktiv',
+        'not_active' => 'Inaktiv',
       ],
       'confirmChange' => 
       [
@@ -450,6 +457,7 @@ return [
       'user' => 'Benutzer',
       'delete' => 'Löschen',
       'likes' => 'Likes',
+      'views' => 'Ansichten',
       'details' => 'Beitragsdetails',
       'published_at' => 'Veröffentlichung',
       'publish' => 'Veröffentlicht',

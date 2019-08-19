@@ -93,6 +93,7 @@ class PropertyManagerAPIController extends AppBaseController
             $this->propertyManagerRepository->with([
                 'user' => function ($q) {
                     $q->withCount([
+                        'requests',
                         'requestsReceived',
                         'requestsInProcessing',
                         'requestsAssigned',

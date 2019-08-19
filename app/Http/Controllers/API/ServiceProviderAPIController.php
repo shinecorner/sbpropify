@@ -121,6 +121,7 @@ class ServiceProviderAPIController extends AppBaseController
         $reqCount = $request->get('req_count');
         if ($reqCount) {
             $query = $query->withCount([
+                'requests',
                 'requestsReceived',
                 'requestsInProcessing',
                 'requestsAssigned',

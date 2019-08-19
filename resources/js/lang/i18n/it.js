@@ -588,6 +588,12 @@ export default {
         },
         "models": {
             "user": {
+                "administrator": "Amministratori",
+                "super_admin": "Super amministratori",
+                "add_admin": "Aggiungi Amministratore",
+                "edit_admin": "Modifica Amministratore",
+                "add_super_admin": "Aggiungi Super admin",
+                "edit_super_admin": "Modifica Super admin",
                 "edit_action": "Modifica",
                 "delete": "Cancellare",
                 "name": "Nome",
@@ -960,6 +966,7 @@ export default {
                 "user": "Utente",
                 "delete": "Cancellare",
                 "likes": "Gli piace",
+                "views": "Viste",
                 "details": "Pubblicare i dettagli",
                 "published_at": "Pubblicato",
                 "publish": "Pubblicare",
