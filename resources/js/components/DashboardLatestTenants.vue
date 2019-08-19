@@ -35,24 +35,20 @@
         data() {
             return {
                 header: [{
-                    type: 'news-title',
-                    label: "",
-                    props: ['image_url'],
-                    minWidth: '40px'
-                },{
-                    type: 'plain',
+                    type: 'tenant-details',
                     label: this.$t('models.tenant.name'),
-                    prop: 'name',
+                    props: ['name', 'image_url'],
                     minWidth: '100px'
                 }, {
                     type: 'plain',
                     label: this.$t('models.address.name'),
-                    prop: 'address'
+                    prop: 'address',
+                    width: 300,
                 },{
                     type: 'tag',
                     label: this.$t('models.tenant.status.label'),
                     prop: 'status_label',
-                    classSuffix: 'status_class_suffix'
+                    classSuffix: 'status_class_suffix',
                 }, {
                     type: 'actions',
                     label: this.$t('dashboard.actions'),
@@ -92,7 +88,7 @@
                 const items = response.data.data.map(item => {
                   item.status_label = that.$t(`models.tenant.status.${that.tenantConstants.status[item.status]}`);
                   item.name = item.first_name + ' ' + item.last_name;
-                  item.address = item.city;
+                  item.address = item.address? item.address['street'] + ' ' + item.address['street_nr']:'';
                   item.status_class_suffix = that.tenantConstants.status[item.status];
                   return item;
                 });

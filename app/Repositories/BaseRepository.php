@@ -37,4 +37,22 @@ abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
 
         return $media;
     }
+
+    public function doesntHave($relation)
+    {
+        $this->model = $this->model->doesntHave($relation);
+        return $this;
+    }
+
+    public function count()
+    {
+        $this->applyCriteria();
+        $this->applyScope();
+
+        $results = $this->model->count();
+
+        $this->resetModel();
+        $this->resetScope();
+        return $this->parserResult($results);
+    }
 }

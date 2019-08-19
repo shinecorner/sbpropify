@@ -2,6 +2,13 @@
 return [
     'user' => 
     [
+      'administrator' => 'Administratoren',
+      'super_admin' => 'Super-Administratoren',
+      'add_admin' => 'Administrator hinzufügen',
+      'edit_admin' => 'Administrator bearbeiten',
+      'add_super_admin' => 'Super-Admin hinzufügen',
+      'edit_super_admin' => 'Super-Admin bearbeiten',
+      'edit_action' => 'Edit',
       'edit_action' => 'Öffnen',
       'delete' => 'Löschen',
       'name' => 'Name',
@@ -9,7 +16,7 @@ return [
       'date' => 'Datum',
       'email' => 'E-Mail',
       'id' => 'ID',
-      'add' => 'Nutzer hinzufügen',
+      'add' => 'Benutzer hinzufügen',
       'save' => 'Speichern',
       'saved' => 'Benutzer erfolgreich gespeichert',
       'deleted' => 'Benutzer gelöscht',
@@ -158,8 +165,8 @@ return [
       'status' => 
       [
         'label' => 'Status',
-        'active' => 'Inaktiv',
-        'not_active' => 'Deaktiv',
+        'active' => 'Aktiv',
+        'not_active' => 'Inaktiv',
       ],
       'confirmChange' => 
       [
@@ -172,8 +179,8 @@ return [
     'building' => 
     [
       'title' => 'Liegenschaften',
-      'edit_title' => 'Liegenschaft bearbeiten',
-      'add' => 'Liegenschaft hinzufügen',
+      'edit_title' => 'Gebäude bearbeiten',
+      'add' => 'Gebäude hinzufügen',
       'name' => 'Name',
       'cancel' => 'Schliessen',
       'created_at' => 'Datum',
@@ -291,7 +298,7 @@ return [
       ],
       'name' => 'Einheit-ID',
       'created_at' => 'Datum',
-      'edit' => 'Bearbeiten',
+      'edit' => 'Einheit bearbeiten',
       'delete' => 'Löschen',
       'deleted' => 'Einheit gelöscht',
       'save' => 'Speichern',
@@ -414,7 +421,7 @@ return [
       'title_label' => 'Betreff',
       'content' => 'Inhalt',
       'preview' => 'Vorschau',
-      'add' => 'Nachricht hinzufügen',
+      'add' => 'Beitrag hinzufügen',
       'add_pinned' => 'Ankündigung erstellen',
       'save' => 'Speichern',
       'saved' => 'Nachricht gespeichert',
@@ -426,6 +433,7 @@ return [
       'user' => 'Benutzer',
       'delete' => 'Löschen',
       'likes' => 'Likes',
+      'views' => 'Ansichten',
       'details' => 'Beitragsdetails',
       'published_at' => 'Veröffentlichung',
       'publish' => 'Veröffentlicht',
@@ -526,8 +534,8 @@ return [
     'service' => 
     [
       'title' => 'Partnerfirmen und Dienstleister',
-      'add_title' => 'Firma erfassen',
-      'edit_title' => 'Bearbeiten',
+      'add_title' => 'Service hinzufügen',
+      'edit_title' => 'Service bearbeiten',
       'edit' => 'Öffnen',
       'delete' => 'Löschen',
       'saved' => 'Firma gespeichert',
@@ -582,7 +590,7 @@ return [
       'title' => 'Überbauungen',
       'name' => 'Name',
       'description' => 'Beschreibung',
-      'add' => 'Überbauung hinzufügen',
+      'add' => 'Bezirk hinzufügen',
       "edit" => "Bezirk bearbeiten",
       'save' => 'Speichern',
       'saved' => 'Überbauung gespeichert',
@@ -663,7 +671,7 @@ return [
       'category' => 'Kategorie',
       'address' => 'Adresse',
       'edit_title' => 'Anfrage bearbeiten',
-      'add_title' => 'Anfrage erstellen',
+      'add_title' => 'Anfrage hinzufügen',
       'tenant' => 'Mieter',
       'due_date' => 'Zu erledigen bis',
       'closed_date' => 'Erledigt am',
@@ -841,12 +849,12 @@ return [
     [
       'title' => 'Bewirtschafter',
       'title_label' => 'Anrede',
-      'add' => 'Bewirtschafter hinzufügen',
+      'add' => 'Immobilien-Manager hinzufügen',
       'save' => 'Speichern',
       'saved' => 'Bewirtschafter gespeichert',
       'deleted' => 'Bewirtschafter gelöscht',
       'edit' => 'Öffnen',
-      'edit_title' => 'Bewirtschafter bearbeiten',
+      'edit_title' => 'Property Manager bearbeiten',
       'delete' => 'Löschen',
       'firstName' => 'Vorname',
       'lastName' => 'Name',
@@ -914,8 +922,8 @@ return [
     'product' => 
     [
       'title' => 'Marktplatz',
-      'add' => 'Anzeige hinzufügen',
-      'edit_title' => 'Anzeige bearbeiten',
+      'add' => 'Produkt hinzufügen',
+      'edit_title' => 'Produkt bearbeiten',
       'edit' => 'Öffnen',
       'delete_action' => 'Löschen',
       'show' => 'Vorschau',

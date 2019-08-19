@@ -49,12 +49,26 @@ class PropertyManagerTransformer extends BaseTransformer
                     'requests_archived_count'
                 ])->all();
                 $response = array_merge($response, $withCount);
+
+                $flattenAttributes = [
+                    'requests_count',
+                    'solved_requests_count',
+                    'pending_requests_count',
+                ];
+                foreach ($flattenAttributes as $attribute) {
+                    if (key_exists($attribute, $attributes)) {
+                        $response[$attribute] = $attributes[$attribute];
+                    }
+
+                }
             }
+
             $response['user'] = (new UserTransformer)->transform($model->user);
         }
 
         if ($model->relationExists('buildings')) {
             $response['buildings'] = (new BuildingTransformer)->transformCollection($model->buildings);
+            $response['buildings_count'] = $model->buildings->count();
         }
 
         if ($model->relationExists('districts')) {

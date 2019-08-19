@@ -46,10 +46,18 @@
                             </div>
                         </div>
                     </div>
-
+                    <div v-if="column.type == 'tenant-details'" class="user-details">
+                        <div class="image">
+                            <table-avatar :src="scope.row['image_url']" :name="scope.row['name']" :size="33" />
+                        </div>
+                        <div class="title">
+                            {{ scope.row['name'] }}
+                        </div>
+                    </div>
                     <div v-if="column.type == 'news-title'" class="product-details">
                         <div class="image" v-if="scope.row['image_url']" :style="{backgroundImage: `url(${scope.row['image_url']})`}"></div>
                         <div class="image" v-else :style="{backgroundImage: `url(${userMaleDefaultImg})`}"></div>
+
                         <div v-if="scope.row['content']" class="text">
                             <div class="title">
                                 {{ scope.row['content'] }}
@@ -98,26 +106,10 @@
                         />
                     </div>
 
-                    <div v-if="column.type == 'counts'" class="avatars-wrapper square-avatars">
-                        <span :key="index" v-for="(count, index) in column.counts">
-                            <el-tooltip
-                                :content="`${count.label}: ${scope.row[count.prop]}`"
-                                class="item"
-                                effect="light" placement="top"
-                                v-if="scope.row[count.prop]"
-                            >
-                                <avatar 
-                                    :background-color="count.background"
-                                    :color="count.color"
-                                    :initials="`${scope.row[count.prop]}`"
-                                    :size="30"
-                                    :style="{'z-index': (800 - index)}"
-                                    :username="`${scope.row[count.prop]}`"
-                                />
-                            </el-tooltip>
-                        </span>
+                    
+                    <div v-if="column.type == 'counts'" class="avatars-wrapper square-avatars">        
+                         <request-count :countsData="items[scope.$index]" :counts="column.counts"></request-count>
                     </div>
-
                     <el-tag
                         v-if="column.type == 'tag'"
                         :class="`tag-${scope.row[column.classSuffix]}`"
@@ -177,17 +169,18 @@
 </template>
 
 <script>
-    import userMaleDefaultImg from '../../img/male.png'; 
-    import userFemaleDefaultImg from '../../img/female.png'; 
-    import productDefaultImg from '../../img/latest-product-default.png';
     // TODO - add transition to do things smoothly
     import {Avatar} from 'vue-avatar'
     import uuid from 'uuid/v1'
+    import RequestCount from 'components/RequestCount.vue';
+    import tableAvatar from 'components/Avatar';
 
     export default {
         name: 'ListLatestTable',
         components: {
-            Avatar
+            Avatar,
+            RequestCount,
+            'table-avatar': tableAvatar
         },
         props: {
             header: {
@@ -219,9 +212,10 @@
             return {
                 uuid,
                 selectedItems: [],
-                userMaleDefaultImg: userMaleDefaultImg,
-                userFemaleDefaultImg: userFemaleDefaultImg,
-                productDefaultImg: productDefaultImg,
+                userMaleDefaultImg: require('img/male.png'),
+                userFemaleDefaultImg: require('img/female.png'),
+                productDefaultImg: require('img/latest-product-default.png'),
+
             }
         },
         computed: {
@@ -465,7 +459,36 @@
             border-bottom: 1px solid #EBEEF5;
         }
         text-align: center;
+        .user-details {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            width: 100%;
 
+            .image {
+                border-radius: 7px;
+                width: 33px;
+                height: 33px;
+                min-width: 33px;
+                min-height: 33px;
+                margin-right: 15px;
+                background-size: cover;
+                background-position: center;
+            }
+
+            .text {
+                width: calc(100% - 75px);
+                .title {
+                    max-width: 100%;
+                    font-weight: bold;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
         .product-details {
             display: flex;
             align-items: center;

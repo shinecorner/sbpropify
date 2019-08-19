@@ -24,7 +24,7 @@
                                     </el-select>
                                 </el-form-item>
                             </el-col>
-                            <el-col :lg="8">
+                            <el-col :lg="8" v-if="!model.pinned">
                                 <el-form-item :label="$t('models.post.status.label')">
                                     <el-select style="display: block" v-model="model.status">
                                         <el-option
@@ -226,7 +226,7 @@
                                     </el-form-item>
                                 </el-col>
                             </el-row>
-                            <el-form-item :label="$t('models.post.notify_email')" prop="notify_email"
+                            <el-form-item :label="$t('models.post.notify_email')" prop="notify_email" v-if="model.notify_email == false"
                                           style="display: flex">
                                 <el-switch style="margin-left: 10px" v-model="model.notify_email">
                                 </el-switch>
@@ -278,7 +278,13 @@
                                     {{model.likes_count}}
                                 </span>    
                             </el-col>
-                            <el-col class="contact-info-card-col" :md="8"></el-col>
+                            <el-col class="contact-info-card-col" :md="8">
+                                <span class="custom-label">{{$t('models.post.views')}}</span>
+                                <br>
+                                <span class="custom-value">
+                                    {{model.views}}
+                                </span>
+                            </el-col>
                             <el-col class="contact-info-card-col" :md="8"></el-col>
                         </el-row>                                                    
                     </el-card>
@@ -413,7 +419,7 @@
             disabledExecutionEnd(date) {
                 const d = new Date(date).getTime();
                 const executionStart = new Date(this.model.execution_start).getTime();
-                return d < executionStart;
+                return d <= executionStart;
             },
             notifyUnassignment(row) {
                 this.$confirm(this.$t(`models.post.confirmUnassign.title`), this.$t('models.post.confirmUnassign.warning'), {

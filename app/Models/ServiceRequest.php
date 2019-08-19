@@ -114,6 +114,18 @@ class ServiceRequest extends AuditableModel implements HasMedia
     const VisibilityBuilding = 2;
     const VisibilityDistrict = 3;
 
+    const PendingStatuses = [
+        ServiceRequest::StatusReceived,
+        ServiceRequest::StatusInProcessing,
+        ServiceRequest::StatusAssigned,
+        ServiceRequest::StatusReactivated,
+    ];
+
+    const SolvedStatuses = [
+        ServiceRequest::StatusDone,
+        ServiceRequest::StatusArchived,
+    ];
+
     const Status = [
         self::StatusReceived => 'received',
         self::StatusInProcessing => 'in_processing',

@@ -3,7 +3,8 @@
         <el-table
             :data="list"
             style="width: 100%"
-            @row-click="editLink">
+            @row-click="editLink"
+            >
             <el-table-column
                     width="75"
                     align="center"
@@ -38,7 +39,8 @@
                 v-for="column in columns"
                 v-if="!column.i18n && column.prop !== 'title'"
             >
-            </el-table-column><el-table-column
+            </el-table-column>
+            <el-table-column
                 :key="column.prop"
                 :label="column.label"
                 v-for="column in columns"
@@ -51,10 +53,10 @@
             </template>
         </el-table-column>
             <el-table-column
-                    v-if="status.prop === 'status'"
-                    :key="status.prop"
-                    :label="status.label"
-                    v-for="status in statuses"
+                v-if="status.prop === 'status'"
+                :key="status.prop"
+                :label="status.label"
+                v-for="status in statuses"
             >
                 <template slot-scope="scope">
                     {{$t(`models.request.status.${$constants.serviceRequests.status[scope.row.status]}`)}}
@@ -199,13 +201,16 @@
                     this.fetch(this.meta.current_page + 1);
                 }
             },
-            editLink(row) {
-                let id = row.id;
-                if(row.type == 'user') {
-                    this.$router.push({ name: 'adminPropertyManagersEdit', params: { id } });
-                }
-                else if(row.type == 'provider') {
-                    this.$router.push({ name: 'adminServicesEdit', params: { id } });
+            editLink(row, column, cell, event) {
+                if(column.property === 'name')
+                {
+                    let id = row.id;
+                    if(row.type == 'user') {
+                        this.$router.push({ name: 'adminPropertyManagersEdit', params: { id } });
+                    }
+                    else if(row.type == 'provider') {
+                        this.$router.push({ name: 'adminServicesEdit', params: { id } });
+                    }
                 }
             }
         }

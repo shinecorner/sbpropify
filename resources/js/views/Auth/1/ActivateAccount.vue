@@ -1,6 +1,9 @@
 <template>
     <div>
         <el-form :model="model" ref="form">
+            <router-link :to="{name: 'login'}" class="el-menu-item-link">
+                <i class="el-icon-back"></i>{{ this.$t("general.back") }}
+            </router-link>
             <el-form-item prop="email" :label="$t('general.email')" :rules="validationRules.email">
                 <el-input type="email" v-model="model.email" autocomplete="off"></el-input>
             </el-form-item>
@@ -18,9 +21,7 @@
                 <el-button type="primary" class="text-center w100p" @click="submit">{{$t('general.activate')}}</el-button>
             </el-form-item>
         </el-form>
-        <router-link :to="{name: 'login'}" class="el-menu-item-link">
-            <el-button type="primary" class="text-center w100p">{{this.$t("general.back")}}</el-button>
-        </router-link>
+
     </div>
 </template>
 <script>
@@ -129,6 +130,9 @@
                 flex: 1;
                 margin: 0;
             }
+        }
+        &:nth-last-of-type(1) {
+            margin-top: 30px;
         }
         .el-button {
             width: 100%;

@@ -149,7 +149,7 @@
                         }, {
                             icon: 'icon-chat-empty',
                             title: this.$t('menu.requests'),
-                            permission: this.$permissions.list.user,
+                            permission: this.$permissions.list.cleanify_request,
                             children: [{
                                 title: this.$t('menu.all_requests'),
                                 permission: this.$permissions.list.request,
@@ -281,14 +281,14 @@
                                 }
                             },  {
                                 title: this.$t('layouts.tenant.sidebar.myRequests'),
-                                permission: this.$permissions.list.audit,
+                                permission: this.$permissions.cleanify_request.list,
                                 value: 1,
                                 route: {
                                     name: ''
                                 }
                             },  {
                                 title: this.$t('layouts.tenant.sidebar.myPendingRequests'),
-                                permission: this.$permissions.list.audit,
+                                permission: this.$permissions.cleanify_request.list,
                                 value: 3,
                                 route: {
                                     name: ''
@@ -514,17 +514,12 @@
                 }
             });
 
-
+            this.rolename = this.$store.getters.loggedInUser.roles[0].name;
             
         },
         async created(){
             const requests = await this.axios.get('requests?&page=1&per_page=20');
             this.requests_num = requests.data.data.total;
-
-            const me = await this.axios.get('users/me');
-            const roles = me.data.data.roles;
-            const rolename = roles[0].name;
-            this.rolename = rolename;
         }
 
 

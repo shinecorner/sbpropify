@@ -21,6 +21,7 @@
             :header="header"
             :items="formattedItems"
             :loading="{state: loading}"
+            :isLoadingFilters="{state: isLoadingFilters}"
             :pagination="{total, currPage, currSize}"
             :withSearch="false"
             @selectionChanged="selectionChanged"
@@ -138,50 +139,47 @@
                 })
             },
             filters() {
-                if(this.loading == true || this.isLoadingFilters == false) {
-                    return [
-                        {
-                            name: this.$t('filters.search'),
-                            type: 'text',
-                            icon: 'el-icon-search',
-                            key: 'search'
-                        },
-                        {
-                            name: this.$t('filters.states'),
-                            type: 'select',
-                            key: 'state_id',
-                            data: this.states,
-                        },
-                        {
-                            name: this.$t('filters.districts'),
-                            type: 'select',
-                            key: 'district_id',
-                            data: this.districts,
-                        },
-                        {
-                            name: this.$t('filters.buildings'),
-                            type: 'select',
-                            key: 'building_id',
-                            data: this.buildings,
-                        },
-                        {
-                            name: this.$t('filters.propertyManagers'),
-                            type: 'select',
-                            key: 'manager_id',
-                            data: this.propertyManagers,
-                        },
-                        {
-                            name: this.$t('filters.requests'),
-                            type: 'select',
-                            key: 'request',
-                            data: [{
-                                id: 1,
-                                name: this.$t('filters.open_requests')
-                            }]
-                        },
-                    ]
-                }
-                
+                return [
+                    {
+                        name: this.$t('filters.search'),
+                        type: 'text',
+                        icon: 'el-icon-search',
+                        key: 'search'
+                    },
+                    {
+                        name: this.$t('filters.states'),
+                        type: 'select',
+                        key: 'state_id',
+                        data: this.states,
+                    },
+                    {
+                        name: this.$t('filters.districts'),
+                        type: 'select',
+                        key: 'district_id',
+                        data: this.districts,
+                    },
+                    {
+                        name: this.$t('filters.buildings'),
+                        type: 'select',
+                        key: 'building_id',
+                        data: this.buildings,
+                    },
+                    {
+                        name: this.$t('filters.propertyManagers'),
+                        type: 'select',
+                        key: 'manager_id',
+                        data: this.propertyManagers,
+                    },
+                    {
+                        name: this.$t('filters.requests'),
+                        type: 'select',
+                        key: 'request',
+                        data: [{
+                            id: 1,
+                            name: this.$t('filters.open_requests')
+                        }]
+                    },
+                ];
             }
         },
         async created() {
