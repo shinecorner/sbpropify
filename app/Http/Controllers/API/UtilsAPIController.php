@@ -77,7 +77,7 @@ class UtilsAPIController extends AppBaseController
     public function constants()
     {
         $app = [
-            'languages' => Config::get('app.locales'),
+            'languages' => __('general.languages'),
         ];
 
         $re = App\Models\RealEstate::first(['primary_color', 'accent_color']);
