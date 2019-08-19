@@ -48,8 +48,14 @@
         >
             <template slot-scope="scope">
                 <div>{{scope.row.title}}</div>
-                <div class="category" v-if="scope.row.category.parentCategory">{{scope.row.category.parentCategory.name}}</div>
-                <div class="category" v-else>{{scope.row.category.name}}</div>
+                <div class="category">
+                    <span v-if="scope.row.category.parentCategory">
+                        {{scope.row.category.parentCategory.name}} >&nbsp;
+                    </span>
+                    <span>
+                        {{scope.row.category.name}}
+                    </span>
+                </div>
             </template>
         </el-table-column>
             <el-table-column
