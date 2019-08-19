@@ -101,9 +101,8 @@
                                     <span slot="label">
                                         <el-badge :value="mediaCount" :max="99" class="admin-layout">{{ $t('models.request.images') }}</el-badge>
                                     </span>
-                                    <el-divider class="column-divider" content-position="left">
-                                        {{$t('models.request.images')}}
-                                    </el-divider>
+                                    <p class="dividerletter">{{$t('models.request.images')}}</p>
+                                    <el-divider class="column-divider"></el-divider>
                                     <el-alert
                                         v-if="!media.length || (!model.media && !model.media.length)"
                                         :title="$t('models.request.no_images_message')"
@@ -212,9 +211,8 @@
                                 </el-row>
                             </card>
                             <card class="mt15" :loading="loading">
-                                <el-divider class="column-divider" content-position="left">
-                                    {{$t('models.post.assignment')}}
-                                </el-divider>
+                                <p class="dividerletter">{{$t('models.post.assignment')}}</p>
+                                <el-divider class="column-divider"></el-divider>
                                 <assignment-by-type
                                     :resetToAssignList="resetToAssignList"
                                     :assignmentType.sync="assignmentType"
@@ -427,7 +425,11 @@
         }
     };
 </script>
-
+<style lang="less">
+    p.dividerletter {
+        font-size: 15px !important;
+    }
+</style>
 <style lang="scss" scoped>
     .services-edit {
         .heading {

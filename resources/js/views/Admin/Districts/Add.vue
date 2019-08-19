@@ -6,9 +6,8 @@
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
                 <card :loading="loading">
-                    <el-divider class="column-divider" content-position="left">
-                        {{this.$t('models.district.details')}}
-                    </el-divider>
+                    <p class="dividerletter">{{this.$t('models.district.details')}}</p>
+                    <el-divider class="column-divider"></el-divider>
                     <el-form :model="model" label-width="192px" ref="form">
                         <el-form-item label="Name" :rules="validationRules.name"
                                     prop="name">
