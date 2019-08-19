@@ -77,7 +77,8 @@ class Building extends AuditableModel implements HasMedia
 
     protected $auditEvents = [
         'created' => 'getCreatedEventAttributesIncludeAddress',
-        'updated' => 'getUpdatedEventAttributesIncludeAddress'
+        'updated' => 'getUpdatedEventAttributesIncludeAddress',
+        'deleted'
     ];
 
     const BuildingMediaCategories = [
