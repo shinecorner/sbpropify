@@ -132,9 +132,9 @@
                     </el-col>
                     <el-col :md="12">
                         <card :loading="loading">
-                            <el-divider class="column-divider" content-position="left">
-                                {{$t('models.post.assignment')}}
-                            </el-divider>
+                            <p class="dividerletter">{{$t('models.post.assignment')}}</p>
+                            <el-divider class="column-divider"></el-divider>
+                            
                             <assignment-by-type
                                 :resetToAssignList="resetToAssignList"
                                 :assignmentType.sync="assignmentType"
@@ -156,9 +156,8 @@
                             />
                         </card>
                         <card :loading="loading" class="mt15">
-                            <el-divider class="column-divider" content-position="left">
-                                {{$t('models.propertyManager.requests')}}
-                            </el-divider>
+                            <p class="dividerletter">{{$t('models.propertyManager.requests')}}</p>
+                            <el-divider class="column-divider"></el-divider>
 
                             <relation-list
                                 :actions="requestActions"
