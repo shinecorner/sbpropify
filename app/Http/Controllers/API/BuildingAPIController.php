@@ -525,7 +525,7 @@ class BuildingAPIController extends AppBaseController
         try {
             $this->buildingRepository->delete($building->id);
         } catch (\Exception $e) {
-            return $this->sendError('Building deleted error: ' . $e->getMessage());
+            return $this->sendError(__('models.building.errors.deleted') . $e->getMessage());
         }
 
         return $this->sendResponse($id, __('models.building.deleted'));
@@ -556,7 +556,7 @@ class BuildingAPIController extends AppBaseController
             return $this->sendResponse('', __('models.building.deleted'));
 
         } catch (\Exception $e) {
-            return $this->sendError('Building deleted error: ' . $e->getMessage());
+            return $this->sendError(__('models.building.errors.deleted') . $e->getMessage());
         }
     }
 
@@ -593,7 +593,7 @@ class BuildingAPIController extends AppBaseController
             return $this->sendResponse($returnValue, __('models.building.deleted'));
 
         } catch (\Exception $e) {
-            return $this->sendError('Building deleted error: ' . $e->getMessage());
+            return $this->sendError(__('models.building.errors.deleted') . $e->getMessage());
         }
     }
 
@@ -647,7 +647,7 @@ class BuildingAPIController extends AppBaseController
         try {
             $building->serviceProviders()->detach($service_id);
         } catch (\Exception $e) {
-            return $this->sendError('ServiceProvider deleted error: ' . $e->getMessage());
+            return $this->sendError(__('models.building.errors.provider_deleted') . $e->getMessage());
         }
 
         return $this->sendResponse($id, __('models.building.service.deleted'));
@@ -700,7 +700,7 @@ class BuildingAPIController extends AppBaseController
 
             $building->propertyManagers()->attach($newManagers);
         } catch (\Exception $e) {
-            return $this->sendError('Property Managers assign to Building error: ' . $e->getMessage());
+            return $this->sendError( __('models.building.errors.manager_assigned') . $e->getMessage());
         }
 
         $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers']);
@@ -750,7 +750,7 @@ class BuildingAPIController extends AppBaseController
 
         $propertyManager = $this->propertyManagerRepository->findWithoutFail($manager_id);
         if (empty($propertyManager)) {
-            return $this->sendError('Property manager not found');
+            return $this->sendError(__('models.building.errors.manager_not_found'));
         }
 
         $building->propertyManagers()->detach($propertyManager);

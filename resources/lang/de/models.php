@@ -130,6 +130,14 @@ return [
           'required' => 'Sprache ist obligatorisch',
         ]
       ],
+      'errors' => [
+        'not_found' => "Mieter nicht gefunden",        
+        'incorrect_email' => "Falsche E-Mail-Adresse",
+        'create' => "Mieter legt Fehler an: ",
+        'update' => "Fehler bei der Aktualisierung des Mandanten: ",	
+        'deleted' => "Mieter Fehler löschen: ",
+        'not_allowed_change_status' => 'Sie dürfen den Status nicht ändern.',
+      ],      
       'building_card' => 'Liegenschaft zuweisen',
       'personal_details_card' => 'Persönliche Angaben',
       'account_info_card' => 'Benutzer-Login',
@@ -257,6 +265,9 @@ return [
       'errors' => [
         'not_found' => "Gebäude nicht gefunden",
         'manager_not_found' => "Hausverwalter nicht gefunden",
+        'deleted' => "Fehler beim Erstellen von gelöschten Dateien: ",
+        'manager_assigned' => "Property Manager weisen dem Gebäudefehler zu: ",
+        'provider_deleted' => "Der Dienstanbieter hat den Fehler gelöscht: ",
       ],
       'requestStatuses' => 
       [
@@ -358,6 +369,14 @@ return [
           'required' => 'Mieter ist erforderlich',
         ]
       ],
+      'errors' => [
+        'not_found' => "Gerät nicht gefunden",
+        'create' => "Fehler beim Erstellen der Einheit: ",
+        'update' => "Fehler beim Aktualisieren der Einheit: ",
+        'tenant_assign' => "Mieter ordnet Fehler zu: ",
+        'tenant_not_assign' => "Mieter nicht dieser Einheit zugeordnet",
+        'tenant_not_found' => "Mieter nicht gefunden",
+      ],
       'placeholders' => 
       [
         'search' => 'Suchen',
@@ -422,6 +441,7 @@ return [
       'add_pinned' => 'Ankündigung erstellen',
       'save' => 'Speichern',
       'saved' => 'Nachricht gespeichert',
+      'view_incresead' => "Views erfolgreich gesteigert",
       'updated' => 'Nachricht aktualisiert',
       'deleted' => 'Nachricht gelöscht',
       'edit' => 'Öffnen',
@@ -458,6 +478,12 @@ return [
         'article' => 'Artikel',
         'new_neighbour' => 'Neuer Nachbar',
         'pinned' => 'Ankündigung',
+      ],
+      'errors' => [
+        'not_found' => "Beitrag nicht gefunden",        
+        'district_not_found' => "Bezirk nicht gefunden",
+        'building_not_found' => "Gebäude nicht gefunden",
+        'provider_not_found' => "Dienstanbieter nicht gefunden"
       ],
       'status' => 
       [
@@ -580,6 +606,15 @@ return [
         'search' => 'Suchen',
         'category' => 'Kategorie wählen',
       ],
+      'errors' => [
+        'not_found' => "Dienstleister nicht gefunden",
+        'create' => "Service Provider erstellt Fehler: ",
+        'update' => "Fehler beim Aktualisieren durch den Dienstanbieter: ",	
+        'deleted' => "Der Dienstanbieter hat den Fehler gelöscht: ",
+        'district_not_found' => "Bezirk nicht gefunden",
+        'building_not_found' => "Gebäude nicht gefunden",
+        'building_already_assign' => "Gebäude, das bereits durch den Bezirk vergeben wurde.",        
+      ],
     ],
     'district' => 
     [
@@ -597,6 +632,9 @@ return [
       'required' => 'Dies ist ein Pflichfeld',
       'details' => 'Öffnen',
       'buildings' => 'Liegenschaften',
+      'errors' => [
+        'not_found' => "Bezirk nicht gefunden",
+      ],
     ],
     'realEstate' => 
     [
@@ -920,6 +958,15 @@ return [
         'confirmBtnText' => 'Ja',
         'cancelBtnText' => 'Schliessen',
       ],
+      'errors' => [
+        'not_found' => "Property Manager nicht gefunden",
+        'create' => "Property Manager erstellt Fehler: ",
+        'update' => "Property Manager hat den Fehler aktualisiert: ",
+        'district_not_found' => "Bezirk nicht gefunden",
+        'building_not_found' => "Gebäude nicht gefunden",
+        'building_already_assign' => "Gebäude, das bereits durch den Bezirk vergeben wurde.",
+        'building_assign_deleted_property_manager' => "Sie können einem gelöschten Property Manager keine Gebäude zuordnen.",
+      ],
     ],
     'product' => 
     [
@@ -948,6 +995,9 @@ return [
       [
         'deleted' => 'Dokument/Foto gelöscht',
         'uploaded' => 'Dokument/Foto hochgeladen',
+      ],
+      'errors' => [
+        'not_found' => "Produkt nicht gefunden",
       ],
       'type' => 
       [

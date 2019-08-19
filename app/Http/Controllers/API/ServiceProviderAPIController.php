@@ -242,21 +242,21 @@ class ServiceProviderAPIController extends AppBaseController
         try {
             $user = $this->userRepository->create($input['user']);
         } catch (Exception $e) {
-            return $this->sendError('Service Provider create error: ' . $e->getMessage());
+            return $this->sendError(__('models.service.errors.create') . $e->getMessage());
         }
         $input['user_id'] = $user->id;
 
         try {
             $address = $this->addressRepository->create($input['address']);
         } catch (Exception $e) {
-            return $this->sendError('Service Provider create error: ' . $e->getMessage());
+            return $this->sendError(__('models.service.errors.create') . $e->getMessage());
         }
         $input['address_id'] = $address->id;
 
         try {
             $serviceProvider = $this->serviceProviderRepository->create($input);
         } catch (Exception $e) {
-            return $this->sendError('Service Provider create error: ' . $e->getMessage());
+            return $this->sendError(__('models.service.errors.create') . $e->getMessage());
         }
 
         $serviceProvider->load(['user', 'address']);
@@ -308,7 +308,7 @@ class ServiceProviderAPIController extends AppBaseController
         /** @var ServiceProvider $serviceProvider */
         $serviceProvider = $this->serviceProviderRepository->findWithoutFail($id);
         if (empty($serviceProvider)) {
-            return $this->sendError('Service Provider not found');
+            return $this->sendError(__('models.service.errors.not_found'));
         }
 
         $serviceProvider->load(['user', 'address'])
@@ -370,13 +370,13 @@ class ServiceProviderAPIController extends AppBaseController
         /** @var ServiceProvider $serviceProvider */
         $serviceProvider = $this->serviceProviderRepository->findWithoutFail($id);
         if (empty($serviceProvider)) {
-            return $this->sendError('Service Provider not found');
+            return $this->sendError(__('models.service.errors.not_found'));
         }
 
         try {
             $serviceProvider = $this->serviceProviderRepository->update($input, $id);
         } catch (Exception $e) {
-            return $this->sendError('Service Provider updated error: ' . $e->getMessage());
+            return $this->sendError(__('models.service.errors.update') . $e->getMessage());
         }
 
         if (isset($input['user'])) {
@@ -390,7 +390,7 @@ class ServiceProviderAPIController extends AppBaseController
             try {
                 $this->userRepository->update($input['user'], $serviceProvider->user_id);
             } catch (Exception $e) {
-                return $this->sendError('Service Provider updated error: ' . $e->getMessage());
+                return $this->sendError(__('models.service.errors.update') . $e->getMessage());
             }
         }
 
@@ -398,7 +398,7 @@ class ServiceProviderAPIController extends AppBaseController
             try {
                 $this->addressRepository->update($input['address'], $serviceProvider->address_id);
             } catch (Exception $e) {
-                return $this->sendError('Service Provider updated error: ' . $e->getMessage());
+                return $this->sendError(__('models.service.errors.update') . $e->getMessage());
             }
         }
 
@@ -451,7 +451,7 @@ class ServiceProviderAPIController extends AppBaseController
         /** @var ServiceProvider $serviceProvider */
         $serviceProvider = $this->serviceProviderRepository->findWithoutFail($id);
         if (empty($serviceProvider)) {
-            return $this->sendError('Service Provider not found');
+            return $this->sendError(__('models.service.errors.not_found'));
         }
 
         try {
@@ -463,7 +463,7 @@ class ServiceProviderAPIController extends AppBaseController
             }
             $serviceProvider->delete();
         } catch (Exception $e) {
-            return $this->sendError('Service Provider deleted error: ' . $e->getMessage());
+            return $this->sendError(__('models.service.errors.deleted') . $e->getMessage());
         }
 
         return $this->sendResponse($id, __('models.service.deleted'));
@@ -508,11 +508,11 @@ class ServiceProviderAPIController extends AppBaseController
     {
         $sp = $this->serviceProviderRepository->findWithoutFail($id);
         if (empty($sp)) {
-            return $this->sendError('Service provider not found');
+            return $this->sendError(__('models.service.errors.not_found'));
         }
         $d = $dRepo->findWithoutFail($did);
         if (empty($d)) {
-            return $this->sendError('District not found');
+            return $this->sendError(__('models.service.errors.district_not_found'));
         }
 
         $sp->districts()->sync($d, false);
@@ -561,11 +561,11 @@ class ServiceProviderAPIController extends AppBaseController
     {
         $sp = $this->serviceProviderRepository->findWithoutFail($id);
         if (empty($sp)) {
-            return $this->sendError('Service provider not found');
+            return $this->sendError(__('models.service.errors.not_found'));
         }
         $d = $dRepo->findWithoutFail($did);
         if (empty($d)) {
-            return $this->sendError('District not found');
+            return $this->sendError(__('models.service.errors.district_not_found'));
         }
 
         $sp->districts()->detach($d);
@@ -614,15 +614,15 @@ class ServiceProviderAPIController extends AppBaseController
     {
         $sp = $this->serviceProviderRepository->findWithoutFail($id);
         if (empty($sp)) {
-            return $this->sendError('Service provider not found');
+            return $this->sendError(__('models.service.errors.not_found'));
         }
         $b = $bRepo->findWithoutFail($bid);
         if (empty($b)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.service.errors.building_not_found'));
         }
         if ($b->district) {
             if ($sp->districts->contains($b->district)) {
-                return $this->sendError('Building already assigned through district');
+                return $this->sendError(__('models.service.errors.building_already_assign'));
             }
         }
 
@@ -672,11 +672,11 @@ class ServiceProviderAPIController extends AppBaseController
     {
         $sp = $this->serviceProviderRepository->findWithoutFail($id);
         if (empty($sp)) {
-            return $this->sendError('Service provider not found');
+            return $this->sendError(__('models.service.errors.not_found'));
         }
         $b = $bRepo->findWithoutFail($bid);
         if (empty($b)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.service.errors.building_not_found'));
         }
 
         $sp->buildings()->detach($b);
@@ -724,7 +724,7 @@ class ServiceProviderAPIController extends AppBaseController
     {
         $sp = $this->serviceProviderRepository->findWithoutFail($id);
         if (empty($sp)) {
-            return $this->sendError('Service provider not found');
+            return $this->sendError(__('models.service.errors.not_found'));
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));

@@ -130,6 +130,14 @@ return [
           'required' => "La lingua è richiesta",
         ]
       ],
+      'errors' => [
+        'not_found' => "L'inquilino non trovato",
+        'incorrect_email' => "Indirizzo e-mail errato",
+        'create' => "L'inquilino crea un errore: ",
+        'update' => "Errore di aggiornamento dell'inquilino: ",	
+        'deleted' => "Errore di cancellazione dell'inquilino: ",
+        'not_allowed_change_status' => "Non è consentito modificare lo stato.",
+      ],      
       "building_card" => "Assegnare l'unità",
       "personal_details_card" => "Dati personali",
       "account_info_card" => "Accesso utente",
@@ -257,6 +265,9 @@ return [
       'errors' => [
         'not_found' => "Edificio non trovato",
         'manager_not_found' => "Property manager non trovato",
+        'deleted' => "Edificio cancellato errore: ",
+        'manager_assigned' => "I gestori di proprietà assegnano all'errore dell'edificio: ",
+        'provider_deleted' => "Il fornitore del servizio ha cancellato l'errore: ",
       ],
       'requestStatuses' => 
       [
@@ -358,6 +369,14 @@ return [
           "required" => "È necessaria una descrizione",
         ]
       ],
+      'errors' => [
+        'not_found' => "Unità non trovata",
+        'create' => "Unità crea errore: ",
+        'update' => "Errore di aggiornamento dell'unità: ",
+        'tenant_assign' => "L'inquilino assegna un errore: ",
+        'tenant_not_assign' => "Affittuario non assegnato a questa unità",
+        'tenant_not_found' => "L'inquilino non trovato",
+      ],
       'placeholders' => 
       [
         "search" => "Cerca",
@@ -422,6 +441,7 @@ return [
       "add_pinned" => "Aggiungere posta bloccata",
       "save" => "Risparmiate",
       "saved" => "Notizie salvare",
+      'view_incresead' => "Le viste sono aumentate con successo",
       "updated" => "Notizie aggiornate",
       "deleted" => "Notizie Cancellate",
       "edit" => "Modifica",
@@ -458,6 +478,12 @@ return [
         "article" => "Articolo",
         "new_neighbour" => "Nuovo vicino",
         "pinned" => "Inchiodato",
+      ],
+      'errors' => [
+        'not_found' => "Posta non trovata",
+        'district_not_found' => "Distretto non trovato",
+        'building_not_found' => "Edificio non trovato",
+        'provider_not_found' => "Fornitore di servizi non trovato"
       ],
       'status' => 
       [
@@ -580,6 +606,15 @@ return [
         "search" => "Cerca",
         "category" => "Selezionare la categoria",
       ],
+      'errors' => [
+        'not_found' => "Fornitore di servizi non trovato",
+        'create' => "Il fornitore di servizi crea un errore: ",
+        'update' => "Errore aggiornato del fornitore di servizi: ",	
+        'deleted' => "Errore cancellato dal fornitore di servizi: ",
+        'district_not_found' => "Distretto non trovato",
+        'building_not_found' => "Edificio non trovato",
+        'building_already_assign' => "Edificio già assegnato attraverso il distretto",        
+      ],
     ],
     'district' => 
     [
@@ -597,6 +632,9 @@ return [
       "required" => "Questo campo è obbligatorio",
       "details" => "Dettagli",
       "buildings" => "Edifici",
+      'errors' => [
+        'not_found' => "Distretto non trovato",        
+      ],
     ],
     'realEstate' => 
     [
@@ -920,6 +958,15 @@ return [
         "confirmBtnText" => "Ok",
         "cancelBtnText" => "Annulla",
       ],
+      'errors' => [
+        'not_found' => "Property Manager non trovato",
+        'create' => "Property Manager crea un errore: ",
+        'update' => "Errore aggiornato Property Manager: ",
+        'district_not_found' => "Distretto non trovato",
+        'building_not_found' => "Edificio non trovato",
+        'building_already_assign' => "Edificio già assegnato attraverso il distretto",
+        'building_assign_deleted_property_manager' => "Non è possibile assegnare edifici a un gestore di proprietà cancellato",
+      ],
     ],
     'product' => 
     [
@@ -948,6 +995,9 @@ return [
       [
         'deleted' => 'Documento/foto eliminato',
         'uploaded' => 'Documento/foto caricato',
+      ],
+      'errors' => [
+        'not_found' => "Prodotto non trovato",
       ],
       'type' => 
       [

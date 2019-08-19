@@ -130,6 +130,14 @@ return [
           'required' => "La langue est obligatoire",
         ]
       ],
+      'errors' => [
+        'not_found' => "Locataire introuvable",
+        'incorrect_email' => "Adresse e-mail incorrecte",
+        'create' => "Le locataire crée l'erreur : ",
+        'update' => "Erreur de mise à jour locataire : ",	
+        'deleted' => "Erreur de suppression du locataire : ",
+        'not_allowed_change_status' => "Vous n'êtes pas autorisé à changer de statut.",
+      ],      
       "building_card" => "Affecter unité",
       "personal_details_card" => "Données personnelles",
       "account_info_card" => "Connexion de l'utilisateur",
@@ -257,6 +265,9 @@ return [
       'errors' => [
         'not_found' => "Bâtiment non trouvé",
         'manager_not_found' => "Gestionnaire immobilier introuvable",
+        'deleted' => "Erreur de suppression du bâtiment : ",
+        'manager_assigned' => "Les gestionnaires immobiliers attribuent à l'erreur de construction : ",
+        'provider_deleted' => "Erreur supprimée par le fournisseur de services : ",
       ],
       'requestStatuses' => 
       [
@@ -358,6 +369,14 @@ return [
           "required" => "Un locataire est requis",
         ]
       ],
+      'errors' => [
+        'not_found' => "Unité non trouvée",
+        'create' => "L'unité crée l'erreur : ",
+        'update' => "Erreur de mise à jour de l'unité : ",
+        'tenant_assign' => "Erreur d'affectation locataire : ",
+        'tenant_not_assign' => "Locataire non affecté à cette unité",
+        'tenant_not_found' => "Locataire introuvable",
+      ],
       'placeholders' => 
       [
         "search" => "Cherchez",
@@ -422,6 +441,7 @@ return [
       "add_pinned" => "Ajouter un poteau épinglé",
       "save" => "Sauvegarder",
       "saved" => "Notizie salvate",
+      'view_incresead' => "Le nombre de points de vue a augmenté avec succès",
       "updated" => "Notizie aggiornate",
       "deleted" => "Notizie cancellate",
       "edit" => "Modifier",
@@ -458,6 +478,12 @@ return [
         "article" => "Article",
         "new_neighbour" => "Nouveau voisin",
         "pinned" => "Épinglé",
+      ],
+      'errors' => [
+        'not_found' => "Message non trouvé",
+        'district_not_found' => "District non trouvé",
+        'building_not_found' => "Bâtiment non trouvé",
+        'provider_not_found' => "Fournisseur de services introuvable"
       ],
       'status' => 
       [
@@ -580,6 +606,15 @@ return [
         "search" => "Cherchez",
         "category" => "Sélectionnez une catégorie",
       ],
+      'errors' => [
+        'not_found' => "Fournisseur de services introuvable",
+        'create' => "Le fournisseur de services crée l'erreur : ",
+        'update' => "Erreur de mise à jour du fournisseur de services : ",	
+        'deleted' => "Erreur supprimée par le fournisseur de services : ",
+        'district_not_found' => "District non trouvé",
+        'building_not_found' => "Bâtiment non trouvé",
+        'building_already_assign' => "Bâtiment déjà attribué par le district",        
+      ],
     ],
     'district' => 
     [
@@ -597,6 +632,9 @@ return [
       "required" => "Ce champ est obligatoire",
       "details" => "Détails",
       "buildings" => "Bâtiments",
+      'errors' => [
+        'not_found' => "District non trouvé",
+      ],
     ],
     'realEstate' => 
     [
@@ -920,6 +958,15 @@ return [
         "confirmBtnText" => "Ok",
         "cancelBtnText" => "Annuler",
       ],
+      'errors' => [
+        'not_found' => "Gestionnaire immobilier introuvable",
+        'create' => "Le gestionnaire immobilier crée l'erreur : ",
+        'update' => "Erreur de mise à jour du gestionnaire immobilier : ",
+        'district_not_found' => "District non trouvé",
+        'building_not_found' => "Bâtiment non trouvé",
+        'building_already_assign' => "Bâtiment déjà attribué par le district",
+        'building_assign_deleted_property_manager' => "Vous ne pouvez pas affecter de bâtiments à un gestionnaire immobilier supprimé.",
+      ],
     ],
     'product' => 
     [
@@ -948,6 +995,9 @@ return [
       [
         'deleted' => 'Document/photo supprimée',
         'uploaded' => 'Document/Photo téléchargée',
+      ],
+      'errors' => [
+        'not_found' => "Produit non trouvé",
       ],
       'type' => 
       [

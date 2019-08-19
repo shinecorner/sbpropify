@@ -284,7 +284,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $oldStatus = $serviceRequest->status;
         if (!$this->serviceRequestRepository->checkStatusPermission($input, $oldStatus)) {
-            return $this->sendError('You are not allowed to change status');
+            return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
         $attr = $this->serviceRequestRepository->getPutAttributes($input, $oldStatus);
