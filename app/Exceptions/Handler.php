@@ -49,7 +49,13 @@ class Handler extends ExceptionHandler
     {
         if (is_a($exception, ValidationException::class)) {
 
-            $translateMessage = __('validation.validation_main_message');
+            if (count($exception->errors()) > 0) {
+                $translateMessage = collect($exception->errors())->flatten()->implode(PHP_EOL);
+            } else {
+                $translateMessage = __('validation.validation_main_message');
+            }
+
+
             return response()->json([
                 'message' => $translateMessage,
                 'errors' => $exception->errors(),
