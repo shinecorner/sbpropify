@@ -769,7 +769,7 @@ class UserAPIController extends AppBaseController
         if ($isExists) {
             return $this->sendError(__('models.user.errors.email_already_exists', ['email' => $email]));
         }
-        
+
         return $this->sendResponse($email, __('models.user.errors.email_not_exists', ['email' => $email]));
 
     }
