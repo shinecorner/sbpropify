@@ -574,6 +574,75 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     * @return mixed
+     */
+    public function tenantsAgeStatistics()
+    {
+        // @TODO check permission in request
+        $ageConfig = [
+            '18-25' => [
+                ['>=', 25]
+            ],
+            '25-35' => [
+                ['>=', 35],
+                ['<', 25]
+            ],
+            '35-45' => [
+                ['>=', 45],
+                ['<', 35]
+            ],
+            '45-55' => [
+                ['>=', 55],
+                ['<', 45]
+            ],
+            '55-65' => [
+                ['>=', 65],
+                ['<', 55]
+            ],
+            '>=65' => [
+                ['<=', 65],
+            ],
+        ];
+
+
+        $query = $this->getQueryForAge($ageConfig);
+        $result = \App\Models\Tenant::selectRaw($query)->first();
+        $columnValues = array_combine(array_keys($ageConfig), array_keys($ageConfig));
+
+        $statistics = collect();
+        foreach ($columnValues as $key => $value) {
+            $statistics->push([
+                'age' => $key,
+                'count' => $result->{(string)$key}
+            ]);
+        }
+
+
+        $response = $this->formatForDonutChart($statistics, 'age', $columnValues, true);
+        return $this->sendResponse($response, 'Tenants gender statistics retrieved successfully');
+    }
+
+    /**
+     * @param $agesConfig
+     * @return string
+     */
+    protected function getQueryForAge($agesConfig)
+    {
+        $query = '';
+
+        foreach ($agesConfig as $label => $conditions) {
+            $conditionQuery = '';
+            foreach ($conditions as $condition) {
+                $conditionQuery .= 'birth_date ' . $condition[0] . ' "' . now()->subYear($condition[1])->format('Y-m-d') . '" and ';
+            }
+            $conditionQuery = rtrim($conditionQuery, ' and ');
+            $query .= sprintf('count(case when %s then 1 end) AS `%s`, ', $conditionQuery,  $label);
+        }
+
+        return rtrim($query, ', ');
+    }
+
+    /**
      * @return Response
      *
      * @SWG\Get(
@@ -1912,7 +1981,7 @@ class StatisticsAPIController extends AppBaseController
 
         if ($sumPercentage != 100) {
             // @TODO improve this logic if need for make round max correct way
-            $diff = $rsPerStatus->map(function($el, $index) use ($sum, $tagPercentages) {
+            $diff = $rsPerStatus->where('count', ">", 0)->map(function($el, $index) use ($sum, $tagPercentages) {
                 return $el['count']  * 100 / $sum - $tagPercentages[$index];
             });
             $diff = $diff->sort();
