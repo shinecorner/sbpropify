@@ -101,6 +101,7 @@
                             </el-col>
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.buildings.buildings_by_state')">
+                                   <!-- <dashboard-buildings-by-state></dashboard-buildings-by-state> -->
                                     <chart-pie-and-donut type="buildings_by_state" :cented="true" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
@@ -242,6 +243,7 @@
     import DashboardManagersList from 'components/DashboardManagersList';
     import DashboardServicesList from 'components/DashboardServicesList';
     import DashboardLatestNews from 'components/DashboardLatestNews';
+    import DashboardBuildingsByState from 'components/DashboardBuildingsByState';
 
     export default {
         name: 'AdminDashboard',
@@ -265,7 +267,8 @@
             DashboardLatestTenants,
             DashboardManagersList,
             DashboardServicesList,
-            DashboardLatestNews
+            DashboardLatestNews,
+            DashboardBuildingsByState
         },
         data() {
             return {

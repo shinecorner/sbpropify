@@ -62,7 +62,7 @@
                     width: 64
                 }, {
                     label: this.$t('models.tenant.name'),
-                    withUsers: true,
+                    withAvatars: true,
                     props: ['user']
                 }, {
                     label: this.$t('models.tenant.contact_info_card'),

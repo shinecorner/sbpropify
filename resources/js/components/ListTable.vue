@@ -113,14 +113,60 @@
                 v-if="withCheckSelection"
                 width="40">
             </el-table-column>
+
             <el-table-column
                 :key="column.prop"
                 :label="column.label"
                 :prop="column.prop"
                 :width="column.width"
                 v-for="column in headerWithoutActions"/>
-                
+
             <el-table-column
+                :key="column.prop"
+                :label="column.label"
+                :width="column.width"
+                v-for="column in headerWithAvatars">
+                
+                <template slot-scope="scope">
+                    <div class="avatars-wrapper">
+                        <div class="user-details" v-if="scope.row['user']">
+                            <div class="image">
+                                <table-avatar :src="scope.row['user'].avatar" :name="scope.row['user'].name" :size="33" />
+                            </div>
+                            <div class="title">
+                                {{ scope.row['user'].name }}
+                            </div>
+                        </div> 
+                    </div>
+                </template>
+            </el-table-column>
+
+            <el-table-column
+                :key="column.label + key"
+                :label="column.label"
+                :width="column.width"
+                v-for="(column, key) in headerWithMultipleProps"
+            >
+                <template slot-scope="scope">
+
+                    <component :class="{'listing-link': column.withLinks}" :is="column.withLinks ? 'router-link':'div'"
+                               :key="prop" :to="buildRouteObject(column.route, scope.row)"
+                               v-for="(prop, ind) in column.props" v-if="scope.row[prop]">
+                        {{scope.row[prop]}}
+                    </component>
+                </template>
+            </el-table-column>
+
+            <el-table-column
+                :key="column.label"
+                :label="column.label"
+                :width="column.width"
+                v-for="(column, key) in headerWithCounts">
+                <template slot-scope="scope">
+                    <request-count :countsData="items[scope.$index]" :counts="column.counts"></request-count>
+                </template>
+            </el-table-column>
+             <el-table-column
                 :key="column.prop"
                 :label="column.label"
                 :width="column.width"
@@ -154,42 +200,7 @@
                         <avatar class="avatar-count" :size="28" :username="`+ ${scope.row[column.count]}`"
                                 color="#fff"
                                 v-if="scope.row[column.count]"></avatar>
-
-                         <div class="user-details" v-if="scope.row['user']">
-                            <div class="image">
-                                <table-avatar :src="scope.row['user'].avatar" :name="scope.row['user'].name" :size="33" />
-                            </div>
-                            <div class="title">
-                                {{ scope.row['user'].name }}
-                            </div>
-                        </div>
                     </div>
-                </template>
-            </el-table-column>
-
-            <el-table-column
-                :key="column.label + key"
-                :label="column.label"
-                :width="column.width"
-                v-for="(column, key) in headerWithMultipleProps"
-            >
-                <template slot-scope="scope">
-
-                    <component :class="{'listing-link': column.withLinks}" :is="column.withLinks ? 'router-link':'div'"
-                               :key="prop" :to="buildRouteObject(column.route, scope.row)"
-                               v-for="(prop, ind) in column.props" v-if="scope.row[prop]">
-                        {{scope.row[prop]}}
-                    </component>
-                </template>
-            </el-table-column>
-
-            <el-table-column
-                :key="column.label"
-                :label="column.label"
-                :width="column.width"
-                v-for="(column, key) in headerWithCounts">
-                <template slot-scope="scope">
-                    <request-count :countsData="items[scope.$index]" :counts="column.counts"></request-count>
                 </template>
             </el-table-column>
             <el-table-column
@@ -376,6 +387,7 @@
                 return this.header.reduce((acc, row) => (!row.actions
                 && !row.select
                 && !row.withUsers
+                && !row.withAvatars
                 && !row.withCounts
                 && !row.withMultipleProps
                 && !row.withBadgeProps
