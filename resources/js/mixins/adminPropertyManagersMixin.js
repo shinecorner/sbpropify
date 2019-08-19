@@ -136,17 +136,12 @@ export default (config = {}) => {
             },  
             async checkavailabilityEmail(rule, value, callback) {
                 let validateObject = this.model;
-                console.log('validateObject', validateObject);
-                console.log('checkemail', validateObject.user.email, this.original_email);
                 
                 if(config.mode == 'add' || ( this.original_email != null && this.original_email !== validateObject.user.email)) {
-                    console.log('api call');
                     try {
-                        console.log(validateObject.user.email);
                         const resp = await axios.get('users/check-email?email=' + validateObject.user.email);
                         if(resp)
                         {
-                            console.log(resp);
                             callback(new Error(resp.data.message));
                         }                  
                     } catch {
@@ -336,7 +331,6 @@ export default (config = {}) => {
                     const {
                         ...restData
                     } = await this.getPropertyManager({id: this.$route.params.id});
-                    console.log('rest', restData);
 
                     this.original_email = this.model.user.email;
                     
