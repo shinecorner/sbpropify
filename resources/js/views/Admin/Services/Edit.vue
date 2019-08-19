@@ -175,7 +175,6 @@
                         v-if="model && model.id"
                     />
                 </card>
-                <raw-grid-statistics-card :cols="8" :data="statistics.raw" class="mt15"/>
             </el-col>
         </el-row>
 
@@ -193,7 +192,6 @@
     import {displayError, displaySuccess} from "helpers/messages";
     import SelectLanguage from 'components/SelectLanguage';
     import AssignmentByType from 'components/AssignmentByType';
-    import RawGridStatisticsCard from 'components/RawGridStatisticsCard';
 
 
     export default {
@@ -208,8 +206,7 @@
             EditActions,
             RelationList,
             SelectLanguage,
-            AssignmentByType,
-            RawGridStatisticsCard
+            AssignmentByType
         },
         data() {
             return {

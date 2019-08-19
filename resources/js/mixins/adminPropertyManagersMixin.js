@@ -24,34 +24,6 @@ export default (config = {}) => {
                     },
                     settings: {
                         language: ''
-                    },
-
-                },
-                statistics: {
-                    raw: [{
-                        icon: 'ti-plus',
-                        color: '#003171',
-                        value: 0,
-                        description: 'Total'
-                    },{
-                        icon: 'ti-plus',
-                        color: '#26A65B',
-                        value: 0,
-                        description: 'Solved Requests'
-                    },{
-                        icon: 'ti-plus',
-                        color: '#26A65B',
-                        value: 0,
-                        description: 'Pending Requests'
-                    },{
-                        icon: 'ti-user',
-                        color: '#003171',
-                        value: 0,
-                        description: 'Assigned Buildings'
-                    }, ],
-                    percentage: {
-                        occupied_units: 0,
-                        free_units: 0,
                     }
                 },
                 validationRules: {
@@ -337,16 +309,10 @@ export default (config = {}) => {
                     this.requests = reqResp.data;
 
                     const {
-                        data: {
-                            ...restData
-                        }
+                        ...restData
                     } = await this.getPropertyManager({id: this.$route.params.id});
                     console.log(restData);
-                    this.statistics.raw[0].value = restData.requests_count;
-                    this.statistics.raw[1].value = restData.solved_requests_count;
-                    this.statistics.raw[2].value = restData.pending_requests_count;
-                    this.statistics.raw[3].value = restData.buildings_count;
-                    
+
                     this.loading.state = false;
                 };
 

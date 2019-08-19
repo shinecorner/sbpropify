@@ -148,7 +148,6 @@
                 v-for="(column, key) in headerWithMultipleProps"
             >
                 <template slot-scope="scope">
-
                     <component :class="{'listing-link': column.withLinks}" :is="column.withLinks ? 'router-link':'div'"
                                :key="prop" :to="buildRouteObject(column.route, scope.row)"
                                v-for="(prop, ind) in column.props" v-if="scope.row[prop]">
@@ -166,6 +165,7 @@
                     <request-count :countsData="items[scope.$index]" :counts="column.counts"></request-count>
                 </template>
             </el-table-column>
+
              <el-table-column
                 :key="column.prop"
                 :label="column.label"
@@ -284,14 +284,12 @@
     import {Avatar} from 'vue-avatar'
     import uuid from 'uuid/v1'
     import RequestCount from 'components/RequestCount.vue'
-    import tableAvatar from 'components/Avatar';
 
     export default {
         name: 'ListTable',
         components: {
             Avatar,
-            RequestCount,
-            'table-avatar': tableAvatar
+            RequestCount
         },
         props: {
             header: {
@@ -398,7 +396,7 @@
             },
             headerWithCounts() {
                 return this.header.reduce((acc, row) => (row.withCounts && acc.push(row), acc), []);
-            }, 
+            },
             headerWithAvatars() {
                 return this.header.reduce((acc, row) => (row.withAvatars && acc.push(row), acc), []);
             },
@@ -770,36 +768,6 @@
 
         .vue-avatar--wrapper {
             font-size: 12px !important;
-        }
-        .user-details {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            width: 100%;
-
-            .image {
-                border-radius: 7px;
-                width: 33px;
-                height: 33px;
-                min-width: 33px;
-                min-height: 33px;
-                margin-right: 15px;
-                background-size: cover;
-                background-position: center;
-            }
-
-            .text {
-                width: calc(100% - 75px);
-                .title {
-                    max-width: 100%;
-                    font-weight: bold;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-            }
         }
     }
 

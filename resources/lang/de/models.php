@@ -433,6 +433,7 @@ return [
       'user' => 'Benutzer',
       'delete' => 'Löschen',
       'likes' => 'Likes',
+      'views' => 'Ansichten',
       'details' => 'Beitragsdetails',
       'published_at' => 'Veröffentlichung',
       'publish' => 'Veröffentlicht',

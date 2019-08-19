@@ -883,6 +883,7 @@ export default {
                 "user": "User",
                 "delete": "Delete",
                 "likes": "Likes",
+                "views": "Views",
                 "details": "Post Details",
                 "published_at": "Published",
                 "publish": "Publish",

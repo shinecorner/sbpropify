@@ -169,7 +169,7 @@
                                 v-if="model.user && model.user.id"
                             />
                         </card>
-                        <raw-grid-statistics-card :cols="8" :data="statistics.raw" class="mt15"/>
+                        
                     </el-col>
                 </el-row>
             </el-form>
@@ -188,7 +188,6 @@
     import globalFunction from "helpers/globalFunction";
     import SelectLanguage from 'components/SelectLanguage';
     import AssignmentByType from 'components/AssignmentByType';
-    import RawGridStatisticsCard from 'components/RawGridStatisticsCard';
 
     export default {
         name: 'AdminPropertyManagersEdit',
@@ -202,8 +201,7 @@
             RelationList,
             EditActions,
             SelectLanguage,
-            AssignmentByType,
-            RawGridStatisticsCard
+            AssignmentByType
         },
         data() {
             return {

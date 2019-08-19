@@ -246,7 +246,7 @@
             disabledExecutionEnd(date) {
                 const d = new Date(date).getTime();
                 const executionStart = new Date(this.model.execution_start).getTime();
-                return d < executionStart;
+                return d <= executionStart;
             },
             chagePinned(nValue) {
                 if(nValue) {
