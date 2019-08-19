@@ -72,6 +72,12 @@ return [
   'details_saved' => 'Details saved',
   'please_wait' => 'Please wait...',
   'no_data_available' => 'No data available',
+  'upload_error' => "Media upload error",
+  'media_not_found' => "Media not found",
+  'comment_not_found' => "Comment not found",
+  'comment_created' => "Comment created",
+  'comment_updated' => "Comment updated",
+  'comment_deleted' => "Comment deleted",
   'password_validation' => 
   [
     'required' => 'Password is required',

@@ -132,11 +132,11 @@
                     email: [
                         {
                             required: true,
-                            message: this.$t("email_validation.required")
+                            message: this.$t("general.email_validation.required")
                         },
                         {
                             type: 'email',
-                            message: this.$t("email_validation.email")
+                            message: this.$t("general.email_validation.email")
                         }
                     ]
                 },
@@ -144,11 +144,11 @@
                     password_old: [
                         {
                             required: true,
-                            message: this.$t("password_validation.old_password_required")
+                            message: this.$t("general.password_validation.old_password_required")
                         },
                         {
                             min: 6,
-                            message: this.$t("password_validation.old_password_min")
+                            message: this.$t("general.password_validation.old_password_min")
                         }
                     ],
                     password: [
@@ -160,7 +160,7 @@
                         },
                         {
                             min: 6,
-                            message: this.$t("password_validation.min")
+                            message: this.$t("general.password_validation.min")
                         }
                     ],
                     password_confirmation: [
@@ -243,7 +243,7 @@
             },
             validatePassword(rule, value, callback) {
                 if (value === '') {
-                    callback(new Error(this.$t("password_validation.required")));
+                    callback(new Error(this.$t("general.password_validation.required")));
                 } else {
                     if (this.changePassword.password_confirmation !== '') {
                         this.$refs.changePasswordForm.validateField('password_confirmation');

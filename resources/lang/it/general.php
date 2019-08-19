@@ -72,6 +72,12 @@ return [
   'details_saved' => 'Dettagli salvati',
   'please_wait' => 'Attendere per favore...',
   'no_data_available' => 'Nessun dato disponibile',
+  'upload_error' => "Errore di caricamento dei media",
+  'media_not_found' => "Media non trovati",
+  'comment_not_found' => "Commento non trovato",
+  'comment_created' => "Commento creato",
+  'comment_updated' => "Commento aggiornato",
+  'comment_deleted' => "Commento soppresso",
   'password_validation' => 
   [
     'required' => 'La password è richiesta',

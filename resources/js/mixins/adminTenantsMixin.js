@@ -54,10 +54,10 @@ export default (config = {}) => {
                     }],
                     email: [{
                         required: true,
-                        message: this.$t("email_validation.required")
+                        message: this.$t("general.email_validation.required")
                     }, {
                         type: 'email',
-                        message: this.$t("email_validation.email")
+                        message: this.$t("general.email_validation.email")
                     },{
                         validator: this.checkavailabilityEmail
                     }],
@@ -65,7 +65,7 @@ export default (config = {}) => {
                         validator: this.validatePassword
                     }, {
                         min: 6,
-                        message: this.$t("password_validation.min")
+                        message: this.$t("general.password_validation.min")
                     }],
                     password_confirmation: [{
                         validator: this.validateConfirmPassword,

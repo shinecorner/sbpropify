@@ -45,12 +45,19 @@
                 :label="column.label"
                 v-for="column in columns"
                 v-if="!column.i18n && column.prop === 'title'"
-            >
-                <template slot-scope="scope">
-                    <div>{{scope.row.title}}</div>
-                    <div style="color: #909399;">{{scope.row.category.name}}</div>
-                </template>
-            </el-table-column>
+        >
+            <template slot-scope="scope">
+                <div>{{scope.row.title}}</div>
+                <div class="category">
+                    <span v-if="scope.row.category.parentCategory">
+                        {{scope.row.category.parentCategory.name}} >&nbsp;
+                    </span>
+                    <span>
+                        {{scope.row.category.name}}
+                    </span>
+                </div>
+            </template>
+        </el-table-column>
             <el-table-column
                 v-if="status.prop === 'status'"
                 :key="status.prop"
@@ -217,6 +224,9 @@
 </script>
 
 <style scoped>
+    .category {
+        color: #909399;
+    }
     .tenant-link {
         display: inline-block;
         text-decoration: none;
