@@ -266,11 +266,11 @@
                                        type="primary">
                                 {{$t('general.actions.save')}}
                             </el-button>
-                            <el-row :gutter="20">
-                                <el-col :md="12">
-                                    <el-card>
-                                        <el-form :model="$constants" :rules="validationRules" label-width="200px"
-                                                 ref="themeSettingsForm">
+                            <el-form :model="model" :rules="validationRules"
+                                     ref="themeSettingsForm">
+                                <el-row :gutter="20">
+                                    <el-col :md="12">
+                                        <el-card>
                                             <el-form-item :label="$t('models.user.logo')">
                                                 <cropper @cropped="setLogoUpload"/>
                                                 <img :src="realEstateLogo" ref="realEstateLogo"
@@ -288,26 +288,62 @@
                                                         v-model="model.accent_color">
                                                 </el-color-picker>
                                             </el-form-item>
-                                        </el-form>
-                                    </el-card>
-                                </el-col>
-                                <el-col :md="12">
-                                    .lo
-                                </el-col>
-                            </el-row>
+                                        </el-card>
+                                    </el-col>
+                                    <el-col :md="12">
+                                        <el-radio-group class="login-radio-group" v-model="model.login_variation">
+                                            <el-row :gutter="20">
+                                                <el-col :md="12">
+                                                    <el-radio class="login-radio" :label="1">
+                                                        <div class="login-card">
+                                                            <div class="login-card__img"></div>
+                                                            <div class="login-card__content">
+                                                                <div class="login-card__title">{{$t('models.realEstate.login_variation')}} 1</div>
+                                                            </div>
+                                                        </div>
+                                                    </el-radio>
+                                                </el-col>
+                                                <el-col :md="12">
+                                                    <el-radio class="login-radio" :label="2">
+                                                        <div class="login-card">
+                                                            <div class="login-card__img"></div>
+                                                            <div class="login-card__content">
+                                                                <div class="login-card__title">{{$t('models.realEstate.login_variation')}} 2</div>
+                                                            </div>
+                                                        </div>
+                                                    </el-radio>
+                                                </el-col>
+                                            </el-row>
+                                        </el-radio-group>
+                                        <el-card class="mt-20" v-if="model.login_variation === 2">
+                                            <el-form-item class="switcher"
+                                                          prop="login_variation_2_slider"
+                                            >
+                                                <label class="switcher__label">{{$t('models.realEstate.login_variation_slider')}}</label>
+                                                <el-switch v-model="model.login_variation_2_slider"/>
+                                            </el-form-item>
+                                        </el-card>
+                                    </el-col>
+                                </el-row>
+                            </el-form>
                         </el-tab-pane>
                     </el-tabs>
                 </div>
 
             </el-tab-pane>
             <el-tab-pane :label="$t('models.realEstate.requests')" name="requests">
-                requests
-            </el-tab-pane>
-            <el-tab-pane :label="$t('models.realEstate.categories')" name="categories">
-                <CategoriesListing/>
-            </el-tab-pane>
-            <el-tab-pane :label="$t('models.realEstate.templates')" name="templates">
-                <TemplatesListing/>
+                <heading :title="$t('models.realEstate.requests')" class="custom-heading" icon="ti-settings" shadow="heavy" />
+
+                <div class="dashboard-tabpanel dashboard-tabpanel_left">
+                    <el-tabs type="border-card" v-model="activeRequestName">
+                        <el-tab-pane :label="$t('models.realEstate.categories')" name="categories">
+                            <CategoriesListing/>
+                        </el-tab-pane>
+                        <el-tab-pane :label="$t('models.realEstate.templates')" name="templates">
+                            <TemplatesListing/>
+                        </el-tab-pane>
+                    </el-tabs>
+                </div>
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -355,9 +391,12 @@
                     contact_enable: false,
                     accent_color: '',
                     primary_color: '',
+                    login_variation: '',
+                    login_variation_2_slider: false,
                 },
                 activeName: 'settings',
                 activeSettingsName: 'details',
+                activeRequestName: 'categories',
                 states: [],
                 mailEncryption: [
                     'tls',
@@ -496,6 +535,10 @@
 
 </script>
 <style lang="scss">
+    .mt-20 {
+        margin-top: 20px;
+    }
+
     .settings-tabs.el-tabs.el-tabs--left {
         height: 100%;
         > .el-tabs__header.is-left {
@@ -518,6 +561,7 @@
             }
         }
     }
+
     .dashboard-tabpanel_left {
         .el-tabs__nav {
             margin: 1.5rem auto 1.5em 0;
@@ -531,6 +575,7 @@
             right: 20px;
         }
     }
+
     .switcher {
         .el-form-item__content {
             display: flex;
@@ -549,11 +594,73 @@
             margin-left: auto;
         }
     }
+
+    .el-radio-group.login-radio-group {
+        display: block;
+    }
+
+    .el-radio.login-radio {
+        display: block;
+        .el-radio__input {
+            display: none;
+        }
+        .el-radio__label {
+            display: block;
+            padding: 0;
+        }
+        &.is-checked {
+            .login-card {
+                box-shadow: none;
+                border: 1px #6AC06F solid;
+            }
+        }
+    }
+
+    .login-card {
+        background-color: #fff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        border: 1px #e0e0e0 solid;
+        border-radius: 6px;
+        transition: all 0.3s;
+        &__img {
+            min-height: 100px;
+            overflow: hidden;
+            border-bottom: 1px #e0e0e0 solid;
+        }
+        &__content {
+            padding: 8px;
+            white-space: normal;
+        }
+        &__title {
+            line-height: 1.4em;
+            font-weight: bold;
+        }
+    }
+
     .dis-autofill input {
         cursor: text;
     }
+
     .settings {
         /*height: 100% !important;*/
+
+        .requestCategories {
+            .heading {
+                padding: 0;
+                position: absolute;
+                top: -82px;
+                right: 20px;
+            }
+            .list-table {
+                padding: 0;
+            }
+        }
+
+        .templates {
+            .list-table {
+                padding: 0;
+            }
+        }
 
         .custom-heading {
             margin-bottom: 20px;
@@ -576,11 +683,16 @@
                     margin-right: 8px;
                 }
             }
+
             .card-label {
                 float: none;
                 text-align: left;
                 color: #606266;
                 line-height: 40px;
+            }
+
+            .el-form-item:only-child {
+                margin-bottom: 0;
             }
         }
     }
