@@ -514,17 +514,12 @@
                 }
             });
 
-
+            this.rolename = this.$store.getters.loggedInUser.roles[0].name;
             
         },
         async created(){
             const requests = await this.axios.get('requests?&page=1&per_page=20');
             this.requests_num = requests.data.data.total;
-
-            const me = await this.axios.get('users/me');
-            const roles = me.data.data.roles;
-            const rolename = roles[0].name;
-            this.rolename = rolename;
         }
 
 

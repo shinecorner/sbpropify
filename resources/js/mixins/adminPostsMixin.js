@@ -337,6 +337,7 @@ export default (config = {}) => {
 
                                 try {
                                     this.loading.state = true;
+                                    this.model.status = 2;
 
                                     await this.uploadNewMedia(this.model.id);
 

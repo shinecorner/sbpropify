@@ -883,6 +883,7 @@ export default {
                 "user": "Utente",
                 "delete": "Cancellare",
                 "likes": "Gli piace",
+                "views": "Viste",
                 "details": "Pubblicare i dettagli",
                 "published_at": "Pubblicato",
                 "publish": "Pubblicare",
