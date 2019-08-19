@@ -140,7 +140,11 @@
                     </div>
                 </template>
             </el-table-column>
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 7cb4e9141742b380ad21406810886f6264fd4f84
             <el-table-column
                 :key="column.label + key"
                 :label="column.label"
@@ -284,12 +288,14 @@
     import {Avatar} from 'vue-avatar'
     import uuid from 'uuid/v1'
     import RequestCount from 'components/RequestCount.vue'
+    import tableAvatar from 'components/Avatar';
 
     export default {
         name: 'ListTable',
         components: {
             Avatar,
-            RequestCount
+            RequestCount,
+            'table-avatar': tableAvatar
         },
         props: {
             header: {
@@ -768,6 +774,37 @@
 
         .vue-avatar--wrapper {
             font-size: 12px !important;
+        }
+
+        .user-details {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            width: 100%;
+
+            .image {
+                border-radius: 7px;
+                width: 33px;
+                height: 33px;
+                min-width: 33px;
+                min-height: 33px;
+                margin-right: 15px;
+                background-size: cover;
+                background-position: center;
+            }
+
+            .text {
+                width: calc(100% - 75px);
+                .title {
+                    max-width: 100%;
+                    font-weight: bold;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
         }
     }
 
