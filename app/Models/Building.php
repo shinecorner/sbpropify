@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\AddressOwnerAudit;
 use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -72,22 +73,12 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  */
 class Building extends AuditableModel implements HasMedia
 {
-    use SoftDeletes, HasMediaTrait, UniqueIDFormat;
+    use SoftDeletes, HasMediaTrait, UniqueIDFormat, AddressOwnerAudit;
 
     protected $auditEvents = [
-        'created' => 'createdEventAttributesIncludeAddress',
+        'created' => 'getCreatedEventAttributesIncludeAddress',
+        'updated' => 'getUpdatedEventAttributesIncludeAddress'
     ];
-
-
-    public function createdEventAttributesIncludeAddress()
-    {
-        $changes = $this->getCreatedEventAttributes();
-        if ($this->address) {
-            $changes[1] += $this->address->only($this->address->getFillable());
-        }
-        return $changes;
-    }
-
 
     const BuildingMediaCategories = [
         'house_rules',
