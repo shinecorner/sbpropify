@@ -126,11 +126,11 @@ class ConversationAPIController extends AppBaseController
     {
         $c = Conversation::ofLoggedInUser()->find($id);
         if (empty($c)) {
-            return $this->sendError('Conversation not found');
+            return $this->sendError(__('models.request.errors.conversation_not_found'));
         }
         $comment = $c->comment($r->comment, null)->load('user');
         $c->notifyComment($comment);
         $out = $this->commTransf->transform($comment);
-        return $this->sendResponse($out, 'Conversation comment created successfully');
+        return $this->sendResponse($out, __('models.request.conversation_created'));
     }
 }

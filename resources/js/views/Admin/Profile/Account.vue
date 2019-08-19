@@ -42,10 +42,10 @@
                 validationRules: {
                     email: [{
                         required: true,
-                        message: this.$t("email_validation.required")
+                        message: this.$t("general.email_validation.required")
                     }, {
                         type: 'email',
-                        message: this.$t("email_validation.email")
+                        message: this.$t("general.email_validation.email")
                     }],
                     name: [{
                         required: true,

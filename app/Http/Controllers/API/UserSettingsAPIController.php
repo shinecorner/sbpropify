@@ -32,7 +32,7 @@ class UserSettingsAPIController extends AppBaseController
     {
         $user = (new User)->find($user_id);
         if (empty($user)) {
-            return $this->sendError('User not found');
+            return $this->sendError(__('models.user.not_found'));
         }
 
         $userSettings = $user->settings->toArray();
@@ -46,7 +46,7 @@ class UserSettingsAPIController extends AppBaseController
 
         $userSettings = $this->userSettingsRepository->create($input);
 
-        return $this->sendResponse($userSettings->toArray(), 'User Settings saved successfully');
+        return $this->sendResponse($userSettings->toArray(), __('models.user.setting_saved'));
     }
 
     public function show($id, ShowRequest $request)
@@ -55,7 +55,7 @@ class UserSettingsAPIController extends AppBaseController
         $userSettings = $this->userSettingsRepository->findWithoutFail($id);
 
         if (empty($userSettings)) {
-            return $this->sendError('User Settings not found');
+            return $this->sendError(__('models.user.errors.setting_not_found'));
         }
 
         return $this->sendResponse($userSettings->toArray(), 'User Settings retrieved successfully');
@@ -114,7 +114,7 @@ class UserSettingsAPIController extends AppBaseController
 
         $user = (new User)->find($user_id);
         if (empty($user)) {
-            return $this->sendError('User not found');
+            return $this->sendError(__('models.user.not_found'));
         }
 
         $userSettings = $this->userSettingsRepository->update($input, $user->settings->id);
@@ -168,7 +168,7 @@ class UserSettingsAPIController extends AppBaseController
 
         $user = (new User)->find($user_id);
         if (empty($user)) {
-            return $this->sendError('User not found');
+            return $this->sendError(__('models.user.not_found'));
         }
 
         $userSettings = $this->userSettingsRepository->update($input, $user->settings->id);
@@ -182,11 +182,11 @@ class UserSettingsAPIController extends AppBaseController
         $userSettings = $this->userSettingsRepository->findWithoutFail($id);
 
         if (empty($userSettings)) {
-            return $this->sendError('User Settings not found');
+            return $this->sendError(__('models.user.errors.setting_not_found'));
         }
 
         $userSettings->delete();
 
-        return $this->sendResponse($id, 'User Settings deleted successfully');
+        return $this->sendResponse($id, __('models.user.setting_deleted'));
     }
 }

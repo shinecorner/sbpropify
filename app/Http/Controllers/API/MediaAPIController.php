@@ -132,7 +132,7 @@ class MediaAPIController extends AppBaseController
         /** @var Building $building */
         $building = $this->buildingRepository->findWithoutFail($id);
         if (empty($building)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.building.not_found'));
         }
 
         $collectionName = '';
@@ -153,7 +153,7 @@ class MediaAPIController extends AppBaseController
         }
 
         if (!$media = $this->buildingRepository->uploadFiles($collectionName, $data, $building)) {
-            return $this->sendError('Media upload error');
+            return $this->sendError(__('general.upload_error'));
         }
 
         $response = (new MediaTransformer)->transform($media);
@@ -204,12 +204,12 @@ class MediaAPIController extends AppBaseController
         /** @var Building $building */
         $building = $this->buildingRepository->with('media')->findWithoutFail($building_id);
         if (empty($building)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.building.not_found'));
         }
 
         $media = $building->media->find($media_id);
         if (empty($media)) {
-            return $this->sendError('Media not found');
+            return $this->sendError(__('general.media_not_found'));
         }
 
         $media->delete();
@@ -260,12 +260,12 @@ class MediaAPIController extends AppBaseController
     {
         $post = $this->postRepository->findWithoutFail($id);
         if (empty($post)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.building.not_found'));
         }
 
         $data = $request->get('media', '');
         if (!$media = $this->postRepository->uploadFile('media', $data, $post)) {
-            return $this->sendError('Media upload error');
+            return $this->sendError(__('general.upload_error'));
         }
 
         $response = (new MediaTransformer)->transform($media);
@@ -315,12 +315,12 @@ class MediaAPIController extends AppBaseController
     {
         $post = $this->postRepository->findWithoutFail($id);
         if (empty($post)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
 
         $media = $post->media->find($media_id);
         if (empty($media)) {
-            return $this->sendError('Media not found');
+            return $this->sendError(__('general.media_not_found'));
         }
 
         $media->delete();
@@ -371,12 +371,12 @@ class MediaAPIController extends AppBaseController
     {
         $tenant = $this->tenantRepository->findWithoutFail($id);
         if (empty($tenant)) {
-            return $this->sendError('Tenant not found');
+            return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
         $data = $request->get('media', '');
         if (!$media = $this->tenantRepository->uploadFile('media', $data, $tenant)) {
-            return $this->sendError('Media upload error');
+            return $this->sendError(__('general.upload_error'));
         }
 
         $response = (new MediaTransformer)->transform($media);
@@ -427,12 +427,12 @@ class MediaAPIController extends AppBaseController
     {
         $tenant = $this->tenantRepository->findWithoutFail($id);
         if (empty($tenant)) {
-            return $this->sendError('Post not found');
+            return $this->sendError(__('models.post.errors.not_found'));
         }
 
         $media = $tenant->media->find($media_id);
         if (empty($media)) {
-            return $this->sendError('Media not found');
+            return $this->sendError(__('general.media_not_found'));
         }
 
         $media->delete();
@@ -483,12 +483,12 @@ class MediaAPIController extends AppBaseController
     {
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $data = $request->get('media', '');
         if (!$media = $this->serviceRequestRepository->uploadFile('media', $data, $serviceRequest)) {
-            return $this->sendError('Media upload error');
+            return $this->sendError(__('general.upload_error'));
         }
 
         $this->serviceRequestRepository->notifyMedia($serviceRequest, \Auth::user(), $media);
@@ -539,12 +539,12 @@ class MediaAPIController extends AppBaseController
     {
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
-            return $this->sendError('Service Request not found');
+            return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $media = $serviceRequest->media->find($media_id);
         if (empty($media)) {
-            return $this->sendError('Media not found');
+            return $this->sendError(__('general.media_not_found'));
         }
 
         $media->delete();
@@ -594,12 +594,12 @@ class MediaAPIController extends AppBaseController
     {
         $product = $this->productRepository->findWithoutFail($id);
         if (empty($product)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.building.not_found'));
         }
 
         $data = $request->get('media', '');
         if (!$media = $this->productRepository->uploadFile('media', $data, $product)) {
-            return $this->sendError('Media upload error');
+            return $this->sendError(__('general.upload_error'));
         }
 
         $response = (new MediaTransformer)->transform($media);
@@ -649,12 +649,12 @@ class MediaAPIController extends AppBaseController
     {
         $product = $this->productRepository->findWithoutFail($id);
         if (empty($product)) {
-            return $this->sendError('Product not found');
+            return $this->sendError(__('models.product.errors.not_found'));
         }
 
         $media = $product->media->find($media_id);
         if (empty($media)) {
-            return $this->sendError('Media not found');
+            return $this->sendError(__('general.media_not_found'));
         }
 
         $media->delete();

@@ -37,7 +37,7 @@
                         },
                         {
                             min: 6,
-                            message: this.$t("password_validation.min")
+                            message: this.$t("general.password_validation.min")
                         }
                     ],
                     password_confirmation: [
@@ -104,7 +104,7 @@
                                     let message = '';
 
                                     if (efield.field == "email") {
-                                        message = "email_validation.email";
+                                        message = "general.email_validation.email";
                                     } else if (efield.field == "token") {
                                         message = "token_invalid";
                                     }
@@ -124,7 +124,7 @@
             },
             validatePassword(rule, value, callback) {
                 if (value === '') {
-                    callback(new Error(this.$t("password_validation.required")));
+                    callback(new Error(this.$t("general.password_validation.required")));
                 } else {
                     if (this.resetPassword.password_confirmation !== '') {
                         this.$refs.resetPasswordForm.validateField('password_confirmation');

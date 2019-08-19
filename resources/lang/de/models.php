@@ -7,8 +7,7 @@ return [
       'add_admin' => 'Administrator hinzufügen',
       'edit_admin' => 'Administrator bearbeiten',
       'add_super_admin' => 'Super-Admin hinzufügen',
-      'edit_super_admin' => 'Super-Admin bearbeiten',
-      'edit_action' => 'Edit',
+      'edit_super_admin' => 'Super-Admin bearbeiten',      
       'edit_action' => 'Öffnen',
       'delete' => 'Löschen',
       'name' => 'Name',
@@ -33,6 +32,19 @@ return [
       'realEstateSaved' => 'Einstellungen gespeichert.',
       'serviceRequestCategorySaved' => 'Anfrage-Kategorie gespeichert',
       'serviceRequestCategoryDeleted' => 'Anfrage-Kategorie gelöscht',
+      'setting_saved' => "Benutzereinstellung gespeichert",
+      'setting_deleted' => "Benutzereinstellung gelöscht",
+      'password_reset_request_sent' => "", 
+      'errors' => [
+        'not_found' => "Benutzer nicht gefunden",
+        'setting_not_found' => "Benutzereinstellung nicht gefunden",
+        'image_upload' => "Fehler beim Hochladen des Benutzerbildes: ",
+        'incorrect_password' => "Benutzerpasswort falsch",
+        'email_missing' => "E-Mail fehlt",
+        'email_already_exists' => "Diese [:email] E-Mail existiert bereits, Andere E-Mail auswählen",
+        'email_not_exists' => "Diese [:email] E-Mail existiert nicht.",
+        'password_reset_token_invalid' => "Dieses Token zum Zurücksetzen des Passworts ist ungültig.",
+      ],
       'validation' => 
       [
         'name' => 
@@ -73,7 +85,7 @@ return [
       'email' => 'E-Mail',
       'personal_phone' => 'Telefon privat',
       'private_phone' => 'Telefon privat',
-      'created_date' => 'Aangemaakte datum',
+      'created_date' => 'Erstelldatum',
       'created_at' => 'Datum',
       'edit' => 'Bearbeiten',
       'delete' => 'Löschen',
@@ -137,6 +149,14 @@ return [
           'required' => 'Sprache ist obligatorisch',
         ]
       ],
+      'errors' => [
+        'not_found' => "Mieter nicht gefunden",        
+        'incorrect_email' => "Falsche E-Mail-Adresse",
+        'create' => "Mieter legt Fehler an: ",
+        'update' => "Fehler bei der Aktualisierung des Mandanten: ",	
+        'deleted' => "Mieter Fehler löschen: ",
+        'not_allowed_change_status' => 'Sie dürfen den Status nicht ändern.',
+      ],      
       'building_card' => 'Liegenschaft zuweisen',
       'personal_details_card' => 'Persönliche Angaben',
       'account_info_card' => 'Benutzer-Login',
@@ -261,6 +281,13 @@ return [
           'required' => 'Adresse ist obligatorisch',
         ],
       ],
+      'errors' => [
+        'not_found' => "Gebäude nicht gefunden",
+        'manager_not_found' => "Hausverwalter nicht gefunden",
+        'deleted' => "Fehler beim Erstellen von gelöschten Dateien: ",
+        'manager_assigned' => "Property Manager weisen dem Gebäudefehler zu: ",
+        'provider_deleted' => "Der Dienstanbieter hat den Fehler gelöscht: ",
+      ],
       'requestStatuses' => 
       [
         'total' => 'Total Anfragen',
@@ -361,6 +388,14 @@ return [
           'required' => 'Mieter ist erforderlich',
         ]
       ],
+      'errors' => [
+        'not_found' => "Gerät nicht gefunden",
+        'create' => "Fehler beim Erstellen der Einheit: ",
+        'update' => "Fehler beim Aktualisieren der Einheit: ",
+        'tenant_assign' => "Mieter ordnet Fehler zu: ",
+        'tenant_not_assign' => "Mieter nicht dieser Einheit zugeordnet",
+        'tenant_not_found' => "Mieter nicht gefunden",
+      ],
       'placeholders' => 
       [
         'search' => 'Suchen',
@@ -425,6 +460,7 @@ return [
       'add_pinned' => 'Ankündigung erstellen',
       'save' => 'Speichern',
       'saved' => 'Nachricht gespeichert',
+      'view_incresead' => "Views erfolgreich gesteigert",
       'updated' => 'Nachricht aktualisiert',
       'deleted' => 'Nachricht gelöscht',
       'edit' => 'Öffnen',
@@ -462,6 +498,12 @@ return [
         'article' => 'Artikel',
         'new_neighbour' => 'Neuer Nachbar',
         'pinned' => 'Ankündigung',
+      ],
+      'errors' => [
+        'not_found' => "Beitrag nicht gefunden",        
+        'district_not_found' => "Bezirk nicht gefunden",
+        'building_not_found' => "Gebäude nicht gefunden",
+        'provider_not_found' => "Dienstanbieter nicht gefunden"
       ],
       'status' => 
       [
@@ -584,6 +626,15 @@ return [
         'search' => 'Suchen',
         'category' => 'Kategorie wählen',
       ],
+      'errors' => [
+        'not_found' => "Dienstleister nicht gefunden",
+        'create' => "Service Provider erstellt Fehler: ",
+        'update' => "Fehler beim Aktualisieren durch den Dienstanbieter: ",	
+        'deleted' => "Der Dienstanbieter hat den Fehler gelöscht: ",
+        'district_not_found' => "Bezirk nicht gefunden",
+        'building_not_found' => "Gebäude nicht gefunden",
+        'building_already_assign' => "Gebäude, das bereits durch den Bezirk vergeben wurde.",        
+      ],
     ],
     'district' => 
     [
@@ -601,6 +652,9 @@ return [
       'required' => 'Dies ist ein Pflichfeld',
       'details' => 'Öffnen',
       'buildings' => 'Liegenschaften',
+      'errors' => [
+        'not_found' => "Bezirk nicht gefunden",
+      ],
     ],
     'realEstate' => 
     [
@@ -655,7 +709,11 @@ return [
       "mail_password" => [
         "label" => "Passwort",
         "validation" => "E-Mail-Passwort eingeben"
-      ]
+      ],
+      'errors' => [
+        'not_found' => "Immobilien nicht gefunden",
+        'update' => "Aktualisierungsfehler der Immobilien: ",
+      ],
     ],
     'request' => 
     [
@@ -686,6 +744,10 @@ return [
       'notify' => 'Kommunikation',
       'public_legend' => 'Aktivieren Sie die Option, um die Anfrage allen Bewohnern einer Liegenschaft/Überbauung zu zeigen.',
       'conversation' => 'Chat-Mitteilungen',
+      'conversation_created' => "Gesprächskommentar erstellt",
+      'internal_notice_saved' => "Interne Benachrichtigung gespeichert",
+      'internal_notice_updated' => "Interne Benachrichtigung aktualisiert",
+      'internal_notice_deleted' => "Interne Benachrichtigung gelöscht",
       'open_conversation' => 'Offen',
       'other_recipients' => 'Weitere Empfänger',
       'recipients' => 'Empfänger',
@@ -831,6 +893,15 @@ return [
         'district' => 'Überbauung',
         'building' => 'Liegenschaft',
       ],
+      'errors' => [
+        'not_found' => 'Serviceanfrage nicht gefunden',
+        'not_allowed_change_status' => 'Du darfst den Status nicht ändern.',
+        'provider_not_found' => 'Dienstleister nicht gefunden',
+        'user_not_found' => 'Benutzer nicht gefunden',
+        'conversation_not_found' => "Gespräch nicht gefunden",
+        'statistics_error' => "Anforderungsstatistik-Fehler: ",
+        'internal_notice_not_found' => "Interne Benachrichtigung nicht gefunden",
+      ],
       'requestID' => 'Anfrage-ID',
       'requestCategory' => 'Anfrage-Kategorie ',
     ],
@@ -844,6 +915,12 @@ return [
       'cancel' => 'Schliessen',
       'required' => 'Dies ist ein Pflichtfeld',
       'parent' => 'Hauptkategorie',
+      'errors' => [
+        'not_found' => "Serviceanfragekategorie nicht gefunden",
+        'parent_not_found' => "Übergeordnete Serviceanfrage Kategorie nicht gefunden",
+        'multiple_level_not_found' => "Mehrstufige verschachtelte Kategorien sind nicht erlaubt.",
+        'used_by_request' => "Serviceanforderungskategorie, die von einer Serviceanfrage verwendet wird.",
+      ]
     ],
     'propertyManager' => 
     [
@@ -918,6 +995,15 @@ return [
         'confirmBtnText' => 'Ja',
         'cancelBtnText' => 'Schliessen',
       ],
+      'errors' => [
+        'not_found' => "Property Manager nicht gefunden",
+        'create' => "Property Manager erstellt Fehler: ",
+        'update' => "Property Manager hat den Fehler aktualisiert: ",
+        'district_not_found' => "Bezirk nicht gefunden",
+        'building_not_found' => "Gebäude nicht gefunden",
+        'building_already_assign' => "Gebäude, das bereits durch den Bezirk vergeben wurde.",
+        'building_assign_deleted_property_manager' => "Sie können einem gelöschten Property Manager keine Gebäude zuordnen.",
+      ],
     ],
     'product' => 
     [
@@ -942,10 +1028,14 @@ return [
       'user' => 'Benutzer',
       'contact' => 'Kontaktdaten',
       'price' => 'Preis',
+      'comment_created' => "Kommentar erfolgreich erstellt",
       'media' => 
       [
         'deleted' => 'Dokument/Foto gelöscht',
         'uploaded' => 'Dokument/Foto hochgeladen',
+      ],
+      'errors' => [
+        'not_found' => "Produkt nicht gefunden",
       ],
       'type' => 
       [
@@ -986,6 +1076,9 @@ return [
       [
         'category' => 'Kategorie wählen',
       ],
+      'errors' => [
+        'not_found' => "Vorlage nicht gefunden",
+      ]
     ],
     'cleanify' => 
     [

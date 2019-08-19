@@ -278,7 +278,7 @@ class StatisticsAPIController extends AppBaseController
         /** @var Building $building */
         $building = $this->buildingRepo->findWithoutFail($id);
         if (empty($building)) {
-            return $this->sendError('Building not found');
+            return $this->sendError(__('models.building.errors.not_found'));
         }
 
         $tenants = $this->tenantRepo->getTotalTenantsFromBuilding($building->id);
@@ -410,7 +410,7 @@ class StatisticsAPIController extends AppBaseController
             ])->findWithoutFail($id);
 
         if (empty($tenant)) {
-            return $this->sendError('Tenant not found');
+            return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
         $response = [
@@ -632,7 +632,7 @@ class StatisticsAPIController extends AppBaseController
             ];
 
         } catch (\Exception $e) {
-            return $this->sendError('ServiceRequest statistics error: ' . $e->getMessage());
+            return $this->sendError(__('models.request.errors.statistics_error') . $e->getMessage());
         }
 
         return $this->sendResponse($response, 'Service Request statistics retrieved successfully');
