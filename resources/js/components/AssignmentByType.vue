@@ -7,7 +7,7 @@
             >
                 <el-option
                     :key="type"
-                    :label="type"
+                    :label="$t(`models.post.assignmentTypes.${type}`)"
                     :value="type"
                     v-for="(type) in assignmentTypes">
                 </el-option>
