@@ -297,6 +297,8 @@ return [
         'reactivated' => 'Reactivated requests',
         'done' => 'Done requests',
         'archived' => 'Archived requests',
+        'solved' => 'Solved requests',
+        'pending' => 'Pending requests'
       ],
       'placeholders' => 
       [
@@ -313,6 +315,7 @@ return [
         'delete_requests' => 'Delete Request(s)',
         'dont_delete_requests' => 'Don\'t Delete Request(s)',
       ],
+      'assigned_buildings' => 'Assigned buildings'
     ],
     'unit' => 
     [
