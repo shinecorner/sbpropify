@@ -124,8 +124,8 @@ export default (config = {}) => {
                     state: false,
                     text: 'Please wait...'
                 },
-                assignmentTypes: ['Building', 'District'],
-                assignmentType: 'Building',
+                assignmentTypes: ['building', 'district'],
+                assignmentType: 'building',
                 toAssign: '',
                 toAssignList: []
             };
@@ -150,7 +150,7 @@ export default (config = {}) => {
 
                     try {
                         let resp = [];
-                        if (this.assignmentType === 'Building') {
+                        if (this.assignmentType === 'building') {
                             resp = await this.getBuildings({
                                 get_all: true,
                                 search,
@@ -178,7 +178,7 @@ export default (config = {}) => {
 
                         let resp;
 
-                        if (this.assignmentType === 'Building') {
+                        if (this.assignmentType === 'building') {
                             resp = await this.assignServiceBuilding({
                                 id: this.model.id,
                                 toAssignId: this.toAssign
@@ -200,10 +200,7 @@ export default (config = {}) => {
 
                     } catch (e) {
                         if (e.response && !e.response.data.success) {
-                            displayError({
-                                success: false,
-                                message: this.$t('models.service.buildingAlreadyAssigned')
-                            })
+                            displayError(e.response)
                         }
 
                         reject(false);

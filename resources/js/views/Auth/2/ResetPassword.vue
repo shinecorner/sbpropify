@@ -106,7 +106,7 @@
                                     if (efield.field == "email") {
                                         message = "general.email_validation.email";
                                     } else if (efield.field == "token") {
-                                        message = "token_invalid";
+                                        message = "general.token_invalid";
                                     }
 
                                     displayError({
