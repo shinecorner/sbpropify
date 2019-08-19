@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +47,21 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if (is_a($exception, ValidationException::class)) {
+
+            if (count($exception->errors()) > 0) {
+                $translateMessage = collect($exception->errors())->flatten()->implode(PHP_EOL);
+            } else {
+                $translateMessage = __('validation.validation_main_message');
+            }
+
+
+            return response()->json([
+                'message' => $translateMessage,
+                'errors' => $exception->errors(),
+            ], $exception->status);
+        }
+
         return parent::render($request, $exception);
         // return response()->json(
         //     [
