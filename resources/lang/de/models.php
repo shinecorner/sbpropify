@@ -199,8 +199,8 @@ return [
     'building' => 
     [
       'title' => 'Liegenschaften',
-      'edit_title' => 'Gebäude bearbeiten',
-      'add' => 'Gebäude hinzufügen',
+      'edit_title' => 'Liegenschaft bearbeiten',
+      'add' => 'Liegenschaft hinzufügen',
       'name' => 'Name',
       'cancel' => 'Schliessen',
       'created_at' => 'Datum',
@@ -292,7 +292,7 @@ return [
       [
         'total' => 'Total Anfragen',
         'received' => 'Neu',
-        'assigned' => 'Anvisiert',
+        'assigned' => 'Avisiert',
         'in_processing' => 'In Bearbeitung',
         'reactivated' => 'Reaktiviert',
         'done' => 'Erledigt',
@@ -532,7 +532,7 @@ return [
         'building' => 'Liegenschaft',
         'district' => 'Überbauung',
       ],
-      'assignment' => 'Zuweisung',
+      'assignment' => 'Zugewiesene Liegenschaften',
       'assignType' => 'Typ',
       'unassign' => 'Entfernen',
       'assign' => 'Zuweisen',
@@ -691,16 +691,16 @@ return [
       ],
       "mail_from_name" =>
       [
-        "label" => "Von Name",
-        "validation" => "Eingabe von Name"
+        "label" => "Absender Name",
+        "validation" => "Bitte den gewünschen Absender eingeben."
       ],
       "mail_from_address" => [
-        "label" => "Von Adresse",
-        "required" => "Von der E-Mail-Adresse eingeben",
-        "email" => "Bitte geben Sie eine gültige E-Mail-Adresse ein"
+        "label" => "Absender E-Mail",
+        "required" => "Bitte eine E-Mail-Adresse eingeben.",
+        "email" => "Bitte geben Sie eine gültige E-Mail-Adresse ein."
       ],
       "mail_host" => [
-        "label" => "Gastgeber",
+        "label" => "Host",
         "validation" => "Der Host sollte eine gültige URL sein."
       ],
       "mail_port" => [
@@ -716,8 +716,8 @@ return [
         "validation" => "E-Mail-Passwort eingeben"
       ],
       'errors' => [
-        'not_found' => "Immobilien nicht gefunden",
-        'update' => "Aktualisierungsfehler der Immobilien: ",
+        'not_found' => "Liegenschaften nicht gefunden",
+        'update' => "Fehler beim aktualisieren der Liegenschaft(en):",
       ],
     ],
     'request' => 
@@ -803,7 +803,7 @@ return [
         'label' => 'Status',
         'received' => 'Erhalten',
         'in_processing' => 'In Bearbeitung',
-        'assigned' => 'Anvisiert',
+        'assigned' => 'Avisiert',
         'done' => 'Erledigt',
         'reactivated' => 'Reaktiviert',
         'archived' => 'Archiviert',
@@ -931,7 +931,7 @@ return [
     [
       'title' => 'Bewirtschafter',
       'title_label' => 'Anrede',
-      'add' => 'Immobilien-Manager hinzufügen',
+      'add' => 'Bewischafter hinzufügen',
       'save' => 'Speichern',
       'saved' => 'Bewirtschafter gespeichert',
       'deleted' => 'Bewirtschafter gelöscht',
@@ -1046,9 +1046,9 @@ return [
       [
         'label' => 'Typ',
         'sell' => 'Verkaufen',
-        'lend' => 'Leihen',
+        'lend' => 'Verleihen',
         'service' => 'Dienstleistung',
-        'giveaway' => 'Gratis',
+        'giveaway' => 'Zu verschenken',
       ],
       'status' => 
       [
