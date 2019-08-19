@@ -37,7 +37,7 @@
                 header: [{
                     type: 'news-title',
                     label: this.$t('models.post.title'),
-                    props: ['content', 'user'],
+                    props: ['content', 'image_url'],
                     minWidth: '300px'
                 }, {
                     type: 'tag',
@@ -104,7 +104,6 @@
                   return item;
                 });
                 that.items = items;
-                console.log(items);
               }).catch(function (error) {
                   console.log(error);
               })
