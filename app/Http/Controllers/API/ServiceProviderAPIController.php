@@ -249,6 +249,7 @@ class ServiceProviderAPIController extends AppBaseController
         $input['user_id'] = $user->id;
 
         try {
+            unset($input['address']['street_nr']);
             $address = $this->addressRepository->create($input['address']);
         } catch (Exception $e) {
             return $this->sendError(__('models.service.errors.create') . $e->getMessage());
@@ -262,6 +263,7 @@ class ServiceProviderAPIController extends AppBaseController
         }
 
         $serviceProvider->load(['user', 'address']);
+        unset($serviceProvider->address->street_nr);
         $response = (new ServiceProviderTransformer)->transform($serviceProvider);
 
         return $this->sendResponse($response, __('models.service.saved'));
