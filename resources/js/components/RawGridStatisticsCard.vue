@@ -5,7 +5,7 @@
                 <!-- <i :class="item.icon" :style="{'color': item.color}" /> -->
                 <div class="item">
                     <h3 >
-                        {{ item.description }}
+                        {{ $t(item.description) }}
                         <small :style="{'color': item.color}">{{ item.value }}</small>
                     </h3>
                 </div>
