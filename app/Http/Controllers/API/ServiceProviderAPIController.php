@@ -262,8 +262,7 @@ class ServiceProviderAPIController extends AppBaseController
             return $this->sendError(__('models.service.errors.create') . $e->getMessage());
         }
 
-        $serviceProvider->load(['user', 'address']);
-        unset($serviceProvider->address->street_nr);
+        $serviceProvider->load(['user', 'address:id,country_id,state_id,city,street,zip']);
         $response = (new ServiceProviderTransformer)->transform($serviceProvider);
 
         return $this->sendResponse($response, __('models.service.saved'));
