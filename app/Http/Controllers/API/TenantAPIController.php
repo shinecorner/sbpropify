@@ -441,7 +441,10 @@ class TenantAPIController extends AppBaseController
         $input['user'] = $input['user'] ?? [];
         $input['user']['name'] = sprintf('%s %s', $input['first_name'], $input['last_name']);
         $input['user']['email'] = $input['email'];
-        $userPass = $input['password'] ?? "";
+        if (isset($input['password'])) {
+            $input['user']['password'] = $input['password'];
+        }
+
         $validator = Validator::make($input['user'], User::$rulesUpdate);
         if ($validator->fails()) {
             return $this->sendError($validator->errors());
