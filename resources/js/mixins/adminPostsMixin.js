@@ -257,11 +257,8 @@ export default (config = {}) => {
 
                         resolve(true);
 
-                    } catch (e) {
-                        if (e.response && !e.response.data.success) {
-                            displayError(e.response)
-                        }
-
+                    } catch (e) {                        
+                        displayError(e);
                         reject(false);
                     }
                 })

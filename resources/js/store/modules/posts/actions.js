@@ -60,9 +60,7 @@ export default {
         return new Promise((resolve, reject) => {
             axios.delete(`posts/${id}/media/${media_id}`).then((resp) => {
                 resolve(resp.data);
-            }).catch((error) => {
-                reject(error.response.data);
-            });
+            }).catch(({response: {data: err}}) => reject(err));
         });
     },
     getArticlePosts({commit}, payload) {
@@ -87,36 +85,28 @@ export default {
         return new Promise((resolve, reject) => {
             axios.post(`posts/${payload.id}/districts/${payload.toAssignId}`, {}).then((resp) => {
                 resolve(resp.data);
-            }).catch((error) => {
-                reject(error);
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         });
     },
     assignPostBuilding({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`posts/${payload.id}/buildings/${payload.toAssignId}`, {}).then((resp) => {
                 resolve(resp.data);
-            }).catch((error) => {
-                reject(error);
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         });
     },
     unassignPostBuilding({}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`posts/${payload.id}/buildings/${payload.toAssignId}`).then((response) => {
                 resolve(response.data)
-            }).catch((error) => {
-                reject(error.response.data)
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         })
     },
     unassignPostDistrict({}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`posts/${payload.id}/districts/${payload.toAssignId}`).then((response) => {
                 resolve(response.data)
-            }).catch((error) => {
-                reject(error.response.data)
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         })
     },
     getPostAssignments({}, payload) {
@@ -133,27 +123,21 @@ export default {
                     return building;
                 });
                 resolve(response.data);
-            }).catch((error) => {
-                reject(error.response.data);
-            });
+            }).catch(({response: {data: err}}) => reject(err));
         });
     },
     assignPostProvider({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`posts/${payload.id}/providers/${payload.toAssignId}`, {}).then((resp) => {
                 resolve(resp.data);
-            }).catch((error) => {
-                reject(error);
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         });
     },
     unassignPostProvider({}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`posts/${payload.id}/providers/${payload.toAssignId}`).then((response) => {
                 resolve(response.data)
-            }).catch((error) => {
-                reject(error.response.data)
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         })
     },
 }
