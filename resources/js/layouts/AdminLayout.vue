@@ -158,7 +158,7 @@
                                     name: 'adminRequests'
                                 }
                             },  {
-                                title: this.$t('menu.notAssigned_requests'),
+                                title: this.$t('menu.notAssigned'),
                                 permission: this.$permissions.list.request,
                                 value: 4,
                                 route: {
