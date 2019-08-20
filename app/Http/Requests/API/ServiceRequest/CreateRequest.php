@@ -3,6 +3,7 @@
 namespace App\Http\Requests\API\ServiceRequest;
 
 use App\Models\ServiceRequest;
+use App\Models\ServiceRequestCategory;
 use Illuminate\Support\Facades\Auth;
 use InfyOm\Generator\Request\APIRequest;
 
@@ -38,6 +39,10 @@ class CreateRequest extends APIRequest
         if ($user->can('post-request_tenant')) {
             return ServiceRequest::$rulesPostTenant;
         }
-        return ServiceRequest::$rulesPost;
+
+        $rules = ServiceRequest::$rulesPost;
+        $serviceRequestCategories = ServiceRequestCategory::where('has_qualifications', 1)->pluck('id');
+        $rules['qualification'] = 'required_if:category_id,'  . $serviceRequestCategories->implode(',') .  '|integer';// todo improve permit only specific integers
+        return $rules;
     }
 }

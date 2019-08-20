@@ -204,10 +204,8 @@ export default (config = {}) => {
                         this.toAssignList = [];                        
                         displaySuccess(resp)
                     }
-                } catch (e) {
-                    if (!e.response.data.success) {
-                        displayError(e.response)
-                    }
+                } catch (e) {      
+                    displayError(e)            
                 }
 
             },
