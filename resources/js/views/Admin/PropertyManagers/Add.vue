@@ -17,7 +17,7 @@
                                           prop="last_name">
                                 <el-input type="text" v-model="model.last_name"/>
                             </el-form-item>
-                            <el-form-item :label="$t('models.propertyManager.title')" :rules="validationRules.title"
+                            <el-form-item :label="$t('general.salutation')" :rules="validationRules.title"
                                           prop="title">
                                 <el-select style="display: block" v-model="model.title">
                                     <el-option
