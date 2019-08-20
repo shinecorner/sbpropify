@@ -1,6 +1,9 @@
 <template>
     <div class="tenants-view">
-        <heading :title="$t('models.tenant.view_title')" :subtitle="model.tenant_format" icon="icon-group">
+        <heading :title="$t('models.tenant.view_title')" icon="icon-group">
+            <template slot="description" v-if="model.tenant_format">
+                <div class="subtitle">{{model.tenant_format}}</div>
+            </template>
             <el-form label-position="top" label-width="192px" ref="form">
                 <el-form-item>
                     <el-button
@@ -62,29 +65,38 @@
                             </el-col>
                             <el-col :md="13" class="info">
                                 <el-row :gutter="20">
-
                                     <el-col :sm="8" :xs="12">{{$t('models.tenant.mobile_phone')}}:</el-col>
                                     <el-col :sm="16" :xs="12" class="text-secondary">
                                         {{model.mobile_phone}}
                                     </el-col>
+                                </el-row>
 
+                                <el-row :gutter="20">
                                     <el-col :sm="8" :xs="12">{{$t('models.tenant.private_phone')}}:</el-col>
                                     <el-col :sm="16" :xs="12" class="text-secondary">
                                         {{ model.private_phone }}
                                     </el-col>
+                                </el-row>
 
+                                <el-row :gutter="20">
                                     <el-col :sm="8" :xs="12">{{$t('models.tenant.work_phone')}}:</el-col>
                                     <el-col :sm="16" :xs="12" class="text-secondary">
                                         {{ model.work_phone}}
                                     </el-col>
+                                </el-row>
 
+                                <el-row :gutter="20">
                                     <el-col :sm="8" :xs="12">{{$t('general.email')}}:</el-col>
                                     <el-col :sm="16" :xs="12" class="text-secondary">
                                        {{ model.email}}
                                     </el-col>
+                                </el-row>
 
+                                <el-row :gutter="20">
                                     <el-col :sm="8" :xs="12">{{$t('models.tenant.birth_date')}}:</el-col>
-                                    <el-col :sm="16" :xs="12" class="text-secondary">{{ new Date(model.birth_date) | formatDate }}&nbsp;</el-col>
+                                    <el-col :sm="16" :xs="12" class="text-secondary">
+                                        {{ new Date(model.birth_date) | formatDate }}
+                                    </el-col>
                                 </el-row>
                             </el-col>
                         </el-row>
@@ -428,8 +440,8 @@
                     padding-left: 30px !important;
                     margin-top: 5px;
 
-                    .el-col {
-                        padding-bottom: 10px;
+                    .el-row:not(:first-child) {
+                        margin-top: 10px;
                     }
 
                     .el-col:nth-last-of-type(1),

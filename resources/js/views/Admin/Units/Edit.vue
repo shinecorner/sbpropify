@@ -1,6 +1,9 @@
 <template>
     <div class="units-edit">
-        <heading :title="$t('models.unit.edit')" :subtitle="model.unit_format"  icon="icon-unit" style="margin-bottom: 20px;" shadow="heavy">
+        <heading :title="$t('models.unit.edit')" icon="icon-unit" style="margin-bottom: 20px;" shadow="heavy">
+            <template slot="description" v-if="model.unit_format">
+                <div class="subtitle">{{model.unit_format}}</div>
+            </template>
             <edit-actions :saveAction="submit" :deleteAction="deleteUnit" route="adminUnits"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
