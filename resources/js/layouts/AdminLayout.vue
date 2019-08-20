@@ -520,8 +520,7 @@
         },
         async created(){
             const requests = await this.axios.get('requestsCounts');
-            console.log(requests);
-            //this.requests_num = requests.data.data.total;
+            this.requests_num = requests.data.data.total;
         }
 
 
