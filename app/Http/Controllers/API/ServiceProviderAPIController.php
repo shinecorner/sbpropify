@@ -116,7 +116,7 @@ class ServiceProviderAPIController extends AppBaseController
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $query = $this->serviceProviderRepository->with([
-            'user', 'address'
+            'user', 'address:id,country_id,state_id,city,street,zip'
         ]);
 
 //        $reqCount = $request->get('req_count');
@@ -249,6 +249,7 @@ class ServiceProviderAPIController extends AppBaseController
         $input['user_id'] = $user->id;
 
         try {
+            unset($input['address']['street_nr']);
             $address = $this->addressRepository->create($input['address']);
         } catch (Exception $e) {
             return $this->sendError(__('models.service.errors.create') . $e->getMessage());
@@ -261,7 +262,7 @@ class ServiceProviderAPIController extends AppBaseController
             return $this->sendError(__('models.service.errors.create') . $e->getMessage());
         }
 
-        $serviceProvider->load(['user', 'address']);
+        $serviceProvider->load(['user', 'address:id,country_id,state_id,city,street,zip']);
         $response = (new ServiceProviderTransformer)->transform($serviceProvider);
 
         return $this->sendResponse($response, __('models.service.saved'));
@@ -313,7 +314,7 @@ class ServiceProviderAPIController extends AppBaseController
             return $this->sendError(__('models.service.errors.not_found'));
         }
 
-        $serviceProvider->load(['user', 'address'])
+        $serviceProvider->load(['user', 'address:id,country_id,state_id,city,street,zip'])
             ->loadCount('requests',  'solvedRequests', 'pendingRequests', 'buildings');
         $response = (new ServiceProviderTransformer)->transform($serviceProvider);
 
@@ -398,13 +399,14 @@ class ServiceProviderAPIController extends AppBaseController
 
         if (isset($input['address'])) {
             try {
+                unset($input['address']['street_nr']);
                 $this->addressRepository->update($input['address'], $serviceProvider->address_id);
             } catch (Exception $e) {
                 return $this->sendError(__('models.service.errors.update') . $e->getMessage());
             }
         }
 
-        $serviceProvider->load(['user', 'address']);
+        $serviceProvider->load(['user', 'address:id,country_id,state_id,city,street,zip']);
         $response = (new ServiceProviderTransformer)->transform($serviceProvider);
 
         return $this->sendResponse($response, __('models.service.saved'));
@@ -518,7 +520,7 @@ class ServiceProviderAPIController extends AppBaseController
         }
 
         $sp->districts()->sync($d, false);
-        $sp->load('user', 'address', 'districts', 'buildings');
+        $sp->load('user', 'address:id,country_id,state_id,city,street,zip', 'districts', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
         return $this->sendResponse($ret, __('models.service.attached.district'));
@@ -571,7 +573,7 @@ class ServiceProviderAPIController extends AppBaseController
         }
 
         $sp->districts()->detach($d);
-        $sp->load('user', 'address', 'districts', 'buildings');
+        $sp->load('user', 'address:id,country_id,state_id,city,street,zip', 'districts', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
         return $this->sendResponse($ret, __('models.service.detached.district'));
@@ -629,7 +631,7 @@ class ServiceProviderAPIController extends AppBaseController
         }
 
         $sp->buildings()->sync($b, false);
-        $sp->load('user', 'address', 'districts', 'buildings');
+        $sp->load('user', 'address:id,country_id,state_id,city,street,zip', 'districts', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
         return $this->sendResponse($ret, __('models.service.attached.building'));
@@ -682,7 +684,7 @@ class ServiceProviderAPIController extends AppBaseController
         }
 
         $sp->buildings()->detach($b);
-        $sp->load('user', 'address', 'districts', 'buildings');
+        $sp->load('user', 'address:id,country_id,state_id,city,street,zip', 'districts', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
         return $this->sendResponse($ret, __('models.service.detached.building'));
