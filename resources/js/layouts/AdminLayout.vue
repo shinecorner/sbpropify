@@ -105,7 +105,11 @@
                 dropdownwidth: 0,
                 currActive: '',
                 requests: [],
-                requests_num: null,
+                all_request_count: null,
+                all_pending_count: null,
+                all_unassigned_count: null,
+                my_request_count: null,
+                my_pending_count: null,
                 rolename: null
             }
         },
@@ -153,21 +157,21 @@
                             children: [{
                                 title: this.$t('menu.all_requests'),
                                 permission: this.$permissions.list.request,
-                                value: this.requests_num,
+                                value: this.all_request_count,
                                 route: {
                                     name: 'adminRequests'
                                 }
                             },  {
                                 title: this.$t('menu.notAssigned'),
                                 permission: this.$permissions.list.request,
-                                value: 4,
+                                value: this.all_unassigned_count,
                                 route: {
                                     name: ''
                                 }
                             },  {
                                 title: this.$t('menu.allPendingRequests'),
                                 permission: this.$permissions.list.request,
-                                value: 5,
+                                value: this.all_pending_count,
                                 route: {
                                     name: ''
                                 }
@@ -275,35 +279,35 @@
                             children: [{
                                 title: this.$t('menu.all_requests'),
                                 permission: this.$permissions.list.request,
-                                value: this.requests_num,
+                                value: this.all_request_count,
                                 route: {
                                     name: 'adminRequests'
                                 }
                             },  {
                                 title: this.$t('menu.myRequests'),
                                 permission: this.$permissions.cleanify_request.list,
-                                value: 1,
+                                value: this.my_request_count,
                                 route: {
                                     name: 'adminRequests'
                                 }
                             },  {
                                 title: this.$t('menu.myPendingRequests'),
                                 permission: this.$permissions.cleanify_request.list,
-                                value: 3,
+                                value: this.my_pending_count,
                                 route: {
                                     name: 'adminRequests'
                                 }
                             },  {
                                 title: this.$t('menu.notAssigned'),
                                 permission: this.$permissions.list.request,
-                                value: 4,
+                                value: this.all_unassigned_count,
                                 route: {
                                     name: 'adminRequests'
                                 }
                             },  {
                                 title: this.$t('menu.allPendingRequests'),
                                 permission: this.$permissions.list.request,
-                                value: 5,
+                                value: this.all_pending_count,
                                 route: {
                                     name: 'adminRequests'
                                 }
@@ -520,7 +524,11 @@
         },
         async created(){
             const requests = await this.axios.get('requestsCounts');
-            this.requests_num = requests.data.data.total;
+            this.all_request_count = requests.data.data.all_request_count;
+            this.all_pending_count = requests.data.data.all_pending_request_count;
+            this.all_unassigned_count = requests.data.data.all_unassigned_request_count;
+            this.my_request_count = requests.data.data.my_request_count;
+            this.my_pending_count = requests.data.data.my_pending_request_count;
         }
 
 
