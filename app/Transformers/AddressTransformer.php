@@ -27,16 +27,20 @@ class AddressTransformer extends TransformerAbstract
      */
     public function transform(Address $model)
     {
-        return [
+        $response =  [
             'id' => $model->id,
             'country_id' => $model->country_id,
             'country' => 'Switzerland',
             'state' => (new StateTransformer)->transform($model->state),
             'city' => $model->city,
             'street' => $model->street,
-            'street_nr' => $model->street_nr,
             'zip' => $model->zip,
         ];
+
+        if (key_exists('street_nr', $model->getAttributes())) {
+            $response['street_nr'] =  $model->street_nr;
+        }
+        return $response;
     }
 
     /**

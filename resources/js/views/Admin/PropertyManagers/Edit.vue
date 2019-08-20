@@ -231,7 +231,7 @@
                 }],
                 requestTenantAvatars: [{
                     prop: 'avatar',
-                    label: this.$t('models.building.tenants')
+                    label: this.$t('models.request.tenant')
                 }],
                 assignmentsColumns: [{
                     prop: 'name',

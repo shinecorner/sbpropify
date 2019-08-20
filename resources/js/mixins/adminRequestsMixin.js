@@ -118,7 +118,7 @@ export default (config = {}) => {
                             resp = await this.getUsers({
                                 get_all: true,
                                 search,
-                                roles: ['administrator', 'manager']
+                                roles: [ 'manager']
                             });
                         } else {
                             resp = await this.getServices({get_all: true, search});
