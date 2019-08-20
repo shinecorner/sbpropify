@@ -806,9 +806,6 @@ return [
           'environment' => 'Environment',
           'house' => 'House',
           'apartment' => 'Apartment',
-          'environment' => 'Environment',
-          'house' => 'House',
-          'apartment' => 'Apartment'
       ],
       'placeholders' => 
       [
