@@ -66,8 +66,6 @@
             async handleLink(ev, key, {route, action, children, icon}) {
                 //this.currActive = key.toString();
                 !children && route && this.$router.push(route);
-                console.log(key);
-                console.log(typeof(key));
 
                 /*if (!children && !!icon) {
                     console.log('el', this.$el);
