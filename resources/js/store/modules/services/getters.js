@@ -3,7 +3,7 @@ export default {
         if (state.services.data) {
 
             return state.services.data.map((service) => {
-                service.addr = `${service.address.street}`;
+                service.addr = service.address.street;
                 service.cty = `${service.address.zip} ${service.address.city}`;
 
                 return service;
