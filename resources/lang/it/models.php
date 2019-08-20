@@ -296,6 +296,8 @@ return [
         "reactivated" => "Richieste riattivate",
         "done" => "Richieste fatte",
         "archived" => "Richieste archiviate",
+        'solved' => "Richieste risolte",
+        'pending' => "Richieste in sospeso"
       ],
       'placeholders' => 
       [
