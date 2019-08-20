@@ -73,6 +73,7 @@ return [
   'details_saved' => 'Détails sauvegardés',
   'please_wait' => 'Veuillez patienter...',
   'no_data_available' => 'Pas de données disponibles',
+  'no_data' => "Pas de données",
   'upload_error' => "Erreur de téléchargement de média",
   'media_not_found' => "Médias non trouvés",
   'comment_not_found' => "Commentaire non trouvé",

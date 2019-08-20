@@ -179,6 +179,7 @@ export default {
             "details_saved": "Details saved",
             "please_wait": "Please wait...",
             "no_data_available": "No data available",
+            "no_data": "No data",
             "upload_error": "Media upload error",
             "media_not_found": "Media not found",
             "comment_not_found": "Comment not found",
