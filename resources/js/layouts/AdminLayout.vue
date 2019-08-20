@@ -626,7 +626,6 @@
             cursor: pointer;
             .avatar {
                 margin-right: 3%;
-                border: solid #c2c2c2 2px;
                 background-color: rgb(205, 220, 57)!important;
                 color: white !important;
             }
@@ -694,8 +693,8 @@
                 position: relative;
 
                 span{
-                    width: 100%;
-                    height: 100%;
+                    width: 102%;
+                    height: 102%;
                     position: absolute;
                     top: 50%;
                     left: 50%;

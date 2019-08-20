@@ -12,7 +12,7 @@
             <div class="hide-button" v-if="showPicker" @click="handleShowClick(false)"><i class="el-icon-circle-close"></i></div>
         </div>
         <el-row type="flex">
-            <el-col :span="24" class="afexMiddle">
+            <el-col :span="24">
                 <apexchart :type="chartType" :options="chartOptions" :series="series" />
             </el-col>
         </el-row>       
@@ -41,7 +41,7 @@ export default {
     },
     bottom: {
         type: Boolean,
-        defalut: () => {
+        default: () => {
             return false;
         }
     }
@@ -55,12 +55,8 @@ export default {
     }
   },
   computed:{
-    afexMiddle: function() {
-
-    },
     chartOptions: function(){
         let responsive = [];
-        console.log(this.bottom);
         if(this.bottom == true) {
             return {
                 labels: this.xData,
@@ -76,7 +72,8 @@ export default {
                 },
                 colors: this.colors
             };
-        } else if(this.colNum == 1) {
+        } else 
+        if(this.colNum == 1) {
             responsive = [{
                 breakpoint: 1900,
                 options: {
@@ -126,16 +123,16 @@ export default {
         }
         else if (this.colNum == 3 && this.centered == true) {
             responsive = [{
-                breakpoint: 2000,
+                breakpoint: 1500,
                 options: {
                     chart: {
-                        width: 600,
+                        width: '100%',
                         height: 'auto'
                     },
                     legend: {
                         position: 'bottom',
                         horizontalAlign: 'center',
-                        width: '100%'
+                        width: undefined
                     }
                 }
             }];
@@ -245,6 +242,11 @@ export default {
                 url = 'admin/donutChart?table=tenants&column=title';
                 langPrefix = 'models.tenant.titles.';
             }
+            else if (this.type === 'tenants_by_age') {
+                this.chartType = 'donut';
+                url = 'tenants/age-statistics';
+                langPrefix = '';
+            }
 
             return axios.get(url,{
             	params: {
@@ -279,14 +281,14 @@ export default {
       }
     },
     mounted() {
-    this.$nextTick(() => {
+        this.$nextTick(() => {
             window.addEventListener('resize', () => {
                 this.windowWidth = window.innerWidth;
                 if(this.windowWidth < 850)
                     this.legendHeight = 150;
             });
-        })
-    },
+    })
+},
 }
 </script>
 <style lang="scss">
@@ -307,6 +309,7 @@ export default {
             position: relative;
 
             .apexcharts-canvas {
+                position: unset;
                 margin-right: auto;
                 margin-left: auto;
             }
