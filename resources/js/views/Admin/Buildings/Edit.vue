@@ -202,6 +202,8 @@
                         <relation-list
                             :actions="requestActions"
                             :columns="requestColumns"
+                            :statuses="requestStatuses"
+                            :tenantAvatars="requestTenantAvatars"
                             :filterValue="model.id"
                             fetchAction="getRequests"
                             filter="building_id"
@@ -346,11 +348,6 @@
                 requestColumns: [{
                     prop: 'category.name',
                     label: this.$t('models.request.category')
-                }, {
-                    prop: 'status',
-                    i18n: this.requestStatusLabel,
-                    withBadge: this.requestStatusBadge,
-                    label: this.$t('models.request.status.label')
                 }],
                 requestActions: [{
                     width: '180px',
@@ -359,6 +356,14 @@
                         title: this.$t('models.request.edit'),
                         onClick: this.requestEditView
                     }]
+                }],
+                requestStatuses: [{
+                    prop: 'status',
+                    label: this.$t('models.request.status.label')
+                }],
+                requestTenantAvatars: [{
+                    prop: 'avatar',
+                    label: this.$t('models.building.tenants')
                 }],
                 toAssignList: [],
                 toAssign: '',

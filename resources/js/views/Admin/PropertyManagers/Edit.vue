@@ -1,6 +1,9 @@
 <template>
     <div class="services-edit">
-        <heading :title="$t('models.propertyManager.edit_title')" :subtitle="model.property_manager_format" icon="icon-users" shadow="heavy">
+        <heading :title="$t('models.propertyManager.edit_title')" icon="icon-users" shadow="heavy">
+            <template slot="description" v-if="model.property_manager_format">
+                <div class="subtitle">{{model.property_manager_format}}</div>
+            </template>
             <edit-actions :saveAction="submit" :deleteAction="deletePropertyManager" route="adminPropertyManagers"/>
         </heading>
         <div class="crud-view">
@@ -162,6 +165,8 @@
                             <relation-list
                                 :actions="requestActions"
                                 :columns="requestColumns"
+                                :statuses="requestStatuses"
+                                :tenantAvatars="requestTenantAvatars"
                                 :filterValue="model.user.id"
                                 fetchAction="getRequests"
                                 filter="assignee_id"
@@ -210,12 +215,7 @@
                 activeTab: "details",
                 requestColumns: [{
                     prop: 'category.name',
-                    label: this.$t('models.request.category')
-                }, {
-                    prop: 'status',
-                    withBadge: this.requestStatusBadge,
-                    label: this.$t('models.request.status.label'),
-                    i18n: this.translateRequestStatus
+                    label: this.$t('models.request.prop_title')
                 }],
                 requestActions: [{
                     width: '90px',
@@ -224,6 +224,14 @@
                         title: this.$t('models.request.edit'),
                         onClick: this.requestEditView
                     }]
+                }],
+                requestStatuses: [{
+                    prop: 'status',
+                    label: this.$t('models.request.status.label')
+                }],
+                requestTenantAvatars: [{
+                    prop: 'avatar',
+                    label: this.$t('models.building.tenants')
                 }],
                 assignmentsColumns: [{
                     prop: 'name',

@@ -183,12 +183,12 @@ class PostRepository extends BaseRepository
         foreach ($usersToNotify as $u) {
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
             $u->redirect = '/news';
-            if ($u->settings->admin_notification && $post->pinned) {
+            if ($u->settings && $u->settings->admin_notification && $post->pinned) {
                 $u->notify((new PinnedPostPublished($post))
                     ->delay(now()->addSeconds($delay)));
                 continue;
             }
-            if ($u->settings->news_notification && !$post->pinned) {
+            if ($u->settings && $u->settings->news_notification && !$post->pinned) {
                 if ($post->type == Post::TypeArticle) {
                     $u->notify(new PostPublished($post));
                 }
