@@ -886,7 +886,9 @@ export default {
                     "in_processing": "In processing requests",
                     "reactivated": "Reactivated requests",
                     "done": "Done requests",
-                    "archived": "Archived requests"
+                    "archived": "Archived requests",
+                    "solved": "Solved requests",
+                    "pending": "Pending requests"
                 },
                 "placeholders": {
                     "search": "Search"
@@ -900,7 +902,8 @@ export default {
                     "dont_delete_units": "Don't Delete Unit(s)",
                     "delete_requests": "Delete Request(s)",
                     "dont_delete_requests": "Don't Delete Request(s)"
-                }
+                },
+                "assigned_buildings": "Assigned buildings"
             },
             "unit": {
                 "title": "Units",
