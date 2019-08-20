@@ -137,7 +137,7 @@ export default {
             buildings_by_creation_date: 'Gebäude nach Erstellungsdatum'
         },
         tenants: {
-            total_tenants: 'Total Count'
+            total_tenants: 'Total Count',
         }
     },
     pages: {
@@ -354,6 +354,7 @@ export default {
             managers_assigned: 'Bewirtschafter zugewiesen',
             occupied_units: "Vermietete Einheiten",
             free_units: "Freie Einheiten",
+            assigned_buildings: 'Assigned Buildings',
             manager: {
                 unassigned: 'Bewirtschafter entfernt'
             },
@@ -392,7 +393,10 @@ export default {
                 in_processing: 'In Bearbeitung',
                 reactivated: 'Reaktiviert',
                 done: 'Erledigt',
-                archived: 'Archiviert'
+                archived: 'Archiviert',
+                solved: 'Solved Requests',
+                pending:'Pending Request',
+
             },
             placeholders: {
                 search: 'Suchen'

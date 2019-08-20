@@ -12,7 +12,7 @@
             <div class="hide-button" v-if="showPicker" @click="handleShowClick(false)"><i class="el-icon-circle-close"></i></div>
         </div>
         <el-row type="flex">
-            <el-col :span="24">
+            <el-col :span="24" class="afexMiddle">
                 <apexchart :type="chartType" :options="chartOptions" :series="series" />
             </el-col>
         </el-row>       
@@ -38,18 +38,45 @@ export default {
     },
     centered: {
         type: Boolean
+    },
+    bottom: {
+        type: Boolean,
+        defalut: () => {
+            return false;
+        }
     }
   },  
   data() {
     return {        
         chartType: 'pie',
         showPicker: false,
+        windowWidth: window.innerWidth,
+        legendHeight: 380
     }
   },
   computed:{
+    afexMiddle: function() {
+
+    },
     chartOptions: function(){
         let responsive = [];
-        if(this.colNum == 1) {
+        console.log(this.bottom);
+        if(this.bottom == true) {
+            return {
+                labels: this.xData,
+                legend: {
+                    show: true,
+                    position: 'bottom',
+                    width: (this.windowWidth-400)/this.colNum>400?400:(this.windowWidth-400)/this.colNum-30,
+                },
+                chart:{
+                    toolbar: this.toolbar,
+                    width: (this.windowWidth-400)/this.colNum>400?400:(this.windowWidth-400)/this.colNum,
+                    height: 'auto'
+                },
+                colors: this.colors
+            };
+        } else if(this.colNum == 1) {
             responsive = [{
                 breakpoint: 1900,
                 options: {
@@ -99,16 +126,16 @@ export default {
         }
         else if (this.colNum == 3 && this.centered == true) {
             responsive = [{
-                breakpoint: 1500,
+                breakpoint: 2000,
                 options: {
                     chart: {
-                        width: '100%',
+                        width: 600,
                         height: 'auto'
                     },
                     legend: {
                         position: 'bottom',
                         horizontalAlign: 'center',
-                        width: undefined
+                        width: '100%'
                     }
                 }
             }];
@@ -250,7 +277,16 @@ export default {
             this.fetchData();
           }
       }
-    }
+    },
+    mounted() {
+    this.$nextTick(() => {
+            window.addEventListener('resize', () => {
+                this.windowWidth = window.innerWidth;
+                if(this.windowWidth < 850)
+                    this.legendHeight = 150;
+            });
+        })
+    },
 }
 </script>
 <style lang="scss">
@@ -271,7 +307,8 @@ export default {
             position: relative;
 
             .apexcharts-canvas {
-                position: unset;
+                margin-right: auto;
+                margin-left: auto;
             }
 
             .apexcharts-legend {

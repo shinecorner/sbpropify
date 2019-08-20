@@ -20,17 +20,17 @@
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.requests_by_status')">
-                                    <chart-pie-and-donut type="request_by_status" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="request_by_status" :colNum="3" :bottom="true" :startDate="startDates.requests"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.requests_by_category')">
-                                    <chart-pie-and-donut type="request_by_category" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="request_by_category" :bottom="true" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.requests_by_assigned_status')">
-                                    <chart-pie-and-donut type="request_by_assigned_status" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="request_by_assigned_status" :bottom="true" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -101,8 +101,8 @@
                             </el-col>
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.buildings.buildings_by_state')">
-                                   <!-- <dashboard-buildings-by-state type="buildings_by_state"></dashboard-buildings-by-state> -->
-                                    <chart-pie-and-donut type="buildings_by_state" :cented="true" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut>
+                                   <dashboard-buildings-by-state type="buildings_by_state" :startDate="startDates.requests"></dashboard-buildings-by-state>
+                                    <!-- <chart-pie-and-donut type="buildings_by_state" :cented="true" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut> -->
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -172,7 +172,7 @@
                         <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.tenants_by_request_status')">
-                                    <chart-pie-and-donut type="tenants_by_request_status" :colNum="3" :startDate="startDates.tenants"></chart-pie-and-donut>
+                                    <chart-pie-and-donut type="tenants_by_request_status" :colNum="3" :centered="true" :startDate="startDates.tenants"></chart-pie-and-donut>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
