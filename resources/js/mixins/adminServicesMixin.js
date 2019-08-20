@@ -362,10 +362,11 @@ export default (config = {}) => {
                     const {password, password_confirmation} = this.validationRules;
 
                     [...password, ...password_confirmation].forEach(rule => rule.required = false);
-
-                    this.original_email = this.model.user.email;
+                    
 
                     await this.fetchCurrentProvider();
+                    
+                    this.original_email = this.model.email;
                 };
 
                 break;
