@@ -15,6 +15,6 @@ return [
     "url" => "URL",
     "code" => "Code",
     "no_posts" => "Bislang keine Beiträge veröffentlicht.",
-    "no_requests" => "Bisland keine Anfragen gestellt.",
+    "no_requests" => "Bislang keine Anfragen gestellt.",
     "no_listings" => "Bislang keine Inserate veröffentlicht.",
 ];

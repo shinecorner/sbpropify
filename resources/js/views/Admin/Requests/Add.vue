@@ -6,7 +6,7 @@
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
                 <card :loading="loading">
-                    <el-form :model="model" label-width="192px" ref="form" style="max-width: 512px;">
+                    <el-form :model="model" :rules="validationRules" label-width="192px" ref="form" style="max-width: 512px;">
                         <el-form-item :label="$t('models.request.category')" :rules="validationRules.category"
                                       prop="category_id">
                             <el-select :placeholder="$t('models.request.placeholders.category')" class="custom-select"
@@ -137,9 +137,8 @@
             </el-col>
             <el-col :md="12">
                 <card>
-                    <el-divider class="column-divider" content-position="left">
-                        {{$t('models.request.images')}}
-                    </el-divider>
+                    <p class="dividerletter">{{$t('models.request.images')}}</p>
+                    <el-divider class="column-divider"></el-divider>
                     <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
                     <div class="mt15">
                         <request-media :data="media" @deleteMedia="deleteMedia" v-if="media.length"></request-media>
@@ -192,21 +191,7 @@
                 }
             }
         },
-        watch: {
-            model: {
-                deep: true,
-                handler(newVal, oldVal) {
-                    this.$refs.form.validate((valid) => {
-                        if (!valid) {
-                            this.couldSaveWithService = false;
-                            return false;
-                        }
-
-                        this.couldSaveWithService = true;
-                    })
-                }
-            }
-        }
+        
     };
 </script>
 

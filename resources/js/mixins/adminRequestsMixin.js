@@ -28,15 +28,7 @@ export default (config = {}) => {
                     provider_ids: []
                 },
                 validationRules: {
-                    title: [{
-                        required: true,
-                        message: this.$t('validation.general.required')
-                    }],
                     category: [{
-                        required: true,
-                        message: this.$t('validation.general.required')
-                    }],
-                    priority: [{
                         required: true,
                         message: this.$t('validation.general.required')
                     }],
@@ -44,7 +36,15 @@ export default (config = {}) => {
                         required: true,
                         message: this.$t('validation.general.required')
                     }],
+                    priority: [{
+                        required: true,
+                        message: this.$t('validation.general.required')
+                    }],
                     status: [{
+                        required: true,
+                        message: this.$t('validation.general.required')
+                    }],
+                    visibility: [{
                         required: true,
                         message: this.$t('validation.general.required')
                     }],
@@ -52,11 +52,11 @@ export default (config = {}) => {
                         required: true,
                         message: this.$t('validation.general.required')
                     }],
-                    description: [{
+                    title: [{
                         required: true,
                         message: this.$t('validation.general.required')
                     }],
-                    visibility: [{
+                    description: [{
                         required: true,
                         message: this.$t('validation.general.required')
                     }]
@@ -70,8 +70,8 @@ export default (config = {}) => {
                 tenants: [],
                 toAssignList: [],
                 media: [],
-                assignmentTypes: ['Managers', 'Services'],
-                assignmentType: 'Managers',
+                assignmentTypes: ['managers', 'services'],
+                assignmentType: 'managers',
                 toAssign: '',
                 conversations: [],
                 address: {},
@@ -114,7 +114,7 @@ export default (config = {}) => {
 
                     try {
                         let resp = [];
-                        if (this.assignmentType === 'Managers') {
+                        if (this.assignmentType === 'managers') {
                             resp = await this.getUsers({
                                 get_all: true,
                                 search,
@@ -142,7 +142,7 @@ export default (config = {}) => {
                 }
                 let resp;
 
-                if (this.assignmentType === 'Managers') {
+                if (this.assignmentType === 'managers') {
                     resp = await this.assignManager({
                         request: this.model.id,
                         toAssignId: this.toAssign

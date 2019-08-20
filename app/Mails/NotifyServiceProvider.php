@@ -42,9 +42,9 @@ class NotifyServiceProvider extends Mailable
      */
     public function build()
     {
-        if ($this->receivingUser) {
-            $this->receivingUser->redirect = "/admin/requests/" . $this->request->id;
-        }
+//        if ($this->receivingUser) {
+//            $this->receivingUser->redirect = "/admin/requests/" . $this->request->id;
+//        }
         return $this->view('mails.notifyServiceProvider')
             ->subject($this->mailDetails['title'] ?? "")
             ->with([
