@@ -519,8 +519,9 @@
             
         },
         async created(){
-            const requests = await this.axios.get('requests?&page=1&per_page=20');
-            this.requests_num = requests.data.data.total;
+            const requests = await this.axios.get('requestsCounts');
+            console.log(requests);
+            //this.requests_num = requests.data.data.total;
         }
 
 
