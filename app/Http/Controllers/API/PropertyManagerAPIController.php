@@ -162,7 +162,7 @@ class PropertyManagerAPIController extends AppBaseController
     public function store(CreateRequest $request)
     {
         $input = $request->all();
-        $input['role'] = 'manager';
+        $input['user']['role'] = 'manager';
 
         $input['user']['name'] = sprintf('%s %s', $input['first_name'], $input['last_name']);
         $validator = Validator::make($input['user'], User::$rules);
