@@ -311,10 +311,7 @@
                 }).catch((error) => {
                     this.processAssignment = false;
                     this.closeModal();
-                    displayError({
-                        success: false,
-                        message: this.$t('models.building.managers_assign_failed')
-                    });
+                    displayError(error);
                 });
             },
             async remoteSearchManagers(search) {

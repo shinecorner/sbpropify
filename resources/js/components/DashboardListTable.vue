@@ -110,7 +110,7 @@
 
                     
                     <div v-if="column.type == 'counts'" class="avatars-wrapper square-avatars">        
-                         <request-count :countsData="items[scope.$index]" :counts="column.counts"></request-count>
+                         <request-count :countsData="items[scope.$index]"></request-count>
                     </div>
                     <el-tag
                         v-if="column.type == 'tag'"

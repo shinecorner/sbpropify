@@ -39,7 +39,7 @@
                                 :key="tenant.id"
                                 :label="tenant.name"
                                 :value="tenant.id"
-                                v-for="tenant in tenants"/>
+                                v-for="tenant in toAssignList"/>
                         </el-select>
                     </el-form-item>
                     <el-form-item :label="$t('models.unit.name')" :rules="validationRules.name" prop="name">

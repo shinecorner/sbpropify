@@ -8,9 +8,8 @@
                 <el-row :gutter="20">
                     <el-col :lg="12" :sm="24">
                         <card :loading="loading">
-                            <el-divider class="column-divider" content-position="left">
-                                {{$t('models.tenant.personal_details_card')}}
-                            </el-divider>
+                            <p class="dividerletter">{{$t('models.tenant.personal_details_card')}}</p>
+                            <el-divider class="column-divider"></el-divider>
                             <el-form-item :label="$t('models.tenant.title')" :rules="validationRules.title"
                                           prop="title">
                                 <el-select placeholder="Select" style="display: block" v-model="model.title">
@@ -50,9 +49,8 @@
                                           prop="settings.language">
                                 <select-language :model.sync="model.settings.language"/>
                             </el-form-item>
-                            <el-divider class="column-divider" content-position="left">
-                                {{$t('models.tenant.contact_info_card')}}
-                            </el-divider>
+                            <p class="dividerletter">{{$t('models.tenant.contact_info_card')}}</p>
+                            <el-divider class="column-divider"></el-divider>
                             <el-form-item :label="$t('general.email')" :rules="validationRules.email" prop="email" >
                                 <el-input autocomplete="off" type="email" v-model="model.email"></el-input>
                             </el-form-item>
@@ -69,9 +67,8 @@
                     </el-col>
                     <el-col :lg="12" :sm="24">
                         <card :loading="loading">
-                            <el-divider class="column-divider" content-position="left">
-                                {{$t('models.tenant.account_info_card')}}
-                            </el-divider>
+                            <p class="dividerletter">{{$t('models.tenant.account_info_card')}}</p>
+                            <el-divider class="column-divider"></el-divider>
                             <!--                            <el-form-item :label="$t('models.user.profile_image')">-->
                             <!--                                <cropper :resize="false" :viewportType="'circle'" @cropped="cropped"/>-->
                             <!--                            </el-form-item>-->
@@ -85,9 +82,8 @@
                             </el-form-item>
                         </card>
                         <card :loading="loading" class="mt15">
-                            <el-divider class="column-divider" content-position="left">
-                                {{$t('models.tenant.building_card')}}
-                            </el-divider>
+                            <p class="dividerletter">{{$t('models.tenant.building_card')}}</p>
+                            <el-divider class="column-divider"></el-divider>
                             <el-form-item :label="$t('models.tenant.building.name')" prop="building_id">
                                 <el-select
                                         :loading="remoteLoading"
@@ -126,9 +122,8 @@
                         </card>
                         <card class="mt15">
                             <el-form :model="model" label-width="192px" ref="form">
-                                <el-divider class="column-divider" content-position="left">
-                                    {{$t('models.tenant.rent_contract')}}
-                                </el-divider>
+                                <p class="dividerletter">{{$t('models.tenant.rent_contract')}}</p>
+                                <el-divider class="column-divider"></el-divider>
                                 <el-form-item :label="$t('models.tenant.rent_start')"
                                               prop="rent_start">
                                     <el-date-picker

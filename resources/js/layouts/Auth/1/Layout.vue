@@ -1,63 +1,87 @@
 <template>
     <el-container>
-        <el-aside width="512px">
+        <el-aside width="30%">
             <router-link to="/" class="logo">
-                <img src="~img/logo3.png"/>
+                <img src="~img/logo5.png"/>
             </router-link>
             <router-view></router-view>
         </el-aside>
         <el-main>
             <div class="content">
-                <h1>Lorem ipsum dolor sit amet</h1>
+                <h1>{{ $t('auth.title') }}</h1>
                 <p>
-                    Morbi quis ligula sed felis luctus convallis. Nunc viverra vestibulum nisi consequat dignissim. Morbi auctor vulputate metus eu ornare. Fusce nec aliquam arcu. Nullam vitae pretium neque, et laoreet nib
+                    {{ $t('auth.intro') }}
                 </p>
                 <el-row :gutter="24">
-                    <el-col :span="24">
-                        <i class="ti-shield" />
+                    <el-col :span="12">
+                        <i class="icon-vcard" />
                         <div class="content">
-                            <h3>Lorem ipsum dolor sit amet</h3>
+                            <h3>{{ $t('auth.benefit_1.title') }}</h3>
                             <p>
-                                Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis eu dolor ligula.
+                                {{ $t('auth.benefit_1.description') }}
                             </p>
-                        </div>                        
+                        </div>
                     </el-col>
-                    <el-col :span="24">
-                        <i class="ti-pencil" />
+                    <el-col :span="12">
+                        <i class="icon-megaphone-1" />
                         <div class="content">
-                            <h3>Lorem ipsum dolor</h3>
+                            <h3>{{ $t('auth.benefit_2.title') }}</h3>
                             <p>
-                                Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis eu dolor ligula.
+                                {{ $t('auth.benefit_2.description') }}
                             </p>
-                        </div> 
-                    </el-col>
-                    <el-col :span="24">
-                        <i class="ti-comment-alt" />
-                        <div class="content">
-                            <h3>Lorem ipsum dolor sit</h3>
-                            <p>
-                                Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis eu dolor ligula.
-                            </p>
-                        </div> 
+                        </div>
                     </el-col>
                 </el-row>
-            </div>            
+                <el-row :gutter="24">
+                    <el-col :span="12">
+                        <i class="icon-chat-empty" />
+                        <div class="content">
+                            <h3>{{ $t('auth.benefit_3.title') }}</h3>
+                            <p>
+                                {{ $t('auth.benefit_3.description') }}
+                            </p>
+                        </div>
+                    </el-col>
+                    <el-col :span="12">
+                        <i class="icon-basket" />
+                        <div class="content">
+                            <h3>{{ $t('auth.benefit_4.title') }}</h3>
+                            <p>
+                                {{ $t('auth.benefit_4.description') }}
+                            </p>
+                        </div>
+                    </el-col>
+                </el-row>
+            </div>
         </el-main>
     </el-container>
 </template>
 <style lang="scss" scoped>
     .el-container {
         height: 100%;
+        position:relative;
+        background-color:#515862;
+        &:before{
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-image: url(https://www.fortimo.ch/assets/images/a/7059-180618-aussenbilder-1-3e87cb84.jpg);
+            position:absolute;
+            filter:opacity(0.5);
+            width: 100%;
+            height: 100%;
+            content: '';
+        }
         .el-aside {
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 3em;
-            margin-top: 0;
-            margin-right: 0;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 
-                        0 6px 6px rgba(0, 0, 0, 0.23);
+            background-color: #ffffff;
+            margin: 40px 0 40px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+            0 6px 6px rgba(0, 0, 0, 0.23);
             .logo {
                 margin: 1em auto;
                 img {
@@ -79,15 +103,17 @@
         .el-main {
             position: relative;
             padding: 8em;
-            padding-right: 4em;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
+            @media screen and (max-width: 1368px) {
+                padding: 4em;
+            }
             &:before {
                 content: '';
                 position: absolute;
                 top: 0;
                 left: 0;
-                background-image: url('~img/5c3b64bee128b.png');
+                /* background-image: url('~img/5c3b64bee128b.png'); */
                 background-repeat: no-repeat;
                 background-size: cover;
                 z-index: -1;
@@ -100,7 +126,7 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                background-image: url('~img/5c3aaf1eed25e.png');
+                /* background-image: url('~img/5c3aaf1eed25e.png'); */
                 background-repeat: no-repeat;
                 background-size: 88em;
                 background-position: left calc(100% + 7em);
@@ -114,18 +140,27 @@
                 position: relative;
                 z-index: 2;
                 h1 {
-                    font-size: 3.5em;
+                    font-size: 2.5em;
                     color: #6AC06F;
                     margin-top: 0;
                     margin-bottom: .5em;
+                    text-shadow: 0 0 3px #000;
                 }
                 p {
                     font-size: 16px;
-                    color: #525761;
+                    color: #fff;
+                    /* color: #525761; */
                 }
                 .el-row {
                     margin-top: 4em;
                     margin-bottom: 4em;
+                    @media screen and (max-width: 1368px) {
+                        margin-top: 2em;
+                        margin-bottom: 2em;
+                    }
+                    &:last-of-type{
+                        margin-bottom: 0;
+                    }
                     .el-col {
                         &:not(:last-of-type) {
                             margin-bottom: 2em;
@@ -137,14 +172,14 @@
                             height: 72px;
                             flex-shrink: 0;
                             display: block;
-                            border-radius: .25em;
+                            border-radius: 12px;
                             font-size: 2.4em;
                             text-align: center;
                             line-height: 72px;
                             color: #fff;
                             background-color: #6AC06F !important;
                             box-shadow: 0 10px 20px rgba(0,0,0,0.19),
-                                        0 6px 6px rgba(0,0,0,0.23);
+                            0 6px 6px rgba(0,0,0,0.23);
                             margin-right: .5em;
                         }
                         .content {
@@ -153,12 +188,15 @@
                                 margin: 0;
                                 margin-bottom: .32em;
                                 color: #6AC06F;
+                                text-shadow: 0 0 3px #000;
                             }
                             p {
 
                                 margin: 0;
                                 font-size: 14px;
-                                color: #525761;
+                                color: #fff;
+
+                                /* color: #525761; */
                             }
                         }
                     }

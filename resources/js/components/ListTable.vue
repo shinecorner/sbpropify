@@ -162,7 +162,7 @@
                 :width="column.width"
                 v-for="(column, key) in headerWithCounts">
                 <template slot-scope="scope">
-                    <request-count :countsData="items[scope.$index]" :counts="column.counts"></request-count>
+                    <request-count :countsData="items[scope.$index]" ></request-count>
                 </template>
             </el-table-column>
 

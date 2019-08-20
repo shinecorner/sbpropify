@@ -3,19 +3,19 @@
         <el-form :model="model" ref="form">
             <el-form-item prop="email" :label="$t('general.email')" :rules="validationRules.email">
                 <el-input
-                    type="email" 
-                    v-model="model.email" 
-                    autocomplete="off"
+                        type="email"
+                        v-model="model.email"
+                        autocomplete="off"
                 ></el-input>
-             
+
             </el-form-item>
             <el-form-item prop="password" :label="$t('general.password')" :rules="validationRules.password">
-                <el-input 
-                    type="password" 
-                    v-model="model.password" 
-                    autocomplete="off"
+                <el-input
+                        type="password"
+                        v-model="model.password"
+                        autocomplete="off"
                 ></el-input>
-             
+
             </el-form-item>
             <el-form-item>
                 <el-checkbox>{{$t('general.remember_me')}}</el-checkbox>
@@ -29,9 +29,13 @@
                 <el-button type="primary" class="text-center w100p" @click="submit" ref="prev">{{$t('general.login')}}</el-button>
             </el-form-item>
         </el-form>
-        <router-link :to="{name: 'activateAccount'}" class="el-menu-item-link">
-            <el-button type="primary" class="text-center w100p">{{$t('general.activate_account')}}</el-button>
-        </router-link>
+        <el-row class="activate-account">
+            <p>{{$t('auth.login.activate_account.title')}}</p>
+            <p>{{$t('auth.login.activate_account.description')}}</p>
+            <router-link :to="{name: 'activateAccount'}" class="el-menu-item-link">
+                <el-button type="primary" class="text-center w100p">{{$t('general.activate_account')}}</el-button>
+            </router-link>
+        </el-row>
     </div>
 </template>
 <script>
@@ -61,7 +65,7 @@
             }
         },
         props: {
-          
+
         },
         computed: {
             ...mapState({
@@ -69,7 +73,7 @@
                     return users.loggedInUser;
                 }
             }),
-          
+
         },
         methods: {
             submit() {
@@ -123,12 +127,21 @@
             font-size: 0.75rem;
         }
     }
-    .el-menu-item-link {
-        margin-bottom: 5%;
-        width: calc(100% - 6em);
-        .el-button {
-            width: 100%;
+    @media screen and (min-width: 1369px) {
+        .activate-account{
+            position:absolute;
+            bottom:42px;
+            left:42px;
+            right:42px;
+            .el-menu-item-link {
+                margin-bottom: 5%;
+
+                /* width: calc(100% - 6em);
+                .el-button {
+                    width: 100%;
+                } */
+            }
         }
     }
-   
+
 </style>

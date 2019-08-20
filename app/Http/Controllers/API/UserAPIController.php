@@ -767,9 +767,9 @@ class UserAPIController extends AppBaseController
         $this->userRepository->pushCriteria(new WhereCriteria('email', $email));
         $isExists = $this->userRepository->exists();
         if ($isExists) {
-            return $this->sendResponse($email, __('models.user.errors.email_already_exists', ['email' => $email]));
-
+            return $this->sendError(__('models.user.errors.email_already_exists', ['email' => $email]));
         }
+
         return $this->sendResponse($email, __('models.user.errors.email_not_exists', ['email' => $email]));
 
     }

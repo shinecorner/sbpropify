@@ -24,6 +24,48 @@
 
     export default {
         name: 'RequestCount',
+        data() {
+            return {
+                counts: [
+                {
+                    prop: 'requests_count',
+                    background: '#aaa',
+                    color: '#fff',
+                    label: this.$t('models.building.requestStatuses.total')
+                }, {
+                    prop: 'requests_received_count',
+                    background: '#bbb',
+                    color: '#fff',
+                    label: this.$t('models.building.requestStatuses.received')
+                }, {
+                    prop: 'requests_assigned_count',
+                    background: '#ebb563',
+                    color: '#fff',
+                    label: this.$t('models.building.requestStatuses.assigned')
+                }, {
+                    prop: 'requests_in_processing_count',
+                    background: '#ebb563',
+                    color: '#fff',
+                    label: this.$t('models.building.requestStatuses.in_processing')
+                }, {
+                    prop: 'requests_reactivated_count',
+                    background: '#ebb563',
+                    color: '#fff',
+                    label: this.$t('models.building.requestStatuses.reactivated')
+                }, {
+                    prop: 'requests_done_count',
+                    background: '#67C23A',
+                    color: '#fff',
+                    label: this.$t('models.building.requestStatuses.done')
+                }, {
+                    prop: 'requests_archived_count',
+                    background: '#67C23A',
+                    color: '#fff',
+                    label: this.$t('models.building.requestStatuses.archived')
+                }
+                ]
+            }
+        },
         props: {
             countsData: {
                 type: Object,
@@ -31,12 +73,6 @@
                     return null;
                 }
             },
-            counts: {
-                type: Array,
-                default: () => {
-                    return [];
-                }
-            }
         },
         components: {
             Avatar
@@ -47,11 +83,10 @@
     }
 </script>
 <style lang="scss" scoped>
-.avatars-wrapper {
+    .avatars-wrapper {
         display: flex;
 
         & > span {
-            margin-right: 2px;
         }
 
         .vue-avatar--wrapper {

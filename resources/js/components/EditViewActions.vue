@@ -35,18 +35,36 @@
                 default() {
                     return {}
                 }
+            },
+            role: {
+                type: String
             }
         },
         methods: {
             goToListing() {
-                return this.$router.push({
-                    name: this.route,
-                    query: this.queryParams
-                })
+                let route = {};
+                if(this.role) {
+                    route = {
+                        name: this.route,
+                        query: {
+                            role: this.role,
+                            page: 1,
+                            per_page: 20
+                        }
+                    }
+                }
+                else {
+                    route = {
+                        name: this.route,
+                        query: this.queryParams
+                    }
+                }
+                return this.$router.push(route);
             },
             async saveAndClose() {
                 try {
                     const resp = await this.saveAction();
+
                     if (resp) {
                         this.goToListing();
                     }

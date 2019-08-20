@@ -3,6 +3,7 @@ import {mapActions, mapGetters} from 'vuex';
 import {displayError, displaySuccess} from 'helpers/messages';
 import PasswordValidatorMixin from './passwordValidatorMixin';
 import UploadUserAvatarMixin from './adminUploadUserAvatarMixin';
+import axios from '@/axios';
 
 export default (config = {}) => {
     let mixin = {
@@ -42,22 +43,22 @@ export default (config = {}) => {
                         icon: 'ti-plus',
                         color: '#003171',
                         value: 0,
-                        description: 'Total'
-                        },{
-                        icon: 'ti-plus',
-                        color: '#26A65B',
-                        value: 0,
-                        description: 'Solved Requests'
+                        description: this.$t('models.building.requestStatuses.total')
                     },{
                         icon: 'ti-plus',
                         color: '#26A65B',
                         value: 0,
-                        description: 'Pending Requests'
+                        description: this.$t('models.building.requestStatuses.solved')
+                    },{
+                        icon: 'ti-plus',
+                        color: '#26A65B',
+                        value: 0,
+                        description: this.$t('models.building.requestStatuses.pending')
                     },{
                         icon: 'ti-user',
                         color: '#003171',
                         value: 0,
-                        description: 'Assigned Buildings'
+                        description: this.$t('models.building.assigned_buildings')
                     }, ],
                     percentage: {
                         occupied_units: 0,
@@ -79,6 +80,8 @@ export default (config = {}) => {
                     }, {
                         type: 'email',
                         message: 'This field is required'
+                    }, {
+                        validator: this.checkavailabilityEmail
                     }],
                     password: [{
                         validator: this.validatePassword
@@ -124,8 +127,8 @@ export default (config = {}) => {
                     state: false,
                     text: 'Please wait...'
                 },
-                assignmentTypes: ['Building', 'District'],
-                assignmentType: 'Building',
+                assignmentTypes: ['building', 'district'],
+                assignmentType: 'building',
                 toAssign: '',
                 toAssignList: []
             };
@@ -150,7 +153,7 @@ export default (config = {}) => {
 
                     try {
                         let resp = [];
-                        if (this.assignmentType === 'Building') {
+                        if (this.assignmentType === 'building') {
                             resp = await this.getBuildings({
                                 get_all: true,
                                 search,
@@ -167,7 +170,19 @@ export default (config = {}) => {
                     }
                 }
             },
-
+            async checkavailabilityEmail(rule, value, callback) {
+                let validateObject = this.model;
+                
+                if(config.mode == 'add' || ( this.original_email != null && this.original_email !== validateObject.email)) {
+                    try {
+                        const resp = await axios.get('users/check-email?email=' + validateObject.email);                 
+                    } catch(error) {
+                        if(error.response.data.success == false) {
+                            callback(new Error(error.response.data.message));
+                        }
+                    }
+                }
+            },
             attachBuilding() {
                 return new Promise(async (resolve, reject) => {
                     if (!this.toAssign || (!this.model.id && config.mode === 'edit')) {
@@ -178,7 +193,7 @@ export default (config = {}) => {
 
                         let resp;
 
-                        if (this.assignmentType === 'Building') {
+                        if (this.assignmentType === 'building') {
                             resp = await this.assignServiceBuilding({
                                 id: this.model.id,
                                 toAssignId: this.toAssign
@@ -200,10 +215,7 @@ export default (config = {}) => {
 
                     } catch (e) {
                         if (e.response && !e.response.data.success) {
-                            displayError({
-                                success: false,
-                                message: this.$t('models.service.buildingAlreadyAssigned')
-                            })
+                            displayError(e.response)
                         }
 
                         reject(false);
@@ -350,6 +362,8 @@ export default (config = {}) => {
                     const {password, password_confirmation} = this.validationRules;
 
                     [...password, ...password_confirmation].forEach(rule => rule.required = false);
+
+                    this.original_email = this.model.user.email;
 
                     await this.fetchCurrentProvider();
                 };
