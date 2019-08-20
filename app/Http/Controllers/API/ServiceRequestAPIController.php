@@ -1021,7 +1021,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $response = [
             'all_request_count' => $requestCount,
-            'all_unsigned_request_count' => $notAssignedRequestsCount,
+            'all_unassigned_request_count' => $notAssignedRequestsCount,
             'all_pending_request_count' => $allPendingCount
         ];
 
