@@ -79,7 +79,6 @@ return [
       "last_name" => "Cognome",
       "birth_date" => "Data di nascita",
       "language" => "La lingua",
-      "title" => "Titolo",
       "mobile_phone" => "Telefono cellulare",
       "work_phone" => "Telefono di lavoro",
       "email" => "Email",
@@ -527,11 +526,6 @@ return [
         "confirmBtnText" => "Ok",
         "cancelBtnText" => "Annulla",
       ],
-      'assignmentTypes' => 
-      [
-        "building" => "Edificio",
-        "district" => "Distretto",
-      ],
       "assignment" => "Assegnazione",
       "assignType" => "Tipo",
       "unassign" => "Disassegnare",
@@ -595,11 +589,6 @@ return [
       "contact_details" => "Dati di contatto",
       "user_credentials" => "Credenziali utente",
       "company_details" => "Dettagli dell'azienda",
-      'assignmentTypes' => 
-      [
-        "building" => "Edificio",
-        "district" => "Distretto",
-      ],
       "assignType" => "Tipo",
       "unassign" => "Disassegnare",
       "assign" => "Assegnare",
@@ -763,11 +752,6 @@ return [
       "internal_notices" => "Avvisi interni",
       "status_changed" => "Stato cambiato",
       "priority_changed" => "La priorità è cambiata",
-      'assignmentTypes' => 
-      [
-        "services" => "Servizi",
-        "managers" => "Manager",
-      ],
       'media' => 
       [
         "added" => "Documento ajouté",
@@ -930,7 +914,6 @@ return [
     'propertyManager' => 
     [
       "title" => "Gestori immobiliari",
-      "title_label" => "Titolo",
       "add" => "Aggiungi Property Manager",
       "save" => "Risparmiate",
       "saved" => "Gestionnaire immobilier sauvé",
@@ -971,11 +954,6 @@ return [
       [
         "mr" => "Signor",
         "mrs" => "Signora"
-      ],
-      'assignmentTypes' => 
-      [
-        "building" => "Edificio",
-        "district" => "Distretto",
       ],
       "assignType" => "Tipo",
       'placeholders' => 

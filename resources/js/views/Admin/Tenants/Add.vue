@@ -10,7 +10,7 @@
                         <card :loading="loading">
                             <p class="dividerletter">{{$t('models.tenant.personal_details_card')}}</p>
                             <el-divider class="column-divider"></el-divider>
-                            <el-form-item :label="$t('models.tenant.title')" :rules="validationRules.title"
+                            <el-form-item :label="$t('general.salutation')" :rules="validationRules.title"
                                           prop="title">
                                 <el-select placeholder="Select" style="display: block" v-model="model.title">
                                     <el-option

@@ -79,7 +79,6 @@ return [
       'last_name' => 'Last name',
       'birth_date' => 'Birth date',
       'language' => 'Language',
-      'title' => 'Title',
       'mobile_phone' => 'Mobile phone',
       'work_phone' => 'Work phone',
       'email' => 'Email',
@@ -527,11 +526,6 @@ return [
         'confirmBtnText' => 'Ok',
         'cancelBtnText' => 'Cancel',
       ],
-      'assignmentTypes' => 
-      [
-        'building' => 'Building',
-        'district' => 'District',
-      ],
       'assignment' => 'Assignment',
       'assignType' => 'Type',
       'unassign' => 'Unassign',
@@ -595,11 +589,6 @@ return [
       'contact_details' => 'Contact details',
       'user_credentials' => 'User credentials',
       'company_details' => 'Company details',
-      'assignmentTypes' => 
-      [
-        'building' => 'Building',
-        'district' => 'District',
-      ],
       'assignType' => 'Type',
       'unassign' => 'Unassign',
       'assign' => 'Assign',
@@ -763,11 +752,6 @@ return [
       'internal_notices' => 'Internal notices',
       'status_changed' => 'Status changed',
       'priority_changed' => 'Priority changed',
-      'assignmentTypes' => 
-      [
-        'services' => 'Services',
-        'managers' => 'Managers',
-      ],
       'media' => 
       [
         'added' => 'Document added',
@@ -930,7 +914,6 @@ return [
     'propertyManager' => 
     [
       'title' => 'Property managers',
-      'title_label' => 'Title',
       'add' => 'Add Property Manager',
       'save' => 'Save',
       'saved' => 'Property manager saved',
@@ -971,11 +954,6 @@ return [
       [
         'mr' => 'Mr.',
         'mrs' => 'Mrs.',
-      ],
-      'assignmentTypes' => 
-      [
-        'building' => 'Building',
-        'district' => 'District',
       ],
       'assignType' => 'Type',
       'placeholders' => 

@@ -38,6 +38,7 @@ return [
     'sunday' => 'domenicale',
   ],
   'no' => 'No',
+  'salutation' => 'Saluto',
   'none' => 'Nessuna',
   'all' => 'Tutti',
   'loadMore' => 'Carica di più',
@@ -86,6 +87,13 @@ return [
     'min' => 'La password deve essere di almeno 6 caratteri',
     'old_password_min' => 'La vecchia password deve essere di almeno 6 caratteri',
     'old_password_required' => 'È richiesta una vecchia password',
+  ],
+  'assignmentTypes' => 
+  [
+    "building" => "Edificio",
+    "district" => "Distretto",
+    "services" => "Servizi",
+    "managers" => "Manager",        
   ],
   'email' => 'eMail',
   'email_validation' => 

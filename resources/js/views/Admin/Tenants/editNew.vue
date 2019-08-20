@@ -27,7 +27,7 @@
                                     <el-col :md="10">
                                         <el-row :gutter="20" class="mb20">
                                             <el-col :md="12" >
-                                                <el-form-item :label="$t('models.tenant.title')" :rules="validationRules.title"
+                                                <el-form-item :label="$t('general.salutation')" :rules="validationRules.title"
                                                               prop="title">
                                                     <el-select placeholder="Select" style="display: block" v-model="model.title">
                                                         <el-option

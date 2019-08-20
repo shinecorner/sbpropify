@@ -79,7 +79,6 @@ return [
       "last_name" => "Nom de famille",
       "birth_date" => "Date de naissance",
       "language" => "Langue",
-      "title" => "Titre",
       "mobile_phone" => "Téléphone portable",
       "work_phone" => "Téléphone au travail",
       "email" => "Courriel",
@@ -527,11 +526,6 @@ return [
         "confirmBtnText" => "Ok",
         "cancelBtnText" => "Annuler",
       ],
-      'assignmentTypes' => 
-      [
-        "building" => "Bâtiment",
-        "district" => "District",
-      ],
       "assignment" => "Affectation",
       "assignType" => "Type",
       "unassign" => "Désassigner",
@@ -595,11 +589,6 @@ return [
       "contact_details" => "Coordonnées de contact",
       "user_credentials" => "Informations d'identification de l'utilisateur",
       "company_details" => "Coordonnées de l'entreprise",
-      'assignmentTypes' => 
-      [
-        "building" => "Bâtiment",
-        "district" => "District",
-      ],
       "assignType" => "Type",
       "unassign" => "Désassigner",
       "assign" => "Affecter",
@@ -763,11 +752,6 @@ return [
       "internal_notices" => "Avis internes",
       "status_changed" => "Le statut a changé",
       "priority_changed" => "Priorité modifiée",
-      'assignmentTypes' => 
-      [
-        "services" => "Services",
-        "managers" => "Gestionnaires",
-      ],
       'media' => 
       [
         "added" => "Document ajouté",
@@ -930,7 +914,6 @@ return [
     'propertyManager' => 
     [
       "title" => "Gestionnaires immobiliers",
-      "title_label" => "Titre",
       "add" => "Ajouter un gestionnaire immobilier",
       "save" => "Sauvegarder",
       "saved" => "Gestionnaire immobilier sauvé",
@@ -971,11 +954,6 @@ return [
       [
         "mr" => "M..",
         "mrs" => "Mme.",
-      ],
-      'assignmentTypes' => 
-      [
-        "building" => "Bâtiment",
-        "district" => "District",
       ],
       "assignType" => "Type",
       'placeholders' => 

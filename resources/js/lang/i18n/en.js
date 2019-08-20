@@ -1,5 +1,367 @@
 export default {
     "en": {
+        "layouts": {
+            "tenant": {
+                "menu": {
+                    "logout": "Logout"
+                },
+                "sidebar": {
+                    "dashboard": "Dashboard",
+                    "myTenancy": "My tenancy",
+                    "myPersonalData": "My personal data",
+                    "myRecentContract": "My recent contract",
+                    "myDocuments": "Documents",
+                    "myContactPersons": "Contact persons",
+                    "posts": "News",
+                    "requests": "Requests",
+                    "myRequests": "My Requests",
+                    "myPendingRequests": "My pending requests",
+                    "notAssigned": "Not Assigned",
+                    "allPendingRequests": "All pending requests",
+                    "products": "Marketplace",
+                    "settings": "Settings"
+                }
+            }
+        },
+        "dashboard": {
+            "statistics": "Statistics",
+            "requests_by_creation_date": "Requests by creation date",
+            "requests_by_status": "Requests by status",
+            "requests_by_category": "Requests by category",
+            "requests_by_assigned_status": "Requests by assigned status",
+            "each_hour_request": "Each hour requests",
+            "average_request_duration": "Resolution time",
+            "week_hour": "Week vs. Hour",
+            "month_date": "Month vs. Date",
+            "news_by_creation_date": "News by creation date",
+            "news_by_status": "News by status",
+            "news_by_type": "News by type",
+            "latest_products": "Latest products",
+            "products_by_creation_date": "Market place products by creation date",
+            "products_by_type": "Market place products by type",
+            "tenants_by_creation_date": "Tenants by creation date",
+            "tenants_by_request_status": "Tenants by Requests status",
+            "tenants_by_status": "Tenants by status",
+            "tenants_by_language": "Tenants by language",
+            "tenants_by_title": "Tenants by title",
+            "tenants_by_device": "Tenants by device",
+            "tenants_by_gender": "Tenants by gender",
+            "actions": "Actions",
+            "requests": {
+                "requests_with_service_providers": "With service providers",
+                "request_wihout_service_providers": "Without service providers",
+                "property_managers": "Property managers",
+                "service_partners": "Service partners",
+                "go_to_property_managers": "go to property managers",
+                "go_to_service_partners": "go to service partners"
+            },
+            "buildings": {
+                "total_building": "Total Count",
+                "total_units": "Total Units",
+                "occupied_units": "Occupied Units",
+                "free_units": "Free Units",
+                "buildings_by_creation_date": "Buildings by creation date",
+                "buildings_map": "Buildings map",
+                "latest_buildings": "Latest buildings",
+                "count_of_managers": "Count of managers",
+                "count_of_tenants": "Count of tenants",
+                "count_of_requests": "Count of requests",
+                "go_to_buildings": "go to buildings",
+                "buildings_by_state": "Buildings by state"
+            },
+            "tenants": {
+                "total_tenants": "Total Count",
+                "average_age": "Average Age",
+                "average_age_acr": "Avg. Age",
+                "latest_tenants": "Latest tenants",
+                "go_to_tenants": "go to tenants"
+            },
+            "marketplace": {
+                "go_to_marketplace": "go to marketplace"
+            },
+            "news": {
+                "latest_news": "Latest news",
+                "go_to_news": "go to news",
+                "counts": "Counts"
+            }
+        },
+        "passwords": {
+            "password": "Passwords must be at least six characters and match the confirmation.",
+            "reset": "Your password has been reset!",
+            "sent": "We have e-mailed your password reset link!",
+            "token": "This password reset token is invalid.",
+            "user": "We can't find a user with that e-mail address."
+        },
+        "settings": {
+            "notifications": "Notifications and language",
+            "admin": "Admin notifications",
+            "news": "News notifications",
+            "marketplace": "Marketplace notifications",
+            "service": "Service notifications",
+            "updated": "Settings updated",
+            "language": "Language",
+            "summary": {
+                "label": "Summary statistics",
+                "daily": "Daily",
+                "monthly": "Monthly",
+                "yearly": "Yearly"
+            },
+            "contact_enable": {
+                "label": "Enable my contacts",
+                "use_global": "Use global",
+                "show": "Show",
+                "hide": "Hide"
+            }
+        },
+        "general": {
+            "en": "EN",
+            "fr": "FR",
+            "it": "IT",
+            "de": "DE",
+            "yes": "Yes",
+            "timestamps": {
+                "hours": "Hours",
+                "days": "Days",
+                "weeks": "Weeks",
+                "months": "Months",
+                "years": "Years"
+            },
+            "chooseLanguage": "Choose Language",
+            "languages": {
+                "fr": "Français",
+                "it": "Italiano",
+                "de": "Deutsch",
+                "en": "English"
+            },
+            "footerText": {
+                "companyName": "Propify",
+                "leftSideText": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.",
+                "allRightsSaved": "All rights reserved"
+            },
+            "days": {
+                "monday": "Monday",
+                "tuesday": "Tuesday",
+                "wednesday": "Wednesday",
+                "thursday": "Thursday",
+                "friday": "Friday",
+                "saturday": "Saturday",
+                "sunday": "Sunday"
+            },
+            "salutation": "Salutation",
+            "no": "No",
+            "none": "None",
+            "all": "All",
+            "loadMore": "Load more",
+            "account": "Account",
+            "activate_account": "Activate Account",
+            "activate_code": "Activate Code",
+            "activate_code_required": "Activate Code is required",
+            "back": "Back",
+            "activate": "Activate",
+            "unauthenticated": "Unauthenticated",
+            "logged_out": "Logged out",
+            "logged_in": "Logged in",
+            "invalid_credentials": "Invalid Credentials",
+            "server_error": "Server error",
+            "reset_password": "Reset Password",
+            "reset_password_mail": "Send reset password mail",
+            "reset_password_mail_sent": "Reset password mail sent, please check your inbox",
+            "back_to_login": "Go back to login",
+            "forgot_password": "Forgot password",
+            "remember_me": "Remember me",
+            "password": "Password",
+            "change_password": "Change password",
+            "new_password": "New password",
+            "old_password": "Old password",
+            "new_password_confirmation": "New password confirmation",
+            "change": "Change",
+            "cancel": "Cancel",
+            "confirm": "Confirm",
+            "confirm_password": "Confirm password",
+            "incorrect_password": "Old password is incorect",
+            "password_changed": "Password changed successfully",
+            "details_saved": "Details saved",
+            "please_wait": "Please wait...",
+            "no_data_available": "No data available",
+            "upload_error": "Media upload error",
+            "media_not_found": "Media not found",
+            "comment_not_found": "Comment not found",
+            "comment_created": "Comment created",
+            "comment_updated": "Comment updated",
+            "comment_deleted": "Comment deleted",
+            "password_validation": {
+                "required": "Password is required",
+                "confirm": "Please input the password again",
+                "match": "The passwords aren't equal",
+                "min": "Password must be at least 6 characters",
+                "old_password_min": "Old password must be at least 6 characters",
+                "old_password_required": "Old password is required"
+            },
+            "assignmentTypes": {
+                "building": "Building",
+                "district": "District",
+                "services": "Services",
+                "managers": "Managers"
+            },
+            "email": "Email",
+            "email_validation": {
+                "required": "Email is required",
+                "email": "Please enter a valid Email"
+            },
+            "token_invalid": "Invalid token",
+            "login": "Login",
+            "support": "Support",
+            "actions": {
+                "label": "Operations",
+                "edit": "Edit",
+                "add": "Add",
+                "delete": "Delete",
+                "create": "Create",
+                "view": "Details",
+                "save": "Save",
+                "close": "Close",
+                "saveAndClose": "Save & Close",
+                "upload": "Upload"
+            },
+            "swal": {
+                "delete": {
+                    "title": "Are you sure?",
+                    "text": "You won't be able to revert this!",
+                    "confirmText": "Yes, delete it!",
+                    "deleted": "Deleted successfully"
+                },
+                "add": {
+                    "added": "Added successfully"
+                },
+                "media": {
+                    "added": "Document/Photo added",
+                    "deleted": "Document/Photo deleted"
+                },
+                "logout_confirm": "You will be logged out."
+            },
+            "roles": {
+                "label": "Role",
+                "administrator": "Administrator",
+                "homeowner": "Home Owner",
+                "manager": "Manager",
+                "registered": "Registered",
+                "service": "Service",
+                "super_admin": "Super Admin"
+            },
+            "search": {
+                "placeholder": "Search"
+            },
+            "errors": {
+                "files_extension_images": "Only jpg and png files accepted"
+            },
+            "dateTimeFormat": "{date} at {time}",
+            "date_range": {
+                "range_separator": "To",
+                "start_date": "Start date",
+                "end_date": "End date",
+                "last_7_days": "Last 7 days",
+                "last_week": "Last week",
+                "last_14_days": "Last 14 days",
+                "last_30_days": "Last 30 days",
+                "last_month": "Last month",
+                "last_3_months": "Last 3 months",
+                "last_6_months": "Last 6 months",
+                "last_year": "Last year",
+                "last_2_years": "Last 2 years",
+                "all_time": "All time",
+                "week": "Week",
+                "peek_week": "Pick a week"
+            },
+            "tenant": {
+                "activate_required_credentials": "code, email, password required",
+                "incorrect_email": "Incorrect email address",
+                "user_not_tenant": "This user is not tenant",
+                "invalid_code": "Code is invalid",
+                "not_active_tenant": "Tenant is not active and can not change password"
+            }
+        },
+        "filters": {
+            "header": "Filters",
+            "districts": "Districts",
+            "buildings": "Buildings",
+            "requests": "Requests",
+            "open_requests": "Open requests",
+            "units": "Units",
+            "states": "States",
+            "status": "Status",
+            "search": "Search",
+            "requestStatus": "Request status",
+            "propertyManagers": "Property Manager",
+            "categories": "Categories",
+            "created_from": "Created from",
+            "created_to": "Created to",
+            "services": "Services",
+            "tenant": "Type tenants"
+        },
+        "pagination": {
+            "previous": "&laquo; Previous",
+            "next": "Next &raquo;"
+        },
+        "common": {
+            "mr": "Mr",
+            "mrs": "Mrs",
+            "company": "Company",
+            "user_title_mr": "Mr",
+            "user_title_mrs": "Mrs",
+            "user_title_company": "Company",
+            "tenant_title_mr": "Mr",
+            "tenant_title_mrs": "Mrs",
+            "tenant_title_company": "Company",
+            "request_status_1": "Received",
+            "request_status_2": "In Processing",
+            "request_status_3": "Assigned",
+            "request_status_4": "Done",
+            "request_status_5": "Reactivated",
+            "request_status_6": "Archived",
+            "originalRequest_status_1": "Received",
+            "originalRequest_status_2": "In Processing",
+            "originalRequest_status_3": "Assigned",
+            "originalRequest_status_4": "Done",
+            "originalRequest_status_5": "Reactivated",
+            "originalRequest_status_6": "Archived",
+            "email_footer_message1": "This email was automatically generated for {UserName}.",
+            "email_footer_message2": "You get this automatically generated e-mail as a user of {CompanyName}.",
+            "email_link_contacts": "Contacts.",
+            "email_link_terms_of_use": "Terms of Use",
+            "email_link_data_protection": "Data protection"
+        },
+        "menu": {
+            "dashboard": "Dashboard",
+            "news": "News",
+            "requests": "Requests",
+            "all_requests": "All requests",
+            "marketplace": "Marketplace",
+            "settings": "Settings",
+            "logout": "Logout",
+            "profile": "Profile",
+            "users": "Users",
+            "employees": "Managers",
+            "companies": "Services",
+            "admins": "Administrators",
+            "super_admins": "Super admins",
+            "home_owners": "Home Owners",
+            "registered": "Registered",
+            "about": "About",
+            "feedback": "Feedback",
+            "tenants": "Tenants",
+            "buildings": "Buildings",
+            "all_buildings": "All buildings",
+            "units": "Units",
+            "addresses": "Addresses",
+            "posts": "News",
+            "districts": "Districts",
+            "products": "Products",
+            "requestCategories": "Request categories",
+            "services": "Service Partners",
+            "activity": "Activity",
+            "propertyManagers": "Property managers",
+            "templates": "Templates"
+        },
         "auth": {
             "failed": "These credentials do not match our records.",
             "throttle": "Too many login attempts. Please try again in {seconds} seconds.",
@@ -29,33 +391,38 @@ export default {
                 }
             }
         },
-        "common": {
-            "mr": "Mr",
-            "mrs": "Mrs",
-            "company": "Company",
-            "user_title_mr": "Mr",
-            "user_title_mrs": "Mrs",
-            "user_title_company": "Company",
-            "tenant_title_mr": "Mr",
-            "tenant_title_mrs": "Mrs",
-            "tenant_title_company": "Company",
-            "request_status_1": "Received",
-            "request_status_2": "In Processing",
-            "request_status_3": "Assigned",
-            "request_status_4": "Done",
-            "request_status_5": "Reactivated",
-            "request_status_6": "Archived",
-            "originalRequest_status_1": "Received",
-            "originalRequest_status_2": "In Processing",
-            "originalRequest_status_3": "Assigned",
-            "originalRequest_status_4": "Done",
-            "originalRequest_status_5": "Reactivated",
-            "originalRequest_status_6": "Archived",
-            "email_footer_message1": "This email was automatically generated for {UserName}.",
-            "email_footer_message2": "You get this automatically generated e-mail as a user of {CompanyName}.",
-            "email_link_contacts": "Contacts.",
-            "email_link_terms_of_use": "Terms of Use",
-            "email_link_data_protection": "Data protection"
+        "tenant": {
+            "tenant_credentials": "Tenant credentials",
+            "tenancy_details": "Tenancy details",
+            "unit": "Unit",
+            "floor": "Floor",
+            "building": "Building",
+            "address": "Address",
+            "rent_start": "Rent start",
+            "login_credentials": "Login credentials",
+            "website": "Website",
+            "username": "Username",
+            "password": "Password",
+            "url": "URL",
+            "code": "Code"
+        },
+        "pages": {
+            "profile": {
+                "pageTitle": "Profile",
+                "profile": "Profile",
+                "account": "Account",
+                "security": "Security",
+                "notifications": "Notifications"
+            },
+            "user": {
+                "title": "Users"
+            },
+            "request_activities": {
+                "title": "Request activities"
+            },
+            "tenant": {
+                "title": "Tenants"
+            }
         },
         "components": {
             "common": {
@@ -242,300 +609,19 @@ export default {
             },
             "admin": []
         },
-        "dashboard": {
-            "statistics": "Statistics",
-            "requests_by_creation_date": "Requests by creation date",
-            "requests_by_status": "Requests by status",
-            "requests_by_category": "Requests by category",
-            "requests_by_assigned_status": "Requests by assigned status",
-            "each_hour_request": "Each hour requests",
-            "average_request_duration": "Resolution time",
-            "week_hour": "Week vs. Hour",
-            "month_date": "Month vs. Date",
-            "news_by_creation_date": "News by creation date",
-            "news_by_status": "News by status",
-            "news_by_type": "News by type",
-            "latest_products": "Latest products",
-            "products_by_creation_date": "Market place products by creation date",
-            "products_by_type": "Market place products by type",
-            "tenants_by_creation_date": "Tenants by creation date",
-            "tenants_by_request_status": "Tenants by Requests status",
-            "tenants_by_status": "Tenants by status",
-            "tenants_by_language": "Tenants by language",
-            "tenants_by_title": "Tenants by title",
-            "tenants_by_device": "Tenants by device",
-            "tenants_by_gender": "Tenants by gender",
-            "actions": "Actions",
-            "requests": {
-                "requests_with_service_providers": "With service providers",
-                "request_wihout_service_providers": "Without service providers",
-                "property_managers": "Property managers",
-                "service_partners": "Service partners",
-                "go_to_property_managers": "go to property managers",
-                "go_to_service_partners": "go to service partners"
-            },
-            "buildings": {
-                "total_building": "Total Count",
-                "total_units": "Total Units",
-                "occupied_units": "Occupied Units",
-                "free_units": "Free Units",
-                "buildings_by_creation_date": "Buildings by creation date",
-                "buildings_map": "Buildings map",
-                "latest_buildings": "Latest buildings",
-                "count_of_managers": "Count of managers",
-                "count_of_tenants": "Count of tenants",
-                "count_of_requests": "Count of requests",
-                "go_to_buildings": "go to buildings",
-                "buildings_by_state": "Buildings by state"
-            },
-            "tenants": {
-                "total_tenants": "Total Count",
-                "average_age": "Average Age",
-                "average_age_acr": "Avg. Age",
-                "latest_tenants": "Latest tenants",
-                "go_to_tenants": "go to tenants"
-            },
-            "marketplace": {
-                "go_to_marketplace": "go to marketplace"
-            },
-            "news": {
-                "latest_news": "Latest news",
-                "go_to_news": "go to news",
-                "counts": "Counts"
-            }
-        },
-        "filters": {
-            "header": "Filters",
-            "districts": "Districts",
-            "buildings": "Buildings",
-            "requests": "Requests",
-            "open_requests": "Open requests",
-            "units": "Units",
-            "states": "States",
-            "status": "Status",
-            "search": "Search",
-            "requestStatus": "Request status",
-            "propertyManagers": "Property Manager",
-            "categories": "Categories",
-            "created_from": "Created from",
-            "created_to": "Created to",
-            "services": "Services",
-            "tenant": "Type tenants"
-        },
-        "general": {
-            "en": "EN",
-            "fr": "FR",
-            "it": "IT",
-            "de": "DE",
-            "yes": "Yes",
-            "timestamps": {
-                "hours": "Hours",
-                "days": "Days",
-                "weeks": "Weeks",
-                "months": "Months",
-                "years": "Years"
-            },
-            "chooseLanguage": "Choose Language",
-            "languages": {
-                "fr": "Français",
-                "it": "Italiano",
-                "de": "Deutsch",
-                "en": "English"
-            },
-            "footerText": {
-                "companyName": "Propify",
-                "leftSideText": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.",
-                "allRightsSaved": "All rights reserved"
-            },
-            "days": {
-                "monday": "Monday",
-                "tuesday": "Tuesday",
-                "wednesday": "Wednesday",
-                "thursday": "Thursday",
-                "friday": "Friday",
-                "saturday": "Saturday",
-                "sunday": "Sunday"
-            },
-            "no": "No",
-            "none": "None",
-            "all": "All",
-            "loadMore": "Load more",
-            "account": "Account",
-            "activate_account": "Activate Account",
-            "activate_code": "Activate Code",
-            "activate_code_required": "Activate Code is required",
-            "back": "Back",
-            "activate": "Activate",
-            "unauthenticated": "Unauthenticated",
-            "logged_out": "Logged out",
-            "logged_in": "Logged in",
-            "invalid_credentials": "Invalid Credentials",
-            "server_error": "Server error",
-            "reset_password": "Reset Password",
-            "reset_password_mail": "Send reset password mail",
-            "reset_password_mail_sent": "Reset password mail sent, please check your inbox",
-            "back_to_login": "Go back to login",
-            "forgot_password": "Forgot password",
-            "remember_me": "Remember me",
-            "password": "Password",
-            "change_password": "Change password",
-            "new_password": "New password",
-            "old_password": "Old password",
-            "new_password_confirmation": "New password confirmation",
-            "change": "Change",
-            "cancel": "Cancel",
-            "confirm": "Confirm",
-            "confirm_password": "Confirm password",
-            "incorrect_password": "Old password is incorect",
-            "password_changed": "Password changed successfully",
-            "details_saved": "Details saved",
-            "please_wait": "Please wait...",
-            "no_data_available": "No data available",
-            "upload_error": "Media upload error",
-            "media_not_found": "Media not found",
-            "comment_not_found": "Comment not found",
-            "comment_created": "Comment created",
-            "comment_updated": "Comment updated",
-            "comment_deleted": "Comment deleted",
-            "password_validation": {
-                "required": "Password is required",
-                "confirm": "Please input the password again",
-                "match": "The passwords aren't equal",
-                "min": "Password must be at least 6 characters",
-                "old_password_min": "Old password must be at least 6 characters",
-                "old_password_required": "Old password is required"
-            },
-            "email": "Email",
-            "email_validation": {
-                "required": "Email is required",
-                "email": "Please enter a valid Email"
-            },
-            "token_invalid": "Invalid token",
-            "login": "Login",
-            "support": "Support",
-            "actions": {
-                "label": "Operations",
-                "edit": "Edit",
-                "add": "Add",
-                "delete": "Delete",
-                "create": "Create",
-                "view": "Details",
-                "save": "Save",
-                "close": "Close",
-                "saveAndClose": "Save & Close",
-                "upload": "Upload"
-            },
-            "swal": {
-                "delete": {
-                    "title": "Are you sure?",
-                    "text": "You won't be able to revert this!",
-                    "confirmText": "Yes, delete it!",
-                    "deleted": "Deleted successfully"
-                },
-                "add": {
-                    "added": "Added successfully"
-                },
-                "media": {
-                    "added": "Document/Photo added",
-                    "deleted": "Document/Photo deleted"
-                },
-                "logout_confirm": "You will be logged out."
-            },
-            "roles": {
-                "label": "Role",
-                "administrator": "Administrator",
-                "homeowner": "Home Owner",
-                "manager": "Manager",
-                "registered": "Registered",
-                "service": "Service",
-                "super_admin": "Super Admin"
-            },
-            "search": {
-                "placeholder": "Search"
-            },
-            "errors": {
-                "files_extension_images": "Only jpg and png files accepted"
-            },
-            "dateTimeFormat": "{date} at {time}",
-            "date_range": {
-                "range_separator": "To",
-                "start_date": "Start date",
-                "end_date": "End date",
-                "last_7_days": "Last 7 days",
-                "last_week": "Last week",
-                "last_14_days": "Last 14 days",
-                "last_30_days": "Last 30 days",
-                "last_month": "Last month",
-                "last_3_months": "Last 3 months",
-                "last_6_months": "Last 6 months",
-                "last_year": "Last year",
-                "last_2_years": "Last 2 years",
-                "all_time": "All time",
-                "week": "Week",
-                "peek_week": "Pick a week"
-            },
+        "views": {
             "tenant": {
-                "activate_required_credentials": "code, email, password required",
-                "incorrect_email": "Incorrect email address",
-                "user_not_tenant": "This user is not tenant",
-                "invalid_code": "Code is invalid",
-                "not_active_tenant": "Tenant is not active and can not change password"
-            }
-        },
-        "layouts": {
-            "tenant": {
-                "menu": {
-                    "logout": "Logout"
-                },
-                "sidebar": {
-                    "dashboard": "Dashboard",
-                    "myTenancy": "My tenancy",
-                    "myPersonalData": "My personal data",
-                    "myRecentContract": "My recent contract",
-                    "myDocuments": "Documents",
-                    "myContactPersons": "Contact persons",
-                    "posts": "News",
-                    "requests": "Requests",
-                    "myRequests": "My Requests",
-                    "myPendingRequests": "My pending requests",
-                    "notAssigned": "Not Assigned",
-                    "allPendingRequests": "All pending requests",
-                    "products": "Marketplace",
-                    "settings": "Settings"
+                "my": {
+                    "personal": {
+                        "title": "Personal data",
+                        "description": "My personal details.",
+                        "placeholder": {
+                            "title": "No personal data available.",
+                            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                        }
+                    }
                 }
             }
-        },
-        "menu": {
-            "dashboard": "Dashboard",
-            "news": "News",
-            "requests": "Requests",
-            "all_requests": "All requests",
-            "marketplace": "Marketplace",
-            "settings": "Settings",
-            "logout": "Logout",
-            "profile": "Profile",
-            "users": "Users",
-            "employees": "Managers",
-            "companies": "Services",
-            "admins": "Administrators",
-            "super_admins": "Super admins",
-            "home_owners": "Home Owners",
-            "registered": "Registered",
-            "about": "About",
-            "feedback": "Feedback",
-            "tenants": "Tenants",
-            "buildings": "Buildings",
-            "all_buildings": "All buildings",
-            "units": "Units",
-            "addresses": "Addresses",
-            "posts": "News",
-            "districts": "Districts",
-            "products": "Products",
-            "requestCategories": "Request categories",
-            "services": "Service Partners",
-            "activity": "Activity",
-            "propertyManagers": "Property managers",
-            "templates": "Templates"
         },
         "models": {
             "user": {
@@ -612,7 +698,6 @@ export default {
                 "last_name": "Last name",
                 "birth_date": "Birth date",
                 "language": "Language",
-                "title": "Title",
                 "mobile_phone": "Mobile phone",
                 "work_phone": "Work phone",
                 "email": "Email",
@@ -1002,10 +1087,6 @@ export default {
                     "confirmBtnText": "Ok",
                     "cancelBtnText": "Cancel"
                 },
-                "assignmentTypes": {
-                    "building": "Building",
-                    "district": "District"
-                },
                 "assignment": "Assignment",
                 "assignType": "Type",
                 "unassign": "Unassign",
@@ -1063,10 +1144,6 @@ export default {
                 "contact_details": "Contact details",
                 "user_credentials": "User credentials",
                 "company_details": "Company details",
-                "assignmentTypes": {
-                    "building": "Building",
-                    "district": "District"
-                },
                 "assignType": "Type",
                 "unassign": "Unassign",
                 "assign": "Assign",
@@ -1221,10 +1298,6 @@ export default {
                 "internal_notices": "Internal notices",
                 "status_changed": "Status changed",
                 "priority_changed": "Priority changed",
-                "assignmentTypes": {
-                    "services": "Services",
-                    "managers": "Managers"
-                },
                 "media": {
                     "added": "Document added",
                     "removed": "Document removed",
@@ -1367,7 +1440,6 @@ export default {
             },
             "propertyManager": {
                 "title": "Property managers",
-                "title_label": "Title",
                 "add": "Add Property Manager",
                 "save": "Save",
                 "saved": "Property manager saved",
@@ -1406,10 +1478,6 @@ export default {
                 "titles": {
                     "mr": "Mr.",
                     "mrs": "Mrs."
-                },
-                "assignmentTypes": {
-                    "building": "Building",
-                    "district": "District"
                 },
                 "assignType": "Type",
                 "placeholders": {
@@ -1523,71 +1591,6 @@ export default {
                 "terms_and_conditions": "Accept Terms & Conditions",
                 "terms_text": "Terms text here, long text"
             }
-        },
-        "pages": {
-            "profile": {
-                "pageTitle": "Profile",
-                "profile": "Profile",
-                "account": "Account",
-                "security": "Security",
-                "notifications": "Notifications"
-            },
-            "user": {
-                "title": "Users"
-            },
-            "request_activities": {
-                "title": "Request activities"
-            },
-            "tenant": {
-                "title": "Tenants"
-            }
-        },
-        "pagination": {
-            "previous": "&laquo; Previous",
-            "next": "Next &raquo;"
-        },
-        "passwords": {
-            "password": "Passwords must be at least six characters and match the confirmation.",
-            "reset": "Your password has been reset!",
-            "sent": "We have e-mailed your password reset link!",
-            "token": "This password reset token is invalid.",
-            "user": "We can't find a user with that e-mail address."
-        },
-        "settings": {
-            "notifications": "Notifications and language",
-            "admin": "Admin notifications",
-            "news": "News notifications",
-            "marketplace": "Marketplace notifications",
-            "service": "Service notifications",
-            "updated": "Settings updated",
-            "language": "Language",
-            "summary": {
-                "label": "Summary statistics",
-                "daily": "Daily",
-                "monthly": "Monthly",
-                "yearly": "Yearly"
-            },
-            "contact_enable": {
-                "label": "Enable my contacts",
-                "use_global": "Use global",
-                "show": "Show",
-                "hide": "Hide"
-            }
-        },
-        "tenant": {
-            "tenant_credentials": "Tenant credentials",
-            "tenancy_details": "Tenancy details",
-            "unit": "Unit",
-            "floor": "Floor",
-            "building": "Building",
-            "address": "Address",
-            "rent_start": "Rent start",
-            "login_credentials": "Login credentials",
-            "website": "Website",
-            "username": "Username",
-            "password": "Password",
-            "url": "URL",
-            "code": "Code"
         },
         "validation": {
             "validation_main_message": "The given data was invalid.",
@@ -1759,20 +1762,6 @@ export default {
             },
             "terms": {
                 "required": "Please approve with terms and conditions"
-            }
-        },
-        "views": {
-            "tenant": {
-                "my": {
-                    "personal": {
-                        "title": "Personal data",
-                        "description": "My personal details.",
-                        "placeholder": {
-                            "title": "No personal data available.",
-                            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                        }
-                    }
-                }
             }
         }
     }
