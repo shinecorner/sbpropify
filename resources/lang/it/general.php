@@ -72,7 +72,7 @@ return [
   'password_changed' => 'Password modificata con successo',
   'details_saved' => 'Dettagli salvati',
   'please_wait' => 'Attendere per favore...',
-  'no_data_available' => 'Nessun dato disponibile',
+  'no_data_available' => 'Nessun dato disponibile',  
   'upload_error' => "Errore di caricamento dei media",
   'media_not_found' => "Media non trovati",
   'comment_not_found' => "Commento non trovato",
