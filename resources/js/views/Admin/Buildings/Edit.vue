@@ -1,6 +1,9 @@
 <template>
     <div class="buildings-edit ">
-        <heading :title="$t('models.building.edit_title')" :subtitle="`${model.building_format} > ${model.name}`" icon="icon-commerical-building" shadow="heavy">
+        <heading :title="$t('models.building.edit_title')" icon="icon-commerical-building" shadow="heavy">
+            <template slot="description" v-if="model.building_format">
+                <div class="subtitle">{{`${model.building_format} > ${model.name}`}}</div>
+            </template>
             <template>
                 <div class="action-group">
                     <el-button @click="submit" size="small" type="primary" round> {{this.$t('general.actions.save')}}</el-button>
@@ -199,6 +202,8 @@
                         <relation-list
                             :actions="requestActions"
                             :columns="requestColumns"
+                            :statuses="requestStatuses"
+                            :tenantAvatars="requestTenantAvatars"
                             :filterValue="model.id"
                             fetchAction="getRequests"
                             filter="building_id"
@@ -341,13 +346,8 @@
                     }]
                 }],
                 requestColumns: [{
-                    prop: 'category.name',
-                    label: this.$t('models.request.category')
-                }, {
-                    prop: 'status',
-                    i18n: this.requestStatusLabel,
-                    withBadge: this.requestStatusBadge,
-                    label: this.$t('models.request.status.label')
+                    prop: 'title',
+                    label: this.$t('models.request.prop_title')
                 }],
                 requestActions: [{
                     width: '180px',
@@ -356,6 +356,14 @@
                         title: this.$t('models.request.edit'),
                         onClick: this.requestEditView
                     }]
+                }],
+                requestStatuses: [{
+                    prop: 'status',
+                    label: this.$t('models.request.status.label')
+                }],
+                requestTenantAvatars: [{
+                    prop: 'avatar',
+                    label: this.$t('models.request.tenant')
                 }],
                 toAssignList: [],
                 toAssign: '',
@@ -415,7 +423,7 @@
                         this.$refs.propertyManagersList.fetch();
 
                     } catch (e) {
-                        console.log(e)
+                        displayError(e);
                     } finally {
                         this.loading.status = false;
                     }

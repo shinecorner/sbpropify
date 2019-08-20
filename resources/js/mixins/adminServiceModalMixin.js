@@ -52,12 +52,8 @@ export default (config = {}) => {
                             });
                         }
 
-                    } catch (e) {
-                        if (e.response.status == 422) {
-                            displayError(e.response)
-                        } else {
-                            displayError(e)
-                        }
+                    } catch (e) {                        
+                        displayError(e)                        
                     } finally {
                         this.mailSending = false;
                     }

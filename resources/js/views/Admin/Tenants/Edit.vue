@@ -1,6 +1,9 @@
 <template>
     <div class="tenants-edit mb20">
-        <heading :title="$t('models.tenant.edit_title')" :subtitle="model.tenant_format" icon="icon-group" shadow="heavy">
+        <heading :title="$t('models.tenant.edit_title')" icon="icon-group" shadow="heavy">
+            <template slot="description" v-if="model.tenant_format">
+                <div class="subtitle">{{model.tenant_format}}</div>
+            </template>
             <edit-actions :saveAction="submit" :deleteAction="deleteTenant" route="adminTenants"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
@@ -23,7 +26,7 @@
                             </el-divider>
                             <el-row :gutter="20">
                                 <el-col :md="12">
-                                    <el-form-item :label="$t('models.tenant.title')" :rules="validationRules.title"
+                                    <el-form-item :label="$t('general.salutation')" :rules="validationRules.title"
                                                   prop="title">
                                         <el-select placeholder="Select" style="display: block" v-model="model.title">
                                             <el-option

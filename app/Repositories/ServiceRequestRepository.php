@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
+use App\Models\ServiceRequestCategory;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Notifications\NewTenantRequest;
@@ -69,6 +70,12 @@ class ServiceRequestRepository extends BaseRepository
     {
         $attr = self::getPostAttributes($attributes);
 
+        if (isset($attr['category_id'])) {
+            $serviceRequestCategories = ServiceRequestCategory::where('has_qualifications', 1)->pluck('id');
+            if (! $serviceRequestCategories->contains($attr['category_id'])) {
+                unset($attr['qualification']);
+            }
+        }
         // Have to skip presenter to get a model not some data
         $temporarySkipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
@@ -347,11 +354,12 @@ class ServiceRequestRepository extends BaseRepository
     public function assignees(ServiceRequest $sr)
     {
         // Cannot use $sr->providers() and $sr->assignees() because of a bug...
-        $ps = ServiceProvider::select(\DB::raw('id, name, email, "provider" as type'))
+        $ps = ServiceProvider::select(\DB::raw('id, id as edit_id, name, email, "provider" as type'))
             ->join('request_provider', 'request_provider.provider_id', '=', 'id')
             ->where('request_provider.request_id', $sr->id);
-        $as = User::select(\DB::raw('id, name, email, "user" as type'))
-            ->join('request_assignee', 'request_assignee.user_id', '=', 'id')
+        $as = User::select(\DB::raw('users.id, property_managers.id as edit_id, users.name, users.email, "user" as type'))
+            ->join('request_assignee', 'request_assignee.user_id', '=', 'users.id')
+            ->join('property_managers', 'property_managers.user_id', '=', 'users.id')
             ->where('request_assignee.request_id', $sr->id);
 
         return $ps->union($as);

@@ -43,22 +43,22 @@ export default (config = {}) => {
                         icon: 'ti-plus',
                         color: '#003171',
                         value: 0,
-                        description: this.$t('models.building.requestStatuses.total')
+                        description: 'models.building.requestStatuses.total'
                     },{
                         icon: 'ti-plus',
                         color: '#26A65B',
                         value: 0,
-                        description: this.$t('models.building.requestStatuses.solved')
+                        description: 'models.building.requestStatuses.solved'
                     },{
                         icon: 'ti-plus',
                         color: '#26A65B',
                         value: 0,
-                        description: this.$t('models.building.requestStatuses.pending')
+                        description: 'models.building.requestStatuses.pending'
                     },{
                         icon: 'ti-user',
                         color: '#003171',
                         value: 0,
-                        description: this.$t('models.building.assigned_buildings')
+                        description: 'models.building.assigned_buildings'
                     }, ],
                     percentage: {
                         occupied_units: 0,
@@ -143,7 +143,7 @@ export default (config = {}) => {
             ...mapActions(['getStates', 'getBuildings', 'getDistricts', 'assignServiceBuilding',
                 'assignServiceDistrict']),
             translateType(type) {
-                return this.$t(`models.service.assignmentTypes.${type}`);
+                return this.$t(`general.assignmentTypes.${type}`);
             },
             async remoteSearchBuildings(search) {
                 if (search === '') {
@@ -214,10 +214,7 @@ export default (config = {}) => {
                         resolve(true);
 
                     } catch (e) {
-                        if (e.response && !e.response.data.success) {
-                            displayError(e.response)
-                        }
-
+                        displayError(e);
                         reject(false);
                     }
                 })
@@ -362,10 +359,11 @@ export default (config = {}) => {
                     const {password, password_confirmation} = this.validationRules;
 
                     [...password, ...password_confirmation].forEach(rule => rule.required = false);
-
-                    this.original_email = this.model.user.email;
+                    
 
                     await this.fetchCurrentProvider();
+                    
+                    this.original_email = this.model.email;
                 };
 
                 break;

@@ -17,7 +17,7 @@
                                           prop="last_name">
                                 <el-input type="text" v-model="model.last_name"/>
                             </el-form-item>
-                            <el-form-item :label="$t('models.propertyManager.title')" :rules="validationRules.title"
+                            <el-form-item :label="$t('general.salutation')" :rules="validationRules.title"
                                           prop="title">
                                 <el-select style="display: block" v-model="model.title">
                                     <el-option
@@ -72,9 +72,7 @@
                         </card>
                     </el-col>
                     <el-col :md="12">
-                        <card :loading="loading">
-                            <p class="dividerletter">{{$t('models.propertyManager.building_card')}}</p>
-                            <el-divider class="column-divider"></el-divider>
+                        <card :loading="loading" :header="$t('models.propertyManager.building_card')">
 
                             <div class="mt15">
                                 <el-select

@@ -1,6 +1,9 @@
 <template>
     <div class="services-edit">
-        <heading :title="$t('models.propertyManager.edit_title')" :subtitle="model.property_manager_format" icon="icon-users" shadow="heavy">
+        <heading :title="$t('models.propertyManager.edit_title')" icon="icon-users" shadow="heavy">
+            <template slot="description" v-if="model.property_manager_format">
+                <div class="subtitle">{{model.property_manager_format}}</div>
+            </template>
             <edit-actions :saveAction="submit" :deleteAction="deletePropertyManager" route="adminPropertyManagers"/>
         </heading>
         <div class="crud-view">
@@ -11,7 +14,7 @@
                             <el-tab-pane :label="$t('models.propertyManager.details_card')" name="details">
                                 <el-row :gutter="20">
                                     <el-col :md="12">
-                                        <el-form-item :label="$t('models.tenant.title')" :rules="validationRules.title"
+                                        <el-form-item :label="$t('general.salutation')" :rules="validationRules.title"
                                                     prop="title">
                                             <el-select style="display: block" v-model="model.title">
                                                 <el-option
@@ -131,9 +134,7 @@
                         </el-tabs>
                     </el-col>
                     <el-col :md="12">
-                        <card :loading="loading">
-                            <p class="dividerletter">{{$t('models.post.assignment')}}</p>
-                            <el-divider class="column-divider"></el-divider>
+                        <card :loading="loading" :header="$t('models.post.assignment')">
                             
                             <assignment-by-type
                                 :resetToAssignList="resetToAssignList"
@@ -155,13 +156,12 @@
                                 v-if="model.id"
                             />
                         </card>
-                        <card :loading="loading" class="mt15">
-                            <p class="dividerletter">{{$t('models.propertyManager.requests')}}</p>
-                            <el-divider class="column-divider"></el-divider>
-
+                        <card :loading="loading" class="mt15" :header="$t('models.propertyManager.requests')">
                             <relation-list
                                 :actions="requestActions"
                                 :columns="requestColumns"
+                                :statuses="requestStatuses"
+                                :tenantAvatars="requestTenantAvatars"
                                 :filterValue="model.user.id"
                                 fetchAction="getRequests"
                                 filter="assignee_id"
@@ -209,13 +209,8 @@
             return {
                 activeTab: "details",
                 requestColumns: [{
-                    prop: 'category.name',
-                    label: this.$t('models.request.category')
-                }, {
-                    prop: 'status',
-                    withBadge: this.requestStatusBadge,
-                    label: this.$t('models.request.status.label'),
-                    i18n: this.translateRequestStatus
+                    prop: 'title',
+                    label: this.$t('models.request.prop_title')
                 }],
                 requestActions: [{
                     width: '90px',
@@ -224,6 +219,14 @@
                         title: this.$t('models.request.edit'),
                         onClick: this.requestEditView
                     }]
+                }],
+                requestStatuses: [{
+                    prop: 'status',
+                    label: this.$t('models.request.status.label')
+                }],
+                requestTenantAvatars: [{
+                    prop: 'avatar',
+                    label: this.$t('models.request.tenant')
                 }],
                 assignmentsColumns: [{
                     prop: 'name',
@@ -254,7 +257,7 @@
                 })
             },
             translateType(type) {
-                return this.$t(`models.propertyManager.assignmentTypes.${type}`);
+                return this.$t(`general.assignmentTypes.${type}`);
             },
             translateRequestStatus(status) {
                 return this.$t(`models.request.status.${this.requestStatusConstants[status]}`);

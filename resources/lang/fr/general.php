@@ -37,6 +37,7 @@ return [
     'saturday' => 'samedi',
     'sunday' => 'dimanche',
   ],
+  'salutation' => 'Apostrophe',
   'no' => 'Non',
   'none' => 'Aucun',
   'all' => 'Tous',
@@ -71,7 +72,7 @@ return [
   'password_changed' => 'Mot de passe modifié avec succès',
   'details_saved' => 'Détails sauvegardés',
   'please_wait' => 'Veuillez patienter...',
-  'no_data_available' => 'Pas de données disponibles',
+  'no_data_available' => 'Pas de données disponibles',  
   'upload_error' => "Erreur de téléchargement de média",
   'media_not_found' => "Médias non trouvés",
   'comment_not_found' => "Commentaire non trouvé",
@@ -86,6 +87,13 @@ return [
     'min' => 'Le mot de passe doit comporter au moins 6 caractères.',
     'old_password_min' => 'L\'ancien mot de passe doit comporter au moins 6 caractères.',
     'old_password_required' => 'Ancien mot de passe requis',
+  ],
+  'assignmentTypes' => 
+  [
+    "building" => "Bâtiment",
+    "district" => "District",
+    "services" => "Services",
+    "managers" => "Gestionnaires",        
   ],
   'email' => 'Courriel',
   'email_validation' => 

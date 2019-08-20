@@ -37,6 +37,7 @@ return [
     'saturday' => 'Saturday',
     'sunday' => 'Sunday',
   ],
+  'salutation' => 'Salutation',
   'no' => 'No',
   'none' => 'None',
   'all' => 'All',
@@ -71,7 +72,7 @@ return [
   'password_changed' => 'Password changed successfully',
   'details_saved' => 'Details saved',
   'please_wait' => 'Please wait...',
-  'no_data_available' => 'No data available',
+  'no_data_available' => 'No data available',  
   'upload_error' => "Media upload error",
   'media_not_found' => "Media not found",
   'comment_not_found' => "Comment not found",
@@ -86,6 +87,13 @@ return [
     'min' => 'Password must be at least 6 characters',
     'old_password_min' => 'Old password must be at least 6 characters',
     'old_password_required' => 'Old password is required',
+  ],
+  'assignmentTypes' => 
+  [
+    'building' => 'Building',
+    'district' => 'District',
+    'services' => 'Services',
+    'managers' => 'Managers',
   ],
   'email' => 'Email',
   'email_validation' => 

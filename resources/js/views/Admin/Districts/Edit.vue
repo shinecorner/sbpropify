@@ -1,13 +1,14 @@
 <template>
     <div class="districts-edit">
-        <heading :title="$t('models.district.edit')" :subtitle="district_format" icon="icon-chat-empty" shadow="heavy">
+        <heading :title="$t('models.district.edit')" icon="icon-chat-empty" shadow="heavy">
+            <template slot="description" v-if="model.district_format">
+                <div class="subtitle">{{`${model.district_format} > ${model.name}`}}</div>
+            </template>
             <edit-actions :saveAction="submit" :deleteAction="deleteDistrict" route="adminDistricts"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
-                <card :loading="loading">
-                    <p class="dividerletter">{{this.$t('models.district.details')}}</p>
-                    <el-divider class="column-divider"></el-divider>
+                <card :loading="loading" :header="$t('models.district.details')">
                     <el-form :model="model" label-width="192px" ref="form">
                         <el-form-item label="Name" :rules="validationRules.name"
                                     prop="name">
@@ -15,11 +16,25 @@
                         </el-form-item>
                     </el-form>
                 </card>
+
+                <card :loading="loading" class="mt15">
+                    <p class="dividerletter">{{$t('models.propertyManager.requests')}}</p>
+                    <el-divider class="column-divider"></el-divider>
+
+                    <relation-list
+                            :actions="requestActions"
+                            :columns="requestColumns"
+                            :statuses="requestStatuses"
+                            :tenantAvatars="requestTenantAvatars"
+                            :filterValue="model.id"
+                            fetchAction="getRequests"
+                            filter="district_id"
+                            v-if="model.id"
+                    />
+                </card>
             </el-col>
             <el-col :md="12">
-                <card :loading="loading">
-                    <p class="dividerletter">{{this.$t('models.district.buildings')}}</p>
-                    <el-divider class="column-divider"></el-divider>
+                <card :loading="loading" :header="$t('models.district.buildings')">
                     <relation-list
                         :columns="districtColumns"
                         :filterValue="model.id"
@@ -59,7 +74,27 @@
                 districtColumns: [{
                     prop: 'name',
                     label: this.$t('models.propertyManager.name')
-                }]
+                }],
+                requestColumns: [{
+                    prop: 'title',
+                    label: this.$t('models.request.prop_title')
+                }],
+                requestActions: [{
+                    width: '90px',
+                    buttons: [{
+                        icon: 'ti-pencil',
+                        title: this.$t('models.request.edit'),
+                        onClick: this.requestEditView
+                    }]
+                }],
+                requestStatuses: [{
+                    prop: 'status',
+                    label: this.$t('models.request.status.label')
+                }],
+                requestTenantAvatars: [{
+                    prop: 'avatar',
+                    label: this.$t('models.request.tenant')
+                }],
             }
         },
         methods: {

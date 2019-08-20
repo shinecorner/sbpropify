@@ -40,9 +40,6 @@
                     <el-form-item :label="$t('models.address.street')" :rules="validationRules.street" prop="address.street">
                         <el-input type="text" v-model="model.address.street"></el-input>
                     </el-form-item>
-                    <el-form-item :label="$t('models.address.street_nr')" :rules="validationRules.street_nr" prop="address.street_nr">
-                        <el-input type="text" v-model="model.address.street_nr"></el-input>
-                    </el-form-item>
                     <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip" prop="address.zip">
                         <el-input type="text" v-model="model.address.zip"></el-input>
                     </el-form-item>

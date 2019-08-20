@@ -1,6 +1,9 @@
 <template>
     <div class="services-edit mb20" v-if="constants">
-        <heading :title="$t('models.request.edit_title')" :subtitle="model.service_request_format" icon="icon-chat-empty" shadow="heavy">
+        <heading :title="$t('models.request.edit_title')" icon="icon-chat-empty" shadow="heavy">
+            <template slot="description" v-if="model.service_request_format">
+                <div class="subtitle">{{model.service_request_format}}</div>
+            </template>
             <edit-actions :saveAction="submit" :deleteAction="deleteRequest" route="adminRequests"/>
         </heading>
         <div class="crud-view">
@@ -210,9 +213,7 @@
                                     </el-col>
                                 </el-row>
                             </card>
-                            <card class="mt15" :loading="loading">
-                                <p class="dividerletter">{{$t('models.post.assignment')}}</p>
-                                <el-divider class="column-divider"></el-divider>
+                            <card class="mt15" :loading="loading" :header="$t('models.post.assignment')">
                                 <assignment-by-type
                                     :resetToAssignList="resetToAssignList"
                                     :assignmentType.sync="assignmentType"
@@ -425,11 +426,6 @@
         }
     };
 </script>
-<style lang="less">
-    p.dividerletter {
-        font-size: 15px !important;
-    }
-</style>
 <style lang="scss" scoped>
     .services-edit {
         .heading {

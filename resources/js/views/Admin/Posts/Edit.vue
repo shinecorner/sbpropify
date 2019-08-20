@@ -110,9 +110,9 @@
                     </el-card>
 
                     <el-card :loading="loading" v-if="!model.pinned && (!model.tenant)">
-                        <el-divider class="column-divider" content-position="left">
-                            {{$t('models.post.assignment')}}
-                        </el-divider>
+                        <div slot="header" class="clearfix">
+                            <span>{{$t('models.post.assignment')}}</span>
+                        </div>
                         <assignment-by-type
                             :resetToAssignList="resetToAssignList"
                             :assignmentType.sync="assignmentType"
@@ -297,7 +297,7 @@
                                 >
                                     <el-option
                                         :key="type"
-                                        :label="$t(`models.post.assignmentTypes.${type}`)"
+                                        :label="$t(`general.assignmentTypes.${type}`)"
                                         :value="type"
                                         v-for="(type) in assignmentTypes">
                                     </el-option>
@@ -344,9 +344,9 @@
                     </el-card>
 
                     <el-card class="mt15" v-if="model.id && !model.pinned">
-                        <el-divider class="column-divider" content-position="left">
-                            {{$t('models.post.comments')}}
-                        </el-divider>
+                        <div slot="header" class="clearfix">
+                            <span>{{$t('models.post.comments')}}</span>
+                        </div>
                         <chat class="edit-post-chat" :id="model.id" size="480px" type="post"/>
                     </el-card>
                 </el-col>

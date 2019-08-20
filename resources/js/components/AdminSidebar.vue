@@ -52,9 +52,6 @@
                 type: Array,
                 default: []
             },
-            defaultActive: {
-                default: '0'
-            },
             collapsed: {
                 type: Boolean,
                 default: false
@@ -62,7 +59,7 @@
         },
         data() {
             return {
-                currActive: this.defaultActive,
+                currActive: '0',
             }
         },
         methods: {
@@ -112,22 +109,23 @@
                 return !!this.$slots.default;
             }
         },
-        created() {
-            
-            const routeName = this.$route.name;
+        watch: {
+            links() {
+                const routeName = this.$route.name;
 
-            this.links.map(link => {
-                if (link.route && link.route.name == routeName) {
-                    this.currActive = link.title;
-                } else if (link.children) {
-                    let dActive = '';
-                    link.children.map(child => {
-                        if (child.route && child.route.name == routeName) {
-                            this.currActive = child.title;
-                        }
-                    });
-                }
-            });
+                this.links.map(link => {
+                    if (link.route && link.route.name == routeName) {
+                        this.currActive = link.title;
+                    } else if (link.children) {
+                        let dActive = '';
+                        link.children.map(child => {
+                            if (child.route && child.route.name == routeName) {
+                                this.currActive = child.title;
+                            }
+                        });
+                    }
+                });
+            }
         }
     }
 </script>

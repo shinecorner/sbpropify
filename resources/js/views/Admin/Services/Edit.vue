@@ -1,15 +1,15 @@
 <template>
     <div class="services-edit mb20">
-        <heading :title="$t('models.service.edit_title')" :subtitle="model.service_provider_format" icon="icon-tools" shadow="heavy">
+        <heading :title="$t('models.service.edit_title')" icon="icon-tools" shadow="heavy">
+            <template slot="description" v-if="model.service_provider_format">
+                <div class="subtitle">{{model.service_provider_format}}</div>
+            </template>
             <edit-actions :saveAction="submit" :deleteAction="deleteService" route="adminServices"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
-                <card :loading="loading">
-                    <el-form :model="model" label-position="top" label-width="192px" ref="form">
-                        <p class="dividerletter">{{$t('models.service.company_details')}}</p>
-                        <el-divider class="column-divider"></el-divider>
-                    
+                <el-form :model="model" label-position="top" label-width="192px" ref="form">
+                    <card :loading="loading" :header="$t('models.service.company_details')">
                         <el-row :gutter="20">
                             <el-col :md="12">
                                 <el-form-item :label="$t('models.service.category')" prop="category">
@@ -31,10 +31,8 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
-                        
-                        <p class="dividerletter">{{$t('models.service.user_credentials')}}</p>
-                        <el-divider class="column-divider"></el-divider>
-
+                    </card>
+                    <card :loading="loading" class="mt15" :header="$t('models.service.user_credentials')">    
                         <el-row :gutter="20">
                             <el-col :md="12">
                                 <el-form-item :label="$t('models.user.profile_image')">
@@ -67,10 +65,8 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
-                        
-                        <p class="dividerletter">{{$t('models.service.contact_details')}}</p>
-                        <el-divider class="column-divider"></el-divider>
-
+                    </card>
+                    <card class="mt15" :loading="loading" :header="$t('models.service.contact_details')">
                         <el-row :gutter="20">
                             <el-col :md="12">
                                 <el-form-item :label="$t('models.address.street')" :rules="validationRules.street"
@@ -125,13 +121,11 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
-                    </el-form>
-                </card>
+                    </card>
+                </el-form>
             </el-col>
             <el-col :md="12">
-                <card :loading="loading">
-                    <p class="dividerletter">{{$t('models.post.assignment')}}</p>
-                    <el-divider class="column-divider"></el-divider>
+                <card :loading="loading" :header="$t('models.post.assignment')">
             
                     <assignment-by-type
                         :resetToAssignList="resetToAssignList"
@@ -154,9 +148,7 @@
                     />
 
                 </card>
-                <card :loading="loading" class="mt15">
-                    <p class="dividerletter">{{$t('models.service.requests')}}</p>
-                    <el-divider class="column-divider"></el-divider>
+                <card :loading="loading" class="mt15" :header="$t('models.service.requests')">
 
                     <relation-list
                         :actions="requestActions"
@@ -217,7 +209,7 @@
                 }],
                 requestTenantAvatars: [{
                     prop: 'avatar',
-                    label: this.$t('models.building.tenants')
+                    label: this.$t('models.request.tenant')
                 }],
                 requestActions: [{
                     width: '90px',

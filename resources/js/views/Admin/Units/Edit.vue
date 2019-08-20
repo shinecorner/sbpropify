@@ -1,6 +1,9 @@
 <template>
     <div class="units-edit">
-        <heading :title="$t('models.unit.edit')" :subtitle="model.unit_format"  icon="icon-unit" style="margin-bottom: 20px;" shadow="heavy">
+        <heading :title="$t('models.unit.edit')" icon="icon-unit" style="margin-bottom: 20px;" shadow="heavy">
+            <template slot="description" v-if="model.unit_format">
+                <div class="subtitle">{{model.unit_format}}</div>
+            </template>
             <edit-actions :saveAction="submit" :deleteAction="deleteUnit" route="adminUnits"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
@@ -120,9 +123,7 @@
                 </card>
             </el-col>
             <el-col :md="12">
-                <card :loading="loading">
-                    <p class="dividerletter">{{$t('models.unit.requests')}}</p>
-                    <el-divider class="column-divider"></el-divider>
+                <card :loading="loading" :header="$t('models.unit.requests')">
                     <relation-list
                         :actions="requestActions"
                         :columns="requestColumns"
@@ -134,9 +135,7 @@
                 </card>
             </el-col>
             <el-col :md="12">
-                <card class="mt15" :loading="loading">
-                    <p class="dividerletter">{{$t('models.post.assignment')}}</p>
-                    <el-divider class="column-divider"></el-divider>
+                <card class="mt15" :loading="loading" :header="$t('models.post.assignment')">
                     <assignment
                         :toAssign.sync="toAssign"
                         :assign="assignTenant"

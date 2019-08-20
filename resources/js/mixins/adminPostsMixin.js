@@ -91,7 +91,7 @@ export default (config = {}) => {
             ...mapActions(['uploadPostMedia', 'deletePostMedia', 'getBuildings', 'getDistricts', 'assignPostBuilding',
                 'assignPostDistrict', 'getServices', 'assignPostProvider']),
             translateType(type) {
-                return this.$t(`models.post.assignmentTypes.${type}`);
+                return this.$t(`general.assignmentTypes.${type}`);
             },
             uploadFiles(file) {
                 const allowedFiles = [
@@ -257,11 +257,8 @@ export default (config = {}) => {
 
                         resolve(true);
 
-                    } catch (e) {
-                        if (e.response && !e.response.data.success) {
-                            displayError(e.response)
-                        }
-
+                    } catch (e) {                        
+                        displayError(e);
                         reject(false);
                     }
                 })
