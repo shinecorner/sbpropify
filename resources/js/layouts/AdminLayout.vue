@@ -522,6 +522,7 @@
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
             
         },
+        
         async created(){
             const requestsCounts = await this.axios.get('requestsCounts');
             this.all_request_count = requestsCounts.data.data.all_request_count;
