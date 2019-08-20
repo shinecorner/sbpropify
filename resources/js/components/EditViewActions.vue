@@ -63,11 +63,9 @@
             },
             async saveAndClose() {
                 try {
-                    const resp = await this.saveAction();
-
-                    if (resp) {
+                    this.saveAction(resp => {
                         this.goToListing();
-                    }
+                    });
                 } catch (e) {
                     console.log(e)
                 }
@@ -82,20 +80,19 @@
             },
             async SaveAndEdit() {
                 try {
-                    const resp = await this.saveAction();
-        
-                    if (resp && resp.data) {
-                        this.$router.push({
-                            name: this.editRoute,
-                            params: {id: resp.data.id}
-                        })
-                    }
+                    this.saveAction(resp => {
+                        if (resp && resp.data) {
+                            this.$router.push({
+                                name: this.editRoute,
+                                params: {id: resp.data.id}
+                            })
+                        }
+                    });
                 } catch (e) {
                     console.log(e)
                 }
 
             },
-
             async callDeleteAction() {
                 const resp = await this.deleteAction({id: parseInt(this.$route.params.id)})
                     .then(r => {
