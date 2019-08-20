@@ -49,8 +49,8 @@ import App from './App.vue';
 import VueSweetalert2 from 'vue-sweetalert2';
 
 const i18n = new VueI18n({
-    locale: 'en', // set locale
-    fallbackLocale: 'en',
+    locale: 'de', // set locale
+    fallbackLocale: 'de',
     messages, // set locale messages
 });
 
