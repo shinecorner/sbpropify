@@ -184,7 +184,7 @@ export default (config = {}) => {
                             displayError(err);
                         });
                     },
-                    submit() {
+                    submit(afterValid = false) {
                         this.form.validate(async valid => {
                             if (!valid) {
                                 return false;
@@ -218,7 +218,14 @@ export default (config = {}) => {
                                 this.toUploadContract = {};
                                 this.model.rent_start = '';
                                 this.form.resetFields();
-                                this.$router.push({ name: 'adminProfile' });
+                                if (!!afterValid) {
+                                    afterValid(resp);
+                                } else {
+                                    this.$router.push({
+                                        name: 'adminTenantsEdit',
+                                        params: {id: resp.data.id}
+                                    })
+                                }
                             } catch (err) {
                                 displayError(err);
                             } finally {
