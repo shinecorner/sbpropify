@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
+use App\Models\ServiceRequestCategory;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Notifications\NewTenantRequest;
@@ -69,6 +70,12 @@ class ServiceRequestRepository extends BaseRepository
     {
         $attr = self::getPostAttributes($attributes);
 
+        if (isset($attr['category_id'])) {
+            $serviceRequestCategories = ServiceRequestCategory::where('has_qualifications', 1)->pluck('id');
+            if (! $serviceRequestCategories->contains($attr['category_id'])) {
+                unset($attr['qualification']);
+            }
+        }
         // Have to skip presenter to get a model not some data
         $temporarySkipPresenter = $this->skipPresenter;
         $this->skipPresenter(true);
