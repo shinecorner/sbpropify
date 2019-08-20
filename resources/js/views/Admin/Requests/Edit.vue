@@ -213,9 +213,7 @@
                                     </el-col>
                                 </el-row>
                             </card>
-                            <card class="mt15" :loading="loading">
-                                <p class="dividerletter">{{$t('models.post.assignment')}}</p>
-                                <el-divider class="column-divider"></el-divider>
+                            <card class="mt15" :loading="loading" :header="$t('models.post.assignment')">
                                 <assignment-by-type
                                     :resetToAssignList="resetToAssignList"
                                     :assignmentType.sync="assignmentType"
