@@ -1,6 +1,9 @@
 <template>
     <div class="buildings-edit ">
-        <heading :title="$t('models.building.edit_title')" :subtitle="`${model.building_format} > ${model.name}`" icon="icon-commerical-building" shadow="heavy">
+        <heading :title="$t('models.building.edit_title')" icon="icon-commerical-building" shadow="heavy">
+            <template slot="description" v-if="model.building_format">
+                <div class="subtitle">{{`${model.building_format} > ${model.name}`}}</div>
+            </template>
             <template>
                 <div class="action-group">
                     <el-button @click="submit" size="small" type="primary" round> {{this.$t('general.actions.save')}}</el-button>
