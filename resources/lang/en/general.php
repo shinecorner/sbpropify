@@ -37,6 +37,7 @@ return [
     'saturday' => 'Saturday',
     'sunday' => 'Sunday',
   ],
+  'salutation' => 'Salutation',
   'no' => 'No',
   'none' => 'None',
   'all' => 'All',
@@ -86,6 +87,13 @@ return [
     'min' => 'Password must be at least 6 characters',
     'old_password_min' => 'Old password must be at least 6 characters',
     'old_password_required' => 'Old password is required',
+  ],
+  'assignmentTypes' => 
+  [
+    'building' => 'Building',
+    'district' => 'District',
+    'services' => 'Services',
+    'managers' => 'Managers',
   ],
   'email' => 'Email',
   'email_validation' => 

@@ -78,8 +78,7 @@ return [
       'first_name' => 'Vorname',
       'last_name' => 'Name',
       'birth_date' => 'Geburtsdatum',
-      'language' => 'Sprache',
-      'title' => 'Anrede',
+      'language' => 'Sprache',      
       'mobile_phone' => 'Mobile',
       'work_phone' => 'Arbeit',
       'email' => 'E-Mail',
@@ -527,11 +526,6 @@ return [
         'confirmBtnText' => 'Ja',
         'cancelBtnText' => 'Schliessen',
       ],
-      'assignmentTypes' => 
-      [
-        'building' => 'Liegenschaft',
-        'district' => 'Überbauung',
-      ],
       'assignment' => 'Zugewiesene Liegenschaften',
       'assignType' => 'Typ',
       'unassign' => 'Entfernen',
@@ -595,11 +589,6 @@ return [
       'contact_details' => 'Kontaktdaten',
       'user_credentials' => 'Logindaten',
       'company_details' => 'Firmendaten',
-      'assignmentTypes' => 
-      [
-        'building' => 'Liegenschaft',
-        'district' => 'Überbauung',
-      ],
       'assignType' => 'Typ',
       'unassign' => 'Entfernen',
       'assign' => 'Zuweisen',
@@ -763,11 +752,6 @@ return [
       'internal_notices' => 'Interne Notizen',
       'status_changed' => 'Status geändert',
       'priority_changed' => 'Priorität geändert',
-      'assignmentTypes' => 
-      [
-        'services' => 'Dienstleister',
-        'managers' => 'Bewirtschafter',
-      ],
       'media' => 
       [
         'added' => 'Dokument hinzugefügt',
@@ -930,7 +914,6 @@ return [
     'propertyManager' => 
     [
       'title' => 'Bewirtschafter',
-      'title_label' => 'Anrede',
       'add' => 'Bewischafter hinzufügen',
       'save' => 'Speichern',
       'saved' => 'Bewirtschafter gespeichert',
@@ -971,11 +954,6 @@ return [
       [
         'mr' => 'Herr',
         'mrs' => 'Frau',
-      ],
-      'assignmentTypes' => 
-      [
-        'building' => 'Liegenschaft',
-        'district' => 'Überbauung',
       ],
       'assignType' => 'Typ',
       'placeholders' => 

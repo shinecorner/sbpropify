@@ -14,7 +14,7 @@
                             <el-tab-pane :label="$t('models.propertyManager.details_card')" name="details">
                                 <el-row :gutter="20">
                                     <el-col :md="12">
-                                        <el-form-item :label="$t('models.tenant.title')" :rules="validationRules.title"
+                                        <el-form-item :label="$t('general.salutation')" :rules="validationRules.title"
                                                     prop="title">
                                             <el-select style="display: block" v-model="model.title">
                                                 <el-option
@@ -262,7 +262,7 @@
                 })
             },
             translateType(type) {
-                return this.$t(`models.propertyManager.assignmentTypes.${type}`);
+                return this.$t(`general.assignmentTypes.${type}`);
             },
             translateRequestStatus(status) {
                 return this.$t(`models.request.status.${this.requestStatusConstants[status]}`);

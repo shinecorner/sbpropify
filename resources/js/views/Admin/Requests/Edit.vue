@@ -428,11 +428,6 @@
         }
     };
 </script>
-<style lang="less">
-    p.dividerletter {
-        font-size: 15px !important;
-    }
-</style>
 <style lang="scss" scoped>
     .services-edit {
         .heading {

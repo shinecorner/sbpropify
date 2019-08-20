@@ -143,7 +143,7 @@ export default (config = {}) => {
             ...mapActions(['getStates', 'getBuildings', 'getDistricts', 'assignServiceBuilding',
                 'assignServiceDistrict']),
             translateType(type) {
-                return this.$t(`models.service.assignmentTypes.${type}`);
+                return this.$t(`general.assignmentTypes.${type}`);
             },
             async remoteSearchBuildings(search) {
                 if (search === '') {
