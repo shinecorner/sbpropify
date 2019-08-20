@@ -1,6 +1,9 @@
 <template>
     <div class="tenants-edit mb20 tenants-edit-new">
-        <heading :title="$t('models.tenant.edit_title')" :subtitle="model.tenant_format" icon="icon-group">
+        <heading :title="$t('models.tenant.edit_title')" icon="icon-group">
+            <template slot="description" v-if="model.tenant_format">
+                <div class="subtitle">{{model.tenant_format}}</div>
+            </template>
             <edit-actions :saveAction="submit" route="adminTenants"/>
         </heading>
         <el-row :gutter="20" class="crud-view">

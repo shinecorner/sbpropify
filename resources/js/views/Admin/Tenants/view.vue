@@ -1,6 +1,9 @@
 <template>
     <div class="tenants-view">
-        <heading :title="$t('models.tenant.view_title')" :subtitle="model.tenant_format" icon="icon-group">
+        <heading :title="$t('models.tenant.view_title')" icon="icon-group">
+            <template slot="description" v-if="model.tenant_format">
+                <div class="subtitle">{{model.tenant_format}}</div>
+            </template>
             <el-form label-position="top" label-width="192px" ref="form">
                 <el-form-item>
                     <el-button
