@@ -3,7 +3,7 @@ return [
   'dashboard' => 'Dashboard',
   'news' => 'Pinnwand',
   'requests' => 'Servicezentrum',
-  'all_requests' => 'Anfragen',
+  'all_requests' => 'Alle Anfragen',
   'myRequests' => 'Meine Anfragen',
   'myPendingRequests' => 'Meine offenen Anfragen',
   'notAssigned' => 'Nicht zugeordnet',
