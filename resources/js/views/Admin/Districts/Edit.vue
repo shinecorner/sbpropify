@@ -19,21 +19,21 @@
                     </el-form>
                 </card>
 
-<!--                <card :loading="loading" class="mt15">-->
-<!--                    <p class="dividerletter">{{$t('models.propertyManager.requests')}}</p>-->
-<!--                    <el-divider class="column-divider"></el-divider>-->
+                <card :loading="loading" class="mt15">
+                    <p class="dividerletter">{{$t('models.propertyManager.requests')}}</p>
+                    <el-divider class="column-divider"></el-divider>
 
-<!--                    <relation-list-->
-<!--                            :actions="requestActions"-->
-<!--                            :columns="requestColumns"-->
-<!--                            :statuses="requestStatuses"-->
-<!--                            :tenantAvatars="requestTenantAvatars"-->
-<!--                            :filterValue="model.id"-->
-<!--                            fetchAction="getRequests"-->
-<!--                            filter="district_id"-->
-<!--                            v-if="model.user"-->
-<!--                    />-->
-<!--                </card>-->
+                    <relation-list
+                            :actions="requestActions"
+                            :columns="requestColumns"
+                            :statuses="requestStatuses"
+                            :tenantAvatars="requestTenantAvatars"
+                            :filterValue="model.id"
+                            fetchAction="getRequests"
+                            filter="district_id"
+                            v-if="model.id"
+                    />
+                </card>
             </el-col>
             <el-col :md="12">
                 <card :loading="loading">
@@ -80,7 +80,7 @@
                     label: this.$t('models.propertyManager.name')
                 }],
                 requestColumns: [{
-                    prop: 'category.name',
+                    prop: 'title',
                     label: this.$t('models.request.prop_title')
                 }],
                 requestActions: [{

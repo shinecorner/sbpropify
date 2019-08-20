@@ -214,7 +214,7 @@
             return {
                 activeTab: "details",
                 requestColumns: [{
-                    prop: 'category.name',
+                    prop: 'title',
                     label: this.$t('models.request.prop_title')
                 }],
                 requestActions: [{

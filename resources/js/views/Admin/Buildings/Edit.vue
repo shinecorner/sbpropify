@@ -346,8 +346,8 @@
                     }]
                 }],
                 requestColumns: [{
-                    prop: 'category.name',
-                    label: this.$t('models.request.category')
+                    prop: 'title',
+                    label: this.$t('models.request.prop_title')
                 }],
                 requestActions: [{
                     width: '180px',
