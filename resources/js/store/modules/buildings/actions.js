@@ -47,7 +47,7 @@ export default {
                         message: resp.data.message,
                         media: resp.data.data
                     });
-                }).catch((error) => reject(error));
+                }).catch(({response: {data: err}}) => reject(err))
         })
     },
     deleteBuildingFile(_, payload) {
@@ -55,14 +55,14 @@ export default {
             axios.delete(`buildings/${payload.id}/media/${payload.media_id}`)
                 .then((resp) => {
                     resolve(resp.data);
-                }).catch((error) => reject(error));
+                }).catch(({response: {data: err}}) => reject(err))
         });
     },
     deleteBuildingService(_, {building_id, id}) {
         return new Promise((resolve, reject) => {
             axios.delete(`buildings/${building_id}/service/${id}`).then((resp) => {
                 resolve(resp.data);
-            }).catch((error) => reject(error));
+            }).catch(({response: {data: err}}) => reject(err))
         });
     },
     batchAssignUsersToBuilding({}, payload) {
@@ -70,28 +70,28 @@ export default {
             axios.post(`buildings/${payload.id}/propertyManagers`, {...payload})
                 .then((resp) => {
                     resolve(resp.data);
-                }).catch((error) => reject(error));
-        })
+                }).catch(({response: {data: err}}) => reject(err))
+        });
     },
     unassignBuildingManager(_, {building_id, id}) {
         return new Promise((resolve, reject) => {
             axios.delete(`buildings/${building_id}/propertyManagers/${id}`).then((resp) => {
                 resolve(resp.data);
-            }).catch((error) => reject(error));
+            }).catch(({response: {data: err}}) => reject(err))
         });
     },
     deleteBuildingWithIds({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`buildings/deletewithids`, {...payload}).then((resp) => {                
                 resolve(resp.data);
-            }).catch((error) => reject(error));
+            }).catch(({response: {data: err}}) => reject(err))
         });
     },
     checkUnitRequestWidthIds({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`buildings/checkunitrequest`, {...payload}).then((resp) => {                
                 resolve(resp.data);
-            }).catch((error) => reject(error));
+            }).catch(({response: {data: err}}) => reject(err))
         });
     }    
 }
