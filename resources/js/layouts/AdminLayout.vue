@@ -158,14 +158,14 @@
                                     name: 'adminRequests'
                                 }
                             },  {
-                                title: this.$t('layouts.tenant.sidebar.notAssigned'),
+                                title: this.$t('menu.notAssigned_requests'),
                                 permission: this.$permissions.list.request,
                                 value: 4,
                                 route: {
                                     name: ''
                                 }
                             },  {
-                                title: this.$t('layouts.tenant.sidebar.allPendingRequests'),
+                                title: this.$t('menu.allPendingRequests'),
                                 permission: this.$permissions.list.request,
                                 value: 5,
                                 route: {
@@ -280,32 +280,32 @@
                                     name: 'adminRequests'
                                 }
                             },  {
-                                title: this.$t('layouts.tenant.sidebar.myRequests'),
+                                title: this.$t('menu.myRequests'),
                                 permission: this.$permissions.cleanify_request.list,
                                 value: 1,
                                 route: {
-                                    name: ''
+                                    name: 'adminRequests'
                                 }
                             },  {
-                                title: this.$t('layouts.tenant.sidebar.myPendingRequests'),
+                                title: this.$t('menu.myPendingRequests'),
                                 permission: this.$permissions.cleanify_request.list,
                                 value: 3,
                                 route: {
-                                    name: ''
+                                    name: 'adminRequests'
                                 }
                             },  {
-                                title: this.$t('layouts.tenant.sidebar.notAssigned'),
+                                title: this.$t('menu.notAssigned'),
                                 permission: this.$permissions.list.request,
                                 value: 4,
                                 route: {
-                                    name: ''
+                                    name: 'adminRequests'
                                 }
                             },  {
-                                title: this.$t('layouts.tenant.sidebar.allPendingRequests'),
+                                title: this.$t('menu.allPendingRequests'),
                                 permission: this.$permissions.list.request,
                                 value: 5,
                                 route: {
-                                    name: ''
+                                    name: 'adminRequests'
                                 }
                             }]
                         }, {
