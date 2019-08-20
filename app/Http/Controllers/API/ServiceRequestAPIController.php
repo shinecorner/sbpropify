@@ -1001,6 +1001,61 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
+     * @param int $id
+     * @param TemplateRepository $tempRepo
+     *
+     * @return Response
+     *
+     * @SWG\Get(
+     *      path="/requestsCounts",
+     *      summary="get recuests count",
+     *      tags={"ServiceRequest"},
+     *      description="Get request count when logged as admin and property manager",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  @SWG\Property(
+     *                      property="all_request_count",
+     *                      type="number",
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="all_unassigned_request_count",
+     *                      type="number",
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="all_pending_request_count",
+     *                      type="number",
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="my_request_count",
+     *                      type="number",
+     *                      description="This key exists when logged as property manager"
+     *                  ),
+     *                  @SWG\Property(
+     *                      property="my_pending_request_count",
+     *                      type="number",
+     *                      description="This key exists when logged as property manager"
+     *                  ),
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     *
      * @param SeeRequestsCount $request
      * @return mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
