@@ -503,10 +503,6 @@ export default {
                     "myContactPersons": "Personnes de contact",
                     "posts": "Actualités",
                     "requests": "Demandes",
-                    "myRequests": "Mes demandes",
-                    "myPendingRequests": "Mes demandes en attente",
-                    "notAssigned": "Non assigné",
-                    "allPendingRequests": "Toutes les demandes en attente",
                     "products": "Marché en ligne",
                     "settings": "Réglages"
                 }
@@ -517,10 +513,10 @@ export default {
             "news": "Actualités",
             "requests": "Demandes",
             "all_requests": "Toutes les demandes",
-            "notAssigned_requests": "Non assigné",
-            "allPendingRequests": "Toutes les demandes en attente",
             "myRequests": "Mes demandes",
             "myPendingRequests": "Mes demandes en attente",
+            "notAssigned": "Non assigné",
+            "allPendingRequests": "Toutes les demandes en attente",
             "marketplace": "Marché en ligne",
             "settings": "Réglages",
             "logout": "Déconnexion",
