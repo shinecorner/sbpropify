@@ -18,72 +18,56 @@ export default {
         return new Promise((resolve, reject) => {
             axios.post('services', payload).then((response) => {
                 resolve(response.data);
-            }).catch((error) => {
-                reject(error.response.data);
-            });
+            }).catch(({response: {data: err}}) => reject(err));
         });
     },
     updateService({commit}, payload) {
         return new Promise((resolve, reject) => {
             axios.put(`services/${payload.id}`, payload).then((response) => {
                 resolve(response.data);
-            }).catch((error) => {
-                reject(error.response.data);
-            });
+            }).catch(({response: {data: err}}) => reject(err));
         });
     },
     getService({commit}, payload) {
         return new Promise((resolve, reject) => {
             axios.get(`services/${payload.id}`).then((response) => {
                 resolve(response.data);
-            }).catch((error) => {
-                reject(error.response.data);
-            });
+            }).catch(({response: {data: err}}) => reject(err));
         });
     },
     deleteService({commit}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`services/${payload.id}`).then((response) => {
                 resolve(response.data)
-            }).catch((error) => {
-                reject(error.response.data)
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         })
     },
     assignServiceDistrict({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`services/${payload.id}/districts/${payload.toAssignId}`, {}).then((resp) => {
                 resolve(resp.data);
-            }).catch((error) => {
-                reject(error);
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         });
     },
     assignServiceBuilding({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`services/${payload.id}/buildings/${payload.toAssignId}`, {}).then((resp) => {
                 resolve(resp.data);
-            }).catch((error) => {
-                reject(error);
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         });
     },
     unassignServiceBuilding({}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`services/${payload.id}/buildings/${payload.toAssignId}`).then((response) => {
                 resolve(response.data)
-            }).catch((error) => {
-                reject(error.response.data)
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         })
     },
     unassignServiceDistrict({}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`services/${payload.id}/districts/${payload.toAssignId}`).then((response) => {
                 resolve(response.data)
-            }).catch((error) => {
-                reject(error.response.data)
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         })
     },
     getServiceAssignments({}, payload) {
@@ -100,9 +84,7 @@ export default {
                     return building;
                 });
                 resolve(response.data);
-            }).catch((error) => {
-                reject(error.response.data);
-            });
+            }).catch(({response: {data: err}}) => reject(err));
         });
     }
 }

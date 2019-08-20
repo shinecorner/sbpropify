@@ -423,7 +423,7 @@
                         this.$refs.propertyManagersList.fetch();
 
                     } catch (e) {
-                        console.log(e)
+                        displayError(e);
                     } finally {
                         this.loading.status = false;
                     }

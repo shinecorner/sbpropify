@@ -13,36 +13,28 @@ export default {
         return new Promise((resolve, reject) => {
             axios.post('requests', payload).then((response) => {
                 resolve(response.data);
-            }).catch((error) => {
-                reject(error.response.data);
-            });
+            }).catch(({response: {data: err}}) => reject(err));
         });
     },
     updateRequest({commit}, payload) {
         return new Promise((resolve, reject) => {
             axios.put(`requests/${payload.id}`, payload).then((response) => {
                 resolve(response.data);
-            }).catch((error) => {
-                reject(error.response.data);
-            });
+            }).catch(({response: {data: err}}) => reject(err));
         });
     },
     getRequest({commit}, payload) {
         return new Promise((resolve, reject) => {
             axios.get(`requests/${payload.id}`).then((response) => {
                 resolve(response.data);
-            }).catch((error) => {
-                reject(error.response.data);
-            });
+            }).catch(({response: {data: err}}) => reject(err));
         });
     },
     deleteRequest({commit}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`requests/${payload.id}`).then((response) => {
                 resolve(response.data)
-            }).catch((error) => {
-                reject(error.response.data)
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         })
     },
     async addRequestComment({}, {id, ...payload}) {
@@ -58,63 +50,49 @@ export default {
         return new Promise((resolve, reject) => {
             axios.post(`requests/${id}/media`, payload).then((resp) => {
                 resolve(resp.data);
-            }).catch((error) => {
-                reject(error.response.data);
-            });
+            }).catch(({response: {data: err}}) => reject(err));
         });
     },
     deleteRequestMedia({}, {id, media_id}) {
         return new Promise((resolve, reject) => {
             axios.delete(`requests/${id}/media/${media_id}`).then((resp) => {
                 resolve(resp.data);
-            }).catch((error) => {
-                reject(error.response.data);
-            });
+            }).catch(({response: {data: err}}) => reject(err));
         });
     },
     sendServiceRequestMail({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`requests/${payload.request}/notify`, payload).then((resp) => {
                 resolve(resp);
-            }).catch((error) => {
-                reject(error);
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         });
     },
     assignManager({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`requests/${payload.request}/assignees/${payload.toAssignId}`, {}).then((resp) => {
                 resolve(resp);
-            }).catch((error) => {
-                reject(error);
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         });
     },
     assignProvider({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`requests/${payload.request}/providers/${payload.toAssignId}`, {}).then((resp) => {
                 resolve(resp);
-            }).catch((error) => {
-                reject(error);
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         });
     },
     unassignProvider({}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`requests/${payload.request}/providers/${payload.toAssignId}`).then((resp) => {
                 resolve(resp);
-            }).catch((error) => {
-                reject(error);
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         });
     },
     unassignManager({}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`requests/${payload.request}/assignees/${payload.toAssignId}`, {}).then((resp) => {
                 resolve(resp);
-            }).catch((error) => {
-                reject(error);
-            })
+            }).catch(({response: {data: err}}) => reject(err))
         });
     },
     getAssignees({commit}, payload) {
