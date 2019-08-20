@@ -297,7 +297,7 @@
                                 >
                                     <el-option
                                         :key="type"
-                                        :label="$t(`models.post.assignmentTypes.${type}`)"
+                                        :label="$t(`general.assignmentTypes.${type}`)"
                                         :value="type"
                                         v-for="(type) in assignmentTypes">
                                     </el-option>

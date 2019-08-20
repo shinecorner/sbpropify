@@ -43,22 +43,22 @@ export default (config = {}) => {
                         icon: 'ti-plus',
                         color: '#003171',
                         value: 0,
-                        description: 'Total'
-                        },{
-                        icon: 'ti-plus',
-                        color: '#26A65B',
-                        value: 0,
-                        description: 'Solved Requests'
+                        description: this.$t('models.building.requestStatuses.total')
                     },{
                         icon: 'ti-plus',
                         color: '#26A65B',
                         value: 0,
-                        description: 'Pending Requests'
+                        description: this.$t('models.building.requestStatuses.solved')
+                    },{
+                        icon: 'ti-plus',
+                        color: '#26A65B',
+                        value: 0,
+                        description: this.$t('models.building.requestStatuses.pending')
                     },{
                         icon: 'ti-user',
                         color: '#003171',
                         value: 0,
-                        description: 'Assigned Buildings'
+                        description: this.$t('models.building.assigned_buildings')
                     }, ],
                     percentage: {
                         occupied_units: 0,
@@ -143,7 +143,7 @@ export default (config = {}) => {
             ...mapActions(['getStates', 'getBuildings', 'getDistricts', 'assignServiceBuilding',
                 'assignServiceDistrict']),
             translateType(type) {
-                return this.$t(`models.service.assignmentTypes.${type}`);
+                return this.$t(`general.assignmentTypes.${type}`);
             },
             async remoteSearchBuildings(search) {
                 if (search === '') {
