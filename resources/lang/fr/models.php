@@ -296,6 +296,8 @@ return [
         "reactivated" => "Demandes réactivées",
         "done" => "J'ai fait mes demandes",
         "archived" => "Demandes archivées",
+        'solved' => "Demandes résolues",
+        'pending' => "Demandes en attente"
       ],
       'placeholders' => 
       [
