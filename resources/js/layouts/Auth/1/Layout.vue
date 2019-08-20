@@ -200,11 +200,8 @@
 
 </style>
 <style lang="less">
-    .dividerletter {
+    .el-card__header {
+        border-bottom: 1px solid #EBEEF5 !important;
         font-size: 16px !important;
-        margin-top: 5px;
-    }
-    .el-divider--horizontal {
-        margin-top: 10px !important;
     }
 </style>

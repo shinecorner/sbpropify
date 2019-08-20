@@ -72,9 +72,7 @@
                         </card>
                     </el-col>
                     <el-col :md="12">
-                        <card :loading="loading">
-                            <p class="dividerletter">{{$t('models.propertyManager.building_card')}}</p>
-                            <el-divider class="column-divider"></el-divider>
+                        <card :loading="loading" :header="$t('models.propertyManager.building_card')">
 
                             <div class="mt15">
                                 <el-select

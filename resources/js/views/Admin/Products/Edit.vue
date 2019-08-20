@@ -164,20 +164,14 @@
                         </el-col>-->
                     </el-row> 
                 </card>
-                <card :loading="loading">
-                    <p class="dividerletter">{{$t('models.request.images')}}</p>
-                    <el-divider class="column-divider"></el-divider>
-                    
+                <card :loading="loading" :header="$t('models.request.images')">
                     <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
                     <div class="mt15">
                         <request-media :data="[...model.media, ...media]" @deleteMedia="deleteMedia"
                                                        v-if="media.length || (model.media && model.media.length)"></request-media>
                     </div>
                 </card>
-                <card class="mt15" v-if="model.id">
-                    <p class="dividerletter">{{$t('models.product.comments')}}</p>
-                    <el-divider class="column-divider"></el-divider>
-                    
+                <card class="mt15" v-if="model.id" :header="$t('models.product.comments')">
                     <chat :id="model.id" type="product"/>
                 </card>
             </el-col>
