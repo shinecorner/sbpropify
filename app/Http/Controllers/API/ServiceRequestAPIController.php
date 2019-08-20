@@ -108,7 +108,7 @@ class ServiceRequestAPIController extends AppBaseController
                 'tenant.building.address',
                 'category',
                 'comments.user',
-                'providers.address',
+                'providers.address:id,country_id,state_id,city,street,zip',
                 'providers.user',
                 'assignees',
             ])->paginate($perPage);
@@ -219,7 +219,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $serviceRequest->load([
             'media', 'tenant.user', 'tenant.building', 'category', 'assignees',
-            'comments.user', 'providers.address', 'providers.user',
+            'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers.user',
         ]);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, 'Service Request retrieved successfully');
@@ -297,7 +297,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $updatedServiceRequest->load([
             'media', 'tenant.user', 'category', 'assignees',
-            'comments.user', 'providers.address', 'providers.user',
+            'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers.user',
         ]);
         $response = (new ServiceRequestTransformer)->transform($updatedServiceRequest);
         return $this->sendResponse($response, __('models.request.saved'));
@@ -601,7 +601,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $sr->providers()->sync($sp, false);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
-            'providers.address', 'providers.user', 'assignees');
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'assignees');
 
         foreach ($sr->assignees as $a) {
             $sr->conversationFor($a, $sp->user);
@@ -660,7 +660,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $sr->providers()->detach($sp);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
-            'providers.address', 'providers.user', 'assignees');
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'assignees');
 
         return $this->sendResponse($sr, __('models.request.detached.service'));
     }
@@ -713,7 +713,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $sr->assignees()->sync($u, false);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
-            'providers.address', 'providers.user', 'assignees');
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'assignees');
 
         foreach ($sr->providers as $p) {
             $sr->conversationFor($p->user, $u);
@@ -769,7 +769,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $sr->assignees()->detach($u);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
-            'providers.address', 'providers.user', 'assignees');
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'assignees');
 
         return $this->sendResponse($sr, __('models.request.detached.user'));
     }
