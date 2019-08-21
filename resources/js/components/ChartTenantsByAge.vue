@@ -31,7 +31,7 @@ export default {
         breakpoint: 2000,
         options: {
           chart: {
-            width: '100%',
+            width: '80%',
             height: 'auto'
           },
           legend: {
@@ -45,7 +45,7 @@ export default {
         responsive: responsive,
         chart:{
           toolbar: this.toolbar,
-          width: '100%',
+          width: '80%',
           height: 320
         },
         plotOptions: {
@@ -68,12 +68,11 @@ export default {
     fetchData() {
       let that = this;                                               
       let url = 'tenants/age-statistics';
-      const langPrefix = 'models.tenant.titles.';
 
       return axios.get(url)
       .then(function (response) {
         that.yData = response.data.data.data.map(val => parseFloat(val) || 0);
-        that.xData = response.data.data.labels.map(val => that.$t(langPrefix + val));
+        that.xData = response.data.data.labels;
       }).catch(function (error) {
         console.log(error);
       })
@@ -93,6 +92,8 @@ export default {
 
       .apexcharts-canvas {
         position: unset;
+        margin-right: auto;
+        margin-left: auto;
       }
 
       .apexcharts-legend {

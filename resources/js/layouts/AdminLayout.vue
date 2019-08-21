@@ -219,23 +219,29 @@
                             icon: 'icon-user',
                             title: this.$t('menu.users'),
                             permission: this.$permissions.list.user,
-                            children: [{
-                                title: this.$t('menu.admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'administrator'
-                                    }
+                            route: {
+                                name: 'adminUsers',
+                                query: {
+                                    roles: ['super_admin', 'administrator'],
                                 }
-                            }, {
-                                title: this.$t('menu.super_admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'super_admin'
-                                    }
-                                }
-                            }]
+                            }
+                            // children: [{
+                            //     title: this.$t('menu.admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'administrator'
+                            //         }
+                            //     }
+                            // }, {
+                            //     title: this.$t('menu.super_admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'super_admin'
+                            //         }
+                            //     }
+                            // }]
                         }];
                 }
                 else if (this.rolename == 'administrator' || this.rolename == 'manager') {
@@ -355,23 +361,26 @@
                             icon: 'icon-user',
                             title: this.$t('menu.users'),
                             permission: this.$permissions.list.user,
-                            children: [{
-                                title: this.$t('menu.admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'administrator'
-                                    }
-                                }
-                            }, {
-                                title: this.$t('menu.super_admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'super_admin'
-                                    }
-                                }
-                            }]
+                            route: {
+                                name: 'adminUsers'
+                            }
+                            // children: [{
+                            //     title: this.$t('menu.admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'administrator'
+                            //         }
+                            //     }
+                            // }, {
+                            //     title: this.$t('menu.super_admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'super_admin'
+                            //         }
+                            //     }
+                            // }]
                         }];
                 }
                 
