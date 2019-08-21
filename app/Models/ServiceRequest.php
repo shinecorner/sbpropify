@@ -315,14 +315,14 @@ class ServiceRequest extends AuditableModel implements HasMedia
      * @var array
      */
     protected $auditEvents = [
-        AuditableModel::AuditCreated,
-        AuditableModel::AuditUpdated,
-        AuditableModel::AuditDeleted,
-        AuditableModel::AuditUserAssigned => 'getUserAssignedEventAttributes',
-        AuditableModel::AuditUserUnassigned => 'getUserUnassignedEventAttributes',
-        AuditableModel::AuditProvidedAssigned => 'getProviderAssignedEventAttributes',
-        AuditableModel::AuditProviderUnassigned => 'getProviderUnassignedEventAttributes',
-        AuditableModel::AuditProviderNotified => 'getProviderNotifiedEventAttributes'
+        AuditableModel::EventCreated,
+        AuditableModel::EventUpdated,
+        AuditableModel::EventDeleted,
+        AuditableModel::EventUserAssigned => 'getUserAssignedEventAttributes',
+        AuditableModel::EventUserUnassigned => 'getUserUnassignedEventAttributes',
+        AuditableModel::EventProviderAssigned => 'getProviderAssignedEventAttributes',
+        AuditableModel::EventProviderUnassigned => 'getProviderUnassignedEventAttributes',
+        AuditableModel::EventProviderNotified => 'getProviderNotifiedEventAttributes'
     ];
 
     protected $syncAuditable = [
@@ -340,9 +340,9 @@ class ServiceRequest extends AuditableModel implements HasMedia
         static::belongsToManyDetached(function ( $relation, $parent, $ids, $attributes) {
             $auditType  = '';
             if ('assignees' == $relation) {
-                $auditType = AuditableModel::AuditUserUnassigned;
+                $auditType = AuditableModel::EventUserUnassigned;
             } elseif ('providers' == $relation) {
-                $auditType = AuditableModel::AuditProviderUnassigned;
+                $auditType = AuditableModel::EventProviderUnassigned;
             }
 
             self::auditManyRelations($relation, $parent, $ids, $auditType);
@@ -351,9 +351,9 @@ class ServiceRequest extends AuditableModel implements HasMedia
         static::belongsToManyAttached(function ( $relation, $parent, $ids, $attributes) {
             $auditType  = '';
             if ('assignees' == $relation) {
-                $auditType = AuditableModel::AuditUserAssigned;
+                $auditType = AuditableModel::EventUserAssigned;
             } elseif ('providers' == $relation) {
-                $auditType = AuditableModel::AuditProvidedAssigned;
+                $auditType = AuditableModel::EventProviderAssigned;
             }
 
             self::auditManyRelations($relation, $parent, $ids, $auditType);
@@ -397,9 +397,9 @@ class ServiceRequest extends AuditableModel implements HasMedia
      */
     public function getProviderNotifiedEventAttributes(): array
     {
-        $sp = $this->notifyAuditData['serviceProvider'];
-        $assignees = $this->notifyAuditData['assignees'];
-        $mailDetails = $this->notifyAuditData['mailDetails'];
+        $sp = $this->auditData['serviceProvider'];
+        $assignees = $this->auditData['assignees'];
+        $mailDetails = $this->auditData['mailDetails'];
         $assignersData = [];
         foreach ($assignees as $assignee) {
             $assignersData[] = [
@@ -407,7 +407,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
                 'user_name' => $assignee->name,
             ];
         }
-        unset($this->notifyAuditData);
+        unset($this->auditData);
         return [
             [],
             [
@@ -418,6 +418,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
                 'email_cc' => $mailDetails['cc'],
                 'email_bcc' => $mailDetails['bcc'],
                 'email_to' => $mailDetails['to'],
+                'email_body' => $mailDetails['body'],
             ]
         ];
     }

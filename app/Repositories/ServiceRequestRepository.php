@@ -323,13 +323,12 @@ class ServiceRequestRepository extends BaseRepository
             ->bcc($bccEmails)
             ->send( new NotifyServiceProvider($sp, $sr, $mailDetails));
 
-        $sr->notifyAuditData = [
+        $auditData = [
             'serviceProvider' => $sp,
             'assignees' => $assignees,
             'mailDetails' => $mailDetails
         ];
-
-        Auditor::execute($sr->setAuditEvent(AuditableModel::AuditProviderNotified));
+        $sr->registerAuditEvent(AuditableModel::EventProviderNotified, $auditData);
 
         $u = \Auth::user();
         $conv = $sr->conversationFor($u, $sp->user);
