@@ -187,7 +187,7 @@
             Cropper,
             UploadDocument,
             AddActions,
-            SelectLanguage
+            SelectLanguage,
         },
         data() {
             return {

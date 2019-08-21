@@ -180,5 +180,6 @@ return [
     'user_not_tenant' => 'Cet utilisateur n\'est pas locataire',
     'invalid_code' => 'Le code n\'est pas valide',
     'not_active_tenant' => 'Le locataire n\'est pas actif et ne peut pas changer de mot de passe',
-  ]
+  ],
+  'choose' => 'Choisir'
 ];
