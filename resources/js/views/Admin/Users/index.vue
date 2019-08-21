@@ -85,10 +85,10 @@
                         key: 'role',
                         data: [{
                             id: 'administrator',
-                            name: 'Administrators',
+                            name: this.$t('models.user.administrator'),
                         }, {
                             id: 'super_admin',
-                            name: 'Super Admins'
+                            name: this.$t('models.user.super_admin'),
                         }],
                     },
                 ]
