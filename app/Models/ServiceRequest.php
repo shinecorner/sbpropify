@@ -400,14 +400,16 @@ class ServiceRequest extends AuditableModel implements HasMedia
         $sp = $this->auditData['serviceProvider'];
         $assignees = $this->auditData['assignees'];
         $mailDetails = $this->auditData['mailDetails'];
+        unset($this->auditData);
         $assignersData = [];
+
         foreach ($assignees as $assignee) {
             $assignersData[] = [
                 'user_id' => $assignee->id,
                 'user_name' => $assignee->name,
             ];
         }
-        unset($this->auditData);
+
         return [
             [],
             [

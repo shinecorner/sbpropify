@@ -42,9 +42,8 @@ class AuditableModel extends Model implements Auditable
      */
     public function registerAuditEvent($event, $auditData = [])
     {
-        Auditor::execute($this->setAuditEvent($event));
         $this->setAuditData($auditData);
-
+        Auditor::execute($this->setAuditEvent($event));
     }
 
     /**
@@ -53,7 +52,7 @@ class AuditableModel extends Model implements Auditable
      */
     public function setAuditData($auditData)
     {
-        $this->$auditData = $auditData;
+        $this->auditData = $auditData;
         return $this;
     }
 
