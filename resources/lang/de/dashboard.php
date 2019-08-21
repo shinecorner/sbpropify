@@ -22,6 +22,7 @@ return [
     'tenants_by_title' => 'Anrede',
     'tenants_by_device' => 'Geräte',
     'tenants_by_gender' => 'Demografische Merkmale',
+    'tenants_by_age' => 'Tenants by age',
     'actions' => 'Aktionen',
     'requests' => [
         'requests_with_service_providers' => 'Mit Dienstleister',

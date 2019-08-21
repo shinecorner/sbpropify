@@ -22,6 +22,7 @@ return  [
     'tenants_by_title' => 'Locataires par titre',
     'tenants_by_device' => 'Locataires par appareil',
     'tenants_by_gender' => 'Locataires par sexe',
+    'tenants_by_age' => 'Tenants by age',
     'actions' => 'Actions',
     'requests' => [
       'requests_with_service_providers' => 'Avec les fournisseurs de services',

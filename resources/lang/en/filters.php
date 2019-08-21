@@ -16,4 +16,5 @@ return [
     'created_to' => 'Created to',
     'services' => 'Services',
     'tenant' => 'Tenant',
+    'roles' => 'Roles',
 ];
