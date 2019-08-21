@@ -43,22 +43,22 @@ export default (config = {}) => {
                         icon: 'ti-plus',
                         color: '#003171',
                         value: 0,
-                        description: this.$t('models.building.requestStatuses.total')
+                        description: 'models.building.requestStatuses.total'
                     },{
                         icon: 'ti-plus',
                         color: '#26A65B',
                         value: 0,
-                        description: this.$t('models.building.requestStatuses.solved')
+                        description: 'models.building.requestStatuses.solved'
                     },{
                         icon: 'ti-plus',
                         color: '#26A65B',
                         value: 0,
-                        description: this.$t('models.building.requestStatuses.pending')
+                        description: 'models.building.requestStatuses.pending'
                     },{
                         icon: 'ti-user',
                         color: '#003171',
                         value: 0,
-                        description: this.$t('models.building.assigned_buildings')
+                        description: 'models.building.assigned_buildings'
                     }, ],
                     percentage: {
                         occupied_units: 0,
@@ -130,7 +130,8 @@ export default (config = {}) => {
                 assignmentTypes: ['building', 'district'],
                 assignmentType: 'building',
                 toAssign: '',
-                toAssignList: []
+                toAssignList: [],
+                isFormSubmission: false
             };
         },
         computed: {
@@ -172,6 +173,9 @@ export default (config = {}) => {
             },
             async checkavailabilityEmail(rule, value, callback) {
                 let validateObject = this.model;
+
+                if(this.isFormSubmission == true)
+                    return;
                 
                 if(config.mode == 'add' || ( this.original_email != null && this.original_email !== validateObject.email)) {
                     try {
@@ -238,7 +242,9 @@ export default (config = {}) => {
 
                 mixin.methods = {
                     async submit() {
+                        this.isFormSubmission = true;
                         const valid = await this.form.validate();
+                        this.isFormSubmission = false;
                         if (valid) {
                             this.loading.state = true;
                             try {
@@ -274,12 +280,13 @@ export default (config = {}) => {
                 mixin.methods = {
                     submit() {
                         return new Promise((resolve, reject) => {
+                            this.isFormSubmission = true;
                             this.form.validate(async valid => {
                                 if (!valid) {
                                     resolve(false);
                                     return false;
                                 }
-
+                                this.isFormSubmission = false;
                                 this.loading.state = true;
                                 let {...params} = this.model;
 

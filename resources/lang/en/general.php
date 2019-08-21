@@ -72,7 +72,7 @@ return [
   'password_changed' => 'Password changed successfully',
   'details_saved' => 'Details saved',
   'please_wait' => 'Please wait...',
-  'no_data_available' => 'No data available',
+  'no_data_available' => 'No data available',  
   'upload_error' => "Media upload error",
   'media_not_found' => "Media not found",
   'comment_not_found' => "Comment not found",
@@ -180,5 +180,6 @@ return [
     'user_not_tenant' => 'This user is not tenant',
     'invalid_code' => 'Code is invalid',
     'not_active_tenant' => 'Tenant is not active and can not change password',
-  ]
+  ],
+  'choose' => 'Choose'
 ];

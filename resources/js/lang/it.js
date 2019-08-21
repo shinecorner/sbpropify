@@ -354,6 +354,7 @@ export default {
             managers_assigned: 'Managers assigned',
             occupied_units: "Ocuppied units",
             free_units: "Free units",
+            assigned_buildings: 'Assigned Buildings',
             manager: {
                 unassigned: 'Manager unassigned'
             },
@@ -392,7 +393,9 @@ export default {
                 in_processing: 'In processing requests',
                 reactivated: 'Reactivated requests',
                 done: 'Done requests',
-                archived: 'Archived requests'
+                archived: 'Archived requests',
+                solved: 'Solved Requests',
+                pending:'Pending Request',
             },
             placeholders: {
                 search: 'Search'

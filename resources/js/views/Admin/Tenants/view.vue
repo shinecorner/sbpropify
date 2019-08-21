@@ -66,23 +66,32 @@
                             <el-col :md="13" class="info">
                                 <el-row :gutter="20">
                                     <el-col :sm="8" :xs="12">{{$t('models.tenant.mobile_phone')}}:</el-col>
-                                    <el-col :sm="16" :xs="12" class="text-secondary">
+                                    <el-col v-if="model.mobile_phone === ''" :sm="16" :xs="12" class="text-secondary">
+                                        {{$t('general.no_data_available')}}
+                                    </el-col>
+                                    <el-col v-else :sm="16" :xs="12" class="text-secondary">
                                         {{model.mobile_phone}}
                                     </el-col>
                                 </el-row>
 
                                 <el-row :gutter="20">
                                     <el-col :sm="8" :xs="12">{{$t('models.tenant.private_phone')}}:</el-col>
-                                    <el-col :sm="16" :xs="12" class="text-secondary">
-                                        {{ model.private_phone }}
+                                    <el-col v-if="model.private_phone === ''" :sm="16" :xs="12" class="text-secondary">
+                                        {{$t('general.no_data_available')}}
                                     </el-col>
+                                    <el-col v-else :sm="16" :xs="12" class="text-secondary">
+                                        {{model.private_phone}}
+                                    </el-col>                                    
                                 </el-row>
 
                                 <el-row :gutter="20">
                                     <el-col :sm="8" :xs="12">{{$t('models.tenant.work_phone')}}:</el-col>
-                                    <el-col :sm="16" :xs="12" class="text-secondary">
-                                        {{ model.work_phone}}
+                                     <el-col v-if="model.work_phone === ''" :sm="16" :xs="12" class="text-secondary">
+                                        {{$t('general.no_data_available')}}
                                     </el-col>
+                                    <el-col v-else :sm="16" :xs="12" class="text-secondary">
+                                        {{model.work_phone}}
+                                    </el-col>                                    
                                 </el-row>
 
                                 <el-row :gutter="20">

@@ -8,9 +8,7 @@
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
-                <card :loading="loading">
-                    <p class="dividerletter">{{this.$t('models.district.details')}}</p>
-                    <el-divider class="column-divider"></el-divider>
+                <card :loading="loading" :header="$t('models.district.details')">
                     <el-form :model="model" label-width="192px" ref="form">
                         <el-form-item label="Name" :rules="validationRules.name"
                                     prop="name">
@@ -36,9 +34,7 @@
                 </card>
             </el-col>
             <el-col :md="12">
-                <card :loading="loading">
-                    <p class="dividerletter">{{this.$t('models.district.buildings')}}</p>
-                    <el-divider class="column-divider"></el-divider>
+                <card :loading="loading" :header="$t('models.district.buildings')">
                     <relation-list
                         :columns="districtColumns"
                         :filterValue="model.id"
@@ -97,7 +93,7 @@
                 }],
                 requestTenantAvatars: [{
                     prop: 'avatar',
-                    label: this.$t('models.building.tenants')
+                    label: this.$t('models.request.tenant')
                 }],
             }
         },

@@ -117,7 +117,8 @@ export default (config = {}) => {
                     buildings: [],
                     districts: []
                 },
-                remoteLoading: false
+                remoteLoading: false,
+                isFormSubmission: false,
             };
         },
         computed: {
@@ -163,6 +164,9 @@ export default (config = {}) => {
             async checkavailabilityEmail(rule, value, callback) {
                 let validateObject = this.model;
                 
+                if(this.isFormSubmission == true)
+                    return;
+    
                 if(config.mode == 'add' || ( this.original_email != null && this.original_email !== validateObject.user.email)) {
                     try {
                         const resp = await axios.get('users/check-email?email=' + validateObject.user.email);                
@@ -244,7 +248,9 @@ export default (config = {}) => {
 
                 mixin.methods = {
                     async submit() {
+                        this.isFormSubmission = true;
                         const valid = await this.form.validate();
+                        this.isFormSubmission = false;
                         if (valid) {
                             this.loading.state = true;
                             try {
@@ -279,11 +285,13 @@ export default (config = {}) => {
                 mixin.methods = {
                     submit() {
                         return new Promise((resolve, reject) => {
+                            this.isFormSubmission = true;
                             this.form.validate(async valid => {
                                 if (!valid) {
                                     resolve(false);
                                     return
                                 }
+                                this.isFormSubmission = false;
                                 this.loading.state = true;
                                 let {...params} = this.model;
 

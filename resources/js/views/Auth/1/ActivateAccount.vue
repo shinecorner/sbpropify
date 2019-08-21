@@ -78,7 +78,9 @@
             })
         },
         mounted() {
-            this.model.act_code = this.$route.query.code;
+            if(this.$route.query.code){
+                this.model.act_code = this.$route.query.code;
+            }  
         },
         methods: {
             submit() {

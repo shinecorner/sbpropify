@@ -136,9 +136,7 @@
                 </card>
             </el-col>
             <el-col :md="12">
-                <card>
-                    <p class="dividerletter">{{$t('models.request.images')}}</p>
-                    <el-divider class="column-divider"></el-divider>
+                <card :header="$t('models.request.images')">
                     <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
                     <div class="mt15">
                         <request-media :data="media" @deleteMedia="deleteMedia" v-if="media.length"></request-media>

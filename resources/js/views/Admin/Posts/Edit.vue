@@ -110,9 +110,9 @@
                     </el-card>
 
                     <el-card :loading="loading" v-if="!model.pinned && (!model.tenant)">
-                        <el-divider class="column-divider" content-position="left">
-                            {{$t('models.post.assignment')}}
-                        </el-divider>
+                        <div slot="header" class="clearfix">
+                            <span>{{$t('models.post.assignment')}}</span>
+                        </div>
                         <assignment-by-type
                             :resetToAssignList="resetToAssignList"
                             :assignmentType.sync="assignmentType"
@@ -238,7 +238,9 @@
                     <el-card :loading="loading" class="contact-info-card mb20">
                         <el-row  :gutter="30" class="contact-info-card-row">
                             <el-col class="contact-info-card-col" :md="8">
-                                <span class="custom-label">{{$t('models.post.user')}}</span>
+                                <span class="custom-label">
+                                    <i class="icon-user"></i>&nbsp;{{$t('models.post.user')}}
+                                </span>
                                 <br>
                                 <span v-if="model.user">
                                     <router-link :to="{name: 'adminUsersEdit', params: {id: model.user.id}}" class="tenant-link">
@@ -255,15 +257,19 @@
                                 </span>
                             </el-col>                            
                             <el-col class="contact-info-card-col" :md="8">
-                                <span class="custom-label">{{$t('models.post.published_at')}}</span>
+                                <span class="custom-label">
+                                    <i class="icon-paper-plane"></i>&nbsp;{{$t('models.post.published_at')}}
+                                </span>
                                 <br>
                                 <span class="custom-value" v-if="model.published_at">
-                                        {{this.formatDatetime(model.published_at)}}
-                                    </span>
+                                    {{this.formatDatetime(model.published_at)}}
+                                </span>
                                 <span class="custom-value" v-else>-</span>
                             </el-col>
                             <el-col class="contact-info-card-col" :md="8">
-                                <span class="custom-label">{{$t('models.post.comments')}}</span>
+                                <span class="custom-label">
+                                    <i class="icon-chat"></i>&nbsp;{{$t('models.post.comments')}}
+                                </span>
                                 <br>
                                 <span class="custom-value">
                                     {{model.comments_count}}
@@ -272,14 +278,18 @@
                         </el-row>     
                         <el-row  :gutter="30" class="contact-info-card-row">
                             <el-col class="contact-info-card-col" :md="8">
-                                <span class="custom-label">{{$t('models.post.likes')}}</span>
+                                <span class="custom-label">
+                                    <i class="icon-thumbs-up"></i>&nbsp;{{$t('models.post.likes')}}
+                                </span>
                                 <br>
                                 <span class="custom-value">
                                     {{model.likes_count}}
                                 </span>    
                             </el-col>
                             <el-col class="contact-info-card-col" :md="8">
-                                <span class="custom-label">{{$t('models.post.views')}}</span>
+                                <span class="custom-label">
+                                    <i class="icon-eye"></i>&nbsp;{{$t('models.post.views')}}
+                                </span>
                                 <br>
                                 <span class="custom-value">
                                     {{model.views}}
@@ -344,9 +354,9 @@
                     </el-card>
 
                     <el-card class="mt15" v-if="model.id && !model.pinned">
-                        <el-divider class="column-divider" content-position="left">
-                            {{$t('models.post.comments')}}
-                        </el-divider>
+                        <div slot="header" class="clearfix">
+                            <span>{{$t('models.post.comments')}}</span>
+                        </div>
                         <chat class="edit-post-chat" :id="model.id" size="480px" type="post"/>
                     </el-card>
                 </el-col>

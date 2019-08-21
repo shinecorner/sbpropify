@@ -134,9 +134,7 @@
                         </el-tabs>
                     </el-col>
                     <el-col :md="12">
-                        <card :loading="loading">
-                            <p class="dividerletter">{{$t('models.post.assignment')}}</p>
-                            <el-divider class="column-divider"></el-divider>
+                        <card :loading="loading" :header="$t('models.post.assignment')">
                             
                             <assignment-by-type
                                 :resetToAssignList="resetToAssignList"
@@ -158,10 +156,7 @@
                                 v-if="model.id"
                             />
                         </card>
-                        <card :loading="loading" class="mt15">
-                            <p class="dividerletter">{{$t('models.propertyManager.requests')}}</p>
-                            <el-divider class="column-divider"></el-divider>
-
+                        <card :loading="loading" class="mt15" :header="$t('models.propertyManager.requests')">
                             <relation-list
                                 :actions="requestActions"
                                 :columns="requestColumns"
@@ -231,7 +226,7 @@
                 }],
                 requestTenantAvatars: [{
                     prop: 'avatar',
-                    label: this.$t('models.building.tenants')
+                    label: this.$t('models.request.tenant')
                 }],
                 assignmentsColumns: [{
                     prop: 'name',

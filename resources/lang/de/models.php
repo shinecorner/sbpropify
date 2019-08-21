@@ -86,7 +86,7 @@ return [
       'private_phone' => 'Telefon privat',
       'created_date' => 'Erstelldatum',
       'created_at' => 'Datum',
-      'edit' => 'Öffnen',
+      'edit' => 'Bearbeiten',
       'delete' => 'Löschen',
       'id' => 'ID',
       'details' => 'Details',
@@ -296,6 +296,8 @@ return [
         'reactivated' => 'Reaktiviert',
         'done' => 'Erledigt',
         'archived' => 'Archiviert',
+        'solved' => "Gelöste Anfragen",
+        'pending' => "Ausstehende Anfragen"
       ],
       'placeholders' => 
       [
@@ -312,6 +314,7 @@ return [
         'delete_requests' => 'Löschen',
         'dont_delete_requests' => 'Nicht löschen',
       ],
+      'assigned_buildings' => 'Zugeordnete Gebäude'
     ],
     'unit' => 
     [

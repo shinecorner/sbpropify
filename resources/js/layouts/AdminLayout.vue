@@ -105,7 +105,11 @@
                 dropdownwidth: 0,
                 currActive: '',
                 requests: [],
-                requests_num: null,
+                all_request_count: null,
+                all_pending_count: null,
+                all_unassigned_count: null,
+                my_request_count: null,
+                my_pending_count: null,
                 rolename: null
             }
         },
@@ -153,21 +157,21 @@
                             children: [{
                                 title: this.$t('menu.all_requests'),
                                 permission: this.$permissions.list.request,
-                                value: this.requests_num,
+                                value: this.all_request_count,
                                 route: {
                                     name: 'adminRequests'
                                 }
                             },  {
                                 title: this.$t('menu.notAssigned'),
                                 permission: this.$permissions.list.request,
-                                value: 4,
+                                value: this.all_unassigned_count,
                                 route: {
                                     name: ''
                                 }
                             },  {
                                 title: this.$t('menu.allPendingRequests'),
                                 permission: this.$permissions.list.request,
-                                value: 5,
+                                value: this.all_pending_count,
                                 route: {
                                     name: ''
                                 }
@@ -219,23 +223,29 @@
                             icon: 'icon-user',
                             title: this.$t('menu.users'),
                             permission: this.$permissions.list.user,
-                            children: [{
-                                title: this.$t('menu.admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'administrator'
-                                    }
+                            route: {
+                                name: 'adminUsers',
+                                query: {
+                                    roles: ['super_admin', 'administrator'],
                                 }
-                            }, {
-                                title: this.$t('menu.super_admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'super_admin'
-                                    }
-                                }
-                            }]
+                            }
+                            // children: [{
+                            //     title: this.$t('menu.admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'administrator'
+                            //         }
+                            //     }
+                            // }, {
+                            //     title: this.$t('menu.super_admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'super_admin'
+                            //         }
+                            //     }
+                            // }]
                         }];
                 }
                 else if (this.rolename == 'administrator' || this.rolename == 'manager') {
@@ -275,35 +285,35 @@
                             children: [{
                                 title: this.$t('menu.all_requests'),
                                 permission: this.$permissions.list.request,
-                                value: this.requests_num,
+                                value: this.all_request_count,
                                 route: {
                                     name: 'adminRequests'
                                 }
                             },  {
                                 title: this.$t('menu.myRequests'),
                                 permission: this.$permissions.cleanify_request.list,
-                                value: 1,
+                                value: this.my_request_count,
                                 route: {
                                     name: 'adminRequests'
                                 }
                             },  {
                                 title: this.$t('menu.myPendingRequests'),
                                 permission: this.$permissions.cleanify_request.list,
-                                value: 3,
+                                value: this.my_pending_count,
                                 route: {
                                     name: 'adminRequests'
                                 }
                             },  {
                                 title: this.$t('menu.notAssigned'),
                                 permission: this.$permissions.list.request,
-                                value: 4,
+                                value: this.all_unassigned_count,
                                 route: {
                                     name: 'adminRequests'
                                 }
                             },  {
                                 title: this.$t('menu.allPendingRequests'),
                                 permission: this.$permissions.list.request,
-                                value: 5,
+                                value: this.all_pending_count,
                                 route: {
                                     name: 'adminRequests'
                                 }
@@ -355,23 +365,26 @@
                             icon: 'icon-user',
                             title: this.$t('menu.users'),
                             permission: this.$permissions.list.user,
-                            children: [{
-                                title: this.$t('menu.admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'administrator'
-                                    }
-                                }
-                            }, {
-                                title: this.$t('menu.super_admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'super_admin'
-                                    }
-                                }
-                            }]
+                            route: {
+                                name: 'adminUsers'
+                            }
+                            // children: [{
+                            //     title: this.$t('menu.admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'administrator'
+                            //         }
+                            //     }
+                            // }, {
+                            //     title: this.$t('menu.super_admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'super_admin'
+                            //         }
+                            //     }
+                            // }]
                         }];
                 }
                 
@@ -518,9 +531,14 @@
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
             
         },
+        
         async created(){
-            const requests = await this.axios.get('requests?&page=1&per_page=20');
-            this.requests_num = requests.data.data.total;
+            const requestsCounts = await this.axios.get('requestsCounts');
+            this.all_request_count = requestsCounts.data.data.all_request_count;
+            this.all_pending_count = requestsCounts.data.data.all_pending_request_count;
+            this.all_unassigned_count = requestsCounts.data.data.all_unassigned_request_count;
+            this.my_request_count = requestsCounts.data.data.my_request_count;
+            this.my_pending_count = requestsCounts.data.data.my_pending_request_count;
         }
 
 
@@ -626,7 +644,6 @@
             cursor: pointer;
             .avatar {
                 margin-right: 3%;
-                border: solid #c2c2c2 2px;
                 background-color: rgb(205, 220, 57)!important;
                 color: white !important;
             }
@@ -694,8 +711,8 @@
                 position: relative;
 
                 span{
-                    width: 100%;
-                    height: 100%;
+                    width: 102%;
+                    height: 102%;
                     position: absolute;
                     top: 50%;
                     left: 50%;

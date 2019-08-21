@@ -244,7 +244,9 @@
                         />
                     </el-tab-pane>
                 </el-tabs>
-                <raw-grid-statistics-card :cols="8" :data="statistics.raw"/>
+                <div>
+                    <raw-grid-statistics-card :cols="8" :data="statistics.raw"/>
+                </div>
                 <el-row :gutter="15" type="flex">
                     <el-col :span="12">
                         <circular-progress-statistics-card
@@ -363,7 +365,7 @@
                 }],
                 requestTenantAvatars: [{
                     prop: 'avatar',
-                    label: this.$t('models.building.tenants')
+                    label: this.$t('models.request.tenant')
                 }],
                 toAssignList: [],
                 toAssign: '',

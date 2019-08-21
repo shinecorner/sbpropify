@@ -72,7 +72,7 @@ return [
   'password_changed' => 'Password modificata con successo',
   'details_saved' => 'Dettagli salvati',
   'please_wait' => 'Attendere per favore...',
-  'no_data_available' => 'Nessun dato disponibile',
+  'no_data_available' => 'Nessun dato disponibile',  
   'upload_error' => "Errore di caricamento dei media",
   'media_not_found' => "Media non trovati",
   'comment_not_found' => "Commento non trovato",
@@ -180,5 +180,6 @@ return [
     'user_not_tenant' => 'Questo utente non è inquilino',
     'invalid_code' => 'Il codice non è valido',
     'not_active_tenant' => 'L\'inquilino non è attivo e non può cambiare la password',
-  ]
+  ],
+  'choose' => 'Scegliere'
 ];

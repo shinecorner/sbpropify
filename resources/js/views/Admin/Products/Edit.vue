@@ -86,7 +86,9 @@
                 <card :loading="loading" class="mb20 contact-info-card">
                     <el-row  :gutter="30" class="contact-info-card-row">
                         <el-col class="contact-info-card-col" :md="8">
-                            <span class="custom-label">{{$t('models.product.user')}}</span>
+                            <span class="custom-label">
+                                <i class="icon-user"></i>&nbsp;{{$t('models.product.user')}}
+                            </span>
                             <br>
                             <span class="custom-value" v-if="model.user">
                                 <router-link :to="{name: 'adminUsersEdit', params: {id: model.user.id}}" class="tenant-link">
@@ -104,7 +106,9 @@
                         </el-col>
 
                         <el-col class="contact-info-card-col" :md="8">
-                            <span class="custom-label">{{$t('models.product.contact')}}</span>
+                            <span class="custom-label">
+                                <i class="icon-contacts"></i>&nbsp;{{$t('models.product.contact')}}
+                            </span>
                             <br>
                             <span>
                                 {{model.contact}}
@@ -112,7 +116,9 @@
                         </el-col>
 
                         <el-col class="contact-info-card-col" :md="8">
-                            <span class="custom-label">{{$t('models.product.published_at')}}</span>
+                            <span class="custom-label">
+                                <i class="icon-paper-plane"></i>&nbsp;{{$t('models.product.published_at')}}
+                            </span>
                             <br>
                             <span class="custom-value" v-if="model.published_at">
                                     {{model.published_at}}
@@ -130,7 +136,9 @@
                     </el-row>
                      <el-row  :gutter="30" class="contact-info-card-row">
                         <el-col class="contact-info-card-col" :md="8">
-                            <span class="custom-label">{{$t('models.product.likes')}}</span>
+                            <span class="custom-label">
+                                <i class="icon-thumbs-up"></i>&nbsp;{{$t('models.product.likes')}}
+                            </span>
                             <br>
                             <span class="custom-value">
                                 {{model.likes_count}}
@@ -138,7 +146,9 @@
                         </el-col>
 
                         <el-col class="contact-info-card-col" :md="8">
-                            <span class="custom-label">{{$t('models.product.comments')}}</span>
+                            <span class="custom-label">
+                                <i class="icon-chat"></i>&nbsp;{{$t('models.product.comments')}}
+                            </span>
                             <br>
                             <span class="custom-value">
                                 {{model.comments_count}}
@@ -164,20 +174,14 @@
                         </el-col>-->
                     </el-row> 
                 </card>
-                <card :loading="loading">
-                    <p class="dividerletter">{{$t('models.request.images')}}</p>
-                    <el-divider class="column-divider"></el-divider>
-                    
+                <card :loading="loading" :header="$t('models.request.images')">
                     <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
                     <div class="mt15">
                         <request-media :data="[...model.media, ...media]" @deleteMedia="deleteMedia"
                                                        v-if="media.length || (model.media && model.media.length)"></request-media>
                     </div>
                 </card>
-                <card class="mt15" v-if="model.id">
-                    <p class="dividerletter">{{$t('models.product.comments')}}</p>
-                    <el-divider class="column-divider"></el-divider>
-                    
+                <card class="mt15" v-if="model.id" :header="$t('models.product.comments')">
                     <chat :id="model.id" type="product"/>
                 </card>
             </el-col>
