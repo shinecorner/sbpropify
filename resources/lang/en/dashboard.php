@@ -22,6 +22,7 @@ return [
     'tenants_by_title' => 'Tenants by title',
     'tenants_by_device' => 'Tenants by device',
     'tenants_by_gender' => 'Tenants by gender',
+    'tenants_by_age' => 'Tenants by age',
     'actions' => 'Actions',
     'requests' => [
       'requests_with_service_providers' => 'With service providers',
