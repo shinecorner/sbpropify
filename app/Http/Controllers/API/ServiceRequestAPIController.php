@@ -8,6 +8,8 @@ use App\Criteria\Common\WhereInCriteria;
 use App\Criteria\ServiceRequests\FilterByInternalFieldsCriteria;
 use App\Criteria\ServiceRequests\FilterByPermissionsCriteria;
 use App\Criteria\ServiceRequests\FilterByRelatedFieldsCriteria;
+use App\Criteria\ServiceRequests\FilterNotAssignedCriteria;
+use App\Criteria\ServiceRequests\FilterPendingCriteria;
 use App\Criteria\ServiceRequests\FilterPublicCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\ServiceRequest\AssignRequest;
@@ -92,6 +94,8 @@ class ServiceRequestAPIController extends AppBaseController
         $this->serviceRequestRepository->pushCriteria(new FilterByInternalFieldsCriteria($request));
         $this->serviceRequestRepository->pushCriteria(new FilterPublicCriteria($request));
         $this->serviceRequestRepository->pushCriteria(new FilterByRelatedFieldsCriteria($request));
+        $this->serviceRequestRepository->pushCriteria(new FilterPendingCriteria($request));
+        $this->serviceRequestRepository->pushCriteria(new FilterNotAssignedCriteria($request));
 
         $getAll = $request->get('get_all', false);
         if ($getAll) {
