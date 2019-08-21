@@ -180,5 +180,6 @@ return [
     'user_not_tenant' => 'This user is not tenant',
     'invalid_code' => 'Code is invalid',
     'not_active_tenant' => 'Tenant is not active and can not change password',
-  ]
+  ],
+  'choose' => 'Choose'
 ];
