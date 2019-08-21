@@ -114,11 +114,11 @@
                 remoteLoading: false,
                 delBuildingStatus: -1, // 0: unit, 1: request, 2: both
                 header: [{
-                    label: this.$t('models.request.address'),
+                    label: 'models.request.address',
                     withMultipleProps: true,
                     props: ['address_row', 'address_zip']
                 }, {
-                    label: this.$t('models.building.units'),
+                    label: 'models.building.units',
                     withMultipleProps: true,
                     withLinks: true,
                     route: {
@@ -130,17 +130,17 @@
                     },
                     props: ['units_count']
                 }, {
-                    label: this.$t('models.building.tenants'),
+                    label: 'models.building.tenants',
                     withUsers: true,
                     count: 'tenantscount',
                     prop: 'tenants'
                 }, {
-                    label: this.$t('models.building.managers'),
+                    label: 'models.building.managers',
                     withUsers: true,
                     prop: 'managers',
                     count: 'managerscount'
                 }, {
-                    label: this.$t('models.building.requests'),
+                    label: 'models.building.requests',
                     withCounts: true,
                     counts: [
                         {
@@ -184,7 +184,7 @@
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        title: this.$t('models.service.edit'),
+                        title: 'models.service.edit',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.building

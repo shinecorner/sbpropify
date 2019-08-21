@@ -52,17 +52,17 @@
                 isReady: false,
                 fetchParams: {},
                 header: [{
-                    label: this.$t('models.template.name'),
+                    label: 'models.template.name',
                     prop: 'name'
                 }, {
-                    label: this.$t('models.template.category'),
+                    label: 'models.template.category',
                     prop: 'category.name'
                 }, {
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
                         type: 'success',
-                        title: this.$t('models.template.edit'),
+                        title: 'models.template.edit',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.template

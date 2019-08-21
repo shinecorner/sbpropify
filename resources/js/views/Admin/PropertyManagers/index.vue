@@ -102,16 +102,16 @@
         data() {
             return {
                 header: [{
-                    label: this.$t('models.propertyManager.name'),
+                    label: 'models.propertyManager.name',
                     prop: 'name'
                 }, {
-                    label: this.$t('models.propertyManager.email'),
+                    label: 'models.propertyManager.email',
                     prop: 'user.email'
                 }, {
-                    label: this.$t('models.propertyManager.phone'),
+                    label: 'models.propertyManager.phone',
                     prop: 'user.phone'
                 },  {
-                    label: this.$t('models.building.requests'),
+                    label: 'models.building.requests',
                     withCounts: true,
                     
                 }, 
@@ -119,7 +119,7 @@
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        title: this.$t('models.propertyManager.edit'),
+                        title: 'models.propertyManager.edit',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.propertyManager
