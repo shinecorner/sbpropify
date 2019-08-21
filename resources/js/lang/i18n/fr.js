@@ -292,7 +292,7 @@ export default {
             "created_from": "Créé à partir de",
             "created_to": "Créé pour",
             "services": "Prestations de services",
-            "tenant": "Type de locataires"
+            "tenant": "Locataire"
         },
         "pagination": {
             "previous": "&laquo; Précédent",

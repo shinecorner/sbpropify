@@ -15,5 +15,5 @@ return [
     'created_from' => 'Created from',
     'created_to' => 'Created to',
     'services' => 'Services',
-    'tenant' => 'Type tenants',
+    'tenant' => 'Tenant',
 ];
