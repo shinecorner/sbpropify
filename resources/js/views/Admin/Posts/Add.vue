@@ -89,10 +89,7 @@
 
                 </el-col>
                 <el-col :md="12">
-                    <card :loading="loading" class="mb20">
-                        <p class="dividerletter">{{$t('models.post.buildings')}}</p>
-                        <el-divider class="column-divider"></el-divider>
-                    
+                    <card :loading="loading" class="mb20" :header="$t('models.post.buildings')">
                         <el-row :gutter="10">
                             <el-col :lg="6">
                                 <el-select @change="resetToAssignList"

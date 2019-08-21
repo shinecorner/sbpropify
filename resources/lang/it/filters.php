@@ -15,5 +15,6 @@ return [
     'created_from' => 'Creato da',
     'created_to' => 'Creato per',
     'services' => 'Servizi',
-    'tenant' => 'Tipo inquilini', 
+    'tenant' => 'Inquilino', 
+    'roles' => 'Roles',
 ];

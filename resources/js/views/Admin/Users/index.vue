@@ -1,6 +1,6 @@
 <template>
     <div class="services">
-        <heading icon="icon-user" :title="this.$route.query.role == 'administrator' ? $t('models.user.administrator') : $t('models.user.super_admin') " shadow="heavy">
+        <heading icon="icon-user" :title="'Administrators' " shadow="heavy">
             <template v-if="$can($permissions.create.user)">
                 <el-button @click="add" icon="ti-plus" round size="mini" type="primary">{{$t('general.actions.add')}}</el-button>
             </template>
@@ -79,7 +79,18 @@
                         type: 'text',
                         icon: 'el-icon-search',
                         key: 'search'
-                    }
+                    }, {
+                        name: this.$t('filters.roles'),
+                        type: 'select',
+                        key: 'role',
+                        data: [{
+                            id: 'administrator',
+                            name: this.$t('models.user.administrator'),
+                        }, {
+                            id: 'super_admin',
+                            name: this.$t('models.user.super_admin'),
+                        }],
+                    },
                 ]
             },
         },

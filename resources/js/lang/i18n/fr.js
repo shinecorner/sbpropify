@@ -42,6 +42,7 @@ export default {
             "tenants_by_title": "Locataires par titre",
             "tenants_by_device": "Locataires par appareil",
             "tenants_by_gender": "Locataires par sexe",
+            "tenants_by_age": "Tenants by age",
             "actions": "Actions",
             "requests": {
                 "requests_with_service_providers": "Avec les fournisseurs de services",
@@ -292,7 +293,8 @@ export default {
             "created_from": "Créé à partir de",
             "created_to": "Créé pour",
             "services": "Prestations de services",
-            "tenant": "Type de locataires"
+            "tenant": "Locataire",
+            "roles": "Roles"
         },
         "pagination": {
             "previous": "&laquo; Précédent",

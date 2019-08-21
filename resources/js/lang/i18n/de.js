@@ -42,6 +42,7 @@ export default {
             "tenants_by_title": "Anrede",
             "tenants_by_device": "Geräte",
             "tenants_by_gender": "Demografische Merkmale",
+            "tenants_by_age": "Tenants by age",
             "actions": "Aktionen",
             "requests": {
                 "requests_with_service_providers": "Mit Dienstleister",
@@ -292,7 +293,8 @@ export default {
             "created_from": "Erstellt vom",
             "created_to": "Erstellt bis",
             "services": "Partnerfirmen",
-            "tenant": "Mieter-Typ"
+            "tenant": "Mieter",
+            "roles": "Roles"
         },
         "pagination": {
             "previous": "&laquo; Zurück",

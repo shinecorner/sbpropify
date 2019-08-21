@@ -123,9 +123,7 @@
                 </card>
             </el-col>
             <el-col :md="12">
-                <card :loading="loading">
-                    <p class="dividerletter">{{$t('models.unit.requests')}}</p>
-                    <el-divider class="column-divider"></el-divider>
+                <card :loading="loading" :header="$t('models.unit.requests')">
                     <relation-list
                         :actions="requestActions"
                         :columns="requestColumns"
@@ -137,9 +135,7 @@
                 </card>
             </el-col>
             <el-col :md="12">
-                <card class="mt15" :loading="loading">
-                    <p class="dividerletter">{{$t('models.post.assignment')}}</p>
-                    <el-divider class="column-divider"></el-divider>
+                <card class="mt15" :loading="loading" :header="$t('models.post.assignment')">
                     <assignment
                         :toAssign.sync="toAssign"
                         :assign="assignTenant"
