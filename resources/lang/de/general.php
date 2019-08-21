@@ -181,5 +181,7 @@ return [
     'invalid_code' => 'Der Code ist ungültig',
     'not_active_tenant' => 'Der Mieter ist nicht aktiv und kann das Passwort nicht ändern.',
   ],
-  'choose' => 'Auswählen'
+  'choose' => 'Auswählen',
+  'page_not_found' => 'Seite nicht gefunden',
+  'home' => 'Zu hause',
 ];

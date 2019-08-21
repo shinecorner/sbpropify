@@ -5,6 +5,7 @@ import AuthRoutes from './auth/1';
 import Auth2Routes from './auth/2';
 import TenantRoutes from './tenant';
 import AdminRoutes from './admin';
+import NotFound from './404';
 import store from '@/store';
 import can from 'middlewares/can';
 
@@ -18,7 +19,7 @@ const routes = [{
 }];
 
 const router = new VueRouter({
-    routes: [...routes, ...AuthRoutes, ...Auth2Routes, ...TenantRoutes, ...AdminRoutes],
+    routes: [...routes, ...AuthRoutes, ...Auth2Routes, ...TenantRoutes, ...AdminRoutes, ...NotFound],
     mode: 'history',
     linkActiveClass: 'active',
     scrollBehavior: (to, from, savedPosition) => savedPosition || {x: 0, y: 0}

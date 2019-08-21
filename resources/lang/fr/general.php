@@ -181,5 +181,7 @@ return [
     'invalid_code' => 'Le code n\'est pas valide',
     'not_active_tenant' => 'Le locataire n\'est pas actif et ne peut pas changer de mot de passe',
   ],
-  'choose' => 'Choisir'
+  'choose' => 'Choisir',
+  'page_not_found' => 'Page non trouvée',
+  'home' => 'Chez-soi',
 ];
