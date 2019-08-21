@@ -27,21 +27,29 @@
                                         </el-form-item>
                                     </el-col>
                                     <el-col :md="12">
-                                        <el-form-item :label="$t('models.propertyManager.firstName')"
-                                                      :rules="validationRules.first_name"
-                                                      prop="first_name">
-                                            <el-input type="text" v-model="model.first_name"/>
+                                        <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" 
+                                                prop="settings.language">
+                                            <select-language :model.sync="model.settings.language"/>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
 
                                 <el-row :gutter="20">
                                     <el-col :md="12">
-                                        <el-form-item :label="$t('models.propertyManager.lastName')"
-                                                      :rules="validationRules.last_name"
-                                                      prop="last_name">
-                                            <el-input type="text" v-model="model.last_name"/>
-                                        </el-form-item>
+                                        <el-col :md="12">
+                                            <el-form-item :label="$t('models.propertyManager.firstName')"
+                                                        :rules="validationRules.first_name"
+                                                        prop="first_name">
+                                                <el-input type="text" v-model="model.first_name"/>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :md="12">
+                                            <el-form-item :label="$t('models.propertyManager.lastName')"
+                                                        :rules="validationRules.last_name"
+                                                        prop="last_name">
+                                                <el-input type="text" v-model="model.last_name"/>
+                                            </el-form-item>
+                                        </el-col>
                                     </el-col>
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.propertyManager.profession')"
@@ -103,10 +111,6 @@
                                     <img :src="`/${model.user.avatar}?${Date.now()}`"
                                          style="width: 100%;max-width: 200px;"
                                          v-if="!avatar.length && model.user.avatar">
-                                </el-form-item>
-                                <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" 
-                                        prop="settings.language">
-                                    <select-language :model.sync="model.settings.language"/>
                                 </el-form-item>
                             </el-tab-pane>
                             <el-tab-pane :label="$t('models.propertyManager.social_card')" name="social">
@@ -186,9 +190,9 @@
     import EditActions from 'components/EditViewActions';
     import {mapGetters, mapActions} from 'vuex';
     import globalFunction from "helpers/globalFunction";
-    import SelectLanguage from 'components/SelectLanguage';
     import AssignmentByType from 'components/AssignmentByType';
     import RawGridStatisticsCard from 'components/RawGridStatisticsCard';
+    import SelectLanguage from 'components/SelectLanguage';
 
     export default {
         name: 'AdminPropertyManagersEdit',
@@ -201,9 +205,9 @@
             Cropper,
             RelationList,
             EditActions,
-            SelectLanguage,
             AssignmentByType,
-            RawGridStatisticsCard
+            RawGridStatisticsCard,
+            SelectLanguage
         },
         data() {
             return {

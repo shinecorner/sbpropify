@@ -45,7 +45,7 @@
                             </el-form-item>
                             <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language"
                                           prop="settings.language">
-                                <select-language :model.sync="model.settings.language"/>
+                                <drop-language :model.sync="model.settings.language"/>
                             </el-form-item>
                         </card>
                         <card class="mt15" :loading="loading" :header="$t('models.tenant.contact_info_card')">
