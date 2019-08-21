@@ -539,18 +539,6 @@ class ServiceRequestAPIController extends AppBaseController
         $mailDetails = $request->only(['title', 'to', 'cc', 'bcc', 'body']);
         $this->serviceRequestRepository->notifyProvider($sr, $sp, $assignees, $mailDetails);
 
-        $a = $this->newRequestAudit($sr->id);
-        $a->event = 'provider_notified';
-        $a->new_values = [
-            'provider_id' => $sp->id,
-            'provider_name' => $sp->name,
-            'email_title' => $mailDetails['title'],
-            'emai_cc' => $mailDetails['cc'],
-            'emai_bcc' => $mailDetails['bcc'],
-            'emai_to' => $mailDetails['to'],
-        ];
-        $a->save();
-
         return $this->sendResponse($sr, __('models.request.mail.success'));
     }
 

@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Models\AuditableModel;
+use OwenIt\Auditing\Facades\Auditor;
 use App\Mails\NotifyServiceProvider;
 use App\Models\Comment;
 use App\Models\PropertyManager;
@@ -320,6 +322,14 @@ class ServiceRequestRepository extends BaseRepository
             ->cc($ccEmails)
             ->bcc($bccEmails)
             ->send( new NotifyServiceProvider($sp, $sr, $mailDetails));
+
+        $sr->notifyAuditData = [
+            'serviceProvider' => $sp,
+            'assignees' => $assignees,
+            'mailDetails' => $mailDetails
+        ];
+
+        Auditor::execute($sr->setAuditEvent(AuditableModel::AuditProviderNotified));
 
         $u = \Auth::user();
         $conv = $sr->conversationFor($u, $sp->user);

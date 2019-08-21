@@ -10,6 +10,15 @@ class AuditableModel extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
 
+    const AuditCreated = 'created';
+    const AuditUpdated = 'updated';
+    const AuditDeleted = 'deleted';
+    const AuditUserAssigned = 'user_assigned';
+    const AuditUserUnassigned = 'user_unassigned';
+    const AuditProvidedAssigned = 'provider_assigned';
+    const AuditProviderUnassigned = 'provider_unassigned';
+    const AuditProviderNotified = 'provider_notified';
+
     /**
      * @param $relation
      * @param $parent
