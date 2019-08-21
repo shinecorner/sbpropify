@@ -1,10 +1,10 @@
 <template>
     <div class="settings">
+        <heading :title="$t('models.realEstate.title')" class="custom-heading" icon="ti-settings" shadow="heavy" />
+
         <el-tabs class="settings-tabs" tab-position="left" v-model="activeName">
             <el-tab-pane name="settings">
                 <template slot="label"><i class="icon icon-cog"></i>{{$t('models.realEstate.settings')}}</template>
-
-                <heading :title="$t('models.realEstate.title')" class="custom-heading" icon="ti-settings" shadow="heavy" />
 
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
                     <el-tabs type="border-card" v-model="activeSettingsName">
@@ -335,7 +335,7 @@
             <el-tab-pane name="requests">
                 <template slot="label"><i class="icon icon-chat-empty"></i>{{$t('models.realEstate.requests')}}</template>
 
-                <heading :title="$t('models.realEstate.requests')" class="custom-heading" icon="ti-settings" shadow="heavy" />
+<!--                <heading :title="$t('models.realEstate.requests')" class="custom-heading" icon="ti-settings" shadow="heavy" />-->
 
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
                     <el-tabs type="border-card" v-model="activeRequestName">
@@ -544,7 +544,7 @@
 
     .settings-tabs.el-tabs.el-tabs--left {
         overflow: auto;
-        height: 100%;
+        height: calc(100% - 100px);
         > .el-tabs__header.is-left {
             position: sticky;
             top: 0;
@@ -579,9 +579,6 @@
     .dashboard-tabpanel_left {
         .el-tabs__nav {
             margin: 1.5rem auto 1.5em 0;
-        }
-        .el-tabs__content {
-            overflow: visible;
         }
         .save-tab {
             position: absolute;
@@ -656,7 +653,7 @@
     }
 
     .settings {
-        min-height: calc(100% - 105px);
+        min-height: calc(100% - 56px - 2rem);
 
         .requestCategories {
             .heading {

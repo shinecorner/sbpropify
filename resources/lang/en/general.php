@@ -181,5 +181,7 @@ return [
     'invalid_code' => 'Code is invalid',
     'not_active_tenant' => 'Tenant is not active and can not change password',
   ],
-  'choose' => 'Choose'
+  'choose' => 'Choose',
+  'page_not_found' => 'Page not found',
+  'home' => 'Home',
 ];

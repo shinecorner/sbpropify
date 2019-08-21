@@ -373,17 +373,8 @@
                 deleteBuildingVisible: false,
                 multiple: true,
                 delBuildingStatus: -1, // 0: unit, 1: request, 2: both
-                contactEnableValues: [{
-                    value: 2,
-                    label: this.$t('settings.contact_enable.show'),
-                }, {
-                    value: 3,
-                    label: this.$t('settings.contact_enable.hide'),
-                }],
+                contactUseGlobalAddition: ''
             };
-        },
-        async created() {
-            await this.fetchRealEstate();
         },
         methods: {
             ...mapActions([
@@ -400,10 +391,7 @@
             ]),
             fetchRealEstate() {
                 this.getRealEstate().then((resp) => {
-                    this.contactEnableValues.unshift({
-                        value: 1,
-                        label: `${this.$t('settings.contact_enable.use_global')} (${resp.data.contact_enable ? this.$t('settings.contact_enable.show') : this.$t('settings.contact_enable.hide')})`,
-                    });
+                    this.contactUseGlobalAddition = resp.data.contact_enable ? this.$t('settings.contact_enable.show') : this.$t('settings.contact_enable.hide');
                 }).catch((error) => {
                     displayError(error);
                 });
@@ -640,6 +628,19 @@
             },
             tenantStatusConstants() {
                 return this.constants.tenants.status
+            },
+            contactEnableValues() {
+                this.fetchRealEstate();
+                return [{
+                    value: 1,
+                    label: `${this.$t('settings.contact_enable.use_global')} (${this.contactUseGlobalAddition})`,
+                }, {
+                    value: 2,
+                    label: this.$t('settings.contact_enable.show'),
+                }, {
+                    value: 3,
+                    label: this.$t('settings.contact_enable.hide'),
+                }]
             }
         }
     }
