@@ -28,13 +28,14 @@ export default {
   computed:{
     chartOptions: function(){
       let responsive = [{
-        breakpoint: 2000,
+        breakpoint: 1500,
         options: {
           chart: {
-            width: '80%',
+            width: '100%',
             height: 'auto'
           },
           legend: {
+            position: 'bottom',
             horizontalAlign: 'center',
             width: undefined
           }
@@ -45,7 +46,7 @@ export default {
         responsive: responsive,
         chart:{
           toolbar: this.toolbar,
-          width: '80%',
+          width: '100%',
           height: 320
         },
         plotOptions: {
