@@ -22,13 +22,13 @@ return [
     'tenants_by_title' => 'Anrede',
     'tenants_by_device' => 'Geräte',
     'tenants_by_gender' => 'Demografische Merkmale',
-    'tenants_by_age' => 'Tenants by age',
+    'tenants_by_age' => 'Altersgruppen',
     'actions' => 'Aktionen',
     'requests' => [
         'requests_with_service_providers' => 'Mit Dienstleister',
         'request_wihout_service_providers' => 'Ohne Dienstleister',
-        'property_managers' => 'Bewirtschafter',
-        'service_partners' => 'Dienstleister',
+        'property_managers' => 'Bewirtschafter mit Anfragen',
+        'service_partners' => 'Dienstleister mit Anfragen',
         'go_to_property_managers' => 'zu den Bewirtschaftern gehen',
         'go_to_service_partners' => 'zu den Dienstleistern gehen'
       ],
