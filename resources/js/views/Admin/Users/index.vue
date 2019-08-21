@@ -50,19 +50,19 @@
         data() {
             return {
                 header: [{
-                    label: this.$t('models.user.name'),
+                    label: 'models.user.name',
                     prop: 'name'
                 }, {
-                    label: this.$t('models.user.email'),
+                    label: 'models.user.email',
                     prop: 'email'
                 }, {
-                    label: this.$t('models.user.phone'),
+                    label: 'models.user.phone',
                     prop: 'phone'
                 }, {
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        title: this.$t('models.user.edit_action'),
+                        title: 'models.user.edit_action',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.user

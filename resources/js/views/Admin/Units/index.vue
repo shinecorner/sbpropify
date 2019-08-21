@@ -65,32 +65,32 @@
                 districts:{},
                 buildings:{},
                 header: [{
-                    label: this.$t('models.unit.name'),
+                    label: 'models.unit.name',
                     prop: 'name'
                 }, {
-                    label: this.$t('models.unit.building'),
+                    label: 'models.unit.building',
                     prop: 'building.name'
                 }, {
-                    label: this.$t('models.unit.type.label'),
-                    prop: 'typeLabel'
+                    label: 'models.unit.type.label',
+                    prop: 'formatted_type_label'
                 }, {
-                    label: this.$t('models.unit.floor'),
+                    label: 'models.unit.floor',
                     prop: 'floor'
                 }, {
-                    label: this.$t('models.unit.room_no'),
+                    label: 'models.unit.room_no',
                     prop: 'room_no'
                 }, {
-                    label: this.$t('models.unit.monthly_rent'),
+                    label: 'models.unit.monthly_rent',
                     prop: 'monthly_rent'
                 }, {
-                    label: this.$t('models.unit.tenant'),
+                    label: 'models.unit.tenant',
                     withUsers: true,
                     prop: 'tenants'
                 }, {
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        title: this.$t('models.unit.edit'),
+                        title: 'models.unit.edit',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.unit
@@ -134,7 +134,7 @@
             },
             formattedItems() {
                 return this.items.map((unit) => {
-                    unit.typeLabel = this.$t(`models.unit.type.${unit.typeLabel}`);
+                    unit.formatted_type_label = this.$t(`models.unit.type.${unit.typeLabel}`);
                     return unit
                 })
             },
