@@ -130,7 +130,8 @@ export default (config = {}) => {
                 assignmentTypes: ['building', 'district'],
                 assignmentType: 'building',
                 toAssign: '',
-                toAssignList: []
+                toAssignList: [],
+                isFormSubmission: false
             };
         },
         computed: {
@@ -172,6 +173,9 @@ export default (config = {}) => {
             },
             async checkavailabilityEmail(rule, value, callback) {
                 let validateObject = this.model;
+
+                if(this.isFormSubmission == true)
+                    return;
                 
                 if(config.mode == 'add' || ( this.original_email != null && this.original_email !== validateObject.email)) {
                     try {
@@ -238,7 +242,9 @@ export default (config = {}) => {
 
                 mixin.methods = {
                     async submit() {
+                        this.isFormSubmission = true;
                         const valid = await this.form.validate();
+                        this.isFormSubmission = false;
                         if (valid) {
                             this.loading.state = true;
                             try {
@@ -274,12 +280,13 @@ export default (config = {}) => {
                 mixin.methods = {
                     submit() {
                         return new Promise((resolve, reject) => {
+                            this.isFormSubmission = true;
                             this.form.validate(async valid => {
                                 if (!valid) {
                                     resolve(false);
                                     return false;
                                 }
-
+                                this.isFormSubmission = false;
                                 this.loading.state = true;
                                 let {...params} = this.model;
 

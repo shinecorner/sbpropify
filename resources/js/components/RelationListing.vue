@@ -210,12 +210,12 @@
             editLink(row, column, cell, event) {
                 if(column.property === 'name')
                 {
-                    let id = row.id;
+                    let edit_id = row.edit_id;
                     if(row.type == 'user') {
-                        this.$router.push({ name: 'adminPropertyManagersEdit', params: { id } });
+                        this.$router.push({ name: 'adminPropertyManagersEdit', params: { id: edit_id } });
                     }
                     else if(row.type == 'provider') {
-                        this.$router.push({ name: 'adminServicesEdit', params: { id } });
+                        this.$router.push({ name: 'adminServicesEdit', params: { id: edit_id } });
                     }
                 }
             }
