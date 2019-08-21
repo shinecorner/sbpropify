@@ -1,5 +1,24 @@
 <template>
-    <progress-bar :label="'abc'" :value="50" :maxValue="100" :color="'#f56c6c'" ></progress-bar>
+    <div v-if="startDate" class="progress-bar-container">
+        <div class="chart-filter in-toolbar">              
+            <custom-date-range-picker 
+                rangeType="all"
+                :initialRange="dateRange"
+                :pickHandler="pickHandler"
+                :style="{display: showPicker ? 'inline-flex' : 'none'}"
+                :startDate="startDate"
+            />
+            <div class="show-button" v-if="!showPicker" @click="handleShowClick(true)"><i class="el-icon-date"></i></div>
+            <div class="hide-button" v-if="showPicker" @click="handleShowClick(false)"><i class="el-icon-circle-close"></i></div>
+        </div>
+        <el-row class="progress-card-body">
+            <el-col :span="24" v-for="(data, index) in yData" :key="index">
+                <div class="progress-bar">
+                    <progress-bar :label="`${xData[index]}`" :value="yData[index]" :maxValue="total" :color="`${colorsPredefined[index%12]}`" ></progress-bar>
+                </div>
+            </el-col>
+        </el-row>       
+    </div>
 </template>
 <script>
 import VueApexCharts from 'vue-apexcharts'
@@ -12,14 +31,22 @@ import ProgressBar from 'components/ProgressBar';
 
 export default {
   components: {
+    'apexchart': VueApexCharts,
+    CustomDateRangePicker,
     ProgressBar
   },
   mixins: [chartMixin()],
   props: {
+      height: {
+          type: Number,
+          default: ()=> {
+              return 400;
+          }
+      }
   },  
   data() {
-    return {        
-    
+    return {      
+          showPicker: false,  
     }
   },
   computed:{
@@ -96,7 +123,10 @@ export default {
                 }
             })
             .then(function (response) {
-                that.yData = response.data.data.data.map(val => parseFloat(val) || 0);
+                that.yData = response.data.data.data.map((val) => {
+                    that.total += parseInt(val);
+                    return parseFloat(val) || 0;
+                });
                 that.xData = response.data.data.labels.map(function(e) {
                     if (langPrefix !== '') {
                         return that.$t(langPrefix + e);
@@ -114,72 +144,25 @@ export default {
         }
     },
     watch: {
-    
+      'startDate': function(val) {
+          if (val) {
+            this.dateRange = [val, format(new Date(), 'DD.MM.YYYY')];
+            this.fetchData();
+          }
+      }
     }
 }
 </script>
-<style lang="scss">
-    .chart-card {
-        @media screen and (max-width: 1200px) {
-            .piechart .apexcharts-canvas {
-                margin-top: 30px;
-            }
-        }
-
-        @media screen and (max-width: 1650px) {
-            &.col-3 .piechart .apexcharts-canvas {
-                margin-top: 30px;
-            }
-        }
-        .piechart {
-            //max-height: 420px;
-            position: relative;
-
-            .apexcharts-canvas {
-                position: unset;
-            }
-
-            .apexcharts-legend {
-                display: flex;
-                //flex-direction: column;
-                justify-content: center !important;
-            }
-
-            .chart-filter {
-                &.in-toolbar {
-                    right: 40px;
-                }
-
-                .show-button {
-                    cursor: pointer;
-                    padding: 5px 0;
-                    color: #6E8192;
-                    font-size: 17px;
-
-                    &:hover {
-                        color: #333;
-                    }
-                }
-
-                .hide-button {
-                    cursor: pointer;
-                    position: absolute;
-                    padding: 7px;
-                    top: 0;
-                    right: 0;
-                    color: #C0C4CC;
-
-                    &:hover {
-                        color: #333;
-                    }
-                }
-                .el-input__icon.el-range__close-icon {
-                    display: none;
-                }
-
-                .el-range-editor {
-                    padding-right: 15px;
-                }
+<style lang="scss" scoped>
+    .progress-bar-container {
+        .progress-card-body {
+            height: 400px;
+            overflow: auto;
+            padding: 20px;
+            .progress-bar {
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-right: 30px;
             }
         }
     }

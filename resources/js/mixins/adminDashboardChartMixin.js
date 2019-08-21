@@ -15,6 +15,7 @@ export default () => {
         dateRange: null,
         xData: [],
         yData: [],
+        total: 0,
         toolbar: {
           show: true,
           tools: {

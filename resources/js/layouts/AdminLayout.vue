@@ -223,23 +223,29 @@
                             icon: 'icon-user',
                             title: this.$t('menu.users'),
                             permission: this.$permissions.list.user,
-                            children: [{
-                                title: this.$t('menu.admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'administrator'
-                                    }
+                            route: {
+                                name: 'adminUsers',
+                                query: {
+                                    roles: ['super_admin', 'administrator'],
                                 }
-                            }, {
-                                title: this.$t('menu.super_admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'super_admin'
-                                    }
-                                }
-                            }]
+                            }
+                            // children: [{
+                            //     title: this.$t('menu.admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'administrator'
+                            //         }
+                            //     }
+                            // }, {
+                            //     title: this.$t('menu.super_admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'super_admin'
+                            //         }
+                            //     }
+                            // }]
                         }];
                 }
                 else if (this.rolename == 'administrator' || this.rolename == 'manager') {
@@ -359,23 +365,26 @@
                             icon: 'icon-user',
                             title: this.$t('menu.users'),
                             permission: this.$permissions.list.user,
-                            children: [{
-                                title: this.$t('menu.admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'administrator'
-                                    }
-                                }
-                            }, {
-                                title: this.$t('menu.super_admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'super_admin'
-                                    }
-                                }
-                            }]
+                            route: {
+                                name: 'adminUsers'
+                            }
+                            // children: [{
+                            //     title: this.$t('menu.admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'administrator'
+                            //         }
+                            //     }
+                            // }, {
+                            //     title: this.$t('menu.super_admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'super_admin'
+                            //         }
+                            //     }
+                            // }]
                         }];
                 }
                 
@@ -635,7 +644,6 @@
             cursor: pointer;
             .avatar {
                 margin-right: 3%;
-                border: solid #c2c2c2 2px;
                 background-color: rgb(205, 220, 57)!important;
                 color: white !important;
             }
@@ -703,8 +711,8 @@
                 position: relative;
 
                 span{
-                    width: 100%;
-                    height: 100%;
+                    width: 102%;
+                    height: 102%;
                     position: absolute;
                     top: 50%;
                     left: 50%;

@@ -180,5 +180,6 @@ return [
     'user_not_tenant' => 'Questo utente non è inquilino',
     'invalid_code' => 'Il codice non è valido',
     'not_active_tenant' => 'L\'inquilino non è attivo e non può cambiare la password',
-  ]
+  ],
+  'choose' => 'Scegliere'
 ];

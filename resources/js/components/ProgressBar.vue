@@ -3,7 +3,7 @@
          <el-row :gutter="24" type="flex">
             <el-col :span="12">
                 <div class="progress-label">
-                    {{ label }}
+                    <span>{{ label }}</span>
                 </div>
             </el-col>
             <el-col :span="12">
@@ -16,6 +16,7 @@
                 </div>
             </el-col>
         </el-row>
+               
     </div>
 </template>
 <script>
@@ -36,7 +37,6 @@ export default {
     },
     data() {
         return {
-
         }
     },
     computed: {
@@ -55,8 +55,13 @@ export default {
             padding: 20 !important;
 
             .progress-label {
-                font-size: 20px;
-                font-weight: 600;
+                display: flex;
+                justify-content: center;
+                font-size: 18px;
+                font-weight: 400;
+                color: darken(#fff, 50%);
+                float: left;
+                padding-right: 10px;
             }
             .progress-bar {
                 width: 100%;

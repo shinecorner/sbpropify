@@ -38,17 +38,41 @@ export default {
     },
     centered: {
         type: Boolean
+    },
+    bottom: {
+        type: Boolean,
+        default: () => {
+            return false;
+        }
     }
   },  
   data() {
     return {        
         chartType: 'pie',
         showPicker: false,
+        windowWidth: window.innerWidth,
+        legendHeight: 380
     }
   },
   computed:{
     chartOptions: function(){
         let responsive = [];
+        if(this.bottom == true) {
+            return {
+                labels: this.xData,
+                legend: {
+                    show: true,
+                    position: 'bottom',
+                    width: (this.windowWidth-400)/this.colNum>400?400:(this.windowWidth-400)/this.colNum-30,
+                },
+                chart:{
+                    toolbar: this.toolbar,
+                    width: (this.windowWidth-400)/this.colNum>400?400:(this.windowWidth-400)/this.colNum,
+                    height: 'auto'
+                },
+                colors: this.colors
+            };
+        } else 
         if(this.colNum == 1) {
             responsive = [{
                 breakpoint: 1900,
@@ -218,6 +242,11 @@ export default {
                 url = 'admin/donutChart?table=tenants&column=title';
                 langPrefix = 'models.tenant.titles.';
             }
+            else if (this.type === 'tenants_by_age') {
+                this.chartType = 'donut';
+                url = 'tenants/age-statistics';
+                langPrefix = '';
+            }
 
             return axios.get(url,{
             	params: {
@@ -250,7 +279,16 @@ export default {
             this.fetchData();
           }
       }
-    }
+    },
+    mounted() {
+        this.$nextTick(() => {
+            window.addEventListener('resize', () => {
+                this.windowWidth = window.innerWidth;
+                if(this.windowWidth < 850)
+                    this.legendHeight = 150;
+            });
+    })
+},
 }
 </script>
 <style lang="scss">
@@ -272,6 +310,8 @@ export default {
 
             .apexcharts-canvas {
                 position: unset;
+                margin-right: auto;
+                margin-left: auto;
             }
 
             .apexcharts-legend {
