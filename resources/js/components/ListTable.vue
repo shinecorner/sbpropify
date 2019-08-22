@@ -116,14 +116,14 @@
 
             <el-table-column
                 :key="column.prop"
-                :label="column.label"
+                :label="$t(column.label)"
                 :prop="column.prop"
                 :width="column.width"
                 v-for="column in headerWithoutActions"/>
 
             <el-table-column
                 :key="column.prop"
-                :label="column.label"
+                :label="$t(column.label)"
                 :width="column.width"
                 v-for="column in headerWithAvatars">
                 
@@ -143,7 +143,7 @@
             
             <el-table-column
                 :key="column.label + key"
-                :label="column.label"
+                :label="$t(column.label)"
                 :width="column.width"
                 v-for="(column, key) in headerWithMultipleProps"
             >
@@ -158,7 +158,7 @@
 
             <el-table-column
                 :key="column.label"
-                :label="column.label"
+                :label="$t(column.label)"
                 :width="column.width"
                 v-for="(column, key) in headerWithCounts">
                 <template slot-scope="scope">
@@ -168,7 +168,7 @@
 
              <el-table-column
                 :key="column.prop"
-                :label="column.label"
+                :label="$t(column.label)"
                 :width="column.width"
                 v-for="(column, key) in headerWithUsers">
                 <template slot-scope="scope">
@@ -205,7 +205,7 @@
             </el-table-column>
             <el-table-column
                 :key="column.prop"
-                :label="column.label"
+                :label="$t(column.label)"
                 :width="column.width"
                 v-for="(column, key) in headerWithBadges">
                 <template slot-scope="scope">
@@ -216,7 +216,7 @@
             </el-table-column>
             <el-table-column
                 :key="column.prop"
-                :label="column.label"
+                :label="$t(column.label)"
                 v-for="(column, key) in headerWithSelect">
                 <template slot-scope="scope">
                     <el-select class="select-icon" :class="column.class" @change="column.select.onChange(scope.row)" v-model="scope.row[column.prop]">
@@ -252,14 +252,14 @@
                             >
                                 <template v-if="action.title == 'Edit'">
                                     <i class="ti-pencil"></i>
-                                    <span>{{action.title}}</span>    
+                                    <span>{{$t(action.title)}}</span>    
                                 </template>
                                 <template v-else-if="action.title == 'Delete'">
                                     <i class="ti-close"></i>
-                                    <span>{{action.title}}</span>    
+                                    <span>{{$t(action.title)}}</span>    
                                 </template>
                                 <template v-else>
-                                    {{action.title}}
+                                    {{$t(action.title)}}
                                 </template>
                             </el-button>
                         </template>

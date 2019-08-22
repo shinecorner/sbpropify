@@ -8,6 +8,8 @@ use App\Criteria\Common\WhereInCriteria;
 use App\Criteria\ServiceRequests\FilterByInternalFieldsCriteria;
 use App\Criteria\ServiceRequests\FilterByPermissionsCriteria;
 use App\Criteria\ServiceRequests\FilterByRelatedFieldsCriteria;
+use App\Criteria\ServiceRequests\FilterNotAssignedCriteria;
+use App\Criteria\ServiceRequests\FilterPendingCriteria;
 use App\Criteria\ServiceRequests\FilterPublicCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\ServiceRequest\AssignRequest;
@@ -92,6 +94,8 @@ class ServiceRequestAPIController extends AppBaseController
         $this->serviceRequestRepository->pushCriteria(new FilterByInternalFieldsCriteria($request));
         $this->serviceRequestRepository->pushCriteria(new FilterPublicCriteria($request));
         $this->serviceRequestRepository->pushCriteria(new FilterByRelatedFieldsCriteria($request));
+        $this->serviceRequestRepository->pushCriteria(new FilterPendingCriteria($request));
+        $this->serviceRequestRepository->pushCriteria(new FilterNotAssignedCriteria($request));
 
         $getAll = $request->get('get_all', false);
         if ($getAll) {
@@ -538,18 +542,6 @@ class ServiceRequestAPIController extends AppBaseController
 
         $mailDetails = $request->only(['title', 'to', 'cc', 'bcc', 'body']);
         $this->serviceRequestRepository->notifyProvider($sr, $sp, $assignees, $mailDetails);
-
-        $a = $this->newRequestAudit($sr->id);
-        $a->event = 'provider_notified';
-        $a->new_values = [
-            'provider_id' => $sp->id,
-            'provider_name' => $sp->name,
-            'email_title' => $mailDetails['title'],
-            'emai_cc' => $mailDetails['cc'],
-            'emai_bcc' => $mailDetails['bcc'],
-            'emai_to' => $mailDetails['to'],
-        ];
-        $a->save();
 
         return $this->sendResponse($sr, __('models.request.mail.success'));
     }
