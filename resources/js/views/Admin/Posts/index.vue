@@ -74,19 +74,19 @@
         data() {
             return {
                 header: [{
-                    label: this.$t('models.post.preview'),
+                    label: 'models.post.preview',
                     prop: 'preview'
                 }, {
-                    label: this.$t('models.user.email'),
+                    label: 'models.user.email',
                     prop: 'user.email'
                 }, {
-                    label: this.$t('models.post.type.label'),
-                    prop: 'type_label'
+                    label: 'models.post.type.label',
+                    prop: 'formatted_type_label'
                 }, {
-                    label: this.$t('models.post.visibility.label'),
-                    prop: 'visibility_label'
+                    label: 'models.post.visibility.label',
+                    prop: 'formatted_visibility_label'
                 }, {
-                    label: this.$t('models.post.status.label'),
+                    label: 'models.post.status.label',
                     prop: 'status',
                     i18nPath: 'models.post.status',
                     class: 'rounded-select',
@@ -110,7 +110,7 @@
                         //     hidden: this.checkPostType
                         // }, 
                         {
-                            title: this.$t('models.post.edit'),
+                            title: 'models.post.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.post
@@ -136,9 +136,9 @@
             }),
             formattedItems() {
                 return this.items.map((post) => {
-                    post.status_label = this.$t(`models.post.status.${post.status_label}`);
-                    post.visibility_label = this.$t(`models.post.visibility.${post.visibility_label}`);
-                    post.type_label = this.$t(`models.post.type.${post.type_label}`);
+                    // post.formatted_status_label = this.$t(`models.post.status.${post.status_label}`);
+                    post.formatted_visibility_label = this.$t(`models.post.visibility.${post.visibility_label}`);
+                    post.formatted_type_label = this.$t(`models.post.type.${post.type_label}`);
                     return post;
                 });
             },

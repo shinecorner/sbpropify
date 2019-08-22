@@ -54,13 +54,13 @@
             return {
                 i18nName: 'district',
                 header: [{
-                    label: this.$t('models.district.name'),
+                    label: 'models.district.name',
                     prop: 'name'
                 }, {
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        title: this.$t('models.district.edit_action'),
+                        title: 'models.district.edit_action',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.district

@@ -70,20 +70,20 @@
         data() {
             return {
                 header: [{
-                    label: this.$t('models.product.product_title'),
+                    label: 'models.product.product_title',
                     prop: 'title'
                 }, {
-                    label: this.$t('models.user.email'),
+                    label: 'models.user.email',
                     prop: 'user.email'
                 }, {
-                    label: this.$t('models.product.type.label'),
-                    prop: 'type_label'
+                    label: 'models.product.type.label',
+                    prop: 'formatted_type_label'
                 }, {
-                    label: this.$t('models.product.visibility.label'),
-                    prop: 'visibility_label'
+                    label: 'models.product.visibility.label',
+                    prop: 'formatted_visibility_label'
                 }, {
-                    label: this.$t('models.product.status.label'),
-                    prop: 'status_label'
+                    label: 'models.product.status.label',
+                    prop: 'formatted_status_label'
                 }, {
                     // width: 170,
                     width: 85,
@@ -97,7 +97,7 @@
                         //     ]
                         // }, 
                         {
-                            title: this.$t('models.product.edit'),
+                            title: 'models.product.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.product
@@ -114,10 +114,10 @@
         },
         computed: {
             formattedItems() {
-                return this.items.map((product) => {
-                    product.status_label = this.$t(`models.product.status.${product.status_label}`);
-                    product.visibility_label = this.$t(`models.product.visibility.${product.visibility_label}`);
-                    product.type_label = this.$t(`models.product.type.${product.type_label}`);
+                return this.items.map((product) => {                    
+                    product.formatted_status_label = this.$t(`models.product.status.${product.status_label}`);
+                    product.formatted_visibility_label = this.$t(`models.product.visibility.${product.visibility_label}`);
+                    product.formatted_type_label = this.$t(`models.product.type.${product.type_label}`);
                     return product
                 });
             },

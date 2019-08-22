@@ -10,6 +10,52 @@ class AuditableModel extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
 
+    const EventCreated = 'created';
+    const EventUpdated = 'updated';
+    const EventDeleted = 'deleted';
+    const EventUserAssigned = 'user_assigned';
+    const EventUserUnassigned = 'user_unassigned';
+    const EventProviderAssigned = 'provider_assigned';
+    const EventProviderUnassigned = 'provider_unassigned';
+    const EventProviderNotified = 'provider_notified';
+    const EventMediaUploaded = 'media_uploaded';
+    const EventMediaDeleted = 'media_deleted';
+
+    const Events = [
+        self::EventCreated,
+        self::EventUpdated,
+        self::EventDeleted,
+        self::EventProviderAssigned,
+        self::EventProviderUnassigned,
+        self::EventProviderNotified,
+        self::EventUserAssigned,
+        self::EventUserUnassigned,
+        self::EventMediaUploaded,
+        self::EventMediaDeleted,
+    ];
+
+    protected $auditData;
+
+    /**
+     * @param $event
+     * @param array $auditData
+     */
+    public function registerAuditEvent($event, $auditData = [])
+    {
+        $this->setAuditData($auditData);
+        Auditor::execute($this->setAuditEvent($event));
+    }
+
+    /**
+     * @param $auditData
+     * @return $this
+     */
+    public function setAuditData($auditData)
+    {
+        $this->auditData = $auditData;
+        return $this;
+    }
+
     /**
      * @param $relation
      * @param $parent

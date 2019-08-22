@@ -19,17 +19,17 @@ export default (config = {}) => {
                         icon: 'ti-user',
                         color: '#003171',
                         value: 0,
-                        description: this.$t('dashboard.tenants.total_tenants')
+                        description: 'dashboard.tenants.total_tenants'
                     }, {
                         icon: 'ti-plus',
                         color: '#26A65B',
                         value: 0,
-                        description: this.$t('models.tenant.status.active')
+                        description: 'models.tenant.status.active'
                     },{
                         icon: 'ti-plus',
                         color: '#26A65B',
                         value: 0,
-                        description: this.$t('models.tenant.status.not_active')
+                        description: 'models.tenant.status.not_active'
                     }],
                     percentage: {
                         occupied_units: 0,

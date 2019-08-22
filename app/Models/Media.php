@@ -13,8 +13,8 @@ class Media extends SpatieMedia implements Auditable
      * @var array
      */
     protected $auditEvents = [
-        'media_uploaded',
-        'media_deleted',
+        AuditableModel::EventMediaUploaded,
+        AuditableModel::EventMediaDeleted,
     ];
 
     /**
@@ -38,11 +38,11 @@ class Media extends SpatieMedia implements Auditable
         parent::boot();
 
         static::created(function ($model) {
-            Auditor::execute($model->setAuditEvent('media_uploaded'));
+            Auditor::execute($model->setAuditEvent(AuditableModel::EventMediaUploaded));
         });
 
         static::deleted(function ($model) {
-            Auditor::execute($model->setAuditEvent('media_deleted'));
+            Auditor::execute($model->setAuditEvent(AuditableModel::EventMediaDeleted));
         });
     }
 

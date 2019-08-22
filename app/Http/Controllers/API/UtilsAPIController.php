@@ -118,13 +118,7 @@ class UtilsAPIController extends AppBaseController
 
     private static function getAuditConstants()
     {
-        $events = [
-            'created', 'updated', 'deleted',
-            'provider_unassigned', 'provider_assigned', 'provider_notified',
-            'user_unassigned', 'user_assigned',
-            'media_uploaded', 'media_deleted',
-        ];
-
+        $events = App\Models\AuditableModel::Events;
         return array_combine($events, $events);
     }
 

@@ -17,8 +17,8 @@ return [
   'contact_enable' =>
     [
       'label' => 'Meine Kontakte aktivieren',
-      'use_global' => 'Verwenden Sie global',
-      'show' => 'Show',
-      'hide' => 'Мerbergen',
+      'use_global' => 'Globale Einstellung verwenden',
+      'show' => 'Zeigen',
+      'hide' => 'Verbergen ',
     ],
 ];
