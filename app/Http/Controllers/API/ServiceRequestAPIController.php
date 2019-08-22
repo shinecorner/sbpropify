@@ -222,7 +222,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $serviceRequest->load([
-            'media', 'tenant.user', 'tenant.building', 'category', 'assignees',
+            'media', 'tenant.user', 'tenant.building', 'category', 'managers.user',
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers.user',
         ]);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
@@ -300,7 +300,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $updatedServiceRequest->load([
-            'media', 'tenant.user', 'category', 'assignees',
+            'media', 'tenant.user', 'category', 'managers.user',
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers.user',
         ]);
         $response = (new ServiceRequestTransformer)->transform($updatedServiceRequest);
@@ -538,10 +538,10 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.provider_not_found'));
         }
 
-        $assignees = $uRepo->findWhereIn('id', $request->assignee_ids ?? []);
+        $propertyManagerUsers = $uRepo->findWhereIn('id', $request->assignee_ids ?? []);
 
         $mailDetails = $request->only(['title', 'to', 'cc', 'bcc', 'body']);
-        $this->serviceRequestRepository->notifyProvider($sr, $sp, $assignees, $mailDetails);
+        $this->serviceRequestRepository->notifyProvider($sr, $sp, $propertyManagerUsers, $mailDetails);
 
         return $this->sendResponse($sr, __('models.request.mail.success'));
     }
@@ -652,7 +652,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $sr->providers()->detach($sp);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
-            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'assignees');
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user');
 
         return $this->sendResponse($sr, __('models.request.detached.service'));
     }
@@ -761,7 +761,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $sr->assignees()->detach($u);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
-            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'assignees');
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user');
 
         return $this->sendResponse($sr, __('models.request.detached.user'));
     }

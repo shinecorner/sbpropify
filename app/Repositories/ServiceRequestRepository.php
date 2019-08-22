@@ -300,17 +300,17 @@ class ServiceRequestRepository extends BaseRepository
     /**
      * @param ServiceRequest $sr
      * @param ServiceProvider $sp
-     * @param $assignees
+     * @param $propertyManagerUsers
      * @param $mailDetails
      */
-    public function notifyProvider(ServiceRequest $sr, ServiceProvider $sp, $assignees, $mailDetails)
+    public function notifyProvider(ServiceRequest $sr, ServiceProvider $sp, $propertyManagerUsers, $mailDetails)
     {
         $toEmails = [$sp->user->email];
         if (!empty($mailDetails['to'])) {
             $toEmails[] = $mailDetails['to'];
         }
 
-        $ccEmails = $assignees->pluck('email')->all();
+        $ccEmails = $propertyManagerUsers->pluck('email')->all();
 
         if (!empty($mailDetails['cc']) && is_array($mailDetails['cc'])) {
             $ccEmails = array_merge($ccEmails, $mailDetails['cc']);
@@ -325,7 +325,7 @@ class ServiceRequestRepository extends BaseRepository
 
         $auditData = [
             'serviceProvider' => $sp,
-            'assignees' => $assignees,
+            'propertyManagerUsers' => $propertyManagerUsers,
             'mailDetails' => $mailDetails
         ];
         $sr->registerAuditEvent(AuditableModel::EventProviderNotified, $auditData);
@@ -334,8 +334,8 @@ class ServiceRequestRepository extends BaseRepository
         $conv = $sr->conversationFor($u, $sp->user);
         $comment = $mailDetails['title'] . "\n\n" . strip_tags($mailDetails['body']);
         $conv->comment($comment);
-        foreach ($assignees as $assignee) {
-            $conv = $sr->conversationFor($u, $assignee);
+        foreach ($propertyManagerUsers as $user) {
+            $conv = $sr->conversationFor($u, $user);
             if ($conv) {
                 $conv->comment($comment);
             }
