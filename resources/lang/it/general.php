@@ -182,6 +182,9 @@ return [
     'not_active_tenant' => 'L\'inquilino non è attivo e non può cambiare la password',
   ],
   'choose' => 'Scegliere',
-  'page_not_found' => 'Pagina non trovata',
-  'home' => 'A casa',
+  'page_not_found' => [
+    'title'   => "C'e' qualcosa che non va qui.",
+    'message' => "La pagina richiesta non è stata trovata. Controlla l'URL o vai alla homepage."
+  ],
+  'to_homepage' => 'Alla Homepage',
 ];

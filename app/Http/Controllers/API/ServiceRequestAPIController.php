@@ -1054,10 +1054,12 @@ class ServiceRequestAPIController extends AppBaseController
      */
     public function requestsCounts(SeeRequestsCount $request)
     {
+        $this->serviceRequestRepository->pushCriteria(new WhereCriteria('status', '!=', ServiceRequest::StatusArchived));
         $requestCount = $this->serviceRequestRepository->count();
 
         $this->serviceRequestRepository->resetCriteria();
         $this->serviceRequestRepository->doesntHave('assignees');
+        $this->serviceRequestRepository->pushCriteria(new WhereCriteria('status', '!=', ServiceRequest::StatusArchived));
         $notAssignedRequestsCount = $this->serviceRequestRepository->count();
 
         $pendingStatues = ServiceRequest::PendingStatuses;
@@ -1076,6 +1078,7 @@ class ServiceRequestAPIController extends AppBaseController
         if ($user->propertyManager()->exists()) {
 
             $this->serviceRequestRepository->resetCriteria();
+            $this->serviceRequestRepository->pushCriteria(new WhereCriteria('status', '!=', ServiceRequest::StatusArchived));
             $this->serviceRequestRepository->whereHas('assignees', function ($q) use ($user) {
                 $q->where('id', $user->id);
             });
