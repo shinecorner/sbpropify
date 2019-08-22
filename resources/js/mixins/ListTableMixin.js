@@ -7,6 +7,7 @@ export default ({
                     actions: {
                         delete: deleteAction,
                         get: getAction,
+                        
                         getParams
                     },
                     getters: {

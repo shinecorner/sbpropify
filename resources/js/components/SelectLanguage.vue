@@ -1,10 +1,7 @@
 <template>
-    <el-select style="display: block" :value="model" @input="$emit('update:model', $event)" placeholder="Select Language">
-        <template slot="prefix">
-            <span class="flag-icon flag-icon-us" v-if="showFlag && this.model == 'en'"></span>
-            <span class="flag-icon flag-icon-fr" v-if="showFlag && this.model == 'fr'"></span>
-            <span class="flag-icon flag-icon-it" v-if="showFlag && this.model == 'it'"></span>
-            <span class="flag-icon flag-icon-de" v-if="showFlag && this.model == 'de'"></span>
+    <el-select style="display: block" :value="model" @input="$emit('update:model', $event)" :placeholder="$t(`general.chooseLanguage`)">
+        <template slot="prefix" v-for="(language, index) in languages">
+            <span :class="language.flag" v-if="showFlag && this.model == language.symbol" :key="index"></span>
         </template>
         <el-option :label="language.name" :value="language.symbol" v-for="language in languages" :key="language.symbol">
             <span :class="language.flag" v-if="showFlag"></span>&nbsp;&nbsp;{{$t(`general.languages.`+ language.symbol)}}
@@ -45,6 +42,7 @@ export default {
                 flag: flag
             }
         });
+        console.log(this.languages);
     },
 
 }
