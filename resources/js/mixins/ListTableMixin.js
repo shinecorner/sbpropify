@@ -36,9 +36,26 @@ export default ({
         }) {
             try {
                 this.loading = true;
+                let assignee_id = this.$store.getters.loggedInUser.id;
 
                 if (getParams) {
                     params = {...params, ...getParams};
+                }
+
+                if( this.$route.name == "adminAllpendingRequests") {
+                    params = {...params, pending_request : true };
+                }
+
+                if( this.$route.name == "adminUnassignedRequests") {
+                    params = {...params, not_assigned : true };
+                }
+
+                if( this.$route.name == "adminMyRequests") {
+                    params = {...params, assignee_id : assignee_id};
+                }
+
+                if( this.$route.name == "adminMypendingRequests") {
+                    params = {...params, assignee_id : assignee_id, pending_request : true };
                 }
 
                 await this[getAction](params)

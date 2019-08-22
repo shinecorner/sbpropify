@@ -441,6 +441,7 @@
                 this.search = '';
             },
             fetch(fetchPage, fetchPerPage) {
+                fetchPerPage = 4;
                 const {
                     page = fetchPage,
                     per_page = fetchPerPage,
@@ -599,6 +600,7 @@
             "$route.query": {
                 immediate: true,
                 handler({page, per_page}, prevQuery) {
+                    
                     if (!page || !per_page && prevQuery) {
                         this.page.currPage = 1;
                         this.page.currSize = 20;

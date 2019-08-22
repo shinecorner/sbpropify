@@ -132,7 +132,6 @@
                 return this.$route.name;
             },
             filters() {
-                console.log(this.routeName);
                 let filters = [];
                 if(this.routeName == 'adminRequests') {
                     filters = [

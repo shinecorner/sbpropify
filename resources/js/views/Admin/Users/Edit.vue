@@ -57,7 +57,7 @@
                     <card :loading="loading">
                         <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" 
                             prop="settings.language">
-                            <select-language :model.sync="model.settings.language"/>
+                            <select-language :activeLanguage.sync="model.settings.language"/>
                         </el-form-item>
                     </card>
                 </el-col>
