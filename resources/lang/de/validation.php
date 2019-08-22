@@ -203,6 +203,6 @@ return [
       'required' => 'Anrede',
     ],
     'terms' => [
-      'required' => 'Please approve with terms and conditions',
+      'required' => 'Bitte genehmigen Sie mit den Allgemeinen Geschäftsbedingungen.',
     ],
 ];

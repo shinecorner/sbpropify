@@ -46,6 +46,8 @@ return [
   'activate_account' => 'Activer un compte',
   'activate_code' => 'Activer le code',
   'activate_code_required' => 'Activer le code est nécessaire',
+  'activate_terms_condition_1' => "Je suis d'accord que les détails sont corrects",
+  'activate_terms_condition_2' => "J'ai lu les termes et conditions",
   'back' => 'Retour',
   'activate' => 'Activer',  
   'activate_info' => "Si vous avez reçu un code d'activation de votre propriétaire, vous pouvez activer votre compte ici. Veuillez entrer les données suivantes :",

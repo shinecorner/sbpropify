@@ -46,6 +46,8 @@ return [
   'activate_account' => 'Activate Account',
   'activate_code' => 'Activate Code',
   'activate_code_required' => 'Activate Code is required',
+  'activate_terms_condition_1' => "I agree details are correct",
+  'activate_terms_condition_2' => "I've read terms and conditions",
   'back' => 'Back',
   'activate' => 'Activate',  
   'activate_info' => "If you have received an activation code from your landlord, you can activate your account here. Please enter the following data:",

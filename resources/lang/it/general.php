@@ -46,6 +46,8 @@ return [
   'activate_account' => "Attivare l'account",
   'activate_code' => 'Attivare il codice',
   'activate_code_required' => 'Attivare il codice è obbligatorio',
+  'activate_terms_condition_1' => "Accetto che i dati sono corretti",
+  'activate_terms_condition_2' => "Ho letto i termini e le condizioni d'uso",
   'back' => 'Indietro',
   'activate' => 'Attivare',  
   'activate_info' => "Se hai ricevuto un codice di attivazione dal tuo padrone di casa, puoi attivare il tuo account qui. Inserite i seguenti dati:",
