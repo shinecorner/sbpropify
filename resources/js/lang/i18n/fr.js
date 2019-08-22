@@ -806,7 +806,8 @@ export default {
                     "internal_notice_not_found": "Avis interne non trouvé"
                 },
                 "requestID": "Demande ID",
-                "requestCategory": "Catégorie de demande"
+                "requestCategory": "Catégorie de demande",
+                "actions": "Actions"
             },
             "requestCategory": {
                 "title": "Catégories de demandes",

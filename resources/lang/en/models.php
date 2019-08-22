@@ -893,6 +893,7 @@ return [
       ],
       'requestID' => 'Request ID',
       'requestCategory' => 'Request Category',
+      'actions' => 'Actions',
     ],
     'requestCategory' => 
     [

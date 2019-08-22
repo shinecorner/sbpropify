@@ -806,7 +806,8 @@ export default {
                     "internal_notice_not_found": "Avviso interno non trovato"
                 },
                 "requestID": "Richiedi un documento d'identità",
-                "requestCategory": "Richiedi categoria"
+                "requestCategory": "Richiedi categoria",
+                "actions": "Azioni"
             },
             "requestCategory": {
                 "title": "Richiedi categorie",
