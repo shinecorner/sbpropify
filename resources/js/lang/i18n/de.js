@@ -807,7 +807,8 @@ export default {
                     "internal_notice_not_found": "Interne Benachrichtigung nicht gefunden"
                 },
                 "requestID": "Anfrage-ID",
-                "requestCategory": "Anfrage-Kategorie "
+                "requestCategory": "Anfrage-Kategorie ",
+                "actions": "Aktionen"
             },
             "requestCategory": {
                 "title": "Anfrage Kategorien",

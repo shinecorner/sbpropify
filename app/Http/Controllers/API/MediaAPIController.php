@@ -147,6 +147,11 @@ class MediaAPIController extends AppBaseController
             $data = $request->get('operating_instructions_upload', '');
         }
 
+        if ($request->has('care_instructions_upload')) {
+            $collectionName = 'care_instructions';
+            $data = $request->get('care_instructions_upload', '');
+        }
+
         if ($request->has('other_upload')) {
             $collectionName = 'other';
             $data = $request->get('other_upload', '');

@@ -807,7 +807,8 @@ export default {
                     "internal_notice_not_found": "Internal Notice not found"
                 },
                 "requestID": "Request ID",
-                "requestCategory": "Request Category"
+                "requestCategory": "Request Category",
+                "actions": "Actions"
             },
             "requestCategory": {
                 "title": "Request categories",
