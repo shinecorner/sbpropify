@@ -1,9 +1,11 @@
 <template>
     <div>
         <el-form :model="model" ref="form">
+            <h2>{{$t('general.activate_account')}}</h2>
             <router-link :to="{name: 'login'}" class="el-menu-item-link">
                 <i class="el-icon-back"></i>{{ this.$t("general.back") }}
-            </router-link>
+            </router-link>            
+            <p>{{$t('general.activate_info')}}</p>
             <el-form-item prop="email" :label="$t('general.email')" :rules="validationRules.email">
                 <el-input type="email" v-model="model.email" autocomplete="off"></el-input>
             </el-form-item>
@@ -17,6 +19,9 @@
                 <el-input autocomplete="off" type="password"
                             v-model="model.password_confirmation"></el-input>
             </el-form-item>
+            <el-form-item prop="terms" :rules="validationRules.terms">
+                <el-checkbox v-model="model.terms">{{$t('general.activate_terms_condition_1')}}</el-checkbox>
+            </el-form-item>    
             <el-form-item>
                 <el-button type="primary" class="text-center w100p" @click="submit">{{$t('general.activate')}}</el-button>
             </el-form-item>
@@ -38,7 +43,8 @@
                     email: '',
                     act_code: '',
                     password: '',
-                    password_confirmation: ''
+                    password_confirmation: '',
+                    terms: false,
                 },
                 validationRules: {
                     email: [{
@@ -63,6 +69,10 @@
                         message: this.$t("general.password_validation.required")
                     },{
                         validator: this.validateConfirmPassword,
+                    }],
+                    terms: [{
+                        trigger: 'blue',
+                        validator: this.termValidator
                     }]
                 }
             }
@@ -119,7 +129,14 @@
                 } else {
                     callback();
                 }
-            }
+            },
+            termValidator(rule, value, callback) {
+                if (!value) {
+                    callback(new Error(this.$t('validation.terms.required')));
+                } else {
+                    callback();
+                }
+            },
         },
     }
 </script>
