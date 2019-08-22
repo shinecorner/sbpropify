@@ -469,17 +469,17 @@ class ServiceRequest extends AuditableModel implements HasMedia
         return $this->hasMany(ServiceRequestAssignee::class, 'request_id');
     }
 
-    public function conversations()
-    {
-        return $this->morphMany(Conversation::class, 'conversationable');
-    }
-
     /**
      * @return BelongsToMany
      **/
     public function assignees()
     {
         return $this->belongsToMany(User::class, 'request_assignee', 'request_id', 'user_id');
+    }
+
+    public function conversations()
+    {
+        return $this->morphMany(Conversation::class, 'conversationable');
     }
 
     public function registerMediaCollections()

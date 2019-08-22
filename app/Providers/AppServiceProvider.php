@@ -46,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
             'templates' => Template::class,
             'request' => ServiceRequest::class,
             'manager' => PropertyManager::class,
-            'provider' => ServiceProvider::class,
+            'provider' => \App\Models\ServiceProvider::class,
             'conversation' => Conversation::class,
 
             'post_published' => PostPublished::class,
