@@ -40,22 +40,25 @@ class ServiceRequestTransformer extends BaseTransformer
             $response['solved_date'] = $model->solved_date->format('Y-m-d');
         }
 
+        $assignedUsers = $model->newCollection();
         if ($model->relationExists('providers')) {
+            $assignedUsers = $assignedUsers->merge($model->providers->pluck('user'));
             $response['providers'] = (new ServiceProviderTransformer)->transformCollection($model->providers);
+            $response['service_providers'] = (new ServiceProviderTransformer)->transformCollection($model->providers);
         }
 
-        if ($model->relationExists('assignees')) {
-            $providerUsers = collect();
-            if ($model->relationExists('providers')) {
-                $providerUsers = $model->providers->map(function($p) {
-                    return $p->user;
-                });
-            }
-            $response['assignedUsers'] = (new UserTransformer)
-                ->transformCollection($model->assignees->merge($providerUsers));
-            $response['assignees'] = (new UserTransformer)
-                ->transformCollection($model->assignees);
+        if ($model->relationExists('managers')) {
+            $usersCollection = $model->newCollection($model->managers->pluck('user')->all());
+            $assignedUsers = $assignedUsers->merge($usersCollection);
+
+            $response['property_managers'] = (new UserTransformer)->transformCollection($usersCollection);
+            $response['assignees'] = $response['property_managers']; // @TODO delete
         }
+
+        if ($assignedUsers->count()) {
+            $response['assignedUsers'] = (new UserTransformer)->transformCollection($assignedUsers);
+        }
+
 
         if ($model->relationExists('category')) {
             $response['category'] = (new ServiceRequestCategorySimpleTransformer)->transform($model->category);

@@ -114,7 +114,7 @@ class ServiceRequestAPIController extends AppBaseController
                 'comments.user',
                 'providers.address:id,country_id,state_id,city,street,zip',
                 'providers.user',
-                'assignees',
+                'managers.user',
             ])->paginate($perPage);
 
         $serviceRequests->getCollection()->loadCount('allComments');
