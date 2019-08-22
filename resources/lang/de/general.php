@@ -183,6 +183,9 @@ return [
     'not_active_tenant' => 'Der Mieter ist nicht aktiv und kann das Passwort nicht ändern.',
   ],
   'choose' => 'Auswählen',
-  'page_not_found' => 'Seite nicht gefunden',
-  'home' => 'Zu hause',
+  'page_not_found' => [
+    'title'   => "Hmm… hier stimmt etwas nicht.",
+    'message' => "Die von dir aufgerufene Seite wurde nicht gefunden. Bitte überprüfe die URL oder wechsle zur Startseite."
+  ],
+  'to_homepage' => 'Zur Startseite',
 ];

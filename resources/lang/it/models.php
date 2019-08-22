@@ -895,6 +895,7 @@ return [
       ],
       "requestID" => "Richiedi un documento d'identità",
       "requestCategory" => "Richiedi categoria",
+      'actions' => 'Azioni',
     ],
     'requestCategory' => 
     [

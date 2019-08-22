@@ -153,8 +153,11 @@ export default {
             "activate_account": "Attivare l'account",
             "activate_code": "Attivare il codice",
             "activate_code_required": "Attivare il codice è obbligatorio",
+            "activate_terms_condition_1": "Accetto che i dati sono corretti",
+            "activate_terms_condition_2": "Ho letto i termini e le condizioni d'uso",
             "back": "Indietro",
             "activate": "Attivare",
+            "activate_info": "Se hai ricevuto un codice di attivazione dal tuo padrone di casa, puoi attivare il tuo account qui. Inserite i seguenti dati:",
             "unauthenticated": "Non autenticato",
             "logged_out": "Disconnesso",
             "logged_in": "Loggato",
@@ -277,8 +280,11 @@ export default {
                 "not_active_tenant": "L'inquilino non è attivo e non può cambiare la password"
             },
             "choose": "Scegliere",
-            "page_not_found": "Pagina non trovata",
-            "home": "A casa"
+            "page_not_found": {
+                "title": "C'e' qualcosa che non va qui.",
+                "message": "La pagina richiesta non è stata trovata. Controlla l'URL o vai alla homepage."
+            },
+            "to_homepage": "Alla Homepage"
         },
         "filters": {
             "header": "Filtri",
@@ -1427,7 +1433,8 @@ export default {
                     "internal_notice_not_found": "Avviso interno non trovato"
                 },
                 "requestID": "Richiedi un documento d'identità",
-                "requestCategory": "Richiedi categoria"
+                "requestCategory": "Richiedi categoria",
+                "actions": "Azioni"
             },
             "requestCategory": {
                 "title": "Richiedi categorie",

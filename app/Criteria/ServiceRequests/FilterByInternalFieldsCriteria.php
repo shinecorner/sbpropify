@@ -71,8 +71,6 @@ class FilterByInternalFieldsCriteria implements CriteriaInterface
         $status = $this->request->get('status', null);
         if ($status) {
             $model->where('status', $status);
-        } else {
-            $model->where('status', '!=', ServiceRequest::StatusArchived);
         }
 
         $priority = $this->request->get('priority', null);

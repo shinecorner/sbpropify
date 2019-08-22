@@ -54,7 +54,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item :label="$t('models.tenant.language')" prop="language">
-                        <select-language :model.sync="model.language"/>
+                        <select-language :activeLanguage.sync="model.language"/>
                     </el-form-item>
                 </el-form>
             </card>

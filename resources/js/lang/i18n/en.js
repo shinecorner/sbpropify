@@ -153,8 +153,11 @@ export default {
             "activate_account": "Activate Account",
             "activate_code": "Activate Code",
             "activate_code_required": "Activate Code is required",
+            "activate_terms_condition_1": "I agree details are correct",
+            "activate_terms_condition_2": "I've read terms and conditions",
             "back": "Back",
             "activate": "Activate",
+            "activate_info": "If you have received an activation code from your landlord, you can activate your account here. Please enter the following data:",
             "unauthenticated": "Unauthenticated",
             "logged_out": "Logged out",
             "logged_in": "Logged in",
@@ -277,8 +280,11 @@ export default {
                 "not_active_tenant": "Tenant is not active and can not change password"
             },
             "choose": "Choose",
-            "page_not_found": "Page not found",
-            "home": "Home"
+            "page_not_found": {
+                "title": "Hmm... something's wrong here.",
+                "message": "The page you requested was not found. Please check the URL or go to the homepage."
+            },
+            "to_homepage": "To Homepage"
         },
         "filters": {
             "header": "Filters",
@@ -1428,7 +1434,8 @@ export default {
                     "internal_notice_not_found": "Internal Notice not found"
                 },
                 "requestID": "Request ID",
-                "requestCategory": "Request Category"
+                "requestCategory": "Request Category",
+                "actions": "Actions"
             },
             "requestCategory": {
                 "title": "Request categories",
