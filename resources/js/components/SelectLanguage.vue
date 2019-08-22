@@ -1,10 +1,7 @@
 <template>
-    <el-select style="display: block" :value="model" @input="$emit('update:model', $event)" placeholder="Select Language">
+    <el-select id="languageform" style="display: block" :value="activeLanguage" @input="$emit('update:activeLanguage', $event)" :placeholder="$t(`general.chooseLanguage`)">
         <template slot="prefix">
-            <span class="flag-icon flag-icon-us" v-if="showFlag && this.model == 'en'"></span>
-            <span class="flag-icon flag-icon-fr" v-if="showFlag && this.model == 'fr'"></span>
-            <span class="flag-icon flag-icon-it" v-if="showFlag && this.model == 'it'"></span>
-            <span class="flag-icon flag-icon-de" v-if="showFlag && this.model == 'de'"></span>
+            <span id="languageflag" v-for="(language, index) in activeLanguages" :class="language.flag" :key="index"></span>
         </template>
         <el-option :label="language.name" :value="language.symbol" v-for="language in languages" :key="language.symbol">
             <span :class="language.flag" v-if="showFlag"></span>&nbsp;&nbsp;{{$t(`general.languages.`+ language.symbol)}}
@@ -22,8 +19,15 @@ export default {
         }
     },
     props: {
-        model: {
+        activeLanguage: {
             required: true
+        }
+    },
+    computed: {
+        activeLanguages: function () {
+            return this.languages.filter((lang) => {
+                return lang.symbol == this.activeLanguage;
+            })
         }
     },
     mounted() {
@@ -49,3 +53,14 @@ export default {
 
 }
 </script>
+
+<style lang="less">
+    .crud-view {
+        #languageform.el-input__inner {
+            padding-left: 35px !important;
+        }
+        #languageflag {
+            padding-left: 20px;
+        }
+    }
+</style>

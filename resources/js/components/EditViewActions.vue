@@ -54,7 +54,6 @@
                     }
                 }
                 else {
-                    console.log('not users');
                     route = {
                         name: this.route,
                         query: this.queryParams

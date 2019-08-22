@@ -17,7 +17,7 @@
                 <el-switch v-model="user.settings.admin_notification"></el-switch>
             </el-form-item>
             <el-form-item :label="$t('settings.language')" style="max-width:450px;">
-                <select-language :model.sync="user.settings.language"/>
+                <select-language :activeLanguage.sync="user.settings.language"/>
             </el-form-item>
             <el-form-item>
                 <el-button @click="settingsUpdated" icon="ti-save" type="primary">{{$t('models.user.save')}}</el-button>

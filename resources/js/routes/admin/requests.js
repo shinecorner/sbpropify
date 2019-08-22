@@ -21,6 +21,62 @@ export default [{
             permission: permissions.list.request,
             breadcrumb: 'Requests',
         }
+    },  {
+        path: 'my',
+        name: 'adminMyRequests',
+        component: () =>
+            import ( /* webpackChunkName: "admin/serviceRequests/index" */ 'views/Admin/Requests'),
+        props: {
+            title: 'My Requests'
+        },
+        meta: {
+            title: 'My Requests',
+            middleware: [auth, admin],
+            permission: permissions.list.request,
+            breadcrumb: 'My Requests',
+        }
+    }, {
+        path: 'mypending',
+        name: 'adminMypendingRequests',
+        component: () =>
+            import ( /* webpackChunkName: "admin/serviceRequests/index" */ 'views/Admin/Requests'),
+        props: {
+            title: 'My pending requests'
+        },
+        meta: {
+            title: 'My Requests',
+            middleware: [auth, admin],
+            permission: permissions.list.request,
+            breadcrumb: 'My Requests',
+        }
+    }, {
+        path: 'notassigned',
+        name: 'adminUnassignedRequests',
+        component: () =>
+            import ( /* webpackChunkName: "admin/serviceRequests/index" */ 'views/Admin/Requests'),
+        props: {
+            title: 'Not Assigned'
+        },
+        meta: {
+            title: 'Not Assigned',
+            middleware: [auth, admin],
+            permission: permissions.list.request,
+            breadcrumb: 'Not Assigned',
+        }
+    }, {
+        path: 'pending',
+        name: 'adminAllpendingRequests',
+        component: () =>
+            import ( /* webpackChunkName: "admin/serviceRequests/index" */ 'views/Admin/Requests'),
+        props: {
+            title: 'All pending requests'
+        },
+        meta: {
+            title: 'All pending requests',
+            middleware: [auth, admin],
+            permission: permissions.list.request,
+            breadcrumb: 'All pending requests',
+        }
     }, {
         path: 'add',
         name: 'adminRequestsAdd',
