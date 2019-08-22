@@ -895,6 +895,7 @@ return [
       ],
       "requestID" => "Demande ID",
       "requestCategory" => "Catégorie de demande",
+      'actions' => 'Actions',
     ],
     'requestCategory' => 
     [

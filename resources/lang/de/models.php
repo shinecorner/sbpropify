@@ -896,6 +896,7 @@ return [
       ],
       'requestID' => 'Anfrage-ID',
       'requestCategory' => 'Anfrage-Kategorie ',
+      'actions' => 'Aktionen',
     ],
     'requestCategory' => 
     [
