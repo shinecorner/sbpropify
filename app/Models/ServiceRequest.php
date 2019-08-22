@@ -449,19 +449,25 @@ class ServiceRequest extends AuditableModel implements HasMedia
         return $this->belongsTo(Unit::class);
     }
 
-    /**
-     * @return BelongsToMany
-     **/
-    public function providers()
-    {
-        return $this->belongsToMany(ServiceProvider::class, 'request_provider', 'request_id', 'provider_id');
-    }
-
     public function managers()
     {
         return $this->morphedByMany(PropertyManager::class, 'assignee', 'request_assignees', 'request_id');
     }
 
+    public function providers()
+    {
+        return $this->morphedByMany(ServiceProvider::class, 'assignee', 'request_assignees', 'request_id');
+    }
+
+    public function users()
+    {
+        return $this->morphedByMany(User::class, 'assignee', 'request_assignees', 'request_id');
+    }
+
+    public function assigners()
+    {
+        return $this->hasMany(ServiceRequestAssignee::class, 'request_id');
+    }
 
     public function conversations()
     {
