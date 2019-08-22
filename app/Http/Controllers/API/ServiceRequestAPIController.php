@@ -591,12 +591,14 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.provider_not_found'));
         }
 
-        $sr->providers()->sync($sp, false);
+        $sr->providers()->sync([$pid => ['created_at' => now()]], false);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
-            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'assignees');
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user');
 
-        foreach ($sr->assignees as $a) {
-            $sr->conversationFor($a, $sp->user);
+        foreach ($sr->managers as $manager) {
+            if ($manager->user) {
+                $sr->conversationFor($manager->user, $sp->user);
+            }
         }
 
         $sr->conversationFor(Auth::user(), $sp->user);
