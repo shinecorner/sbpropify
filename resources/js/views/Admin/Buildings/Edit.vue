@@ -21,79 +21,44 @@
                     <el-tab-pane :label="$t('models.building.details')" name="details">
                         <el-form :model="model" label-position="top" label-width="192px" ref="form">
                             <el-row :gutter="20">
-                                <el-col :md="12">
+                                <el-col :md="10">
                                     <el-form-item :label="$t('models.address.street')" :rules="validationRules.street"
                                                   prop="street"
                                                   style="max-width: 512px;">
                                         <el-input type="text" v-model="model.street" v-on:change="setBuildingName"></el-input>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="12">
+                                <el-col :md="4">
                                     <el-form-item :label="$t('models.building.house_nr')"
                                                   :rules="validationRules.street_nr"
                                                   prop="street_nr" style="max-width: 512px;">
                                         <el-input type="text" v-model="model.street_nr" v-on:change="setBuildingName"></el-input>
                                     </el-form-item>
                                 </el-col>
-                            </el-row>
-                            <el-row :gutter="20">
-                                <el-col :md="12">
+                                <el-col :md="10">
                                     <el-form-item :label="$t('models.building.name')" :rules="validationRules.name"
                                                   prop="name"
                                                   style="max-width: 512px;">
                                         <el-input type="text" v-model="model.name"></el-input>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="12">
-                                    <el-form-item :label="$t('models.building.district')" prop="district_id"
-                                                  style="max-width: 512px;">
-                                        <el-select
-                                            :loading="remoteLoading"
-                                            :placeholder="$t('models.building.placeholders.search')"
-                                            :remote-method="remoteSearchDistricts"
-                                            filterable
-                                            remote
-                                            reserve-keyword
-                                            style="width: 100%;"
-                                            v-model="model.district_id">
-                                            <el-option
-                                                :label="$t('general.none')"
-                                                value=""
-                                            />
-                                            <el-option
-                                                :key="district.id"
-                                                :label="district.name"
-                                                :value="district.id"
-                                                v-for="district in districts"/>
-                                        </el-select>
-                                    </el-form-item>
-                                </el-col>
                             </el-row>
                             <el-row :gutter="20">
-                                <el-col :md="12">
-                                    <el-form-item :label="$t('models.building.floor_nr')"
-                                                  :rules="validationRules.floor_nr"
-                                                  prop="floor_nr" style="max-width: 512px;">
-                                        <el-input type="number" v-model="model.floor_nr"></el-input>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :md="12">
+                                <el-col :md="4">
                                     <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip"
                                                   prop="zip"
                                                   style="max-width: 512px;">
                                         <el-input type="text" v-model="model.zip"></el-input>
                                     </el-form-item>
                                 </el-col>
-                            </el-row>
-                            <el-row :gutter="20">
-                                <el-col :md="12">
+                                <el-col :md="10">
                                     <el-form-item :label="$t('models.address.city')" :rules="validationRules.city"
                                                   prop="city"
                                                   style="max-width: 512px;">
                                         <el-input type="text" v-model="model.city"></el-input>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="12">
+                                <el-col :md="10">
                                     <el-form-item :label="$t('models.address.state.label')"
                                                   :rules="validationRules.state_id"
                                                   prop="state_id" style="max-width: 512px;">
@@ -103,6 +68,39 @@
                                             <el-option :key="state.id" :label="state.name" :value="state.id"
                                                        v-for="state in states"></el-option>
                                         </el-select>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row :gutter="20">
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.building.district')" prop="district_id"
+                                                  style="max-width: 512px;">
+                                        <el-select
+                                                :loading="remoteLoading"
+                                                :placeholder="$t('models.building.placeholders.search')"
+                                                :remote-method="remoteSearchDistricts"
+                                                filterable
+                                                remote
+                                                reserve-keyword
+                                                style="width: 100%;"
+                                                v-model="model.district_id">
+                                            <el-option
+                                                    :label="$t('general.none')"
+                                                    value=""
+                                            />
+                                            <el-option
+                                                    :key="district.id"
+                                                    :label="district.name"
+                                                    :value="district.id"
+                                                    v-for="district in districts"/>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.building.floor_nr')"
+                                                  :rules="validationRules.floor_nr"
+                                                  prop="floor_nr" style="max-width: 512px;">
+                                        <el-input type="number" v-model="model.floor_nr"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
