@@ -4,63 +4,89 @@
             <add-actions :saveAction="submit" editRoute="adminTenantsEdit" route="adminTenants"/>
         </heading>
         <div class="crud-view">
-            <el-form :model="model" label-width="192px" ref="form">
+            <el-form :model="model" ref="form">
                 <el-row :gutter="20">
                     <el-col :lg="12" :sm="24">
                         <card :loading="loading" :header="$t('models.tenant.personal_details_card')">
-                            <el-form-item :label="$t('general.salutation')" :rules="validationRules.title"
-                                          prop="title">
-                                <el-select placeholder="Select" style="display: block" v-model="model.title">
-                                    <el-option
-                                            :key="title"
-                                            :label="$t(`models.tenant.titles.${title}`)"
-                                            :value="title"
-                                            v-for="title in titles">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item :label="$t('models.tenant.company')" :rules="validationRules.company"
-                                          prop="company"
-                                          v-if="model.title === titles.company">
-                                <el-input autocomplete="off" type="text" v-model="model.company"></el-input>
-                            </el-form-item>
-                            <el-form-item :label="$t('models.tenant.first_name')" :rules="validationRules.first_name"
-                                          prop="first_name">
-                                <el-input autocomplete="off" type="text" v-model="model.first_name"></el-input>
-                            </el-form-item>
-                            <el-form-item :label="$t('models.tenant.last_name')" :rules="validationRules.last_name"
-                                          prop="last_name">
-                                <el-input autocomplete="off" type="text" v-model="model.last_name"></el-input>
-                            </el-form-item>
-
-                            <el-form-item :label="$t('models.tenant.birth_date')" :rules="validationRules.birth_date"
-                                          prop="birth_date">
-                                <el-date-picker
-                                        :placeholder="$t('models.tenant.birth_date')"
-                                        format="dd.MM.yyyy"
-                                        style="width: 100%;"
-                                        type="date"
-                                        v-model="model.birth_date"
-                                        value-format="yyyy-MM-dd"/>
-                            </el-form-item>
-                            <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language"
-                                          prop="settings.language">
-                                <select-language :active-language.sync="model.settings.language"/>
-                            </el-form-item>
+                            <el-row :gutter="20">
+                                <el-col :md="12">
+                                    <el-form-item :rules="validationRules.title"
+                                                  :label="$t('general.salutation')"
+                                                  prop="title"
+                                                  class="label-block">
+                                        <el-select placeholder="Select" style="display: block" v-model="model.title">
+                                            <el-option
+                                                    :key="title"
+                                                    :label="$t(`models.tenant.titles.${title}`)"
+                                                    :value="title"
+                                                    v-for="title in titles">
+                                            </el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12" v-if="model.title === titles.company">
+                                    <el-form-item :label="$t('models.tenant.company')" :rules="validationRules.company"
+                                                  prop="company">
+                                        <el-input autocomplete="off" type="text" v-model="model.company"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.tenant.first_name')" :rules="validationRules.first_name"
+                                                  prop="first_name">
+                                        <el-input autocomplete="off" type="text" v-model="model.first_name"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.tenant.last_name')" :rules="validationRules.last_name"
+                                                  prop="last_name">
+                                        <el-input autocomplete="off" type="text" v-model="model.last_name"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.tenant.birth_date')" :rules="validationRules.birth_date"
+                                                  prop="birth_date">
+                                        <el-date-picker
+                                                :placeholder="$t('models.tenant.birth_date')"
+                                                format="dd.MM.yyyy"
+                                                style="width: 100%;"
+                                                type="date"
+                                                v-model="model.birth_date"
+                                                value-format="yyyy-MM-dd"/>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.tenant.language')"
+                                                  :rules="validationRules.language"
+                                                  prop="settings.language"
+                                                  class="label-block">
+                                        <select-language :active-language.sync="model.settings.language"/>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
                         </card>
                         <card class="mt15" :loading="loading" :header="$t('models.tenant.contact_info_card')">
-                            <el-form-item :label="$t('general.email')" :rules="validationRules.email" prop="email" >
-                                <el-input autocomplete="off" type="email" v-model="model.email"></el-input>
-                            </el-form-item>
-                            <el-form-item :label="$t('models.tenant.mobile_phone')" prop="mobile_phone">
-                                <el-input autocomplete="off" type="text" v-model="model.mobile_phone"></el-input>
-                            </el-form-item>
-                            <el-form-item :label="$t('models.tenant.private_phone')" prop="private_phone">
-                                <el-input autocomplete="off" type="text" v-model="model.private_phone"></el-input>
-                            </el-form-item>
-                            <el-form-item :label="$t('models.tenant.work_phone')" prop="work_phone">
-                                <el-input autocomplete="off" type="text" v-model="model.work_phone"></el-input>
-                            </el-form-item>
+                            <el-row :gutter="20">
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('general.email')" :rules="validationRules.email" prop="email" >
+                                        <el-input autocomplete="off" type="email" v-model="model.email"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.tenant.mobile_phone')" prop="mobile_phone">
+                                        <el-input autocomplete="off" type="text" v-model="model.mobile_phone"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.tenant.private_phone')" prop="private_phone">
+                                        <el-input autocomplete="off" type="text" v-model="model.private_phone"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.tenant.work_phone')" prop="work_phone">
+                                        <el-input autocomplete="off" type="text" v-model="model.work_phone"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
                         </card>
                     </el-col>
                     <el-col :lg="12" :sm="24">
@@ -68,54 +94,67 @@
                             <!--                            <el-form-item :label="$t('models.user.profile_image')">-->
                             <!--                                <cropper :resize="false" :viewportType="'circle'" @cropped="cropped"/>-->
                             <!--                            </el-form-item>-->
-                            <el-form-item :label="$t('general.password')" :rules="validationRules.password" prop="password">
-                                <el-input autocomplete="off" type="password" v-model="model.password"></el-input>
-                            </el-form-item>
-                            <el-form-item :label="$t('general.confirm_password')" :rules="validationRules.password_confirmation"
-                                          prop="password_confirmation">
-                                <el-input autocomplete="off" type="password"
-                                          v-model="model.password_confirmation"></el-input>
-                            </el-form-item>
+
+                            <el-row :gutter="20">
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('general.password')" :rules="validationRules.password" prop="password">
+                                        <el-input autocomplete="off" type="password" v-model="model.password"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('general.confirm_password')" :rules="validationRules.password_confirmation"
+                                                  prop="password_confirmation">
+                                        <el-input autocomplete="off" type="password"
+                                                  v-model="model.password_confirmation"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
                         </card>
                         <card :loading="loading" class="mt15" :header="$t('models.tenant.building_card')">
-                            <el-form-item :label="$t('models.tenant.building.name')" prop="building_id">
-                                <el-select
-                                        :loading="remoteLoading"
-                                        :placeholder="$t('models.tenant.search_building')"
-                                        :remote-method="remoteSearchBuildings"
-                                        :rules="validationRules.building_id"
-                                        @change="searchUnits"
-                                        filterable
-                                        remote
-                                        reserve-keyword
-                                        style="width: 100%;"
-                                        v-model="model.building_id">
-                                    <el-option
-                                            :label="`--${$t('models.tenant.no_building')}--`"
-                                            value=""
-                                    />
-                                    <el-option
-                                            :key="building.id"
-                                            :label="building.name"
-                                            :value="building.id"
-                                            v-for="building in buildings"/>
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item :label="$t('models.tenant.unit.name')" prop="unit_id"
-                                          v-if="model.building_id">
-                                <el-select :placeholder="$t('models.tenant.search_unit')" style="display: block"
-                                           v-model="model.unit_id">
-                                    <el-option
-                                            :key="unit.id"
-                                            :label="unit.name"
-                                            :value="unit.id"
-                                            v-for="unit in units">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
+                            <el-row :gutter="20">
+                                <el-col :md="24">
+                                    <el-form-item :label="$t('models.tenant.building.name')" prop="building_id">
+                                        <el-select
+                                                :loading="remoteLoading"
+                                                :placeholder="$t('models.tenant.search_building')"
+                                                :remote-method="remoteSearchBuildings"
+                                                :rules="validationRules.building_id"
+                                                @change="searchUnits"
+                                                filterable
+                                                remote
+                                                reserve-keyword
+                                                style="width: 100%;"
+                                                v-model="model.building_id">
+                                            <el-option
+                                                    :label="`--${$t('models.tenant.no_building')}--`"
+                                                    value=""
+                                            />
+                                            <el-option
+                                                    :key="building.id"
+                                                    :label="building.name"
+                                                    :value="building.id"
+                                                    v-for="building in buildings"/>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="24">
+                                    <el-form-item :label="$t('models.tenant.unit.name')" prop="unit_id"
+                                                  v-if="model.building_id">
+                                        <el-select :placeholder="$t('models.tenant.search_unit')" style="display: block"
+                                                   v-model="model.unit_id">
+                                            <el-option
+                                                    :key="unit.id"
+                                                    :label="unit.name"
+                                                    :value="unit.id"
+                                                    v-for="unit in units">
+                                            </el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
                         </card>
                         <card class="mt15" :header="$t('models.tenant.rent_contract')">
-                            <el-form :model="model" label-width="192px" ref="form">
+                            <el-form :model="model" ref="form">
                                 <el-form-item :label="$t('models.tenant.rent_start')"
                                               prop="rent_start">
                                     <el-date-picker
@@ -205,6 +244,13 @@
     }
 </script>
 
+<style lang="scss">
+    .label-block .el-form-item__label {
+        display: block;
+        float: none;
+        text-align: left;
+    }
+</style>
 <style lang="scss" scoped>
     .tenants-add {
         .heading {
