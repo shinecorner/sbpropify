@@ -17,15 +17,11 @@
                     </el-form>
                 </card>
 
-                <card :loading="loading" class="mt15">
-                    <p class="dividerletter">{{$t('models.propertyManager.requests')}}</p>
-                    <el-divider class="column-divider"></el-divider>
+                <card :loading="loading" :header="$t('models.propertyManager.requests')" class="mt15">
 
                     <relation-list
                             :actions="requestActions"
                             :columns="requestColumns"
-                            :statuses="requestStatuses"
-                            :tenantAvatars="requestTenantAvatars"
                             :filterValue="model.id"
                             fetchAction="getRequests"
                             filter="district_id"
@@ -36,6 +32,7 @@
             <el-col :md="12">
                 <card :loading="loading" :header="$t('models.district.buildings')">
                     <relation-list
+                        :actions="districtActions"
                         :columns="districtColumns"
                         :filterValue="model.id"
                         fetchAction="getBuildings"
@@ -71,13 +68,17 @@
         },
         data() {
             return {
-                districtColumns: [{
-                    prop: 'name',
-                    label: this.$t('models.propertyManager.name')
-                }],
                 requestColumns: [{
-                    prop: 'title',
+                    type: 'requestTenantAvatar',
+                    width: 75,
+                    prop: 'tenant',
+                    label: this.$t('models.request.tenant')
+                }, {
+                    type: 'requestTitleWithDesc',
                     label: this.$t('models.request.prop_title')
+                }, {
+                    type: 'requestStatus',
+                    label: this.$t('models.request.status.label')
                 }],
                 requestActions: [{
                     width: '90px',
@@ -87,18 +88,49 @@
                         onClick: this.requestEditView
                     }]
                 }],
-                requestStatuses: [{
-                    prop: 'status',
-                    label: this.$t('models.request.status.label')
+                districtColumns: [{
+                    prop: 'name',
+                    label: this.$t('models.propertyManager.name')
+                }, {
+                    align: 'center',
+                    prop: 'units_count',
+                    label: this.$t('dashboard.buildings.total_units')
+                }, {
+                    type: 'buildingTenantAvatars',
+                    align: 'center',
+                    prop: 'tenants',
+                    label: this.$t('models.building.tenants')
                 }],
-                requestTenantAvatars: [{
-                    prop: 'avatar',
-                    label: this.$t('models.request.tenant')
+                districtActions: [{
+                    width: '90px',
+                    buttons: [{
+                        icon: 'ti-pencil',
+                        title: this.$t('models.request.edit'),
+                        onClick: this.buildingEditView
+                    }]
                 }],
             }
         },
         methods: {
-            ...mapActions(['deleteDistrict'])
+            ...mapActions(['deleteDistrict']),
+
+            requestEditView(row) {
+                this.$router.push({
+                    name: 'adminRequestsEdit',
+                    params: {
+                        id: row.id
+                    }
+                })
+            },
+
+            buildingEditView(row) {
+                this.$router.push({
+                    name: 'adminBuildingsEdit',
+                    params: {
+                        id: row.id
+                    }
+                })
+            },
         }
     }
 </script>
