@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Models\Post;
 use App\Models\Product;
+use App\Models\PropertyManager;
 use App\Models\ServiceRequest;
 use App\Models\Template;
 use App\Models\Conversation;
+use App\Models\User;
 use App\Notifications\NewTenantPost;
 use App\Notifications\NewTenantRequest;
 use App\Notifications\PostPublished;
@@ -38,10 +40,13 @@ class AppServiceProvider extends ServiceProvider
         });
 
 	    Relation::morphMap([
+            'user' => User::class,
             'post' => Post::class,
             'product' => Product::class,
-            'request' => ServiceRequest::class,
             'templates' => Template::class,
+            'request' => ServiceRequest::class,
+            'manager' => PropertyManager::class,
+            'provider' => ServiceProvider::class,
             'conversation' => Conversation::class,
 
             'post_published' => PostPublished::class,
