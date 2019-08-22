@@ -12,7 +12,7 @@
         >
             <el-table-column
                 :key="column.prop"
-                :label="column.label"
+                :label="$t(column.label)"
                 :width="column.width"
                 :min-width="column.minWidth"
                 v-for="column in header"
@@ -153,12 +153,12 @@
                                 size="mini"
                                 class="default"
                             >
-                                <template v-if="action.title == 'Edit'">
+                                <template v-if="action.title.indexOf('edit') !== -1">
                                     <i class="ti-pencil"></i>
-                                    <span>{{action.title}}</span>    
+                                    <span>{{ $t(action.title) }}</span>    
                                 </template>
                                 <template v-else>
-                                    {{action.title}}
+                                    {{ $t(action.title) }}
                                 </template>
                             </el-button>
                         </template>

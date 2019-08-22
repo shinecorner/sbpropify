@@ -37,21 +37,21 @@
             return {
                 header: [{
                     type: 'plain',
-                    label: this.$t('models.propertyManager.name'),
+                    label: 'models.propertyManager.name',
                     prop: 'name',
                     minWidth: '150px'
                 }, {
                     type: 'counts',
                     minWidth: '150px',
-                    label: this.$t('models.propertyManager.requests'),
+                    label: 'models.propertyManager.requests',
                 }, {
                     type: 'actions',
-                    label: this.$t('dashboard.actions'),
+                    label: 'dashboard.actions',
                     width: 100,
                     actions: [ 
                         {
                             type: 'default',
-                            title: this.$t('models.propertyManager.edit'),
+                            title: 'models.propertyManager.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.propertyManager

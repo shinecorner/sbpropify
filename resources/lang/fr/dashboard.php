@@ -41,9 +41,9 @@ return  [
       'buildings_by_creation_date' => 'Bâtiments par date de création',
       'buildings_map' => 'Carte des bâtiments',
       'latest_buildings' => 'Derniers bâtiments',
-      'count_of_managers' => 'Nombre de gestionnaires',
-      'count_of_tenants' => 'Nombre de locataires',
-      'count_of_requests' => 'Nombre de demandes',
+      'managers' => 'gestionnaires',
+      'tenants' => 'locataires',
+      'requests' => 'demandes',
       'go_to_buildings' => 'Aller aux bâtiments',
       'buildings_by_state' => 'Immeubles par état'
     ],

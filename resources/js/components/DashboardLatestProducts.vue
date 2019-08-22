@@ -38,33 +38,33 @@
             return {
                 header: [{
                     type: 'product-details',
-                    label: this.$t('models.product.details'),
+                    label: 'models.product.details',
                     props: ['title', 'created_at', 'image_url'],
                     minWidth: '300px'
                 }, {
                     type: 'tag',
-                    label: this.$t('models.product.type.label'),
+                    label: 'models.product.type.label',
                     prop: 'type_label',
                     classSuffix: 'type'
                 }, {
                     type: 'plain',
-                    label: this.$t('models.product.visibility.label'),
+                    label: 'models.product.visibility.label',
                     prop: 'visibility_label'
                 }, {
                     type: 'plain',
-                    label: this.$t('models.product.price'),
+                    label: 'models.product.price',
                     prop: 'price',
                     style: {
                         color: '#5CC279'
                     }
                 }, {
                     type: 'actions',
-                    label: this.$t('dashboard.actions'),
+                    label: 'dashboard.actions',
                     width: 100,
                     actions: [ 
                         {
                             type: 'default',
-                            title: this.$t('models.product.edit'),
+                            title: 'models.product.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.product

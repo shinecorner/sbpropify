@@ -63,7 +63,7 @@ export default {
                 legend: {
                     show: true,
                     position: 'bottom',
-                    width: (this.windowWidth-400)/this.colNum>400?400:(this.windowWidth-400)/this.colNum-30,
+                    width: '100%',
                 },
                 chart:{
                     toolbar: this.toolbar,
@@ -318,6 +318,10 @@ export default {
                 display: flex;
                 //flex-direction: column;
                 justify-content: center !important;
+
+                .apexcharts-legend-series {
+                    margin: 5px 5px !important;
+                }
             }
 
             .chart-filter {

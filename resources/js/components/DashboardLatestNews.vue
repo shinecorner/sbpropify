@@ -36,37 +36,37 @@
             return {
                 header: [{
                     type: 'news-title',
-                    label: this.$t('models.post.title'),
+                    label: 'models.post.title',
                     props: ['content', 'user'],
                     minWidth: '300px'
                 }, {
                     type: 'tag',
-                    label: this.$t('models.post.status.label'),
+                    label: 'models.post.status.label',
                     prop: 'status_label',
                     classSuffix: 'status'
                 }, {
                     type: 'counts',
-                    label: this.$t('dashboard.news.counts'),
+                    label: 'dashboard.news.counts',
                     counts: [{
                             prop: 'comments_count',
                             background: '#bbb',
                             color: '#fff',
-                            label: this.$t('models.post.comments')
+                            label: 'models.post.comments'
                         }, {
                             prop: 'likes_count',
                             background: '#ebb563',
                             color: '#fff',
-                            label: this.$t('models.post.likes')
+                            label: 'models.post.likes'
                         }
                     ]
                 }, {
                     type: 'actions',
-                    label: this.$t('dashboard.actions'),
+                    label: 'dashboard.actions',
                     width: 100,
                     actions: [ 
                         {
                             type: 'default',
-                            title: this.$t('models.product.edit'),
+                            title: 'models.product.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.product

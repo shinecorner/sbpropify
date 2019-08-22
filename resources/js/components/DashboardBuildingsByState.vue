@@ -14,7 +14,7 @@
         <el-row class="progress-card-body">
             <el-col :span="24" v-for="(data, index) in yData" :key="index">
                 <div class="progress-bar">
-                    <progress-bar :label="`${xData[index]}`" :value="yData[index]" :maxValue="total" :color="`${colorsPredefined[index%12]}`" ></progress-bar>
+                    <!-- <progress-bar :label="`${xData[index]}`" :value="yData[index]" :maxValue="total" :color="`${colorsPredefined[index%12]}`" ></progress-bar> -->
                 </div>
             </el-col>
         </el-row>       

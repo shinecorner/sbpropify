@@ -37,22 +37,22 @@
             return {
                 header: [{
                     type: 'plain',
-                    label: this.$t('models.service.name'),
+                    label: 'models.service.name',
                     prop: 'name',
                     minWidth: '150px'
                 }, {
                     type: 'counts',
                     minWidth: '150px',
-                    label: this.$t('models.service.requests'),
+                    label: 'models.service.requests',
                     
                 }, {
                     type: 'actions',
-                    label: this.$t('dashboard.actions'),
+                    label: 'dashboard.actions',
                     width: 100,
                     actions: [ 
                         {
                             type: 'default',
-                            title: this.$t('models.service.edit'),
+                            title: 'models.service.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.provider

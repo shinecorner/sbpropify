@@ -36,27 +36,27 @@
             return {
                 header: [{
                     type: 'tenant-details',
-                    label: this.$t('models.tenant.name'),
+                    label: 'models.tenant.name',
                     props: ['name', 'image_url'],
                     minWidth: '100px'
                 }, {
                     type: 'plain',
-                    label: this.$t('models.address.name'),
+                    label: 'models.address.name',
                     prop: 'address',
                     width: 300,
                 },{
                     type: 'tag',
-                    label: this.$t('models.tenant.status.label'),
+                    label: 'models.tenant.status.label',
                     prop: 'status_label',
                     classSuffix: 'status_class_suffix',
                 }, {
                     type: 'actions',
-                    label: this.$t('dashboard.actions'),
+                    label: 'dashboard.actions',
                     width: 100,
                     actions: [ 
                         {
                             type: 'default',
-                            title: this.$t('models.tenant.edit'),
+                            title: 'models.tenant.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.tenant

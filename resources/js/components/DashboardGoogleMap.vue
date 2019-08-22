@@ -80,9 +80,9 @@
       attachToolTip(marker, markerData) {
         const content = `
           <h3>${markerData.name}</h3>
-          <p>${this.$t('dashboard.buildings.count_of_managers')}: <b>${markerData.property_managers_count}</b></p>
-          <p>${this.$t('dashboard.buildings.count_of_tenants')} : <b>${markerData.tenants_count}</b></p>
-          <p>${this.$t('dashboard.buildings.count_of_requests')}: <b>${markerData.requests_count}</b></p>
+          <p>${this.$t('dashboard.buildings.managers')}: <b>${markerData.property_managers_count}</b></p>
+          <p>${this.$t('dashboard.buildings.tenants')} : <b>${markerData.tenants_count}</b></p>
+          <p>${this.$t('dashboard.buildings.requests')}: <b>${markerData.requests_count}</b></p>
         `;
         var infowindow = new google.maps.InfoWindow({
           content
