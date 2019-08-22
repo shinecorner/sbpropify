@@ -143,7 +143,9 @@ class Tenant extends Model implements HasMedia
         'rent_end' => 'date|after_or_equal:rent_start',
         'status' => 'digits_between:1,2|numeric'
     ];
+
     public $table = 'tenants';
+
     public $fillable = [
         'user_id',
         'address_id',
@@ -163,8 +165,11 @@ class Tenant extends Model implements HasMedia
         'tenant_format',
         'review',
         'rating',
+        'nationality'
     ];
+
     protected $dates = ['deleted_at', 'rent_start', 'rent_end'];
+
     /**
      * The attributes that should be casted to native types.
      *
@@ -189,6 +194,7 @@ class Tenant extends Model implements HasMedia
         'tenant_format' => 'string',
         'review' => 'string',
         'rating' => 'integer',
+        'nationality' => 'string',
     ];
 
     const templateMap = [
