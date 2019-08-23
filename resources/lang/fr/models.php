@@ -347,6 +347,7 @@ return [
       "assign" => "Affecter",
       "tenant_assigned" => "Locataire affecté",
       "tenant_unassigned" => "Locataire non affecté",
+      'assignment' => 'Locataires affectés',
       'type' => 
       [
         "label" => "Type",

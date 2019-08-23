@@ -347,6 +347,7 @@ return [
       "assign" => "Assegnare",
       "tenant_assigned" => "L'inquilino assegnato",
       "tenant_unassigned" => "Un inquilino non assegnato",
+      'assignment' => 'Affittuari assegnati',
       'type' => 
       [
         "label" => "Tipo",
