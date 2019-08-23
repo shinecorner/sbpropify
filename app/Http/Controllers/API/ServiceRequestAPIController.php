@@ -623,7 +623,8 @@ class ServiceRequestAPIController extends AppBaseController
      *      path="/requests/{id}/providers/{pid}",
      *      summary="Unassign the provided service provider from the request",
      *      tags={"ServiceRequest"},
-     *      description="Unassign the provided service provider from the request",
+     *      description="use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/delete_requests_assignees__requests_assignee_id_'>/requests-assignees/{requests_assignee_id}</a>",
+     *      deprecated=true,
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,

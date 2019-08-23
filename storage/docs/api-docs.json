@@ -4238,7 +4238,7 @@
                     "ServiceRequest"
                 ],
                 "summary": "Unassign the provided service provider from the request",
-                "description": "Unassign the provided service provider from the request",
+                "description": "use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/delete_requests_assignees__requests_assignee_id_'>/requests-assignees/{requests_assignee_id}</a>",
                 "produces": [
                     "application/json"
                 ],
@@ -4260,7 +4260,8 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "deprecated": true
             }
         },
         "/requests/{id}/users/{user_id}": {
