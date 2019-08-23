@@ -196,16 +196,24 @@ export default (config = {}) => {
         switch (config.mode) {
             case 'add':
                 mixin.methods = {
-                    async submit() {
+                    async submit(afterValid = false) {
                         const valid = await this.form.validate();
                         if (valid) {
                             this.loading.state = true;
                             try {
                                 const response = await this.createUnit(this.model);
                                 displaySuccess(response);
+                                
 
                                 this.form.resetFields();
-                                return response;
+                                if (!!afterValid) {
+                                    afterValid(response);
+                                } else {
+                                    this.$router.push({
+                                        name: 'adminUnitsEdit',
+                                        params: {id: response.data.id}
+                                    })
+                                }
                             } catch (err) {
                                 displayError(err);
                             } finally {

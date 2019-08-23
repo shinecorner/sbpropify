@@ -29,6 +29,8 @@ Vue.component('comment', () => import(/* webpackChunkName: "comment" */ 'compone
 Vue.component('comments', () => import(/* webpackChunkName: "comments" */ 'components/Comments'))
 Vue.component('add-comment', () => import(/* webpackChunkName: "add-comment" */ 'components/AddComment'))
 
+
+
 Vue.use(VueUid);
 Vue.use(Sticky)
 Vue.use(VueVirtualScroller)

@@ -2,8 +2,8 @@
     <el-container class="admin-layout" direction="vertical">
         <a-header :toggleSidebar="toggleSidebar">
             <div class="header-link">
-                <div  v-bind:class="[{ active: showMenu }, language]">
-                    <div class="language-iconBorder" @click="toggleShow">
+                <div v-bind:class="[{ active: showMenu }, language]">
+                    <div class="language-iconBorder" @click="toggleShow" v-click-outside="hideMenu">
                         <div class="language-checked-img">
                             <span v-bind:class="selectedFlag"></span>
                         </div>
@@ -76,7 +76,24 @@
     import Avatar from 'components/Avatar';
     import VRouterTransition from 'v-router-transition';
     import {mapActions, mapState} from "vuex";
+
     import { EventBus } from '../event-bus.js';
+    import Vue from 'vue';
+
+    Vue.directive('click-outside', {
+        bind: function (el, binding, vnode) {
+            el.clickOutsideEvent = function (event) {
+                if (!(el == event.target || el.contains(event.target))) {
+                    vnode.context[binding.expression](event);
+                }
+            };
+            document.body.addEventListener('click', el.clickOutsideEvent)
+        },
+        unbind: function (el) {
+            document.body.removeEventListener('click', el.clickOutsideEvent)
+        },
+    });
+    
 
     export default {
         name: 'AdminLayout',
@@ -368,23 +385,23 @@
                             route: {
                                 name: 'adminUsers'
                             },
-                            children: [{
-                                title: this.$t('menu.admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'administrator'
-                                    }
-                                }
-                            }, {
-                                title: this.$t('menu.super_admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'super_admin'
-                                    }
-                                }
-                            }]
+                            // children: [{
+                            //     title: this.$t('menu.admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'administrator'
+                            //         }
+                            //     }
+                            // }, {
+                            //     title: this.$t('menu.super_admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'super_admin'
+                            //         }
+                            //     }
+                            // }]
                         }];
                 }
                 
@@ -441,6 +458,10 @@
 
             toggleShow: function() {
                 this.showMenu = !this.showMenu;
+            },
+
+            hideMenu: function() {
+                this.showMenu = false;
             },
 
             itemClicked: function(item, flag) {
