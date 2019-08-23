@@ -15,6 +15,8 @@ class AddNationalityInTenantsTable extends Migration
     {
         Schema::table('tenants', function (Blueprint $table) {
             $table->string('nation')->after('tenant_format')->nullable();
+            $table->integer('country_id')->unsigned()->nullable()->after('unit_id');
+            $table->foreign('country_id')->references('id')->on('loc_countries');
         });
     }
 
@@ -26,7 +28,8 @@ class AddNationalityInTenantsTable extends Migration
     public function down()
     {
         Schema::table('tenants', function (Blueprint $table) {
-            $table->dropColumn('nation');
+            $table->dropForeign('tenants_country_id_foreign');
+            $table->dropColumn('nation', 'country_id');
         });
     }
 }
