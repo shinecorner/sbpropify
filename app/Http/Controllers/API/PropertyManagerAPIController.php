@@ -88,7 +88,7 @@ class PropertyManagerAPIController extends AppBaseController
         }
 
         $getAll = $request->get('get_all', false);
-        $this->propertyManagerRepository->withCount([
+        $this->propertyManagerRepository->with('user')->withCount([
             'requests',
             'requestsReceived',
             'requestsInProcessing',
