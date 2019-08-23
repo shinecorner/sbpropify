@@ -674,10 +674,10 @@ class ServiceRequestAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/requests/{id}/assignees/{uid}",
-     *      summary="Assign the provided user to the request",
+     *      path="/requests/{id}/users/{user_id}",
+     *      summary="Assign admin user to the request",
      *      tags={"ServiceRequest"},
-     *      description="Assign the provided user to the request",
+     *      description="Assign admin user to the request",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -712,10 +712,6 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.user_not_found'));
         }
 
-        // @TODO remove,
-        $managerId = PropertyManager::where('user_id', $u->id)->value('id');
-        return $this->assignManager($id, $managerId, $uRepo, $r);
-
         $sr->users()->sync([$uid => ['created_at' => now()]], false);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user');
@@ -725,6 +721,57 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         return $this->sendResponse($sr, __('models.request.attached.user'));
+    }
+
+    /**
+     * @TODO delete this method
+     * @SWG\Post(
+     *      path="/requests/{id}/assignees/{uid}",
+     *      summary="Assign the provided user to the request",
+     *      tags={"ServiceRequest"},
+     *      description="Assign the provided user to the request",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/ServiceRequest"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     * @param int $id
+     * @param int $uid
+     * @param UserRepository $uRepo
+     * @param AssignRequest $r
+     * @return mixed
+     */
+    public function assignTmpManager(int $id, int $uid, UserRepository $uRepo, AssignRequest $r)
+    {
+        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        if (empty($sr)) {
+            return $this->sendError(__('models.request.errors.not_found'));
+        }
+
+        $u = $uRepo->findWithoutFail($uid);
+        if (empty($u)) {
+            return $this->sendError(__('models.request.errors.user_not_found'));
+        }
+
+        // @TODO remove,
+        $managerId = PropertyManager::where('user_id', $u->id)->value('id');
+        return $this->assignManager($id, $managerId, $uRepo, $r);
     }
 
     public function assignManager(int $id, int $pmid, UserRepository $uRepo, AssignRequest $r)

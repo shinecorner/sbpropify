@@ -327,16 +327,18 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'attach' => [
             'providers' =>  AuditableModel::EventProviderAssigned,
             'managers' =>  AuditableModel::EventManagerAssigned,
+            'users' =>  AuditableModel::EventUserAssigned,
         ],
         'detach' => [
             'providers' =>  AuditableModel::EventProviderUnassigned,
-            'managers' =>  AuditableModel::EventManagerUnassigned,
+            'users' =>  AuditableModel::EventUserAssigned,
         ],
     ];
 
     protected $syncAuditable = [
         'managers' => ['first_name', 'last_name'],
         'providers' => ['name'],
+        'users' => ['name'],
     ];
 
     /**
