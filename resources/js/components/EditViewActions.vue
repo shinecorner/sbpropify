@@ -63,9 +63,10 @@
             },
             async saveAndClose() {
                 try {
-                    this.saveAction(resp => {
+                    const resp = await this.saveAction();
+                    if(resp) {
                         this.goToListing();
-                    });
+                    }
                 } catch (e) {
                     console.log(e)
                 }

@@ -93,7 +93,6 @@
               })
             },
             searchroute() {
-                console.log(this.$route.name);
                 while( document.querySelector('.content .is-active') != null) 
                 {
                     document.querySelector('.content .is-active').classList.remove('is-active'); 
