@@ -479,7 +479,7 @@
             onClick(language, flag){
                 this.$i18n.locale = language;
                 this.selectedFlag = flag;
-
+                this.$root.$emit('changeLanguage');
                 //console.log('language --- ', this.$i18n.locale);
 
                 this.toggleShow();

@@ -286,7 +286,10 @@
                     displaySuccess(resp)
                 }
             }
-        }
+        },
+        mounted() {
+            this.$root.$on('changeLanguage', () => this.getStates());
+        },
     }
 </script>
 
