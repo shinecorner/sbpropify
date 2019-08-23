@@ -220,6 +220,7 @@ return [
       "not_found" => "Edificio non trovato",
       "house_rules" => "Le regole della casa",
       "operating_instructions" => "Istruzioni per l'uso",
+      'care_instructions' => 'Istruzioni per la cura',
       "other" => "Altro",
       "files" => "I file",
       "add_files" => "Aggiungere file",
