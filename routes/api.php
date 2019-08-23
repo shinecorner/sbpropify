@@ -194,11 +194,19 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::put('/requests/{id}/priority', 'ServiceRequestAPIController@changePriority')->name('requests.changePriority');
     Route::delete('/requests/{id}', 'ServiceRequestAPIController@destroy')->name('requests.destroy');
     Route::delete('/requests/{id}/media/{media_id}', 'MediaAPIController@serviceRequestDestroy')->name('requests.media.destroy');
+
     Route::get('/requests/{id}/assignees', 'ServiceRequestAPIController@getAssignees');
+    // @TODO rename assignees to users
     Route::post('/requests/{id}/assignees/{assignee_id}', 'ServiceRequestAPIController@assignUser');
-    Route::delete('/requests/{id}/assignees/{assignee_id}', 'ServiceRequestAPIController@unassignUser');
     Route::post('/requests/{id}/providers/{provider_id}', 'ServiceRequestAPIController@assignProvider');
+    Route::post('/requests/{id}/managers/{manager_id}', 'ServiceRequestAPIController@assignManager');
+    Route::delete('/requests-assignees/{requests_assignee_id}', 'ServiceRequestAPIController@deleteRequestAssignee');
+
+    // @TODO remove later
+    Route::delete('/requests/{id}/assignees/{assignee_id}', 'ServiceRequestAPIController@unassignUser');
     Route::delete('/requests/{id}/providers/{provider_id}', 'ServiceRequestAPIController@unassignProvider');
+
+
     Route::get('/requests/{id}/communicationTemplates', 'ServiceRequestAPIController@getCommunicationTemplates');
     Route::get('/requests/{id}/serviceCommunicationTemplates', 'ServiceRequestAPIController@getServiceCommunicationTemplates');
     Route::get('/requests/{id}/serviceEmailTemplates', 'ServiceRequestAPIController@getServiceEmailTemplates');

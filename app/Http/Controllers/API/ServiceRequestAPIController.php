@@ -648,6 +648,7 @@ class ServiceRequestAPIController extends AppBaseController
      */
     public function unassignProvider(int $id, int $pid, ServiceProviderRepository $spRepo, AssignRequest $r)
     {
+        return $this->deleteRequestAssignee($pid, $r);
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
@@ -786,6 +787,7 @@ class ServiceRequestAPIController extends AppBaseController
      */
     public function unassignUser(int $id, int $uid, UserRepository $uRepo, AssignRequest $r)
     {
+        return $this->deleteRequestAssignee($uid, $r);
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
@@ -873,6 +875,24 @@ class ServiceRequestAPIController extends AppBaseController
         $response = (new ServiceRequestAssigneeTransformer())->transformPaginator($assignees) ;
         return $this->sendResponse($response, 'Assignees retrieved successfully');
     }
+
+    /**
+     * @param int $id
+     * @param AssignRequest $request
+     * @return mixed
+     */
+    public function deleteRequestAssignee(int $id, AssignRequest $request)
+    {
+        $requestAssignee = ServiceRequestAssignee::find($id);
+        if (empty($requestAssignee)) {
+            // @TODO fix message
+            return $this->sendError(__('models.request.errors.not_found'));
+        }
+        $requestAssignee->delete();
+
+        return $this->sendResponse($id, __('models.request.detached.' . $requestAssignee->assignee_type));
+    }
+
 
     /**
      * @param int $id
