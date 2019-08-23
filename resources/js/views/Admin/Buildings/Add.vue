@@ -83,7 +83,10 @@
             setBuildingName() {
                 this.model.name = this.model.street + ' ' + this.model.street_nr;
             }
-        }
+        },
+        mounted() {
+            this.$root.$on('changeLanguage', () => this.getStates());
+        },
     }
 </script>
 

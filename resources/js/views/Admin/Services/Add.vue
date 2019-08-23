@@ -133,7 +133,10 @@
             Cropper,
             AddActions,
             SelectLanguage
-        }
+        },
+        mounted() {
+            this.$root.$on('changeLanguage', () => this.getStates());
+        },
     }
 </script>
 
