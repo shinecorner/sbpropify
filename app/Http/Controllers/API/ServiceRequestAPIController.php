@@ -711,12 +711,40 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.user_not_found'));
         }
 
-        $sr->managers()->sync([$uid => ['created_at' => now()]], false);
+        // @TODO remove,
+        $managerId = PropertyManager::where('user_id', $u->id)->value('id');
+        return $this->assignManager($id, $managerId, $uRepo, $r);
+
+        $sr->users()->sync([$uid => ['created_at' => now()]], false);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user');
 
         foreach ($sr->providers as $p) {
             $sr->conversationFor($p->user, $u);
+        }
+
+        return $this->sendResponse($sr, __('models.request.attached.user'));
+    }
+
+    public function assignManager(int $id, int $pmid, UserRepository $uRepo, AssignRequest $r)
+    {
+        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        if (empty($sr)) {
+            return $this->sendError(__('models.request.errors.not_found'));
+        }
+
+        // @TODO improve using repository,
+        $manager = PropertyManager::with('user')->find($pmid);
+        if (empty($manager)) {
+            return $this->sendError(__('models.request.errors.user_not_found'));
+        }
+
+        $sr->managers()->sync([$pmid => ['created_at' => now()]], false);
+        $sr->load('media', 'tenant.user', 'category', 'comments.user',
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user');
+
+        foreach ($sr->providers as $p) {
+            $sr->conversationFor($p->user, $manager->user);
         }
 
         return $this->sendResponse($sr, __('models.request.attached.user'));
