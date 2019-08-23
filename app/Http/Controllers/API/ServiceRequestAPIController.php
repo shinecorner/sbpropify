@@ -878,6 +878,39 @@ class ServiceRequestAPIController extends AppBaseController
 
     /**
      * @param int $id
+     * @param int $uid
+     * @param AssignRequest $r
+     * @param UserRepository $uRepo
+     * @return Response
+     *
+     * @SWG\Delete(
+     *      path="/requests-assignees/{requests_assignee_id}",
+     *      summary="Unassign the provider,user or manager to the request",
+     *      tags={"ServiceRequest", "User", "PropertyManager", "ServiceProvider"},
+     *      description="Unassign the provider,user or manager to the request",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="integer",
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @param int $id
      * @param AssignRequest $request
      * @return mixed
      */

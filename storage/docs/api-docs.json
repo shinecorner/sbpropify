@@ -4357,6 +4357,40 @@
                 }
             }
         },
+        "/requests-assignees/{requests_assignee_id}": {
+            "delete": {
+                "tags": [
+                    "ServiceRequest",
+                    "User",
+                    "PropertyManager",
+                    "ServiceProvider"
+                ],
+                "summary": "Unassign the provider,user or manager to the request",
+                "description": "Unassign the provider,user or manager to the request",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/requests/{id}/comunicationTemplates": {
             "get": {
                 "tags": [
