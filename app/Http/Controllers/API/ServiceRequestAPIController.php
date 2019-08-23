@@ -901,7 +901,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $assignees = $sr->assigners()->paginate($perPage);
+        $assignees = $sr->assignees()->paginate($perPage);
 
         $providerType = array_flip(Relation::$morphMap)[\App\Models\ServiceProvider::class] ?? \App\Models\ServiceProvider::class;
         $providerIds = $assignees->where('assignee_type', $providerType)->pluck('assignee_id');
