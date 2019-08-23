@@ -29,11 +29,12 @@ class ServiceRequestTransformer extends BaseTransformer
             'qualification' => $model->qualification,
             'is_public' => $model->is_public,
             'created_at' => $model->created_at->format('Y-m-d'),
+            'updated_at' => $model->updated_at->format('d.m.Y'),
             'visibility' => $model->visibility,
         ];
 
         if ($model->due_date) {
-            $response['due_date'] = $model->due_date->format('Y-m-d');
+            $response['due_date'] = $model->due_date->format('d.m.Y');
         }
 
         if ($model->solved_date) {
