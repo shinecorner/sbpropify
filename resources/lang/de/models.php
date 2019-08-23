@@ -348,6 +348,7 @@ return [
       'assign' => 'Zuweisen',
       'tenant_assigned' => 'Mieter wurde zugewiesen',
       'tenant_unassigned' => 'Mieter wurde entfernt',
+      'assignment' => 'Zugewiesene Mieter',
       'type' => 
       [
         'label' => 'Typ',

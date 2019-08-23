@@ -868,6 +868,7 @@ export default {
                 "assign": "Assign",
                 "tenant_assigned": "Tenant assigned",
                 "tenant_unassigned": "Tenant unassigned",
+                "assignment": "Assigned tenants",
                 "type": {
                     "label": "Type",
                     "apartment": "Apartment",
