@@ -14,7 +14,7 @@ class AddNationalityInTenantsTable extends Migration
     public function up()
     {
         Schema::table('tenants', function (Blueprint $table) {
-            $table->string('nationality')->after('tenant_format')->nullable();
+            $table->string('nation')->after('tenant_format')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddNationalityInTenantsTable extends Migration
     public function down()
     {
         Schema::table('tenants', function (Blueprint $table) {
-            $table->dropColumn('nationality');
+            $table->dropColumn('nation');
         });
     }
 }

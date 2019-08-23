@@ -168,7 +168,6 @@ class AuthController extends Controller
      */
     protected function saveLoginDevice($user)
     {
-        // @TODO this is tmp for testing purpose
         if (empty($user->tenant->id)) {
             return;
         }
