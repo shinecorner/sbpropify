@@ -220,6 +220,7 @@ return [
       'not_found' => 'Building not found',
       'house_rules' => 'House rules',
       'operating_instructions' => 'Operating instructions',
+      'care_instructions' => 'Care instructions',
       'other' =>  'Other',
       'files' => 'Files',
       'add_files' => 'Add files',

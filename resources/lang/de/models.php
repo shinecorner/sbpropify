@@ -220,6 +220,7 @@ return [
       'not_found' => 'Liegenschaft nicht gefunden',
       'house_rules' => 'Hausordnung',
       'operating_instructions' => 'Benutzungsanleitungen',
+      'care_instructions' => 'Pflegehinweise',
       'other' =>  'Sonstiges',
       'files' => 'Dokumente',
       'add_files' => 'Dokumente hinzufügen',
