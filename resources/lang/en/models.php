@@ -348,6 +348,7 @@ return [
       'assign' => 'Assign',
       'tenant_assigned' => 'Tenant assigned',
       'tenant_unassigned' => 'Tenant unassigned',
+      'assignment' => 'Assigned tenants',
       'type' => 
       [
         'label' => 'Type',
@@ -530,7 +531,6 @@ return [
         'confirmBtnText' => 'Ok',
         'cancelBtnText' => 'Cancel',
       ],
-      'assignment' => 'Assignment',
       'assignType' => 'Type',
       'unassign' => 'Unassign',
       'assign' => 'Assign',
@@ -756,6 +756,7 @@ return [
       'internal_notices' => 'Internal notices',
       'status_changed' => 'Status changed',
       'priority_changed' => 'Priority changed',
+      'assignment'=> 'Assignment of managers/services providers',
       'media' => 
       [
         'added' => 'Document added',
@@ -943,7 +944,7 @@ return [
       'requests' => 'Requests',
       'assign' => 'Assign',
       'unassign' => 'Unassign',
-      'delete_with_reassign_modal' => 
+      'delete_with_reassign_modal' =>
       [
         'title' => 'Delete & reassign buildings',
         'description' => 'The selected property manager is linked to properties. You can assign the properties to another person. To do this, select a property manager from the list.',

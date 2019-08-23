@@ -347,6 +347,7 @@ return [
       "assign" => "Assegnare",
       "tenant_assigned" => "L'inquilino assegnato",
       "tenant_unassigned" => "Un inquilino non assegnato",
+      'assignment' => 'Affittuari assegnati',
       'type' => 
       [
         "label" => "Tipo",
@@ -529,7 +530,6 @@ return [
         "confirmBtnText" => "Ok",
         "cancelBtnText" => "Annulla",
       ],
-      "assignment" => "Assegnazione",
       "assignType" => "Tipo",
       "unassign" => "Disassegnare",
       "assign" => "Assegnare",
@@ -755,6 +755,7 @@ return [
       "internal_notices" => "Avvisi interni",
       "status_changed" => "Stato cambiato",
       "priority_changed" => "La priorità è cambiata",
+      'assignment'=> 'Assegnazione di manager/fornitori di servizi',
       'media' => 
       [
         "added" => "Documento ajouté",
@@ -945,7 +946,7 @@ return [
       "requests" => "Richieste",
       "assign" => "Assegnare",
       "unassign" => "Disassegnare",
-      'delete_with_reassign_modal' => 
+      'delete_with_reassign_modal' =>
       [
         "title" => "Cancellare e riassegnare gli edifici",
         "description" => "Il gestore di proprietà selezionato è collegato alle proprietà. È possibile assegnare le proprietà ad un'altra persona. Per fare questo, selezionare un gestore di proprietà dall'elenco",

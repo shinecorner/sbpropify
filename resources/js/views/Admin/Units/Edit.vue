@@ -135,7 +135,7 @@
                 </card>
             </el-col>
             <el-col :md="12">
-                <card class="mt15" :loading="loading" :header="$t('models.post.assignment')">
+                <card class="mt15" :loading="loading" :header="$t('models.unit.assignment')">
                     <assignment
                         :toAssign.sync="toAssign"
                         :assign="assignTenant"

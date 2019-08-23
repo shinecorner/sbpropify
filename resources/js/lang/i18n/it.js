@@ -367,8 +367,11 @@ export default {
             "activate_account": "Attivare l'account",
             "activate_code": "Attivare il codice",
             "activate_code_required": "Attivare il codice è obbligatorio",
+            "activate_terms_condition_1": "Accetto che i dati sono corretti",
+            "activate_terms_condition_2": "Ho letto i termini e le condizioni d'uso",
             "back": "Indietro",
             "activate": "Attivare",
+            "activate_info": "Se hai ricevuto un codice di attivazione dal tuo padrone di casa, puoi attivare il tuo account qui. Inserite i seguenti dati:",
             "unauthenticated": "Non autenticato",
             "logged_out": "Disconnesso",
             "logged_in": "Loggato",
@@ -495,7 +498,8 @@ export default {
                 "title": "C'e' qualcosa che non va qui.",
                 "message": "La pagina richiesta non è stata trovata. Controlla l'URL o vai alla homepage."
             },
-            "to_homepage": "Alla Homepage"
+            "to_homepage": "Alla Homepage",
+            "assignment": "Assegnazione"
         },
         "layouts": {
             "tenant": {
@@ -864,6 +868,7 @@ export default {
                 "assign": "Assegnare",
                 "tenant_assigned": "L'inquilino assegnato",
                 "tenant_unassigned": "Un inquilino non assegnato",
+                "assignment": "Affittuari assegnati",
                 "type": {
                     "label": "Tipo",
                     "apartment": "Appartamento",
@@ -1019,7 +1024,6 @@ export default {
                     "confirmBtnText": "Ok",
                     "cancelBtnText": "Annulla"
                 },
-                "assignment": "Assegnazione",
                 "assignType": "Tipo",
                 "unassign": "Disassegnare",
                 "assign": "Assegnare",
@@ -1230,6 +1234,7 @@ export default {
                 "internal_notices": "Avvisi interni",
                 "status_changed": "Stato cambiato",
                 "priority_changed": "La priorità è cambiata",
+                "assignment": "Assegnazione di manager/fornitori di servizi",
                 "media": {
                     "added": "Documento ajouté",
                     "removed": "Supporti rimossi",

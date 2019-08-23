@@ -111,7 +111,7 @@
 
                     <el-card :loading="loading" v-if="!model.pinned && (!model.tenant)">
                         <div slot="header" class="clearfix">
-                            <span>{{$t('models.post.assignment')}}</span>
+                            <span>{{$t('general.assignment')}}</span>
                         </div>
                         <assignment-by-type
                             :resetToAssignList="resetToAssignList"

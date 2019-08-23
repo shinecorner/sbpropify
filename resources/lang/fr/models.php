@@ -347,6 +347,7 @@ return [
       "assign" => "Affecter",
       "tenant_assigned" => "Locataire affecté",
       "tenant_unassigned" => "Locataire non affecté",
+      'assignment' => 'Locataires affectés',
       'type' => 
       [
         "label" => "Type",
@@ -529,7 +530,6 @@ return [
         "confirmBtnText" => "Ok",
         "cancelBtnText" => "Annuler",
       ],
-      "assignment" => "Affectation",
       "assignType" => "Type",
       "unassign" => "Désassigner",
       "assign" => "Affecter",
@@ -755,6 +755,7 @@ return [
       "internal_notices" => "Avis internes",
       "status_changed" => "Le statut a changé",
       "priority_changed" => "Priorité modifiée",
+      'assignment'=> 'Affectation de gestionnaires/fournisseurs de services',
       'media' => 
       [
         "added" => "Document ajouté",
@@ -945,7 +946,7 @@ return [
       "requests" => "Demandes",
       "assign" => "Affecter",
       "unassign" => "Désassigner",
-      'delete_with_reassign_modal' => 
+      'delete_with_reassign_modal' =>
       [
         "title" => "Supprimer et réaffecter des bâtiments",
         "description" => "Le gestionnaire immobilier sélectionné est lié aux biens immobiliers. Vous pouvez affecter les propriétés à une autre personne. Pour ce faire, sélectionnez un gestionnaire immobilier dans la liste..",

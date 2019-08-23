@@ -132,6 +132,7 @@
                 return this.$route.name;
             },
             filters() {
+                
                 let filters = [
                     {
                         name: this.$t('filters.search'),
@@ -144,6 +145,12 @@
                         type: 'select',
                         key: 'category_id',
                         data: this.categories,
+                    },
+                    {
+                        name: this.$t('models.request.status.label'),
+                        type: 'select',
+                        key: 'status',
+                        data: this.prepareFilters("status"),
                     },
                     {
                         name: this.$t('models.request.priority.label'),
@@ -162,6 +169,18 @@
                         type: 'select',
                         key: 'building_id',
                         data: this.buildings,
+                    },
+                    {
+                        name: this.$t('filters.propertyManagers'),
+                        type: 'select',
+                        key: 'assignee_id',
+                        data: this.propertyManagers,
+                    },
+                    {
+                        name: this.$t('filters.services'),
+                        type: 'select',
+                        key: 'service_id',
+                        data: this.services,
                     },
                     {
                         name: this.$t('filters.tenant'),
@@ -190,84 +209,18 @@
                         format: 'dd.MM.yyyy'
                     },
                 ];
-                if(this.routeName == 'adminRequests') {
-                    let addedfilters = [
-                        {
-                            name: this.$t('filters.propertyManagers'),
-                            type: 'select',
-                            key: 'assignee_id',
-                            data: this.propertyManagers,
-                        },
-                        {
-                            name: this.$t('filters.services'),
-                            type: 'select',
-                            key: 'service_id',
-                            data: this.services,
-                        },
-                        {
-                            name: this.$t('models.request.status.label'),
-                            type: 'select',
-                            key: 'status',
-                            data: this.prepareFilters("status"),
-                        }
-                    ];
-                    Array.prototype.push.apply(filters,addedfilters);
-                }
-                else if(this.routeName == 'adminUnassignedRequests') {
-                    let addedfilters = [
-                        {
-                            name: this.$t('models.request.status.label'),
-                            type: 'select',
-                            key: 'status',
-                            data: this.prepareFilters("status"),
-                        }
-                    ];
-                    Array.prototype.push.apply(filters,addedfilters); 
+                if(this.routeName == 'adminUnassignedRequests') {
+                    filters.splice(6, 2);
                 } 
                 else if(this.routeName == 'adminAllpendingRequests') {
-                    let addedfilters = [
-                        {
-                            name: this.$t('filters.propertyManagers'),
-                            type: 'select',
-                            key: 'assignee_id',
-                            data: this.propertyManagers,
-                        },
-                        {
-                            name: this.$t('filters.services'),
-                            type: 'select',
-                            key: 'service_id',
-                            data: this.services,
-                        }
-                    ];
-                    Array.prototype.push.apply(filters,addedfilters); 
+                    filters.splice(2, 1);
                 }
                 else if(this.routeName == 'adminMyRequests') {
-                    let addedfilters = [
-                        {
-                            name: this.$t('filters.services'),
-                            type: 'select',
-                            key: 'service_id',
-                            data: this.services,
-                        },
-                        {
-                            name: this.$t('models.request.status.label'),
-                            type: 'select',
-                            key: 'status',
-                            data: this.prepareFilters("status"),
-                        }
-                    ];
-                    Array.prototype.push.apply(filters,addedfilters); 
+                    filters.splice(6, 1);
                 }
                 else if(this.routeName == 'adminMypendingRequests') {
-                    let addedfilters = [
-                        {
-                            name: this.$t('filters.services'),
-                            type: 'select',
-                            key: 'service_id',
-                            data: this.services,
-                        }
-                    ];
-                    Array.prototype.push.apply(filters,addedfilters);
+                    filters.splice(6, 1);
+                    filters.splice(2, 1);
                 }
 
                 return filters;

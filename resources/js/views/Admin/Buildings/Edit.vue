@@ -200,8 +200,6 @@
                         <relation-list
                             :actions="requestActions"
                             :columns="requestColumns"
-                            :statuses="requestStatuses"
-                            :tenantAvatars="requestTenantAvatars"
                             :filterValue="model.id"
                             fetchAction="getRequests"
                             filter="building_id"
@@ -346,8 +344,16 @@
                     }]
                 }],
                 requestColumns: [{
-                    prop: 'title',
+                    type: 'requestTenantAvatar',
+                    width: 75,
+                    prop: 'tenant',
+                    label: this.$t('models.request.tenant')
+                }, {
+                    type: 'requestTitleWithDesc',
                     label: this.$t('models.request.prop_title')
+                }, {
+                    type: 'requestStatus',
+                    label: this.$t('models.request.status.label')
                 }],
                 requestActions: [{
                     width: '180px',
@@ -356,14 +362,6 @@
                         title: this.$t('models.request.edit'),
                         onClick: this.requestEditView
                     }]
-                }],
-                requestStatuses: [{
-                    prop: 'status',
-                    label: this.$t('models.request.status.label')
-                }],
-                requestTenantAvatars: [{
-                    prop: 'avatar',
-                    label: this.$t('models.request.tenant')
                 }],
                 toAssignList: [],
                 toAssign: '',

@@ -46,8 +46,11 @@ return [
   'activate_account' => 'Account akvitieren',
   'activate_code' => 'Aktivierunscode',
   'activate_code_required' => 'Aktivierunscode ist ein Pflichtfeld',
+  'activate_terms_condition_1' => "Ich stimme zu, dass die Angaben korrekt sind.",
+  'activate_terms_condition_2' => "Ich habe die Allgemeinen Geschäftsbedingungen gelesen.",
   'back' => 'Zurück',
-  'activate' => 'Aktivieren',
+  'activate' => 'Aktivieren',  
+  'activate_info' => "Wenn Sie von Ihrem Vermieter einen Aktivierungscode erhalten haben, dann können Sie hier Ihr Konto aktivieren. Bitte geben Sie folgende Daten ein:",
   'unauthenticated' => 'Unautorisiert',
   'logged_out' => 'Ausgeloggt',
   'logged_in' => 'Eingeloggt',
@@ -187,4 +190,6 @@ return [
     'message' => "Die von dir aufgerufene Seite wurde nicht gefunden. Bitte überprüfe die URL oder wechsle zur Startseite."
   ],
   'to_homepage' => 'Zur Startseite',
+  'assignment' => 'Zugewiesene Liegenschaften',
+
 ];

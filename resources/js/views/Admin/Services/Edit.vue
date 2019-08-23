@@ -32,7 +32,60 @@
                             </el-col>
                         </el-row>
                     </card>
-                    <card :loading="loading" class="mt15" :header="$t('models.service.user_credentials')">    
+                    <card class="mt15" :loading="loading" :header="$t('models.service.contact_details')">
+                        <el-row :gutter="20">
+                            <el-col :md="12">
+                                <el-form-item :label="$t('models.address.street')" :rules="validationRules.street"
+                                              prop="address.street">
+                                    <el-input type="text" v-model="model.address.street"></el-input>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :md="12">
+                                <el-row :gutter="10">
+                                    <el-col :md="8">
+                                        <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip"
+                                                      prop="address.zip">
+                                            <el-input type="text" v-model="model.address.zip"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :md="16">
+                                        <el-form-item :label="$t('models.address.city')" :rules="validationRules.city"
+                                                      prop="address.city">
+                                            <el-input type="text" v-model="model.address.city"></el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                            </el-col>
+                        </el-row>
+
+                        <el-row :gutter="20">
+                            <el-col :md="12">
+                                <el-form-item :label="$t('models.address.state.label')"
+                                              :rules="validationRules.state_id"
+                                              prop="address.state_id">
+                                    <el-select :placeholder="$t('models.address.state.label')" style="display: block"
+                                               v-model="model.address.state_id">
+                                        <el-option :key="state.id" :label="state.name" :value="state.id"
+                                                   v-for="state in states"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :md="12">
+                                <el-form-item :label="$t('models.user.phone')" prop="phone">
+                                    <el-input type="text" v-model="model.phone"/>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+
+                        <el-row :gutter="20">
+                            <el-col :md="24">
+                                <el-form-item :label="$t('models.tenant.language')" prop="settings.language">
+                                    <select-language :activeLanguage.sync="model.settings.language"/>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                    </card>
+                    <card :loading="loading" class="mt15" :header="$t('models.service.user_credentials')">
                         <el-row :gutter="20">
                             <el-col :md="12">
                                 <el-form-item :label="$t('models.user.profile_image')">
@@ -66,66 +119,11 @@
                             </el-col>
                         </el-row>
                     </card>
-                    <card class="mt15" :loading="loading" :header="$t('models.service.contact_details')">
-                        <el-row :gutter="20">
-                            <el-col :md="12">
-                                <el-form-item :label="$t('models.address.street')" :rules="validationRules.street"
-                                              prop="address.street"
-                                              style="max-width: 512px;">
-                                    <el-input type="text" v-model="model.address.street"></el-input>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :md="12">
-                                <el-row :gutter="10">
-                                    <el-col :md="8">
-                                        <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip"
-                                                      prop="address.zip"
-                                                      style="max-width: 512px;">
-                                            <el-input type="text" v-model="model.address.zip"></el-input>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :md="16">
-                                        <el-form-item :label="$t('models.address.city')" :rules="validationRules.city"
-                                                      prop="address.city"
-                                                      style="max-width: 512px;">
-                                            <el-input type="text" v-model="model.address.city"></el-input>
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row>
-                            </el-col>
-                        </el-row>
-
-                        <el-row :gutter="20">
-                            <el-col :md="12">
-                                <el-form-item :label="$t('models.address.state.label')"
-                                              :rules="validationRules.state_id"
-                                              prop="address.state_id" style="max-width: 512px;">
-                                    <el-select :placeholder="$t('models.address.state.label')" style="display: block"
-                                               v-model="model.address.state_id">
-                                        <el-option :key="state.id" :label="state.name" :value="state.id"
-                                                   v-for="state in states"></el-option>
-                                    </el-select>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :md="12">
-                                <el-form-item :label="$t('models.user.phone')" prop="phone">
-                                    <el-input type="text" v-model="model.phone"/>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-
-                        <el-row :gutter="20">
-                            <el-col :md="24">
-                                <el-form-item :label="$t('models.tenant.language')" prop="settings.language">
-                                    <select-language :activeLanguage.sync="model.settings.language"/>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                    </card>
                 </el-form>
             </el-col>
             <el-col :md="12">
-                <card :loading="loading" :header="$t('models.post.assignment')">
+                <raw-grid-statistics-card :cols="8" :data="statistics.raw"/>
+                <card :loading="loading" class="mt15" :header="$t('general.assignment')">
             
                     <assignment-by-type
                         :resetToAssignList="resetToAssignList"
@@ -153,16 +151,12 @@
                     <relation-list
                         :actions="requestActions"
                         :columns="requestColumns"
-                        :statuses="requestStatuses"
-                        :tenantAvatars="requestTenantAvatars"
                         :filterValue="model.id"
                         fetchAction="getRequests"
                         filter="service_id"
                         v-if="model && model.id"
                     />
                 </card>
-
-                <raw-grid-statistics-card :cols="8" :data="statistics.raw" class="mt15"/>
             </el-col>
         </el-row>
 
@@ -200,16 +194,16 @@
         data() {
             return {
                 requestColumns: [{
-                    prop: 'title',
-                    label: this.$t('models.request.prop_title')
-                }],
-                requestStatuses: [{
-                    prop: 'status',
-                    label: this.$t('models.request.status.label')
-                }],
-                requestTenantAvatars: [{
-                    prop: 'avatar',
+                    type: 'requestTenantAvatar',
+                    width: 75,
+                    prop: 'tenant',
                     label: this.$t('models.request.tenant')
+                }, {
+                    type: 'requestTitleWithDesc',
+                    label: this.$t('models.request.prop_title')
+                }, {
+                    type: 'requestStatus',
+                    label: this.$t('models.request.status.label')
                 }],
                 requestActions: [{
                     width: '90px',

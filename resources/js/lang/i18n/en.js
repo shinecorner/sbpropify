@@ -367,8 +367,11 @@ export default {
             "activate_account": "Activate Account",
             "activate_code": "Activate Code",
             "activate_code_required": "Activate Code is required",
+            "activate_terms_condition_1": "I agree details are correct",
+            "activate_terms_condition_2": "I've read terms and conditions",
             "back": "Back",
             "activate": "Activate",
+            "activate_info": "If you have received an activation code from your landlord, you can activate your account here. Please enter the following data:",
             "unauthenticated": "Unauthenticated",
             "logged_out": "Logged out",
             "logged_in": "Logged in",
@@ -495,7 +498,8 @@ export default {
                 "title": "Hmm... something's wrong here.",
                 "message": "The page you requested was not found. Please check the URL or go to the homepage."
             },
-            "to_homepage": "To Homepage"
+            "to_homepage": "To Homepage",
+            "assignment": "Assignment"
         },
         "layouts": {
             "tenant": {
@@ -865,6 +869,7 @@ export default {
                 "assign": "Assign",
                 "tenant_assigned": "Tenant assigned",
                 "tenant_unassigned": "Tenant unassigned",
+                "assignment": "Assigned tenants",
                 "type": {
                     "label": "Type",
                     "apartment": "Apartment",
@@ -1020,7 +1025,6 @@ export default {
                     "confirmBtnText": "Ok",
                     "cancelBtnText": "Cancel"
                 },
-                "assignment": "Assignment",
                 "assignType": "Type",
                 "unassign": "Unassign",
                 "assign": "Assign",
@@ -1231,6 +1235,7 @@ export default {
                 "internal_notices": "Internal notices",
                 "status_changed": "Status changed",
                 "priority_changed": "Priority changed",
+                "assignment": "Assignment of managers/services providers",
                 "media": {
                     "added": "Document added",
                     "removed": "Document removed",

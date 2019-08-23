@@ -367,8 +367,11 @@ export default {
             "activate_account": "Activer un compte",
             "activate_code": "Activer le code",
             "activate_code_required": "Activer le code est nécessaire",
+            "activate_terms_condition_1": "Je suis d'accord que les détails sont corrects",
+            "activate_terms_condition_2": "J'ai lu les termes et conditions",
             "back": "Retour",
             "activate": "Activer",
+            "activate_info": "Si vous avez reçu un code d'activation de votre propriétaire, vous pouvez activer votre compte ici. Veuillez entrer les données suivantes :",
             "unauthenticated": "Non authentifié",
             "logged_out": "Déconnecté",
             "logged_in": "Connecté(e)",
@@ -495,7 +498,8 @@ export default {
                 "title": "Hmm... Quelque chose ne va pas ici.",
                 "message": "La page que vous avez demandée n'a pas été trouvée. Veuillez vérifier l'URL ou aller sur la page d'accueil."
             },
-            "to_homepage": "Vers la page d'accueil"
+            "to_homepage": "Vers la page d'accueil",
+            "assignment": "Affectation"
         },
         "layouts": {
             "tenant": {
@@ -864,6 +868,7 @@ export default {
                 "assign": "Affecter",
                 "tenant_assigned": "Locataire affecté",
                 "tenant_unassigned": "Locataire non affecté",
+                "assignment": "Locataires affectés",
                 "type": {
                     "label": "Type",
                     "apartment": "Appartement",
@@ -1019,7 +1024,6 @@ export default {
                     "confirmBtnText": "Ok",
                     "cancelBtnText": "Annuler"
                 },
-                "assignment": "Affectation",
                 "assignType": "Type",
                 "unassign": "Désassigner",
                 "assign": "Affecter",
@@ -1230,6 +1234,7 @@ export default {
                 "internal_notices": "Avis internes",
                 "status_changed": "Le statut a changé",
                 "priority_changed": "Priorité modifiée",
+                "assignment": "Affectation de gestionnaires/fournisseurs de services",
                 "media": {
                     "added": "Document ajouté",
                     "removed": "Suppression du support",

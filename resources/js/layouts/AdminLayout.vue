@@ -76,6 +76,8 @@
     import Avatar from 'components/Avatar';
     import VRouterTransition from 'v-router-transition';
     import {mapActions, mapState} from "vuex";
+
+    import { EventBus } from '../event-bus.js';
     import Vue from 'vue';
 
     Vue.directive('click-outside', {
