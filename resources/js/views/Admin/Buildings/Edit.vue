@@ -21,7 +21,7 @@
                     <el-tab-pane :label="$t('models.building.details')" name="details">
                         <el-form :model="model" label-position="top" label-width="192px" ref="form">
                             <el-row :gutter="20">
-                                <el-col :md="12">
+                                <el-col :md="10">
                                     <el-form-item :label="$t('models.address.street')" :rules="validationRules.street"
                                                   prop="street"
                                                   style="max-width: 512px;">
@@ -35,7 +35,7 @@
                                         <el-input type="text" v-model="model.street_nr" v-on:change="setBuildingName"></el-input>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="8">
+                                <el-col :md="10">
                                     <el-form-item :label="$t('models.building.name')" :rules="validationRules.name"
                                                   prop="name"
                                                   style="max-width: 512px;">
@@ -614,6 +614,9 @@
             setBuildingName(event ) {
                 this.model.name = this.model.street + ' ' + this.model.street_nr;
             }
+        },
+        mounted() {
+            this.$root.$on('changeLanguage', () => this.getStates());
         },
         computed: {
             ...mapGetters('application', {

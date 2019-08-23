@@ -165,12 +165,15 @@ export default {
             "server_error": "Erreur de serveur",
             "reset_password": "Réinitialiser le mot de passe",
             "reset_password_mail": "Envoyer un e-mail avec mot de passe réinitialisé",
-            "reset_password_mail_sent": "Réinitialiser le mot de passe e-mail envoyé, s'il vous plaît vérifier votre boîte de réception",
+            "reset_password_mail_sent": "Nous vous avons envoyé un e-mail avec d'autres instructions. Veuillez vérifier votre boîte de réception.",
             "back_to_login": "Retour à la page d'ouverture de session",
             "forgot_password": "Mot de passe oublié",
+            "forgot_password_info": "Entrez ici l'adresse e-mail avec laquelle vous vous êtes inscrit. Nous vous enverrons un courriel avec votre nom d'utilisateur et un lien pour réinitialiser votre mot de passe.",
+            "email_not_registered": "L'adresse e-mail que vous avez saisie n'est pas associée à un compte actif. Essayez une autre adresse e-mail.",
             "remember_me": "Se souvenir de moi",
             "password": "Mot de passe",
-            "change_password": "Modifier le mot de passe",
+            "change_password": "Définir un nouveau mot de passe",
+            "change_password_info": "Veuillez entrer ici votre nouveau mot de passe :",
             "new_password": "Nouveau mot de passe",
             "old_password": "Ancien mot de passe",
             "new_password_confirmation": "Confirmation du nouveau mot de passe",
@@ -284,7 +287,8 @@ export default {
                 "title": "Hmm... Quelque chose ne va pas ici.",
                 "message": "La page que vous avez demandée n'a pas été trouvée. Veuillez vérifier l'URL ou aller sur la page d'accueil."
             },
-            "to_homepage": "Vers la page d'accueil"
+            "to_homepage": "Vers la page d'accueil",
+            "assignment": "Affectation"
         },
         "filters": {
             "header": "Filtres",
@@ -668,7 +672,7 @@ export default {
                 "serviceRequestCategoryDeleted": "Catégorie de demande de service supprimée",
                 "setting_saved": "réglage utilisateur sauvegardé",
                 "setting_deleted": "Suppression du réglage utilisateur",
-                "password_reset_request_sent": "Réinitialisation du mot de passe Demande d'envoi réussie",
+                "password_reset_request_sent": "Nous vous avons envoyé un e-mail avec d'autres instructions. Veuillez vérifier votre boîte de réception.",
                 "errors": {
                     "not_found": "Utilisateur introuvable",
                     "setting_not_found": "réglage utilisateur introuvable",
@@ -833,6 +837,7 @@ export default {
                 "not_found": "Bâtiment non trouvé",
                 "house_rules": "Règlement intérieur",
                 "operating_instructions": "Notice d'utilisation",
+                "care_instructions": "Conseils d'entretien",
                 "other": "Autre",
                 "files": "Fichiers",
                 "add_files": "Ajouter des fichiers",
@@ -946,6 +951,7 @@ export default {
                 "assign": "Affecter",
                 "tenant_assigned": "Locataire affecté",
                 "tenant_unassigned": "Locataire non affecté",
+                "assignment": "Locataires affectés",
                 "type": {
                     "label": "Type",
                     "apartment": "Appartement",
@@ -1048,6 +1054,7 @@ export default {
                 "user": "Utilisateur",
                 "delete": "Supprimer",
                 "likes": "Aime",
+                "tenants": "Locataires",
                 "views": "Vues",
                 "details": "Afficher les détails",
                 "published_at": "Publié",
@@ -1100,7 +1107,6 @@ export default {
                     "confirmBtnText": "Ok",
                     "cancelBtnText": "Annuler"
                 },
-                "assignment": "Affectation",
                 "assignType": "Type",
                 "unassign": "Désassigner",
                 "assign": "Affecter",
@@ -1204,6 +1210,7 @@ export default {
                 "required": "Ce champ est obligatoire",
                 "details": "Détails",
                 "buildings": "Bâtiments",
+                "count_of_buildings": "Nombre de bâtiments",
                 "errors": {
                     "not_found": "District non trouvé"
                 }
@@ -1311,6 +1318,7 @@ export default {
                 "internal_notices": "Avis internes",
                 "status_changed": "Le statut a changé",
                 "priority_changed": "Priorité modifiée",
+                "assignment": "Affectation de gestionnaires/fournisseurs de services",
                 "media": {
                     "added": "Document ajouté",
                     "removed": "Suppression du support",

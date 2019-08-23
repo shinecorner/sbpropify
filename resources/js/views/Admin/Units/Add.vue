@@ -6,7 +6,7 @@
         <div class="crud-view">
             <card :loading="loading">
                 <el-form :model="model" label-width="192px" ref="form" style="max-width: 512px;">
-                    <el-form-item :label="$t('models.unit.building')" :rules="validationRules.building" prop="building_id">
+                    <el-form-item :label="$t('models.unit.building')" :rules="validationRules.building_id" prop="building_id">
                         <el-select
                             :loading="remoteLoading"
                             :placeholder="$t('models.unit.placeholders.search')"

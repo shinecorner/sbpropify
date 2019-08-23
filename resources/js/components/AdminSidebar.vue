@@ -112,7 +112,7 @@
         watch: {
             links() {
                 const routeName = this.$route.name;
-
+                
                 this.links.map(link => {
                     if (link.route && link.route.name == routeName) {
                         this.currActive = link.title;
@@ -124,7 +124,27 @@
                             }
                         });
                     }
-                });
+                }); 
+            },
+            "$route.query": {
+                immediate: true,
+                handler({page, per_page}, prevQuery) {
+                    const routeName = this.$route.name;
+                
+                    this.links.map(link => {
+                        if (link.route && link.route.name == routeName) {
+                            this.currActive = link.title;
+                        } else if (link.children) {
+                            let dActive = '';
+                            link.children.map(child => {
+                                if (child.route && child.route.name == routeName) {
+                                    this.currActive = child.title;
+                                }
+                            });
+                        }
+                    }); 
+                }
+                
             }
         }
     }

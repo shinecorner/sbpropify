@@ -1376,7 +1376,7 @@ class StatisticsAPIController extends AppBaseController
         $serviceRequestCount = ServiceRequest
             ::when($startDate, function ($q) use ($startDate) {$q->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'));})
             ->whereHas('category', function ($q) {
-                $q->whereIn('id', [1, 2])->orWhereIn('parent_id', [1, 2]);
+                $q->whereIn('id', [1, 2])->orWhereIn('parent_id', [1, 2]); // @TODO fix hard coding [1, 2]
             })
             ->when($endDate, function ($q) use ($endDate) {$q->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'));})
             ->count();
@@ -1384,7 +1384,7 @@ class StatisticsAPIController extends AppBaseController
         $serviceRequestHasProviderCount = ServiceRequest
             ::has('providers')
             ->whereHas('category', function ($q) {
-                $q->whereIn('id', [1, 2])->orWhereIn('parent_id', [1, 2]);
+                $q->whereIn('id', [1, 2])->orWhereIn('parent_id', [1, 2]); // @TODO fix hard coding [1, 2]
             })
             ->when($startDate, function ($q) use ($startDate) {$q->whereDate('service_requests.created_at', '>=', $startDate->format('Y-m-d'));})
             ->when($endDate, function ($q) use ($endDate) {$q->whereDate('service_requests.created_at', '<=', $endDate->format('Y-m-d'));})

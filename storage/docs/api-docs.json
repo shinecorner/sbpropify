@@ -1012,6 +1012,41 @@
                 }
             }
         },
+        "/countries": {
+            "get": {
+                "tags": [
+                    "Country",
+                    "Country"
+                ],
+                "summary": "Get a listing of the Countries.",
+                "description": "Get all Countries",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Country"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/districts": {
             "get": {
                 "tags": [
@@ -4238,7 +4273,39 @@
                     "ServiceRequest"
                 ],
                 "summary": "Unassign the provided service provider from the request",
-                "description": "Unassign the provided service provider from the request",
+                "description": "use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/delete_requests_assignees__requests_assignee_id_'>/requests-assignees/{requests_assignee_id}</a>",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/ServiceRequest"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "deprecated": true
+            }
+        },
+        "/requests/{id}/users/{user_id}": {
+            "post": {
+                "tags": [
+                    "ServiceRequest"
+                ],
+                "summary": "Assign admin user to the request",
+                "description": "Assign admin user to the request",
                 "produces": [
                     "application/json"
                 ],
@@ -4269,7 +4336,7 @@
                     "ServiceRequest"
                 ],
                 "summary": "Assign the provided user to the request",
-                "description": "Assign the provided user to the request",
+                "description": "use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/post_requests__id__managers__pmid_'>/requests/{id}/managers/{pmid}</a>",
                 "produces": [
                     "application/json"
                 ],
@@ -4291,14 +4358,47 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "deprecated": true
             },
             "delete": {
                 "tags": [
                     "ServiceRequest"
                 ],
                 "summary": "Unassign the provided user to the request",
-                "description": "Unassign the provided user to the request",
+                "description": "use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/delete_requests_assignees__requests_assignee_id_'>/requests-assignees/{requests_assignee_id}</a>",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/ServiceRequest"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "deprecated": true
+            }
+        },
+        "/requests/{id}/managers/{pmid}": {
+            "post": {
+                "tags": [
+                    "ServiceRequest"
+                ],
+                "summary": "Assign property manager to the request",
+                "description": "Assign property manager to the request",
                 "produces": [
                     "application/json"
                 ],
@@ -4344,8 +4444,42 @@
                                 "data": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/definitions/ServiceRequest"
+                                        "$ref": "#/definitions/ServiceRequestAssignee"
                                     }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/requests-assignees/{requests_assignee_id}": {
+            "delete": {
+                "tags": [
+                    "ServiceRequest",
+                    "User",
+                    "PropertyManager",
+                    "ServiceProvider"
+                ],
+                "summary": "Unassign the provider,user or manager to the request",
+                "description": "Unassign the provider,user or manager to the request",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "integer"
                                 },
                                 "message": {
                                     "type": "string"
@@ -8030,23 +8164,29 @@
                     "type": "integer",
                     "format": "int32"
                 },
-                "name": {
-                    "description": "name",
-                    "type": "string"
-                },
                 "code": {
                     "description": "code",
                     "type": "string"
                 },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
+                "alpfa_3": {
+                    "description": "alpfa_3",
+                    "type": "string"
                 },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
+                "name": {
+                    "description": "name",
+                    "type": "string"
+                },
+                "name_de": {
+                    "description": "name_de",
+                    "type": "string"
+                },
+                "name_fr": {
+                    "description": "name_fr",
+                    "type": "string"
+                },
+                "name_it": {
+                    "description": "name_it",
+                    "type": "string"
                 }
             }
         },
@@ -8586,6 +8726,43 @@
                     "description": "updated_at",
                     "type": "string",
                     "format": "date-time"
+                }
+            }
+        },
+        "ServiceRequestAssignee": {
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "item_id": {
+                    "description": "related assigner id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "edit_id": {
+                    "description": "@TODO must be delete",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "type": {
+                    "description": "related assigner type",
+                    "type": "string",
+                    "format": "int32",
+                    "enum": [
+                        "user",
+                        "provider",
+                        "manager"
+                    ]
+                },
+                "name": {
+                    "description": "name",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "emai;",
+                    "type": "string"
                 }
             }
         },

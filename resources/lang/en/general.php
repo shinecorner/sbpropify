@@ -58,12 +58,15 @@ return [
   'server_error' => 'Server error',
   'reset_password' => 'Reset Password',
   'reset_password_mail' => 'Send reset password mail',
-  'reset_password_mail_sent' => 'Reset password mail sent, please check your inbox',
+  'reset_password_mail_sent' => 'We have sent you an e-mail with further instructions. Please check your inbox.',
   'back_to_login' => 'Go back to login',
-  'forgot_password' => 'Forgot password',
+  'forgot_password' => 'Forgot password',  
+  'forgot_password_info' => "Enter the email address by which you're registered here. We will send you an email with your I username and a link to reset your password.",
+  'email_not_registered' => "The e-mail address you entered is not associated with an active account. Try a different email address.",
   'remember_me' => 'Remember me',
   'password' => 'Password',
-  'change_password' => 'Change password',
+  'change_password' => 'Set new password',
+  'change_password_info' => "Please enter your new password here:",
   'new_password' => 'New password',
   'old_password' => 'Old password',
   'new_password_confirmation' => 'New password confirmation',
@@ -190,4 +193,6 @@ return [
     'message' => "The page you requested was not found. Please check the URL or go to the homepage."
   ],
   'to_homepage' => 'To Homepage',
+  'assignment' => 'Assignment',
+
 ];

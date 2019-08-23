@@ -88,26 +88,16 @@ class PropertyManagerAPIController extends AppBaseController
         }
 
         $getAll = $request->get('get_all', false);
-//        $reqCount = $request->get('req_count');
-//        if ($reqCount) {
-            $this->propertyManagerRepository->with([
-                'user' => function ($q) {
-                    $q->withCount([
-                        'requests',
-                        'requestsReceived',
-                        'requestsInProcessing',
-                        'requestsAssigned',
-                        'requestsDone',
-                        'requestsReactivated',
-                        'requestsArchived',
-                    ]);
-                }
-            ]);
-//        } else {
-//            $this->propertyManagerRepository->with([
-//                'user',
-//            ]);
-//        }
+        $this->propertyManagerRepository->with('user')->withCount([
+            'requests',
+            'requestsReceived',
+            'requestsInProcessing',
+            'requestsAssigned',
+            'requestsDone',
+            'requestsReactivated',
+            'requestsArchived',
+        ]);
+
 
         if ($getAll) {
             $propertyManagers = $this->propertyManagerRepository->get();
@@ -236,10 +226,8 @@ class PropertyManagerAPIController extends AppBaseController
             return $this->sendError(__('models.propertyManager.errors.not_found'));
         }
 
-        $propertyManager->load(['user' => function($q) {
-            $q->withCount('requests', 'solvedRequests', 'pendingRequests');
-        }, 'buildings', 'districts'])
-            ->loadCount('buildings');
+        $propertyManager->load(['user', 'buildings', 'districts'])
+            ->loadCount('requests', 'solvedRequests', 'pendingRequests', 'buildings');
         $response = (new PropertyManagerTransformer)->transform($propertyManager);
         return $this->sendResponse($response, 'Property Manager retrieved successfully');
     }

@@ -165,12 +165,15 @@ export default {
             "server_error": "Errore del server",
             "reset_password": "Reimpostare la password",
             "reset_password_mail": "Inviare la mail di reset della password",
-            "reset_password_mail_sent": "Reimposta la password inviata, controlla la tua casella di posta in arrivo",
+            "reset_password_mail_sent": "Le abbiamo inviato un'e-mail con ulteriori istruzioni. Controlla la tua casella di posta in arrivo.",
             "back_to_login": "Torna al login",
             "forgot_password": "Password dimenticata",
+            "forgot_password_info": "Inserisci l'indirizzo e-mail con cui ti sei registrato qui. Ti invieremo un'e-mail con il tuo nome utente e un link per reimpostare la tua password.",
+            "email_not_registered": "L'indirizzo e-mail inserito non è associato ad un account attivo. Prova con un altro indirizzo e-mail.",
             "remember_me": "Ricordati di me",
             "password": "La password",
-            "change_password": "Cambiare la password",
+            "change_password": "Imposta nuova password",
+            "change_password_info": "Inserisci qui la tua nuova password:",
             "new_password": "Nuova password",
             "old_password": "Vecchia password",
             "new_password_confirmation": "Conferma della nuova password",
@@ -284,7 +287,8 @@ export default {
                 "title": "C'e' qualcosa che non va qui.",
                 "message": "La pagina richiesta non è stata trovata. Controlla l'URL o vai alla homepage."
             },
-            "to_homepage": "Alla Homepage"
+            "to_homepage": "Alla Homepage",
+            "assignment": "Assegnazione"
         },
         "filters": {
             "header": "Filtri",
@@ -668,7 +672,7 @@ export default {
                 "serviceRequestCategoryDeleted": "Categoria della richiesta di servizio cancellata",
                 "setting_saved": "impostazioni utente salvate",
                 "setting_deleted": "l'impostazione dell'utente è stata cancellata",
-                "password_reset_request_sent": "Richiesta di reimpostazione password inviata con successo",
+                "password_reset_request_sent": "Le abbiamo inviato un'e-mail con ulteriori istruzioni. Controlla la tua casella di posta in arrivo.",
                 "errors": {
                     "not_found": "Utente non trovato",
                     "setting_not_found": "impostazione utente non trovata",
@@ -833,6 +837,7 @@ export default {
                 "not_found": "Edificio non trovato",
                 "house_rules": "Le regole della casa",
                 "operating_instructions": "Istruzioni per l'uso",
+                "care_instructions": "Istruzioni per la cura",
                 "other": "Altro",
                 "files": "I file",
                 "add_files": "Aggiungere file",
@@ -946,6 +951,7 @@ export default {
                 "assign": "Assegnare",
                 "tenant_assigned": "L'inquilino assegnato",
                 "tenant_unassigned": "Un inquilino non assegnato",
+                "assignment": "Affittuari assegnati",
                 "type": {
                     "label": "Tipo",
                     "apartment": "Appartamento",
@@ -1048,6 +1054,7 @@ export default {
                 "user": "Utente",
                 "delete": "Cancellare",
                 "likes": "Gli piace",
+                "tenants": "Gli inquilini",
                 "views": "Viste",
                 "details": "Pubblicare i dettagli",
                 "published_at": "Pubblicato",
@@ -1100,7 +1107,6 @@ export default {
                     "confirmBtnText": "Ok",
                     "cancelBtnText": "Annulla"
                 },
-                "assignment": "Assegnazione",
                 "assignType": "Tipo",
                 "unassign": "Disassegnare",
                 "assign": "Assegnare",
@@ -1204,6 +1210,7 @@ export default {
                 "required": "Questo campo è obbligatorio",
                 "details": "Dettagli",
                 "buildings": "Edifici",
+                "count_of_buildings": "Conteggio degli edifici",
                 "errors": {
                     "not_found": "Distretto non trovato"
                 }
@@ -1311,6 +1318,7 @@ export default {
                 "internal_notices": "Avvisi interni",
                 "status_changed": "Stato cambiato",
                 "priority_changed": "La priorità è cambiata",
+                "assignment": "Assegnazione di manager/fornitori di servizi",
                 "media": {
                     "added": "Documento ajouté",
                     "removed": "Supporti rimossi",
