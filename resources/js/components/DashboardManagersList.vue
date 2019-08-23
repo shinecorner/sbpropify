@@ -96,10 +96,8 @@
                 console.log(this.$route.name);
                 while( document.querySelector('.content .is-active') != null) 
                 {
-                    document.querySelector('.content .is-active').classList.remove('is-active');
+                    document.querySelector('.content .is-active').classList.remove('is-active'); 
                 }
-                let newactiveItem = this.$el.querySelector('.content .active');
-                console.log(newactiveItem);
             }
         },
         created() {

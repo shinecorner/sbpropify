@@ -257,6 +257,7 @@
 
             this.buildings = await this.getFilterBuildings()
             this.isLoadingFilters = false;
+        
         },
     }
 </script>
