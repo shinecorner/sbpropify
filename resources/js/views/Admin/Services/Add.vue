@@ -68,8 +68,8 @@
                                         <el-input type="text" v-model="model.address.street"></el-input>
                                     </el-form-item>
                                 </el-col>
-                                <el-row :gutter="10">
-                                    <el-col :md="12">
+                                <el-col :md="12">
+                                    <el-row :gutter="10">
                                         <el-col :md="8">
                                             <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip" prop="address.zip">
                                                 <el-input type="text" v-model="model.address.zip"></el-input>
@@ -80,8 +80,8 @@
                                                 <el-input type="text" v-model="model.address.city"></el-input>
                                             </el-form-item>
                                         </el-col>
-                                    </el-col>
-                                </el-row>
+                                    </el-row>
+                                </el-col>
                             </el-row>
                             <el-row :gutter="20">
                                 <el-col :md="12">
