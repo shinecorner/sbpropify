@@ -22,17 +22,23 @@ use App\Http\Requests\API\ServiceRequest\ListRequest;
 use App\Http\Requests\API\ServiceRequest\NotifyProviderRequest;
 use App\Http\Requests\API\ServiceRequest\SeeRequestsCount;
 use App\Http\Requests\API\ServiceRequest\UpdateRequest;
+use App\Models\PropertyManager;
+use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
+use App\Models\ServiceRequestAssignee;
 use App\Repositories\ServiceProviderRepository;
 use App\Repositories\ServiceRequestRepository;
 use App\Repositories\TemplateRepository;
 use App\Repositories\UserRepository;
+use App\Transformers\ServiceRequestAssigneeTransformer;
 use App\Transformers\ServiceRequestTransformer;
 use App\Transformers\TemplateTransformer;
 use Auth;
 use Exception;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 
 /**
@@ -705,9 +711,9 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.user_not_found'));
         }
 
-        $sr->assignees()->sync($u, false);
+        $sr->managers()->sync([$uid => ['created_at' => now()]], false);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
-            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'assignees');
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user');
 
         foreach ($sr->providers as $p) {
             $sr->conversationFor($p->user, $u);
@@ -761,7 +767,7 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.user_not_found'));
         }
 
-        $sr->assignees()->detach($u);
+        $sr->managers()->detach($u);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user');
 
@@ -810,8 +816,34 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $assignees = $this->serviceRequestRepository->assignees($sr)->paginate($perPage);
-        return $this->sendResponse($assignees, 'Assignees retrieved successfully');
+        $assignees = $sr->assigners()->paginate($perPage);
+
+        $providerType = array_flip(Relation::$morphMap)[\App\Models\ServiceProvider::class] ?? \App\Models\ServiceProvider::class;
+        $providerIds = $assignees->where('assignee_type', $providerType)->pluck('assignee_id');
+
+        $managerType = array_flip(Relation::$morphMap)[\App\Models\PropertyManager::class] ?? \App\Models\PropertyManager::class;
+        $managerIds = $assignees->where('assignee_type', $managerType)->pluck('assignee_id');
+
+        $raw = DB::raw('(select email from users where users.id = property_managers.user_id) as email, Concat(first_name, " ", last_name) as name');
+        $managers = PropertyManager::select('id', $raw)
+            ->whereIn('id', $managerIds)->get();
+
+        $providers = ServiceProvider::select('id', 'email', 'name')->whereIn('id', $providerIds)->get();
+        foreach ($assignees as $index => $assignee) {
+            $related = null;
+            if ($assignee->assignee_type == $providerType) {
+                $related = $providers->where('id', $assignee->assignee_id)->first();
+            }
+
+            if ($assignee->assignee_type == $managerType) {
+                $related = $managers->where('id', $assignee->assignee_id)->first();
+            }
+
+            $assignee->related = $related;
+        }
+
+        $response = (new ServiceRequestAssigneeTransformer())->transformPaginator($assignees) ;
+        return $this->sendResponse($response, 'Assignees retrieved successfully');
     }
 
     /**

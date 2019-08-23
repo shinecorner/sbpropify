@@ -335,7 +335,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
     ];
 
     protected $syncAuditable = [
-        'assignees' => ['name'],
+        'managers' => ['first_name', 'last_name'],
         'providers' => ['name'],
     ];
 

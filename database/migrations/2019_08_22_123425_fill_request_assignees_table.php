@@ -39,7 +39,7 @@ class FillRequestAssigneesTable extends Migration
             \App\Models\ServiceRequestAssignee::create([
                 'request_id' => $requestAssigner->request_id,
                 'assignee_id' => $user->propertyManager->id,
-                'assignee_type' => array_flip(\Illuminate\Database\Eloquent\Relations\Relation::$morphMap)[\App\Models\PropertyManager::class] ?? 'manager',
+                'assignee_type' => array_flip(\Illuminate\Database\Eloquent\Relations\Relation::$morphMap)[\App\Models\PropertyManager::class] ?? \App\Models\PropertyManager::class,
                 'created_at' => now()
             ]);
         }
