@@ -14,7 +14,7 @@
         <el-row class="progress-card-body">
             <el-col :span="24" v-for="(data, index) in yData" :key="index">
                 <div class="progress-bar">
-                    <!-- <progress-bar :label="`${xData[index]}`" :value="yData[index]" :maxValue="total" :color="`${colorsPredefined[index%12]}`" ></progress-bar> -->
+                    <progress-bar :label="`${xData[index]}`" :value="yData[index]" :maxValue="total" :color="`${colorsPredefined[index%12]}`" ></progress-bar>
                 </div>
             </el-col>
         </el-row>       
@@ -26,7 +26,7 @@ import {format, subDays, isBefore, isAfter, parse} from 'date-fns'
 import axios from '@/axios';
 
 import CustomDateRangePicker from 'components/CustomDateRangePicker';
-import chartMixin from '../mixins/adminDashboardChartMixin';
+import chartMixin from 'mixins/adminDashboardChartMixin';
 import ProgressBar from 'components/ProgressBar';
 
 export default {
@@ -162,7 +162,7 @@ export default {
             .progress-bar {
                 padding-top: 5px;
                 padding-bottom: 5px;
-                padding-right: 30px;
+                padding-right: 50px;
             }
         }
     }

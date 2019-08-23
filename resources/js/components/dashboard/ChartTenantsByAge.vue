@@ -1,21 +1,8 @@
 <template>
-    <div class="tenants-by-gender-chart">
+    <div class="tenants-by-age-chart">
         <el-row type="flex">
             <el-col :span="24">
                 <apexchart type="donut" :options="chartOptions" :series="series" />
-            </el-col>
-        </el-row>
-        <div v-if="averageAge" class="average-age">
-          {{ `${$t('dashboard.tenants.average_age')} ${averageAge.both}` }}
-        </div>
-        <el-row class="legend-container">
-            <el-col :md="12" :sm="24" v-for="(item, index) in yData" :key="index">
-                <div class="custom-legend">
-                  <div class="title">
-                    <img :src="icons[index]" />
-                    <span>Ø {{ index == 0 ? averageAge.mr : averageAge.mrs }}</span>
-                  </div>
-                </div>
             </el-col>
         </el-row>
     </div>
@@ -24,10 +11,7 @@
 import VueApexCharts from 'vue-apexcharts'
 import axios from '@/axios';
 
-import chartMixin from '../mixins/adminDashboardChartMixin';
-
-import iconMale from '../../img/male.png';
-import iconFemale from '../../img/female.png';
+import chartMixin from 'mixins/adminDashboardChartMixin';
 
 export default {
   components: {
@@ -36,8 +20,8 @@ export default {
   mixins: [chartMixin()],
   data() {
     return {
-      icons: [iconMale, iconFemale],
-      averageAge: {},
+      iconMale: require('img/male.png'),
+      iconFemale: require('img/female.png')
     }
   },
   computed:{
@@ -83,14 +67,12 @@ export default {
   methods: {
     fetchData() {
       let that = this;                                               
-      let url = 'tenants/gender-statistics';
-      const langPrefix = 'models.tenant.titles.';
+      let url = 'tenants/age-statistics';
 
       return axios.get(url)
       .then(function (response) {
         that.yData = response.data.data.data.map(val => parseFloat(val) || 0);
-        that.xData = response.data.data.labels.map(val => that.$t(langPrefix + val));
-        that.averageAge = response.data.data.average_age;
+        that.xData = response.data.data.labels;
       }).catch(function (error) {
         console.log(error);
       })
@@ -100,21 +82,28 @@ export default {
 </script>
 <style lang="scss">
   .chart-card {
-    .tenants-by-gender-chart .apexcharts-canvas {
+    .tenants-by-age-chart .apexcharts-canvas {
       @media screen and (max-width: 1650px) {
         margin-top: 30px;
       }
     }
-    .tenants-by-gender-chart {
+    .tenants-by-age-chart {
       position: relative;
 
       .apexcharts-canvas {
         position: unset;
+        margin-right: auto;
+        margin-left: auto;
       }
 
       .apexcharts-legend {
         display: flex;
         justify-content: center !important;
+
+        .apexcharts-legend-marker {
+          border-radius: 0 !important;
+          width: 45px !important;
+        }
       }
 
       .average-age {

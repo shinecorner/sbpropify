@@ -24,7 +24,7 @@ import {format, subDays, isBefore, isAfter, parse} from 'date-fns'
 import axios from '@/axios';
 
 import CustomDateRangePicker from 'components/CustomDateRangePicker';
-import chartMixin from '../mixins/adminDashboardChartMixin';
+import chartMixin from 'mixins/adminDashboardChartMixin';
 
 export default {
   components: {
@@ -72,23 +72,6 @@ export default {
                 },
                 colors: this.colors
             };
-        } else 
-        if(this.colNum == 1) {
-            responsive = [{
-                breakpoint: 1900,
-                options: {
-                    chart: {
-                        width: 800,
-                    },
-                    plotOptions: {
-                        offsetX: 400
-                    },
-                    legend: {
-                        width: '100%',
-                        position: 'bottom'
-                    }
-                }
-            }]
         } else if (this.colNum == 2) {
             responsive = [{
                 breakpoint: 1300,

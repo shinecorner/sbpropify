@@ -223,10 +223,10 @@
 
 <script>
     import axios from '@/axios';
-    import DashboardStatisticsCard from 'components/DashboardStatisticsCard';
-    import ChartStackedColumn from 'components/ChartStackedColumn';
-    import ChartPieAndDonut from 'components/ChartPieAndDonut'; 
-    import ChartHeatMap from 'components/ChartHeatMap';
+    import DashboardStatisticsCard from 'components/dashboard/DashboardStatisticsCard';
+    import ChartStackedColumn from 'components/dashboard/ChartStackedColumn';
+    import ChartPieAndDonut from 'components/dashboard/ChartPieAndDonut'; 
+    import ChartHeatMap from 'components/dashboard/ChartHeatMap';
     import Heading from 'components/Heading';
     import RawGridStatisticsCard from 'components/RawGridStatisticsCard';
     import ColoredStatisticsCard from 'components/ColoredStatisticsCard.vue';
@@ -234,20 +234,20 @@
     import CircularProgressStatisticsCard from 'components/CircularProgressStatisticsCard.vue';
 
     import BuildingsStatisticsCard from 'components/BuildingsStatisticsCard';
-    import ChartColumnLine from 'components/ChartColumnLine';
-    import ChartUsersByDevice from 'components/ChartUsersByDevice';
-    import ChartTenantsByGender from 'components/ChartTenantsByGender';
-    import TenantsStatisticsCard from 'components/TenantsStatisticsCard';
-    import ChartTenantsByAge from 'components/ChartTenantsByAge';
+    import ChartColumnLine from 'components/dashboard/ChartColumnLine';
+    import ChartUsersByDevice from 'components/dashboard/ChartUsersByDevice';
+    import ChartTenantsByGender from 'components/dashboard/ChartTenantsByGender';
+    import TenantsStatisticsCard from 'components/dashboard/TenantsStatisticsCard';
+    import ChartTenantsByAge from 'components/dashboard/ChartTenantsByAge';
 
-    import DashboardLatestProducts from 'components/DashboardLatestProducts';
-    import DashboardGoogleMap from 'components/DashboardGoogleMap';
-    import DashboardLatestBuildings from 'components/DashboardLatestBuildings';
-    import DashboardLatestTenants from 'components/DashboardLatestTenants';
-    import DashboardManagersList from 'components/DashboardManagersList';
-    import DashboardServicesList from 'components/DashboardServicesList';
-    import DashboardLatestNews from 'components/DashboardLatestNews';
-    import DashboardBuildingsByState from 'components/DashboardBuildingsByState';
+    import DashboardLatestProducts from 'components/dashboard/DashboardLatestProducts';
+    import DashboardGoogleMap from 'components/dashboard/DashboardGoogleMap';
+    import DashboardLatestBuildings from 'components/dashboard/DashboardLatestBuildings';
+    import DashboardLatestTenants from 'components/dashboard/DashboardLatestTenants';
+    import DashboardManagersList from 'components/dashboard/DashboardManagersList';
+    import DashboardServicesList from 'components/dashboard/DashboardServicesList';
+    import DashboardLatestNews from 'components/dashboard/DashboardLatestNews';
+    import DashboardBuildingsByState from 'components/dashboard/DashboardBuildingsByState';
 
     export default {
         name: 'AdminDashboard',

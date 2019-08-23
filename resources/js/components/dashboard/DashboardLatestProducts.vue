@@ -1,8 +1,8 @@
 <template>
-    <div class="latest-news dashboard-table">
+    <div class="latest-products dashboard-table">
         <div class="link-container">
-            <router-link :to="{name: 'adminPosts'}">
-                <span class="title">{{ $t('dashboard.news.go_to_news') }} </span>
+            <router-link :to="{name: 'adminProducts'}">
+                <span class="title">{{ $t('dashboard.marketplace.go_to_marketplace') }} </span>
                 <i class="icon-right icon"/>
             </router-link>
         </div>
@@ -10,6 +10,8 @@
             :header="header"
             :items="items"
             :loading="{state: loading}"
+            :withSearch="false"
+            :withCheckSelection="false"
             @selectionChanged="selectionChanged"
         >
         </dashboard-list-table>
@@ -30,35 +32,31 @@
         props: {
           type: {
             type: String
-          }
+          },
         },
         data() {
             return {
                 header: [{
-                    type: 'news-title',
-                    label: 'models.post.title',
-                    props: ['content', 'user'],
+                    type: 'product-details',
+                    label: 'models.product.details',
+                    props: ['title', 'created_at', 'image_url'],
                     minWidth: '300px'
                 }, {
                     type: 'tag',
-                    label: 'models.post.status.label',
-                    prop: 'status_label',
-                    classSuffix: 'status'
+                    label: 'models.product.type.label',
+                    prop: 'type_label',
+                    classSuffix: 'type'
                 }, {
-                    type: 'counts',
-                    label: 'dashboard.news.counts',
-                    counts: [{
-                            prop: 'comments_count',
-                            background: '#bbb',
-                            color: '#fff',
-                            label: 'models.post.comments'
-                        }, {
-                            prop: 'likes_count',
-                            background: '#ebb563',
-                            color: '#fff',
-                            label: 'models.post.likes'
-                        }
-                    ]
+                    type: 'plain',
+                    label: 'models.product.visibility.label',
+                    prop: 'visibility_label'
+                }, {
+                    type: 'plain',
+                    label: 'models.product.price',
+                    prop: 'price',
+                    style: {
+                        color: '#5CC279'
+                    }
                 }, {
                     type: 'actions',
                     label: 'dashboard.actions',
@@ -78,15 +76,15 @@
             };
         },
         computed: {
-            newsConstants() {
-                return this.$store.getters['application/constants'].posts;
+            productConstants() {
+                return this.$store.getters['application/constants'].products;
             },
 
         },
         methods: {
             edit({id}) {
                 this.$router.push({
-                    name: 'adminPostsEdit',
+                    name: 'adminProductsEdit',
                     params: {
                         id
                     }
@@ -94,12 +92,18 @@
             },
             fetchData() {
               let that = this;
-              const url = 'posts?per_page=5';
-
+              let url = '';
+              let toolTipSeriesName = '';
+              if(this.type === 'latest_products'){
+                url = 'products?per_page=5';
+                toolTipSeriesName = this.$t('models.building.title');
+              }
               return axios.get(url)
               .then(function (response) {
                 const items = response.data.data.data.map(item => {
-                  item.status_label = that.$t(`models.post.status.${that.newsConstants.status[item.type]}`);
+                  item.visibility_label = that.$t(`models.product.visibility.${that.productConstants.visibility[item.visibility]}`);
+                  item.type_label = `models.product.type.${that.productConstants.type[item.type]}`;
+                  item.price = '$' + item.price;
                   item.image_url = item.media.length == 0 ? '' : item.media[0].url;
                   return item;
                 });

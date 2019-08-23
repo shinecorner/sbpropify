@@ -1,4 +1,4 @@
-import DashboardListTable from 'components/DashboardListTable';
+import DashboardListTable from 'components/dashboard/DashboardListTable';
 
 export default () => ({
     components: {

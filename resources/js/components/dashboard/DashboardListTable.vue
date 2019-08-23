@@ -117,7 +117,7 @@
                         :class="`tag-${scope.row[column.classSuffix]}`"
                         :size="column.size" class="btn-badge"
                     >
-                        {{ scope.row[column.prop] }}
+                        {{ $t(scope.row[column.prop]) }}
                     </el-tag>
 
                     <el-select

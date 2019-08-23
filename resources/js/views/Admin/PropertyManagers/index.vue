@@ -27,6 +27,12 @@
             @selectionChanged="selectionChanged"
         >
         </list-table>
+        <!-- <request-detail-card
+            :item="items[0]"
+            :loading="{state: loading}"
+        >
+
+        </request-detail-card> -->
         <el-dialog  class="delete_width_reassign_modal" 
                     :close-on-click-modal="false" :title="$t('models.propertyManager.delete_with_reassign_modal.title')"
                     :visible.sync="assignManagersVisible"
@@ -81,6 +87,7 @@
     import {displayError, displaySuccess} from "helpers/messages";
     import {mapActions} from 'vuex';
     import getFilterDistricts from 'mixins/methods/getFilterDistricts';
+//    import RequestDetailCard from 'components/RequestDetailCard';
 
     const mixin = ListTableMixin({
         actions: {
@@ -97,7 +104,8 @@
         name: 'AdminPropertyManagers',
         mixins: [mixin, getFilterDistricts],
         components: {
-            Heading
+            Heading,
+//            RequestDetailCard
         },
         data() {
             return {

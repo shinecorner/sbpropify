@@ -57,8 +57,9 @@ export default {
             .progress-label {
                 display: flex;
                 justify-content: center;
-                font-size: 18px;
+                font-size: 14px;
                 font-weight: 400;
+                font-family: roboto;
                 color: darken(#fff, 50%);
                 float: left;
                 padding-right: 10px;
