@@ -1012,6 +1012,41 @@
                 }
             }
         },
+        "/countries": {
+            "get": {
+                "tags": [
+                    "Country",
+                    "Country"
+                ],
+                "summary": "Get a listing of the Countries.",
+                "description": "Get all Countries",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Country"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/districts": {
             "get": {
                 "tags": [
@@ -8129,23 +8164,29 @@
                     "type": "integer",
                     "format": "int32"
                 },
-                "name": {
-                    "description": "name",
-                    "type": "string"
-                },
                 "code": {
                     "description": "code",
                     "type": "string"
                 },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
+                "alpfa_3": {
+                    "description": "alpfa_3",
+                    "type": "string"
                 },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
+                "name": {
+                    "description": "name",
+                    "type": "string"
+                },
+                "name_de": {
+                    "description": "name_de",
+                    "type": "string"
+                },
+                "name_fr": {
+                    "description": "name_fr",
+                    "type": "string"
+                },
+                "name_it": {
+                    "description": "name_it",
+                    "type": "string"
                 }
             }
         },

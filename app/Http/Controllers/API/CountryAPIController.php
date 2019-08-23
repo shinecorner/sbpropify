@@ -36,10 +36,10 @@ class CountryAPIController extends AppBaseController
      * @throws RepositoryException
      *
      * @SWG\Get(
-     *      path="/countrys",
-     *      summary="Get a listing of the Countrys.",
-     *      tags={"Location"},
-     *      description="Get all Countrys",
+     *      path="/countries",
+     *      summary="Get a listing of the Countries.",
+     *      tags={"Country", "Country"},
+     *      description="Get all Countries",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
