@@ -510,6 +510,7 @@
 
             .el-radio-button__inner {
                 padding: 8px 12px;
+                font-weight: 400;
             }
 
             .el-date-editor {
@@ -578,7 +579,8 @@
                     margin-left: 15px;
 
                     .el-tabs__item {
-                        font-size: 16px;
+                        font-size: 15px;
+                        font-weight: 400;
                     }
                 }
             }
