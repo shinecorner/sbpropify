@@ -57,6 +57,8 @@ class ServiceRequestTransformer extends BaseTransformer
 
         if ($assignedUsers->count()) {
             $response['assignedUsers'] = (new UserTransformer)->transformCollection($assignedUsers);
+        } else {
+            $response['assignedUsers'] = [];
         }
 
 

@@ -75,6 +75,7 @@ class ServiceRequestAssignee extends AuditableModel
         return $data;
     }
 
+    // @TODO make more good way
     protected function getAuditData()
     {
         $model = Relation::$morphMap[$this->assignee_type] ?? $this->assignee_type;
