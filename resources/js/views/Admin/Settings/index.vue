@@ -12,60 +12,64 @@
                             <el-button class="save-tab" @click="saveRealEstate('realEstateDetailsForm')" icon="ti-save" type="primary">
                                 {{$t('general.actions.save')}}
                             </el-button>
-                            <el-card>
-                                <el-form :model="model" ref="realEstateDetailsForm">
-                                    <el-row :gutter="20">
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.user.name')" :rules="validationRules.name" prop="name">
-                                                <el-input type="text" v-model="model.name"></el-input>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.user.email')" :rules="validationRules.email" prop="email">
-                                                <el-input type="email" v-model="model.email"></el-input>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-                                    <el-row :gutter="20">
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.user.phone')" prop="phone">
-                                                <el-input type="string" v-model="model.phone"></el-input>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :md="12">
-                                            <el-form-item :label="$t('models.address.street')" :rules="validationRules.street"
-                                                          prop="address.street">
-                                                <el-input autocomplete="off" type="text" v-model="model.address.street"></el-input>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
 
-                                    <el-row :gutter="20">
-                                        <el-col :md="4">
-                                            <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip" prop="address.zip">
-                                                <el-input autocomplete="off" type="text" v-model="model.address.zip"></el-input>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :md="8">
-                                            <el-form-item :label="$t('models.address.city')" :rules="validationRules.city"
-                                                          prop="address.city">
-                                                <el-input autocomplete="off" type="text" v-model="model.address.city"></el-input>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :md="12">
-                                            <el-form-item :rules="validationRules.state_id"
-                                                          prop="address.state.id">
-                                                <label class="card-label">{{$t('models.address.state.label')}}</label>
-                                                <el-select :placeholder="$t('models.address.state.label')" style="display: block"
-                                                           v-model="model.address.state.id">
-                                                    <el-option :key="state.id" :label="state.name" :value="state.id"
-                                                               v-for="state in states"></el-option>
-                                                </el-select>
-                                            </el-form-item>
-                                        </el-col>
-                                    </el-row>
-                                </el-form>
-                            </el-card>
+                            <el-form :model="model" ref="realEstateDetailsForm">
+                                <el-row :gutter="20">
+                                    <el-col :md="12">
+                                        <el-card>
+                                            <el-row :gutter="20">
+                                                <el-col :md="12">
+                                                    <el-form-item :label="$t('models.user.name')" :rules="validationRules.name" prop="name">
+                                                        <el-input type="text" v-model="model.name"></el-input>
+                                                    </el-form-item>
+                                                </el-col>
+                                                <el-col :md="12">
+                                                    <el-form-item :label="$t('models.user.email')" :rules="validationRules.email" prop="email">
+                                                        <el-input type="email" v-model="model.email"></el-input>
+                                                    </el-form-item>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row :gutter="20">
+                                                <el-col :md="12">
+                                                    <el-form-item :label="$t('models.user.phone')" prop="phone">
+                                                        <el-input type="string" v-model="model.phone"></el-input>
+                                                    </el-form-item>
+                                                </el-col>
+                                                <el-col :md="12">
+                                                    <el-form-item :label="$t('models.address.street')" :rules="validationRules.street"
+                                                                  prop="address.street">
+                                                        <el-input autocomplete="off" type="text" v-model="model.address.street"></el-input>
+                                                    </el-form-item>
+                                                </el-col>
+                                            </el-row>
+                                            <el-row :gutter="20">
+                                                    <el-col :md="4">
+                                                        <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip" prop="address.zip">
+                                                            <el-input autocomplete="off" type="text" v-model="model.address.zip"></el-input>
+                                                        </el-form-item>
+                                                    </el-col>
+                                                    <el-col :md="8">
+                                                        <el-form-item :label="$t('models.address.city')" :rules="validationRules.city"
+                                                                      prop="address.city">
+                                                            <el-input autocomplete="off" type="text" v-model="model.address.city"></el-input>
+                                                        </el-form-item>
+                                                    </el-col>
+                                                    <el-col :md="12">
+                                                        <el-form-item :rules="validationRules.state_id"
+                                                                      prop="address.state.id">
+                                                            <label class="card-label">{{$t('models.address.state.label')}}</label>
+                                                            <el-select :placeholder="$t('models.address.state.label')" style="display: block"
+                                                                       v-model="model.address.state.id">
+                                                                <el-option :key="state.id" :label="state.name" :value="state.id"
+                                                                           v-for="state in states"></el-option>
+                                                            </el-select>
+                                                        </el-form-item>
+                                                    </el-col>
+                                                </el-row>
+                                        </el-card>
+                                    </el-col>
+                                </el-row>
+                            </el-form>
                         </el-tab-pane>
                         <el-tab-pane :label="$t('models.realEstate.settings')" name="settings_settings">
                             <el-button class="save-tab" @click="saveRealEstate('realEstateSettingsForm')" icon="ti-save" type="primary">
