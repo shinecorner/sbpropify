@@ -1,378 +1,5 @@
 export default {
     "de": {
-        "layouts": {
-            "tenant": {
-                "menu": {
-                    "logout": "Abmelden"
-                },
-                "sidebar": {
-                    "dashboard": "Dashboard",
-                    "myTenancy": "Mein Dossier",
-                    "myPersonalData": "Persönliche Angaben",
-                    "myRecentContract": "Mietvertrag",
-                    "myDocuments": "Objekt-Dokumentation",
-                    "myContactPersons": "Kontaktpersonen",
-                    "posts": "Pinnwand",
-                    "requests": "Anfragen",
-                    "products": "Marktplatz",
-                    "settings": "Einstellungen"
-                }
-            }
-        },
-        "dashboard": {
-            "statistics": "Statistiken",
-            "requests_by_creation_date": "Anfragen nach Erstellungsdatum",
-            "requests_by_status": "Anfragen nach Status",
-            "requests_by_category": "Anfragen nach Kategorie",
-            "requests_by_assigned_status": "Einbezug von Dienstleistern",
-            "each_hour_request": "Stündlich",
-            "average_request_duration": "Ø Bearbeitungszeit in Std.",
-            "week_hour": "Woche und Stunden",
-            "month_date": "Monat und Tag",
-            "news_by_creation_date": "Nachrichten nach Erstellungsdatum",
-            "news_by_status": "Nachrichten nach Status",
-            "news_by_type": "Nachrichten nach Typ",
-            "latest_products": "Neueste Produkte",
-            "products_by_creation_date": "Marktplatz-Produkte nach Erstellungsdatum",
-            "products_by_type": "Marktplatz-Produkte nach Typ",
-            "tenants_by_creation_date": "Mieter nach Erstellungsdatum",
-            "tenants_by_request_status": "Mieter nach Anfrage-Status",
-            "tenants_by_status": "Mieter nach Status",
-            "tenants_by_language": "Mieter Sprache",
-            "tenants_by_title": "Anrede",
-            "tenants_by_device": "Geräte",
-            "tenants_by_gender": "Demografische Merkmale",
-            "tenants_by_age": "Altersgruppen",
-            "actions": "Aktionen",
-            "requests": {
-                "requests_with_service_providers": "Mit Dienstleister",
-                "request_wihout_service_providers": "Ohne Dienstleister",
-                "property_managers": "Bewirtschafter mit Anfragen",
-                "service_partners": "Dienstleister mit Anfragen",
-                "go_to_property_managers": "zu den Bewirtschaftern gehen",
-                "go_to_service_partners": "zu den Dienstleistern gehen"
-            },
-            "buildings": {
-                "total_building": "Anzahl Liegenschaften",
-                "total_units": "Anzahl Enheiten",
-                "occupied_units": "Vermiete Einheiten",
-                "free_units": "Freie Einheiten",
-                "buildings_by_creation_date": "Liegenschaften nach Erstellungsdatum",
-                "buildings_map": "Gebäudekarte",
-                "latest_buildings": "Neueste Gebäude",
-                "count_of_managers": "Anzahl Bewirtschafter",
-                "count_of_tenants": "Anzahl Mieter",
-                "count_of_requests": "Anzahl Anfragen",
-                "go_to_buildings": "zu den Liegenschaften",
-                "buildings_by_state": "Liegenschaften nach Kanton"
-            },
-            "tenants": {
-                "total_tenants": "Total Mieter",
-                "average_age": "Durchschnittsalter:",
-                "average_age_acr": "Ø Alter",
-                "latest_tenants": "Neueste Mieter",
-                "go_to_tenants": "zu den Mietern gehen"
-            },
-            "marketplace": {
-                "go_to_marketplace": "zum Marktplatz gehen"
-            },
-            "news": {
-                "latest_news": "Neueste Beiträge",
-                "go_to_news": "zur Pinnwand gehen",
-                "counts": "Kommentare"
-            }
-        },
-        "passwords": {
-            "password": "Passwörter müssen mindestens 6 Zeichen lang sein und korrekt bestätigt werden.",
-            "reset": "Das Passwort wurde erfolgreich zurückgesetzt!",
-            "sent": "Passworterinnerung wurde an die angegebene E-Mail-Adresse  gesendet!",
-            "token": "Der Passwort-Wiederherstellungs-Schlüssel ist ungültig oder abgelaufen.",
-            "user": "Es konnte leider kein Nutzer mit dieser E-Mail-Adresse gefunden werden."
-        },
-        "settings": {
-            "notifications": "Benachrichtigungen und Sprache",
-            "admin": "Benachrichtigungen vom Vermieter",
-            "news": "Pinnwand",
-            "marketplace": "Marketplace notifications",
-            "service": "Partnerfirmen",
-            "updated": "Einstellungen wurden gespeichert.",
-            "language": "Sprache",
-            "summary": {
-                "label": "Statistiken",
-                "daily": "Täglich",
-                "monthly": "Wöchentlich",
-                "yearly": "Jährlich"
-            },
-            "contact_enable": {
-                "label": "Meine Kontakte aktivieren",
-                "use_global": "Globale Einstellung verwenden",
-                "show": "Zeigen",
-                "hide": "Verbergen "
-            }
-        },
-        "general": {
-            "en": "EN",
-            "fr": "FR",
-            "it": "IT",
-            "de": "DE",
-            "yes": "Ja",
-            "timestamps": {
-                "hours": "Stunden",
-                "days": "Tage",
-                "weeks": "Wochen",
-                "months": "Monate",
-                "years": "Jahre"
-            },
-            "chooseLanguage": "Sprache auswählen",
-            "languages": {
-                "fr": "Français",
-                "it": "Italiano",
-                "de": "Deutsch",
-                "en": "English"
-            },
-            "footerText": {
-                "companyName": "Propify",
-                "leftSideText": "Sie brauchen Unterstützung? Kontaktieren Sie Support-Team unter<br>0800 000 000 oder via eine E-Mail an support@propify.ch",
-                "allRightsSaved": "Alle Rechte vorbehalten"
-            },
-            "days": {
-                "monday": "Montag",
-                "tuesday": "Dienstag",
-                "wednesday": "Mittwoch",
-                "thursday": "Donnerstag",
-                "friday": "Freitag",
-                "saturday": "Samstag",
-                "sunday": "Sonntag"
-            },
-            "salutation": "Anrede",
-            "no": "Nein",
-            "none": "Nichts gewählt",
-            "all": "Alle",
-            "loadMore": "Mehr laden",
-            "account": "Konto",
-            "activate_account": "Account akvitieren",
-            "activate_code": "Aktivierunscode",
-            "activate_code_required": "Aktivierunscode ist ein Pflichtfeld",
-            "activate_terms_condition_1": "Ich stimme zu, dass die Angaben korrekt sind.",
-            "activate_terms_condition_2": "Ich habe die Allgemeinen Geschäftsbedingungen gelesen.",
-            "back": "Zurück",
-            "activate": "Aktivieren",
-            "activate_info": "Wenn Sie von Ihrem Vermieter einen Aktivierungscode erhalten haben, dann können Sie hier Ihr Konto aktivieren. Bitte geben Sie folgende Daten ein:",
-            "unauthenticated": "Unautorisiert",
-            "logged_out": "Ausgeloggt",
-            "logged_in": "Eingeloggt",
-            "invalid_credentials": "Die eingegebenen Daten stimmen nicht.",
-            "server_error": "Server Fehler, bitter erneut versuchen.",
-            "reset_password": "Passwort zurücksetzen",
-            "reset_password_mail": "Passwort per E-Mail zurücksetzen.",
-            "reset_password_mail_sent": "Eine E-Mail wurde an Sie gesendet. Bitte fahren Sie dort weiter.",
-            "back_to_login": "Zurück zum Login",
-            "forgot_password": "Passwort vergessen",
-            "remember_me": "Angemeldet bleiben",
-            "password": "Passwort",
-            "change_password": "Passwort ändern",
-            "new_password": "Neues Passwort",
-            "old_password": "Altes Passwort",
-            "new_password_confirmation": "Neues Passwort bestätigen",
-            "change": "Ändern",
-            "cancel": "Schliessen",
-            "confirm": "Bestätigen",
-            "confirm_password": "Passwort bestätigen",
-            "incorrect_password": "Altes Passwort stimmt nicht",
-            "password_changed": "Passwort erfolgreich geändert",
-            "details_saved": "Angaben gespeichert",
-            "please_wait": "Bitte warten...",
-            "no_data_available": "Keine Daten verfügbar",
-            "upload_error": "Fehler beim Hochladen von Medien",
-            "media_not_found": "Medien nicht gefunden",
-            "comment_not_found": "Kommentar nicht gefunden",
-            "comment_created": "Kommentar erstellt",
-            "comment_updated": "Kommentar aktualisiert",
-            "comment_deleted": "Kommentar gelöscht",
-            "password_validation": {
-                "required": "Passwort ist obligatorisch",
-                "confirm": "Passwort bestätigen",
-                "match": "Die eingegebenen Passwörter sind nicht identisch.",
-                "min": "Das Passwort muss aus mind. 6 Zeichen bestehen.",
-                "old_password_min": "Das alte Passwort müsste aus mind. 6 Zeichen bestehen.",
-                "old_password_required": "Das alte Passwort wird benötigt."
-            },
-            "assignmentTypes": {
-                "services": "Dienstleister",
-                "managers": "Bewirtschafter",
-                "building": "Liegenschaft",
-                "district": "Überbauung"
-            },
-            "email": "E-Mail",
-            "email_validation": {
-                "required": "E-Mail ist obligatorisch",
-                "email": "Bitte geben Sie eine gültige E-Mail Adresse ein."
-            },
-            "token_invalid": "Invalid token",
-            "login": "Login",
-            "support": "Support",
-            "actions": {
-                "label": "Operationen",
-                "edit": "Öffnen",
-                "add": "Hinzufügen",
-                "delete": "Löschen",
-                "create": "Erstellen",
-                "view": "Details",
-                "save": "Speichern",
-                "close": "Schliessen",
-                "saveAndClose": "Speichern & schliessen",
-                "upload": "Herunterladen"
-            },
-            "swal": {
-                "delete": {
-                    "title": "Sind Sie sicher?",
-                    "text": "Dies kann nicht mehr rückgänging gemacht werden!",
-                    "confirmText": "Ja, ich will löschen!",
-                    "deleted": "Erfolgreich gelöscht!"
-                },
-                "add": {
-                    "added": "Erfolgreich hinzugefügt"
-                },
-                "media": {
-                    "added": "Dokument/Foto hinzugefügt",
-                    "deleted": "Dokument/Foto gelöscht"
-                },
-                "logout_confirm": "Sie werden eingelogt ausgeloggt."
-            },
-            "roles": {
-                "label": "Rolle",
-                "administrator": "Administrator",
-                "homeowner": "Eigentümer",
-                "manager": "Bewirtschafter",
-                "registered": "Registriert",
-                "service": "Partnerfirma",
-                "super_admin": "Super Administrator"
-            },
-            "search": {
-                "placeholder": "Suchen"
-            },
-            "errors": {
-                "files_extension_images": "Nur Dateien in der Formaten .jpg und .png erlaubt."
-            },
-            "dateTimeFormat": "{date} um {time} Uhr",
-            "date_range": {
-                "range_separator": "Bis",
-                "start_date": "Startdatum",
-                "end_date": "Enddatum",
-                "last_7_days": "Letzte 7 Tage",
-                "last_week": "Letzte Woche",
-                "last_14_days": "Letzte 14 Tage",
-                "last_30_days": "Letzte 30 Tage",
-                "last_month": "Letzte Monat",
-                "last_3_months": "Letzte 3 Monate",
-                "last_6_months": "Letzte 3 Monate",
-                "last_year": "Letzte Jahr",
-                "last_2_years": "Letzte 2 Jahre",
-                "all_time": "Ingesamt",
-                "week": "Woche",
-                "peek_week": "Wählen wählen"
-            },
-            "tenant": {
-                "activate_required_credentials": "Code, E-Mail, Passwort erforderlich",
-                "incorrect_email": "Falsche E-Mail-Adresse",
-                "user_not_tenant": "Dieser Benutzer ist nicht Mieter.",
-                "invalid_code": "Der Code ist ungültig",
-                "not_active_tenant": "Der Mieter ist nicht aktiv und kann das Passwort nicht ändern."
-            },
-            "choose": "Auswählen",
-            "page_not_found": {
-                "title": "Hmm… hier stimmt etwas nicht.",
-                "message": "Die von dir aufgerufene Seite wurde nicht gefunden. Bitte überprüfe die URL oder wechsle zur Startseite."
-            },
-            "to_homepage": "Zur Startseite"
-        },
-        "filters": {
-            "header": "Filter",
-            "districts": "Überbauungen",
-            "buildings": "Liegenschaften",
-            "requests": "Anfragen",
-            "open_requests": "Offene Anfragen",
-            "units": "Einheiten",
-            "states": "Kanton",
-            "status": "Status",
-            "search": "Suchen",
-            "requestStatus": "Anfrage Status",
-            "propertyManagers": "Bewirtschafter",
-            "categories": "Kategorien",
-            "created_from": "Erstellt vom",
-            "created_to": "Erstellt bis",
-            "services": "Partnerfirmen",
-            "tenant": "Mieter",
-            "roles": "Roles"
-        },
-        "pagination": {
-            "previous": "&laquo; Zurück",
-            "next": "Weiter &raquo;"
-        },
-        "common": {
-            "mr": "Herr",
-            "mrs": "Frau",
-            "company": "Firma",
-            "user_title_mr": "Herr",
-            "user_title_mrs": "Frau",
-            "user_title_company": "Firma",
-            "tenant_title_mr": "Herr",
-            "tenant_title_mrs": "Frau",
-            "tenant_title_company": "Firma",
-            "request_status_1": "Erhalten",
-            "request_status_2": "In Bearbeitung",
-            "request_status_3": "Avisiert",
-            "request_status_4": "Erledigt",
-            "request_status_5": "Reaktiviert",
-            "request_status_6": "Archiviert",
-            "originalRequest_status_1": "Erhalten",
-            "originalRequest_status_2": "In Bearbeitung",
-            "originalRequest_status_3": "Avisiert",
-            "originalRequest_status_4": "Erledigt",
-            "originalRequest_status_5": "Reaktiviert",
-            "originalRequest_status_6": "Archiviert",
-            "email_footer_message1": "Sie erhalten Sie Mitteilung, weil Sie Nutzer vom Mieterportal der {CompanyName} sind.",
-            "email_footer_message2": "...",
-            "email_link_contacts": "Kontakt",
-            "email_link_terms_of_use": "Nutzungsbedingungen",
-            "email_link_data_protection": "Datenschutz"
-        },
-        "menu": {
-            "dashboard": "Dashboard",
-            "news": "Pinnwand",
-            "requests": "Servicezentrum",
-            "all_requests": "Alle Anfragen",
-            "myRequests": "Meine Anfragen",
-            "myPendingRequests": "Meine offenen Anfragen",
-            "notAssigned": "Nicht zugeordnet",
-            "allPendingRequests": "Alle offenen Anfragen",
-            "marketplace": "Marktplatz",
-            "settings": "Einstellungen",
-            "logout": "Anmelden",
-            "profile": "Profil",
-            "users": "Benutzer",
-            "employees": "Bewirtschafter",
-            "companies": "Partnerfirmen",
-            "admins": "Administratoren",
-            "super_admins": "Super Administratoren",
-            "home_owners": "Eigentümer",
-            "registered": "Registriert",
-            "about": "Über",
-            "feedback": "Feedback",
-            "tenants": "Mieter",
-            "buildings": "Liegenschaften",
-            "all_buildings": "Objekte",
-            "units": "Einheiten",
-            "addresses": "Liegenschaften",
-            "posts": "Pinnwand",
-            "districts": "Überbauungen",
-            "products": "Marktplatz",
-            "requestCategories": "Kategorien",
-            "services": "Partnerfirmen",
-            "activity": "Aktivität",
-            "propertyManagers": "Bewirtschafter",
-            "templates": "Vorlagen"
-        },
         "auth": {
             "failed": "Diese Kombination aus Zugangsdaten wurde nicht in unserer Datenbank gefunden.",
             "throttle": "Zu viele Loginversuche. Versuchen Sie es bitte in {seconds} Sekunden nochmal.",
@@ -402,41 +29,33 @@ export default {
                 }
             }
         },
-        "tenant": {
-            "tenant_credentials": "Anmeldedaten des Mieters",
-            "tenancy_details": "Mietdetails",
-            "unit": "Einheit",
-            "floor": "Boden",
-            "building": "Liegenschaft",
-            "address": "Adresse",
-            "rent_start": "Mietbeginn",
-            "login_credentials": "Login-Daten",
-            "website": "Website",
-            "username": "Benutzername",
-            "password": "Passwort",
-            "url": "URL",
-            "code": "Code",
-            "no_posts": "Bislang keine Beiträge veröffentlicht.",
-            "no_requests": "Bislang keine Anfragen gestellt.",
-            "no_listings": "Bislang keine Inserate veröffentlicht."
-        },
-        "pages": {
-            "profile": {
-                "pageTitle": "Profil-Einstellungen",
-                "profile": "Profil",
-                "account": "Konto",
-                "security": "Sicherheit",
-                "notifications": "Benachrichtigungen"
-            },
-            "user": {
-                "title": "Benutzer"
-            },
-            "request_activities": {
-                "title": "Aktivitäten Tracking"
-            },
-            "tenant": {
-                "title": "Mieter"
-            }
+        "common": {
+            "mr": "Herr",
+            "mrs": "Frau",
+            "company": "Firma",
+            "user_title_mr": "Herr",
+            "user_title_mrs": "Frau",
+            "user_title_company": "Firma",
+            "tenant_title_mr": "Herr",
+            "tenant_title_mrs": "Frau",
+            "tenant_title_company": "Firma",
+            "request_status_1": "Erhalten",
+            "request_status_2": "In Bearbeitung",
+            "request_status_3": "Avisiert",
+            "request_status_4": "Erledigt",
+            "request_status_5": "Reaktiviert",
+            "request_status_6": "Archiviert",
+            "originalRequest_status_1": "Erhalten",
+            "originalRequest_status_2": "In Bearbeitung",
+            "originalRequest_status_3": "Avisiert",
+            "originalRequest_status_4": "Erledigt",
+            "originalRequest_status_5": "Reaktiviert",
+            "originalRequest_status_6": "Archiviert",
+            "email_footer_message1": "Sie erhalten Sie Mitteilung, weil Sie Nutzer vom Mieterportal der {CompanyName} sind.",
+            "email_footer_message2": "...",
+            "email_link_contacts": "Kontakt",
+            "email_link_terms_of_use": "Nutzungsbedingungen",
+            "email_link_data_protection": "Datenschutz"
         },
         "components": {
             "common": {
@@ -623,19 +242,318 @@ export default {
             },
             "admin": []
         },
-        "views": {
+        "dashboard": {
+            "statistics": "Statistiken",
+            "requests_by_creation_date": "Anfragen nach Erstellungsdatum",
+            "requests_by_status": "Anfragen nach Status",
+            "requests_by_category": "Anfragen nach Kategorie",
+            "requests_by_assigned_status": "Einbezug von Dienstleistern",
+            "each_hour_request": "Stündlich",
+            "average_request_duration": "Ø Bearbeitungszeit in Std.",
+            "week_hour": "Woche und Stunden",
+            "month_date": "Monat und Tag",
+            "news_by_creation_date": "Nachrichten nach Erstellungsdatum",
+            "news_by_status": "Nachrichten nach Status",
+            "news_by_type": "Nachrichten nach Typ",
+            "latest_products": "Neueste Produkte",
+            "products_by_creation_date": "Marktplatz-Produkte nach Erstellungsdatum",
+            "products_by_type": "Marktplatz-Produkte nach Typ",
+            "tenants_by_creation_date": "Mieter nach Erstellungsdatum",
+            "tenants_by_request_status": "Mieter nach Anfrage-Status",
+            "tenants_by_status": "Mieter nach Status",
+            "tenants_by_language": "Mieter nach Sprache",
+            "tenants_by_title": "Mieter nach Anrede",
+            "tenants_by_device": "Geräte",
+            "tenants_by_gender": "Demografische Merkmale",
+            "tenants_by_age": "Mieter nach Altersgruppen",
+            "actions": "Aktionen",
+            "requests": {
+                "requests_with_service_providers": "Mit Dienstleister",
+                "request_wihout_service_providers": "Ohne Dienstleister",
+                "property_managers": "Bewirtschafter mit Anfragen",
+                "service_partners": "Dienstleister mit Anfragen",
+                "go_to_property_managers": "zu den Bewirtschaftern gehen",
+                "go_to_service_partners": "zu den Dienstleistern gehen"
+            },
+            "buildings": {
+                "total_building": "Anzahl Liegenschaften",
+                "total_units": "Anzahl Enheiten",
+                "occupied_units": "Vermiete Einheiten",
+                "free_units": "Freie Einheiten",
+                "buildings_by_creation_date": "Liegenschaften nach Erstellungsdatum",
+                "buildings_map": "Gebäudekarte",
+                "latest_buildings": "Neueste Gebäude",
+                "count_of_managers": "Anzahl Bewirtschafter",
+                "count_of_tenants": "Anzahl Mieter",
+                "count_of_requests": "Anzahl Anfragen",
+                "go_to_buildings": "zu den Liegenschaften",
+                "buildings_by_state": "Liegenschaften nach Kanton"
+            },
+            "tenants": {
+                "total_tenants": "Total Mieter",
+                "average_age": "Durchschnittsalter:",
+                "average_age_acr": "Ø Alter",
+                "latest_tenants": "Neueste Mieter",
+                "go_to_tenants": "zu den Mietern gehen"
+            },
+            "marketplace": {
+                "go_to_marketplace": "zum Marktplatz gehen"
+            },
+            "news": {
+                "latest_news": "Neueste Beiträge",
+                "go_to_news": "zur Pinnwand gehen",
+                "counts": "Kommentare"
+            }
+        },
+        "filters": {
+            "header": "Filter",
+            "districts": "Überbauungen",
+            "buildings": "Liegenschaften",
+            "requests": "Anfragen",
+            "open_requests": "Offene Anfragen",
+            "units": "Einheiten",
+            "states": "Kanton",
+            "status": "Status",
+            "search": "Suchen",
+            "requestStatus": "Anfrage Status",
+            "propertyManagers": "Bewirtschafter",
+            "categories": "Kategorien",
+            "created_from": "Erstellt vom",
+            "created_to": "Erstellt bis",
+            "services": "Partnerfirmen",
+            "tenant": "Mieter",
+            "roles": "Roles"
+        },
+        "general": {
+            "en": "EN",
+            "fr": "FR",
+            "it": "IT",
+            "de": "DE",
+            "yes": "Ja",
+            "timestamps": {
+                "hours": "Stunden",
+                "days": "Tage",
+                "weeks": "Wochen",
+                "months": "Monate",
+                "years": "Jahre"
+            },
+            "chooseLanguage": "Sprache auswählen",
+            "languages": {
+                "fr": "Français",
+                "it": "Italiano",
+                "de": "Deutsch",
+                "en": "English"
+            },
+            "footerText": {
+                "companyName": "Propify",
+                "leftSideText": "Sie brauchen Unterstützung? Kontaktieren Sie Support-Team unter<br>0800 000 000 oder via eine E-Mail an support@propify.ch",
+                "allRightsSaved": "Alle Rechte vorbehalten"
+            },
+            "days": {
+                "monday": "Montag",
+                "tuesday": "Dienstag",
+                "wednesday": "Mittwoch",
+                "thursday": "Donnerstag",
+                "friday": "Freitag",
+                "saturday": "Samstag",
+                "sunday": "Sonntag"
+            },
+            "salutation": "Anrede",
+            "no": "Nein",
+            "none": "Nichts gewählt",
+            "all": "Alle",
+            "loadMore": "Mehr laden",
+            "account": "Konto",
+            "activate_account": "Account akvitieren",
+            "activate_code": "Aktivierunscode",
+            "activate_code_required": "Aktivierunscode ist ein Pflichtfeld",
+            "activate_terms_condition_1": "Ich stimme zu, dass die Angaben korrekt sind.",
+            "activate_terms_condition_2": "Ich habe die Allgemeinen Geschäftsbedingungen gelesen.",
+            "back": "Zurück",
+            "activate": "Aktivieren",
+            "activate_info": "Wenn Sie von Ihrem Vermieter einen Aktivierungscode erhalten haben, dann können Sie hier Ihr Konto aktivieren. Bitte geben Sie folgende Daten ein:",
+            "unauthenticated": "Unautorisiert",
+            "logged_out": "Ausgeloggt",
+            "logged_in": "Eingeloggt",
+            "invalid_credentials": "Die eingegebenen Daten stimmen nicht.",
+            "server_error": "Server Fehler, bitter erneut versuchen.",
+            "reset_password": "Passwort zurücksetzen",
+            "reset_password_mail": "Passwort per E-Mail zurücksetzen.",
+            "reset_password_mail_sent": "Eine E-Mail wurde an Sie gesendet. Bitte fahren Sie dort weiter.",
+            "back_to_login": "Zurück zum Login",
+            "forgot_password": "Passwort vergessen",
+            "remember_me": "Angemeldet bleiben",
+            "password": "Passwort",
+            "change_password": "Passwort ändern",
+            "new_password": "Neues Passwort",
+            "old_password": "Altes Passwort",
+            "new_password_confirmation": "Neues Passwort bestätigen",
+            "change": "Ändern",
+            "cancel": "Schliessen",
+            "confirm": "Bestätigen",
+            "confirm_password": "Passwort bestätigen",
+            "incorrect_password": "Altes Passwort stimmt nicht",
+            "password_changed": "Passwort erfolgreich geändert",
+            "details_saved": "Angaben gespeichert",
+            "please_wait": "Bitte warten...",
+            "no_data_available": "Keine Daten verfügbar",
+            "upload_error": "Fehler beim Hochladen von Medien",
+            "media_not_found": "Medien nicht gefunden",
+            "comment_not_found": "Kommentar nicht gefunden",
+            "comment_created": "Kommentar erstellt",
+            "comment_updated": "Kommentar aktualisiert",
+            "comment_deleted": "Kommentar gelöscht",
+            "password_validation": {
+                "required": "Passwort ist obligatorisch",
+                "confirm": "Passwort bestätigen",
+                "match": "Die eingegebenen Passwörter sind nicht identisch.",
+                "min": "Das Passwort muss aus mind. 6 Zeichen bestehen.",
+                "old_password_min": "Das alte Passwort müsste aus mind. 6 Zeichen bestehen.",
+                "old_password_required": "Das alte Passwort wird benötigt."
+            },
+            "assignmentTypes": {
+                "services": "Dienstleister",
+                "managers": "Bewirtschafter",
+                "building": "Liegenschaft",
+                "district": "Überbauung"
+            },
+            "email": "E-Mail",
+            "email_validation": {
+                "required": "E-Mail ist obligatorisch",
+                "email": "Bitte geben Sie eine gültige E-Mail Adresse ein."
+            },
+            "token_invalid": "Invalid token",
+            "login": "Login",
+            "support": "Support",
+            "actions": {
+                "label": "Operationen",
+                "edit": "Öffnen",
+                "add": "Hinzufügen",
+                "delete": "Löschen",
+                "create": "Erstellen",
+                "view": "Details",
+                "save": "Speichern",
+                "close": "Schliessen",
+                "saveAndClose": "Speichern & schliessen",
+                "upload": "Herunterladen"
+            },
+            "swal": {
+                "delete": {
+                    "title": "Sind Sie sicher?",
+                    "text": "Dies kann nicht mehr rückgänging gemacht werden!",
+                    "confirmText": "Ja, ich will löschen!",
+                    "deleted": "Erfolgreich gelöscht!"
+                },
+                "add": {
+                    "added": "Erfolgreich hinzugefügt"
+                },
+                "media": {
+                    "added": "Dokument/Foto hinzugefügt",
+                    "deleted": "Dokument/Foto gelöscht"
+                },
+                "logout_confirm": "Sie werden eingelogt ausgeloggt."
+            },
+            "roles": {
+                "label": "Rolle",
+                "administrator": "Administrator",
+                "homeowner": "Eigentümer",
+                "manager": "Bewirtschafter",
+                "registered": "Registriert",
+                "service": "Partnerfirma",
+                "super_admin": "Super Administrator"
+            },
+            "search": {
+                "placeholder": "Suchen"
+            },
+            "errors": {
+                "files_extension_images": "Nur Dateien in der Formaten .jpg und .png erlaubt."
+            },
+            "dateTimeFormat": "{date} um {time} Uhr",
+            "date_range": {
+                "range_separator": "Bis",
+                "start_date": "Startdatum",
+                "end_date": "Enddatum",
+                "last_7_days": "Letzte 7 Tage",
+                "last_week": "Letzte Woche",
+                "last_14_days": "Letzte 14 Tage",
+                "last_30_days": "Letzte 30 Tage",
+                "last_month": "Letzte Monat",
+                "last_3_months": "Letzte 3 Monate",
+                "last_6_months": "Letzte 3 Monate",
+                "last_year": "Letzte Jahr",
+                "last_2_years": "Letzte 2 Jahre",
+                "all_time": "Ingesamt",
+                "week": "Woche",
+                "peek_week": "Wählen wählen"
+            },
             "tenant": {
-                "my": {
-                    "personal": {
-                        "title": "Persönliche Angaben",
-                        "description": "Meine Daten",
-                        "placeholder": {
-                            "title": "Keine persönlichen Angaben angegeben.",
-                            "description": "Bislang wurden keine Daten in diesem Bereich hinterlegt."
-                        }
-                    }
+                "activate_required_credentials": "Code, E-Mail, Passwort erforderlich",
+                "incorrect_email": "Falsche E-Mail-Adresse",
+                "user_not_tenant": "Dieser Benutzer ist nicht Mieter.",
+                "invalid_code": "Der Code ist ungültig",
+                "not_active_tenant": "Der Mieter ist nicht aktiv und kann das Passwort nicht ändern."
+            },
+            "choose": "Auswählen",
+            "page_not_found": {
+                "title": "Hmm… hier stimmt etwas nicht.",
+                "message": "Die von dir aufgerufene Seite wurde nicht gefunden. Bitte überprüfe die URL oder wechsle zur Startseite."
+            },
+            "to_homepage": "Zur Startseite"
+        },
+        "layouts": {
+            "tenant": {
+                "menu": {
+                    "logout": "Abmelden"
+                },
+                "sidebar": {
+                    "dashboard": "Dashboard",
+                    "myTenancy": "Mein Dossier",
+                    "myPersonalData": "Persönliche Angaben",
+                    "myRecentContract": "Mietvertrag",
+                    "myDocuments": "Objekt-Dokumentation",
+                    "myContactPersons": "Kontaktpersonen",
+                    "posts": "Pinnwand",
+                    "requests": "Anfragen",
+                    "products": "Marktplatz",
+                    "settings": "Einstellungen"
                 }
             }
+        },
+        "menu": {
+            "dashboard": "Dashboard",
+            "news": "Pinnwand",
+            "requests": "Servicezentrum",
+            "all_requests": "Alle Anfragen",
+            "myRequests": "Meine Anfragen",
+            "myPendingRequests": "Meine offenen Anfragen",
+            "notAssigned": "Nicht zugeordnet",
+            "allPendingRequests": "Alle offenen Anfragen",
+            "marketplace": "Marktplatz",
+            "settings": "Einstellungen",
+            "logout": "Anmelden",
+            "profile": "Profil",
+            "users": "Benutzer",
+            "employees": "Bewirtschafter",
+            "companies": "Partnerfirmen",
+            "admins": "Administratoren",
+            "super_admins": "Super Administratoren",
+            "home_owners": "Eigentümer",
+            "registered": "Registriert",
+            "about": "Über",
+            "feedback": "Feedback",
+            "tenants": "Mieter",
+            "buildings": "Liegenschaften",
+            "all_buildings": "Objekte",
+            "units": "Einheiten",
+            "addresses": "Liegenschaften",
+            "posts": "Pinnwand",
+            "districts": "Überbauungen",
+            "products": "Marktplatz",
+            "requestCategories": "Kategorien",
+            "services": "Partnerfirmen",
+            "activity": "Aktivität",
+            "propertyManagers": "Bewirtschafter",
+            "templates": "Vorlagen"
         },
         "models": {
             "user": {
@@ -705,7 +623,7 @@ export default {
                 "saved": "Mieter gespeichert",
                 "deleted": "Mieter gelöscht",
                 "status_changed": "Status geändert",
-                "password_reset": "Mandantenpasswort erfolgreich zurückgesetzt",
+                "password_reset": "Passwort erfolgreich zurückgesetzt",
                 "update": "Update",
                 "name": "Name",
                 "first_name": "Vorname",
@@ -728,10 +646,10 @@ export default {
                 "products": "Marktplatz",
                 "requests": "Anfragen",
                 "company": "Firmenname",
-                "no_building": "Zu keiner Liegenschaft zugewiesen.",
+                "no_building": "Keine Liegenschaft(en) zugewiesen.",
                 "media": {
-                    "deleted": "Dokument/Foto gelöscht",
-                    "uploaded": "Dokument/Foto hochgeladen"
+                    "deleted": "Mediendatei gelöscht",
+                    "uploaded": "Mediendatei hochgeladen"
                 },
                 "building": {
                     "name": "Liegenschaft"
@@ -744,7 +662,7 @@ export default {
                 "search": "Suchen",
                 "confirmDelete": {
                     "title": "Der Mieter wird endgültig gelöscht.",
-                    "text": "Sind Sie sicher?"
+                    "text": "Sind Sie sicher, dass Sie fortfahren wollen?"
                 },
                 "validation": {
                     "first_name": {
@@ -771,10 +689,10 @@ export default {
                 },
                 "errors": {
                     "not_found": "Mieter nicht gefunden",
-                    "incorrect_email": "Falsche E-Mail-Adresse",
+                    "incorrect_email": "Falsche EMail-Adresse",
                     "create": "Mieter legt Fehler an: ",
-                    "update": "Fehler bei der Aktualisierung des Mandanten: ",
-                    "deleted": "Mieter Fehler löschen: ",
+                    "update": "Fehler bei der Aktualisierung des Mieters: ",
+                    "deleted": "Fehler beim Löschen des Mieters: ",
                     "not_allowed_change_status": "Sie dürfen den Status nicht ändern."
                 },
                 "building_card": "Liegenschaft zuweisen",
@@ -859,8 +777,8 @@ export default {
                     "unassigned": "Bewirtschafter entfernt"
                 },
                 "document": {
-                    "uploaded": "Dokument(e) hinaufgeladen",
-                    "deleted": "Dokument(e) gelöscht"
+                    "uploaded": "Mediendatei hinaufgeladen",
+                    "deleted": "Mediendatei gelöscht"
                 },
                 "service": {
                     "deleted": "Dienstleister entfernt"
@@ -901,7 +819,7 @@ export default {
                     "reactivated": "Reaktiviert",
                     "done": "Erledigt",
                     "archived": "Archiviert",
-                    "solved": "Gelöste Anfragen",
+                    "solved": "Erledigte Anfragen",
                     "pending": "Ausstehende Anfragen"
                 },
                 "placeholders": {
@@ -948,8 +866,8 @@ export default {
                 "empty_requests": "Keine Anfragen",
                 "assigned_tenant": "Derzeitiger Mieter",
                 "assign": "Zuweisen",
-                "tenant_assigned": "Zugeordneter Mieter",
-                "tenant_unassigned": "Mieter nicht zugeordnet",
+                "tenant_assigned": "Mieter wurde zugewiesen",
+                "tenant_unassigned": "Mieter wurde entfernt",
                 "type": {
                     "label": "Typ",
                     "apartment": "Wohnung",
@@ -957,7 +875,7 @@ export default {
                 },
                 "confirmDelete": {
                     "title": "Diese Einheit wird endgültig gelöscht",
-                    "text": "Sind Sie sicher?"
+                    "text": "Sind Sie sicher, dass Sie fortfahren wollen?"
                 },
                 "validation": {
                     "name": {
@@ -1185,12 +1103,12 @@ export default {
                 },
                 "errors": {
                     "not_found": "Dienstleister nicht gefunden",
-                    "create": "Service Provider erstellt Fehler: ",
-                    "update": "Fehler beim Aktualisieren durch den Dienstanbieter: ",
-                    "deleted": "Der Dienstanbieter hat den Fehler gelöscht: ",
-                    "district_not_found": "Bezirk nicht gefunden",
-                    "building_not_found": "Gebäude nicht gefunden",
-                    "building_already_assign": "Gebäude, das bereits durch den Bezirk vergeben wurde."
+                    "create": "Fehler beim Erstellen des Dienstleisters: ",
+                    "update": "Fehler beim Aktualisieren des Dienstleisters: ",
+                    "deleted": "Fehler beim Löschen des Dienstleisters: ",
+                    "district_not_found": "Überbauung nicht gefunden",
+                    "building_not_found": "Liegenschaft nicht gefunden",
+                    "building_already_assign": "Liegenschaft wurde dieser Überbauung bereits zugewiesen."
                 }
             },
             "district": {
@@ -1423,18 +1341,18 @@ export default {
                 },
                 "visibility": {
                     "label": "Sichtbarkeit",
-                    "tenant": "Nachbarn",
+                    "tenant": "Nur ich",
                     "district": "Überbauung",
                     "building": "Liegenschaft"
                 },
                 "errors": {
-                    "not_found": "Serviceanfrage nicht gefunden",
-                    "not_allowed_change_status": "Du darfst den Status nicht ändern.",
+                    "not_found": "Anfrage nicht gefunden",
+                    "not_allowed_change_status": "Sie dürfen den Status nicht ändern.",
                     "provider_not_found": "Dienstleister nicht gefunden",
                     "user_not_found": "Benutzer nicht gefunden",
-                    "conversation_not_found": "Gespräch nicht gefunden",
-                    "statistics_error": "Anforderungsstatistik-Fehler: ",
-                    "internal_notice_not_found": "Interne Benachrichtigung nicht gefunden"
+                    "conversation_not_found": "Konversation nicht gefunden",
+                    "statistics_error": "Statistik-Fehler: ",
+                    "internal_notice_not_found": "Interne Notiz nicht gefunden"
                 },
                 "requestID": "Anfrage-ID",
                 "requestCategory": "Anfrage-Kategorie ",
@@ -1450,10 +1368,10 @@ export default {
                 "required": "Dies ist ein Pflichtfeld",
                 "parent": "Hauptkategorie",
                 "errors": {
-                    "not_found": "Serviceanfragekategorie nicht gefunden",
-                    "parent_not_found": "Übergeordnete Serviceanfrage Kategorie nicht gefunden",
-                    "multiple_level_not_found": "Mehrstufige verschachtelte Kategorien sind nicht erlaubt.",
-                    "used_by_request": "Serviceanforderungskategorie, die von einer Serviceanfrage verwendet wird."
+                    "not_found": "Anfrage-Kategorie nicht gefunden",
+                    "parent_not_found": "Die übergeordnete Anfrage-Kategorie wurde nicht gefunden",
+                    "multiple_level_not_found": "Mehrstufig verschachtelte Kategorien sind nicht erlaubt.",
+                    "used_by_request": "Diese Kategorie wird in Anfragen verwendet"
                 }
             },
             "propertyManager": {
@@ -1517,24 +1435,24 @@ export default {
                     "cancelBtnText": "Schliessen"
                 },
                 "errors": {
-                    "not_found": "Property Manager nicht gefunden",
-                    "create": "Property Manager erstellt Fehler: ",
-                    "update": "Property Manager hat den Fehler aktualisiert: ",
-                    "district_not_found": "Bezirk nicht gefunden",
-                    "building_not_found": "Gebäude nicht gefunden",
-                    "building_already_assign": "Gebäude, das bereits durch den Bezirk vergeben wurde.",
-                    "building_assign_deleted_property_manager": "Sie können einem gelöschten Property Manager keine Gebäude zuordnen."
+                    "not_found": "Bewirtschafter nicht gefunden",
+                    "create": "Fehler beim Erstellen des Bewirtschafters: ",
+                    "update": "Fehler beim Aktualisieren des Bewirtschafters:",
+                    "district_not_found": "Überbauung nicht gefunden",
+                    "building_not_found": "Liegenschaft nicht gefunden",
+                    "building_already_assign": "Die Liegenschaft ist dieser Überbauung bereits zugewiesen.",
+                    "building_assign_deleted_property_manager": "Sie können einem gelöschten Bewirtschafter keine Liegenschaft(en) zuordnen."
                 }
             },
             "product": {
                 "title": "Marktplatz",
-                "add": "Produkt hinzufügen",
-                "edit_title": "Produkt bearbeiten",
+                "add": "Inserat hinzufügen",
+                "edit_title": "Inserat bearbeiten",
                 "edit": "Öffnen",
                 "delete_action": "Löschen",
                 "show": "Vorschau",
                 "details": "Details zum Angebot",
-                "delete": "Anzeige löschen",
+                "delete": "Inserat löschen",
                 "content": "Inhalt",
                 "product_title": "Titel",
                 "published_at": "Hinzugefügt am",
@@ -1542,8 +1460,8 @@ export default {
                 "unpublish": "Unveröffentlicht",
                 "likes": "Likes",
                 "save": "Speichern",
-                "saved": "Anzeige gespeichert",
-                "deleted": "Anzeige gelöscht",
+                "saved": "Inserat gespeichert",
+                "deleted": "Inserat gelöscht",
                 "comments": "Kommentare",
                 "user": "Benutzer",
                 "contact": "Kontaktdaten",
@@ -1561,7 +1479,7 @@ export default {
                     "sell": "Verkaufen",
                     "lend": "Verleihen",
                     "service": "Dienstleistung",
-                    "giveaway": "Zu verschenken"
+                    "giveaway": "Verschenken"
                 },
                 "status": {
                     "label": "Status",
@@ -1570,9 +1488,9 @@ export default {
                 },
                 "visibility": {
                     "label": "Sichtbarkeit",
-                    "address": "Liegenschaft",
+                    "address": "Meine Nachbarn",
                     "district": "Überbauung",
-                    "all": "Alle"
+                    "all": "Alle App-Nutzer"
                 }
             },
             "template": {
@@ -1609,6 +1527,75 @@ export default {
                 "terms_and_conditions": "Accept Terms & Conditions",
                 "terms_text": "Terms text here, long text"
             }
+        },
+        "pages": {
+            "profile": {
+                "pageTitle": "Profil-Einstellungen",
+                "profile": "Profil",
+                "account": "Konto",
+                "security": "Sicherheit",
+                "notifications": "Benachrichtigungen"
+            },
+            "user": {
+                "title": "Benutzer"
+            },
+            "request_activities": {
+                "title": "Aktivitäten Tracking"
+            },
+            "tenant": {
+                "title": "Mieter"
+            }
+        },
+        "pagination": {
+            "previous": "&laquo; Zurück",
+            "next": "Weiter &raquo;"
+        },
+        "passwords": {
+            "password": "Passwörter müssen mindestens 6 Zeichen lang sein und korrekt bestätigt werden.",
+            "reset": "Das Passwort wurde erfolgreich zurückgesetzt!",
+            "sent": "Passworterinnerung wurde an die angegebene E-Mail-Adresse  gesendet!",
+            "token": "Der Passwort-Wiederherstellungs-Schlüssel ist ungültig oder abgelaufen.",
+            "user": "Es konnte leider kein Nutzer mit dieser E-Mail-Adresse gefunden werden."
+        },
+        "settings": {
+            "notifications": "Benachrichtigungen und Sprache",
+            "admin": "Benachrichtigungen vom Vermieter",
+            "news": "Pinnwand",
+            "marketplace": "Marketplace notifications",
+            "service": "Partnerfirmen",
+            "updated": "Einstellungen wurden gespeichert.",
+            "language": "Sprache",
+            "summary": {
+                "label": "Statistiken",
+                "daily": "Täglich",
+                "monthly": "Wöchentlich",
+                "yearly": "Jährlich"
+            },
+            "contact_enable": {
+                "label": "Meine Kontakte aktivieren",
+                "use_global": "Globale Einstellung verwenden",
+                "show": "Zeigen",
+                "hide": "Verbergen "
+            }
+        },
+        "tenant": {
+            "tenant_credentials": "Anmeldedaten des Mieters",
+            "tenancy_details": "Mietdetails",
+            "unit": "Einheit",
+            "floor": "Stockwerk",
+            "building": "Liegenschaft",
+            "address": "Adresse",
+            "rent_start": "Mietbeginn",
+            "login_credentials": "Login-Daten",
+            "website": "Website",
+            "username": "Benutzername",
+            "password": "Passwort",
+            "url": "URL",
+            "code": "Code",
+            "no_posts": "Bislang keine Beiträge veröffentlicht.",
+            "no_requests": "Bislang keine Anfragen gestellt.",
+            "no_listings": "Bislang keine Inserate veröffentlicht.",
+            "no_data": "Keine Angaben."
         },
         "validation": {
             "validation_main_message": "Die angegebenen Daten waren ungültig.",
@@ -1779,7 +1766,21 @@ export default {
                 "required": "Anrede"
             },
             "terms": {
-                "required": "Please approve with terms and conditions"
+                "required": "Bitte genehmigen Sie mit den Allgemeinen Geschäftsbedingungen."
+            }
+        },
+        "views": {
+            "tenant": {
+                "my": {
+                    "personal": {
+                        "title": "Persönliche Angaben",
+                        "description": "Meine Daten",
+                        "placeholder": {
+                            "title": "Keine persönlichen Angaben angegeben.",
+                            "description": "Bislang wurden keine Daten in diesem Bereich hinterlegt."
+                        }
+                    }
+                }
             }
         }
     }
