@@ -87,7 +87,7 @@
                                 <el-row :gutter="20">
                                     <el-col :sm="8" :xs="12">{{$t('models.tenant.work_phone')}}:</el-col>
                                     <el-col v-if="((model.work_phone === '') || (model.work_phone === null))" :sm="16" :xs="12" class="text-secondary">
-                                    {{$t('tenant.no_data')}}
+                                        {{$t('tenant.no_data')}}
                                     </el-col>
                                     <el-col v-else :sm="16" :xs="12" class="text-secondary">
                                         {{model.work_phone}}
