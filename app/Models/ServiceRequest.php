@@ -560,12 +560,13 @@ class ServiceRequest extends AuditableModel implements HasMedia
 
     public function getAllPeopleAttribute()
     {
+        // @TODO need property managers
         $providers = $this->providers->map(function($p) {
             return $p->user;
         });
         return array_merge([
             $this->tenant->user,
-        ], $providers->all(), $this->assignees->all()) ;
+        ], $providers->all(), $this->users->all()) ;
     }
 
     public function getDiskPreName()

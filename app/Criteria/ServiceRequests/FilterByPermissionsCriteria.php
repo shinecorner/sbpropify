@@ -57,8 +57,9 @@ class FilterByPermissionsCriteria implements CriteriaInterface
         }
 
         if ($u->hasRole('service') && $u->serviceProvider) {
-            $model->leftJoin('request_provider', 'request_provider.request_id', '=', 'service_requests.id')
-                ->where('request_provider.provider_id', $u->serviceProvider->id);
+            $model->whereHas('providers', function ($q) use ($u) {
+                $q->where('service_providers.id', $u->serviceProvider->id);
+            });
         }
 
         return $model;
