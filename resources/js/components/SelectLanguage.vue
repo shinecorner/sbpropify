@@ -32,8 +32,6 @@ export default {
         }
     },
     mounted() {
-        console.log('activeLanguage', this.activeLanguage)
-        console.log(' check ', this.activeLanguage == '')
         let languagesObject = this.$constants.app.languages;
         let languagesArray = Object.keys(languagesObject).map(function(key) {
             return [String(key), languagesObject[key]];
