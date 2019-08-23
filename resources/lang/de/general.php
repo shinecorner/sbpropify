@@ -193,4 +193,6 @@ return [
     'message' => "Die von dir aufgerufene Seite wurde nicht gefunden. Bitte überprüfe die URL oder wechsle zur Startseite."
   ],
   'to_homepage' => 'Zur Startseite',
+  'assignment' => 'Zugewiesene Liegenschaften',
+
 ];

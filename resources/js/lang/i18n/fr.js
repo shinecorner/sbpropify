@@ -287,7 +287,8 @@ export default {
                 "title": "Hmm... Quelque chose ne va pas ici.",
                 "message": "La page que vous avez demandée n'a pas été trouvée. Veuillez vérifier l'URL ou aller sur la page d'accueil."
             },
-            "to_homepage": "Vers la page d'accueil"
+            "to_homepage": "Vers la page d'accueil",
+            "assignment": "Affectation"
         },
         "filters": {
             "header": "Filtres",
@@ -836,6 +837,7 @@ export default {
                 "not_found": "Bâtiment non trouvé",
                 "house_rules": "Règlement intérieur",
                 "operating_instructions": "Notice d'utilisation",
+                "care_instructions": "Conseils d'entretien",
                 "other": "Autre",
                 "files": "Fichiers",
                 "add_files": "Ajouter des fichiers",
@@ -949,6 +951,7 @@ export default {
                 "assign": "Affecter",
                 "tenant_assigned": "Locataire affecté",
                 "tenant_unassigned": "Locataire non affecté",
+                "assignment": "Locataires affectés",
                 "type": {
                     "label": "Type",
                     "apartment": "Appartement",
@@ -1051,6 +1054,7 @@ export default {
                 "user": "Utilisateur",
                 "delete": "Supprimer",
                 "likes": "Aime",
+                "tenants": "Locataires",
                 "views": "Vues",
                 "details": "Afficher les détails",
                 "published_at": "Publié",
@@ -1103,7 +1107,6 @@ export default {
                     "confirmBtnText": "Ok",
                     "cancelBtnText": "Annuler"
                 },
-                "assignment": "Affectation",
                 "assignType": "Type",
                 "unassign": "Désassigner",
                 "assign": "Affecter",
@@ -1207,6 +1210,7 @@ export default {
                 "required": "Ce champ est obligatoire",
                 "details": "Détails",
                 "buildings": "Bâtiments",
+                "count_of_buildings": "Nombre de bâtiments",
                 "errors": {
                     "not_found": "District non trouvé"
                 }
@@ -1314,6 +1318,7 @@ export default {
                 "internal_notices": "Avis internes",
                 "status_changed": "Le statut a changé",
                 "priority_changed": "Priorité modifiée",
+                "assignment": "Affectation de gestionnaires/fournisseurs de services",
                 "media": {
                     "added": "Document ajouté",
                     "removed": "Suppression du support",

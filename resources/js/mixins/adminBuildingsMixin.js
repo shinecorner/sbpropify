@@ -120,7 +120,7 @@ export default (config = {}) => {
         switch (config.mode) {
             case 'add':
                 mixin.methods = {
-                    async submit() {
+                    async submit(afterValid = false) {
                         const valid = await this.form.validate();
                         if (valid) {
                             this.loading.state = true;
@@ -138,7 +138,14 @@ export default (config = {}) => {
                                 });
                                 displaySuccess(response);
                                 this.form.resetFields();
-                                return response;
+                                if (!!afterValid) {
+                                    afterValid(response);
+                                } else {
+                                    this.$router.push({
+                                        name: 'adminBuildingsEdit',
+                                        params: {id: resp.data.id}
+                                    })
+                                }
                             } catch (err) {
                                 displayError(err);
                             } finally {

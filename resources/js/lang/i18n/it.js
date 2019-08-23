@@ -287,7 +287,8 @@ export default {
                 "title": "C'e' qualcosa che non va qui.",
                 "message": "La pagina richiesta non è stata trovata. Controlla l'URL o vai alla homepage."
             },
-            "to_homepage": "Alla Homepage"
+            "to_homepage": "Alla Homepage",
+            "assignment": "Assegnazione"
         },
         "filters": {
             "header": "Filtri",
@@ -836,6 +837,7 @@ export default {
                 "not_found": "Edificio non trovato",
                 "house_rules": "Le regole della casa",
                 "operating_instructions": "Istruzioni per l'uso",
+                "care_instructions": "Istruzioni per la cura",
                 "other": "Altro",
                 "files": "I file",
                 "add_files": "Aggiungere file",
@@ -949,6 +951,7 @@ export default {
                 "assign": "Assegnare",
                 "tenant_assigned": "L'inquilino assegnato",
                 "tenant_unassigned": "Un inquilino non assegnato",
+                "assignment": "Affittuari assegnati",
                 "type": {
                     "label": "Tipo",
                     "apartment": "Appartamento",
@@ -1051,6 +1054,7 @@ export default {
                 "user": "Utente",
                 "delete": "Cancellare",
                 "likes": "Gli piace",
+                "tenants": "Gli inquilini",
                 "views": "Viste",
                 "details": "Pubblicare i dettagli",
                 "published_at": "Pubblicato",
@@ -1103,7 +1107,6 @@ export default {
                     "confirmBtnText": "Ok",
                     "cancelBtnText": "Annulla"
                 },
-                "assignment": "Assegnazione",
                 "assignType": "Tipo",
                 "unassign": "Disassegnare",
                 "assign": "Assegnare",
@@ -1207,6 +1210,7 @@ export default {
                 "required": "Questo campo è obbligatorio",
                 "details": "Dettagli",
                 "buildings": "Edifici",
+                "count_of_buildings": "Conteggio degli edifici",
                 "errors": {
                     "not_found": "Distretto non trovato"
                 }
@@ -1314,6 +1318,7 @@ export default {
                 "internal_notices": "Avvisi interni",
                 "status_changed": "Stato cambiato",
                 "priority_changed": "La priorità è cambiata",
+                "assignment": "Assegnazione di manager/fornitori di servizi",
                 "media": {
                     "added": "Documento ajouté",
                     "removed": "Supporti rimossi",

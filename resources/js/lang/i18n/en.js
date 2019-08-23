@@ -287,7 +287,8 @@ export default {
                 "title": "Hmm... something's wrong here.",
                 "message": "The page you requested was not found. Please check the URL or go to the homepage."
             },
-            "to_homepage": "To Homepage"
+            "to_homepage": "To Homepage",
+            "assignment": "Assignment"
         },
         "filters": {
             "header": "Filters",
@@ -836,6 +837,7 @@ export default {
                 "not_found": "Building not found",
                 "house_rules": "House rules",
                 "operating_instructions": "Operating instructions",
+                "care_instructions": "Care instructions",
                 "other": "Other",
                 "files": "Files",
                 "add_files": "Add files",
@@ -950,6 +952,7 @@ export default {
                 "assign": "Assign",
                 "tenant_assigned": "Tenant assigned",
                 "tenant_unassigned": "Tenant unassigned",
+                "assignment": "Assigned tenants",
                 "type": {
                     "label": "Type",
                     "apartment": "Apartment",
@@ -1053,6 +1056,7 @@ export default {
                 "delete": "Delete",
                 "likes": "Likes",
                 "views": "Views",
+                "tenants": "Tenants",
                 "details": "Post Details",
                 "published_at": "Published",
                 "publish": "Publish",
@@ -1104,7 +1108,6 @@ export default {
                     "confirmBtnText": "Ok",
                     "cancelBtnText": "Cancel"
                 },
-                "assignment": "Assignment",
                 "assignType": "Type",
                 "unassign": "Unassign",
                 "assign": "Assign",
@@ -1208,6 +1211,7 @@ export default {
                 "required": "This field is required",
                 "details": "Details",
                 "buildings": "Buildings",
+                "count_of_buildings": "Count of buildings",
                 "errors": {
                     "not_found": "District not found"
                 }
@@ -1315,6 +1319,7 @@ export default {
                 "internal_notices": "Internal notices",
                 "status_changed": "Status changed",
                 "priority_changed": "Priority changed",
+                "assignment": "Assignment of managers/services providers",
                 "media": {
                     "added": "Document added",
                     "removed": "Document removed",
