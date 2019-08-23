@@ -9,11 +9,27 @@
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
                 <card :loading="loading" :header="$t('models.district.details')">
-                    <el-form :model="model" label-width="192px" ref="form">
-                        <el-form-item label="Name" :rules="validationRules.name"
-                                    prop="name">
-                            <el-input type="text" v-model="model.name"/>
-                        </el-form-item>
+                    <el-form :model="model" ref="form">
+                        <el-row :gutter="20">
+                            <el-col :md="12">
+                                <el-form-item label="Name" :rules="validationRules.name"
+                                              prop="name">
+                                    <el-input type="text" v-model="model.name"/>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :md="12">
+                                <el-form-item class="label-block" :label="$t('models.district.count_of_buildings')"
+                                              prop="title">
+                                    <el-select style="display: block" v-model="model.count_of_buildings">
+                                        <el-option
+                                                :key="building"
+                                                :value="building"
+                                                v-for="building in buildingsCount">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
                     </el-form>
                 </card>
 
@@ -99,6 +115,8 @@
                     type: 'buildingTenantAvatars',
                     align: 'center',
                     prop: 'tenants',
+                    propLimit: 2,
+                    count: 'tenants_count',
                     label: this.$t('models.building.tenants')
                 }],
                 districtActions: [{
@@ -109,6 +127,7 @@
                         onClick: this.buildingEditView
                     }]
                 }],
+                buildingsCount: 20,
             }
         },
         methods: {
@@ -135,6 +154,13 @@
     }
 </script>
 
+<style lang="scss">
+    .label-block .el-form-item__label {
+        display: block;
+        float: none;
+        text-align: left;
+    }
+</style>
 <style lang="scss" scoped>
     .districts-edit {
         .crud-view {

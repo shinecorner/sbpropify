@@ -646,6 +646,7 @@ return [
       'required' => 'This field is required',
       'details' => 'Details',
       'buildings' => 'Buildings',
+      'count_of_buildings' => 'Count of buildings',
       'errors' => [
         'not_found' => "District not found",
       ],

@@ -578,8 +578,9 @@ export default {
                 "deleted": "Überbauung gelöscht",
                 "cancel": "Schliessen",
                 "required": "Dies ist ein Pflichfeld!",
-                "details": "Öffnen",
+                "details": "Überbauung Details",
                 "buildings": "Liegenschaften",
+                "count_of_buildings": "Anzahl der Gebäude",
                 "errors": {
                     "not_found": "Bezirk nicht gefunden"
                 }
