@@ -498,7 +498,8 @@ export default {
                 "title": "Hmm… hier stimmt etwas nicht.",
                 "message": "Die von dir aufgerufene Seite wurde nicht gefunden. Bitte überprüfe die URL oder wechsle zur Startseite."
             },
-            "to_homepage": "Zur Startseite"
+            "to_homepage": "Zur Startseite",
+            "assignment": "Zugewiesene Liegenschaften"
         },
         "layouts": {
             "tenant": {
@@ -1023,7 +1024,6 @@ export default {
                     "confirmBtnText": "Ja",
                     "cancelBtnText": "Schliessen"
                 },
-                "assignment": "Zugewiesene Liegenschaften",
                 "assignType": "Typ",
                 "unassign": "Entfernen",
                 "assign": "Zuweisen",
@@ -1234,6 +1234,7 @@ export default {
                 "internal_notices": "Interne Notizen",
                 "status_changed": "Status geändert",
                 "priority_changed": "Priorität geändert",
+                "assignment": "Beauftragung von Managern/Dienstleistern",
                 "media": {
                     "added": "Dokument hinzugefügt",
                     "removed": "Dokument entfernt.",

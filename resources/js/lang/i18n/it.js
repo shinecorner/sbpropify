@@ -498,7 +498,8 @@ export default {
                 "title": "C'e' qualcosa che non va qui.",
                 "message": "La pagina richiesta non è stata trovata. Controlla l'URL o vai alla homepage."
             },
-            "to_homepage": "Alla Homepage"
+            "to_homepage": "Alla Homepage",
+            "assignment": "Assegnazione"
         },
         "layouts": {
             "tenant": {
@@ -1022,7 +1023,6 @@ export default {
                     "confirmBtnText": "Ok",
                     "cancelBtnText": "Annulla"
                 },
-                "assignment": "Assegnazione",
                 "assignType": "Tipo",
                 "unassign": "Disassegnare",
                 "assign": "Assegnare",
@@ -1233,6 +1233,7 @@ export default {
                 "internal_notices": "Avvisi interni",
                 "status_changed": "Stato cambiato",
                 "priority_changed": "La priorità è cambiata",
+                "assignment": "Assegnazione di manager/fornitori di servizi",
                 "media": {
                     "added": "Documento ajouté",
                     "removed": "Supporti rimossi",

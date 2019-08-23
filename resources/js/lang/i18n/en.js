@@ -498,7 +498,8 @@ export default {
                 "title": "Hmm... something's wrong here.",
                 "message": "The page you requested was not found. Please check the URL or go to the homepage."
             },
-            "to_homepage": "To Homepage"
+            "to_homepage": "To Homepage",
+            "assignment": "Assignment"
         },
         "layouts": {
             "tenant": {
@@ -1023,7 +1024,6 @@ export default {
                     "confirmBtnText": "Ok",
                     "cancelBtnText": "Cancel"
                 },
-                "assignment": "Assignment",
                 "assignType": "Type",
                 "unassign": "Unassign",
                 "assign": "Assign",
@@ -1234,6 +1234,7 @@ export default {
                 "internal_notices": "Internal notices",
                 "status_changed": "Status changed",
                 "priority_changed": "Priority changed",
+                "assignment": "Assignment of managers/services providers",
                 "media": {
                     "added": "Document added",
                     "removed": "Document removed",

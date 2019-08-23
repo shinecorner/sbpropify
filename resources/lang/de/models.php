@@ -530,7 +530,6 @@ return [
         'confirmBtnText' => 'Ja',
         'cancelBtnText' => 'Schliessen',
       ],
-      'assignment' => 'Zugewiesene Liegenschaften',
       'assignType' => 'Typ',
       'unassign' => 'Entfernen',
       'assign' => 'Zuweisen',
@@ -756,6 +755,7 @@ return [
       'internal_notices' => 'Interne Notizen',
       'status_changed' => 'Status geändert',
       'priority_changed' => 'Priorität geändert',
+      'assignment'=> 'Beauftragung von Managern/Dienstleistern',
       'media' => 
       [
         'added' => 'Dokument hinzugefügt',
@@ -946,7 +946,7 @@ return [
       'requests' => 'Anfragen',
       'assign' => 'Zuweisen',
       'unassign' => 'Entfernen',
-      'delete_with_reassign_modal' => 
+      'delete_with_reassign_modal' =>
       [
         'title' => 'Neu zuweisen und Benutzer löschen',
         'description' => 'Der gewählte Bewirtschafter ist mit Liegenschaften verbunden. Sie können die Liegenschaft(en) an eine anderen Person zuweisen. Wählen Sie hierzu einen Bewirtschafter aus der Liste aus.',

@@ -190,4 +190,6 @@ return [
     'message' => "La page que vous avez demandée n'a pas été trouvée. Veuillez vérifier l'URL ou aller sur la page d'accueil."
   ],
   'to_homepage' => 'Vers la page d\'accueil',
+  "assignment" => "Affectation",
+
 ];
