@@ -241,7 +241,7 @@ export default (config = {}) => {
                 }), ServicesTypes, UploadUserAvatarMixin];
 
                 mixin.methods = {
-                    async submit() {
+                    async submit(afterValid = false) {
                         this.isFormSubmission = true;
                         const valid = await this.form.validate();
                         this.isFormSubmission = false;
@@ -257,6 +257,14 @@ export default (config = {}) => {
                                 displaySuccess(resp);
 
                                 this.form.resetFields();
+                                if (!!afterValid) {
+                                    afterValid(resp);
+                                } else {
+                                    this.$router.push({
+                                        name: 'adminServicesEdit',
+                                        params: {id: resp.data.id}
+                                    })
+                                }
                                 return resp;
                             } catch (err) {
                                 displayError(err);

@@ -107,7 +107,8 @@
             :element-loading-text="loading.text"
             :empty-text="emptyText"
             @selection-change="handleSelectionChange"
-            v-loading="loading.state">
+            v-loading="loading.state"
+            @row-click="editLink">
             <el-table-column
                 type="selection"
                 v-if="withCheckSelection"
@@ -585,6 +586,13 @@
 
                 } finally {
                     filter.remoteSearch = false;
+                }
+            },
+            editLink(row, column, cell, event) {
+                if(column.label === 'Units')
+                {
+                    let building_id = row.id;
+                    this.$router.push({ name: 'adminUnits', query: { page : 1, per_page : 20, building_id : building_id } });
                 }
             }
         },
