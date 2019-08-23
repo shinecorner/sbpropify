@@ -4300,7 +4300,7 @@
                     "ServiceRequest"
                 ],
                 "summary": "Assign the provided user to the request",
-                "description": "Assign the provided user to the request",
+                "description": "use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/post_requests__id__managers__pmid_'>/requests/{id}/managers/{pmid}</a>",
                 "produces": [
                     "application/json"
                 ],
@@ -4322,7 +4322,8 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "deprecated": true
             },
             "delete": {
                 "tags": [
