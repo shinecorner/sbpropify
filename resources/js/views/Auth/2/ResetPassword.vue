@@ -1,5 +1,7 @@
 <template>
     <el-form :model="resetPassword" ref="resetPasswordForm" :rules="validationRules">
+        <h2>{{$t('general.change_password')}}</h2>
+        <p>{{$t('general.change_password_info')}}</p>
         <el-form-item prop="password" :label="$t('general.password')">
             <el-input type="password" v-model="resetPassword.password" autocomplete="off"></el-input>
         </el-form-item>

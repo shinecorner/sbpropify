@@ -34,7 +34,7 @@ return [
       "serviceRequestCategoryDeleted" => "Catégorie de demande de service supprimée",
       'setting_saved' => "réglage utilisateur sauvegardé",
       'setting_deleted' => "Suppression du réglage utilisateur",      
-      'password_reset_request_sent' => "Réinitialisation du mot de passe Demande d'envoi réussie", 
+      'password_reset_request_sent' => "Nous vous avons envoyé un e-mail avec d'autres instructions. Veuillez vérifier votre boîte de réception.", 
       'errors' => [
         'not_found' => "Utilisateur introuvable",
         'setting_not_found' => "réglage utilisateur introuvable",        

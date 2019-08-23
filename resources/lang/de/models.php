@@ -34,7 +34,7 @@ return [
       'serviceRequestCategoryDeleted' => 'Anfrage-Kategorie gelöscht',
       'setting_saved' => "Benutzereinstellung gespeichert",
       'setting_deleted' => "Benutzereinstellung gelöscht",
-      'password_reset_request_sent' => "", 
+      'password_reset_request_sent' => "Wir haben Ihnen eine E-Mail mit weiteren Anweisungen gesendet. Bitte prüfen Sie Ihren Posteingang.", 
       'errors' => [
         'not_found' => "Benutzer nicht gefunden",
         'setting_not_found' => "Benutzereinstellung nicht gefunden",
