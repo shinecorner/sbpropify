@@ -774,6 +774,40 @@ class ServiceRequestAPIController extends AppBaseController
         return $this->assignManager($id, $managerId, $uRepo, $r);
     }
 
+    /**
+     * @param int $id
+     * @param int $uid
+     * @param UserRepository $uRepo
+     * @param AssignRequest $r
+     * @return Response
+     *
+     * @SWG\Post(
+     *      path="/requests/{id}/managers/{pmid}",
+     *      summary="Assign property manager to the request",
+     *      tags={"ServiceRequest"},
+     *      description="Assign property manager to the request",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/ServiceRequest"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
     public function assignManager(int $id, int $pmid, UserRepository $uRepo, AssignRequest $r)
     {
         $sr = $this->serviceRequestRepository->findWithoutFail($id);

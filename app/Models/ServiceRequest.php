@@ -317,8 +317,10 @@ class ServiceRequest extends AuditableModel implements HasMedia
         AuditableModel::EventUpdated,
         AuditableModel::EventDeleted,
         AuditableModel::EventUserAssigned => 'getUserAssignedEventAttributes',
-        AuditableModel::EventUserUnassigned => 'getUserUnassignedEventAttributes',
+        AuditableModel::EventManagerAssigned => 'getManagerAssignedEventAttributes',
         AuditableModel::EventProviderAssigned => 'getProviderAssignedEventAttributes',
+        AuditableModel::EventUserUnassigned => 'getUserUnassignedEventAttributes',
+        AuditableModel::EventManagerUnassigned => 'getManagerUnassignedEventAttributes',
         AuditableModel::EventProviderUnassigned => 'getProviderUnassignedEventAttributes',
         AuditableModel::EventProviderNotified => 'getProviderNotifiedEventAttributes'
     ];
@@ -331,6 +333,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
         ],
         'detach' => [
             'providers' =>  AuditableModel::EventProviderUnassigned,
+            'managers' =>  AuditableModel::EventManagerUnassigned,
             'users' =>  AuditableModel::EventUserAssigned,
         ],
     ];
@@ -375,6 +378,22 @@ class ServiceRequest extends AuditableModel implements HasMedia
      * @return array
      */
     public function getUserAssignedEventAttributes(): array
+    {
+        return $this->getSyncEventAttributes('attach');
+    }
+
+    /**
+     * @return array
+     */
+    public function getManagerUnassignedEventAttributes(): array
+    {
+        return $this->getSyncEventAttributes('detach');
+    }
+
+    /**
+     * @return array
+     */
+    public function getManagerAssignedEventAttributes(): array
     {
         return $this->getSyncEventAttributes('attach');
     }

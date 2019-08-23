@@ -4355,6 +4355,37 @@
                 "deprecated": true
             }
         },
+        "/requests/{id}/managers/{pmid}": {
+            "post": {
+                "tags": [
+                    "ServiceRequest"
+                ],
+                "summary": "Assign property manager to the request",
+                "description": "Assign property manager to the request",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/ServiceRequest"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/requests/{id}/assignees": {
             "get": {
                 "tags": [
