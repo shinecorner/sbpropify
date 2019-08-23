@@ -579,6 +579,7 @@ export default {
                 "required": "Questo campo è obbligatorio",
                 "details": "Dettagli",
                 "buildings": "Edifici",
+                "count_of_buildings": "Conteggio degli edifici",
                 "errors": {
                     "not_found": "Distretto non trovato"
                 }
