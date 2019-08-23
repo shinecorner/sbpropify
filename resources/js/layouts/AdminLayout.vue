@@ -2,8 +2,8 @@
     <el-container class="admin-layout" direction="vertical">
         <a-header :toggleSidebar="toggleSidebar">
             <div class="header-link">
-                <div  v-bind:class="[{ active: showMenu }, language]">
-                    <div class="language-iconBorder" @click="toggleShow">
+                <div v-bind:class="[{ active: showMenu }, language]">
+                    <div class="language-iconBorder" @click="toggleShow" v-click-outside="hideMenu">
                         <div class="language-checked-img">
                             <span v-bind:class="selectedFlag"></span>
                         </div>
@@ -22,18 +22,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <el-dropdown trigger="click">
-                    <span class="el-dropdown-link">
-                        <div class="language-iconBorder">
-                            <div class="language-checked-img">
-                                <span v-bind:class="selectedFlag"></span>
-                            </div>
-                        </div>
-                    </span>
-                    <el-dropdown-menu slot="dropdown" id="language">
-                        <el-dropdown-item :icon="language.flag" v-for='language in this.languages' :key="language.symbol" @click.native='itemClicked(language.symbol, language.flag)'>{{language.name}}</el-dropdown-item>
-                    </el-dropdown-menu>
-                </el-dropdown> -->
             </div>
             
             <div id="dropdown" class="dropdown-menu" ref="prev">
@@ -88,7 +76,22 @@
     import Avatar from 'components/Avatar';
     import VRouterTransition from 'v-router-transition';
     import {mapActions, mapState} from "vuex";
-    import { EventBus } from '../event-bus.js';
+    import Vue from 'vue';
+
+    Vue.directive('click-outside', {
+        bind: function (el, binding, vnode) {
+            el.clickOutsideEvent = function (event) {
+                if (!(el == event.target || el.contains(event.target))) {
+                    vnode.context[binding.expression](event);
+                }
+            };
+            document.body.addEventListener('click', el.clickOutsideEvent)
+        },
+        unbind: function (el) {
+            document.body.removeEventListener('click', el.clickOutsideEvent)
+        },
+    });
+    
 
     export default {
         name: 'AdminLayout',
@@ -453,6 +456,10 @@
 
             toggleShow: function() {
                 this.showMenu = !this.showMenu;
+            },
+
+            hideMenu: function() {
+                this.showMenu = false;
             },
 
             itemClicked: function(item, flag) {
