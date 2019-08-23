@@ -213,7 +213,7 @@
                                     </el-col>
                                 </el-row>
                             </card>
-                            <card class="mt15" :loading="loading" :header="$t('models.post.assignment')">
+                            <card class="mt15" :loading="loading" :header="$t('models.request.assignment')">
                                 <assignment-by-type
                                     :resetToAssignList="resetToAssignList"
                                     :assignmentType.sync="assignmentType"

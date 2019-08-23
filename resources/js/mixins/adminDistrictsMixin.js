@@ -41,15 +41,23 @@ export default (config = {}) => {
                         const resp = await this.createDistrict(this.model);
                         return resp;
                     },
-                    async submit() {
+                    async submit(afterValid = false) {
                         const valid = await this.form.validate();
                         if (valid) {
                             this.loading.state = true;
                             try {
                                 const resp = await this.saveDistrict();
-
                                 displaySuccess(resp);
-                                return resp;
+                                
+                                this.form.resetFields();
+                                if (!!afterValid) {
+                                    afterValid(resp);
+                                } else {
+                                    this.$router.push({
+                                        name: 'adminDistrictsEdit',
+                                        params: {id: response.data.id}
+                                    })
+                                }
                             } catch (err) {
                                 displayError(err);
                             } finally {

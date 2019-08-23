@@ -46,7 +46,6 @@
                                     <el-form-item :label="$t('models.tenant.birth_date')" :rules="validationRules.birth_date"
                                                   prop="birth_date">
                                         <el-date-picker
-                                                :placeholder="$t('models.tenant.birth_date')"
                                                 format="dd.MM.yyyy"
                                                 style="width: 100%;"
                                                 type="date"

@@ -51,8 +51,8 @@
                         </router-link>
                     </div>
 
-                    <div v-else-if="column.type === 'buildingTenantAvatars'">
-                        <span class="tenant-item" :key="uuid()" v-for="(tenant) in scope.row[column.prop]">
+                    <div v-else-if="column.type === 'buildingTenantAvatars'" class="avatars-wrapper">
+                        <span class="tenant-item" :key="uuid()" v-for="(tenant) in scope.row[column.prop].slice(0, column.propLimit)">
                               <el-tooltip
                                       :content="tenant.first_name ? `${tenant.first_name} ${tenant.last_name}`: (tenant.user ? `${tenant.user.name}`:`${tenant.name}`)"
                                       class="item"
@@ -75,6 +75,9 @@
                                   </template>
                               </el-tooltip>
                         </span>
+                        <avatar class="avatar-count" :size="28" :username="`+ ${scope.row[column.count]}`"
+                                color="#fff"
+                                v-if="scope.row[column.count]"></avatar>
                     </div>
 
                     <div v-else>
@@ -227,9 +230,18 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .category {
         color: #909399;
+    }
+    .avatars-wrapper {
+        display: inline-flex;
+        .tenant-item,
+        .avatar-count{
+            &:not(:first-child) {
+                margin-left: 2px;
+            }
+        }
     }
     .tenant-link {
         display: inline-block;

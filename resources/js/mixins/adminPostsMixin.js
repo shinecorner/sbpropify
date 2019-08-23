@@ -272,7 +272,7 @@ export default (config = {}) => {
                 mixin.methods = {
                     ...mixin.methods,
                     ...mapActions(['createPost', 'changePostPublish']),
-                    async submit() {
+                    async submit(afterValid = false) {
                         const valid = this.form.validate();
                         if (!valid) {
                             return false;
@@ -302,6 +302,14 @@ export default (config = {}) => {
                             this.form.resetFields();
                             this.media = [];
                             displaySuccess(resp);
+                            if (!!afterValid) {
+                                afterValid(resp);
+                            } else {
+                                this.$router.push({
+                                    name: 'adminServicesEdit',
+                                    params: {id: resp.data.id}
+                                })
+                            }
                             return resp;
                         } catch (err) {
                             displayError(err);

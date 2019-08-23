@@ -246,15 +246,24 @@ export default (config = {}) => {
                         return resp;
 
                     },
-                    async submit() {
+                    async submit(afterValid = false) {
                         const valid = await this.form.validate();
                         if (valid) {
                             this.loading.state = true;
                             try {
                                 const resp = await this.saveRequest();
-
                                 displaySuccess(resp);
-                                return resp;
+
+                                this.form.resetFields();
+                                if (!!afterValid) {
+                                    afterValid(resp);
+                                } else {
+                                    this.$router.push({
+                                        name: 'adminRequestsEdit',
+                                        params: {id: response.data.id}
+                                    })
+                                }
+                                
                             } catch (err) {
                                 displayError(err);
                             } finally {

@@ -123,7 +123,7 @@
             </el-col>
             <el-col :md="12">
                 <raw-grid-statistics-card :cols="8" :data="statistics.raw"/>
-                <card :loading="loading" class="mt15" :header="$t('models.post.assignment')">
+                <card :loading="loading" class="mt15" :header="$t('general.assignment')">
             
                     <assignment-by-type
                         :resetToAssignList="resetToAssignList"
@@ -286,7 +286,10 @@
                     displaySuccess(resp)
                 }
             }
-        }
+        },
+        mounted() {
+            this.$root.$on('changeLanguage', () => this.getStates());
+        },
     }
 </script>
 
