@@ -2,8 +2,10 @@
     <div class="managers-list dashboard-table">
         <div class="link-container">
             <router-link :to="{name: 'adminPropertyManagers'}">
-                <span class="title">{{ $t('dashboard.requests.go_to_property_managers') }} </span>
-                <i class="icon-right icon"/>
+                <div @click="searchroute">
+                    <span class="title">{{ $t('dashboard.requests.go_to_property_managers') }} </span>
+                    <i class="icon-right icon"/>
+                </div>
             </router-link>
         </div>
         <dashboard-list-table
@@ -89,6 +91,15 @@
               }).catch(function (error) {
                   console.log(error);
               })
+            },
+            searchroute() {
+                console.log(this.$route.name);
+                while( document.querySelector('.content .is-active') != null) 
+                {
+                    document.querySelector('.content .is-active').classList.remove('is-active');
+                }
+                let newactiveItem = this.$el.querySelector('.content .active');
+                console.log(newactiveItem);
             }
         },
         created() {

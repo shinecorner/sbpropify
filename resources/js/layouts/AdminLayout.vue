@@ -2,8 +2,8 @@
     <el-container class="admin-layout" direction="vertical">
         <a-header :toggleSidebar="toggleSidebar">
             <div class="header-link">
-                <div  v-bind:class="[{ active: showMenu }, language]">
-                    <div class="language-iconBorder" @click="toggleShow">
+                <div v-bind:class="[{ active: showMenu }, language]">
+                    <div class="language-iconBorder" @click="toggleShow" v-click-outside="hideMenu">
                         <div class="language-checked-img">
                             <span v-bind:class="selectedFlag"></span>
                         </div>
@@ -76,7 +76,24 @@
     import Avatar from 'components/Avatar';
     import VRouterTransition from 'v-router-transition';
     import {mapActions, mapState} from "vuex";
+
     import { EventBus } from '../event-bus.js';
+    import Vue from 'vue';
+
+    Vue.directive('click-outside', {
+        bind: function (el, binding, vnode) {
+            el.clickOutsideEvent = function (event) {
+                if (!(el == event.target || el.contains(event.target))) {
+                    vnode.context[binding.expression](event);
+                }
+            };
+            document.body.addEventListener('click', el.clickOutsideEvent)
+        },
+        unbind: function (el) {
+            document.body.removeEventListener('click', el.clickOutsideEvent)
+        },
+    });
+    
 
     export default {
         name: 'AdminLayout',
@@ -166,14 +183,14 @@
                                 permission: this.$permissions.list.request,
                                 value: this.all_unassigned_count,
                                 route: {
-                                    name: ''
+                                    name: 'adminUnassignedRequests'
                                 }
                             },  {
                                 title: this.$t('menu.allPendingRequests'),
                                 permission: this.$permissions.list.request,
                                 value: this.all_pending_count,
                                 route: {
-                                    name: ''
+                                    name: 'adminAllpendingRequests'
                                 }
                             }]
                         }, {
@@ -228,24 +245,24 @@
                                 query: {
                                     roles: ['super_admin', 'administrator'],
                                 }
-                            }
-                            // children: [{
-                            //     title: this.$t('menu.admins'),
-                            //     route: {
-                            //         name: 'adminUsers',
-                            //         query: {
-                            //             role: 'administrator'
-                            //         }
-                            //     }
-                            // }, {
-                            //     title: this.$t('menu.super_admins'),
-                            //     route: {
-                            //         name: 'adminUsers',
-                            //         query: {
-                            //             role: 'super_admin'
-                            //         }
-                            //     }
-                            // }]
+                            },
+                            children: [{
+                                title: this.$t('menu.admins'),
+                                route: {
+                                    name: 'adminUsers',
+                                    query: {
+                                        role: 'administrator'
+                                    }
+                                }
+                            }, {
+                                title: this.$t('menu.super_admins'),
+                                route: {
+                                    name: 'adminUsers',
+                                    query: {
+                                        role: 'super_admin'
+                                    }
+                                }
+                            }]
                         }];
                 }
                 else if (this.rolename == 'administrator' || this.rolename == 'manager') {
@@ -294,28 +311,28 @@
                                 permission: this.$permissions.cleanify_request.list,
                                 value: this.my_request_count,
                                 route: {
-                                    name: 'adminRequests'
+                                    name: 'adminMyRequests'
                                 }
                             },  {
                                 title: this.$t('menu.myPendingRequests'),
                                 permission: this.$permissions.cleanify_request.list,
                                 value: this.my_pending_count,
                                 route: {
-                                    name: 'adminRequests'
+                                    name: 'adminMypendingRequests'
                                 }
                             },  {
                                 title: this.$t('menu.notAssigned'),
                                 permission: this.$permissions.list.request,
                                 value: this.all_unassigned_count,
                                 route: {
-                                    name: 'adminRequests'
+                                    name: 'adminUnassignedRequests'
                                 }
                             },  {
                                 title: this.$t('menu.allPendingRequests'),
                                 permission: this.$permissions.list.request,
                                 value: this.all_pending_count,
                                 route: {
-                                    name: 'adminRequests'
+                                    name: 'adminAllpendingRequests'
                                 }
                             }]
                         }, {
@@ -367,7 +384,7 @@
                             permission: this.$permissions.list.user,
                             route: {
                                 name: 'adminUsers'
-                            }
+                            },
                             // children: [{
                             //     title: this.$t('menu.admins'),
                             //     route: {
@@ -441,6 +458,10 @@
 
             toggleShow: function() {
                 this.showMenu = !this.showMenu;
+            },
+
+            hideMenu: function() {
+                this.showMenu = false;
             },
 
             itemClicked: function(item, flag) {

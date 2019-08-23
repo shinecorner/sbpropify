@@ -21,72 +21,37 @@
                     <el-tab-pane :label="$t('models.building.details')" name="details">
                         <el-form :model="model" label-position="top" label-width="192px" ref="form">
                             <el-row :gutter="20">
-                                <el-col :md="12">
+                                <el-col :md="10">
                                     <el-form-item :label="$t('models.address.street')" :rules="validationRules.street"
                                                   prop="street"
                                                   style="max-width: 512px;">
                                         <el-input type="text" v-model="model.street" v-on:change="setBuildingName"></el-input>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="12">
+                                <el-col :md="4">
                                     <el-form-item :label="$t('models.building.house_nr')"
                                                   :rules="validationRules.street_nr"
                                                   prop="street_nr" style="max-width: 512px;">
                                         <el-input type="text" v-model="model.street_nr" v-on:change="setBuildingName"></el-input>
                                     </el-form-item>
                                 </el-col>
-                            </el-row>
-                            <el-row :gutter="20">
-                                <el-col :md="12">
+                                <el-col :md="10">
                                     <el-form-item :label="$t('models.building.name')" :rules="validationRules.name"
                                                   prop="name"
                                                   style="max-width: 512px;">
                                         <el-input type="text" v-model="model.name"></el-input>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="12">
-                                    <el-form-item :label="$t('models.building.district')" prop="district_id"
-                                                  style="max-width: 512px;">
-                                        <el-select
-                                            :loading="remoteLoading"
-                                            :placeholder="$t('models.building.placeholders.search')"
-                                            :remote-method="remoteSearchDistricts"
-                                            filterable
-                                            remote
-                                            reserve-keyword
-                                            style="width: 100%;"
-                                            v-model="model.district_id">
-                                            <el-option
-                                                :label="$t('general.none')"
-                                                value=""
-                                            />
-                                            <el-option
-                                                :key="district.id"
-                                                :label="district.name"
-                                                :value="district.id"
-                                                v-for="district in districts"/>
-                                        </el-select>
-                                    </el-form-item>
-                                </el-col>
                             </el-row>
                             <el-row :gutter="20">
-                                <el-col :md="12">
-                                    <el-form-item :label="$t('models.building.floor_nr')"
-                                                  :rules="validationRules.floor_nr"
-                                                  prop="floor_nr" style="max-width: 512px;">
-                                        <el-input type="number" v-model="model.floor_nr"></el-input>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :md="12">
+                                <el-col :md="4">
                                     <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip"
                                                   prop="zip"
                                                   style="max-width: 512px;">
                                         <el-input type="text" v-model="model.zip"></el-input>
                                     </el-form-item>
                                 </el-col>
-                            </el-row>
-                            <el-row :gutter="20">
-                                <el-col :md="12">
+                                <el-col :md="8">
                                     <el-form-item :label="$t('models.address.city')" :rules="validationRules.city"
                                                   prop="city"
                                                   style="max-width: 512px;">
@@ -103,6 +68,39 @@
                                             <el-option :key="state.id" :label="state.name" :value="state.id"
                                                        v-for="state in states"></el-option>
                                         </el-select>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row :gutter="20">
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.building.district')" prop="district_id"
+                                                  style="max-width: 512px;">
+                                        <el-select
+                                                :loading="remoteLoading"
+                                                :placeholder="$t('models.building.placeholders.search')"
+                                                :remote-method="remoteSearchDistricts"
+                                                filterable
+                                                remote
+                                                reserve-keyword
+                                                style="width: 100%;"
+                                                v-model="model.district_id">
+                                            <el-option
+                                                    :label="$t('general.none')"
+                                                    value=""
+                                            />
+                                            <el-option
+                                                    :key="district.id"
+                                                    :label="district.name"
+                                                    :value="district.id"
+                                                    v-for="district in districts"/>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.building.floor_nr')"
+                                                  :rules="validationRules.floor_nr"
+                                                  prop="floor_nr" style="max-width: 512px;">
+                                        <el-input type="number" v-model="model.floor_nr"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -202,8 +200,6 @@
                         <relation-list
                             :actions="requestActions"
                             :columns="requestColumns"
-                            :statuses="requestStatuses"
-                            :tenantAvatars="requestTenantAvatars"
                             :filterValue="model.id"
                             fetchAction="getRequests"
                             filter="building_id"
@@ -348,8 +344,16 @@
                     }]
                 }],
                 requestColumns: [{
-                    prop: 'title',
+                    type: 'requestTenantAvatar',
+                    width: 75,
+                    prop: 'tenant',
+                    label: this.$t('models.request.tenant')
+                }, {
+                    type: 'requestTitleWithDesc',
                     label: this.$t('models.request.prop_title')
+                }, {
+                    type: 'requestStatus',
+                    label: this.$t('models.request.status.label')
                 }],
                 requestActions: [{
                     width: '180px',
@@ -359,31 +363,14 @@
                         onClick: this.requestEditView
                     }]
                 }],
-                requestStatuses: [{
-                    prop: 'status',
-                    label: this.$t('models.request.status.label')
-                }],
-                requestTenantAvatars: [{
-                    prop: 'avatar',
-                    label: this.$t('models.request.tenant')
-                }],
                 toAssignList: [],
                 toAssign: '',
                 remoteLoading: false,
                 deleteBuildingVisible: false,
                 multiple: true,
                 delBuildingStatus: -1, // 0: unit, 1: request, 2: both
-                contactEnableValues: [{
-                    value: 2,
-                    label: this.$t('settings.contact_enable.show'),
-                }, {
-                    value: 3,
-                    label: this.$t('settings.contact_enable.hide'),
-                }],
+                contactUseGlobalAddition: ''
             };
-        },
-        async created() {
-            await this.fetchRealEstate();
         },
         methods: {
             ...mapActions([
@@ -400,10 +387,7 @@
             ]),
             fetchRealEstate() {
                 this.getRealEstate().then((resp) => {
-                    this.contactEnableValues.unshift({
-                        value: 1,
-                        label: `${this.$t('settings.contact_enable.use_global')} (${resp.data.contact_enable ? this.$t('settings.contact_enable.show') : this.$t('settings.contact_enable.hide')})`,
-                    });
+                    this.contactUseGlobalAddition = resp.data.contact_enable ? this.$t('settings.contact_enable.show') : this.$t('settings.contact_enable.hide');
                 }).catch((error) => {
                     displayError(error);
                 });
@@ -640,6 +624,19 @@
             },
             tenantStatusConstants() {
                 return this.constants.tenants.status
+            },
+            contactEnableValues() {
+                this.fetchRealEstate();
+                return [{
+                    value: 1,
+                    label: `${this.$t('settings.contact_enable.use_global')} (${this.contactUseGlobalAddition})`,
+                }, {
+                    value: 2,
+                    label: this.$t('settings.contact_enable.show'),
+                }, {
+                    value: 3,
+                    label: this.$t('settings.contact_enable.hide'),
+                }]
             }
         }
     }

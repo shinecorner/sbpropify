@@ -13,7 +13,7 @@
                         <el-tabs type="border-card" v-model="activeTab">
                             <el-tab-pane :label="$t('models.propertyManager.details_card')" name="details">
                                 <el-row :gutter="20">
-                                    <el-col :md="12">
+                                    <el-col :md="8">
                                         <el-form-item :label="$t('general.salutation')" :rules="validationRules.title"
                                                     prop="title">
                                             <el-select style="display: block" v-model="model.title">
@@ -26,28 +26,34 @@
                                             </el-select>
                                         </el-form-item>
                                     </el-col>
-                                    <el-col :md="12">
-                                        <el-form-item :label="$t('models.propertyManager.firstName')"
-                                                      :rules="validationRules.first_name"
-                                                      prop="first_name">
-                                            <el-input type="text" v-model="model.first_name"/>
+                                    <el-col :md="8">
+                                        <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" 
+                                                prop="settings.language">
+                                            <select-language :activeLanguage.sync="model.settings.language"/>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :md="8">
+                                        <el-form-item :label="$t('models.propertyManager.profession')"
+                                                      :rules="validationRules.profession"
+                                                      prop="profession">
+                                            <el-input type="text" v-model="model.profession"/>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
 
                                 <el-row :gutter="20">
                                     <el-col :md="12">
-                                        <el-form-item :label="$t('models.propertyManager.lastName')"
-                                                      :rules="validationRules.last_name"
-                                                      prop="last_name">
-                                            <el-input type="text" v-model="model.last_name"/>
+                                        <el-form-item :label="$t('models.propertyManager.firstName')"
+                                                    :rules="validationRules.first_name"
+                                                    prop="first_name">
+                                            <el-input type="text" v-model="model.first_name"/>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :md="12">
-                                        <el-form-item :label="$t('models.propertyManager.profession')"
-                                                      :rules="validationRules.profession"
-                                                      prop="profession">
-                                            <el-input type="text" v-model="model.profession"/>
+                                        <el-form-item :label="$t('models.propertyManager.lastName')"
+                                                    :rules="validationRules.last_name"
+                                                    prop="last_name">
+                                            <el-input type="text" v-model="model.last_name"/>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
@@ -64,16 +70,6 @@
                                                       :rules="validationRules.email"
                                                       prop="user.email">
                                             <el-input type="email" v-model="model.user.email"/>
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row>
-
-                                <el-row :gutter="20">
-                                    <el-col :md="24">
-                                        <el-form-item :label="$t('models.propertyManager.slogan')"
-                                                      :rules="validationRules.slogan"
-                                                      prop="slogan">
-                                            <el-input type="text" v-model="model.slogan"/>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
@@ -104,9 +100,11 @@
                                          style="width: 100%;max-width: 200px;"
                                          v-if="!avatar.length && model.user.avatar">
                                 </el-form-item>
-                                <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" 
-                                        prop="settings.language">
-                                    <select-language :model.sync="model.settings.language"/>
+
+                                <el-form-item :label="$t('models.propertyManager.slogan')"
+                                              :rules="validationRules.slogan"
+                                              prop="slogan">
+                                    <el-input type="text" v-model="model.slogan"/>
                                 </el-form-item>
                             </el-tab-pane>
                             <el-tab-pane :label="$t('models.propertyManager.social_card')" name="social">
@@ -132,44 +130,42 @@
                                 </el-row>
                             </el-tab-pane>
                         </el-tabs>
-                    </el-col>
-                    <el-col :md="12">
-                        <card :loading="loading" :header="$t('models.post.assignment')">
-                            
+
+                        <card :loading="loading" class="mt15" :header="$t('general.assignment')">
                             <assignment-by-type
-                                :resetToAssignList="resetToAssignList"
-                                :assignmentType.sync="assignmentType"
-                                :toAssign.sync="toAssign"
-                                :assignmentTypes="assignmentTypes"
-                                :assign="attachBuilding"
-                                :toAssignList="toAssignList"
-                                :remoteLoading="remoteLoading"
-                                :remoteSearch="remoteSearchBuildings"
+                                    :resetToAssignList="resetToAssignList"
+                                    :assignmentType.sync="assignmentType"
+                                    :toAssign.sync="toAssign"
+                                    :assignmentTypes="assignmentTypes"
+                                    :assign="attachBuilding"
+                                    :toAssignList="toAssignList"
+                                    :remoteLoading="remoteLoading"
+                                    :remoteSearch="remoteSearchBuildings"
                             />
                             <relation-list
-                                :actions="assignmentsActions"
-                                :columns="assignmentsColumns"
-                                :filterValue="model.id"
-                                fetchAction="getAssignments"
-                                filter="manager_id"
-                                ref="assignmentsList"
-                                v-if="model.id"
+                                    :actions="assignmentsActions"
+                                    :columns="assignmentsColumns"
+                                    :filterValue="model.id"
+                                    fetchAction="getAssignments"
+                                    filter="manager_id"
+                                    ref="assignmentsList"
+                                    v-if="model.id"
                             />
                         </card>
+                    </el-col>
+                    <el-col :md="12">
+                        <raw-grid-statistics-card :cols="8" :data="statistics.raw"/>
+
                         <card :loading="loading" class="mt15" :header="$t('models.propertyManager.requests')">
                             <relation-list
                                 :actions="requestActions"
                                 :columns="requestColumns"
-                                :statuses="requestStatuses"
-                                :tenantAvatars="requestTenantAvatars"
                                 :filterValue="model.user.id"
                                 fetchAction="getRequests"
                                 filter="assignee_id"
                                 v-if="model.user && model.user.id"
                             />
                         </card>
-
-                        <raw-grid-statistics-card :cols="8" :data="statistics.raw" class="mt15"/>
                     </el-col>
                 </el-row>
             </el-form>
@@ -186,9 +182,9 @@
     import EditActions from 'components/EditViewActions';
     import {mapGetters, mapActions} from 'vuex';
     import globalFunction from "helpers/globalFunction";
-    import SelectLanguage from 'components/SelectLanguage';
     import AssignmentByType from 'components/AssignmentByType';
     import RawGridStatisticsCard from 'components/RawGridStatisticsCard';
+    import SelectLanguage from 'components/SelectLanguage';
 
     export default {
         name: 'AdminPropertyManagersEdit',
@@ -201,16 +197,24 @@
             Cropper,
             RelationList,
             EditActions,
-            SelectLanguage,
             AssignmentByType,
-            RawGridStatisticsCard
+            RawGridStatisticsCard,
+            SelectLanguage
         },
         data() {
             return {
                 activeTab: "details",
                 requestColumns: [{
-                    prop: 'title',
+                    type: 'requestTenantAvatar',
+                    width: 75,
+                    prop: 'tenant',
+                    label: this.$t('models.request.tenant')
+                }, {
+                    type: 'requestTitleWithDesc',
                     label: this.$t('models.request.prop_title')
+                }, {
+                    type: 'requestStatus',
+                    label: this.$t('models.request.status.label')
                 }],
                 requestActions: [{
                     width: '90px',
@@ -219,14 +223,6 @@
                         title: this.$t('models.request.edit'),
                         onClick: this.requestEditView
                     }]
-                }],
-                requestStatuses: [{
-                    prop: 'status',
-                    label: this.$t('models.request.status.label')
-                }],
-                requestTenantAvatars: [{
-                    prop: 'avatar',
-                    label: this.$t('models.request.tenant')
                 }],
                 assignmentsColumns: [{
                     prop: 'name',

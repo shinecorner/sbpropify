@@ -19,17 +19,17 @@ export default (config = {}) => {
                         icon: 'ti-user',
                         color: '#003171',
                         value: 0,
-                        description: this.$t('dashboard.tenants.total_tenants')
+                        description: 'dashboard.tenants.total_tenants'
                     }, {
                         icon: 'ti-plus',
                         color: '#26A65B',
                         value: 0,
-                        description: this.$t('models.tenant.status.active')
+                        description: 'models.tenant.status.active'
                     },{
                         icon: 'ti-plus',
                         color: '#26A65B',
                         value: 0,
-                        description: this.$t('models.tenant.status.not_active')
+                        description: 'models.tenant.status.not_active'
                     }],
                     percentage: {
                         occupied_units: 0,
@@ -120,7 +120,7 @@ export default (config = {}) => {
         switch (config.mode) {
             case 'add':
                 mixin.methods = {
-                    async submit() {
+                    async submit(afterValid = false) {
                         const valid = await this.form.validate();
                         if (valid) {
                             this.loading.state = true;
@@ -138,7 +138,14 @@ export default (config = {}) => {
                                 });
                                 displaySuccess(response);
                                 this.form.resetFields();
-                                return response;
+                                if (!!afterValid) {
+                                    afterValid(response);
+                                } else {
+                                    this.$router.push({
+                                        name: 'adminBuildingsEdit',
+                                        params: {id: resp.data.id}
+                                    })
+                                }
                             } catch (err) {
                                 displayError(err);
                             } finally {

@@ -1,10 +1,10 @@
 <template>
     <div class="settings">
+        <heading :title="$t('models.realEstate.title')" class="custom-heading" icon="ti-settings" shadow="heavy" />
+
         <el-tabs class="settings-tabs" tab-position="left" v-model="activeName">
             <el-tab-pane name="settings">
                 <template slot="label"><i class="icon icon-cog"></i>{{$t('models.realEstate.settings')}}</template>
-
-                <heading :title="$t('models.realEstate.title')" class="custom-heading" icon="ti-settings" shadow="heavy" />
 
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
                     <el-tabs type="border-card" v-model="activeSettingsName">
@@ -41,21 +41,18 @@
                                     </el-row>
 
                                     <el-row :gutter="20">
-                                        <el-col :md="12">
+                                        <el-col :md="4">
                                             <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip" prop="address.zip">
                                                 <el-input autocomplete="off" type="text" v-model="model.address.zip"></el-input>
                                             </el-form-item>
                                         </el-col>
-                                        <el-col :md="12">
+                                        <el-col :md="8">
                                             <el-form-item :label="$t('models.address.city')" :rules="validationRules.city"
                                                           prop="address.city">
                                                 <el-input autocomplete="off" type="text" v-model="model.address.city"></el-input>
                                             </el-form-item>
                                         </el-col>
-                                    </el-row>
-
-                                    <el-row :gutter="20">
-                                        <el-col :md="24">
+                                        <el-col :md="12">
                                             <el-form-item :rules="validationRules.state_id"
                                                           prop="address.state.id">
                                                 <label class="card-label">{{$t('models.address.state.label')}}</label>
@@ -105,19 +102,26 @@
                                                           prop="contact_enable">
                                                 <label class="switcher__label">
                                                     {{$t('models.realEstate.contact_enable')}}
+                                                    <span class="switcher__desc">Lorem ipsum dolor.</span>
                                                 </label>
                                                 <el-switch v-model="model.contact_enable"/>
                                             </el-form-item>
-                                            <el-form-item :label="$t('models.realEstate.comment_update_timeout')"
-                                                          :rules="validationRules.comment_update_timeout"
-                                                          prop="comment_update_timeout">
-                                                <el-input autocomplete="off" type="number"
-                                                          v-model="model.comment_update_timeout"></el-input>
-                                            </el-form-item>
-                                            <el-form-item :label="$t('models.realEstate.cleanify_email')"
-                                                              :rules="validationRules.cleanify_email" prop="cleanify_email">
-                                                    <el-input type="email" v-model="model.cleanify_email"></el-input>
-                                                </el-form-item>
+                                            <el-row :gutter="20">
+                                                <el-col :md="12">
+                                                    <el-form-item :label="$t('models.realEstate.comment_update_timeout')"
+                                                                  :rules="validationRules.comment_update_timeout"
+                                                                  prop="comment_update_timeout">
+                                                        <el-input autocomplete="off" type="number"
+                                                                  v-model="model.comment_update_timeout"></el-input>
+                                                    </el-form-item>
+                                                </el-col>
+                                                <el-col :md="12">
+                                                    <el-form-item :label="$t('models.realEstate.cleanify_email')"
+                                                                  :rules="validationRules.cleanify_email" prop="cleanify_email">
+                                                        <el-input type="email" v-model="model.cleanify_email"></el-input>
+                                                    </el-form-item>
+                                                </el-col>
+                                            </el-row>
                                         </el-card>
                                     </el-col>
                                     <el-col :md="12">
@@ -243,25 +247,30 @@
                                        type="primary">
                                 {{$t('general.actions.save')}}
                             </el-button>
-                            <el-card>
-                                <el-form :model="model" :rules="validationRules"
-                                         ref="iframeSettingsForm">
-                                    <el-form-item class="switcher"
-                                                  prop="contact_enable">
-                                        <label class="switcher__label">
-                                            {{$t('models.realEstate.iframe_enable')}}
-                                        </label>
-                                        <el-switch v-model="model.iframe_enable"/>
-                                    </el-form-item>
-                                    <el-form-item :label="$t('models.realEstate.iframe_url.label')"
-                                                  :rules="validationRules.iframe_url"
-                                                  prop="iframe_url"
-                                                  v-if="model.iframe_enable">
-                                        <el-input autocomplete="off" type="text"
-                                                  v-model="model.iframe_url"></el-input>
-                                    </el-form-item>
-                                </el-form>
-                            </el-card>
+                            <el-row :gutter="20">
+                                <el-col :md="12">
+                                    <el-card>
+                                        <el-form :model="model" :rules="validationRules"
+                                                 ref="iframeSettingsForm">
+                                            <el-form-item class="switcher"
+                                                          prop="contact_enable">
+                                                <label class="switcher__label">
+                                                    {{$t('models.realEstate.iframe_enable')}}
+                                                    <span class="switcher__desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
+                                                </label>
+                                                <el-switch v-model="model.iframe_enable"/>
+                                            </el-form-item>
+                                            <el-form-item :label="$t('models.realEstate.iframe_url.label')"
+                                                          :rules="validationRules.iframe_url"
+                                                          prop="iframe_url"
+                                                          v-if="model.iframe_enable">
+                                                <el-input autocomplete="off" type="text"
+                                                          v-model="model.iframe_url"></el-input>
+                                            </el-form-item>
+                                        </el-form>
+                                    </el-card>
+                                </el-col>
+                            </el-row>
                         </el-tab-pane>
                         <el-tab-pane :label="$t('models.realEstate.theme')" name="theme">
                             <el-button class="save-tab" @click="saveRealEstate('themeSettingsForm')" icon="ti-save"
@@ -335,7 +344,7 @@
             <el-tab-pane name="requests">
                 <template slot="label"><i class="icon icon-chat-empty"></i>{{$t('models.realEstate.requests')}}</template>
 
-                <heading :title="$t('models.realEstate.requests')" class="custom-heading" icon="ti-settings" shadow="heavy" />
+<!--                <heading :title="$t('models.realEstate.requests')" class="custom-heading" icon="ti-settings" shadow="heavy" />-->
 
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
                     <el-tabs type="border-card" v-model="activeRequestName">
@@ -544,7 +553,7 @@
 
     .settings-tabs.el-tabs.el-tabs--left {
         overflow: auto;
-        height: 100%;
+        height: calc(100% - 100px);
         > .el-tabs__header.is-left {
             position: sticky;
             top: 0;
@@ -656,7 +665,7 @@
     }
 
     .settings {
-        min-height: calc(100% - 105px);
+        min-height: calc(100% - 56px - 2rem);
 
         .requestCategories {
             .heading {

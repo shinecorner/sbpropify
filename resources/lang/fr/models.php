@@ -34,7 +34,7 @@ return [
       "serviceRequestCategoryDeleted" => "Catégorie de demande de service supprimée",
       'setting_saved' => "réglage utilisateur sauvegardé",
       'setting_deleted' => "Suppression du réglage utilisateur",      
-      'password_reset_request_sent' => "Réinitialisation du mot de passe Demande d'envoi réussie", 
+      'password_reset_request_sent' => "Nous vous avons envoyé un e-mail avec d'autres instructions. Veuillez vérifier votre boîte de réception.", 
       'errors' => [
         'not_found' => "Utilisateur introuvable",
         'setting_not_found' => "réglage utilisateur introuvable",        
@@ -220,6 +220,7 @@ return [
       "not_found" => "Bâtiment non trouvé",
       "house_rules" => "Règlement intérieur",
       "operating_instructions" => "Notice d'utilisation",
+      'care_instructions' => 'Conseils d\'entretien',
       "other" => "Autre",
       "files" => "Fichiers",
       "add_files" => "Ajouter des fichiers",
@@ -347,6 +348,7 @@ return [
       "assign" => "Affecter",
       "tenant_assigned" => "Locataire affecté",
       "tenant_unassigned" => "Locataire non affecté",
+      'assignment' => 'Locataires affectés',
       'type' => 
       [
         "label" => "Type",
@@ -470,6 +472,7 @@ return [
       "user" => "Utilisateur",
       "delete" => "Supprimer",
       "likes" => "Aime",
+      "tenants" => "Locataires",
       "views" => "Vues",
       "details" => "Afficher les détails",
       "published_at" => "Publié",
@@ -528,7 +531,6 @@ return [
         "confirmBtnText" => "Ok",
         "cancelBtnText" => "Annuler",
       ],
-      "assignment" => "Affectation",
       "assignType" => "Type",
       "unassign" => "Désassigner",
       "assign" => "Affecter",
@@ -643,6 +645,7 @@ return [
       "required" => "Ce champ est obligatoire",
       "details" => "Détails",
       "buildings" => "Bâtiments",
+      'count_of_buildings' => 'Nombre de bâtiments',
       'errors' => [
         'not_found' => "District non trouvé",
       ],
@@ -754,6 +757,7 @@ return [
       "internal_notices" => "Avis internes",
       "status_changed" => "Le statut a changé",
       "priority_changed" => "Priorité modifiée",
+      'assignment'=> 'Affectation de gestionnaires/fournisseurs de services',
       'media' => 
       [
         "added" => "Document ajouté",
@@ -895,6 +899,7 @@ return [
       ],
       "requestID" => "Demande ID",
       "requestCategory" => "Catégorie de demande",
+      'actions' => 'Actions',
     ],
     'requestCategory' => 
     [
@@ -943,7 +948,7 @@ return [
       "requests" => "Demandes",
       "assign" => "Affecter",
       "unassign" => "Désassigner",
-      'delete_with_reassign_modal' => 
+      'delete_with_reassign_modal' =>
       [
         "title" => "Supprimer et réaffecter des bâtiments",
         "description" => "Le gestionnaire immobilier sélectionné est lié aux biens immobiliers. Vous pouvez affecter les propriétés à une autre personne. Pour ce faire, sélectionnez un gestionnaire immobilier dans la liste..",

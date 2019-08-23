@@ -34,7 +34,7 @@ return [
       'serviceRequestCategoryDeleted' => 'Service request category deleted',
       'setting_saved' => "user setting saved",
       'setting_deleted' => "user setting deleted",
-      'password_reset_request_sent' => "Password Reset Request send successfully", 
+      'password_reset_request_sent' => "We have sent you an e-mail with further instructions. Please check your inbox.", 
       'errors' => [
         'not_found' => "User not found",
         'setting_not_found' => "user setting not found",
@@ -220,6 +220,7 @@ return [
       'not_found' => 'Building not found',
       'house_rules' => 'House rules',
       'operating_instructions' => 'Operating instructions',
+      'care_instructions' => 'Care instructions',
       'other' =>  'Other',
       'files' => 'Files',
       'add_files' => 'Add files',
@@ -348,6 +349,7 @@ return [
       'assign' => 'Assign',
       'tenant_assigned' => 'Tenant assigned',
       'tenant_unassigned' => 'Tenant unassigned',
+      'assignment' => 'Assigned tenants',
       'type' => 
       [
         'label' => 'Type',
@@ -472,6 +474,7 @@ return [
       'delete' => 'Delete',
       'likes' => 'Likes',
       'views' => 'Views',
+      'tenants' => 'Tenants',
       'details' => 'Post Details',
       'published_at' => 'Published',
       'publish' => 'Publish',
@@ -529,7 +532,6 @@ return [
         'confirmBtnText' => 'Ok',
         'cancelBtnText' => 'Cancel',
       ],
-      'assignment' => 'Assignment',
       'assignType' => 'Type',
       'unassign' => 'Unassign',
       'assign' => 'Assign',
@@ -644,6 +646,7 @@ return [
       'required' => 'This field is required',
       'details' => 'Details',
       'buildings' => 'Buildings',
+      'count_of_buildings' => 'Count of buildings',
       'errors' => [
         'not_found' => "District not found",
       ],
@@ -755,6 +758,7 @@ return [
       'internal_notices' => 'Internal notices',
       'status_changed' => 'Status changed',
       'priority_changed' => 'Priority changed',
+      'assignment'=> 'Assignment of managers/services providers',
       'media' => 
       [
         'added' => 'Document added',
@@ -893,6 +897,7 @@ return [
       ],
       'requestID' => 'Request ID',
       'requestCategory' => 'Request Category',
+      'actions' => 'Actions',
     ],
     'requestCategory' => 
     [
@@ -941,7 +946,7 @@ return [
       'requests' => 'Requests',
       'assign' => 'Assign',
       'unassign' => 'Unassign',
-      'delete_with_reassign_modal' => 
+      'delete_with_reassign_modal' =>
       [
         'title' => 'Delete & reassign buildings',
         'description' => 'The selected property manager is linked to properties. You can assign the properties to another person. To do this, select a property manager from the list.',
