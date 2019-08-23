@@ -650,21 +650,6 @@ class ServiceRequestAPIController extends AppBaseController
     public function unassignProvider(int $id, int $pid, ServiceProviderRepository $spRepo, AssignRequest $r)
     {
         return $this->deleteRequestAssignee($pid, $r);
-        $sr = $this->serviceRequestRepository->findWithoutFail($id);
-        if (empty($sr)) {
-            return $this->sendError(__('models.request.errors.not_found'));
-        }
-
-        $sp = $spRepo->findWithoutFail($pid);
-        if (empty($sp)) {
-            return $this->sendError(__('models.request.errors.provider_not_found'));
-        }
-
-        $sr->providers()->detach($sp);
-        $sr->load('media', 'tenant.user', 'category', 'comments.user',
-            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user');
-
-        return $this->sendResponse($sr, __('models.request.detached.service'));
     }
 
     /**
@@ -872,20 +857,6 @@ class ServiceRequestAPIController extends AppBaseController
     public function unassignUser(int $id, int $uid, UserRepository $uRepo, AssignRequest $r)
     {
         return $this->deleteRequestAssignee($uid, $r);
-        $sr = $this->serviceRequestRepository->findWithoutFail($id);
-        if (empty($sr)) {
-            return $this->sendError(__('models.request.errors.not_found'));
-        }
-        $u = $uRepo->findWithoutFail($uid);
-        if (empty($u)) {
-            return $this->sendError(__('models.request.errors.user_not_found'));
-        }
-
-        $sr->managers()->detach($u);
-        $sr->load('media', 'tenant.user', 'category', 'comments.user',
-            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user');
-
-        return $this->sendResponse($sr, __('models.request.detached.user'));
     }
 
     /**

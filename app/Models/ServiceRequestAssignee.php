@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Str;
+
 /**
  * @SWG\Definition(
  *      definition="ServiceRequestAssignee",
@@ -42,7 +45,7 @@ namespace App\Models;
  *      ),
  * )
  */
-class ServiceRequestAssignee extends Model
+class ServiceRequestAssignee extends AuditableModel
 {
     protected $table = 'request_assignees';
 
@@ -54,4 +57,52 @@ class ServiceRequestAssignee extends Model
         'assignee_type',
         'created_at',
     ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function transformAudit(array $data): array
+    {
+        if (!AuditableModel::EventDeleted == $data['event']) {
+            return $data;
+        }
+        $data['auditable_id'] = $this->request_id;
+        $data['auditable_type'] = array_flip(Relation::$morphMap)[\App\Models\ServiceRequest::class] ?? \App\Models\ServiceRequest::class;;
+
+        [$event, $olddata] = $this->getAuditData();
+        $data['old_values'] = $olddata;
+        $data['event'] = $event;
+        return $data;
+    }
+
+    protected function getAuditData()
+    {
+        $model = Relation::$morphMap[$this->assignee_type] ?? $this->assignee_type;
+        $config = [
+            User::class => ['name'],
+            ServiceProvider::class => ['name'],
+            PropertyManager::class => ['first_name', 'last_name'],
+        ];
+        if (! class_exists($model)) {
+            return [];
+        }
+        $eventConvig = [
+            User::class => AuditableModel::EventUserUnassigned,
+            ServiceProvider::class => AuditableModel::EventProviderUnassigned,
+            PropertyManager::class => AuditableModel::EventManagerUnassigned,
+        ];
+
+        $instance = new $model();
+        $columns = array_merge([$instance->getKeyName()], $config[$model] ?? []);
+        $instance = $instance->where($instance->getKeyName(), $this->assignee_id)->first($columns);
+        $attributes = $instance->getAttributes();
+        $prefix = Str::singular($instance->getTable()) . '_';
+
+        $oldData = [];
+        foreach ($attributes as $attribute => $value) {
+            $oldData[$prefix . $attribute] = $value;
+        }
+
+        return [$eventConvig[$model] ?? 'deleted', $oldData];
+    }
 }
