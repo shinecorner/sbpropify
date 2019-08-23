@@ -2,31 +2,27 @@
 
 namespace App\Transformers;
 
-use App\Models\State;
-use App\Repositories\UserRepository;
-use Auth;
-use Config;
+use App\Models\Country;
 
 /**
  * Class StateTransformer.
  *
  * @package namespace App\Transformers;
  */
-class StateTransformer extends BaseTransformer
+class CountryTransformer extends BaseTransformer
 {
     /**
-     * @param State $model
+     * @param Country $model
      * @return array
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function transform(State $model)
+    public function transform(Country $model)
     {
         $response = [
             'id' => $model->id,
-            'country_id' => $model->country_id,
             'code' => $model->code,
+            'alpha_3' => $model->alpha_3,
             'name' => $model->name,
-            'abbreviation' => $model->abbreviation,
         ];
 
         $currentLanguage = config('app.locale');

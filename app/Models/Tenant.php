@@ -165,7 +165,8 @@ class Tenant extends Model implements HasMedia
         'tenant_format',
         'review',
         'rating',
-        'nation'
+        'nation',
+        'country_id',
     ];
 
     protected $dates = ['deleted_at', 'rent_start', 'rent_end'];
@@ -179,6 +180,7 @@ class Tenant extends Model implements HasMedia
         'user_id' => 'integer',
         'address_id' => 'integer',
         'building_id' => 'integer',
+        'country_id' => 'integer',
         'unit_id' => 'integer',
         'title' => 'string',
         'company' => 'string',
@@ -268,6 +270,14 @@ class Tenant extends Model implements HasMedia
     public function building()
     {
         return $this->belongsTo(Building::class, 'building_id', 'id');
+    }
+
+    /**
+     * @return BelongsTo
+     **/
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'id');
     }
 
     /**

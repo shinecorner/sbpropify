@@ -68,6 +68,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     // Location
     Route::get('/states', 'StateAPIController@index')->name('states');
+    Route::get('/countries', 'CountryAPIController@index')->name('countries');
 
     Route::get('/addresses', 'AddressAPIController@index')->name('addresses');
     Route::get('/addresses/{id}', 'AddressAPIController@show')->name('addresses.show');
