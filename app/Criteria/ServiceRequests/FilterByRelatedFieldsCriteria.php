@@ -48,10 +48,9 @@ class FilterByRelatedFieldsCriteria implements CriteriaInterface
         $unitId = $this->request->get('unit_id', null);
         if ($unitId) {
             $model->where('unit_id', $unitId);
-
-            $model->whereHas('category', function ($q) {
-                $q->where('name', 'apartment');
-            });
+//            $model->whereHas('category', function ($q) {
+//                $q->where('name', 'apartment');
+//            });
         }
 
         $providerId = $this->request->get('service_provider_id', null) ?? $this->request->get('service_id', null);
