@@ -226,10 +226,8 @@ class PropertyManagerAPIController extends AppBaseController
             return $this->sendError(__('models.propertyManager.errors.not_found'));
         }
 
-        $propertyManager->load(['user' => function($q) {
-            $q->withCount('requests', 'solvedRequests', 'pendingRequests');
-        }, 'buildings', 'districts'])
-            ->loadCount('buildings');
+        $propertyManager->load(['user', 'buildings', 'districts'])
+            ->loadCount('requests', 'solvedRequests', 'pendingRequests', 'buildings');
         $response = (new PropertyManagerTransformer)->transform($propertyManager);
         return $this->sendResponse($response, 'Property Manager retrieved successfully');
     }
