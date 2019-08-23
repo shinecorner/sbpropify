@@ -21,11 +21,10 @@ class StateRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'code',
-        'name',
-        'name_de',
-        'name_fr',
-        'name_it',
-        'name_rm'
+        'name' => 'like',
+        'name_de' => 'like',
+        'name_fr' => 'like',
+        'name_it' => 'like',
     ];
 
     /**

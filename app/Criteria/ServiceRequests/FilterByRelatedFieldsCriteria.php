@@ -54,16 +54,21 @@ class FilterByRelatedFieldsCriteria implements CriteriaInterface
             });
         }
 
-        $providerId = $this->request->get('service_id', null);
+        $providerId = $this->request->get('service_provider_id', null) ?? $this->request->get('service_id', null);
+
         if ($providerId) {
-            $model->join('request_provider', 'service_requests.id', '=', 'request_provider.request_id')
-                  ->where('request_provider.provider_id', $providerId);
+            $model->whereHas('providers', function ($q) use ($providerId) {
+                $q->where('assignee_id', $providerId);
+            });
         }
 
-        $assigneeId = $this->request->get('assignee_id', null);
-        if ($assigneeId) {
-            $model->join('request_assignee', 'service_requests.id', '=', 'request_assignee.request_id')
-                  ->where('request_assignee.user_id', $assigneeId);
+        // @TODO need filter to property manager or user also rename
+        $managerId = $this->request->get('property_manager_id', null) ?? $this->request->get('assignee_id', null);
+
+        if ($managerId) {
+            $model->whereHas('managers', function ($q) use ($managerId) {
+                $q->where('assignee_id', $managerId);
+            });
         }
 
         $buildingId = $this->request->get('building_id', null);
