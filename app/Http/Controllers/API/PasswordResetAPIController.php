@@ -82,9 +82,7 @@ class PasswordResetController extends AppBaseController
 
         $user = User::where('email', $request->email)->first();
         if (!$user) {
-            return $this->sendError(
-                sprintf('We can\'t find a user with that %s - email address .', $request->email)
-            );
+            return $this->sendError(__('general.email_not_registered'));
         }
 
         $this->passwordResetRepository->createToken($input, $user);

@@ -38,11 +38,11 @@ export default {
             "tenants_by_creation_date": "Mieter nach Erstellungsdatum",
             "tenants_by_request_status": "Mieter nach Anfrage-Status",
             "tenants_by_status": "Mieter nach Status",
-            "tenants_by_language": "Mieter Sprache",
-            "tenants_by_title": "Anrede",
+            "tenants_by_language": "Mieter nach Sprache",
+            "tenants_by_title": "Mieter nach Anrede",
             "tenants_by_device": "Geräte",
             "tenants_by_gender": "Demografische Merkmale",
-            "tenants_by_age": "Altersgruppen",
+            "tenants_by_age": "Mieter nach Altersgruppen",
             "actions": "Aktionen",
             "requests": {
                 "requests_with_service_providers": "Mit Dienstleister",
@@ -165,12 +165,15 @@ export default {
             "server_error": "Server Fehler, bitter erneut versuchen.",
             "reset_password": "Passwort zurücksetzen",
             "reset_password_mail": "Passwort per E-Mail zurücksetzen.",
-            "reset_password_mail_sent": "Eine E-Mail wurde an Sie gesendet. Bitte fahren Sie dort weiter.",
+            "reset_password_mail_sent": "Wir haben Ihnen eine E-Mail mit weiteren Anweisungen gesendet. Bitte prüfen Sie Ihren Posteingang.",
             "back_to_login": "Zurück zum Login",
             "forgot_password": "Passwort vergessen",
+            "forgot_password_info": "Geben Sie Ihre E-Mail-Adresse, mit der Sie sich registriert hast, an. Wir senden Ihnen dann eine E-Mail mit I Benutzernamen und einem Link, mit dem du dein Passwort zurücksetzen kannst.",
+            "email_not_registered": "Die E-Mail-Adresse, die Sie eingegeben haben, ist keinem aktiven Konto zugeordnet. Versuchen Sie es mit einer anderen E-Mail-Adresse.",
             "remember_me": "Angemeldet bleiben",
             "password": "Passwort",
-            "change_password": "Passwort ändern",
+            "change_password": "Neues Passwort festlegen",
+            "change_password_info": "Bitte geben Sie hier Ihr neues Passwort ein:",
             "new_password": "Neues Passwort",
             "old_password": "Altes Passwort",
             "new_password_confirmation": "Neues Passwort bestätigen",
@@ -406,7 +409,7 @@ export default {
             "tenant_credentials": "Anmeldedaten des Mieters",
             "tenancy_details": "Mietdetails",
             "unit": "Einheit",
-            "floor": "Boden",
+            "floor": "Stockwerk",
             "building": "Liegenschaft",
             "address": "Adresse",
             "rent_start": "Mietbeginn",
@@ -418,7 +421,8 @@ export default {
             "code": "Code",
             "no_posts": "Bislang keine Beiträge veröffentlicht.",
             "no_requests": "Bislang keine Anfragen gestellt.",
-            "no_listings": "Bislang keine Inserate veröffentlicht."
+            "no_listings": "Bislang keine Inserate veröffentlicht.",
+            "no_data": "Keine Angaben."
         },
         "pages": {
             "profile": {
@@ -671,7 +675,7 @@ export default {
                 "serviceRequestCategoryDeleted": "Anfrage-Kategorie gelöscht",
                 "setting_saved": "Benutzereinstellung gespeichert",
                 "setting_deleted": "Benutzereinstellung gelöscht",
-                "password_reset_request_sent": "",
+                "password_reset_request_sent": "Wir haben Ihnen eine E-Mail mit weiteren Anweisungen gesendet. Bitte prüfen Sie Ihren Posteingang.",
                 "errors": {
                     "not_found": "Benutzer nicht gefunden",
                     "setting_not_found": "Benutzereinstellung nicht gefunden",
@@ -705,7 +709,7 @@ export default {
                 "saved": "Mieter gespeichert",
                 "deleted": "Mieter gelöscht",
                 "status_changed": "Status geändert",
-                "password_reset": "Mandantenpasswort erfolgreich zurückgesetzt",
+                "password_reset": "Passwort erfolgreich zurückgesetzt",
                 "update": "Update",
                 "name": "Name",
                 "first_name": "Vorname",
@@ -728,10 +732,10 @@ export default {
                 "products": "Marktplatz",
                 "requests": "Anfragen",
                 "company": "Firmenname",
-                "no_building": "Zu keiner Liegenschaft zugewiesen.",
+                "no_building": "Keine Liegenschaft(en) zugewiesen.",
                 "media": {
-                    "deleted": "Dokument/Foto gelöscht",
-                    "uploaded": "Dokument/Foto hochgeladen"
+                    "deleted": "Mediendatei gelöscht",
+                    "uploaded": "Mediendatei hochgeladen"
                 },
                 "building": {
                     "name": "Liegenschaft"
@@ -744,7 +748,7 @@ export default {
                 "search": "Suchen",
                 "confirmDelete": {
                     "title": "Der Mieter wird endgültig gelöscht.",
-                    "text": "Sind Sie sicher?"
+                    "text": "Sind Sie sicher, dass Sie fortfahren wollen?"
                 },
                 "validation": {
                     "first_name": {
@@ -771,10 +775,10 @@ export default {
                 },
                 "errors": {
                     "not_found": "Mieter nicht gefunden",
-                    "incorrect_email": "Falsche E-Mail-Adresse",
+                    "incorrect_email": "Falsche EMail-Adresse",
                     "create": "Mieter legt Fehler an: ",
-                    "update": "Fehler bei der Aktualisierung des Mandanten: ",
-                    "deleted": "Mieter Fehler löschen: ",
+                    "update": "Fehler bei der Aktualisierung des Mieters: ",
+                    "deleted": "Fehler beim Löschen des Mieters: ",
                     "not_allowed_change_status": "Sie dürfen den Status nicht ändern."
                 },
                 "building_card": "Liegenschaft zuweisen",
@@ -859,8 +863,8 @@ export default {
                     "unassigned": "Bewirtschafter entfernt"
                 },
                 "document": {
-                    "uploaded": "Dokument(e) hinaufgeladen",
-                    "deleted": "Dokument(e) gelöscht"
+                    "uploaded": "Mediendatei hinaufgeladen",
+                    "deleted": "Mediendatei gelöscht"
                 },
                 "service": {
                     "deleted": "Dienstleister entfernt"
@@ -901,7 +905,7 @@ export default {
                     "reactivated": "Reaktiviert",
                     "done": "Erledigt",
                     "archived": "Archiviert",
-                    "solved": "Gelöste Anfragen",
+                    "solved": "Erledigte Anfragen",
                     "pending": "Ausstehende Anfragen"
                 },
                 "placeholders": {
@@ -948,8 +952,8 @@ export default {
                 "empty_requests": "Keine Anfragen",
                 "assigned_tenant": "Derzeitiger Mieter",
                 "assign": "Zuweisen",
-                "tenant_assigned": "Zugeordneter Mieter",
-                "tenant_unassigned": "Mieter nicht zugeordnet",
+                "tenant_assigned": "Mieter wurde zugewiesen",
+                "tenant_unassigned": "Mieter wurde entfernt",
                 "type": {
                     "label": "Typ",
                     "apartment": "Wohnung",
@@ -957,7 +961,7 @@ export default {
                 },
                 "confirmDelete": {
                     "title": "Diese Einheit wird endgültig gelöscht",
-                    "text": "Sind Sie sicher?"
+                    "text": "Sind Sie sicher, dass Sie fortfahren wollen?"
                 },
                 "validation": {
                     "name": {
@@ -1423,7 +1427,7 @@ export default {
                 },
                 "visibility": {
                     "label": "Sichtbarkeit",
-                    "tenant": "Nachbarn",
+                    "tenant": "Nur ich",
                     "district": "Überbauung",
                     "building": "Liegenschaft"
                 },
@@ -1450,10 +1454,10 @@ export default {
                 "required": "Dies ist ein Pflichtfeld",
                 "parent": "Hauptkategorie",
                 "errors": {
-                    "not_found": "Serviceanfragekategorie nicht gefunden",
-                    "parent_not_found": "Übergeordnete Serviceanfrage Kategorie nicht gefunden",
-                    "multiple_level_not_found": "Mehrstufige verschachtelte Kategorien sind nicht erlaubt.",
-                    "used_by_request": "Serviceanforderungskategorie, die von einer Serviceanfrage verwendet wird."
+                    "not_found": "Anfrage-Kategorie nicht gefunden",
+                    "parent_not_found": "Die übergeordnete Anfrage-Kategorie wurde nicht gefunden",
+                    "multiple_level_not_found": "Mehrstufig verschachtelte Kategorien sind nicht erlaubt.",
+                    "used_by_request": "Diese Kategorie wird in Anfragen verwendet"
                 }
             },
             "propertyManager": {
@@ -1528,13 +1532,13 @@ export default {
             },
             "product": {
                 "title": "Marktplatz",
-                "add": "Produkt hinzufügen",
-                "edit_title": "Produkt bearbeiten",
+                "add": "Inserat hinzufügen",
+                "edit_title": "Inserat bearbeiten",
                 "edit": "Öffnen",
                 "delete_action": "Löschen",
                 "show": "Vorschau",
                 "details": "Details zum Angebot",
-                "delete": "Anzeige löschen",
+                "delete": "Inserat löschen",
                 "content": "Inhalt",
                 "product_title": "Titel",
                 "published_at": "Hinzugefügt am",
@@ -1542,8 +1546,8 @@ export default {
                 "unpublish": "Unveröffentlicht",
                 "likes": "Likes",
                 "save": "Speichern",
-                "saved": "Anzeige gespeichert",
-                "deleted": "Anzeige gelöscht",
+                "saved": "Inserat gespeichert",
+                "deleted": "Inserat gelöscht",
                 "comments": "Kommentare",
                 "user": "Benutzer",
                 "contact": "Kontaktdaten",
@@ -1561,7 +1565,7 @@ export default {
                     "sell": "Verkaufen",
                     "lend": "Verleihen",
                     "service": "Dienstleistung",
-                    "giveaway": "Zu verschenken"
+                    "giveaway": "Verschenken"
                 },
                 "status": {
                     "label": "Status",
@@ -1570,9 +1574,9 @@ export default {
                 },
                 "visibility": {
                     "label": "Sichtbarkeit",
-                    "address": "Liegenschaft",
+                    "address": "Meine Nachbarn",
                     "district": "Überbauung",
-                    "all": "Alle"
+                    "all": "Alle App-Nutzer"
                 }
             },
             "template": {
@@ -1779,7 +1783,7 @@ export default {
                 "required": "Anrede"
             },
             "terms": {
-                "required": "Please approve with terms and conditions"
+                "required": "Bitte genehmigen Sie mit den Allgemeinen Geschäftsbedingungen."
             }
         }
     }
