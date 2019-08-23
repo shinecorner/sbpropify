@@ -697,6 +697,7 @@ class ServiceRequestAPIController extends AppBaseController
         if (empty($u)) {
             return $this->sendError(__('models.request.errors.user_not_found'));
         }
+        // @TODO check admin or super admin
 
         $sr->users()->sync([$uid => ['created_at' => now()]], false);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',

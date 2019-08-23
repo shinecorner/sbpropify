@@ -88,26 +88,16 @@ class PropertyManagerAPIController extends AppBaseController
         }
 
         $getAll = $request->get('get_all', false);
-//        $reqCount = $request->get('req_count');
-//        if ($reqCount) {
-            $this->propertyManagerRepository->with([
-                'user' => function ($q) {
-                    $q->withCount([
-                        'requests',
-                        'requestsReceived',
-                        'requestsInProcessing',
-                        'requestsAssigned',
-                        'requestsDone',
-                        'requestsReactivated',
-                        'requestsArchived',
-                    ]);
-                }
-            ]);
-//        } else {
-//            $this->propertyManagerRepository->with([
-//                'user',
-//            ]);
-//        }
+        $this->propertyManagerRepository->withCount([
+            'requests',
+            'requestsReceived',
+            'requestsInProcessing',
+            'requestsAssigned',
+            'requestsDone',
+            'requestsReactivated',
+            'requestsArchived',
+        ]);
+
 
         if ($getAll) {
             $propertyManagers = $this->propertyManagerRepository->get();
