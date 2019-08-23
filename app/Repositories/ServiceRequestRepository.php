@@ -351,7 +351,8 @@ class ServiceRequestRepository extends BaseRepository
         $providers = $sr->providers->map(function($p) {
             return $p->user;
         });
-        foreach (array_merge($providers->all(), $sr->assignees->all()) as $u) {
+
+        foreach (array_merge($providers->all(), $sr->users()->all()) as $u) {
             $u->notify((new RequestDue($sr))->delay($sr->due_date->subHours($beforeHours)));
         }
     }
