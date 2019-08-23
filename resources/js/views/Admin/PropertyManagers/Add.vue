@@ -4,76 +4,116 @@
             <add-actions :saveAction="submit" route="adminPropertyManagers" editRoute="adminPropertyManagersEdit"/>
         </heading>
         <div class="crud-view">
-            <el-form :model="model" label-width="192px" ref="form">
+            <el-form :model="model" ref="form">
                 <el-row :gutter="20">
                     <el-col :md="12">
-                        <card :loading="loading">
-                            <el-form-item :label="$t('models.propertyManager.firstName')"
-                                          :rules="validationRules.first_name"
-                                          prop="first_name">
-                                <el-input type="text" v-model="model.first_name"/>
-                            </el-form-item>
-                            <el-form-item :label="$t('models.propertyManager.lastName')" :rules="validationRules.last_name"
-                                          prop="last_name">
-                                <el-input type="text" v-model="model.last_name"/>
-                            </el-form-item>
-                            <el-form-item :label="$t('general.salutation')" :rules="validationRules.title"
-                                          prop="title">
-                                <el-select style="display: block" v-model="model.title">
-                                    <el-option
-                                        :key="title"
-                                        :label="$t(`models.propertyManager.titles.${title}`)"
-                                        :value="title"
-                                        v-for="title in titles">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
+                        <card :loading="loading" :header="$t('models.propertyManager.details_card')">
 
-                            <el-form-item :label="$t('models.propertyManager.profession')"
-                                          :rules="validationRules.profession"
-                                          prop="profession">
-                                <el-input type="text" v-model="model.profession"/>
-                            </el-form-item>
-                            <el-form-item :label="$t('models.propertyManager.slogan')" :rules="validationRules.slogan"
-                                          prop="slogan">
-                                <el-input type="text" v-model="model.slogan"/>
-                            </el-form-item>
-                            <el-form-item :label="$t('models.propertyManager.linkedin_url')"
-                                          :rules="validationRules.linkedin_url"
-                                          prop="linkedin_url">
-                                <el-input type="text" v-model="model.linkedin_url"/>
-                            </el-form-item>
-                            <el-form-item :label="$t('models.propertyManager.xing_url')" :rules="validationRules.xing_url"
-                                          prop="xing_url">
-                                <el-input type="text" v-model="model.xing_url"/>
-                            </el-form-item>
-                            <el-form-item :label="$t('models.propertyManager.phone')" prop="user.phone">
-                                <el-input type="text" v-model="model.user.phone"/>
-                            </el-form-item>
+                            <el-row :gutter="20">
+                                <el-col :md="8">
+                                    <el-form-item class="label-block" :label="$t('general.salutation')" :rules="validationRules.title"
+                                                  prop="title">
+                                        <el-select style="display: block" v-model="model.title">
+                                            <el-option
+                                                    :key="title"
+                                                    :label="$t(`models.propertyManager.titles.${title}`)"
+                                                    :value="title"
+                                                    v-for="title in titles">
+                                            </el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8">
+                                    <el-form-item class="label-block" :label="$t('models.tenant.language')" :rules="validationRules.language"
+                                                  prop="settings.language">
+                                        <select-language :activeLanguage.sync="model.settings.language"/>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8">
+                                    <el-form-item :label="$t('models.propertyManager.profession')"
+                                                  :rules="validationRules.profession"
+                                                  prop="profession">
+                                        <el-input type="text" v-model="model.profession"/>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+
+                            <el-row :gutter="20">
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.propertyManager.firstName')"
+                                                  :rules="validationRules.first_name"
+                                                  prop="first_name">
+                                        <el-input type="text" v-model="model.first_name"/>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.propertyManager.lastName')" :rules="validationRules.last_name"
+                                                  prop="last_name">
+                                        <el-input type="text" v-model="model.last_name"/>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+
+                            <el-row :gutter="20">
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.propertyManager.phone')" prop="user.phone">
+                                        <el-input type="text" v-model="model.user.phone"/>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :rules="validationRules.email" label="Email" prop="user.email">
+                                        <el-input type="email" v-model="model.user.email"/>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                        </card>
+
+                        <card class="mt15" :loading="loading" :header="$t('models.propertyManager.social_card')">
+                            <el-row :gutter="20">
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.propertyManager.linkedin_url')"
+                                                  :rules="validationRules.linkedin_url"
+                                                  prop="linkedin_url">
+                                        <el-input type="text" v-model="model.linkedin_url"/>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.propertyManager.xing_url')" :rules="validationRules.xing_url"
+                                                  prop="xing_url">
+                                        <el-input type="text" v-model="model.xing_url"/>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                        </card>
+                    </el-col>
+                    <el-col :md="12">
+                        <card :loading="loading" :header="$t('models.propertyManager.profile_card')">
+                            <el-row :gutter="20">
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('general.password')" :rules="validationRules.password" autocomplete="off"
+                                                  prop="user.password">
+                                        <el-input type="password" v-model="model.user.password"/>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('general.confirm_password')" :rules="validationRules.password_confirmation"
+                                                  prop="user.password_confirmation">
+                                        <el-input type="password" v-model="model.user.password_confirmation"/>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+
                             <el-form-item :label="$t('models.user.profile_image')">
                                 <cropper :resize="false" :viewportType="'circle'" @cropped="cropped"/>
                             </el-form-item>
 
-                            <el-form-item :rules="validationRules.email" label="Email" prop="user.email">
-                                <el-input type="email" v-model="model.user.email"/>
-                            </el-form-item>
-                            <el-form-item :label="$t('general.password')" :rules="validationRules.password" autocomplete="off"
-                                          prop="user.password">
-                                <el-input type="password" v-model="model.user.password"/>
-                            </el-form-item>
-                            <el-form-item :label="$t('general.confirm_password')" :rules="validationRules.password_confirmation"
-                                          prop="user.password_confirmation">
-                                <el-input type="password" v-model="model.user.password_confirmation"/>
-                            </el-form-item>
-                            <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language"
-                                          prop="settings.language">
-                                <select-language :activeLanguage.sync="model.settings.language"/>
+                            <el-form-item :label="$t('models.propertyManager.slogan')" :rules="validationRules.slogan"
+                                          prop="slogan">
+                                <el-input type="text" v-model="model.slogan"/>
                             </el-form-item>
                         </card>
-                    </el-col>
-                    <el-col :md="12">
-                        <card :loading="loading" :header="$t('models.propertyManager.building_card')">
 
+                        <card class="mt15" :loading="loading" :header="$t('models.propertyManager.building_card')">
                             <div class="mt15">
                                 <el-select
                                     :loading="loading.state"
@@ -125,6 +165,13 @@
     }
 </script>
 
+<style lang="scss">
+    .label-block .el-form-item__label {
+        display: block;
+        float: none;
+        text-align: left;
+    }
+</style>
 <style lang="scss" scoped>
     .services-add {
         .heading {
