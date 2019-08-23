@@ -15,7 +15,6 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\ServiceRequest\AssignRequest;
 use App\Http\Requests\API\ServiceRequest\ChangePriorityRequest;
 use App\Http\Requests\API\ServiceRequest\ChangeStatusRequest;
-use App\Http\Requests\API\ServiceRequest\ConversationRequest;
 use App\Http\Requests\API\ServiceRequest\CreateRequest;
 use App\Http\Requests\API\ServiceRequest\DeleteRequest;
 use App\Http\Requests\API\ServiceRequest\ListRequest;
@@ -33,7 +32,7 @@ use App\Repositories\UserRepository;
 use App\Transformers\ServiceRequestAssigneeTransformer;
 use App\Transformers\ServiceRequestTransformer;
 use App\Transformers\TemplateTransformer;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Exception;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
@@ -817,7 +816,7 @@ class ServiceRequestAPIController extends AppBaseController
             $sr->conversationFor($p->user, $manager->user);
         }
 
-        return $this->sendResponse($sr, __('models.request.attached.user'));
+        return $this->sendResponse($sr, __('models.request.attached.managers'));
     }
 
     /**

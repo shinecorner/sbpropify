@@ -51,7 +51,7 @@ class FilterByPermissionsCriteria implements CriteriaInterface
             $vs = [
                 ServiceRequest::VisibilityTenant, $u->tenant->id,
                 ServiceRequest::VisibilityBuilding, $u->tenant->building_id,
-                ServiceRequest::VisibilityDistrict, $u->tenant->building->district_id,
+                ServiceRequest::VisibilityDistrict, $u->tenant->building->district_id, // @TODO check maybe throw exception
             ];
             return $model->whereRaw('(' . implode(' or ', $qs) . ')', $vs);
         }
