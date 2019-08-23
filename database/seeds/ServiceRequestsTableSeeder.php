@@ -42,7 +42,14 @@ class ServiceRequestsTableSeeder extends Seeder
                 $serviceRequest->status = array_rand(ServiceRequest::Status);
                 $serviceRequest->save();
                 $providers = ServiceProvider::inRandomOrder()->take(2)->get();
-                $serviceRequest->providers()->sync($providers);
+                foreach ($providers as $p) {
+                    $serviceRequest->providers()->sync([$p->id => ['created_at' => now()]]);
+                }
+
+                $managers = \App\Models\PropertyManager::inRandomOrder()->take(2)->get();
+                foreach ($managers as $m) {
+                    $serviceRequest->managers()->sync([$m->id => ['created_at' => now()]]);
+                }
                 foreach ($providers as $prov) {
                     foreach ($admins as $admin) {
                         $c = $serviceRequest->conversationFor($admin, $prov->user);
