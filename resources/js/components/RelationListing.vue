@@ -6,66 +6,80 @@
             @row-click="editLink"
             >
             <el-table-column
-                    width="75"
-                    align="center"
-                    :key="tenantAvatar.prop"
-                    :label="tenantAvatar.label"
-                    v-for="tenantAvatar in tenantAvatars"
-            >
-                <template slot-scope="scope">
-                    <router-link :to="{name: 'adminTenantsEdit', params: {id: scope.row.tenant.id}}"
-                                 class="tenant-link">
-                        <el-tooltip
-                                :content="`${scope.row.tenant.first_name} ${scope.row.tenant.last_name}`"
-                                class="item"
-                                effect="light" placement="top"
-                        >
-                            <avatar :size="30"
-                                    :src="'/' + scope.row.tenant.user.avatar"
-                                    v-if="scope.row.tenant.user.avatar"></avatar>
-                            <avatar :size="28"
-                                    backgroundColor="rgb(205, 220, 57)"
-                                    color="#fff"
-                                    :username="scope.row.tenant.user.first_name ? `${scope.row.tenant.user.first_name} ${scope.row.tenant.user.last_name}`: `${scope.row.tenant.user.name}`"
-                                    v-if="!scope.row.tenant.user.avatar"></avatar>
-                        </el-tooltip>
-                    </router-link>
-                </template>
-            </el-table-column>
-            <el-table-column
                 :key="column.prop"
+                :width="column.width"
+                :align="column.align"
                 :label="column.label"
                 :prop="column.prop"
                 v-for="column in columns"
-                v-if="!column.i18n && column.prop !== 'title'"
-            >
-            </el-table-column>
-            <el-table-column
-                :key="column.prop"
-                :label="column.label"
-                v-for="column in columns"
-                v-if="!column.i18n && column.prop === 'title'"
-        >
-            <template slot-scope="scope">
-                <div>{{scope.row.title}}</div>
-                <div class="category">
-                    <span v-if="scope.row.category.parentCategory">
-                        {{scope.row.category.parentCategory.name}} >&nbsp;
-                    </span>
-                    <span>
-                        {{scope.row.category.name}}
-                    </span>
-                </div>
-            </template>
-        </el-table-column>
-            <el-table-column
-                v-if="status.prop === 'status'"
-                :key="status.prop"
-                :label="status.label"
-                v-for="status in statuses"
+                v-if="!column.i18n"
             >
                 <template slot-scope="scope">
-                    {{$t(`models.request.status.${$constants.serviceRequests.status[scope.row.status]}`)}}
+                    <div v-if="column.type === 'requestTitleWithDesc'">
+                        <div>{{scope.row.title}}</div>
+                        <div class="category">
+                        <span v-if="scope.row.category.parentCategory">
+                            {{scope.row.category.parentCategory.name}} >&nbsp;
+                        </span>
+                            <span>
+                            {{scope.row.category.name}}
+                        </span>
+                        </div>
+                    </div>
+
+                    <div v-else-if="column.type === 'requestStatus'">
+                        {{$t(`models.request.status.${$constants.serviceRequests.status[scope.row.status]}`)}}
+                    </div>
+
+                    <div v-else-if="column.type === 'requestTenantAvatar'">
+                        <router-link :to="{name: 'adminTenantsEdit', params: {id: scope.row[column.prop].id}}"
+                                     class="tenant-link">
+                            <el-tooltip
+                                    :content="`${scope.row[column.prop].first_name} ${scope.row[column.prop].last_name}`"
+                                    class="item"
+                                    effect="light" placement="top"
+                            >
+                                <avatar :size="30"
+                                        :src="'/' + scope.row[column.prop].user.avatar"
+                                        v-if="scope.row[column.prop].user.avatar"></avatar>
+                                <avatar :size="28"
+                                        backgroundColor="rgb(205, 220, 57)"
+                                        color="#fff"
+                                        :username="scope.row[column.prop].user.first_name ? `${scope.row[column.prop].user.first_name} ${scope.row[column.prop].user.last_name}`: `${scope.row[column.prop].user.name}`"
+                                        v-if="!scope.row[column.prop].user.avatar"></avatar>
+                            </el-tooltip>
+                        </router-link>
+                    </div>
+
+                    <div v-else-if="column.type === 'buildingTenantAvatars'">
+                        <span class="tenant-item" :key="uuid()" v-for="(tenant) in scope.row[column.prop]">
+                              <el-tooltip
+                                      :content="tenant.first_name ? `${tenant.first_name} ${tenant.last_name}`: (tenant.user ? `${tenant.user.name}`:`${tenant.name}`)"
+                                      class="item"
+                                      effect="light" placement="top">
+                                  <template v-if="tenant.user">
+                                      <avatar :size="28"
+                                              :username="tenant.first_name ? `${tenant.first_name} ${tenant.last_name}`: (tenant.user ? `${tenant.user.name}`:`${tenant.name}`)"
+                                              backgroundColor="rgb(205, 220, 57)"
+                                              color="#fff"
+                                              v-if="!tenant.user.avatar"></avatar>
+                                      <avatar :size="28" :src="`/${tenant.user.avatar}`" v-else></avatar>
+                                  </template>
+                                  <template v-else>
+                                      <avatar :size="28"
+                                              :username="tenant.first_name ? `${tenant.first_name} ${tenant.last_name}`: `${tenant.name}`"
+                                              backgroundColor="rgb(205, 220, 57)"
+                                              color="#fff"
+                                              v-if="!tenant.avatar"></avatar>
+                                      <avatar :size="28" :src="`/${tenant.avatar}`" v-else></avatar>
+                                  </template>
+                              </el-tooltip>
+                        </span>
+                    </div>
+
+                    <div v-else>
+                        {{scope.row[column.prop]}}
+                    </div>
                 </template>
             </el-table-column>
             <el-table-column
@@ -128,6 +142,7 @@
 
 <script>
     import {Avatar} from 'vue-avatar'
+    import uuid from 'uuid/v1'
 
     export default {
         components: {
@@ -152,18 +167,6 @@
                     return [];
                 }
             },
-            statuses: {
-                type: Array,
-                default() {
-                    return [];
-                }
-            },
-            tenantAvatars: {
-                type: Array,
-                default() {
-                    return [];
-                }
-            },
             actions: {
                 type: Array,
                 default() {
@@ -175,7 +178,8 @@
             return {
                 list: [],
                 meta: {},
-                loading: false
+                loading: false,
+                uuid,
             }
         },
         async created() {
@@ -230,6 +234,9 @@
     .tenant-link {
         display: inline-block;
         text-decoration: none;
+    }
+    .tenant-item {
+        display: inline-block;
     }
     .badge {
         color: #fff;

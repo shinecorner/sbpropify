@@ -6,7 +6,7 @@
                 <el-col :md="16">
                     <card :loading="loading">
                         <el-form-item>
-                            <select-language :model.sync="language"/>
+                            <select-language :activeLanguage.sync="language"/>
                         </el-form-item>
                         <el-form-item :label="$t('models.template.name')" :rules="validationRules.name" prop="name">
                             <el-input autocomplete="off" type="text"

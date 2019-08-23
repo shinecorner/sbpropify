@@ -29,7 +29,7 @@
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" 
                                                 prop="settings.language">
-                                            <select-language :model.sync="model.settings.language"/>
+                                            <select-language :activeLanguage.sync="model.settings.language"/>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
@@ -164,8 +164,6 @@
                             <relation-list
                                 :actions="requestActions"
                                 :columns="requestColumns"
-                                :statuses="requestStatuses"
-                                :tenantAvatars="requestTenantAvatars"
                                 :filterValue="model.user.id"
                                 fetchAction="getRequests"
                                 filter="assignee_id"
@@ -213,8 +211,16 @@
             return {
                 activeTab: "details",
                 requestColumns: [{
-                    prop: 'title',
+                    type: 'requestTenantAvatar',
+                    width: 75,
+                    prop: 'tenant',
+                    label: this.$t('models.request.tenant')
+                }, {
+                    type: 'requestTitleWithDesc',
                     label: this.$t('models.request.prop_title')
+                }, {
+                    type: 'requestStatus',
+                    label: this.$t('models.request.status.label')
                 }],
                 requestActions: [{
                     width: '90px',
@@ -223,14 +229,6 @@
                         title: this.$t('models.request.edit'),
                         onClick: this.requestEditView
                     }]
-                }],
-                requestStatuses: [{
-                    prop: 'status',
-                    label: this.$t('models.request.status.label')
-                }],
-                requestTenantAvatars: [{
-                    prop: 'avatar',
-                    label: this.$t('models.request.tenant')
                 }],
                 assignmentsColumns: [{
                     prop: 'name',

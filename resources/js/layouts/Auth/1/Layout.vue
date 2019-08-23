@@ -180,7 +180,7 @@
                         }
                         .content {
                             h3 {
-                                font-size: 1.4em;
+                                font-size: 1.2em;
                                 margin: 0;
                                 margin-bottom: .32em;
                                 color: #6AC06F;

@@ -72,7 +72,7 @@ return [
       'saved' => 'Mieter gespeichert',
       'deleted' => 'Mieter gelöscht',
       'status_changed' => 'Status geändert',
-      'password_reset' => 'Mandantenpasswort erfolgreich zurückgesetzt',
+      'password_reset' => 'Passwort erfolgreich zurückgesetzt',
       'update' => 'Update',
       'name' => 'Name',
       'first_name' => 'Vorname',
@@ -95,11 +95,11 @@ return [
       'products' => 'Marktplatz',
       'requests' => 'Anfragen',
       'company' => 'Firmenname',
-      'no_building' => 'Zu keiner Liegenschaft zugewiesen.',
+      'no_building' => 'Keine Liegenschaft(en) zugewiesen.',
       'media' => 
       [
-        'deleted' => 'Dokument/Foto gelöscht',
-        'uploaded' => 'Dokument/Foto hochgeladen',
+        'deleted' => 'Mediendatei gelöscht',
+        'uploaded' => 'Mediendatei hochgeladen',
       ],
       'building' => 
       [
@@ -115,7 +115,7 @@ return [
       'confirmDelete' => 
       [
         'title' => 'Der Mieter wird endgültig gelöscht.',
-        'text' => 'Sind Sie sicher?',
+        'text' => 'Sind Sie sicher, dass Sie fortfahren wollen?',
       ],
       'validation' => 
       [
@@ -150,10 +150,10 @@ return [
       ],
       'errors' => [
         'not_found' => "Mieter nicht gefunden",        
-        'incorrect_email' => "Falsche E-Mail-Adresse",
+        'incorrect_email' => "Falsche EMail-Adresse",
         'create' => "Mieter legt Fehler an: ",
-        'update' => "Fehler bei der Aktualisierung des Mandanten: ",	
-        'deleted' => "Mieter Fehler löschen: ",
+        'update' => "Fehler bei der Aktualisierung des Mieters: ",	
+        'deleted' => "Fehler beim Löschen des Mieters: ",
         'not_allowed_change_status' => 'Sie dürfen den Status nicht ändern.',
       ],      
       'building_card' => 'Liegenschaft zuweisen',
@@ -245,8 +245,8 @@ return [
       ],
       'document' => 
       [
-        'uploaded' => 'Dokument(e) hinaufgeladen',
-        'deleted' => 'Dokument(e) gelöscht',
+        'uploaded' => 'Mediendatei hinaufgeladen',
+        'deleted' => 'Mediendatei gelöscht',
       ],
       'service' => 
       [
@@ -296,7 +296,7 @@ return [
         'reactivated' => 'Reaktiviert',
         'done' => 'Erledigt',
         'archived' => 'Archiviert',
-        'solved' => "Gelöste Anfragen",
+        'solved' => "Erledigte Anfragen",
         'pending' => "Ausstehende Anfragen"
       ],
       'placeholders' => 
@@ -346,8 +346,8 @@ return [
       'empty_requests' => 'Keine Anfragen',
       'assigned_tenant' => 'Derzeitiger Mieter',
       'assign' => 'Zuweisen',
-      'tenant_assigned' => 'Zugeordneter Mieter',
-      'tenant_unassigned' => 'Mieter nicht zugeordnet',
+      'tenant_assigned' => 'Mieter wurde zugewiesen',
+      'tenant_unassigned' => 'Mieter wurde entfernt',
       'type' => 
       [
         'label' => 'Typ',
@@ -357,7 +357,7 @@ return [
       'confirmDelete' => 
       [
         'title' => 'Diese Einheit wird endgültig gelöscht',
-        'text' => 'Sind Sie sicher?',
+        'text' => 'Sind Sie sicher, dass Sie fortfahren wollen?',
       ],
       'validation' => 
       [
@@ -881,7 +881,7 @@ return [
       'visibility' => 
       [
         'label' => 'Sichtbarkeit',
-        'tenant' => 'Nachbarn',
+        'tenant' => 'Nur ich',
         'district' => 'Überbauung',
         'building' => 'Liegenschaft',
       ],
@@ -896,6 +896,7 @@ return [
       ],
       'requestID' => 'Anfrage-ID',
       'requestCategory' => 'Anfrage-Kategorie ',
+      'actions' => 'Aktionen',
     ],
     'requestCategory' => 
     [
@@ -908,10 +909,10 @@ return [
       'required' => 'Dies ist ein Pflichtfeld',
       'parent' => 'Hauptkategorie',
       'errors' => [
-        'not_found' => "Serviceanfragekategorie nicht gefunden",
-        'parent_not_found' => "Übergeordnete Serviceanfrage Kategorie nicht gefunden",
-        'multiple_level_not_found' => "Mehrstufige verschachtelte Kategorien sind nicht erlaubt.",
-        'used_by_request' => "Serviceanforderungskategorie, die von einer Serviceanfrage verwendet wird.",
+        'not_found' => "Anfrage-Kategorie nicht gefunden",
+        'parent_not_found' => "Die übergeordnete Anfrage-Kategorie wurde nicht gefunden",
+        'multiple_level_not_found' => "Mehrstufig verschachtelte Kategorien sind nicht erlaubt.",
+        'used_by_request' => "Diese Kategorie wird in Anfragen verwendet",
       ]
     ],
     'propertyManager' => 
@@ -994,13 +995,13 @@ return [
     'product' => 
     [
       'title' => 'Marktplatz',
-      'add' => 'Produkt hinzufügen',
-      'edit_title' => 'Produkt bearbeiten',
+      'add' => 'Inserat hinzufügen',
+      'edit_title' => 'Inserat bearbeiten',
       'edit' => 'Öffnen',
       'delete_action' => 'Löschen',
       'show' => 'Vorschau',
       'details' => 'Details zum Angebot',
-      'delete' => 'Anzeige löschen',
+      'delete' => 'Inserat löschen',
       'content' => 'Inhalt',
       'product_title' => 'Titel',
       'published_at' => 'Hinzugefügt am',
@@ -1008,8 +1009,8 @@ return [
       'unpublish' => 'Unveröffentlicht',
       'likes' => 'Likes',
       'save' => 'Speichern',
-      'saved' => 'Anzeige gespeichert',
-      'deleted' => 'Anzeige gelöscht',
+      'saved' => 'Inserat gespeichert',
+      'deleted' => 'Inserat gelöscht',
       'comments' => 'Kommentare',
       'user' => 'Benutzer',
       'contact' => 'Kontaktdaten',
@@ -1029,7 +1030,7 @@ return [
         'sell' => 'Verkaufen',
         'lend' => 'Verleihen',
         'service' => 'Dienstleistung',
-        'giveaway' => 'Zu verschenken',
+        'giveaway' => 'Verschenken',
       ],
       'status' => 
       [
@@ -1040,9 +1041,9 @@ return [
       'visibility' => 
       [
         'label' => 'Sichtbarkeit',
-        'address' => 'Liegenschaft',
+        'address' => 'Meine Nachbarn',
         'district' => 'Überbauung',
-        'all' => 'Alle',
+        'all' => 'Alle App-Nutzer',
       ],
     ],
     'template' => 
