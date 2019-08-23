@@ -132,45 +132,66 @@
                 return this.$route.name;
             },
             filters() {
-                let filters = [];
+                let filters = [
+                    {
+                        name: this.$t('filters.search'),
+                        type: 'text',
+                        icon: 'el-icon-search',
+                        key: 'search'
+                    },
+                    {
+                        name: this.$t('filters.categories'),
+                        type: 'select',
+                        key: 'category_id',
+                        data: this.categories,
+                    },
+                    {
+                        name: this.$t('models.request.priority.label'),
+                        type: 'select',
+                        key: 'priority',
+                        data: this.prepareFilters("priority"),
+                    },
+                    {
+                        name: this.$t('filters.districts'),
+                        type: 'select',
+                        key: 'district_id',
+                        data: this.districts,
+                    },
+                    {
+                        name: this.$t('filters.buildings'),
+                        type: 'select',
+                        key: 'building_id',
+                        data: this.buildings,
+                    },
+                    {
+                        name: this.$t('filters.tenant'),
+                        type: 'remote-select',
+                        key: 'tenant_id',
+                        data: this.tenants,
+                        remoteLoading: false,
+                        fetch: this.fetchRemoteTenants
+                    },
+                    {
+                        name: this.$t('filters.created_from'),
+                        type: 'date',
+                        key: 'created_from',
+                        format: 'dd.MM.yyyy'
+                    },
+                    {
+                        name: this.$t('filters.created_to'),
+                        type: 'date',
+                        key: 'created_to',
+                        format: 'dd.MM.yyyy'
+                    },
+                    {
+                        name: this.$t('models.request.closed_date'),
+                        type: 'date',
+                        key: 'solved_date',
+                        format: 'dd.MM.yyyy'
+                    },
+                ];
                 if(this.routeName == 'adminRequests') {
-                    filters = [
-                        {
-                            name: this.$t('filters.search'),
-                            type: 'text',
-                            icon: 'el-icon-search',
-                            key: 'search'
-                        },
-                        {
-                            name: this.$t('filters.categories'),
-                            type: 'select',
-                            key: 'category_id',
-                            data: this.categories,
-                        },
-                        {
-                            name: this.$t('models.request.status.label'),
-                            type: 'select',
-                            key: 'status',
-                            data: this.prepareFilters("status"),
-                        },
-                        {
-                            name: this.$t('models.request.priority.label'),
-                            type: 'select',
-                            key: 'priority',
-                            data: this.prepareFilters("priority"),
-                        },
-                        {
-                            name: this.$t('filters.districts'),
-                            type: 'select',
-                            key: 'district_id',
-                            data: this.districts,
-                        },
-                        {
-                            name: this.$t('filters.buildings'),
-                            type: 'select',
-                            key: 'building_id',
-                            data: this.buildings,
-                        },
+                    let addedfilters = [
                         {
                             name: this.$t('filters.propertyManagers'),
                             type: 'select',
@@ -184,134 +205,27 @@
                             data: this.services,
                         },
                         {
-                            name: this.$t('filters.tenant'),
-                            type: 'remote-select',
-                            key: 'tenant_id',
-                            data: this.tenants,
-                            remoteLoading: false,
-                            fetch: this.fetchRemoteTenants
-                        },
-                        {
-                            name: this.$t('filters.created_from'),
-                            type: 'date',
-                            key: 'created_from',
-                            format: 'dd.MM.yyyy'
-                        },
-                        {
-                            name: this.$t('filters.created_to'),
-                            type: 'date',
-                            key: 'created_to',
-                            format: 'dd.MM.yyyy'
-                        },
-                        {
-                            name: this.$t('models.request.closed_date'),
-                            type: 'date',
-                            key: 'solved_date',
-                            format: 'dd.MM.yyyy'
+                            name: this.$t('models.request.status.label'),
+                            type: 'select',
+                            key: 'status',
+                            data: this.prepareFilters("status"),
                         }
                     ];
+                    Array.prototype.push.apply(filters,addedfilters);
                 }
                 else if(this.routeName == 'adminUnassignedRequests') {
-                    filters = [
-                        {
-                            name: this.$t('filters.search'),
-                            type: 'text',
-                            icon: 'el-icon-search',
-                            key: 'search'
-                        },
-                        {
-                            name: this.$t('filters.categories'),
-                            type: 'select',
-                            key: 'category_id',
-                            data: this.categories,
-                            // fetch: this.getFilterCategories
-                        },
+                    let addedfilters = [
                         {
                             name: this.$t('models.request.status.label'),
                             type: 'select',
                             key: 'status',
                             data: this.prepareFilters("status"),
-                        },
-                        {
-                            name: this.$t('models.request.priority.label'),
-                            type: 'select',
-                            key: 'priority',
-                            data: this.prepareFilters("priority"),
-                        },
-                        {
-                            name: this.$t('filters.districts'),
-                            type: 'select',
-                            key: 'district_id',
-                            data: this.districts,
-                            // fetch: this.getFilterDistricts
-                        },
-                        {
-                            name: this.$t('filters.buildings'),
-                            type: 'select',
-                            key: 'building_id',
-                            data: this.buildings,
-                            // fetch: this.getFilterBuildings
-                        },
-                        {
-                            name: this.$t('filters.tenant'),
-                            type: 'remote-select',
-                            key: 'tenant_id',
-                            data: this.tenants,
-                            remoteLoading: false,
-                            fetch: this.fetchRemoteTenants
-                        },
-                        {
-                            name: this.$t('filters.created_from'),
-                            type: 'date',
-                            key: 'created_from',
-                            format: 'dd.MM.yyyy'
-                        },
-                        {
-                            name: this.$t('filters.created_to'),
-                            type: 'date',
-                            key: 'created_to',
-                            format: 'dd.MM.yyyy'
-                        },
-                        {
-                            name: this.$t('models.request.closed_date'),
-                            type: 'date',
-                            key: 'solved_date',
-                            format: 'dd.MM.yyyy'
                         }
                     ];
+                    Array.prototype.push.apply(filters,addedfilters); 
                 } 
                 else if(this.routeName == 'adminAllpendingRequests') {
-                    filters = [
-                        {
-                            name: this.$t('filters.search'),
-                            type: 'text',
-                            icon: 'el-icon-search',
-                            key: 'search'
-                        },
-                        {
-                            name: this.$t('filters.categories'),
-                            type: 'select',
-                            key: 'category_id',
-                            data: this.categories,
-                        },
-                        {
-                            name: this.$t('models.request.priority.label'),
-                            type: 'select',
-                            key: 'priority',
-                            data: this.prepareFilters("priority"),
-                        },
-                        {
-                            name: this.$t('filters.districts'),
-                            type: 'select',
-                            key: 'district_id',
-                            data: this.districts,
-                        },
-                        {
-                            name: this.$t('filters.buildings'),
-                            type: 'select',
-                            key: 'building_id',
-                            data: this.buildings,
-                        },
+                    let addedfilters = [
                         {
                             name: this.$t('filters.propertyManagers'),
                             type: 'select',
@@ -323,172 +237,37 @@
                             type: 'select',
                             key: 'service_id',
                             data: this.services,
-                        },
-                        {
-                            name: this.$t('filters.tenant'),
-                            type: 'remote-select',
-                            key: 'tenant_id',
-                            data: this.tenants,
-                            remoteLoading: false,
-                            fetch: this.fetchRemoteTenants
-                        },
-                        {
-                            name: this.$t('filters.created_from'),
-                            type: 'date',
-                            key: 'created_from',
-                            format: 'dd.MM.yyyy'
-                        },
-                        {
-                            name: this.$t('filters.created_to'),
-                            type: 'date',
-                            key: 'created_to',
-                            format: 'dd.MM.yyyy'
-                        },
-                        {
-                            name: this.$t('models.request.closed_date'),
-                            type: 'date',
-                            key: 'solved_date',
-                            format: 'dd.MM.yyyy'
                         }
                     ];
+                    Array.prototype.push.apply(filters,addedfilters); 
                 }
                 else if(this.routeName == 'adminMyRequests') {
-                    filters = filters = [
+                    let addedfilters = [
                         {
-                            name: this.$t('filters.search'),
-                            type: 'text',
-                            icon: 'el-icon-search',
-                            key: 'search'
-                        },
-                        {
-                            name: this.$t('filters.categories'),
+                            name: this.$t('filters.services'),
                             type: 'select',
-                            key: 'category_id',
-                            data: this.categories,
+                            key: 'service_id',
+                            data: this.services,
                         },
                         {
                             name: this.$t('models.request.status.label'),
                             type: 'select',
                             key: 'status',
                             data: this.prepareFilters("status"),
-                        },
-                        {
-                            name: this.$t('models.request.priority.label'),
-                            type: 'select',
-                            key: 'priority',
-                            data: this.prepareFilters("priority"),
-                        },
-                        {
-                            name: this.$t('filters.districts'),
-                            type: 'select',
-                            key: 'district_id',
-                            data: this.districts,
-                        },
-                        {
-                            name: this.$t('filters.buildings'),
-                            type: 'select',
-                            key: 'building_id',
-                            data: this.buildings,
-                        },
-                        {
-                            name: this.$t('filters.services'),
-                            type: 'select',
-                            key: 'service_id',
-                            data: this.services,
-                        },
-                        {
-                            name: this.$t('filters.tenant'),
-                            type: 'remote-select',
-                            key: 'tenant_id',
-                            data: this.tenants,
-                            remoteLoading: false,
-                            fetch: this.fetchRemoteTenants
-                        },
-                        {
-                            name: this.$t('filters.created_from'),
-                            type: 'date',
-                            key: 'created_from',
-                            format: 'dd.MM.yyyy'
-                        },
-                        {
-                            name: this.$t('filters.created_to'),
-                            type: 'date',
-                            key: 'created_to',
-                            format: 'dd.MM.yyyy'
-                        },
-                        {
-                            name: this.$t('models.request.closed_date'),
-                            type: 'date',
-                            key: 'solved_date',
-                            format: 'dd.MM.yyyy'
                         }
                     ];
+                    Array.prototype.push.apply(filters,addedfilters); 
                 }
                 else if(this.routeName == 'adminMypendingRequests') {
-                    filters = filters = [
-                        {
-                            name: this.$t('filters.search'),
-                            type: 'text',
-                            icon: 'el-icon-search',
-                            key: 'search'
-                        },
-                        {
-                            name: this.$t('filters.categories'),
-                            type: 'select',
-                            key: 'category_id',
-                            data: this.categories,
-                        },
-                        {
-                            name: this.$t('models.request.priority.label'),
-                            type: 'select',
-                            key: 'priority',
-                            data: this.prepareFilters("priority"),
-                        },
-                        {
-                            name: this.$t('filters.districts'),
-                            type: 'select',
-                            key: 'district_id',
-                            data: this.districts,
-                        },
-                        {
-                            name: this.$t('filters.buildings'),
-                            type: 'select',
-                            key: 'building_id',
-                            data: this.buildings,
-                        },
+                    let addedfilters = [
                         {
                             name: this.$t('filters.services'),
                             type: 'select',
                             key: 'service_id',
                             data: this.services,
-                        },
-                        {
-                            name: this.$t('filters.tenant'),
-                            type: 'remote-select',
-                            key: 'tenant_id',
-                            data: this.tenants,
-                            remoteLoading: false,
-                            fetch: this.fetchRemoteTenants
-                        },
-                        {
-                            name: this.$t('filters.created_from'),
-                            type: 'date',
-                            key: 'created_from',
-                            format: 'dd.MM.yyyy'
-                        },
-                        {
-                            name: this.$t('filters.created_to'),
-                            type: 'date',
-                            key: 'created_to',
-                            format: 'dd.MM.yyyy'
-                        },
-                        {
-                            name: this.$t('models.request.closed_date'),
-                            type: 'date',
-                            key: 'solved_date',
-                            format: 'dd.MM.yyyy'
                         }
                     ];
+                    Array.prototype.push.apply(filters,addedfilters);
                 }
 
                 return filters;

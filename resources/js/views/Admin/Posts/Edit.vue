@@ -133,172 +133,156 @@
                             v-if="model.id"
                         />
 
-                    </el-card>
-
-                    <template v-if="model.pinned">
-
-                        <el-card :loading="loading" class="mt15">
-                            <el-row :gutter="10">
-                                <el-col :lg="18" :xl="20">
-                                    <el-select
-                                        :loading="remoteLoading"
-                                        :placeholder="$t('models.post.placeholders.search_provider')"
-                                        :remote-method="remoteSearchProviders"
-                                        class="custom-remote-select"
-                                        filterable
-                                        remote
-                                        reserve-keyword
-                                        style="width: 100%;"
-                                        v-model="toAssignProvider"
-                                    >
-                                        <div class="custom-prefix-wrapper" slot="prefix">
-                                            <i class="el-icon-search custom-icon"></i>
-                                        </div>
-                                        <el-option
-                                            :key="provider.id"
-                                            :label="provider.name"
-                                            :value="provider.id"
-                                            v-for="provider in toAssignProviderList"/>
-                                    </el-select>
-                                </el-col>
-                                <el-col :lg="6" :xl="4">
-                                    <el-button :disabled="!toAssignProvider" @click="attachProvider" class="full-button"
-                                               icon="ti-save" type="primary">
-                                        {{$t('models.post.assign')}}
-                                    </el-button>
-                                </el-col>
-                            </el-row>
-                            <relation-list
-                                :actions="assignmentsProviderActions"
-                                :columns="assignmentsProviderColumns"
-                                :filterValue="model.id"
-                                fetchAction="getServices"
-                                filter="post_id"
-                                ref="assignmentsProviderList"
-                                v-if="model.id"
-                            />
-                        </el-card>
-
-                        <el-card :loading="loading" class="mt15">
-                            <el-row :gutter="20">
-                                <el-col :md="12">
-                                    <el-form-item :label="$t('models.post.execution_interval.start')"
-                                                  prop="execution_start">
-                                        <el-date-picker
-                                            :picker-options="{disabledDate: disabledExecutionStart}"
-                                            format="dd.MM.yyyy HH:mm"
-                                            style="width: 100%"
-                                            type="datetime"
-                                            v-model="model.execution_start"
-                                            value-format="yyyy-MM-dd HH:mm:ss"
-                                        >
-                                        </el-date-picker>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :md="12">
-                                    <el-form-item :label="$t('models.post.execution_interval.end')"
-                                                  prop="execution_end">
-                                        <el-date-picker
-                                            :picker-options="{disabledDate: disabledExecutionEnd}"
-                                            format="dd.MM.yyyy HH:mm"
-                                            style="width: 100%"
-                                            type="datetime"
-                                            v-model="model.execution_end"
-                                            value-format="yyyy-MM-dd HH:mm:ss"
-                                        >
-                                        </el-date-picker>
-                                    </el-form-item>
-                                </el-col>
-                            </el-row>
-                            <el-row :gutter="20">
-                                <el-col :md="12">
-                                    <el-form-item :label="$t('models.post.pinned_to')"
-                                                  :rules="validationRules.pinned_to"
-                                                  prop="pinned_to">
-                                        <el-date-picker
-                                            format="dd.MM.yyyy HH:mm"
-                                            style="width: 100%"
-                                            type="datetime"
-                                            v-model="model.pinned_to"
-                                            value-format="yyyy-MM-dd HH:mm:ss"
-                                        >
-                                        </el-date-picker>
-                                    </el-form-item>
-                                </el-col>
-                            </el-row>
-                            <el-form-item :label="$t('models.post.notify_email')" prop="notify_email" v-if="model.notify_email == false"
-                                          style="display: flex">
-                                <el-switch style="margin-left: 10px" v-model="model.notify_email">
-                                </el-switch>
-                            </el-form-item>
-                        </el-card>
-                    </template>                
+                    </el-card>                
                 </el-col>
                 <el-col :md="12">
-                    <el-card :loading="loading" class="contact-info-card mb20">
+                    <el-card :loading="loading" class="contact-info-card">
                         <el-row  :gutter="30" class="contact-info-card-row">
                             <el-col class="contact-info-card-col" :md="8">
-                                <span class="custom-label">
-                                    <i class="icon-user"></i>&nbsp;{{$t('models.post.user')}}
-                                </span>
-                                <br>
-                                <span v-if="model.user">
-                                    <router-link :to="{name: 'adminUsersEdit', params: {id: model.user.id}}" class="tenant-link">
-                                        <avatar :size="30"
-                                                :src="'/' + model.user.avatar"
-                                                v-if="model.user.avatar"></avatar>
-                                        <avatar :size="28"
-                                                :username="model.user.first_name ? `${model.user.first_name} ${model.user.last_name}`: `${model.user.name}`"
-                                                backgroundColor="rgb(205, 220, 57)"
-                                                color="#fff"
-                                                v-if="!model.user.avatar"></avatar>
-                                        <span>{{model.user.name}}</span>
-                                    </router-link>
-                                </span>
+                                <div class="contact-info-title">
+                                    <span class="custom-label">
+                                        <i class="icon-user"></i>&nbsp;{{$t('models.post.user')}}
+                                    </span>
+                                </div>
+                                <div class="contact-info-content">
+                                    <span v-if="model.user">
+                                        <router-link :to="{name: 'adminUsersEdit', params: {id: model.user.id}}" class="tenant-link">
+                                            <avatar :size="30"
+                                                    :src="'/' + model.user.avatar"
+                                                    v-if="model.user.avatar"></avatar>
+                                            <avatar :size="28"
+                                                    :username="model.user.first_name ? `${model.user.first_name} ${model.user.last_name}`: `${model.user.name}`"
+                                                    backgroundColor="rgb(205, 220, 57)"
+                                                    color="#fff"
+                                                    v-if="!model.user.avatar"></avatar>
+                                            <span>{{model.user.name}}</span>
+                                        </router-link>
+                                    </span>
+                                </div>
                             </el-col>                            
                             <el-col class="contact-info-card-col" :md="8">
-                                <span class="custom-label">
-                                    <i class="icon-paper-plane"></i>&nbsp;{{$t('models.post.published_at')}}
-                                </span>
-                                <br>
-                                <span class="custom-value" v-if="model.published_at">
-                                    {{this.formatDatetime(model.published_at)}}
-                                </span>
-                                <span class="custom-value" v-else>-</span>
+                                <div class="contact-info-title">
+                                    <span class="custom-label">
+                                        <i class="icon-paper-plane"></i>&nbsp;{{$t('models.post.published_at')}}
+                                    </span>
+                                </div>
+                                <div class="contact-info-content" v-if="model.published_at">
+                                    <span class="custom-value">
+                                        {{this.formatDatetime(model.published_at)}}
+                                    </span>
+                                </div>
+                                <div class="contact-info-content" v-else>
+                                    <span class="custom-value">-</span>
+                                </div>
                             </el-col>
                             <el-col class="contact-info-card-col" :md="8">
-                                <span class="custom-label">
-                                    <i class="icon-chat"></i>&nbsp;{{$t('models.post.comments')}}
-                                </span>
-                                <br>
-                                <span class="custom-value">
-                                    {{model.comments_count}}
-                                </span>
+                                <div class="contact-info-title">
+                                    <span class="custom-label">
+                                        <i class="icon-chat"></i>&nbsp;{{$t('models.post.comments')}}
+                                    </span>
+                                </div>
+                                <div class="contact-info-content">
+                                    <span class="custom-value">
+                                        {{model.comments_count}}
+                                    </span>
+                                </div>
                             </el-col>
                         </el-row>     
                         <el-row  :gutter="30" class="contact-info-card-row">
                             <el-col class="contact-info-card-col" :md="8">
-                                <span class="custom-label">
-                                    <i class="icon-thumbs-up"></i>&nbsp;{{$t('models.post.likes')}}
-                                </span>
-                                <br>
-                                <span class="custom-value">
-                                    {{model.likes_count}}
-                                </span>    
+                                <div class="contact-info-title">
+                                    <span class="custom-label">
+                                        <i class="icon-eye"></i>&nbsp;{{$t('models.post.views')}}
+                                    </span>
+                                </div>
+                                <div class="contact-info-content">
+                                    <span class="custom-value">
+                                        {{model.views}}
+                                    </span>
+                                </div>
                             </el-col>
                             <el-col class="contact-info-card-col" :md="8">
-                                <span class="custom-label">
-                                    <i class="icon-eye"></i>&nbsp;{{$t('models.post.views')}}
-                                </span>
-                                <br>
-                                <span class="custom-value">
-                                    {{model.views}}
-                                </span>
+                                <div class="contact-info-title">
+                                    <span class="custom-label">
+                                        <i class="icon-thumbs-up"></i>&nbsp;{{$t('models.post.likes')}}
+                                    </span>
+                                </div>
+                                <div class="contact-info-content">
+                                    <span class="custom-value">
+                                        {{model.likes_count}}
+                                    </span>   
+                                </div> 
                             </el-col>
-                            <el-col class="contact-info-card-col" :md="8"></el-col>
+                            <el-col class="contact-info-card-col" :md="8">
+                                <div class="contact-info-title">
+                                    <span class="custom-label">
+                                        <i class="icon-users"></i>&nbsp;&nbsp;{{$t('models.post.tenants')}}
+                                    </span>
+                                </div>
+                                <div class="contact-info-content">
+                                    <span class="custom-value">
+                                        {{model.tenant}}
+                                    </span>   
+                                </div> 
+                            </el-col>
                         </el-row>                                                    
                     </el-card>
-                    <el-card :loading="loading" v-if="model.pinned && (!model.tenant)">
+
+                    <el-card v-if="model.pinned" :loading="loading" class="mt15">
+                        <el-row :gutter="20">
+                            <el-col :md="12">
+                                <el-form-item :label="$t('models.post.execution_interval.start')"
+                                                prop="execution_start">
+                                    <el-date-picker
+                                        :picker-options="{disabledDate: disabledExecutionStart}"
+                                        format="dd.MM.yyyy HH:mm"
+                                        style="width: 100%"
+                                        type="datetime"
+                                        v-model="model.execution_start"
+                                        value-format="yyyy-MM-dd HH:mm:ss"
+                                    >
+                                    </el-date-picker>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :md="12">
+                                <el-form-item :label="$t('models.post.execution_interval.end')"
+                                                prop="execution_end">
+                                    <el-date-picker
+                                        :picker-options="{disabledDate: disabledExecutionEnd}"
+                                        format="dd.MM.yyyy HH:mm"
+                                        style="width: 100%"
+                                        type="datetime"
+                                        v-model="model.execution_end"
+                                        value-format="yyyy-MM-dd HH:mm:ss"
+                                    >
+                                    </el-date-picker>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row :gutter="20">
+                            <el-col :md="12">
+                                <el-form-item :label="$t('models.post.pinned_to')"
+                                                :rules="validationRules.pinned_to"
+                                                prop="pinned_to">
+                                    <el-date-picker
+                                        format="dd.MM.yyyy HH:mm"
+                                        style="width: 100%"
+                                        type="datetime"
+                                        v-model="model.pinned_to"
+                                        value-format="yyyy-MM-dd HH:mm:ss"
+                                    >
+                                    </el-date-picker>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-form-item :label="$t('models.post.notify_email')" prop="notify_email" v-if="model.notify_email == false"
+                                        style="display: flex">
+                            <el-switch style="margin-left: 10px" v-model="model.notify_email">
+                            </el-switch>
+                        </el-form-item>
+                    </el-card>
+
+                    <el-card :loading="loading" v-if="model.pinned && (!model.tenant)" class="mt15">
                         <el-row :gutter="10">
                             <el-col :lg="6">
                                 <el-select @change="resetToAssignList"
@@ -349,6 +333,48 @@
                             fetchAction="getPostAssignments"
                             filter="post_id"
                             ref="assignmentsList"
+                            v-if="model.id"
+                        />
+                    </el-card>
+                    
+                    <el-card v-if="model.pinned" :loading="loading" class="mt15">
+                        <el-row :gutter="10">
+                            <el-col :lg="18" :xl="20">
+                                <el-select
+                                    :loading="remoteLoading"
+                                    :placeholder="$t('models.post.placeholders.search_provider')"
+                                    :remote-method="remoteSearchProviders"
+                                    class="custom-remote-select"
+                                    filterable
+                                    remote
+                                    reserve-keyword
+                                    style="width: 100%;"
+                                    v-model="toAssignProvider"
+                                >
+                                    <div class="custom-prefix-wrapper" slot="prefix">
+                                        <i class="el-icon-search custom-icon"></i>
+                                    </div>
+                                    <el-option
+                                        :key="provider.id"
+                                        :label="provider.name"
+                                        :value="provider.id"
+                                        v-for="provider in toAssignProviderList"/>
+                                </el-select>
+                            </el-col>
+                            <el-col :lg="6" :xl="4">
+                                <el-button :disabled="!toAssignProvider" @click="attachProvider" class="full-button"
+                                            icon="ti-save" type="primary">
+                                    {{$t('models.post.assign')}}
+                                </el-button>
+                            </el-col>
+                        </el-row>
+                        <relation-list
+                            :actions="assignmentsProviderActions"
+                            :columns="assignmentsProviderColumns"
+                            :filterValue="model.id"
+                            fetchAction="getServices"
+                            filter="post_id"
+                            ref="assignmentsProviderList"
                             v-if="model.id"
                         />
                     </el-card>
@@ -515,15 +541,21 @@
     .custom-select {
         display: block;
     }
-
-    .custom-label {
-        color: #6AC06F;
-        display: inline-block;
-        margin-bottom: 10px;
+    .contact-info-title {
+        display: flex;
+        justify-content: center;
+        .custom-label {
+            color: #6AC06F;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
     }
-
-    .custom-value {        
-        line-height: 28px;
+    .contact-info-content {
+        display: flex;
+        justify-content: center;
+        .custom-value {        
+            line-height: 28px;
+        }
     }
 
     .mb20 {

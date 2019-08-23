@@ -22,6 +22,18 @@
                         </div>
                     </div>
                 </div>
+                <!-- <el-dropdown trigger="click">
+                    <span class="el-dropdown-link">
+                        <div class="language-iconBorder">
+                            <div class="language-checked-img">
+                                <span v-bind:class="selectedFlag"></span>
+                            </div>
+                        </div>
+                    </span>
+                    <el-dropdown-menu slot="dropdown" id="language">
+                        <el-dropdown-item :icon="language.flag" v-for='language in this.languages' :key="language.symbol" @click.native='itemClicked(language.symbol, language.flag)'>{{language.name}}</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown> -->
             </div>
             
             <div id="dropdown" class="dropdown-menu" ref="prev">
@@ -368,23 +380,23 @@
                             route: {
                                 name: 'adminUsers'
                             },
-                            children: [{
-                                title: this.$t('menu.admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'administrator'
-                                    }
-                                }
-                            }, {
-                                title: this.$t('menu.super_admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'super_admin'
-                                    }
-                                }
-                            }]
+                            // children: [{
+                            //     title: this.$t('menu.admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'administrator'
+                            //         }
+                            //     }
+                            // }, {
+                            //     title: this.$t('menu.super_admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'super_admin'
+                            //         }
+                            //     }
+                            // }]
                         }];
                 }
                 

@@ -189,6 +189,7 @@
                                             type="datetime"
                                             v-model="model.execution_end"
                                             value-format="yyyy-MM-dd HH:mm:ss"
+                                            v-on:change="setPinnedTo"
                                         >
                                         </el-date-picker>
                                     </el-form-item>
@@ -251,6 +252,9 @@
                 }else {
                     this.model.status = 1;
                 }
+            },
+            setPinnedTo(event) {
+                this.model.pinned_to = this.model.execution_end;
             }
         }
     }

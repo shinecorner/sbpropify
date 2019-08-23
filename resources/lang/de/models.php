@@ -471,6 +471,7 @@ return [
       'user' => 'Benutzer',
       'delete' => 'Löschen',
       'likes' => 'Likes',
+      'tenants' => 'Mieter',
       'views' => 'Ansichten',
       'details' => 'Beitragsdetails',
       'published_at' => 'Veröffentlichung',

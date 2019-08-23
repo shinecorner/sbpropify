@@ -470,6 +470,7 @@ return [
       "user" => "Utilisateur",
       "delete" => "Supprimer",
       "likes" => "Aime",
+      "tenants" => "Locataires",
       "views" => "Vues",
       "details" => "Afficher les détails",
       "published_at" => "Publié",

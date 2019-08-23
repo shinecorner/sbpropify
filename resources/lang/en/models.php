@@ -472,6 +472,7 @@ return [
       'delete' => 'Delete',
       'likes' => 'Likes',
       'views' => 'Views',
+      'tenants' => 'Tenants',
       'details' => 'Post Details',
       'published_at' => 'Published',
       'publish' => 'Publish',
