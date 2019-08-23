@@ -32,33 +32,13 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.unit.assigned_tenant')"
-                                              :rules="validationRules.tenant_id"
-                                              prop="tenant_id">
-                                    <el-select
-                                        :loading="remoteLoading"
-                                        :placeholder="$t('models.unit.placeholders.search')"
-                                        :remote-method="remoteSearchTenants"
-                                        filterable
-                                        remote
-                                        reserve-keyword
-                                        style="width: 100%;"
-                                        v-model="model.tenant_id">
-                                        <el-option
-                                            :key="tenant.id"
-                                            :label="tenant.name"
-                                            :value="tenant.id"
-                                            v-for="tenant in toAssignList"/>
-                                    </el-select>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                        <el-row :gutter="20">
-                            <el-col :md="12">
                                 <el-form-item :label="$t('models.unit.name')" :rules="validationRules.name" prop="name">
                                     <el-input autocomplete="off" type="text" v-model="model.name"></el-input>
                                 </el-form-item>
                             </el-col>
+                        </el-row>
+                        <el-row :gutter="20">
+
                             <el-col :md="12">
                                 <el-form-item :label="$t('models.unit.type.label')" :rules="validationRules.type"
                                               prop="type">
@@ -71,9 +51,25 @@
                                     </el-select>
                                 </el-form-item>
                             </el-col>
+
+                            <el-col :md="6" >
+                                <el-form-item :label="$t('models.unit.monthly_rent')"
+                                              :rules="validationRules.monthly_rent"
+                                              prop="monthly_rent">
+                                    <el-input autocomplete="off" step="0.01" type="number"
+                                              v-model="model.monthly_rent"></el-input>
+                                </el-form-item>
+                            </el-col>
+
+                            <el-col :md="6">
+                                <el-form-item :label="$t('models.unit.floor')" :rules="validationRules.floor" prop="floor">
+                                    <el-input autocomplete="off" type="number" v-model="model.floor"></el-input>
+                                </el-form-item>
+                            </el-col>
+
                         </el-row>
                         <el-row :gutter="20">
-                            <el-col :md="12" v-if="!isBusiness">
+                            <el-col :md="6" v-if="!isBusiness">
                                 <el-form-item :label="$t('models.unit.room_no')" :rules="validationRules.room_no"
                                               prop="room_no"
                                 >
@@ -87,20 +83,8 @@
                                     </el-select>
                                 </el-form-item>
                             </el-col>
-                            <el-col :md="12">
-                                <el-form-item :label="$t('models.unit.monthly_rent')"
-                                              :rules="validationRules.monthly_rent"
-                                              prop="monthly_rent">
-                                    <el-input autocomplete="off" step="0.01" type="number"
-                                              v-model="model.monthly_rent"></el-input>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :md="12">
-                                <el-form-item :label="$t('models.unit.floor')" :rules="validationRules.floor" prop="floor">
-                                    <el-input autocomplete="off" type="number" v-model="model.floor"></el-input>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :md="12">
+
+                            <el-col :md="6">
                                 <el-form-item :label="$t('models.unit.sq_meter')" prop="sq_meter">
                                     <el-input autocomplete="off" type="number" v-model="model.sq_meter"></el-input>
                                 </el-form-item>
@@ -118,6 +102,7 @@
                                     </el-switch>
                                 </el-form-item>
                             </el-col>
+
                         </el-row>
                     </el-form>
                 </card>

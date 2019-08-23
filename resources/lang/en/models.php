@@ -34,7 +34,7 @@ return [
       'serviceRequestCategoryDeleted' => 'Service request category deleted',
       'setting_saved' => "user setting saved",
       'setting_deleted' => "user setting deleted",
-      'password_reset_request_sent' => "Password Reset Request send successfully", 
+      'password_reset_request_sent' => "We have sent you an e-mail with further instructions. Please check your inbox.", 
       'errors' => [
         'not_found' => "User not found",
         'setting_not_found' => "user setting not found",

@@ -34,7 +34,7 @@ return [
       "serviceRequestCategoryDeleted" => "Categoria della richiesta di servizio cancellata",
       'setting_saved' => "impostazioni utente salvate",
       'setting_deleted' => "l'impostazione dell'utente è stata cancellata",
-      'password_reset_request_sent' => "Richiesta di reimpostazione password inviata con successo", 
+      'password_reset_request_sent' => "Le abbiamo inviato un'e-mail con ulteriori istruzioni. Controlla la tua casella di posta in arrivo.", 
       'errors' => [
         'not_found' => "Utente non trovato",
         'setting_not_found' => "impostazione utente non trovata",        
