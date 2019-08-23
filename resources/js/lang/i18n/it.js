@@ -971,6 +971,7 @@ export default {
                 "user": "Utente",
                 "delete": "Cancellare",
                 "likes": "Gli piace",
+                "tenants": "Gli inquilini",
                 "views": "Viste",
                 "details": "Pubblicare i dettagli",
                 "published_at": "Pubblicato",
