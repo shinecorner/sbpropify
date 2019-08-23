@@ -190,4 +190,6 @@ return [
     'message' => "La pagina richiesta non è stata trovata. Controlla l'URL o vai alla homepage."
   ],
   'to_homepage' => 'Alla Homepage',
+  "assignment" => "Assegnazione",
+
 ];

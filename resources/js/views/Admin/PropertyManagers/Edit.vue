@@ -138,8 +138,8 @@
                         </el-tabs>
                     </el-col>
                     <el-col :md="12">
-                        <card :loading="loading" :header="$t('models.post.assignment')">
-                            
+                        <card :loading="loading" :header="$t('general.assignment')">
+
                             <assignment-by-type
                                 :resetToAssignList="resetToAssignList"
                                 :assignmentType.sync="assignmentType"
