@@ -828,7 +828,7 @@ class ServiceRequestAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="data",
      *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/ServiceRequest")
+     *                  @SWG\Items(ref="#/definitions/ServiceRequestAssignee")
      *              ),
      *              @SWG\Property(
      *                  property="message",
