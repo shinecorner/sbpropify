@@ -112,6 +112,7 @@
         watch: {
             links() {
                 const routeName = this.$route.name;
+                console.log(routeName);
 
                 this.links.map(link => {
                     if (link.route && link.route.name == routeName) {

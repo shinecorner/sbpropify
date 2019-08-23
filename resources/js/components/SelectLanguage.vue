@@ -1,5 +1,6 @@
 <template>
-    <el-select id="languageform" style="display: block" :value="activeLanguage" @input="$emit('update:activeLanguage', $event)" :placeholder="$t(`general.chooseLanguage`)">
+    <el-select id="languageform" :class="activeLanguage == '' ? '' : ' selected'" style="display: block" :value="activeLanguage" @input="$emit('update:activeLanguage', $event)" :placeholder="$t(`general.chooseLanguage`)">
+
         <template slot="prefix">
             <span id="languageflag" v-for="(language, index) in activeLanguages" :class="language.flag" :key="index"></span>
         </template>
@@ -31,6 +32,8 @@ export default {
         }
     },
     mounted() {
+        console.log('activeLanguage', this.activeLanguage)
+        console.log(' check ', this.activeLanguage == '')
         let languagesObject = this.$constants.app.languages;
         let languagesArray = Object.keys(languagesObject).map(function(key) {
             return [String(key), languagesObject[key]];
@@ -57,7 +60,10 @@ export default {
 <style lang="less">
     .crud-view {
         #languageform.el-input__inner {
-            padding-left: 35px !important;
+            padding-left: 15px !important;
+        }
+        .selected #languageform.el-input__inner {
+            padding-left: 40px !important;
         }
         #languageflag {
             padding-left: 20px;
