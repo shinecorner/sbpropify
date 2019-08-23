@@ -762,7 +762,8 @@ class ServiceRequestAPIController extends AppBaseController
      *      path="/requests/{id}/assignees/{uid}",
      *      summary="Unassign the provided user to the request",
      *      tags={"ServiceRequest"},
-     *      description="Unassign the provided user to the request",
+     *      description="use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/delete_requests_assignees__requests_assignee_id_'>/requests-assignees/{requests_assignee_id}</a>",
+     *      deprecated=true,
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -877,12 +878,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $uid
-     * @param AssignRequest $r
-     * @param UserRepository $uRepo
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/requests-assignees/{requests_assignee_id}",
      *      summary="Unassign the provider,user or manager to the request",
