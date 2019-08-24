@@ -41,6 +41,7 @@ class ServiceRequestRepository extends BaseRepository
         'description' => 'like',
         'status' => 'like',
         'priority' => 'like',
+        'internal_priority' => 'like',
         'due_date' => '=',
         'solved_date' => '>=',
         'created_at' => '>=',
@@ -125,6 +126,7 @@ class ServiceRequestRepository extends BaseRepository
             $attr['category_id'] = $attributes['category_id'];
             $attr['visibility'] = $attributes['visibility'];
             $attr['priority'] = $attributes['priority'];
+            $attr['internal_priority'] = $attributes['internal_priority'] ?? $attributes['priority'];
             $attr['tenant_id'] = $user->tenant->id;
             $attr['unit_id'] = $user->tenant->unit_id;
             $attr['status'] = ServiceRequest::StatusReceived;
@@ -177,6 +179,11 @@ class ServiceRequestRepository extends BaseRepository
             $attr['title'] = $attributes['title'];
             $attr['description'] = $attributes['description'];
             $attr['priority'] = $attributes['priority'];
+
+            if (isset($attributes['internal_priority'])) {
+                $attr['internal_priority'] = $attributes['internal_priority'];
+            }
+
             $attr['qualification'] = $attributes['qualification'];
             $attr['status'] = $attributes['status'];
             $attr['category_id'] = $attributes['category_id'];
@@ -352,7 +359,7 @@ class ServiceRequestRepository extends BaseRepository
             return $p->user;
         });
 
-        foreach (array_merge($providers->all(), $sr->users()->all()) as $u) {
+        foreach (array_merge($providers->all(), $sr->managers()->get()->all()) as $u) {
             $u->notify((new RequestDue($sr))->delay($sr->due_date->subHours($beforeHours)));
         }
     }

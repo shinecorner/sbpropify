@@ -325,6 +325,7 @@ export default (config = {}) => {
                                 try {
                                     await this.uploadNewMedia(params.id);
                                     const resp = await this.updateRequest(params);
+                                    console.log(this.model.priority);
                                     console.log(resp);
                                     return;
                                     this.media = [];

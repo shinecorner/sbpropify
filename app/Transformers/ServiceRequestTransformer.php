@@ -26,6 +26,7 @@ class ServiceRequestTransformer extends BaseTransformer
             'description' => $model->description,
             'status' => $model->status,
             'priority' => $model->priority,
+            'internal_priority' => $model->internal_priority,
             'qualification' => $model->qualification,
             'is_public' => $model->is_public,
             'created_at' => $model->created_at->format('Y-m-d'),
