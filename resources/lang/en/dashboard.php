@@ -41,9 +41,9 @@ return [
       'buildings_by_creation_date' => 'Buildings by creation date',
       'buildings_map' => 'Buildings map',
       'latest_buildings' => 'Latest buildings',
-      'count_of_managers' => 'Count of managers',
-      'count_of_tenants' => 'Count of tenants',
-      'count_of_requests' => 'Count of requests',
+      'managers' => 'Managers',
+      'tenants' => 'Tenants',
+      'requests' => 'Requests',
       'go_to_buildings' => 'go to buildings',
       'buildings_by_state' => 'Buildings by state'
     ],

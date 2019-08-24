@@ -10,7 +10,9 @@
                 <div class="progress-bar">
                     <div class="progress-status">
                         <span class="progress-value">{{ value }}</span>
-                        <span class="progress-percent" :style="style" >{{ value*100/maxValue }}%</span>
+                        <span class="progress-percent" :style="style" >
+                            {{ Math.round(value*10000/maxValue)/100 }}%
+                        </span>
                     </div>
                     <el-progress :percentage="value*100/maxValue" :color="color" :show-text="false"></el-progress>
                 </div>
@@ -57,8 +59,9 @@ export default {
             .progress-label {
                 display: flex;
                 justify-content: center;
-                font-size: 18px;
+                font-size: 14px;
                 font-weight: 400;
+                font-family: roboto;
                 color: darken(#fff, 50%);
                 float: left;
                 padding-right: 10px;

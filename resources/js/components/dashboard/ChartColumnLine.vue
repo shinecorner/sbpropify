@@ -23,7 +23,7 @@ import VueApexCharts from 'vue-apexcharts'
 import axios from '@/axios';
 
 import CustomDateRangePicker from 'components/CustomDateRangePicker';
-import columChartMixin from '../mixins/adminDashboardColumnChartMixin';
+import columChartMixin from 'mixins/adminDashboardColumnChartMixin';
 
 export default {  
   components: {
