@@ -84,6 +84,7 @@ class Building extends AuditableModel implements HasMedia
     const BuildingMediaCategories = [
         'house_rules',
         'operating_instructions',
+        'care_instructions',
         'other',
     ];
 

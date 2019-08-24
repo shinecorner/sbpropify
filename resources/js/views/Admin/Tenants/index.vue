@@ -57,27 +57,27 @@
         data() {
             return {
                 header: [{
-                    label: this.$t('models.tenant.id'),
+                    label: 'models.tenant.id',
                     prop: 'id',
                     width: 64
                 }, {
-                    label: this.$t('models.tenant.name'),
+                    label: 'models.tenant.name',
                     withAvatars: true,
                     props: ['user']
                 }, {
-                    label: this.$t('models.tenant.contact_info_card'),
+                    label: 'models.tenant.contact_info_card',
                     withMultipleProps: true,
                     props: ['user_email', 'private_phone']
                 }, {
-                    label: this.$t('models.tenant.building.name'),
+                    label: 'models.tenant.building.name',
                     withMultipleProps: true,
                     props: ['building_address_row', 'building_address_zip']
                 }, {
-                    label: this.$t('models.tenant.unit.name'),
+                    label: 'models.tenant.unit.name',
                     withMultipleProps: true,
                     props: ['unit_name']
                 }, {
-                    label: this.$t('models.tenant.status.label'),
+                    label: 'models.tenant.status.label',
                     prop: 'status',
                     i18nPath: 'models.tenant.status',
                     class: 'rounded-select',
@@ -104,7 +104,7 @@
                     actions: [{
                         icon: 'ti-pencil',
                         type: 'success',
-                        title: this.$t('models.tenant.view'),
+                        title: 'models.tenant.view',
                         onClick: this.view,
                         permissions: [
                             this.$permissions.view.tenant

@@ -9,23 +9,35 @@
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
                 <card :loading="loading" :header="$t('models.district.details')">
-                    <el-form :model="model" label-width="192px" ref="form">
-                        <el-form-item label="Name" :rules="validationRules.name"
-                                    prop="name">
-                            <el-input type="text" v-model="model.name"/>
-                        </el-form-item>
+                    <el-form :model="model" ref="form">
+                        <el-row :gutter="20">
+                            <el-col :md="12">
+                                <el-form-item label="Name" :rules="validationRules.name"
+                                              prop="name">
+                                    <el-input type="text" v-model="model.name"/>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :md="12">
+                                <el-form-item class="label-block" :label="$t('models.district.count_of_buildings')"
+                                              prop="title">
+                                    <el-select style="display: block" v-model="model.count_of_buildings">
+                                        <el-option
+                                                :key="building"
+                                                :value="building"
+                                                v-for="building in buildingsCount">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
                     </el-form>
                 </card>
 
-                <card :loading="loading" class="mt15">
-                    <p class="dividerletter">{{$t('models.propertyManager.requests')}}</p>
-                    <el-divider class="column-divider"></el-divider>
+                <card :loading="loading" :header="$t('models.propertyManager.requests')" class="mt15">
 
                     <relation-list
                             :actions="requestActions"
                             :columns="requestColumns"
-                            :statuses="requestStatuses"
-                            :tenantAvatars="requestTenantAvatars"
                             :filterValue="model.id"
                             fetchAction="getRequests"
                             filter="district_id"
@@ -36,6 +48,7 @@
             <el-col :md="12">
                 <card :loading="loading" :header="$t('models.district.buildings')">
                     <relation-list
+                        :actions="districtActions"
                         :columns="districtColumns"
                         :filterValue="model.id"
                         fetchAction="getBuildings"
@@ -71,13 +84,17 @@
         },
         data() {
             return {
-                districtColumns: [{
-                    prop: 'name',
-                    label: this.$t('models.propertyManager.name')
-                }],
                 requestColumns: [{
-                    prop: 'title',
+                    type: 'requestTenantAvatar',
+                    width: 75,
+                    prop: 'tenant',
+                    label: this.$t('models.request.tenant')
+                }, {
+                    type: 'requestTitleWithDesc',
                     label: this.$t('models.request.prop_title')
+                }, {
+                    type: 'requestStatus',
+                    label: this.$t('models.request.status.label')
                 }],
                 requestActions: [{
                     width: '90px',
@@ -87,22 +104,63 @@
                         onClick: this.requestEditView
                     }]
                 }],
-                requestStatuses: [{
-                    prop: 'status',
-                    label: this.$t('models.request.status.label')
+                districtColumns: [{
+                    prop: 'name',
+                    label: this.$t('models.propertyManager.name')
+                }, {
+                    align: 'center',
+                    prop: 'units_count',
+                    label: this.$t('dashboard.buildings.total_units')
+                }, {
+                    type: 'buildingTenantAvatars',
+                    align: 'center',
+                    prop: 'tenants',
+                    propLimit: 2,
+                    count: 'tenants_count',
+                    label: this.$t('models.building.tenants')
                 }],
-                requestTenantAvatars: [{
-                    prop: 'avatar',
-                    label: this.$t('models.request.tenant')
+                districtActions: [{
+                    width: '90px',
+                    buttons: [{
+                        icon: 'ti-pencil',
+                        title: this.$t('models.request.edit'),
+                        onClick: this.buildingEditView
+                    }]
                 }],
+                buildingsCount: 20,
             }
         },
         methods: {
-            ...mapActions(['deleteDistrict'])
+            ...mapActions(['deleteDistrict']),
+
+            requestEditView(row) {
+                this.$router.push({
+                    name: 'adminRequestsEdit',
+                    params: {
+                        id: row.id
+                    }
+                })
+            },
+
+            buildingEditView(row) {
+                this.$router.push({
+                    name: 'adminBuildingsEdit',
+                    params: {
+                        id: row.id
+                    }
+                })
+            },
         }
     }
 </script>
 
+<style lang="scss">
+    .label-block .el-form-item__label {
+        display: block;
+        float: none;
+        text-align: left;
+    }
+</style>
 <style lang="scss" scoped>
     .districts-edit {
         .crud-view {

@@ -59,31 +59,31 @@
         data() {
             return {
                 header: [{
-                    label: this.$t('models.request.category'),
+                    label: 'models.request.category',
                     withMultipleProps: true,
                     props: ['parent_category_name', 'category_name']
                 }, {
-                    label: this.$t('models.request.address'),
+                    label: 'models.request.address',
                     withMultipleProps: true,
                     props: ['address', 'zip']
                 }, {
-                    label: this.$t('models.request.created_by'),
+                    label: 'models.request.created_by',
                     withMultipleProps: true,
                     props: ['tenant_name', 'created_at']
                 }, {
                     width: 110,
-                    label: this.$t('models.request.assigned_to'),
+                    label: 'models.request.assigned_to',
                     withUsers: true,
                     prop: 'assignedUsers',
                     count: 'assignedUsersCount'
                 }, {
                     width: 100,
-                    label: this.$t('models.request.priority.label'),
+                    label: 'models.request.priority.label',
                     withBadgeProps: true,
                     prop: 'priority_label',
                     size: 'small'
                 }, {
-                    label: this.$t('models.request.status.label'),
+                    label: 'models.request.status.label',
                     width: 150,
                     prop: 'status',
                     i18nPath: 'models.request.status',
@@ -99,7 +99,7 @@
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        title: this.$t('models.request.edit'),
+                        title: 'models.request.edit',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.request,
@@ -113,7 +113,7 @@
                 propertyManagers:{},
                 tenants: {},
                 services: {},
-                isLoadingFilters: false,
+                isLoadingFilters: false
             }
         },
         computed: {
@@ -128,8 +128,12 @@
                     return request
                 });
             },
+            routeName() {
+                return this.$route.name;
+            },
             filters() {
-                return [
+                
+                let filters = [
                     {
                         name: this.$t('filters.search'),
                         type: 'text',
@@ -141,7 +145,6 @@
                         type: 'select',
                         key: 'category_id',
                         data: this.categories,
-                        // fetch: this.getFilterCategories
                     },
                     {
                         name: this.$t('models.request.status.label'),
@@ -160,28 +163,24 @@
                         type: 'select',
                         key: 'district_id',
                         data: this.districts,
-                        // fetch: this.getFilterDistricts
                     },
                     {
                         name: this.$t('filters.buildings'),
                         type: 'select',
                         key: 'building_id',
                         data: this.buildings,
-                        // fetch: this.getFilterBuildings
                     },
                     {
                         name: this.$t('filters.propertyManagers'),
                         type: 'select',
                         key: 'assignee_id',
                         data: this.propertyManagers,
-                        // fetch: this.getFilterPropertyManagers
                     },
                     {
                         name: this.$t('filters.services'),
                         type: 'select',
                         key: 'service_id',
                         data: this.services,
-                        // fetch: this.getFilterServices
                     },
                     {
                         name: this.$t('filters.tenant'),
@@ -208,8 +207,23 @@
                         type: 'date',
                         key: 'solved_date',
                         format: 'dd.MM.yyyy'
-                    }
+                    },
                 ];
+                if(this.routeName == 'adminUnassignedRequests') {
+                    filters.splice(6, 2);
+                } 
+                else if(this.routeName == 'adminAllpendingRequests') {
+                    filters.splice(2, 1);
+                }
+                else if(this.routeName == 'adminMyRequests') {
+                    filters.splice(6, 1);
+                }
+                else if(this.routeName == 'adminMypendingRequests') {
+                    filters.splice(6, 1);
+                    filters.splice(2, 1);
+                }
+
+                return filters;
             }
         },
         methods: {
@@ -328,6 +342,8 @@
             this.tenants = await this.fetchRemoteTenants()
 
             this.isLoadingFilters = false;
+
+            //const routeName = this.$route.name;
         }
     }
 </script>

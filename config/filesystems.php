@@ -76,6 +76,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'buildings_care_instructions' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/buildings/care_instructions'),
+            'url' => env('APP_URL').'/storage/buildings/care_instructions',
+            'visibility' => 'public',
+        ],
+
         'buildings_other' => [
             'driver' => 'local',
             'root' => storage_path('app/public/buildings/other'),

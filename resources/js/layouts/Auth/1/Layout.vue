@@ -180,7 +180,7 @@
                         }
                         .content {
                             h3 {
-                                font-size: 1.4em;
+                                font-size: 1.2em;
                                 margin: 0;
                                 margin-bottom: .32em;
                                 color: #6AC06F;
@@ -197,11 +197,12 @@
             }
         }
     }
-
 </style>
 <style lang="less">
-    .el-card__header {
-        border-bottom: 1px solid #EBEEF5 !important;
-        font-size: 16px !important;
+    .crud-view {
+        .el-card__header {
+            border-bottom: 1px solid #EBEEF5 !important;
+            font-size: 16px !important;
+        }
     }
 </style>

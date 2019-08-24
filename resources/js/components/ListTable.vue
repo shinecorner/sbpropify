@@ -33,7 +33,7 @@
                                     @change="filterChanged(filter)"
                                     class="filter-select"
                                     v-model="filterModel[filter.key]">
-                                    <el-option label="Choose" value=""></el-option>
+                                    <el-option :label="$t('general.choose')" value=""></el-option>
                                     <el-option
                                         :key="item.id + item.name"
                                         :label="item.name"
@@ -107,7 +107,8 @@
             :element-loading-text="loading.text"
             :empty-text="emptyText"
             @selection-change="handleSelectionChange"
-            v-loading="loading.state">
+            v-loading="loading.state"
+            @row-click="editLink">
             <el-table-column
                 type="selection"
                 v-if="withCheckSelection"
@@ -116,14 +117,14 @@
 
             <el-table-column
                 :key="column.prop"
-                :label="column.label"
+                :label="$t(column.label)"
                 :prop="column.prop"
                 :width="column.width"
                 v-for="column in headerWithoutActions"/>
 
             <el-table-column
                 :key="column.prop"
-                :label="column.label"
+                :label="$t(column.label)"
                 :width="column.width"
                 v-for="column in headerWithAvatars">
                 
@@ -143,7 +144,7 @@
             
             <el-table-column
                 :key="column.label + key"
-                :label="column.label"
+                :label="$t(column.label)"
                 :width="column.width"
                 v-for="(column, key) in headerWithMultipleProps"
             >
@@ -158,7 +159,7 @@
 
             <el-table-column
                 :key="column.label"
-                :label="column.label"
+                :label="$t(column.label)"
                 :width="column.width"
                 v-for="(column, key) in headerWithCounts">
                 <template slot-scope="scope">
@@ -168,7 +169,7 @@
 
              <el-table-column
                 :key="column.prop"
-                :label="column.label"
+                :label="$t(column.label)"
                 :width="column.width"
                 v-for="(column, key) in headerWithUsers">
                 <template slot-scope="scope">
@@ -205,7 +206,7 @@
             </el-table-column>
             <el-table-column
                 :key="column.prop"
-                :label="column.label"
+                :label="$t(column.label)"
                 :width="column.width"
                 v-for="(column, key) in headerWithBadges">
                 <template slot-scope="scope">
@@ -216,7 +217,7 @@
             </el-table-column>
             <el-table-column
                 :key="column.prop"
-                :label="column.label"
+                :label="$t(column.label)"
                 v-for="(column, key) in headerWithSelect">
                 <template slot-scope="scope">
                     <el-select class="select-icon" :class="column.class" @change="column.select.onChange(scope.row)" v-model="scope.row[column.prop]">
@@ -252,14 +253,14 @@
                             >
                                 <template v-if="action.title == 'Edit'">
                                     <i class="ti-pencil"></i>
-                                    <span>{{action.title}}</span>    
+                                    <span>{{$t(action.title)}}</span>    
                                 </template>
                                 <template v-else-if="action.title == 'Delete'">
                                     <i class="ti-close"></i>
-                                    <span>{{action.title}}</span>    
+                                    <span>{{$t(action.title)}}</span>    
                                 </template>
                                 <template v-else>
-                                    {{action.title}}
+                                    {{$t(action.title)}}
                                 </template>
                             </el-button>
                         </template>
@@ -441,6 +442,7 @@
                 this.search = '';
             },
             fetch(fetchPage, fetchPerPage) {
+                fetchPerPage = 4;
                 const {
                     page = fetchPage,
                     per_page = fetchPerPage,
@@ -585,6 +587,13 @@
                 } finally {
                     filter.remoteSearch = false;
                 }
+            },
+            editLink(row, column, cell, event) {
+                if(column.label === 'Units')
+                {
+                    let building_id = row.id;
+                    this.$router.push({ name: 'adminUnits', query: { page : 1, per_page : 20, building_id : building_id } });
+                }
             }
         },
         watch: {
@@ -599,6 +608,7 @@
             "$route.query": {
                 immediate: true,
                 handler({page, per_page}, prevQuery) {
+                    
                     if (!page || !per_page && prevQuery) {
                         this.page.currPage = 1;
                         this.page.currSize = 20;

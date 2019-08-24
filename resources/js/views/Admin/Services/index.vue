@@ -52,21 +52,21 @@
         data() {
             return {
                 header: [{
-                    label: this.$t('models.service.name'),
+                    label: 'models.service.name',
                     withMultipleProps: true,
                     props: ['name', 'addr', 'cty']
                 }, {
-                    label: this.$t('models.service.contact_details'),
+                    label: 'models.service.contact_details',
                     withMultipleProps: true,
                     props: ['email', 'phone']
                 }, {
-                    label: this.$t('models.building.requests'),
+                    label: 'models.building.requests',
                     withCounts: true,
                 }, {
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        title: this.$t('models.service.edit'),
+                        title: 'models.service.edit',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.provider

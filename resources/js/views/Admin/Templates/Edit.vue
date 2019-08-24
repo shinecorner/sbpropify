@@ -12,7 +12,7 @@
                                       v-model="model.name"></el-input>
                         </el-form-item>
                         <el-form-item>
-                           <select-language :model.sync="language"/>
+                           <select-language :activeLanguage.sync="language"/>
                         </el-form-item>
                         <el-form-item :label="$t('models.template.subject')" :prop="`translations.${language}.subject`"
                                       :rules="validationRules.subject">

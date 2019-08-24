@@ -36,6 +36,7 @@ class TenantSimpleTransformer extends BaseTransformer
             'work_phone' => $model->work_phone,
             'status' => $model->status,
             'tenant_format' => $model->tenant_format,
+            'nation' => $model->nation,
         ];
 
         if ($model->user) {

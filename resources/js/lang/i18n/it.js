@@ -42,6 +42,7 @@ export default {
             "tenants_by_title": "Affittuari per titolo",
             "tenants_by_device": "Affittuari per dispositivo",
             "tenants_by_gender": "Affittuari per sesso",
+            "tenants_by_age": "Tenants by age",
             "actions": "Azioni",
             "requests": {
                 "requests_with_service_providers": "Con i fornitori di servizi",
@@ -152,8 +153,11 @@ export default {
             "activate_account": "Attivare l'account",
             "activate_code": "Attivare il codice",
             "activate_code_required": "Attivare il codice è obbligatorio",
+            "activate_terms_condition_1": "Accetto che i dati sono corretti",
+            "activate_terms_condition_2": "Ho letto i termini e le condizioni d'uso",
             "back": "Indietro",
             "activate": "Attivare",
+            "activate_info": "Se hai ricevuto un codice di attivazione dal tuo padrone di casa, puoi attivare il tuo account qui. Inserite i seguenti dati:",
             "unauthenticated": "Non autenticato",
             "logged_out": "Disconnesso",
             "logged_in": "Loggato",
@@ -161,12 +165,15 @@ export default {
             "server_error": "Errore del server",
             "reset_password": "Reimpostare la password",
             "reset_password_mail": "Inviare la mail di reset della password",
-            "reset_password_mail_sent": "Reimposta la password inviata, controlla la tua casella di posta in arrivo",
+            "reset_password_mail_sent": "Le abbiamo inviato un'e-mail con ulteriori istruzioni. Controlla la tua casella di posta in arrivo.",
             "back_to_login": "Torna al login",
             "forgot_password": "Password dimenticata",
+            "forgot_password_info": "Inserisci l'indirizzo e-mail con cui ti sei registrato qui. Ti invieremo un'e-mail con il tuo nome utente e un link per reimpostare la tua password.",
+            "email_not_registered": "L'indirizzo e-mail inserito non è associato ad un account attivo. Prova con un altro indirizzo e-mail.",
             "remember_me": "Ricordati di me",
             "password": "La password",
-            "change_password": "Cambiare la password",
+            "change_password": "Imposta nuova password",
+            "change_password_info": "Inserisci qui la tua nuova password:",
             "new_password": "Nuova password",
             "old_password": "Vecchia password",
             "new_password_confirmation": "Conferma della nuova password",
@@ -274,7 +281,14 @@ export default {
                 "user_not_tenant": "Questo utente non è inquilino",
                 "invalid_code": "Il codice non è valido",
                 "not_active_tenant": "L'inquilino non è attivo e non può cambiare la password"
-            }
+            },
+            "choose": "Scegliere",
+            "page_not_found": {
+                "title": "C'e' qualcosa che non va qui.",
+                "message": "La pagina richiesta non è stata trovata. Controlla l'URL o vai alla homepage."
+            },
+            "to_homepage": "Alla Homepage",
+            "assignment": "Assegnazione"
         },
         "filters": {
             "header": "Filtri",
@@ -292,7 +306,8 @@ export default {
             "created_from": "Creato da",
             "created_to": "Creato per",
             "services": "Servizi",
-            "tenant": "Tipo inquilini"
+            "tenant": "Inquilino",
+            "roles": "Roles"
         },
         "pagination": {
             "previous": "&laquo; Precedente",
@@ -657,7 +672,7 @@ export default {
                 "serviceRequestCategoryDeleted": "Categoria della richiesta di servizio cancellata",
                 "setting_saved": "impostazioni utente salvate",
                 "setting_deleted": "l'impostazione dell'utente è stata cancellata",
-                "password_reset_request_sent": "Richiesta di reimpostazione password inviata con successo",
+                "password_reset_request_sent": "Le abbiamo inviato un'e-mail con ulteriori istruzioni. Controlla la tua casella di posta in arrivo.",
                 "errors": {
                     "not_found": "Utente non trovato",
                     "setting_not_found": "impostazione utente non trovata",
@@ -822,6 +837,7 @@ export default {
                 "not_found": "Edificio non trovato",
                 "house_rules": "Le regole della casa",
                 "operating_instructions": "Istruzioni per l'uso",
+                "care_instructions": "Istruzioni per la cura",
                 "other": "Altro",
                 "files": "I file",
                 "add_files": "Aggiungere file",
@@ -935,6 +951,7 @@ export default {
                 "assign": "Assegnare",
                 "tenant_assigned": "L'inquilino assegnato",
                 "tenant_unassigned": "Un inquilino non assegnato",
+                "assignment": "Affittuari assegnati",
                 "type": {
                     "label": "Tipo",
                     "apartment": "Appartamento",
@@ -1037,6 +1054,7 @@ export default {
                 "user": "Utente",
                 "delete": "Cancellare",
                 "likes": "Gli piace",
+                "tenants": "Gli inquilini",
                 "views": "Viste",
                 "details": "Pubblicare i dettagli",
                 "published_at": "Pubblicato",
@@ -1089,7 +1107,6 @@ export default {
                     "confirmBtnText": "Ok",
                     "cancelBtnText": "Annulla"
                 },
-                "assignment": "Assegnazione",
                 "assignType": "Tipo",
                 "unassign": "Disassegnare",
                 "assign": "Assegnare",
@@ -1193,6 +1210,7 @@ export default {
                 "required": "Questo campo è obbligatorio",
                 "details": "Dettagli",
                 "buildings": "Edifici",
+                "count_of_buildings": "Conteggio degli edifici",
                 "errors": {
                     "not_found": "Distretto non trovato"
                 }
@@ -1300,6 +1318,7 @@ export default {
                 "internal_notices": "Avvisi interni",
                 "status_changed": "Stato cambiato",
                 "priority_changed": "La priorità è cambiata",
+                "assignment": "Assegnazione di manager/fornitori di servizi",
                 "media": {
                     "added": "Documento ajouté",
                     "removed": "Supporti rimossi",
@@ -1422,7 +1441,8 @@ export default {
                     "internal_notice_not_found": "Avviso interno non trovato"
                 },
                 "requestID": "Richiedi un documento d'identità",
-                "requestCategory": "Richiedi categoria"
+                "requestCategory": "Richiedi categoria",
+                "actions": "Azioni"
             },
             "requestCategory": {
                 "title": "Richiedi categorie",

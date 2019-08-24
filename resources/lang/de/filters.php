@@ -15,5 +15,6 @@ return [
   'created_from' => 'Erstellt vom',
   'created_to' => 'Erstellt bis',
   'services' => 'Partnerfirmen',
-  'tenant' => 'Mieter-Typ',
+  'tenant' => 'Mieter',
+  'roles' => 'Roles'
 ];

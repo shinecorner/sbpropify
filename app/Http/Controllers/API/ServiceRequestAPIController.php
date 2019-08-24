@@ -8,29 +8,36 @@ use App\Criteria\Common\WhereInCriteria;
 use App\Criteria\ServiceRequests\FilterByInternalFieldsCriteria;
 use App\Criteria\ServiceRequests\FilterByPermissionsCriteria;
 use App\Criteria\ServiceRequests\FilterByRelatedFieldsCriteria;
+use App\Criteria\ServiceRequests\FilterNotAssignedCriteria;
+use App\Criteria\ServiceRequests\FilterPendingCriteria;
 use App\Criteria\ServiceRequests\FilterPublicCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\ServiceRequest\AssignRequest;
 use App\Http\Requests\API\ServiceRequest\ChangePriorityRequest;
 use App\Http\Requests\API\ServiceRequest\ChangeStatusRequest;
-use App\Http\Requests\API\ServiceRequest\ConversationRequest;
 use App\Http\Requests\API\ServiceRequest\CreateRequest;
 use App\Http\Requests\API\ServiceRequest\DeleteRequest;
 use App\Http\Requests\API\ServiceRequest\ListRequest;
 use App\Http\Requests\API\ServiceRequest\NotifyProviderRequest;
 use App\Http\Requests\API\ServiceRequest\SeeRequestsCount;
 use App\Http\Requests\API\ServiceRequest\UpdateRequest;
+use App\Models\PropertyManager;
+use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
+use App\Models\ServiceRequestAssignee;
 use App\Repositories\ServiceProviderRepository;
 use App\Repositories\ServiceRequestRepository;
 use App\Repositories\TemplateRepository;
 use App\Repositories\UserRepository;
+use App\Transformers\ServiceRequestAssigneeTransformer;
 use App\Transformers\ServiceRequestTransformer;
 use App\Transformers\TemplateTransformer;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Exception;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 
 /**
@@ -92,6 +99,8 @@ class ServiceRequestAPIController extends AppBaseController
         $this->serviceRequestRepository->pushCriteria(new FilterByInternalFieldsCriteria($request));
         $this->serviceRequestRepository->pushCriteria(new FilterPublicCriteria($request));
         $this->serviceRequestRepository->pushCriteria(new FilterByRelatedFieldsCriteria($request));
+        $this->serviceRequestRepository->pushCriteria(new FilterPendingCriteria($request));
+        $this->serviceRequestRepository->pushCriteria(new FilterNotAssignedCriteria($request));
 
         $getAll = $request->get('get_all', false);
         if ($getAll) {
@@ -110,7 +119,7 @@ class ServiceRequestAPIController extends AppBaseController
                 'comments.user',
                 'providers.address:id,country_id,state_id,city,street,zip',
                 'providers.user',
-                'assignees',
+                'managers.user',
             ])->paginate($perPage);
 
         $serviceRequests->getCollection()->loadCount('allComments');
@@ -218,7 +227,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $serviceRequest->load([
-            'media', 'tenant.user', 'tenant.building', 'category', 'assignees',
+            'media', 'tenant.user', 'tenant.building', 'category', 'managers.user',
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers.user',
         ]);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
@@ -296,7 +305,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $updatedServiceRequest->load([
-            'media', 'tenant.user', 'category', 'assignees',
+            'media', 'tenant.user', 'category', 'managers.user',
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers.user',
         ]);
         $response = (new ServiceRequestTransformer)->transform($updatedServiceRequest);
@@ -534,22 +543,10 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.provider_not_found'));
         }
 
-        $assignees = $uRepo->findWhereIn('id', $request->assignee_ids ?? []);
+        $propertyManagerUsers = $uRepo->findWhereIn('id', $request->assignee_ids ?? []);
 
         $mailDetails = $request->only(['title', 'to', 'cc', 'bcc', 'body']);
-        $this->serviceRequestRepository->notifyProvider($sr, $sp, $assignees, $mailDetails);
-
-        $a = $this->newRequestAudit($sr->id);
-        $a->event = 'provider_notified';
-        $a->new_values = [
-            'provider_id' => $sp->id,
-            'provider_name' => $sp->name,
-            'email_title' => $mailDetails['title'],
-            'emai_cc' => $mailDetails['cc'],
-            'emai_bcc' => $mailDetails['bcc'],
-            'emai_to' => $mailDetails['to'],
-        ];
-        $a->save();
+        $this->serviceRequestRepository->notifyProvider($sr, $sp, $propertyManagerUsers, $mailDetails);
 
         return $this->sendResponse($sr, __('models.request.mail.success'));
     }
@@ -599,12 +596,14 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.provider_not_found'));
         }
 
-        $sr->providers()->sync($sp, false);
+        $sr->providers()->sync([$pid => ['created_at' => now()]], false);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
-            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'assignees');
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user');
 
-        foreach ($sr->assignees as $a) {
-            $sr->conversationFor($a, $sp->user);
+        foreach ($sr->managers as $manager) {
+            if ($manager->user) {
+                $sr->conversationFor($manager->user, $sp->user);
+            }
         }
 
         $sr->conversationFor(Auth::user(), $sp->user);
@@ -623,7 +622,8 @@ class ServiceRequestAPIController extends AppBaseController
      *      path="/requests/{id}/providers/{pid}",
      *      summary="Unassign the provided service provider from the request",
      *      tags={"ServiceRequest"},
-     *      description="Unassign the provided service provider from the request",
+     *      description="use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/delete_requests_assignees__requests_assignee_id_'>/requests-assignees/{requests_assignee_id}</a>",
+     *      deprecated=true,
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -648,21 +648,7 @@ class ServiceRequestAPIController extends AppBaseController
      */
     public function unassignProvider(int $id, int $pid, ServiceProviderRepository $spRepo, AssignRequest $r)
     {
-        $sr = $this->serviceRequestRepository->findWithoutFail($id);
-        if (empty($sr)) {
-            return $this->sendError(__('models.request.errors.not_found'));
-        }
-
-        $sp = $spRepo->findWithoutFail($pid);
-        if (empty($sp)) {
-            return $this->sendError(__('models.request.errors.provider_not_found'));
-        }
-
-        $sr->providers()->detach($sp);
-        $sr->load('media', 'tenant.user', 'category', 'comments.user',
-            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'assignees');
-
-        return $this->sendResponse($sr, __('models.request.detached.service'));
+        return $this->deleteRequestAssignee($pid, $r);
     }
 
     /**
@@ -673,10 +659,10 @@ class ServiceRequestAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/requests/{id}/assignees/{uid}",
-     *      summary="Assign the provided user to the request",
+     *      path="/requests/{id}/users/{user_id}",
+     *      summary="Assign admin user to the request",
      *      tags={"ServiceRequest"},
-     *      description="Assign the provided user to the request",
+     *      description="Assign admin user to the request",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -710,16 +696,127 @@ class ServiceRequestAPIController extends AppBaseController
         if (empty($u)) {
             return $this->sendError(__('models.request.errors.user_not_found'));
         }
+        // @TODO check admin or super admin
 
-        $sr->assignees()->sync($u, false);
+        $sr->users()->sync([$uid => ['created_at' => now()]], false);
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
-            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'assignees');
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user');
 
         foreach ($sr->providers as $p) {
             $sr->conversationFor($p->user, $u);
         }
 
         return $this->sendResponse($sr, __('models.request.attached.user'));
+    }
+
+    /**
+     * @TODO delete this method
+     * @SWG\Post(
+     *      path="/requests/{id}/assignees/{uid}",
+     *      summary="Assign the provided user to the request",
+     *      tags={"ServiceRequest"},
+     *      description="use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/post_requests__id__managers__pmid_'>/requests/{id}/managers/{pmid}</a>",
+     *      deprecated=true,
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/ServiceRequest"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     * @param int $id
+     * @param int $uid
+     * @param UserRepository $uRepo
+     * @param AssignRequest $r
+     * @return mixed
+     */
+    public function assignTmpManager(int $id, int $uid, UserRepository $uRepo, AssignRequest $r)
+    {
+        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        if (empty($sr)) {
+            return $this->sendError(__('models.request.errors.not_found'));
+        }
+
+        $u = $uRepo->findWithoutFail($uid);
+        if (empty($u)) {
+            return $this->sendError(__('models.request.errors.user_not_found'));
+        }
+
+        // @TODO remove,
+        $managerId = PropertyManager::where('user_id', $u->id)->value('id');
+        return $this->assignManager($id, $managerId, $uRepo, $r);
+    }
+
+    /**
+     * @param int $id
+     * @param int $uid
+     * @param UserRepository $uRepo
+     * @param AssignRequest $r
+     * @return Response
+     *
+     * @SWG\Post(
+     *      path="/requests/{id}/managers/{pmid}",
+     *      summary="Assign property manager to the request",
+     *      tags={"ServiceRequest"},
+     *      description="Assign property manager to the request",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/ServiceRequest"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function assignManager(int $id, int $pmid, UserRepository $uRepo, AssignRequest $r)
+    {
+        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        if (empty($sr)) {
+            return $this->sendError(__('models.request.errors.not_found'));
+        }
+
+        // @TODO improve using repository,
+        $manager = PropertyManager::with('user')->find($pmid);
+        if (empty($manager)) {
+            return $this->sendError(__('models.request.errors.user_not_found'));
+        }
+
+        $sr->managers()->sync([$pmid => ['created_at' => now()]], false);
+        $sr->load('media', 'tenant.user', 'category', 'comments.user',
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user');
+
+        foreach ($sr->providers as $p) {
+            $sr->conversationFor($p->user, $manager->user);
+        }
+
+        return $this->sendResponse($sr, __('models.request.attached.managers'));
     }
 
     /**
@@ -733,7 +830,8 @@ class ServiceRequestAPIController extends AppBaseController
      *      path="/requests/{id}/assignees/{uid}",
      *      summary="Unassign the provided user to the request",
      *      tags={"ServiceRequest"},
-     *      description="Unassign the provided user to the request",
+     *      description="use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/delete_requests_assignees__requests_assignee_id_'>/requests-assignees/{requests_assignee_id}</a>",
+     *      deprecated=true,
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -758,20 +856,7 @@ class ServiceRequestAPIController extends AppBaseController
      */
     public function unassignUser(int $id, int $uid, UserRepository $uRepo, AssignRequest $r)
     {
-        $sr = $this->serviceRequestRepository->findWithoutFail($id);
-        if (empty($sr)) {
-            return $this->sendError(__('models.request.errors.not_found'));
-        }
-        $u = $uRepo->findWithoutFail($uid);
-        if (empty($u)) {
-            return $this->sendError(__('models.request.errors.user_not_found'));
-        }
-
-        $sr->assignees()->detach($u);
-        $sr->load('media', 'tenant.user', 'category', 'comments.user',
-            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'assignees');
-
-        return $this->sendResponse($sr, __('models.request.detached.user'));
+        return $this->deleteRequestAssignee($uid, $r);
     }
 
     /**
@@ -798,7 +883,7 @@ class ServiceRequestAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="data",
      *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/ServiceRequest")
+     *                  @SWG\Items(ref="#/definitions/ServiceRequestAssignee")
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -816,9 +901,80 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $assignees = $this->serviceRequestRepository->assignees($sr)->paginate($perPage);
-        return $this->sendResponse($assignees, 'Assignees retrieved successfully');
+        $assignees = $sr->assignees()->paginate($perPage);
+
+        $providerType = array_flip(Relation::$morphMap)[\App\Models\ServiceProvider::class] ?? \App\Models\ServiceProvider::class;
+        $providerIds = $assignees->where('assignee_type', $providerType)->pluck('assignee_id');
+
+        $managerType = array_flip(Relation::$morphMap)[\App\Models\PropertyManager::class] ?? \App\Models\PropertyManager::class;
+        $managerIds = $assignees->where('assignee_type', $managerType)->pluck('assignee_id');
+
+        $raw = DB::raw('(select email from users where users.id = property_managers.user_id) as email, Concat(first_name, " ", last_name) as name');
+        $managers = PropertyManager::select('id', $raw)
+            ->whereIn('id', $managerIds)->get();
+
+        $providers = ServiceProvider::select('id', 'email', 'name')->whereIn('id', $providerIds)->get();
+        foreach ($assignees as $index => $assignee) {
+            $related = null;
+            if ($assignee->assignee_type == $providerType) {
+                $related = $providers->where('id', $assignee->assignee_id)->first();
+            }
+
+            if ($assignee->assignee_type == $managerType) {
+                $related = $managers->where('id', $assignee->assignee_id)->first();
+            }
+
+            $assignee->related = $related;
+        }
+
+        $response = (new ServiceRequestAssigneeTransformer())->transformPaginator($assignees) ;
+        return $this->sendResponse($response, 'Assignees retrieved successfully');
     }
+
+    /**
+     * @SWG\Delete(
+     *      path="/requests-assignees/{requests_assignee_id}",
+     *      summary="Unassign the provider,user or manager to the request",
+     *      tags={"ServiceRequest", "User", "PropertyManager", "ServiceProvider"},
+     *      description="Unassign the provider,user or manager to the request",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="integer",
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @param int $id
+     * @param AssignRequest $request
+     * @return mixed
+     */
+    public function deleteRequestAssignee(int $id, AssignRequest $request)
+    {
+        $requestAssignee = ServiceRequestAssignee::find($id);
+        if (empty($requestAssignee)) {
+            // @TODO fix message
+            return $this->sendError(__('models.request.errors.not_found'));
+        }
+        $requestAssignee->delete();
+
+        return $this->sendResponse($id, __('models.request.detached.' . $requestAssignee->assignee_type));
+    }
+
 
     /**
      * @param int $id

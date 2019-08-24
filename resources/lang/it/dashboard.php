@@ -22,6 +22,7 @@ return [
     'tenants_by_title' => 'Affittuari per titolo',
     'tenants_by_device' => 'Affittuari per dispositivo',
     'tenants_by_gender' => 'Affittuari per sesso',
+    'tenants_by_age' => 'Tenants by age',
     'actions' => 'Azioni',    
     'requests' => [
       'requests_with_service_providers' => 'Con i fornitori di servizi',

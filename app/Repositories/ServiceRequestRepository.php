@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Models\AuditableModel;
+use OwenIt\Auditing\Facades\Auditor;
 use App\Mails\NotifyServiceProvider;
 use App\Models\Comment;
 use App\Models\PropertyManager;
@@ -298,17 +300,17 @@ class ServiceRequestRepository extends BaseRepository
     /**
      * @param ServiceRequest $sr
      * @param ServiceProvider $sp
-     * @param $assignees
+     * @param $propertyManagerUsers
      * @param $mailDetails
      */
-    public function notifyProvider(ServiceRequest $sr, ServiceProvider $sp, $assignees, $mailDetails)
+    public function notifyProvider(ServiceRequest $sr, ServiceProvider $sp, $propertyManagerUsers, $mailDetails)
     {
         $toEmails = [$sp->user->email];
         if (!empty($mailDetails['to'])) {
             $toEmails[] = $mailDetails['to'];
         }
 
-        $ccEmails = $assignees->pluck('email')->all();
+        $ccEmails = $propertyManagerUsers->pluck('email')->all();
 
         if (!empty($mailDetails['cc']) && is_array($mailDetails['cc'])) {
             $ccEmails = array_merge($ccEmails, $mailDetails['cc']);
@@ -321,12 +323,19 @@ class ServiceRequestRepository extends BaseRepository
             ->bcc($bccEmails)
             ->send( new NotifyServiceProvider($sp, $sr, $mailDetails));
 
+        $auditData = [
+            'serviceProvider' => $sp,
+            'propertyManagerUsers' => $propertyManagerUsers,
+            'mailDetails' => $mailDetails
+        ];
+        $sr->registerAuditEvent(AuditableModel::EventProviderNotified, $auditData);
+
         $u = \Auth::user();
         $conv = $sr->conversationFor($u, $sp->user);
         $comment = $mailDetails['title'] . "\n\n" . strip_tags($mailDetails['body']);
         $conv->comment($comment);
-        foreach ($assignees as $assignee) {
-            $conv = $sr->conversationFor($u, $assignee);
+        foreach ($propertyManagerUsers as $user) {
+            $conv = $sr->conversationFor($u, $user);
             if ($conv) {
                 $conv->comment($comment);
             }
@@ -342,27 +351,10 @@ class ServiceRequestRepository extends BaseRepository
         $providers = $sr->providers->map(function($p) {
             return $p->user;
         });
-        foreach (array_merge($providers->all(), $sr->assignees->all()) as $u) {
+
+        foreach (array_merge($providers->all(), $sr->users()->all()) as $u) {
             $u->notify((new RequestDue($sr))->delay($sr->due_date->subHours($beforeHours)));
         }
-    }
-
-    /**
-     * @param ServiceRequest $sr
-     * @return mixed
-     */
-    public function assignees(ServiceRequest $sr)
-    {
-        // Cannot use $sr->providers() and $sr->assignees() because of a bug...
-        $ps = ServiceProvider::select(\DB::raw('id, id as edit_id, name, email, "provider" as type'))
-            ->join('request_provider', 'request_provider.provider_id', '=', 'id')
-            ->where('request_provider.request_id', $sr->id);
-        $as = User::select(\DB::raw('users.id, property_managers.id as edit_id, users.name, users.email, "user" as type'))
-            ->join('request_assignee', 'request_assignee.user_id', '=', 'users.id')
-            ->join('property_managers', 'property_managers.user_id', '=', 'users.id')
-            ->where('request_assignee.request_id', $sr->id);
-
-        return $ps->union($as);
     }
 
     public function deleteRequesetWithUnitIds($ids)

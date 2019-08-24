@@ -15,7 +15,7 @@ use App\Transformers\DistrictTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
-use Prettus\Repository\Criteria\RequestCriteria;
+use App\Criteria\Common\RequestCriteria;
 
 /**
  * Class DistrictController

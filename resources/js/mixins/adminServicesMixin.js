@@ -130,7 +130,8 @@ export default (config = {}) => {
                 assignmentTypes: ['building', 'district'],
                 assignmentType: 'building',
                 toAssign: '',
-                toAssignList: []
+                toAssignList: [],
+                isFormSubmission: false
             };
         },
         computed: {
@@ -172,6 +173,9 @@ export default (config = {}) => {
             },
             async checkavailabilityEmail(rule, value, callback) {
                 let validateObject = this.model;
+
+                if(this.isFormSubmission == true)
+                    return;
                 
                 if(config.mode == 'add' || ( this.original_email != null && this.original_email !== validateObject.email)) {
                     try {
@@ -237,8 +241,10 @@ export default (config = {}) => {
                 }), ServicesTypes, UploadUserAvatarMixin];
 
                 mixin.methods = {
-                    async submit() {
+                    async submit(afterValid = false) {
+                        this.isFormSubmission = true;
                         const valid = await this.form.validate();
+                        this.isFormSubmission = false;
                         if (valid) {
                             this.loading.state = true;
                             try {
@@ -251,6 +257,14 @@ export default (config = {}) => {
                                 displaySuccess(resp);
 
                                 this.form.resetFields();
+                                if (!!afterValid) {
+                                    afterValid(resp);
+                                } else {
+                                    this.$router.push({
+                                        name: 'adminServicesEdit',
+                                        params: {id: resp.data.id}
+                                    })
+                                }
                                 return resp;
                             } catch (err) {
                                 displayError(err);
@@ -274,12 +288,13 @@ export default (config = {}) => {
                 mixin.methods = {
                     submit() {
                         return new Promise((resolve, reject) => {
+                            this.isFormSubmission = true;
                             this.form.validate(async valid => {
                                 if (!valid) {
                                     resolve(false);
                                     return false;
                                 }
-
+                                this.isFormSubmission = false;
                                 this.loading.state = true;
                                 let {...params} = this.model;
 

@@ -42,6 +42,7 @@ export default {
             "tenants_by_title": "Tenants by title",
             "tenants_by_device": "Tenants by device",
             "tenants_by_gender": "Tenants by gender",
+            "tenants_by_age": "Tenants by age",
             "actions": "Actions",
             "requests": {
                 "requests_with_service_providers": "With service providers",
@@ -152,8 +153,11 @@ export default {
             "activate_account": "Activate Account",
             "activate_code": "Activate Code",
             "activate_code_required": "Activate Code is required",
+            "activate_terms_condition_1": "I agree details are correct",
+            "activate_terms_condition_2": "I've read terms and conditions",
             "back": "Back",
             "activate": "Activate",
+            "activate_info": "If you have received an activation code from your landlord, you can activate your account here. Please enter the following data:",
             "unauthenticated": "Unauthenticated",
             "logged_out": "Logged out",
             "logged_in": "Logged in",
@@ -161,12 +165,15 @@ export default {
             "server_error": "Server error",
             "reset_password": "Reset Password",
             "reset_password_mail": "Send reset password mail",
-            "reset_password_mail_sent": "Reset password mail sent, please check your inbox",
+            "reset_password_mail_sent": "We have sent you an e-mail with further instructions. Please check your inbox.",
             "back_to_login": "Go back to login",
             "forgot_password": "Forgot password",
+            "forgot_password_info": "Enter the email address by which you're registered here. We will send you an email with your I username and a link to reset your password.",
+            "email_not_registered": "The e-mail address you entered is not associated with an active account. Try a different email address.",
             "remember_me": "Remember me",
             "password": "Password",
-            "change_password": "Change password",
+            "change_password": "Set new password",
+            "change_password_info": "Please enter your new password here:",
             "new_password": "New password",
             "old_password": "Old password",
             "new_password_confirmation": "New password confirmation",
@@ -274,7 +281,14 @@ export default {
                 "user_not_tenant": "This user is not tenant",
                 "invalid_code": "Code is invalid",
                 "not_active_tenant": "Tenant is not active and can not change password"
-            }
+            },
+            "choose": "Choose",
+            "page_not_found": {
+                "title": "Hmm... something's wrong here.",
+                "message": "The page you requested was not found. Please check the URL or go to the homepage."
+            },
+            "to_homepage": "To Homepage",
+            "assignment": "Assignment"
         },
         "filters": {
             "header": "Filters",
@@ -292,7 +306,8 @@ export default {
             "created_from": "Created from",
             "created_to": "Created to",
             "services": "Services",
-            "tenant": "Type tenants"
+            "tenant": "Tenant",
+            "roles": "Roles"
         },
         "pagination": {
             "previous": "&laquo; Previous",
@@ -657,7 +672,7 @@ export default {
                 "serviceRequestCategoryDeleted": "Service request category deleted",
                 "setting_saved": "user setting saved",
                 "setting_deleted": "user setting deleted",
-                "password_reset_request_sent": "Password Reset Request send successfully",
+                "password_reset_request_sent": "We have sent you an e-mail with further instructions. Please check your inbox.",
                 "errors": {
                     "not_found": "User not found",
                     "setting_not_found": "user setting not found",
@@ -822,6 +837,7 @@ export default {
                 "not_found": "Building not found",
                 "house_rules": "House rules",
                 "operating_instructions": "Operating instructions",
+                "care_instructions": "Care instructions",
                 "other": "Other",
                 "files": "Files",
                 "add_files": "Add files",
@@ -936,6 +952,7 @@ export default {
                 "assign": "Assign",
                 "tenant_assigned": "Tenant assigned",
                 "tenant_unassigned": "Tenant unassigned",
+                "assignment": "Assigned tenants",
                 "type": {
                     "label": "Type",
                     "apartment": "Apartment",
@@ -1039,6 +1056,7 @@ export default {
                 "delete": "Delete",
                 "likes": "Likes",
                 "views": "Views",
+                "tenants": "Tenants",
                 "details": "Post Details",
                 "published_at": "Published",
                 "publish": "Publish",
@@ -1090,7 +1108,6 @@ export default {
                     "confirmBtnText": "Ok",
                     "cancelBtnText": "Cancel"
                 },
-                "assignment": "Assignment",
                 "assignType": "Type",
                 "unassign": "Unassign",
                 "assign": "Assign",
@@ -1194,6 +1211,7 @@ export default {
                 "required": "This field is required",
                 "details": "Details",
                 "buildings": "Buildings",
+                "count_of_buildings": "Count of buildings",
                 "errors": {
                     "not_found": "District not found"
                 }
@@ -1301,6 +1319,7 @@ export default {
                 "internal_notices": "Internal notices",
                 "status_changed": "Status changed",
                 "priority_changed": "Priority changed",
+                "assignment": "Assignment of managers/services providers",
                 "media": {
                     "added": "Document added",
                     "removed": "Document removed",
@@ -1423,7 +1442,8 @@ export default {
                     "internal_notice_not_found": "Internal Notice not found"
                 },
                 "requestID": "Request ID",
-                "requestCategory": "Request Category"
+                "requestCategory": "Request Category",
+                "actions": "Actions"
             },
             "requestCategory": {
                 "title": "Request categories",

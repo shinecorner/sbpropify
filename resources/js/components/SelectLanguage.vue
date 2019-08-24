@@ -1,9 +1,13 @@
 <template>
-    <el-radio-group :value="model" @input="$emit('update:model', $event)">
-        <el-radio-button :label="language.symbol" v-for="language in languages" :key="language.symbol">
-            <span :class="language.flag"></span> {{$t(`general.languages.`+ language.symbol)}}
-        </el-radio-button>
-    </el-radio-group>
+    <el-select id="languageform" :class="activeLanguage == '' ? '' : ' selected'" style="display: block" :value="activeLanguage" @input="$emit('update:activeLanguage', $event)" :placeholder="$t(`general.chooseLanguage`)">
+
+        <template slot="prefix">
+            <span id="languageflag" v-for="(language, index) in activeLanguages" :class="language.flag" :key="index"></span>
+        </template>
+        <el-option :label="language.name" :value="language.symbol" v-for="language in languages" :key="language.symbol">
+            <span :class="language.flag" v-if="showFlag"></span>&nbsp;&nbsp;{{$t(`general.languages.`+ language.symbol)}}
+        </el-option>
+    </el-select>
 </template>
 
 <script>
@@ -11,12 +15,20 @@ export default {
     name: 'selectlanguage',
     data() {
         return {
-            languages: []
+            languages: [],
+            showFlag: true
         }
     },
     props: {
-        model: {
+        activeLanguage: {
             required: true
+        }
+    },
+    computed: {
+        activeLanguages: function () {
+            return this.languages.filter((lang) => {
+                return lang.symbol == this.activeLanguage;
+            })
         }
     },
     mounted() {
@@ -38,7 +50,21 @@ export default {
                 flag: flag
             }
         });
-    }
+    },
+
 }
 </script>
 
+<style lang="less">
+    .crud-view {
+        #languageform.el-input__inner {
+            padding-left: 15px !important;
+        }
+        .selected #languageform.el-input__inner {
+            padding-left: 40px !important;
+        }
+        #languageflag {
+            padding-left: 20px;
+        }
+    }
+</style>

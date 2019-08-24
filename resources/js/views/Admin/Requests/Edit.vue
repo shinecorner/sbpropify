@@ -10,7 +10,7 @@
             <el-form :model="model" label-position="top" label-width="192px" ref="form">
                 <el-row :gutter="20">
                     <el-col :md="12">
-                        <card :loading="loading">
+                        <card :loading="loading" :header="$t('models.request.request_details')">
                             <el-row :gutter="20">
                                 <el-col :md="12">
                                     <el-form-item :label="$t('models.request.category')"
@@ -178,7 +178,7 @@
                     </el-col>
                     <el-col :md="12">
                         <template v-if="$can($permissions.assign.request)">
-                            <card :loading="loading">
+                            <card :loading="loading" :header="$t('models.request.actions')">
                                 <el-row :gutter="10">
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.request.status.label')"
@@ -213,7 +213,7 @@
                                     </el-col>
                                 </el-row>
                             </card>
-                            <card class="mt15" :loading="loading" :header="$t('models.post.assignment')">
+                            <card class="mt15" :loading="loading" :header="$t('models.request.assignment')">
                                 <assignment-by-type
                                     :resetToAssignList="resetToAssignList"
                                     :assignmentType.sync="assignmentType"

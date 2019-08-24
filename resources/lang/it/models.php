@@ -34,7 +34,7 @@ return [
       "serviceRequestCategoryDeleted" => "Categoria della richiesta di servizio cancellata",
       'setting_saved' => "impostazioni utente salvate",
       'setting_deleted' => "l'impostazione dell'utente è stata cancellata",
-      'password_reset_request_sent' => "Richiesta di reimpostazione password inviata con successo", 
+      'password_reset_request_sent' => "Le abbiamo inviato un'e-mail con ulteriori istruzioni. Controlla la tua casella di posta in arrivo.", 
       'errors' => [
         'not_found' => "Utente non trovato",
         'setting_not_found' => "impostazione utente non trovata",        
@@ -220,6 +220,7 @@ return [
       "not_found" => "Edificio non trovato",
       "house_rules" => "Le regole della casa",
       "operating_instructions" => "Istruzioni per l'uso",
+      'care_instructions' => 'Istruzioni per la cura',
       "other" => "Altro",
       "files" => "I file",
       "add_files" => "Aggiungere file",
@@ -347,6 +348,7 @@ return [
       "assign" => "Assegnare",
       "tenant_assigned" => "L'inquilino assegnato",
       "tenant_unassigned" => "Un inquilino non assegnato",
+      'assignment' => 'Affittuari assegnati',
       'type' => 
       [
         "label" => "Tipo",
@@ -470,6 +472,7 @@ return [
       "user" => "Utente",
       "delete" => "Cancellare",
       "likes" => "Gli piace",
+      "tenants" => "Gli inquilini",
       "views" => "Viste",
       "details" => "Pubblicare i dettagli",
       "published_at" => "Pubblicato",
@@ -528,7 +531,6 @@ return [
         "confirmBtnText" => "Ok",
         "cancelBtnText" => "Annulla",
       ],
-      "assignment" => "Assegnazione",
       "assignType" => "Tipo",
       "unassign" => "Disassegnare",
       "assign" => "Assegnare",
@@ -643,6 +645,7 @@ return [
       "required" => "Questo campo è obbligatorio",
       "details" => "Dettagli",
       "buildings" => "Edifici",
+      'count_of_buildings' => 'Conteggio degli edifici',
       'errors' => [
         'not_found' => "Distretto non trovato",        
       ],
@@ -754,6 +757,7 @@ return [
       "internal_notices" => "Avvisi interni",
       "status_changed" => "Stato cambiato",
       "priority_changed" => "La priorità è cambiata",
+      'assignment'=> 'Assegnazione di manager/fornitori di servizi',
       'media' => 
       [
         "added" => "Documento ajouté",
@@ -895,6 +899,7 @@ return [
       ],
       "requestID" => "Richiedi un documento d'identità",
       "requestCategory" => "Richiedi categoria",
+      'actions' => 'Azioni',
     ],
     'requestCategory' => 
     [
@@ -943,7 +948,7 @@ return [
       "requests" => "Richieste",
       "assign" => "Assegnare",
       "unassign" => "Disassegnare",
-      'delete_with_reassign_modal' => 
+      'delete_with_reassign_modal' =>
       [
         "title" => "Cancellare e riassegnare gli edifici",
         "description" => "Il gestore di proprietà selezionato è collegato alle proprietà. È possibile assegnare le proprietà ad un'altra persona. Per fare questo, selezionare un gestore di proprietà dall'elenco",

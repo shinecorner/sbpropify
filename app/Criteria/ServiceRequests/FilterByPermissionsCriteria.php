@@ -51,14 +51,15 @@ class FilterByPermissionsCriteria implements CriteriaInterface
             $vs = [
                 ServiceRequest::VisibilityTenant, $u->tenant->id,
                 ServiceRequest::VisibilityBuilding, $u->tenant->building_id,
-                ServiceRequest::VisibilityDistrict, $u->tenant->building->district_id,
+                ServiceRequest::VisibilityDistrict, $u->tenant->building->district_id, // @TODO check maybe throw exception
             ];
             return $model->whereRaw('(' . implode(' or ', $qs) . ')', $vs);
         }
 
         if ($u->hasRole('service') && $u->serviceProvider) {
-            $model->leftJoin('request_provider', 'request_provider.request_id', '=', 'service_requests.id')
-                ->where('request_provider.provider_id', $u->serviceProvider->id);
+            $model->whereHas('providers', function ($q) use ($u) {
+                $q->where('service_providers.id', $u->serviceProvider->id);
+            });
         }
 
         return $model;

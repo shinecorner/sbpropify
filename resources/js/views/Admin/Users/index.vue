@@ -1,6 +1,6 @@
 <template>
     <div class="services">
-        <heading icon="icon-user" :title="this.$route.query.role == 'administrator' ? $t('models.user.administrator') : $t('models.user.super_admin') " shadow="heavy">
+        <heading icon="icon-user" :title="'Administrators' " shadow="heavy">
             <template v-if="$can($permissions.create.user)">
                 <el-button @click="add" icon="ti-plus" round size="mini" type="primary">{{$t('general.actions.add')}}</el-button>
             </template>
@@ -50,19 +50,19 @@
         data() {
             return {
                 header: [{
-                    label: this.$t('models.user.name'),
+                    label: 'models.user.name',
                     prop: 'name'
                 }, {
-                    label: this.$t('models.user.email'),
+                    label: 'models.user.email',
                     prop: 'email'
                 }, {
-                    label: this.$t('models.user.phone'),
+                    label: 'models.user.phone',
                     prop: 'phone'
                 }, {
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        title: this.$t('models.user.edit_action'),
+                        title: 'models.user.edit_action',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.user
@@ -79,7 +79,18 @@
                         type: 'text',
                         icon: 'el-icon-search',
                         key: 'search'
-                    }
+                    }, {
+                        name: this.$t('filters.roles'),
+                        type: 'select',
+                        key: 'role',
+                        data: [{
+                            id: 'administrator',
+                            name: this.$t('models.user.administrator'),
+                        }, {
+                            id: 'super_admin',
+                            name: this.$t('models.user.super_admin'),
+                        }],
+                    },
                 ]
             },
         },
