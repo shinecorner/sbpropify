@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    import Card from './Card';
+    import Card from 'components/Card';
     import globalFunction from "helpers/globalFunction";
     export default {
         name: 'TenantsStatisticsCard',

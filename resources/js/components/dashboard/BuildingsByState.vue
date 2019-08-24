@@ -26,7 +26,7 @@ import {format, subDays, isBefore, isAfter, parse} from 'date-fns'
 import axios from '@/axios';
 
 import CustomDateRangePicker from 'components/CustomDateRangePicker';
-import chartMixin from '../mixins/adminDashboardChartMixin';
+import chartMixin from 'mixins/adminDashboardChartMixin';
 import ProgressBar from 'components/ProgressBar';
 
 export default {
@@ -123,6 +123,7 @@ export default {
                 }
             })
             .then(function (response) {
+                that.total = 0;
                 that.yData = response.data.data.data.map((val) => {
                     that.total += parseInt(val);
                     return parseFloat(val) || 0;
@@ -156,13 +157,13 @@ export default {
 <style lang="scss" scoped>
     .progress-bar-container {
         .progress-card-body {
-            height: 400px;
+            max-height: 242px;
             overflow: auto;
             padding: 20px;
             .progress-bar {
                 padding-top: 5px;
                 padding-bottom: 5px;
-                padding-right: 30px;
+                padding-right: 50px;
             }
         }
     }
