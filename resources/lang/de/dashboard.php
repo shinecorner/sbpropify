@@ -41,9 +41,9 @@ return [
         'buildings_by_creation_date' => 'Liegenschaften nach Erstellungsdatum',
         'buildings_map' => 'Gebäudekarte',
         'latest_buildings' => 'Neueste Gebäude',
-        'count_of_managers' => 'Anzahl Bewirtschafter',
-        'count_of_tenants' => 'Anzahl Mieter',
-        'count_of_requests' => 'Anzahl Anfragen',
+        'managers' => 'Bewirtschafter',
+        'tenants' => 'Mieter',
+        'requests' => 'Anfragen',
         'go_to_buildings' => 'zu den Liegenschaften',
         'buildings_by_state' => 'Liegenschaften nach Kanton'
     ],

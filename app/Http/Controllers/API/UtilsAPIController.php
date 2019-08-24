@@ -146,6 +146,7 @@ class UtilsAPIController extends AppBaseController
         $result = [
             'status' => ServiceRequest::Status,
             'priority' => ServiceRequest::Priority,
+            'internal_priority' => ServiceRequest::Priority,
             'qualification' => ServiceRequest::Qualification,
             'statusByTenant' => ServiceRequest::StatusByTenant,
             'statusByService' => ServiceRequest::StatusByService,

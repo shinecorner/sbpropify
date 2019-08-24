@@ -47,7 +47,7 @@ export default {
 
             .auth-card {
                 width: 100%;
-                max-width: 920px;
+                max-width: 1100px;
                 background: #fff;
                 display: block;
                 box-shadow: 0 4px 25px 0 rgba(0,0,0,.1);

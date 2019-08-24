@@ -7,7 +7,7 @@
                     <el-tab-pane :label="$t('menu.requests')" name="requests">
                         <el-row type="flex">
                             <el-col :span="24">
-                                <dashboard-statistics-card :totalRequest="totalRequest" :data="reqStatusCount" :avgReqDuration="avgReqDuration" :animationTrigger="activeName"></dashboard-statistics-card>
+                                <statistics-card :totalRequest="totalRequest" :data="reqStatusCount" :avgReqDuration="avgReqDuration" :animationTrigger="activeName"></statistics-card>
                             </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
@@ -62,12 +62,12 @@
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="12">
                                 <el-card class="chart-card" :header="$t('dashboard.requests.property_managers')">
-                                    <dashboard-managers-list type="property-managers"></dashboard-managers-list>
+                                    <managers-list type="property-managers"></managers-list>
                                 </el-card>
                             </el-col>
                             <el-col :span="12">
                                 <el-card class="chart-card" :header="$t('dashboard.requests.service_partners')">
-                                    <dashboard-services-list type="service-partners"></dashboard-services-list>
+                                    <services-list type="service-partners"></services-list>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -89,69 +89,20 @@
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="24">
                                 <el-card class="chart-card" :header="$t('dashboard.buildings.buildings_map')">
-                                    <dashboard-google-map type="buildings"></dashboard-google-map>
+                                    <google-map type="buildings"></google-map>
                                 </el-card>
                             </el-col>
                         </el-row>
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="16">
                                 <el-card class="chart-card" :header="$t('dashboard.buildings.latest_buildings')">
-                                    <dashboard-latest-buildings type="buildings"></dashboard-latest-buildings>
+                                    <latest-buildings type="buildings"></latest-buildings>
                                 </el-card>
                             </el-col>
                             <el-col :span="8">
                                 <el-card class="chart-card col-3" :header="$t('dashboard.buildings.buildings_by_state')">
-                                   <dashboard-buildings-by-state type="buildings_by_state" :startDate="startDates.requests"></dashboard-buildings-by-state>
+                                   <buildings-by-state type="buildings_by_state" :startDate="startDates.requests"></buildings-by-state>
                                     <!-- <chart-pie-and-donut type="buildings_by_state" :cented="true" :colNum="3" :startDate="startDates.requests"></chart-pie-and-donut> -->
-                                </el-card>
-                            </el-col>
-                        </el-row>
-                    </el-tab-pane>
-                    <el-tab-pane :label="$t('menu.news')" name="news">
-                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
-                            <el-col :span="24">
-                                <el-card class="chart-card" :header="$t('dashboard.news_by_creation_date')">
-                                    <chart-stacked-column type="news_by_creation_date" :startDate="startDates.posts"></chart-stacked-column>
-                                </el-card>
-                            </el-col>
-                         </el-row>
-                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
-                            <el-col :span="8">
-                                <el-card class="chart-card col-3" :header="$t('dashboard.news_by_status')">
-                                    <chart-pie-and-donut type="news_by_status" :colNum="3" :startDate="startDates.posts"></chart-pie-and-donut>
-                                </el-card>
-                            </el-col>
-                            <el-col :span="8">
-                                <el-card class="chart-card col-3" :header="$t('dashboard.news_by_type')">
-                                    <chart-pie-and-donut type="news_by_type" :colNum="3" :startDate="startDates.posts"></chart-pie-and-donut>
-                                </el-card>
-                            </el-col>
-                        </el-row>
-                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
-                            <el-col :span="16">
-                                <el-card class="chart-card" :header="$t('dashboard.news.latest_news')">
-                                    <dashboard-latest-news type="latest_news"></dashboard-latest-news>
-                                </el-card>
-                            </el-col>
-                        </el-row>
-                    </el-tab-pane>
-                    <el-tab-pane :label="$t('menu.marketplace')" name="marketplace">
-                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
-                            <el-col :span="24">
-                                <el-card class="chart-card" :header="$t('dashboard.products_by_creation_date')">
-                                    <chart-stacked-column type="products_by_creation_date" :startDate="startDates.products"></chart-stacked-column>
-                                </el-card>
-                            </el-col>
-                         </el-row>
-                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
-                            <el-col :span="8">
-                                <el-card class="chart-card col-3" :header="$t('dashboard.products_by_type')">
-                                    <chart-pie-and-donut type="products_by_type" :colNum="3" :startDate="startDates.products"></chart-pie-and-donut>
-                                </el-card>
-                            </el-col>
-                            <el-col :span="16">
-                                <el-card class="chart-card" :header="$t('dashboard.latest_products')">
-                                    <dashboard-latest-products type="latest_products"></dashboard-latest-products>
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -189,7 +140,7 @@
                         <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                             <el-col :span="16">
                                 <el-card class="chart-card" :header="$t('dashboard.tenants.latest_tenants')">
-                                    <dashboard-latest-tenants type="tenants"></dashboard-latest-tenants>
+                                    <latest-tenants type="tenants"></latest-tenants>
                                 </el-card>
                                 <el-row style="margin-top: 24px" :gutter="20" tyle="flex">
                                     <el-col :span="12">
@@ -215,6 +166,55 @@
                         </el-row>
                      
                     </el-tab-pane>
+                    <el-tab-pane :label="$t('menu.news')" name="news">
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="24">
+                                <el-card class="chart-card" :header="$t('dashboard.news_by_creation_date')">
+                                    <chart-stacked-column type="news_by_creation_date" :startDate="startDates.posts"></chart-stacked-column>
+                                </el-card>
+                            </el-col>
+                         </el-row>
+                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.news_by_status')">
+                                    <chart-pie-and-donut type="news_by_status" :colNum="3" :startDate="startDates.posts"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.news_by_type')">
+                                    <chart-pie-and-donut type="news_by_type" :colNum="3" :startDate="startDates.posts"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                        </el-row>
+                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+                            <el-col :span="16">
+                                <el-card class="chart-card" :header="$t('dashboard.news.latest_news')">
+                                    <latest-news type="latest_news"></latest-news>
+                                </el-card>
+                            </el-col>
+                        </el-row>
+                    </el-tab-pane>
+                    <el-tab-pane :label="$t('menu.marketplace')" name="marketplace">
+                        <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                            <el-col :span="24">
+                                <el-card class="chart-card" :header="$t('dashboard.products_by_creation_date')">
+                                    <chart-stacked-column type="products_by_creation_date" :startDate="startDates.products"></chart-stacked-column>
+                                </el-card>
+                            </el-col>
+                         </el-row>
+                        <el-row :gutter="20" style="margin-bottom: 24px;" type="flex">
+                            <el-col :span="8">
+                                <el-card class="chart-card col-3" :header="$t('dashboard.products_by_type')">
+                                    <chart-pie-and-donut type="products_by_type" :colNum="3" :startDate="startDates.products"></chart-pie-and-donut>
+                                </el-card>
+                            </el-col>
+                            <el-col :span="16">
+                                <el-card class="chart-card" :header="$t('dashboard.latest_products')">
+                                    <latest-products type="latest_products"></latest-products>
+                                </el-card>
+                            </el-col>
+                        </el-row>
+                    </el-tab-pane>
                 </el-tabs>
             </el-col>
         </el-row>
@@ -223,10 +223,10 @@
 
 <script>
     import axios from '@/axios';
-    import DashboardStatisticsCard from 'components/DashboardStatisticsCard';
-    import ChartStackedColumn from 'components/ChartStackedColumn';
-    import ChartPieAndDonut from 'components/ChartPieAndDonut'; 
-    import ChartHeatMap from 'components/ChartHeatMap';
+    import StatisticsCard from 'components/dashboard/StatisticsCard';
+    import ChartStackedColumn from 'components/dashboard/ChartStackedColumn';
+    import ChartPieAndDonut from 'components/dashboard/ChartPieAndDonut'; 
+    import ChartHeatMap from 'components/dashboard/ChartHeatMap';
     import Heading from 'components/Heading';
     import RawGridStatisticsCard from 'components/RawGridStatisticsCard';
     import ColoredStatisticsCard from 'components/ColoredStatisticsCard.vue';
@@ -234,26 +234,26 @@
     import CircularProgressStatisticsCard from 'components/CircularProgressStatisticsCard.vue';
 
     import BuildingsStatisticsCard from 'components/BuildingsStatisticsCard';
-    import ChartColumnLine from 'components/ChartColumnLine';
-    import ChartUsersByDevice from 'components/ChartUsersByDevice';
-    import ChartTenantsByGender from 'components/ChartTenantsByGender';
-    import TenantsStatisticsCard from 'components/TenantsStatisticsCard';
-    import ChartTenantsByAge from 'components/ChartTenantsByAge';
+    import ChartColumnLine from 'components/dashboard/ChartColumnLine';
+    import ChartUsersByDevice from 'components/dashboard/ChartUsersByDevice';
+    import ChartTenantsByGender from 'components/dashboard/ChartTenantsByGender';
+    import TenantsStatisticsCard from 'components/dashboard/TenantsStatisticsCard';
+    import ChartTenantsByAge from 'components/dashboard/ChartTenantsByAge';
 
-    import DashboardLatestProducts from 'components/DashboardLatestProducts';
-    import DashboardGoogleMap from 'components/DashboardGoogleMap';
-    import DashboardLatestBuildings from 'components/DashboardLatestBuildings';
-    import DashboardLatestTenants from 'components/DashboardLatestTenants';
-    import DashboardManagersList from 'components/DashboardManagersList';
-    import DashboardServicesList from 'components/DashboardServicesList';
-    import DashboardLatestNews from 'components/DashboardLatestNews';
-    import DashboardBuildingsByState from 'components/DashboardBuildingsByState';
+    import LatestProducts from 'components/dashboard/LatestProducts';
+    import GoogleMap from 'components/dashboard/GoogleMap';
+    import LatestBuildings from 'components/dashboard/LatestBuildings';
+    import LatestTenants from 'components/dashboard/LatestTenants';
+    import ManagersList from 'components/dashboard/ManagersList';
+    import ServicesList from 'components/dashboard/ServicesList';
+    import LatestNews from 'components/dashboard/LatestNews';
+    import BuildingsByState from 'components/dashboard/BuildingsByState';
 
     export default {
         name: 'AdminDashboard',
         components: {
             Heading,
-            DashboardStatisticsCard,
+            StatisticsCard,
             ColoredStatisticsCard,
             ProgressStatisticsCard,
             CircularProgressStatisticsCard,
@@ -265,14 +265,14 @@
             ChartTenantsByGender,
             ChartUsersByDevice,
             TenantsStatisticsCard,
-            DashboardLatestProducts,
-            DashboardGoogleMap,
-            DashboardLatestBuildings,
-            DashboardLatestTenants,
-            DashboardManagersList,
-            DashboardServicesList,
-            DashboardLatestNews,
-            DashboardBuildingsByState,
+            LatestProducts,
+            GoogleMap,
+            LatestBuildings,
+            LatestTenants,
+            ManagersList,
+            ServicesList,
+            LatestNews,
+            BuildingsByState,
             ChartTenantsByAge
         },
         data() {
@@ -510,6 +510,7 @@
 
             .el-radio-button__inner {
                 padding: 8px 12px;
+                font-weight: 400;
             }
 
             .el-date-editor {
@@ -578,7 +579,8 @@
                     margin-left: 15px;
 
                     .el-tabs__item {
-                        font-size: 16px;
+                        font-size: 15px;
+                        font-weight: 400;
                     }
                 }
             }

@@ -20,11 +20,11 @@
 import VueApexCharts from 'vue-apexcharts'
 import axios from '@/axios';
 
-import chartMixin from '../mixins/adminDashboardChartMixin';
+import chartMixin from 'mixins/adminDashboardChartMixin';
 
-import iconDesktop from '../../img/desktop.png';
-import iconTablet from '../../img/tablet.png';
-import iconMobile from '../../img/mobile.png';
+import iconDesktop from 'img/desktop.png';
+import iconTablet from 'img/tablet.png';
+import iconMobile from 'img/mobile.png';
 
 export default {
   components: {
