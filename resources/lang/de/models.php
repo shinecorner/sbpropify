@@ -880,7 +880,7 @@ return [
       [
         'label' => 'Typ',
         'provider' => 'Dienstleister',
-        'user' => 'Bewirtschafter',
+        'manager' => 'Bewirtschafter',
       ],
       'visibility' => 
       [

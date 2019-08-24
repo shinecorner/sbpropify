@@ -83,7 +83,7 @@ export default (config = {}) => {
             },
         },
         methods: {
-            ...mapActions(['getRequestCategoriesTree', 'getTenants', 'getServices', 'uploadRequestMedia', 'deleteRequestMedia', 'getUsers', 'assignProvider', 'assignManager']),
+            ...mapActions(['getRequestCategoriesTree', 'getTenants', 'getServices', 'uploadRequestMedia', 'deleteRequestMedia', 'getPropertyManagers', 'assignProvider', 'assignManager']),
             async remoteSearchTenants(search) {
                 if (search === '') {
                     this.tenants = [];
@@ -115,16 +115,17 @@ export default (config = {}) => {
                     try {
                         let resp = [];
                         if (this.assignmentType === 'managers') {
-                            resp = await this.getUsers({
+                            resp = await this.getPropertyManagers({
                                 get_all: true,
                                 search,
-                                roles: [ 'manager']
                             });
+                            console.log(resp);
                         } else {
                             resp = await this.getServices({get_all: true, search});
                         }
 
                         this.toAssignList = resp.data;
+                        console.log(this.toAssignList);
                     } catch (err) {
                         displayError(err);
                     } finally {
@@ -143,6 +144,7 @@ export default (config = {}) => {
                 let resp;
 
                 if (this.assignmentType === 'managers') {
+                    console.log(this.toAssign);
                     resp = await this.assignManager({
                         request: this.model.id,
                         toAssignId: this.toAssign
@@ -323,6 +325,8 @@ export default (config = {}) => {
                                 try {
                                     await this.uploadNewMedia(params.id);
                                     const resp = await this.updateRequest(params);
+                                    console.log(resp);
+                                    return;
                                     this.media = [];
                                     this.$set(this.model, 'providers', resp.data.providers);
                                     this.$set(this.model, 'media', resp.data.media);

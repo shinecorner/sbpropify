@@ -387,7 +387,6 @@
                         let resp;
 
                         const payload = {
-                            request: this.model.id,
                             toAssignId: provider.id
                         };
 

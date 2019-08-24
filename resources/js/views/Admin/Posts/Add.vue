@@ -130,10 +130,7 @@
                     </card>
                     <template v-if="model.pinned">
 
-                        <card :loading="loading" class="mt15">
-                            <el-divider class="column-divider" content-position="left">
-                                {{$t('models.post.placeholders.search_provider')}}
-                            </el-divider>
+                        <card :loading="loading" class="mt15" :header="$t('models.post.placeholders.search_provider')">
                             <el-row :gutter="10">
                                 <el-col :lg="24" :xl="24">
                                     <el-select
@@ -160,10 +157,7 @@
                             </el-row>
                         </card>
 
-                        <card :loading="loading" class="mt15">
-                            <el-divider class="column-divider" content-position="left">
-                                {{$t('models.post.pinned')}}
-                            </el-divider>
+                        <card :loading="loading" class="mt15" :header="$t('models.post.pinned')">
                             <el-row :gutter="20">
                                 <el-col :md="12">
                                     <el-form-item :label="$t('models.post.execution_interval.start')"
@@ -175,6 +169,7 @@
                                             type="datetime"
                                             v-model="model.execution_start"
                                             value-format="yyyy-MM-dd HH:mm:ss"
+                                            @change="setPinnedTo"
                                         >
                                         </el-date-picker>
                                     </el-form-item>
@@ -189,7 +184,7 @@
                                             type="datetime"
                                             v-model="model.execution_end"
                                             value-format="yyyy-MM-dd HH:mm:ss"
-                                            v-on:change="setPinnedTo"
+                                            @change="setPinnedTo"
                                         >
                                         </el-date-picker>
                                     </el-form-item>
@@ -253,8 +248,17 @@
                     this.model.status = 1;
                 }
             },
-            setPinnedTo(event) {
-                this.model.pinned_to = this.model.execution_end;
+            setPinnedTo() {
+                console.log(this.model.pinned_to);
+                if(this.model.pinned_to == undefined) {
+                    this.model.pinned_to = this.model.execution_start;
+                }
+                else {
+                    this.model.pinned_to = this.model.execution_end;
+                }
+                console.log('start_date', this.model.execution_end);
+                console.log('end_date', this.model.execution_end);
+                console.log('pinned_to', this.model.pinned_to);
             }
         }
     }

@@ -29,7 +29,6 @@
                             :key="child.title"
                             @click="handleLink($event, childKey, child)"
                             v-for="(child, childKey) in link.children">
-
                         <router-link :to="child.route">
                             <i :class="['icon-right-open', 'icon']"/>
                             <span class="title">{{ child.title }}</span>
@@ -144,7 +143,6 @@
                         }
                     }); 
                 }
-                
             }
         }
     }
