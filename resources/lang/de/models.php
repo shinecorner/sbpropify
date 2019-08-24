@@ -410,7 +410,7 @@ return [
     [
       'add' => 'Adresse hinzufügen',
       'created_at' => 'Datum',
-      'name' => 'Address',
+      'name' => 'Adresse',
       'edit' => 'Öffnen',
       'delete' => 'Entfernen',
       'save' => 'Speichern',

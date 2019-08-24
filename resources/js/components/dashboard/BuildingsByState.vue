@@ -123,6 +123,7 @@ export default {
                 }
             })
             .then(function (response) {
+                that.total = 0;
                 that.yData = response.data.data.data.map((val) => {
                     that.total += parseInt(val);
                     return parseFloat(val) || 0;
@@ -156,7 +157,7 @@ export default {
 <style lang="scss" scoped>
     .progress-bar-container {
         .progress-card-body {
-            height: 400px;
+            max-height: 242px;
             overflow: auto;
             padding: 20px;
             .progress-bar {

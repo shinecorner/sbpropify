@@ -6,13 +6,13 @@
                 <i class="icon-right icon"/>
             </router-link>
         </div>
-        <dashboard-list-table
+        <list-table
             :header="header"
             :items="items"
             :loading="{state: loading}"
             @selectionChanged="selectionChanged"
         >
-        </dashboard-list-table>
+        </list-table>
     </div>
 </template>
 

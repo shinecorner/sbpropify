@@ -51,8 +51,10 @@
     },
     methods: {
       clearMarkers(){
-        for( var i = 0; i < this.markers.length; i++ ){
+        if (this.markerClusterer != null) {
           this.markerClusterer.clearMarkers();
+        }
+        for( var i = 0; i < this.markers.length; i++ ){
           this.markers[i].setMap( null );
         }
       },
@@ -109,6 +111,11 @@
         }).catch(function (error) {
           console.log(error);
         })
+      }
+    },
+    watch:{
+      '$i18n.locale' : function(val) {
+        this.fetchData();
       }
     }
   }

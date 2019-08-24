@@ -1,18 +1,19 @@
 <template>
-    <div class="latest-tenants dashboard-table">
+    <div class="services-list dashboard-table">
         <div class="link-container">
-            <router-link :to="{name: 'adminTenants'}">
-                <span class="title">{{ $t('dashboard.tenants.go_to_tenants') }} </span>
+            <router-link :to="{name: 'adminServices'}">
+                <span class="title">{{ $t('dashboard.requests.go_to_service_partners') }} </span>
                 <i class="icon-right icon"/>
             </router-link>
         </div>
-        <dashboard-list-table
+        <list-table
             :header="header"
             :items="items"
             :loading="{state: loading}"
             @selectionChanged="selectionChanged"
+            :height="250"
         >
-        </dashboard-list-table>
+        </list-table>
     </div>
 </template>
 
@@ -35,20 +36,15 @@
         data() {
             return {
                 header: [{
-                    type: 'tenant-details',
-                    label: 'models.tenant.name',
-                    props: ['name', 'image_url'],
-                    minWidth: '100px'
-                }, {
                     type: 'plain',
-                    label: 'models.address.name',
-                    prop: 'address',
-                    width: 300,
-                },{
-                    type: 'tag',
-                    label: 'models.tenant.status.label',
-                    prop: 'status_label',
-                    classSuffix: 'status_class_suffix',
+                    label: 'models.service.name',
+                    prop: 'name',
+                    minWidth: '150px'
+                }, {
+                    type: 'counts',
+                    minWidth: '150px',
+                    label: 'models.service.requests',
+                    
                 }, {
                     type: 'actions',
                     label: 'dashboard.actions',
@@ -56,25 +52,20 @@
                     actions: [ 
                         {
                             type: 'default',
-                            title: 'models.tenant.edit',
+                            title: 'models.service.edit',
                             onClick: this.edit,
                             permissions: [
-                                this.$permissions.update.tenant
+                                this.$permissions.update.provider
                             ]
                         }
                     ]
                 }],
             };
         },
-        computed: {
-            tenantConstants() {
-                return this.$store.getters['application/constants'].tenants;
-            },
-        },
         methods: {
             edit({id}) {
                 this.$router.push({
-                    name: 'adminTenantsEdit',
+                    name: 'adminServicesEdit',
                     params: {
                         id
                     }
@@ -82,17 +73,18 @@
             },
             fetchData() {
               let that = this;
-              let url = 'tenants/latest';
+              let url = 'services?get_all=true&has_req=1';
               return axios.get(url)
               .then(function (response) {
-                const items = response.data.data.map(item => {
-                  item.status_label = `models.tenant.status.${that.tenantConstants.status[item.status]}`;
-                  item.name = item.first_name + ' ' + item.last_name;
-                  item.address = item.address? item.address['street'] + ' ' + item.address['street_nr']:'';
-                  item.status_class_suffix = that.tenantConstants.status[item.status];
-                  return item;
+                that.items = response.data.data.map((item) => {
+                    item.requests_count = item.requests_received_count
+                                        + item.requests_assigned_count
+                                        + item.requests_in_processing_count
+                                        + item.requests_reactivated_count
+                                        + item.requests_done_count
+                                        + item.requests_archived_count;
+                    return item;
                 });
-                that.items = items;
               }).catch(function (error) {
                   console.log(error);
               })

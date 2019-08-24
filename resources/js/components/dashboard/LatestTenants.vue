@@ -1,21 +1,18 @@
 <template>
-    <div class="managers-list dashboard-table">
+    <div class="latest-tenants dashboard-table">
         <div class="link-container">
-            <router-link :to="{name: 'adminPropertyManagers'}">
-                <div @click="searchroute">
-                    <span class="title">{{ $t('dashboard.requests.go_to_property_managers') }} </span>
-                    <i class="icon-right icon"/>
-                </div>
+            <router-link :to="{name: 'adminTenants'}">
+                <span class="title">{{ $t('dashboard.tenants.go_to_tenants') }} </span>
+                <i class="icon-right icon"/>
             </router-link>
         </div>
-        <dashboard-list-table
+        <list-table
             :header="header"
             :items="items"
             :loading="{state: loading}"
             @selectionChanged="selectionChanged"
-            :height="250"
         >
-        </dashboard-list-table>
+        </list-table>
     </div>
 </template>
 
@@ -38,35 +35,46 @@
         data() {
             return {
                 header: [{
-                    type: 'plain',
-                    label: 'models.propertyManager.name',
-                    prop: 'name',
-                    minWidth: '150px'
+                    type: 'tenant-details',
+                    label: 'models.tenant.name',
+                    props: ['name', 'image_url'],
+                    minWidth: '100px'
                 }, {
-                    type: 'counts',
-                    minWidth: '150px',
-                    label: 'models.propertyManager.requests',
+                    type: 'plain',
+                    label: 'models.address.name',
+                    prop: 'address',
+                    width: 300,
+                },{
+                    type: 'tag',
+                    label: 'models.tenant.status.label',
+                    prop: 'status_label',
+                    classSuffix: 'status_class_suffix',
                 }, {
                     type: 'actions',
                     label: 'dashboard.actions',
-                    width: 100,
+                    width: 120,
                     actions: [ 
                         {
                             type: 'default',
-                            title: 'models.propertyManager.edit',
+                            title: 'models.tenant.edit',
                             onClick: this.edit,
                             permissions: [
-                                this.$permissions.update.propertyManager
+                                this.$permissions.update.tenant
                             ]
                         }
                     ]
                 }],
             };
         },
+        computed: {
+            tenantConstants() {
+                return this.$store.getters['application/constants'].tenants;
+            },
+        },
         methods: {
             edit({id}) {
                 this.$router.push({
-                    name: 'adminPropertyManagersEdit',
+                    name: 'adminTenantsEdit',
                     params: {
                         id
                     }
@@ -74,29 +82,20 @@
             },
             fetchData() {
               let that = this;
-              let url = 'propertyManagers?get_all=true&has_req=1';
+              let url = 'tenants/latest';
               return axios.get(url)
               .then(function (response) {
                 const items = response.data.data.map(item => {
+                  item.status_label = `models.tenant.status.${that.tenantConstants.status[item.status]}`;
                   item.name = item.first_name + ' ' + item.last_name;
-                  item.requests_count = item.requests_received_count
-                                        + item.requests_assigned_count
-                                        + item.requests_in_processing_count
-                                        + item.requests_reactivated_count
-                                        + item.requests_done_count
-                                        + item.requests_archived_count;
+                  item.address = item.address? item.address['street'] + ' ' + item.address['street_nr']:'';
+                  item.status_class_suffix = that.tenantConstants.status[item.status];
                   return item;
                 });
                 that.items = items;
               }).catch(function (error) {
                   console.log(error);
               })
-            },
-            searchroute() {
-                while( document.querySelector('.content .is-active') != null) 
-                {
-                    document.querySelector('.content .is-active').classList.remove('is-active'); 
-                }
             }
         },
         created() {

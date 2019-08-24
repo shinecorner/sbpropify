@@ -12,7 +12,7 @@
         >
             <el-table-column
                 :key="column.prop"
-                :label="$t(column.label)"
+                :label="column.type == 'actions' ? '' : $t(column.label)"
                 :width="column.width"
                 :min-width="column.minWidth"
                 v-for="column in header"
