@@ -802,14 +802,18 @@ return [
 				],
 			'category_options' =>
 				[
+					'disturbance' => 'Störung',
 					'defect' => 'Defekt/Mangel',
 					'order_documents' => 'Unterlagen bestellen',
 					'order_a_payment_slip' => 'Einzahlungsschein(e) bestellen',
 					'questions_about_the_tenancy' => 'Fragen zum Mietverhältnis',
+					'other' => 'Sonstiges',
 					'environment' => 'Umgebung',
 					'house' => 'Haus',
 					'apartment' => 'Wohnung',
-					'other' => 'Sonstiges',
+					'environment' => 'Umgebung',
+					'house' => 'Haus',
+					'apartment' => 'Wohnung'
 				],
 			'placeholders' =>
 				[
