@@ -34,6 +34,7 @@ class ChangePriorityRequest extends APIRequest
 
         $rules = [
             'priority' => 'required|integer' . $validValues,
+            'internal_priority' => 'integer' . $validValues,
         ];
 
         return $rules;
