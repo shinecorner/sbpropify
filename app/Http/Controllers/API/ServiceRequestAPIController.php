@@ -169,7 +169,7 @@ class ServiceRequestAPIController extends AppBaseController
     public function store(CreateRequest $request)
     {
         $input = $request->all();
-
+        $input['internal_priority'] = $input['internal_priority'] ?? $input['priority'];
         $serviceRequest = $this->serviceRequestRepository->create($input);
         $this->serviceRequestRepository->notifyNewRequest($serviceRequest);
         if (isset($input['due_date'])) {
