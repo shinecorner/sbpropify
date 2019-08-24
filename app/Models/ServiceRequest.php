@@ -191,6 +191,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'description',
         'status',
         'priority',
+        'internal_priority',
         'due_date',
         'solved_date',
         'qualification',
@@ -212,6 +213,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'description' => 'string',
         'status' => 'integer',
         'priority' => 'integer',
+        'internal_priority' => 'integer',
         'due_date' => 'date',
         'solved_date' => 'date',
         'qualification' => 'integer',
@@ -225,6 +227,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'title',
         'status',
         'priority',
+        'internal_priority',
         'qualification',
         'due_date',
         'visibility',
@@ -251,6 +254,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'title' => 'required|string',
         'description' => 'required|string',
         'priority' => 'required|integer',
+        'internal_priority' => 'integer',
         'qualification' => 'required|integer',
         'due_date' => 'required|date',
         'category_id' => 'required|integer',
@@ -268,6 +272,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'description' => 'required|string',
         'category_id' => 'required|integer',
         'priority' => 'required|integer',
+        'internal_priority' => 'integer',
         'visibility' => 'required|integer',
     ];
 
@@ -280,6 +285,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'title' => 'string',
         'description' => 'string',
         'priority' => 'integer',
+        'internal_priority' => 'integer',
         'qualification' => 'integer',
         'status' => 'integer',
         'due_date' => 'date',
@@ -297,6 +303,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'description' => 'string',
         'status' => 'integer',
         'priority' => 'required|integer',
+        'internal_priority' => 'integer',
         'visibility' => 'required|integer',
     ];
 
@@ -556,6 +563,10 @@ class ServiceRequest extends AuditableModel implements HasMedia
     public function getPriorityStrAttribute()
     {
         return self::Priority[$this->priority];
+    }
+    public function getInternalPriorityStrAttribute()
+    {
+        return self::Priority[$this->internal_priority];
     }
 
     public function getAllPeopleAttribute()
