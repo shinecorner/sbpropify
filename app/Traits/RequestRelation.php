@@ -4,42 +4,13 @@ namespace App\Traits;
 
 
 use App\Models\ServiceRequest;
+use Illuminate\Support\Str;
 
 trait RequestRelation
 {
     public function requests()
     {
         return $this->morphToMany(ServiceRequest::class, 'assignee', 'request_assignees', 'assignee_id', 'request_id');
-    }
-
-    public function requestsReceived()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusReceived);
-    }
-
-    public function requestsInProcessing()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusInProcessing);
-    }
-
-    public function requestsAssigned()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusAssigned);
-    }
-
-    public function requestsDone()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusDone);
-    }
-
-    public function requestsReactivated()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusReactivated);
-    }
-
-    public function requestsArchived()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusArchived);
     }
 
     public function pendingRequests()
@@ -52,4 +23,15 @@ trait RequestRelation
         return $this->requests()->whereIn('service_requests.status', ServiceRequest::SolvedStatuses);
     }
 
+    public function __call($name, $arguments)
+    {
+        if (Str::startsWith($name, 'requests')) {
+            $status = substr($name, strlen('requests'));
+            $statusFullName = ServiceRequest::class . '::Status' . $status;
+            if (defined($statusFullName)) {
+                return $this->requests()->where('service_requests.status', constant($statusFullName));
+            }
+        }
+        return parent::__call($name, $arguments);
+    }
 }
