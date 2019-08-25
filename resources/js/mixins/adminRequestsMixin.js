@@ -119,13 +119,11 @@ export default (config = {}) => {
                                 get_all: true,
                                 search,
                             });
-                            console.log(resp);
                         } else {
                             resp = await this.getServices({get_all: true, search});
                         }
 
                         this.toAssignList = resp.data;
-                        console.log(this.toAssignList);
                     } catch (err) {
                         displayError(err);
                     } finally {
@@ -144,7 +142,6 @@ export default (config = {}) => {
                 let resp;
 
                 if (this.assignmentType === 'managers') {
-                    console.log(this.toAssign);
                     resp = await this.assignManager({
                         request: this.model.id,
                         toAssignId: this.toAssign
@@ -321,17 +318,15 @@ export default (config = {}) => {
                                 }
 
                                 this.loading.state = true;
-                                let {providers, assignees, ...params} = this.model;
+                                let {service_providers, property_managers, ...params} = this.model;
+                                
                                 try {
                                     await this.uploadNewMedia(params.id);
                                     const resp = await this.updateRequest(params);
-                                    console.log(this.model.priority);
-                                    console.log(resp);
-                                    return;
                                     this.media = [];
-                                    this.$set(this.model, 'providers', resp.data.providers);
+                                    this.$set(this.model, 'service_providers', resp.data.service_providers);
                                     this.$set(this.model, 'media', resp.data.media);
-                                    this.$set(this.model, 'assignees', resp.data.assignees);
+                                    this.$set(this.model, 'property_managers', resp.data.property_managers);
                                     displaySuccess(resp);
                                     resolve(true);
                                 } catch (err) {

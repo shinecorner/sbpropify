@@ -35,7 +35,10 @@ export default (config = {}) => {
                     user_id: '',
                     pinned: false,
                     notify_email: false,
-                    category: ''
+                    category: '',
+                    pinned_to: null,
+                    execution_start: null,
+                    execution_end: null,
                 },
                 validationRules: {
                     content: [{

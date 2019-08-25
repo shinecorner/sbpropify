@@ -169,7 +169,6 @@
                                             type="datetime"
                                             v-model="model.execution_start"
                                             value-format="yyyy-MM-dd HH:mm:ss"
-                                            @change="setPinnedTo"
                                         >
                                         </el-date-picker>
                                     </el-form-item>
@@ -248,17 +247,8 @@
                     this.model.status = 1;
                 }
             },
-            setPinnedTo() {
-                console.log(this.model.pinned_to);
-                if(this.model.pinned_to == undefined) {
-                    this.model.pinned_to = this.model.execution_start;
-                }
-                else {
-                    this.model.pinned_to = this.model.execution_end;
-                }
-                console.log('start_date', this.model.execution_end);
-                console.log('end_date', this.model.execution_end);
-                console.log('pinned_to', this.model.pinned_to);
+            setPinnedTo(val) {
+                this.$set(this.model, 'pinned_to', val)
             }
         }
     }
