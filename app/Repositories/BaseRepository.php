@@ -59,5 +59,6 @@ abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
     public function scope($scopeName)
     {
         $this->model = $this->model->{$scopeName}();
+        return $this;
     }
 }

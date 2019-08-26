@@ -35,14 +35,20 @@ trait RequestRelation
 
     public function getStatusRelationCounts()
     {
-        $withCount = [];
+        $statusCounts = [];
+        $attributes = $this->getAttributes();
+
         foreach (ServiceRequest::Status as $value) {
-            $withCount[] = 'requests_' . $value . '_count';
+            $attribute = 'requests_' . $value . '_count';
+            $statusCounts[$attribute] = $attributes[$attribute] ?? 0;
         }
 
-        $attributes = $this->getAttributes();
-        $statusCounts = collect($attributes)->only($withCount)->all();
-        $statusCounts['requests_count'] = array_sum($statusCounts);
+        if (key_exists('requests_count', $attributes)) {
+            $statusCounts['requests_count'] = $this->requests_count;
+        } else {
+            $statusCounts['requests_count'] = array_sum($statusCounts);
+        }
+
 
         if (key_exists('solved_requests_count', $attributes)) {
             $statusCounts['solved_requests_count'] = $this->solved_requests_count;

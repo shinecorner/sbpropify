@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Criteria\Buildings\FilterByRelatedFieldsCriteria;
 use App\Criteria\Buildings\ExcludeIdsCriteria;
+use App\Criteria\Common\HasRequestCriteria;
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\Posts\FilterByBuildingCriteria;
 use App\Http\Controllers\AppBaseController;
@@ -121,6 +122,11 @@ class BuildingAPIController extends AppBaseController
         $this->buildingRepository->pushCriteria(new ExcludeIdsCriteria($request));
         $this->buildingRepository->pushCriteria(new LimitOffsetCriteria($request));
 
+        $hasRequest = $request->get('has_req', false);
+        if ($hasRequest) {
+            $this->buildingRepository->pushCriteria(new HasRequestCriteria());
+        }
+
         $getAll = $request->get('get_all', false);
         if ($getAll) {
             $buildings = $this->buildingRepository->with('address.state')->get();
@@ -128,26 +134,18 @@ class BuildingAPIController extends AppBaseController
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $buildings = $this->buildingRepository->with(
-            [
+        $buildings = $this->buildingRepository->with([
                 'address.state',
                 'serviceProviders',
                 'tenants.user',
                 'propertyManagers',
-            ])->withCount(
-            [
+            ])->withCount([
                 'units',
                 'propertyManagers',
                 'tenants',
-                'requests',
-                'requestsReceived',
-                'requestsInProcessing',
-                'requestsAssigned',
-                'requestsDone',
-                'requestsReactivated',
-                'requestsArchived',
-            ]
-        )->paginate($perPage);
+            ])
+            ->scope('allRequestStatusCount')
+            ->paginate($perPage);
 
         $response = (new BuildingTransformer)->transformPaginator($buildings);
         return $this->sendResponse($response, 'Buildings retrieved successfully');
@@ -697,6 +695,7 @@ class BuildingAPIController extends AppBaseController
         try {
             $currentManagers = $building->propertyManagers()->pluck('property_managers.id')->toArray();
             $newManagers = array_diff($managersIds, $currentManagers);
+            dd($currentManagers, $managersIds, $newManagers);
 
             $building->propertyManagers()->attach($newManagers);
         } catch (\Exception $e) {
