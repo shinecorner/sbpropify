@@ -43,6 +43,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::put('/users/{id}', 'UserAPIController@update')->name('users.update');
 
     Route::delete('/users/{id}', 'UserAPIController@destroy')->name('users.destroy');
+    Route::post('/users/deletewithids', 'UserAPIController@destroyWithIds')->name('users.destroyWithIds');
 
     // Tenants
     Route::get('/tenants', 'TenantAPIController@index')->name('tenants');
@@ -64,6 +65,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::put('/tenants/{id}/status', 'TenantAPIController@changeStatus')->name('tenants.changeStatus');
 
     Route::delete('/tenants/{id}', 'TenantAPIController@destroy')->name('tenants.destroy');
+    Route::post('/tenants/deletewithids', 'TenantAPIController@destroyWithIds')->name('tenants.destroyWithIds');
     Route::delete('/tenants/{id}/media/{media_id}', 'MediaAPIController@tenantDestroy')->name('tenants.media.destroy');
 
     // Location
@@ -107,6 +109,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::put('/units/{id}', 'UnitAPIController@update')->name('units.update');
 
     Route::delete('/units/{id}', 'UnitAPIController@destroy')->name('units.destroy');
+    Route::post('/units/deletewithids', 'UnitAPIController@destroyWithIds')->name('units.destroyWithIds');
 
     Route::post('/units/{id}/assignees/{assignee_id}', 'UnitAPIController@assignTenant');
     Route::delete('/units/{id}/assignees/{assignee_id}', 'UnitAPIController@unassignTenant');
@@ -122,6 +125,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('/services', 'ServiceProviderAPIController@store')->name('services.store');
     Route::put('/services/{id}', 'ServiceProviderAPIController@update')->name('services.update');
     Route::delete('/services/{id}', 'ServiceProviderAPIController@destroy')->name('services.destroy');
+    Route::post('/services/deletewithids', 'ServiceProviderAPIController@destroyWithIds')->name('services.destroyWithIds');
     Route::post('/services/{id}/districts/{district_id}', 'ServiceProviderAPIController@assignDistrict');
     Route::delete('/services/{id}/districts/{district_id}', 'ServiceProviderAPIController@unassignDistrict');
     Route::post('/services/{id}/buildings/{building_id}', 'ServiceProviderAPIController@assignBuilding');
@@ -134,9 +138,11 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('/districts', 'DistrictAPIController@store')->name('services.store');
     Route::put('/districts/{id}', 'DistrictAPIController@update')->name('services.update');
     Route::delete('/districts/{id}', 'DistrictAPIController@destroy')->name('services.destroy');
+    Route::post('/districts/deletewithids', 'DistrictAPIController@destroyWithIds')->name('districts.destroyWithIds');
 
     // Posts
     Route::resource('posts', 'PostAPIController');
+    Route::post('/posts/deletewithids', 'PostAPIController@destroyWithIds')->name('posts.destroyWithIds');
     Route::post('posts/{id}/publish', 'PostAPIController@publish')->name('posts.publish');
     Route::post('posts/{id}/like', 'PostAPIController@like')->name('posts.like');
     Route::post('posts/{id}/unlike', 'PostAPIController@unlike')->name('posts.unlike');
@@ -194,6 +200,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::put('/requests/{id}/status', 'ServiceRequestAPIController@changeStatus')->name('requests.changeStatus');
     Route::put('/requests/{id}/priority', 'ServiceRequestAPIController@changePriority')->name('requests.changePriority');
     Route::delete('/requests/{id}', 'ServiceRequestAPIController@destroy')->name('requests.destroy');
+    Route::post('/requests/deletewithids', 'ServiceRequestAPIController@destroyWithIds')->name('requests.destroyWithIds');
     Route::delete('/requests/{id}/media/{media_id}', 'MediaAPIController@serviceRequestDestroy')->name('requests.media.destroy');
 
     Route::get('/requests/{id}/assignees', 'ServiceRequestAPIController@getAssignees');
@@ -218,6 +225,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('products/{id}/unlike', 'ProductAPIController@unlike')->name('products.unlike');
     Route::post('products/{id}/media', 'MediaAPIController@productUpload')->name('products.media.upload');
     Route::delete('products/{id}/media/{media_id}', 'MediaAPIController@productDestroy')->name('products.media.destroy');
+    Route::post('/products/deletewithids', 'ProductAPIController@destroyWithIds')->name('products.destroyWithIds');
     Route::post('products/{id}/comments', 'CommentAPIController@storeProductComment')->name('products.store.comment');
     Route::post('products/{id}/publish', 'ProductAPIController@publish')->name('products.publish');
 

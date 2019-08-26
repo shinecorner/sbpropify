@@ -32,7 +32,13 @@ export default {
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-
+    deleteUserWithIds({}, payload) {        
+        return new Promise((resolve, reject) => {
+            axios.post(`users/deletewithids`, {ids: _.map(payload, 'id')}).then((resp) => {                
+                resolve(resp.data);
+            }).catch(({response: {data: err}}) => reject(err))
+        });
+    },
     me({dispatch, commit}) {
         return new Promise((resolve, reject) =>
             axios.get('/users/me').then(({data: r}) => {

@@ -352,7 +352,16 @@ class ProductAPIController extends AppBaseController
 
         return $this->sendResponse($id, __('models.product.deleted'));
     }
-
+    public function destroyWithIds(Request $request){
+        $ids = $request->get('ids');
+        try{
+            Product::destroy($ids);
+        }
+        catch (\Exception $e) {
+            return $this->sendError(__('models.product.errors.deleted') . $e->getMessage());
+        }
+        return $this->sendResponse($ids, __('models.product.deleted'));
+    }
     /**
      * @return Response
      *
