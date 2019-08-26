@@ -759,6 +759,7 @@ return [
       'status_changed' => 'Status geändert',
       'priority_changed' => 'Priorität geändert',
       'assignment'=> 'Beauftragung von Managern/Dienstleistern',
+      'last_updated' => 'Last Updated',
       'media' => 
       [
         'added' => 'Dokument hinzugefügt',

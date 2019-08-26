@@ -758,6 +758,7 @@ return [
       "status_changed" => "Le statut a changé",
       "priority_changed" => "Priorité modifiée",
       'assignment'=> 'Affectation de gestionnaires/fournisseurs de services',
+      'last_updated' => 'Last Updated',
       'media' => 
       [
         "added" => "Document ajouté",

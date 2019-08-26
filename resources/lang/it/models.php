@@ -758,6 +758,7 @@ return [
       "status_changed" => "Stato cambiato",
       "priority_changed" => "La priorità è cambiata",
       'assignment'=> 'Assegnazione di manager/fornitori di servizi',
+      'last_updated' => 'Last Updated',
       'media' => 
       [
         "added" => "Documento ajouté",
