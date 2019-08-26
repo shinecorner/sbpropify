@@ -12,7 +12,7 @@
         >
             <el-table-column
                 :key="column.prop"
-                :label="column.label"
+                :label="column.type == 'actions' ? '' : $t(column.label)"
                 :width="column.width"
                 :min-width="column.minWidth"
                 v-for="column in header"
@@ -117,7 +117,7 @@
                         :class="`tag-${scope.row[column.classSuffix]}`"
                         :size="column.size" class="btn-badge"
                     >
-                        {{ scope.row[column.prop] }}
+                        {{ $t(scope.row[column.prop]) }}
                     </el-tag>
 
                     <el-select
@@ -153,12 +153,12 @@
                                 size="mini"
                                 class="default"
                             >
-                                <template v-if="action.title == 'Edit'">
+                                <template v-if="action.title.indexOf('edit') !== -1">
                                     <i class="ti-pencil"></i>
-                                    <span>{{action.title}}</span>    
+                                    <span>{{ $t(action.title) }}</span>    
                                 </template>
                                 <template v-else>
-                                    {{action.title}}
+                                    {{ $t(action.title) }}
                                 </template>
                             </el-button>
                         </template>

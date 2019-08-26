@@ -41,6 +41,7 @@ class ServiceRequestRepository extends BaseRepository
         'description' => 'like',
         'status' => 'like',
         'priority' => 'like',
+        'internal_priority' => 'like',
         'due_date' => '=',
         'solved_date' => '>=',
         'created_at' => '>=',
@@ -125,6 +126,7 @@ class ServiceRequestRepository extends BaseRepository
             $attr['category_id'] = $attributes['category_id'];
             $attr['visibility'] = $attributes['visibility'];
             $attr['priority'] = $attributes['priority'];
+            $attr['internal_priority'] = $attributes['internal_priority'] ?? $attributes['priority'];
             $attr['tenant_id'] = $user->tenant->id;
             $attr['unit_id'] = $user->tenant->unit_id;
             $attr['status'] = ServiceRequest::StatusReceived;
@@ -177,6 +179,11 @@ class ServiceRequestRepository extends BaseRepository
             $attr['title'] = $attributes['title'];
             $attr['description'] = $attributes['description'];
             $attr['priority'] = $attributes['priority'];
+
+            if (isset($attributes['internal_priority'])) {
+                $attr['internal_priority'] = $attributes['internal_priority'];
+            }
+
             $attr['qualification'] = $attributes['qualification'];
             $attr['status'] = $attributes['status'];
             $attr['category_id'] = $attributes['category_id'];
@@ -300,17 +307,17 @@ class ServiceRequestRepository extends BaseRepository
     /**
      * @param ServiceRequest $sr
      * @param ServiceProvider $sp
-     * @param $assignees
+     * @param $propertyManagerUsers
      * @param $mailDetails
      */
-    public function notifyProvider(ServiceRequest $sr, ServiceProvider $sp, $assignees, $mailDetails)
+    public function notifyProvider(ServiceRequest $sr, ServiceProvider $sp, $propertyManagerUsers, $mailDetails)
     {
         $toEmails = [$sp->user->email];
         if (!empty($mailDetails['to'])) {
             $toEmails[] = $mailDetails['to'];
         }
 
-        $ccEmails = $assignees->pluck('email')->all();
+        $ccEmails = $propertyManagerUsers->pluck('email')->all();
 
         if (!empty($mailDetails['cc']) && is_array($mailDetails['cc'])) {
             $ccEmails = array_merge($ccEmails, $mailDetails['cc']);
@@ -325,7 +332,7 @@ class ServiceRequestRepository extends BaseRepository
 
         $auditData = [
             'serviceProvider' => $sp,
-            'assignees' => $assignees,
+            'propertyManagerUsers' => $propertyManagerUsers,
             'mailDetails' => $mailDetails
         ];
         $sr->registerAuditEvent(AuditableModel::EventProviderNotified, $auditData);
@@ -334,8 +341,8 @@ class ServiceRequestRepository extends BaseRepository
         $conv = $sr->conversationFor($u, $sp->user);
         $comment = $mailDetails['title'] . "\n\n" . strip_tags($mailDetails['body']);
         $conv->comment($comment);
-        foreach ($assignees as $assignee) {
-            $conv = $sr->conversationFor($u, $assignee);
+        foreach ($propertyManagerUsers as $user) {
+            $conv = $sr->conversationFor($u, $user);
             if ($conv) {
                 $conv->comment($comment);
             }
@@ -351,27 +358,10 @@ class ServiceRequestRepository extends BaseRepository
         $providers = $sr->providers->map(function($p) {
             return $p->user;
         });
-        foreach (array_merge($providers->all(), $sr->assignees->all()) as $u) {
+
+        foreach (array_merge($providers->all(), $sr->managers()->get()->all()) as $u) {
             $u->notify((new RequestDue($sr))->delay($sr->due_date->subHours($beforeHours)));
         }
-    }
-
-    /**
-     * @param ServiceRequest $sr
-     * @return mixed
-     */
-    public function assignees(ServiceRequest $sr)
-    {
-        // Cannot use $sr->providers() and $sr->assignees() because of a bug...
-        $ps = ServiceProvider::select(\DB::raw('id, id as edit_id, name, email, "provider" as type'))
-            ->join('request_provider', 'request_provider.provider_id', '=', 'id')
-            ->where('request_provider.request_id', $sr->id);
-        $as = User::select(\DB::raw('users.id, property_managers.id as edit_id, users.name, users.email, "user" as type'))
-            ->join('request_assignee', 'request_assignee.user_id', '=', 'users.id')
-            ->join('property_managers', 'property_managers.user_id', '=', 'users.id')
-            ->where('request_assignee.request_id', $sr->id);
-
-        return $ps->union($as);
     }
 
     public function deleteRequesetWithUnitIds($ids)

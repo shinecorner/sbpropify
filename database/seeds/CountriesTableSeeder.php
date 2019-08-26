@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Country;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+
 
 class CountriesTableSeeder extends Seeder
 {
@@ -12,19 +14,9 @@ class CountriesTableSeeder extends Seeder
      */
     public function run()
     {
-        $json = File::get('database/data/countries.json');
-        $data = json_decode($json);
-        if (!$data) {
-            return;
-        }
 
-        foreach($data as $obj) {
-            Country::create(
-                [
-                    'name' => $obj->name,
-                    'code' => $obj->code,
-                ]
-            );
-        }
+        Schema::disableForeignKeyConstraints();
+        DB::unprepared(file_get_contents(database_path('sql' . DIRECTORY_SEPARATOR . 'loc_countries.sql')));
+        Schema::enableForeignKeyConstraints();
     }
 }

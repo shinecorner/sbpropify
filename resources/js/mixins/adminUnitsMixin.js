@@ -239,8 +239,10 @@ export default (config = {}) => {
 
                                 this.loading.state = true;
                                 try {
-                                    displaySuccess(await this.updateUnit(this.model));
+                                    const resp = await this.updateUnit(this.model)
+                                    displaySuccess(resp);
                                     resolve(true);
+                                    return resp;
                                 } catch (err) {
                                     displayError(err);
                                     resolve(false);

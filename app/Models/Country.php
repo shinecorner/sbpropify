@@ -12,39 +12,62 @@ namespace App\Models;
  *          type="integer",
  *          format="int32"
  *      ),
+ *     @SWG\Property(
+ *          property="code",
+ *          description="code",
+ *          type="string"
+ *      ),
+ *     @SWG\Property(
+ *          property="alpfa_3",
+ *          description="alpfa_3",
+ *          type="string"
+ *      ),
  *      @SWG\Property(
  *          property="name",
  *          description="name",
  *          type="string"
  *      ),
  *      @SWG\Property(
- *          property="code",
- *          description="code",
+ *          property="name_de",
+ *          description="name_de",
  *          type="string"
  *      ),
  *      @SWG\Property(
- *          property="created_at",
- *          description="created_at",
- *          type="string",
- *          format="date-time"
+ *          property="name_fr",
+ *          description="name_fr",
+ *          type="string"
  *      ),
  *      @SWG\Property(
- *          property="updated_at",
- *          description="updated_at",
- *          type="string",
- *          format="date-time"
- *      )
+ *          property="name_it",
+ *          description="name_it",
+ *          type="string"
+ *      ),
+ *
  * )
  */
 class Country extends Model
 {
+    /**
+     * @var string
+     */
     public $table = 'loc_countries';
 
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
+    /**
+     * @var array
+     */
     public $fillable = [
         'name',
-        'code'
+        'code',
+        'alpha_3',
+        'name_de',
+        'name_fr',
+        'name_it',
+        'name_rm'
     ];
 
     /**
@@ -53,8 +76,12 @@ class Country extends Model
      * @var array
      */
     protected $casts = [
+        'code' => 'string',
+        'alpha_3' => 'string',
         'name' => 'string',
-        'code' => 'string'
+        'name_de' => 'string',
+        'name_fr' => 'string',
+        'name_it' => 'string',
     ];
 
     /**
@@ -63,7 +90,11 @@ class Country extends Model
      * @var array
      */
     public static $rules = [
+        'code' => 'required',
+        'alpha_3' => 'required',
         'name' => 'required',
-        'code' => 'required'
+        'name_de' => 'required',
+        'name_fr' => 'required',
+        'name_it' => 'required',
     ];
 }

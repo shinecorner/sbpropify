@@ -14,11 +14,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-//        Schema::disableForeignKeyConstraints();
-//        DB::table('templates')->truncate();
-//        DB::table('template_categories')->truncate();
-//        DB::unprepared(file_get_contents(database_path('sql' . DIRECTORY_SEPARATOR . 'template_and_categories_tables.sql')));
-//        Schema::enableForeignKeyConstraints();
         $this->call(TemplateCategoriesTableSeeder::class);
         $this->call(TemplateTableSeeder::class);
 

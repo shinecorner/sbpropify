@@ -64,7 +64,7 @@ class AddressAPIController extends AppBaseController
     public function store(CreateRequest $request)
     {
         $input = $request->all();
-        $input['country_id'] = 210;
+        $input['country_id'] = $input['country_id'] ?? \App\Models\Country::where('name', 'Switzerland')->value('id');
         $addresses = $this->addressRepository->create($input);
 
         return $this->sendResponse($addresses->toArray(), 'Address saved successfully');
@@ -98,7 +98,7 @@ class AddressAPIController extends AppBaseController
     public function update($id, UpdateRequest $request)
     {
         $input = $request->all();
-        $input['country_id'] = 210;
+        $input['country_id'] = $input['country_id'] ?? \App\Models\Country::where('name', 'Switzerland')->value('id');
 
         /** @var Address $address */
         $address = $this->addressRepository->findWithoutFail($id);

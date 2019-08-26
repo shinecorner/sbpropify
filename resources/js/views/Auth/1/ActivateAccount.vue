@@ -1,10 +1,10 @@
 <template>
     <div>
         <el-form :model="model" ref="form">
-            <h2>{{$t('general.activate_account')}}</h2>
             <router-link :to="{name: 'login'}" class="el-menu-item-link">
                 <i class="el-icon-back"></i>{{ this.$t("general.back") }}
             </router-link>            
+            <h2>{{$t('general.activate_account')}}</h2>
             <p>{{$t('general.activate_info')}}</p>
             <el-form-item prop="email" :label="$t('general.email')" :rules="validationRules.email">
                 <el-input type="email" v-model="model.email" autocomplete="off"></el-input>
@@ -141,7 +141,13 @@
     }
 </script>
 <style lang="scss" scoped>
+    h2 {
+        font-weight: normal;
+    }
     .el-form-item {
+        &:nth-of-type(1) {
+            margin-top: 20px;
+        }
         &:nth-last-child(2), :nth-last-child() :global(.el-form-item__content) {
             display: flex;
             align-items: center;

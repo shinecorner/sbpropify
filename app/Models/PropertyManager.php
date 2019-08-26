@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\RequestRelation;
 use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -67,7 +68,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class PropertyManager extends Model
 {
-    use SoftDeletes, UniqueIDFormat;
+    use SoftDeletes, UniqueIDFormat, RequestRelation;
 
     public $table = 'property_managers';
 

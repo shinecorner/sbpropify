@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\Helper;
+use App\Traits\RequestRelation;
 use BeyondCode\Comments\Contracts\Commentator;
 use Cog\Contracts\Love\Liker\Models\Liker as LikerContract;
 use Cog\Laravel\Love\Liker\Models\Traits\Liker;
@@ -72,6 +73,7 @@ class User extends Authenticatable implements LikerContract, Commentator
     use HasApiTokens;
     use Notifiable;
     use Liker;
+    use RequestRelation;
 
     const Title = [
         'mr',
@@ -219,11 +221,6 @@ class User extends Authenticatable implements LikerContract, Commentator
                     ->orderBy('created_at','DESC');
     }
 
-    public function requests()
-    {
-        return $this->belongsToMany(ServiceRequest::class, 'request_assignee', 'user_id', 'request_id');
-    }
-
     public function scopeWithRoles($query, array $roles)
     {
         return $query->whereHas('roles', function ($query) use ($roles) {
@@ -251,45 +248,5 @@ class User extends Authenticatable implements LikerContract, Commentator
         $a->save();
 
         return $a->url;
-    }
-
-    public function requestsReceived()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusReceived);
-    }
-
-    public function requestsInProcessing()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusInProcessing);
-    }
-
-    public function requestsAssigned()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusAssigned);
-    }
-
-    public function requestsDone()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusDone);
-    }
-
-    public function requestsReactivated()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusReactivated);
-    }
-
-    public function requestsArchived()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusArchived);
-    }
-
-    public function pendingRequests()
-    {
-        return $this->requests()->whereIn('service_requests.status', ServiceRequest::PendingStatuses);
-    }
-
-    public function solvedRequests()
-    {
-        return $this->requests()->whereIn('service_requests.status', ServiceRequest::SolvedStatuses);
     }
 }

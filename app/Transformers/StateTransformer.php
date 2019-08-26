@@ -29,11 +29,6 @@ class StateTransformer extends BaseTransformer
             'abbreviation' => $model->abbreviation,
         ];
 
-//        $rl = (new RealEstate())->first();
-        $userRepository = app()->make(UserRepository::class);
-        $rl = $userRepository->findWithoutFail(Auth::id());
-
-        $languages = Config::get('app.locales');
         $currentLanguage = config('app.locale');
 
         if ('en' != $currentLanguage) {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\RequestRelation;
 use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
@@ -67,6 +68,7 @@ class ServiceProvider extends Model
     use Notifiable;
     use SoftDeletes;
     use UniqueIDFormat;
+    use RequestRelation;
 
     /**
      * Validation rules
@@ -126,8 +128,8 @@ class ServiceProvider extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     **/
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -139,54 +141,6 @@ class ServiceProvider extends Model
     public function address()
     {
         return $this->hasOne(Address::class, 'id', 'address_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     **/
-    public function requests()
-    {
-        return $this->belongsToMany(ServiceRequest::class, 'request_provider', 'provider_id', 'request_id');
-    }
-
-    public function requestsReceived()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusReceived);
-    }
-
-    public function requestsInProcessing()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusInProcessing);
-    }
-
-    public function requestsAssigned()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusAssigned);
-    }
-
-    public function requestsDone()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusDone);
-    }
-
-    public function requestsReactivated()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusReactivated);
-    }
-
-    public function requestsArchived()
-    {
-        return $this->requests()->where('service_requests.status', ServiceRequest::StatusArchived);
-    }
-
-    public function pendingRequests()
-    {
-        return $this->requests()->whereIn('service_requests.status', ServiceRequest::PendingStatuses);
-    }
-
-    public function solvedRequests()
-    {
-        return $this->requests()->whereIn('service_requests.status', ServiceRequest::SolvedStatuses);
     }
 
     /**

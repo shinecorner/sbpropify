@@ -41,9 +41,9 @@ return [
       'buildings_by_creation_date' => 'Edifici per data di creazione',
       'buildings_map' => 'Mappa degli edifici',
       'latest_buildings' => 'Ultimi edifici',
-      'count_of_managers' => 'Conteggio dei manager',
-      'count_of_tenants' => 'Conteggio degli inquilini',
-      'count_of_requests' => 'Conteggio delle richieste',
+      'managers' => 'manager',
+      'tenants' => 'inquilini',
+      'requests' => 'richieste',
       'go_to_buildings' => 'vai agli edifici',
       'buildings_by_state' => 'Edifici per stato'
     ],
