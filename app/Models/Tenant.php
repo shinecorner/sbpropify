@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HashId;
+use App\Traits\RequestRelation;
 use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -116,7 +117,7 @@ use Hashids\Hashids;
  */
 class Tenant extends Model implements HasMedia
 {
-    use HasMediaTrait, UniqueIDFormat, HashId;
+    use HasMediaTrait, UniqueIDFormat, HashId, RequestRelation;
 
     const Title = [
         'mr',
@@ -286,45 +287,6 @@ class Tenant extends Model implements HasMedia
     public function requests()
     {
         return $this->hasMany(ServiceRequest::class, 'tenant_id', 'id');
-    }
-
-    /**
-     * @return HasMany
-     **/
-    public function requestsReceived()
-    {
-        return $this->hasMany(ServiceRequest::class, 'tenant_id', 'id')
-            ->where('service_requests.status', ServiceRequest::StatusReceived);
-    }
-
-    public function requestsInProcessing()
-    {
-        return $this->hasMany(ServiceRequest::class, 'tenant_id', 'id')
-            ->where('service_requests.status', ServiceRequest::StatusInProcessing);
-    }
-
-    public function requestsAssigned()
-    {
-        return $this->hasMany(ServiceRequest::class, 'tenant_id', 'id')
-            ->where('service_requests.status', ServiceRequest::StatusAssigned);
-    }
-
-    public function requestsDone()
-    {
-        return $this->hasMany(ServiceRequest::class, 'tenant_id', 'id')
-            ->where('service_requests.status', ServiceRequest::StatusDone);
-    }
-
-    public function requestsReactivated()
-    {
-        return $this->hasMany(ServiceRequest::class, 'tenant_id', 'id')
-            ->where('service_requests.status', ServiceRequest::StatusReactivated);
-    }
-
-    public function requestsArchived()
-    {
-        return $this->hasMany(ServiceRequest::class, 'tenant_id', 'id')
-            ->where('service_requests.status', ServiceRequest::StatusArchived);
     }
 
     /**

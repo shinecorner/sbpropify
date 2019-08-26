@@ -241,26 +241,17 @@ class BuildingAPIController extends AppBaseController
             'longitude'
         ];
 
-        $buildings = $model->select($columns)->with(
-            [
+        $buildings = $model->select($columns)->with([
                 'address' => function ($q) {
                     $q->select('id', 'country_id', 'state_id', 'city', 'street', 'street_nr', 'zip')
                         ->with(['state', 'country']);
                 },
-            ])->withCount(
-            [
+            ])->withCount([
                 'units',
                 'propertyManagers',
                 'tenants',
-                'requests',
-                'requestsReceived',
-                'requestsInProcessing',
-                'requestsAssigned',
-                'requestsDone',
-                'requestsReactivated',
-                'requestsArchived',
-            ]
-        )->get();
+            ])->allRequestStatusCount()
+            ->get();
         return $this->sendResponse($buildings->toArray(), 'Buildings retrieved successfully');
     }
 
