@@ -94,7 +94,7 @@
         created() {
             this.resetToAssignList();
             this.assign();
-            this.remoteSearch();
+            //this.remoteSearch();
         }
     }
 </script>
