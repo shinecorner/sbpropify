@@ -183,14 +183,14 @@
                                 permission: this.$permissions.list.request,
                                 value: this.all_unassigned_count,
                                 route: {
-                                    name: 'adminUnassignedRequests'
+                                    name: ''
                                 }
                             },  {
                                 title: this.$t('menu.allPendingRequests'),
                                 permission: this.$permissions.list.request,
                                 value: this.all_pending_count,
                                 route: {
-                                    name: 'adminAllpendingRequests'
+                                    name: ''
                                 }
                             }]
                         }, {
@@ -245,24 +245,24 @@
                                 query: {
                                     roles: ['super_admin', 'administrator'],
                                 }
-                            },
-                            children: [{
-                                title: this.$t('menu.admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'administrator'
-                                    }
-                                }
-                            }, {
-                                title: this.$t('menu.super_admins'),
-                                route: {
-                                    name: 'adminUsers',
-                                    query: {
-                                        role: 'super_admin'
-                                    }
-                                }
-                            }]
+                            }
+                            // children: [{
+                            //     title: this.$t('menu.admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'administrator'
+                            //         }
+                            //     }
+                            // }, {
+                            //     title: this.$t('menu.super_admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'super_admin'
+                            //         }
+                            //     }
+                            // }]
                         }];
                 }
                 else if (this.rolename == 'administrator' || this.rolename == 'manager') {
@@ -311,28 +311,28 @@
                                 permission: this.$permissions.cleanify_request.list,
                                 value: this.my_request_count,
                                 route: {
-                                    name: 'adminMyRequests'
+                                    name: 'adminRequests'
                                 }
                             },  {
                                 title: this.$t('menu.myPendingRequests'),
                                 permission: this.$permissions.cleanify_request.list,
                                 value: this.my_pending_count,
                                 route: {
-                                    name: 'adminMypendingRequests'
+                                    name: 'adminRequests'
                                 }
                             },  {
                                 title: this.$t('menu.notAssigned'),
                                 permission: this.$permissions.list.request,
                                 value: this.all_unassigned_count,
                                 route: {
-                                    name: 'adminUnassignedRequests'
+                                    name: 'adminRequests'
                                 }
                             },  {
                                 title: this.$t('menu.allPendingRequests'),
                                 permission: this.$permissions.list.request,
                                 value: this.all_pending_count,
                                 route: {
-                                    name: 'adminAllpendingRequests'
+                                    name: 'adminRequests'
                                 }
                             }]
                         }, {
@@ -384,7 +384,7 @@
                             permission: this.$permissions.list.user,
                             route: {
                                 name: 'adminUsers'
-                            },
+                            }
                             // children: [{
                             //     title: this.$t('menu.admins'),
                             //     route: {
@@ -479,7 +479,7 @@
             onClick(language, flag){
                 this.$i18n.locale = language;
                 this.selectedFlag = flag;
-
+                this.$root.$emit('changeLanguage');
                 //console.log('language --- ', this.$i18n.locale);
 
                 this.toggleShow();

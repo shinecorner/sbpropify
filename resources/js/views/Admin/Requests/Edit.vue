@@ -262,14 +262,14 @@
             :address="address"
             :conversations="conversations"
             :mailSending="mailSending"
-            :managers="model.assignees"
-            :providers="model.providers"
+            :managers="model.property_managers"
+            :providers="model.service_providers"
             :selectedServiceRequest="selectedServiceRequest"
             :showServiceMailModal="showServiceMailModal"
             :requestData="selectedRequestData"
             @close="closeMailModal"
             @send="sendServiceMail"
-            v-if="(model.providers && model.providers.length) || (model.assignees && model.assignees.length)"
+            v-if="(model.service_providers && model.service_providers.length) || (model.property_managers && model.property_managers.length)"
         />
 
     </div>
@@ -369,7 +369,7 @@
             }
         },
         methods: {
-            ...mapActions(['unassignProvider', 'unassignManager', 'deleteRequest']),
+            ...mapActions(['unassignAssignee', 'deleteRequest']),
             translateType(type) {
                 return this.$t(`models.request.userType.${type}`);
             },
@@ -387,15 +387,12 @@
                         let resp;
 
                         const payload = {
-                            request: this.model.id,
                             toAssignId: provider.id
                         };
 
-                        if (provider.uType == 1) {
-                            resp = await this.unassignProvider(payload)
-                        } else {
-                            resp = await this.unassignManager(payload)
-                        }
+                        
+                        resp = await this.unassignAssignee(payload)
+                        
 
                         if (resp && resp.data) {
                             await this.fetchCurrentRequest();

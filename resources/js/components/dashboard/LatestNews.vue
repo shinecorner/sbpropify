@@ -1,20 +1,18 @@
 <template>
-    <div class="latest-products dashboard-table">
+    <div class="latest-news dashboard-table">
         <div class="link-container">
-            <router-link :to="{name: 'adminProducts'}">
-                <span class="title">{{ $t('dashboard.marketplace.go_to_marketplace') }} </span>
+            <router-link :to="{name: 'adminPosts'}">
+                <span class="title">{{ $t('dashboard.news.go_to_news') }} </span>
                 <i class="icon-right icon"/>
             </router-link>
         </div>
-        <dashboard-list-table
+        <list-table
             :header="header"
             :items="items"
             :loading="{state: loading}"
-            :withSearch="false"
-            :withCheckSelection="false"
             @selectionChanged="selectionChanged"
         >
-        </dashboard-list-table>
+        </list-table>
     </div>
 </template>
 
@@ -32,39 +30,43 @@
         props: {
           type: {
             type: String
-          },
+          }
         },
         data() {
             return {
                 header: [{
-                    type: 'product-details',
-                    label: this.$t('models.product.details'),
-                    props: ['title', 'created_at', 'image_url'],
+                    type: 'news-title',
+                    label: 'models.post.title',
+                    props: ['content', 'user'],
                     minWidth: '300px'
                 }, {
                     type: 'tag',
-                    label: this.$t('models.product.type.label'),
-                    prop: 'type_label',
-                    classSuffix: 'type'
+                    label: 'models.post.status.label',
+                    prop: 'status_label',
+                    classSuffix: 'status'
                 }, {
-                    type: 'plain',
-                    label: this.$t('models.product.visibility.label'),
-                    prop: 'visibility_label'
-                }, {
-                    type: 'plain',
-                    label: this.$t('models.product.price'),
-                    prop: 'price',
-                    style: {
-                        color: '#5CC279'
-                    }
+                    type: 'counts',
+                    label: 'dashboard.news.counts',
+                    counts: [{
+                            prop: 'comments_count',
+                            background: '#bbb',
+                            color: '#fff',
+                            label: 'models.post.comments'
+                        }, {
+                            prop: 'likes_count',
+                            background: '#ebb563',
+                            color: '#fff',
+                            label: 'models.post.likes'
+                        }
+                    ]
                 }, {
                     type: 'actions',
-                    label: this.$t('dashboard.actions'),
+                    label: 'dashboard.actions',
                     width: 100,
                     actions: [ 
                         {
                             type: 'default',
-                            title: this.$t('models.product.edit'),
+                            title: 'models.product.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.product
@@ -76,15 +78,15 @@
             };
         },
         computed: {
-            productConstants() {
-                return this.$store.getters['application/constants'].products;
+            newsConstants() {
+                return this.$store.getters['application/constants'].posts;
             },
 
         },
         methods: {
             edit({id}) {
                 this.$router.push({
-                    name: 'adminProductsEdit',
+                    name: 'adminPostsEdit',
                     params: {
                         id
                     }
@@ -92,18 +94,12 @@
             },
             fetchData() {
               let that = this;
-              let url = '';
-              let toolTipSeriesName = '';
-              if(this.type === 'latest_products'){
-                url = 'products?per_page=5';
-                toolTipSeriesName = this.$t('models.building.title');
-              }
+              const url = 'posts?per_page=5';
+
               return axios.get(url)
               .then(function (response) {
                 const items = response.data.data.data.map(item => {
-                  item.visibility_label = that.$t(`models.product.visibility.${that.productConstants.visibility[item.visibility]}`);
-                  item.type_label = that.$t(`models.product.type.${that.productConstants.type[item.type]}`);
-                  item.price = '$' + item.price;
+                  item.status_label = `models.post.status.${that.newsConstants.status[item.type]}`;
                   item.image_url = item.media.length == 0 ? '' : item.media[0].url;
                   return item;
                 });

@@ -6,13 +6,13 @@
                 <i class="icon-right icon"/>
             </router-link>
         </div>
-        <dashboard-list-table
+        <list-table
             :header="header"
             :items="items"
             :loading="{state: loading}"
             @selectionChanged="selectionChanged"
         >
-        </dashboard-list-table>
+        </list-table>
     </div>
 </template>
 
@@ -36,27 +36,27 @@
             return {
                 header: [{
                     type: 'tenant-details',
-                    label: this.$t('models.tenant.name'),
+                    label: 'models.tenant.name',
                     props: ['name', 'image_url'],
                     minWidth: '100px'
                 }, {
                     type: 'plain',
-                    label: this.$t('models.address.name'),
+                    label: 'models.address.name',
                     prop: 'address',
                     width: 300,
                 },{
                     type: 'tag',
-                    label: this.$t('models.tenant.status.label'),
+                    label: 'models.tenant.status.label',
                     prop: 'status_label',
                     classSuffix: 'status_class_suffix',
                 }, {
                     type: 'actions',
-                    label: this.$t('dashboard.actions'),
-                    width: 100,
+                    label: 'dashboard.actions',
+                    width: 120,
                     actions: [ 
                         {
                             type: 'default',
-                            title: this.$t('models.tenant.edit'),
+                            title: 'models.tenant.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.tenant
@@ -86,7 +86,7 @@
               return axios.get(url)
               .then(function (response) {
                 const items = response.data.data.map(item => {
-                  item.status_label = that.$t(`models.tenant.status.${that.tenantConstants.status[item.status]}`);
+                  item.status_label = `models.tenant.status.${that.tenantConstants.status[item.status]}`;
                   item.name = item.first_name + ' ' + item.last_name;
                   item.address = item.address? item.address['street'] + ' ' + item.address['street_nr']:'';
                   item.status_class_suffix = that.tenantConstants.status[item.status];

@@ -435,6 +435,8 @@
             this.model.primary_color = this.model.primary_color ?
                 this.model.primary_color :
                 this.$constants.colors.primary_color;
+
+            this.$root.$on('changeLanguage', () => this.fetchRealEstate());
         },
         computed: {
             realEstateLogo() {

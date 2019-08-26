@@ -6,13 +6,13 @@
                 <i class="icon-right icon"/>
             </router-link>
         </div>
-        <dashboard-list-table
+        <list-table
             :header="header"
             :items="items"
             :loading="{state: loading}"
             @selectionChanged="selectionChanged"
         >
-        </dashboard-list-table>
+        </list-table>
     </div>
 </template>
 
@@ -36,26 +36,26 @@
             return {
                 header: [{
                     type: 'plain',
-                    label: this.$t('models.building.name'),
+                    label: 'models.building.name',
                     prop: 'name',
                     minWidth: '280px'
                 }, {
                     type: 'plain',
-                    label: this.$t('models.building.units'),
+                    label: 'models.building.units',
                     prop: 'units_count',
                     
                 }, {
                     type: 'plain',
-                    label: this.$t('models.building.tenants'),
+                    label: 'models.building.tenants',
                     prop: 'tenants_count'
                 }, {
                     type: 'actions',
-                    label: this.$t('dashboard.actions'),
+                    label: 'dashboard.actions',
                     width: 100,
                     actions: [ 
                         {
                             type: 'default',
-                            title: this.$t('models.building.edit'),
+                            title: 'models.building.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.building

@@ -247,7 +247,7 @@ export default (config = {}) => {
                 }), UploadUserAvatarMixin, PropertyManagerTitlesMixin];
 
                 mixin.methods = {
-                    async submit() {
+                    async submit(afterValid = false) {
                         this.isFormSubmission = true;
                         const valid = await this.form.validate();
                         this.isFormSubmission = false;
@@ -263,6 +263,14 @@ export default (config = {}) => {
 
                                 this.form.resetFields();
                                 this.model.buildings = [];
+                                if (!!afterValid) {
+                                    afterValid(resp);
+                                } else {
+                                    this.$router.push({
+                                        name: 'adminPropertyManagersEdit',
+                                        params: {id: response.data.id}
+                                    })
+                                }
                                 return resp;
                             } catch (err) {
                                 displayError(err);

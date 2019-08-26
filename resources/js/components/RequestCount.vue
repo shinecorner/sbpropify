@@ -2,7 +2,7 @@
     <div class="avatars-wrapper square-avatars">
         <span :key="index" v-for="(count, index) in counts">
             <el-tooltip
-                :content="`${count.label}: ${countsData[count.prop]}`"
+                :content="`${$t(count.label)}: ${countsData[count.prop]}`"
                 class="item"
                 effect="light" placement="top"
                 v-if="countsData[count.prop]"
@@ -31,37 +31,37 @@
                     prop: 'requests_count',
                     background: '#aaa',
                     color: '#fff',
-                    label: this.$t('models.building.requestStatuses.total')
+                    label: 'models.building.requestStatuses.total'
                 }, {
                     prop: 'requests_received_count',
                     background: '#bbb',
                     color: '#fff',
-                    label: this.$t('models.building.requestStatuses.received')
+                    label: 'models.building.requestStatuses.received'
                 }, {
                     prop: 'requests_assigned_count',
                     background: '#ebb563',
                     color: '#fff',
-                    label: this.$t('models.building.requestStatuses.assigned')
+                    label: 'models.building.requestStatuses.assigned'
                 }, {
                     prop: 'requests_in_processing_count',
                     background: '#ebb563',
                     color: '#fff',
-                    label: this.$t('models.building.requestStatuses.in_processing')
+                    label: 'models.building.requestStatuses.in_processing'
                 }, {
                     prop: 'requests_reactivated_count',
                     background: '#ebb563',
                     color: '#fff',
-                    label: this.$t('models.building.requestStatuses.reactivated')
+                    label: 'models.building.requestStatuses.reactivated'
                 }, {
                     prop: 'requests_done_count',
                     background: '#67C23A',
                     color: '#fff',
-                    label: this.$t('models.building.requestStatuses.done')
+                    label: 'models.building.requestStatuses.done'
                 }, {
                     prop: 'requests_archived_count',
                     background: '#67C23A',
                     color: '#fff',
-                    label: this.$t('models.building.requestStatuses.archived')
+                    label: 'models.building.requestStatuses.archived'
                 }
                 ]
             }
