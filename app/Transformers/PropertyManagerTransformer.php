@@ -32,18 +32,8 @@ class PropertyManagerTransformer extends BaseTransformer
             'xing_url' => $model->xing_url,
             'linkedin_url' => $model->linkedin_url,
         ];
-        $withCount = collect($model->getAttributes())->only([
-            'requests_count',
-            'requests_received_count',
-            'requests_in_processing_count',
-            'requests_assigned_count',
-            'requests_done_count',
-            'requests_reactivated_count',
-            'requests_archived_count',
-            'solved_requests_count',
-            'pending_requests_count',
-        ])->all();
 
+        $withCount = $model->getStatusRelationCounts();
         $response = array_merge($response, $withCount);
 
         if ($model->relationExists('settings')) {

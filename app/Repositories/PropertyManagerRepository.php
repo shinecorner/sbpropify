@@ -6,7 +6,6 @@ use App\Models\Building;
 use App\Models\District;
 use App\Models\PropertyManager;
 use App\Traits\UpdateSettings;
-use InfyOm\Generator\Common\BaseRepository;
 
 /**
  * Class PropertyManagerRepository

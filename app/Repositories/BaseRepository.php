@@ -55,4 +55,9 @@ abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
         $this->resetScope();
         return $this->parserResult($results);
     }
+
+    public function scope($scopeName)
+    {
+        $this->model = $this->model->{$scopeName}();
+    }
 }
