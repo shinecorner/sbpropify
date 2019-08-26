@@ -346,7 +346,7 @@ export default {
             },
             "footerText": {
                 "companyName": "Propify",
-                "leftSideText": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero quis beatae officia saepe perferendis voluptatum minima eveniet voluptates dolorum, temporibus nisi maxime nesciunt totam repudiandae commodi sequi dolor quibusdam sunt.",
+                "leftSideText": "Hai bisogno di supporto? Contattate il nostro team di supporto a <br/>0800 000 000 000 o via e-mail a support@propify.ch",
                 "allRightsSaved": "Tutti i diritti riservati"
             },
             "days": {

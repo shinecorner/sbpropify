@@ -346,7 +346,7 @@ export default {
             },
             "footerText": {
                 "companyName": "Propify",
-                "leftSideText": "Sie brauchen Unterstützung? Kontaktieren Sie Support-Team unter<br>0800 000 000 oder via eine E-Mail an support@propify.ch",
+                "leftSideText": "Sie brauchen Unterstützung? Kontaktieren Sie unser Support-Team unter<br/>0800 000 000 oder via eine E-Mail an support@propify.ch.",
                 "allRightsSaved": "Alle Rechte vorbehalten"
             },
             "days": {
