@@ -227,8 +227,8 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $serviceRequest->load([
-            'media', 'tenant.user', 'tenant.building', 'category', 'managers.user',
-            'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers.user',
+            'media', 'tenant.user', 'tenant.building', 'category', 'managers',
+            'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers',
         ]);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, 'Service Request retrieved successfully');
