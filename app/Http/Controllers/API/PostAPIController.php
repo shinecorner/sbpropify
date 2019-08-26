@@ -389,6 +389,16 @@ class PostAPIController extends AppBaseController
 
         return $this->sendResponse($id, __('models.post.deleted'));
     }
+    public function destroyWithIds(Request $request){
+        $ids = $request->get('ids');
+        try{
+            Post::destroy($ids);            
+        }
+        catch (\Exception $e) {
+            return $this->sendError(__('models.post.errors.deleted') . $e->getMessage());
+        }
+        return $this->sendResponse($ids, __('models.post.deleted'));
+    }
 
     /**
      * @param PublishRequest $request

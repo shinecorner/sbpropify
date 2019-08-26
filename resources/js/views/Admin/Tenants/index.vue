@@ -6,7 +6,7 @@
                 </el-button>
             </template>
             <template v-if="$can($permissions.delete.tenant)">
-                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="mini"
+                <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
                            type="danger">
                     {{$t('models.tenant.delete')}}
                 </el-button>
@@ -40,7 +40,7 @@
     const mixin = ListTableMixin({
         actions: {
             get: 'getTenants',
-            delete: 'deleteTenant'
+            delete: 'deleteTenantWithIds'
         },
         getters: {
             items: 'tenants',

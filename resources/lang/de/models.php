@@ -44,6 +44,7 @@ return [
 				'email_already_exists' => "Die E-Mail [:email] existiert bereits. Bitte bestehenden Eintrag verwenden oder eine andere E-Mail eingeben",
 				'email_not_exists' => "Die E-Mail [:email] existiert nicht in unserer Datenbank.",
 				'password_reset_token_invalid' => "Das Token zum Zurücksetzen des Passworts ist ungültig.",
+				'deleted' => "Fehler beim Löschen durch den Benutzer: ",
 			],
 			'validation' =>
 				[
@@ -399,6 +400,7 @@ return [
 				'tenant_assign' => "Fehler beim Zuweisen des Mieters: ",
 				'tenant_not_assign' => "Fehler beim Zuweisen des Mieters",
 				'tenant_not_found' => "Mieter nicht gefunden",
+				'deleted' => "Fehler beim Löschen der Einheit: ",
 			],
 			'placeholders' =>
 				[
@@ -509,7 +511,8 @@ return [
 				'not_found' => "Beitrag nicht gefunden",
 				'district_not_found' => "Überbbauung nicht gefunden",
 				'building_not_found' => "Liegenschaft nicht gefunden",
-				'provider_not_found' => "Dienstanbieter nicht gefunden"
+				'provider_not_found' => "Dienstanbieter nicht gefunden",
+				'deleted' => "Gelöschten Fehler buchen: ",
 			],
 			'status' =>
 				[
@@ -650,6 +653,7 @@ return [
 			'count_of_buildings' => 'Anzahl Liegenschaften',
 			'errors' => [
 				'not_found' => "Überbauung nicht gefunden",
+				'deleted' => "Fehler durch den Bezirk gelöscht: ",
 			],
 		],
 	'realEstate' =>
@@ -760,6 +764,7 @@ return [
 			'status_changed' => 'Status wurde geändert',
 			'priority_changed' => 'Priorität wurde geändert',
 			'assignment'=> 'Zugewiesene Personen/Firmen',
+			'last_updated' => 'Last updated',
 			'media' =>
 				[
 					'added' => 'Mediendatei hinzugefügt',
@@ -810,10 +815,7 @@ return [
 					'other' => 'Sonstiges',
 					'environment' => 'Umgebung',
 					'house' => 'Haus',
-					'apartment' => 'Wohnung',
-					'environment' => 'Umgebung',
-					'house' => 'Haus',
-					'apartment' => 'Wohnung'
+					'apartment' => 'Wohnung',					
 				],
 			'placeholders' =>
 				[
@@ -870,7 +872,6 @@ return [
 					'services' => 'Dienstleister wurde zugewiesen.',
 					'managers' => 'Bewirtschafter wurde zugewiesen.',
 					'admins' => 'Administratoren erfolgreich zugewiesen',
-
 				],
 			'detached' =>
 				[
@@ -900,6 +901,7 @@ return [
 				'conversation_not_found' => "Konversation nicht gefunden",
 				'statistics_error' => "Statistik-Fehler: ",
 				'internal_notice_not_found' => "Interne Notiz nicht gefunden",
+				'deleted' => "Service Request gelöschter Fehler: ",
 			],
 			'requestID' => 'Anfrage-ID',
 			'requestCategory' => 'Anfrage-Kategorie ',
@@ -997,6 +999,7 @@ return [
 				'building_not_found' => "Liegenschaft nicht gefunden",
 				'building_already_assign' => "Die Liegenschaft ist dieser Überbauung bereits zugewiesen.",
 				'building_assign_deleted_property_manager' => "Sie können einem gelöschten Bewirtschafter keine Liegenschaft(en) zuordnen.",
+				'deleted' => "Bewirtschafter löschte Fehler: ",
 			],
 		],
 	'product' =>
@@ -1030,6 +1033,7 @@ return [
 				],
 			'errors' => [
 				'not_found' => "Produkt nicht gefunden",
+				'deleted' => "Fehler beim Löschen des Produkts: ",
 			],
 			'type' =>
 				[

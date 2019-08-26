@@ -295,4 +295,14 @@ class DistrictAPIController extends AppBaseController
 
         return $this->sendResponse($id, __('models.district.deleted'));
     }
+    public function destroyWithIds(Request $request){
+        $ids = $request->get('ids');
+        try{
+            District::destroy($ids);            
+        }
+        catch (\Exception $e) {
+            return $this->sendError(__('models.district.errors.deleted') . $e->getMessage());
+        }
+        return $this->sendResponse($ids, __('models.district.deleted'));
+    }
 }

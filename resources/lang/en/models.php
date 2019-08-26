@@ -43,7 +43,8 @@ return [
         'email_missing' => "email is missing",
         'email_already_exists' => "This [:email] email already exist, Select other email",
         'email_not_exists' => "This [:email] email not exist",
-        'password_reset_token_invalid' => "This password reset token is invalid."
+        'password_reset_token_invalid' => "This password reset token is invalid.",
+        'deleted' => "User deleted error: ",
       ],
       'validation' => 
       [
@@ -399,6 +400,7 @@ return [
         'tenant_assign' => "Tenant assign error: ",
         'tenant_not_assign' => "Tenant not assigned to this unit",
         'tenant_not_found' => "Tenant not found",
+        'deleted' => "Unit deleted error: ",
       ],
       'placeholders' => 
       [
@@ -500,6 +502,7 @@ return [
       'type' => 
       [
         'label' => 'Type',
+        'post' => 'Post',
         'article' => 'Article',
         'new_neighbour' => 'New neighbour',
         'pinned' => 'Pinned',
@@ -508,7 +511,8 @@ return [
         'not_found' => "Post not found",        
         'district_not_found' => "District not found",
         'building_not_found' => "Building not found",
-        'provider_not_found' => "Service provider not found"
+        'provider_not_found' => "Service provider not found",
+        'deleted' => "Post deleted error: ",
       ],      
       'status' => 
       [
@@ -649,6 +653,7 @@ return [
       'count_of_buildings' => 'Count of buildings',
       'errors' => [
         'not_found' => "District not found",
+        'deleted' => "District deleted error: ",
       ],
     ],
     'realEstate' => 
@@ -759,7 +764,7 @@ return [
       'status_changed' => 'Status changed',
       'priority_changed' => 'Priority changed',
       'assignment'=> 'Assignment of managers/services providers',
-      'last_updated' => 'Last Updated',
+      'last_updated' => 'Last updated',
       'media' => 
       [
         'added' => 'Document added',
@@ -879,6 +884,7 @@ return [
         'label' => 'Type',
         'provider' => 'Service',
         'manager' => 'Manager',
+        'admin' => 'Administrator',
       ],
       'visibility' => 
       [
@@ -894,7 +900,8 @@ return [
         'user_not_found' => 'User not found',
         'conversation_not_found' => "Conversation not found",
         'statistics_error' => "Request statistics error: ",
-        'internal_notice_not_found' => "Internal Notice not found",
+        'internal_notice_not_found' => "Internal Notice not found",        
+        'deleted' => "Service Request deleted error: ",
       ],
       'requestID' => 'Request ID',
       'requestCategory' => 'Request Category',
@@ -987,11 +994,12 @@ return [
       'errors' => [
         'not_found' => "Property Manager not found",
         'create' => "Property Manager create error: ",
-        'update' => "Property Manager updated error: ",	
+        'update' => "Property Manager updated error: ",	        
         'district_not_found' => "District not found",
         'building_not_found' => "Building not found",
         'building_already_assign' => "Building already assigned through district",
         'building_assign_deleted_property_manager' => "You cannot assign buildings to an deleted Property Manager",
+        'deleted' => "Property Manager deleted error: ",
       ],
     ],
     'product' => 
@@ -1025,6 +1033,7 @@ return [
       ],
       'errors' => [
         'not_found' => "Product not found",        
+        'deleted' => "Product deleted error: ",
       ],
       'type' => 
       [
