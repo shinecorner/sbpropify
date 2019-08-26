@@ -83,7 +83,7 @@ export default (config = {}) => {
             },
         },
         methods: {
-            ...mapActions(['getRequestCategoriesTree', 'getTenants', 'getServices', 'uploadRequestMedia', 'deleteRequestMedia', 'getUsers', 'assignProvider', 'assignManager']),
+            ...mapActions(['getRequestCategoriesTree', 'getTenants', 'getServices', 'uploadRequestMedia', 'deleteRequestMedia', 'getPropertyManagers', 'assignProvider', 'assignManager']),
             async remoteSearchTenants(search) {
                 if (search === '') {
                     this.tenants = [];
@@ -115,10 +115,9 @@ export default (config = {}) => {
                     try {
                         let resp = [];
                         if (this.assignmentType === 'managers') {
-                            resp = await this.getUsers({
+                            resp = await this.getPropertyManagers({
                                 get_all: true,
                                 search,
-                                roles: [ 'manager']
                             });
                         } else {
                             resp = await this.getServices({get_all: true, search});
@@ -319,14 +318,15 @@ export default (config = {}) => {
                                 }
 
                                 this.loading.state = true;
-                                let {providers, assignees, ...params} = this.model;
+                                let {service_providers, property_managers, ...params} = this.model;
+                                
                                 try {
                                     await this.uploadNewMedia(params.id);
                                     const resp = await this.updateRequest(params);
                                     this.media = [];
-                                    this.$set(this.model, 'providers', resp.data.providers);
+                                    this.$set(this.model, 'service_providers', resp.data.service_providers);
                                     this.$set(this.model, 'media', resp.data.media);
-                                    this.$set(this.model, 'assignees', resp.data.assignees);
+                                    this.$set(this.model, 'property_managers', resp.data.property_managers);
                                     displaySuccess(resp);
                                     resolve(true);
                                 } catch (err) {

@@ -369,7 +369,7 @@
             }
         },
         methods: {
-            ...mapActions(['unassignProvider', 'unassignManager', 'deleteRequest']),
+            ...mapActions(['unassignAssignee', 'deleteRequest']),
             translateType(type) {
                 return this.$t(`models.request.userType.${type}`);
             },
@@ -387,15 +387,12 @@
                         let resp;
 
                         const payload = {
-                            request: this.model.id,
                             toAssignId: provider.id
                         };
 
-                        if (provider.uType == 1) {
-                            resp = await this.unassignProvider(payload)
-                        } else {
-                            resp = await this.unassignManager(payload)
-                        }
+                        
+                        resp = await this.unassignAssignee(payload)
+                        
 
                         if (resp && resp.data) {
                             await this.fetchCurrentRequest();

@@ -879,7 +879,7 @@ return [
       [
         "label" => "Tipo",
         "provider" => "Servizio",
-        "user" => "Manager",
+        "manager" => "Manager",
       ],
       'visibility' => 
       [

@@ -1345,7 +1345,7 @@ export default {
                 "userType": {
                     "label": "Type",
                     "provider": "Service",
-                    "user": "Manager"
+                    "manager": "Manager"
                 },
                 "visibility": {
                     "label": "Visibility",
