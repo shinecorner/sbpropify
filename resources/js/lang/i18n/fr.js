@@ -123,7 +123,7 @@ export default {
                 "months": "Mois",
                 "years": "Années"
             },
-            "chooseLanguage": "Choisir la langue",
+            "chooseLanguage": "Sélectionnez",
             "languages": {
                 "fr": "Français",
                 "it": "Italiano",
