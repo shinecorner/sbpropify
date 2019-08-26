@@ -42,6 +42,13 @@ export default {
             }).catch(({response: {data: err}}) => reject(err))
         })
     },
+    deleteServiceWithIds({}, payload) {        
+        return new Promise((resolve, reject) => {
+            axios.post(`services/deletewithids`, {ids: _.map(payload, 'id')}).then((resp) => {                
+                resolve(resp.data);
+            }).catch(({response: {data: err}}) => reject(err))
+        });
+    },
     assignServiceDistrict({}, payload) {
         return new Promise((resolve, reject) => {
             axios.post(`services/${payload.id}/districts/${payload.toAssignId}`, {}).then((resp) => {

@@ -472,6 +472,25 @@ class ServiceProviderAPIController extends AppBaseController
 
         return $this->sendResponse($id, __('models.service.deleted'));
     }
+    public function destroyWithIds(Request $request){
+        $ids = $request->get('ids');
+        try{
+            foreach($ids as $id){
+                $serviceProvider = $this->serviceProviderRepository->findWithoutFail($id);
+                if ($serviceProvider->user()->exists()) {
+                    $serviceProvider->user->delete();
+                }
+                if ($serviceProvider->address()->exists()) {
+                    $serviceProvider->address->delete();
+                }
+                $serviceProvider->delete();
+            }            
+        }
+        catch (\Exception $e) {
+            return $this->sendError(__('models.service.errors.deleted') . $e->getMessage());
+        }
+        return $this->sendResponse($ids, __('models.service.deleted'));
+    }
 
     /**
      * @param int $id

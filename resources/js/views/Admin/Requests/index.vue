@@ -7,7 +7,7 @@
                 </el-button>
             </template>
             <template v-if="$can($permissions.delete.request)">
-                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="mini"
+                <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
                            type="danger">
                     {{$t('models.request.delete')}}
                 </el-button>
@@ -42,7 +42,7 @@
     const mixin = ListTableMixin({
         actions: {
             get: 'getRequests',
-            delete: 'deleteRequest'
+            delete: 'deleteRequestWithIds'
         },
         getters: {
             items: 'requests',

@@ -59,5 +59,12 @@ export default {
             axios.delete(`units/${id}`)
                  .then(({data: r}) => resolve(r))
                  .catch(({response: {data: err}}) => reject(err)));
+    },
+    deleteUnitWithIds({}, payload) {        
+        return new Promise((resolve, reject) => {
+            axios.post(`units/deletewithids`, {ids: _.map(payload, 'id')}).then((resp) => {                
+                resolve(resp.data);
+            }).catch(({response: {data: err}}) => reject(err))
+        });
     }
 }
