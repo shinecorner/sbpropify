@@ -262,14 +262,14 @@
             :address="address"
             :conversations="conversations"
             :mailSending="mailSending"
-            :managers="model.assignees"
-            :providers="model.providers"
+            :managers="model.property_managers"
+            :providers="model.service_providers"
             :selectedServiceRequest="selectedServiceRequest"
             :showServiceMailModal="showServiceMailModal"
             :requestData="selectedRequestData"
             @close="closeMailModal"
             @send="sendServiceMail"
-            v-if="(model.providers && model.providers.length) || (model.assignees && model.assignees.length)"
+            v-if="(model.service_providers && model.service_providers.length) || (model.property_managers && model.property_managers.length)"
         />
 
     </div>
