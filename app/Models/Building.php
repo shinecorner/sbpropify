@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\AddressOwnerAudit;
 use App\Traits\UniqueIDFormat;
+use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -73,12 +74,12 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  */
 class Building extends AuditableModel implements HasMedia
 {
-    use SoftDeletes, HasMediaTrait, UniqueIDFormat, AddressOwnerAudit;
+    use SoftDeletes, HasMediaTrait, UniqueIDFormat, AddressOwnerAudit, HasBelongsToManyEvents;
 
     protected $auditEvents = [
-        'created' => 'getCreatedEventAttributesIncludeAddress',
-        'updated' => 'getUpdatedEventAttributesIncludeAddress',
-        'deleted'
+        AuditableModel::EventCreated => 'getCreatedEventAttributesIncludeAddress',
+        AuditableModel::EventUpdated => 'getUpdatedEventAttributesIncludeAddress',
+        AuditableModel::EventDeleted
     ];
 
     const BuildingMediaCategories = [

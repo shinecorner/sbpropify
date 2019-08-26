@@ -40,6 +40,7 @@ class AddressRepository extends BaseRepository
             unset($attributes['state']);
         }
         unset($attributes['country']);
+        $attributes['country_id'] = $attributes['country_id'] ?? \App\Models\Country::where('name', 'Switzerland')->value('id');
 
         // Have to skip presenter to get a model not some data
         $temporarySkipPresenter = $this->skipPresenter;
