@@ -26,9 +26,7 @@ class HasRequestCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $model = $model->whereHas('user', function ($q) {
-            $q->has('requests');
-        });
+        $model = $model->has('requests');
         return $model;
     }
 }
