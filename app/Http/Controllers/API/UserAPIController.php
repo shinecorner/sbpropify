@@ -137,14 +137,8 @@ class UserAPIController extends AppBaseController
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $users = $this->userRepository
             ->with('roles')
-            ->withCount([
-                'requestsReceived',
-                'requestsInProcessing',
-                'requestsAssigned',
-                'requestsDone',
-                'requestsReactivated',
-                'requestsArchived',
-            ])->paginate($perPage);
+            ->scope('allRequestStatusCount')
+            ->paginate($perPage);
 
         return $this->sendResponse($users->toArray(), 'Users retrieved successfully');
     }

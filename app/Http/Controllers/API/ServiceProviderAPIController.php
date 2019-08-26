@@ -89,23 +89,8 @@ class ServiceProviderAPIController extends AppBaseController
             $this->serviceProviderRepository->pushCriteria(new HasRequestCriteria());
         }
 
-
         if ($getAll) {
-//            $request->merge(['limit' => env('APP_PAGINATE', 10)]);
-//            $this->serviceProviderRepository->pushCriteria(new LimitOffsetCriteria($request));
-
-//            $reqCount = $request->get('req_count');
-//            if ($reqCount) {
-                $this->serviceProviderRepository->withCount([
-                    'requests',
-                    'requestsReceived',
-                    'requestsInProcessing',
-                    'requestsAssigned',
-                    'requestsDone',
-                    'requestsReactivated',
-                    'requestsArchived',
-                ]);
-//            }
+            $this->serviceProviderRepository->withCount('requests')->scope('allRequestStatusCount');
 
             $serviceProviders = $this->serviceProviderRepository->with([
                 'user',
@@ -119,18 +104,7 @@ class ServiceProviderAPIController extends AppBaseController
             'user', 'address:id,country_id,state_id,city,street,zip'
         ]);
 
-//        $reqCount = $request->get('req_count');
-//        if ($reqCount) {
-            $query = $query->withCount([
-                'requests',
-                'requestsReceived',
-                'requestsInProcessing',
-                'requestsAssigned',
-                'requestsDone',
-                'requestsReactivated',
-                'requestsArchived',
-            ]);
-//        }
+        $query = $query->withCount('requests')->scope('allRequestStatusCount');
         $serviceProviders = $query->paginate($perPage);
 
         return $this->sendResponse($serviceProviders->toArray(), 'Service Providers retrieved successfully');
