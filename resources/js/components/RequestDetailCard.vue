@@ -16,7 +16,7 @@
                 <el-col :span="21" class="request-header">
                      <el-row style="margin-bottom: 24px;" :gutter="21" >
                         <el-col :span="21" class="request-content">
-                            <h2>{{ item.title }}</h2>
+                            <h3>{{ item.title }}</h3>
                             <p>{{ item.description }}</p>
                         </el-col>
                         <el-col :span="3" class="request-tail">
@@ -68,14 +68,14 @@
                 </el-col>
                 <el-col :span="6">
                     <span>{{ $t('models.request.created_by') }}</span>
-                    <p>{{ item.tenant_name }}, {{ item.created_at }}</p>
+                    <p>{{ item.tenant_name }} , {{ item.created_at }}</p>
                 </el-col> 
                 <el-col :span="6">
                     <span>{{ $t('models.request.priority.label') }}</span>
                     <p>
-                        <el-button v-if="item.priority_label == 'low'" class="btn-priority-badge btn-badge"  round>{{ item.priority_label }}</el-button>
-                        <el-button v-else-if="item.priority_label == 'normal'" plain type="warning" class="btn-priority-badge btn-badge"  round>{{ item.priority_label }}</el-button>
-                        <el-button v-else-if="item.priority_label == 'urgent'" plain type="danger" class="btn-priority-badge btn-badge"  round>{{ item.priority_label }}</el-button>
+                        <el-button v-if="item.priority_label == 'low'" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.priority.low') }}</el-button>
+                        <el-button v-else-if="item.priority_label == 'normal'" plain type="warning" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.priority.normal') }}</el-button>
+                        <el-button v-else-if="item.priority_label == 'urgent'" plain type="danger" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.priority.urgent') }}</el-button>
                     </p>
                 </el-col>
                 <el-col :span="3">
@@ -156,12 +156,19 @@ export default {
                 .el-button {
                     width: 100%;
                     border-radius: 0px;
-                    height: 57px;
+                    height: 50px;
+                    padding-left: 0;
+                    padding-right: 0;
+                    text-align: center;
                 }
             }
             .request-header {
                
-
+                .request-content {
+                    p {
+                        margin-bottom: 7px;
+                    }
+                }
                 .request-tail {
                     padding-right: 50px;
                     padding-top: 17.5px;

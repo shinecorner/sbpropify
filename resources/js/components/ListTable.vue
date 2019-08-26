@@ -786,6 +786,10 @@
         background: none;
         padding: 0px;
 
+        .el-table__header {
+            display: none;
+        }
+
         &:before {
             display: none;
         }
@@ -802,6 +806,7 @@
         :global(th) {
             background: none;
             border-bottom-style: none;
+            display: none;
         }
 
         :global(tr) {
@@ -814,7 +819,7 @@
 
             :global(td) {
                 background-color: transparent;
-                padding-bottom: 20px;
+                padding-bottom: 10px;
                 border-bottom: none;
             
             }
