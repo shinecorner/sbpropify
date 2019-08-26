@@ -819,7 +819,7 @@
 
             :global(td) {
                 background-color: transparent;
-                padding-bottom: 10px;
+                padding: 5px 0;
                 border-bottom: none;
             
             }
