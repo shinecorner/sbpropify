@@ -878,7 +878,7 @@ return [
       [
         'label' => 'Type',
         'provider' => 'Service',
-        'user' => 'Manager',
+        'manager' => 'Manager',
       ],
       'visibility' => 
       [

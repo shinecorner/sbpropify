@@ -266,7 +266,7 @@
             showServiceMailModal(newVal) {
                 const prop = this.selectedServiceRequest.uType === 1 ? 'provider' : 'manager';
                 if (newVal) {
-                    this.model[prop] = this.selectedServiceRequest.id;
+                    this.model[prop] = this.selectedServiceRequest;
                 } else {
                     this.model[prop] = '';
                 }

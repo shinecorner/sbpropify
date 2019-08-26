@@ -58,12 +58,16 @@ class ServiceRequestAssignee extends AuditableModel
         'created_at',
     ];
 
+    public $auditEvents = [
+        AuditableModel::EventDeleted
+    ];
+
     /**
      * {@inheritdoc}
      */
     public function transformAudit(array $data): array
     {
-        if (!AuditableModel::EventDeleted == $data['event']) {
+        if (AuditableModel::EventDeleted != $data['event']) {
             return $data;
         }
         $data['auditable_id'] = $this->request_id;
@@ -95,7 +99,12 @@ class ServiceRequestAssignee extends AuditableModel
 
         $instance = new $model();
         $columns = array_merge([$instance->getKeyName()], $config[$model] ?? []);
-        $instance = $instance->where($instance->getKeyName(), $this->assignee_id)->first($columns);
+        $instance = $instance->where($instance->getKeyName(), $this->assignee_id)->withTrashed()->first($columns);
+
+        if (empty($instance)) {
+            return [$eventConvig[$model] ?? 'deleted', []];
+        }
+
         $attributes = $instance->getAttributes();
         $prefix = Str::singular($instance->getTable()) . '_';
 

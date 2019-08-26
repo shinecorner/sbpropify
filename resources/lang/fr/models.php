@@ -880,7 +880,7 @@ return [
       [
         "label" => "Type",
         "provider" => "Service",
-        "user" => "Directeur",
+        "manager" => "Directeur",
       ],
       'visibility' => 
       [

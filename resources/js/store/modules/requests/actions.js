@@ -69,7 +69,7 @@ export default {
     },
     assignManager({}, payload) {
         return new Promise((resolve, reject) => {
-            axios.post(`requests/${payload.request}/assignees/${payload.toAssignId}`, {}).then((resp) => {
+            axios.post(`requests/${payload.request}/managers/${payload.toAssignId}`, {}).then((resp) => {
                 resolve(resp);
             }).catch(({response: {data: err}}) => reject(err))
         });
@@ -81,16 +81,9 @@ export default {
             }).catch(({response: {data: err}}) => reject(err))
         });
     },
-    unassignProvider({}, payload) {
+    unassignAssignee({}, payload) {
         return new Promise((resolve, reject) => {
-            axios.delete(`requests/${payload.request}/providers/${payload.toAssignId}`).then((resp) => {
-                resolve(resp);
-            }).catch(({response: {data: err}}) => reject(err))
-        });
-    },
-    unassignManager({}, payload) {
-        return new Promise((resolve, reject) => {
-            axios.delete(`requests/${payload.request}/assignees/${payload.toAssignId}`, {}).then((resp) => {
+            axios.delete(`requests-assignees/${payload.toAssignId}`).then((resp) => {
                 resolve(resp);
             }).catch(({response: {data: err}}) => reject(err))
         });

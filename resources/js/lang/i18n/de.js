@@ -3,11 +3,11 @@ export default {
         "auth": {
             "failed": "Diese Kombination aus Zugangsdaten wurde nicht in unserer Datenbank gefunden.",
             "throttle": "Zu viele Loginversuche. Versuchen Sie es bitte in {seconds} Sekunden nochmal.",
-            "login_welcome": "Willkommen zurück, bitte melden Sie sich bei Ihrem Konto an.",
+            "login_welcome": "Willkommen zurück, bitte melden Sie sich mit Ihrem Konto an.",
             "title": "Mit unserer Mieter-App geht alles einfacher",
-            "intro": "Um die Anliegen unserer Mieterschaft noch schneller zu verarbeiten, erhalten unsere Mieter Zugang zu einem geschützten Bereich mit welchen das Mietverhältnis digital verwaltet werden kann. Durch die digitale Abwicklung können wir noch schneller agieren und schaffen Transparenz für alle beteiligten Parteien.",
+            "intro": "Um die Anliegen der Mieterschaft noch schneller zu verarbeiten, erhalten unsere Mieter Zugang zu einem geschützten Bereich mit welchen das Mietverhältnis digital verwaltet werden kann.",
             "benefit_1": {
-                "title": "Alle Daten und Dokumente online einsehbar",
+                "title": "Daten und Dokumente online einsehbar",
                 "description": "Sie können alle Angaben zum Mietverhältnis und Unterlagen wie z.B. den Mietvertrag, jederzeit im PDF Format herunterladen."
             },
             "benefit_2": {
@@ -15,8 +15,8 @@ export default {
                 "description": "Sie können alle Ihre Anliegen über die App erfassen und übertragen. Das Bewirtschaftungsteam leitet umgehend die nötigen Schritte ein."
             },
             "benefit_3": {
-                "title": "Mit der Nachbarschaft in Kontakt bleiben",
-                "description": "In der Rubrik News können Sie Beiträge posten, die für Ihre Nachbarn sichtbar sind. Zum Beispiel, wenn aufgrund eines Anlasses mit Lärm zu rechnen ist."
+                "title": "Immer auf dem neeusten Stand",
+                "description": "In der Pinnwand können Sie Beiträge posten, sich mit den Nachbarn vernetzen und erhalten Meldungen der Verwaltung in digitaler Form."
             },
             "benefit_4": {
                 "title": "Online Leih- und Marktplatz",
@@ -346,7 +346,7 @@ export default {
             },
             "footerText": {
                 "companyName": "Propify",
-                "leftSideText": "Sie brauchen Unterstützung? Kontaktieren Sie Support-Team unter<br>0800 000 000 oder via eine E-Mail an support@propify.ch",
+                "leftSideText": "Sie brauchen Unterstützung? Kontaktieren Sie unser Support-Team unter<br/>0800 000 000 oder via eine E-Mail an support@propify.ch.",
                 "allRightsSaved": "Alle Rechte vorbehalten"
             },
             "days": {
@@ -576,14 +576,14 @@ export default {
                 "id": "ID",
                 "add": "Benutzer hinzufügen",
                 "save": "Speichern",
-                "saved": "Benutzer erfolgreich gespeichert",
-                "deleted": "Benutzer gelöscht",
-                "edit": "Benutzer bearbeiten",
-                "not_found": "Benutzer nicht gefunden",
+                "saved": "Benutzer erfolgreich gespeichert.",
+                "deleted": "Benutzer erfolgreich gelöscht.",
+                "edit": "Bearbeiten",
+                "not_found": "Benutzer nicht gefunden.",
                 "profile_image": "Profil-Bild",
                 "profile_text": "Profil-Text",
                 "avatar_uploaded": "Profilbild aktualisiert",
-                "logo_uploaded": "Logo aktualisiert",
+                "logo_uploaded": "Logo aktualisiert.",
                 "logo": "Firmenlogo",
                 "address": "Adresse",
                 "blank_pdf": "PDF ohne Briefkopf verwenden",
@@ -591,25 +591,25 @@ export default {
                 "realEstateSaved": "Einstellungen gespeichert.",
                 "serviceRequestCategorySaved": "Anfrage-Kategorie gespeichert",
                 "serviceRequestCategoryDeleted": "Anfrage-Kategorie gelöscht",
-                "setting_saved": "Benutzereinstellung gespeichert",
-                "setting_deleted": "Benutzereinstellung gelöscht",
-                "password_reset_request_sent": "Wir haben Ihnen eine E-Mail mit weiteren Anweisungen gesendet. Bitte prüfen Sie Ihren Posteingang.",
+                "setting_saved": "Einstellung(en) gespeichert",
+                "setting_deleted": "Einstellung(en) gelöscht",
+                "password_reset_request_sent": "Wir haben Ihnen eine E-Mail mit weiteren Anweisungen gesendet. Bitte prüfen Sie Ihren Posteingang und schauen Sie ggf. auch in Ihrem Spam-Ordern rein.",
                 "errors": {
                     "not_found": "Benutzer nicht gefunden",
                     "setting_not_found": "Benutzereinstellung nicht gefunden",
                     "image_upload": "Fehler beim Hochladen des Benutzerbildes: ",
                     "incorrect_password": "Benutzerpasswort falsch",
                     "email_missing": "E-Mail fehlt",
-                    "email_already_exists": "Diese [{email}] E-Mail existiert bereits, Andere E-Mail auswählen",
-                    "email_not_exists": "Diese [{email}] E-Mail existiert nicht.",
-                    "password_reset_token_invalid": "Dieses Token zum Zurücksetzen des Passworts ist ungültig."
+                    "email_already_exists": "Die E-Mail [{email}] existiert bereits. Bitte bestehenden Eintrag verwenden oder eine andere E-Mail eingeben",
+                    "email_not_exists": "Die E-Mail [{email}] existiert nicht in unserer Datenbank.",
+                    "password_reset_token_invalid": "Das Token zum Zurücksetzen des Passworts ist ungültig."
                 },
                 "validation": {
                     "name": {
                         "required": "Name ist obligatorisch"
                     },
                     "role": {
-                        "required": "Role ist obligatorisch"
+                        "required": "Rolle ist obligatorisch"
                     }
                 }
             },
@@ -665,7 +665,7 @@ export default {
                 "search_unit": "Einheit suchen",
                 "search": "Suchen",
                 "confirmDelete": {
-                    "title": "Der Mieter wird endgültig gelöscht.",
+                    "title": "Warnung: Der Mieter wird endgültig gelöscht.",
                     "text": "Sind Sie sicher, dass Sie fortfahren wollen?"
                 },
                 "validation": {
@@ -691,13 +691,17 @@ export default {
                         "required": "Sprache ist obligatorisch"
                     }
                 },
+                "placeholders": {
+                    "search": "Suchen",
+                    "category": "Kategorie wählen"
+                },
                 "errors": {
                     "not_found": "Mieter nicht gefunden",
-                    "incorrect_email": "Falsche EMail-Adresse",
-                    "create": "Mieter legt Fehler an: ",
+                    "incorrect_email": "Falsche E-Mail Adresse",
+                    "create": "Fehler beim Erstellen des Mieters: ",
                     "update": "Fehler bei der Aktualisierung des Mieters: ",
                     "deleted": "Fehler beim Löschen des Mieters: ",
-                    "not_allowed_change_status": "Sie dürfen den Status nicht ändern."
+                    "not_allowed_change_status": "Sie können den Status nicht ändern."
                 },
                 "building_card": "Liegenschaft zuweisen",
                 "personal_details_card": "Persönliche Angaben",
@@ -728,8 +732,8 @@ export default {
                     "not_active": "Inaktiv"
                 },
                 "confirmChange": {
-                    "title": "Wollen Sie wirklich weiterfahren?",
-                    "warning": "Warnung",
+                    "title": "Wollen Sie den Status wirklich ändern?",
+                    "warning": "Bitte bestätigen",
                     "confirmBtnText": "Ja",
                     "cancelBtnText": "Schliessen"
                 }
@@ -749,13 +753,13 @@ export default {
                 "saved": "Liegenschaft gespeichert",
                 "floors": "Stockwerke",
                 "basement": "Erdgeschoss",
-                "attic": "Attika",
+                "attic": "Attikageschoss",
                 "description": "Beschreibung",
-                "floor_nr": "Anzahl der Stockwerke",
+                "floor_nr": "Anzahl Stockwerke",
                 "label": "Label",
                 "address": "Adresse",
-                "address_search": "Bitte Adresse eingeben",
-                "not_found": "Liegenschaft nicht gefunden",
+                "address_search": "Bitte Adresse eingeben.",
+                "not_found": "Liegenschaft nicht gefunden.",
                 "house_rules": "Hausordnung",
                 "operating_instructions": "Benutzungsanleitungen",
                 "care_instructions": "Pflegehinweise",
@@ -763,10 +767,10 @@ export default {
                 "files": "Dokumente",
                 "add_files": "Dokumente hinzufügen",
                 "add_companies": "Dienstleister hinzufügen",
-                "companies": "Partnerfirmen",
+                "companies": "Dienstleister",
                 "no_services": "Keine Partnerfirmen gewählt.",
                 "details": "Details",
-                "select_media_category": "Katagorie der Mediendatei wählen",
+                "select_media_category": "Kategorie der Mediendatei wählen",
                 "district": "Überbauung",
                 "tenants": "Mieter",
                 "managers": "Bewirtschafter",
@@ -810,11 +814,11 @@ export default {
                     }
                 },
                 "errors": {
-                    "not_found": "Gebäude nicht gefunden",
-                    "manager_not_found": "Hausverwalter nicht gefunden",
-                    "deleted": "Fehler beim Erstellen von gelöschten Dateien: ",
-                    "manager_assigned": "Property Manager weisen dem Gebäudefehler zu: ",
-                    "provider_deleted": "Der Dienstanbieter hat den Fehler gelöscht: "
+                    "not_found": "Gebäude nicht gefunden.",
+                    "manager_not_found": "Bewirtschafter nicht gefunden",
+                    "deleted": "Fehler beim Löschen von Mediendateien: ",
+                    "manager_assigned": "Fehler beim Zuweisung des Bewirtschafters: ",
+                    "provider_deleted": "Fehler beim Entfernen des Diesteilster: "
                 },
                 "requestStatuses": {
                     "total": "Total Anfragen",
@@ -840,7 +844,7 @@ export default {
                     "delete_requests": "Löschen",
                     "dont_delete_requests": "Nicht löschen"
                 },
-                "assigned_buildings": "Zugeordnete Gebäude"
+                "assigned_buildings": "Zugewiesene Liegenschaft(en)"
             },
             "unit": {
                 "title": "Einheiten",
@@ -865,14 +869,14 @@ export default {
                 "building": "Liegenschaft",
                 "description": "Beschreibung",
                 "basement": "Untergeschoss",
-                "attic": "Attika",
+                "attic": "Attikageschoss",
                 "requests": "Anfragen",
                 "tenant": "Mieter",
                 "empty_requests": "Keine Anfragen",
                 "assigned_tenant": "Derzeitiger Mieter",
                 "assign": "Zuweisen",
-                "tenant_assigned": "Mieter wurde zugewiesen",
-                "tenant_unassigned": "Mieter wurde entfernt",
+                "tenant_assigned": "Mieter wurde erfolgreich zugewiesen",
+                "tenant_unassigned": "Mieter wurde erfolgreich entfernt",
                 "assignment": "Zugewiesene Mieter",
                 "type": {
                     "label": "Typ",
@@ -907,11 +911,11 @@ export default {
                     }
                 },
                 "errors": {
-                    "not_found": "Gerät nicht gefunden",
+                    "not_found": "Einheit nicht gefunden",
                     "create": "Fehler beim Erstellen der Einheit: ",
                     "update": "Fehler beim Aktualisieren der Einheit: ",
-                    "tenant_assign": "Mieter ordnet Fehler zu: ",
-                    "tenant_not_assign": "Mieter nicht dieser Einheit zugeordnet",
+                    "tenant_assign": "Fehler beim Zuweisen des Mieters: ",
+                    "tenant_not_assign": "Fehler beim Zuweisen des Mieters",
                     "tenant_not_found": "Mieter nicht gefunden"
                 },
                 "placeholders": {
@@ -922,7 +926,7 @@ export default {
             "address": {
                 "add": "Adresse hinzufügen",
                 "created_at": "Datum",
-                "name": "Adresse",
+                "name": "Address",
                 "edit": "Öffnen",
                 "delete": "Entfernen",
                 "save": "Speichern",
@@ -966,10 +970,10 @@ export default {
                 "add": "Beitrag hinzufügen",
                 "add_pinned": "Ankündigung erstellen",
                 "save": "Speichern",
-                "saved": "Nachricht gespeichert",
-                "view_incresead": "Views erfolgreich gesteigert",
-                "updated": "Nachricht aktualisiert",
-                "deleted": "Nachricht gelöscht",
+                "saved": "Beitrag wurde gespeichert",
+                "view_incresead": "Aufrufe erfolgreich gesteigert",
+                "updated": "Beitrag wurde aktualisiert",
+                "deleted": "Beitrag wurde gelöscht",
                 "edit": "Öffnen",
                 "edit_title": "Beitrag bearbeiten",
                 "show": "Vorschau",
@@ -977,7 +981,7 @@ export default {
                 "delete": "Löschen",
                 "likes": "Likes",
                 "tenants": "Mieter",
-                "views": "Ansichten",
+                "views": "Aufrufe",
                 "details": "Beitragsdetails",
                 "published_at": "Veröffentlichung",
                 "publish": "Veröffentlicht",
@@ -991,23 +995,24 @@ export default {
                 "details_title": "Vorschau",
                 "placeholders": {
                     "buildings": "Liegenschaft wählen",
-                    "search": "Suche",
+                    "search": "Liegenschaft suchen",
                     "search_provider": "Dienstleister suchen"
                 },
                 "media": {
-                    "deleted": "Dokument/Foto gelöscht",
-                    "uploaded": "Dokument / Foto hochgeladen"
+                    "deleted": "Mediendatei wurde gelöscht",
+                    "uploaded": "Mediendatei wurde hochgeladen"
                 },
                 "type": {
                     "label": "Typ",
+                    "post": "Post",
                     "article": "Artikel",
                     "new_neighbour": "Neuer Nachbar",
                     "pinned": "Ankündigung"
                 },
                 "errors": {
                     "not_found": "Beitrag nicht gefunden",
-                    "district_not_found": "Bezirk nicht gefunden",
-                    "building_not_found": "Gebäude nicht gefunden",
+                    "district_not_found": "Überbbauung nicht gefunden",
+                    "building_not_found": "Liegenschaft nicht gefunden",
                     "provider_not_found": "Dienstanbieter nicht gefunden"
                 },
                 "status": {
@@ -1019,13 +1024,13 @@ export default {
                 },
                 "visibility": {
                     "label": "Sichtbarkeit",
-                    "address": "Nachbarn",
+                    "address": "Liegenschaft",
                     "district": "Überbauung",
                     "all": "Alle App-Nutzer"
                 },
                 "confirmChange": {
                     "title": "Wollen Sie wirklich weiterfahren?",
-                    "warning": "Warnung",
+                    "warning": "Bitte bestätigen",
                     "confirmBtnText": "Ja",
                     "cancelBtnText": "Schliessen"
                 },
@@ -1033,19 +1038,19 @@ export default {
                 "unassign": "Entfernen",
                 "assign": "Zuweisen",
                 "attached": {
-                    "building": "Liegenschaft wurde verlinkt",
-                    "district": "Überbauung wurde verlinkt",
-                    "provider": "Dienstleister wurde verlinkt"
+                    "building": "Liegenschaft wurde zugewiesen.",
+                    "district": "Überbauung wurde zugewiesen.",
+                    "provider": "Dienstleister wurde zugewiesen."
                 },
                 "detached": {
                     "building": "Liegenschaft wurde entfernt",
                     "district": "Überbbauung wurde entfernt",
                     "provider": "Dienstleister wurde wurde entfernt"
                 },
-                "buildingAlreadyAssigned": "Building is already inside on a district",
+                "buildingAlreadyAssigned": "Liegenschaft ist bereits einer Überauung zugewiesen.",
                 "confirmUnassign": {
                     "title": "Wollen Sie wirklich weiterfahren?",
-                    "warning": "Warnung",
+                    "warning": "Bitte bestätigen",
                     "confirmBtnText": "Ja",
                     "cancelBtnText": "Schliessen"
                 },
@@ -1065,14 +1070,14 @@ export default {
                 }
             },
             "service": {
-                "title": "Partnerfirmen und Dienstleister",
-                "add_title": "Service hinzufügen",
-                "edit_title": "Service bearbeiten",
+                "title": "Dienstleister und Hauswartung",
+                "add_title": "Neue Firma hinzufügen",
+                "edit_title": "Firma bearbeiten",
                 "edit": "Öffnen",
                 "delete": "Löschen",
-                "saved": "Firma gespeichert",
-                "deleted": "Firma gelöscht",
-                "category": "Kategorie",
+                "saved": "Dienstleister gespeichert",
+                "deleted": "Dienstleister gelöscht",
+                "category": "Gewerke",
                 "electrician": "Elektro",
                 "heating_company": "Heizung",
                 "lift": "Lift",
@@ -1099,13 +1104,13 @@ export default {
                 "buildingAlreadyAssigned": "Diese Liegenschaft ist bereits mit dieser Überbauung verbunden.",
                 "confirmUnassign": {
                     "title": "Wollen Sie wirklich weiterfahren?",
-                    "warning": "Warnung",
+                    "warning": "Bitte bestätigen",
                     "confirmBtnText": "Ja",
                     "cancelBtnText": "Schliessen"
                 },
                 "placeholders": {
                     "search": "Suchen",
-                    "category": "Kategorie wählen"
+                    "category": "Gewerk wählen"
                 },
                 "errors": {
                     "not_found": "Dienstleister nicht gefunden",
@@ -1114,7 +1119,7 @@ export default {
                     "deleted": "Fehler beim Löschen des Dienstleisters: ",
                     "district_not_found": "Überbauung nicht gefunden",
                     "building_not_found": "Liegenschaft nicht gefunden",
-                    "building_already_assign": "Liegenschaft wurde dieser Überbauung bereits zugewiesen."
+                    "building_already_assign": "Liegenschaft wurde bereits einer Überbauung zugewiesen."
                 }
             },
             "district": {
@@ -1132,9 +1137,9 @@ export default {
                 "required": "Dies ist ein Pflichfeld!",
                 "details": "Überbauung Details",
                 "buildings": "Liegenschaften",
-                "count_of_buildings": "Anzahl der Gebäude",
+                "count_of_buildings": "Anzahl Liegenschaften",
                 "errors": {
-                    "not_found": "Bezirk nicht gefunden"
+                    "not_found": "Überbauung nicht gefunden"
                 }
             },
             "realEstate": {
@@ -1187,7 +1192,7 @@ export default {
                 },
                 "mail_username": {
                     "label": "Benutzername",
-                    "validation": "E-Mail-Benutzername eingeben"
+                    "validation": "E-Mail-Benutzernamen eingeben"
                 },
                 "mail_password": {
                     "label": "Passwort",
@@ -1207,7 +1212,7 @@ export default {
                 "created": "Erstellt",
                 "saved": "Anfrage gespeichert",
                 "prop_title": "Titel",
-                "description": "Beschreibung",
+                "description": "Anfrage Informationen",
                 "category": "Kategorie",
                 "address": "Adresse",
                 "edit_title": "Anfrage bearbeiten",
@@ -1218,7 +1223,7 @@ export default {
                 "service": "Dienstleister",
                 "created_by": "Erstellt durch",
                 "is_public": "Öffentlich machen",
-                "comments": "Nachrichten",
+                "comments": "Mieter-Chat",
                 "assigned_to": "Zuständig",
                 "assign_providers": "Zuweisen",
                 "assign_managers": "Zuweisen",
@@ -1226,26 +1231,25 @@ export default {
                 "notify": "Kommunikation",
                 "public_legend": "Aktivieren Sie die Option, um die Anfrage allen Bewohnern einer Liegenschaft/Überbauung zu zeigen.",
                 "conversation": "Chat-Mitteilungen",
-                "conversation_created": "Gesprächskommentar erstellt",
-                "internal_notice_saved": "Interne Benachrichtigung gespeichert",
-                "internal_notice_updated": "Interne Benachrichtigung aktualisiert",
-                "internal_notice_deleted": "Interne Benachrichtigung gelöscht",
+                "conversation_created": "Chat-Mitteilung wurde erstellt",
+                "internal_notice_saved": "Interne Notiz wurde gespeichert",
+                "internal_notice_updated": "Interne Notiz wurde aktualisiert",
+                "internal_notice_deleted": "Interne Notiz wurde gelöscht",
                 "open_conversation": "Offen",
                 "other_recipients": "Weitere Empfänger",
                 "recipients": "Empfänger",
                 "assign": "Zuweisen",
                 "images": "Fotos und Dokumente",
-                "no_images_message": "Keine Dateien hochgeladen",
+                "no_images_message": "Bisland keine Dateien hochgeladen",
                 "request_details": "Beschreibung",
                 "internal_notices": "Interne Notizen",
-                "status_changed": "Status geändert",
-                "priority_changed": "Priorität geändert",
-                "assignment": "Beauftragung von Managern/Dienstleistern",
-                "last_updated": "Last Updated",
+                "status_changed": "Status wurde geändert",
+                "priority_changed": "Priorität wurde geändert",
+                "assignment": "Zugewiesene Personen/Firmen",
                 "media": {
-                    "added": "Dokument hinzugefügt",
-                    "removed": "Dokument entfernt.",
-                    "deleted": "Dokument gelöscht",
+                    "added": "Mediendatei hinzugefügt",
+                    "removed": "Mediendatei entfernt.",
+                    "deleted": "Mediendatei gelöscht",
                     "delete": "Löschen"
                 },
                 "priority": {
@@ -1279,7 +1283,7 @@ export default {
                 },
                 "category_options": {
                     "disturbance": "Störung",
-                    "defect": "Mängel",
+                    "defect": "Defekt/Mangel",
                     "order_documents": "Unterlagen bestellen",
                     "order_a_payment_slip": "Einzahlungsschein(e) bestellen",
                     "questions_about_the_tenancy": "Fragen zum Mietverhältnis",
@@ -1299,17 +1303,17 @@ export default {
                     "service": "Dienstleister suchen",
                     "propertyManagers": "Bewirtschafter suchen",
                     "search": "Suchen",
-                    "visibility": "Sichtbar für"
+                    "visibility": "Sichtbarkeit"
                 },
                 "confirmChange": {
                     "title": "Wollen Sie wirklich weiterfahren?",
-                    "warning": "Warnung",
+                    "warning": "Bitte bestätigen",
                     "confirmBtnText": "Ja",
                     "cancelBtnText": "Schliessen"
                 },
                 "confirmUnassign": {
                     "title": "Wollen Sie wirklich weiterfahren?",
-                    "warning": "Warnung",
+                    "warning": "Bitte bestätigen",
                     "confirmBtnText": "Ja",
                     "cancelBtnText": "Schliessen"
                 },
@@ -1319,14 +1323,14 @@ export default {
                     "to": "An",
                     "title": "Benachrichtigungen",
                     "notify": "E-Mail senden",
-                    "bodyPlaceholder": "Bitte geben Sie hier eine Nachricht ein",
+                    "bodyPlaceholder": "Bitte geben Sie hier eine Nachricht ein.",
                     "provider": "Dienstleister",
                     "manager": "Bewirtschafter",
                     "cancel": "Schliessen",
                     "send": "Senden",
                     "cc": "CC",
                     "bcc": "BCC",
-                    "success": "Benachrichtigung erfolgreich gesendet",
+                    "success": "E-Mail wurde erfolgreich gesendet",
                     "validation": {
                         "required": "Dies ist ein Pflichfeld",
                         "email": "Bitte eine gültige E-Mail Adresse eingeben"
@@ -1336,17 +1340,18 @@ export default {
                 "attached": {
                     "services": "Dienstleister wurde zugewiesen.",
                     "managers": "Bewirtschafter wurde zugewiesen.",
-                    "user": "Benutzer erfolgreich zugewiesen"
+                    "admins": "Administratoren erfolgreich zugewiesen"
                 },
                 "detached": {
                     "service": "Dienstleister wurde entfernt.",
                     "manager": "Bewirtschafter wurde entfernt.",
-                    "user": "Benutzer wurde entfernt."
+                    "admin": "Administrator wurde entfernt."
                 },
                 "userType": {
                     "label": "Typ",
                     "provider": "Dienstleister",
-                    "user": "Bewirtschafter"
+                    "manager": "Bewirtschafter",
+                    "admin": "Administrator"
                 },
                 "visibility": {
                     "label": "Sichtbarkeit",
@@ -1387,10 +1392,10 @@ export default {
                 "title": "Bewirtschafter",
                 "add": "Bewischafter hinzufügen",
                 "save": "Speichern",
-                "saved": "Bewirtschafter gespeichert",
-                "deleted": "Bewirtschafter gelöscht",
+                "saved": "Bewirtschafter wurde gespeichert",
+                "deleted": "Bewirtschafter wurde gelöscht",
                 "edit": "Öffnen",
-                "edit_title": "Property Manager bearbeiten",
+                "edit_title": "Bewirtschafter bearbeiten",
                 "delete": "Löschen",
                 "firstName": "Vorname",
                 "lastName": "Name",
@@ -1413,9 +1418,9 @@ export default {
                 "assign": "Zuweisen",
                 "unassign": "Entfernen",
                 "delete_with_reassign_modal": {
-                    "title": "Neu zuweisen und Benutzer löschen",
+                    "title": "Andere Person zuweisen und dann Benutzer löschen",
                     "description": "Der gewählte Bewirtschafter ist mit Liegenschaften verbunden. Sie können die Liegenschaft(en) an eine anderen Person zuweisen. Wählen Sie hierzu einen Bewirtschafter aus der Liste aus.",
-                    "search_title": "Bewirtaschafter suchen"
+                    "search_title": "Bewirtschafter suchen"
                 },
                 "delete_without_reassign": "Löschen",
                 "profile_card": "User Profile",
@@ -1439,7 +1444,7 @@ export default {
                 "buildingAlreadyAssigned": "Liegenschaft ist bereits einer Überbauung zugewiesen.",
                 "confirmUnassign": {
                     "title": "Wollen Sie wirklich weiterfahren?",
-                    "warning": "Warnung",
+                    "warning": "Bitte bestätigen",
                     "confirmBtnText": "Ja",
                     "cancelBtnText": "Schliessen"
                 },
