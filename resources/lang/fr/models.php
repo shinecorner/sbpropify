@@ -44,6 +44,7 @@ return [
         'email_already_exists' => "Ce [:email] email existe déjà, Sélectionner un autre email",
         'email_not_exists' => "Ce [:email] email n'existe pas",
         'password_reset_token_invalid' => "Ce jeton de réinitialisation de mot de passe n'est pas valide.",
+        'deleted' => "Erreur de suppression par l'utilisateur : ",
       ],
       'validation' => 
       [
@@ -154,7 +155,7 @@ return [
         'create' => "Le locataire crée l'erreur : ",
         'update' => "Erreur de mise à jour locataire : ",	
         'deleted' => "Erreur de suppression du locataire : ",
-        'not_allowed_change_status' => "Vous n'êtes pas autorisé à changer de statut.",
+        'not_allowed_change_status' => "Vous n'êtes pas autorisé à changer de statut.",        
       ],      
       "building_card" => "Affecter unité",
       "personal_details_card" => "Données personnelles",
@@ -315,6 +316,7 @@ return [
         "delete_requests" => "Supprimer demande(s)",
         "dont_delete_requests" => "Ne supprimez pas de demande(s)",
       ],
+      'assigned_buildings' => "Bâtiments affectés",
     ],
     'unit' => 
     [
@@ -398,6 +400,7 @@ return [
         'tenant_assign' => "Erreur d'affectation locataire : ",
         'tenant_not_assign' => "Locataire non affecté à cette unité",
         'tenant_not_found' => "Locataire introuvable",
+        'deleted' => "Erreur d'effacement de l'unité : ",
       ],
       'placeholders' => 
       [
@@ -500,6 +503,7 @@ return [
       [
         "label" => "Type",
         "article" => "Article",
+        "post" => "Poster",
         "new_neighbour" => "Nouveau voisin",
         "pinned" => "Épinglé",
       ],
@@ -507,7 +511,8 @@ return [
         'not_found' => "Message non trouvé",
         'district_not_found' => "District non trouvé",
         'building_not_found' => "Bâtiment non trouvé",
-        'provider_not_found' => "Fournisseur de services introuvable"
+        'provider_not_found' => "Fournisseur de services introuvable",
+        'deleted' => "Enregistrer l'erreur supprimée : ",
       ],
       'status' => 
       [
@@ -648,6 +653,7 @@ return [
       'count_of_buildings' => 'Nombre de bâtiments',
       'errors' => [
         'not_found' => "District non trouvé",
+        'deleted' => "Erreur de suppression de district : ",
       ],
     ],
     'realEstate' => 
@@ -809,10 +815,7 @@ return [
         "other" => "Autre",
         "environment" => "Environnement",
         "house" => "House",
-        "apartment" => "Appartement",
-        "environment" => "Environnement",
-        "house" => "House",
-        "apartment" => "Appartement''."
+        "apartment" => "Appartement",        
       ],
       'placeholders' => 
       [
@@ -881,6 +884,7 @@ return [
         "label" => "Type",
         "provider" => "Service",
         "manager" => "Directeur",
+        'admin' => 'Administrator',
       ],
       'visibility' => 
       [
@@ -897,6 +901,7 @@ return [
         'conversation_not_found' => "Conversation non trouvée",
         'statistics_error' => "demander des statistiques d'erreur : ",
         'internal_notice_not_found' => "Avis interne non trouvé",
+        'deleted' => "Erreur de demande de service supprimée : ",
       ],
       "requestID" => "Demande ID",
       "requestCategory" => "Catégorie de demande",
@@ -994,6 +999,7 @@ return [
         'building_not_found' => "Bâtiment non trouvé",
         'building_already_assign' => "Bâtiment déjà attribué par le district",
         'building_assign_deleted_property_manager' => "Vous ne pouvez pas affecter de bâtiments à un gestionnaire immobilier supprimé.",
+        'deleted' => "Le gestionnaire immobilier a supprimé l'erreur : ",
       ],
     ],
     'product' => 
@@ -1069,6 +1075,7 @@ return [
       ],
       'errors' => [
         'not_found' => "Modèle non trouvé",
+        'deleted' => "Erreur de suppression de produit : ",
       ]
     ],
     'cleanify' => 

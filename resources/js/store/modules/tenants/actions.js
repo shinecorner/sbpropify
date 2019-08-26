@@ -43,6 +43,13 @@ export default {
                 .then(({data: r}) => resolve(r.data))
                 .catch(({response: {data: err}}) => reject(err)));
     },
+    deleteTenantWithIds({}, payload) {        
+        return new Promise((resolve, reject) => {
+            axios.post(`tenants/deletewithids`, {ids: _.map(payload, 'id')}).then((resp) => {                
+                resolve(resp.data);
+            }).catch(({response: {data: err}}) => reject(err))
+        });
+    },    
     myTenancy(_, payload) {
         return new Promise((resolve, reject) => {
             axios.get('tenants/me')
