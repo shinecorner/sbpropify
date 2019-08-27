@@ -152,9 +152,11 @@ return [
     'service' => 'Servizio',
     'super_admin' => 'Super Admin',
   ],
-  'search' => 
+  'placeholders' => 
   [
-    'placeholder' => 'Ricerca',
+    'search' => 'Ricerca',
+    'select' => 'Seleziona'
+    
   ],
   'errors' => 
   [

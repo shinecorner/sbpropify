@@ -152,9 +152,10 @@ return [
     'service' => 'Service après-vente',
     'super_admin' => 'Super Admin',
   ],
-  'search' => 
+  'placeholders' => 
   [
-    'placeholder' => 'Rechercher',
+    'search' => 'Rechercher',
+    'select' => 'Sélectionnez'
   ],
   'errors' => 
   [

@@ -153,9 +153,10 @@ return [
     'service' => 'Partnerfirma',
     'super_admin' => 'Super Administrator',
   ],
-  'search' => 
+  'placeholders' => 
   [
-    'placeholder' => 'Suchen',
+    'search' => 'Suchen',
+    'select' => 'Auswählen'
   ],
   'errors' => 
   [
