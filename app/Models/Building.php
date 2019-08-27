@@ -180,19 +180,20 @@ class Building extends AuditableModel implements HasMedia
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     **/
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
     public function propertyManagers()
     {
-        return $this->belongsToMany(PropertyManager::class);
+        return $this->morphedByMany(PropertyManager::class, 'assignee', 'building_assignees', 'building_id');
+
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     **/
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
     public function lastPropertyManagers()
     {
-        return $this->belongsToMany(PropertyManager::class)->orderBy('id', 'DESC');
+        return $this->propertyManagers()->orderBy('id', 'DESC');
     }
 
     /**
