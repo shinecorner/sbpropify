@@ -2,7 +2,7 @@
     <div class="login2-layout" :style="{backgroundImage: `url(${backImage})`}">
         <el-row class="container-row" type="flex" justify="center">
             <el-col :xs="24" :sm="12" :md="18" :lg="15" :xl="15">
-                <div class="auth-card">
+                <div class="auth-card" :style="[ this.$route.path=='/activate2'?{'max-width': '1100px'}:{ 'max-width': '920px'} ]">
                     <el-row type="flex">
                         <el-col :md="12" class="image-container">
                             <img :src="loginImage" alt="login"/>
@@ -21,9 +21,9 @@ export default {
     data() {
         return {
             loginImage: require('img/login2-left.png'),
-            backImage: require('img/login2-bg.jpg')
+            backImage: require('img/login2-bg.jpg'),
         }
-    }
+    },
 }
 </script>
 <style lang="scss" scoped>
@@ -47,7 +47,7 @@ export default {
 
             .auth-card {
                 width: 100%;
-                max-width: 1100px;
+                max-width: 920px;
                 background: #fff;
                 display: block;
                 box-shadow: 0 4px 25px 0 rgba(0,0,0,.1);

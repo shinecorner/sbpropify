@@ -80,6 +80,7 @@ return [
       'last_name' => 'Last name',
       'birth_date' => 'Birth date',
       'language' => 'Language',
+      'nation' => 'Nation',
       'mobile_phone' => 'Mobile phone',
       'work_phone' => 'Work phone',
       'email' => 'Email',
@@ -764,6 +765,7 @@ return [
       'status_changed' => 'Status changed',
       'priority_changed' => 'Priority changed',
       'assignment'=> 'Assignment of managers/services providers',
+      'last_updated' => 'Last updated',
       'media' => 
       [
         'added' => 'Document added',

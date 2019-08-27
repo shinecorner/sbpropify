@@ -77,6 +77,10 @@
             flex-direction: column;
             justify-content: center;
             padding: 3em;
+            @media screen and (max-height: 950px) {
+                padding-top: 0;
+                padding-bottom: 0;
+            }
             background-color: #ffffff;
             margin: 40px 0 40px 40px;
             border-radius: 12px;
@@ -99,6 +103,8 @@
                 width: 100%;
                 height: 100%;
             }
+        
+
         }
         .el-main {
             position: relative;
@@ -203,6 +209,13 @@
         .el-card__header {
             border-bottom: 1px solid #EBEEF5 !important;
             font-size: 16px !important;
+        }
+    }
+    @media screen and (max-height: 950px) {
+        .activate-account-container {
+            .el-form-item__label {
+                line-height: 20px !important;
+            }
         }
     }
 </style>

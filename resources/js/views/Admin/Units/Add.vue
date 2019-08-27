@@ -9,7 +9,7 @@
                     <el-form-item :label="$t('models.unit.building')" :rules="validationRules.building_id" prop="building_id">
                         <el-select
                             :loading="remoteLoading"
-                            :placeholder="$t('models.unit.placeholders.search')"
+                            :placeholder="$t('general.placeholders.search')"
                             :remote-method="remoteSearchBuildings"
                             filterable
                             remote
@@ -28,7 +28,7 @@
                                   prop="tenant_id">
                         <el-select
                             :loading="remoteLoading"
-                            :placeholder="$t('models.unit.placeholders.search')"
+                            :placeholder="$t('general.placeholders.search')"
                             :remote-method="remoteSearchTenants"
                             filterable
                             remote
@@ -54,7 +54,7 @@
                     </el-form-item>
                     <el-form-item :label="$t('models.unit.room_no')" :rules="validationRules.room_no" prop="room_no"
                                   v-if="!isBusiness">
-                        <el-select :placeholder="$t('models.unit.placeholders.select')" class="w100p" style="width: 100%;"
+                        <el-select :placeholder="$t('general.placeholders.select')" class="w100p" style="width: 100%;"
                                    v-model="model.room_no">
                             <el-option :key="room.value"
                                        :label="room.label"

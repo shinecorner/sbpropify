@@ -19,8 +19,8 @@
         </placeholder>
             <el-timeline v-else>
                 <template v-for="(audit, date) in audits.data">
-                    <el-timeline-item v-html="content" v-for="(content, index) in audit.content" :key="audit.id+'-'+index" :timestamp="`${audit.userName} • ${formatDatetime(date)}`">
-                        {{content}}
+                    <el-timeline-item v-for="(content, index) in audit.content" :key="audit.id+'-'+index" :timestamp="`${audit.userName} • ${formatDatetime(date)}`">
+                        <span v-html="content">{{content}}</span>
                     </el-timeline-item>
                 </template>
                 <el-timeline-item v-if="loading">
@@ -290,7 +290,19 @@
                             obj[current.created_at] = {id:current.id, event:current.event, content:content, userName:current.user.name}
                         break;
                         case 'provider_assigned':
-                            content[0] = this.$t(`components.common.audit.content.${translation_with_id}.${current.auditable_type}.provider_assigned`,{providerName: current.new_values.provider_name, auditable_id: current.auditable_id, auditable_type: translated_auditable_type})
+                            content[0] = this.$t(`components.common.audit.content.${translation_with_id}.${current.auditable_type}.provider_assigned`,{providerName: current.new_values.service_provider_name, auditable_id: current.auditable_id, auditable_type: translated_auditable_type})
+                            obj[current.created_at] = {id:current.id, event:current.event, content:content, userName:current.user.name}
+                        break;
+                        case 'provider_unassigned':
+                            content[0] = this.$t(`components.common.audit.content.${translation_with_id}.${current.auditable_type}.provider_unassigned`,{providerName: current.old_values.service_provider_name, auditable_id: current.auditable_id, auditable_type: translated_auditable_type})
+                            obj[current.created_at] = {id:current.id, event:current.event, content:content, userName:current.user.name}
+                        break;
+                        case 'manager_assigned':
+                            content[0] = this.$t(`components.common.audit.content.${translation_with_id}.${current.auditable_type}.manager_assigned`,{propertyManagerFirstName: current.new_values.property_manager_first_name,propertyManagerLastName: current.new_values.property_manager_last_name, auditable_id: current.auditable_id, auditable_type: translated_auditable_type})
+                            obj[current.created_at] = {id:current.id, event:current.event, content:content, userName:current.user.name}
+                        break;
+                        case 'manager_unassigned':
+                            content[0] = this.$t(`components.common.audit.content.${translation_with_id}.${current.auditable_type}.manager_unassigned`,{propertyManagerFirstName: current.old_values.property_manager_first_name,propertyManagerLastName: current.old_values.property_manager_last_name, auditable_id: current.auditable_id, auditable_type: translated_auditable_type})
                             obj[current.created_at] = {id:current.id, event:current.event, content:content, userName:current.user.name}
                         break;
                         default:
@@ -369,6 +381,7 @@
         .el-timeline {
             padding: 0 0 0 1px;
             height: 100%;
+            word-break: break-word;
             overflow-y: auto;
             overflow-x: hidden;
             .audit-timestamp{

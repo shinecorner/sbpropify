@@ -80,6 +80,7 @@ return [
       "last_name" => "Nom de famille",
       "birth_date" => "Date de naissance",
       "language" => "Langue",
+      'nation' => 'Nation',
       "mobile_phone" => "Téléphone portable",
       "work_phone" => "Téléphone au travail",
       "email" => "Courriel",
@@ -764,6 +765,7 @@ return [
       "status_changed" => "Le statut a changé",
       "priority_changed" => "Priorité modifiée",
       'assignment'=> 'Affectation de gestionnaires/fournisseurs de services',
+      'last_updated' => 'Last updated',
       'media' => 
       [
         "added" => "Document ajouté",

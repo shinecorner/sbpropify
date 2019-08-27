@@ -13,7 +13,7 @@ return [
     'months' => 'Mois',
     'years' => 'Années',
   ],
-  'chooseLanguage' => 'Sélectionnez',
+  'chooseLanguage' => 'Choisir la langue',
   'languages' => 
   [
     'fr' => 'Français',
@@ -153,9 +153,10 @@ return [
     'service' => 'Service après-vente',
     'super_admin' => 'Super Admin',
   ],
-  'search' => 
+  'placeholders' => 
   [
-    'placeholder' => 'Rechercher',
+    'search' => 'Rechercher',
+    'select' => 'Sélectionnez'
   ],
   'errors' => 
   [
@@ -187,7 +188,6 @@ return [
     'invalid_code' => 'Le code n\'est pas valide',
     'not_active_tenant' => 'Le locataire n\'est pas actif et ne peut pas changer de mot de passe',
   ],
-  'choose' => 'Choisir',
   'page_not_found' => [
     'title'   => "Hmm... Quelque chose ne va pas ici.",
     'message' => "La page que vous avez demandée n'a pas été trouvée. Veuillez vérifier l'URL ou aller sur la page d'accueil."

@@ -49,17 +49,7 @@
                                     </el-form-item>
                                 </el-col>
                             </el-row>
-                            <el-row :gutter="20">
-                                <el-col :md="8">
-                                    <el-form-item :label="$t('models.request.priority.label')">
-                                        <strong>{{$constants.service_requests.priority[model.priority]}}</strong>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :md="8">
-                                    <el-form-item :label="$t('models.request.visibility.label')">
-                                        <strong>{{$constants.serviceRequests.visibility[model.visibility]}}</strong>
-                                    </el-form-item>
-                                </el-col>
+                            <el-row :gutter="20" id="request-summary">
                                 <el-col :md="8">
                                     <el-form-item v-if="model.tenant">
                                         <label slot="label">
@@ -77,6 +67,26 @@
                                                     v-if="!model.tenant.user.avatar"></avatar>
                                             <span>{{model.tenant.first_name}} {{model.tenant.last_name}}</span>
                                         </router-link>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8">
+                                    <el-form-item label="Building">
+                                        <strong>{{this.model.building}}</strong>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8">
+                                    <el-form-item label="Creation Datetime">
+                                        <strong>{{this.model.created_at}}</strong>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8" class="summary-item">
+                                    <el-form-item :label="$t('models.request.priority.label')">
+                                        <strong>{{$constants.service_requests.priority[model.priority]}}</strong>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8" class="summary-item">
+                                    <el-form-item :label="$t('models.request.visibility.label')">
+                                        <strong>{{$constants.serviceRequests.visibility[model.visibility]}}</strong>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -237,11 +247,11 @@
                         </template>
                         <!--                    v-if="(!$can($permissions.update.serviceRequest)) || ($can($permissions.update.serviceRequest) && (media.length || (model.media && model.media.length)))"-->
                         <card class="mt15" v-if="model.id">
-                            <el-tabs v-model="activeTab2">
+                            <el-tabs id="comments-card" v-model="activeTab2"  @tab-click="adjustAuditTabPadding">
                                 <el-tab-pane :label="$t('models.request.comments')" name="comments">
                                     <chat :id="model.id" type="request" show-templates />
                                 </el-tab-pane>
-                                <el-tab-pane>
+                                <el-tab-pane name="internal-notices">
                                     <span slot="label">
                                         <el-badge value="0" :max="99" class="admin-layout">{{ $t('models.request.internal_notices') }}</el-badge>
                                     </span>
@@ -420,6 +430,22 @@
                     this.conversationVisible = true;
                 })
             },
+            adjustAuditTabPadding(tab){
+                // Get the active tab underline
+                var active_bar = document.querySelector('#comments-card .el-tabs__active-bar')
+                //If the tabs name is internal-notices then modify the width so that it underlines the badge that is positioned absolute
+                if(tab.name == 'internal-notices'){
+                    setTimeout( () => {
+                        active_bar.style.width = '120px'
+                    },0)
+                }
+                //If the tabs name is audit then move the active bar so that it is right under the audit tab-pane
+                if(tab.name == 'audit'){
+                    setTimeout( () => {
+                        active_bar.style.transform = 'translateX(265px)'
+                    },0)
+                }
+            }
         }
     };
 </script>
@@ -465,6 +491,29 @@
         margin-left: 5px;
         height: 18px;
         width: 6px;
+    }
+    #tab-audit{
+        padding-left:40px;
+    }
+
+    #request-summary {
+        background-color: #F3F3F3;
+        padding: 2%;
+        .el-form-item {
+            margin-bottom: 0px !important;
+            .el-form-item__content {
+                line-height: 28px !important;
+            }
+        }
+        .summary-item {
+            margin-top: 20px;
+            .el-form-item {
+                margin-bottom: 0px !important;
+                .el-form-item__content {
+                    line-height: 28px !important;
+                }
+            }
+        }
     }
 
 </style>
