@@ -307,6 +307,10 @@
                 activeTab: 'details',
                 activeRightTab: 'tenants',
                 tenantColumns: [{
+                    type: 'requestTenantAvatar',
+                    width: 75,
+                    label: this.$t('models.request.tenant')
+                }, {
                     prop: 'name',
                     label: this.$t('models.tenant.name')
                 }, {
@@ -324,6 +328,10 @@
                     }]
                 }],
                 managerColumns: [{
+                    type: 'requestTenantAvatar',
+                    width: 80,
+                    label: this.$t('general.roles.manager')
+                }, {
                     prop: 'name',
                     label: this.$t('models.propertyManager.name')
                 }],
@@ -350,13 +358,15 @@
                     label: this.$t('models.request.tenant')
                 }, {
                     type: 'requestTitleWithDesc',
+                    width: 270,
                     label: this.$t('models.request.prop_title')
                 }, {
                     type: 'requestStatus',
+                    width: 120,
                     label: this.$t('models.request.status.label')
                 }],
                 requestActions: [{
-                    width: '180px',
+                    width: '120px',
                     buttons: [{
                         icon: 'ti-pencil',
                         title: this.$t('models.request.edit'),
