@@ -27,9 +27,8 @@
                                              v-if="avatar.length == 0 && user.avatar">
 
                                     </el-col>
-                                    <el-col :md="10">
-                                        <el-row :gutter="20" class="mb20">
-                                            <el-col :md="12" >
+                                    <el-col :md="20">
+                                            <el-col :md="6">
                                                 <el-form-item :label="$t('general.salutation')" :rules="validationRules.title"
                                                               prop="title">
                                                     <el-select placeholder="Select" style="display: block" v-model="model.title">
@@ -42,29 +41,28 @@
                                                     </el-select>
                                                 </el-form-item>
                                             </el-col>
-                                            <el-col :md="12" class="right-col">
+                                            <el-col :md="6">
                                                 <el-form-item :label="$t('models.tenant.company')" :rules="validationRules.company"
                                                               prop="company"
                                                               v-if="model.title === titles.company">
                                                     <el-input autocomplete="off" type="text" v-model="model.company"></el-input>
                                                 </el-form-item>
                                             </el-col>
-
-                                            <el-col :md="12" class="left-col">
+                                            <el-col :md="6">
                                                 <el-form-item :label="$t('models.tenant.first_name')"
                                                               :rules="validationRules.first_name"
                                                               prop="first_name">
                                                     <el-input autocomplete="off" type="text" v-model="model.first_name"></el-input>
                                                 </el-form-item>
                                             </el-col>
-                                            <el-col :md="12" class="right-col">
+                                            <el-col :md="6">
                                                 <el-form-item :label="$t('models.tenant.last_name')"
                                                               :rules="validationRules.last_name"
                                                               prop="last_name">
                                                     <el-input autocomplete="off" type="text" v-model="model.last_name"></el-input>
                                                 </el-form-item>
                                             </el-col>
-                                            <el-col :md="12" class="left-col">
+                                            <el-col :md="6">
                                                 <el-form-item :label="$t('models.tenant.birth_date')"
                                                               :rules="validationRules.birth_date"
                                                               prop="birth_date">
@@ -77,15 +75,12 @@
                                                             value-format="yyyy-MM-dd"/>
                                                 </el-form-item>
                                             </el-col>
-                                        </el-row>
-                                    </el-col>
-                                    <el-col :md='10' class="user-info">
-                                        <el-row :gutter="20" id="language_select">
-                                            <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" 
-                                                    prop="settings.language">
-                                                <select-language :activeLanguage.sync="model.settings.language" />
-                                            </el-form-item>
-                                        </el-row>
+                                            <el-col :md="6">
+                                                <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" 
+                                                        prop="settings.language">
+                                                    <select-language :activeLanguage.sync="model.settings.language" />
+                                                </el-form-item>
+                                            </el-col>
                                     </el-col>
                                 </el-row>
                           </el-card>

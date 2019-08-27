@@ -13,6 +13,7 @@ return [
     'months' => 'Monate',
     'years' => 'Jahre',
   ],
+  'chooseLanguage' => 'Sprache auswählen',
   'languages' => 
   [
     'fr' => 'Français',
@@ -153,9 +154,10 @@ return [
     'service' => 'Partnerfirma',
     'super_admin' => 'Super Administrator',
   ],
-  'search' => 
+  'placeholders' => 
   [
-    'placeholder' => 'Suchen',
+    'search' => 'Suchen',
+    'select' => 'Auswählen'
   ],
   'errors' => 
   [
@@ -187,7 +189,6 @@ return [
     'invalid_code' => 'Der Code ist ungültig',
     'not_active_tenant' => 'Der Mieter ist nicht aktiv und kann das Passwort nicht ändern.',
   ],
-  'choose' => 'Auswählen',
   'page_not_found' => [
     'title'   => "Hmm… hier stimmt etwas nicht.",
     'message' => "Die von dir aufgerufene Seite wurde nicht gefunden. Bitte überprüfe die URL oder wechsle zur Startseite."
