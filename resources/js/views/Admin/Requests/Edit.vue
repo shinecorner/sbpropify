@@ -49,17 +49,7 @@
                                     </el-form-item>
                                 </el-col>
                             </el-row>
-                            <el-row :gutter="20">
-                                <el-col :md="8">
-                                    <el-form-item :label="$t('models.request.priority.label')">
-                                        <strong>{{$constants.service_requests.priority[model.priority]}}</strong>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :md="8">
-                                    <el-form-item :label="$t('models.request.visibility.label')">
-                                        <strong>{{$constants.serviceRequests.visibility[model.visibility]}}</strong>
-                                    </el-form-item>
-                                </el-col>
+                            <el-row :gutter="20" id="request-summary">
                                 <el-col :md="8">
                                     <el-form-item v-if="model.tenant">
                                         <label slot="label">
@@ -77,6 +67,26 @@
                                                     v-if="!model.tenant.user.avatar"></avatar>
                                             <span>{{model.tenant.first_name}} {{model.tenant.last_name}}</span>
                                         </router-link>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8">
+                                    <el-form-item label="Building">
+                                        <strong>{{this.model.building}}</strong>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8">
+                                    <el-form-item label="Creation Datetime">
+                                        <strong>{{this.model.created_at}}</strong>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8" class="summary-item">
+                                    <el-form-item :label="$t('models.request.priority.label')">
+                                        <strong>{{$constants.service_requests.priority[model.priority]}}</strong>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8" class="summary-item">
+                                    <el-form-item :label="$t('models.request.visibility.label')">
+                                        <strong>{{$constants.serviceRequests.visibility[model.visibility]}}</strong>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -465,6 +475,26 @@
         margin-left: 5px;
         height: 18px;
         width: 6px;
+    }
+
+    #request-summary {
+        background-color: #F3F3F3;
+        padding: 2%;
+        .el-form-item {
+            margin-bottom: 0px !important;
+            .el-form-item__content {
+                line-height: 28px !important;
+            }
+        }
+        .summary-item {
+            margin-top: 20px;
+            .el-form-item {
+                margin-bottom: 0px !important;
+                .el-form-item__content {
+                    line-height: 28px !important;
+                }
+            }
+        }
     }
 
 </style>
