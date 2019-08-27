@@ -78,6 +78,399 @@ export default {
                     "name": {
                         "required": "Name is required"
                     },
+                    "messages": {
+                        "preview": "This file cannot be previewed.",
+                        "uploading": "Uploading...",
+                        "uploaded": "Media files have been succesfully uploaded.",
+                        "size": "Oops! Some files had the size bigger than the maximum allowed of {bytes}.",
+                        "extensions": "Oops! Some files have had an extension that was not allowed. Skipping..."
+                    }
+                }
+            },
+            "tenant": {
+                "weatherWidget": {
+                    "minTemp": "min",
+                    "maxTemp": "max",
+                    "wind": "wind",
+                    "cloudiness": "cloudiness",
+                    "humidity": "humidity",
+                    "pressure": "pressure"
+                },
+                "postAdd": {
+                    "visibility": {
+                        "address": "Address",
+                        "district": "District",
+                        "all": "All"
+                    }
+                }
+            },
+            "admin": []
+        },
+        "dashboard": {
+            "statistics": "Statistics",
+            "requests_by_creation_date": "Requests by creation date",
+            "requests_by_status": "Requests by status",
+            "requests_by_category": "Requests by category",
+            "requests_by_assigned_status": "Requests by assigned status",
+            "each_hour_request": "Each hour requests",
+            "average_request_duration": "Resolution time",
+            "week_hour": "Week vs. Hour",
+            "month_date": "Month vs. Date",
+            "news_by_creation_date": "News by creation date",
+            "news_by_status": "News by status",
+            "news_by_type": "News by type",
+            "latest_products": "Latest products",
+            "products_by_creation_date": "Market place products by creation date",
+            "products_by_type": "Market place products by type",
+            "tenants_by_creation_date": "Tenants by creation date",
+            "tenants_by_request_status": "Tenants by Requests status",
+            "tenants_by_status": "Tenants by status",
+            "tenants_by_language": "Tenants by language",
+            "tenants_by_title": "Tenants by title",
+            "tenants_by_device": "Tenants by device",
+            "tenants_by_gender": "Tenants by gender",
+            "tenants_by_age": "Tenants by age",
+            "actions": "Actions",
+            "requests": {
+                "requests_with_service_providers": "With service providers",
+                "request_wihout_service_providers": "Without service providers",
+                "property_managers": "Property managers",
+                "service_partners": "Service partners",
+                "go_to_property_managers": "go to property managers",
+                "go_to_service_partners": "go to service partners"
+            },
+            "buildings": {
+                "total_building": "Total Count",
+                "total_units": "Total Units",
+                "occupied_units": "Occupied Units",
+                "free_units": "Free Units",
+                "buildings_by_creation_date": "Buildings by creation date",
+                "buildings_map": "Buildings map",
+                "latest_buildings": "Latest buildings",
+                "managers": "Managers",
+                "tenants": "Tenants",
+                "requests": "Requests",
+                "go_to_buildings": "go to buildings",
+                "buildings_by_state": "Buildings by state"
+            },
+            "tenants": {
+                "total_tenants": "Total Count",
+                "average_age": "Average Age",
+                "average_age_acr": "Avg. Age",
+                "latest_tenants": "Latest tenants",
+                "go_to_tenants": "go to tenants"
+            },
+            "marketplace": {
+                "go_to_marketplace": "go to marketplace"
+            },
+            "news": {
+                "latest_news": "Latest news",
+                "go_to_news": "go to news",
+                "counts": "Counts"
+            }
+        },
+        "filters": {
+            "header": "Filters",
+            "districts": "Districts",
+            "buildings": "Buildings",
+            "requests": "Requests",
+            "open_requests": "Open requests",
+            "units": "Units",
+            "states": "States",
+            "status": "Status",
+            "search": "Search",
+            "requestStatus": "Request status",
+            "propertyManagers": "Property Manager",
+            "categories": "Categories",
+            "created_from": "Created from",
+            "created_to": "Created to",
+            "services": "Services",
+            "tenant": "Tenant",
+            "roles": "Roles"
+        },
+        "general": {
+            "en": "EN",
+            "fr": "FR",
+            "it": "IT",
+            "de": "DE",
+            "yes": "Yes",
+            "timestamps": {
+                "hours": "Hours",
+                "days": "Days",
+                "weeks": "Weeks",
+                "months": "Months",
+                "years": "Years"
+            },
+            "languages": {
+                "fr": "Français",
+                "it": "Italiano",
+                "de": "Deutsch",
+                "en": "English"
+            },
+            "footerText": {
+                "companyName": "Propify",
+                "leftSideText": "You need support? Contact our support team at <br/>0800 000 000 or via email to support@propify.ch",
+                "allRightsSaved": "All rights reserved"
+            },
+            "days": {
+                "monday": "Monday",
+                "tuesday": "Tuesday",
+                "wednesday": "Wednesday",
+                "thursday": "Thursday",
+                "friday": "Friday",
+                "saturday": "Saturday",
+                "sunday": "Sunday"
+            },
+            "salutation": "Salutation",
+            "no": "No",
+            "none": "None",
+            "all": "All",
+            "loadMore": "Load more",
+            "account": "Account",
+            "activate_account": "Activate Account",
+            "activate_code": "Activate Code",
+            "activate_code_required": "Activate Code is required",
+            "activate_terms_condition_1": "I agree details are correct",
+            "activate_terms_condition_2": "I've read terms and conditions",
+            "back": "Back",
+            "activate": "Activate",
+            "activate_info": "If you have received an activation code from your landlord, you can activate your account here. Please enter the following data:",
+            "unauthenticated": "Unauthenticated",
+            "logged_out": "Logged out",
+            "logged_in": "Logged in",
+            "invalid_credentials": "Invalid Credentials",
+            "server_error": "Server error",
+            "reset_password": "Reset Password",
+            "reset_password_mail": "Send reset password mail",
+            "reset_password_mail_sent": "We have sent you an e-mail with further instructions. Please check your inbox.",
+            "back_to_login": "Go back to login",
+            "forgot_password": "Forgot password",
+            "forgot_password_info": "Enter the email address by which you're registered here. We will send you an email with your I username and a link to reset your password.",
+            "email_not_registered": "The e-mail address you entered is not associated with an active account. Try a different email address.",
+            "remember_me": "Remember me",
+            "password": "Password",
+            "change_password": "Set new password",
+            "change_password_info": "Please enter your new password here:",
+            "new_password": "New password",
+            "old_password": "Old password",
+            "new_password_confirmation": "New password confirmation",
+            "change": "Change",
+            "cancel": "Cancel",
+            "confirm": "Confirm",
+            "confirm_password": "Confirm password",
+            "incorrect_password": "Old password is incorect",
+            "password_changed": "Password changed successfully",
+            "details_saved": "Details saved",
+            "please_wait": "Please wait...",
+            "no_data_available": "No data available",
+            "upload_error": "Media upload error",
+            "media_not_found": "Media not found",
+            "comment_not_found": "Comment not found",
+            "comment_created": "Comment created",
+            "comment_updated": "Comment updated",
+            "comment_deleted": "Comment deleted",
+            "password_validation": {
+                "required": "Password is required",
+                "confirm": "Please input the password again",
+                "match": "The passwords aren't equal",
+                "min": "Password must be at least 6 characters",
+                "old_password_min": "Old password must be at least 6 characters",
+                "old_password_required": "Old password is required"
+            },
+            "assignmentTypes": {
+                "building": "Building",
+                "district": "District",
+                "services": "Services",
+                "managers": "Managers"
+            },
+            "email": "Email",
+            "email_validation": {
+                "required": "Email is required",
+                "email": "Please enter a valid Email"
+            },
+            "token_invalid": "Invalid token",
+            "login": "Login",
+            "support": "Support",
+            "actions": {
+                "label": "Operations",
+                "edit": "Edit",
+                "add": "Add",
+                "delete": "Delete",
+                "create": "Create",
+                "view": "Details",
+                "save": "Save",
+                "close": "Close",
+                "saveAndClose": "Save & Close",
+                "upload": "Upload"
+            },
+            "swal": {
+                "delete": {
+                    "title": "Are you sure?",
+                    "text": "You won't be able to revert this!",
+                    "confirmText": "Yes, delete it!",
+                    "deleted": "Deleted successfully"
+                },
+                "add": {
+                    "added": "Added successfully"
+                },
+                "media": {
+                    "added": "Document/Photo added",
+                    "deleted": "Document/Photo deleted"
+                },
+                "logout_confirm": "You will be logged out."
+            },
+            "roles": {
+                "label": "Role",
+                "administrator": "Administrator",
+                "homeowner": "Home Owner",
+                "manager": "Manager",
+                "registered": "Registered",
+                "service": "Service",
+                "super_admin": "Super Admin"
+            },
+            "search": {
+                "placeholder": "Search"
+            },
+            "errors": {
+                "files_extension_images": "Only jpg and png files accepted"
+            },
+            "dateTimeFormat": "{date} at {time}",
+            "date_range": {
+                "range_separator": "To",
+                "start_date": "Start date",
+                "end_date": "End date",
+                "last_7_days": "Last 7 days",
+                "last_week": "Last week",
+                "last_14_days": "Last 14 days",
+                "last_30_days": "Last 30 days",
+                "last_month": "Last month",
+                "last_3_months": "Last 3 months",
+                "last_6_months": "Last 6 months",
+                "last_year": "Last year",
+                "last_2_years": "Last 2 years",
+                "all_time": "All time",
+                "week": "Week",
+                "peek_week": "Pick a week"
+            },
+            "tenant": {
+                "activate_required_credentials": "code, email, password required",
+                "incorrect_email": "Incorrect email address",
+                "user_not_tenant": "This user is not tenant",
+                "invalid_code": "Code is invalid",
+                "not_active_tenant": "Tenant is not active and can not change password"
+            },
+            "choose": "Choose",
+            "page_not_found": {
+                "title": "Hmm... something's wrong here.",
+                "message": "The page you requested was not found. Please check the URL or go to the homepage."
+            },
+            "to_homepage": "To Homepage",
+            "assignment": "Assignment"
+        },
+        "layouts": {
+            "tenant": {
+                "menu": {
+                    "logout": "Logout"
+                },
+                "sidebar": {
+                    "dashboard": "Dashboard",
+                    "myTenancy": "My tenancy",
+                    "myPersonalData": "My personal data",
+                    "myRecentContract": "My recent contract",
+                    "myDocuments": "Documents",
+                    "myContactPersons": "Contact persons",
+                    "posts": "News",
+                    "requests": "Requests",
+                    "products": "Marketplace",
+                    "settings": "Settings"
+                }
+            }
+        },
+        "menu": {
+            "dashboard": "Dashboard",
+            "news": "News",
+            "requests": "Requests",
+            "all_requests": "All requests",
+            "myRequests": "My Requests",
+            "myPendingRequests": "My pending requests",
+            "notAssigned": "Not Assigned",
+            "allPendingRequests": "All pending requests",
+            "marketplace": "Marketplace",
+            "settings": "Settings",
+            "logout": "Logout",
+            "profile": "Profile",
+            "users": "Users",
+            "employees": "Managers",
+            "companies": "Services",
+            "admins": "Administrators",
+            "super_admins": "Super admins",
+            "home_owners": "Home Owners",
+            "registered": "Registered",
+            "about": "About",
+            "feedback": "Feedback",
+            "tenants": "Tenants",
+            "buildings": "Buildings",
+            "all_buildings": "All buildings",
+            "units": "Units",
+            "addresses": "Addresses",
+            "posts": "News",
+            "districts": "Districts",
+            "products": "Products",
+            "requestCategories": "Request categories",
+            "services": "Service Partners",
+            "activity": "Activity",
+            "propertyManagers": "Property managers",
+            "templates": "Templates"
+        },
+        "models": {
+            "user": {
+                "administrator": "Administrators",
+                "super_admin": "Super admins",
+                "add_admin": "Add Administrator",
+                "edit_admin": "Edit Administrator",
+                "add_super_admin": "Add Super admin",
+                "edit_super_admin": "Edit Super admin",
+                "edit_action": "Edit",
+                "delete": "Delete",
+                "name": "Name",
+                "phone": "Phone",
+                "date": "Date",
+                "email": "Email",
+                "id": "ID",
+                "add": "Add User",
+                "save": "Save",
+                "saved": "User saved successfully",
+                "deleted": "User deleted",
+                "edit": "Edit User",
+                "not_found": "User not found",
+                "profile_image": "Profile image",
+                "profile_text": "Profile text",
+                "avatar_uploaded": "Avatar uploaded",
+                "logo_uploaded": "Logo uploaded",
+                "logo": "Logo",
+                "address": "Address",
+                "blank_pdf": "Blank pdf",
+                "notificationSaved": "Notificatin setting saved",
+                "realEstateSaved": "Real Estate settings saved",
+                "serviceRequestCategorySaved": "Service request category saved",
+                "serviceRequestCategoryDeleted": "Service request category deleted",
+                "setting_saved": "user setting saved",
+                "setting_deleted": "user setting deleted",
+                "password_reset_request_sent": "We have sent you an e-mail with further instructions. Please check your inbox.",
+                "errors": {
+                    "not_found": "User not found",
+                    "setting_not_found": "user setting not found",
+                    "image_upload": "User image upload error :",
+                    "incorrect_password": "User password incorrect",
+                    "email_missing": "email is missing",
+                    "email_already_exists": "This [{email}] email already exist, Select other email",
+                    "email_not_exists": "This [{email}] email not exist",
+                    "password_reset_token_invalid": "This password reset token is invalid."
+                },
+                "validation": {
+                    "name": {
+                        "required": "Name is required"
+                    },
                     "role": {
                         "required": "Role is required"
                     }
