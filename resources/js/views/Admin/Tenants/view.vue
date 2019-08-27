@@ -107,6 +107,13 @@
                                         {{ new Date(model.birth_date) | formatDate }}
                                     </el-col>
                                 </el-row>
+
+                                <el-row :gutter="20">
+                                    <el-col :sm="8" :xs="12">{{$t('models.tenant.nation')}}:</el-col>
+                                    <el-col :sm="16" :xs="12" class="text-secondary">
+                                        {{ model.nation}}
+                                    </el-col>
+                                </el-row>
                             </el-col>
                         </el-row>
                     </el-card>

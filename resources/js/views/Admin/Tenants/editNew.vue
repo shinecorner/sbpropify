@@ -80,6 +80,12 @@
                                                     <select-language :activeLanguage.sync="model.settings.language" />
                                                 </el-form-item>
                                             </el-col>
+                                            <el-col :md="6">
+                                                <el-form-item :label="$t('models.tenant.nation')"
+                                                              prop="nation">
+                                                    <el-input autocomplete="off" type="text" v-model="model.nation"></el-input>
+                                                </el-form-item>
+                                            </el-col>
                                     </el-col>
                                 </el-row>
                           </el-card>

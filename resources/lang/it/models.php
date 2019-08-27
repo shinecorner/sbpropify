@@ -80,6 +80,7 @@ return [
       "last_name" => "Cognome",
       "birth_date" => "Data di nascita",
       "language" => "La lingua",
+      'nation' => 'Nazione',
       "mobile_phone" => "Telefono cellulare",
       "work_phone" => "Telefono di lavoro",
       "email" => "Email",
