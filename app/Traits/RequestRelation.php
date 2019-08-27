@@ -27,7 +27,7 @@ trait RequestRelation
     {
         $withCount = [];
         foreach (ServiceRequest::Status as $value) {
-            $withCount[] = 'requests' . str_replace('_', '', title_case($value));
+            $withCount[] = 'requests' . str_replace('_', '', Str::title($value));
         }
 
         return $q->withCount($withCount);

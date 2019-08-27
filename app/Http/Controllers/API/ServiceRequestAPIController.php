@@ -70,6 +70,28 @@ class ServiceRequestAPIController extends AppBaseController
      *      tags={"ServiceRequest"},
      *      description="Get all ServiceRequests",
      *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="service_provider_id",
+     *          in="query",
+     *          type="integer",
+     *          description=" Filter by ServiceProvider",
+     *          required=false,
+     *      ),
+     *     @SWG\Parameter(
+     *          name="property_manager_id",
+     *          in="query",
+     *          type="integer",
+     *          description=" Filter by Property Manager",
+     *          required=false,
+     *      ),
+     *     @SWG\Parameter(
+     *          name="category_id",
+     *          in="query",
+     *          type="integer",
+     *          description=" Filter by Category",
+     *          required=false,
+     *      ),
+     *
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",

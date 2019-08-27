@@ -118,4 +118,52 @@ class AuditableModel extends Model implements Auditable
             [],
         ];
     }
+
+    /**
+     * @return array
+     */
+    public function getUserUnassignedEventAttributes(): array
+    {
+        return $this->getSyncEventAttributes('detach');
+    }
+
+    /**
+     * @return array
+     */
+    public function getUserAssignedEventAttributes(): array
+    {
+        return $this->getSyncEventAttributes('attach');
+    }
+
+    /**
+     * @return array
+     */
+    public function getManagerUnassignedEventAttributes(): array
+    {
+        return $this->getSyncEventAttributes('detach');
+    }
+
+    /**
+     * @return array
+     */
+    public function getManagerAssignedEventAttributes(): array
+    {
+        return $this->getSyncEventAttributes('attach');
+    }
+
+    /**
+     * @return array
+     */
+    public function getProviderUnassignedEventAttributes(): array
+    {
+        return $this->getSyncEventAttributes('detach');
+    }
+
+    /**
+     * @return array
+     */
+    public function getProviderAssignedEventAttributes(): array
+    {
+        return $this->getSyncEventAttributes('attach');
+    }
 }

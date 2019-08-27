@@ -255,8 +255,9 @@ class ServiceRequestRepository extends BaseRepository
             return;
         }
 
-        $propertyManagers = PropertyManager::join('building_property_manager', 'property_managers.id', '=', 'building_property_manager.property_manager_id')
-            ->where('building_id', $serviceRequest->tenant->building->id)->get();
+        $propertyManagers = PropertyManager::whereHas('buildings', function ($q) use ($serviceRequest) {
+            $q->where('buildings.id', $serviceRequest->tenant->building->id);
+        })->get();
 
         $i = 0;
         foreach ($propertyManagers as $propertyManager) {

@@ -31,6 +31,7 @@ class ServiceRequestTransformer extends BaseTransformer
             'qualification' => $model->qualification,
             'is_public' => $model->is_public,
             'created_at' => $model->created_at->format('Y-m-d'),
+            'created_by' => $model->created_at->format('d.m.Y'),
             'updated_at' => $model->updated_at->format('d.m.Y'),
             'visibility' => $model->visibility,
         ];
