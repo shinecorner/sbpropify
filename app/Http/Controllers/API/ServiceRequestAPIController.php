@@ -25,6 +25,7 @@ use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestAssignee;
+use App\Repositories\PropertyManagerRepository;
 use App\Repositories\ServiceProviderRepository;
 use App\Repositories\ServiceRequestRepository;
 use App\Repositories\TemplateRepository;
@@ -227,8 +228,8 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $serviceRequest->load([
-            'media', 'tenant.user', 'tenant.building', 'category', 'managers.user',
-            'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers.user',
+            'media', 'tenant.user', 'tenant.building', 'category', 'managers',
+            'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers',
         ]);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, 'Service Request retrieved successfully');
@@ -541,7 +542,7 @@ class ServiceRequestAPIController extends AppBaseController
      */
     public function notifyProvider(int $id, NotifyProviderRequest $request,
                                    ServiceProviderRepository $spRepo,
-                                   UserRepository $uRepo)
+                                   PropertyManagerRepository $pmRepo)
     {
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
@@ -552,10 +553,10 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.provider_not_found'));
         }
 
-        $propertyManagerUsers = $uRepo->findWhereIn('id', $request->assignee_ids ?? []);
-
+        $managerIds = $request->manager_ids ?? $request->assignee_ids ?? [];
+        $propertyManagers = $pmRepo->with('user:email,id')->findWhereIn('id', $managerIds);
         $mailDetails = $request->only(['title', 'to', 'cc', 'bcc', 'body']);
-        $this->serviceRequestRepository->notifyProvider($sr, $sp, $propertyManagerUsers, $mailDetails);
+        $this->serviceRequestRepository->notifyProvider($sr, $sp, $propertyManagers, $mailDetails);
 
         return $this->sendResponse($sr, __('models.request.mail.success'));
     }
@@ -912,10 +913,10 @@ class ServiceRequestAPIController extends AppBaseController
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $assignees = $sr->assignees()->paginate($perPage);
 
-        $providerType = array_flip(Relation::$morphMap)[\App\Models\ServiceProvider::class] ?? \App\Models\ServiceProvider::class;
+        $providerType = get_morph_type_of(\App\Models\ServiceProvider::class);
         $providerIds = $assignees->where('assignee_type', $providerType)->pluck('assignee_id');
 
-        $managerType = array_flip(Relation::$morphMap)[\App\Models\PropertyManager::class] ?? \App\Models\PropertyManager::class;
+        $managerType = get_morph_type_of(\App\Models\PropertyManager::class);
         $managerIds = $assignees->where('assignee_type', $managerType)->pluck('assignee_id');
 
         $raw = DB::raw('(select email from users where users.id = property_managers.user_id) as email, Concat(first_name, " ", last_name) as name');

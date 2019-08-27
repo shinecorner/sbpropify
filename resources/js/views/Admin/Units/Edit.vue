@@ -16,7 +16,7 @@
                                               prop="building_id">
                                     <el-select
                                         :loading="remoteLoading"
-                                        :placeholder="$t('models.unit.placeholders.search')"
+                                        :placeholder="$t('general.placeholders.search')"
                                         :remote-method="remoteSearchBuildings"
                                         filterable
                                         remote
@@ -73,7 +73,7 @@
                                 <el-form-item :label="$t('models.unit.room_no')" :rules="validationRules.room_no"
                                               prop="room_no"
                                 >
-                                    <el-select :placeholder="$t('models.unit.placeholders.select')" class="w100p"
+                                    <el-select :placeholder="$t('general.placeholders.select')" class="w100p"
                                                style="width: 100%;"
                                                v-model="model.room_no">
                                         <el-option :key="room.value"

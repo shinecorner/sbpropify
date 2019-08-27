@@ -389,25 +389,10 @@ class StatisticsAPIController extends AppBaseController
     public function tenantStatistics(int $id)
     {
         /** @var Tenant $tenant */
-        $tenant = $this->tenantRepo->withCount(
-            [
-                'requests',
-                'requestsReceived',
-                'requestsInProcessing',
-                'requestsAssigned',
-                'requestsDone',
-                'requestsReactivated',
-                'requestsArchived',
-            ])->withCount(
-            [
-                'requests',
-                'requestsReceived',
-                'requestsInProcessing',
-                'requestsAssigned',
-                'requestsDone',
-                'requestsReactivated',
-                'requestsArchived',
-            ])->findWithoutFail($id);
+        $tenant = $this->tenantRepo
+            ->scope('allRequestStatusCount')
+            ->withCount('requests')
+            ->findWithoutFail($id);
 
         if (empty($tenant)) {
             return $this->sendError(__('models.tenant.errors.not_found'));

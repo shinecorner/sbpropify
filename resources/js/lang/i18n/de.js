@@ -123,7 +123,7 @@ export default {
                 "months": "Monate",
                 "years": "Jahre"
             },
-            "chooseLanguage": "Auswählen",
+            "chooseLanguage": "Sprache auswählen",
             "languages": {
                 "fr": "Français",
                 "it": "Italiano",
@@ -251,8 +251,9 @@ export default {
                 "service": "Partnerfirma",
                 "super_admin": "Super Administrator"
             },
-            "search": {
-                "placeholder": "Suchen"
+            "placeholders": {
+                "search": "Suchen",
+                "select": "Auswählen"
             },
             "errors": {
                 "files_extension_images": "Nur Dateien in der Formaten .jpg und .png erlaubt."
@@ -282,7 +283,6 @@ export default {
                 "invalid_code": "Der Code ist ungültig",
                 "not_active_tenant": "Der Mieter ist nicht aktiv und kann das Passwort nicht ändern."
             },
-            "choose": "Auswählen",
             "page_not_found": {
                 "title": "Hmm… hier stimmt etwas nicht.",
                 "message": "Die von dir aufgerufene Seite wurde nicht gefunden. Bitte überprüfe die URL oder wechsle zur Startseite."
@@ -719,6 +719,7 @@ export default {
                 "last_name": "Name",
                 "birth_date": "Geburtsdatum",
                 "language": "Sprache",
+                "nation": "Nation",
                 "mobile_phone": "Mobile",
                 "work_phone": "Arbeit",
                 "email": "E-Mail",

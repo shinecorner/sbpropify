@@ -25,7 +25,9 @@ export default (config = {}) => {
                     category: '',
                     priority: '',
                     visibility: '',
-                    provider_ids: []
+                    provider_ids: [],
+                    building: '',
+                    created_at: ''
                 },
                 validationRules: {
                     category: [{
@@ -300,6 +302,9 @@ export default (config = {}) => {
 
                         this.model = Object.assign({}, this.model, data);
                         this.$set(this.model, 'category_id', data.category.id);
+                        console.log(data);
+                        this.$set(this.model, 'created_at', data.created_at);
+                        this.$set(this.model, 'building', data.tenant.building.name);
 
                         await this.getConversations();
                         

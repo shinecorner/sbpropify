@@ -123,7 +123,7 @@ export default {
                 "months": "Mesi",
                 "years": "Anni"
             },
-            "chooseLanguage": "Seleziona",
+            "chooseLanguage": "Scegliere la lingua",
             "languages": {
                 "fr": "Français",
                 "it": "Italiano",
@@ -251,8 +251,9 @@ export default {
                 "service": "Servizio",
                 "super_admin": "Super Admin"
             },
-            "search": {
-                "placeholder": "Ricerca"
+            "placeholders": {
+                "search": "Ricerca",
+                "select": "Seleziona"
             },
             "errors": {
                 "files_extension_images": "Si accettano solo file jpg e png"
@@ -282,7 +283,6 @@ export default {
                 "invalid_code": "Il codice non è valido",
                 "not_active_tenant": "L'inquilino non è attivo e non può cambiare la password"
             },
-            "choose": "Scegliere",
             "page_not_found": {
                 "title": "C'e' qualcosa che non va qui.",
                 "message": "La pagina richiesta non è stata trovata. Controlla l'URL o vai alla homepage."
@@ -715,6 +715,7 @@ export default {
                 "last_name": "Cognome",
                 "birth_date": "Data di nascita",
                 "language": "La lingua",
+                "nation": "Nazione",
                 "mobile_phone": "Telefono cellulare",
                 "work_phone": "Telefono di lavoro",
                 "email": "Email",

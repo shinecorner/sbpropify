@@ -32,7 +32,7 @@
                     </div>
 
                     <div v-else-if="column.type === 'requestTenantAvatar'">
-                        <router-link :to="{name: 'adminTenantsEdit', params: {id: scope.row[column.prop].id}}"
+                        <router-link v-if="column.prop" :to="{name: 'adminTenantsEdit', params: {id: scope.row[column.prop].id}}"
                                      class="tenant-link">
                             <el-tooltip
                                     :content="`${scope.row[column.prop].first_name} ${scope.row[column.prop].last_name}`"
@@ -49,6 +49,20 @@
                                         v-if="!scope.row[column.prop].user.avatar"></avatar>
                             </el-tooltip>
                         </router-link>
+                        <el-tooltip v-else
+                                :content="`${scope.row.first_name} ${scope.row.last_name}`"
+                                class="item"
+                                effect="light" placement="top"
+                        >
+                            <avatar :size="30"
+                                    :src="'/' + scope.row.user.avatar"
+                                    v-if="scope.row.user.avatar"></avatar>
+                            <avatar :size="28"
+                                    backgroundColor="rgb(205, 220, 57)"
+                                    color="#fff"
+                                    :username="scope.row.user.first_name ? `${scope.row.user.first_name} ${scope.row.user.last_name}`: `${scope.row.user.name}`"
+                                    v-if="!scope.row.user.avatar"></avatar>
+                        </el-tooltip>
                     </div>
 
                     <div v-else-if="column.type === 'buildingTenantAvatars'" class="avatars-wrapper">
@@ -92,8 +106,8 @@
                 v-if="column.i18n"
             >
                 <template slot-scope="scope">
-                    <span :style="{background: column.withBadge(scope.row[column.prop])}" class="badge"
-                          v-if="column.withBadge">
+                    <span v-if="column.withBadge">
+                        <i :class="`icon-dot-circled ${column.withBadge(scope.row[column.prop])}`"></i>
                         {{column.i18n(scope.row[column.prop])}}
                     </span>
                     <template v-else>
@@ -258,4 +272,10 @@
         justify-content: center;
         border-radius: 25px;
     }
+    .icon-success {
+        color: #5fad64;
+    }
+    .icon-danger {
+         color: #dd6161;
+     }
 </style>

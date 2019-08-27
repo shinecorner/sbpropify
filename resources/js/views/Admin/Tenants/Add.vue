@@ -61,6 +61,12 @@
                                         <select-language :active-language.sync="model.settings.language"/>
                                     </el-form-item>
                                 </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.tenant.nation')"
+                                                  prop="nation">
+                                        <el-input autocomplete="off" type="text" v-model="model.nation"></el-input>
+                                    </el-form-item>
+                                </el-col>
                             </el-row>
                         </card>
                         <card class="mt15" :loading="loading" :header="$t('models.tenant.contact_info_card')">

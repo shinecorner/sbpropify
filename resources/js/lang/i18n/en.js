@@ -123,7 +123,7 @@ export default {
                 "months": "Months",
                 "years": "Years"
             },
-            "chooseLanguage": "Select",
+            "chooseLanguage": "Choose Language",
             "languages": {
                 "fr": "Français",
                 "it": "Italiano",
@@ -251,8 +251,9 @@ export default {
                 "service": "Service",
                 "super_admin": "Super Admin"
             },
-            "search": {
-                "placeholder": "Search"
+            "placeholders": {
+                "search": "Search",
+                "select": "Select"
             },
             "errors": {
                 "files_extension_images": "Only jpg and png files accepted"
@@ -282,7 +283,6 @@ export default {
                 "invalid_code": "Code is invalid",
                 "not_active_tenant": "Tenant is not active and can not change password"
             },
-            "choose": "Choose",
             "page_not_found": {
                 "title": "Hmm... something's wrong here.",
                 "message": "The page you requested was not found. Please check the URL or go to the homepage."
@@ -715,6 +715,7 @@ export default {
                 "last_name": "Last name",
                 "birth_date": "Birth date",
                 "language": "Language",
+                "nation": "Nation",
                 "mobile_phone": "Mobile phone",
                 "work_phone": "Work phone",
                 "email": "Email",
