@@ -51,7 +51,7 @@ class Conversation extends Model
 
     public function notifyComment(Comment $comment)
     {
-        $cType = array_flip(Relation::$morphMap)[ServiceRequest::class];
+        $cType = get_morph_type_of(ServiceRequest::class);
         if ($this->conversationable_type != $cType) {
             return;
         }

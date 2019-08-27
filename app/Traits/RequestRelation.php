@@ -23,6 +23,44 @@ trait RequestRelation
         return $this->requests()->whereIn('service_requests.status', ServiceRequest::SolvedStatuses);
     }
 
+    public function scopeAllRequestStatusCount($q)
+    {
+        $withCount = [];
+        foreach (ServiceRequest::Status as $value) {
+            $withCount[] = 'requests' . str_replace('_', '', title_case($value));
+        }
+
+        return $q->withCount($withCount);
+    }
+
+    public function getStatusRelationCounts()
+    {
+        $statusCounts = [];
+        $attributes = $this->getAttributes();
+
+        foreach (ServiceRequest::Status as $value) {
+            $attribute = 'requests_' . $value . '_count';
+            $statusCounts[$attribute] = $attributes[$attribute] ?? 0;
+        }
+
+        if (key_exists('requests_count', $attributes)) {
+            $statusCounts['requests_count'] = $this->requests_count;
+        } else {
+            $statusCounts['requests_count'] = array_sum($statusCounts);
+        }
+
+
+        if (key_exists('solved_requests_count', $attributes)) {
+            $statusCounts['solved_requests_count'] = $this->solved_requests_count;
+        }
+
+        if (key_exists('pending_requests_count', $attributes)) {
+            $statusCounts['pending_requests_count'] = $this->solved_requests_count;
+        }
+
+        return $statusCounts;
+    }
+
     public function __call($name, $arguments)
     {
         if (Str::startsWith($name, 'requests')) {

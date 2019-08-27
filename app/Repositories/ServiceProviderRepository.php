@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App\Models\ServiceProvider;
 use App\Models\Building;
 use App\Models\District;
-use InfyOm\Generator\Common\BaseRepository;
 
 /**
  * Class ServiceProviderRepository
