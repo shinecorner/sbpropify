@@ -13,6 +13,7 @@ return [
     'months' => 'Mesi',
     'years' => 'Anni',
   ],
+  'chooseLanguage' => 'Scegliere la lingua',
   'languages' => 
   [
     'fr' => 'Français',
@@ -152,9 +153,11 @@ return [
     'service' => 'Servizio',
     'super_admin' => 'Super Admin',
   ],
-  'search' => 
+  'placeholders' => 
   [
-    'placeholder' => 'Ricerca',
+    'search' => 'Ricerca',
+    'select' => 'Seleziona'
+    
   ],
   'errors' => 
   [
@@ -186,7 +189,6 @@ return [
     'invalid_code' => 'Il codice non è valido',
     'not_active_tenant' => 'L\'inquilino non è attivo e non può cambiare la password',
   ],
-  'choose' => 'Scegliere',
   'page_not_found' => [
     'title'   => "C'e' qualcosa che non va qui.",
     'message' => "La pagina richiesta non è stata trovata. Controlla l'URL o vai alla homepage."

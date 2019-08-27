@@ -51,14 +51,14 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
-                    </card>
-                </el-col>
-                <el-col :md="12" id="right_card">
-                    <card :loading="loading">
-                        <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" 
-                            prop="settings.language">
-                            <select-language :activeLanguage.sync="model.settings.language"/>
-                        </el-form-item>
+                        <el-row :gutter="20">
+                            <el-col :md="12" id="right_card">
+                                <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" 
+                                    prop="settings.language">
+                                    <select-language :activeLanguage.sync="model.settings.language"/>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
                     </card>
                 </el-col>
             </el-form>
