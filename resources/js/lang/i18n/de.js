@@ -1,34 +1,5 @@
 export default {
     "de": {
-        "auth": {
-            "failed": "Diese Kombination aus Zugangsdaten wurde nicht in unserer Datenbank gefunden.",
-            "throttle": "Zu viele Loginversuche. Versuchen Sie es bitte in {seconds} Sekunden nochmal.",
-            "login_welcome": "Willkommen zurück, bitte melden Sie sich mit Ihrem Konto an.",
-            "title": "Mit unserer Mieter-App geht alles einfacher",
-            "intro": "Um die Anliegen der Mieterschaft noch schneller zu verarbeiten, erhalten unsere Mieter Zugang zu einem geschützten Bereich mit welchen das Mietverhältnis digital verwaltet werden kann.",
-            "benefit_1": {
-                "title": "Daten und Dokumente online einsehbar",
-                "description": "Sie können alle Angaben zum Mietverhältnis und Unterlagen wie z.B. den Mietvertrag, jederzeit im PDF Format herunterladen."
-            },
-            "benefit_2": {
-                "title": "Digitale Übermittlung von Anliegen",
-                "description": "Sie können alle Ihre Anliegen über die App erfassen und übertragen. Das Bewirtschaftungsteam leitet umgehend die nötigen Schritte ein."
-            },
-            "benefit_3": {
-                "title": "Immer auf dem neeusten Stand",
-                "description": "In der Pinnwand können Sie Beiträge posten, sich mit den Nachbarn vernetzen und erhalten Meldungen der Verwaltung in digitaler Form."
-            },
-            "benefit_4": {
-                "title": "Online Leih- und Marktplatz",
-                "description": "Wenn Sie über Gegenstände verfügen, die Sie nicht brauchen, dann können Sie diese in der App ausschreiben und Ihren Nachbarn anbieten."
-            },
-            "login": {
-                "activate_account": {
-                    "title": "Erster Login (Aktivierung des Kontos)",
-                    "description": "Nach Erhalt des Aktivierungscodes können Sie sich zum ersten Mal im Mieterportal einloggen und Ihr Konto aktivieren."
-                }
-            }
-        },
         "common": {
             "mr": "Herr",
             "mrs": "Frau",
@@ -57,162 +28,55 @@ export default {
             "email_link_terms_of_use": "Nutzungsbedingungen",
             "email_link_data_protection": "Datenschutz"
         },
-        "components": {
-            "common": {
-                "audit": {
-                    "type": {
-                        "post": "Pinnwand",
-                        "product": "Markplatz",
-                        "request": "Anfragen"
-                    },
-                    "filter": {
-                        "type": {
-                            "post": "Pinnwand",
-                            "product": "Markplatz",
-                            "request": "Anfragen"
-                        },
-                        "post": {
-                            "created": "Erstellt",
-                            "updated": "Aktualisiert",
-                            "provider_assigned": "Dienstleister zugewiesen",
-                            "user_assigned": "Benutzer zugewiesen",
-                            "media_uploaded": "Mediendateien hinaufgeladen",
-                            "media_deleted": "Mediendateien gelöscht"
-                        },
-                        "product": [],
-                        "request": {
-                            "created": "Erstellt",
-                            "updated": "Aktualisiert",
-                            "provider_assigned": "Dienstleister zugewiesen",
-                            "user_assigned": "Benutzer Dienstleister",
-                            "media_uploaded": "Medien hinaufgeladen",
-                            "media_deleted": "Medien gelöscht"
-                        }
-                    },
-                    "content": {
-                        "withId": {
-                            "post": {
-                                "created": "{userName} hat dieses Beitrag erstellt.",
-                                "updated": {
-                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "published_at": "Beitrag wurde veröffentlicht am {new}."
-                                }
-                            },
-                            "product": {
-                                "created": "{userName} dieses {auditable_type} erstellt.",
-                                "updated": {
-                                    "title": "Der Titel wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "due_date": "Das Erledigungsdatum wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "priority": "Die Priorität wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "category_id": "Die Kategorie wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "qualification": "Die Qualifikation wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "visibility": "Die Sichtbarkeit wurde von \"{old}\" zu \"{new}\" geändert."
-                                },
-                                "provider_assigned": "{providerName} wurde als Dienstleistern zugewiesen.",
-                                "user_assigned": "{userName} wurde als zuständige Person zugewiesen.",
-                                "media_uploaded": "Mediendateien aktualisiert",
-                                "media_deleted": "Mediendateien gelöscht"
-                            },
-                            "request": {
-                                "created": "{userName} hat diese Anfrage erstellt.",
-                                "updated": {
-                                    "title": "Der Titel wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "due_date": "Das Erledigungsdatum wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "priority": "Die Priorität wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "category_id": "Die Kategorie wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "qualification": "Die Qualifikation wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "visibility": "Die Sichtbarkeit wurde von \"{old}\" zu \"{new}\" geändert."
-                                },
-                                "provider_assigned": "{providerName} wurde als Dienstleister zugewiesen.",
-                                "user_assigned": "{userName} wurde als zuständige Person zugewiesen.",
-                                "media_uploaded": "Mediendateien aktualisiert",
-                                "media_deleted": "Mediendateien gelöscht"
-                            }
-                        },
-                        "withNoId": {
-                            "post": {
-                                "created": "{userName} hat die Anfrage {auditable_type} im {auditable_type} #{auditable_id}.",
-                                "updated": {
-                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" im {auditable_type} #{auditable_id} geändert.",
-                                    "published_at": "Post published im {new} im {auditable_type} #{auditable_id}."
-                                }
-                            },
-                            "product": {
-                                "created": "{userName} hat dieses Inserat erstellt #{auditable_id}.",
-                                "updated": {
-                                    "title": "Der Titel wurde von \"{old}\" zu \"{new}\" geändert im {auditable_type} #{auditable_id}.",
-                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert im {auditable_type} #{auditable_id}.",
-                                    "due_date": "Das Erledigungsdatum wurde von \"{old}\" zu \"{new}\" geändert im {auditable_type} #{auditable_id}.",
-                                    "priority": "Die Priorität wurde von \"{old}\" zu \"{new}\" geändert im {auditable_type} #{auditable_id}.",
-                                    "category_id": "Die Kategorie wurde von \"{old}\" zu \"{new}\" geändert im {auditable_type} #{auditable_id}.",
-                                    "qualification": "Die Qualifikation wurde von \"{old}\" zu \"{new}\" geändert im {auditable_type} #{auditable_id}.",
-                                    "visibility": "Die Sichtbarkeit wurde von \"{old}\" zu \"{new}\" geändert im {auditable_type} #{auditable_id}."
-                                },
-                                "provider_assigned": "{providerName} has been assigned as provider im {auditable_type} #{auditable_id}.",
-                                "user_assigned": "{userName} has been assigned as manager im {auditable_type} #{auditable_id}.",
-                                "media_uploaded": "Mediendateien aktualisiert",
-                                "media_deleted": "Mediendateien gelöscht"
-                            },
-                            "request": {
-                                "created": "{userName} hat diese Anfrage erstellt.",
-                                "updated": {
-                                    "title": "Der Titel wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "due_date": "Das Erledigungsdatum wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "priority": "Die Priorität wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "category_id": "Die Kategorie wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "qualification": "Die Qualifikation wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "visibility": "Die Sichtbarkeit wurde von \"{old}\" zu \"{new}\" geändert."
-                                },
-                                "provider_assigned": "{providerName} wurde als Dienstleister zugewiesen.",
-                                "user_assigned": "{userName} wurde als zuständige Person zugewiesen.",
-                                "media_uploaded": "Mediendateien aktualisiert",
-                                "media_deleted": "Mediendateien gelöscht"
-                            }
-                        }
-                    }
+        "models": {
+            "user": {
+                "administrator": "Administratoren",
+                "super_admin": "Super-Administratoren",
+                "add_admin": "Administrator hinzufügen",
+                "edit_admin": "Administrator bearbeiten",
+                "add_super_admin": "Super-Admin hinzufügen",
+                "edit_super_admin": "Super-Admin bearbeiten",
+                "edit_action": "Öffnen",
+                "delete": "Löschen",
+                "name": "Name",
+                "phone": "Telefon",
+                "date": "Datum",
+                "email": "E-Mail",
+                "id": "ID",
+                "add": "Benutzer hinzufügen",
+                "save": "Speichern",
+                "saved": "Benutzer erfolgreich gespeichert.",
+                "deleted": "Benutzer erfolgreich gelöscht.",
+                "edit": "Bearbeiten",
+                "not_found": "Benutzer nicht gefunden.",
+                "profile_image": "Profil-Bild",
+                "profile_text": "Profil-Text",
+                "avatar_uploaded": "Profilbild aktualisiert",
+                "logo_uploaded": "Logo aktualisiert.",
+                "logo": "Firmenlogo",
+                "address": "Adresse",
+                "blank_pdf": "PDF ohne Briefkopf verwenden",
+                "notificationSaved": "Benachrichtigungseinstellung gespeichert",
+                "realEstateSaved": "Einstellungen gespeichert.",
+                "serviceRequestCategorySaved": "Anfrage-Kategorie gespeichert",
+                "serviceRequestCategoryDeleted": "Anfrage-Kategorie gelöscht",
+                "setting_saved": "Einstellung(en) gespeichert",
+                "setting_deleted": "Einstellung(en) gelöscht",
+                "password_reset_request_sent": "Wir haben Ihnen eine E-Mail mit weiteren Anweisungen gesendet. Bitte prüfen Sie Ihren Posteingang und schauen Sie ggf. auch in Ihrem Spam-Ordern rein.",
+                "errors": {
+                    "not_found": "Benutzer nicht gefunden",
+                    "setting_not_found": "Benutzereinstellung nicht gefunden",
+                    "image_upload": "Fehler beim Hochladen des Benutzerbildes: ",
+                    "incorrect_password": "Benutzerpasswort falsch",
+                    "email_missing": "E-Mail fehlt",
+                    "email_already_exists": "Die E-Mail [{email}] existiert bereits. Bitte bestehenden Eintrag verwenden oder eine andere E-Mail eingeben",
+                    "email_not_exists": "Die E-Mail [{email}] existiert nicht in unserer Datenbank.",
+                    "password_reset_token_invalid": "Das Token zum Zurücksetzen des Passworts ist ungültig.",
+                    "deleted": "Fehler beim Löschen durch den Benutzer: "
                 },
-                "commentsList": {
-                    "loading": "Ladet...",
-                    "loadMore": {
-                        "simple": "Weitere {count} laden",
-                        "detailed": "Lade {count} weitere Kommentare"
-                    },
-                    "emptyPlaceholder": {
-                        "title": "Bislang wurde kein Beitrag geteilt...",
-                        "description": "Verfasse den ersten Post in dem du auf den unten stehenden Button klickst."
-                    }
-                },
-                "comment": {
-                    "updateShortcut": "oder Verwendung {shortcut} Abkürzung",
-                    "updateOrCancel": "{update} oder drücke {esc} um {cancel}",
-                    "update": "bearbeiten",
-                    "esc": "ESC",
-                    "cancel": "abzubrechen",
-                    "addChildComment": "Kommentar",
-                    "loadMore": "Lade 1 weiteren Kommentar | Lade {count} weitere Kommentare",
-                    "deletedCommentPlaceholder": "Der Kommentar wurde gelöscht."
-                },
-                "addComment": {
-                    "placeholder": "Schreibe einen Kommentar...",
-                    "tooltipTemplates": "Wählen Sie eine Vorlage",
-                    "loadingTemplates": "Vorlagen werden geladen...",
-                    "saveShortcut": "oder verwende {shortcut} Abkürzung",
-                    "emptyTemplatesPlaceholder": "Keine Vorlagen vorhanden"
-                },
-                "media": {
-                    "buttons": {
-                        "selectFiles": {
-                            "withDrop": "Schieben oder wählen Sie die Dateien...",
-                            "withoutDrop": "Datei wählen..."
-                        },
-                        "upload": "Hinauflauden"
-                    },
-                    "dropActive": {
-                        "title": "Schieben Sie die Dateien hier hinein..",
-                        "description": "Nur die Dateien mit eines bestimmten Typs sind erlaubt..."
+                "validation": {
+                    "name": {
+                        "required": "Name ist obligatorisch"
                     },
                     "messages": {
                         "preview": "Es kann keine Vorschau angezeigt werden.",
@@ -337,7 +201,6 @@ export default {
                 "months": "Monate",
                 "years": "Jahre"
             },
-            "chooseLanguage": "Sprache auswählen",
             "languages": {
                 "fr": "Français",
                 "it": "Italiano",
@@ -912,7 +775,8 @@ export default {
                     "update": "Fehler beim Aktualisieren der Einheit: ",
                     "tenant_assign": "Fehler beim Zuweisen des Mieters: ",
                     "tenant_not_assign": "Fehler beim Zuweisen des Mieters",
-                    "tenant_not_found": "Mieter nicht gefunden"
+                    "tenant_not_found": "Mieter nicht gefunden",
+                    "deleted": "Fehler beim Löschen der Einheit: "
                 },
                 "placeholders": {
                     "search": "Suchen",
@@ -1009,7 +873,8 @@ export default {
                     "not_found": "Beitrag nicht gefunden",
                     "district_not_found": "Überbbauung nicht gefunden",
                     "building_not_found": "Liegenschaft nicht gefunden",
-                    "provider_not_found": "Dienstanbieter nicht gefunden"
+                    "provider_not_found": "Dienstanbieter nicht gefunden",
+                    "deleted": "Gelöschten Fehler buchen: "
                 },
                 "status": {
                     "label": "Status",
@@ -1135,7 +1000,8 @@ export default {
                 "buildings": "Liegenschaften",
                 "count_of_buildings": "Anzahl Liegenschaften",
                 "errors": {
-                    "not_found": "Überbauung nicht gefunden"
+                    "not_found": "Überbauung nicht gefunden",
+                    "deleted": "Fehler durch den Bezirk gelöscht: "
                 }
             },
             "realEstate": {
@@ -1242,6 +1108,7 @@ export default {
                 "status_changed": "Status wurde geändert",
                 "priority_changed": "Priorität wurde geändert",
                 "assignment": "Zugewiesene Personen/Firmen",
+                "last_updated": "Last updated",
                 "media": {
                     "added": "Mediendatei hinzugefügt",
                     "removed": "Mediendatei entfernt.",
@@ -1362,7 +1229,8 @@ export default {
                     "user_not_found": "Benutzer nicht gefunden",
                     "conversation_not_found": "Konversation nicht gefunden",
                     "statistics_error": "Statistik-Fehler: ",
-                    "internal_notice_not_found": "Interne Notiz nicht gefunden"
+                    "internal_notice_not_found": "Interne Notiz nicht gefunden",
+                    "deleted": "Service Request gelöschter Fehler: "
                 },
                 "requestID": "Anfrage-ID",
                 "requestCategory": "Anfrage-Kategorie ",
@@ -1451,7 +1319,8 @@ export default {
                     "district_not_found": "Überbauung nicht gefunden",
                     "building_not_found": "Liegenschaft nicht gefunden",
                     "building_already_assign": "Die Liegenschaft ist dieser Überbauung bereits zugewiesen.",
-                    "building_assign_deleted_property_manager": "Sie können einem gelöschten Bewirtschafter keine Liegenschaft(en) zuordnen."
+                    "building_assign_deleted_property_manager": "Sie können einem gelöschten Bewirtschafter keine Liegenschaft(en) zuordnen.",
+                    "deleted": "Bewirtschafter löschte Fehler: "
                 }
             },
             "product": {
@@ -1482,7 +1351,8 @@ export default {
                     "uploaded": "Dokument/Foto hochgeladen"
                 },
                 "errors": {
-                    "not_found": "Produkt nicht gefunden"
+                    "not_found": "Produkt nicht gefunden",
+                    "deleted": "Fehler beim Löschen des Produkts: "
                 },
                 "type": {
                     "label": "Typ",
@@ -1538,55 +1408,266 @@ export default {
                 "terms_text": "Terms text here, long text"
             }
         },
-        "pages": {
-            "profile": {
-                "pageTitle": "Profil-Einstellungen",
-                "profile": "Profil",
-                "account": "Konto",
-                "security": "Sicherheit",
-                "notifications": "Benachrichtigungen"
+        "layouts": {
+            "tenant": {
+                "menu": {
+                    "logout": "Abmelden"
+                },
+                "sidebar": {
+                    "dashboard": "Dashboard",
+                    "myTenancy": "Mein Dossier",
+                    "myPersonalData": "Persönliche Angaben",
+                    "myRecentContract": "Mietvertrag",
+                    "myDocuments": "Objekt-Dokumentation",
+                    "myContactPersons": "Kontaktpersonen",
+                    "posts": "Pinnwand",
+                    "requests": "Anfragen",
+                    "products": "Marktplatz",
+                    "settings": "Einstellungen"
+                }
+            }
+        },
+        "auth": {
+            "failed": "Diese Kombination aus Zugangsdaten wurde nicht in unserer Datenbank gefunden.",
+            "throttle": "Zu viele Loginversuche. Versuchen Sie es bitte in {seconds} Sekunden nochmal.",
+            "login_welcome": "Willkommen zurück, bitte melden Sie sich mit Ihrem Konto an.",
+            "title": "Mit unserer Mieter-App geht alles einfacher",
+            "intro": "Um die Anliegen der Mieterschaft noch schneller zu verarbeiten, erhalten unsere Mieter Zugang zu einem geschützten Bereich mit welchen das Mietverhältnis digital verwaltet werden kann.",
+            "benefit_1": {
+                "title": "Daten und Dokumente online einsehbar",
+                "description": "Sie können alle Angaben zum Mietverhältnis und Unterlagen wie z.B. den Mietvertrag, jederzeit im PDF Format herunterladen."
             },
-            "user": {
-                "title": "Benutzer"
+            "benefit_2": {
+                "title": "Digitale Übermittlung von Anliegen",
+                "description": "Sie können alle Ihre Anliegen über die App erfassen und übertragen. Das Bewirtschaftungsteam leitet umgehend die nötigen Schritte ein."
             },
-            "request_activities": {
-                "title": "Aktivitäten Tracking"
+            "benefit_3": {
+                "title": "Immer auf dem neeusten Stand",
+                "description": "In der Pinnwand können Sie Beiträge posten, sich mit den Nachbarn vernetzen und erhalten Meldungen der Verwaltung in digitaler Form."
+            },
+            "benefit_4": {
+                "title": "Online Leih- und Marktplatz",
+                "description": "Wenn Sie über Gegenstände verfügen, die Sie nicht brauchen, dann können Sie diese in der App ausschreiben und Ihren Nachbarn anbieten."
+            },
+            "login": {
+                "activate_account": {
+                    "title": "Erster Login (Aktivierung des Kontos)",
+                    "description": "Nach Erhalt des Aktivierungscodes können Sie sich zum ersten Mal im Mieterportal einloggen und Ihr Konto aktivieren."
+                }
+            }
+        },
+        "views": {
+            "tenant": {
+                "my": {
+                    "personal": {
+                        "title": "Persönliche Angaben",
+                        "description": "Meine Daten",
+                        "placeholder": {
+                            "title": "Keine persönlichen Angaben angegeben.",
+                            "description": "Bislang wurden keine Daten in diesem Bereich hinterlegt."
+                        }
+                    }
+                }
+            }
+        },
+        "filters": {
+            "header": "Filter",
+            "districts": "Überbauungen",
+            "buildings": "Liegenschaften",
+            "requests": "Anfragen",
+            "open_requests": "Offene Anfragen",
+            "units": "Einheiten",
+            "states": "Kanton",
+            "status": "Status",
+            "search": "Suchen",
+            "requestStatus": "Anfrage Status",
+            "propertyManagers": "Bewirtschafter",
+            "categories": "Kategorien",
+            "created_from": "Erstellt vom",
+            "created_to": "Erstellt bis",
+            "services": "Partnerfirmen",
+            "tenant": "Mieter",
+            "roles": "Roles"
+        },
+        "general": {
+            "en": "EN",
+            "fr": "FR",
+            "it": "IT",
+            "de": "DE",
+            "yes": "Ja",
+            "timestamps": {
+                "hours": "Stunden",
+                "days": "Tage",
+                "weeks": "Wochen",
+                "months": "Monate",
+                "years": "Jahre"
+            },
+            "chooseLanguage": "Auswählen",
+            "languages": {
+                "fr": "Français",
+                "it": "Italiano",
+                "de": "Deutsch",
+                "en": "English"
+            },
+            "footerText": {
+                "companyName": "Propify",
+                "leftSideText": "Sie brauchen Unterstützung? Kontaktieren Sie unser Support-Team unter<br/>0800 000 000 oder via eine E-Mail an support@propify.ch.",
+                "allRightsSaved": "Alle Rechte vorbehalten"
+            },
+            "days": {
+                "monday": "Montag",
+                "tuesday": "Dienstag",
+                "wednesday": "Mittwoch",
+                "thursday": "Donnerstag",
+                "friday": "Freitag",
+                "saturday": "Samstag",
+                "sunday": "Sonntag"
+            },
+            "salutation": "Anrede",
+            "no": "Nein",
+            "none": "Nichts gewählt",
+            "all": "Alle",
+            "loadMore": "Mehr laden",
+            "account": "Konto",
+            "activate_account": "Account akvitieren",
+            "activate_code": "Aktivierunscode",
+            "activate_code_required": "Aktivierunscode ist ein Pflichtfeld",
+            "activate_terms_condition_1": "Ich stimme zu, dass die Angaben korrekt sind.",
+            "activate_terms_condition_2": "Ich habe die Allgemeinen Geschäftsbedingungen gelesen.",
+            "back": "Zurück",
+            "activate": "Aktivieren",
+            "activate_info": "Wenn Sie von Ihrem Vermieter einen Aktivierungscode erhalten haben, dann können Sie hier Ihr Konto aktivieren. Bitte geben Sie folgende Daten ein:",
+            "unauthenticated": "Unautorisiert",
+            "logged_out": "Ausgeloggt",
+            "logged_in": "Eingeloggt",
+            "invalid_credentials": "Die eingegebenen Daten stimmen nicht.",
+            "server_error": "Server Fehler, bitter erneut versuchen.",
+            "reset_password": "Passwort zurücksetzen",
+            "reset_password_mail": "Passwort per E-Mail zurücksetzen.",
+            "reset_password_mail_sent": "Wir haben Ihnen eine E-Mail mit weiteren Anweisungen gesendet. Bitte prüfen Sie Ihren Posteingang.",
+            "back_to_login": "Zurück zum Login",
+            "forgot_password": "Passwort vergessen",
+            "forgot_password_info": "Geben Sie Ihre E-Mail-Adresse, mit der Sie sich registriert hast, an. Wir senden Ihnen dann eine E-Mail mit I Benutzernamen und einem Link, mit dem du dein Passwort zurücksetzen kannst.",
+            "email_not_registered": "Die E-Mail-Adresse, die Sie eingegeben haben, ist keinem aktiven Konto zugeordnet. Versuchen Sie es mit einer anderen E-Mail-Adresse.",
+            "remember_me": "Angemeldet bleiben",
+            "password": "Passwort",
+            "change_password": "Neues Passwort festlegen",
+            "change_password_info": "Bitte geben Sie hier Ihr neues Passwort ein:",
+            "new_password": "Neues Passwort",
+            "old_password": "Altes Passwort",
+            "new_password_confirmation": "Neues Passwort bestätigen",
+            "change": "Ändern",
+            "cancel": "Schliessen",
+            "confirm": "Bestätigen",
+            "confirm_password": "Passwort bestätigen",
+            "incorrect_password": "Altes Passwort stimmt nicht",
+            "password_changed": "Passwort erfolgreich geändert",
+            "details_saved": "Angaben gespeichert",
+            "please_wait": "Bitte warten...",
+            "no_data_available": "Keine Daten verfügbar",
+            "upload_error": "Fehler beim Hochladen von Medien",
+            "media_not_found": "Medien nicht gefunden",
+            "comment_not_found": "Kommentar nicht gefunden",
+            "comment_created": "Kommentar erstellt",
+            "comment_updated": "Kommentar aktualisiert",
+            "comment_deleted": "Kommentar gelöscht",
+            "password_validation": {
+                "required": "Passwort ist obligatorisch",
+                "confirm": "Passwort bestätigen",
+                "match": "Die eingegebenen Passwörter sind nicht identisch.",
+                "min": "Das Passwort muss aus mind. 6 Zeichen bestehen.",
+                "old_password_min": "Das alte Passwort müsste aus mind. 6 Zeichen bestehen.",
+                "old_password_required": "Das alte Passwort wird benötigt."
+            },
+            "assignmentTypes": {
+                "services": "Dienstleister",
+                "managers": "Bewirtschafter",
+                "building": "Liegenschaft",
+                "district": "Überbauung"
+            },
+            "email": "E-Mail",
+            "email_validation": {
+                "required": "E-Mail ist obligatorisch",
+                "email": "Bitte geben Sie eine gültige E-Mail Adresse ein."
+            },
+            "token_invalid": "Invalid token",
+            "login": "Login",
+            "support": "Support",
+            "actions": {
+                "label": "Operationen",
+                "edit": "Öffnen",
+                "add": "Hinzufügen",
+                "delete": "Löschen",
+                "create": "Erstellen",
+                "view": "Details",
+                "save": "Speichern",
+                "close": "Schliessen",
+                "saveAndClose": "Speichern & schliessen",
+                "upload": "Herunterladen"
+            },
+            "swal": {
+                "delete": {
+                    "title": "Sind Sie sicher?",
+                    "text": "Dies kann nicht mehr rückgänging gemacht werden!",
+                    "confirmText": "Ja, ich will löschen!",
+                    "deleted": "Erfolgreich gelöscht!"
+                },
+                "add": {
+                    "added": "Erfolgreich hinzugefügt"
+                },
+                "media": {
+                    "added": "Dokument/Foto hinzugefügt",
+                    "deleted": "Dokument/Foto gelöscht"
+                },
+                "logout_confirm": "Sie werden eingelogt ausgeloggt."
+            },
+            "roles": {
+                "label": "Rolle",
+                "administrator": "Administrator",
+                "homeowner": "Eigentümer",
+                "manager": "Bewirtschafter",
+                "registered": "Registriert",
+                "service": "Partnerfirma",
+                "super_admin": "Super Administrator"
+            },
+            "search": {
+                "placeholder": "Suchen"
+            },
+            "errors": {
+                "files_extension_images": "Nur Dateien in der Formaten .jpg und .png erlaubt."
+            },
+            "dateTimeFormat": "{date} um {time} Uhr",
+            "date_range": {
+                "range_separator": "Bis",
+                "start_date": "Startdatum",
+                "end_date": "Enddatum",
+                "last_7_days": "Letzte 7 Tage",
+                "last_week": "Letzte Woche",
+                "last_14_days": "Letzte 14 Tage",
+                "last_30_days": "Letzte 30 Tage",
+                "last_month": "Letzte Monat",
+                "last_3_months": "Letzte 3 Monate",
+                "last_6_months": "Letzte 3 Monate",
+                "last_year": "Letzte Jahr",
+                "last_2_years": "Letzte 2 Jahre",
+                "all_time": "Ingesamt",
+                "week": "Woche",
+                "peek_week": "Wählen wählen"
             },
             "tenant": {
-                "title": "Mieter"
-            }
-        },
-        "pagination": {
-            "previous": "&laquo; Zurück",
-            "next": "Weiter &raquo;"
-        },
-        "passwords": {
-            "password": "Passwörter müssen mindestens 6 Zeichen lang sein und korrekt bestätigt werden.",
-            "reset": "Das Passwort wurde erfolgreich zurückgesetzt!",
-            "sent": "Passworterinnerung wurde an die angegebene E-Mail-Adresse  gesendet!",
-            "token": "Der Passwort-Wiederherstellungs-Schlüssel ist ungültig oder abgelaufen.",
-            "user": "Es konnte leider kein Nutzer mit dieser E-Mail-Adresse gefunden werden."
-        },
-        "settings": {
-            "notifications": "Benachrichtigungen und Sprache",
-            "admin": "Benachrichtigungen vom Vermieter",
-            "news": "Pinnwand",
-            "marketplace": "Marketplace notifications",
-            "service": "Partnerfirmen",
-            "updated": "Einstellungen wurden gespeichert.",
-            "language": "Sprache",
-            "summary": {
-                "label": "Statistiken",
-                "daily": "Täglich",
-                "monthly": "Wöchentlich",
-                "yearly": "Jährlich"
+                "activate_required_credentials": "Code, E-Mail, Passwort erforderlich",
+                "incorrect_email": "Falsche E-Mail-Adresse",
+                "user_not_tenant": "Dieser Benutzer ist nicht Mieter.",
+                "invalid_code": "Der Code ist ungültig",
+                "not_active_tenant": "Der Mieter ist nicht aktiv und kann das Passwort nicht ändern."
             },
-            "contact_enable": {
-                "label": "Meine Kontakte aktivieren",
-                "use_global": "Globale Einstellung verwenden",
-                "show": "Zeigen",
-                "hide": "Verbergen "
-            }
+            "choose": "Auswählen",
+            "page_not_found": {
+                "title": "Hmm… hier stimmt etwas nicht.",
+                "message": "Die von dir aufgerufene Seite wurde nicht gefunden. Bitte überprüfe die URL oder wechsle zur Startseite."
+            },
+            "to_homepage": "Zur Startseite",
+            "assignment": "Zugewiesene Liegenschaften"
         },
         "tenant": {
             "tenant_credentials": "Anmeldedaten des Mieters",
@@ -1606,6 +1687,69 @@ export default {
             "no_requests": "Bislang keine Anfragen gestellt.",
             "no_listings": "Bislang keine Inserate veröffentlicht.",
             "no_data": "Keine Angaben."
+        },
+        "dashboard": {
+            "statistics": "Statistiken",
+            "requests_by_creation_date": "Anfragen nach Erstellungsdatum",
+            "requests_by_status": "Anfragen nach Status",
+            "requests_by_category": "Anfragen nach Kategorie",
+            "requests_by_assigned_status": "Einbezug von Dienstleistern",
+            "each_hour_request": "Stündlich",
+            "average_request_duration": "Ø Bearbeitungszeit in Std.",
+            "week_hour": "Woche und Stunden",
+            "month_date": "Monat und Tag",
+            "news_by_creation_date": "Nachrichten nach Erstellungsdatum",
+            "news_by_status": "Nachrichten nach Status",
+            "news_by_type": "Nachrichten nach Typ",
+            "latest_products": "Neueste Produkte",
+            "products_by_creation_date": "Marktplatz-Produkte nach Erstellungsdatum",
+            "products_by_type": "Marktplatz-Produkte nach Typ",
+            "tenants_by_creation_date": "Mieter nach Erstellungsdatum",
+            "tenants_by_request_status": "Mieter nach Anfrage-Status",
+            "tenants_by_status": "Mieter nach Status",
+            "tenants_by_language": "Mieter nach Sprache",
+            "tenants_by_title": "Mieter nach Anrede",
+            "tenants_by_device": "Geräte",
+            "tenants_by_gender": "Demografische Merkmale",
+            "tenants_by_age": "Mieter nach Altersgruppen",
+            "actions": "Aktionen",
+            "requests": {
+                "requests_with_service_providers": "Mit Dienstleister",
+                "request_wihout_service_providers": "Ohne Dienstleister",
+                "property_managers": "Bewirtschafter mit Anfragen",
+                "service_partners": "Dienstleister mit Anfragen",
+                "go_to_property_managers": "zu den Bewirtschaftern gehen",
+                "go_to_service_partners": "zu den Dienstleistern gehen"
+            },
+            "buildings": {
+                "total_building": "Anzahl Liegenschaften",
+                "total_units": "Anzahl Enheiten",
+                "occupied_units": "Vermiete Einheiten",
+                "free_units": "Freie Einheiten",
+                "buildings_by_creation_date": "Liegenschaften nach Erstellungsdatum",
+                "buildings_map": "Gebäudekarte",
+                "latest_buildings": "Neueste Gebäude",
+                "managers": "Bewirtschafter",
+                "tenants": "Mieter",
+                "requests": "Anfragen",
+                "go_to_buildings": "zu den Liegenschaften",
+                "buildings_by_state": "Liegenschaften nach Kanton"
+            },
+            "tenants": {
+                "total_tenants": "Total Mieter",
+                "average_age": "Durchschnittsalter:",
+                "average_age_acr": "Ø Alter",
+                "latest_tenants": "Neueste Mieter",
+                "go_to_tenants": "zu den Mietern gehen"
+            },
+            "marketplace": {
+                "go_to_marketplace": "zum Marktplatz gehen"
+            },
+            "news": {
+                "latest_news": "Neueste Beiträge",
+                "go_to_news": "zur Pinnwand gehen",
+                "counts": "Kommentare"
+            }
         },
         "validation": {
             "validation_main_message": "Die angegebenen Daten waren ungültig.",
@@ -1779,19 +1923,276 @@ export default {
                 "required": "Bitte genehmigen Sie mit den Allgemeinen Geschäftsbedingungen."
             }
         },
-        "views": {
+        "passwords": {
+            "password": "Passwörter müssen mindestens 6 Zeichen lang sein und korrekt bestätigt werden.",
+            "reset": "Das Passwort wurde erfolgreich zurückgesetzt!",
+            "sent": "Passworterinnerung wurde an die angegebene E-Mail-Adresse  gesendet!",
+            "token": "Der Passwort-Wiederherstellungs-Schlüssel ist ungültig oder abgelaufen.",
+            "user": "Es konnte leider kein Nutzer mit dieser E-Mail-Adresse gefunden werden."
+        },
+        "pages": {
+            "profile": {
+                "pageTitle": "Profil-Einstellungen",
+                "profile": "Profil",
+                "account": "Konto",
+                "security": "Sicherheit",
+                "notifications": "Benachrichtigungen"
+            },
+            "user": {
+                "title": "Benutzer"
+            },
+            "request_activities": {
+                "title": "Aktivitäten Tracking"
+            },
             "tenant": {
-                "my": {
-                    "personal": {
-                        "title": "Persönliche Angaben",
-                        "description": "Meine Daten",
-                        "placeholder": {
-                            "title": "Keine persönlichen Angaben angegeben.",
-                            "description": "Bislang wurden keine Daten in diesem Bereich hinterlegt."
+                "title": "Mieter"
+            }
+        },
+        "menu": {
+            "dashboard": "Dashboard",
+            "news": "Pinnwand",
+            "requests": "Servicezentrum",
+            "all_requests": "Alle Anfragen",
+            "myRequests": "Meine Anfragen",
+            "myPendingRequests": "Meine offenen Anfragen",
+            "notAssigned": "Nicht zugeordnet",
+            "allPendingRequests": "Alle offenen Anfragen",
+            "marketplace": "Marktplatz",
+            "settings": "Einstellungen",
+            "logout": "Anmelden",
+            "profile": "Profil",
+            "users": "Benutzer",
+            "employees": "Bewirtschafter",
+            "companies": "Partnerfirmen",
+            "admins": "Administratoren",
+            "super_admins": "Super Administratoren",
+            "home_owners": "Eigentümer",
+            "registered": "Registriert",
+            "about": "Über",
+            "feedback": "Feedback",
+            "tenants": "Mieter",
+            "buildings": "Liegenschaften",
+            "all_buildings": "Objekte",
+            "units": "Einheiten",
+            "addresses": "Liegenschaften",
+            "posts": "Pinnwand",
+            "districts": "Überbauungen",
+            "products": "Marktplatz",
+            "requestCategories": "Kategorien",
+            "services": "Partnerfirmen",
+            "activity": "Aktivität",
+            "propertyManagers": "Bewirtschafter",
+            "templates": "Vorlagen"
+        },
+        "settings": {
+            "notifications": "Benachrichtigungen und Sprache",
+            "admin": "Benachrichtigungen vom Vermieter",
+            "news": "Pinnwand",
+            "marketplace": "Marketplace notifications",
+            "service": "Partnerfirmen",
+            "updated": "Einstellungen wurden gespeichert.",
+            "language": "Sprache",
+            "summary": {
+                "label": "Statistiken",
+                "daily": "Täglich",
+                "monthly": "Wöchentlich",
+                "yearly": "Jährlich"
+            },
+            "contact_enable": {
+                "label": "Meine Kontakte aktivieren",
+                "use_global": "Globale Einstellung verwenden",
+                "show": "Zeigen",
+                "hide": "Verbergen "
+            }
+        },
+        "components": {
+            "common": {
+                "audit": {
+                    "type": {
+                        "post": "Pinnwand",
+                        "product": "Markplatz",
+                        "request": "Anfragen"
+                    },
+                    "filter": {
+                        "type": {
+                            "post": "Pinnwand",
+                            "product": "Markplatz",
+                            "request": "Anfragen"
+                        },
+                        "post": {
+                            "created": "Erstellt",
+                            "updated": "Aktualisiert",
+                            "provider_assigned": "Dienstleister zugewiesen",
+                            "user_assigned": "Benutzer zugewiesen",
+                            "media_uploaded": "Mediendateien hinaufgeladen",
+                            "media_deleted": "Mediendateien gelöscht"
+                        },
+                        "product": [],
+                        "request": {
+                            "created": "Erstellt",
+                            "updated": "Aktualisiert",
+                            "provider_assigned": "Dienstleister zugewiesen",
+                            "user_assigned": "Benutzer Dienstleister",
+                            "media_uploaded": "Medien hinaufgeladen",
+                            "media_deleted": "Medien gelöscht"
+                        }
+                    },
+                    "content": {
+                        "withId": {
+                            "post": {
+                                "created": "{userName} hat dieses Beitrag erstellt.",
+                                "updated": {
+                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "published_at": "Beitrag wurde veröffentlicht am {new}."
+                                }
+                            },
+                            "product": {
+                                "created": "{userName} dieses {auditable_type} erstellt.",
+                                "updated": {
+                                    "title": "Der Titel wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "due_date": "Das Erledigungsdatum wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "priority": "Die Priorität wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "category_id": "Die Kategorie wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "qualification": "Die Qualifikation wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "visibility": "Die Sichtbarkeit wurde von \"{old}\" zu \"{new}\" geändert."
+                                },
+                                "provider_assigned": "{providerName} wurde als Dienstleistern zugewiesen.",
+                                "user_assigned": "{userName} wurde als zuständige Person zugewiesen.",
+                                "media_uploaded": "Mediendateien aktualisiert",
+                                "media_deleted": "Mediendateien gelöscht"
+                            },
+                            "request": {
+                                "created": "{userName} hat diese Anfrage erstellt.",
+                                "updated": {
+                                    "title": "Der Titel wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "due_date": "Das Erledigungsdatum wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "priority": "Die Priorität wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "category_id": "Die Kategorie wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "qualification": "Die Qualifikation wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "visibility": "Die Sichtbarkeit wurde von \"{old}\" zu \"{new}\" geändert."
+                                },
+                                "provider_assigned": "{providerName} wurde als Dienstleister zugewiesen.",
+                                "user_assigned": "{userName} wurde als zuständige Person zugewiesen.",
+                                "media_uploaded": "Mediendateien aktualisiert",
+                                "media_deleted": "Mediendateien gelöscht"
+                            }
+                        },
+                        "withNoId": {
+                            "post": {
+                                "created": "{userName} hat die Anfrage {auditable_type} im {auditable_type} #{auditable_id}.",
+                                "updated": {
+                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" im {auditable_type} #{auditable_id} geändert.",
+                                    "published_at": "Post published im {new} im {auditable_type} #{auditable_id}."
+                                }
+                            },
+                            "product": {
+                                "created": "{userName} hat dieses Inserat erstellt #{auditable_id}.",
+                                "updated": {
+                                    "title": "Der Titel wurde von \"{old}\" zu \"{new}\" geändert im {auditable_type} #{auditable_id}.",
+                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert im {auditable_type} #{auditable_id}.",
+                                    "due_date": "Das Erledigungsdatum wurde von \"{old}\" zu \"{new}\" geändert im {auditable_type} #{auditable_id}.",
+                                    "priority": "Die Priorität wurde von \"{old}\" zu \"{new}\" geändert im {auditable_type} #{auditable_id}.",
+                                    "category_id": "Die Kategorie wurde von \"{old}\" zu \"{new}\" geändert im {auditable_type} #{auditable_id}.",
+                                    "qualification": "Die Qualifikation wurde von \"{old}\" zu \"{new}\" geändert im {auditable_type} #{auditable_id}.",
+                                    "visibility": "Die Sichtbarkeit wurde von \"{old}\" zu \"{new}\" geändert im {auditable_type} #{auditable_id}."
+                                },
+                                "provider_assigned": "{providerName} has been assigned as provider im {auditable_type} #{auditable_id}.",
+                                "user_assigned": "{userName} has been assigned as manager im {auditable_type} #{auditable_id}.",
+                                "media_uploaded": "Mediendateien aktualisiert",
+                                "media_deleted": "Mediendateien gelöscht"
+                            },
+                            "request": {
+                                "created": "{userName} hat diese Anfrage erstellt.",
+                                "updated": {
+                                    "title": "Der Titel wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "due_date": "Das Erledigungsdatum wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "priority": "Die Priorität wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "category_id": "Die Kategorie wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "qualification": "Die Qualifikation wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "visibility": "Die Sichtbarkeit wurde von \"{old}\" zu \"{new}\" geändert."
+                                },
+                                "provider_assigned": "{providerName} wurde als Dienstleister zugewiesen.",
+                                "user_assigned": "{userName} wurde als zuständige Person zugewiesen.",
+                                "media_uploaded": "Mediendateien aktualisiert",
+                                "media_deleted": "Mediendateien gelöscht"
+                            }
                         }
                     }
+                },
+                "commentsList": {
+                    "loading": "Ladet...",
+                    "loadMore": {
+                        "simple": "Weitere {count} laden",
+                        "detailed": "Lade {count} weitere Kommentare"
+                    },
+                    "emptyPlaceholder": {
+                        "title": "Bislang wurde kein Beitrag geteilt...",
+                        "description": "Verfasse den ersten Post in dem du auf den unten stehenden Button klickst."
+                    }
+                },
+                "comment": {
+                    "updateShortcut": "oder Verwendung {shortcut} Abkürzung",
+                    "updateOrCancel": "{update} oder drücke {esc} um {cancel}",
+                    "update": "bearbeiten",
+                    "esc": "ESC",
+                    "cancel": "abzubrechen",
+                    "addChildComment": "Kommentar",
+                    "loadMore": "Lade 1 weiteren Kommentar | Lade {count} weitere Kommentare",
+                    "deletedCommentPlaceholder": "Der Kommentar wurde gelöscht."
+                },
+                "addComment": {
+                    "placeholder": "Schreibe einen Kommentar...",
+                    "tooltipTemplates": "Wählen Sie eine Vorlage",
+                    "loadingTemplates": "Vorlagen werden geladen...",
+                    "saveShortcut": "oder verwende {shortcut} Abkürzung",
+                    "emptyTemplatesPlaceholder": "Keine Vorlagen vorhanden"
+                },
+                "media": {
+                    "buttons": {
+                        "selectFiles": {
+                            "withDrop": "Schieben oder wählen Sie die Dateien...",
+                            "withoutDrop": "Datei wählen..."
+                        },
+                        "upload": "Hinauflauden"
+                    },
+                    "dropActive": {
+                        "title": "Schieben Sie die Dateien hier hinein..",
+                        "description": "Nur die Dateien mit eines bestimmten Typs sind erlaubt..."
+                    },
+                    "messages": {
+                        "preview": "Es kann keine Vorschau angezeigt werden.",
+                        "uploading": "Hinaufladen...",
+                        "uploaded": "Mediendateien wurden erfolgreich hochgeladen.",
+                        "size": "Hoppla! Einige Dateien sind grösser als die maximal zulässige Anzahl von {bytes}.",
+                        "extensions": "Hoppla! Einige Datei-Typen wurden ausgewählt, die nicht erlaubt sind. Überspringen..."
+                    }
                 }
-            }
+            },
+            "tenant": {
+                "weatherWidget": {
+                    "minTemp": "min",
+                    "maxTemp": "max",
+                    "wind": "Wind",
+                    "cloudiness": "Bewölkung",
+                    "humidity": "Luftfeuchte",
+                    "pressure": "Druck"
+                },
+                "postAdd": {
+                    "visibility": {
+                        "address": "Nachbarn",
+                        "district": "Überbauung",
+                        "all": "Alle"
+                    }
+                }
+            },
+            "admin": []
+        },
+        "pagination": {
+            "previous": "&laquo; Zurück",
+            "next": "Weiter &raquo;"
         }
     }
 }

@@ -137,14 +137,8 @@ class UserAPIController extends AppBaseController
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $users = $this->userRepository
             ->with('roles')
-            ->withCount([
-                'requestsReceived',
-                'requestsInProcessing',
-                'requestsAssigned',
-                'requestsDone',
-                'requestsReactivated',
-                'requestsArchived',
-            ])->paginate($perPage);
+            ->scope('allRequestStatusCount')
+            ->paginate($perPage);
 
         return $this->sendResponse($users->toArray(), 'Users retrieved successfully');
     }
@@ -751,7 +745,16 @@ class UserAPIController extends AppBaseController
         $user->forceDelete();
         return $this->sendResponse($id, __('models.user.deleted'));
     }
-
+    public function destroyWithIds(Request $request){
+        $ids = $request->get('ids');
+        try{
+            User::destroy($ids);
+        }
+        catch (\Exception $e) {
+            return $this->sendError(__('models.user.errors.deleted') . $e->getMessage());
+        }
+        return $this->sendResponse($ids, __('models.user.deleted'));
+    }
     /**
      * @param Request $request
      * @return mixed

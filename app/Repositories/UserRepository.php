@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Models\UserSettings;
 use App\Notifications\PasswordResetSuccess;
 use Illuminate\Support\Str;
-use InfyOm\Generator\Common\BaseRepository;
 use Intervention\Image\ImageManager as Image;
 
 /**

@@ -83,6 +83,19 @@ export default ({
                 })
             }).catch(() => {
             });
+        },
+        batchDeleteWithIds(){
+            this.$confirm(this.$t('general.swal.delete.text'), this.$t('general.swal.delete.title'), {
+                type: 'warning'
+            }).then(() => {                
+                return this[deleteAction](this.selectedItems)
+                .then(r => {                    
+                    this.fetchMore();
+                    displaySuccess(r);                    
+                })
+                .catch(err => displayError(err));                
+            }).catch(() => {
+            });
         }
     },
     computed: {

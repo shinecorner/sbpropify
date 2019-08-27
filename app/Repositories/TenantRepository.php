@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Models\Model;
 use App\Models\ServiceRequest;
 use App\Models\Tenant;
 use App\Models\Unit;
 use App\Traits\UpdateSettings;
-use InfyOm\Generator\Common\BaseRepository;
 use Prettus\Repository\Events\RepositoryEntityDeleted;
 
 /**
@@ -191,12 +191,10 @@ class TenantRepository extends BaseRepository
     /**
      * @param string $collectionName
      * @param string $dataBase64
-     * @param Tenant $model
-     * @return bool|\Spatie\MediaLibrary\Models\Media
-     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded
-     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\InvalidBase64Data
+     * @param Model $model
+     * @return bool
      */
-    public function uploadFile(string $collectionName, string $dataBase64, Tenant $model)
+    public function uploadFile(string $collectionName, string $dataBase64, Model $model)
     {
         if (!$data = base64_decode($dataBase64)) {
             return false;

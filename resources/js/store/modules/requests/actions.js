@@ -37,6 +37,13 @@ export default {
             }).catch(({response: {data: err}}) => reject(err))
         })
     },
+    deleteRequestWithIds({}, payload) {        
+        return new Promise((resolve, reject) => {
+            axios.post(`requests/deletewithids`, {ids: _.map(payload, 'id')}).then((resp) => {                
+                resolve(resp.data);
+            }).catch(({response: {data: err}}) => reject(err))
+        });
+    },
     async addRequestComment({}, {id, ...payload}) {
         try {
             const {data} = await axios.post(`requests/${id}/comments`, payload);

@@ -9,7 +9,6 @@ export default {
                     if (r && !payload.disableCommit) {
                         commit('SET_PROPERTY_MANAGERS', r.data)
                     }
-                    console.log(payload.get_all);
                     if (!payload.get_all) {
                         r.data.data = r.data.data.map((manager) => {
                             manager.name = `${manager.first_name} ${manager.last_name}`;

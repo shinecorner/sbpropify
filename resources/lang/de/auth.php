@@ -22,11 +22,11 @@ return [
 		'description' => 'Sie können alle Angaben zum Mietverhältnis und Unterlagen wie z.B. den Mietvertrag, jederzeit im PDF Format herunterladen.'
 	],
 	'benefit_2' => [
-		'title' => 'Digitale Übermittlung von Anliegen',
+		'title' => 'Anliegen digital übermitteln',
 		'description' => 'Sie können alle Ihre Anliegen über die App erfassen und übertragen. Das Bewirtschaftungsteam leitet umgehend die nötigen Schritte ein.'
 	],
 	'benefit_3' => [
-		'title' => 'Immer auf dem neeusten Stand',
+		'title' => 'Immer auf dem neuesten Stand',
 		'description' => 'In der Pinnwand können Sie Beiträge posten, sich mit den Nachbarn vernetzen und erhalten Meldungen der Verwaltung in digitaler Form.'
 	],
 	'benefit_4' => [

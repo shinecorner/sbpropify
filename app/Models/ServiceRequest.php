@@ -427,15 +427,16 @@ class ServiceRequest extends AuditableModel implements HasMedia
     public function getProviderNotifiedEventAttributes(): array
     {
         $sp = $this->auditData['serviceProvider'];
-        $propertyManagerUsers = $this->auditData['propertyManagerUsers'];
+        $propertyManagers = $this->auditData['propertyManagers'];
         $mailDetails = $this->auditData['mailDetails'];
         unset($this->auditData);
         $propertyManagersData = [];
 
-        foreach ($propertyManagerUsers as $user) {
+        foreach ($propertyManagers as $user) {
             $propertyManagersData[] = [
-                'user_id' => $user->id,
-                'user_name' => $user->name,
+                'manager_id' => $user->id,
+                'manager_first_name' => $user->first_name,
+                'manager_last_name' => $user->last_name,
             ];
         }
 
