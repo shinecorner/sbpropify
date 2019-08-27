@@ -7,7 +7,7 @@
                 </el-button>
             </template>
             <template v-if="$can($permissions.delete.request)">
-                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="mini"
+                <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
                            type="danger">
                     {{$t('models.request.delete')}}
                 </el-button>
@@ -23,6 +23,7 @@
             :isLoadingFilters="{state: isLoadingFilters}"
             :pagination="{total, currPage, currSize}"
             :withSearch="false"
+            :withCheckSelection="false"
             @selectionChanged="selectionChanged"
         >
         </list-table>
@@ -42,7 +43,7 @@
     const mixin = ListTableMixin({
         actions: {
             get: 'getRequests',
-            delete: 'deleteRequest'
+            delete: 'deleteRequestWithIds'
         },
         getters: {
             items: 'requests',
@@ -59,53 +60,9 @@
         data() {
             return {
                 header: [{
-                    label: 'models.request.category',
-                    withMultipleProps: true,
-                    props: ['parent_category_name', 'category_name']
-                }, {
-                    label: 'models.request.address',
-                    withMultipleProps: true,
-                    props: ['address', 'zip']
-                }, {
-                    label: 'models.request.created_by',
-                    withMultipleProps: true,
-                    props: ['tenant_name', 'created_at']
-                }, {
-                    width: 110,
-                    label: 'models.request.assigned_to',
-                    withUsers: true,
-                    prop: 'assignedUsers',
-                    count: 'assignedUsersCount'
-                }, {
-                    width: 100,
-                    label: 'models.request.priority.label',
-                    withBadgeProps: true,
-                    prop: 'priority_label',
-                    size: 'small'
-                }, {
-                    label: 'models.request.status.label',
-                    width: 150,
-                    prop: 'status',
-                    i18nPath: 'models.request.status',
-                    class: 'rounded-select',
-                    select: {
-                        icon: 'ti-pencil',
-                        data: [],
-                        getter: "application/requests",
-                        withDisabled: "statusByAgent",
-                        onChange: this.listingSelectChangedNotify
-                    }
-                }, {
-                    width: 120,
-                    actions: [{
-                        icon: 'ti-pencil',
-                        title: 'models.request.edit',
-                        onClick: this.edit,
-                        permissions: [
-                            this.$permissions.update.request,
-                            this.$permissions.update.serviceRequest
-                        ]
-                    }]
+                    label: '',
+                    withOneCol: true,
+                    editAction: this.edit,
                 }],
                 categories:{},
                 districts:{},

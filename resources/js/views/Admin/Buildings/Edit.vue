@@ -318,8 +318,8 @@
                 tenantActions: [{
                     width: '90px',
                     buttons: [{
-                        icon: 'ti-pencil',
-                        title: this.$t('models.tenant.edit'),
+                        type: 'success',
+                        title: this.$t('models.tenant.view'),
                         onClick: this.tenantEditView
                     }]
                 }],
@@ -420,7 +420,7 @@
             },
             tenantEditView(row) {
                 this.$router.push({
-                    name: 'adminTenantsEdit',
+                    name: 'adminTenantsView',
                     params: {
                         id: row.id
                     }

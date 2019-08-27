@@ -32,4 +32,11 @@ export default {
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
+    deleteDistrictWithIds({}, payload) {        
+        return new Promise((resolve, reject) => {
+            axios.post(`districts/deletewithids`, {ids: _.map(payload, 'id')}).then((resp) => {                
+                resolve(resp.data);
+            }).catch(({response: {data: err}}) => reject(err))
+        });
+    }
 }

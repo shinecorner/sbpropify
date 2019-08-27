@@ -108,7 +108,8 @@
             :empty-text="emptyText"
             @selection-change="handleSelectionChange"
             v-loading="loading.state"
-            @row-click="editLink">
+            @row-click="editLink"
+            :class="getTableClass">
             <el-table-column
                 type="selection"
                 v-if="withCheckSelection"
@@ -126,7 +127,7 @@
                 :key="column.prop"
                 :label="$t(column.label)"
                 :width="column.width"
-                v-for="column in headerWithAvatars">
+                v-for="column in headerWithAvatars" class="request-table">
                 
                 <template slot-scope="scope">
                     <div class="avatars-wrapper">
@@ -154,6 +155,23 @@
                                v-for="(prop, ind) in column.props" v-if="scope.row[prop]">
                         {{scope.row[prop]}}
                     </component>
+                </template>
+            </el-table-column>
+
+            <el-table-column
+                :key="'OneCol'"
+                :width="column.width"
+                v-for="(column, key) in headerWithOneCol"
+            >
+                <template slot-scope="scope">
+                    <request-detail-card
+                        :item="scope.row"
+                        :loading="{state: loading}"
+                        @selectionChanged="handleRequestSelectionChange"
+                        @editAction="column.editAction(scope.row)"
+                    >
+
+                    </request-detail-card>
                 </template>
             </el-table-column>
 
@@ -286,13 +304,15 @@
     import uuid from 'uuid/v1'
     import RequestCount from 'components/RequestCount.vue'
     import tableAvatar from 'components/Avatar';
+    import RequestDetailCard from 'components/RequestDetailCard';
 
     export default {
         name: 'ListTable',
         components: {
             Avatar,
             RequestCount,
-            'table-avatar': tableAvatar
+            'table-avatar': tableAvatar,
+            RequestDetailCard
         },
         props: {
             header: {
@@ -359,6 +379,8 @@
                 default: true
             }
         },
+        beforeMount() {
+        },
         data() {
             return {
                 search: '',
@@ -375,6 +397,9 @@
             }
         },
         computed: {
+            getTableClass() {
+                return this.header[0].withOneCol? 'request-table': 'request-el-table';
+            },
             emptyText() {
                 return this.loading.state ?  ' ' : (this.items.length > 0) ? '' : this.$t('general.no_data_available');
             },
@@ -392,6 +417,7 @@
                 && !row.withCounts
                 && !row.withMultipleProps
                 && !row.withBadgeProps
+                && !row.withOneCol
                 && acc.push(row), acc), []);
             },
             headerWithMultipleProps() {
@@ -405,6 +431,9 @@
             },
             headerWithUsers() {
                 return this.header.reduce((acc, row) => (row.withUsers && acc.push(row), acc), []);
+            }, 
+            headerWithOneCol() {
+                return this.header.reduce((acc, row) => (row.withOneCol && acc.push(row), acc), []);
             },
             headerWithActions() {
                 return this.header.reduce((acc, row) => (row.actions && acc.push(row), acc), []);
@@ -549,6 +578,19 @@
                 this.selectedItems = val;
                 this.$emit('selectionChanged', this.selectedItems);
             },
+            handleRequestSelectionChange(val) {
+                var exist = -1;
+                this.selectedItems.map((item, index) => {
+                    if(item.id == val.id)
+                        exist = index;
+                });
+                if(exist == -1) {
+                    this.selectedItems.push(val)
+                } else {
+                    this.selectedItems.slice(exist, 1);
+                }
+                this.handleSelectionChange(this.selectedItems);
+            },
             batchDelete() {
                 this.$emit('batchDelete', this.selectedItems);
             },
@@ -676,7 +718,7 @@
         }
     }
 
-    .el-table {
+    .request-el-table {
         background: none;
         padding: 2px;
 
@@ -739,6 +781,82 @@
         }
     }
 
+
+    .request-table {
+        background: none;
+        padding: 0px;
+
+        .el-table__header {
+            display: none;
+        }
+
+        &:before {
+            display: none;
+        }
+       
+        :global(.el-table__body-wrapper) {
+            border-radius: 4px;
+        }
+     
+        :global(th),
+        :global(td) {
+            background: none;
+        }
+
+        :global(th) {
+            background: none;
+            border-bottom-style: none;
+            display: none;
+        }
+
+        :global(tr) {
+            background: none;
+
+            :global(th) {
+                padding: 12px 4px;
+                border-bottom: none;
+            }
+
+            :global(td) {
+                background-color: transparent;
+                padding: 5px 0;
+                border-bottom: none;
+            
+            }
+        }
+
+        :global(.el-table__empty-block) {
+            background-color: #fff;
+        }
+
+        :global(.el-table__body) {
+            :global(tr) {
+                :global(td) {
+                    background-color: transparent;
+                }
+                .cell {
+                    padding: 2px !important;
+                }
+
+                &:hover :global(td) {
+                    background-color: #f5f7fa;
+                }
+
+                &:last-of-type :global(td) {
+                    border-bottom-style: none;
+                }
+            }
+        }
+        .request-card {
+            margin-right: -8px;
+        }
+
+        :global(.el-loading-mask) {
+            top: 47px;
+            margin: 2px;
+            border-radius: 6px;
+        }
+    }
     .el-pagination {
         display: flex;
         padding: 8px 18px;

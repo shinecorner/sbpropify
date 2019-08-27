@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Transformers;
+
 use App\Models\ServiceRequest;
 
 /**
@@ -53,7 +54,7 @@ class ServiceRequestTransformer extends BaseTransformer
             $usersCollection = $model->newCollection($model->managers->pluck('user')->all());
             $assignedUsers = $assignedUsers->merge($usersCollection);
 
-            $response['property_managers'] = (new UserTransformer)->transformCollection($usersCollection);
+            $response['property_managers'] = (new PropertyManagerTransformer())->transformCollection($model->managers);
             $response['assignees'] = $response['property_managers']; // @TODO delete
         }
 

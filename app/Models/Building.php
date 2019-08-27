@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use App\Traits\AddressOwnerAudit;
+use App\Traits\RequestRelation;
 use App\Traits\UniqueIDFormat;
+use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -73,12 +75,12 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  */
 class Building extends AuditableModel implements HasMedia
 {
-    use SoftDeletes, HasMediaTrait, UniqueIDFormat, AddressOwnerAudit;
+    use SoftDeletes, HasMediaTrait, UniqueIDFormat, AddressOwnerAudit, HasBelongsToManyEvents, RequestRelation;
 
     protected $auditEvents = [
-        'created' => 'getCreatedEventAttributesIncludeAddress',
-        'updated' => 'getUpdatedEventAttributesIncludeAddress',
-        'deleted'
+        AuditableModel::EventCreated => 'getCreatedEventAttributesIncludeAddress',
+        AuditableModel::EventUpdated => 'getUpdatedEventAttributesIncludeAddress',
+        AuditableModel::EventDeleted
     ];
 
     const BuildingMediaCategories = [
@@ -228,45 +230,12 @@ class Building extends AuditableModel implements HasMedia
         return $this->hasMany(Tenant::class)->orderBy('id', 'DESC');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
     public function requests()
     {
         return $this->hasManyThrough(ServiceRequest::class, Tenant::class);
-    }
-
-    public function requestsReceived()
-    {
-        return $this->requests()
-            ->where('service_requests.status', ServiceRequest::StatusReceived);
-    }
-
-    public function requestsInProcessing()
-    {
-        return $this->requests()
-            ->where('service_requests.status', ServiceRequest::StatusInProcessing);
-    }
-
-    public function requestsAssigned()
-    {
-        return $this->requests()
-            ->where('service_requests.status', ServiceRequest::StatusAssigned);
-    }
-
-    public function requestsDone()
-    {
-        return $this->requests()
-            ->where('service_requests.status', ServiceRequest::StatusDone);
-    }
-
-    public function requestsReactivated()
-    {
-        return $this->requests()
-            ->where('service_requests.status', ServiceRequest::StatusReactivated);
-    }
-
-    public function requestsArchived()
-    {
-        return $this->requests()
-            ->where('service_requests.status', ServiceRequest::StatusArchived);
     }
 
     public function registerMediaCollections()

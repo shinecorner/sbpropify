@@ -5,7 +5,7 @@
                 <el-button @click="add" icon="ti-plus" round size="mini" type="primary">{{$t('general.actions.add')}}</el-button>
             </template>
             <template v-if="$can($permissions.delete.user)">
-                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="mini"
+                <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
                            type="danger">
                     {{$t('models.user.delete')}}
                 </el-button>
@@ -33,7 +33,7 @@
     const mixin = ListTableMixin({
         actions: {
             get: 'getUsers',
-            delete: 'deleteUser'
+            delete: 'deleteUserWithIds'
         },
         getters: {
             items: 'users',

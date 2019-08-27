@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Building;
-use InfyOm\Generator\Common\BaseRepository;
 use Storage;
 
 /**
