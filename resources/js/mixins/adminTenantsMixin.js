@@ -37,7 +37,8 @@ export default (config = {}) => {
                     media: [],
                     settings: {
                         language: '',
-                    }
+                    },
+                    nation: '',
                 },
                 validationRules: {
                     first_name: [{
