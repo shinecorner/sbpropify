@@ -159,7 +159,7 @@ class Building extends AuditableModel implements HasMedia
     ];
 
     protected $syncAuditable = [
-        'managers' => ['first_name', 'last_name'],
+        'propertyManagers' => ['first_name', 'last_name'],
         'providers' => ['name'],
         'users' => ['name'],
     ];
