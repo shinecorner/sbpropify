@@ -367,6 +367,10 @@ export default (config = {}) => {
                     const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
 
                     this.categories = this.prepareCategories(categories);
+                    console.log(this.categories);
+
+                    const result = this.categories.filter(category => category.categories == 'undefined');
+                    console.log(result);
 
                     await this.fetchCurrentRequest();
 
