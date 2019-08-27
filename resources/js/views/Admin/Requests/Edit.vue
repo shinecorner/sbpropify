@@ -19,13 +19,75 @@
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t('models.request.placeholders.category')"
                                                    class="custom-select"
-                                                   v-model="model.category_id">
+                                                   v-model="model.category_id"
+                                                   @change="showFirstLayout">
                                             <el-option
                                                 :key="category.id"
                                                 :label="category.name"
                                                 :value="category.id"
                                                 v-for="category in categories">
                                             </el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12"
+                                        v-if="this.showfirstlayout == true">
+                                    <el-form-item label="Defekt/Mangel">
+                                        <el-select :disabled="$can($permissions.update.serviceRequest)"
+                                                   placeholder="Select"
+                                                   class="custom-select"
+                                                   v-model="model.defect"
+                                                   @change="showSecondLayout">
+                                            <el-option
+                                                :key="category.id"
+                                                :label="category.name"
+                                                :value="category.id"
+                                                v-for="category in first_layout_subcategories">
+                                            </el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12"
+                                        v-if="this.showLiegenschaft == true">
+                                    <el-form-item label="Bereich">
+                                        <el-select :disabled="$can($permissions.update.serviceRequest)"
+                                                   placeholder="Select"
+                                                   class="custom-select"
+                                                   v-model="model.location">
+                                            <el-option value="1">Hauseingang</el-option>
+                                            <el-option value="2">Treppenhaus</el-option>
+                                            <el-option value="3">Lift</el-option>
+                                            <el-option value="4">Tiefgarage</el-option>
+                                            <el-option value="5">Waschen/Trocknen</el-option>
+                                            <el-option value="6">Technik/Heizung</el-option>
+                                            <el-option value="7">Technik/Elektro</el-option>
+                                            <el-option value="8">Fassade</el-option>
+                                            <el-option value="9">Dach</el-option>
+                                            <el-option value="10" selected="">Anderes</el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12"
+                                        v-if="this.showUmgebung == true && this.showLiegenschaft == false">
+                                    <el-form-item label="Raum">
+                                        <el-select :disabled="$can($permissions.update.serviceRequest)"
+                                                   placeholder="Select"
+                                                   class="custom-select"
+                                                   v-model="model.room">
+                                            <el-option value="Bad/WC">Bad/WC</el-option>
+                                            <el-option value="Du/WC">Du/WC</el-option>
+                                            <el-option value="Entrée">Entrée</el-option>
+                                            <el-option value="Gang">Gang</el-option>
+                                            <el-option value="Keller">Keller</el-option>
+                                            <el-option value="Küche">Küche</el-option>
+                                            <el-option value="Reduit">Reduit</el-option>
+                                            <el-option value="Wohnen">Wohnen</el-option>
+                                            <el-option value="Zimmer 1">Zimmer 1</el-option>
+                                            <el-option value="Zimmer 2">Zimmer 2</el-option>
+                                            <el-option value="Zimmer 3">Zimmer 3</el-option>
+                                            <el-option value="Zimmer 4">Zimmer 4</el-option>
+                                            <el-option value="Alle">Alle</el-option>
+                                            <el-option value="Anderes">Anderes</el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
@@ -347,7 +409,11 @@
                         icon: 'el-icon-close',
                         onClick: this.notifyUnassignment
                     }]
-                }]
+                }],
+                showfirstlayout: false,
+                showUmgebung: false,
+                showLiegenschaft: false,
+                showWohnung: false
             }
         },
         computed: {
@@ -430,6 +496,24 @@
                     this.conversationVisible = true;
                 })
             },
+            showFirstLayout() {
+                console.log(this.model.category_id);
+                if(this.model.category_id == 1) {
+                    this.showfirstlayout = true;
+                }
+            },
+            showSecondLayout() {
+                console.log(this.model.defect);
+                if(this.model.defect == 7) {
+                    this.showUmgebung = true;
+                }
+                else if(this.model.defect == 8) {
+                    this.showLiegenschaft = true;
+                }
+                else if(this.model.defect == 9) {
+                    this.showWohnung = true;
+                }
+            }
         }
     };
 </script>
@@ -480,6 +564,8 @@
     #request-summary {
         background-color: #F3F3F3;
         padding: 2%;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
         .el-form-item {
             margin-bottom: 0px !important;
             .el-form-item__content {
@@ -487,7 +573,7 @@
             }
         }
         .summary-item {
-            margin-top: 20px;
+            margin-top: 10px;
             .el-form-item {
                 margin-bottom: 0px !important;
                 .el-form-item__content {

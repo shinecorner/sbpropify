@@ -27,7 +27,10 @@ export default (config = {}) => {
                     visibility: '',
                     provider_ids: [],
                     building: '',
-                    created_at: ''
+                    created_at: '',
+                    defect:'',
+                    location: '',
+                    room: ''
                 },
                 validationRules: {
                     category: [{
@@ -69,6 +72,7 @@ export default (config = {}) => {
                 },
                 remoteLoading: false,
                 categories: [],
+                first_layout_subcategories: [],
                 tenants: [],
                 toAssignList: [],
                 media: [],
@@ -366,11 +370,23 @@ export default (config = {}) => {
 
                     const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
 
-                    this.categories = this.prepareCategories(categories);
-                    console.log(this.categories);
+                    const initialcategories = this.prepareCategories(categories);
+                    
+                    this.categories = initialcategories.filter(category => {
+                        if(category.id !== 2 && category.parent_id !== 2 && category.parent_id !== 1) {
+                            return category;
+                        }
+                    });
 
-                    const result = this.categories.filter(category => category.categories == 'undefined');
-                    console.log(result);
+                    this.first_layout_subcategories = initialcategories.filter(category => {
+                        if(category.parent_id == 1) {
+                            return category;
+                        }
+                    })
+
+                    console.log(initialcategories);
+                    console.log(this.categories);
+                    console.log(this.first_layout_subcategories);
 
                     await this.fetchCurrentRequest();
 
