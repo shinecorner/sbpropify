@@ -17,4 +17,5 @@ return [
     'services' => 'Services',
     'tenant' => 'Tenant',
     'roles' => 'Roles',
+    'type' => 'Type',
 ];

@@ -179,6 +179,19 @@
                             name: this.$t('filters.open_requests')
                         }]
                     },
+                    {
+                        name: this.$t('filters.type'),
+                        type: 'select',
+                        key: 'type',
+                        data: [{
+                            id: 1,
+                            name: this.$t('models.unit.type.apartment')
+                        },
+                        {
+                            id: 2,
+                            name: this.$t('models.unit.type.business')
+                        }]
+                    }
                 ];
             }
         },
