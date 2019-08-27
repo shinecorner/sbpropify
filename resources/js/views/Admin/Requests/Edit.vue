@@ -496,7 +496,6 @@
                     this.conversationVisible = true;
                 })
             },
-<<<<<<< HEAD
             showFirstLayout() {
                 console.log(this.model.category_id);
                 if(this.model.category_id == 1) {
@@ -513,22 +512,6 @@
                 }
                 else if(this.model.defect == 9) {
                     this.showWohnung = true;
-=======
-            adjustAuditTabPadding(tab){
-                // Get the active tab underline
-                var active_bar = document.querySelector('#comments-card .el-tabs__active-bar')
-                //If the tabs name is internal-notices then modify the width so that it underlines the badge that is positioned absolute
-                if(tab.name == 'internal-notices'){
-                    setTimeout( () => {
-                        active_bar.style.width = '120px'
-                    },0)
-                }
-                //If the tabs name is audit then move the active bar so that it is right under the audit tab-pane
-                if(tab.name == 'audit'){
-                    setTimeout( () => {
-                        active_bar.style.transform = 'translateX(265px)'
-                    },0)
->>>>>>> 06441aa5a31b9912096313dd79270630d2c816a6
                 }
             }
         }
