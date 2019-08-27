@@ -48,7 +48,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12"
-                                        v-if="this.showLiegenschaft == true">
+                                        v-if="this.showfirstlayout == true && this.showLiegenschaft == true && this.showUmgebung == false">
                                     <el-form-item label="Bereich">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    placeholder="Select"
@@ -68,7 +68,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12"
-                                        v-if="this.showUmgebung == true && this.showLiegenschaft == false">
+                                        v-if="this.showfirstlayout == true && this.showUmgebung == true && this.showLiegenschaft == false">
                                     <el-form-item label="Raum">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    placeholder="Select"
@@ -92,6 +92,55 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12"
+                                        v-if="this.rolename == 'administrator'">
+                                    <el-form-item label="Erfassungsphase">
+                                        <el-select :disabled="$can($permissions.update.serviceRequest)"
+                                                   placeholder="Select"
+                                                   class="custom-select"
+                                                   v-model="model.capture_phase">
+                                            <el-option value="other">Andere</el-option>
+                                            <el-option value="building">Bauphase (BP)</el-option>
+                                            <el-option value="shell_building">Rohbauabnahme (RA)</el-option>
+                                            <el-option value="prehandover">Vorabnahme (VA)</el-option>
+                                            <el-option value="prehandover_building">Bauabnahme (BA)</el-option>
+                                            <el-option value="handover">Übergabe (UEB)</el-option>
+                                            <el-option value="inspection">Abnahme (AB)</el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item label="Bauteil">
+                                        <el-input
+                                            type="textarea"
+                                            :rows="2"
+                                            v-model="model.bauteil">
+                                        </el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item label="Stichworte">
+                                        <el-tag
+                                        :key="tag"
+                                        v-for="tag in dynamicTags"
+                                        closable
+                                        :disable-transitions="false"
+                                        @close="handleClose(tag)">
+                                            {{tag}}
+                                        </el-tag>
+                                        <el-input
+                                            class="input-new-tag"
+                                            v-if="inputVisible"
+                                            v-model="model.stichworte"
+                                            ref="saveTagInput"
+                                            size="mini"
+                                            @keyup.enter.native="handleInputConfirm"
+                                            @blur="handleInputConfirm"
+                                        >
+                                        </el-input>
+                                        <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New</el-button>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12"
                                         v-if="model.category_id && selectedCategoryHasQualification(model.category_id)">
                                     <el-form-item :label="$t('models.request.qualification.label')"
                                                   :rules="validationRules.qualification"
@@ -100,13 +149,25 @@
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t('models.request.placeholders.qualification')"
                                                    class="custom-select"
-                                                   v-model="model.qualification">
+                                                   v-model="model.qualification"
+                                                   @change="selectPayer">
                                             <el-option
                                                 :key="k"
                                                 :label="$t(`models.request.qualification.${qualification}`)"
                                                 :value="parseInt(k)"
                                                 v-for="(qualification, k) in constants.service_requests.qualification">
                                             </el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12" v-if="this.showpayer == true">
+                                    <el-form-item label="Kostenfolge">
+                                        <el-select :disabled="$can($permissions.update.serviceRequest)"
+                                                   :placeholder="$t('models.request.placeholders.qualification')"
+                                                   class="custom-select"
+                                                   v-model="model.payer">
+                                            <el-option value="tenant">Mieter</el-option>
+                                            <el-option value="lessor">Vermieter</el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
@@ -138,7 +199,7 @@
                                 </el-col>
                                 <el-col :md="8">
                                     <el-form-item label="Creation Datetime">
-                                        <strong>{{this.model.created_at}}</strong>
+                                        <strong>{{this.model.created_by}}</strong>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="8" class="summary-item">
@@ -410,10 +471,14 @@
                         onClick: this.notifyUnassignment
                     }]
                 }],
-                showfirstlayout: false,
+                showfirstlayout: true,
                 showUmgebung: false,
                 showLiegenschaft: false,
-                showWohnung: false
+                showWohnung: false,
+                rolename: null,
+                dynamicTags: [],
+                inputVisible: false,
+                showpayer: false,
             }
         },
         computed: {
@@ -443,6 +508,10 @@
                     return 0;
                 }
             }
+        },
+        mounted() {
+            this.rolename = this.$store.getters.loggedInUser.roles[0].name;
+            console.log(this.rolename);
         },
         methods: {
             ...mapActions(['unassignAssignee', 'deleteRequest']),
@@ -501,17 +570,55 @@
                 if(this.model.category_id == 1) {
                     this.showfirstlayout = true;
                 }
+                else {
+                    this.showfirstlayout = false;
+                }
             },
             showSecondLayout() {
                 console.log(this.model.defect);
                 if(this.model.defect == 7) {
                     this.showUmgebung = true;
+                    this.showLiegenschaft = false;
+                    this.showWohnung = false;
                 }
                 else if(this.model.defect == 8) {
                     this.showLiegenschaft = true;
+                    this.showUmgebung = false;
+                    this.showWohnung = false;
                 }
                 else if(this.model.defect == 9) {
                     this.showWohnung = true;
+                    this.showLiegenschaft = false;
+                    this.showUmgebung = false;
+                }
+            },
+            handleClose(tag) {
+                this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+            },
+
+            showInput() {
+                this.inputVisible = true;
+                this.$nextTick(_ => {
+                    this.$refs.saveTagInput.$refs.input.focus();
+                });
+            },
+
+            handleInputConfirm() {
+                let inputValue = this.model.stichworte;
+                if (inputValue) {
+                    this.dynamicTags.push(inputValue);
+                }
+                this.inputVisible = false;
+                this.model.stichworte = '';
+            },
+
+            selectPayer() {
+                console.log(this.model.qualification);
+                if(this.model.qualification == 5) {
+                    this.showpayer = true;
+                }
+                else {
+                    this.showpayer = false;
                 }
             }
         }
@@ -584,6 +691,22 @@
                 }
             }
         }
+    }
+
+    .el-tag + .el-tag {
+        margin-left: 10px;
+    }
+    .button-new-tag {
+        margin-left: 10px;
+        height: 32px;
+        line-height: 30px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .input-new-tag {
+        width: 90px;
+        margin-left: 10px;
+        vertical-align: bottom;
     }
 
 </style>
