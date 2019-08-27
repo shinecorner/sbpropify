@@ -483,12 +483,12 @@
                 })
             },
             tenantStatusBadge(status) {
-                const colorObject = {
-                    1: '#6AC06F',
-                    2: '#F56C6C'
+                const classObject = {
+                    1: 'icon-success',
+                    2: 'icon-danger'
                 };
 
-                return colorObject[status];
+                return classObject[status];
             },
             tenantStatusLabel(status) {
                 return this.$t(`models.tenant.status.${this.tenantStatusConstants[status]}`)

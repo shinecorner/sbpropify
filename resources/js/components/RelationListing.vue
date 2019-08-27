@@ -28,9 +28,7 @@
                     </div>
 
                     <div v-else-if="column.type === 'requestStatus'">
-                        <span class="badge" style="background: #6AC06F;">
-                            {{$t(`models.request.status.${$constants.serviceRequests.status[scope.row.status]}`)}}
-                        </span>
+                        {{$t(`models.request.status.${$constants.serviceRequests.status[scope.row.status]}`)}}
                     </div>
 
                     <div v-else-if="column.type === 'requestTenantAvatar'">
@@ -108,8 +106,8 @@
                 v-if="column.i18n"
             >
                 <template slot-scope="scope">
-                    <span :style="{background: column.withBadge(scope.row[column.prop])}" class="badge"
-                          v-if="column.withBadge">
+                    <span v-if="column.withBadge">
+                        <i :class="`icon-dot-circled ${column.withBadge(scope.row[column.prop])}`"></i>
                         {{column.i18n(scope.row[column.prop])}}
                     </span>
                     <template v-else>
@@ -274,4 +272,10 @@
         justify-content: center;
         border-radius: 25px;
     }
+    .icon-success {
+        color: #5fad64;
+    }
+    .icon-danger {
+         color: #dd6161;
+     }
 </style>
