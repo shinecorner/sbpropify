@@ -88,16 +88,7 @@ class PropertyManagerAPIController extends AppBaseController
         }
 
         $getAll = $request->get('get_all', false);
-        $this->propertyManagerRepository->with('user')->withCount([
-            'requests',
-            'requestsReceived',
-            'requestsInProcessing',
-            'requestsAssigned',
-            'requestsDone',
-            'requestsReactivated',
-            'requestsArchived',
-        ]);
-
+        $this->propertyManagerRepository->with('user')->scope('allRequestStatusCount');
 
         if ($getAll) {
             $propertyManagers = $this->propertyManagerRepository->get();

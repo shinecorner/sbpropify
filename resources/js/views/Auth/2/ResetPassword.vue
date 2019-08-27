@@ -63,6 +63,9 @@
         props: {
           
         },
+        mounted() {          
+            document.getElementsByClassName('auth-card')[0].style.maxWidth="920px";
+        },
         created() {
             const query = this.$route.query;
 

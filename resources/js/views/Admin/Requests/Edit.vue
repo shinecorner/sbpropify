@@ -49,17 +49,7 @@
                                     </el-form-item>
                                 </el-col>
                             </el-row>
-                            <el-row :gutter="20">
-                                <el-col :md="8">
-                                    <el-form-item :label="$t('models.request.priority.label')">
-                                        <strong>{{$constants.service_requests.priority[model.priority]}}</strong>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :md="8">
-                                    <el-form-item :label="$t('models.request.visibility.label')">
-                                        <strong>{{$constants.serviceRequests.visibility[model.visibility]}}</strong>
-                                    </el-form-item>
-                                </el-col>
+                            <el-row :gutter="20" id="request-summary">
                                 <el-col :md="8">
                                     <el-form-item v-if="model.tenant">
                                         <label slot="label">
@@ -77,6 +67,26 @@
                                                     v-if="!model.tenant.user.avatar"></avatar>
                                             <span>{{model.tenant.first_name}} {{model.tenant.last_name}}</span>
                                         </router-link>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8">
+                                    <el-form-item label="Building">
+                                        <strong>{{this.model.building}}</strong>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8">
+                                    <el-form-item label="Creation Datetime">
+                                        <strong>{{this.model.created_at}}</strong>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8" class="summary-item">
+                                    <el-form-item :label="$t('models.request.priority.label')">
+                                        <strong>{{$constants.service_requests.priority[model.priority]}}</strong>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8" class="summary-item">
+                                    <el-form-item :label="$t('models.request.visibility.label')">
+                                        <strong>{{$constants.serviceRequests.visibility[model.visibility]}}</strong>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -262,14 +272,14 @@
             :address="address"
             :conversations="conversations"
             :mailSending="mailSending"
-            :managers="model.assignees"
-            :providers="model.providers"
+            :managers="model.property_managers"
+            :providers="model.service_providers"
             :selectedServiceRequest="selectedServiceRequest"
             :showServiceMailModal="showServiceMailModal"
             :requestData="selectedRequestData"
             @close="closeMailModal"
             @send="sendServiceMail"
-            v-if="(model.providers && model.providers.length) || (model.assignees && model.assignees.length)"
+            v-if="(model.service_providers && model.service_providers.length) || (model.property_managers && model.property_managers.length)"
         />
 
     </div>
@@ -369,7 +379,7 @@
             }
         },
         methods: {
-            ...mapActions(['unassignProvider', 'unassignManager', 'deleteRequest']),
+            ...mapActions(['unassignAssignee', 'deleteRequest']),
             translateType(type) {
                 return this.$t(`models.request.userType.${type}`);
             },
@@ -387,15 +397,12 @@
                         let resp;
 
                         const payload = {
-                            request: this.model.id,
                             toAssignId: provider.id
                         };
 
-                        if (provider.uType == 1) {
-                            resp = await this.unassignProvider(payload)
-                        } else {
-                            resp = await this.unassignManager(payload)
-                        }
+                        
+                        resp = await this.unassignAssignee(payload)
+                        
 
                         if (resp && resp.data) {
                             await this.fetchCurrentRequest();
@@ -487,6 +494,26 @@
     }
     #tab-audit{
         padding-left:40px;
+    }
+
+    #request-summary {
+        background-color: #F3F3F3;
+        padding: 2%;
+        .el-form-item {
+            margin-bottom: 0px !important;
+            .el-form-item__content {
+                line-height: 28px !important;
+            }
+        }
+        .summary-item {
+            margin-top: 20px;
+            .el-form-item {
+                margin-bottom: 0px !important;
+                .el-form-item__content {
+                    line-height: 28px !important;
+                }
+            }
+        }
     }
 
 </style>

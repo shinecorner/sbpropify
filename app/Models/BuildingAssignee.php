@@ -45,14 +45,14 @@ use Illuminate\Support\Str;
  *      ),
  * )
  */
-class ServiceRequestAssignee extends AuditableModel
+class BuildingAssignee extends AuditableModel
 {
-    protected $table = 'request_assignees';
+    protected $table = 'building_assignees';
 
     public $timestamps = false;
 
     public $fillable = [
-        'request_id',
+        'building_id',
         'assignee_id',
         'assignee_type',
         'created_at',
@@ -70,8 +70,8 @@ class ServiceRequestAssignee extends AuditableModel
         if (AuditableModel::EventDeleted != $data['event']) {
             return $data;
         }
-        $data['auditable_id'] = $this->request_id;
-        $data['auditable_type'] = get_morph_type_of(\App\Models\ServiceRequest::class);
+        $data['auditable_id'] = $this->building_id;
+        $data['auditable_type'] = get_morph_type_of(\App\Models\Building::class);
 
         [$event, $olddata] = $this->getAuditData();
         $data['old_values'] = $olddata;

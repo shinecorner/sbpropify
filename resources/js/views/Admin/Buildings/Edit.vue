@@ -307,6 +307,10 @@
                 activeTab: 'details',
                 activeRightTab: 'tenants',
                 tenantColumns: [{
+                    type: 'requestTenantAvatar',
+                    width: 75,
+                    label: this.$t('models.request.tenant')
+                }, {
                     prop: 'name',
                     label: this.$t('models.tenant.name')
                 }, {
@@ -318,12 +322,16 @@
                 tenantActions: [{
                     width: '90px',
                     buttons: [{
-                        icon: 'ti-pencil',
-                        title: this.$t('models.tenant.edit'),
+                        type: 'success',
+                        title: this.$t('models.tenant.view'),
                         onClick: this.tenantEditView
                     }]
                 }],
                 managerColumns: [{
+                    type: 'requestTenantAvatar',
+                    width: 80,
+                    label: this.$t('general.roles.manager')
+                }, {
                     prop: 'name',
                     label: this.$t('models.propertyManager.name')
                 }],
@@ -350,13 +358,15 @@
                     label: this.$t('models.request.tenant')
                 }, {
                     type: 'requestTitleWithDesc',
+                    width: 270,
                     label: this.$t('models.request.prop_title')
                 }, {
                     type: 'requestStatus',
+                    width: 120,
                     label: this.$t('models.request.status.label')
                 }],
                 requestActions: [{
-                    width: '180px',
+                    width: '120px',
                     buttons: [{
                         icon: 'ti-pencil',
                         title: this.$t('models.request.edit'),
@@ -420,7 +430,7 @@
             },
             tenantEditView(row) {
                 this.$router.push({
-                    name: 'adminTenantsEdit',
+                    name: 'adminTenantsView',
                     params: {
                         id: row.id
                     }
@@ -473,12 +483,12 @@
                 })
             },
             tenantStatusBadge(status) {
-                const colorObject = {
-                    1: '#6AC06F',
-                    2: '#F56C6C'
+                const classObject = {
+                    1: 'icon-success',
+                    2: 'icon-danger'
                 };
 
-                return colorObject[status];
+                return classObject[status];
             },
             tenantStatusLabel(status) {
                 return this.$t(`models.tenant.status.${this.tenantStatusConstants[status]}`)

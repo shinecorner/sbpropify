@@ -32,6 +32,13 @@ export default {
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
+    deleteProductWithIds({}, payload) {        
+        return new Promise((resolve, reject) => {
+            axios.post(`products/deletewithids`, {ids: _.map(payload, 'id')}).then((resp) => {                
+                resolve(resp.data);
+            }).catch(({response: {data: err}}) => reject(err))
+        });
+    },
     likeProduct(_, id) {
         return new Promise((resolve, reject) =>
             axios.post(`products/${id}/like`)

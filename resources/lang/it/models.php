@@ -44,6 +44,7 @@ return [
         'email_already_exists' => "Questa email [:email] esiste già, Seleziona un'altra email",
         'email_not_exists' => "Questa [:email] email non esiste",
         'password_reset_token_invalid' => "Questo token per la reimpostazione della password non è valido.",
+        'deleted' => "Errore cancellato dall'utente: ",
       ],
       'validation' => 
       [
@@ -79,6 +80,7 @@ return [
       "last_name" => "Cognome",
       "birth_date" => "Data di nascita",
       "language" => "La lingua",
+      'nation' => 'Nazione',
       "mobile_phone" => "Telefono cellulare",
       "work_phone" => "Telefono di lavoro",
       "email" => "Email",
@@ -315,6 +317,7 @@ return [
         "delete_requests" => "Cancellare la richiesta (o le richieste)",
         "dont_delete_requests" => "Non cancellare una o più richieste di cancellazione",
       ],
+      'assigned_buildings' => "Edifici assegnati",
     ],
     'unit' => 
     [
@@ -398,6 +401,7 @@ return [
         'tenant_assign' => "L'inquilino assegna un errore: ",
         'tenant_not_assign' => "Affittuario non assegnato a questa unità",
         'tenant_not_found' => "L'inquilino non trovato",
+        'deleted' => "Unità cancellata errore: ",
       ],
       'placeholders' => 
       [
@@ -500,6 +504,7 @@ return [
       [
         "label" => "Tipo",
         "article" => "Articolo",
+        'post' => "Messaggio",
         "new_neighbour" => "Nuovo vicino",
         "pinned" => "Inchiodato",
       ],
@@ -507,7 +512,8 @@ return [
         'not_found' => "Posta non trovata",
         'district_not_found' => "Distretto non trovato",
         'building_not_found' => "Edificio non trovato",
-        'provider_not_found' => "Fornitore di servizi non trovato"
+        'provider_not_found' => "Fornitore di servizi non trovato",
+        'deleted' => "Messaggio errore cancellato: ",
       ],
       'status' => 
       [
@@ -647,7 +653,8 @@ return [
       "buildings" => "Edifici",
       'count_of_buildings' => 'Conteggio degli edifici',
       'errors' => [
-        'not_found' => "Distretto non trovato",        
+        'not_found' => "Distretto non trovato",   
+        'deleted' => "Distretto cancellato errore: ",     
       ],
     ],
     'realEstate' => 
@@ -758,6 +765,7 @@ return [
       "status_changed" => "Stato cambiato",
       "priority_changed" => "La priorità è cambiata",
       'assignment'=> 'Assegnazione di manager/fornitori di servizi',
+      'last_updated' => 'Last updated',
       'media' => 
       [
         "added" => "Documento ajouté",
@@ -809,9 +817,6 @@ return [
         "environment" => "Ambiente",
         "house" => "Casa",
         "apartment" => "Appartamento",
-        "environment" => "Ambiente",
-        "house" => "Casa",
-        "apartment" => "Appartamento"
       ],
       'placeholders' => 
       [
@@ -879,7 +884,8 @@ return [
       [
         "label" => "Tipo",
         "provider" => "Servizio",
-        "user" => "Manager",
+        "manager" => "Manager",
+        'admin' => 'Administrator',
       ],
       'visibility' => 
       [
@@ -896,6 +902,7 @@ return [
         'conversation_not_found' => "Conversazione non trovata",
         'statistics_error' => "richiesta errore di statistica: ",
         'internal_notice_not_found' => "Avviso interno non trovato",
+        'deleted' => "Errore cancellato nella richiesta di assistenza: ",
       ],
       "requestID" => "Richiedi un documento d'identità",
       "requestCategory" => "Richiedi categoria",
@@ -993,6 +1000,7 @@ return [
         'building_not_found' => "Edificio non trovato",
         'building_already_assign' => "Edificio già assegnato attraverso il distretto",
         'building_assign_deleted_property_manager' => "Non è possibile assegnare edifici a un gestore di proprietà cancellato",
+        'deleted' => "Errore cancellato dal Property Manager: ",
       ],
     ],
     'product' => 
@@ -1026,6 +1034,7 @@ return [
       ],
       'errors' => [
         'not_found' => "Prodotto non trovato",
+        'deleted' => "Errore prodotto cancellato: ",
       ],
       'type' => 
       [

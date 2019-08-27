@@ -153,9 +153,10 @@ return [
     'service' => 'Service',
     'super_admin' => 'Super Admin',
   ],
-  'search' => 
+  'placeholders' => 
   [
-    'placeholder' => 'Search',
+    'search' => 'Search',
+    'select' => 'Select'
   ],
   'errors' => 
   [
@@ -187,7 +188,6 @@ return [
     'invalid_code' => 'Code is invalid',
     'not_active_tenant' => 'Tenant is not active and can not change password',
   ],
-  'choose' => 'Choose',
   'page_not_found' => [
     'title'   => "Hmm... something's wrong here.",
     'message' => "The page you requested was not found. Please check the URL or go to the homepage."

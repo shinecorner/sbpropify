@@ -341,7 +341,16 @@ class UnitAPIController extends AppBaseController
 
         return $this->sendResponse($id, __('models.unit.deleted'));
     }
-
+    public function destroyWithIds(Request $request){
+        $ids = $request->get('ids');
+        try{
+            Unit::destroy($ids);      
+        }
+        catch (\Exception $e) {
+            return $this->sendError(__('models.unit.errors.deleted') . $e->getMessage());
+        }
+        return $this->sendResponse($ids, __('models.unit.deleted'));
+    }
     /**
      * @SWG\Post(
      *      path="/units/{id}/assignees/{assignee_id}",

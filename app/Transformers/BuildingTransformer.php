@@ -41,15 +41,12 @@ class BuildingTransformer extends BaseTransformer
             'tenants_count' => 0,
             'active_tenants_count' => 0,
             'in_active_tenants_count' => 0,
-            'property_managers_count' => 0,
-            'requests_count' => 0,
-            'requests_received_count' => 0,
-            'requests_in_processing_count' => 0,
-            'requests_assigned_count' => 0,
-            'requests_done_count' => 0,
-            'requests_reactivated_count' => 0,
-            'requests_archived_count' => 0,
+            'property_managers_count' => 0
         ];
+
+        $withCount = $model->getStatusRelationCounts();
+        $response = array_merge($response, $withCount);
+
 
         if ($model->relationExists('address')) {
             $response['address'] = (new AddressTransformer)->transform($model->address);
@@ -67,7 +64,6 @@ class BuildingTransformer extends BaseTransformer
             $response['in_active_tenants_count'] = $model->getAttribute('in_active_tenants_count');
         }
 
-
         if ($model->relationExists('tenants')) {
             $response['tenants'] = (new TenantSimpleTransformer)->transformCollection($model->tenants);
             $response['tenants_last'] = (new TenantSimpleTransformer)->transformCollection($model->lastTenants);
@@ -76,14 +72,6 @@ class BuildingTransformer extends BaseTransformer
             if ($model->tenants_count > 2) {
                 $response['tenants_count'] = $model->tenants_count - 2;
             }
-
-            $response['requests_count'] = $model->requests_count;
-            $response['requests_received_count'] = $model->requests_received_count;
-            $response['requests_in_processing_count'] = $model->requests_in_processing_count;
-            $response['requests_assigned_count'] = $model->requests_assigned_count;
-            $response['requests_done_count'] = $model->requests_done_count;
-            $response['requests_reactivated_count'] = $model->requests_reactivated_count;
-            $response['requests_archived_count'] = $model->requests_archived_count;
         }
 
         if ($model->relationExists('serviceProviders')) {
