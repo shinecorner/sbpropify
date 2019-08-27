@@ -337,6 +337,7 @@ export default {
                 "months": "Mesi",
                 "years": "Anni"
             },
+            "chooseLanguage": "Scegliere la lingua",
             "languages": {
                 "fr": "Français",
                 "it": "Italiano",
@@ -496,7 +497,6 @@ export default {
                 "invalid_code": "Il codice non è valido",
                 "not_active_tenant": "L'inquilino non è attivo e non può cambiare la password"
             },
-            "choose": "Scegliere",
             "page_not_found": {
                 "title": "C'e' qualcosa che non va qui.",
                 "message": "La pagina richiesta non è stata trovata. Controlla l'URL o vai alla homepage."
