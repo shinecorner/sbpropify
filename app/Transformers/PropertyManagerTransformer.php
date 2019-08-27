@@ -25,6 +25,7 @@ class PropertyManagerTransformer extends BaseTransformer
             'property_manager_format' => $model->property_manager_format,
             'description' => $model->description,
             'title' => $model->title,
+            'name' => $model->first_name . ' ' . $model->last_name, // @TODO tmp must be delete
             'first_name' => $model->first_name,
             'last_name' => $model->last_name,
             'profession' => $model->profession,

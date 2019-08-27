@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Transformers;
-use App\Models\PropertyManager;
+
 use App\Models\ServiceRequest;
 
 /**
