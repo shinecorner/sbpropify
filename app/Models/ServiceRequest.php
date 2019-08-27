@@ -196,7 +196,12 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'solved_date',
         'qualification',
         'visibility',
-        'service_request_format'
+        'service_request_format',
+        'room',
+        'capture_phase',
+        'component',
+        'payer',
+        'location'
     ];
 
     public $fillable = self::Fillable;
@@ -218,7 +223,12 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'solved_date' => 'date',
         'qualification' => 'integer',
         'visibility' => 'integer',
-        'service_request_format' => 'string'
+        'service_request_format' => 'string',
+        'room' => 'string',
+        'capture_phase' => 'string',
+        'component' => 'string',
+        'payer' => 'string',
+        'location' => 'integer'
     ];
 
     protected $auditInclude = [
