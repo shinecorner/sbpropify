@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Building;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\PropertyManager;
@@ -43,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
             'user' => User::class,
             'post' => Post::class,
             'product' => Product::class,
+            'building' => Building::class,
             'templates' => Template::class,
             'request' => ServiceRequest::class,
             'manager' => PropertyManager::class,
