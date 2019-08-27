@@ -7,7 +7,6 @@
             <edit-actions :saveAction="submit" route="adminTenants"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
-            <el-col>
                 <el-form :model="model" label-position="top" label-width="192px" ref="form">
                     <el-row  :gutter="20">
                         <el-col>
@@ -15,7 +14,7 @@
                                 <el-row :gutter="20">
                                     <h3 class="chart-card-header">
                                         <i class="ti-user"/>
-                                        {{ $t('models.tenant.personal_details_card') }}
+                                       {{ $t('models.tenant.personal_details_card') }}
                                     </h3>
                                 </el-row>
                                 <el-row :gutter="20">
