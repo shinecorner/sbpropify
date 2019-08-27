@@ -913,10 +913,10 @@ class ServiceRequestAPIController extends AppBaseController
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $assignees = $sr->assignees()->paginate($perPage);
 
-        $providerType = array_flip(Relation::$morphMap)[\App\Models\ServiceProvider::class] ?? \App\Models\ServiceProvider::class;
+        $providerType = get_morph_type_of(\App\Models\ServiceProvider::class);
         $providerIds = $assignees->where('assignee_type', $providerType)->pluck('assignee_id');
 
-        $managerType = array_flip(Relation::$morphMap)[\App\Models\PropertyManager::class] ?? \App\Models\PropertyManager::class;
+        $managerType = get_morph_type_of(\App\Models\PropertyManager::class);
         $managerIds = $assignees->where('assignee_type', $managerType)->pluck('assignee_id');
 
         $raw = DB::raw('(select email from users where users.id = property_managers.user_id) as email, Concat(first_name, " ", last_name) as name');
