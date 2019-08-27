@@ -25,6 +25,7 @@ use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestAssignee;
+use App\Repositories\PropertyManagerRepository;
 use App\Repositories\ServiceProviderRepository;
 use App\Repositories\ServiceRequestRepository;
 use App\Repositories\TemplateRepository;
@@ -541,7 +542,7 @@ class ServiceRequestAPIController extends AppBaseController
      */
     public function notifyProvider(int $id, NotifyProviderRequest $request,
                                    ServiceProviderRepository $spRepo,
-                                   UserRepository $uRepo)
+                                   PropertyManagerRepository $pmRepo)
     {
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
@@ -552,10 +553,10 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.provider_not_found'));
         }
 
-        $propertyManagerUsers = $uRepo->findWhereIn('id', $request->assignee_ids ?? []);
-
+        $managerIds = $request->manager_ids ?? $request->assignee_ids ?? [];
+        $propertyManagers = $pmRepo->with('user:email,id')->findWhereIn('id', $managerIds);
         $mailDetails = $request->only(['title', 'to', 'cc', 'bcc', 'body']);
-        $this->serviceRequestRepository->notifyProvider($sr, $sp, $propertyManagerUsers, $mailDetails);
+        $this->serviceRequestRepository->notifyProvider($sr, $sp, $propertyManagers, $mailDetails);
 
         return $this->sendResponse($sr, __('models.request.mail.success'));
     }
