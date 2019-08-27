@@ -34,16 +34,17 @@ return [
 			'serviceRequestCategoryDeleted' => 'Anfrage-Kategorie gelöscht',
 			'setting_saved' => "Einstellung(en) gespeichert",
 			'setting_deleted' => "Einstellung(en) gelöscht",
-			'password_reset_request_sent' => "Wir haben Ihnen eine E-Mail mit weiteren Anweisungen gesendet. Bitte prüfen Sie Ihren Posteingang und schauen Sie ggf. auch in Ihrem Spam-Ordern rein.",
+			'password_reset_request_sent' => "Wir haben Ihnen eine E-Mail mit weiteren Anweisungen gesendet. Bitte prüfen Sie Ihren Posteingang und schauen Sie ggf. auch in Ihrem Spam-Ordner nach.",
 			'errors' => [
 				'not_found' => "Benutzer nicht gefunden",
 				'setting_not_found' => "Benutzereinstellung nicht gefunden",
-				'image_upload' => "Fehler beim Hochladen des Benutzerbildes: ",
-				'incorrect_password' => "Benutzerpasswort falsch",
+				'image_upload' => "Fehler beim Hochladen des Profilbildes: ",
+				'incorrect_password' => "Passwort falsch",
 				'email_missing' => "E-Mail fehlt",
 				'email_already_exists' => "Die E-Mail [:email] existiert bereits. Bitte bestehenden Eintrag verwenden oder eine andere E-Mail eingeben",
 				'email_not_exists' => "Die E-Mail [:email] existiert nicht in unserer Datenbank.",
 				'password_reset_token_invalid' => "Das Token zum Zurücksetzen des Passworts ist ungültig.",
+				'deleted' => "Fehler beim Löschen durch den Benutzer: ",
 			],
 			'validation' =>
 				[
@@ -282,11 +283,11 @@ return [
 						],
 				],
 			'errors' => [
-				'not_found' => "Gebäude nicht gefunden.",
+				'not_found' => "Liegenschaft nicht gefunden.",
 				'manager_not_found' => "Bewirtschafter nicht gefunden",
 				'deleted' => "Fehler beim Löschen von Mediendateien: ",
 				'manager_assigned' => "Fehler beim Zuweisung des Bewirtschafters: ",
-				'provider_deleted' => "Fehler beim Entfernen des Diesteilster: ",
+				'provider_deleted' => "Fehler beim Entfernen des Diestleisters: ",
 			],
 			'requestStatuses' =>
 				[
@@ -307,9 +308,9 @@ return [
 			'delete_building_modal' =>
 				[
 					'title' => 'Liegenschaft(en) löschen – Warnung!',
-					'description_unit' => 'Der ausgewählten Liegenschaft(en) sind Einheiten zugewiesen. Wenn diese ebenfalls gelöscht werden sollen, dann aktivieren Sie die unten stehende Option.',
-					'description_request' => 'Der ausgewählten Liegenschaft(en) sind Anfragen zugewiesen. Wenn diese ebenfalls gelöscht werden sollen, dann aktivieren Sie die unten stehende Option.',
-					'description_both' => 'Der ausgewählten Liegenschaft(en) sind Einheiten und Anfragen zugewiesen. Wenn diese ebenfalls gelöscht werden sollen, dann aktivieren Sie die unten stehende Optionen.',
+					'description_unit' => 'Der ausgewählten Liegenschaft sind Einheiten zugewiesen. Wenn diese ebenfalls gelöscht werden sollen, dann aktivieren Sie die unten stehende Option.',
+					'description_request' => 'Der ausgewählten Liegenschaft sind Anfragen zugewiesen. Wenn diese ebenfalls gelöscht werden sollen, dann aktivieren Sie die unten stehende Option.',
+					'description_both' => 'Der ausgewählten Liegenschaft sind Einheiten und Anfragen zugewiesen. Wenn diese ebenfalls gelöscht werden sollen, dann aktivieren Sie die unten stehende Optionen.',
 					'delete_units' => ' Löschen',
 					'dont_delete_units' => 'Nicht löschen',
 					'delete_requests' => 'Löschen',
@@ -323,8 +324,8 @@ return [
 			'not_found' => 'Einheit nicht gefunden.',
 			'add' => 'Einheit hinzufügen',
 			'tenantType' => [
-				'attached' => 'Mieter erfolgreich zugewiesen.',
-				'detached' => 'Mieter erfolgreich entfernt.'
+				'attached' => 'Mieter wurde zugewiesen.',
+				'detached' => 'Mieter wurde entfernt.'
 			],
 			'name' => 'Einheit-ID',
 			'created_at' => 'Datum',
@@ -399,6 +400,7 @@ return [
 				'tenant_assign' => "Fehler beim Zuweisen des Mieters: ",
 				'tenant_not_assign' => "Fehler beim Zuweisen des Mieters",
 				'tenant_not_found' => "Mieter nicht gefunden",
+				'deleted' => "Fehler beim Löschen der Einheit: ",
 			],
 			'placeholders' =>
 				[
@@ -509,7 +511,8 @@ return [
 				'not_found' => "Beitrag nicht gefunden",
 				'district_not_found' => "Überbbauung nicht gefunden",
 				'building_not_found' => "Liegenschaft nicht gefunden",
-				'provider_not_found' => "Dienstanbieter nicht gefunden"
+				'provider_not_found' => "Dienstanbieter nicht gefunden",
+				'deleted' => "Gelöschten Fehler buchen: ",
 			],
 			'status' =>
 				[
@@ -650,6 +653,7 @@ return [
 			'count_of_buildings' => 'Anzahl Liegenschaften',
 			'errors' => [
 				'not_found' => "Überbauung nicht gefunden",
+				'deleted' => "Fehler durch den Bezirk gelöscht: ",
 			],
 		],
 	'realEstate' =>
@@ -810,10 +814,7 @@ return [
 					'other' => 'Sonstiges',
 					'environment' => 'Umgebung',
 					'house' => 'Haus',
-					'apartment' => 'Wohnung',
-					'environment' => 'Umgebung',
-					'house' => 'Haus',
-					'apartment' => 'Wohnung'
+					'apartment' => 'Wohnung',					
 				],
 			'placeholders' =>
 				[
@@ -870,7 +871,6 @@ return [
 					'services' => 'Dienstleister wurde zugewiesen.',
 					'managers' => 'Bewirtschafter wurde zugewiesen.',
 					'admins' => 'Administratoren erfolgreich zugewiesen',
-
 				],
 			'detached' =>
 				[
@@ -900,6 +900,7 @@ return [
 				'conversation_not_found' => "Konversation nicht gefunden",
 				'statistics_error' => "Statistik-Fehler: ",
 				'internal_notice_not_found' => "Interne Notiz nicht gefunden",
+				'deleted' => "Service Request gelöschter Fehler: ",
 			],
 			'requestID' => 'Anfrage-ID',
 			'requestCategory' => 'Anfrage-Kategorie ',
@@ -997,6 +998,7 @@ return [
 				'building_not_found' => "Liegenschaft nicht gefunden",
 				'building_already_assign' => "Die Liegenschaft ist dieser Überbauung bereits zugewiesen.",
 				'building_assign_deleted_property_manager' => "Sie können einem gelöschten Bewirtschafter keine Liegenschaft(en) zuordnen.",
+				'deleted' => "Bewirtschafter löschte Fehler: ",
 			],
 		],
 	'product' =>
@@ -1030,6 +1032,7 @@ return [
 				],
 			'errors' => [
 				'not_found' => "Produkt nicht gefunden",
+				'deleted' => "Fehler beim Löschen des Produkts: ",
 			],
 			'type' =>
 				[

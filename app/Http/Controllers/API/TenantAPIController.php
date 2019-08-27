@@ -673,7 +673,16 @@ class TenantAPIController extends AppBaseController
 
         return $this->sendResponse($id, __('models.tenant.deleted'));
     }
-
+    public function destroyWithIds(Request $request){
+        $ids = $request->get('ids');
+        try{
+            Tenant::destroy($ids);
+        }
+        catch (\Exception $e) {
+            return $this->sendError(__('models.tenant.errors.deleted') . $e->getMessage());
+        }
+        return $this->sendResponse($ids, __('models.tenant.deleted'));
+    }
     /**
      * @param $id
      * @param DownloadCredentialsRequest $r

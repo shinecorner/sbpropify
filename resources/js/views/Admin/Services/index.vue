@@ -6,7 +6,7 @@
                 </el-button>
             </template>
             <template v-if="$can($permissions.delete.provider)">
-                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="mini"
+                <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
                            type="danger">
                     {{$t('models.service.delete')}}
                 </el-button>
@@ -19,6 +19,7 @@
             :header="header"
             :items="items"
             :loading="{state: loading}"
+            :isLoadingFilters="{state: isLoadingFilters}"
             :pagination="{total, currPage, currSize}"
             :withSearch="false"
             @selectionChanged="selectionChanged"
@@ -28,14 +29,18 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
     import Heading from 'components/Heading';
     import ListTableMixin from 'mixins/ListTableMixin';
+    import getFilterStates from 'mixins/methods/getFilterStates';
+    import getFilterDistricts from 'mixins/methods/getFilterDistricts';
+    import PrepareCategories from 'mixins/methods/prepareCategories';
 
 
     const mixin = ListTableMixin({
         actions: {
             get: 'getServices',
-            delete: 'deleteService'
+            delete: 'deleteServiceWithIds'
         },
         getters: {
             items: 'services',
@@ -45,7 +50,7 @@
 
     export default {
         name: 'AdminServices',
-        mixins: [mixin],
+        mixins: [mixin, getFilterStates, getFilterDistricts, PrepareCategories],
         components: {
             Heading
         },
@@ -72,7 +77,12 @@
                             this.$permissions.update.provider
                         ]
                     }]
-                }]
+                }],
+                states: {},
+                districts: {},
+                buildings: {},
+                categories: {},
+                isLoadingFilters: false,
             }
         },
         computed: {
@@ -83,11 +93,32 @@
                         type: 'text',
                         icon: 'el-icon-search',
                         key: 'search'
+                    }, {
+                        name: this.$t('filters.states'),
+                        type: 'select',
+                        key: 'state_id',
+                        data: this.states,
+                    }, {
+                        name: this.$t('filters.buildings'),
+                        type: 'select',
+                        key: 'building_id',
+                        data: this.buildings,
+                    }, {
+                        name: this.$t('filters.categories'),
+                        type: 'select',
+                        key: 'category_id',
+                        data: this.categories,
+                    }, {
+                        name: this.$t('filters.districts'),
+                        type: 'select',
+                        key: 'district_id',
+                        data: this.districts,
                     }
                 ]
             }
         },
         methods: {
+            ...mapActions(['getBuildings', 'getRequestCategoriesTree']),
             add() {
                 this.$router.push({
                     name: 'adminServicesAdd'
@@ -100,7 +131,32 @@
                         id
                     }
                 });
-            }
-        }
+            },
+            async getStateBuildings() {
+                const buildings = await this.getBuildings({
+                    get_all: true
+                });
+
+                return buildings.data;
+            },
+            async getFilterCategories() {
+                const categoriesResp = await this.getRequestCategoriesTree({});
+                const categories = this.prepareCategories(categoriesResp.data);
+
+                return categories;
+            },
+        },
+        async created(){
+            this.isLoadingFilters = true;
+            const districts = await this.axios.get('districts')
+            this.districts = districts.data.data.data;
+
+            const states = await this.axios.get('states?filters=true')
+            this.states = states.data.data;
+
+            this.buildings = await this.getStateBuildings()
+            this.categories = await this.getFilterCategories()
+            this.isLoadingFilters = false;
+        },
     }
 </script>

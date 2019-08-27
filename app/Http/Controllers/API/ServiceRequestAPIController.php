@@ -482,7 +482,16 @@ class ServiceRequestAPIController extends AppBaseController
 
         return $this->sendResponse($id, __('models.request.deleted'));
     }
-
+    public function destroyWithIds(Request $request){
+        $ids = $request->get('ids');
+        try{
+            ServiceRequest::destroy($ids);            
+        }
+        catch (\Exception $e) {
+            return $this->sendError(__('models.request.errors.deleted') . $e->getMessage());
+        }
+        return $this->sendResponse($ids, __('models.request.deleted'));
+    }
     /**
      * @param int $id
      * @param NotifyProviderRequest $request

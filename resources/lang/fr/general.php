@@ -13,7 +13,7 @@ return [
     'months' => 'Mois',
     'years' => 'Années',
   ],
-  'chooseLanguage' => 'Choisir la langue',
+  'chooseLanguage' => 'Sélectionnez',
   'languages' => 
   [
     'fr' => 'Français',
