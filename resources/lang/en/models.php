@@ -764,6 +764,7 @@ return [
       'status_changed' => 'Status changed',
       'priority_changed' => 'Priority changed',
       'assignment'=> 'Assignment of managers/services providers',
+      'last_updated' => 'Last updated',
       'media' => 
       [
         'added' => 'Document added',
