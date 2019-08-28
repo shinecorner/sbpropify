@@ -33,8 +33,9 @@ export default (config = {}) => {
                     room: '',
                     capture_phase: '',
                     bauteil: '',
-                    stichworte: '',
-                    payer: ''
+                    keyword: '',
+                    keywords: [],
+                    kostenfolge: ''
                 },
                 validationRules: {
                     category: [{
@@ -387,10 +388,6 @@ export default (config = {}) => {
                             return category;
                         }
                     })
-
-                    console.log(initialcategories);
-                    console.log(this.categories);
-                    console.log(this.first_layout_subcategories);
 
                     await this.fetchCurrentRequest();
 

@@ -54,21 +54,21 @@
                                                    placeholder="Select"
                                                    class="custom-select"
                                                    v-model="model.location">
-                                            <el-option value="1">Hauseingang</el-option>
-                                            <el-option value="2">Treppenhaus</el-option>
-                                            <el-option value="3">Lift</el-option>
-                                            <el-option value="4">Tiefgarage</el-option>
-                                            <el-option value="5">Waschen/Trocknen</el-option>
-                                            <el-option value="6">Technik/Heizung</el-option>
-                                            <el-option value="7">Technik/Elektro</el-option>
-                                            <el-option value="8">Fassade</el-option>
-                                            <el-option value="9">Dach</el-option>
-                                            <el-option value="10" selected="">Anderes</el-option>
+                                            <el-option value="1" label="Hauseingang">Hauseingang</el-option>
+                                            <el-option value="2" label="Treppenhaus">Treppenhaus</el-option>
+                                            <el-option value="3" label="Lift">Lift</el-option>
+                                            <el-option value="4" label="Tiefgarage">Tiefgarage</el-option>
+                                            <el-option value="5" label="Waschen/Trocknen">Waschen/Trocknen</el-option>
+                                            <el-option value="6" label="Technik/Heizung">Technik/Heizung</el-option>
+                                            <el-option value="7" label="Technik/Elektro">Technik/Elektro</el-option>
+                                            <el-option value="8" label="Fassade">Fassade</el-option>
+                                            <el-option value="9" label="Dach">Dach</el-option>
+                                            <el-option value="10" label="Anderes">Anderes</el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12"
-                                        v-if="this.showfirstlayout == true && this.showUmgebung == true && this.showLiegenschaft == false">
+                                        v-if="this.showfirstlayout == true && this.showWohnung == true && this.showLiegenschaft == false">
                                     <el-form-item label="Raum">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    placeholder="Select"
@@ -110,18 +110,14 @@
                                 </el-col>
                                 <el-col :md="12">
                                     <el-form-item label="Bauteil">
-                                        <el-input
-                                            type="textarea"
-                                            :rows="2"
-                                            v-model="model.bauteil">
-                                        </el-input>
+                                        <el-input v-model="model.bauteil"></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12">
                                     <el-form-item label="Stichworte">
                                         <el-tag
                                         :key="tag"
-                                        v-for="tag in dynamicTags"
+                                        v-for="tag in model.keywords"
                                         closable
                                         :disable-transitions="false"
                                         @close="handleClose(tag)">
@@ -130,7 +126,7 @@
                                         <el-input
                                             class="input-new-tag"
                                             v-if="inputVisible"
-                                            v-model="model.stichworte"
+                                            v-model="model.keyword"
                                             ref="saveTagInput"
                                             size="mini"
                                             @keyup.enter.native="handleInputConfirm"
@@ -160,14 +156,14 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="12" v-if="this.showpayer == true">
+                                <el-col :md="12" v-if="model.category_id && selectedCategoryHasQualification(model.category_id) || this.showpayer == true">
                                     <el-form-item label="Kostenfolge">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
-                                                   :placeholder="$t('models.request.placeholders.qualification')"
+                                                   placeholder="Select"
                                                    class="custom-select"
-                                                   v-model="model.payer">
-                                            <el-option value="tenant">Mieter</el-option>
-                                            <el-option value="lessor">Vermieter</el-option>
+                                                   v-model="model.kostenfolge">
+                                            <el-option value="tenant" label="Mieter">Mieter</el-option>
+                                            <el-option value="lessor" label="Vermieter">Vermieter</el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
@@ -471,12 +467,11 @@
                         onClick: this.notifyUnassignment
                     }]
                 }],
-                showfirstlayout: true,
+                showfirstlayout: false,
                 showUmgebung: false,
                 showLiegenschaft: false,
                 showWohnung: false,
                 rolename: null,
-                dynamicTags: [],
                 inputVisible: false,
                 showpayer: false,
             }
@@ -509,9 +504,17 @@
                 }
             }
         },
-        mounted() {
+        async mounted() {
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
-            console.log(this.rolename);
+            
+            const resp = await this.getRequest({id: this.$route.params.id});
+            
+            if(resp.data.category.id == 1) {
+                this.showfirstlayout = true;
+            }
+            else {
+                this.showfirstlayout = false;
+            }
         },
         methods: {
             ...mapActions(['unassignAssignee', 'deleteRequest']),
@@ -566,16 +569,24 @@
                 })
             },
             showFirstLayout() {
-                console.log(this.model.category_id);
+
                 if(this.model.category_id == 1) {
                     this.showfirstlayout = true;
                 }
                 else {
                     this.showfirstlayout = false;
                 }
+
+                if(this.model.qualification == 5) {
+                    this.showpayer = true;
+                }
+                else {
+                    this.showpayer = false;
+                }
             },
+            
             showSecondLayout() {
-                console.log(this.model.defect);
+
                 if(this.model.defect == 7) {
                     this.showUmgebung = true;
                     this.showLiegenschaft = false;
@@ -592,8 +603,9 @@
                     this.showUmgebung = false;
                 }
             },
+            
             handleClose(tag) {
-                this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+                this.model.keywords.splice(this.model.keywords.indexOf(tag), 1);
             },
 
             showInput() {
@@ -604,16 +616,16 @@
             },
 
             handleInputConfirm() {
-                let inputValue = this.model.stichworte;
+                let inputValue = this.model.keyword;
                 if (inputValue) {
-                    this.dynamicTags.push(inputValue);
+                    this.model.keywords.push(inputValue);
                 }
                 this.inputVisible = false;
-                this.model.stichworte = '';
+                this.model.keyword = '';
             },
 
             selectPayer() {
-                console.log(this.model.qualification);
+                
                 if(this.model.qualification == 5) {
                     this.showpayer = true;
                 }
@@ -708,5 +720,4 @@
         margin-left: 10px;
         vertical-align: bottom;
     }
-
 </style>
