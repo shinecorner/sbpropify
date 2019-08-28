@@ -198,7 +198,7 @@ export default (config = {}) => {
                     });
                     displaySuccess({
                         success: true,
-                        message: this.$t('models.request.media.deleted')
+                        message: this.$t('general.actions.deleted')
                     });
                 } else {
                     const resp = await this.deleteRequestMedia({
