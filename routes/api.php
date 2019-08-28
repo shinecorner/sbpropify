@@ -187,6 +187,9 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::put('/requestCategories/{id}', 'ServiceRequestCategoryAPIController@update')->name('requests.categories.update');
     Route::delete('/requestCategories/{id}', 'ServiceRequestCategoryAPIController@destroy')->name('requests.categories.destroy');
 
+    // Tag Requests
+    Route::resource('tags', 'TagAPIController');
+
     // Service Requests
     Route::get('/requests', 'ServiceRequestAPIController@index')->name('requests');
     Route::get('/requestsCounts', 'ServiceRequestAPIController@requestsCounts')->name('requestsCounts');
@@ -203,10 +206,15 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('/requests/deletewithids', 'ServiceRequestAPIController@destroyWithIds')->name('requests.destroyWithIds');
     Route::delete('/requests/{id}/media/{media_id}', 'MediaAPIController@serviceRequestDestroy')->name('requests.media.destroy');
 
+    Route::get('/requests/{id}/tags', 'ServiceRequestAPIController@getTags');
     Route::get('/requests/{id}/assignees', 'ServiceRequestAPIController@getAssignees');
     Route::post('/requests/{id}/users/{user_id}', 'ServiceRequestAPIController@assignUser');
     Route::post('/requests/{id}/providers/{provider_id}', 'ServiceRequestAPIController@assignProvider');
     Route::post('/requests/{id}/managers/{manager_id}', 'ServiceRequestAPIController@assignManager');
+    Route::post('/requests/{id}/tags', 'ServiceRequestAPIController@assignManyTags')->name('request.assign.many-tags');
+    Route::post('/requests/{id}/tags/{tag_id}', 'ServiceRequestAPIController@assignTag');
+    Route::delete('/requests/{id}/tags', 'ServiceRequestAPIController@unassignManyTags')->name('request.unassign.many-tags');
+    Route::delete('/requests/{id}/tags/{tag_id}', 'ServiceRequestAPIController@unassignTag');
     Route::delete('/requests-assignees/{requests_assignee_id}', 'ServiceRequestAPIController@deleteRequestAssignee');
 
     // @TODO remove later

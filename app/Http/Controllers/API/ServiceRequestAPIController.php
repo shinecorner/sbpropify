@@ -28,10 +28,12 @@ use App\Models\ServiceRequestAssignee;
 use App\Repositories\PropertyManagerRepository;
 use App\Repositories\ServiceProviderRepository;
 use App\Repositories\ServiceRequestRepository;
+use App\Repositories\TagRepository;
 use App\Repositories\TemplateRepository;
 use App\Repositories\UserRepository;
 use App\Transformers\ServiceRequestAssigneeTransformer;
 use App\Transformers\ServiceRequestTransformer;
+use App\Transformers\TagTransformer;
 use App\Transformers\TemplateTransformer;
 use Illuminate\Support\Facades\Auth;
 use Exception;
@@ -889,6 +891,323 @@ class ServiceRequestAPIController extends AppBaseController
     public function unassignUser(int $id, int $uid, UserRepository $uRepo, AssignRequest $r)
     {
         return $this->deleteRequestAssignee($uid, $r);
+    }
+
+    /**
+     * @param int $id
+     * @param Request $request
+     * @return Response
+     * @throws Exception
+     *
+     * @SWG\Get(
+     *      path="/requests/{id}/tags",
+     *      summary="Get a listing of the ServiceRequest tags.",
+     *      tags={"ServiceRequest", "Tag"},
+     *      description="Get a listing of the ServiceRequest tags.",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @SWG\Items(ref="#/definitions/Tag")
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function getTags(int $id, Request $request)
+    {
+        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        if (empty($sr)) {
+            return $this->sendError(__('models.request.errors.not_found'));
+        }
+
+        $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
+        $tags = $sr->tags()->paginate($perPage);
+
+        $response = (new TagTransformer())->transformPaginator($tags) ;
+        return $this->sendResponse($response, 'Tags retrieved successfully');
+    }
+
+    /**
+     * @param int $id
+     * @param int $tid
+     * @param TagRepository $tRepo
+     * @param AssignRequest $r
+     * @return mixed
+     *
+     * @SWG\Post(
+     *      path="/requests/{id}/tags/{tid}",
+     *      summary="Assign the tag to the request",
+     *      tags={"ServiceRequest", "Tag"},
+     *      description="Assign the tag to the request",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/ServiceRequest"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function assignTag(int $id, int $tid, TagRepository $tRepo, AssignRequest $r)
+    {
+        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        if (empty($sr)) {
+            return $this->sendError(__('models.request.errors.not_found'));
+        }
+
+        $tag = $tRepo->findWithoutFail($tid);
+        if (empty($tag)) {
+            return $this->sendError(__('models.request.errors.tag_not_found'));
+        }
+
+        $sr->tags()->sync($tag, false);
+        $sr->load('media', 'tenant.user', 'category', 'comments.user',
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
+
+        return $this->sendResponse($sr, __('models.request.attached.tags'));
+    }
+
+    /**
+     * @param int $id
+     * @param TagRepository $tRepo
+     * @param AssignRequest $r
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     *
+     * @SWG\Post(
+     *      path="/requests/{id}/tags",
+     *      summary="Assign many tags to the request",
+     *      tags={"ServiceRequest", "Tag"},
+     *      description="Assign many tags to the request",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="tag_ids",
+     *          description="ids of existing tags. Use or comma separated or array",
+     *          type="integer",
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="tags",
+     *          description="name of tags. Use or comma separated or array. If Tag name is not exists that case must be create new tag",
+     *          type="integer",
+     *          in="path"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/ServiceRequest"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function assignManyTags(int $id, TagRepository $tRepo, AssignRequest $r)
+    {
+        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        if (empty($sr)) {
+            return $this->sendError(__('models.request.errors.not_found'));
+        }
+
+        $tagIds = $r->tag_ids ?? [];
+
+        if (!empty($r->tag_ids)) {
+            $tagIds = is_array($r->tag_ids) ? $r->tag_ids : explode(',', $r->tag_ids);
+            $tagIds = $tRepo->findWhereIn('id', $tagIds, ['id'])->pluck('id')->all();
+        }
+
+        if (!empty($r->tags)) {
+            // check tag exist, if not create it and then get ids
+            $tagNameList = is_array($r->tags) ? $r->tags : explode(',', $r->tags);
+            $tagNameList = array_unique($tagNameList);
+            $tags = $tRepo->findWhereIn('name', $tagNameList, ['id', 'name']);
+            $tagIds = array_merge($tagIds, $tags->pluck('id')->all());
+            $existingTags = $tags->pluck('name')->all();
+            $notExistingTags = array_diff($tagNameList, $existingTags);
+
+            foreach ($notExistingTags as $tagName) {
+                $newTag = $tRepo->create(['name' => $tagName]);
+                $tagIds[] = $newTag->id;
+            }
+        }
+
+        if ($tagIds) {
+            $sr->tags()->sync($tagIds, false);
+        }
+
+        $sr->load('media', 'tenant.user', 'category', 'comments.user',
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
+
+        return $this->sendResponse($sr, __('models.request.attached.tags'));
+    }
+
+    /**
+     * @param int $id
+     * @param TagRepository $tRepo
+     * @param AssignRequest $r
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     *
+     * @SWG\Delete(
+     *      path="/requests/{id}/tags",
+     *      summary="Un assign many tags from the request",
+     *      tags={"ServiceRequest", "Tag"},
+     *      description="Un assign many tags from the request",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="tag_ids",
+     *          description="ids of existing tags. Use or comma separated or array",
+     *          type="integer",
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="tags",
+     *          description="name of tags. Use or comma separated or array. If Tag name is not exists that case must be create new tag",
+     *          type="integer",
+     *          in="path"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/ServiceRequest"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function unassignManyTags(int $id, TagRepository $tRepo, AssignRequest $r)
+    {
+        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        if (empty($sr)) {
+            return $this->sendError(__('models.request.errors.not_found'));
+        }
+
+        $tagIds = $r->tag_ids ?? [];
+
+        if (!empty($r->tag_ids)) {
+            $tagIds = is_array($r->tag_ids) ? $r->tag_ids : explode(',', $r->tag_ids);
+            $tagIds = $tRepo->findWhereIn('id', $tagIds, ['id'])->pluck('id')->all();
+        }
+
+        if (!empty($r->tags)) {
+            // check tag exist, if not create it and then get ids
+            $tagNameList = is_array($r->tags) ? $r->tags : explode(',', $r->tags);
+            $tagNameList = array_unique($tagNameList);
+            $tags = $tRepo->findWhereIn('name', $tagNameList, ['id']);
+            $tagIds = array_merge($tagIds, $tags->pluck('id')->all());
+        }
+
+        if ($tagIds) {
+            $sr->tags()->detach($tagIds);
+        }
+
+        $sr->load('media', 'tenant.user', 'category', 'comments.user',
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
+
+        return $this->sendResponse($sr, __('models.request.detached.tags'));
+    }
+
+    /**
+     * @param int $id
+     * @param int $tid
+     * @param TagRepository $tRepo
+     * @param AssignRequest $r
+     * @return mixed
+     *
+     * @SWG\Delete(
+     *      path="/requests/{id}/tags/{pid}",
+     *      summary="Unassign single tag from the request",
+     *      tags={"ServiceRequest", "Tag"},
+     *      description="Unassign single tag from the request",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/ServiceRequest"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function unassignTag(int $id, int $tid, TagRepository $tRepo, AssignRequest $r)
+    {
+        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        if (empty($sr)) {
+            return $this->sendError(__('models.request.errors.not_found'));
+        }
+
+        $tag = $tRepo->findWithoutFail($tid);
+        if (empty($tag)) {
+            return $this->sendError(__('models.request.errors.tag_not_found'));
+        }
+
+        $sr->tags()->detach($tag);
+        $sr->load('media', 'tenant.user', 'category', 'comments.user',
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
+
+        return $this->sendResponse($sr, __('models.request.detached.tags'));
     }
 
     /**

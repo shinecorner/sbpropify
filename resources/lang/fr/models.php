@@ -919,13 +919,15 @@ return [
       [
         "services" => "Le prestataire s'est attaché avec succès",
         "managers" => "Gestionnaire attaché avec succès",
-        "user" => "Utilisateur affecté avec succès",
+        "users" => "Utilisateur affecté avec succès",
+        "tags" => "Étiquette attribuée avec succès",
       ],
       'detached' => 
       [
-        "service" => "Le prestataire s'est détaché avec succès",
-        "manager" => "Gestionnaire détaché avec succès",
-        "user" => "Utilisateur non affecté avec succès",
+        "services" => "Le prestataire s'est détaché avec succès",
+        "managers" => "Gestionnaire détaché avec succès",
+        "users" => "Utilisateur non affecté avec succès",
+        "tags" => "Étiquette non attribuée avec succès",
       ],
       'userType' => 
       [
@@ -945,6 +947,7 @@ return [
         'not_found' => 'Demande de service introuvable',
         'not_allowed_change_status' => "Vous n'êtes pas autorisé à changer de statut.",
         'provider_not_found' => 'Fournisseur de services introuvable',
+        'tag_not_found' => 'Étiquette non trouvée',
         'user_not_found' => 'Utilisateur introuvable',
         'conversation_not_found' => "Conversation non trouvée",
         'statistics_error' => "demander des statistiques d'erreur : ",

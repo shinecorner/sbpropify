@@ -918,13 +918,15 @@ return [
       [
         'services' => 'Provider attached successfully',
         'managers' => 'Manager attached successfully',
-        'user' => 'User assigned successfully',
+        'users' => 'User assigned successfully',
+        'tags' => 'Tag assigned successfully',
       ],
       'detached' => 
       [
-        'service' => 'Provider detached successfully',
-        'manager' => 'Manager detached successfully',
-        'user' => 'User unassigned successfully',
+        'services' => 'Provider detached successfully',
+        'managers' => 'Manager detached successfully',
+        'users' => 'User unassigned successfully',
+        'tags' => 'Tag unassigned successfully',
       ],
       'userType' => 
       [
@@ -944,6 +946,7 @@ return [
         'not_found' => 'Service Request not found',
         'not_allowed_change_status' => 'You are not allowed to change status.',
         'provider_not_found' => 'Service Provider not found',
+        'tag_not_found' => 'Tag not found',
         'user_not_found' => 'User not found',
         'conversation_not_found' => "Conversation not found",
         'statistics_error' => "Request statistics error: ",
