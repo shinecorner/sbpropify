@@ -1,11 +1,22 @@
 export default {
     "it": {
-        "passwords": {
-            "password": "Le password devono essere di almeno 6 caratteri e devono coincidere.",
-            "reset": "La password è stata reimpostata!",
-            "sent": "Promemoria della password inviato!",
-            "token": "Questo token per la reimpostazione della password non è valido.",
-            "user": "Non esiste un utente associato a questo indirizzo e-mail."
+        "pages": {
+            "profile": {
+                "pageTitle": "Profilo",
+                "profile": "Profilo",
+                "account": "Conto",
+                "security": "Sicurezza",
+                "notifications": "Notifiche"
+            },
+            "user": {
+                "title": "Utenti"
+            },
+            "request_activities": {
+                "title": "Richiedi attività"
+            },
+            "tenant": {
+                "title": "Gli inquilini"
+            }
         },
         "models": {
             "user": {
@@ -995,24 +1006,54 @@ export default {
                 "terms_text": "Termini testo qui, testo lungo"
             }
         },
-        "filters": {
-            "header": "Filtri",
-            "districts": "Distretti",
-            "buildings": "Edifici",
-            "requests": "Richieste",
-            "open_requests": "Richieste aperte",
-            "units": "Unità",
-            "states": "Stati",
-            "status": "Stato",
-            "search": "Ricerca",
-            "requestStatus": "Stato della richiesta",
-            "propertyManagers": "Proprietà Manager",
-            "categories": "Categorie",
-            "created_from": "Creato da",
-            "created_to": "Creato per",
-            "services": "Servizi",
-            "tenant": "Inquilino",
-            "roles": "Roles"
+        "settings": {
+            "notifications": "Notifiche e lingua",
+            "admin": "Notifiche dell'amministrazione",
+            "news": "Notifiche di notizie",
+            "marketplace": "Notifiche di mercato",
+            "service": "Notifiche di servizio",
+            "updated": "Impostazioni aggiornate",
+            "language": "La lingua",
+            "summary": {
+                "label": "Statistiche riassuntive",
+                "daily": "Tutti i giorni",
+                "monthly": "Mensile",
+                "yearly": "Annuale"
+            },
+            "contact_enable": {
+                "label": "Attivare i miei contatti",
+                "use_global": "Usa globale",
+                "show": "Mostrare",
+                "hide": "Nascondere"
+            }
+        },
+        "common": {
+            "mr": "Sig.",
+            "mrs": "Signora",
+            "company": "L'azienda",
+            "user_title_mr": "Sig.",
+            "user_title_mrs": "Signora",
+            "user_title_company": "L'azienda",
+            "tenant_title_mr": "Sig.",
+            "tenant_title_mrs": "Signora",
+            "tenant_title_company": "L'azienda",
+            "request_status_1": "Ricevuto",
+            "request_status_2": "In Elaborazione",
+            "request_status_3": "Assegnato",
+            "request_status_4": "Fatto",
+            "request_status_5": "Riattivati",
+            "request_status_6": "Archiviato",
+            "originalRequest_status_1": "Ricevuto",
+            "originalRequest_status_2": "In Elaborazione",
+            "originalRequest_status_3": "Assegnato",
+            "originalRequest_status_4": "Fatto",
+            "originalRequest_status_5": "Riattivati",
+            "originalRequest_status_6": "Archiviato",
+            "email_footer_message1": "Questa e-mail è stata generata automaticamente per {UserName}.",
+            "email_footer_message2": "Si ottiene questa e-mail generata automaticamente come utente di {CompanyName}.",
+            "email_link_contacts": "Contatti.",
+            "email_link_terms_of_use": "Condizioni d'uso",
+            "email_link_data_protection": "Protezione dei dati"
         },
         "dashboard": {
             "statistics": "Statistiche",
@@ -1076,125 +1117,6 @@ export default {
                 "go_to_news": "vai alle notizie",
                 "counts": "Conta"
             }
-        },
-        "auth": {
-            "failed": "Credenziali non corrispondenti ai dati registrati.",
-            "throttle": "Troppi tentativi di accesso. Riprova tra {seconds} secondi.",
-            "login_welcome": "Bentornato, accedi al tuo account.",
-            "title": "Tutto è più facile con la nostra applicazione inquilino",
-            "intro": "Al fine di trattare le preoccupazioni dei nostri inquilini ancora più velocemente, i nostri inquilini hanno accesso ad un'area protetta con la quale è possibile gestire digitalmente la locazione. Grazie all'elaborazione digitale possiamo agire ancora più rapidamente e creare trasparenza per tutte le parti interessate.",
-            "benefit_1": {
-                "title": "Tutti i dati e i documenti sono consultabili online",
-                "description": "È possibile scaricare in qualsiasi momento tutte le informazioni sul contratto di locazione e la documentazione, come ad esempio il contratto di locazione, in formato PDF."
-            },
-            "benefit_2": {
-                "title": "Trasmissione digitale delle preoccupazioni",
-                "description": "È possibile registrare e trasmettere tutte le richieste tramite l'applicazione. La direzione prenderà immediatamente le misure necessarie."
-            },
-            "benefit_3": {
-                "title": "Rimanere in contatto con il quartiere",
-                "description": "Nella sezione Notizie puoi pubblicare articoli visibili ai tuoi vicini. Per esempio, se ci si aspetta un rumore a causa di un evento."
-            },
-            "benefit_4": {
-                "title": "Noleggio e mercato online",
-                "description": "Se hai oggetti di cui non hai bisogno, puoi pubblicizzarli nell'app e offrirli ai tuoi vicini."
-            },
-            "login": {
-                "activate_account": {
-                    "title": "Primo login (attivazione account)",
-                    "description": "Dopo aver ricevuto il codice di attivazione, puoi accedere per la prima volta al portale degli inquilini e attivare il tuo account."
-                }
-            }
-        },
-        "settings": {
-            "notifications": "Notifiche e lingua",
-            "admin": "Notifiche dell'amministrazione",
-            "news": "Notifiche di notizie",
-            "marketplace": "Notifiche di mercato",
-            "service": "Notifiche di servizio",
-            "updated": "Impostazioni aggiornate",
-            "language": "La lingua",
-            "summary": {
-                "label": "Statistiche riassuntive",
-                "daily": "Tutti i giorni",
-                "monthly": "Mensile",
-                "yearly": "Annuale"
-            },
-            "contact_enable": {
-                "label": "Attivare i miei contatti",
-                "use_global": "Usa globale",
-                "show": "Mostrare",
-                "hide": "Nascondere"
-            }
-        },
-        "pagination": {
-            "previous": "&laquo; Precedente",
-            "next": "Successivo &raquo;"
-        },
-        "views": {
-            "tenant": {
-                "my": {
-                    "personal": {
-                        "title": "Dati personali",
-                        "description": "I miei dati personali",
-                        "placeholder": {
-                            "title": "Nessun dato personale disponibile",
-                            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                        }
-                    }
-                }
-            }
-        },
-        "tenant": {
-            "tenant_credentials": "Le credenziali dell'inquilino",
-            "tenancy_details": "Dettagli della locazione",
-            "unit": "Unità",
-            "floor": "Piano",
-            "building": "Edificio",
-            "address": "Indirizzo",
-            "rent_start": "Inizio affitto",
-            "login_credentials": "Credenziali di accesso",
-            "website": "Sito web",
-            "username": "Nome utente",
-            "password": "La password",
-            "url": "URL",
-            "code": "Codice"
-        },
-        "menu": {
-            "dashboard": "Cruscotto",
-            "news": "Notizie",
-            "requests": "Richieste",
-            "all_requests": "Tutte le richieste",
-            "myRequests": "Le mie richieste",
-            "myPendingRequests": "Le mie richieste pendenti",
-            "notAssigned": "Non assegnato",
-            "allPendingRequests": "Tutte le richieste pendenti",
-            "marketplace": "Mercato",
-            "settings": "Impostazioni",
-            "logout": "Logout",
-            "profile": "Profilo",
-            "users": "Utenti",
-            "employees": "Dirigenti",
-            "companies": "Servizi",
-            "admins": "Amministratori",
-            "super_admins": "Super amministratori",
-            "home_owners": "Proprietari",
-            "registered": "Registrato",
-            "about": "A proposito di",
-            "feedback": "Feedback",
-            "tenants": "Gli inquilini",
-            "buildings": "Edifici",
-            "all_buildings": "Tutti gli edifici",
-            "units": "Unità",
-            "addresses": "Indirizzi",
-            "posts": "Notizie",
-            "districts": "Distretti",
-            "products": "Prodotti",
-            "requestCategories": "Richiesta categorie",
-            "services": "Partner di servizio",
-            "activity": "Attività",
-            "propertyManagers": "Gestori",
-            "templates": "Modelli"
         },
         "components": {
             "common": {
@@ -1265,6 +1187,9 @@ export default {
                                     "visibility": "La visibilità è cambiata da \"{old}\" al \"{new}\"."
                                 },
                                 "provider_assigned": "{providerName} è stato assegnato come fornitore.",
+                                "provider_unassigned": "Fornitore di servizi {providerName} non è stato assegnato.",
+                                "manager_assigned": "{propertyManagerFirstName} {propertyManagerLastName} è stato assegnato come manager.",
+                                "manager_unassigned": "Manager {propertyManagerFirstName} {propertyManagerLastName} non è stato assegnato.",
                                 "user_assigned": "{userName} è stato assegnato come manager.",
                                 "media_uploaded": "Media caricati",
                                 "media_deleted": "Supporti cancellati"
@@ -1306,6 +1231,9 @@ export default {
                                     "visibility": "La visibilità è cambiata da \"{old}\" al \"{new}\" su {auditable_type} #{auditable_id}."
                                 },
                                 "provider_assigned": "{providerName} è stato assegnato come fornitore su {auditable_type} #{auditable_id}.",
+                                "provider_unassigned": "Fornitore di servizi {providerName} non è stato assegnato su {auditable_type} #{auditable_id}.",
+                                "manager_assigned": "{propertyManagerFirstName} {propertyManagerLastName} è stato assegnato come manager su {auditable_type} #{auditable_id}.",
+                                "manager_unassigned": "Manager {propertyManagerFirstName} {propertyManagerLastName} non è stato assegnato su {auditable_type} #{auditable_id}.",
                                 "user_assigned": "{userName} è stato assegnato come manager su {auditable_type} #{auditable_id}.",
                                 "media_uploaded": "Media caricati su {auditable_type} #{auditable_id}.",
                                 "media_deleted": "Supporti cancellati su {auditable_type} #{auditable_id}."
@@ -1381,224 +1309,61 @@ export default {
             },
             "admin": []
         },
-        "layouts": {
-            "tenant": {
-                "menu": {
-                    "logout": "Logout"
-                },
-                "sidebar": {
-                    "dashboard": "Cruscotto",
-                    "myTenancy": "La mia locazione",
-                    "myPersonalData": "I miei dati personali",
-                    "myRecentContract": "Il mio recente contratto",
-                    "myDocuments": "Documenti",
-                    "myContactPersons": "Persone di contatto",
-                    "posts": "Notizie",
-                    "requests": "Richieste",
-                    "products": "Mercato",
-                    "settings": "Impostazioni"
-                }
-            }
+        "filters": {
+            "header": "Filtri",
+            "districts": "Distretti",
+            "buildings": "Edifici",
+            "requests": "Richieste",
+            "open_requests": "Richieste aperte",
+            "units": "Unità",
+            "states": "Stati",
+            "status": "Stato",
+            "search": "Ricerca",
+            "requestStatus": "Stato della richiesta",
+            "propertyManagers": "Proprietà Manager",
+            "categories": "Categorie",
+            "created_from": "Creato da",
+            "created_to": "Creato per",
+            "services": "Servizi",
+            "tenant": "Inquilino",
+            "roles": "Roles",
+            "type": "Modello"
         },
-        "common": {
-            "mr": "Sig.",
-            "mrs": "Signora",
-            "company": "L'azienda",
-            "user_title_mr": "Sig.",
-            "user_title_mrs": "Signora",
-            "user_title_company": "L'azienda",
-            "tenant_title_mr": "Sig.",
-            "tenant_title_mrs": "Signora",
-            "tenant_title_company": "L'azienda",
-            "request_status_1": "Ricevuto",
-            "request_status_2": "In Elaborazione",
-            "request_status_3": "Assegnato",
-            "request_status_4": "Fatto",
-            "request_status_5": "Riattivati",
-            "request_status_6": "Archiviato",
-            "originalRequest_status_1": "Ricevuto",
-            "originalRequest_status_2": "In Elaborazione",
-            "originalRequest_status_3": "Assegnato",
-            "originalRequest_status_4": "Fatto",
-            "originalRequest_status_5": "Riattivati",
-            "originalRequest_status_6": "Archiviato",
-            "email_footer_message1": "Questa e-mail è stata generata automaticamente per {UserName}.",
-            "email_footer_message2": "Si ottiene questa e-mail generata automaticamente come utente di {CompanyName}.",
-            "email_link_contacts": "Contatti.",
-            "email_link_terms_of_use": "Condizioni d'uso",
-            "email_link_data_protection": "Protezione dei dati"
-        },
-        "validation": {
-            "validation_main_message": "I dati forniti non erano validi.",
-            "accepted": "{attribute} deve essere accettato.",
-            "active_url": "{attribute} non è un URL valido.",
-            "after": "{attribute} deve essere una data successiva al {date}.",
-            "after_or_equal": "{attribute} deve essere una data successiva o uguale al {date}.",
-            "alpha": "{attribute} può contenere solo lettere.",
-            "alpha_dash": "{attribute} può contenere solo lettere, numeri e trattini.",
-            "alpha_num": "{attribute} può contenere solo lettere e numeri.",
-            "array": "{attribute} deve essere un array.",
-            "before": "{attribute} deve essere una data precedente al {date}.",
-            "before_or_equal": "{attribute} deve essere una data precedente o uguale al {date}.",
-            "between": {
-                "numeric": "{attribute} deve trovarsi tra {min} - {max}.",
-                "file": "{attribute} deve trovarsi tra {min} - {max} kilobyte.",
-                "string": "{attribute} deve trovarsi tra {min} - {max} caratteri.",
-                "array": "{attribute} deve avere tra {min} - {max} elementi."
-            },
-            "boolean": "Il campo {attribute} deve essere vero o falso.",
-            "confirmed": "Il campo di conferma per {attribute} non coincide.",
-            "date": "{attribute} non è una data valida.",
-            "date_equals": "The {attribute} must be a date equal to {date}.",
-            "date_format": "{attribute} non coincide con il formato {format}.",
-            "different": "{attribute} e {other} devono essere differenti.",
-            "digits": "{attribute} deve essere di {digits} cifre.",
-            "digits_between": "{attribute} deve essere tra {min} e {max} cifre.",
-            "dimensions": "Le dimensioni dell'immagine di {attribute} non sono valide.",
-            "distinct": "{attribute} contiene un valore duplicato.",
-            "email": "{attribute} non è valido.",
-            "exists": "{attribute} selezionato non è valido.",
-            "file": "{attribute} deve essere un file.",
-            "filled": "Il campo {attribute} deve contenere un valore.",
-            "gt": {
-                "numeric": "{attribute} deve essere maggiore di {value}.",
-                "file": "{attribute} deve essere maggiore di {value} kilobyte.",
-                "string": "{attribute} deve contenere più di {value} caratteri.",
-                "array": "{attribute} deve contenere più di {value} elementi."
-            },
-            "gte": {
-                "numeric": "{attribute} deve essere uguale o maggiore di {value}.",
-                "file": "{attribute} deve essere uguale o maggiore di {value} kilobyte.",
-                "string": "{attribute} deve contenere un numero di caratteri uguale o maggiore di {value}.",
-                "array": "{attribute} deve contenere un numero di elementi uguale o maggiore di {value}."
-            },
-            "image": "{attribute} deve essere un'immagine.",
-            "in": "{attribute} selezionato non è valido.",
-            "in_array": "Il valore del campo {attribute} non esiste in {other}.",
-            "integer": "{attribute} deve essere un numero intero.",
-            "ip": "{attribute} deve essere un indirizzo IP valido.",
-            "ipv4": "{attribute} deve essere un indirizzo IPv4 valido.",
-            "ipv6": "{attribute} deve essere un indirizzo IPv6 valido.",
-            "json": "{attribute} deve essere una stringa JSON valida.",
-            "lt": {
-                "numeric": "{attribute} deve essere minore di {value}.",
-                "file": "{attribute} deve essere minore di {value} kilobyte.",
-                "string": "{attribute} deve contenere meno di {value} caratteri.",
-                "array": "{attribute} deve contenere meno di {value} elementi."
-            },
-            "lte": {
-                "numeric": "{attribute} deve essere minore o uguale a {value}.",
-                "file": "{attribute} deve essere minore o uguale a {value} kilobyte.",
-                "string": "{attribute} deve contenere un numero di caratteri minore o uguale a {value}.",
-                "array": "{attribute} deve contenere un numero di elementi minore o uguale a {value}."
-            },
-            "max": {
-                "numeric": "{attribute} non può essere superiore a {max}.",
-                "file": "{attribute} non può essere superiore a {max} kilobyte.",
-                "string": "{attribute} non può contenere più di {max} caratteri.",
-                "array": "{attribute} non può avere più di {max} elementi."
-            },
-            "mimes": "{attribute} deve essere del tipo: {values}.",
-            "mimetypes": "{attribute} deve essere del tipo: {values}.",
-            "min": {
-                "numeric": "{attribute} deve essere almeno {min}.",
-                "file": "{attribute} deve essere almeno di {min} kilobyte.",
-                "string": "{attribute} deve contenere almeno {min} caratteri.",
-                "array": "{attribute} deve avere almeno {min} elementi."
-            },
-            "not_in": "Il valore selezionato per {attribute} non è valido.",
-            "not_regex": "Il formato di {attribute} non è valido.",
-            "numeric": "{attribute} deve essere un numero.",
-            "present": "Il campo {attribute} deve essere presente.",
-            "regex": "Il formato del campo {attribute} non è valido.",
-            "required": "Il campo {attribute} è richiesto.",
-            "required_if": "Il campo {attribute} è richiesto quando {other} è {value}.",
-            "required_unless": "Il campo {attribute} è richiesto a meno che {other} sia in {values}.",
-            "required_with": "Il campo {attribute} è richiesto quando {values} è presente.",
-            "required_with_all": "Il campo {attribute} è richiesto quando {values} sono presenti.",
-            "required_without": "Il campo {attribute} è richiesto quando {values} non è presente.",
-            "required_without_all": "Il campo {attribute} è richiesto quando nessuno di {values} è presente.",
-            "same": "{attribute} e {other} devono coincidere.",
-            "size": {
-                "numeric": "{attribute} deve essere {size}.",
-                "file": "{attribute} deve essere {size} kilobyte.",
-                "string": "{attribute} deve contenere {size} caratteri.",
-                "array": "{attribute} deve contenere {size} elementi."
-            },
-            "starts_with": "The {attribute} must start with one of the following: {values}",
-            "string": "{attribute} deve essere una stringa.",
-            "timezone": "{attribute} deve essere una zona valida.",
-            "unique": "{attribute} è stato già utilizzato.",
-            "uploaded": "{attribute} non è stato caricato.",
-            "url": "Il formato del campo {attribute} non è valido.",
-            "uuid": "The {attribute} must be a valid UUID.",
-            "custom": {
-                "attribute-name": {
-                    "rule-name": "custom-message"
-                }
-            },
-            "attributes": {
-                "name": "nome",
-                "username": "nome utente",
-                "email": "email",
-                "first_name": "nome",
-                "last_name": "cognome",
-                "password": "password",
-                "password_confirmation": "conferma password",
-                "city": "città",
-                "country": "paese",
-                "address": "indirizzo",
-                "phone": "telefono",
-                "mobile": "cellulare",
-                "age": "età",
-                "sex": "sesso",
-                "gender": "genere",
-                "day": "giorno",
-                "month": "mese",
-                "year": "anno",
-                "hour": "ora",
-                "minute": "minuto",
-                "second": "secondo",
-                "title": "titolo",
-                "content": "contenuto",
-                "description": "descrizione",
-                "excerpt": "estratto",
-                "date": "data",
-                "time": "ora",
-                "available": "disponibile",
-                "size": "dimensione"
-            },
-            "general": {
-                "required": "Questo campo è obbligatorio"
-            },
-            "price": {
-                "valid": "Inserisci un prezzo valido",
-                "required": "Il prezzo è obbligatorio"
-            },
-            "firstName": {
-                "required": "Il nome è obbligatorio"
-            },
-            "lastName": {
-                "required": "Il cognome è obbligatorio"
-            },
-            "phone": {
-                "required": "Il telefono è obbligatorio"
-            },
-            "address": {
-                "required": "L'indirizzo è obbligatorio"
-            },
-            "zip": {
-                "required": "E' richiesta la chiusura lampo"
-            },
-            "city": {
-                "required": "La città è obbligatoria"
-            },
-            "title": {
-                "required": "Il titolo è richiesto"
-            },
-            "terms": {
-                "required": "Si prega di approvare i termini e le condizioni"
-            }
+        "menu": {
+            "dashboard": "Cruscotto",
+            "news": "Notizie",
+            "requests": "Richieste",
+            "all_requests": "Tutte le richieste",
+            "myRequests": "Le mie richieste",
+            "myPendingRequests": "Le mie richieste pendenti",
+            "notAssigned": "Non assegnato",
+            "allPendingRequests": "Tutte le richieste pendenti",
+            "marketplace": "Mercato",
+            "settings": "Impostazioni",
+            "logout": "Logout",
+            "profile": "Profilo",
+            "users": "Utenti",
+            "employees": "Dirigenti",
+            "companies": "Servizi",
+            "admins": "Amministratori",
+            "super_admins": "Super amministratori",
+            "home_owners": "Proprietari",
+            "registered": "Registrato",
+            "about": "A proposito di",
+            "feedback": "Feedback",
+            "tenants": "Gli inquilini",
+            "buildings": "Edifici",
+            "all_buildings": "Tutti gli edifici",
+            "units": "Unità",
+            "addresses": "Indirizzi",
+            "posts": "Notizie",
+            "districts": "Distretti",
+            "products": "Prodotti",
+            "requestCategories": "Richiesta categorie",
+            "services": "Partner di servizio",
+            "activity": "Attività",
+            "propertyManagers": "Gestori",
+            "templates": "Modelli"
         },
         "general": {
             "en": "EN",
@@ -1780,22 +1545,264 @@ export default {
             "to_homepage": "Alla Homepage",
             "assignment": "Assegnazione"
         },
-        "pages": {
-            "profile": {
-                "pageTitle": "Profilo",
-                "profile": "Profilo",
-                "account": "Conto",
-                "security": "Sicurezza",
-                "notifications": "Notifiche"
+        "pagination": {
+            "previous": "&laquo; Precedente",
+            "next": "Successivo &raquo;"
+        },
+        "passwords": {
+            "password": "Le password devono essere di almeno 6 caratteri e devono coincidere.",
+            "reset": "La password è stata reimpostata!",
+            "sent": "Promemoria della password inviato!",
+            "token": "Questo token per la reimpostazione della password non è valido.",
+            "user": "Non esiste un utente associato a questo indirizzo e-mail."
+        },
+        "validation": {
+            "validation_main_message": "I dati forniti non erano validi.",
+            "accepted": "{attribute} deve essere accettato.",
+            "active_url": "{attribute} non è un URL valido.",
+            "after": "{attribute} deve essere una data successiva al {date}.",
+            "after_or_equal": "{attribute} deve essere una data successiva o uguale al {date}.",
+            "alpha": "{attribute} può contenere solo lettere.",
+            "alpha_dash": "{attribute} può contenere solo lettere, numeri e trattini.",
+            "alpha_num": "{attribute} può contenere solo lettere e numeri.",
+            "array": "{attribute} deve essere un array.",
+            "before": "{attribute} deve essere una data precedente al {date}.",
+            "before_or_equal": "{attribute} deve essere una data precedente o uguale al {date}.",
+            "between": {
+                "numeric": "{attribute} deve trovarsi tra {min} - {max}.",
+                "file": "{attribute} deve trovarsi tra {min} - {max} kilobyte.",
+                "string": "{attribute} deve trovarsi tra {min} - {max} caratteri.",
+                "array": "{attribute} deve avere tra {min} - {max} elementi."
             },
-            "user": {
-                "title": "Utenti"
+            "boolean": "Il campo {attribute} deve essere vero o falso.",
+            "confirmed": "Il campo di conferma per {attribute} non coincide.",
+            "date": "{attribute} non è una data valida.",
+            "date_equals": "The {attribute} must be a date equal to {date}.",
+            "date_format": "{attribute} non coincide con il formato {format}.",
+            "different": "{attribute} e {other} devono essere differenti.",
+            "digits": "{attribute} deve essere di {digits} cifre.",
+            "digits_between": "{attribute} deve essere tra {min} e {max} cifre.",
+            "dimensions": "Le dimensioni dell'immagine di {attribute} non sono valide.",
+            "distinct": "{attribute} contiene un valore duplicato.",
+            "email": "{attribute} non è valido.",
+            "exists": "{attribute} selezionato non è valido.",
+            "file": "{attribute} deve essere un file.",
+            "filled": "Il campo {attribute} deve contenere un valore.",
+            "gt": {
+                "numeric": "{attribute} deve essere maggiore di {value}.",
+                "file": "{attribute} deve essere maggiore di {value} kilobyte.",
+                "string": "{attribute} deve contenere più di {value} caratteri.",
+                "array": "{attribute} deve contenere più di {value} elementi."
             },
-            "request_activities": {
-                "title": "Richiedi attività"
+            "gte": {
+                "numeric": "{attribute} deve essere uguale o maggiore di {value}.",
+                "file": "{attribute} deve essere uguale o maggiore di {value} kilobyte.",
+                "string": "{attribute} deve contenere un numero di caratteri uguale o maggiore di {value}.",
+                "array": "{attribute} deve contenere un numero di elementi uguale o maggiore di {value}."
             },
+            "image": "{attribute} deve essere un'immagine.",
+            "in": "{attribute} selezionato non è valido.",
+            "in_array": "Il valore del campo {attribute} non esiste in {other}.",
+            "integer": "{attribute} deve essere un numero intero.",
+            "ip": "{attribute} deve essere un indirizzo IP valido.",
+            "ipv4": "{attribute} deve essere un indirizzo IPv4 valido.",
+            "ipv6": "{attribute} deve essere un indirizzo IPv6 valido.",
+            "json": "{attribute} deve essere una stringa JSON valida.",
+            "lt": {
+                "numeric": "{attribute} deve essere minore di {value}.",
+                "file": "{attribute} deve essere minore di {value} kilobyte.",
+                "string": "{attribute} deve contenere meno di {value} caratteri.",
+                "array": "{attribute} deve contenere meno di {value} elementi."
+            },
+            "lte": {
+                "numeric": "{attribute} deve essere minore o uguale a {value}.",
+                "file": "{attribute} deve essere minore o uguale a {value} kilobyte.",
+                "string": "{attribute} deve contenere un numero di caratteri minore o uguale a {value}.",
+                "array": "{attribute} deve contenere un numero di elementi minore o uguale a {value}."
+            },
+            "max": {
+                "numeric": "{attribute} non può essere superiore a {max}.",
+                "file": "{attribute} non può essere superiore a {max} kilobyte.",
+                "string": "{attribute} non può contenere più di {max} caratteri.",
+                "array": "{attribute} non può avere più di {max} elementi."
+            },
+            "mimes": "{attribute} deve essere del tipo: {values}.",
+            "mimetypes": "{attribute} deve essere del tipo: {values}.",
+            "min": {
+                "numeric": "{attribute} deve essere almeno {min}.",
+                "file": "{attribute} deve essere almeno di {min} kilobyte.",
+                "string": "{attribute} deve contenere almeno {min} caratteri.",
+                "array": "{attribute} deve avere almeno {min} elementi."
+            },
+            "not_in": "Il valore selezionato per {attribute} non è valido.",
+            "not_regex": "Il formato di {attribute} non è valido.",
+            "numeric": "{attribute} deve essere un numero.",
+            "present": "Il campo {attribute} deve essere presente.",
+            "regex": "Il formato del campo {attribute} non è valido.",
+            "required": "Il campo {attribute} è richiesto.",
+            "required_if": "Il campo {attribute} è richiesto quando {other} è {value}.",
+            "required_unless": "Il campo {attribute} è richiesto a meno che {other} sia in {values}.",
+            "required_with": "Il campo {attribute} è richiesto quando {values} è presente.",
+            "required_with_all": "Il campo {attribute} è richiesto quando {values} sono presenti.",
+            "required_without": "Il campo {attribute} è richiesto quando {values} non è presente.",
+            "required_without_all": "Il campo {attribute} è richiesto quando nessuno di {values} è presente.",
+            "same": "{attribute} e {other} devono coincidere.",
+            "size": {
+                "numeric": "{attribute} deve essere {size}.",
+                "file": "{attribute} deve essere {size} kilobyte.",
+                "string": "{attribute} deve contenere {size} caratteri.",
+                "array": "{attribute} deve contenere {size} elementi."
+            },
+            "starts_with": "The {attribute} must start with one of the following: {values}",
+            "string": "{attribute} deve essere una stringa.",
+            "timezone": "{attribute} deve essere una zona valida.",
+            "unique": "{attribute} è stato già utilizzato.",
+            "uploaded": "{attribute} non è stato caricato.",
+            "url": "Il formato del campo {attribute} non è valido.",
+            "uuid": "The {attribute} must be a valid UUID.",
+            "custom": {
+                "attribute-name": {
+                    "rule-name": "custom-message"
+                }
+            },
+            "attributes": {
+                "name": "nome",
+                "username": "nome utente",
+                "email": "email",
+                "first_name": "nome",
+                "last_name": "cognome",
+                "password": "password",
+                "password_confirmation": "conferma password",
+                "city": "città",
+                "country": "paese",
+                "address": "indirizzo",
+                "phone": "telefono",
+                "mobile": "cellulare",
+                "age": "età",
+                "sex": "sesso",
+                "gender": "genere",
+                "day": "giorno",
+                "month": "mese",
+                "year": "anno",
+                "hour": "ora",
+                "minute": "minuto",
+                "second": "secondo",
+                "title": "titolo",
+                "content": "contenuto",
+                "description": "descrizione",
+                "excerpt": "estratto",
+                "date": "data",
+                "time": "ora",
+                "available": "disponibile",
+                "size": "dimensione"
+            },
+            "general": {
+                "required": "Questo campo è obbligatorio"
+            },
+            "price": {
+                "valid": "Inserisci un prezzo valido",
+                "required": "Il prezzo è obbligatorio"
+            },
+            "firstName": {
+                "required": "Il nome è obbligatorio"
+            },
+            "lastName": {
+                "required": "Il cognome è obbligatorio"
+            },
+            "phone": {
+                "required": "Il telefono è obbligatorio"
+            },
+            "address": {
+                "required": "L'indirizzo è obbligatorio"
+            },
+            "zip": {
+                "required": "E' richiesta la chiusura lampo"
+            },
+            "city": {
+                "required": "La città è obbligatoria"
+            },
+            "title": {
+                "required": "Il titolo è richiesto"
+            },
+            "terms": {
+                "required": "Si prega di approvare i termini e le condizioni"
+            }
+        },
+        "tenant": {
+            "tenant_credentials": "Le credenziali dell'inquilino",
+            "tenancy_details": "Dettagli della locazione",
+            "unit": "Unità",
+            "floor": "Piano",
+            "building": "Edificio",
+            "address": "Indirizzo",
+            "rent_start": "Inizio affitto",
+            "login_credentials": "Credenziali di accesso",
+            "website": "Sito web",
+            "username": "Nome utente",
+            "password": "La password",
+            "url": "URL",
+            "code": "Codice"
+        },
+        "views": {
             "tenant": {
-                "title": "Gli inquilini"
+                "my": {
+                    "personal": {
+                        "title": "Dati personali",
+                        "description": "I miei dati personali",
+                        "placeholder": {
+                            "title": "Nessun dato personale disponibile",
+                            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                        }
+                    }
+                }
+            }
+        },
+        "auth": {
+            "failed": "Credenziali non corrispondenti ai dati registrati.",
+            "throttle": "Troppi tentativi di accesso. Riprova tra {seconds} secondi.",
+            "login_welcome": "Bentornato, accedi al tuo account.",
+            "title": "Tutto è più facile con la nostra applicazione inquilino",
+            "intro": "Al fine di trattare le preoccupazioni dei nostri inquilini ancora più velocemente, i nostri inquilini hanno accesso ad un'area protetta con la quale è possibile gestire digitalmente la locazione. Grazie all'elaborazione digitale possiamo agire ancora più rapidamente e creare trasparenza per tutte le parti interessate.",
+            "benefit_1": {
+                "title": "Tutti i dati e i documenti sono consultabili online",
+                "description": "È possibile scaricare in qualsiasi momento tutte le informazioni sul contratto di locazione e la documentazione, come ad esempio il contratto di locazione, in formato PDF."
+            },
+            "benefit_2": {
+                "title": "Trasmissione digitale delle preoccupazioni",
+                "description": "È possibile registrare e trasmettere tutte le richieste tramite l'applicazione. La direzione prenderà immediatamente le misure necessarie."
+            },
+            "benefit_3": {
+                "title": "Rimanere in contatto con il quartiere",
+                "description": "Nella sezione Notizie puoi pubblicare articoli visibili ai tuoi vicini. Per esempio, se ci si aspetta un rumore a causa di un evento."
+            },
+            "benefit_4": {
+                "title": "Noleggio e mercato online",
+                "description": "Se hai oggetti di cui non hai bisogno, puoi pubblicizzarli nell'app e offrirli ai tuoi vicini."
+            },
+            "login": {
+                "activate_account": {
+                    "title": "Primo login (attivazione account)",
+                    "description": "Dopo aver ricevuto il codice di attivazione, puoi accedere per la prima volta al portale degli inquilini e attivare il tuo account."
+                }
+            }
+        },
+        "layouts": {
+            "tenant": {
+                "menu": {
+                    "logout": "Logout"
+                },
+                "sidebar": {
+                    "dashboard": "Cruscotto",
+                    "myTenancy": "La mia locazione",
+                    "myPersonalData": "I miei dati personali",
+                    "myRecentContract": "Il mio recente contratto",
+                    "myDocuments": "Documenti",
+                    "myContactPersons": "Persone di contatto",
+                    "posts": "Notizie",
+                    "requests": "Richieste",
+                    "products": "Mercato",
+                    "settings": "Impostazioni"
+                }
             }
         }
     }

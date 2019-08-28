@@ -65,7 +65,7 @@ class FilterByRelatedFieldsCriteria implements CriteriaInterface
         $manager_id = $this->request->get('manager_id', null);
         if ($manager_id) {
             return $model->whereHas('building.propertyManagers', function ($q) use ($manager_id) {
-                $q->where('building_property_manager.id', $manager_id);
+                $q->where('building_assignees.assignee_id', $manager_id);
             });
         }
 

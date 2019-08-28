@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\BuildingRelation;
 use App\Traits\RequestRelation;
 use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -68,7 +69,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class PropertyManager extends Model
 {
-    use SoftDeletes, UniqueIDFormat, RequestRelation;
+    use SoftDeletes, UniqueIDFormat, RequestRelation, BuildingRelation;
 
     public $table = 'property_managers';
 
@@ -141,14 +142,6 @@ class PropertyManager extends Model
     public function settings()
     {
         return $this->hasOne(UserSettings::class, 'user_id', 'user_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     **/
-    public function buildings()
-    {
-        return $this->belongsToMany(Building::class, 'building_property_manager', 'property_manager_id', 'building_id');
     }
 
     /**

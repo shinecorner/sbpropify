@@ -17,4 +17,5 @@ return [
     'services' => 'Servizi',
     'tenant' => 'Inquilino', 
     'roles' => 'Roles',
+    'type' => 'Modello',
 ];

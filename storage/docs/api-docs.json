@@ -3916,6 +3916,29 @@
                 "produces": [
                     "application/json"
                 ],
+                "parameters": [
+                    {
+                        "name": "service_provider_id",
+                        "in": "query",
+                        "description": " Filter by ServiceProvider",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "property_manager_id",
+                        "in": "query",
+                        "description": " Filter by Property Manager",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "description": " Filter by Category",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation",
@@ -8085,6 +8108,43 @@
                     "description": "updated_at",
                     "type": "string",
                     "format": "date-time"
+                }
+            }
+        },
+        "BuildingRequestAssignee": {
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "item_id": {
+                    "description": "related assigner id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "edit_id": {
+                    "description": "@TODO must be delete",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "type": {
+                    "description": "related assigner type",
+                    "type": "string",
+                    "format": "int32",
+                    "enum": [
+                        "user",
+                        "provider",
+                        "manager"
+                    ]
+                },
+                "name": {
+                    "description": "name",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "emai;",
+                    "type": "string"
                 }
             }
         },

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\Helper;
+use App\Traits\BuildingRelation;
 use App\Traits\RequestRelation;
 use BeyondCode\Comments\Contracts\Commentator;
 use Cog\Contracts\Love\Liker\Models\Liker as LikerContract;
@@ -69,11 +70,12 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  */
 class User extends Authenticatable implements LikerContract, Commentator
 {
-    use EntrustUserTrait;
-    use HasApiTokens;
-    use Notifiable;
-    use Liker;
-    use RequestRelation;
+    use EntrustUserTrait,
+        HasApiTokens,
+        Notifiable,
+        Liker,
+        BuildingRelation,
+        RequestRelation;
 
     const Title = [
         'mr',

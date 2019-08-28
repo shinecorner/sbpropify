@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 /**
  * @SWG\Definition(
- *      definition="ServiceRequestAssignee",
+ *      definition="BuildingRequestAssignee",
  *      @SWG\Property(
  *          property="id",
  *          description="id",

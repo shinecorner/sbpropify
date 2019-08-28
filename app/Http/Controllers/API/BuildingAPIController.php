@@ -27,6 +27,7 @@ use App\Repositories\ServiceRequestRepository;
 use App\Transformers\BuildingTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Spatie\Geocoder\Geocoder;
 use Validator;
@@ -686,9 +687,11 @@ class BuildingAPIController extends AppBaseController
         try {
             $currentManagers = $building->propertyManagers()->pluck('property_managers.id')->toArray();
             $newManagers = array_diff($managersIds, $currentManagers);
-            dd($currentManagers, $managersIds, $newManagers);
-
-            $building->propertyManagers()->attach($newManagers);
+            $attachData  = [];
+            foreach ($newManagers as $manager) {
+                $attachData[$manager] = ['created_at' => now()];
+            }
+            $building->propertyManagers()->attach($attachData);
         } catch (\Exception $e) {
             return $this->sendError( __('models.building.errors.manager_assigned') . $e->getMessage());
         }

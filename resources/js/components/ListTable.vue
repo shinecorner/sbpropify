@@ -33,7 +33,7 @@
                                     @change="filterChanged(filter)"
                                     class="filter-select"
                                     v-model="filterModel[filter.key]">
-                                    <el-option :label="$t('general.choose')" value=""></el-option>
+                                    <el-option :label="$t('general.placeholders.select')" value=""></el-option>
                                     <el-option
                                         :key="item.id + item.name"
                                         :label="item.name"

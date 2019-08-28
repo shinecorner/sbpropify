@@ -16,5 +16,6 @@ return [
   'created_to' => 'Erstellt bis',
   'services' => 'Partnerfirmen',
   'tenant' => 'Mieter',
-  'roles' => 'Roles'
+  'roles' => 'Roles',
+  'type' => 'Typ',
 ];
