@@ -136,7 +136,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12">
-                                    <el-form-item label="Stichworte">
+                                    <el-form-item :label="$t('models.request.category_options.keywords')">
                                         <el-tag
                                         :key="tag"
                                         v-for="tag in model.keywords"

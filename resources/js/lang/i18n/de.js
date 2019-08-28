@@ -1305,6 +1305,7 @@ export default {
                     "component": "Bauteil",
                     "acquisition": "Erfassungsphase",
                     "cost": "Kostenfolge",
+                    "keywords": "Stichworte",
                     "locations": {
                         "house_entrance": "Hauseingang",
                         "staircase": "Treppenhaus",
