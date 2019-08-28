@@ -20,6 +20,7 @@ class AddNewColumnsInServiceRequestCategoriesTable extends Migration
             $table->tinyInteger('room')->after('name_it')->nullable();
             $table->tinyInteger('location')->after('room')->nullable();
         });
+        \Illuminate\Support\Facades\DB::table('service_request_categories')->update(['name_de' => DB::raw( 'name' )]);
     }
 
     /**
