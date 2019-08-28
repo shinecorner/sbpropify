@@ -728,7 +728,6 @@
             });
 
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
-            console.log(this.rolename);
             
         },
         

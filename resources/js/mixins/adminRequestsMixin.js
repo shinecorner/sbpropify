@@ -126,7 +126,9 @@ export default (config = {}) => {
                 costs: [
                     {name: this.$t('models.request.category_options.costs.landlord'), value: 'lessor'},
                     {name: this.$t('models.request.category_options.costs.tenant'), value: 'tenant'},
-                ]   
+                ],
+                showfirstlayout: false,
+                showpayer: false,   
             };
         },
         computed: {
@@ -348,6 +350,20 @@ export default (config = {}) => {
                     async fetchCurrentRequest() {
                         const resp = await this.getRequest({id: this.$route.params.id});
 
+                        if(resp.data.category.id == 1) {
+                            this.showfirstlayout = true;
+                        }
+                        else {
+                            this.showfirstlayout = false;
+                        }
+
+                        if(resp.data.qualification == 5) {
+                            this.showpayer = true;
+                        }
+                        else {
+                            this.showpayer = false;
+                        }
+
                         const data = resp.data;
 
                         this.model = Object.assign({}, this.model, data);
@@ -416,10 +432,16 @@ export default (config = {}) => {
 
                     const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
 
-                    const initialcategories = this.prepareCategories(categories);
+                    const filteredcategories = categories.filter(category => {
+                        if(category.id != 2) {
+                            return category;
+                        }
+                    });
+
+                    const initialcategories = this.prepareCategories(filteredcategories);
                     
                     this.categories = initialcategories.filter(category => {
-                        if(category.id !== 2 && category.parent_id !== 2 && category.parent_id !== 1) {
+                        if(category.parent_id !== 1) {
                             return category;
                         }
                     });
