@@ -265,7 +265,7 @@
                             // }]
                         }];
                 }
-                else if (this.rolename == 'administrator' || this.rolename == 'manager') {
+                else if (this.rolename == 'administrator') {
                     links = [{
                             icon: 'icon-chart-bar',
                             title: 'Dashboard',
@@ -403,6 +403,184 @@
                             //     }
                             // }]
                         }];
+                }
+                else if (this.rolename == 'manager') {
+                    links = [{
+                            icon: 'icon-commerical-building',
+                            title: this.$t('menu.buildings'),
+                            permission: this.$permissions.list.user,
+                            children: [{
+                                title: this.$t('menu.all_buildings'),
+                                permission: this.$permissions.list.building,
+                                route: {
+                                    name: 'adminBuildings'
+                                }
+                            }, {
+                                title: this.$t('menu.units'),
+                                permission: this.$permissions.list.unit,
+                                route: {
+                                    name: 'adminUnits'
+                                }
+                            }, {
+                                title: this.$t('menu.districts'),
+                                permission: this.$permissions.list.district,
+                                route: {
+                                    name: 'adminDistricts'
+                                }
+                            }]
+                        }, {
+                            icon: 'icon-chat-empty',
+                            title: this.$t('menu.requests'),
+                            permission: this.$permissions.list.user,
+                            children: [{
+                                title: this.$t('menu.all_requests'),
+                                permission: this.$permissions.list.request,
+                                value: this.all_request_count,
+                                route: {
+                                    name: 'adminRequests'
+                                }
+                            },  {
+                                title: this.$t('menu.myRequests'),
+                                permission: this.$permissions.cleanify_request.list,
+                                value: this.my_request_count,
+                                route: {
+                                    name: 'adminMyRequests'
+                                }
+                            },  {
+                                title: this.$t('menu.myPendingRequests'),
+                                permission: this.$permissions.cleanify_request.list,
+                                value: this.my_pending_count,
+                                route: {
+                                    name: 'adminMypendingRequests'
+                                }
+                            },  {
+                                title: this.$t('menu.notAssigned'),
+                                permission: this.$permissions.list.request,
+                                value: this.all_unassigned_count,
+                                route: {
+                                    name: 'adminUnassignedRequests'
+                                }
+                            },  {
+                                title: this.$t('menu.allPendingRequests'),
+                                permission: this.$permissions.list.request,
+                                value: this.all_pending_count,
+                                route: {
+                                    name: 'adminAllpendingRequests'
+                                }
+                            }]
+                        }, {
+                            icon: 'icon-gauge-1',
+                            title: this.$t('menu.activity'),
+                            permission: this.$permissions.list.audit,
+                            route: {
+                                name: 'adminRequestsActivity'
+                            }
+                        },
+                        {
+                            title: this.$t('menu.tenants'),
+                            icon: 'icon-group',
+                            permission: this.$permissions.list.tenant,
+                            route: {
+                                name: 'adminTenants'
+                            }
+                        }, {
+                            icon: 'icon-users',
+                            title: this.$t('menu.propertyManagers'),
+                            permission: this.$permissions.list.propertyManager,
+                            route: {
+                                name: 'adminPropertyManagers'
+                            }
+                        }, {
+                            icon: 'icon-tools',
+                            title: this.$t('menu.services'),
+                            permission: this.$permissions.list.provider,
+                            route: {
+                                name: 'adminServices'
+                            }
+                        }, {
+                            title: this.$t('menu.posts'),
+                            icon: 'icon-megaphone-1',
+                            permission: this.$permissions.list.post,
+                            route: {
+                                name: 'adminPosts'
+                            }
+                        }, {
+                            title: this.$t('menu.products'),
+                            icon: 'icon-basket',
+                            permission: this.$permissions.list.product,
+                            route: {
+                                name: 'adminProducts'
+                            }
+                        }, {
+                            icon: 'icon-user',
+                            title: this.$t('menu.users'),
+                            permission: this.$permissions.list.user,
+                            route: {
+                                name: 'adminUsers'
+                            }
+                            // children: [{
+                            //     title: this.$t('menu.admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'administrator'
+                            //         }
+                            //     }
+                            // }, {
+                            //     title: this.$t('menu.super_admins'),
+                            //     route: {
+                            //         name: 'adminUsers',
+                            //         query: {
+                            //             role: 'super_admin'
+                            //         }
+                            //     }
+                            // }]
+                        }];
+                }
+                else if (this.rolename == 'service') {
+                    links = [
+                        {
+                            icon: 'icon-chat-empty',
+                            title: this.$t('menu.requests'),
+                            permission: this.$permissions.list.user,
+                            children: [{
+                                title: this.$t('menu.all_requests'),
+                                permission: this.$permissions.list.request,
+                                value: this.all_request_count,
+                                route: {
+                                    name: 'adminRequests'
+                                }
+                            },  {
+                                title: this.$t('menu.myRequests'),
+                                permission: this.$permissions.cleanify_request.list,
+                                value: this.my_request_count,
+                                route: {
+                                    name: 'adminMyRequests'
+                                }
+                            },  {
+                                title: this.$t('menu.myPendingRequests'),
+                                permission: this.$permissions.cleanify_request.list,
+                                value: this.my_pending_count,
+                                route: {
+                                    name: 'adminMypendingRequests'
+                                }
+                            },  {
+                                title: this.$t('menu.notAssigned'),
+                                permission: this.$permissions.list.request,
+                                value: this.all_unassigned_count,
+                                route: {
+                                    name: 'adminUnassignedRequests'
+                                }
+                            },  {
+                                title: this.$t('menu.allPendingRequests'),
+                                permission: this.$permissions.list.request,
+                                value: this.all_pending_count,
+                                route: {
+                                    name: 'adminAllpendingRequests'
+                                }
+                            }]
+                        }
+                    ] 
                 }
                 
                 return links;
@@ -550,6 +728,7 @@
             });
 
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
+            console.log(this.rolename);
             
         },
         
