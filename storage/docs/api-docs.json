@@ -4484,8 +4484,52 @@
                     "ServiceRequest",
                     "Tag"
                 ],
-                "summary": "Assign the tag to the request",
-                "description": "Assign the tag to the request",
+                "summary": "Assign many tags to the request",
+                "description": "Assign many tags to the request",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "tag_ids",
+                        "in": "path",
+                        "description": "ids of existing tags. Use or comma separated or array",
+                        "type": "integer"
+                    },
+                    {
+                        "name": "tags",
+                        "in": "path",
+                        "description": "name of tags. Use or comma separated or array. If Tag name is not exists that case must be create new tag",
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/ServiceRequest"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "ServiceRequest",
+                    "Tag"
+                ],
+                "summary": "Un assign many tags from the request",
+                "description": "Un assign many tags from the request",
                 "produces": [
                     "application/json"
                 ],
