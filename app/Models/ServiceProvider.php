@@ -135,6 +135,11 @@ class ServiceProvider extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function settings()
+    {
+        return $this->hasOne(UserSettings::class, 'user_id', 'user_id');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      **/
