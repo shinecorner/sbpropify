@@ -28,6 +28,7 @@ use App\Models\ServiceRequestAssignee;
 use App\Repositories\PropertyManagerRepository;
 use App\Repositories\ServiceProviderRepository;
 use App\Repositories\ServiceRequestRepository;
+use App\Repositories\TagRepository;
 use App\Repositories\TemplateRepository;
 use App\Repositories\UserRepository;
 use App\Transformers\ServiceRequestAssigneeTransformer;
@@ -889,6 +890,59 @@ class ServiceRequestAPIController extends AppBaseController
     public function unassignUser(int $id, int $uid, UserRepository $uRepo, AssignRequest $r)
     {
         return $this->deleteRequestAssignee($uid, $r);
+    }
+
+    /**
+     * @param int $id
+     * @param int $tid
+     * @param TagRepository $tRepo
+     * @param AssignRequest $r
+     * @return mixed
+     *
+     * @SWG\Post(
+     *      path="/requests/{id}/tags/{tid}",
+     *      summary="Assign the tag to the request",
+     *      tags={"ServiceRequest", "Tag"},
+     *      description="Assign the tag to the request",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/ServiceRequest"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function assignTag(int $id, int $tid, TagRepository $tRepo, AssignRequest $r)
+    {
+        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        if (empty($sr)) {
+            return $this->sendError(__('models.request.errors.not_found'));
+        }
+
+        $tag = $tRepo->findWithoutFail($tid);
+        if (empty($tag)) {
+            return $this->sendError(__('models.request.errors.tag_not_found'));
+        }
+
+        $sr->tags()->sync($tag, false);
+        $sr->load('media', 'tenant.user', 'category', 'comments.user',
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
+
+        return $this->sendResponse($sr, __('models.request.attached.tags'));
     }
 
     /**

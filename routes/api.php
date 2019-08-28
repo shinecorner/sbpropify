@@ -210,6 +210,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('/requests/{id}/users/{user_id}', 'ServiceRequestAPIController@assignUser');
     Route::post('/requests/{id}/providers/{provider_id}', 'ServiceRequestAPIController@assignProvider');
     Route::post('/requests/{id}/managers/{manager_id}', 'ServiceRequestAPIController@assignManager');
+    Route::post('/requests/{id}/tags/{tag_id}', 'ServiceRequestAPIController@assignTag');
     Route::delete('/requests-assignees/{requests_assignee_id}', 'ServiceRequestAPIController@deleteRequestAssignee');
 
     // @TODO remove later

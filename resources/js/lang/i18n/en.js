@@ -1,22 +1,11 @@
 export default {
     "en": {
-        "pages": {
-            "profile": {
-                "pageTitle": "Profile",
-                "profile": "Profile",
-                "account": "Account",
-                "security": "Security",
-                "notifications": "Notifications"
-            },
-            "user": {
-                "title": "Users"
-            },
-            "request_activities": {
-                "title": "Request activities"
-            },
-            "tenant": {
-                "title": "Tenants"
-            }
+        "passwords": {
+            "password": "Passwords must be at least six characters and match the confirmation.",
+            "reset": "Your password has been reset!",
+            "sent": "We have e-mailed your password reset link!",
+            "token": "This password reset token is invalid.",
+            "user": "We can't find a user with that e-mail address."
         },
         "models": {
             "user": {
@@ -801,7 +790,8 @@ export default {
                 "attached": {
                     "services": "Provider attached successfully",
                     "managers": "Manager attached successfully",
-                    "user": "User assigned successfully"
+                    "users": "User assigned successfully",
+                    "tags": "Tag assigned successfully"
                 },
                 "detached": {
                     "service": "Provider detached successfully",
@@ -824,6 +814,7 @@ export default {
                     "not_found": "Service Request not found",
                     "not_allowed_change_status": "You are not allowed to change status.",
                     "provider_not_found": "Service Provider not found",
+                    "tag_not_found": "Tag not found",
                     "user_not_found": "User not found",
                     "conversation_not_found": "Conversation not found",
                     "statistics_error": "Request statistics error: ",
@@ -1006,54 +997,25 @@ export default {
                 "terms_text": "Terms text here, long text"
             }
         },
-        "settings": {
-            "notifications": "Notifications and language",
-            "admin": "Admin notifications",
-            "news": "News notifications",
-            "marketplace": "Marketplace notifications",
-            "service": "Service notifications",
-            "updated": "Settings updated",
-            "language": "Language",
-            "summary": {
-                "label": "Summary statistics",
-                "daily": "Daily",
-                "monthly": "Monthly",
-                "yearly": "Yearly"
-            },
-            "contact_enable": {
-                "label": "Enable my contacts",
-                "use_global": "Use global",
-                "show": "Show",
-                "hide": "Hide"
-            }
-        },
-        "common": {
-            "mr": "Mr",
-            "mrs": "Mrs",
-            "company": "Company",
-            "user_title_mr": "Mr",
-            "user_title_mrs": "Mrs",
-            "user_title_company": "Company",
-            "tenant_title_mr": "Mr",
-            "tenant_title_mrs": "Mrs",
-            "tenant_title_company": "Company",
-            "request_status_1": "Received",
-            "request_status_2": "In Processing",
-            "request_status_3": "Assigned",
-            "request_status_4": "Done",
-            "request_status_5": "Reactivated",
-            "request_status_6": "Archived",
-            "originalRequest_status_1": "Received",
-            "originalRequest_status_2": "In Processing",
-            "originalRequest_status_3": "Assigned",
-            "originalRequest_status_4": "Done",
-            "originalRequest_status_5": "Reactivated",
-            "originalRequest_status_6": "Archived",
-            "email_footer_message1": "This email was automatically generated for {UserName}.",
-            "email_footer_message2": "You get this automatically generated e-mail as a user of {CompanyName}.",
-            "email_link_contacts": "Contacts.",
-            "email_link_terms_of_use": "Terms of Use",
-            "email_link_data_protection": "Data protection"
+        "filters": {
+            "header": "Filters",
+            "districts": "Districts",
+            "buildings": "Buildings",
+            "requests": "Requests",
+            "open_requests": "Open requests",
+            "units": "Units",
+            "states": "States",
+            "status": "Status",
+            "search": "Search",
+            "requestStatus": "Request status",
+            "propertyManagers": "Property Manager",
+            "categories": "Categories",
+            "created_from": "Created from",
+            "created_to": "Created to",
+            "services": "Services",
+            "tenant": "Tenant",
+            "roles": "Roles",
+            "type": "Type"
         },
         "dashboard": {
             "statistics": "Statistics",
@@ -1117,6 +1079,125 @@ export default {
                 "go_to_news": "go to news",
                 "counts": "Counts"
             }
+        },
+        "auth": {
+            "failed": "These credentials do not match our records.",
+            "throttle": "Too many login attempts. Please try again in {seconds} seconds.",
+            "login_welcome": "Welcome back, please login to your account.",
+            "title": "Everything is easier with our tenant app",
+            "intro": "In order to process the concerns of our tenants even faster, our tenants receive access to a protected area with which the tenancy can be digitally managed. Through the digital processing we can act even faster and create transparency for all parties involved.",
+            "benefit_1": {
+                "title": "All data and documents can be viewed online",
+                "description": "You can download all information about the tenancy and documents such as the rental agreement in PDF format at any time."
+            },
+            "benefit_2": {
+                "title": "Digital transmission of concerns",
+                "description": "You can record and transmit all your requests via the app. The management team will immediately take the necessary steps."
+            },
+            "benefit_3": {
+                "title": "Staying in touch with the neighbourhood",
+                "description": "In the News section you can post articles that are visible to your neighbours. For example, if noise is to be expected due to an event."
+            },
+            "benefit_4": {
+                "title": "Online rental and marketplace",
+                "description": "If you have items you don't need, you can advertise them in the app and offer them to your neighbours."
+            },
+            "login": {
+                "activate_account": {
+                    "title": "First login (account activation)",
+                    "description": "After receiving the activation code, you can log into the tenant portal for the first time and activate your account."
+                }
+            }
+        },
+        "settings": {
+            "notifications": "Notifications and language",
+            "admin": "Admin notifications",
+            "news": "News notifications",
+            "marketplace": "Marketplace notifications",
+            "service": "Service notifications",
+            "updated": "Settings updated",
+            "language": "Language",
+            "summary": {
+                "label": "Summary statistics",
+                "daily": "Daily",
+                "monthly": "Monthly",
+                "yearly": "Yearly"
+            },
+            "contact_enable": {
+                "label": "Enable my contacts",
+                "use_global": "Use global",
+                "show": "Show",
+                "hide": "Hide"
+            }
+        },
+        "pagination": {
+            "previous": "&laquo; Previous",
+            "next": "Next &raquo;"
+        },
+        "views": {
+            "tenant": {
+                "my": {
+                    "personal": {
+                        "title": "Personal data",
+                        "description": "My personal details.",
+                        "placeholder": {
+                            "title": "No personal data available.",
+                            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                        }
+                    }
+                }
+            }
+        },
+        "tenant": {
+            "tenant_credentials": "Tenant credentials",
+            "tenancy_details": "Tenancy details",
+            "unit": "Unit",
+            "floor": "Floor",
+            "building": "Building",
+            "address": "Address",
+            "rent_start": "Rent start",
+            "login_credentials": "Login credentials",
+            "website": "Website",
+            "username": "Username",
+            "password": "Password",
+            "url": "URL",
+            "code": "Code"
+        },
+        "menu": {
+            "dashboard": "Dashboard",
+            "news": "News",
+            "requests": "Requests",
+            "all_requests": "All requests",
+            "myRequests": "My Requests",
+            "myPendingRequests": "My pending requests",
+            "notAssigned": "Not Assigned",
+            "allPendingRequests": "All pending requests",
+            "marketplace": "Marketplace",
+            "settings": "Settings",
+            "logout": "Logout",
+            "profile": "Profile",
+            "users": "Users",
+            "employees": "Managers",
+            "companies": "Services",
+            "admins": "Administrators",
+            "super_admins": "Super admins",
+            "home_owners": "Home Owners",
+            "registered": "Registered",
+            "about": "About",
+            "feedback": "Feedback",
+            "tenants": "Tenants",
+            "buildings": "Buildings",
+            "all_buildings": "All buildings",
+            "units": "Units",
+            "addresses": "Addresses",
+            "posts": "News",
+            "districts": "Districts",
+            "products": "Products",
+            "requestCategories": "Request categories",
+            "services": "Service Partners",
+            "activity": "Activity",
+            "propertyManagers": "Property managers",
+            "templates": "Templates"
         },
         "components": {
             "common": {
@@ -1309,61 +1390,224 @@ export default {
             },
             "admin": []
         },
-        "filters": {
-            "header": "Filters",
-            "districts": "Districts",
-            "buildings": "Buildings",
-            "requests": "Requests",
-            "open_requests": "Open requests",
-            "units": "Units",
-            "states": "States",
-            "status": "Status",
-            "search": "Search",
-            "requestStatus": "Request status",
-            "propertyManagers": "Property Manager",
-            "categories": "Categories",
-            "created_from": "Created from",
-            "created_to": "Created to",
-            "services": "Services",
-            "tenant": "Tenant",
-            "roles": "Roles",
-            "type": "Type"
+        "layouts": {
+            "tenant": {
+                "menu": {
+                    "logout": "Logout"
+                },
+                "sidebar": {
+                    "dashboard": "Dashboard",
+                    "myTenancy": "My tenancy",
+                    "myPersonalData": "My personal data",
+                    "myRecentContract": "My recent contract",
+                    "myDocuments": "Documents",
+                    "myContactPersons": "Contact persons",
+                    "posts": "News",
+                    "requests": "Requests",
+                    "products": "Marketplace",
+                    "settings": "Settings"
+                }
+            }
         },
-        "menu": {
-            "dashboard": "Dashboard",
-            "news": "News",
-            "requests": "Requests",
-            "all_requests": "All requests",
-            "myRequests": "My Requests",
-            "myPendingRequests": "My pending requests",
-            "notAssigned": "Not Assigned",
-            "allPendingRequests": "All pending requests",
-            "marketplace": "Marketplace",
-            "settings": "Settings",
-            "logout": "Logout",
-            "profile": "Profile",
-            "users": "Users",
-            "employees": "Managers",
-            "companies": "Services",
-            "admins": "Administrators",
-            "super_admins": "Super admins",
-            "home_owners": "Home Owners",
-            "registered": "Registered",
-            "about": "About",
-            "feedback": "Feedback",
-            "tenants": "Tenants",
-            "buildings": "Buildings",
-            "all_buildings": "All buildings",
-            "units": "Units",
-            "addresses": "Addresses",
-            "posts": "News",
-            "districts": "Districts",
-            "products": "Products",
-            "requestCategories": "Request categories",
-            "services": "Service Partners",
-            "activity": "Activity",
-            "propertyManagers": "Property managers",
-            "templates": "Templates"
+        "common": {
+            "mr": "Mr",
+            "mrs": "Mrs",
+            "company": "Company",
+            "user_title_mr": "Mr",
+            "user_title_mrs": "Mrs",
+            "user_title_company": "Company",
+            "tenant_title_mr": "Mr",
+            "tenant_title_mrs": "Mrs",
+            "tenant_title_company": "Company",
+            "request_status_1": "Received",
+            "request_status_2": "In Processing",
+            "request_status_3": "Assigned",
+            "request_status_4": "Done",
+            "request_status_5": "Reactivated",
+            "request_status_6": "Archived",
+            "originalRequest_status_1": "Received",
+            "originalRequest_status_2": "In Processing",
+            "originalRequest_status_3": "Assigned",
+            "originalRequest_status_4": "Done",
+            "originalRequest_status_5": "Reactivated",
+            "originalRequest_status_6": "Archived",
+            "email_footer_message1": "This email was automatically generated for {UserName}.",
+            "email_footer_message2": "You get this automatically generated e-mail as a user of {CompanyName}.",
+            "email_link_contacts": "Contacts.",
+            "email_link_terms_of_use": "Terms of Use",
+            "email_link_data_protection": "Data protection"
+        },
+        "validation": {
+            "validation_main_message": "The given data was invalid.",
+            "accepted": "The {attribute} must be accepted.",
+            "active_url": "The {attribute} is not a valid URL.",
+            "after": "The {attribute} must be a date after {date}.",
+            "after_or_equal": "The {attribute} must be a date after or equal to {date}.",
+            "alpha": "The {attribute} may only contain letters.",
+            "alpha_dash": "The {attribute} may only contain letters, numbers, dashes and underscores.",
+            "alpha_num": "The {attribute} may only contain letters and numbers.",
+            "array": "The {attribute} must be an array.",
+            "before": "The {attribute} must be a date before {date}.",
+            "before_or_equal": "The {attribute} must be a date before or equal to {date}.",
+            "between": {
+                "numeric": "The {attribute} must be between {min} and {max}.",
+                "file": "The {attribute} must be between {min} and {max} kilobytes.",
+                "string": "The {attribute} must be between {min} and {max} characters.",
+                "array": "The {attribute} must have between {min} and {max} items."
+            },
+            "boolean": "The {attribute} field must be true or false.",
+            "confirmed": "The {attribute} confirmation does not match.",
+            "date": "The {attribute} is not a valid date.",
+            "date_equals": "The {attribute} must be a date equal to {date}.",
+            "date_format": "The {attribute} does not match the format {format}.",
+            "different": "The {attribute} and {other} must be different.",
+            "digits": "The {attribute} must be {digits} digits.",
+            "digits_between": "The {attribute} must be between {min} and {max} digits.",
+            "dimensions": "The {attribute} has invalid image dimensions.",
+            "distinct": "The {attribute} field has a duplicate value.",
+            "email": "The {attribute} must be a valid email address.",
+            "exists": "The selected {attribute} is invalid.",
+            "file": "The {attribute} must be a file.",
+            "filled": "The {attribute} field must have a value.",
+            "gt": {
+                "numeric": "The {attribute} must be greater than {value}.",
+                "file": "The {attribute} must be greater than {value} kilobytes.",
+                "string": "The {attribute} must be greater than {value} characters.",
+                "array": "The {attribute} must have more than {value} items."
+            },
+            "gte": {
+                "numeric": "The {attribute} must be greater than or equal {value}.",
+                "file": "The {attribute} must be greater than or equal {value} kilobytes.",
+                "string": "The {attribute} must be greater than or equal {value} characters.",
+                "array": "The {attribute} must have {value} items or more."
+            },
+            "image": "The {attribute} must be an image.",
+            "in": "The selected {attribute} is invalid.",
+            "in_array": "The {attribute} field does not exist in {other}.",
+            "integer": "The {attribute} must be an integer.",
+            "ip": "The {attribute} must be a valid IP address.",
+            "ipv4": "The {attribute} must be a valid IPv4 address.",
+            "ipv6": "The {attribute} must be a valid IPv6 address.",
+            "json": "The {attribute} must be a valid JSON string.",
+            "lt": {
+                "numeric": "The {attribute} must be less than {value}.",
+                "file": "The {attribute} must be less than {value} kilobytes.",
+                "string": "The {attribute} must be less than {value} characters.",
+                "array": "The {attribute} must have less than {value} items."
+            },
+            "lte": {
+                "numeric": "The {attribute} must be less than or equal {value}.",
+                "file": "The {attribute} must be less than or equal {value} kilobytes.",
+                "string": "The {attribute} must be less than or equal {value} characters.",
+                "array": "The {attribute} must not have more than {value} items."
+            },
+            "max": {
+                "numeric": "The {attribute} may not be greater than {max}.",
+                "file": "The {attribute} may not be greater than {max} kilobytes.",
+                "string": "The {attribute} may not be greater than {max} characters.",
+                "array": "The {attribute} may not have more than {max} items."
+            },
+            "mimes": "The {attribute} must be a file of type: {values}.",
+            "mimetypes": "The {attribute} must be a file of type: {values}.",
+            "min": {
+                "numeric": "The {attribute} must be at least {min}.",
+                "file": "The {attribute} must be at least {min} kilobytes.",
+                "string": "The {attribute} must be at least {min} characters.",
+                "array": "The {attribute} must have at least {min} items."
+            },
+            "not_in": "The selected {attribute} is invalid.",
+            "not_regex": "The {attribute} format is invalid.",
+            "numeric": "The {attribute} must be a number.",
+            "present": "The {attribute} field must be present.",
+            "regex": "The {attribute} format is invalid.",
+            "required": "The {attribute} field is required.",
+            "required_if": "The {attribute} field is required when {other} is {value}.",
+            "required_unless": "The {attribute} field is required unless {other} is in {values}.",
+            "required_with": "The {attribute} field is required when {values} is present.",
+            "required_with_all": "The {attribute} field is required when {values} are present.",
+            "required_without": "The {attribute} field is required when {values} is not present.",
+            "required_without_all": "The {attribute} field is required when none of {values} are present.",
+            "same": "The {attribute} and {other} must match.",
+            "size": {
+                "numeric": "The {attribute} must be {size}.",
+                "file": "The {attribute} must be {size} kilobytes.",
+                "string": "The {attribute} must be {size} characters.",
+                "array": "The {attribute} must contain {size} items."
+            },
+            "starts_with": "The {attribute} must start with one of the following: {values}",
+            "string": "The {attribute} must be a string.",
+            "timezone": "The {attribute} must be a valid zone.",
+            "unique": "The {attribute} has already been taken.",
+            "uploaded": "The {attribute} failed to upload.",
+            "url": "The {attribute} format is invalid.",
+            "uuid": "The {attribute} must be a valid UUID.",
+            "custom": {
+                "attribute-name": {
+                    "rule-name": "custom-message"
+                }
+            },
+            "attributes": {
+                "name": "Name",
+                "username": "Username",
+                "email": "E-Mail",
+                "first_name": "Firstname",
+                "last_name": "Lastname",
+                "password": "Password",
+                "password_confirmation": "Confirm Password",
+                "city": "City",
+                "country": "Country",
+                "address": "Address",
+                "phone": "Phone",
+                "mobile": "Mobile",
+                "age": "Age",
+                "sex": "Sex",
+                "gender": "Gender",
+                "day": "Day",
+                "month": "Month",
+                "year": "Year",
+                "hour": "Hour",
+                "minute": "Minute",
+                "second": "Second",
+                "title": "Title",
+                "content": "Content",
+                "description": "Description",
+                "excerpt": "Except",
+                "date": "Date",
+                "time": "Time",
+                "available": "Available",
+                "size": "Size"
+            },
+            "general": {
+                "required": "This field is required"
+            },
+            "price": {
+                "valid": "Please enter a valid price",
+                "required": "Price is required"
+            },
+            "firstName": {
+                "required": "First name is required"
+            },
+            "lastName": {
+                "required": "Last name is required"
+            },
+            "phone": {
+                "required": "Phone is required"
+            },
+            "address": {
+                "required": "Address is required"
+            },
+            "zip": {
+                "required": "Zip is required"
+            },
+            "city": {
+                "required": "City is required"
+            },
+            "title": {
+                "required": "Title is required"
+            },
+            "terms": {
+                "required": "Please approve with terms and conditions"
+            }
         },
         "general": {
             "en": "EN",
@@ -1545,264 +1789,22 @@ export default {
             "to_homepage": "To Homepage",
             "assignment": "Assignment"
         },
-        "pagination": {
-            "previous": "&laquo; Previous",
-            "next": "Next &raquo;"
-        },
-        "passwords": {
-            "password": "Passwords must be at least six characters and match the confirmation.",
-            "reset": "Your password has been reset!",
-            "sent": "We have e-mailed your password reset link!",
-            "token": "This password reset token is invalid.",
-            "user": "We can't find a user with that e-mail address."
-        },
-        "validation": {
-            "validation_main_message": "The given data was invalid.",
-            "accepted": "The {attribute} must be accepted.",
-            "active_url": "The {attribute} is not a valid URL.",
-            "after": "The {attribute} must be a date after {date}.",
-            "after_or_equal": "The {attribute} must be a date after or equal to {date}.",
-            "alpha": "The {attribute} may only contain letters.",
-            "alpha_dash": "The {attribute} may only contain letters, numbers, dashes and underscores.",
-            "alpha_num": "The {attribute} may only contain letters and numbers.",
-            "array": "The {attribute} must be an array.",
-            "before": "The {attribute} must be a date before {date}.",
-            "before_or_equal": "The {attribute} must be a date before or equal to {date}.",
-            "between": {
-                "numeric": "The {attribute} must be between {min} and {max}.",
-                "file": "The {attribute} must be between {min} and {max} kilobytes.",
-                "string": "The {attribute} must be between {min} and {max} characters.",
-                "array": "The {attribute} must have between {min} and {max} items."
+        "pages": {
+            "profile": {
+                "pageTitle": "Profile",
+                "profile": "Profile",
+                "account": "Account",
+                "security": "Security",
+                "notifications": "Notifications"
             },
-            "boolean": "The {attribute} field must be true or false.",
-            "confirmed": "The {attribute} confirmation does not match.",
-            "date": "The {attribute} is not a valid date.",
-            "date_equals": "The {attribute} must be a date equal to {date}.",
-            "date_format": "The {attribute} does not match the format {format}.",
-            "different": "The {attribute} and {other} must be different.",
-            "digits": "The {attribute} must be {digits} digits.",
-            "digits_between": "The {attribute} must be between {min} and {max} digits.",
-            "dimensions": "The {attribute} has invalid image dimensions.",
-            "distinct": "The {attribute} field has a duplicate value.",
-            "email": "The {attribute} must be a valid email address.",
-            "exists": "The selected {attribute} is invalid.",
-            "file": "The {attribute} must be a file.",
-            "filled": "The {attribute} field must have a value.",
-            "gt": {
-                "numeric": "The {attribute} must be greater than {value}.",
-                "file": "The {attribute} must be greater than {value} kilobytes.",
-                "string": "The {attribute} must be greater than {value} characters.",
-                "array": "The {attribute} must have more than {value} items."
+            "user": {
+                "title": "Users"
             },
-            "gte": {
-                "numeric": "The {attribute} must be greater than or equal {value}.",
-                "file": "The {attribute} must be greater than or equal {value} kilobytes.",
-                "string": "The {attribute} must be greater than or equal {value} characters.",
-                "array": "The {attribute} must have {value} items or more."
+            "request_activities": {
+                "title": "Request activities"
             },
-            "image": "The {attribute} must be an image.",
-            "in": "The selected {attribute} is invalid.",
-            "in_array": "The {attribute} field does not exist in {other}.",
-            "integer": "The {attribute} must be an integer.",
-            "ip": "The {attribute} must be a valid IP address.",
-            "ipv4": "The {attribute} must be a valid IPv4 address.",
-            "ipv6": "The {attribute} must be a valid IPv6 address.",
-            "json": "The {attribute} must be a valid JSON string.",
-            "lt": {
-                "numeric": "The {attribute} must be less than {value}.",
-                "file": "The {attribute} must be less than {value} kilobytes.",
-                "string": "The {attribute} must be less than {value} characters.",
-                "array": "The {attribute} must have less than {value} items."
-            },
-            "lte": {
-                "numeric": "The {attribute} must be less than or equal {value}.",
-                "file": "The {attribute} must be less than or equal {value} kilobytes.",
-                "string": "The {attribute} must be less than or equal {value} characters.",
-                "array": "The {attribute} must not have more than {value} items."
-            },
-            "max": {
-                "numeric": "The {attribute} may not be greater than {max}.",
-                "file": "The {attribute} may not be greater than {max} kilobytes.",
-                "string": "The {attribute} may not be greater than {max} characters.",
-                "array": "The {attribute} may not have more than {max} items."
-            },
-            "mimes": "The {attribute} must be a file of type: {values}.",
-            "mimetypes": "The {attribute} must be a file of type: {values}.",
-            "min": {
-                "numeric": "The {attribute} must be at least {min}.",
-                "file": "The {attribute} must be at least {min} kilobytes.",
-                "string": "The {attribute} must be at least {min} characters.",
-                "array": "The {attribute} must have at least {min} items."
-            },
-            "not_in": "The selected {attribute} is invalid.",
-            "not_regex": "The {attribute} format is invalid.",
-            "numeric": "The {attribute} must be a number.",
-            "present": "The {attribute} field must be present.",
-            "regex": "The {attribute} format is invalid.",
-            "required": "The {attribute} field is required.",
-            "required_if": "The {attribute} field is required when {other} is {value}.",
-            "required_unless": "The {attribute} field is required unless {other} is in {values}.",
-            "required_with": "The {attribute} field is required when {values} is present.",
-            "required_with_all": "The {attribute} field is required when {values} are present.",
-            "required_without": "The {attribute} field is required when {values} is not present.",
-            "required_without_all": "The {attribute} field is required when none of {values} are present.",
-            "same": "The {attribute} and {other} must match.",
-            "size": {
-                "numeric": "The {attribute} must be {size}.",
-                "file": "The {attribute} must be {size} kilobytes.",
-                "string": "The {attribute} must be {size} characters.",
-                "array": "The {attribute} must contain {size} items."
-            },
-            "starts_with": "The {attribute} must start with one of the following: {values}",
-            "string": "The {attribute} must be a string.",
-            "timezone": "The {attribute} must be a valid zone.",
-            "unique": "The {attribute} has already been taken.",
-            "uploaded": "The {attribute} failed to upload.",
-            "url": "The {attribute} format is invalid.",
-            "uuid": "The {attribute} must be a valid UUID.",
-            "custom": {
-                "attribute-name": {
-                    "rule-name": "custom-message"
-                }
-            },
-            "attributes": {
-                "name": "Name",
-                "username": "Username",
-                "email": "E-Mail",
-                "first_name": "Firstname",
-                "last_name": "Lastname",
-                "password": "Password",
-                "password_confirmation": "Confirm Password",
-                "city": "City",
-                "country": "Country",
-                "address": "Address",
-                "phone": "Phone",
-                "mobile": "Mobile",
-                "age": "Age",
-                "sex": "Sex",
-                "gender": "Gender",
-                "day": "Day",
-                "month": "Month",
-                "year": "Year",
-                "hour": "Hour",
-                "minute": "Minute",
-                "second": "Second",
-                "title": "Title",
-                "content": "Content",
-                "description": "Description",
-                "excerpt": "Except",
-                "date": "Date",
-                "time": "Time",
-                "available": "Available",
-                "size": "Size"
-            },
-            "general": {
-                "required": "This field is required"
-            },
-            "price": {
-                "valid": "Please enter a valid price",
-                "required": "Price is required"
-            },
-            "firstName": {
-                "required": "First name is required"
-            },
-            "lastName": {
-                "required": "Last name is required"
-            },
-            "phone": {
-                "required": "Phone is required"
-            },
-            "address": {
-                "required": "Address is required"
-            },
-            "zip": {
-                "required": "Zip is required"
-            },
-            "city": {
-                "required": "City is required"
-            },
-            "title": {
-                "required": "Title is required"
-            },
-            "terms": {
-                "required": "Please approve with terms and conditions"
-            }
-        },
-        "tenant": {
-            "tenant_credentials": "Tenant credentials",
-            "tenancy_details": "Tenancy details",
-            "unit": "Unit",
-            "floor": "Floor",
-            "building": "Building",
-            "address": "Address",
-            "rent_start": "Rent start",
-            "login_credentials": "Login credentials",
-            "website": "Website",
-            "username": "Username",
-            "password": "Password",
-            "url": "URL",
-            "code": "Code"
-        },
-        "views": {
             "tenant": {
-                "my": {
-                    "personal": {
-                        "title": "Personal data",
-                        "description": "My personal details.",
-                        "placeholder": {
-                            "title": "No personal data available.",
-                            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                        }
-                    }
-                }
-            }
-        },
-        "auth": {
-            "failed": "These credentials do not match our records.",
-            "throttle": "Too many login attempts. Please try again in {seconds} seconds.",
-            "login_welcome": "Welcome back, please login to your account.",
-            "title": "Everything is easier with our tenant app",
-            "intro": "In order to process the concerns of our tenants even faster, our tenants receive access to a protected area with which the tenancy can be digitally managed. Through the digital processing we can act even faster and create transparency for all parties involved.",
-            "benefit_1": {
-                "title": "All data and documents can be viewed online",
-                "description": "You can download all information about the tenancy and documents such as the rental agreement in PDF format at any time."
-            },
-            "benefit_2": {
-                "title": "Digital transmission of concerns",
-                "description": "You can record and transmit all your requests via the app. The management team will immediately take the necessary steps."
-            },
-            "benefit_3": {
-                "title": "Staying in touch with the neighbourhood",
-                "description": "In the News section you can post articles that are visible to your neighbours. For example, if noise is to be expected due to an event."
-            },
-            "benefit_4": {
-                "title": "Online rental and marketplace",
-                "description": "If you have items you don't need, you can advertise them in the app and offer them to your neighbours."
-            },
-            "login": {
-                "activate_account": {
-                    "title": "First login (account activation)",
-                    "description": "After receiving the activation code, you can log into the tenant portal for the first time and activate your account."
-                }
-            }
-        },
-        "layouts": {
-            "tenant": {
-                "menu": {
-                    "logout": "Logout"
-                },
-                "sidebar": {
-                    "dashboard": "Dashboard",
-                    "myTenancy": "My tenancy",
-                    "myPersonalData": "My personal data",
-                    "myRecentContract": "My recent contract",
-                    "myDocuments": "Documents",
-                    "myContactPersons": "Contact persons",
-                    "posts": "News",
-                    "requests": "Requests",
-                    "products": "Marketplace",
-                    "settings": "Settings"
-                }
+                "title": "Tenants"
             }
         }
     }

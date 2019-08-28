@@ -442,6 +442,14 @@ class ServiceRequest extends AuditableModel implements HasMedia
         return $this->belongsTo(Unit::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'request_tag', 'request_id');
+    }
+
     public function managers()
     {
         return $this->morphedByMany(PropertyManager::class, 'assignee', 'request_assignees', 'request_id');
