@@ -23,9 +23,11 @@ class ServiceRequestCategoryTransformer extends BaseTransformer
         $response = [
             'id' => $model->id,
             'parent_id' => $model->parent_id,
-            'name' => $model->name,
+            'name' => get_translated_filed($model, 'name'),
             'description' => $model->description,
             'has_qualifications' => $model->has_qualifications,
+            'location' => $model->location,
+            'room' => $model->room,
         ];
 
         if ($model->categories) {

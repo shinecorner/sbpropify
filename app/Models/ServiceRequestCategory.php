@@ -57,6 +57,11 @@ class ServiceRequestCategory extends Model
     public $fillable = [
         'parent_id',
         'name',
+        'name_de',
+        'name_fr',
+        'name_it',
+        'room',
+        'location',
         'description',
         'has_qualifications'
     ];
@@ -69,7 +74,12 @@ class ServiceRequestCategory extends Model
     protected $casts = [
         'parent_id' => 'integer',
         'name' => 'string',
-        'description' => 'string'
+        'name_de'=> 'string',
+        'name_fr'=> 'string',
+        'name_it'=> 'string',
+        'room'=> 'integer',
+        'location'=> 'integer',
+        'description' => 'string',
     ];
 
     /**
