@@ -68,7 +68,7 @@
                 </el-col>
                 <el-col :span="6">
                     <span>{{ $t('models.request.created_by') }}</span>
-                    <p>{{ item.tenant_name }} , {{ item.created_at }}</p>
+                    <p>{{ item.tenant_name }}, {{ item.created_at }}</p>
                 </el-col> 
                 <el-col :span="6">
                     <span>{{ $t('models.request.priority.label') }}</span>
@@ -79,6 +79,8 @@
                     </p>
                 </el-col>
                 <el-col :span="3">
+                    <span>{{ $t(due) }}</span>
+                    <p>{{ item.due_date }}</p>
                 </el-col>
             </el-row>    
         </div>
@@ -112,6 +114,14 @@ export default {
         RequestCount,
         Avatar
     },
+    computed: {
+        due() {
+            var currentDate = new Date();
+            console.log(currentDate);
+            currentDate.
+            return 'models.request.due_in';
+        }
+    },
     methods: {
         handleSelectionChanged(val) {
             this.$emit('selectionChanged', this.item);
@@ -138,7 +148,7 @@ export default {
     .request-card {
         text-align: left;
         background-color: white;
-        border-radius: 10px;
+        border-radius: 5px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 
                     0 1px 2px rgba(0,0,0,0.24);
         margin: 4px;
