@@ -817,6 +817,52 @@ return [
         "environment" => "Ambiente",
         "house" => "Casa",
         "apartment" => "Appartamento",
+        'room' => 'Camera',
+        'range' => 'Gamma',
+        'component' => 'Componente',
+        'acquisition' => 'Fase di acquisizione',
+        'cost' => 'Costo Impatto',
+        'locations' => [
+          'house_entrance' => 'Ingresso Casa',
+          'staircase' => 'Scala',
+          'elevator' => 'Ascensore',
+          'car_park' => 'Parcheggio sotterraneo',
+          'washing' => 'Lavaggio/asciugatura',
+          'heating' => 'Tecnologia/riscaldamento',
+          'electro' => 'Tecnologia/Elettro',
+          'facade' => 'Facciata',
+          'roof' => 'Tetto',
+          'other' => 'Altro'
+        ],
+        'rooms' => [
+          'bath' => 'Bagno/WC',
+          'shower' => 'Doccia/WC',
+          'entrance' => 'Ingresso',
+          'passage' => 'Passaggio',
+          'basement' => 'Seminterrato',
+          'kitchen' => 'Cucina',
+          'reduite' => 'Reduite',
+          'habitation' => 'Abitazione',
+          'room1' => 'Camera 1',
+          'room2' => 'Camera 2',
+          'room3' => 'Camera 3',
+          'room4' => 'Camera 4',
+          'all' => 'Tutti',
+          'other' => 'Altro'
+        ],
+        'acquisitions' => [
+          'other' => 'Altro',
+          'construction' => 'Fase di costruzione',
+          'shell' => 'Accettazione Shell',
+          'preliminary' => 'Accettazione Preliminare',
+          'work' => 'Accettazione del lavoro',
+          'surrender' => 'Arrendersi',
+          'inspection' => 'Accettazione'
+        ],
+        'costs' => [
+          'landlord' => 'Padrone di casa',
+          'tenant' => 'Affittuario'
+        ]
       ],
       'placeholders' => 
       [

@@ -740,7 +740,53 @@ export default {
                     "other": "Other",
                     "environment": "Environment",
                     "house": "House",
-                    "apartment": "Apartment"
+                    "apartment": "Apartment",
+                    "room": "Room",
+                    "range": "Range",
+                    "component": "Component",
+                    "acquisition": "Acquisition Phase",
+                    "cost": "Cost Impact",
+                    "locations": {
+                        "house_entrance": "House Entrance",
+                        "staircase": "Staircase",
+                        "elevator": "Elevator",
+                        "car_park": "Underground Car park",
+                        "washing": "Washing/Drying",
+                        "heating": "Technology/Heating",
+                        "electro": "Technology/Electro",
+                        "facade": "Facade",
+                        "roof": "Roof",
+                        "other": "Other"
+                    },
+                    "rooms": {
+                        "bath": "Bathroom/WC",
+                        "shower": "Shower/WC",
+                        "entrance": "Entrance",
+                        "passage": "Passage",
+                        "basement": "Basement",
+                        "kitchen": "Kitchen",
+                        "reduite": "Reduite",
+                        "habitation": "Habitation",
+                        "room1": "Room 1",
+                        "room2": "Room 2",
+                        "room3": "Room 3",
+                        "room4": "Room 4",
+                        "all": "All",
+                        "other": "Other"
+                    },
+                    "acquisitions": {
+                        "other": "Other",
+                        "construction": "Construction phase",
+                        "shell": "Shell Acceptance",
+                        "preliminary": "Preliminary Acceptance",
+                        "work": "Acceptance of Work",
+                        "surrender": "Surrender",
+                        "inspection": "Acceptance"
+                    },
+                    "costs": {
+                        "landlord": "Landlord",
+                        "tenant": "Tenant"
+                    }
                 },
                 "placeholders": {
                     "category": "Select category",

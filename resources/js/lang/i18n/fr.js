@@ -740,7 +740,53 @@ export default {
                     "other": "Autre",
                     "environment": "Environnement",
                     "house": "House",
-                    "apartment": "Appartement"
+                    "apartment": "Appartement",
+                    "room": "Chambre",
+                    "range": "Gamme",
+                    "component": "Composante",
+                    "acquisition": "Phase d'acquisition",
+                    "cost": "Incidence sur les coûts",
+                    "locations": {
+                        "house_entrance": "Entrée de maison",
+                        "staircase": "Escalier",
+                        "elevator": "Ascenseur",
+                        "car_park": "Parking souterrain",
+                        "washing": "Lavage/séchage",
+                        "heating": "Technologie/Chauffage",
+                        "electro": "Technologie/Électrotechnique",
+                        "facade": "Façade",
+                        "roof": "Toit",
+                        "other": "Autre"
+                    },
+                    "rooms": {
+                        "bath": "Salle de bains/WC",
+                        "shower": "Douche/WC",
+                        "entrance": "L'entrée",
+                        "passage": "Passage",
+                        "basement": "Sous-sol",
+                        "kitchen": "Cuisine",
+                        "reduite": "Reduite",
+                        "habitation": "Habitation",
+                        "room1": "Chambre 1",
+                        "room2": "Chambre 2",
+                        "room3": "Chambre 3",
+                        "room4": "Chambre 4",
+                        "all": "Tous",
+                        "other": "Autre"
+                    },
+                    "acquisitions": {
+                        "other": "Autre",
+                        "construction": "Phase de construction",
+                        "shell": "Acceptation de la coquille",
+                        "preliminary": "Acceptation préliminaire",
+                        "work": "Acceptation des travaux",
+                        "surrender": "Rendez-vous",
+                        "inspection": "Acceptation"
+                    },
+                    "costs": {
+                        "landlord": "Propriétaire",
+                        "tenant": "Locataire"
+                    }
                 },
                 "placeholders": {
                     "category": "Sélectionnez une catégorie",
