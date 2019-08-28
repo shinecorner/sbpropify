@@ -947,6 +947,59 @@ class ServiceRequestAPIController extends AppBaseController
 
     /**
      * @param int $id
+     * @param int $tid
+     * @param TagRepository $tRepo
+     * @param AssignRequest $r
+     * @return mixed
+     *
+     * @SWG\Delete(
+     *      path="/requests/{id}/tags/{pid}",
+     *      summary="Unassign single tag from the request",
+     *      tags={"ServiceRequest", "Tag"},
+     *      description="Unassign single tag from the request",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/ServiceRequest"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function unassignTag(int $id, int $tid, TagRepository $tRepo, AssignRequest $r)
+    {
+        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        if (empty($sr)) {
+            return $this->sendError(__('models.request.errors.not_found'));
+        }
+
+        $tag = $tRepo->findWithoutFail($tid);
+        if (empty($tag)) {
+            return $this->sendError(__('models.request.errors.tag_not_found'));
+        }
+
+        $sr->tags()->detach($tag);
+        $sr->load('media', 'tenant.user', 'category', 'comments.user',
+            'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
+
+        return $this->sendResponse($sr, __('models.request.detached.tags'));
+    }
+
+    /**
+     * @param int $id
      * @param Request $request
      * @return Response
      * @throws Exception

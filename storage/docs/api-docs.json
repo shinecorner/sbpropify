@@ -4446,6 +4446,70 @@
                 }
             }
         },
+        "/requests/{id}/tags/{tid}": {
+            "post": {
+                "tags": [
+                    "ServiceRequest",
+                    "Tag"
+                ],
+                "summary": "Assign the tag to the request",
+                "description": "Assign the tag to the request",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/ServiceRequest"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/requests/{id}/tags/{pid}": {
+            "delete": {
+                "tags": [
+                    "ServiceRequest",
+                    "Tag"
+                ],
+                "summary": "Unassign single tag from the request",
+                "description": "Unassign single tag from the request",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/ServiceRequest"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/requests/{id}/assignees": {
             "get": {
                 "tags": [
@@ -6039,6 +6103,13 @@
                         "name": "get_all",
                         "in": "query",
                         "description": "get all Tags",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search Tags by name (autosugestion)",
                         "required": false,
                         "type": "string"
                     }
