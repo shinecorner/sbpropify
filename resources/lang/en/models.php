@@ -877,9 +877,10 @@ return [
       ],
       'detached' => 
       [
-        'service' => 'Provider detached successfully',
-        'manager' => 'Manager detached successfully',
-        'user' => 'User unassigned successfully',
+        'services' => 'Provider detached successfully',
+        'managers' => 'Manager detached successfully',
+        'users' => 'User unassigned successfully',
+        'tags' => 'Tag unassigned successfully',
       ],
       'userType' => 
       [

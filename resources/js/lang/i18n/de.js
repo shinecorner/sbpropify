@@ -794,9 +794,10 @@ export default {
                     "tags": "Tag assigned successfully"
                 },
                 "detached": {
-                    "service": "Dienstleister wurde entfernt.",
-                    "manager": "Bewirtschafter wurde entfernt.",
-                    "admin": "Administrator wurde entfernt."
+                    "services": "Dienstleister wurde entfernt.",
+                    "managers": "Bewirtschafter wurde entfernt.",
+                    "users": "Administrator wurde entfernt.",
+                    "tags": "Tag nicht zugewiesen erfolgreich."
                 },
                 "userType": {
                     "label": "Typ",

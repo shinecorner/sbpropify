@@ -794,9 +794,10 @@ export default {
                     "tags": "Tag assegnato con successo"
                 },
                 "detached": {
-                    "service": "Fornitore staccato con successo",
-                    "manager": "Manager staccato con successo",
-                    "user": "Utente non assegnato con successo"
+                    "services": "Fornitore staccato con successo",
+                    "managers": "Manager staccato con successo",
+                    "users": "Utente non assegnato con successo",
+                    "tags": "Tag non assegnato con successo"
                 },
                 "userType": {
                     "label": "Tipo",

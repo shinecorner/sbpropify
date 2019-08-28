@@ -794,9 +794,10 @@ export default {
                     "tags": "Étiquette attribuée avec succès"
                 },
                 "detached": {
-                    "service": "Le prestataire s'est détaché avec succès",
-                    "manager": "Gestionnaire détaché avec succès",
-                    "user": "Utilisateur non affecté avec succès"
+                    "services": "Le prestataire s'est détaché avec succès",
+                    "managers": "Gestionnaire détaché avec succès",
+                    "users": "Utilisateur non affecté avec succès",
+                    "tags": "Étiquette non attribuée avec succès"
                 },
                 "userType": {
                     "label": "Type",
