@@ -52,7 +52,6 @@ class ServiceRequestTransformer extends BaseTransformer
         $assignedUsers = $model->newCollection();
         if ($model->relationExists('providers')) {
             $assignedUsers = $assignedUsers->merge($model->providers->pluck('user'));
-            $response['providers'] = (new ServiceProviderTransformer)->transformCollection($model->providers);
             $response['service_providers'] = (new ServiceProviderTransformer)->transformCollection($model->providers);
         }
 
@@ -61,7 +60,6 @@ class ServiceRequestTransformer extends BaseTransformer
             $assignedUsers = $assignedUsers->merge($usersCollection);
 
             $response['property_managers'] = (new PropertyManagerTransformer())->transformCollection($model->managers);
-            $response['assignees'] = $response['property_managers']; // @TODO delete
         }
 
         if ($assignedUsers->count()) {
