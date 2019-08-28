@@ -552,6 +552,11 @@ class ServiceRequest extends AuditableModel implements HasMedia
         ], $providers->all(), $this->users->all()) ;
     }
 
+    public function request_statues()
+    {
+        return $this->hasMany(ServiceRequestStatus::class);
+    }
+
     public function getDiskPreName()
     {
         return 'request_';

@@ -21,8 +21,14 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="status",
- *          description="status",
+ *          property="old_status",
+ *          description="old_status",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="new_status",
+ *          description="new_status",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -33,7 +39,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *      ),
  * )
  */
-class ServiceRequest extends Model
+class ServiceRequestStatus extends Model
 {
     use SoftDeletes;
 
@@ -41,7 +47,8 @@ class ServiceRequest extends Model
 
     public $fillable = [
         'request_id',
-        'status',
+        'old_status',
+        'new_status',
         'stared_at',
     ];
 }
