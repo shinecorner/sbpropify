@@ -819,7 +819,54 @@ return [
 					'other' => 'Sonstiges',
 					'environment' => 'Umgebung',
 					'house' => 'Haus',
-					'apartment' => 'Wohnung',					
+					'apartment' => 'Wohnung',
+					'room' => 'Raum',
+					'range' => 'Bereich',
+					'component' => 'Bauteil',
+					'acquisition' => 'Erfassungsphase',
+					'cost' => 'Kostenfolge',
+					'keywords' => 'Stichworte',
+					'locations' => [
+						'house_entrance' => 'Hauseingang',
+						'staircase' => 'Treppenhaus',
+						'elevator' => 'Lift',
+						'car_park' => 'Tiefgarage',
+						'washing' => 'Waschen/Trocknen',
+						'heating' => 'Technik/Heizung',
+						'electro' => 'Technik/Elektro',
+						'facade' => 'Fassade',
+						'roof' => 'Dach',
+						'other' => 'Anderes'
+					],
+					'rooms' => [
+						'bath' => 'Bad/WC',
+						'shower' => 'Du/WC',
+						'entrance' => 'Entrée',
+						'passage' => 'Gang',
+						'basement' => 'Keller',
+						'kitchen' => 'Küche',
+						'reduite' => 'Reduit',
+						'habitation' => 'Wohnen',
+						'room1' => 'Zimmer 1',
+						'room2' => 'Zimmer 2',
+						'room3' => 'Zimmer 3',
+						'room4' => 'Zimmer 4',
+						'all' => 'Alle',
+						'other' => 'Anderes'
+					],
+					'acquisitions' => [
+						'other' => 'Andere',
+						'construction' => 'Bauphase (BP)',
+						'shell' => 'Rohbauabnahme (RA)',
+						'preliminary' => 'Vorabnahme (VA)',
+						'work' => 'Bauabnahme (BA)',
+						'surrender' => 'Übergabe (UEB)',
+						'inspection' => 'Abnahme (AB)'
+					],
+					'costs' => [
+						'landlord' => 'Vermieter',
+						'tenant' => 'Mieter'
+					]					
 				],
 			'placeholders' =>
 				[
@@ -875,13 +922,15 @@ return [
 				[
 					'services' => 'Dienstleister wurde zugewiesen.',
 					'managers' => 'Bewirtschafter wurde zugewiesen.',
-					'admins' => 'Administratoren erfolgreich zugewiesen',
+					'users' => 'Tag erfolgreich zugewiesen',
+                    'tags' => 'Tag assigned successfully',
 				],
 			'detached' =>
 				[
-					'service' => 'Dienstleister wurde entfernt.',
-					'manager' => 'Bewirtschafter wurde entfernt.',
-					'admin' => 'Administrator wurde entfernt.',
+					'services' => 'Dienstleister wurde entfernt.',
+					'managers' => 'Bewirtschafter wurde entfernt.',
+					'users' => 'Administrator wurde entfernt.',
+					'tags' => 'Tag nicht zugewiesen erfolgreich.',
 				],
 			'userType' =>
 				[
@@ -901,6 +950,7 @@ return [
 				'not_found' => 'Anfrage nicht gefunden',
 				'not_allowed_change_status' => 'Sie dürfen den Status nicht ändern.',
 				'provider_not_found' => 'Dienstleister nicht gefunden',
+                'tag_not_found' => 'Tag nicht gefunden',
 				'user_not_found' => 'Benutzer nicht gefunden',
 				'conversation_not_found' => "Konversation nicht gefunden",
 				'statistics_error' => "Statistik-Fehler: ",

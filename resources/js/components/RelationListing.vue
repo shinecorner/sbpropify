@@ -167,15 +167,15 @@
         },
         props: {
             filter: {
-                type: String,
+                type: [String, Boolean],
                 required: true
             },
             filterValue: {
-                type: Number,
+                type: [Number, Boolean],
                 required: true
             },
             fetchAction: {
-                type: String,
+                type: [String, Boolean],
                 required: true
             },
             columns: {
@@ -189,6 +189,9 @@
                 default() {
                     return [];
                 }
+            },
+            addedAssigmentList: {
+                type: Array
             }
         },
         data() {
@@ -200,7 +203,11 @@
             }
         },
         async created() {
-            await this.fetch();
+            if (!!this.addedAssigmentList) {
+                this.list = this.addedAssigmentList;
+            } else {
+                await this.fetch();
+            }
         },
         methods: {
             async fetch(page = 1) {

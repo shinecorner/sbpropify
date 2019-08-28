@@ -183,14 +183,14 @@
                                 permission: this.$permissions.list.request,
                                 value: this.all_unassigned_count,
                                 route: {
-                                    name: ''
+                                    name: 'adminUnassignedRequests'
                                 }
                             },  {
                                 title: this.$t('menu.allPendingRequests'),
                                 permission: this.$permissions.list.request,
                                 value: this.all_pending_count,
                                 route: {
-                                    name: ''
+                                    name: 'adminAllpendingRequests'
                                 }
                             }]
                         }, {
@@ -311,28 +311,28 @@
                                 permission: this.$permissions.cleanify_request.list,
                                 value: this.my_request_count,
                                 route: {
-                                    name: 'adminRequests'
+                                    name: 'adminMyRequests'
                                 }
                             },  {
                                 title: this.$t('menu.myPendingRequests'),
                                 permission: this.$permissions.cleanify_request.list,
                                 value: this.my_pending_count,
                                 route: {
-                                    name: 'adminRequests'
+                                    name: 'adminMypendingRequests'
                                 }
                             },  {
                                 title: this.$t('menu.notAssigned'),
                                 permission: this.$permissions.list.request,
                                 value: this.all_unassigned_count,
                                 route: {
-                                    name: 'adminRequests'
+                                    name: 'adminUnassignedRequests'
                                 }
                             },  {
                                 title: this.$t('menu.allPendingRequests'),
                                 permission: this.$permissions.list.request,
                                 value: this.all_pending_count,
                                 route: {
-                                    name: 'adminRequests'
+                                    name: 'adminAllpendingRequests'
                                 }
                             }]
                         }, {

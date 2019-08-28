@@ -819,7 +819,55 @@ return [
         "other" => "Autre",
         "environment" => "Environnement",
         "house" => "House",
-        "apartment" => "Appartement",        
+        "apartment" => "Appartement",
+        'room' => 'Chambre',
+        'range' => 'Gamme',
+        'component' => 'Composante',
+        'acquisition' => 'Phase d\'acquisition',
+        'cost' => 'Incidence sur les coûts',
+        'keywords' => 'Mots-clés',
+        'locations' => [
+          'house_entrance' => 'Entrée de maison',
+          'staircase' => 'Escalier',
+          'elevator' => 'Ascenseur',
+          'car_park' => 'Parking souterrain',
+          'washing' => 'Lavage/séchage',
+          'heating' => 'Technologie/Chauffage',
+          'electro' => 'Technologie/Électrotechnique',
+          'facade' => 'Façade',
+          'roof' => 'Toit',
+          'other' => 'Autre'
+        ],
+        'rooms' => [
+          'bath' => 'Salle de bains/WC',
+          'shower' => 'Douche/WC',
+          'entrance' => 'L\'entrée',
+          'passage' => 'Passage',
+          'basement' => 'Sous-sol',
+          'kitchen' => 'Cuisine',
+          'reduite' => 'Reduite',
+          'habitation' => 'Habitation',
+          'room1' => 'Chambre 1',
+          'room2' => 'Chambre 2',
+          'room3' => 'Chambre 3',
+          'room4' => 'Chambre 4',
+          'all' => 'Tous',
+          'other' => 'Autre'
+        ],
+        'acquisitions' => [
+          'other' => 'Autre',
+          'construction' => 'Phase de construction',
+          'shell' => 'Acceptation de la coquille',
+          'preliminary' => 'Acceptation préliminaire',
+          'work' => 'Acceptation des travaux',
+          'surrender' => 'Rendez-vous',
+          'inspection' => 'Acceptation'
+        ],
+        'costs' => [
+          'landlord' => 'Propriétaire',
+          'tenant' => 'Locataire'
+        ]
+
       ],
       'placeholders' => 
       [
@@ -875,13 +923,15 @@ return [
       [
         "services" => "Le prestataire s'est attaché avec succès",
         "managers" => "Gestionnaire attaché avec succès",
-        "user" => "Utilisateur affecté avec succès",
+        "users" => "Utilisateur affecté avec succès",
+        "tags" => "Étiquette attribuée avec succès",
       ],
       'detached' => 
       [
-        "service" => "Le prestataire s'est détaché avec succès",
-        "manager" => "Gestionnaire détaché avec succès",
-        "user" => "Utilisateur non affecté avec succès",
+        "services" => "Le prestataire s'est détaché avec succès",
+        "managers" => "Gestionnaire détaché avec succès",
+        "users" => "Utilisateur non affecté avec succès",
+        "tags" => "Étiquette non attribuée avec succès",
       ],
       'userType' => 
       [
@@ -901,6 +951,7 @@ return [
         'not_found' => 'Demande de service introuvable',
         'not_allowed_change_status' => "Vous n'êtes pas autorisé à changer de statut.",
         'provider_not_found' => 'Fournisseur de services introuvable',
+        'tag_not_found' => 'Étiquette non trouvée',
         'user_not_found' => 'Utilisateur introuvable',
         'conversation_not_found' => "Conversation non trouvée",
         'statistics_error' => "demander des statistiques d'erreur : ",

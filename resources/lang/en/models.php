@@ -820,6 +820,53 @@ return [
           'environment' => 'Environment',
           'house' => 'House',
           'apartment' => 'Apartment',
+          'room' => 'Room',
+          'range' => 'Range',
+          'component' => 'Component',
+          'acquisition' => 'Acquisition Phase',
+          'keywords' => 'Keywords',
+          'cost' => 'Cost Impact',
+          'locations' => [
+						'house_entrance' => 'House Entrance',
+						'staircase' => 'Staircase',
+						'elevator' => 'Elevator',
+						'car_park' => 'Underground Car park',
+						'washing' => 'Washing/Drying',
+						'heating' => 'Technology/Heating',
+						'electro' => 'Technology/Electro',
+						'facade' => 'Facade',
+						'roof' => 'Roof',
+						'other' => 'Other'
+          ],
+          'rooms' => [
+						'bath' => 'Bathroom/WC',
+						'shower' => 'Shower/WC',
+						'entrance' => 'Entrance',
+						'passage' => 'Passage',
+						'basement' => 'Basement',
+						'kitchen' => 'Kitchen',
+						'reduite' => 'Reduite',
+						'habitation' => 'Habitation',
+						'room1' => 'Room 1',
+						'room2' => 'Room 2',
+						'room3' => 'Room 3',
+						'room4' => 'Room 4',
+						'all' => 'All',
+						'other' => 'Other'
+          ],
+          'acquisitions' => [
+						'other' => 'Other',
+						'construction' => 'Construction phase',
+						'shell' => 'Shell Acceptance',
+						'preliminary' => 'Preliminary Acceptance',
+						'work' => 'Acceptance of Work',
+						'surrender' => 'Surrender',
+						'inspection' => 'Acceptance'
+          ],
+          'costs' => [
+						'landlord' => 'Landlord',
+						'tenant' => 'Tenant'
+					]
       ],
       'placeholders' => 
       [
@@ -875,13 +922,15 @@ return [
       [
         'services' => 'Provider attached successfully',
         'managers' => 'Manager attached successfully',
-        'user' => 'User assigned successfully',
+        'users' => 'User assigned successfully',
+        'tags' => 'Tag assigned successfully',
       ],
       'detached' => 
       [
-        'service' => 'Provider detached successfully',
-        'manager' => 'Manager detached successfully',
-        'user' => 'User unassigned successfully',
+        'services' => 'Provider detached successfully',
+        'managers' => 'Manager detached successfully',
+        'users' => 'User unassigned successfully',
+        'tags' => 'Tag unassigned successfully',
       ],
       'userType' => 
       [
@@ -901,6 +950,7 @@ return [
         'not_found' => 'Service Request not found',
         'not_allowed_change_status' => 'You are not allowed to change status.',
         'provider_not_found' => 'Service Provider not found',
+        'tag_not_found' => 'Tag not found',
         'user_not_found' => 'User not found',
         'conversation_not_found' => "Conversation not found",
         'statistics_error' => "Request statistics error: ",
