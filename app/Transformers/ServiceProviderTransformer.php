@@ -28,11 +28,6 @@ class ServiceProviderTransformer extends BaseTransformer
             'email' => $model->email,
             'phone' => $model->phone,
             'service_provider_format' => $model->service_provider_format,
-            'room' => $model->room,
-            'capture_phase' => $model->capture_phase,
-            'component' => $model->component,
-            'payer' => $model->payer,
-            'location' => $model->location,
         ];
 
         $relationCountAttributes = [

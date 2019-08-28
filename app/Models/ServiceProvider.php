@@ -110,11 +110,6 @@ class ServiceProvider extends Model
         'name',
         'email',
         'phone',
-        'room',
-        'capture_phase',
-        'component',
-        'payer',
-        'location'
     ];
     protected $dates = ['deleted_at'];
     /**
@@ -130,11 +125,6 @@ class ServiceProvider extends Model
         'email' => 'string',
         'phone' => 'string',
         'service_provider_format' => 'string',
-        'room' => 'string',
-        'capture_phase' => 'string',
-        'component' => 'string',
-        'payer' => 'string',
-        'location' => 'integer'
     ];
 
     /**
