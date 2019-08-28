@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\Units\FilterByRelatedFieldsCriteria;
+use App\Criteria\Units\FilterByTypeCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Unit\CreateRequest;
 use App\Http\Requests\API\Unit\DeleteRequest;
@@ -74,6 +75,7 @@ class UnitAPIController extends AppBaseController
     {
         $this->unitRepository->pushCriteria(new RequestCriteria($request));
         $this->unitRepository->pushCriteria(new FilterByRelatedFieldsCriteria($request));
+        $this->unitRepository->pushCriteria(new FilterByTypeCriteria($request));
         $this->unitRepository->pushCriteria(new LimitOffsetCriteria($request));
 
         $getAll = $request->get('get_all', false);
