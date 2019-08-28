@@ -18,8 +18,7 @@ class CreateRequestStatusLogTable extends Migration
             $table->integer('request_id')->unsigned();
             $table->tinyInteger('old_status')->unsigned();
             $table->tinyInteger('new_status')->unsigned();
-            $table->date('old_status_stared_at');
-            $table->date('new_status_stared_at');
+            $table->date('started_at')->comment('when start new status');
             $table->foreign('request_id')->references('id')->on('service_requests')->onDelete('cascade');
         });
     }
