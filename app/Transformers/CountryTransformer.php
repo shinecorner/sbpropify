@@ -24,7 +24,7 @@ class CountryTransformer extends BaseTransformer
             'alpha_3' => $model->alpha_3,
             'name' => get_translated_filed($model, 'name'),
         ];
-        
+
         return $response;
     }
 }
