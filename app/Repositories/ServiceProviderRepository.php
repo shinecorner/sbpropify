@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\ServiceProvider;
 use App\Models\Building;
 use App\Models\District;
+use App\Traits\UpdateSettings;
 
 /**
  * Class ServiceProviderRepository
@@ -17,6 +18,8 @@ use App\Models\District;
  */
 class ServiceProviderRepository extends BaseRepository
 {
+    use UpdateSettings;
+
     /**
      * @var array
      */
