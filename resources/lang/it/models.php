@@ -918,13 +918,15 @@ return [
       [
         "services" => "Fornitore collegato con successo",
         "managers" => "Manager attaccato con successo",
-        "user" => "Utente assegnato con successo",
+        "users" => "Utente assegnato con successo",
+        "tags" => "Tag assegnato con successo",
       ],
       'detached' => 
       [
-        "service" => "Fornitore staccato con successo",
-        "manager" => "Manager staccato con successo",
-        "user" => "Utente non assegnato con successo",
+        "services" => "Fornitore staccato con successo",
+        "managers" => "Manager staccato con successo",
+        "users" => "Utente non assegnato con successo",
+        "tags" => "Tag non assegnato con successo",
       ],
       'userType' => 
       [
@@ -944,6 +946,7 @@ return [
         'not_found' => 'Richiesta di servizio non trovata',
         'not_allowed_change_status' => "Non sei autorizzato a cambiare stato",
         'provider_not_found' => 'Fornitore di servizi non trovato',
+        'tag_not_found' => 'Etichetta non trovata',
         'user_not_found' => 'Utente non trovato',
         'conversation_not_found' => "Conversazione non trovata",
         'statistics_error' => "richiesta errore di statistica: ",
