@@ -4446,14 +4446,14 @@
                 }
             }
         },
-        "/requests/{id}/tags/{tid}": {
-            "post": {
+        "/requests/{id}/tags": {
+            "get": {
                 "tags": [
                     "ServiceRequest",
                     "Tag"
                 ],
-                "summary": "Assign the tag to the request",
-                "description": "Assign the tag to the request",
+                "summary": "Get a listing of the ServiceRequest tags.",
+                "description": "Get a listing of the ServiceRequest tags.",
                 "produces": [
                     "application/json"
                 ],
@@ -4466,7 +4466,10 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/ServiceRequest"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Tag"
+                                    }
                                 },
                                 "message": {
                                     "type": "string"
@@ -4476,9 +4479,7 @@
                         }
                     }
                 }
-            }
-        },
-        "/requests/{id}/tags": {
+            },
             "post": {
                 "tags": [
                     "ServiceRequest",
@@ -4546,6 +4547,38 @@
                         "description": "name of tags. Use or comma separated or array. If Tag name is not exists that case must be create new tag",
                         "type": "integer"
                     }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/ServiceRequest"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/requests/{id}/tags/{tid}": {
+            "post": {
+                "tags": [
+                    "ServiceRequest",
+                    "Tag"
+                ],
+                "summary": "Assign the tag to the request",
+                "description": "Assign the tag to the request",
+                "produces": [
+                    "application/json"
                 ],
                 "responses": {
                     "200": {

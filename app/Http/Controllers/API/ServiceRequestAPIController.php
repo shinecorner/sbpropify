@@ -33,6 +33,7 @@ use App\Repositories\TemplateRepository;
 use App\Repositories\UserRepository;
 use App\Transformers\ServiceRequestAssigneeTransformer;
 use App\Transformers\ServiceRequestTransformer;
+use App\Transformers\TagTransformer;
 use App\Transformers\TemplateTransformer;
 use Illuminate\Support\Facades\Auth;
 use Exception;
@@ -890,6 +891,54 @@ class ServiceRequestAPIController extends AppBaseController
     public function unassignUser(int $id, int $uid, UserRepository $uRepo, AssignRequest $r)
     {
         return $this->deleteRequestAssignee($uid, $r);
+    }
+
+    /**
+     * @param int $id
+     * @param Request $request
+     * @return Response
+     * @throws Exception
+     *
+     * @SWG\Get(
+     *      path="/requests/{id}/tags",
+     *      summary="Get a listing of the ServiceRequest tags.",
+     *      tags={"ServiceRequest", "Tag"},
+     *      description="Get a listing of the ServiceRequest tags.",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @SWG\Items(ref="#/definitions/Tag")
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function getTags(int $id, Request $request)
+    {
+        $sr = $this->serviceRequestRepository->findWithoutFail($id);
+        if (empty($sr)) {
+            return $this->sendError(__('models.request.errors.not_found'));
+        }
+
+        $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
+        $tags = $sr->tags()->paginate($perPage);
+
+        $response = (new TagTransformer())->transformPaginator($tags) ;
+        return $this->sendResponse($response, 'Tags retrieved successfully');
     }
 
     /**

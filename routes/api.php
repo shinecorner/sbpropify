@@ -206,6 +206,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('/requests/deletewithids', 'ServiceRequestAPIController@destroyWithIds')->name('requests.destroyWithIds');
     Route::delete('/requests/{id}/media/{media_id}', 'MediaAPIController@serviceRequestDestroy')->name('requests.media.destroy');
 
+    Route::get('/requests/{id}/tags', 'ServiceRequestAPIController@getTags');
     Route::get('/requests/{id}/assignees', 'ServiceRequestAPIController@getAssignees');
     Route::post('/requests/{id}/users/{user_id}', 'ServiceRequestAPIController@assignUser');
     Route::post('/requests/{id}/providers/{provider_id}', 'ServiceRequestAPIController@assignProvider');
