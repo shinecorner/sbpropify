@@ -746,6 +746,7 @@ export default {
                     "component": "Componente",
                     "acquisition": "Fase di acquisizione",
                     "cost": "Costo Impatto",
+                    "keywords": "Parole chiave",
                     "locations": {
                         "house_entrance": "Ingresso Casa",
                         "staircase": "Scala",
