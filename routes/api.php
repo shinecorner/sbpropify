@@ -187,6 +187,9 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::put('/requestCategories/{id}', 'ServiceRequestCategoryAPIController@update')->name('requests.categories.update');
     Route::delete('/requestCategories/{id}', 'ServiceRequestCategoryAPIController@destroy')->name('requests.categories.destroy');
 
+    // Tag Requests
+    Route::resource('tags', 'TagAPIController');
+
     // Service Requests
     Route::get('/requests', 'ServiceRequestAPIController@index')->name('requests');
     Route::get('/requestsCounts', 'ServiceRequestAPIController@requestsCounts')->name('requestsCounts');
