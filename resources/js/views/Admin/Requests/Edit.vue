@@ -34,7 +34,7 @@
                                         v-if="this.showfirstlayout == true">
                                     <el-form-item label="Defekt/Mangel">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
-                                                   placeholder="Select"
+                                                   :placeholder="$t(`general.placeholders.select`)"
                                                    class="custom-select"
                                                    v-model="model.defect"
                                                    @change="showSecondLayout">
@@ -49,68 +49,90 @@
                                 </el-col>
                                 <el-col :md="12"
                                         v-if="this.showfirstlayout == true && this.showLiegenschaft == true && this.showUmgebung == false">
-                                    <el-form-item label="Bereich">
+                                    <el-form-item :label="$t('models.request.category_options.range')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
-                                                   placeholder="Select"
+                                                   :placeholder="$t(`general.placeholders.select`)"
                                                    class="custom-select"
                                                    v-model="model.location">
-                                            <el-option value="1" label="Hauseingang">Hauseingang</el-option>
-                                            <el-option value="2" label="Treppenhaus">Treppenhaus</el-option>
-                                            <el-option value="3" label="Lift">Lift</el-option>
-                                            <el-option value="4" label="Tiefgarage">Tiefgarage</el-option>
-                                            <el-option value="5" label="Waschen/Trocknen">Waschen/Trocknen</el-option>
-                                            <el-option value="6" label="Technik/Heizung">Technik/Heizung</el-option>
-                                            <el-option value="7" label="Technik/Elektro">Technik/Elektro</el-option>
-                                            <el-option value="8" label="Fassade">Fassade</el-option>
-                                            <el-option value="9" label="Dach">Dach</el-option>
-                                            <el-option value="10" label="Anderes">Anderes</el-option>
+                                            <el-option
+                                                :key="location.value"
+                                                :label="location.name"
+                                                :value="location.value"
+                                                v-for="location in locations">
+                                            </el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12"
                                         v-if="this.showfirstlayout == true && this.showWohnung == true && this.showLiegenschaft == false">
-                                    <el-form-item label="Raum">
+                                    <el-form-item :label="$t('models.request.category_options.room')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
-                                                   placeholder="Select"
+                                                   :placeholder="$t(`general.placeholders.select`)"
                                                    class="custom-select"
                                                    v-model="model.room">
-                                            <el-option value="Bad/WC">Bad/WC</el-option>
-                                            <el-option value="Du/WC">Du/WC</el-option>
-                                            <el-option value="Entrée">Entrée</el-option>
-                                            <el-option value="Gang">Gang</el-option>
-                                            <el-option value="Keller">Keller</el-option>
-                                            <el-option value="Küche">Küche</el-option>
-                                            <el-option value="Reduit">Reduit</el-option>
-                                            <el-option value="Wohnen">Wohnen</el-option>
-                                            <el-option value="Zimmer 1">Zimmer 1</el-option>
-                                            <el-option value="Zimmer 2">Zimmer 2</el-option>
-                                            <el-option value="Zimmer 3">Zimmer 3</el-option>
-                                            <el-option value="Zimmer 4">Zimmer 4</el-option>
-                                            <el-option value="Alle">Alle</el-option>
-                                            <el-option value="Anderes">Anderes</el-option>
+                                            <el-option
+                                                :key="room.value"
+                                                :label="room.name"
+                                                :value="room.value"
+                                                v-for="room in rooms">
+                                            </el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12"
                                         v-if="this.rolename == 'administrator'">
-                                    <el-form-item label="Erfassungsphase">
+                                    <el-form-item :label="$t('models.request.category_options.acquisition')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
-                                                   placeholder="Select"
+                                                   :placeholder="$t(`general.placeholders.select`)"
                                                    class="custom-select"
                                                    v-model="model.capture_phase">
-                                            <el-option value="other">Andere</el-option>
-                                            <el-option value="building">Bauphase (BP)</el-option>
-                                            <el-option value="shell_building">Rohbauabnahme (RA)</el-option>
-                                            <el-option value="prehandover">Vorabnahme (VA)</el-option>
-                                            <el-option value="prehandover_building">Bauabnahme (BA)</el-option>
-                                            <el-option value="handover">Übergabe (UEB)</el-option>
-                                            <el-option value="inspection">Abnahme (AB)</el-option>
+                                            <el-option
+                                                :key="acquisition.value"
+                                                :label="acquisition.name"
+                                                :value="acquisition.value"
+                                                v-for="acquisition in acquisitions">
+                                            </el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12">
-                                    <el-form-item label="Bauteil">
-                                        <el-input v-model="model.bauteil"></el-input>
+                                    <el-form-item :label="$t('models.request.category_options.component')">
+                                        <el-input v-model="model.component"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12"
+                                        v-if="model.category_id && selectedCategoryHasQualification(model.category_id)">
+                                    <el-form-item :label="$t('models.request.qualification.label')"
+                                                  :rules="validationRules.qualification"
+                                                  prop="qualification"
+                                    >
+                                        <el-select :disabled="$can($permissions.update.serviceRequest)"
+                                                   :placeholder="$t('models.request.placeholders.qualification')"
+                                                   class="custom-select"
+                                                   v-model="model.qualification"
+                                                   @change="selectPayer">
+                                            <el-option
+                                                :key="k"
+                                                :label="$t(`models.request.qualification.${qualification}`)"
+                                                :value="parseInt(k)"
+                                                v-for="(qualification, k) in constants.service_requests.qualification">
+                                            </el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12" v-if="model.category_id && selectedCategoryHasQualification(model.category_id) && this.showpayer == true">
+                                    <el-form-item :label="$t('models.request.category_options.cost')">
+                                        <el-select :disabled="$can($permissions.update.serviceRequest)"
+                                                   :placeholder="$t(`general.placeholders.select`)"
+                                                   class="custom-select"
+                                                   v-model="model.kostenfolge">
+                                            <el-option
+                                                :key="cost.value"
+                                                :label="cost.name"
+                                                :value="cost.value"
+                                                v-for="cost in costs">
+                                            </el-option>
+                                        </el-select>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12">
@@ -134,37 +156,6 @@
                                         >
                                         </el-input>
                                         <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New</el-button>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :md="12"
-                                        v-if="model.category_id && selectedCategoryHasQualification(model.category_id)">
-                                    <el-form-item :label="$t('models.request.qualification.label')"
-                                                  :rules="validationRules.qualification"
-                                                  prop="qualification"
-                                    >
-                                        <el-select :disabled="$can($permissions.update.serviceRequest)"
-                                                   :placeholder="$t('models.request.placeholders.qualification')"
-                                                   class="custom-select"
-                                                   v-model="model.qualification"
-                                                   @change="selectPayer">
-                                            <el-option
-                                                :key="k"
-                                                :label="$t(`models.request.qualification.${qualification}`)"
-                                                :value="parseInt(k)"
-                                                v-for="(qualification, k) in constants.service_requests.qualification">
-                                            </el-option>
-                                        </el-select>
-                                    </el-form-item>
-                                </el-col>
-                                <el-col :md="12" v-if="model.category_id && selectedCategoryHasQualification(model.category_id) || this.showpayer == true">
-                                    <el-form-item label="Kostenfolge">
-                                        <el-select :disabled="$can($permissions.update.serviceRequest)"
-                                                   placeholder="Select"
-                                                   class="custom-select"
-                                                   v-model="model.kostenfolge">
-                                            <el-option value="tenant" label="Mieter">Mieter</el-option>
-                                            <el-option value="lessor" label="Vermieter">Vermieter</el-option>
-                                        </el-select>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -515,6 +506,13 @@
             else {
                 this.showfirstlayout = false;
             }
+
+            if(resp.data.qualification == 5) {
+                this.showpayer = true;
+            }
+            else {
+                this.showpayer = false;
+            }
         },
         methods: {
             ...mapActions(['unassignAssignee', 'deleteRequest']),
@@ -567,6 +565,19 @@
                     this.selectedConversation = row;
                     this.conversationVisible = true;
                 })
+            },
+            adjustAuditTabPadding(tab){
+                var active_bar = document.querySelector('#comments-card .el-tabs__active-bar');
+                
+                if(tab.name == 'internal-notices') {
+                    setTimeout( () =>  {
+                        active_bar.style.width = '120px'
+                    },0)
+                }
+                
+                if(tab.name == 'audit') {
+                    setTimeout( () => { active_bar.style.transform = 'translateX(265px)' }, 0)
+                }
             },
             showFirstLayout() {
 

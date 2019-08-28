@@ -32,7 +32,7 @@ export default (config = {}) => {
                     location: '',
                     room: '',
                     capture_phase: '',
-                    bauteil: '',
+                    component: '',
                     keyword: '',
                     keywords: [],
                     kostenfolge: ''
@@ -86,6 +86,47 @@ export default (config = {}) => {
                 toAssign: '',
                 conversations: [],
                 address: {},
+                locations: [
+                    {name: this.$t('models.request.category_options.locations.house_entrance'), value: 1},
+                    {name: this.$t('models.request.category_options.locations.staircase'), value: 2},
+                    {name: this.$t('models.request.category_options.locations.elevator'), value: 3},
+                    {name: this.$t('models.request.category_options.locations.car_park'), value: 4},
+                    {name: this.$t('models.request.category_options.locations.washing'), value: 5},
+                    {name: this.$t('models.request.category_options.locations.heating'), value: 6},
+                    {name: this.$t('models.request.category_options.locations.electro'), value: 7},
+                    {name: this.$t('models.request.category_options.locations.facade'), value: 8},
+                    {name: this.$t('models.request.category_options.locations.roof'), value: 9},
+                    {name: this.$t('models.request.category_options.locations.other'), value: 10}
+                ],
+                rooms: [
+                    {name: this.$t('models.request.category_options.rooms.bath'), value: 'Bad/WC'},
+                    {name: this.$t('models.request.category_options.rooms.shower'), value: 'Du/WC'},
+                    {name: this.$t('models.request.category_options.rooms.entrance'), value: 'Entrée'},
+                    {name: this.$t('models.request.category_options.rooms.passage'), value: 'Gang'},
+                    {name: this.$t('models.request.category_options.rooms.basement'), value: 'Keller'},
+                    {name: this.$t('models.request.category_options.rooms.kitchen'), value: 'Küche'},
+                    {name: this.$t('models.request.category_options.rooms.reduite'), value: 'Reduit'},
+                    {name: this.$t('models.request.category_options.rooms.habitation'), value: 'Wohnen'},
+                    {name: this.$t('models.request.category_options.rooms.room1'), value: 'Zimmer 1'},
+                    {name: this.$t('models.request.category_options.rooms.room2'), value: 'Zimmer 2'},
+                    {name: this.$t('models.request.category_options.rooms.room3'), value: 'Zimmer 3'},
+                    {name: this.$t('models.request.category_options.rooms.room4'), value: 'Zimmer 4'},
+                    {name: this.$t('models.request.category_options.rooms.all'), value: 'Alle'},
+                    {name: this.$t('models.request.category_options.rooms.other'), value: 'Anderes'},
+                ],
+                acquisitions: [
+                    {name: this.$t('models.request.category_options.acquisitions.other'), value: 'other'},
+                    {name: this.$t('models.request.category_options.acquisitions.construction'), value: 'building'},
+                    {name: this.$t('models.request.category_options.acquisitions.shell'), value: 'shell_building'},
+                    {name: this.$t('models.request.category_options.acquisitions.preliminary'), value: 'prehandover'},
+                    {name: this.$t('models.request.category_options.acquisitions.work'), value: 'prehandover_building'},
+                    {name: this.$t('models.request.category_options.acquisitions.surrender'), value: 'handover'},
+                    {name: this.$t('models.request.category_options.acquisitions.inspection'), value: 'inspection'},
+                ],
+                costs: [
+                    {name: this.$t('models.request.category_options.costs.landlord'), value: 'lessor'},
+                    {name: this.$t('models.request.category_options.costs.tenant'), value: 'tenant'},
+                ]   
             };
         },
         computed: {

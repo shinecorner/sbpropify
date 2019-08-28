@@ -816,7 +816,53 @@ return [
 					'other' => 'Sonstiges',
 					'environment' => 'Umgebung',
 					'house' => 'Haus',
-					'apartment' => 'Wohnung',					
+					'apartment' => 'Wohnung',
+					'room' => 'Raum',
+					'range' => 'Bereich',
+					'component' => 'Bauteil',
+					'acquisition' => 'Erfassungsphase',
+					'cost' => 'Kostenfolge',
+					'locations' => [
+						'house_entrance' => 'Hauseingang',
+						'staircase' => 'Treppenhaus',
+						'elevator' => 'Lift',
+						'car_park' => 'Tiefgarage',
+						'washing' => 'Waschen/Trocknen',
+						'heating' => 'Technik/Heizung',
+						'electro' => 'Technik/Elektro',
+						'facade' => 'Fassade',
+						'roof' => 'Dach',
+						'other' => 'Anderes'
+					],
+					'rooms' => [
+						'bath' => 'Bad/WC',
+						'shower' => 'Du/WC',
+						'entrance' => 'Entrée',
+						'passage' => 'Gang',
+						'basement' => 'Keller',
+						'kitchen' => 'Küche',
+						'reduite' => 'Reduit',
+						'habitation' => 'Wohnen',
+						'room1' => 'Zimmer 1',
+						'room2' => 'Zimmer 2',
+						'room3' => 'Zimmer 3',
+						'room4' => 'Zimmer 4',
+						'all' => 'Alle',
+						'other' => 'Anderes'
+					],
+					'acquisitions' => [
+						'other' => 'Andere',
+						'construction' => 'Bauphase (BP)',
+						'shell' => 'Rohbauabnahme (RA)',
+						'preliminary' => 'Vorabnahme (VA)',
+						'work' => 'Bauabnahme (BA)',
+						'surrender' => 'Übergabe (UEB)',
+						'inspection' => 'Abnahme (AB)'
+					],
+					'costs' => [
+						'landlord' => 'Vermieter',
+						'tenant' => 'Mieter'
+					]					
 				],
 			'placeholders' =>
 				[
