@@ -103,8 +103,9 @@ class PropertyManagerRepository extends BaseRepository
     public function assignments(PropertyManager $propertyManager)
     {
         $buildings = Building::select(\DB::raw('buildings.id, buildings.name, "building" as type'))
-            ->join('building_property_manager', 'building_id', '=', 'buildings.id')
-            ->where('building_property_manager.property_manager_id', $propertyManager->id);
+            ->join('building_assignees', 'building_id', '=', 'buildings.id')
+            ->where('assignee_type', get_morph_type_of(PropertyManager::class))
+            ->where('building_assignees.assignee_id',  $propertyManager->id);
 
         $districts = District::select(\DB::raw('districts.id, districts.name, "district" as type'))
             ->join('district_property_manager', 'district_id', '=', 'districts.id')
@@ -116,8 +117,9 @@ class PropertyManagerRepository extends BaseRepository
     public function assignmentsWithIds(array $ids)
     {
         $buildings = Building::select(\DB::raw('buildings.id, buildings.name, "building" as type'))
-            ->join('building_property_manager', 'building_id', '=', 'buildings.id')
-            ->whereIn('building_property_manager.property_manager_id', $ids);
+            ->join('building_assignees', 'building_id', '=', 'buildings.id')
+            ->where('assignee_type', get_morph_type_of(PropertyManager::class))
+            ->whereIn('building_assignees.assignee_id', $ids);
         return $buildings;
     }
 }
