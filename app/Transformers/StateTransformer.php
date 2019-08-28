@@ -25,18 +25,9 @@ class StateTransformer extends BaseTransformer
             'id' => $model->id,
             'country_id' => $model->country_id,
             'code' => $model->code,
-            'name' => $model->name,
+            'name' => get_translated_filed($model, 'name'),
             'abbreviation' => $model->abbreviation,
         ];
-
-        $currentLanguage = config('app.locale');
-
-        if ('en' != $currentLanguage) {
-            $field = 'name_' . $currentLanguage;
-            if (isset($model->{$field})) {
-                $response['name'] = $model->{$field};
-            }
-        }
 
         return $response;
     }
