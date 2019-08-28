@@ -919,13 +919,15 @@ return [
 				[
 					'services' => 'Dienstleister wurde zugewiesen.',
 					'managers' => 'Bewirtschafter wurde zugewiesen.',
-					'admins' => 'Administratoren erfolgreich zugewiesen',
+					'users' => 'Tag erfolgreich zugewiesen',
+                    'tags' => 'Tag assigned successfully',
 				],
 			'detached' =>
 				[
-					'service' => 'Dienstleister wurde entfernt.',
-					'manager' => 'Bewirtschafter wurde entfernt.',
-					'admin' => 'Administrator wurde entfernt.',
+					'services' => 'Dienstleister wurde entfernt.',
+					'managers' => 'Bewirtschafter wurde entfernt.',
+					'users' => 'Administrator wurde entfernt.',
+					'tags' => 'Tag nicht zugewiesen erfolgreich.',
 				],
 			'userType' =>
 				[
@@ -945,6 +947,7 @@ return [
 				'not_found' => 'Anfrage nicht gefunden',
 				'not_allowed_change_status' => 'Sie dürfen den Status nicht ändern.',
 				'provider_not_found' => 'Dienstleister nicht gefunden',
+                'tag_not_found' => 'Tag nicht gefunden',
 				'user_not_found' => 'Benutzer nicht gefunden',
 				'conversation_not_found' => "Konversation nicht gefunden",
 				'statistics_error' => "Statistik-Fehler: ",

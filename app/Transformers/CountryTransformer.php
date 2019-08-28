@@ -22,17 +22,8 @@ class CountryTransformer extends BaseTransformer
             'id' => $model->id,
             'code' => $model->code,
             'alpha_3' => $model->alpha_3,
-            'name' => $model->name,
+            'name' => get_translated_filed($model, 'name'),
         ];
-
-        $currentLanguage = config('app.locale');
-
-        if ('en' != $currentLanguage) {
-            $field = 'name_' . $currentLanguage;
-            if (isset($model->{$field})) {
-                $response['name'] = $model->{$field};
-            }
-        }
 
         return $response;
     }

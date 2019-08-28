@@ -29,7 +29,6 @@ class StatesTableSeeder extends Seeder
                     'name_de' => $obj->name->de,
                     'name_fr' => $obj->name->fr,
                     'name_it' => $obj->name->it,
-                    'name_rm' => $obj->name->rm,
                 ]
             );
         }

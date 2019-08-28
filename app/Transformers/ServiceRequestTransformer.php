@@ -30,6 +30,11 @@ class ServiceRequestTransformer extends BaseTransformer
             'internal_priority' => $model->internal_priority,
             'qualification' => $model->qualification,
             'is_public' => $model->is_public,
+            'room' => $model->room,
+            'capture_phase' => $model->capture_phase,
+            'component' => $model->component,
+            'payer' => $model->payer,
+            'location' => $model->location,
             'created_at' => $model->created_at->format('Y-m-d'),
             'created_by' => $model->created_at->format('d.m.Y H:i:s'),
             'updated_at' => $model->updated_at->format('d.m.Y'),
@@ -47,7 +52,6 @@ class ServiceRequestTransformer extends BaseTransformer
         $assignedUsers = $model->newCollection();
         if ($model->relationExists('providers')) {
             $assignedUsers = $assignedUsers->merge($model->providers->pluck('user'));
-            $response['providers'] = (new ServiceProviderTransformer)->transformCollection($model->providers);
             $response['service_providers'] = (new ServiceProviderTransformer)->transformCollection($model->providers);
         }
 
@@ -56,7 +60,6 @@ class ServiceRequestTransformer extends BaseTransformer
             $assignedUsers = $assignedUsers->merge($usersCollection);
 
             $response['property_managers'] = (new PropertyManagerTransformer())->transformCollection($model->managers);
-            $response['assignees'] = $response['property_managers']; // @TODO delete
         }
 
         if ($assignedUsers->count()) {
