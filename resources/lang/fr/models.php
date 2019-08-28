@@ -822,6 +822,7 @@ return [
         'component' => 'Composante',
         'acquisition' => 'Phase d\'acquisition',
         'cost' => 'Incidence sur les coûts',
+        'keywords' => 'Mots-clés',
         'locations' => [
           'house_entrance' => 'Entrée de maison',
           'staircase' => 'Escalier',
