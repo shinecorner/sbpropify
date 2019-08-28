@@ -4599,9 +4599,7 @@
                         }
                     }
                 }
-            }
-        },
-        "/requests/{id}/tags/{pid}": {
+            },
             "delete": {
                 "tags": [
                     "ServiceRequest",
@@ -9261,6 +9259,35 @@
                     "description": "updated_at",
                     "type": "string",
                     "format": "date-time"
+                }
+            }
+        },
+        "ServiceRequestStatus": {
+            "required": [
+                "old_status",
+                "new_status",
+                "started_at",
+                "request_id"
+            ],
+            "properties": {
+                "request_id": {
+                    "description": "request_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "old_status": {
+                    "description": "old_status",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "new_status": {
+                    "description": "new_status",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "started_at": {
+                    "description": "started_at",
+                    "type": "string"
                 }
             }
         },

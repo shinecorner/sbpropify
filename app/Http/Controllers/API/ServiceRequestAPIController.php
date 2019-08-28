@@ -1165,7 +1165,7 @@ class ServiceRequestAPIController extends AppBaseController
      * @return mixed
      *
      * @SWG\Delete(
-     *      path="/requests/{id}/tags/{pid}",
+     *      path="/requests/{id}/tags/{tid}",
      *      summary="Unassign single tag from the request",
      *      tags={"ServiceRequest", "Tag"},
      *      description="Unassign single tag from the request",
