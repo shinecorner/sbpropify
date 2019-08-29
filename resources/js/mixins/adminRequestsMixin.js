@@ -400,6 +400,7 @@ export default (config = {}) => {
                                 
                                 let tags = [];
                                 const tagsResp = await this.getTags({get_all: true, search: ''})
+                                console.log(tagsResp);
                                 if(tagsResp.success == true) 
                                 {
                                     tags = tagsResp.data;
@@ -410,13 +411,14 @@ export default (config = {}) => {
                                 
                                 this.model.keywords.forEach(keyword => {
                                     let tagObj = tags.find((item) => {
-                                        return item.name == keyword;
-                                      });
+                                        return item.name == keyword.name;
+                                    });
+                                    console.log(tagObj);
                                     if ( tagObj != null ) {
                                         existingsKeys.push(tagObj.id);
                                     }
                                     else {
-                                        newTags.push(keyword);
+                                        newTags.push(keyword.name);
                                     }
                                 })
                                 
@@ -427,6 +429,8 @@ export default (config = {}) => {
                                     tag_ids: existingsKeys,
                                     tags: newTags
                                 });
+
+                                console.log(requestTags);
 
                                 
 

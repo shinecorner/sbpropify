@@ -148,5 +148,12 @@ export default {
                 resolve(response.data);
             }).catch(({response: {data: err}}) => reject(err));
         });
+    },
+    deleteRequestTag({commit}, payload) {
+        return new Promise((resolve, reject) => {
+            axios.delete(`requests/${payload.id}/tags/${payload.tag.id}`).then((response) => {
+                resolve(response.data);
+            }).catch(({response: {data: err}}) => reject(err));
+        })
     }
 }

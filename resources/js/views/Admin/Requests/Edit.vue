@@ -603,7 +603,8 @@
             },
             
             handleClose(tag) {
-                this.model.keywords.splice(this.model.keywords.indexOf(tag), 1);
+                //this.model.keywords.splice(this.model.keywords.indexOf(tag), 1);
+                console.log(tag);
             },
 
             showInput() {
@@ -623,14 +624,27 @@
 
                 console.log(this.model.keywords);
                 if (inputValue) {
-                    
-                    if(this.model.keywords.indexOf(inputValue) != -1) {
-                        return;
+                    let newkeyword = {
+                        id: null,
+                        name: inputValue
                     }
-                    this.model.keywords.push(inputValue);
+                    console.log(newkeyword);
+                    const existing = this.model.keywords.filter(keyword => {
+                        if(keyword.name == newkeyword.name) 
+                        {
+                            return keyword;
+                        }
+                    })
+
+                    console.log(existing);
+
+                    if(existing.length == 0) {
+                        this.model.keywords.push(newkeyword);
+                    }
+                    console.log(this.model.keywords.length);
                     
                 }
-                // this.inputVisible = false;
+                this.inputVisible = false;
                 this.model.keyword = '';
             },
 
