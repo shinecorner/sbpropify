@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Building;
+use App\Models\District;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\PropertyManager;
@@ -45,6 +46,7 @@ class AppServiceProvider extends ServiceProvider
             'unit' => Unit::class,
             'user' => User::class,
             'post' => Post::class,
+            'district' => District::class,
             'product' => Product::class,
             'building' => Building::class,
             'templates' => Template::class,
