@@ -22,7 +22,10 @@
                         <el-col :span="3" class="request-tail">
                             {{ $t('models.request.last_updated') }}
                             <br>
-                            {{ item.updated_at }}
+                            <span v-if="updated_at.h>12">{{ item.created_by }}</span>
+                            <span v-else-if="updated_at.h">{{ updated_at.h }}h</span>
+                            <span v-else-if="updated_at.m">{{  updated_at.m }}m</span>
+                            <span v-else>ago</span>
                         </el-col>
                     </el-row>
                 </el-col>
@@ -136,6 +139,22 @@ export default {
                     label:'models.request.due_on',
                     date: this.item.due_date
                 };
+        },
+        updated_at() {
+            var currentDate = new Date();
+            var updated_date = new Date(
+                parseInt(this.item.created_by.substr(6,4)), 
+                parseInt(this.item.created_by.substr(3,2)) - 1, 
+                parseInt(this.item.created_by.substr(0,2)), 
+                parseInt(this.item.created_by.substr(11,2)), 
+                parseInt(this.item.created_by.substr(14,2)), 
+                parseInt(this.item.created_by.substr(17,2)), 
+            );
+            var minutes = Math.ceil((currentDate.getTime() - updated_date.getTime()) / 1000 / 60) ;
+            return {
+                h: Math.floor(minutes / 60),
+                m: Math.ceil(minutes % 60)
+            }
         }   
     },
     methods: {

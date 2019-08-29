@@ -228,8 +228,6 @@
                                 else
                                     unit.typeLabel = this.$t('models.unit.type.business');
                             })
-                        console.log(this.fetchAction);
-                        console.log(this.list);
                     } else {
                         this.list.push(...resp.data.data);
                     }
