@@ -238,7 +238,7 @@
                             }
                         }, {
                             icon: 'icon-user',
-                            title: this.$t('menu.users'),
+                            title: this.$t('menu.admins'),
                             permission: this.$permissions.list.user,
                             route: {
                                 name: 'adminUsers',
@@ -380,7 +380,7 @@
                             }
                         }, {
                             icon: 'icon-user',
-                            title: this.$t('menu.users'),
+                            title: this.$t('menu.admins'),
                             permission: this.$permissions.list.user,
                             route: {
                                 name: 'adminUsers'

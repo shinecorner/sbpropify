@@ -79,8 +79,8 @@
                     </p>
                 </el-col>
                 <el-col :span="3">
-                    <span>{{ $t(due) }}</span>
-                    <p>{{ item.due_date }}</p>
+                    <span>{{ $t(due.label) }}</span>
+                    <p>{{ due.date }}</p>
                 </el-col>
             </el-row>    
         </div>
@@ -117,10 +117,26 @@ export default {
     computed: {
         due() {
             var currentDate = new Date();
-            console.log(currentDate);
-            currentDate.
-            return 'models.request.due_in';
-        }
+
+            var updated = this.item.due_date.split('.');
+            var updated_date = new Date(parseInt(updated[2]), parseInt(updated[1])-1, parseInt(updated[0]));
+            var days = ( updated_date.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24 ;
+            if(days < 0)
+                return {
+                    label:'models.request.was_due_on',
+                    date: this.item.due_date
+                };
+            else if(days <= 30)
+                return {
+                    label:'models.request.due_in',
+                    date: `${Math.floor(days)}`
+                };
+            else
+                return {
+                    label:'models.request.due_on',
+                    date: this.item.due_date
+                };
+        }   
     },
     methods: {
         handleSelectionChanged(val) {

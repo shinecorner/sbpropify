@@ -87,6 +87,9 @@
                                         v-for="item in filter.data"/>
                                 </el-select>
                             </el-form-item>
+                             <el-form-item v-else-if="filter.type === filterTypes.language">
+                                <select-language :activeLanguage="this.language"/>
+                            </el-form-item>
                         </template>
 
                     </el-col>
@@ -287,6 +290,7 @@
     import RequestCount from 'components/RequestCount.vue'
     import tableAvatar from 'components/Avatar';
     import RequestDetailCard from 'components/RequestDetailCard';
+    import SelectLanguage from 'components/SelectLanguage';
 
     export default {
         name: 'ListTable',
@@ -294,7 +298,8 @@
             Avatar,
             RequestCount,
             'table-avatar': tableAvatar,
-            RequestDetailCard
+            RequestDetailCard,
+            SelectLanguage
         },
         props: {
             header: {
@@ -371,11 +376,13 @@
                     remoteSelect: 'remote-select',
                     text: 'text',
                     number: 'number',
-                    date: 'date'
+                    date: 'date',
+                    language: 'language'
                 },
                 filterModel: {},
                 uuid,
-                selectedItems: []
+                selectedItems: [],
+                language: 'en'
             }
         },
         computed: {

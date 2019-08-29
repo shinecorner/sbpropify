@@ -221,6 +221,15 @@
                     this.meta = _.omit(resp.data, 'data');
                     if (page === 1) {
                         this.list = resp.data.data;
+                        if(this.fetchAction == 'getUnits')
+                            this.list.map((unit) => {
+                                if(unit.type == 1)
+                                     unit.typeLabel = this.$t('models.unit.type.apartment');
+                                else
+                                    unit.typeLabel = this.$t('models.unit.type.business');
+                            })
+                        console.log(this.fetchAction);
+                        console.log(this.list);
                     } else {
                         this.list.push(...resp.data.data);
                     }
