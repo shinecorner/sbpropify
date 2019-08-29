@@ -68,7 +68,7 @@
                 </el-col>
                 <el-col :span="6">
                     <span>{{ $t('models.request.created_by') }}</span>
-                    <p>{{ item.tenant_name }} , {{ item.created_at }}</p>
+                    <p>{{ item.tenant_name }}, {{ item.created_at }}</p>
                 </el-col> 
                 <el-col :span="6">
                     <span>{{ $t('models.request.priority.label') }}</span>
@@ -79,6 +79,8 @@
                     </p>
                 </el-col>
                 <el-col :span="3">
+                    <span>{{ $t(due.label) }}</span>
+                    <p>{{ due.date }}</p>
                 </el-col>
             </el-row>    
         </div>
@@ -112,6 +114,30 @@ export default {
         RequestCount,
         Avatar
     },
+    computed: {
+        due() {
+            var currentDate = new Date();
+
+            var updated = this.item.due_date.split('.');
+            var updated_date = new Date(parseInt(updated[2]), parseInt(updated[1])-1, parseInt(updated[0]));
+            var days = ( updated_date.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24 ;
+            if(days < 0)
+                return {
+                    label:'models.request.was_due_on',
+                    date: this.item.due_date
+                };
+            else if(days <= 30)
+                return {
+                    label:'models.request.due_in',
+                    date: `${Math.floor(days)}`
+                };
+            else
+                return {
+                    label:'models.request.due_on',
+                    date: this.item.due_date
+                };
+        }   
+    },
     methods: {
         handleSelectionChanged(val) {
             this.$emit('selectionChanged', this.item);
@@ -138,7 +164,7 @@ export default {
     .request-card {
         text-align: left;
         background-color: white;
-        border-radius: 10px;
+        border-radius: 5px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 
                     0 1px 2px rgba(0,0,0,0.24);
         margin: 4px;

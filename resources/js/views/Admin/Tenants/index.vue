@@ -253,6 +253,11 @@
                         key: 'status',
                         data: this.prepareFilters('status'),
                     },
+                    {
+                        name: this.$t('models.tenant.language'),
+                        type: 'language',
+                        key: 'language'
+                    }
                 ]
             }
         }

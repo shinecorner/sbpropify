@@ -588,6 +588,16 @@ return [
       "priority_changed" => "Priorité modifiée",
       'assignment'=> 'Affectation de gestionnaires/fournisseurs de services',
       'last_updated' => 'Last updated',
+      'due_in' => 'Due in',
+      'was_due_on' => 'Was due on',
+      'due_on' => 'Due on',
+      'media' => 
+      [
+        "added" => "Document ajouté",
+        "removed" => "Suppression du support",
+        "deleted" => "Médias supprimés",
+        "delete" => "Supprimer",
+      ],
       'priority' => 
       [
         "label" => "Priorité",

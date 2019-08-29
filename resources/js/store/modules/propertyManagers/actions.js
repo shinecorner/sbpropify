@@ -21,7 +21,6 @@ export default {
                             return manager
                         });
                     }
-
                     resolve(r)
                 })
                 .catch(({response: {data: err}}) => reject(err)));

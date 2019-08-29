@@ -13,7 +13,7 @@
                 </el-button>
             </template>
         </heading>
-        <list-table
+        <request-list-table
             :fetchMore="fetchMore"
             :filters="filters"
             :filtersHeader="filtersHeader"
@@ -26,7 +26,7 @@
             :withCheckSelection="false"
             @selectionChanged="selectionChanged"
         >
-        </list-table>
+        </request-list-table>
     </div>
 </template>
 
@@ -38,6 +38,7 @@
     import getFilterPropertyManager from 'mixins/methods/getFilterPropertyManager';
     import PrepareCategories from 'mixins/methods/prepareCategories';
     import getFilterDistricts from 'mixins/methods/getFilterDistricts';
+    import RequestListTable from 'components/RequestListTable';
 
 
     const mixin = ListTableMixin({
@@ -55,7 +56,8 @@
         name: 'AdminRequests',
         mixins: [mixin, getFilterPropertyManager, PrepareCategories, getFilterDistricts],
         components: {
-            Heading
+            Heading,
+            RequestListTable
         },
         data() {
             return {
@@ -130,13 +132,13 @@
                     {
                         name: this.$t('filters.propertyManagers'),
                         type: 'select',
-                        key: 'assignee_id',
+                        key: 'property_manager_id',
                         data: this.propertyManagers,
                     },
                     {
                         name: this.$t('filters.services'),
                         type: 'select',
-                        key: 'service_id',
+                        key: 'service_provider_id',
                         data: this.services,
                     },
                     {

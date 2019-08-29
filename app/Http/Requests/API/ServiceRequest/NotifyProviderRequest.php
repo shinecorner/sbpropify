@@ -24,8 +24,8 @@ class NotifyProviderRequest extends APIRequest
     public function rules()
     {
         return [
-            'provider_id' => 'required|exists:service_providers,id',
-            'assignee_ids' => 'array',
+//            'provider_id' => 'required|exists:service_providers,id',
+  //          'assignee_ids' => 'array',
             'title' => 'string|required',
             'body' => 'string|required',
             'to' => 'nullable|email',
