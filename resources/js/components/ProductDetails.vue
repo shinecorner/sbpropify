@@ -55,7 +55,7 @@
         </el-row>
         <el-row>
             <el-col :span="24">
-                <p class="product-label">{{$t('models.product.content')}}</p>
+                <p class="product-label">{{$t('general.content')}}</p>
                 <p>
                     {{product.content}}
                 </p>

@@ -324,12 +324,10 @@ return [
 	'address' =>
 		[
 			'add' => 'Adresse hinzufügen',			
-			'name' => 'Address',					
-			'city' => 'Ort',
+			'name' => 'Address',								
 			'country' => 'Kanton',
 			'street' => 'Strasse',
-			'street_nr' => 'Hausnummer',
-			'zip' => 'Postleitzahl',
+			'street_nr' => 'Hausnummer',			
 			'not_found' => 'Adresse nicht gefunden',
 			'saved' => 'Adresse gespeichert',
 			'state' =>
@@ -879,9 +877,7 @@ return [
 			'title' => 'Anrede',
 			'lastName' => 'Name',
 			'firstName' => 'Vorname',
-			'address' => 'Strasse + Nr',
-			'city' => 'Ort',
-			'zip' => 'Postleitzahl',						
+			'address' => 'Strasse + Nr',					
 			'save' => 'Anfragen einsenden',
 			'success' => 'Ihr Anfrage wurde erfolgreich an Cleanify übertragen.',
 			'terms_and_conditions' => 'Accept Terms & Conditions',

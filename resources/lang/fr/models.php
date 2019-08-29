@@ -325,11 +325,9 @@ return [
     [
       "add" => "Ajouter une adresse",
       "name" => "Adresse",
-      "city" => "Ville",
       "country" => "Pays",
       "street" => "Rue",
       "street_nr" => "Rue Nr..",
-      "zip" => "Zip",
       "not_found" => "Adresse non trouvée",
       "saved" => "Adresse enregistrée",
       'state' => 
@@ -880,8 +878,6 @@ return [
       "lastName" => "Nom de famille",
       "firstName" => "Prénom",
       "address" => "Adresse",
-      "city" => "Ville",
-      "zip" => "Zip",         
       "save" => "Envoyer demande",
       "success" => "Nettoyer la demande envoyée avec succès",
       "terms_and_conditions" => "Accepter les conditions générales de vente",

@@ -194,7 +194,7 @@
                                 }}
                             </el-col>
 
-                            <el-col :sm="8" :xs="12">{{$t('models.address.zip')}}:</el-col>
+                            <el-col :sm="8" :xs="12">{{$t('general.zip')}}:</el-col>
                             <el-col :sm="16" :xs="12" class="text-secondary">
                                 {{
                                 buildings.filter(building => building.id==model.building_id).length>0 ?
@@ -203,7 +203,7 @@
                                 }}
                             </el-col>
 
-                            <el-col :sm="8" :xs="12">{{$t('models.address.city')}}:</el-col>
+                            <el-col :sm="8" :xs="12">{{$t('general.city')}}:</el-col>
                             <el-col :sm="16" :xs="12" class="text-secondary">
                                 {{
                                 buildings.filter(building => building.id==model.building_id).length>0 ?

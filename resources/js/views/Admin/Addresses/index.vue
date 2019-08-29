@@ -38,7 +38,7 @@
         data() {
             return {
                 header: [{
-                    label: this.$t('models.address.city'),
+                    label: this.$t('general.city'),
                     prop: 'city'
                 }, {
                     label: this.$t('models.address.country'),
@@ -53,7 +53,7 @@
                     label: this.$t('models.address.street_nr'),
                     prop: 'street_nr'
                 }, {
-                    label: this.$t('models.address.zip'),
+                    label: this.$t('general.zip'),
                     prop: 'zip'
                 }, {
                     width: 80,

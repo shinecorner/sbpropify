@@ -58,7 +58,7 @@
         </el-row>
         <el-row>
             <el-col :span="24">
-                <p class="post-label">{{$t('models.post.content')}}</p>
+                <p class="post-label">{{$t('general.content')}}</p>
                 <p>
                     {{post.content}}
                 </p>

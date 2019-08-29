@@ -43,13 +43,13 @@
                             <el-col :md="12">
                                 <el-row :gutter="10">
                                     <el-col :md="8">
-                                        <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip"
+                                        <el-form-item :label="$t('general.zip')" :rules="validationRules.zip"
                                                       prop="address.zip">
                                             <el-input type="text" v-model="model.address.zip"></el-input>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :md="16">
-                                        <el-form-item :label="$t('models.address.city')" :rules="validationRules.city"
+                                        <el-form-item :label="$t('general.city')" :rules="validationRules.city"
                                                       prop="address.city">
                                             <el-input type="text" v-model="model.address.city"></el-input>
                                         </el-form-item>

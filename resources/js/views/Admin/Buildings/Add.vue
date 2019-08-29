@@ -25,11 +25,11 @@
                                   style="max-width: 512px;">
                         <el-input type="number" v-model="model.floor_nr"></el-input>
                     </el-form-item>
-                    <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip" prop="zip"
+                    <el-form-item :label="$t('general.zip')" :rules="validationRules.zip" prop="zip"
                                   style="max-width: 512px;">
                         <el-input type="text" v-model="model.zip"></el-input>
                     </el-form-item>
-                    <el-form-item :label="$t('models.address.city')" :rules="validationRules.city" prop="city"
+                    <el-form-item :label="$t('general.city')" :rules="validationRules.city" prop="city"
                                   style="max-width: 512px;">
                         <el-input type="text" v-model="model.city"></el-input>
                     </el-form-item>

@@ -325,11 +325,9 @@ return [
     [
       "add" => "Aggiungi indirizzo",
       "name" => "Indirizzo",
-      "city" => "La citta'",
       "country" => "Paese",
       "street" => "Strada",
       "street_nr" => "Via Nr...",
-      "zip" => "Zip",
       "not_found" => "Indirizzo non trovato",
       "saved" => "Indirizzo salvato",
       'state' => 
@@ -880,8 +878,6 @@ return [
       "lastName" => "Cognome",
       "firstName" => "Nome",
       "address" => "Indirizzo",
-      "city" => "La citta'",
-      "zip" => "La cerniera",      
       "save" => "Invia richiesta",
       "success" => "Pulire la richiesta inviata con successo",
       "terms_and_conditions" => "Accettare i termini e le condizioni",

@@ -45,14 +45,14 @@
                             </el-row>
                             <el-row :gutter="20">
                                 <el-col :md="4">
-                                    <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip"
+                                    <el-form-item :label="$t('general.zip')" :rules="validationRules.zip"
                                                   prop="zip"
                                                   style="max-width: 512px;">
                                         <el-input type="text" v-model="model.zip"></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="8">
-                                    <el-form-item :label="$t('models.address.city')" :rules="validationRules.city"
+                                    <el-form-item :label="$t('general.city')" :rules="validationRules.city"
                                                   prop="city"
                                                   style="max-width: 512px;">
                                         <el-input type="text" v-model="model.city"></el-input>

@@ -324,12 +324,10 @@ return [
     'address' => 
     [
       'add' => 'Add address',
-      'name' => 'Address',
-      'city' => 'City',
+      'name' => 'Address',      
       'country' => 'Country',
       'street' => 'Street',
       'street_nr' => 'Street Nr.',
-      'zip' => 'Zip',
       'not_found' => 'Address not found',
       'saved' => 'Address saved',
       'state' => 
@@ -879,9 +877,7 @@ return [
       'title' => 'Title',
       'lastName' => 'Last name',
       'firstName' => 'First name',
-      'address' => 'Address',
-      'city' => 'City',
-      'zip' => 'Zip',      
+      'address' => 'Address', 
       'save' => 'Send request',
       'success' => 'Cleanify request sent successfully',
       'terms_and_conditions' => 'Accept Terms & Conditions',

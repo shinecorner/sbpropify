@@ -68,7 +68,7 @@
                                             prop="title">
                                     <el-input type="text" v-model="model.title"></el-input>
                                 </el-form-item>
-                                <el-form-item :label="$t('models.post.content')" :rules="validationRules.content"
+                                <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                             prop="content">
                                     <el-input
                                         :autosize="{minRows: 5}"
@@ -90,7 +90,7 @@
                         </el-tabs>
                         
                         <template v-if="!model.pinned">
-                            <el-form-item :label="$t('models.post.content')" :rules="validationRules.content"
+                            <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                         prop="content">
                                 <el-input
                                     :autosize="{minRows: 5}"

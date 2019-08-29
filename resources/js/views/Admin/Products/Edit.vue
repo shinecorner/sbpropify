@@ -71,7 +71,7 @@
                                 </el-row>
                                 <el-row>
                                     <el-col>
-                                        <el-form-item :label="$t('models.product.content')" :rules="validationRules.content"
+                                        <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                                     prop="content">
                                             <el-input
                                                 :autosize="{minRows: 5}"
