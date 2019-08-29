@@ -130,13 +130,13 @@
                     {
                         name: this.$t('filters.propertyManagers'),
                         type: 'select',
-                        key: 'assignee_id',
+                        key: 'property_manager_id',
                         data: this.propertyManagers,
                     },
                     {
                         name: this.$t('filters.services'),
                         type: 'select',
-                        key: 'service_id',
+                        key: 'service_provider_id',
                         data: this.services,
                     },
                     {

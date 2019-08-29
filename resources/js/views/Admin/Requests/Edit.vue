@@ -143,7 +143,8 @@
                                         closable
                                         :disable-transitions="false"
                                         @close="handleClose(tag)">
-                                            {{tag.name}}
+                                            <span v-if="tag.name">{{tag.name}}</span>
+                                            <span v-else>{{tag}}</span>
                                         </el-tag>
                                         <el-input
                                             class="input-new-tag"
@@ -620,6 +621,7 @@
                 //     this.model.keywords.push(inputValue);
                 // }
 
+                console.log(this.model.keywords);
                 if (inputValue) {
                     
                     if(this.model.keywords.indexOf(inputValue) != -1) {
