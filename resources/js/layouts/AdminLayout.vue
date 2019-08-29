@@ -700,6 +700,8 @@
         },
 
         mounted(){
+            document.getElementById('viewport').setAttribute('content','width=920, initial-scale=1.0');
+
             this.init();
 
             EventBus.$on('profile-username-change', () => {
