@@ -1,6 +1,6 @@
 <template>
     <div class="buildings-edit ">
-        <heading :title="$t('general.actions.edit_title')" icon="icon-commerical-building" shadow="heavy">
+        <heading :title="$t('models.building.edit_title')" icon="icon-commerical-building" shadow="heavy">
             <template slot="description" v-if="model.building_format">
                 <div class="subtitle">{{`${model.building_format} > ${model.name}`}}</div>
             </template>

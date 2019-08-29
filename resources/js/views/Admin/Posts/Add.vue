@@ -130,12 +130,12 @@
                     </card>
                     <template v-if="model.pinned">
 
-                        <card :loading="loading" class="mt15" :header="$t('general.placeholders.search_provider')">
+                        <card :loading="loading" class="mt15" :header="$t('models.post.placeholders.search_provider')">
                             <el-row :gutter="10">
                                 <el-col :lg="24" :xl="24">
                                     <el-select
                                         :loading="remoteLoading"
-                                        :placeholder="$t('general.placeholders.search_provider')"
+                                        :placeholder="$t('models.post.placeholders.search_provider')"
                                         :remote-method="remoteSearchProviders"
                                         class="custom-remote-select"
                                         filterable

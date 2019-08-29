@@ -232,7 +232,7 @@ return [
     'week' => 'Settimana',
     'peek_week' => 'Scegli una settimana',
   ],
-  'tenant' => [
+  'tenant_detail' => [
     'activate_required_credentials' => 'codice, e-mail, password richiesta',
     'incorrect_email' => 'Indirizzo e-mail errato',
     'user_not_tenant' => 'Questo utente non è inquilino',

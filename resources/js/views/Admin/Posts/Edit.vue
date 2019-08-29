@@ -1,6 +1,6 @@
 <template>
     <div id="post-edit-view" class="units-edit mb20">
-        <heading :title="$t('general.actions.edit_title')" icon="icon-megaphone-1" shadow="heavy" style="margin-bottom: 20px;">
+        <heading :title="$t('models.post.edit_title')" icon="icon-megaphone-1" shadow="heavy" style="margin-bottom: 20px;">
             <edit-actions :saveAction="submit" :deleteAction="deletePost" route="adminPosts"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
@@ -343,7 +343,7 @@
                             <el-col :lg="18" :xl="20">
                                 <el-select
                                     :loading="remoteLoading"
-                                    :placeholder="$t('general.placeholders.search_provider')"
+                                    :placeholder="$t('models.post.placeholders.search_provider')"
                                     :remote-method="remoteSearchProviders"
                                     class="custom-remote-select"
                                     filterable

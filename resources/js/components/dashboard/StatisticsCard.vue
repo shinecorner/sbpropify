@@ -4,7 +4,7 @@
             <el-card class="box-card-count" style="margin-bottom: 17px;">
                 <div class="total-wrapper">
                     <div class="total-box-card-header">
-                        <span>{{ $t('general.requeststatuses.total') }}</span>
+                        <span>{{ $t('models.building.requestStatuses.total') }}</span>
                     </div>
                     <div class="total-box-card-body">
                         <div class="box-card-count">

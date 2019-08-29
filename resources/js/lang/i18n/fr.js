@@ -339,13 +339,7 @@ export default {
                 "sunday": "dimanche"
             },
             "user": "Utilisateur",
-            "tenant": {
-                "activate_required_credentials": "code, email, mot de passe requis",
-                "incorrect_email": "Adresse e-mail incorrecte",
-                "user_not_tenant": "Cet utilisateur n'est pas locataire",
-                "invalid_code": "Le code n'est pas valide",
-                "not_active_tenant": "Le locataire n'est pas actif et ne peut pas changer de mot de passe"
-            },
+            "tenant": "Locataire",
             "tenants": "Locataires",
             "date": "Date",
             "title": "intitulé",

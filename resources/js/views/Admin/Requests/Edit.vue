@@ -1,6 +1,6 @@
 <template>
     <div class="services-edit mb20" v-if="constants">
-        <heading :title="$t('general.actions.edit_title')" icon="icon-chat-empty" shadow="heavy">
+        <heading :title="$t('models.request.edit_title')" icon="icon-chat-empty" shadow="heavy">
             <template slot="description" v-if="model.service_request_format">
                 <div class="subtitle">{{model.service_request_format}}</div>
             </template>
