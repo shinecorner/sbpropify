@@ -626,6 +626,7 @@
                         return;
                     }
                     this.model.keywords.push(inputValue);
+                    
                 }
                 // this.inputVisible = false;
                 this.model.keyword = '';
@@ -695,10 +696,14 @@
         padding: 2%;
         margin-left: 0px !important;
         margin-right: 0px !important;
+        margin-bottom: 15px;
         .el-form-item {
             margin-bottom: 0px !important;
             .el-form-item__content {
                 line-height: 28px !important;
+                strong {
+                    color: gray;
+                }
             }
         }
         .summary-item {
