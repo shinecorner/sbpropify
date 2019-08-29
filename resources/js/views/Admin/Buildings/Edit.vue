@@ -308,8 +308,7 @@
                 activeRightTab: 'tenants',
                 tenantColumns: [{
                     type: 'requestTenantAvatar',
-                    width: 75,
-                    label: this.$t('models.request.tenant')
+                    width: 50,
                 }, {
                     prop: 'name',
                     label: this.$t('models.tenant.name')
@@ -320,17 +319,15 @@
                     label: this.$t('models.tenant.status.label')
                 }],
                 tenantActions: [{
-                    width: '90px',
                     buttons: [{
-                        type: 'success',
                         title: this.$t('models.tenant.view'),
-                        onClick: this.tenantEditView
+                        onClick: this.tenantEditView,
+                        icon: 'el-icon-user'
                     }]
                 }],
                 managerColumns: [{
                     type: 'requestTenantAvatar',
-                    width: 80,
-                    label: this.$t('general.roles.manager')
+                    width: 50,
                 }, {
                     prop: 'name',
                     label: this.$t('models.propertyManager.name')
