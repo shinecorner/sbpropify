@@ -433,6 +433,7 @@ class ServiceProviderAPIController extends AppBaseController
         }
 
         try {
+            // @TODO fix DRY maybe using deleted model event
             if ($serviceProvider->user()->exists()) {
                 $serviceProvider->user->delete();
             }
@@ -450,7 +451,7 @@ class ServiceProviderAPIController extends AppBaseController
         $ids = $request->get('ids');
         try{
             foreach($ids as $id){
-                $serviceProvider = $this->serviceProviderRepository->findWithoutFail($id);
+                $serviceProvider = $this->serviceProviderRepository->findWithoutFail($id); // @TODO bug source code
                 if ($serviceProvider->user()->exists()) {
                     $serviceProvider->user->delete();
                 }
