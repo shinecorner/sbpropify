@@ -146,13 +146,7 @@ export default {
                 "sunday": "Sonntag"
             },
             "user": "Benutzer",
-            "tenant": {
-                "activate_required_credentials": "Code, E-Mail, Passwort erforderlich",
-                "incorrect_email": "Falsche E-Mail-Adresse",
-                "user_not_tenant": "Dieser Benutzer ist nicht Mieter.",
-                "invalid_code": "Der Code ist ungültig",
-                "not_active_tenant": "Der Mieter ist nicht aktiv und kann das Passwort nicht ändern."
-            },
+            "tenant": "Mieter",
             "tenants": "Mieterinnen",
             "date": "Datum",
             "title": "Titel",
@@ -329,6 +323,13 @@ export default {
                 "all_time": "Ingesamt",
                 "week": "Woche",
                 "peek_week": "Wählen wählen"
+            },
+            "tenant_detail": {
+                "activate_required_credentials": "Code, E-Mail, Passwort erforderlich",
+                "incorrect_email": "Falsche E-Mail-Adresse",
+                "user_not_tenant": "Dieser Benutzer ist nicht Mieter.",
+                "invalid_code": "Der Code ist ungültig",
+                "not_active_tenant": "Der Mieter ist nicht aktiv und kann das Passwort nicht ändern."
             },
             "page_not_found": {
                 "title": "Hmm… hier stimmt etwas nicht.",

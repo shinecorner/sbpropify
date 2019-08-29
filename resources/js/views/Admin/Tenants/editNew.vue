@@ -1,6 +1,6 @@
 <template>
     <div class="tenants-edit mb20 tenants-edit-new">
-        <heading :title="$t('general.actions.edit_title')" icon="icon-group">
+        <heading :title="$t('models.tenant.edit_title')" icon="icon-group">
             <template slot="description" v-if="model.tenant_format">
                 <div class="subtitle">{{model.tenant_format}}</div>
             </template>

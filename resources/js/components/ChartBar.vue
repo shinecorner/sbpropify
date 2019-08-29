@@ -29,7 +29,7 @@ export default {
         }
       },
       series: [{
-        name: this.$t('general.requeststatuses.total'),
+        name: this.$t('models.building.requestStatuses.total'),
         data: this.yData
       }]
     }

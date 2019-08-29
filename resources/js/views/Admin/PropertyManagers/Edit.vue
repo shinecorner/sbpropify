@@ -1,6 +1,6 @@
 <template>
     <div class="services-edit">
-        <heading :title="$t('general.actions.edit_title')" icon="icon-users" shadow="heavy">
+        <heading :title="$t('models.propertyManager.edit_title')" icon="icon-users" shadow="heavy">
             <template slot="description" v-if="model.property_manager_format">
                 <div class="subtitle">{{model.property_manager_format}}</div>
             </template>
