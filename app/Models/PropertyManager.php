@@ -67,7 +67,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      )
  * )
  */
-class PropertyManager extends Model
+class PropertyManager extends AuditableModel
 {
     use SoftDeletes, UniqueIDFormat, RequestRelation, BuildingRelation;
 

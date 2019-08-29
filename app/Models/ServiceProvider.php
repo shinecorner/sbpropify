@@ -63,7 +63,7 @@ use Illuminate\Notifications\Notifiable;
  *      )
  * )
  */
-class ServiceProvider extends Model
+class ServiceProvider extends AuditableModel
 {
     use Notifiable;
     use SoftDeletes;
