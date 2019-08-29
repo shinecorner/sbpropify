@@ -58,9 +58,9 @@
 </template>
 <script>
     export default {
-        mounted() {
+        beforeCreate() {
             document.getElementById('viewport').setAttribute('content', 'width=device-width, initial-scale=1.0');
-        }
+        },
     }
 </script>
 <style lang="scss" scoped>

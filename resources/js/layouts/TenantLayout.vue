@@ -175,8 +175,10 @@ export default {
             }]
         }
     },
+    beforeCreate() {
+        document.getElementById('viewport').setAttribute('content', 'width=device-width, initial-scale=1.0');
+    },
     async mounted () {
-        document.getElementById('viewport').setAttribute('content','width=device-width, initial-scale=1.0');
 
         try {
             this.loading = true

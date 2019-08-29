@@ -24,9 +24,9 @@ export default {
             backImage: require('img/login2-bg.jpg'),
         }
     },
-    mounted() {
+    beforeCreate() {
         document.getElementById('viewport').setAttribute('content', 'width=device-width, initial-scale=1.0');
-    }
+    },
 }
 </script>
 <style lang="scss" scoped>
