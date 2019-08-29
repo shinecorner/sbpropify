@@ -1,5 +1,11 @@
 <template>
-    <el-select id="languageform" :class="activeLanguage == '' || activeLanguage == undefined ? '' : ' selected'" style="display: block" :value="activeLanguage" @input="$emit('update:activeLanguage', $event)" :placeholder="$t(`general.placeholders.select`)">
+    <el-select
+        id="languageform" 
+        :class="activeLanguage == '' || activeLanguage == undefined ? '' : ' selected'"
+        style="display: block" :value="activeLanguage" @input="$emit('update:activeLanguage', $event)"
+        :placeholder="$t(`general.placeholders.select`)"
+        @change="$emit('change')"
+    >
 
         <template slot="prefix">
             <span id="languageflag" v-for="(language, index) in activeLanguages" :class="language.flag" :key="index"></span>

@@ -13,7 +13,7 @@ export default [{
         component: () =>
             import ( /* webpackChunkName: "admin/serviceRequests/index" */ 'views/Admin/Requests'),
         props: {
-            title: 'Requests'
+            // title: 'Requests'
         },
         meta: {
             title: 'Requests',
@@ -27,7 +27,7 @@ export default [{
         component: () =>
             import ( /* webpackChunkName: "admin/serviceRequests/index" */ 'views/Admin/Requests'),
         props: {
-            title: 'My Requests'
+            // title: 'My Requests'
         },
         meta: {
             title: 'My Requests',
@@ -41,7 +41,7 @@ export default [{
         component: () =>
             import ( /* webpackChunkName: "admin/serviceRequests/index" */ 'views/Admin/Requests'),
         props: {
-            title: 'My pending requests'
+            // title: 'My pending requests'
         },
         meta: {
             title: 'My Requests',
@@ -55,7 +55,7 @@ export default [{
         component: () =>
             import ( /* webpackChunkName: "admin/serviceRequests/index" */ 'views/Admin/Requests'),
         props: {
-            title: 'Not Assigned'
+            // title: 'Not Assigned'
         },
         meta: {
             title: 'Not Assigned',
@@ -69,7 +69,7 @@ export default [{
         component: () =>
             import ( /* webpackChunkName: "admin/serviceRequests/index" */ 'views/Admin/Requests'),
         props: {
-            title: 'All pending requests'
+            // title: 'All pending requests'
         },
         meta: {
             title: 'All pending requests',
@@ -83,7 +83,7 @@ export default [{
         component: () =>
             import ( /* webpackChunkName: "admin/serviceRequests/add" */ 'views/Admin/Requests/Add'),
         props: {
-            title: 'Add request'
+            // title: 'Add request'
         },
         meta: {
             title: 'Add Request',
@@ -97,7 +97,7 @@ export default [{
         component: () =>
             import ( /* webpackChunkName: "admin/serviceRequests/activity" */ 'views/Admin/Requests/Activity'),
         props: {
-            title: 'Activity requests'
+            // title: 'Activity requests'
         },
         meta: {
             title: 'Activity requests',
@@ -110,7 +110,7 @@ export default [{
         component: () =>
             import ( /* webpackChunkName: "admin/serviceRequests/edit" */ 'views/Admin/Requests/Edit'),
         props: {
-            title: 'Edit request'
+            // title: 'Edit request'
         },
         meta: {
             title: 'Edit Request',

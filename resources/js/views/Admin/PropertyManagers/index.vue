@@ -158,6 +158,11 @@
                         type: 'select',
                         key: 'building_id',
                         data: this.buildings,
+                    },
+                    {
+                        name: this.$t('models.tenant.language'),
+                        type: 'language',
+                        key: 'language'
                     }
                 ];
             }

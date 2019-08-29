@@ -55,7 +55,7 @@ trait RequestRelation
         }
 
         if (key_exists('pending_requests_count', $attributes)) {
-            $statusCounts['pending_requests_count'] = $this->solved_requests_count;
+            $statusCounts['pending_requests_count'] = $this->pending_requests_count;
         }
 
         return $statusCounts;

@@ -59,26 +59,39 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
-                        <el-row>
-                            <el-col>
-                                <el-form-item :label="$t('models.product.product_title')" :rules="validationRules.title"
-                                              prop="title">
-                                    <el-input type="text" v-model="model.title"/>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <el-col>
-                                <el-form-item :label="$t('models.product.content')" :rules="validationRules.content"
-                                              prop="content">
-                                    <el-input
-                                        :autosize="{minRows: 5}"
-                                        type="textarea"
-                                        v-model="model.content">
-                                    </el-input>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
+                        <el-tabs type="card" @tab-click="handleTabClick" v-model="activeName">
+                            <el-tab-pane :label="$t('menu.requests')" name="description">    
+                                <el-row>
+                                    <el-col>
+                                        <el-form-item :label="$t('models.product.product_title')" :rules="validationRules.title"
+                                                    prop="title">
+                                            <el-input type="text" v-model="model.title"/>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col>
+                                        <el-form-item :label="$t('models.product.content')" :rules="validationRules.content"
+                                                    prop="content">
+                                            <el-input
+                                                :autosize="{minRows: 5}"
+                                                type="textarea"
+                                                v-model="model.content">
+                                            </el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                            </el-tab-pane>
+                            <el-tab-pane :label="$t('models.request.images')" name="image">
+                                <card :loading="loading">
+                                    <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
+                                    <div class="mt15">
+                                        <request-media :data="[...model.media, ...media]" @deleteMedia="deleteMedia"
+                                                                    v-if="media.length || (model.media && model.media.length)"></request-media>
+                                    </div>
+                                </card>
+                            </el-tab-pane>
+                        </el-tabs>                    
                     </el-form>
                 </card>
             </el-col>
@@ -174,13 +187,6 @@
                         </el-col>-->
                     </el-row> 
                 </card>
-                <card :loading="loading" :header="$t('models.request.images')">
-                    <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
-                    <div class="mt15">
-                        <request-media :data="[...model.media, ...media]" @deleteMedia="deleteMedia"
-                                                       v-if="media.length || (model.media && model.media.length)"></request-media>
-                    </div>
-                </card>
                 <card class="mt15" v-if="model.id" :header="$t('models.product.comments')">
                     <chat :id="model.id" type="product"/>
                 </card>
@@ -205,10 +211,18 @@
             EditActions,
             Avatar
         },
+        data() {
+            return {
+                activeName: 'description'
+            }
+        },
         methods: {            
             ...mapActions([
                 "deleteProduct"
-            ]),
+            ]), 
+            handleClick(tab, event) {
+                console.log(tab, event);
+            }
         }
     }
 </script>

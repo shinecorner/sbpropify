@@ -766,6 +766,9 @@ return [
 			'priority_changed' => 'Priorität wurde geändert',
 			'assignment'=> 'Zugewiesene Personen/Firmen',
 			'last_updated' => 'Last updated',
+			'due_in' => 'Due in',
+			'was_due_on' => 'Was due on',
+			'due_on' => 'Due on',
 			'media' =>
 				[
 					'added' => 'Mediendatei hinzugefügt',
