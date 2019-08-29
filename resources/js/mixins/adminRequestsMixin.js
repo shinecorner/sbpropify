@@ -407,7 +407,7 @@ export default (config = {}) => {
 
                                 let existingsKeys = [];
                                 let newTags = [];
-                                console.log('tags', tags);
+                                
                                 this.model.keywords.forEach(keyword => {
                                     let tagObj = tags.find((item) => {
                                         return item.name == keyword;
@@ -419,7 +419,7 @@ export default (config = {}) => {
                                         newTags.push(keyword);
                                     }
                                 })
-                                console.log('keys', existingsKeys, newTags);
+                                
 
                                 // /requests/{id}/tags
                                 const requestTags = await this.createRequestTags({
@@ -428,7 +428,7 @@ export default (config = {}) => {
                                     tags: newTags
                                 });
 
-                                console.log(requestTags);
+                                
 
                                 try {
                                     await this.uploadNewMedia(params.id);
@@ -488,7 +488,7 @@ export default (config = {}) => {
                     });
 
                     const tags = await this.getRequestTags({id: this.$route.params.id});
-                    console.log(tags);
+                    
                     this.$set(this.model, 'keywords', tags.data.data);
 
                     this.first_layout_subcategories = initialcategories.filter(category => {
