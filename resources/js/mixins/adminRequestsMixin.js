@@ -365,8 +365,6 @@ export default (config = {}) => {
                                 return manager
                             });
                         }
-
-                        console.log(resp);
                         
                         this.showfirstlayout = resp.data.category.parent_id == 1 ? true : false;
                         
@@ -381,12 +379,10 @@ export default (config = {}) => {
                         this.model = Object.assign({}, this.model, data);
                         if(data.category.parent_id == null) {
                             this.$set(this.model, 'category_id', data.category.id);
-                            console.log(this.model.category_id);
                         }
                         else {
                             this.$set(this.model, 'category_id', data.category.parent_id);
                             this.$set(this.model, 'defect', data.category.id);
-                            console.log(this.model.defect);
                         }
                         this.$set(this.model, 'created_by', data.created_by);
                         this.$set(this.model, 'building', data.tenant.building.name);
@@ -410,11 +406,10 @@ export default (config = {}) => {
 
                                 this.loading.state = true;
                                 let {service_providers, property_managers, ...params} = this.model;
-                                console.log(this.model.category_id);
-                                //console.log(this.model.defect);
+                                
                                 if(params.category_id == 1)
                                     params.category_id = this.model.defect;
-                                console.log(this.model.category_id);
+        
                                 
                                 // const resptags = await this.createRequestTag({
                                 //     id: this.$route.params.id,
@@ -423,13 +418,13 @@ export default (config = {}) => {
                                 
                                 let tags = [];
                                 const tagsResp = await this.getTags({get_all: true, search: ''});
-                                console.log(tagsResp);
-                                console.log(this.model.keywords);
+                                
+                                
                                 this.model.keywords = this.model.keywords.map(keyword => ({
                                     id: null,
                                     name: keyword
                                 }));
-                                console.log(this.model.keywords);
+                                
                             
                                 if(tagsResp.success == true) 
                                 {
@@ -443,7 +438,7 @@ export default (config = {}) => {
                                     let tagObj = tags.find((item) => {
                                         return item.name == keyword.name;
                                     });
-                                    console.log(tagObj);
+                                    
                                     if ( tagObj != null ) {
                                         existingsKeys.push(tagObj.id);
                                     }
@@ -460,13 +455,13 @@ export default (config = {}) => {
                                     tags: newTags
                                 });
 
-                                console.log(requestTags);
+                                
 
                                 try {
                                     await this.uploadNewMedia(params.id);
-                                    console.log(params);
+                                    
                                     const resp = await this.updateRequest(params);
-                                    console.log(resp.data);
+                                    
                                     
                                     this.media = [];
                                     this.$set(this.model, 'service_providers', resp.data.service_providers);
@@ -522,12 +517,12 @@ export default (config = {}) => {
                     });
 
                     const tags = await this.getRequestTags({id: this.$route.params.id});
-                    console.log(tags);
+                    
                     this.tags = tags.data.data.map(item => ({
                         id: item.id,
                         name: item.name
                     }));
-                    console.log(this.tags);
+                    
 
 
                     this.first_layout_subcategories = initialcategories.filter(category => {
