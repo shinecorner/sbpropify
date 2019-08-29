@@ -160,9 +160,9 @@
                             <relation-list
                                 :actions="requestActions"
                                 :columns="requestColumns"
-                                :filterValue="model.user.id"
+                                :filterValue="model.id"
                                 fetchAction="getRequests"
-                                filter="assignee_id"
+                                filter="property_manager_id"
                                 v-if="model.user && model.user.id"
                             />
                         </card>

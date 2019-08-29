@@ -74,13 +74,17 @@
                                     <el-form-item :label="$t('models.propertyManager.linkedin_url')"
                                                   :rules="validationRules.linkedin_url"
                                                   prop="linkedin_url">
-                                        <el-input type="text" v-model="model.linkedin_url"/>
+                                        <el-input type="text" v-model="model.linkedin_url">
+                                            <template slot="prepend"><i class="icon-linkedin"></i></template>
+                                        </el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12">
                                     <el-form-item :label="$t('models.propertyManager.xing_url')" :rules="validationRules.xing_url"
                                                   prop="xing_url">
-                                        <el-input type="text" v-model="model.xing_url"/>
+                                        <el-input type="text" v-model="model.xing_url">
+                                            <template slot="prepend"><i class="icon-xing"></i></template>
+                                        </el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -113,27 +117,26 @@
                             </el-form-item>
                         </card>
 
-                        <card class="mt15" :loading="loading" :header="$t('models.propertyManager.building_card')">
-                            <div class="mt15">
-                                <el-select
-                                    :loading="loading.state"
-                                    :placeholder="$t('models.propertyManager.buildings_search')"
-                                    :remote-method="remoteSearchBuildings"
-                                    class="mt15"
-                                    filterable
-                                    multiple
-                                    remote
-                                    reserve-keyword
-                                    style="display: block; margin-bottom: 15px"
-                                    v-model="model.buildings">
-                                    <el-option
-                                        :key="building.id"
-                                        :label="building.name"
-                                        :value="building.id"
-                                        v-for="building in toAssignList">
-                                    </el-option>
-                                </el-select>
-                            </div>
+                        <card :loading="loading" class="mt15" :header="$t('general.assignment')">
+                            <assignment-by-type
+                                    :resetToAssignList="resetToAssignList"
+                                    :assignmentType.sync="assignmentType"
+                                    :toAssign.sync="toAssign"
+                                    :assignmentTypes="assignmentTypes"
+                                    :assign="attachAddedAssigmentList"
+                                    :toAssignList="toAssignList"
+                                    :remoteLoading="remoteLoading"
+                                    :remoteSearch="remoteSearchBuildings"
+                            />
+                            <relation-list
+                                    :actions="assignmentsActions"
+                                    :columns="assignmentsColumns"
+                                    :addedAssigmentList="addedAssigmentList"
+                                    :filterValue="false"
+                                    :fetchAction="false"
+                                    :filter="false"
+                                    ref="assignmentsList"
+                            />
                         </card>
                     </el-col>
                 </el-row>
@@ -149,6 +152,8 @@
     import Cropper from 'components/Cropper';
     import AddActions from 'components/EditViewActions';
     import SelectLanguage from 'components/SelectLanguage';
+    import RelationList from 'components/RelationListing';
+    import AssignmentByType from 'components/AssignmentByType';
 
     export default {
         name: 'AdminPropertyManagersAdd',
@@ -160,7 +165,39 @@
             Card,
             Cropper,
             AddActions,
-            SelectLanguage
+            SelectLanguage,
+            AssignmentByType,
+            RelationList,
+        },
+        data() {
+            return {
+                assignmentsColumns: [{
+                    prop: 'name',
+                    label: this.$t('models.district.name')
+                }, {
+                    prop: 'type',
+                    label: this.$t('models.propertyManager.assignType'),
+                    i18n: this.translateType
+                }],
+                assignmentsActions: [{
+                    width: '180px',
+                    buttons: [{
+                        title: this.$t('models.propertyManager.unassign'),
+                        type: 'danger',
+                        onClick: this.notifyUnassignment
+                    }]
+                }]
+            }
+        },
+        methods: {
+            notifyUnassignment(row) {
+                this.addedAssigmentList.forEach(element => {
+                    if (element === row) {
+                        let index = this.addedAssigmentList.indexOf(element);
+                        this.addedAssigmentList.splice(index, 1);
+                    }
+                });
+            },
         }
     }
 </script>
