@@ -15,7 +15,7 @@
             <template v-if="$can($permissions.delete.building)">
                 <el-button :disabled="!selectedItems.length" @click="batchDeleteBuilding" icon="ti-trash" round size="mini"
                            type="danger">
-                    {{$t('models.building.delete')}}
+                    {{$t('general.actions.delete')}}
                 </el-button>
             </template>
         </heading>
@@ -38,7 +38,7 @@
             <el-form :model="managersForm">
                 <el-select
                     :loading="remoteLoading"
-                    :placeholder="$t('models.propertyManager.placeholders.search')"
+                    :placeholder="$t('general.placeholders.search')"
                     :remote-method="remoteSearchManagers"
                     class="custom-remote-select"
                     filterable
@@ -114,7 +114,7 @@
                 remoteLoading: false,
                 delBuildingStatus: -1, // 0: unit, 1: request, 2: both
                 header: [{
-                    label: 'models.request.address',
+                    label: 'general.address',
                     withMultipleProps: true,
                     props: ['address_row', 'address_zip']
                 }, {
@@ -130,7 +130,7 @@
                     },
                     props: ['units_count']
                 }, {
-                    label: 'models.building.tenants',
+                    label: 'general.tenants',
                     withUsers: true,
                     count: 'tenantscount',
                     prop: 'tenants'
@@ -140,7 +140,7 @@
                     prop: 'managers',
                     count: 'managerscount'
                 }, {
-                    label: 'models.building.requests',
+                    label: 'general.requests',
                     withCounts: true,
                     counts: [
                         {
@@ -184,7 +184,7 @@
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        title: 'models.service.edit',
+                        title: 'general.actions.edit',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.building

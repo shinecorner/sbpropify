@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
-use App\Criteria\Common\WhereCriteria;
 use App\Criteria\Common\WhereInCriteria;
 use App\Criteria\ServiceRequests\FilterByInternalFieldsCriteria;
 use App\Criteria\ServiceRequests\FilterByPermissionsCriteria;
@@ -38,7 +37,6 @@ use App\Transformers\TagTransformer;
 use App\Transformers\TemplateTransformer;
 use Illuminate\Support\Facades\Auth;
 use Exception;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -324,8 +322,9 @@ class ServiceRequestAPIController extends AppBaseController
 
         $attr = $this->serviceRequestRepository->getPutAttributes($input, $oldStatus);
         $updatedServiceRequest = $this->serviceRequestRepository->update($attr, $id);
-        $this->saveRequestStatusLog($id, $serviceRequest->status, $updatedServiceRequest->status);
+        $this->saveRequestStatusLog($id, $oldStatus, $updatedServiceRequest->status);
         $this->serviceRequestRepository->notifyStatusChange($serviceRequest, $updatedServiceRequest);
+
         if ($updatedServiceRequest->due_date && $updatedServiceRequest->due_date != $serviceRequest->due_date) {
             $this->serviceRequestRepository->notifyDue($updatedServiceRequest);
         }
@@ -594,15 +593,17 @@ class ServiceRequestAPIController extends AppBaseController
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
-        $sp = $spRepo->findWithoutFail($request->provider_id);
+
+        $providerId = $request->service_provider_id ?? $request->provider_id; // @TODO delete provider_id
+        $sp = $spRepo->findWithoutFail($providerId);
         if (empty($sp)) {
             return $this->sendError(__('models.request.errors.provider_not_found'));
         }
 
-        $managerIds = $request->manager_ids ?? $request->assignee_ids ?? [];
-        $propertyManagers = $pmRepo->with('user:email,id')->findWhereIn('id', $managerIds);
+        $managerId = $request->property_manager_id ?? $request->manager_id ?? $request->assignee_id ?? []; // @TODO delete manager_id, assignee_id
+        $propertyManager = $pmRepo->with('user:email,id')->find($managerId);
         $mailDetails = $request->only(['title', 'to', 'cc', 'bcc', 'body']);
-        $this->serviceRequestRepository->notifyProvider($sr, $sp, $propertyManagers, $mailDetails);
+        $this->serviceRequestRepository->notifyProvider($sr, $sp, $propertyManager, $mailDetails);
 
         return $this->sendResponse($sr, __('models.request.mail.success'));
     }
@@ -664,7 +665,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $sr->conversationFor(Auth::user(), $sp->user);
 
-        return $this->sendResponse($sr, __('models.request.attached.services'));
+        return $this->sendResponse($sr, __('general.attached.services'));
     }
 
     /**
@@ -762,7 +763,7 @@ class ServiceRequestAPIController extends AppBaseController
             $sr->conversationFor($p->user, $u);
         }
 
-        return $this->sendResponse($sr, __('models.request.attached.user'));
+        return $this->sendResponse($sr, __('general.attached.user'));
     }
 
     /**
@@ -872,7 +873,7 @@ class ServiceRequestAPIController extends AppBaseController
             $sr->conversationFor($p->user, $manager->user);
         }
 
-        return $this->sendResponse($sr, __('models.request.attached.managers'));
+        return $this->sendResponse($sr, __('general.attached.managers'));
     }
 
     /**
@@ -1013,7 +1014,7 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
-        return $this->sendResponse($sr, __('models.request.attached.tags'));
+        return $this->sendResponse($sr, __('general.attached.tags'));
     }
 
     /**
@@ -1098,7 +1099,7 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
-        return $this->sendResponse($sr, __('models.request.attached.tags'));
+        return $this->sendResponse($sr, __('general.attached.tags'));
     }
 
     /**
@@ -1176,7 +1177,7 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
-        return $this->sendResponse($sr, __('models.request.detached.tags'));
+        return $this->sendResponse($sr, __('general.detached.tags'));
     }
 
     /**
@@ -1229,7 +1230,7 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
-        return $this->sendResponse($sr, __('models.request.detached.tags'));
+        return $this->sendResponse($sr, __('general.detached.tags'));
     }
 
     /**
@@ -1345,7 +1346,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
         $requestAssignee->delete();
 
-        return $this->sendResponse($id, __('models.request.detached.' . $requestAssignee->assignee_type));
+        return $this->sendResponse($id, __('general.detached.' . $requestAssignee->assignee_type));
     }
 
 
@@ -1611,22 +1612,33 @@ class ServiceRequestAPIController extends AppBaseController
 
         $user = $request->user();
         if ($user->propertyManager()->exists()) {
-
-            $this->serviceRequestRepository->resetCriteria();
-            $this->serviceRequestRepository->whereHas('assignees', function ($q) use ($user) {
-                $q->where('id', $user->id);
-            });
-            $response['my_request_count'] = $this->serviceRequestRepository->count();
-
-
-            $this->serviceRequestRepository->resetCriteria();
-            $this->serviceRequestRepository->whereHas('assignees', function ($q) use ($user) {
-                $q->where('id', $user->id);
-            });
-            $this->serviceRequestRepository->pushCriteria(new WhereInCriteria('status', $pendingStatues));
-            $response['my_pending_request_count'] = $this->serviceRequestRepository->count();
+            $response = $this->getLoggedRequestCount($user, $response, 'propertyManager', 'managers');
+        } elseif ($user->serviceProvider()->exists()) {
+            $response = $this->getLoggedRequestCount($user, $response, 'serviceProvider', 'providers');
         }
 
         return $this->sendResponse($response, 'Request countes');
     }
+
+    protected function getLoggedRequestCount($user, $response, $userRelation, $requestRelation)
+    {
+
+        $relationId = $user->{$userRelation}->id;
+        $this->serviceRequestRepository->resetCriteria();
+        $this->serviceRequestRepository->whereHas($requestRelation, function ($q) use ($relationId) {
+            $q->where('assignee_id', $relationId);
+        });
+        $response['my_request_count'] = $this->serviceRequestRepository->count();
+
+
+        $this->serviceRequestRepository->resetCriteria();
+        $this->serviceRequestRepository->whereHas($requestRelation, function ($q) use ($relationId) {
+            $q->where('assignee_id', $relationId);
+        });
+        $this->serviceRequestRepository->pushCriteria(new WhereInCriteria('status', ServiceRequest::PendingStatuses));
+        $response['my_pending_request_count'] = $this->serviceRequestRepository->count();
+
+        return $response;
+    }
+
 }

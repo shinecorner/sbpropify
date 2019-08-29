@@ -4,7 +4,7 @@
         <!--            <template v-if="$can($permissions.delete.template)">-->
         <!--                <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="small"-->
         <!--                           type="danger">-->
-        <!--                    {{$t('models.template.delete')}}-->
+        <!--                    {{$t('general.actions.delete')}}-->
         <!--                </el-button>-->
         <!--            </template>-->
         <!--        </heading>-->
@@ -52,7 +52,7 @@
                 isReady: false,
                 fetchParams: {},
                 header: [{
-                    label: 'models.template.name',
+                    label: 'general.name',
                     prop: 'name'
                 }, {
                     label: 'models.template.category',
@@ -62,7 +62,7 @@
                     actions: [{
                         icon: 'ti-pencil',
                         type: 'success',
-                        title: 'models.template.edit',
+                        title: 'general.actions.edit',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.template

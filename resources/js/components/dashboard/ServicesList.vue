@@ -37,13 +37,13 @@
             return {
                 header: [{
                     type: 'plain',
-                    label: 'models.service.name',
+                    label: 'general.name',
                     prop: 'name',
                     minWidth: '150px'
                 }, {
                     type: 'counts',
                     minWidth: '150px',
-                    label: 'models.service.requests',
+                    label: 'general.requests',
                     
                 }, {
                     type: 'actions',
@@ -52,7 +52,7 @@
                     actions: [ 
                         {
                             type: 'default',
-                            title: 'models.service.edit',
+                            title: 'general.actions.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.provider

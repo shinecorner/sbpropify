@@ -9,7 +9,7 @@
                             <el-option :label="state.name" :value="state.id" :key="state.id" v-for="state in getStates"></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item prop="city" :label="$t('models.address.city')" :rules="validationRules.city">
+                    <el-form-item prop="city" :label="$t('general.city')" :rules="validationRules.city">
                         <el-input type="text" v-model="newAddress.city" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item prop="street" :label="$t('models.address.street')" :rules="validationRules.street">
@@ -18,12 +18,12 @@
                     <el-form-item prop="street_nr" :label="$t('models.address.street_nr')" :rules="validationRules.street_nr">
                         <el-input type="text" v-model="newAddress.street_nr" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item prop="zip" :label="$t('models.address.zip')" :rules="validationRules.zip">
+                    <el-form-item prop="zip" :label="$t('general.zip')" :rules="validationRules.zip">
                         <el-input type="text" v-model="newAddress.zip" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" icon="ti-save" @click="submitNewAddressForm()">
-                            {{$t('models.address.save')}}
+                            {{$t('general.actions.save')}}
                         </el-button>
                     </el-form-item>
                 </el-col>

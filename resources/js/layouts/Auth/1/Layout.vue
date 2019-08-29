@@ -56,6 +56,13 @@
         </el-main>
     </el-container>
 </template>
+<script>
+    export default {
+        beforeCreate() {
+            document.getElementById('viewport').setAttribute('content', 'width=device-width, initial-scale=1.0');
+        },
+    }
+</script>
 <style lang="scss" scoped>
     .el-container {
         height: 100%;

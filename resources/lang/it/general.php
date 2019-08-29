@@ -14,6 +14,7 @@ return [
     'years' => 'Anni',
   ],
   'chooseLanguage' => 'Scegliere la lingua',
+  'language' => "Linguaggio",
   'languages' => 
   [
     'fr' => 'Français',
@@ -37,8 +38,51 @@ return [
     'saturday' => 'sabato',
     'sunday' => 'domenicale',
   ],
-  'no' => 'No',
+  "user" => "Utente",
+  "tenant" => "Un inquilino",
+  "tenants" => "Gli inquilini",
+  'date' => 'Data',
+  'title' => "denominazione",
+  'description' => "descrizione",
+  "unassign" => "Disassegnare",
+  "assign" => "Assegnare",
+  'requests' => 'Richieste',
   'salutation' => 'Saluto',
+  'salutation_option' => [
+    "mr" => "Signor",
+    "mrs" => "Signora",
+    "company" => "Azienda",    
+  ],
+  'attached' => 
+  [
+    "building" => "Edificio assegnato",
+    "district" => "Distretto assegnato",
+    "provider" => "Fornitore assegnato",
+    'tenant' => "L'inquilino attaccato con successo",
+    "services" => "Fornitore collegato con successo",
+    "managers" => "Manager attaccato con successo",
+    "users" => "Utente assegnato con successo",
+    "tags" => "Tag assegnato con successo",
+  ],
+  'detached' => 
+  [
+    "building" => "Costruire senza assegnazione",
+    "district" => "Distretto non assegnato",
+    "provider" => "Fornitore non assegnato",
+    'tenant' => "L'inquilino si è staccato con successo",
+    "services" => "Fornitore staccato con successo",
+    "managers" => "Manager staccato con successo",
+    "users" => "Utente non assegnato con successo",
+    "tags" => "Tag non assegnato con successo",    
+  ],
+  "no" => "No",
+  "name" => "Nome",
+  'phone' => "Telefono",
+  'id' => "ID",
+  'address' => "Indirizzo",
+  'city' => "cittadino",
+  'zip' => "cerniera",
+  "content" => "Contenuto",
   'none' => 'Nessuna',
   'all' => 'Tutti',
   'loadMore' => 'Carica di più',
@@ -61,7 +105,7 @@ return [
   'reset_password_mail_sent' => "Le abbiamo inviato un'e-mail con ulteriori istruzioni. Controlla la tua casella di posta in arrivo.",
   'back_to_login' => 'Torna al login',
   'forgot_password' => 'Password dimenticata',  
-  'forgot_password_info' => "Inserisci l'indirizzo e-mail con cui ti sei registrato qui. Ti invieremo un'e-mail con il tuo nome utente e un link per reimpostare la tua password.",
+  'forgot_password_info' => "Inserisci l'indirizzo e-mail con cui ti sei registrato qui. Ti invieremo un'e-mail con un link per reimpostare la tua password.",
   'email_not_registered' => "L'indirizzo e-mail inserito non è associato ad un account attivo. Prova con un altro indirizzo e-mail.",
   'remember_me' => 'Ricordati di me',
   'password' => 'La password',
@@ -125,6 +169,13 @@ return [
   ],
   'swal' => 
   [
+    'confirmChange' => 
+    [
+      "title" => "Sei sicuro di voler continuare?",
+      "warning" => "Attenzione",
+      "confirmBtnText" => "Ok",
+      "cancelBtnText" => "Annulla",
+    ],
     'delete' => 
     [
       'title' => "Ne sei sicuro?",
@@ -156,8 +207,7 @@ return [
   'placeholders' => 
   [
     'search' => 'Ricerca',
-    'select' => 'Seleziona'
-    
+    'select' => 'Seleziona'    
   ],
   'errors' => 
   [
@@ -182,7 +232,7 @@ return [
     'week' => 'Settimana',
     'peek_week' => 'Scegli una settimana',
   ],
-  'tenant' => [
+  'tenant_detail' => [
     'activate_required_credentials' => 'codice, e-mail, password richiesta',
     'incorrect_email' => 'Indirizzo e-mail errato',
     'user_not_tenant' => 'Questo utente non è inquilino',
@@ -195,5 +245,4 @@ return [
   ],
   'to_homepage' => 'Alla Homepage',
   "assignment" => "Assegnazione",
-
 ];

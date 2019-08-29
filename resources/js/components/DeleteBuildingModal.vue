@@ -1,6 +1,6 @@
 <template>
     <el-dialog  :close-on-click-modal="false" 
-                :title="$t('models.building.delete_building_modal.title')"
+                :title="$t('general.actions.delete_building_modal.title')"
                 :visible="deleteBuildingVisible"
                 width="30%"
                 class="delete_building_modal">
@@ -12,8 +12,8 @@
             <el-row v-if="(delBuildingStatus == 0 || delBuildingStatus == 2)">
                 <el-col :span="24">
                     <el-switch 
-                        :active-text="$t('models.building.delete_building_modal.delete_units')"
-                        :inactive-text="$t('models.building.delete_building_modal.dont_delete_units')"
+                        :active-text="$t('general.actions.delete_building_modal.delete_units')"
+                        :inactive-text="$t('general.actions.delete_building_modal.dont_delete_units')"
                         v-model="is_units" 
                         class="delete_switch" />
                 </el-col>
@@ -21,8 +21,8 @@
             <el-row v-if="(delBuildingStatus == 1 || delBuildingStatus == 2)">
                 <el-col :span="24">
                     <el-switch 
-                        :active-text="$t('models.building.delete_building_modal.delete_requests')"
-                        :inactive-text="$t('models.building.delete_building_modal.dont_delete_requests')"
+                        :active-text="$t('general.actions.delete_building_modal.delete_requests')"
+                        :inactive-text="$t('general.actions.delete_building_modal.dont_delete_requests')"
                         v-model="is_request"
                         class="delete_switch" />
                 </el-col>
@@ -30,7 +30,7 @@
 
             <span class="dialog-footer" slot="footer">
                 <el-button @click="close" size="mini">{{$t('models.building.cancel')}}</el-button>
-                <el-button @click="deleteSelectedBuilding(is_units, is_request)" size="mini" type="danger">{{$t('models.building.delete')}}</el-button>
+                <el-button @click="deleteSelectedBuilding(is_units, is_request)" size="mini" type="danger">{{$t('general.actions.delete')}}</el-button>
             </span>
     </el-dialog>
 </template>
@@ -64,11 +64,11 @@
             getDelBuildingDescription() {
                 switch(this.delBuildingStatus) {
                     case 0:
-                        return this.$t('models.building.delete_building_modal.description_unit');
+                        return this.$t('general.actions.delete_building_modal.description_unit');
                     case 1:
-                        return this.$t('models.building.delete_building_modal.description_request');
+                        return this.$t('general.actions.delete_building_modal.description_request');
                     case 2:
-                        return this.$t('models.building.delete_building_modal.description_both');
+                        return this.$t('general.actions.delete_building_modal.description_both');
                     default:
                         return "";
                 }

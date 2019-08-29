@@ -14,6 +14,7 @@ return [
     'years' => 'Années',
   ],
   'chooseLanguage' => 'Choisir la langue',
+  'language' => "Langage",
   'languages' => 
   [
     'fr' => 'Français',
@@ -37,8 +38,51 @@ return [
     'saturday' => 'samedi',
     'sunday' => 'dimanche',
   ],
+  "user" => "Utilisateur",
+  "tenant" => "Locataire",
+  "tenants" => "Locataires",
+  'date' => 'Date',
+  'title' => "intitulé",
+  'description' => "descriptif",
+  "unassign" => "Désassigner",
+  "assign" => "Affecter",
+  'requests' => 'Demandes',
   'salutation' => 'Apostrophe',
+  'salutation_option' => [
+    "mr" => "Monsieur",
+    "mrs" => "Mme",
+    "company" => "Société",    
+  ],
+  'attached' => 
+  [
+    "building" => "Bâtiment affecté",
+    "district" => "District assigné",
+    "provider" => "Prestataire désigné",
+    'tenant' => "Locataire attaché avec succès",
+    "services" => "Le prestataire s'est attaché avec succès",
+    "managers" => "Gestionnaire attaché avec succès",
+    "users" => "Utilisateur affecté avec succès",
+    "tags" => "Étiquette attribuée avec succès",
+  ],
+  'detached' => 
+  [
+    "building" => "Bâtiment non assigné",
+    "district" => "District non attribué",
+    "provider" => "Prestataire non assigné",
+    'tenant' => "Locataire détaché avec succès",
+    "services" => "Le prestataire s'est détaché avec succès",
+    "managers" => "Gestionnaire détaché avec succès",
+    "users" => "Utilisateur non affecté avec succès",
+    "tags" => "Étiquette non attribuée avec succès",    
+  ],
   'no' => 'Non',
+  "name" => "Nom",
+  'phone' => "Téléphone",
+  'id' => "ID",
+  'address' => "Adresse",
+  "city" => "Ville",
+  "zip" => "Zip",
+  "content" => "Contenu",
   'none' => 'Aucun',
   'all' => 'Tous',
   'loadMore' => 'Charger plus',
@@ -61,7 +105,7 @@ return [
   'reset_password_mail_sent' => "Nous vous avons envoyé un e-mail avec d'autres instructions. Veuillez vérifier votre boîte de réception.",
   'back_to_login' => 'Retour à la page d\'ouverture de session',
   'forgot_password' => 'Mot de passe oublié',  
-  'forgot_password_info' => "Entrez ici l'adresse e-mail avec laquelle vous vous êtes inscrit. Nous vous enverrons un courriel avec votre nom d'utilisateur et un lien pour réinitialiser votre mot de passe.",
+  'forgot_password_info' => "Entrez ici l'adresse e-mail avec laquelle vous vous êtes inscrit. Nous vous enverrons un courriel avec un lien pour réinitialiser votre mot de passe.",
   'email_not_registered' => "L'adresse e-mail que vous avez saisie n'est pas associée à un compte actif. Essayez une autre adresse e-mail.",
   'remember_me' => 'Se souvenir de moi',
   'password' => 'Mot de passe',
@@ -125,6 +169,13 @@ return [
   ],
   'swal' => 
   [
+    'confirmChange' => 
+    [
+      "title" => "Vous êtes sûr de vouloir continuer ?",
+      "warning" => "Avertissement",
+      "confirmBtnText" => "Ok",
+      "cancelBtnText" => "Annuler",
+    ],
     'delete' => 
     [
       'title' => "T'es sûr de toi ?",
@@ -181,7 +232,7 @@ return [
     'week' => 'Semaine',
     'peek_week' => 'Choisir une semaine',
   ],
-  'tenant' => [
+  'tenant_detail' => [
     'activate_required_credentials' => 'code, email, mot de passe requis',
     'incorrect_email' => 'Adresse e-mail incorrecte',
     'user_not_tenant' => 'Cet utilisateur n\'est pas locataire',
@@ -194,5 +245,4 @@ return [
   ],
   'to_homepage' => 'Vers la page d\'accueil',
   "assignment" => "Affectation",
-
 ];

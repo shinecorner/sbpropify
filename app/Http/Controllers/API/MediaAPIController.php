@@ -274,7 +274,7 @@ class MediaAPIController extends AppBaseController
         }
 
         $response = (new MediaTransformer)->transform($media);
-        return $this->sendResponse($response, __('models.post.media.uploaded'));
+        return $this->sendResponse($response, __('general.swal.media.added'));
     }
 
     /**
@@ -330,7 +330,7 @@ class MediaAPIController extends AppBaseController
 
         $media->delete();
 
-        return $this->sendResponse($media_id, __('models.post.media.deleted'));
+        return $this->sendResponse($media_id, __('general.swal.media.deleted'));
     }
 
     /**
@@ -385,7 +385,7 @@ class MediaAPIController extends AppBaseController
         }
 
         $response = (new MediaTransformer)->transform($media);
-        return $this->sendResponse($response, __('models.tenant.media.uploaded'));
+        return $this->sendResponse($response, __('general.swal.media.added'));
     }
 
     /**
@@ -442,7 +442,7 @@ class MediaAPIController extends AppBaseController
 
         $media->delete();
 
-        return $this->sendResponse($media_id, __('models.tenant.media.deleted'));
+        return $this->sendResponse($media_id, __('general.swal.media.deleted'));
     }
 
     /**
@@ -498,7 +498,7 @@ class MediaAPIController extends AppBaseController
 
         $this->serviceRequestRepository->notifyMedia($serviceRequest, \Auth::user(), $media);
         $response = (new MediaTransformer)->transform($media);
-        return $this->sendResponse($response, __('models.request.media.added'));
+        return $this->sendResponse($response, __('general.swal.media.added'));
     }
 
     /**
@@ -553,7 +553,7 @@ class MediaAPIController extends AppBaseController
         }
 
         $media->delete();
-        return $this->sendResponse($media_id, __('models.request.media.deleted'));
+        return $this->sendResponse($media_id, __('general.swal.media.deleted'));
     }
 
     /**
@@ -608,7 +608,7 @@ class MediaAPIController extends AppBaseController
         }
 
         $response = (new MediaTransformer)->transform($media);
-        return $this->sendResponse($response, __('models.product.media.uploaded'));
+        return $this->sendResponse($response, __('general.swal.media.added'));
     }
 
     /**
@@ -664,6 +664,6 @@ class MediaAPIController extends AppBaseController
 
         $media->delete();
 
-        return $this->sendResponse($media_id, __('models.product.media.deleted'));
+        return $this->sendResponse($media_id, __('general.swal.media.deleted'));
     }
 }

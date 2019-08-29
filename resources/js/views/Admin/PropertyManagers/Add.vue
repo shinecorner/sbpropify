@@ -16,7 +16,7 @@
                                         <el-select style="display: block" v-model="model.title">
                                             <el-option
                                                     :key="title"
-                                                    :label="$t(`models.propertyManager.titles.${title}`)"
+                                                    :label="$t(`general.salutation_option.${title}`)"
                                                     :value="title"
                                                     v-for="title in titles">
                                             </el-option>
@@ -24,7 +24,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="8">
-                                    <el-form-item class="label-block" :label="$t('models.tenant.language')" :rules="validationRules.language"
+                                    <el-form-item class="label-block" :label="$t('general.language')" :rules="validationRules.language"
                                                   prop="settings.language">
                                         <select-language :activeLanguage.sync="model.settings.language"/>
                                     </el-form-item>
@@ -56,7 +56,7 @@
 
                             <el-row :gutter="20">
                                 <el-col :md="12">
-                                    <el-form-item :label="$t('models.propertyManager.phone')" prop="user.phone">
+                                    <el-form-item :label="$t('general.phone')" prop="user.phone">
                                         <el-input type="text" v-model="model.user.phone"/>
                                     </el-form-item>
                                 </el-col>
@@ -182,7 +182,7 @@
                 assignmentsActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.propertyManager.unassign'),
+                        title: this.$t('general.unassign'),
                         type: 'danger',
                         onClick: this.notifyUnassignment
                     }]

@@ -94,7 +94,7 @@
                                 v-if="scope.row[column.count]"></avatar>
                     </div>
 
-                    <div v-else>
+                    <div v-else class="normal">
                         {{scope.row[column.prop]}}
                     </div>
                 </template>
@@ -291,5 +291,10 @@
     }
     .icon-danger {
          color: #dd6161;
-     }
+    }
+    .listing {
+        .normal {
+            color: #6AC06F;
+        }
+    }
 </style>

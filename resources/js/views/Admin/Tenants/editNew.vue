@@ -33,7 +33,7 @@
                                                     <el-select placeholder="Select" style="display: block" v-model="model.title">
                                                         <el-option
                                                                 :key="title"
-                                                                :label="$t(`models.tenant.titles.${title}`)"
+                                                                :label="$t(`general.salutation_option.${title}`)"
                                                                 :value="title"
                                                                 v-for="title in titles">
                                                         </el-option>
@@ -75,7 +75,7 @@
                                                 </el-form-item>
                                             </el-col>
                                             <el-col :md="6">
-                                                <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" 
+                                                <el-form-item :label="$t('general.language')" :rules="validationRules.language" 
                                                         prop="settings.language">
                                                     <select-language :activeLanguage.sync="model.settings.language" />
                                                 </el-form-item>
@@ -243,10 +243,10 @@
                                         {{ $t('models.tenant.building.name') }}
                                     </h3>
                                     <el-col :md="12">
-                                        <el-form-item :label="$t('models.tenant.search_building')" prop="building_id">
+                                        <el-form-item :label="$t('general.placeholders.search_building')" prop="building_id">
                                             <el-select
                                                     :loading="remoteLoading"
-                                                    :placeholder="$t('models.tenant.search_building')"
+                                                    :placeholder="$t('general.placeholders.search_building')"
                                                     :remote-method="remoteSearchBuildings"
                                                     :rules="validationRules.building_id"
                                                     @change="searchUnits"
@@ -270,7 +270,7 @@
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.tenant.unit.name')" prop="unit_id"
                                                       v-if="model.building_id">
-                                            <el-select :placeholder="$t('models.tenant.search_unit')" style="display: block"
+                                            <el-select :placeholder="$t('general.placeholders.search_unit')" style="display: block"
                                                        v-model="model.unit_id">
                                                 <el-option
                                                         :key="unit.id"

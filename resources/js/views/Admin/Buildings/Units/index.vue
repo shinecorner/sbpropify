@@ -9,7 +9,7 @@
             <template v-if="$can($permissions.delete.unit)">
                 <el-button :disabled="!selectedItems.length" @click="batchDelete" icon="ti-trash" round size="small"
                            type="danger">
-                    {{$t('models.unit.delete')}}
+                    {{$t('general.actions.delete')}}
                 </el-button>
             </template>
         </heading>
@@ -71,7 +71,7 @@
                     label: this.$t('models.unit.monthly_rent'),
                     prop: 'monthly_rent'
                 }, {
-                    label: this.$t('models.unit.tenant'),
+                    label: this.$t('general.tenant'),
                     withUsers: true,
                     prop: 'tenants'
                 }, {
@@ -79,7 +79,7 @@
                     actions: [{
                         icon: 'ti-pencil',
                         type: 'success',
-                        title: this.$t('models.unit.edit'),
+                        title: this.$t('general.actions.edit'),
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.unit
