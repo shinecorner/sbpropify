@@ -357,11 +357,7 @@ export default {
             "roles": "Roles",
             "type": "Modello"
         },
-        "pagination": {
-            "previous": "&laquo; Precedente",
-            "next": "Successivo &raquo;"
-        },
-        "common": {
+        "template": {
             "mr": "Sig.",
             "mrs": "Signora",
             "company": "L'azienda",
@@ -388,6 +384,10 @@ export default {
             "email_link_contacts": "Contatti.",
             "email_link_terms_of_use": "Condizioni d'uso",
             "email_link_data_protection": "Protezione dei dati"
+        },
+        "pagination": {
+            "previous": "&laquo; Precedente",
+            "next": "Successivo &raquo;"
         },
         "menu": {
             "dashboard": "Cruscotto",

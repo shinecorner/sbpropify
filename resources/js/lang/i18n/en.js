@@ -357,11 +357,7 @@ export default {
             "roles": "Roles",
             "type": "Type"
         },
-        "pagination": {
-            "previous": "&laquo; Previous",
-            "next": "Next &raquo;"
-        },
-        "common": {
+        "template": {
             "mr": "Mr",
             "mrs": "Mrs",
             "company": "Company",
@@ -388,6 +384,10 @@ export default {
             "email_link_contacts": "Contacts.",
             "email_link_terms_of_use": "Terms of Use",
             "email_link_data_protection": "Data protection"
+        },
+        "pagination": {
+            "previous": "&laquo; Previous",
+            "next": "Next &raquo;"
         },
         "menu": {
             "dashboard": "Dashboard",
