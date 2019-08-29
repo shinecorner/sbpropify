@@ -88,7 +88,10 @@
                                 </el-select>
                             </el-form-item>
                              <el-form-item v-else-if="filter.type === filterTypes.language">
-                                <select-language :activeLanguage="this.language"/>
+                                <select-language
+                                    :activeLanguage="this.language"
+                                    @change="filterChanged(filter)"
+                                />
                             </el-form-item>
                         </template>
 
@@ -504,7 +507,7 @@
                 this.updatePage(newPage);
             },
             filterChanged(filter, init = false) {
-                if (filter.type === this.filterTypes.select) {
+                if (filter.type === this.filterTypes.select || filter.type == this.filterTypes.language) {
                     if (!filter.parentKey && filter.fetch && init) {
                         filter.fetch().then((resp) => {
                             filter.data = resp;
@@ -544,6 +547,10 @@
 
                 if ((!filter.parentKey && filter.fetch && init && this.filterModel[filter.key]) || !init) {
                     this.updatePage();
+                }
+
+                if (filter.type == this.filterTypes.language) {
+
                 }
             },
             isDisabled(select, selected, status) {
