@@ -414,8 +414,9 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
+        $oldStatus = $serviceRequest->status;
         $serviceRequest = $this->serviceRequestRepository->update($input, $id);
-
+        $this->saveRequestStatusLog($id, $oldStatus, $serviceRequest->status);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, __('models.request.status_changed'));
     }
