@@ -324,8 +324,9 @@ class ServiceRequestAPIController extends AppBaseController
 
         $attr = $this->serviceRequestRepository->getPutAttributes($input, $oldStatus);
         $updatedServiceRequest = $this->serviceRequestRepository->update($attr, $id);
-        $this->saveRequestStatusLog($id, $serviceRequest->status, $updatedServiceRequest->status);
+        $this->saveRequestStatusLog($id, $oldStatus, $updatedServiceRequest->status);
         $this->serviceRequestRepository->notifyStatusChange($serviceRequest, $updatedServiceRequest);
+
         if ($updatedServiceRequest->due_date && $updatedServiceRequest->due_date != $serviceRequest->due_date) {
             $this->serviceRequestRepository->notifyDue($updatedServiceRequest);
         }
@@ -1611,17 +1612,17 @@ class ServiceRequestAPIController extends AppBaseController
 
         $user = $request->user();
         if ($user->propertyManager()->exists()) {
-
+            $managerId = $user->propertyManager->id;
             $this->serviceRequestRepository->resetCriteria();
-            $this->serviceRequestRepository->whereHas('assignees', function ($q) use ($user) {
-                $q->where('id', $user->id);
+            $this->serviceRequestRepository->whereHas('managers', function ($q) use ($managerId) {
+                $q->where('assignee_id', $managerId);
             });
             $response['my_request_count'] = $this->serviceRequestRepository->count();
 
 
             $this->serviceRequestRepository->resetCriteria();
-            $this->serviceRequestRepository->whereHas('assignees', function ($q) use ($user) {
-                $q->where('id', $user->id);
+            $this->serviceRequestRepository->whereHas('managers', function ($q) use ($managerId) {
+                $q->where('assignee_id', $managerId);
             });
             $this->serviceRequestRepository->pushCriteria(new WhereInCriteria('status', $pendingStatues));
             $response['my_pending_request_count'] = $this->serviceRequestRepository->count();
