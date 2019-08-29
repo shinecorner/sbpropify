@@ -1,6 +1,6 @@
 <template>
     <div id="post-edit-view" class="units-edit mb20">
-        <heading :title="$t('general.actions.edit_title')" icon="icon-megaphone-1" shadow="heavy" style="margin-bottom: 20px;">
+        <heading :title="$t('models.post.edit_title')" icon="icon-megaphone-1" shadow="heavy" style="margin-bottom: 20px;">
             <edit-actions :saveAction="submit" :deleteAction="deletePost" route="adminPosts"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
