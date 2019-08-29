@@ -48,7 +48,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12"
-                                        v-if="this.showfirstlayout == true && this.showLiegenschaft == true && this.showUmgebung == false">
+                                        v-if="this.showfirstlayout == true && this.showLiegenschaft == true && this.showWohnung == false">
                                     <el-form-item :label="$t('models.request.category_options.range')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
@@ -125,7 +125,7 @@
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
                                                    class="custom-select"
-                                                   v-model="model.kostenfolge">
+                                                   v-model="model.payer">
                                             <el-option
                                                 :key="cost.value"
                                                 :label="cost.name"
@@ -158,17 +158,17 @@
                                         </el-input>
                                         <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New</el-button> -->
                                         <el-select
-                                            v-model="value"
+                                            v-model="model.keywords"
                                             multiple
                                             filterable
                                             allow-create
-                                            default-first-option
-                                            placeholder="Choose tags for your article">
+                                            :placeholder="$t(`general.placeholders.select`)"
+                                            @close="handleClose(tag)">
                                             <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
+                                                v-for="item in tags"
+                                                :key="item.id"
+                                                :label="item.name"
+                                                :value="item.name">
                                             </el-option>
                                         </el-select>
                                     </el-form-item>
@@ -348,7 +348,7 @@
                                     </el-col>
                                 </el-row>
                             </card>
-                            <card class="mt15" :loading="loading" :header="$t('models.request.assignment')">
+                            <card class="mt15 request" :loading="loading" :header="$t('models.request.assignment')">
                                 <assignment-by-type
                                     :resetToAssignList="resetToAssignList"
                                     :assignmentType.sync="assignmentType"
@@ -473,9 +473,6 @@
                         onClick: this.notifyUnassignment
                     }]
                 }],
-                showUmgebung: false,
-                showLiegenschaft: false,
-                showWohnung: false,
                 rolename: null,
                 inputVisible: false,
             }
@@ -618,13 +615,12 @@
             
             handleClose(tag) {
                 //this.model.keywords.splice(this.model.keywords.indexOf(tag), 1);
-                console.log(tag);
+                
                 if(tag.id != null) {
                     const deleteresult = this.deleteRequestTag({
                         id: this.$route.params.id,
                         tag_id: tag.id
                     });
-                    console.log(deleteresult);
                 }
             },
 
@@ -643,13 +639,12 @@
                 //     this.model.keywords.push(inputValue);
                 // }
 
-                console.log(this.model.keywords);
                 if (inputValue) {
                     let newkeyword = {
                         id: null,
                         name: inputValue
                     }
-                    console.log(newkeyword);
+
                     const existing = this.model.keywords.filter(keyword => {
                         if(keyword.name == newkeyword.name) 
                         {
@@ -657,12 +652,9 @@
                         }
                     })
 
-                    console.log(existing);
-
                     if(existing.length == 0) {
                         this.model.keywords.push(newkeyword);
                     }
-                    console.log(this.model.keywords.length);
                     
                 }
                 this.inputVisible = false;

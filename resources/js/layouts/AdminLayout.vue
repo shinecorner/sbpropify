@@ -592,7 +592,7 @@
 
         methods: {
             ...mapActions(['logout']),
-            ...mapActions(['updateSettings']),
+            ...mapActions(['updateSettings', 'getRequestCategoriesTree']),
 
             toggleFullscreen() {
                 if (document.fullscreenElement) {
@@ -648,6 +648,7 @@
                 //this.$router.push({ name: 'adminBuildings' });
                 //this.$router.push({ path: `/` })
                 //this.$router.push({ path: `/admin/buildings` })
+                this.getRequestCategoriesTree({get_all: true});
             },
 
             changeLanguage: function(language) {
