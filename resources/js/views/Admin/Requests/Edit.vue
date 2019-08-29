@@ -143,7 +143,8 @@
                                         closable
                                         :disable-transitions="false"
                                         @close="handleClose(tag)">
-                                            {{tag.name}}
+                                            <span v-if="tag.name">{{tag.name}}</span>
+                                            <span v-else>{{tag}}</span>
                                         </el-tag>
                                         <el-input
                                             class="input-new-tag"
@@ -620,12 +621,14 @@
                 //     this.model.keywords.push(inputValue);
                 // }
 
+                console.log(this.model.keywords);
                 if (inputValue) {
                     
                     if(this.model.keywords.indexOf(inputValue) != -1) {
                         return;
                     }
                     this.model.keywords.push(inputValue);
+                    
                 }
                 // this.inputVisible = false;
                 this.model.keyword = '';
@@ -695,10 +698,14 @@
         padding: 2%;
         margin-left: 0px !important;
         margin-right: 0px !important;
+        margin-bottom: 15px;
         .el-form-item {
             margin-bottom: 0px !important;
             .el-form-item__content {
                 line-height: 28px !important;
+                strong {
+                    color: gray;
+                }
             }
         }
         .summary-item {
