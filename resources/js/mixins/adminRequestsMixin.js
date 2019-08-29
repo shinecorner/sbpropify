@@ -35,7 +35,8 @@ export default (config = {}) => {
                     component: '',
                     keyword: '',
                     keywords: [],
-                    kostenfolge: ''
+                    kostenfolge: '',
+                    property_managers: [],
                 },
                 validationRules: {
                     category: [{
@@ -352,6 +353,13 @@ export default (config = {}) => {
                 'createRequestTags', 'getTags']),
                     async fetchCurrentRequest() {
                         const resp = await this.getRequest({id: this.$route.params.id});
+
+                        if(resp) {
+                            this.model.property_managers = resp.data.property_managers.map((manager) => {
+                                manager.name = `${manager.first_name} ${manager.last_name}`;
+                                return manager
+                            });
+                        }
                         
                         if(resp.data.category.id == 1) {
                             this.showfirstlayout = true;
@@ -441,7 +449,6 @@ export default (config = {}) => {
                                     this.$set(this.model, 'service_providers', resp.data.service_providers);
                                     this.$set(this.model, 'media', resp.data.media);
                                     this.$set(this.model, 'property_managers', resp.data.property_managers);
-                                    //this.$set(this.model, 'keywords', resptags.data.tags);
                                     displaySuccess(resp);
                                     resolve(true);
                                 } catch (err) {

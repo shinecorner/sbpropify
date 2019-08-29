@@ -137,7 +137,7 @@
                                 </el-col>
                                 <el-col :md="12">
                                     <el-form-item :label="$t('models.request.category_options.keywords')">
-                                        <el-tag
+                                        <!-- <el-tag
                                         :key="tag.id"
                                         v-for="tag in model.keywords"
                                         closable
@@ -156,7 +156,21 @@
                                             @blur="handleInputConfirm"
                                         >
                                         </el-input>
-                                        <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New</el-button>
+                                        <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New</el-button> -->
+                                        <el-select
+                                            v-model="value"
+                                            multiple
+                                            filterable
+                                            allow-create
+                                            default-first-option
+                                            placeholder="Choose tags for your article">
+                                            <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                            </el-option>
+                                        </el-select>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
