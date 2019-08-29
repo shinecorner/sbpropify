@@ -498,7 +498,7 @@
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
         },
         methods: {
-            ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags']),
+            ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags', 'deleteRequestTag']),
             translateType(type) {
                 return this.$t(`models.request.userType.${type}`);
             },
@@ -605,6 +605,13 @@
             handleClose(tag) {
                 //this.model.keywords.splice(this.model.keywords.indexOf(tag), 1);
                 console.log(tag);
+                if(tag.id != null) {
+                    const deleteresult = this.deleteRequestTag({
+                        id: this.$route.params.id,
+                        tag_id: tag.id
+                    });
+                    console.log(deleteresult);
+                }
             },
 
             showInput() {
