@@ -615,13 +615,13 @@
             async handleInputConfirm() {
                 let inputValue = this.model.keyword;
                 // const resp = await this.getRequestTags({id: this.$route.params.id});
-                // console.log(resp.data.data);
+                
                 // if(resp.data.data.indexOf(inputValue) == -1) {
                 //     this.model.keywords.push(inputValue);
                 // }
 
                 if (inputValue) {
-                    console.log( this.model.keywords.indexOf(inputValue));
+                    
                     if(this.model.keywords.indexOf(inputValue) != -1) {
                         return;
                     }
