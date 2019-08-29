@@ -88,13 +88,13 @@
                         </el-form-item>
                         <el-form-item v-if="model.tenant">
                             <label slot="label">
-                                {{$t('models.request.tenant')}}
+                                {{$t('general.tenant')}}
                             </label>
                             <router-link :to="{name: 'adminTenantsEdit', params: {id: model.tenant.id}}">
                                 {{model.tenant.first_name}} {{model.tenant.last_name}}
                             </router-link>
                         </el-form-item>
-                        <el-form-item :label="$t('models.request.tenant')" :rules="validationRules.tenant_id"
+                        <el-form-item :label="$t('general.tenant')" :rules="validationRules.tenant_id"
                                       prop="tenant_id"
                                       v-else>
                             <el-select
@@ -117,7 +117,7 @@
                                       prop="title">
                             <el-input type="text" v-model="model.title"/>
                         </el-form-item>
-                        <el-form-item :label="$t('models.request.description')" :rules="validationRules.description"
+                        <el-form-item :label="$t('general.description')" :rules="validationRules.description"
                                       prop="description">
                             <el-input
                                 :autosize="{minRows: 5}"

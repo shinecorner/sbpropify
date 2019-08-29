@@ -8,7 +8,7 @@
                         <el-form-item>
                             <select-language :activeLanguage.sync="language"/>
                         </el-form-item>
-                        <el-form-item :label="$t('models.template.name')" :rules="validationRules.name" prop="name">
+                        <el-form-item :label="$t('general.name')" :rules="validationRules.name" prop="name">
                             <el-input autocomplete="off" type="text"
                                       v-model="model.translations[language].name"></el-input>
                         </el-form-item>
@@ -25,7 +25,7 @@
                         </el-form-item>
                         <el-form-item>
                             <el-button @click="submit" icon="ti-save" type="primary">
-                                {{$t('models.user.save')}}
+                                {{$t('general.actions.save')}}
                             </el-button>
                         </el-form-item>
                     </card>

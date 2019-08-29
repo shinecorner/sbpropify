@@ -2,7 +2,7 @@
     <div class="product-details" v-if="!_.isEmpty(product)">
         <el-row :gutter="10">
             <el-col :md="6" :sm="12">
-                <p class="product-label">{{$t('models.user.name')}}</p>
+                <p class="product-label">{{$t('general.name')}}</p>
                 <p v-if="product.tenant">
                     <router-link :to="{name: 'adminTenantsEdit', params: {id: product.tenant.id}}">
                         {{product.tenant.name}}
@@ -55,7 +55,7 @@
         </el-row>
         <el-row>
             <el-col :span="24">
-                <p class="product-label">{{$t('models.product.content')}}</p>
+                <p class="product-label">{{$t('general.content')}}</p>
                 <p>
                     {{product.content}}
                 </p>

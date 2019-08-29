@@ -121,7 +121,7 @@ class TemplateRepository extends BaseRepository
             $valMap = array_values($valMap);
 
             if ($trString) {
-                $val = __('common.' . $trString . '_' . $val);
+                $val = __('template.' . $trString . '_' . $val);
             } else {
                 $val = self::getContextValue($cContext, $valMap);
             }

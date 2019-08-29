@@ -1,6 +1,6 @@
 <template>
     <div class="users-edit">
-        <heading :title="this.$route.params.role == 'administrator' ? $t('models.user.edit_admin')  : $t('models.user.edit_super_admin')" icon="icon-user">
+        <heading :title="this.$route.params.role == 'administrator' ? $t('general.actions.edit_admin')  : $t('general.actions.edit_super_admin')" icon="icon-user">
             <edit-actions :saveAction="submit" :deleteAction="deleteUser" :role="this.$route.params.role" route="adminUsers" :queryParams="queryParams" shadow="heavy"/>
         </heading>
         <el-row class="crud-view">
@@ -9,12 +9,12 @@
                     <card :loading="loading">
                         <el-row :gutter="20">
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.user.name')" :rules="validationRules.name" prop="name">
+                                <el-form-item :label="$t('general.name')" :rules="validationRules.name" prop="name">
                                     <el-input type="text" v-model="model.name"/>
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.user.email')" :rules="validationRules.email"
+                                <el-form-item :label="$t('general.email')" :rules="validationRules.email"
                                             prop="email">
                                     <el-input type="email" v-model="model.email"/>
                                 </el-form-item>
@@ -38,7 +38,7 @@
                         </el-row>
                         <el-row :gutter="20">
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.user.phone')" prop="phone">
+                                <el-form-item :label="$t('general.phone')" prop="phone">
                                     <el-input type="text" v-model="model.phone"/>
                                 </el-form-item>
                             </el-col>
@@ -53,7 +53,7 @@
                         </el-row>
                         <el-row :gutter="20">
                             <el-col :md="12" id="right_card">
-                                <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" 
+                                <el-form-item :label="$t('general.language')" :rules="validationRules.language" 
                                     prop="settings.language">
                                     <select-language :activeLanguage.sync="model.settings.language"/>
                                 </el-form-item>

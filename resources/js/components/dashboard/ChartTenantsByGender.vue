@@ -83,7 +83,7 @@ export default {
     fetchData() {
       let that = this;                                               
       let url = 'tenants/gender-statistics';
-      const langPrefix = 'models.tenant.titles.';
+      const langPrefix = 'general.salutation_option.';
 
       return axios.get(url)
       .then(function (response) {

@@ -126,7 +126,11 @@ export default (config = {}) => {
                 costs: [
                     {name: this.$t('models.request.category_options.costs.landlord'), value: 'lessor'},
                     {name: this.$t('models.request.category_options.costs.tenant'), value: 'tenant'},
-                ]   
+                ],
+                showfirstlayout: false,
+                showpayer: false,
+                createTag: false,
+                editTag: false   
             };
         },
         computed: {
@@ -248,7 +252,7 @@ export default (config = {}) => {
                     });
                     displaySuccess({
                         success: true,
-                        message: this.$t('models.request.media.deleted')
+                        message: this.$t('general.actions.deleted')
                     });
                 } else {
                     const resp = await this.deleteRequestMedia({
@@ -344,9 +348,24 @@ export default (config = {}) => {
             case 'edit':
                 mixin.methods = {
                     ...mixin.methods,
-                    ...mapActions(['getRequest', 'updateRequest', 'getTenant', 'getRequestConversations', 'getAddress']),
+                    ...mapActions(['getRequest', 'updateRequest', 'getTenant', 'getRequestConversations', 'getAddress', 'getRequestTags',
+                'createRequestTags', 'getTags']),
                     async fetchCurrentRequest() {
                         const resp = await this.getRequest({id: this.$route.params.id});
+                        
+                        if(resp.data.category.id == 1) {
+                            this.showfirstlayout = true;
+                        }
+                        else {
+                            this.showfirstlayout = false;
+                        }
+
+                        if(resp.data.qualification == 5) {
+                            this.showpayer = true;
+                        }
+                        else {
+                            this.showpayer = false;
+                        }
 
                         const data = resp.data;
 
@@ -362,6 +381,7 @@ export default (config = {}) => {
                             await this.getBuildingAddress(data.tenant.building.id);
                         }
                         
+                        await this.getTags({get_all: true, search: ''})
                     },
                     submit() {
                         return new Promise((resolve, reject) => {
@@ -373,7 +393,43 @@ export default (config = {}) => {
 
                                 this.loading.state = true;
                                 let {service_providers, property_managers, ...params} = this.model;
+                                // const resptags = await this.createRequestTag({
+                                //     id: this.$route.params.id,
+                                //     keywords: this.model.keywords
+                                // });
                                 
+                                let tags = [];
+                                const tagsResp = await this.getTags({get_all: true, search: ''})
+                                if(tagsResp.success == true) 
+                                {
+                                    tags = tagsResp.data;
+                                }
+
+                                let existingsKeys = [];
+                                let newTags = [];
+                                
+                                this.model.keywords.forEach(keyword => {
+                                    let tagObj = tags.find((item) => {
+                                        return item.name == keyword;
+                                      });
+                                    if ( tagObj != null ) {
+                                        existingsKeys.push(tagObj.id);
+                                    }
+                                    else {
+                                        newTags.push(keyword);
+                                    }
+                                })
+                                
+
+                                // /requests/{id}/tags
+                                const requestTags = await this.createRequestTags({
+                                    id: this.$route.params.id,
+                                    tag_ids: existingsKeys,
+                                    tags: newTags
+                                });
+
+                                
+
                                 try {
                                     await this.uploadNewMedia(params.id);
                                     const resp = await this.updateRequest(params);
@@ -381,6 +437,7 @@ export default (config = {}) => {
                                     this.$set(this.model, 'service_providers', resp.data.service_providers);
                                     this.$set(this.model, 'media', resp.data.media);
                                     this.$set(this.model, 'property_managers', resp.data.property_managers);
+                                    //this.$set(this.model, 'keywords', resptags.data.tags);
                                     displaySuccess(resp);
                                     resolve(true);
                                 } catch (err) {
@@ -416,13 +473,23 @@ export default (config = {}) => {
 
                     const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
 
-                    const initialcategories = this.prepareCategories(categories);
-                    
-                    this.categories = initialcategories.filter(category => {
-                        if(category.id !== 2 && category.parent_id !== 2 && category.parent_id !== 1) {
+                    const filteredcategories = categories.filter(category => {
+                        if(category.id != 2) {
                             return category;
                         }
                     });
+
+                    const initialcategories = this.prepareCategories(filteredcategories);
+                    
+                    this.categories = initialcategories.filter(category => {
+                        if(category.parent_id !== 1) {
+                            return category;
+                        }
+                    });
+
+                    const tags = await this.getRequestTags({id: this.$route.params.id});
+                    
+                    this.$set(this.model, 'keywords', tags.data.data);
 
                     this.first_layout_subcategories = initialcategories.filter(category => {
                         if(category.parent_id == 1) {

@@ -71,7 +71,7 @@
                                 </el-row>
                                 <el-row>
                                     <el-col>
-                                        <el-form-item :label="$t('models.product.content')" :rules="validationRules.content"
+                                        <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                                     prop="content">
                                             <el-input
                                                 :autosize="{minRows: 5}"
@@ -100,7 +100,7 @@
                     <el-row  :gutter="30" class="contact-info-card-row">
                         <el-col class="contact-info-card-col" :md="8">
                             <span class="custom-label">
-                                <i class="icon-user"></i>&nbsp;{{$t('models.product.user')}}
+                                <i class="icon-user"></i>&nbsp;{{$t('general.user')}}
                             </span>
                             <br>
                             <span class="custom-value" v-if="model.user">

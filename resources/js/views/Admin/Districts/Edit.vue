@@ -8,7 +8,7 @@
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
-                <card :loading="loading" :header="$t('models.district.details')">
+                <card :loading="loading" :header="$t('general.actions.view')">
                     <el-form :model="model" ref="form">
                         <el-row :gutter="20">
                             <el-col :md="12">
@@ -33,7 +33,7 @@
                     </el-form>
                 </card>
 
-                <card :loading="loading" :header="$t('models.propertyManager.requests')" class="mt15">
+                <card :loading="loading" :header="$t('general.requests')" class="mt15">
 
                     <relation-list
                             :actions="requestActions"
@@ -88,7 +88,7 @@
                     type: 'requestTenantAvatar',
                     width: 75,
                     prop: 'tenant',
-                    label: this.$t('models.request.tenant')
+                    label: this.$t('general.tenant')
                 }, {
                     type: 'requestTitleWithDesc',
                     label: this.$t('models.request.prop_title')
@@ -100,13 +100,13 @@
                     width: '90px',
                     buttons: [{
                         icon: 'ti-pencil',
-                        title: this.$t('models.request.edit'),
+                        title: this.$t('general.actions.edit'),
                         onClick: this.requestEditView
                     }]
                 }],
                 districtColumns: [{
                     prop: 'name',
-                    label: this.$t('models.propertyManager.name')
+                    label: this.$t('general.name')
                 }, {
                     align: 'center',
                     prop: 'units_count',
@@ -117,13 +117,13 @@
                     prop: 'tenants',
                     propLimit: 2,
                     count: 'tenants_count',
-                    label: this.$t('models.building.tenants')
+                    label: this.$t('general.tenants')
                 }],
                 districtActions: [{
                     width: '90px',
                     buttons: [{
                         icon: 'ti-pencil',
-                        title: this.$t('models.request.edit'),
+                        title: this.$t('general.actions.edit'),
                         onClick: this.buildingEditView
                     }]
                 }],

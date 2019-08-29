@@ -14,6 +14,7 @@ return [
     'years' => 'Jahre',
   ],
   'chooseLanguage' => 'Sprache auswählen',
+  'language' => "Sprache",
   'languages' => 
   [
     'fr' => 'Français',
@@ -24,7 +25,6 @@ return [
   'footerText' => 
   [
     'companyName' => 'Propify',
-
     'leftSideText' => 'Sie brauchen Unterstützung? Kontaktieren Sie unser Support-Team unter<br/>0800 000 000 oder via eine E-Mail an support@propify.ch.',
     'allRightsSaved' => 'Alle Rechte vorbehalten',
   ],
@@ -38,8 +38,51 @@ return [
     'saturday' => 'Samstag',
     'sunday' => 'Sonntag',
   ],
+  'user' => 'Benutzer',
+  'tenant' => 'Mieter',
+  'tenants' => 'Mieterinnen',
+  'date' => 'Datum',
+  'title' => 'Titel',
+  'description' => 'Beschreibung',
+  'requests' => 'Anfragen',
+  'assign' => 'Zuweisen',
+  'unassign' => 'Entfernen',
   'salutation' => 'Anrede',
+  'salutation_option' => [
+    'mr' => 'Herr',
+    'mrs' => 'Frau',
+    'company' => 'Firma',    
+  ],
+  'attached' =>
+  [
+    'building' => 'Liegenschaft wurde zugewiesen.',
+    'district' => 'Überbauung wurde zugewiesen.',
+    'provider' => 'Dienstleister wurde zugewiesen.',
+    'tenant' => "Mieter wurde zugewiesen.",
+    'services' => 'Dienstleister wurde zugewiesen.',
+		'managers' => 'Bewirtschafter wurde zugewiesen.',
+		'users' => 'Tag erfolgreich zugewiesen',
+    'tags' => 'Tag assigned successfully',
+  ],
+  'detached' =>
+  [
+    'building' => 'Liegenschaft wurde entfernt',
+    'district' => 'Überbbauung wurde entfernt',
+    'provider' => 'Dienstleister wurde wurde entfernt',
+    'tenant' => "Mieter wurde entfernt.",
+    'services' => 'Dienstleister wurde entfernt.',
+    'managers' => 'Bewirtschafter wurde entfernt.',
+    'users' => 'Administrator wurde entfernt.',
+    'tags' => 'Tag nicht zugewiesen erfolgreich.',
+  ],
   'no' => 'Nein',
+  'name' => "Nome",
+  'phone' => 'Telefon',
+  'id' => "ID",
+  'address' => "Adresse",
+  'city' => 'Ort',
+  'zip' => 'Postleitzahl',
+  'content' => 'Inhalt',  
   'none' => 'Nichts gewählt',
   'all' => 'Alle',
   'loadMore' => 'Mehr laden',
@@ -62,7 +105,7 @@ return [
   'reset_password_mail_sent' => 'Wir haben Ihnen eine E-Mail mit weiteren Anweisungen gesendet. Bitte prüfen Sie Ihren Posteingang.',
   'back_to_login' => 'Zurück zum Login',
   'forgot_password' => 'Passwort vergessen',  
-  'forgot_password_info' => "Geben Sie Ihre E-Mail-Adresse, mit der Sie sich registriert hast, an. Wir senden Ihnen dann eine E-Mail mit I Benutzernamen und einem Link, mit dem du dein Passwort zurücksetzen kannst.",
+  'forgot_password_info' => "Geben Sie Ihre E-Mail-Adresse, mit der Sie sich registriert haben, an. Wir senden Ihnen dann eine E-Mail mit einem Link, mit dem Sie Ihr Passwort zurücksetzen können.",
   'email_not_registered' => "Die E-Mail-Adresse, die Sie eingegeben haben, ist keinem aktiven Konto zugeordnet. Versuchen Sie es mit einer anderen E-Mail-Adresse.",
   'remember_me' => 'Angemeldet bleiben',
   'password' => 'Passwort',
@@ -126,6 +169,13 @@ return [
   ],
   'swal' => 
   [
+    'confirmChange' =>
+    [
+      'title' => 'Wollen Sie den Status wirklich ändern?',
+      'warning' => 'Bitte bestätigen',
+      'confirmBtnText' => 'Ja',
+      'cancelBtnText' => 'Schliessen',
+    ],
     'delete' => 
     [
       'title' => 'Sind Sie sicher?',
@@ -182,7 +232,7 @@ return [
     'week' => 'Woche',
     'peek_week' => 'Wählen wählen',
   ],
-  'tenant' => [
+  'tenant_detail' => [
     'activate_required_credentials' => 'Code, E-Mail, Passwort erforderlich',
     'incorrect_email' => 'Falsche E-Mail-Adresse',
     'user_not_tenant' => 'Dieser Benutzer ist nicht Mieter.',
@@ -195,5 +245,4 @@ return [
   ],
   'to_homepage' => 'Zur Startseite',
   'assignment' => 'Zugewiesene Liegenschaften',
-
 ];
