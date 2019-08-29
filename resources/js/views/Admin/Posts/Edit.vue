@@ -343,7 +343,7 @@
                             <el-col :lg="18" :xl="20">
                                 <el-select
                                     :loading="remoteLoading"
-                                    :placeholder="$t('general.placeholders.search_provider')"
+                                    :placeholder="$t('models.post.placeholders.search_provider')"
                                     :remote-method="remoteSearchProviders"
                                     class="custom-remote-select"
                                     filterable
