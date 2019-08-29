@@ -138,12 +138,12 @@
                                 <el-col :md="12">
                                     <el-form-item :label="$t('models.request.category_options.keywords')">
                                         <el-tag
-                                        :key="tag"
+                                        :key="tag.id"
                                         v-for="tag in model.keywords"
                                         closable
                                         :disable-transitions="false"
                                         @close="handleClose(tag)">
-                                            {{tag}}
+                                            {{tag.name}}
                                         </el-tag>
                                         <el-input
                                             class="input-new-tag"
@@ -497,7 +497,7 @@
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
         },
         methods: {
-            ...mapActions(['unassignAssignee', 'deleteRequest']),
+            ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags']),
             translateType(type) {
                 return this.$t(`models.request.userType.${type}`);
             },
@@ -612,12 +612,22 @@
                 });
             },
 
-            handleInputConfirm() {
+            async handleInputConfirm() {
                 let inputValue = this.model.keyword;
+                // const resp = await this.getRequestTags({id: this.$route.params.id});
+                // console.log(resp.data.data);
+                // if(resp.data.data.indexOf(inputValue) == -1) {
+                //     this.model.keywords.push(inputValue);
+                // }
+
                 if (inputValue) {
+                    console.log( this.model.keywords.indexOf(inputValue));
+                    if(this.model.keywords.indexOf(inputValue) != -1) {
+                        return;
+                    }
                     this.model.keywords.push(inputValue);
                 }
-                this.inputVisible = false;
+                // this.inputVisible = false;
                 this.model.keyword = '';
             },
 
