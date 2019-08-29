@@ -77,14 +77,8 @@ return [
       "contract" => "Contratto",
       "posts" => "Messaggi",
       "products" => "Prodotti",
-      "requests" => "Richieste",
       "company" => "Nome dell'azienda",
       "no_building" => "Niente edificio",
-      'media' => 
-      [
-        'deleted' => 'Documento/foto eliminato',
-        'uploaded' => 'Documento/foto caricato',
-      ],
       'building' => 
       [
         'name' => 'Bâtiment',
@@ -150,24 +144,11 @@ return [
       [
         "category" => "Categoria",                
       ],
-      'titles' => 
-      [
-        "mr" => "Signor",
-        "mrs" => "Signora",
-        "company" => "Azienda",
-      ],
       'status' => 
       [
         "label" => "Situazione",
         "active" => "Attivo",
         "not_active" => "Non attivo",
-      ],
-      'confirmChange' => 
-      [
-        "title" => "Sei sicuro di voler continuare?",
-        "warning" => "Attenzione",
-        "confirmBtnText" => "Ok",
-        "cancelBtnText" => "Annulla",
       ],
     ],
     'building' => 
@@ -182,7 +163,6 @@ return [
       "floors" => "Pavimenti",
       "basement" => "Nel seminterrato",
       "attic" => "In soffitta",
-      "description" => "Descrizione",
       "floor_nr" => "Numero di piani",
       "label" => "Etichetta",
       "address_search" => "Inserire l'indirizzo",
@@ -198,11 +178,8 @@ return [
       "no_services" => "Nessun servizio aggiunto",
       "select_media_category" => "Categoria di supporti selezionati",
       "district" => "Distretto",
-      "tenants" => "Gli inquilini",
       "managers" => "Manager",
-      "requests" => "Richieste",
       "house_nr" => "Casa Nr...",
-      "assign" => "Assegnare",
       "assign_managers" => "Assegnare i manager",
       "unassign_manager" => "Disassegnare",
       "managers_assigned" => "Dirigenti assegnati",
@@ -281,10 +258,6 @@ return [
       "title" => "Unità",
       "not_found" => "Unità non trovata",
       "add" => "Aggiungi unità",
-      'tenantType' => [
-        "attached" => "L'inquilino attaccato con successo",
-        "detached" => "L'inquilino si è staccato con successo"
-      ],
       "name" => "Numero di unità",
       "deleted" => "Unità cancellata",      
       "saved" => "Unità salvata",
@@ -294,14 +267,10 @@ return [
       "monthly_rent" => "Affitto mensile",
       "building_search" => "Inserire il nome di un edificio e selezionarlo",
       "building" => "Edificio",
-      "description" => "Descrizione",
       "basement" => "Nel seminterrato",
       "attic" => "In soffitta",
-      "requests" => "Richieste",
-      "tenant" => "Un inquilino",
       "empty_requests" => "Nessuna richiesta",
       "assigned_tenant" => "Assegnato inquilino",
-      "assign" => "Assegnare",
       "tenant_assigned" => "L'inquilino assegnato",
       "tenant_unassigned" => "Un inquilino non assegnato",
       'assignment' => 'Affittuari assegnati',
@@ -404,9 +373,7 @@ return [
       "updated" => "Notizie aggiornate",
       "deleted" => "Notizie Cancellate",
       "edit_title" => "Modifica messaggio",
-      "user" => "Utente",      
       "likes" => "Gli piace",
-      "tenants" => "Gli inquilini",
       "views" => "Viste",      
       "published_at" => "Pubblicato",
       "publish" => "Pubblicare",
@@ -421,11 +388,6 @@ return [
       [
         "buildings" => "Scegliere gli edifici",
         "search_provider" => "Fornitore di ricerca",
-      ],
-      'media' => 
-      [
-        'deleted' => 'Documento/foto eliminato',
-        'uploaded' => 'Documento/foto caricato',
       ],
       'type' => 
       [
@@ -457,36 +419,8 @@ return [
         "district" => "Distretto",
         "all" => "Tutti",
       ],
-      'confirmChange' => 
-      [
-        "title" => "Sei sicuro di voler continuare?",
-        "warning" => "Attenzione",
-        "confirmBtnText" => "Ok",
-        "cancelBtnText" => "Annulla",
-      ],
       "assignType" => "Tipo",
-      "unassign" => "Disassegnare",
-      "assign" => "Assegnare",
-      'attached' => 
-      [
-        "building" => "Edificio assegnato",
-        "district" => "Distretto assegnato",
-        "provider" => "Fornitore assegnato",
-      ],
-      'detached' => 
-      [
-        "building" => "Costruire senza assegnazione",
-        "district" => "Distretto non assegnato",
-        "provider" => "Fornitore non assegnato",
-      ],
       "buildingAlreadyAssigned" => "L'edificio e' gia' all'interno di un quartiere",
-      'confirmUnassign' => 
-      [
-        "title" => "Sei sicuro di voler continuare?",
-        "warning" => "Attenzione",
-        "confirmBtnText" => "Ok",
-        "cancelBtnText" => "Annulla",
-      ],
       'execution_interval' => 
       [
         "label" => "Intervallo di esecuzione",
@@ -519,31 +453,11 @@ return [
       "key_service" => "Servizio chiave",
       "caretaker" => "Custode",
       "real_estate_service" => "Servizio immobiliare",      
-      "requests" => "Richieste",
       "contact_details" => "Dati di contatto",
       "user_credentials" => "Credenziali utente",
       "company_details" => "Dettagli dell'azienda",
       "assignType" => "Tipo",
-      "unassign" => "Disassegnare",
-      "assign" => "Assegnare",
-      'attached' => 
-      [
-        "building" => "Edificio assegnato",
-        "district" => "Distretto assegnato",
-      ],
-      'detached' => 
-      [
-        "building" => "Edificio assegnato",
-        "district" => "Distretto assegnato",
-      ],
       "buildingAlreadyAssigned" => "L'edificio e' gia' all'interno di un quartiere",
-      'confirmUnassign' => 
-      [
-        "title" => "Sei sicuro di voler continuare?",
-        "warning" => "Attenzione",
-        "confirmBtnText" => "Ok",
-        "cancelBtnText" => "Annulla",
-      ],
       'placeholders' => 
       [
         "category" => "Selezionare la categoria",
@@ -561,7 +475,6 @@ return [
     'district' => 
     [
       "title" => "Distretti",      
-      "description" => "Descrizione",
       "add" => "Aggiungi distretto",
       "edit" => "Modifica Distretto",
       "saved" => "Distretto salvato",
@@ -581,7 +494,6 @@ return [
       "settings" => "Impostazioni",
       'iframe' => 'Iframe',
       'theme' => 'Tema',
-      'requests' => 'Richieste',
       'login_variation' => 'Variazione del login',
       'login_variation_slider' => 'Vuoi mostrare il cursore?',
       "district_enable" => "Distretto",
@@ -646,11 +558,9 @@ return [
       "created" => "Creato",
       "saved" => "Requête sauvegardée",
       "prop_title" => "Titolo",
-      "description" => "Descrizione",
       "category" => "Categoria",
       "edit_title" => "Modifica Richiesta",
       "add_title" => "Aggiungi Richiesta",
-      "tenant" => "Un inquilino",
       "due_date" => "Scadenza",
       "closed_date" => "Data di chiusura",
       "service" => "Servizio",
@@ -660,7 +570,6 @@ return [
       "assigned_to" => "Assegnato a",
       "assign_providers" => "Assegnare i fornitori",
       "assign_managers" => "Assegnare i manager",
-      "unassign" => "Disassegnare",
       "notify" => "Avvisare",
       "public_legend" => "Impostare questa opzione per rendere la richiesta visibile a tutti i vicini inquilini",
       "conversation" => "Conversazione",
@@ -671,7 +580,6 @@ return [
       "open_conversation" => "Aprite",
       "other_recipients" => "Altri destinatari",
       "recipients" => "Destinatari",
-      "assign" => "Assegnare",
       "images" => "Immagini",
       "no_images_message" => "Nessun file caricato",
       "request_details" => "Richiedi dettagli",
@@ -680,12 +588,6 @@ return [
       "priority_changed" => "La priorità è cambiata",
       'assignment'=> 'Assegnazione di manager/fornitori di servizi',
       'last_updated' => 'Last updated',
-      'media' => 
-      [
-        "added" => "Documento ajouté",
-        "removed" => "Supporti rimossi",
-        "deleted" => "Media cancellati",
-      ],
       'priority' => 
       [
         "label" => "Priorità",
@@ -791,20 +693,6 @@ return [
         "propertyManagers" => "Ricerca di manager",
         "visibility" => "Selezionare la visibilità",
       ],
-      'confirmChange' => 
-      [
-        "title" => "Sei sicuro di voler continuare?",
-        "warning" => "Attenzione",
-        "confirmBtnText" => "Ok",
-        "cancelBtnText" => "Annulla",
-      ],
-      'confirmUnassign' => 
-      [
-        "title" => "Sei sicuro di voler continuare?",
-        "warning" => "Attenzione",
-        "confirmBtnText" => "Ok",
-        "cancelBtnText" => "Annulla",
-      ],
       'mail' => 
       [
         "body" => "Corpo",
@@ -826,20 +714,6 @@ return [
           "email" => "Questo campo deve essere un'e-mail valida",
         ],
         "fail_cc" => "I campi CC/BCC/TO devono essere e-mail valide",
-      ],
-      'attached' => 
-      [
-        "services" => "Fornitore collegato con successo",
-        "managers" => "Manager attaccato con successo",
-        "users" => "Utente assegnato con successo",
-        "tags" => "Tag assegnato con successo",
-      ],
-      'detached' => 
-      [
-        "services" => "Fornitore staccato con successo",
-        "managers" => "Manager staccato con successo",
-        "users" => "Utente non assegnato con successo",
-        "tags" => "Tag non assegnato con successo",
       ],
       'userType' => 
       [
@@ -905,9 +779,6 @@ return [
       "add_buildings" => "Aggiungere edifici",
       "buildings_search" => "Ricerca di edifici",
       "districts" => "Distretti",
-      "requests" => "Richieste",
-      "assign" => "Assegnare",
-      "unassign" => "Disassegnare",
       'delete_with_reassign_modal' =>
       [
         "title" => "Cancellare e riassegnare gli edifici",
@@ -917,30 +788,8 @@ return [
       "delete_without_reassign" => "Cancellare",
       "profile_card" => "Profilo utente",
       "social_card" => "Social Media",
-      'titles' => 
-      [
-        "mr" => "Signor",
-        "mrs" => "Signora"
-      ],
       "assignType" => "Tipo",
-      'attached' => 
-      [
-        "building" => "Edificio assegnato",
-        "district" => "Distretto assegnato",
-      ],
-      'detached' => 
-      [
-        "building" => "Costruire senza assegnazione",
-        "district" => "Distretto non assegnato"
-      ],
       "buildingAlreadyAssigned" => "L'edificio e' gia' all'interno di un quartiere",
-      'confirmUnassign' => 
-      [
-        "title" => "Sei sicuro di voler continuare?",
-        "warning" => "Attenzione",
-        "confirmBtnText" => "Ok",
-        "cancelBtnText" => "Annulla",
-      ],
       'errors' => [
         'not_found' => "Property Manager non trovato",
         'create' => "Property Manager crea un errore: ",
@@ -967,15 +816,9 @@ return [
       "saved" => "Prodotto salvato",
       "deleted" => "Prodotto cancellato",
       "comments" => "Commenti",
-      "user" => "Utente",
       "contact" => "Contatto",
       "price" => "Prezzo",
       'comment_created' => "Commento creato con successo",
-      'media' => 
-      [
-        'deleted' => 'Documento/foto eliminato',
-        'uploaded' => 'Documento/foto caricato',
-      ],
       'errors' => [
         'not_found' => "Prodotto non trovato",
         'deleted' => "Errore prodotto cancellato: ",

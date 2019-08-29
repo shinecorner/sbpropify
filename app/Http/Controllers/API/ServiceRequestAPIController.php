@@ -642,7 +642,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $sr->conversationFor(Auth::user(), $sp->user);
 
-        return $this->sendResponse($sr, __('models.request.attached.services'));
+        return $this->sendResponse($sr, __('general.attached.services'));
     }
 
     /**
@@ -740,7 +740,7 @@ class ServiceRequestAPIController extends AppBaseController
             $sr->conversationFor($p->user, $u);
         }
 
-        return $this->sendResponse($sr, __('models.request.attached.user'));
+        return $this->sendResponse($sr, __('general.attached.user'));
     }
 
     /**
@@ -850,7 +850,7 @@ class ServiceRequestAPIController extends AppBaseController
             $sr->conversationFor($p->user, $manager->user);
         }
 
-        return $this->sendResponse($sr, __('models.request.attached.managers'));
+        return $this->sendResponse($sr, __('general.attached.managers'));
     }
 
     /**
@@ -991,7 +991,7 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
-        return $this->sendResponse($sr, __('models.request.attached.tags'));
+        return $this->sendResponse($sr, __('general.attached.tags'));
     }
 
     /**
@@ -1076,7 +1076,7 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
-        return $this->sendResponse($sr, __('models.request.attached.tags'));
+        return $this->sendResponse($sr, __('general.attached.tags'));
     }
 
     /**
@@ -1154,7 +1154,7 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
-        return $this->sendResponse($sr, __('models.request.detached.tags'));
+        return $this->sendResponse($sr, __('general.detached.tags'));
     }
 
     /**
@@ -1207,7 +1207,7 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
-        return $this->sendResponse($sr, __('models.request.detached.tags'));
+        return $this->sendResponse($sr, __('general.detached.tags'));
     }
 
     /**
@@ -1323,7 +1323,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
         $requestAssignee->delete();
 
-        return $this->sendResponse($id, __('models.request.detached.' . $requestAssignee->assignee_type));
+        return $this->sendResponse($id, __('general.detached.' . $requestAssignee->assignee_type));
     }
 
 

@@ -38,10 +38,43 @@ return [
     'saturday' => 'samedi',
     'sunday' => 'dimanche',
   ],
+  "user" => "Utilisateur",
+  "tenant" => "Locataire",
+  "tenants" => "Locataires",
   'date' => 'Date',
   'title' => "intitulé",
   'description' => "descriptif",
+  "unassign" => "Désassigner",
+  "assign" => "Affecter",
+  'requests' => 'Demandes',
   'salutation' => 'Apostrophe',
+  'salutation_option' => [
+    "mr" => "Monsieur",
+    "mrs" => "Mme",
+    "company" => "Société",    
+  ],
+  'attached' => 
+  [
+    "building" => "Bâtiment affecté",
+    "district" => "District assigné",
+    "provider" => "Prestataire désigné",
+    'tenant' => "Locataire attaché avec succès",
+    "services" => "Le prestataire s'est attaché avec succès",
+    "managers" => "Gestionnaire attaché avec succès",
+    "users" => "Utilisateur affecté avec succès",
+    "tags" => "Étiquette attribuée avec succès",
+  ],
+  'detached' => 
+  [
+    "building" => "Bâtiment non assigné",
+    "district" => "District non attribué",
+    "provider" => "Prestataire non assigné",
+    'tenant' => "Locataire détaché avec succès",
+    "services" => "Le prestataire s'est détaché avec succès",
+    "managers" => "Gestionnaire détaché avec succès",
+    "users" => "Utilisateur non affecté avec succès",
+    "tags" => "Étiquette non attribuée avec succès",    
+  ],
   'no' => 'Non',
   "name" => "Nom",
   'phone' => "Téléphone",
@@ -133,6 +166,13 @@ return [
   ],
   'swal' => 
   [
+    'confirmChange' => 
+    [
+      "title" => "Vous êtes sûr de vouloir continuer ?",
+      "warning" => "Avertissement",
+      "confirmBtnText" => "Ok",
+      "cancelBtnText" => "Annuler",
+    ],
     'delete' => 
     [
       'title' => "T'es sûr de toi ?",

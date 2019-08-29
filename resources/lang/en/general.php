@@ -38,10 +38,43 @@ return [
     'saturday' => 'Saturday',
     'sunday' => 'Sunday',
   ],
+  'user' => 'User',
+  'tenant' => 'Tenant',
+  'tenants' => 'Tenants',
   'date' => 'Date',
   'title' => 'Title',
   'description' => 'Description',
+  'requests' => 'Requests',
+  'unassign' => 'Unassign',
+  'assign' => 'Assign',
   'salutation' => 'Salutation',
+  'salutation_option' => [
+    'mr' => 'Mr.',
+    'mrs' => 'Mrs.',
+    'company' => 'Company',
+  ],
+  'attached' => 
+  [
+    'building' => 'Building assigned',
+    'district' => 'District assigned',
+    'provider' => 'Provider assigned',
+    'tenant' => 'Tenant attached',
+    'services' => 'Provider attached successfully',
+    'managers' => 'Manager attached successfully',
+    'users' => 'User assigned successfully',
+    'tags' => 'Tag assigned successfully',
+  ],
+  'detached' => 
+  [
+    'building' => 'Buiding unassigned',
+    'district' => 'District unassigned',
+    'provider' => 'Provider unassigned',
+    'tenant' => 'Tenant detached',
+    'services' => 'Provider detached successfully',
+    'managers' => 'Manager detached successfully',
+    'users' => 'User unassigned successfully',
+    'tags' => 'Tag unassigned successfully',
+  ],
   'no' => 'No',
   'name' => "Name",
   'phone' => 'Phone',
@@ -133,6 +166,13 @@ return [
   ],
   'swal' => 
   [
+    'confirmChange' => 
+    [
+      'title' => 'Are you sure you want to continue?',
+      'warning' => 'Warning',
+      'confirmBtnText' => 'Ok',
+      'cancelBtnText' => 'Cancel',
+    ],
     'delete' => 
     [
       'title' => 'Are you sure?',

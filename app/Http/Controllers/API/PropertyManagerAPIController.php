@@ -405,7 +405,7 @@ class PropertyManagerAPIController extends AppBaseController
         $pm->districts()->sync($d, false);
         $pm->load('districts', 'buildings');
 
-        return $this->sendResponse($pm, __('models.propertyManager.attached.district'));
+        return $this->sendResponse($pm, __('general.attached.district'));
     }
 
     /**
@@ -457,7 +457,7 @@ class PropertyManagerAPIController extends AppBaseController
         $pm->districts()->detach($d);
         $pm->load('districts', 'buildings');
 
-        return $this->sendResponse($pm, __('models.propertyManager.detached.district'));
+        return $this->sendResponse($pm, __('general.detached.district'));
     }
 
     /**
@@ -513,7 +513,7 @@ class PropertyManagerAPIController extends AppBaseController
         $pm->buildings()->sync($b, false);
         $pm->load('districts', 'buildings');
 
-        return $this->sendResponse($pm, __('models.propertyManager.attached.building'));
+        return $this->sendResponse($pm, __('general.attached.building'));
     }
 
     /**
@@ -565,7 +565,7 @@ class PropertyManagerAPIController extends AppBaseController
         $pm->buildings()->detach($b);
         $pm->load('districts', 'buildings');
 
-        return $this->sendResponse($pm, __('models.propertyManager.detached.building'));
+        return $this->sendResponse($pm, __('general.detached.building'));
     }
 
     /**

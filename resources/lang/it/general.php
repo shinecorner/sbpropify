@@ -38,11 +38,43 @@ return [
     'saturday' => 'sabato',
     'sunday' => 'domenicale',
   ],
+  "user" => "Utente",
+  "tenant" => "Un inquilino",
+  "tenants" => "Gli inquilini",
   'date' => 'Data',
   'title' => "denominazione",
   'description' => "descrizione",
-  'no' => 'No',
+  "unassign" => "Disassegnare",
+  "assign" => "Assegnare",
+  'requests' => 'Richieste',
   'salutation' => 'Saluto',
+  'salutation_option' => [
+    "mr" => "Signor",
+    "mrs" => "Signora",
+    "company" => "Azienda",    
+  ],
+  'attached' => 
+  [
+    "building" => "Edificio assegnato",
+    "district" => "Distretto assegnato",
+    "provider" => "Fornitore assegnato",
+    'tenant' => "L'inquilino attaccato con successo",
+    "services" => "Fornitore collegato con successo",
+    "managers" => "Manager attaccato con successo",
+    "users" => "Utente assegnato con successo",
+    "tags" => "Tag assegnato con successo",
+  ],
+  'detached' => 
+  [
+    "building" => "Costruire senza assegnazione",
+    "district" => "Distretto non assegnato",
+    "provider" => "Fornitore non assegnato",
+    'tenant' => "L'inquilino si è staccato con successo",
+    "services" => "Fornitore staccato con successo",
+    "managers" => "Manager staccato con successo",
+    "users" => "Utente non assegnato con successo",
+    "tags" => "Tag non assegnato con successo",    
+  ],
   "name" => "Nome",
   'phone' => "Telefono",
   'id' => "ID",
@@ -133,6 +165,13 @@ return [
   ],
   'swal' => 
   [
+    'confirmChange' => 
+    [
+      "title" => "Sei sicuro di voler continuare?",
+      "warning" => "Attenzione",
+      "confirmBtnText" => "Ok",
+      "cancelBtnText" => "Annulla",
+    ],
     'delete' => 
     [
       'title' => "Ne sei sicuro?",

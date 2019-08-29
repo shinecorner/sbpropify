@@ -630,7 +630,7 @@ class PostAPIController extends AppBaseController
         $p->likers = $p->collectLikers();
 
 
-        return $this->sendResponse($p, __('models.post.attached.building'));
+        return $this->sendResponse($p, __('general.attached.building'));
     }
 
     /**
@@ -693,7 +693,7 @@ class PostAPIController extends AppBaseController
         $p->likers = $p->collectLikers();
 
 
-        return $this->sendResponse($p, __('models.post.detached.building'));
+        return $this->sendResponse($p, __('general.detached.building'));
     }
 
     /**
@@ -756,7 +756,7 @@ class PostAPIController extends AppBaseController
         $p->likers = $p->collectLikers();
 
 
-        return $this->sendResponse($p, __('models.post.attached.district'));
+        return $this->sendResponse($p, __('general.attached.district'));
     }
 
     /**
@@ -819,7 +819,7 @@ class PostAPIController extends AppBaseController
         $p->likers = $p->collectLikers();
 
 
-        return $this->sendResponse($p, __('models.post.detached.district'));
+        return $this->sendResponse($p, __('general.detached.district'));
     }
 
     /**
@@ -930,7 +930,7 @@ class PostAPIController extends AppBaseController
         $p->likers = $p->collectLikers();
 
 
-        return $this->sendResponse($p, __('models.post.attached.provider'));
+        return $this->sendResponse($p, __('general.attached.provider'));
     }
 
     /**
@@ -993,7 +993,7 @@ class PostAPIController extends AppBaseController
         ])->withCount('allComments')->findWithoutFail($id);
         $p->likers = $p->collectLikers();
 
-        return $this->sendResponse($p, __('models.post.detached.provider'));
+        return $this->sendResponse($p, __('general.detached.provider'));
     }
 
     /**

@@ -59,11 +59,11 @@
                     width: 80,
                     actions: [{
                         icon: 'ti-pencil',
-                        title: this.$t('models.address.edit'),
+                        title: this.$t('general.actions.edit'),
                         onClick: this.edit
                     }, {
                         icon: 'ti-close',
-                        title: this.$t('models.address.delete'),
+                        title: this.$t('general.actions.delete'),
                         onClick: this.remove,
                         style: {
                             color: 'red'

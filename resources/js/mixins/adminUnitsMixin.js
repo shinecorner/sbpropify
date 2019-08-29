@@ -71,7 +71,7 @@ export default (config = {}) => {
                 requestActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.request.edit'),
+                        title: this.$t('general.actions.edit'),
                         type: 'primary',
                         onClick: this.requestEditView
                     }]
@@ -142,9 +142,9 @@ export default (config = {}) => {
                 }
             },
             notifyUnassignment(tenant) {
-                this.$confirm(this.$t(`models.request.confirmUnassign.title`), this.$t('models.request.confirmUnassign.warning'), {
-                    confirmButtonText: this.$t(`models.request.confirmUnassign.confirmBtnText`),
-                    cancelButtonText: this.$t(`models.request.confirmUnassign.cancelBtnText`),
+                this.$confirm(this.$t(`general.swal.confirmChange.title`), this.$t('general.swal.confirmChange.warning'), {
+                    confirmButtonText: this.$t(`general.swal.confirmChange.confirmBtnText`),
+                    cancelButtonText: this.$t(`general.swal.confirmChange.cancelBtnText`),
                     type: 'warning'
                 }).then(async () => {
                     try {

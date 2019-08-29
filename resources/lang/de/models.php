@@ -77,14 +77,8 @@ return [
 			'contract' => 'Mietvertrag',
 			'posts' => 'Beiträge',
 			'products' => 'Marktplatz',
-			'requests' => 'Anfragen',
 			'company' => 'Firmenname',
 			'no_building' => 'Keine Liegenschaft(en) zugewiesen.',
-			'media' =>
-				[
-					'deleted' => 'Mediendatei gelöscht',
-					'uploaded' => 'Mediendatei hochgeladen',
-				],
 			'building' =>
 				[
 					'name' => 'Liegenschaft',
@@ -150,24 +144,11 @@ return [
 				[
 					'category' => 'Kategorie',															
 				],
-			'titles' =>
-				[
-					'mr' => 'Herr',
-					'mrs' => 'Frau',
-					'company' => 'Firma',
-				],
 			'status' =>
 				[
 					'label' => 'Status',
 					'active' => 'Aktiv',
 					'not_active' => 'Inaktiv',
-				],
-			'confirmChange' =>
-				[
-					'title' => 'Wollen Sie den Status wirklich ändern?',
-					'warning' => 'Bitte bestätigen',
-					'confirmBtnText' => 'Ja',
-					'cancelBtnText' => 'Schliessen',
 				],
 		],
 	'building' =>
@@ -182,7 +163,6 @@ return [
 			'floors' => 'Stockwerke',
 			'basement' => 'Erdgeschoss',
 			'attic' => 'Attikageschoss',
-			'description' => 'Beschreibung',
 			'floor_nr' => 'Anzahl Stockwerke',
 			'label' => 'Label',			
 			'address_search' => 'Bitte Adresse eingeben.',
@@ -198,11 +178,8 @@ return [
 			'no_services' => 'Keine Partnerfirmen gewählt.',
 			'select_media_category' => 'Kategorie der Mediendatei wählen',
 			'district' => 'Überbauung',
-			'tenants' => 'Mieter',
 			'managers' => 'Bewirtschafter',
-			'requests' => 'Anfragen',
-			'house_nr' => 'Hausnummer',
-			'assign' => 'Zuweisen',
+			'house_nr' => 'Hausnummer',			
 			'assign_managers' => 'Bewirtschafter zuweisen',
 			'unassign_manager' => 'Entfernen',
 			'managers_assigned' => 'Bewirtschafter zugewiesen',
@@ -281,10 +258,6 @@ return [
 			'title' => 'Einheiten',
 			'not_found' => 'Einheit nicht gefunden.',
 			'add' => 'Einheit hinzufügen',
-			'tenantType' => [
-				'attached' => 'Mieter wurde zugewiesen.',
-				'detached' => 'Mieter wurde entfernt.'
-			],
 			'name' => 'Einheit-ID',								
 			'deleted' => 'Einheit gelöscht',
 			'saved' => 'Einheit gespeichert',
@@ -293,15 +266,11 @@ return [
 			'room_no' => 'Anzahl Zimmer',
 			'monthly_rent' => 'Monatsmiete',
 			'building_search' => 'Bitte nach einer Liegenschaft suchen',
-			'building' => 'Liegenschaft',
-			'description' => 'Beschreibung',
+			'building' => 'Liegenschaft',			
 			'basement' => 'Untergeschoss',
 			'attic' => 'Attikageschoss',
-			'requests' => 'Anfragen',
-			'tenant' => 'Mieter',
 			'empty_requests' => 'Keine Anfragen',
-			'assigned_tenant' => 'Derzeitiger Mieter',
-			'assign' => 'Zuweisen',
+			'assigned_tenant' => 'Derzeitiger Mieter',			
 			'tenant_assigned' => 'Mieter wurde erfolgreich zugewiesen',
 			'tenant_unassigned' => 'Mieter wurde erfolgreich entfernt',
 			'assignment' => 'Zugewiesene Mieter',
@@ -403,10 +372,8 @@ return [
 			'view_incresead' => "Aufrufe erfolgreich gesteigert",
 			'updated' => 'Beitrag wurde aktualisiert',
 			'deleted' => 'Beitrag wurde gelöscht',			
-			'edit_title' => 'Beitrag bearbeiten',
-			'user' => 'Benutzer',			
+			'edit_title' => 'Beitrag bearbeiten',						
 			'likes' => 'Likes',
-			'tenants' => 'Mieter',
 			'views' => 'Aufrufe',			
 			'published_at' => 'Veröffentlichung',
 			'publish' => 'Veröffentlicht',
@@ -421,11 +388,6 @@ return [
 				[
 					'buildings' => 'Liegenschaft wählen',
 					'search_provider' => 'Dienstleister suchen',
-				],
-			'media' =>
-				[
-					'deleted' => 'Mediendatei wurde gelöscht',
-					'uploaded' => 'Mediendatei wurde hochgeladen',
 				],
 			'type' =>
 				[
@@ -457,36 +419,8 @@ return [
 					'district' => 'Überbauung',
 					'all' => 'Alle App-Nutzer',
 				],
-			'confirmChange' =>
-				[
-					'title' => 'Wollen Sie wirklich weiterfahren?',
-					'warning' => 'Bitte bestätigen',
-					'confirmBtnText' => 'Ja',
-					'cancelBtnText' => 'Schliessen',
-				],
-			'assignType' => 'Typ',
-			'unassign' => 'Entfernen',
-			'assign' => 'Zuweisen',
-			'attached' =>
-				[
-					'building' => 'Liegenschaft wurde zugewiesen.',
-					'district' => 'Überbauung wurde zugewiesen.',
-					'provider' => 'Dienstleister wurde zugewiesen.',
-				],
-			'detached' =>
-				[
-					'building' => 'Liegenschaft wurde entfernt',
-					'district' => 'Überbbauung wurde entfernt',
-					'provider' => 'Dienstleister wurde wurde entfernt',
-				],
+			'assignType' => 'Typ',					
 			'buildingAlreadyAssigned' => 'Liegenschaft ist bereits einer Überauung zugewiesen.',
-			'confirmUnassign' =>
-				[
-					'title' => 'Wollen Sie wirklich weiterfahren?',
-					'warning' => 'Bitte bestätigen',
-					'confirmBtnText' => 'Ja',
-					'cancelBtnText' => 'Schliessen',
-				],
 			'execution_interval' =>
 				[
 					'label' => 'Datum der Durchführung',
@@ -519,31 +453,11 @@ return [
 			'key_service' => 'Schlüsseldienst',
 			'caretaker' => 'Hauswart',
 			'real_estate_service' => 'Liegenschaftsdienst',			
-			'requests' => 'Anfragen',
 			'contact_details' => 'Kontaktdaten',
 			'user_credentials' => 'Logindaten',
 			'company_details' => 'Firmendaten',
-			'assignType' => 'Typ',
-			'unassign' => 'Entfernen',
-			'assign' => 'Zuweisen',
-			'attached' =>
-				[
-					'building' => 'Liegenschaft wurde zugewiesen',
-					'district' => 'Überbauung wurde entfernt',
-				],
-			'detached' =>
-				[
-					'building' => 'Liegenschaft wurde entfernt',
-					'district' => 'Überbauung wurde entfernt',
-				],
+			'assignType' => 'Typ',						
 			'buildingAlreadyAssigned' => 'Diese Liegenschaft ist bereits mit dieser Überbauung verbunden.',
-			'confirmUnassign' =>
-				[
-					'title' => 'Wollen Sie wirklich weiterfahren?',
-					'warning' => 'Bitte bestätigen',
-					'confirmBtnText' => 'Ja',
-					'cancelBtnText' => 'Schliessen',
-				],
 			'placeholders' =>
 				[
 					'category' => 'Gewerk wählen',
@@ -560,8 +474,7 @@ return [
 		],
 	'district' =>
 		[
-			'title' => 'Überbauungen',			
-			'description' => 'Beschreibung',
+			'title' => 'Überbauungen',						
 			'add' => 'Überbauung hinzufügen',
 			"edit" => "Überbauung bearbeiten",			
 			'saved' => 'Überbauung gespeichert',
@@ -581,7 +494,6 @@ return [
 			'settings' => 'Einstellungen',
 			'iframe' => 'Iframe',
 			'theme' => 'Thema',
-			'requests' => 'Anfragen',
 			'login_variation' => 'Login-Variante',
 			'login_variation_slider' => 'Möchten Sie den Schieberegler anzeigen?',
 			'district_enable' => 'Überbauung',
@@ -646,11 +558,9 @@ return [
 			'created' => 'Erstellt',
 			'saved' => 'Anfrage gespeichert',
 			'prop_title' => 'Titel',
-			'description' => 'Anfrage Informationen',
 			'category' => 'Kategorie',			
 			'edit_title' => 'Anfrage bearbeiten',
 			'add_title' => 'Anfrage hinzufügen',
-			'tenant' => 'Mieter',
 			'due_date' => 'Zu erledigen bis',
 			'closed_date' => 'Erledigt am',
 			'service' => 'Dienstleister',
@@ -659,8 +569,7 @@ return [
 			'comments' => 'Mieter-Chat',
 			'assigned_to' => 'Zuständig',
 			'assign_providers' => 'Zuweisen',
-			'assign_managers' => 'Zuweisen',
-			'unassign' => 'Entfernen',
+			'assign_managers' => 'Zuweisen',			
 			'notify' => 'Kommunikation',
 			'public_legend' => 'Aktivieren Sie die Option, um die Anfrage allen Bewohnern einer Liegenschaft/Überbauung zu zeigen.',
 			'conversation' => 'Chat-Mitteilungen',
@@ -670,8 +579,7 @@ return [
 			'internal_notice_deleted' => "Interne Notiz wurde gelöscht",
 			'open_conversation' => 'Offen',
 			'other_recipients' => 'Weitere Empfänger',
-			'recipients' => 'Empfänger',
-			'assign' => 'Zuweisen',
+			'recipients' => 'Empfänger',			
 			'images' => 'Fotos und Dokumente',
 			'no_images_message' => 'Bisland keine Dateien hochgeladen',
 			'request_details' => 'Beschreibung',
@@ -680,12 +588,6 @@ return [
 			'priority_changed' => 'Priorität wurde geändert',
 			'assignment'=> 'Zugewiesene Personen/Firmen',
 			'last_updated' => 'Last updated',
-			'media' =>
-				[
-					'added' => 'Mediendatei hinzugefügt',
-					'removed' => 'Mediendatei entfernt.',
-					'deleted' => 'Mediendatei gelöscht',					
-				],
 			'priority' =>
 				[
 					'label' => 'Priorität',
@@ -791,20 +693,6 @@ return [
 					'propertyManagers' => 'Bewirtschafter suchen',					
 					'visibility' => 'Sichtbarkeit',
 				],
-			'confirmChange' =>
-				[
-					'title' => 'Wollen Sie wirklich weiterfahren?',
-					'warning' => 'Bitte bestätigen',
-					'confirmBtnText' => 'Ja',
-					'cancelBtnText' => 'Schliessen',
-				],
-			'confirmUnassign' =>
-				[
-					'title' => 'Wollen Sie wirklich weiterfahren?',
-					'warning' => 'Bitte bestätigen',
-					'confirmBtnText' => 'Ja',
-					'cancelBtnText' => 'Schliessen',
-				],
 			'mail' =>
 				[
 					'body' => 'Inhalt',
@@ -826,20 +714,6 @@ return [
 							'email' => 'Bitte eine gültige E-Mail Adresse eingeben',
 						],
 					'fail_cc' => 'CC/BCC/TO müssen korrekte Email Adressen enthalten.',
-				],
-			'attached' =>
-				[
-					'services' => 'Dienstleister wurde zugewiesen.',
-					'managers' => 'Bewirtschafter wurde zugewiesen.',
-					'users' => 'Tag erfolgreich zugewiesen',
-                    'tags' => 'Tag assigned successfully',
-				],
-			'detached' =>
-				[
-					'services' => 'Dienstleister wurde entfernt.',
-					'managers' => 'Bewirtschafter wurde entfernt.',
-					'users' => 'Administrator wurde entfernt.',
-					'tags' => 'Tag nicht zugewiesen erfolgreich.',
 				],
 			'userType' =>
 				[
@@ -904,10 +778,7 @@ return [
 			'no_buildings' => 'Keine Liegenschaft zugewiesen',
 			'add_buildings' => 'Liegenschaft hinzufügen',
 			'buildings_search' => 'Liegenschaft suchen',
-			'districts' => 'Überbauungen',
-			'requests' => 'Anfragen',
-			'assign' => 'Zuweisen',
-			'unassign' => 'Entfernen',
+			'districts' => 'Überbauungen',						
 			'delete_with_reassign_modal' =>
 				[
 					'title' => 'Andere Person zuweisen und dann Benutzer löschen',
@@ -917,30 +788,8 @@ return [
 			'delete_without_reassign' => 'Löschen',
 			'profile_card' => 'User Profile',
 			'social_card' => 'Social Media',
-			'titles' =>
-				[
-					'mr' => 'Herr',
-					'mrs' => 'Frau',
-				],
 			'assignType' => 'Typ',
-			'attached' =>
-				[
-					'building' => 'Liegenschaft wurde zugewiesen.',
-					'district' => 'Überbauung wurde zugewiesen',
-				],
-			'detached' =>
-				[
-					'building' => 'Liegenschaft wurde entfernt.',
-					'district' => 'Überbauung wurde entfernt.',
-				],
 			'buildingAlreadyAssigned' => 'Liegenschaft ist bereits einer Überbauung zugewiesen.',
-			'confirmUnassign' =>
-				[
-					'title' => 'Wollen Sie wirklich weiterfahren?',
-					'warning' => 'Bitte bestätigen',
-					'confirmBtnText' => 'Ja',
-					'cancelBtnText' => 'Schliessen',
-				],
 			'errors' => [
 				'not_found' => "Bewirtschafter nicht gefunden",
 				'create' => "Fehler beim Erstellen des Bewirtschafters: ",
@@ -966,16 +815,10 @@ return [
 			'likes' => 'Likes',			
 			'saved' => 'Inserat gespeichert',
 			'deleted' => 'Inserat gelöscht',
-			'comments' => 'Kommentare',
-			'user' => 'Benutzer',
+			'comments' => 'Kommentare',			
 			'contact' => 'Kontaktdaten',
 			'price' => 'Preis',
 			'comment_created' => "Kommentar erfolgreich erstellt",
-			'media' =>
-				[
-					'deleted' => 'Dokument/Foto gelöscht',
-					'uploaded' => 'Dokument/Foto hochgeladen',
-				],
 			'errors' => [
 				'not_found' => "Produkt nicht gefunden",
 				'deleted' => "Fehler beim Löschen des Produkts: ",

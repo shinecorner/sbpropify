@@ -14,11 +14,11 @@
                                   prop="street_nr" style="max-width: 512px;">
                         <el-input type="text" v-model="model.street_nr" v-on:change="setBuildingName"></el-input>
                     </el-form-item>
-                    <el-form-item :label="$t('models.building.name')" :rules="validationRules.name" prop="name"
+                    <el-form-item :label="$t('general.name')" :rules="validationRules.name" prop="name"
                                   style="max-width: 512px;" ref="name">
                         <el-input type="text" v-model="model.name"></el-input>
                     </el-form-item>
-                    <!--<el-form-item prop="description" :label="$t('models.building.description')" :rules="validationRules.description" style="max-width: 512px;">-->
+                    <!--<el-form-item prop="description" :label="$t('general.description')" :rules="validationRules.description" style="max-width: 512px;">-->
                     <!--<el-input type="textarea" v-model="model.description"></el-input>-->
                     <!--</el-form-item>-->
                     <el-form-item :label="$t('models.building.floor_nr')" :rules="validationRules.floor_nr" prop="floor_nr"
@@ -44,7 +44,7 @@
                     <el-form-item :label="$t('models.building.district')" prop="district_id" style="max-width: 512px;">
                         <el-select
                             :loading="remoteLoading"
-                            :placeholder="$t('models.building.placeholders.search')"
+                            :placeholder="$t('general.placeholders.search')"
                             :remote-method="remoteSearchDistricts"
                             filterable
                             remote

@@ -19,7 +19,7 @@
                                             <el-select style="display: block" v-model="model.title">
                                                 <el-option
                                                     :key="title"
-                                                    :label="$t(`models.propertyManager.titles.${title}`)"
+                                                    :label="$t(`general.salutation_option.${title}`)"
                                                     :value="title"
                                                     v-for="title in titles">
                                                 </el-option>
@@ -156,7 +156,7 @@
                     <el-col :md="12">
                         <raw-grid-statistics-card :cols="8" :data="statistics.raw"/>
 
-                        <card :loading="loading" class="mt15" :header="$t('models.propertyManager.requests')">
+                        <card :loading="loading" class="mt15" :header="$t('general.requests')">
                             <relation-list
                                 :actions="requestActions"
                                 :columns="requestColumns"
@@ -208,7 +208,7 @@
                     type: 'requestTenantAvatar',
                     width: 75,
                     prop: 'tenant',
-                    label: this.$t('models.request.tenant')
+                    label: this.$t('general.tenant')
                 }, {
                     type: 'requestTitleWithDesc',
                     label: this.$t('models.request.prop_title')
@@ -235,7 +235,7 @@
                 assignmentsActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.propertyManager.unassign'),
+                        title: this.$t('general.unassign'),
                         type: 'danger',
                         onClick: this.notifyUnassignment
                     }]
@@ -259,9 +259,9 @@
                 return this.$t(`models.request.status.${this.requestStatusConstants[status]}`);
             },
             notifyUnassignment(row) {
-                this.$confirm(this.$t(`models.propertyManager.confirmUnassign.title`), this.$t('models.propertyManager.confirmUnassign.warning'), {
-                    confirmButtonText: this.$t(`models.propertyManager.confirmUnassign.confirmBtnText`),
-                    cancelButtonText: this.$t(`models.propertyManager.confirmUnassign.cancelBtnText`),
+                this.$confirm(this.$t(`general.swal.confirmChange.title`), this.$t('general.swal.confirmChange.warning'), {
+                    confirmButtonText: this.$t(`general.swal.confirmChange.confirmBtnText`),
+                    cancelButtonText: this.$t(`general.swal.confirmChange.cancelBtnText`),
                     type: 'warning'
                 }).then(async () => {
                     try {

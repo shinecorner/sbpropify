@@ -28,7 +28,7 @@
                             round
                             size="mini"
                             type="primary"
-                    ><span>&nbsp;</span>{{$t('models.tenant.edit')}}
+                    ><span>&nbsp;</span>{{$t('general.actions.edit')}}
                     </el-button>
                     <el-button
                             @click="goToListing"
@@ -267,7 +267,7 @@
                            <el-card class="chart-card">
                                 <h3 class="right-card">
                                     <i class="icon-chat-empty icon"/>
-                                    {{ $t('models.tenant.requests') }}
+                                    {{ $t('general.requests') }}
                                 </h3>
                                 <Timeline
                                         :filterValue="model.id"

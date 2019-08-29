@@ -38,10 +38,43 @@ return [
     'saturday' => 'Samstag',
     'sunday' => 'Sonntag',
   ],
+  'user' => 'Benutzer',
+  'tenant' => 'Mieter',
+  'tenants' => 'Mieterinnen',
   'date' => 'Datum',
   'title' => 'Titel',
   'description' => 'Beschreibung',
+  'requests' => 'Anfragen',
+  'assign' => 'Zuweisen',
+  'unassign' => 'Entfernen',
   'salutation' => 'Anrede',
+  'salutation_option' => [
+    'mr' => 'Herr',
+    'mrs' => 'Frau',
+    'company' => 'Firma',    
+  ],
+  'attached' =>
+  [
+    'building' => 'Liegenschaft wurde zugewiesen.',
+    'district' => 'Überbauung wurde zugewiesen.',
+    'provider' => 'Dienstleister wurde zugewiesen.',
+    'tenant' => "Mieter wurde zugewiesen.",
+    'services' => 'Dienstleister wurde zugewiesen.',
+		'managers' => 'Bewirtschafter wurde zugewiesen.',
+		'users' => 'Tag erfolgreich zugewiesen',
+    'tags' => 'Tag assigned successfully',
+  ],
+  'detached' =>
+  [
+    'building' => 'Liegenschaft wurde entfernt',
+    'district' => 'Überbbauung wurde entfernt',
+    'provider' => 'Dienstleister wurde wurde entfernt',
+    'tenant' => "Mieter wurde entfernt.",
+    'services' => 'Dienstleister wurde entfernt.',
+    'managers' => 'Bewirtschafter wurde entfernt.',
+    'users' => 'Administrator wurde entfernt.',
+    'tags' => 'Tag nicht zugewiesen erfolgreich.',
+  ],
   'name' => "Nome",
   'phone' => 'Telefon',
   'id' => "ID",
@@ -133,6 +166,13 @@ return [
   ],
   'swal' => 
   [
+    'confirmChange' =>
+    [
+      'title' => 'Wollen Sie den Status wirklich ändern?',
+      'warning' => 'Bitte bestätigen',
+      'confirmBtnText' => 'Ja',
+      'cancelBtnText' => 'Schliessen',
+    ],
     'delete' => 
     [
       'title' => 'Sind Sie sicher?',

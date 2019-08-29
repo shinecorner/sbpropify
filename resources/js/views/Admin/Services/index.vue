@@ -8,7 +8,7 @@
             <template v-if="$can($permissions.delete.provider)">
                 <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
                            type="danger">
-                    {{$t('models.service.delete')}}
+                    {{$t('general.actions.delete')}}
                 </el-button>
             </template>
         </heading>
@@ -57,7 +57,7 @@
         data() {
             return {
                 header: [{
-                    label: 'models.service.name',
+                    label: 'general.name',
                     withMultipleProps: true,
                     props: ['name', 'addr', 'cty']
                 }, {
@@ -65,13 +65,13 @@
                     withMultipleProps: true,
                     props: ['email', 'phone']
                 }, {
-                    label: 'models.building.requests',
+                    label: 'general.requests',
                     withCounts: true,
                 }, {
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        title: 'models.service.edit',
+                        title: 'general.actions.edit',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.provider

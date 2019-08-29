@@ -2,18 +2,18 @@
     <div>
         <card>
             <el-form :model="model" label-width="96px" ref="form">
-                <el-form-item :label="$t('models.user.name')" :rules="validationRules.name" prop="name">
+                <el-form-item :label="$t('general.name')" :rules="validationRules.name" prop="name">
                     <el-input autocomplete="off" type="text" v-model="model.name"></el-input>
                 </el-form-item>
-                <el-form-item :label="$t('models.user.email')" :rules="validationRules.email" prop="email">
+                <el-form-item :label="$t('general.email')" :rules="validationRules.email" prop="email">
                     <el-input autocomplete="off" type="email" v-model="model.email"></el-input>
                 </el-form-item>
-                <el-form-item :label="$t('models.user.phone')" prop="phone">
+                <el-form-item :label="$t('general.phone')" prop="phone">
                     <el-input type="text" v-model="model.phone"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button @click="submit" icon="ti-save" type="primary">
-                        {{$t('models.user.save')}}
+                        {{$t('general.actions.save')}}
                     </el-button>
                 </el-form-item>
             </el-form>

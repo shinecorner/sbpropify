@@ -3,7 +3,7 @@
         <el-row :gutter="10">
             <template v-if="post.tenant">
                 <el-col :md="6" :sm="12">
-                    <p class="post-label">{{$t('models.user.name')}}</p>
+                    <p class="post-label">{{$t('general.name')}}</p>
                     <p v-if="post.tenant">
                         <router-link :to="{name: 'adminTenantsEdit', params: {id: post.tenant.id}}">
                             {{post.tenant.first_name}} {{post.tenant.last_name}}
@@ -19,7 +19,7 @@
             </template>
             <template v-else>
                 <el-col :md="6" :sm="12">
-                    <p class="post-label">{{$t('models.user.name')}}</p>
+                    <p class="post-label">{{$t('general.name')}}</p>
                     <router-link :to="{name: 'adminUsersEdit', params: {id: post.user.id}}">
                         {{post.user.name}}
                     </router-link>

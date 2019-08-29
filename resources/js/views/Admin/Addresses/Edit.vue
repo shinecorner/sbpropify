@@ -1,6 +1,6 @@
 <template>
     <div class="users-edit">
-        <heading icon="ti-user" :title="$t('models.address.edit')" shadow="heavy" class="custom-heading"/>
+        <heading icon="ti-user" :title="$t('general.actions.edit')" shadow="heavy" class="custom-heading"/>
         <el-form :model="editAddress" ref="editAddressForm" label-position="top">
             <el-row :gutter="20">
                 <el-col :span="12">
@@ -23,7 +23,7 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" icon="ti-save" @click="submitEditAddressForm()">
-                            {{$t('models.user.save')}}
+                            {{$t('general.actions.save')}}
                         </el-button>
                     </el-form-item>
                 </el-col>

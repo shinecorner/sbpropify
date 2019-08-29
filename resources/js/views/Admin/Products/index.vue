@@ -7,7 +7,7 @@
             <template v-if="$can($permissions.delete.product)">
                 <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
                            type="danger">
-                    {{$t('models.product.delete_action')}}
+                    {{$t('general.actions.delete_action')}}
                 </el-button>
             </template>
         </heading>
@@ -24,7 +24,7 @@
             @selectionChanged="selectionChanged"
         >
         </list-table>
-        <el-dialog :title="$t('models.product.details')" :visible.sync="productDetailsVisible">
+        <el-dialog :title="$t('general.actions.view')" :visible.sync="productDetailsVisible">
             <product-details :product="product"></product-details>
             <el-button @click="changeProductStatus(product.id, productConstants.published)"
                        type="success"
@@ -73,7 +73,7 @@
                     label: 'models.product.product_title',
                     prop: 'title'
                 }, {
-                    label: 'models.user.email',
+                    label: 'general.email',
                     prop: 'user.email'
                 }, {
                     label: 'models.product.type.label',
@@ -90,14 +90,14 @@
                     actions: [
                         // {
                         //     type: 'primary',
-                        //     title: this.$t('models.product.show'),
+                        //     title: this.$t('general.actions.view'),
                         //     onClick: this.show,
                         //     permissions: [
                         //         this.$permissions.view.product
                         //     ]
                         // }, 
                         {
-                            title: 'models.product.edit',
+                            title: 'general.actions.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.product

@@ -38,7 +38,7 @@
             return {
                 header: [{
                     type: 'product-details',
-                    label: 'models.product.details',
+                    label: 'general.actions.view',
                     props: ['title', 'created_at', 'image_url'],
                     minWidth: '300px'
                 }, {
@@ -65,7 +65,7 @@
                     actions: [ 
                         {
                             type: 'default',
-                            title: 'models.product.edit',
+                            title: 'general.actions.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.product

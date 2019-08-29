@@ -65,7 +65,7 @@ export default class MixinBuilder {
                     });
                 },
                 remove(model) {
-                    this.$confirm(this.$t(`models.${singularModelName}.confirmDelete.title`), this.$t(`models.${singularModelName}.confirmDelete.text`), {
+                    this.$confirm(this.$t(`general.swal.delete.title`), this.$t(`general.swal.delete.text`), {
                         type: 'warning'
                     }).then(() => {
                         this[deleteModelAction](model)

@@ -1,6 +1,6 @@
 <template>
     <div id="post-edit-view" class="units-edit mb20">
-        <heading :title="$t('models.post.edit_title')" icon="icon-megaphone-1" shadow="heavy" style="margin-bottom: 20px;">
+        <heading :title="$t('general.actions.edit_title')" icon="icon-megaphone-1" shadow="heavy" style="margin-bottom: 20px;">
             <edit-actions :saveAction="submit" :deleteAction="deletePost" route="adminPosts"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
@@ -63,7 +63,7 @@
                         </el-row>
 
                         <el-tabs v-if="model.pinned" v-model="activeTab1">
-                            <el-tab-pane :label="$t('models.post.details_title')" name="details">
+                            <el-tab-pane :label="$t('general.actions.view_title')" name="details">
                                 <el-form-item :label="$t('models.post.title_label')" :rules="validationRules.title"
                                             prop="title">
                                     <el-input type="text" v-model="model.title"></el-input>
@@ -141,7 +141,7 @@
                             <el-col class="contact-info-card-col" :md="8">
                                 <div class="contact-info-title">
                                     <span class="custom-label">
-                                        <i class="icon-user"></i>&nbsp;{{$t('models.post.user')}}
+                                        <i class="icon-user"></i>&nbsp;{{$t('general.user')}}
                                     </span>
                                 </div>
                                 <div class="contact-info-content">
@@ -216,7 +216,7 @@
                             <el-col class="contact-info-card-col" :md="8">
                                 <div class="contact-info-title">
                                     <span class="custom-label">
-                                        <i class="icon-users"></i>&nbsp;&nbsp;{{$t('models.post.tenants')}}
+                                        <i class="icon-users"></i>&nbsp;&nbsp;{{$t('general.tenants')}}
                                     </span>
                                 </div>
                                 <div class="contact-info-content">
@@ -301,7 +301,7 @@
                             <el-col :lg="12" :xl="14">
                                 <el-select
                                     :loading="remoteLoading"
-                                    :placeholder="$t('models.post.placeholders.search')"
+                                    :placeholder="$t('general.placeholders.search')"
                                     :remote-method  ="remoteSearchBuildings"
                                     class="custom-remote-select"
                                     filterable
@@ -323,7 +323,7 @@
                             <el-col :lg="6" :xl="4">
                                 <el-button :disabled="!toAssign" @click="attachBuilding" class="full-button"
                                            icon="ti-save" type="primary">
-                                    {{$t('models.post.assign')}}
+                                    {{$t('general.assign')}}
                                 </el-button>
                             </el-col>
                         </el-row>
@@ -343,7 +343,7 @@
                             <el-col :lg="18" :xl="20">
                                 <el-select
                                     :loading="remoteLoading"
-                                    :placeholder="$t('models.post.placeholders.search_provider')"
+                                    :placeholder="$t('general.placeholders.search_provider')"
                                     :remote-method="remoteSearchProviders"
                                     class="custom-remote-select"
                                     filterable
@@ -365,7 +365,7 @@
                             <el-col :lg="6" :xl="4">
                                 <el-button :disabled="!toAssignProvider" @click="attachProvider" class="full-button"
                                             icon="ti-save" type="primary">
-                                    {{$t('models.post.assign')}}
+                                    {{$t('general.assign')}}
                                 </el-button>
                             </el-col>
                         </el-row>
@@ -417,7 +417,7 @@
             return {
                 assignmentsColumns: [{
                     prop: 'name',
-                    label: this.$t('models.district.name')
+                    label: this.$t('general.name')
                 }, {
                     prop: 'type',
                     label: this.$t('models.post.assignType'),
@@ -426,19 +426,19 @@
                 assignmentsActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.post.unassign'),
+                        title: this.$t('general.unassign'),
                         type: 'danger',
                         onClick: this.notifyUnassignment
                     }]
                 }],
                 assignmentsProviderColumns: [{
                     prop: 'name',
-                    label: this.$t('models.service.name')
+                    label: this.$t('general.name')
                 }],
                 assignmentsProviderActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.post.unassign'),
+                        title: this.$t('general.unassign'),
                         type: 'danger',
                         onClick: this.notifyProviderUnassignment
                     }]
@@ -459,9 +459,9 @@
                 return d <= executionStart;
             },
             notifyUnassignment(row) {
-                this.$confirm(this.$t(`models.post.confirmUnassign.title`), this.$t('models.post.confirmUnassign.warning'), {
-                    confirmButtonText: this.$t(`models.post.confirmUnassign.confirmBtnText`),
-                    cancelButtonText: this.$t(`models.post.confirmUnassign.cancelBtnText`),
+                this.$confirm(this.$t(`general.swal.confirmChange.title`), this.$t('general.swal.confirmChange.warning'), {
+                    confirmButtonText: this.$t(`general.swal.confirmChange.confirmBtnText`),
+                    cancelButtonText: this.$t(`general.swal.confirmChange.cancelBtnText`),
                     type: 'warning'
                 }).then(async () => {
                     try {
@@ -515,9 +515,9 @@
                 displaySuccess(resp)
             },
             notifyProviderUnassignment(row) {
-                this.$confirm(this.$t(`models.post.confirmUnassign.title`), this.$t('models.post.confirmUnassign.warning'), {
-                    confirmButtonText: this.$t(`models.post.confirmUnassign.confirmBtnText`),
-                    cancelButtonText: this.$t(`models.post.confirmUnassign.cancelBtnText`),
+                this.$confirm(this.$t(`general.swal.confirmChange.title`), this.$t('general.swal.confirmChange.warning'), {
+                    confirmButtonText: this.$t(`general.swal.confirmChange.confirmBtnText`),
+                    cancelButtonText: this.$t(`general.swal.confirmChange.cancelBtnText`),
                     type: 'warning'
                 }).then(async () => {
                     try {

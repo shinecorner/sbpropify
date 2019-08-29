@@ -16,7 +16,7 @@
                                         <el-select style="display: block" v-model="model.title">
                                             <el-option
                                                     :key="title"
-                                                    :label="$t(`models.propertyManager.titles.${title}`)"
+                                                    :label="$t(`general.salutation_option.${title}`)"
                                                     :value="title"
                                                     v-for="title in titles">
                                             </el-option>
@@ -182,7 +182,7 @@
                 assignmentsActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.propertyManager.unassign'),
+                        title: this.$t('general.unassign'),
                         type: 'danger',
                         onClick: this.notifyUnassignment
                     }]

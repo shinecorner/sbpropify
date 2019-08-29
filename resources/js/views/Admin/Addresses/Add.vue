@@ -23,7 +23,7 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" icon="ti-save" @click="submitNewAddressForm()">
-                            {{$t('models.address.save')}}
+                            {{$t('general.actions.save')}}
                         </el-button>
                     </el-form-item>
                 </el-col>

@@ -163,7 +163,7 @@
                                 <el-col :md="8">
                                     <el-form-item v-if="model.tenant">
                                         <label slot="label">
-                                            {{$t('models.request.tenant')}}
+                                            {{$t('general.tenant')}}
                                         </label>
                                         <router-link :to="{name: 'adminTenantsEdit', params: {id: model.tenant.id}}"
                                                      class="tenant-link">
@@ -209,7 +209,7 @@
                                         <el-input :disabled="$can($permissions.update.serviceRequest)" type="text"
                                                   v-model="model.title"/>
                                     </el-form-item>
-                                    <el-form-item :label="$t('models.request.description')" :rules="validationRules.description"
+                                    <el-form-item :label="$t('general.description')" :rules="validationRules.description"
                                                   prop="description">
                                         <el-input
                                             :autosize="{minRows: 16}"
@@ -451,7 +451,7 @@
                         icon: 'el-icon-message',
                         onClick: this.openNotifyProvider
                     }, {
-                        title: this.$t('models.request.unassign'),
+                        title: this.$t('general.unassign'),
                         tooltipMode: true,
                         type: 'danger',
                         icon: 'el-icon-close',
@@ -523,9 +523,9 @@
                 return _.indexOf(this.constants.service_requests.statusByAgent[this.model.status], parseInt(status)) < 0
             },
             notifyUnassignment(provider) {
-                this.$confirm(this.$t(`models.request.confirmUnassign.title`), this.$t('models.request.confirmUnassign.warning'), {
-                    confirmButtonText: this.$t(`models.request.confirmUnassign.confirmBtnText`),
-                    cancelButtonText: this.$t(`models.request.confirmUnassign.cancelBtnText`),
+                this.$confirm(this.$t(`general.swal.confirmChange.title`), this.$t('general.swal.confirmChange.warning'), {
+                    confirmButtonText: this.$t(`general.swal.confirmChange.confirmBtnText`),
+                    cancelButtonText: this.$t(`general.swal.confirmChange.cancelBtnText`),
                     type: 'warning'
                 }).then(async () => {
                     try {

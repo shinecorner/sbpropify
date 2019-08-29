@@ -1,6 +1,6 @@
 <template>
     <div class="services-edit mb20">
-        <heading :title="$t('models.service.edit_title')" icon="icon-tools" shadow="heavy">
+        <heading :title="$t('general.actions.edit_title')" icon="icon-tools" shadow="heavy">
             <template slot="description" v-if="model.service_provider_format">
                 <div class="subtitle">{{model.service_provider_format}}</div>
             </template>
@@ -26,7 +26,7 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.user.name')" :rules="validationRules.name" prop="name">
+                                <el-form-item :label="$t('general.name')" :rules="validationRules.name" prop="name">
                                     <el-input type="text" v-model="model.name"/>
                                 </el-form-item>
                             </el-col>
@@ -71,7 +71,7 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.user.phone')" prop="phone">
+                                <el-form-item :label="$t('general.phone')" prop="phone">
                                     <el-input type="text" v-model="model.phone"/>
                                 </el-form-item>
                             </el-col>
@@ -79,7 +79,7 @@
 
                         <el-row :gutter="20">
                             <el-col :md="24">
-                                <el-form-item :label="$t('models.tenant.language')" prop="settings.language">
+                                <el-form-item :label="$t('general.language')" prop="settings.language">
                                     <select-language :activeLanguage.sync="model.settings.language"/>
                                 </el-form-item>
                             </el-col>
@@ -95,7 +95,7 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.user.email')" :rules="validationRules.email"
+                                <el-form-item :label="$t('general.email')" :rules="validationRules.email"
                                               prop="email">
                                     <el-input type="email" v-model="model.email"/>
                                 </el-form-item>
@@ -146,7 +146,7 @@
                     />
 
                 </card>
-                <card :loading="loading" class="mt15" :header="$t('models.service.requests')">
+                <card :loading="loading" class="mt15" :header="$t('general.requests')">
 
                     <relation-list
                         :actions="requestActions"
@@ -197,7 +197,7 @@
                     type: 'requestTenantAvatar',
                     width: 75,
                     prop: 'tenant',
-                    label: this.$t('models.request.tenant')
+                    label: this.$t('general.tenant')
                 }, {
                     type: 'requestTitleWithDesc',
                     label: this.$t('models.request.prop_title')
@@ -209,13 +209,13 @@
                     width: '90px',
                     buttons: [{
                         icon: 'ti-pencil',
-                        title: this.$t('models.request.edit'),
+                        title: this.$t('general.actions.edit'),
                         onClick: this.requestEditView
                     }]
                 }],
                 assignmentsColumns: [{
                     prop: 'name',
-                    label: this.$t('models.district.name')
+                    label: this.$t('general.name')
                 }, {
                     prop: 'type',
                     label: this.$t('models.service.assignType'),
@@ -224,7 +224,7 @@
                 assignmentsActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.service.unassign'),
+                        title: this.$t('general.unassign'),
                         type: 'danger',
                         onClick: this.notifyUnassignment
                     }]
@@ -243,9 +243,9 @@
             },
 
             notifyUnassignment(row) {
-                this.$confirm(this.$t(`models.service.confirmUnassign.title`), this.$t('models.service.confirmUnassign.warning'), {
-                    confirmButtonText: this.$t(`models.service.confirmUnassign.confirmBtnText`),
-                    cancelButtonText: this.$t(`models.service.confirmUnassign.cancelBtnText`),
+                this.$confirm(this.$t(`general.swal.confirmChange.title`), this.$t('general.swal.confirmChange.warning'), {
+                    confirmButtonText: this.$t(`general.swal.confirmChange.confirmBtnText`),
+                    cancelButtonText: this.$t(`general.swal.confirmChange.cancelBtnText`),
                     type: 'warning'
                 }).then(async () => {
                     try {

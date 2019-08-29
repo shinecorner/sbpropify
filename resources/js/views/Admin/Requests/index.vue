@@ -9,7 +9,7 @@
             <template v-if="$can($permissions.delete.request)">
                 <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
                            type="danger">
-                    {{$t('models.request.delete')}}
+                    {{$t('general.actions.delete')}}
                 </el-button>
             </template>
         </heading>
@@ -235,9 +235,9 @@
                 });
             },
             listingSelectChangedNotify(row) {
-                this.$confirm(this.$t(`models.request.confirmChange.title`), this.$t('models.request.confirmChange.warning'), {
-                    confirmButtonText: this.$t(`models.request.confirmChange.confirmBtnText`),
-                    cancelButtonText: this.$t(`models.request.confirmChange.cancelBtnText`),
+                this.$confirm(this.$t(`general.swal.confirmChange.title`), this.$t('general.swal.confirmChange.warning'), {
+                    confirmButtonText: this.$t(`general.swal.confirmChange.confirmBtnText`),
+                    cancelButtonText: this.$t(`general.swal.confirmChange.cancelBtnText`),
                     type: 'warning'
                 }).then(async () => {
                     try {
