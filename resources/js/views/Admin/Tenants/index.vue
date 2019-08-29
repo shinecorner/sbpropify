@@ -8,7 +8,7 @@
             <template v-if="$can($permissions.delete.tenant)">
                 <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
                            type="danger">
-                    {{$t('models.tenant.delete')}}
+                    {{$t('general.actions.delete')}}
                 </el-button>
             </template>
         </heading>
@@ -57,11 +57,11 @@
         data() {
             return {
                 header: [{
-                    label: 'models.tenant.id',
+                    label: 'general.id',
                     prop: 'id',
                     width: 64
                 }, {
-                    label: 'models.tenant.name',
+                    label: 'general.name',
                     withAvatars: true,
                     props: ['user']
                 }, {
@@ -93,7 +93,7 @@
                     actions: [{
                         icon: 'ti-pencil',
                         type: 'success',
-                        title: this.$t('models.tenant.edit'),
+                        title: this.$t('general.actions.edit'),
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.tenant
@@ -168,9 +168,9 @@
                 return units.data;
             },
             listingSelectChangedNotify(row) {
-                this.$confirm(this.$t(`models.tenant.confirmChange.title`), this.$t('models.tenant.confirmChange.warning'), {
-                    confirmButtonText: this.$t(`models.tenant.confirmChange.confirmBtnText`),
-                    cancelButtonText: this.$t(`models.tenant.confirmChange.cancelBtnText`),
+                this.$confirm(this.$t(`general.swal.confirmChange.title`), this.$t('general.swal.confirmChange.warning'), {
+                    confirmButtonText: this.$t(`general.swal.confirmChange.confirmBtnText`),
+                    cancelButtonText: this.$t(`general.swal.confirmChange.cancelBtnText`),
                     type: 'warning'
                 }).then(async () => {
                     try {
@@ -253,6 +253,11 @@
                         key: 'status',
                         data: this.prepareFilters('status'),
                     },
+                    {
+                        name: this.$t('models.tenant.language'),
+                        type: 'language',
+                        key: 'language'
+                    }
                 ]
             }
         }

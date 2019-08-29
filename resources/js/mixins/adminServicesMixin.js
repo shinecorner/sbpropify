@@ -43,17 +43,17 @@ export default (config = {}) => {
                         icon: 'ti-plus',
                         color: '#003171',
                         value: 0,
-                        description: 'models.building.requestStatuses.total'
+                        description: 'general.requeststatuses.total'
                     },{
                         icon: 'ti-plus',
                         color: '#26A65B',
                         value: 0,
-                        description: 'models.building.requestStatuses.solved'
+                        description: 'general.requeststatuses.solved'
                     },{
                         icon: 'ti-plus',
                         color: '#26A65B',
                         value: 0,
-                        description: 'models.building.requestStatuses.pending'
+                        description: 'general.requeststatuses.pending'
                     },{
                         icon: 'ti-user',
                         color: '#003171',

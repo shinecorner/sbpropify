@@ -20,7 +20,7 @@
                 <select-language :activeLanguage.sync="user.settings.language"/>
             </el-form-item>
             <el-form-item>
-                <el-button @click="settingsUpdated" icon="ti-save" type="primary">{{$t('models.user.save')}}</el-button>
+                <el-button @click="settingsUpdated" icon="ti-save" type="primary">{{$t('general.actions.save')}}</el-button>
             </el-form-item>
         </el-form>
 

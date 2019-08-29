@@ -36,7 +36,7 @@
             return {
                 header: [{
                     type: 'plain',
-                    label: 'models.building.name',
+                    label: 'general.name',
                     prop: 'name',
                     minWidth: '280px'
                 }, {
@@ -46,7 +46,7 @@
                     
                 }, {
                     type: 'plain',
-                    label: 'models.building.tenants',
+                    label: 'general.tenants',
                     prop: 'tenants_count'
                 }, {
                     type: 'actions',
@@ -55,7 +55,7 @@
                     actions: [ 
                         {
                             type: 'default',
-                            title: 'models.building.edit',
+                            title: 'general.actions.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.building

@@ -1,6 +1,6 @@
 <template>
     <div class="units-edit mb20">
-        <heading :title="$t('models.product.edit_title')" icon="icon-basket" shadow="heavy" style="margin-bottom: 20px;">
+        <heading :title="$t('general.actions.edit_title')" icon="icon-basket" shadow="heavy" style="margin-bottom: 20px;">
             <edit-actions :saveAction="submit" :deleteAction="deleteProduct" route="adminProducts"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
@@ -59,26 +59,39 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
-                        <el-row>
-                            <el-col>
-                                <el-form-item :label="$t('models.product.product_title')" :rules="validationRules.title"
-                                              prop="title">
-                                    <el-input type="text" v-model="model.title"/>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <el-col>
-                                <el-form-item :label="$t('models.product.content')" :rules="validationRules.content"
-                                              prop="content">
-                                    <el-input
-                                        :autosize="{minRows: 5}"
-                                        type="textarea"
-                                        v-model="model.content">
-                                    </el-input>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
+                        <el-tabs type="card" @tab-click="handleTabClick" v-model="activeName">
+                            <el-tab-pane :label="$t('menu.requests')" name="description">    
+                                <el-row>
+                                    <el-col>
+                                        <el-form-item :label="$t('models.product.product_title')" :rules="validationRules.title"
+                                                    prop="title">
+                                            <el-input type="text" v-model="model.title"/>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col>
+                                        <el-form-item :label="$t('general.content')" :rules="validationRules.content"
+                                                    prop="content">
+                                            <el-input
+                                                :autosize="{minRows: 5}"
+                                                type="textarea"
+                                                v-model="model.content">
+                                            </el-input>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
+                            </el-tab-pane>
+                            <el-tab-pane :label="$t('models.request.images')" name="image">
+                                <card :loading="loading">
+                                    <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
+                                    <div class="mt15">
+                                        <request-media :data="[...model.media, ...media]" @deleteMedia="deleteMedia"
+                                                                    v-if="media.length || (model.media && model.media.length)"></request-media>
+                                    </div>
+                                </card>
+                            </el-tab-pane>
+                        </el-tabs>                    
                     </el-form>
                 </card>
             </el-col>
@@ -87,7 +100,7 @@
                     <el-row  :gutter="30" class="contact-info-card-row">
                         <el-col class="contact-info-card-col" :md="8">
                             <span class="custom-label">
-                                <i class="icon-user"></i>&nbsp;{{$t('models.product.user')}}
+                                <i class="icon-user"></i>&nbsp;{{$t('general.user')}}
                             </span>
                             <br>
                             <span class="custom-value" v-if="model.user">
@@ -174,13 +187,6 @@
                         </el-col>-->
                     </el-row> 
                 </card>
-                <card :loading="loading" :header="$t('models.request.images')">
-                    <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
-                    <div class="mt15">
-                        <request-media :data="[...model.media, ...media]" @deleteMedia="deleteMedia"
-                                                       v-if="media.length || (model.media && model.media.length)"></request-media>
-                    </div>
-                </card>
                 <card class="mt15" v-if="model.id" :header="$t('models.product.comments')">
                     <chat :id="model.id" type="product"/>
                 </card>
@@ -205,10 +211,18 @@
             EditActions,
             Avatar
         },
+        data() {
+            return {
+                activeName: 'description'
+            }
+        },
         methods: {            
             ...mapActions([
                 "deleteProduct"
-            ]),
+            ]), 
+            handleClick(tab, event) {
+                console.log(tab, event);
+            }
         }
     }
 </script>

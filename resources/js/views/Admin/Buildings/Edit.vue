@@ -1,6 +1,6 @@
 <template>
     <div class="buildings-edit ">
-        <heading :title="$t('models.building.edit_title')" icon="icon-commerical-building" shadow="heavy">
+        <heading :title="$t('general.actions.edit_title')" icon="icon-commerical-building" shadow="heavy">
             <template slot="description" v-if="model.building_format">
                 <div class="subtitle">{{`${model.building_format} > ${model.name}`}}</div>
             </template>
@@ -18,7 +18,7 @@
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
                 <el-tabs type="border-card" v-model="activeTab">
-                    <el-tab-pane :label="$t('models.building.details')" name="details">
+                    <el-tab-pane :label="$t('general.actions.view')" name="details">
                         <el-form :model="model" label-position="top" label-width="192px" ref="form">
                             <el-row :gutter="20">
                                 <el-col :md="10">
@@ -36,7 +36,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="10">
-                                    <el-form-item :label="$t('models.building.name')" :rules="validationRules.name"
+                                    <el-form-item :label="$t('general.name')" :rules="validationRules.name"
                                                   prop="name"
                                                   style="max-width: 512px;">
                                         <el-input type="text" v-model="model.name"></el-input>
@@ -45,14 +45,14 @@
                             </el-row>
                             <el-row :gutter="20">
                                 <el-col :md="4">
-                                    <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip"
+                                    <el-form-item :label="$t('general.zip')" :rules="validationRules.zip"
                                                   prop="zip"
                                                   style="max-width: 512px;">
                                         <el-input type="text" v-model="model.zip"></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="8">
-                                    <el-form-item :label="$t('models.address.city')" :rules="validationRules.city"
+                                    <el-form-item :label="$t('general.city')" :rules="validationRules.city"
                                                   prop="city"
                                                   style="max-width: 512px;">
                                         <el-input type="text" v-model="model.city"></el-input>
@@ -77,7 +77,7 @@
                                                   style="max-width: 512px;">
                                         <el-select
                                                 :loading="remoteLoading"
-                                                :placeholder="$t('models.building.placeholders.search')"
+                                                :placeholder="$t('general.placeholders.search')"
                                                 :remote-method="remoteSearchDistricts"
                                                 filterable
                                                 remote
@@ -196,7 +196,7 @@
                         </div>
                     </el-tab-pane>
 
-                    <el-tab-pane :label="$t('models.building.requests')" name="requests">
+                    <el-tab-pane :label="$t('general.requests')" name="requests">
                         <relation-list
                             :actions="requestActions"
                             :columns="requestColumns"
@@ -210,7 +210,7 @@
             </el-col>
             <el-col :md="12">
                 <el-tabs type="border-card" v-model="activeRightTab">
-                    <el-tab-pane :label="$t('models.building.tenants')" name="tenants" v-loading="loading.state">
+                    <el-tab-pane :label="$t('general.tenants')" name="tenants" v-loading="loading.state">
                         <relation-list
                             :actions="tenantActions"
                             :columns="tenantColumns"
@@ -236,6 +236,16 @@
                             fetchAction="getPropertyManagers"
                             filter="building_id"
                             ref="propertyManagersList"
+                            v-if="model.id"
+                        />
+                    </el-tab-pane>
+                    <el-tab-pane :label="$t('models.building.units')" name="units" v-loading="loading.state">
+                        <relation-list
+                            :actions="unitActions"
+                            :columns="unitColumns"
+                            :filterValue="model.id"
+                            fetchAction="getUnits"
+                            filter="building_id"
                             v-if="model.id"
                         />
                     </el-tab-pane>
@@ -308,11 +318,11 @@
                 activeRightTab: 'tenants',
                 tenantColumns: [{
                     type: 'requestTenantAvatar',
-                    width: 75,
-                    label: this.$t('models.request.tenant')
+                    width: 50,
+                    label: this.$t('general.tenant')
                 }, {
                     prop: 'name',
-                    label: this.$t('models.tenant.name')
+                    label: this.$t('general.name')
                 }, {
                     prop: 'status',
                     i18n: this.tenantStatusLabel,
@@ -320,20 +330,18 @@
                     label: this.$t('models.tenant.status.label')
                 }],
                 tenantActions: [{
-                    width: '90px',
                     buttons: [{
-                        type: 'success',
                         title: this.$t('models.tenant.view'),
-                        onClick: this.tenantEditView
+                        onClick: this.tenantEditView,
+                        icon: 'el-icon-user'
                     }]
                 }],
                 managerColumns: [{
                     type: 'requestTenantAvatar',
-                    width: 80,
-                    label: this.$t('general.roles.manager')
+                    width: 50,
                 }, {
                     prop: 'name',
-                    label: this.$t('models.propertyManager.name')
+                    label: this.$t('general.name')
                 }],
                 managerActions: [{
                     width: '180px',
@@ -344,9 +352,29 @@
                         tooltipMode: true,
                         icon: 'el-icon-close'
                     }, {
-                        title: this.$t('models.propertyManager.edit'),
+                        title: this.$t('general.actions.edit'),
                         type: 'primary',
                         onClick: this.managerEditView,
+                        tooltipMode: true,
+                        icon: 'el-icon-edit'
+                    }]
+                }],
+                unitColumns: [{
+                    prop: 'name',
+                    label: this.$t('models.unit.name')
+                },{
+                    prop: 'typeLabel',
+                    label: this.$t('models.unit.type.label')
+                },{
+                    prop: 'floor',
+                    label: this.$t('models.unit.floor')
+                }],
+                unitActions: [{
+                    width: '180px',
+                    buttons: [{
+                        title: this.$t('models.unit.edit'),
+                        type: 'primary',
+                        onClick: this.unitEditView,
                         tooltipMode: true,
                         icon: 'el-icon-edit'
                     }]
@@ -355,7 +383,7 @@
                     type: 'requestTenantAvatar',
                     width: 75,
                     prop: 'tenant',
-                    label: this.$t('models.request.tenant')
+                    label: this.$t('general.tenant')
                 }, {
                     type: 'requestTitleWithDesc',
                     width: 270,
@@ -369,7 +397,7 @@
                     width: '120px',
                     buttons: [{
                         icon: 'ti-pencil',
-                        title: this.$t('models.request.edit'),
+                        title: this.$t('general.actions.edit'),
                         onClick: this.requestEditView
                     }]
                 }],
@@ -403,9 +431,9 @@
                 });
             },
             unassignManager(manager) {
-                this.$confirm(this.$t(`models.request.confirmUnassign.title`), this.$t('models.request.confirmUnassign.warning'), {
-                    confirmButtonText: this.$t(`models.request.confirmUnassign.confirmBtnText`),
-                    cancelButtonText: this.$t(`models.request.confirmUnassign.cancelBtnText`),
+                this.$confirm(this.$t(`general.swal.confirmChange.title`), this.$t('general.swal.confirmChange.warning'), {
+                    confirmButtonText: this.$t(`general.swal.confirmChange.confirmBtnText`),
+                    cancelButtonText: this.$t(`general.swal.confirmChange.cancelBtnText`),
                     type: 'warning'
                 }).then(async () => {
                     try {
@@ -439,6 +467,14 @@
             managerEditView(row) {
                 this.$router.push({
                     name: 'adminPropertyManagersEdit',
+                    params: {
+                        id: row.id
+                    }
+                });
+            },
+            unitEditView(row) {
+                 this.$router.push({
+                    name: 'adminBuildingUnitsEdit',
                     params: {
                         id: row.id
                     }

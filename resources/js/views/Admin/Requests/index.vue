@@ -9,11 +9,11 @@
             <template v-if="$can($permissions.delete.request)">
                 <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
                            type="danger">
-                    {{$t('models.request.delete')}}
+                    {{$t('general.actions.delete')}}
                 </el-button>
             </template>
         </heading>
-        <list-table
+        <request-list-table
             :fetchMore="fetchMore"
             :filters="filters"
             :filtersHeader="filtersHeader"
@@ -26,7 +26,7 @@
             :withCheckSelection="false"
             @selectionChanged="selectionChanged"
         >
-        </list-table>
+        </request-list-table>
     </div>
 </template>
 
@@ -38,6 +38,7 @@
     import getFilterPropertyManager from 'mixins/methods/getFilterPropertyManager';
     import PrepareCategories from 'mixins/methods/prepareCategories';
     import getFilterDistricts from 'mixins/methods/getFilterDistricts';
+    import RequestListTable from 'components/RequestListTable';
 
 
     const mixin = ListTableMixin({
@@ -55,7 +56,8 @@
         name: 'AdminRequests',
         mixins: [mixin, getFilterPropertyManager, PrepareCategories, getFilterDistricts],
         components: {
-            Heading
+            Heading,
+            RequestListTable
         },
         data() {
             return {
@@ -235,9 +237,9 @@
                 });
             },
             listingSelectChangedNotify(row) {
-                this.$confirm(this.$t(`models.request.confirmChange.title`), this.$t('models.request.confirmChange.warning'), {
-                    confirmButtonText: this.$t(`models.request.confirmChange.confirmBtnText`),
-                    cancelButtonText: this.$t(`models.request.confirmChange.cancelBtnText`),
+                this.$confirm(this.$t(`general.swal.confirmChange.title`), this.$t('general.swal.confirmChange.warning'), {
+                    confirmButtonText: this.$t(`general.swal.confirmChange.confirmBtnText`),
+                    cancelButtonText: this.$t(`general.swal.confirmChange.cancelBtnText`),
                     type: 'warning'
                 }).then(async () => {
                     try {

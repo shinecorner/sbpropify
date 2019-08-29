@@ -28,7 +28,7 @@
                             round
                             size="mini"
                             type="primary"
-                    ><span>&nbsp;</span>{{$t('models.tenant.edit')}}
+                    ><span>&nbsp;</span>{{$t('general.actions.edit')}}
                     </el-button>
                     <el-button
                             @click="goToListing"
@@ -194,7 +194,7 @@
                                 }}
                             </el-col>
 
-                            <el-col :sm="8" :xs="12">{{$t('models.address.zip')}}:</el-col>
+                            <el-col :sm="8" :xs="12">{{$t('general.zip')}}:</el-col>
                             <el-col :sm="16" :xs="12" class="text-secondary">
                                 {{
                                 buildings.filter(building => building.id==model.building_id).length>0 ?
@@ -203,7 +203,7 @@
                                 }}
                             </el-col>
 
-                            <el-col :sm="8" :xs="12">{{$t('models.address.city')}}:</el-col>
+                            <el-col :sm="8" :xs="12">{{$t('general.city')}}:</el-col>
                             <el-col :sm="16" :xs="12" class="text-secondary">
                                 {{
                                 buildings.filter(building => building.id==model.building_id).length>0 ?
@@ -267,7 +267,7 @@
                            <el-card class="chart-card">
                                 <h3 class="right-card">
                                     <i class="icon-chat-empty icon"/>
-                                    {{ $t('models.tenant.requests') }}
+                                    {{ $t('general.requests') }}
                                 </h3>
                                 <Timeline
                                         :filterValue="model.id"

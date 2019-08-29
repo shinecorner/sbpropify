@@ -16,7 +16,7 @@
                 <img :src="image.url" style="height: 100%" @click="open(imageIndex)"/>
                 <el-button @click="deleteMedia(image)" class="delete-button" size="mini" type="danger"
                            v-if="withDelete">
-                    {{$t('models.request.media.delete')}}
+                    {{$t('general.actions.delete')}}
                 </el-button>
             </el-carousel-item>
         </el-carousel>

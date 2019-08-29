@@ -1,13 +1,14 @@
 <template>
     <div class="services">
-        <heading icon="icon-user" :title="'Administrators' " shadow="heavy">
+        <heading icon="icon-user" :title="$t('menu.admins')" shadow="heavy">
             <template v-if="$can($permissions.create.user)">
-                <el-button @click="add" icon="ti-plus" round size="mini" type="primary">{{$t('general.actions.add')}}</el-button>
+                <el-button @click="add('administrator')" icon="ti-plus" round size="mini" type="primary">{{$t('general.actions.add')}} {{ $t('menu.admins') }}</el-button>
+                <el-button @click="add('super_admin')" icon="ti-plus" round size="mini" type="primary">{{$t('general.actions.add')}} {{ $t('menu.super_admins') }}</el-button>
             </template>
             <template v-if="$can($permissions.delete.user)">
                 <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
                            type="danger">
-                    {{$t('models.user.delete')}}
+                    {{$t('general.actions.delete')}}
                 </el-button>
             </template>
         </heading>
@@ -50,19 +51,19 @@
         data() {
             return {
                 header: [{
-                    label: 'models.user.name',
+                    label: 'general.name',
                     prop: 'name'
                 }, {
-                    label: 'models.user.email',
+                    label: 'general.email',
                     prop: 'email'
                 }, {
-                    label: 'models.user.phone',
+                    label: 'general.phone',
                     prop: 'phone'
                 }, {
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        title: 'models.user.edit_action',
+                        title: 'general.actions.edit',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.user
@@ -95,11 +96,11 @@
             },
         },
         methods: {
-            add() {
+            add(role) {
                 this.$router.push({
                     name: 'adminUsersAdd',
                     params: {
-                        role: this.$route.query.role
+                        role: role,
                     }
                 });
             },

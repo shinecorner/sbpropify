@@ -6,10 +6,10 @@
         <div class="crud-view">
             <card :loading="loading">
                 <el-form :model="model" label-width="192px" ref="form" style="max-width: 641px;">
-                    <el-form-item :label="$t('models.user.name')" :rules="validationRules.name" prop="name">
+                    <el-form-item :label="$t('general.name')" :rules="validationRules.name" prop="name">
                         <el-input type="text" v-model="model.name"/>
                     </el-form-item>
-                    <el-form-item :label="$t('models.user.email')" :rules="validationRules.email" prop="email">
+                    <el-form-item :label="$t('general.email')" :rules="validationRules.email" prop="email">
                         <el-input type="email" v-model="model.email"/>
                     </el-form-item>
                     <el-form-item :label="$t('general.password')" :rules="validationRules.password" prop="password">
@@ -19,7 +19,7 @@
                                   prop="password_confirmation">
                         <el-input type="password" v-model="model.password_confirmation"/>
                     </el-form-item>
-                    <el-form-item :label="$t('models.user.phone')" prop="phone">
+                    <el-form-item :label="$t('general.phone')" prop="phone">
                         <el-input type="text" v-model="model.phone"/>
                     </el-form-item>
                     <el-form-item :label="$t('general.roles.label')" :rules="validationRules.role" prop="role">
@@ -27,7 +27,7 @@
                             <el-option :key="role" :label="$t('general.roles.' + role )" :value="role" v-for="role in allRoles"/>
                         </el-select>
                     </el-form-item>
-                    <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" prop="settings.language">
+                    <el-form-item :label="$t('general.language')" :rules="validationRules.language" prop="settings.language">
                         <select-language :activeLanguage.sync="model.settings.language"/>
                     </el-form-item>
                 </el-form>

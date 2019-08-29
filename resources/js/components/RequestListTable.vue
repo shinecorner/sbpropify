@@ -87,12 +87,6 @@
                                         v-for="item in filter.data"/>
                                 </el-select>
                             </el-form-item>
-                             <el-form-item v-else-if="filter.type === filterTypes.language">
-                                <select-language
-                                    :activeLanguage="this.language"
-                                    @change="filterChanged(filter)"
-                                />
-                            </el-form-item>
                         </template>
 
                     </el-col>
@@ -115,162 +109,21 @@
             @selection-change="handleSelectionChange"
             v-loading="loading.state"
             @row-click="editLink">
-            <el-table-column
-                type="selection"
-                v-if="withCheckSelection"
-                width="40">
-            </el-table-column>
 
             <el-table-column
-                :key="column.prop"
-                :label="$t(column.label)"
-                :prop="column.prop"
+                :key="'OneCol'"
                 :width="column.width"
-                v-for="column in headerWithoutActions"/>
-
-            <el-table-column
-                :key="column.prop"
-                :label="$t(column.label)"
-                :width="column.width"
-                v-for="column in headerWithAvatars" class="request-table">
-                
-                <template slot-scope="scope">
-                    <div class="avatars-wrapper">
-                        <div class="user-details" v-if="scope.row['user']">
-                            <div class="image">
-                                <table-avatar :src="scope.row['user'].avatar" :name="scope.row['user'].name" :size="33" />
-                            </div>
-                            <div class="title">
-                                {{ scope.row['user'].name }}
-                            </div>
-                        </div> 
-                    </div>
-                </template>
-            </el-table-column>
-            
-            <el-table-column
-                :key="column.label + key"
-                :label="$t(column.label)"
-                :width="column.width"
-                v-for="(column, key) in headerWithMultipleProps"
+                v-for="(column, key) in headerWithOneCol"
             >
                 <template slot-scope="scope">
-                    <component :class="{'listing-link': column.withLinks}" :is="column.withLinks ? 'router-link':'div'"
-                               :key="prop" :to="buildRouteObject(column.route, scope.row)"
-                               v-for="(prop, ind) in column.props" v-if="scope.row[prop]">
-                        {{scope.row[prop]}}
-                    </component>
-                </template>
-            </el-table-column>
+                    <request-detail-card
+                        :item="scope.row"
+                        :loading="{state: loading}"
+                        @selectionChanged="handleRequestSelectionChange"
+                        @editAction="column.editAction(scope.row)"
+                    >
 
-            <el-table-column
-                :key="column.label"
-                :label="$t(column.label)"
-                :width="column.width"
-                v-for="(column, key) in headerWithCounts">
-                <template slot-scope="scope">
-                    <request-count :countsData="items[scope.$index]" ></request-count>
-                </template>
-            </el-table-column>
-
-             <el-table-column
-                :key="column.prop"
-                :label="$t(column.label)"
-                :width="column.width"
-                v-for="(column, key) in headerWithUsers">
-                <template slot-scope="scope">
-                    <div class="avatars-wrapper">
-                        <span :key="uuid()" v-for="(user) in scope.row[column.prop]">
-                              <el-tooltip
-                                  :content="user.first_name ? `${user.first_name} ${user.last_name}`: (user.user ? `${user.user.name}`:`${user.name}`)"
-                                  class="item"
-                                  effect="light" placement="top">
-                                  <template v-if="user.user">
-                                      <avatar :size="28"
-                                              :username="user.first_name ? `${user.first_name} ${user.last_name}`: (user.user ? `${user.user.name}`:`${user.name}`)"
-                                              backgroundColor="rgb(205, 220, 57)"
-                                              color="#fff"
-                                              v-if="!user.user.avatar"></avatar>
-                                      <avatar :size="28" :src="`/${user.user.avatar}`" v-else></avatar>
-                                  </template>
-                                  <template v-else>
-                                      <avatar :size="28"
-                                              :username="user.first_name ? `${user.first_name} ${user.last_name}`: `${user.name}`"
-                                              backgroundColor="rgb(205, 220, 57)"
-                                              color="#fff"
-                                              v-if="!user.avatar"></avatar>
-                                      <avatar :size="28" :src="`/${user.avatar}`" v-else></avatar>
-                                  </template>
-                              </el-tooltip>
-
-                        </span>
-                        <avatar class="avatar-count" :size="28" :username="`+ ${scope.row[column.count]}`"
-                                color="#fff"
-                                v-if="scope.row[column.count]"></avatar>
-                    </div>
-                </template>
-            </el-table-column>
-            <el-table-column
-                :key="column.prop"
-                :label="$t(column.label)"
-                :width="column.width"
-                v-for="(column, key) in headerWithBadges">
-                <template slot-scope="scope">
-                    <el-button v-if="scope.row[column.prop] == 'low'" class="btn-priority-badge btn-badge" :size="column.size" round>{{ scope.row[column.prop] }}</el-button>
-                    <el-button v-else-if="scope.row[column.prop] == 'normal'" plain type="warning" class="btn-priority-badge btn-badge" :size="column.size" round>{{ scope.row[column.prop] }}</el-button>
-                    <el-button v-else-if="scope.row[column.prop] == 'urgent'" plain type="danger" class="btn-priority-badge btn-badge" :size="column.size" round>{{ scope.row[column.prop] }}</el-button>
-                </template>
-            </el-table-column>
-            <el-table-column
-                :key="column.prop"
-                :label="$t(column.label)"
-                v-for="(column, key) in headerWithSelect">
-                <template slot-scope="scope">
-                    <el-select class="select-icon" :class="column.class" @change="column.select.onChange(scope.row)" v-model="scope.row[column.prop]">
-                        <template slot="prefix">
-                            <i class="icon-dot-circled" :class="scope.row[column.prop] == 1 ? 'icon-success':'icon-danger'"  v-if="column.ShowCircleIcon"></i>
-                        </template>
-                        <el-option
-                            :key="item.id"
-                            :label="item.name"
-                            :value="item.id"
-                            v-for="item in column.select.data">
-                            <i class="icon-dot-circled" :class="item.id == 1 ? 'icon-success':'icon-danger'"  v-if="column.ShowCircleIcon"></i> {{item.name}}
-                        </el-option>
-                    </el-select>
-                </template>
-            </el-table-column>
-            <el-table-column
-                :key="key"
-                :width="200"
-                v-for="(column, key) in headerWithActions">
-                <template slot-scope="scope">
-                    <span
-                        :key="action.title"
-                        class="btn-wrap"
-                        v-for="action in column.actions">
-                        <template
-                            v-if="(!action.permissions || ( action.permissions && $can(action.permissions))) && (!action.hidden || (action.hidden && !action.hidden(scope.row)))">
-                            <el-button
-                                :style="action.style"
-                                :type="action.type"
-                                @click="action.onClick(scope.row)"
-                                size="mini"
-                            >
-                                <template v-if="action.title == 'Edit'">
-                                    <i class="ti-pencil"></i>
-                                    <span>{{$t(action.title)}}</span>    
-                                </template>
-                                <template v-else-if="action.title == 'Delete'">
-                                    <i class="ti-close"></i>
-                                    <span>{{$t(action.title)}}</span>    
-                                </template>
-                                <template v-else>
-                                    {{$t(action.title)}}
-                                </template>
-                            </el-button>
-                        </template>
-                    </span>
+                    </request-detail-card>
                 </template>
             </el-table-column>
         </el-table>
@@ -293,7 +146,6 @@
     import RequestCount from 'components/RequestCount.vue'
     import tableAvatar from 'components/Avatar';
     import RequestDetailCard from 'components/RequestDetailCard';
-    import SelectLanguage from 'components/SelectLanguage';
 
     export default {
         name: 'ListTable',
@@ -301,8 +153,7 @@
             Avatar,
             RequestCount,
             'table-avatar': tableAvatar,
-            RequestDetailCard,
-            SelectLanguage
+            RequestDetailCard
         },
         props: {
             header: {
@@ -379,16 +230,17 @@
                     remoteSelect: 'remote-select',
                     text: 'text',
                     number: 'number',
-                    date: 'date',
-                    language: 'language'
+                    date: 'date'
                 },
                 filterModel: {},
                 uuid,
-                selectedItems: [],
-                language: 'en'
+                selectedItems: []
             }
         },
         computed: {
+            getTableClass() {
+                return this.header[0].withOneCol? 'request-table': 'request-el-table';
+            },
             emptyText() {
                 return this.loading.state ?  ' ' : (this.items.length > 0) ? '' : this.$t('general.no_data_available');
             },
@@ -398,54 +250,8 @@
                     currSize: this.pagination.currSize
                 }
             },
-            headerWithoutActions() {
-                return this.header.reduce((acc, row) => (!row.actions
-                && !row.select
-                && !row.withUsers
-                && !row.withAvatars
-                && !row.withCounts
-                && !row.withMultipleProps
-                && !row.withBadgeProps
-                && acc.push(row), acc), []);
-            },
-            headerWithMultipleProps() {
-                return this.header.reduce((acc, row) => (row.withMultipleProps && acc.push(row), acc), []);
-            },
-            headerWithCounts() {
-                return this.header.reduce((acc, row) => (row.withCounts && acc.push(row), acc), []);
-            },
-            headerWithAvatars() {
-                return this.header.reduce((acc, row) => (row.withAvatars && acc.push(row), acc), []);
-            },
-            headerWithUsers() {
-                return this.header.reduce((acc, row) => (row.withUsers && acc.push(row), acc), []);
-            }, 
-            headerWithActions() {
-                return this.header.reduce((acc, row) => (row.actions && acc.push(row), acc), []);
-            },
-            headerWithSelect() {
-                return this.header.filter((filter) => {
-                    if (filter.select) {
-                        if (filter.select.getter) {
-                            const storeConstants = this.$store.getters[filter.select.getter];
-                            if (storeConstants) {
-                                const constants = storeConstants[filter.prop];
-                                filter.select.data = Object.keys(constants).map((id) => {
-                                    return {
-                                        name: !filter.i18nPath ? constants[id] : this.$t(`${filter.i18nPath}.${constants[id]}`),
-                                        id: parseInt(id)
-                                    };
-                                });
-                            }
-
-
-                        }
-                        return filter.select;
-                    }
-                });
-            },
-            headerWithBadges() {
-                return this.header.reduce((acc, row) => (row.withBadgeProps && acc.push(row), acc), []);
+            headerWithOneCol() {
+                return this.header.reduce((acc, row) => (row.withOneCol && acc.push(row), acc), []);
             },
             filterColSize() {
                 return 4;
@@ -507,7 +313,7 @@
                 this.updatePage(newPage);
             },
             filterChanged(filter, init = false) {
-                if (filter.type === this.filterTypes.select || filter.type == this.filterTypes.language) {
+                if (filter.type === this.filterTypes.select) {
                     if (!filter.parentKey && filter.fetch && init) {
                         filter.fetch().then((resp) => {
                             filter.data = resp;
@@ -548,10 +354,6 @@
                 if ((!filter.parentKey && filter.fetch && init && this.filterModel[filter.key]) || !init) {
                     this.updatePage();
                 }
-
-                if (filter.type == this.filterTypes.language) {
-
-                }
             },
             isDisabled(select, selected, status) {
                 if (select.withDisabled) {
@@ -566,6 +368,19 @@
             handleSelectionChange(val) {
                 this.selectedItems = val;
                 this.$emit('selectionChanged', this.selectedItems);
+            },
+            handleRequestSelectionChange(val) {
+                var exist = -1;
+                this.selectedItems.map((item, index) => {
+                    if(item.id == val.id)
+                        exist = index;
+                });
+                if(exist == -1) {
+                    this.selectedItems.push(val)
+                } else {
+                    this.selectedItems.slice(exist, 1);
+                }
+                this.handleSelectionChange(this.selectedItems);
             },
             batchDelete() {
                 this.$emit('batchDelete', this.selectedItems);
@@ -696,18 +511,20 @@
 
     .el-table {
         background: none;
-        padding: 2px;
+        padding: 0px;
+
+        .el-table__header {
+            display: none;
+        }
 
         &:before {
             display: none;
         }
-
+       
         :global(.el-table__body-wrapper) {
-            box-shadow: 0 1px 3px transparentize(#000, .88),
-            0 1px 2px transparentize(#000, .76);
             border-radius: 4px;
         }
-
+     
         :global(th),
         :global(td) {
             background: none;
@@ -716,6 +533,7 @@
         :global(th) {
             background: none;
             border-bottom-style: none;
+            display: none;
         }
 
         :global(tr) {
@@ -723,10 +541,14 @@
 
             :global(th) {
                 padding: 12px 4px;
+                border-bottom: none;
             }
 
             :global(td) {
-                padding: 4px;
+                background-color: transparent;
+                padding: 5px 0;
+                border-bottom: none;
+            
             }
         }
 
@@ -737,7 +559,10 @@
         :global(.el-table__body) {
             :global(tr) {
                 :global(td) {
-                    background-color: #fff;
+                    background-color: transparent;
+                }
+                .cell {
+                    padding: 2px !important;
                 }
 
                 &:hover :global(td) {
@@ -749,6 +574,9 @@
                 }
             }
         }
+        .request-card {
+            margin-right: -8px;
+        }
 
         :global(.el-loading-mask) {
             top: 47px;
@@ -756,7 +584,6 @@
             border-radius: 6px;
         }
     }
-
     .el-pagination {
         display: flex;
         padding: 8px 18px;

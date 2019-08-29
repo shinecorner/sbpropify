@@ -10,7 +10,7 @@
                 <el-button :disabled="!selectedItems.length" @click="openDeleteWithReassignment" icon="ti-trash" round
                            size="mini"
                            type="danger">
-                    {{$t('models.propertyManager.delete')}}
+                    {{$t('general.actions.delete')}}
                 </el-button>
             </template>
         </heading>
@@ -28,15 +28,15 @@
         >
         </list-table>
         <el-dialog  class="delete_width_reassign_modal" 
-                    :close-on-click-modal="false" :title="$t('models.propertyManager.delete_with_reassign_modal.title')"
+                    :close-on-click-modal="false" :title="$t('general.actions.delete_with_reassign_modal.title')"
                     :visible.sync="assignManagersVisible"
                     v-loading="processAssignment" width="30%">
             <el-row>
                 <el-col :span="24">
-                    <p class="description">{{$t('models.propertyManager.delete_with_reassign_modal.description')}}</p>
+                    <p class="description">{{$t('general.actions.delete_with_reassign_modal.description')}}</p>
                     <el-select
                         :loading="remoteLoading"
-                        :placeholder="$t('models.propertyManager.placeholders.search')"
+                        :placeholder="$t('general.placeholders.search')"
                         :remote-method="remoteSearchManagers"
                         class="custom-remote-select"
                         filterable
@@ -63,13 +63,13 @@
                         @click="batchDelete(true)" 
                         size="mini" 
                         type="primary">
-                        {{$t('models.propertyManager.delete_with_reassign_modal.title')}}
+                        {{$t('general.actions.delete_with_reassign_modal.title')}}
                     </el-button>
                 </el-col>
             </el-row> 
             <span class="dialog-footer" slot="footer">
                 <el-button @click="closeModal" size="mini">{{$t('models.building.cancel')}}</el-button>                
-                <el-button @click="batchDelete(false)" size="mini" type="danger">{{$t('models.propertyManager.delete_without_reassign')}}</el-button>
+                <el-button @click="batchDelete(false)" size="mini" type="danger">{{$t('general.actions.delete_without_reassign')}}</el-button>
             </span>
         </el-dialog>
     </div>
@@ -104,16 +104,16 @@
         data() {
             return {
                 header: [{
-                    label: 'models.propertyManager.name',
+                    label: 'general.name',
                     prop: 'name'
                 }, {
-                    label: 'models.propertyManager.email',
+                    label: 'general.email',
                     prop: 'user.email'
                 }, {
-                    label: 'models.propertyManager.phone',
+                    label: 'general.phone',
                     prop: 'user.phone'
                 },  {
-                    label: 'models.building.requests',
+                    label: 'general.requests',
                     withCounts: true,
                     
                 }, 
@@ -121,7 +121,7 @@
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        title: 'models.propertyManager.edit',
+                        title: 'general.actions.edit',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.propertyManager
@@ -158,6 +158,11 @@
                         type: 'select',
                         key: 'building_id',
                         data: this.buildings,
+                    },
+                    {
+                        name: this.$t('models.tenant.language'),
+                        type: 'language',
+                        key: 'language'
                     }
                 ];
             }

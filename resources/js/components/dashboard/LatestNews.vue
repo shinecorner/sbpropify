@@ -66,7 +66,7 @@
                     actions: [ 
                         {
                             type: 'default',
-                            title: 'models.product.edit',
+                            title: 'general.actions.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.product
