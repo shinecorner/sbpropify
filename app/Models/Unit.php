@@ -81,7 +81,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      )
  * )
  */
-class Unit extends Model
+class Unit extends AuditableModel
 {
     use SoftDeletes, UniqueIDFormat;
 

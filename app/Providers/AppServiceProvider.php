@@ -9,6 +9,7 @@ use App\Models\PropertyManager;
 use App\Models\ServiceRequest;
 use App\Models\Template;
 use App\Models\Conversation;
+use App\Models\Unit;
 use App\Models\User;
 use App\Notifications\NewTenantPost;
 use App\Notifications\NewTenantRequest;
@@ -41,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
 	    Relation::morphMap([
+            'unit' => Unit::class,
             'user' => User::class,
             'post' => Post::class,
             'product' => Product::class,
