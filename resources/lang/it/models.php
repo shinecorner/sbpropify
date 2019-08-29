@@ -766,6 +766,9 @@ return [
       "priority_changed" => "La priorità è cambiata",
       'assignment'=> 'Assegnazione di manager/fornitori di servizi',
       'last_updated' => 'Last updated',
+      'due_in' => 'Due in',
+      'was_due_on' => 'Was due on',
+      'due_on' => 'Due on',
       'media' => 
       [
         "added" => "Documento ajouté",
@@ -822,6 +825,7 @@ return [
         'component' => 'Componente',
         'acquisition' => 'Fase di acquisizione',
         'cost' => 'Costo Impatto',
+        'keywords' => 'Parole chiave',
         'locations' => [
           'house_entrance' => 'Ingresso Casa',
           'staircase' => 'Scala',

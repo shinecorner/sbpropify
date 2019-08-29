@@ -113,6 +113,11 @@
                         type: 'select',
                         key: 'district_id',
                         data: this.districts,
+                    },
+                    {
+                        name: this.$t('models.tenant.language'),
+                        type: 'language',
+                        key: 'language'
                     }
                 ]
             }

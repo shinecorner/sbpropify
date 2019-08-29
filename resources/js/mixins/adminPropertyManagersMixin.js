@@ -26,6 +26,7 @@ export default (config = {}) => {
                         language: ''
                     }
                 },
+                addedAssigmentList: [],
                 statistics: {
                     raw: [{
                         icon: 'ti-plus',
@@ -107,7 +108,6 @@ export default (config = {}) => {
                     state: false,
                     text: 'Please wait...'
                 },
-                buildings: [],
                 requests: [],
                 assignmentTypes: ['building', 'district'],
                 assignmentType: 'building',
@@ -213,6 +213,44 @@ export default (config = {}) => {
                 }
 
             },
+            async saveAddedAssigmentList(modelId) {
+                try {
+                    let resp;
+
+                    this.addedAssigmentList.forEach(async element => {
+                        if (element.type === 'building') {
+                            resp = await this.assignBuilding({
+                                id: modelId,
+                                toAssignId: element.id
+                            });
+                        } else {
+                            resp = await this.assignDistrict({
+                                id: modelId,
+                                toAssignId: element.id
+                            });
+                        }
+                    });
+                } catch (e) {
+                    displayError(e)
+                }
+            },
+            async attachAddedAssigmentList(assigmentId) {
+                let assigment = this.toAssignList.filter(n => n.id === assigmentId)[0];
+
+                if (!!assigment) {
+                    this.addedAssigmentList.push({
+                        id: assigmentId,
+                        name: assigment.name,
+                        type: this.assignmentType
+                    });
+                }
+
+                this.alreadyAssigned.buildings = this.addedAssigmentList.filter(item => item['type'] === 'building').map((building) => building.id);
+                this.alreadyAssigned.districts = this.addedAssigmentList.filter(item => item['type'] === 'district').map((district) => district.id);
+
+                this.toAssign = '';
+                this.toAssignList = [];
+            },
             async unassign(toUnassign) {
                 let resp;
                 if (toUnassign.aType == 1) {
@@ -262,13 +300,15 @@ export default (config = {}) => {
                                 displaySuccess(resp);
 
                                 this.form.resetFields();
-                                this.model.buildings = [];
+
+                                this.saveAddedAssigmentList(resp.data.id);
+
                                 if (!!afterValid) {
                                     afterValid(resp);
                                 } else {
                                     this.$router.push({
                                         name: 'adminPropertyManagersEdit',
-                                        params: {id: response.data.id}
+                                        params: {id: resp.data.id}
                                     })
                                 }
                                 return resp;

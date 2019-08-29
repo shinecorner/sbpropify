@@ -167,15 +167,15 @@
         },
         props: {
             filter: {
-                type: String,
+                type: [String, Boolean],
                 required: true
             },
             filterValue: {
-                type: Number,
+                type: [Number, Boolean],
                 required: true
             },
             fetchAction: {
-                type: String,
+                type: [String, Boolean],
                 required: true
             },
             columns: {
@@ -189,6 +189,9 @@
                 default() {
                     return [];
                 }
+            },
+            addedAssigmentList: {
+                type: Array
             }
         },
         data() {
@@ -200,7 +203,11 @@
             }
         },
         async created() {
-            await this.fetch();
+            if (!!this.addedAssigmentList) {
+                this.list = this.addedAssigmentList;
+            } else {
+                await this.fetch();
+            }
         },
         methods: {
             async fetch(page = 1) {
@@ -214,6 +221,15 @@
                     this.meta = _.omit(resp.data, 'data');
                     if (page === 1) {
                         this.list = resp.data.data;
+                        if(this.fetchAction == 'getUnits')
+                            this.list.map((unit) => {
+                                if(unit.type == 1)
+                                     unit.typeLabel = this.$t('models.unit.type.apartment');
+                                else
+                                    unit.typeLabel = this.$t('models.unit.type.business');
+                            })
+                        console.log(this.fetchAction);
+                        console.log(this.list);
                     } else {
                         this.list.push(...resp.data.data);
                     }

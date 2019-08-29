@@ -136,14 +136,14 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12">
-                                    <el-form-item label="Stichworte">
+                                    <el-form-item :label="$t('models.request.category_options.keywords')">
                                         <el-tag
-                                        :key="tag"
+                                        :key="tag.id"
                                         v-for="tag in model.keywords"
                                         closable
                                         :disable-transitions="false"
                                         @close="handleClose(tag)">
-                                            {{tag}}
+                                            {{tag.name}}
                                         </el-tag>
                                         <el-input
                                             class="input-new-tag"
@@ -458,13 +458,11 @@
                         onClick: this.notifyUnassignment
                     }]
                 }],
-                showfirstlayout: false,
                 showUmgebung: false,
                 showLiegenschaft: false,
                 showWohnung: false,
                 rolename: null,
                 inputVisible: false,
-                showpayer: false,
             }
         },
         computed: {
@@ -497,25 +495,9 @@
         },
         async mounted() {
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
-            
-            const resp = await this.getRequest({id: this.$route.params.id});
-            
-            if(resp.data.category.id == 1) {
-                this.showfirstlayout = true;
-            }
-            else {
-                this.showfirstlayout = false;
-            }
-
-            if(resp.data.qualification == 5) {
-                this.showpayer = true;
-            }
-            else {
-                this.showpayer = false;
-            }
         },
         methods: {
-            ...mapActions(['unassignAssignee', 'deleteRequest']),
+            ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags']),
             translateType(type) {
                 return this.$t(`models.request.userType.${type}`);
             },
@@ -597,21 +579,25 @@
             },
             
             showSecondLayout() {
-
-                if(this.model.defect == 7) {
-                    this.showUmgebung = true;
+                const subcategory = this.first_layout_subcategories.filter(category => {
+                    if(category.id == this.model.defect) {
+                        return category;
+                    }
+                });
+                if(subcategory[0].room == 1) {
+                    this.showWohnung = true;
                     this.showLiegenschaft = false;
-                    this.showWohnung = false;
+                    this.showUmgebung = false;
                 }
-                else if(this.model.defect == 8) {
+                else if(subcategory[0].location == 1) {
                     this.showLiegenschaft = true;
                     this.showUmgebung = false;
                     this.showWohnung = false;
                 }
-                else if(this.model.defect == 9) {
-                    this.showWohnung = true;
+                else if(subcategory[0].location == 0 && subcategory[0].room == 0) {
+                    this.showUmgebung = true;
                     this.showLiegenschaft = false;
-                    this.showUmgebung = false;
+                    this.showWohnung = false;
                 }
             },
             
@@ -626,12 +612,22 @@
                 });
             },
 
-            handleInputConfirm() {
+            async handleInputConfirm() {
                 let inputValue = this.model.keyword;
+                // const resp = await this.getRequestTags({id: this.$route.params.id});
+                
+                // if(resp.data.data.indexOf(inputValue) == -1) {
+                //     this.model.keywords.push(inputValue);
+                // }
+
                 if (inputValue) {
+                    
+                    if(this.model.keywords.indexOf(inputValue) != -1) {
+                        return;
+                    }
                     this.model.keywords.push(inputValue);
                 }
-                this.inputVisible = false;
+                // this.inputVisible = false;
                 this.model.keyword = '';
             },
 

@@ -239,6 +239,16 @@
                             v-if="model.id"
                         />
                     </el-tab-pane>
+                    <el-tab-pane :label="$t('models.building.units')" name="units" v-loading="loading.state">
+                        <relation-list
+                            :actions="unitActions"
+                            :columns="unitColumns"
+                            :filterValue="model.id"
+                            fetchAction="getUnits"
+                            filter="building_id"
+                            v-if="model.id"
+                        />
+                    </el-tab-pane>
                 </el-tabs>
                 <div>
                     <raw-grid-statistics-card :cols="8" :data="statistics.raw"/>
@@ -308,8 +318,7 @@
                 activeRightTab: 'tenants',
                 tenantColumns: [{
                     type: 'requestTenantAvatar',
-                    width: 75,
-                    label: this.$t('models.request.tenant')
+                    width: 50,
                 }, {
                     prop: 'name',
                     label: this.$t('models.tenant.name')
@@ -320,17 +329,15 @@
                     label: this.$t('models.tenant.status.label')
                 }],
                 tenantActions: [{
-                    width: '90px',
                     buttons: [{
-                        type: 'success',
                         title: this.$t('models.tenant.view'),
-                        onClick: this.tenantEditView
+                        onClick: this.tenantEditView,
+                        icon: 'el-icon-user'
                     }]
                 }],
                 managerColumns: [{
                     type: 'requestTenantAvatar',
-                    width: 80,
-                    label: this.$t('general.roles.manager')
+                    width: 50,
                 }, {
                     prop: 'name',
                     label: this.$t('models.propertyManager.name')
@@ -347,6 +354,26 @@
                         title: this.$t('models.propertyManager.edit'),
                         type: 'primary',
                         onClick: this.managerEditView,
+                        tooltipMode: true,
+                        icon: 'el-icon-edit'
+                    }]
+                }],
+                unitColumns: [{
+                    prop: 'name',
+                    label: this.$t('models.unit.name')
+                },{
+                    prop: 'typeLabel',
+                    label: this.$t('models.unit.type.label')
+                },{
+                    prop: 'floor',
+                    label: this.$t('models.unit.floor')
+                }],
+                unitActions: [{
+                    width: '180px',
+                    buttons: [{
+                        title: this.$t('models.unit.edit'),
+                        type: 'primary',
+                        onClick: this.unitEditView,
                         tooltipMode: true,
                         icon: 'el-icon-edit'
                     }]
@@ -439,6 +466,14 @@
             managerEditView(row) {
                 this.$router.push({
                     name: 'adminPropertyManagersEdit',
+                    params: {
+                        id: row.id
+                    }
+                });
+            },
+            unitEditView(row) {
+                 this.$router.push({
+                    name: 'adminBuildingUnitsEdit',
                     params: {
                         id: row.id
                     }
