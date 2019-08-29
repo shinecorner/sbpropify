@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
-use App\Criteria\Common\WhereCriteria;
 use App\Criteria\Common\WhereInCriteria;
 use App\Criteria\ServiceRequests\FilterByInternalFieldsCriteria;
 use App\Criteria\ServiceRequests\FilterByPermissionsCriteria;
@@ -38,7 +37,6 @@ use App\Transformers\TagTransformer;
 use App\Transformers\TemplateTransformer;
 use Illuminate\Support\Facades\Auth;
 use Exception;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -324,8 +322,9 @@ class ServiceRequestAPIController extends AppBaseController
 
         $attr = $this->serviceRequestRepository->getPutAttributes($input, $oldStatus);
         $updatedServiceRequest = $this->serviceRequestRepository->update($attr, $id);
-        $this->saveRequestStatusLog($id, $serviceRequest->status, $updatedServiceRequest->status);
+        $this->saveRequestStatusLog($id, $oldStatus, $updatedServiceRequest->status);
         $this->serviceRequestRepository->notifyStatusChange($serviceRequest, $updatedServiceRequest);
+
         if ($updatedServiceRequest->due_date && $updatedServiceRequest->due_date != $serviceRequest->due_date) {
             $this->serviceRequestRepository->notifyDue($updatedServiceRequest);
         }
@@ -1611,22 +1610,33 @@ class ServiceRequestAPIController extends AppBaseController
 
         $user = $request->user();
         if ($user->propertyManager()->exists()) {
-
-            $this->serviceRequestRepository->resetCriteria();
-            $this->serviceRequestRepository->whereHas('assignees', function ($q) use ($user) {
-                $q->where('id', $user->id);
-            });
-            $response['my_request_count'] = $this->serviceRequestRepository->count();
-
-
-            $this->serviceRequestRepository->resetCriteria();
-            $this->serviceRequestRepository->whereHas('assignees', function ($q) use ($user) {
-                $q->where('id', $user->id);
-            });
-            $this->serviceRequestRepository->pushCriteria(new WhereInCriteria('status', $pendingStatues));
-            $response['my_pending_request_count'] = $this->serviceRequestRepository->count();
+            $response = $this->getLoggedRequestCount($user, $response, 'propertyManager', 'managers');
+        } elseif ($user->serviceProvider()->exists()) {
+            $response = $this->getLoggedRequestCount($user, $response, 'serviceProvider', 'providers');
         }
 
         return $this->sendResponse($response, 'Request countes');
     }
+
+    protected function getLoggedRequestCount($user, $response, $userRelation, $requestRelation)
+    {
+
+        $relationId = $user->{$userRelation}->id;
+        $this->serviceRequestRepository->resetCriteria();
+        $this->serviceRequestRepository->whereHas($requestRelation, function ($q) use ($relationId) {
+            $q->where('assignee_id', $relationId);
+        });
+        $response['my_request_count'] = $this->serviceRequestRepository->count();
+
+
+        $this->serviceRequestRepository->resetCriteria();
+        $this->serviceRequestRepository->whereHas($requestRelation, function ($q) use ($relationId) {
+            $q->where('assignee_id', $relationId);
+        });
+        $this->serviceRequestRepository->pushCriteria(new WhereInCriteria('status', ServiceRequest::PendingStatuses));
+        $response['my_pending_request_count'] = $this->serviceRequestRepository->count();
+
+        return $response;
+    }
+
 }

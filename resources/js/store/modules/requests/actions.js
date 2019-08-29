@@ -134,5 +134,19 @@ export default {
         const {data} = await axios.get(`requests/${id}/communicationTemplates`)
 
         commit('SAVE_REQUEST_TEMPLATES', {id, data: data.data})
+    },
+    getRequestTags({commit}, payload) {
+        return new Promise((resolve, reject) => {
+            axios.get(`requests/${payload.id}/tags`).then((response) => {
+                resolve(response.data);
+            }).catch(({response: {data: err}}) => reject(err));
+        });
+    },
+    createRequestTags({commit}, payload) {
+        return new Promise((resolve, reject) => {
+            axios.post(`requests/${payload.id}/tags`, payload).then((response) => {
+                resolve(response.data);
+            }).catch(({response: {data: err}}) => reject(err));
+        });
     }
 }
