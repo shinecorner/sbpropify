@@ -395,13 +395,6 @@ export default (config = {}) => {
 
                     await this.fetchCurrentManager();
 
-                    const reqResp = await this.getRequests({
-                        get_all: true,
-                        assignee_id: this.model.user.id
-                    });
-
-
-                    this.requests = reqResp.data;
 
                     const {
                         data: {
