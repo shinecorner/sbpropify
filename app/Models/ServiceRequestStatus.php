@@ -45,10 +45,12 @@ class ServiceRequestStatus extends Model
 
     public $table = 'request_status_log';
 
+    public $timestamps = false;
+
     public $fillable = [
         'request_id',
         'old_status',
         'new_status',
-        'stared_at',
+        'started_at',
     ];
 }
