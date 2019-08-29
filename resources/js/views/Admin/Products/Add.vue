@@ -7,7 +7,7 @@
 
                     <el-form-item>
                         <el-button type="primary" icon="ti-save" @click="submit">
-                            {{$t('models.post.save')}}
+                            {{$t('general.actions.save')}}
                         </el-button>
                     </el-form-item>
                 </el-form>

@@ -9,7 +9,7 @@
             <template v-if="$can($permissions.delete.post)">
                 <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
                            type="danger">
-                    {{$t('models.post.delete')}}
+                    {{$t('general.actions.delete')}}
                 </el-button>
             </template>
         </heading>
@@ -26,7 +26,7 @@
             @selectionChanged="selectionChanged"
         >
         </list-table>
-        <el-dialog :title="$t('models.post.details')" :visible.sync="postDetailsVisible">
+        <el-dialog :title="$t('general.actions.view')" :visible.sync="postDetailsVisible">
             <post-details :post="post" style="margin-bottom: 15px;"></post-details>
             <el-button @click="changePostStatus(post.id, postConstants.published)"
                        type="success"
@@ -77,7 +77,7 @@
                     label: 'models.post.preview',
                     prop: 'preview'
                 }, {
-                    label: 'models.user.email',
+                    label: 'general.email',
                     prop: 'user.email'
                 }, {
                     label: 'models.post.type.label',
@@ -102,7 +102,7 @@
                     actions: [
                         // {
                         //     type: 'primary',
-                        //     title: this.$t('models.post.show'),
+                        //     title: this.$t('general.actions.view'),
                         //     onClick: this.show,
                         //     permissions: [
                         //         this.$permissions.view.post
@@ -110,7 +110,7 @@
                         //     hidden: this.checkPostType
                         // }, 
                         {
-                            title: 'models.post.edit',
+                            title: 'general.actions.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.post
@@ -224,9 +224,9 @@
                 });
             },
             listingSelectChangedNotify(row) {
-                this.$confirm(this.$t(`models.post.confirmChange.title`), this.$t('models.post.confirmChange.warning'), {
-                    confirmButtonText: this.$t(`models.post.confirmChange.confirmBtnText`),
-                    cancelButtonText: this.$t(`models.post.confirmChange.cancelBtnText`),
+                this.$confirm(this.$t(`general.swal.confirmChange.title`), this.$t('general.swal.confirmChange.warning'), {
+                    confirmButtonText: this.$t(`general.swal.confirmChange.confirmBtnText`),
+                    cancelButtonText: this.$t(`general.swal.confirmChange.cancelBtnText`),
                     type: 'warning'
                 }).then(async () => {
                     try {

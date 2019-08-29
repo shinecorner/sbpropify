@@ -39,13 +39,13 @@
             return {
                 header: [{
                     type: 'plain',
-                    label: 'models.propertyManager.name',
+                    label: 'general.name',
                     prop: 'name',
                     minWidth: '150px'
                 }, {
                     type: 'counts',
                     minWidth: '150px',
-                    label: 'models.propertyManager.requests',
+                    label: 'general.requests',
                 }, {
                     type: 'actions',
                     label: 'dashboard.actions',
@@ -53,7 +53,7 @@
                     actions: [ 
                         {
                             type: 'default',
-                            title: 'models.propertyManager.edit',
+                            title: 'general.actions.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.propertyManager

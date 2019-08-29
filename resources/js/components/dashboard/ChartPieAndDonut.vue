@@ -223,7 +223,7 @@ export default {
             else if (this.type === 'tenants_by_title') {
                 this.chartType = 'donut';
                 url = 'admin/donutChart?table=tenants&column=title';
-                langPrefix = 'models.tenant.titles.';
+                langPrefix = 'general.salutation_option.';
             }
             else if (this.type === 'tenants_by_age') {
                 this.chartType = 'donut';

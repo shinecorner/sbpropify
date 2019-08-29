@@ -17,7 +17,7 @@
                                     <el-select placeholder="Select" style="display: block" v-model="model.title">
                                         <el-option
                                             :key="title"
-                                            :label="$t(`models.tenant.titles.${title}`)"
+                                            :label="$t(`general.salutation_option.${title}`)"
                                             :value="title"
                                             v-for="title in titles">
                                         </el-option>
@@ -38,12 +38,12 @@
 
                         <el-row :gutter="10">
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.cleanify.email')" prop="email">
+                                <el-form-item :label="$t('general.email')" prop="email">
                                     <el-input type="email" v-model="model.email"/>
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.cleanify.phone')" prop="phone">
+                                <el-form-item :label="$t('general.phone')" prop="phone">
                                     <el-input type="text" v-model="model.phone"/>
                                 </el-form-item>
                             </el-col>

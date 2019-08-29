@@ -10,7 +10,7 @@
                         @click="edit"
                     >
                         <i class="ti-pencil"></i>
-                        <span>{{ $t('models.propertyManager.edit') }}</span>    
+                        <span>{{ $t('general.actions.edit') }}</span>    
                     </el-button>
                 </el-col>
                 <el-col :span="21" class="request-header">

@@ -1,6 +1,6 @@
 <template>
     <div class="units-edit">
-        <heading :title="$t('models.unit.edit')" icon="icon-unit" style="margin-bottom: 20px;" shadow="heavy">
+        <heading :title="$t('general.actions.edit')" icon="icon-unit" style="margin-bottom: 20px;" shadow="heavy">
             <template slot="description" v-if="model.unit_format">
                 <div class="subtitle">{{model.unit_format}}</div>
             </template>
@@ -108,7 +108,7 @@
                 </card>
             </el-col>
             <el-col :md="12">
-                <card :loading="loading" :header="$t('models.unit.requests')">
+                <card :loading="loading" :header="$t('general.requests')">
                     <relation-list
                         :actions="requestActions"
                         :columns="requestColumns"
@@ -169,7 +169,7 @@
             return {
                 assigneesColumns: [{
                     prop: 'name',
-                    label: this.$t('models.propertyManager.name')
+                    label: this.$t('general.name')
                 }, {
                     prop: 'statusString',
                     label: this.$t('models.request.userType.label'),
@@ -178,7 +178,7 @@
                 assigneesActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.request.unassign'),
+                        title: this.$t('general.unassign'),
                         tooltipMode: true,
                         type: 'danger',
                         icon: 'el-icon-close',
