@@ -11,8 +11,7 @@ return [
 			'date' => 'Datum',
 			'add' => 'Benutzer hinzufügen',			
 			'saved' => 'Benutzer erfolgreich gespeichert.',
-			'deleted' => 'Benutzer erfolgreich gelöscht.',
-			'edit' => 'Bearbeiten',
+			'deleted' => 'Benutzer erfolgreich gelöscht.',			
 			'not_found' => 'Benutzer nicht gefunden.',
 			'profile_image' => 'Profil-Bild',
 			'profile_text' => 'Profil-Text',
@@ -60,29 +59,21 @@ return [
 			'credentials_sent' => 'Zugangsdaten wurden erfolgreich gesendet.',
 			'credentials_send_fail' => 'Credentials file not found. Try updating the tenant password to regenerate it',
 			'credentials_download_failed' => 'Credentials file not found. Try updating the tenant password to regenerate it',
-			'add' => 'Mieter hinzufügen',
-			'save' => 'Speichern',
+			'add' => 'Mieter hinzufügen',			
 			'saved' => 'Mieter gespeichert',
 			'deleted' => 'Mieter gelöscht',
 			'status_changed' => 'Status geändert',
 			'password_reset' => 'Passwort erfolgreich zurückgesetzt',
-			'update' => 'Update',
-			'name' => 'Name',
+			'update' => 'Update',			
 			'first_name' => 'Vorname',
 			'last_name' => 'Name',
-			'birth_date' => 'Geburtsdatum',
-			'language' => 'Sprache',
+			'birth_date' => 'Geburtsdatum',			
 			'nation' => 'Nation',
 			'mobile_phone' => 'Mobile',
-			'work_phone' => 'Arbeit',
-			'email' => 'E-Mail',
+			'work_phone' => 'Arbeit',			
 			'personal_phone' => 'Telefon privat',
 			'private_phone' => 'Telefon privat',
-			'created_date' => 'Erstelldatum',
-			'created_at' => 'Datum',
-			'edit' => 'Bearbeiten',			
-			'id' => 'ID',
-			'details' => 'Details',
+			'created_date' => 'Erstelldatum',									
 			'contract' => 'Mietvertrag',
 			'posts' => 'Beiträge',
 			'products' => 'Marktplatz',
@@ -104,12 +95,6 @@ return [
 				],
 			'search_building' => 'Liegenschaft suchen',
 			'search_unit' => 'Einheit suchen',
-			'search' => 'Suchen',
-			'confirmDelete' =>
-				[
-					'title' => 'Warnung: Der Mieter wird endgültig gelöscht.',
-					'text' => 'Sind Sie sicher, dass Sie fortfahren wollen?',
-				],
 			'validation' =>
 				[
 					'first_name' =>
@@ -163,10 +148,7 @@ return [
 			'rent_contract' => 'Mietvertrag',
 			'contact' =>
 				[
-					'category' => 'Kategorie',
-					'name' => 'Name',
-					'email' => 'E-Mail',
-					'phone' => 'Telefon',
+					'category' => 'Kategorie',															
 				],
 			'titles' =>
 				[
@@ -192,22 +174,17 @@ return [
 		[
 			'title' => 'Liegenschaften',
 			'edit_title' => 'Liegenschaft bearbeiten',
-			'add' => 'Liegenschaft hinzufügen',
-			'name' => 'Name',
-			'cancel' => 'Schliessen',
-			'created_at' => 'Datum',
-			'edit' => 'Öffnen',			
+			'add' => 'Liegenschaft hinzufügen',			
+			'cancel' => 'Schliessen',							
 			'deleted' => 'Liegenschaft erfolgreich gelöscht',
-			'units' => 'Einheiten',
-			'save' => 'Speichern',
+			'units' => 'Einheiten',			
 			'saved' => 'Liegenschaft gespeichert',
 			'floors' => 'Stockwerke',
 			'basement' => 'Erdgeschoss',
 			'attic' => 'Attikageschoss',
 			'description' => 'Beschreibung',
 			'floor_nr' => 'Anzahl Stockwerke',
-			'label' => 'Label',
-			'address' => 'Adresse',
+			'label' => 'Label',			
 			'address_search' => 'Bitte Adresse eingeben.',
 			'not_found' => 'Liegenschaft nicht gefunden.',
 			'house_rules' => 'Hausordnung',
@@ -219,7 +196,6 @@ return [
 			'add_companies' => 'Dienstleister hinzufügen',
 			'companies' => 'Dienstleister',
 			'no_services' => 'Keine Partnerfirmen gewählt.',
-			'details' => 'Details',
 			'select_media_category' => 'Kategorie der Mediendatei wählen',
 			'district' => 'Überbauung',
 			'tenants' => 'Mieter',
@@ -244,11 +220,6 @@ return [
 			'service' =>
 				[
 					'deleted' => 'Dienstleister entfernt',
-				],
-			'confirmDelete' =>
-				[
-					'title' => 'Wenn Sie weiterfahren wird die Liegenschaft unwiderruflich gelöscht.',
-					'text' => 'Wollen Sie wirklich weiterfahren?',
 				],
 			'validation' =>
 				[
@@ -292,10 +263,6 @@ return [
 					'solved' => "Erledigte Anfragen",
 					'pending' => "Ausstehende Anfragen"
 				],
-			'placeholders' =>
-				[
-					'search' => 'Suchen',
-				],
 			'delete_building_modal' =>
 				[
 					'title' => 'Liegenschaft(en) löschen – Warnung!',
@@ -318,11 +285,8 @@ return [
 				'attached' => 'Mieter wurde zugewiesen.',
 				'detached' => 'Mieter wurde entfernt.'
 			],
-			'name' => 'Einheit-ID',
-			'created_at' => 'Datum',
-			'edit' => 'Einheit bearbeiten',			
+			'name' => 'Einheit-ID',								
 			'deleted' => 'Einheit gelöscht',
-			'save' => 'Speichern',
 			'saved' => 'Einheit gespeichert',
 			'floor' => 'Stockwerk',
 			'sq_meter' => 'Fläche',
@@ -346,11 +310,6 @@ return [
 					'label' => 'Typ',
 					'apartment' => 'Wohnung',
 					'business' => 'Gewerbe',
-				],
-			'confirmDelete' =>
-				[
-					'title' => 'Diese Einheit wird endgültig gelöscht',
-					'text' => 'Sind Sie sicher, dass Sie fortfahren wollen?',
 				],
 			'validation' =>
 				[
@@ -392,19 +351,11 @@ return [
 				'tenant_not_found' => "Mieter nicht gefunden",
 				'deleted' => "Fehler beim Löschen der Einheit: ",
 			],
-			'placeholders' =>
-				[
-					'search' => 'Suchen',
-					'select' => 'Wählen',
-				],
 		],
 	'address' =>
 		[
-			'add' => 'Adresse hinzufügen',
-			'created_at' => 'Datum',
-			'name' => 'Address',
-			'edit' => 'Öffnen',			
-			'save' => 'Speichern',
+			'add' => 'Adresse hinzufügen',			
+			'name' => 'Address',					
 			'city' => 'Ort',
 			'country' => 'Kanton',
 			'street' => 'Strasse',
@@ -412,11 +363,6 @@ return [
 			'zip' => 'Postleitzahl',
 			'not_found' => 'Adresse nicht gefunden',
 			'saved' => 'Adresse gespeichert',
-			'confirmDelete' =>
-				[
-					'title' => 'Die Liegenschaft wird endgültig gelöscht.',
-					'text' => 'Sind Sie sicher, dass Sie fortfahren wollen?',
-				],
 			'state' =>
 				[
 					'label' => 'Kanton',
@@ -452,20 +398,16 @@ return [
 			'content' => 'Inhalt',
 			'preview' => 'Vorschau',
 			'add' => 'Beitrag hinzufügen',
-			'add_pinned' => 'Ankündigung erstellen',
-			'save' => 'Speichern',
+			'add_pinned' => 'Ankündigung erstellen',			
 			'saved' => 'Beitrag wurde gespeichert',
 			'view_incresead' => "Aufrufe erfolgreich gesteigert",
 			'updated' => 'Beitrag wurde aktualisiert',
-			'deleted' => 'Beitrag wurde gelöscht',
-			'edit' => 'Öffnen',
+			'deleted' => 'Beitrag wurde gelöscht',			
 			'edit_title' => 'Beitrag bearbeiten',
-			'show' => 'Vorschau',
 			'user' => 'Benutzer',			
 			'likes' => 'Likes',
 			'tenants' => 'Mieter',
-			'views' => 'Aufrufe',
-			'details' => 'Beitragsdetails',
+			'views' => 'Aufrufe',			
 			'published_at' => 'Veröffentlichung',
 			'publish' => 'Veröffentlicht',
 			'unpublish' => 'Unpublish',
@@ -474,12 +416,10 @@ return [
 			'notify_email' => 'Mieter benachrichtigen',
 			'pinned_to' => 'Hervorheben bis',
 			'comments' => 'Kommentare',
-			'images' => 'Fotos und Dokumente',
-			'details_title' => 'Vorschau',
+			'images' => 'Fotos und Dokumente',			
 			'placeholders' =>
 				[
 					'buildings' => 'Liegenschaft wählen',
-					'search' => 'Liegenschaft suchen',
 					'search_provider' => 'Dienstleister suchen',
 				],
 			'media' =>
@@ -568,8 +508,7 @@ return [
 		[
 			'title' => 'Dienstleister und Hauswartung',
 			'add_title' => 'Neue Firma hinzufügen',
-			'edit_title' => 'Firma bearbeiten',
-			'edit' => 'Öffnen',			
+			'edit_title' => 'Firma bearbeiten',			
 			'saved' => 'Dienstleister gespeichert',
 			'deleted' => 'Dienstleister gelöscht',
 			'category' => 'Gewerke',
@@ -579,8 +518,7 @@ return [
 			'sanitary' => 'Sanitär',
 			'key_service' => 'Schlüsseldienst',
 			'caretaker' => 'Hauswart',
-			'real_estate_service' => 'Liegenschaftsdienst',
-			'name' => 'Name',
+			'real_estate_service' => 'Liegenschaftsdienst',			
 			'requests' => 'Anfragen',
 			'contact_details' => 'Kontaktdaten',
 			'user_credentials' => 'Logindaten',
@@ -608,7 +546,6 @@ return [
 				],
 			'placeholders' =>
 				[
-					'search' => 'Suchen',
 					'category' => 'Gewerk wählen',
 				],
 			'errors' => [
@@ -623,18 +560,14 @@ return [
 		],
 	'district' =>
 		[
-			'title' => 'Überbauungen',
-			'name' => 'Name',
+			'title' => 'Überbauungen',			
 			'description' => 'Beschreibung',
 			'add' => 'Überbauung hinzufügen',
-			"edit" => "Überbauung bearbeiten",
-			'save' => 'Speichern',
+			"edit" => "Überbauung bearbeiten",			
 			'saved' => 'Überbauung gespeichert',
-			'edit_action' => 'Öffnen',			
 			'deleted' => 'Überbauung gelöscht',
 			'cancel' => 'Schliessen',
 			'required' => 'Dies ist ein Pflichfeld!',
-			'details' => 'Überbauung Details',
 			'buildings' => 'Liegenschaften',
 			'count_of_buildings' => 'Anzahl Liegenschaften',
 			'errors' => [
@@ -645,7 +578,6 @@ return [
 	'realEstate' =>
 		[
 			'title' => 'Einstellungen Liegenschaftsverwaltung',
-			'details' => 'Details',
 			'settings' => 'Einstellungen',
 			'iframe' => 'Iframe',
 			'theme' => 'Thema',
@@ -708,16 +640,14 @@ return [
 		],
 	'request' =>
 		[
-			'audits' => 'History',
-			'edit' => 'Öffnen',			
+			'audits' => 'History',	
 			'deleted' => 'Anfrage gelöscht',
 			'title' => 'Übersicht Mieter-Anfragen',
 			'created' => 'Erstellt',
 			'saved' => 'Anfrage gespeichert',
 			'prop_title' => 'Titel',
 			'description' => 'Anfrage Informationen',
-			'category' => 'Kategorie',
-			'address' => 'Adresse',
+			'category' => 'Kategorie',			
 			'edit_title' => 'Anfrage bearbeiten',
 			'add_title' => 'Anfrage hinzufügen',
 			'tenant' => 'Mieter',
@@ -857,8 +787,7 @@ return [
 					'due_date' => 'Zu erledigen bis',
 					'tenant' => 'Mieter suchen',
 					'service' => 'Dienstleister suchen',
-					'propertyManagers' => 'Bewirtschafter suchen',
-					'search' => 'Suchen',
+					'propertyManagers' => 'Bewirtschafter suchen',					
 					'visibility' => 'Sichtbarkeit',
 				],
 			'confirmChange' =>
@@ -940,9 +869,7 @@ return [
 	'requestCategory' =>
 		[
 			'title' => 'Anfrage Kategorien',
-			'add' => 'Kategorie hinzufügen',
-			'edit' => 'Öffnen',			
-			'name' => 'Name',
+			'add' => 'Kategorie hinzufügen',								
 			'cancel' => 'Schliessen',
 			'required' => 'Dies ist ein Pflichtfeld',
 			'parent' => 'Hauptkategorie',
@@ -956,23 +883,18 @@ return [
 	'propertyManager' =>
 		[
 			'title' => 'Bewirtschafter',
-			'add' => 'Bewischafter hinzufügen',
-			'save' => 'Speichern',
+			'add' => 'Bewischafter hinzufügen',			
 			'saved' => 'Bewirtschafter wurde gespeichert',
 			'deleted' => 'Bewirtschafter wurde gelöscht',
-			'edit' => 'Öffnen',
 			'edit_title' => 'Bewirtschafter bearbeiten',			
 			'firstName' => 'Vorname',
-			'lastName' => 'Name',
-			'name' => 'Name',
+			'lastName' => 'Name',			
 			'profession' => 'Position',
 			'slogan' => 'Slogan',
 			'linkedin_url' => 'Linkedin',
-			'xing_url' => 'Xing',
-			'email' => 'E-Mail',
+			'xing_url' => 'Xing',			
 			'password' => 'Passwort',
-			'confirm_password' => 'Passwort bestätigen',
-			'phone' => 'Telefon',
+			'confirm_password' => 'Passwort bestätigen',			
 			'building_card' => 'Liegenschaft(en) zuweisen',
 			'details_card' => 'Details & Konto',
 			'no_buildings' => 'Keine Liegenschaft zugewiesen',
@@ -997,10 +919,6 @@ return [
 					'mrs' => 'Frau',
 				],
 			'assignType' => 'Typ',
-			'placeholders' =>
-				[
-					'search' => 'Suchen',
-				],
 			'attached' =>
 				[
 					'building' => 'Liegenschaft wurde zugewiesen.',
@@ -1035,17 +953,13 @@ return [
 			'title' => 'Marktplatz',
 			'add' => 'Inserat hinzufügen',
 			'edit_title' => 'Inserat bearbeiten',
-			'edit' => 'Öffnen',
 			'delete_action' => 'Löschen',
-			'show' => 'Vorschau',
-			'details' => 'Details zum Angebot',			
 			'content' => 'Inhalt',
 			'product_title' => 'Titel',
 			'published_at' => 'Hinzugefügt am',
 			'publish' => 'Veröffentlicht',
 			'unpublish' => 'Unveröffentlicht',
-			'likes' => 'Likes',
-			'save' => 'Speichern',
+			'likes' => 'Likes',			
 			'saved' => 'Inserat gespeichert',
 			'deleted' => 'Inserat gelöscht',
 			'comments' => 'Kommentare',
@@ -1085,9 +999,7 @@ return [
 				],
 		],
 	'template' =>
-		[
-			'name' => 'Name',
-			'edit' => 'Öffnen',			
+		[				
 			'saved' => 'Vorlage gespeichert',
 			'deleted' => 'Vorlage gelöscht',
 			'add' => 'Hinzufügen',
@@ -1112,9 +1024,7 @@ return [
 			'firstName' => 'Vorname',
 			'address' => 'Strasse + Nr',
 			'city' => 'Ort',
-			'zip' => 'Postleitzahl',
-			'email' => 'E-Mail',
-			'phone' => 'Telefon',
+			'zip' => 'Postleitzahl',						
 			'save' => 'Anfragen einsenden',
 			'success' => 'Ihr Anfrage wurde erfolgreich an Cleanify übertragen.',
 			'terms_and_conditions' => 'Accept Terms & Conditions',

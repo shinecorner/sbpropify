@@ -14,6 +14,7 @@ return [
     'years' => 'Années',
   ],
   'chooseLanguage' => 'Choisir la langue',
+  'language' => "Langage",
   'languages' => 
   [
     'fr' => 'Français',
@@ -37,6 +38,9 @@ return [
     'saturday' => 'samedi',
     'sunday' => 'dimanche',
   ],
+  'date' => 'Date',
+  'title' => "intitulé",
+  'description' => "descriptif",
   'salutation' => 'Apostrophe',
   'no' => 'Non',
   "name" => "Nom",
@@ -65,7 +69,7 @@ return [
   'reset_password_mail_sent' => "Nous vous avons envoyé un e-mail avec d'autres instructions. Veuillez vérifier votre boîte de réception.",
   'back_to_login' => 'Retour à la page d\'ouverture de session',
   'forgot_password' => 'Mot de passe oublié',  
-  'forgot_password_info' => "Entrez ici l'adresse e-mail avec laquelle vous vous êtes inscrit. Nous vous enverrons un courriel avec votre nom d'utilisateur et un lien pour réinitialiser votre mot de passe.",
+  'forgot_password_info' => "Entrez ici l'adresse e-mail avec laquelle vous vous êtes inscrit. Nous vous enverrons un courriel avec un lien pour réinitialiser votre mot de passe.",
   'email_not_registered' => "L'adresse e-mail que vous avez saisie n'est pas associée à un compte actif. Essayez une autre adresse e-mail.",
   'remember_me' => 'Se souvenir de moi',
   'password' => 'Mot de passe',
@@ -198,5 +202,4 @@ return [
   ],
   'to_homepage' => 'Vers la page d\'accueil',
   "assignment" => "Affectation",
-
 ];

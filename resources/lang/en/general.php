@@ -14,6 +14,7 @@ return [
     'years' => 'Years',
   ],
   'chooseLanguage' => 'Choose Language',
+  'language' => "Language",
   'languages' => 
   [
     'fr' => 'Français',
@@ -37,6 +38,9 @@ return [
     'saturday' => 'Saturday',
     'sunday' => 'Sunday',
   ],
+  'date' => 'Date',
+  'title' => 'Title',
+  'description' => 'Description',
   'salutation' => 'Salutation',
   'no' => 'No',
   'name' => "Name",
@@ -65,7 +69,7 @@ return [
   'reset_password_mail_sent' => 'We have sent you an e-mail with further instructions. Please check your inbox.',
   'back_to_login' => 'Go back to login',
   'forgot_password' => 'Forgot password',  
-  'forgot_password_info' => "Enter the email address by which you're registered here. We will send you an email with your I username and a link to reset your password.",
+  'forgot_password_info' => "Enter the email address by which you're registered here. We will send you an email with a link to reset your password.",
   'email_not_registered' => "The e-mail address you entered is not associated with an active account. Try a different email address.",
   'remember_me' => 'Remember me',
   'password' => 'Password',
@@ -198,5 +202,4 @@ return [
   ],
   'to_homepage' => 'To Homepage',
   'assignment' => 'Assignment',
-
 ];

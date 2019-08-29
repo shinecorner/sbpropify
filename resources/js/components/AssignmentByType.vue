@@ -16,7 +16,7 @@
         <el-col id="search">
             <el-select
                 :loading="remoteLoading"
-                :placeholder="$t('models.request.placeholders.search')"
+                :placeholder="$t('general.placeholders.search')"
                 :remote-method="remoteSearch"
                 class="custom-remote-select"
                 filterable

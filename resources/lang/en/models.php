@@ -11,8 +11,7 @@ return [
       'date' => 'Date',
       'add' => 'Add User',
       'saved' => 'User saved successfully',
-      'deleted' => 'User deleted',
-      'edit' => 'Edit User',
+      'deleted' => 'User deleted',      
       'not_found' => 'User not found',
       'profile_image' => 'Profile image',
       'profile_text' => 'Profile text',
@@ -61,28 +60,20 @@ return [
       'credentials_send_fail' => 'Credentials file not found. Try updating the tenant password to regenerate it',
       'credentials_download_failed' => 'Credentials file not found. Try updating the tenant password to regenerate it',
       'add' => 'Add Tenant',
-      'save' => 'Save',
       'saved' => 'Tenant saved',
       'deleted' => 'Tenant deleted',
       'status_changed' => 'Status changed',
       'password_reset' => 'Tenant password reset successfully',
-      'update' => 'Update',
-      'name' => 'Name',
+      'update' => 'Update',      
       'first_name' => 'First name',
       'last_name' => 'Last name',
       'birth_date' => 'Birth date',
-      'language' => 'Language',
       'nation' => 'Nation',
       'mobile_phone' => 'Mobile phone',
       'work_phone' => 'Work phone',
-      'email' => 'Email',
       'personal_phone' => 'Personal phone',
       'private_phone' => 'Personal phone',
-      'created_date' => 'Created Date',
-      'created_at' => 'Date',
-      'edit' => 'Edit',      
-      'id' => 'ID',
-      'details' => 'Details',
+      'created_date' => 'Created Date',      
       'contract' => 'Contract',
       'posts' => 'Posts',
       'products' => 'Products',
@@ -103,13 +94,7 @@ return [
         'name' => 'Unit',
       ],
       'search_building' => 'Search building',
-      'search_unit' => 'Search unit',
-      'search' => 'Search',
-      'confirmDelete' => 
-      [
-        'title' => 'This will permanently delete the tenant.',
-        'text' => 'Are you sure?',
-      ],
+      'search_unit' => 'Search unit',      
       'validation' => 
       [
         'first_name' => 
@@ -163,10 +148,7 @@ return [
       'rent_contract' => 'Rent contract',
       'contact' => 
       [
-        'category' => 'Category',
-        'name' => 'Name',
-        'email' => 'Email',
-        'phone' => 'Phone',
+        'category' => 'Category',        
       ],
       'titles' => 
       [
@@ -192,14 +174,10 @@ return [
     [
       'title' => 'Buildings',
       'edit_title' => 'Edit Building',
-      'add' => 'Add Building',
-      'name' => 'Name',
+      'add' => 'Add Building',      
       'cancel' => 'Cancel',
-      'created_at' => 'Date',
-      'edit' => 'Edit',      
       'deleted' => 'Building deleted successfully',
       'units' => 'Units',
-      'save' => 'Save',
       'saved' => 'Building saved',
       'floors' => 'Floors',
       'basement' => 'Basement',
@@ -207,7 +185,6 @@ return [
       'description' => 'Description',
       'floor_nr' => 'Number of floors',
       'label' => 'Label',
-      'address' => 'Address',
       'address_search' => 'Please enter address',
       'not_found' => 'Building not found',
       'house_rules' => 'House rules',
@@ -219,7 +196,6 @@ return [
       'add_companies' => 'Add companies',
       'companies' => 'Services companies',
       'no_services' => 'No services added',
-      'details' => 'Details',
       'select_media_category' => 'Selected media category',
       'district' => 'District',
       'tenants' => 'Tenants',
@@ -244,11 +220,6 @@ return [
       'service' => 
       [
         'deleted' => 'Service removed from this building',
-      ],
-      'confirmDelete' => 
-      [
-        'title' => 'This will permanently delete the building.',
-        'text' => 'Are you sure?',
       ],
       'validation' => 
       [
@@ -292,10 +263,6 @@ return [
         'solved' => 'Solved requests',
         'pending' => 'Pending requests'
       ],
-      'placeholders' => 
-      [
-        'search' => 'Search',
-      ],
       'delete_building_modal' => 
       [
         'title' => 'Delete Building(s)',
@@ -319,10 +286,7 @@ return [
         'detached' => 'Tenant detached successfully'
       ],
       'name' => 'Unit number',
-      'created_at' => 'Date',
-      'edit' => 'Edit Unit',      
-      'deleted' => 'Unit deleted',
-      'save' => 'Save',
+      'deleted' => 'Unit deleted',      
       'saved' => 'Unit saved',
       'floor' => 'Floor',
       'sq_meter' => 'Sq Meter',
@@ -346,11 +310,6 @@ return [
         'label' => 'Type',
         'apartment' => 'Apartment',
         'business' => 'Business',
-      ],
-      'confirmDelete' => 
-      [
-        'title' => 'This will permanently delete the unit.',
-        'text' => 'Are you sure?',
       ],
       'validation' => 
       [
@@ -392,19 +351,11 @@ return [
         'tenant_not_found' => "Tenant not found",
         'deleted' => "Unit deleted error: ",
       ],
-      'placeholders' => 
-      [
-        'search' => 'Search',
-        'select' => 'Select',
-      ],
     ],
     'address' => 
     [
       'add' => 'Add address',
-      'created_at' => 'Date',
       'name' => 'Address',
-      'edit' => 'Edit',      
-      'save' => 'Save',
       'city' => 'City',
       'country' => 'Country',
       'street' => 'Street',
@@ -412,11 +363,6 @@ return [
       'zip' => 'Zip',
       'not_found' => 'Address not found',
       'saved' => 'Address saved',
-      'confirmDelete' => 
-      [
-        'title' => 'This will permanently delete the address.',
-        'text' => 'Are you sure?',
-      ],
       'state' => 
       [
         'label' => 'State',
@@ -453,19 +399,15 @@ return [
       'preview' => 'Preview',
       'add' => 'Add Post',
       'add_pinned' => 'Add pinned post',
-      'save' => 'Save',
       'saved' => 'News saved',
       'view_incresead' => "Views increased successfully",
       'updated' => 'News updated',
       'deleted' => 'News deleted',
-      'edit' => 'Edit',
-      'edit_title' => 'Edit Post',
-      'show' => 'Details',
+      'edit_title' => 'Edit Post',      
       'user' => 'User',      
       'likes' => 'Likes',
       'views' => 'Views',
-      'tenants' => 'Tenants',
-      'details' => 'Post Details',
+      'tenants' => 'Tenants',      
       'published_at' => 'Published',
       'publish' => 'Publish',
       'unpublish' => 'Unpublish',
@@ -475,11 +417,9 @@ return [
       'pinned_to' => 'Pinned to',
       'comments' => 'Comments',
       'images' => 'Images',
-      'details_title' => 'Details',
       'placeholders' => 
       [
-        'buildings' => 'Choose buildings',
-        'search' => 'Search',
+        'buildings' => 'Choose buildings',        
         'search_provider' => 'Search provider',
       ],
       'media' => 
@@ -569,7 +509,6 @@ return [
       'title' => 'Services',
       'add_title' => 'Add Service',
       'edit_title' => 'Edit Service',
-      'edit' => 'Edit',      
       'saved' => 'Service saved',
       'deleted' => 'Service deleted',
       'category' => 'Category',
@@ -579,8 +518,7 @@ return [
       'sanitary' => 'Sanitary',
       'key_service' => 'Key service',
       'caretaker' => 'Caretaker',
-      'real_estate_service' => 'Real estate service',
-      'name' => 'Name',
+      'real_estate_service' => 'Real estate service',      
       'requests' => 'Requests',
       'contact_details' => 'Contact details',
       'user_credentials' => 'User credentials',
@@ -608,7 +546,6 @@ return [
       ],
       'placeholders' => 
       [
-        'search' => 'Search',
         'category' => 'Select category',
       ],
       'errors' => [
@@ -623,18 +560,14 @@ return [
     ],
     'district' => 
     [
-      'title' => 'Districts',
-      'name' => 'Name',
+      'title' => 'Districts',      
       'description' => 'Description',
       "edit" => "Edit District",
       'add' => 'Add District',
-      'save' => 'Save',
-      'saved' => 'District saved',
-      'edit_action' => 'Edit',      
+      'saved' => 'District saved',           
       'deleted' => 'District deleted',
       'cancel' => 'Cancel',
-      'required' => 'This field is required',
-      'details' => 'Details',
+      'required' => 'This field is required',      
       'buildings' => 'Buildings',
       'count_of_buildings' => 'Count of buildings',
       'errors' => [
@@ -645,7 +578,6 @@ return [
     'realEstate' => 
     [
       'title' => 'Settings real estate',
-      'details' => 'Details',
       'settings' => 'Settings',
       'iframe' => 'Iframe',
       'theme' => 'Theme',
@@ -709,7 +641,6 @@ return [
     'request' => 
     [
       'audits' => 'Audits',
-      'edit' => 'Edit',      
       'deleted' => 'Request deleted',      
       'title' => 'Requests',
       'created' => 'Created',
@@ -717,7 +648,6 @@ return [
       'prop_title' => 'Title',
       'description' => 'Description',
       'category' => 'Category',
-      'address' => 'Address',
       'edit_title' => 'Edit Request',
       'add_title' => 'Add Request',
       'tenant' => 'Tenant',
@@ -858,7 +788,6 @@ return [
         'tenant' => 'Search for a tenant',
         'service' => 'Search for a service',
         'propertyManagers' => 'Search for managers',
-        'search' => 'Search',
         'visibility' => 'Select visibility',
       ],
       'confirmChange' => 
@@ -941,8 +870,6 @@ return [
     [
       'title' => 'Request categories',
       'add' => 'Add category',
-      'edit' => 'Edit',      
-      'name' => 'Name',
       'cancel' => 'Cancel',
       'required' => 'This field is required',
       'parent' => 'Parent category',
@@ -957,22 +884,17 @@ return [
     [
       'title' => 'Property managers',
       'add' => 'Add Property Manager',
-      'save' => 'Save',
       'saved' => 'Property manager saved',
       'deleted' => 'Property manager deleted',
-      'edit' => 'Edit',
       'edit_title' => 'Edit Property Manager',      
       'firstName' => 'First name',
-      'lastName' => 'Last name',
-      'name' => 'Name',
+      'lastName' => 'Last name',      
       'profession' => 'Profession',
       'slogan' => 'Slogan',
       'linkedin_url' => 'Linkedin URL',
       'xing_url' => 'Xing URL',
-      'email' => 'Email',
       'password' => 'Password',
       'confirm_password' => 'Confirm password',
-      'phone' => 'Phone',
       'building_card' => 'Assign buildings',
       'details_card' => 'Details',
       'no_buildings' => 'There are no buildings assigned',
@@ -996,11 +918,7 @@ return [
         'mr' => 'Mr.',
         'mrs' => 'Mrs.',
       ],
-      'assignType' => 'Type',
-      'placeholders' => 
-      [
-        'search' => 'Search',
-      ],
+      'assignType' => 'Type',      
       'attached' => 
       [
         'building' => 'Building assigned',
@@ -1035,17 +953,13 @@ return [
       'title' => 'Products',
       'add' => 'Add Product',
       'edit_title' => 'Edit Product',
-      'edit' => 'Edit',
       'delete_action' => 'Delete',
-      'show' => 'Details',
-      'details' => 'Product details',      
       'content' => 'Content',
       'product_title' => 'Title',
       'published_at' => 'Published',
       'publish' => 'Publish',
       'unpublish' => 'Unpublish',
       'likes' => 'Likes',
-      'save' => 'Save',
       'saved' => 'Product saved',
       'deleted' => 'Product deleted',
       'comments' => 'Comments',
@@ -1085,9 +999,7 @@ return [
       ],
     ],
     'template' => 
-    [
-      'name' => 'Name',
-      'edit' => 'Edit',      
+    [      
       'saved' => 'Template saved',
       'deleted' => 'Template deleted',
       'add' => 'Add',
@@ -1112,9 +1024,7 @@ return [
       'firstName' => 'First name',
       'address' => 'Address',
       'city' => 'City',
-      'zip' => 'Zip',
-      'email' => 'Email',
-      'phone' => 'Phone',
+      'zip' => 'Zip',      
       'save' => 'Send request',
       'success' => 'Cleanify request sent successfully',
       'terms_and_conditions' => 'Accept Terms & Conditions',

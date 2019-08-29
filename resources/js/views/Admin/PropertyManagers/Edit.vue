@@ -1,6 +1,6 @@
 <template>
     <div class="services-edit">
-        <heading :title="$t('models.propertyManager.edit_title')" icon="icon-users" shadow="heavy">
+        <heading :title="$t('general.actions.edit_title')" icon="icon-users" shadow="heavy">
             <template slot="description" v-if="model.property_manager_format">
                 <div class="subtitle">{{model.property_manager_format}}</div>
             </template>
@@ -27,7 +27,7 @@
                                         </el-form-item>
                                     </el-col>
                                     <el-col :md="8">
-                                        <el-form-item :label="$t('models.tenant.language')" :rules="validationRules.language" 
+                                        <el-form-item :label="$t('general.language')" :rules="validationRules.language" 
                                                 prop="settings.language">
                                             <select-language :activeLanguage.sync="model.settings.language"/>
                                         </el-form-item>
@@ -61,12 +61,12 @@
 
                                 <el-row :gutter="20">
                                     <el-col :md="12">
-                                        <el-form-item :label="$t('models.propertyManager.phone')" prop="user.phone">
+                                        <el-form-item :label="$t('general.phone')" prop="user.phone">
                                             <el-input type="text" v-model="model.user.phone"/>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :md="12">
-                                        <el-form-item :label="$t('models.propertyManager.email')"
+                                        <el-form-item :label="$t('general.email')"
                                                       :rules="validationRules.email"
                                                       prop="user.email">
                                             <el-input type="email" v-model="model.user.email"/>
@@ -220,13 +220,13 @@
                     width: '90px',
                     buttons: [{
                         icon: 'ti-pencil',
-                        title: this.$t('models.request.edit'),
+                        title: this.$t('general.actions.edit'),
                         onClick: this.requestEditView
                     }]
                 }],
                 assignmentsColumns: [{
                     prop: 'name',
-                    label: this.$t('models.district.name')
+                    label: this.$t('general.name')
                 }, {
                     prop: 'type',
                     label: this.$t('models.propertyManager.assignType'),

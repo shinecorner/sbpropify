@@ -12,7 +12,6 @@ return [
       "add" => "Aggiungi utente",
       "saved" => "Utente salvato con successo",
       "deleted" => "Utente cancellato",
-      "edit" => "Modifica utente",
       "not_found" => "Utente non trovato",
       "profile_image" => "Immagine del profilo",
       "profile_text" => "Testo del profilo",
@@ -61,28 +60,20 @@ return [
       "credentials_send_fail" => "File delle credenziali non trovato. Prova ad aggiornare la password dell'inquilino per rigenerarla",
       "credentials_download_failed" => "File delle credenziali non trovato. Prova ad aggiornare la password dell'inquilino per rigenerarla",
       "add" => "Aggiungi inquilino",
-      "save" => "Risparmiate",
       "saved" => "L'inquilino salvato",
       "deleted" => "L'inquilino è stato cancellato",
       "status_changed" => "Stato cambiato",
       "password_reset" => "Il reset della password dell'inquilino ha avuto successo",
-      "update" => "Aggiornamento",
-      "name" => "Nome",
+      "update" => "Aggiornamento",      
       "first_name" => "Nome",
       "last_name" => "Cognome",
       "birth_date" => "Data di nascita",
-      "language" => "La lingua",
       'nation' => 'Nazione',
       "mobile_phone" => "Telefono cellulare",
       "work_phone" => "Telefono di lavoro",
-      "email" => "Email",
       "personal_phone" => "Telefono personale",
       "private_phone" => "Telefono personale",
       "created_date" => "Data di creazione",
-      "created_at" => "Appuntamento",
-      "edit" => "Modifica",      
-      "id" => "ID",
-      "details" => "Dettagli",
       "contract" => "Contratto",
       "posts" => "Messaggi",
       "products" => "Prodotti",
@@ -104,12 +95,6 @@ return [
       ],
       'search_building' => 'Ricerca edificio',
       'search_unit' => 'Unità di ricerca',
-      'search' => 'Ricerca',
-      'confirmDelete' => 
-      [
-        'title' => "Questo cancellerà definitivamente l'inquilino.",
-        'text' => "Sei sicuro?",
-      ],
       'validation' => 
       [
         'first_name' => 
@@ -163,10 +148,7 @@ return [
       "rent_contract" => "Contratto d'affitto",
       'contact' => 
       [
-        "category" => "Categoria",
-        "name" => "Nome",
-        "email" => "Email",
-        "phone" => "Telefono",
+        "category" => "Categoria",                
       ],
       'titles' => 
       [
@@ -192,14 +174,10 @@ return [
     [
       "title" => "Edifici",
       "edit_title" => "Modifica Edificio",
-      "add" => "Aggiungi edificio",
-      "name" => "Nome",
+      "add" => "Aggiungi edificio",      
       "cancel" => "Annulla",
-      "created_at" => "Appuntamento",
-      "edit" => "Modifica",      
       "deleted" => "Edificio cancellato con successo",
       "units" => "Unità",
-      "save" => "Risparmiate",
       "saved" => "Edificio salvato",
       "floors" => "Pavimenti",
       "basement" => "Nel seminterrato",
@@ -207,7 +185,6 @@ return [
       "description" => "Descrizione",
       "floor_nr" => "Numero di piani",
       "label" => "Etichetta",
-      "address" => "Indirizzo",
       "address_search" => "Inserire l'indirizzo",
       "not_found" => "Edificio non trovato",
       "house_rules" => "Le regole della casa",
@@ -219,7 +196,6 @@ return [
       "add_companies" => "Aggiungere aziende",
       "companies" => "Società di servizi",
       "no_services" => "Nessun servizio aggiunto",
-      "details" => "Dettagli",
       "select_media_category" => "Categoria di supporti selezionati",
       "district" => "Distretto",
       "tenants" => "Gli inquilini",
@@ -244,11 +220,6 @@ return [
       'service' => 
       [
         "deleted" => "Servizio rimosso da questo edificio",
-      ],
-      'confirmDelete' => 
-      [
-        "title" => "Questo cancellerà definitivamente l'edificio...",
-        "text" => "Sei sicuro?"
       ],
       'validation' => 
       [
@@ -292,10 +263,6 @@ return [
         'solved' => "Richieste risolte",
         'pending' => "Richieste in sospeso"
       ],
-      'placeholders' => 
-      [
-        "search" => "Cerca",
-      ],
       'delete_building_modal' => 
       [
         "title" => "Cancellare l'edificio o gli edifici",
@@ -319,10 +286,7 @@ return [
         "detached" => "L'inquilino si è staccato con successo"
       ],
       "name" => "Numero di unità",
-      "created_at" => "Appuntamento",
-      "edit" => "Modifica unità",      
-      "deleted" => "Unità cancellata",
-      "save" => "Risparmiate",
+      "deleted" => "Unità cancellata",      
       "saved" => "Unità salvata",
       "floor" => "Piano",
       "sq_meter" => "Misuratore di mq",
@@ -346,11 +310,6 @@ return [
         "label" => "Tipo",
         "apartment" => "Appartamento",
         "business" => "Affari",
-      ],
-      'confirmDelete' => 
-      [
-        "title" => "Questo cancellerà definitivamente l'unità",
-        "text" => "Sei sicuro?"
       ],
       'validation' => 
       [
@@ -392,19 +351,11 @@ return [
         'tenant_not_found' => "L'inquilino non trovato",
         'deleted' => "Unità cancellata errore: ",
       ],
-      'placeholders' => 
-      [
-        "search" => "Cerca",
-        "select" => "Selezionare",
-      ],
     ],
     'address' => 
     [
       "add" => "Aggiungi indirizzo",
-      "created_at" => "Appuntamento",
       "name" => "Indirizzo",
-      "edit" => "Modifica",      
-      "save" => "Risparmiate",
       "city" => "La citta'",
       "country" => "Paese",
       "street" => "Strada",
@@ -412,11 +363,6 @@ return [
       "zip" => "Zip",
       "not_found" => "Indirizzo non trovato",
       "saved" => "Indirizzo salvato",
-      'confirmDelete' => 
-      [
-        "title" => "Questo cancellerà definitivamente l'indirizzo..",
-        "text" => "Sei sicuro?"
-      ],
       'state' => 
       [
         "label" => "Stato",
@@ -453,19 +399,15 @@ return [
       "preview" => "Anteprima",
       "add" => "Aggiungi messaggio",
       "add_pinned" => "Aggiungere posta bloccata",
-      "save" => "Risparmiate",
       "saved" => "Notizie salvare",
       'view_incresead' => "Le viste sono aumentate con successo",
       "updated" => "Notizie aggiornate",
       "deleted" => "Notizie Cancellate",
-      "edit" => "Modifica",
       "edit_title" => "Modifica messaggio",
-      "show" => "Dettagli",
       "user" => "Utente",      
       "likes" => "Gli piace",
       "tenants" => "Gli inquilini",
-      "views" => "Viste",
-      "details" => "Pubblicare i dettagli",
+      "views" => "Viste",      
       "published_at" => "Pubblicato",
       "publish" => "Pubblicare",
       "unpublish" => "Non pubblicare",
@@ -474,12 +416,10 @@ return [
       "notify_email" => "Notifica e-mail",
       "pinned_to" => "Inchiodato a",
       "comments" => "Commenti",
-      "images" => "Immagini",
-      "details_title" => "Dettagli",
+      "images" => "Immagini",      
       'placeholders' => 
       [
         "buildings" => "Scegliere gli edifici",
-        "search" => "Cerca",
         "search_provider" => "Fornitore di ricerca",
       ],
       'media' => 
@@ -569,7 +509,6 @@ return [
       "title" => "Servizi",
       "add_title" => "Aggiungi servizio",
       "edit_title" => "Modifica servizio",
-      "edit" => "Modifica",      
       "saved" => "Servizio salvato",
       "deleted" => "Servizio cancellato",
       "category" => "Categoria",
@@ -579,8 +518,7 @@ return [
       "sanitary" => "Sanitario",
       "key_service" => "Servizio chiave",
       "caretaker" => "Custode",
-      "real_estate_service" => "Servizio immobiliare",
-      "name" => "Nome",
+      "real_estate_service" => "Servizio immobiliare",      
       "requests" => "Richieste",
       "contact_details" => "Dati di contatto",
       "user_credentials" => "Credenziali utente",
@@ -608,7 +546,6 @@ return [
       ],
       'placeholders' => 
       [
-        "search" => "Cerca",
         "category" => "Selezionare la categoria",
       ],
       'errors' => [
@@ -623,18 +560,14 @@ return [
     ],
     'district' => 
     [
-      "title" => "Distretti",
-      "name" => "Nome",
+      "title" => "Distretti",      
       "description" => "Descrizione",
       "add" => "Aggiungi distretto",
       "edit" => "Modifica Distretto",
-      "save" => "Risparmiate",
       "saved" => "Distretto salvato",
-      "edit_action" => "Modifica",      
       "deleted" => "Distretto soppresso",
       "cancel" => "Annulla",
       "required" => "Questo campo è obbligatorio",
-      "details" => "Dettagli",
       "buildings" => "Edifici",
       'count_of_buildings' => 'Conteggio degli edifici',
       'errors' => [
@@ -645,7 +578,6 @@ return [
     'realEstate' => 
     [
       "title" => "Impostazioni immobiliari",
-      "details" => "Dettagli",
       "settings" => "Impostazioni",
       'iframe' => 'Iframe',
       'theme' => 'Tema',
@@ -709,7 +641,6 @@ return [
     'request' => 
     [
       "audits" => "Audit",
-      "edit" => "Modifica",
       "deleted" => "Richiesta supprimée",
       "title" => "Richieste",
       "created" => "Creato",
@@ -717,7 +648,6 @@ return [
       "prop_title" => "Titolo",
       "description" => "Descrizione",
       "category" => "Categoria",
-      "address" => "Indirizzo",
       "edit_title" => "Modifica Richiesta",
       "add_title" => "Aggiungi Richiesta",
       "tenant" => "Un inquilino",
@@ -858,7 +788,6 @@ return [
         "tenant" => "Cercate un inquilino",
         "service" => "Cerca un servizio",
         "propertyManagers" => "Ricerca di manager",
-        "search" => "Cerca",
         "visibility" => "Selezionare la visibilità",
       ],
       'confirmChange' => 
@@ -941,8 +870,6 @@ return [
     [
       "title" => "Richiedi categorie",
       "add" => "Aggiungi categoria",
-      "edit" => "Modifica",
-      "name" => "Nome",
       "cancel" => "Annulla",
       "required" => "Questo campo è obbligatorio",
       "parent" => "Categoria genitore",
@@ -957,22 +884,17 @@ return [
     [
       "title" => "Gestori immobiliari",
       "add" => "Aggiungi Property Manager",
-      "save" => "Risparmiate",
       "saved" => "Gestionnaire immobilier sauvé",
       "deleted" => "Gestionnaire immobilier supprimé",
-      "edit" => "Modifica",
       "edit_title" => "Modifica Property Manager",
       "firstName" => "Nome",
-      "lastName" => "Cognome",
-      "name" => "Nome",
+      "lastName" => "Cognome",      
       "profession" => "Professione",
       "slogan" => "Slogan",
       "linkedin_url" => "URL di linkedin",
       "xing_url" => "URL Xing",
-      "email" => "Email",
       "password" => "La password",
       "confirm_password" => "Confermare la password",
-      "phone" => "Telefono",
       "building_card" => "Assegnare gli edifici",
       "details_card" => "Dettagli",
       "no_buildings" => "Non ci sono edifici assegnati",
@@ -997,10 +919,6 @@ return [
         "mrs" => "Signora"
       ],
       "assignType" => "Tipo",
-      'placeholders' => 
-      [
-        "search" => "Cerca",
-      ],
       'attached' => 
       [
         "building" => "Edificio assegnato",
@@ -1035,17 +953,13 @@ return [
       "title" => "Prodotti",
       "add" => "Aggiungi prodotto",
       "edit_title" => "Modifica prodotto",
-      "edit" => "Modifica",
       "delete_action" => "Cancellare",
-      "show" => "Dettagli",
-      "details" => "Dettagli del prodotto",
       "content" => "Contenuto",
       "product_title" => "Titolo",
       "published_at" => "Pubblicato",
       "publish" => "Pubblicare",
       "unpublish" => "Non pubblicare",
       "likes" => "Gli piace",
-      "save" => "Risparmiate",
       "saved" => "Prodotto salvato",
       "deleted" => "Prodotto cancellato",
       "comments" => "Commenti",
@@ -1085,9 +999,7 @@ return [
       ],
     ],
     'template' => 
-    [
-      'name' => 'Nome',
-      'edit' => 'Modifica',      
+    [      
       'saved' => 'Modello salvato',
       'deleted' => 'Modello cancellato',
       'add' => 'Aggiungi',
@@ -1112,9 +1024,7 @@ return [
       "firstName" => "Nome",
       "address" => "Indirizzo",
       "city" => "La citta'",
-      "zip" => "La cerniera",
-      "email" => "Email",
-      "phone" => "Telefono",
+      "zip" => "La cerniera",      
       "save" => "Invia richiesta",
       "success" => "Pulire la richiesta inviata con successo",
       "terms_and_conditions" => "Accettare i termini e le condizioni",

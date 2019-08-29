@@ -24,7 +24,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="8">
-                                    <el-form-item class="label-block" :label="$t('models.tenant.language')" :rules="validationRules.language"
+                                    <el-form-item class="label-block" :label="$t('general.language')" :rules="validationRules.language"
                                                   prop="settings.language">
                                         <select-language :activeLanguage.sync="model.settings.language"/>
                                     </el-form-item>
@@ -56,7 +56,7 @@
 
                             <el-row :gutter="20">
                                 <el-col :md="12">
-                                    <el-form-item :label="$t('models.propertyManager.phone')" prop="user.phone">
+                                    <el-form-item :label="$t('general.phone')" prop="user.phone">
                                         <el-input type="text" v-model="model.user.phone"/>
                                     </el-form-item>
                                 </el-col>

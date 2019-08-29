@@ -14,6 +14,7 @@ return [
     'years' => 'Jahre',
   ],
   'chooseLanguage' => 'Sprache auswählen',
+  'language' => "Sprache",
   'languages' => 
   [
     'fr' => 'Français',
@@ -24,7 +25,6 @@ return [
   'footerText' => 
   [
     'companyName' => 'Propify',
-
     'leftSideText' => 'Sie brauchen Unterstützung? Kontaktieren Sie unser Support-Team unter<br/>0800 000 000 oder via eine E-Mail an support@propify.ch.',
     'allRightsSaved' => 'Alle Rechte vorbehalten',
   ],
@@ -38,6 +38,9 @@ return [
     'saturday' => 'Samstag',
     'sunday' => 'Sonntag',
   ],
+  'date' => 'Datum',
+  'title' => 'Titel',
+  'description' => 'Beschreibung',
   'salutation' => 'Anrede',
   'name' => "Nome",
   'phone' => 'Telefon',
@@ -66,7 +69,7 @@ return [
   'reset_password_mail_sent' => 'Wir haben Ihnen eine E-Mail mit weiteren Anweisungen gesendet. Bitte prüfen Sie Ihren Posteingang.',
   'back_to_login' => 'Zurück zum Login',
   'forgot_password' => 'Passwort vergessen',  
-  'forgot_password_info' => "Geben Sie Ihre E-Mail-Adresse, mit der Sie sich registriert hast, an. Wir senden Ihnen dann eine E-Mail mit I Benutzernamen und einem Link, mit dem du dein Passwort zurücksetzen kannst.",
+  'forgot_password_info' => "Geben Sie Ihre E-Mail-Adresse, mit der Sie sich registriert haben, an. Wir senden Ihnen dann eine E-Mail mit einem Link, mit dem Sie Ihr Passwort zurücksetzen können.",
   'email_not_registered' => "Die E-Mail-Adresse, die Sie eingegeben haben, ist keinem aktiven Konto zugeordnet. Versuchen Sie es mit einer anderen E-Mail-Adresse.",
   'remember_me' => 'Angemeldet bleiben',
   'password' => 'Passwort',
@@ -199,5 +202,4 @@ return [
   ],
   'to_homepage' => 'Zur Startseite',
   'assignment' => 'Zugewiesene Liegenschaften',
-
 ];
