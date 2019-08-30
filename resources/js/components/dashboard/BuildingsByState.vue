@@ -159,10 +159,10 @@ export default {
         .progress-card-body {
             max-height: 242px;
             overflow: auto;
-            padding: 20px;
+            padding: 20px 5px;
             .progress-bar {
                 padding-top: 5px;
-                padding-bottom: 5px;
+                padding-bottom: 10px;
             }
         }
     }

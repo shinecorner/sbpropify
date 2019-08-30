@@ -15,28 +15,25 @@
                 </el-col>
                 <el-col :span="18" class="request-content">
                     <h3>{{ item.title }}</h3>
-                    <p>{{ $t('models.request.category') }} : {{ item.category.name }}</p>
+                    <p>{{ item.category.name }}</p>
                     <p>{{ item.description }}</p>
                 </el-col>
                 <el-col :span="3" class="request-tail">
-                    <div>
-                        {{ $t('models.request.status.label') }}
-                        <br>
-                        <el-button v-if="item.status == 1" plain type="info" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(1),'color':getRequestStatusColor(1)}" round>{{ $t('models.request.status.received') }}</el-button>
-                        <el-button v-else-if="item.status == 2" plain type="warning" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(2),'color':getRequestStatusColor(2)}"  round>{{ $t('models.request.status.in_processing') }}</el-button>
-                        <el-button v-else-if="item.status == 3" plain type="warning" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(3),'color':getRequestStatusColor(3)}"  round>{{ $t('models.request.status.assigned') }}</el-button>
-                        <el-button v-else-if="item.status == 4" plain type="success" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(4),'color':getRequestStatusColor(4)}"  round>{{ $t('models.request.status.done') }}</el-button>
-                        <el-button v-else-if="item.status == 5" plain type="warning" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(5),'color':getRequestStatusColor(5)}"  round>{{ $t('models.request.status.reactivated') }}</el-button>
-                        <el-button v-else-if="item.status == 6" plain type="success" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(6),'color':getRequestStatusColor(6)}"  round>{{ $t('models.request.status.archived') }}</el-button>
-                    </div>
-                    <div>
-                        {{ $t('models.request.last_updated') }}
-                        <br>
-                        <span v-if="updated_at.h>12">{{ updated_at.date }}</span>
-                        <span v-else-if="updated_at.h">{{ updated_at.h }}h</span>
-                        <span v-else-if="updated_at.m">{{  updated_at.m }}m</span>
-                        <span v-else>ago</span>
-                    </div>
+                    <el-select 
+                        class="select-icon rounded-select"  
+                        v-model="item.status" 
+                        @change="$emit('onChange', $event)"
+                    >
+                        <template slot="prefix">
+                        </template>
+                        <el-option
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id"
+                            v-for="item in selectData">
+                            <i class="icon-dot-circled" :class="item.id == 1 ? 'icon-success':'icon-danger'" ></i> {{item.name}}
+                        </el-option>
+                    </el-select>
                 </el-col>
             </el-row>
         </div>
@@ -92,13 +89,21 @@
                         {{ item.created_at }}
                     </p>
                 </el-col> 
-                <el-col :span="6">
+                <el-col :span="3">
                     <span>{{ $t('models.request.priority.label') }}</span>
                     <p>
                         <el-button v-if="item.priority_label == 'low'" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.priority.low') }}</el-button>
                         <el-button v-else-if="item.priority_label == 'normal'" plain type="warning" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.priority.normal') }}</el-button>
                         <el-button v-else-if="item.priority_label == 'urgent'" plain type="danger" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.priority.urgent') }}</el-button>
                     </p>
+                </el-col>
+                <el-col :span="3">
+                    {{ $t('models.request.last_updated') }}
+                    <br>
+                    <span v-if="updated_at.h>12">{{ updated_at.date }}</span>
+                    <span v-else-if="updated_at.h">{{ updated_at.h }}h</span>
+                    <span v-else-if="updated_at.m">{{  updated_at.m }}m</span>
+                    <span v-else>ago</span>
                 </el-col>
                 <el-col :span="3">
                     <span>{{ $t(due.label) }}</span>
@@ -179,7 +184,20 @@ export default {
                 h: Math.floor(minutes / 60),
                 m: Math.ceil(minutes % 60)
             }
-        }   
+        },
+        selectData() {
+            const storeConstants = this.$store.getters['application/requests'];
+            if (storeConstants) {
+                const constants = storeConstants['status'];
+                var data = Object.keys(constants).map((id) => {
+                    return {
+                        name: this.$t(`models.request.status.${constants[id]}`),
+                        id: parseInt(id)
+                    };
+                });
+                return data;
+            }
+        }
     },
     methods: {
         handleSelectionChanged(val) {
@@ -254,23 +272,12 @@ export default {
             }
             .request-tail {
                 display: flex;
-                flex-direction: column;
-                padding-right: 50px;
-                padding-top: 17.5px;
+                align-items: flex-end;
+                padding-right: 10px !important;
                 div {
-                    padding-left: 10px !important;
+                    margin-bottom: 20px
                 }
-                div:nth-of-type(1) {
-                    margin-top: 5px;
-                    margin-bottom: auto;
-                }
-                div:nth-of-type(2) {
-                    margin-top: 5px;
-                    width: 100%;
-                    background-color: #ecf5ff;
-                    color: #206eab;
-                    border: 1px solid #d9ecff;
-                }
+              
             }
         }
         .request-footer {

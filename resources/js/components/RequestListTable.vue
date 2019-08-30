@@ -121,6 +121,7 @@
                         :loading="{state: loading}"
                         @selectionChanged="handleRequestSelectionChange"
                         @editAction="column.editAction(scope.row)"
+                        @onChange="scope.row['status']=$event,column.onChange(scope.row)"
                     >
 
                     </request-detail-card>
@@ -260,6 +261,9 @@
         methods: {
             clearSearch() {
                 this.search = '';
+            },
+            onChange() {
+                console.log("change");
             },
             fetch(fetchPage, fetchPerPage) {
                 fetchPerPage = 4;
