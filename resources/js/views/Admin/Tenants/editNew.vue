@@ -243,10 +243,10 @@
                                         {{ $t('models.tenant.building.name') }}
                                     </h3>
                                     <el-col :md="12">
-                                        <el-form-item :label="$t('general.placeholders.search_building')" prop="building_id">
+                                        <el-form-item :label="$t('models.tenant.search_building')" prop="building_id">
                                             <el-select
                                                     :loading="remoteLoading"
-                                                    :placeholder="$t('general.placeholders.search_building')"
+                                                    :placeholder="$t('models.tenant.search_building')"
                                                     :remote-method="remoteSearchBuildings"
                                                     :rules="validationRules.building_id"
                                                     @change="searchUnits"
@@ -270,7 +270,7 @@
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.tenant.unit.name')" prop="unit_id"
                                                       v-if="model.building_id">
-                                            <el-select :placeholder="$t('general.placeholders.search_unit')" style="display: block"
+                                            <el-select :placeholder="$t('models.tenant.search_unit')" style="display: block"
                                                        v-model="model.unit_id">
                                                 <el-option
                                                         :key="unit.id"

@@ -228,18 +228,6 @@ return [
         'manager_assigned' => "Property Managers assign to Building error: ",
         'provider_deleted' => "Service Provider deleted error: ",
       ],
-      'requestStatuses' => 
-      [
-        'total' => 'Total requests',
-        'received' => 'Received requests',
-        'assigned' => 'Assigned requests',
-        'in_processing' => 'In processing requests',
-        'reactivated' => 'Reactivated requests',
-        'done' => 'Done requests',
-        'archived' => 'Archived requests',
-        'solved' => 'Solved requests',
-        'pending' => 'Pending requests'
-      ],
       'delete_building_modal' => 
       [
         'title' => 'Delete Building(s)',
@@ -588,7 +576,7 @@ return [
       'last_updated' => 'Last updated',
       'due_in' => 'Due in',
       'was_due_on' => 'Was due on',
-      'due_on' => 'Due on',
+      'due_on' => 'Due on',      
       'media' => 
       [
         'added' => 'Document added',
@@ -623,11 +611,13 @@ return [
       [
         'label' => 'Status',
         'received' => 'Received',
-        'in_processing' => 'In processing',
         'assigned' => 'Assigned',
-        'done' => 'Done',
+        'in_processing' => 'In processing',
         'reactivated' => 'Reactivated',
+        'done' => 'Done',        
         'archived' => 'Archived',
+        'solved' => 'Solved',
+        'pending' => 'Pending'
       ],
       'category_options' => 
       [

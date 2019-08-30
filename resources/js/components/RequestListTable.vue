@@ -281,7 +281,6 @@
                     ...restQueryParams,
                     ...this.fetchMoreParams
                 };
-
                 this.fetchMore(params);
             },
             syncUrl() {
