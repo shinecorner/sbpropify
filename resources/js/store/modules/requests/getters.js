@@ -8,6 +8,7 @@ export default {
         return requests.map((request) => {
             request.created_at = format(new Date(request.created_at), 'DD.MM.YYYY');
             request.priority_label = service_requests.priority[request.priority];
+            request.internal_priority_label = service_requests.internal_priority[request.internal_priority];
             request.status_label = service_requests.status[request.status];
             request.qualification_label = service_requests.qualification[request.qualification];
 

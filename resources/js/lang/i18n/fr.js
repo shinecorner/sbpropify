@@ -1224,6 +1224,12 @@ export default {
                     "low": "Faible",
                     "normal": "Normal"
                 },
+                "internal_priority": {
+                    "label": "Priorité interne",
+                    "urgent": "Urgent",
+                    "low": "Faible",
+                    "normal": "Normal"
+                },
                 "defect_location": {
                     "label": "Localisation des défauts",
                     "apartment": "Appartement",
