@@ -665,7 +665,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $sr->conversationFor(Auth::user(), $sp->user);
 
-        return $this->sendResponse($sr, __('general.attached.services'));
+        return $this->sendResponse($sr, __('general.attached.service'));
     }
 
     /**
@@ -873,7 +873,7 @@ class ServiceRequestAPIController extends AppBaseController
             $sr->conversationFor($p->user, $manager->user);
         }
 
-        return $this->sendResponse($sr, __('general.attached.managers'));
+        return $this->sendResponse($sr, __('general.attached.manager'));
     }
 
     /**
@@ -1014,7 +1014,7 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
-        return $this->sendResponse($sr, __('general.attached.tags'));
+        return $this->sendResponse($sr, __('general.attached.tag'));
     }
 
     /**
@@ -1099,7 +1099,7 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
-        return $this->sendResponse($sr, __('general.attached.tags'));
+        return $this->sendResponse($sr, __('general.attached.tag'));
     }
 
     /**
@@ -1177,7 +1177,7 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
-        return $this->sendResponse($sr, __('general.detached.tags'));
+        return $this->sendResponse($sr, __('general.detached.tag'));
     }
 
     /**
@@ -1230,7 +1230,7 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
-        return $this->sendResponse($sr, __('general.detached.tags'));
+        return $this->sendResponse($sr, __('general.detached.tag'));
     }
 
     /**

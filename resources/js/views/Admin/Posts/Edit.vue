@@ -63,7 +63,7 @@
                         </el-row>
 
                         <el-tabs v-if="model.pinned" v-model="activeTab1">
-                            <el-tab-pane :label="$t('general.actions.view_title')" name="details">
+                            <el-tab-pane :label="$t('general.actions.view')" name="details">
                                 <el-form-item :label="$t('models.post.title_label')" :rules="validationRules.title"
                                             prop="title">
                                     <el-input type="text" v-model="model.title"></el-input>

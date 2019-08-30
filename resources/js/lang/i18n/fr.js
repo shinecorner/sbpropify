@@ -45,6 +45,7 @@ export default {
             "tenants_by_age": "Tenants by age",
             "actions": "Actions",
             "requests": {
+                "total_request": "Nombre total de demandes",
                 "requests_with_service_providers": "Avec les fournisseurs de services",
                 "request_wihout_service_providers": "Sans fournisseurs de services",
                 "property_managers": "Gestionnaires immobiliers",
@@ -165,20 +166,20 @@ export default {
                 "district": "District assigné",
                 "provider": "Prestataire désigné",
                 "tenant": "Locataire attaché avec succès",
-                "services": "Le prestataire s'est attaché avec succès",
-                "managers": "Gestionnaire attaché avec succès",
-                "users": "Utilisateur affecté avec succès",
-                "tags": "Étiquette attribuée avec succès"
+                "service": "Le prestataire s'est attaché avec succès",
+                "manager": "Gestionnaire attaché avec succès",
+                "user": "Utilisateur affecté avec succès",
+                "tag": "Étiquette attribuée avec succès"
             },
             "detached": {
                 "building": "Bâtiment non assigné",
                 "district": "District non attribué",
                 "provider": "Prestataire non assigné",
                 "tenant": "Locataire détaché avec succès",
-                "services": "Le prestataire s'est détaché avec succès",
-                "managers": "Gestionnaire détaché avec succès",
-                "users": "Utilisateur non affecté avec succès",
-                "tags": "Étiquette non attribuée avec succès"
+                "service": "Le prestataire s'est détaché avec succès",
+                "manager": "Gestionnaire détaché avec succès",
+                "user": "Utilisateur non affecté avec succès",
+                "tag": "Étiquette non attribuée avec succès"
             },
             "no": "Non",
             "name": "Nom",
@@ -895,17 +896,6 @@ export default {
                     "manager_assigned": "Les gestionnaires immobiliers attribuent à l'erreur de construction : ",
                     "provider_deleted": "Erreur supprimée par le fournisseur de services : "
                 },
-                "requestStatuses": {
-                    "total": "Nombre total de demandes",
-                    "received": "Demandes reçues",
-                    "assigned": "Demandes affectées",
-                    "in_processing": "Dans le traitement des demandes",
-                    "reactivated": "Demandes réactivées",
-                    "done": "J'ai fait mes demandes",
-                    "archived": "Demandes archivées",
-                    "solved": "Demandes résolues",
-                    "pending": "Demandes en attente"
-                },
                 "delete_building_modal": {
                     "title": "Supprimer le(s) bâtiment(s)",
                     "description_unit": "Les unités sont affectées à la propriété sélectionnée. Si vous souhaitez également supprimer les unités, veuillez activer l'option ci-dessous..",
@@ -1251,11 +1241,13 @@ export default {
                 "status": {
                     "label": "Statut",
                     "received": "Reçu",
-                    "in_processing": "En cours de traitement",
                     "assigned": "Affecté",
-                    "done": "C'est fait",
+                    "in_processing": "En cours de traitement",
                     "reactivated": "Réactivé",
-                    "archived": "Archivé"
+                    "done": "C'est fait",
+                    "archived": "Archivé",
+                    "solved": "Résolues",
+                    "pending": "En attente"
                 },
                 "category_options": {
                     "disturbance": "Perturbation",
