@@ -309,16 +309,9 @@ export default (config = {}) => {
                     }
                 });
                 
-                this.first_layout_subcategories = this.first_layout_subcategories.map(item => ({
-                    categories: item.categories,
-                    description: item.description,
-                    has_qualifications: item.has_qualifications,
-                    id: item.id,
-                    location: item.location,
-                    name: item.name.substring(3),
-                    parent_id: item.parent_id,
-                    room: item.room
-                }))
+                this.first_layout_subcategories.map(item => {
+                    item.name = item.name.substring(3)
+                })
             }
         }
     };

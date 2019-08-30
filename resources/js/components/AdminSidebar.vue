@@ -13,10 +13,8 @@
                         @click="handleLink($event, key, link)"
                         v-for="(link, key) in links"
                         v-if="!link.children && ($can(link.permission) || !link.permission)">
-                    
                         <i :class="[link.icon, 'icon']"/>
                         <span class="title" v-if="!collapsed">{{ link.title }}</span>
-                    
                     <span class="title" slot="title" v-if="collapsed">{{ link.title }}</span>
                 </el-menu-item>
                 <el-submenu :index="link.title" v-else-if="($can(link.permission) || !link.permission)">
@@ -29,10 +27,8 @@
                             :key="child.title"
                             @click="handleLink($event, childKey, child)"
                             v-for="(child, childKey) in link.children">
-                        
                             <i :class="['icon-right-open', 'icon']"/>
                             <span class="title">{{ child.title }}</span>
-                        
                         <el-badge :value="child.value" class="item" type="primary"></el-badge>
                     </el-menu-item>
                 </el-submenu>
@@ -111,6 +107,8 @@
         watch: {
             links() {
                 const routeName = this.$route.name;
+
+                console.log('links', this.links);
 
                 this.links.map(link => {
                     if (link.route && link.route.name == routeName) {

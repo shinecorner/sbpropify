@@ -552,14 +552,14 @@
                                 }
                             },  {
                                 title: this.$t('menu.myRequests'),
-                                permission: this.$permissions.cleanify_request.list,
+                                permission: this.$permissions.list.request,
                                 value: this.my_request_count,
                                 route: {
                                     name: 'adminMyRequests'
                                 }
                             },  {
                                 title: this.$t('menu.myPendingRequests'),
-                                permission: this.$permissions.cleanify_request.list,
+                                permission: this.$permissions.list.request,
                                 value: this.my_pending_count,
                                 route: {
                                     name: 'adminMypendingRequests'
@@ -733,6 +733,7 @@
             });
 
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
+            console.log(this.rolename);
             
         },
         
