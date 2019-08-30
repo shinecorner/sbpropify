@@ -319,7 +319,7 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
-        $attr = $this->serviceRequestRepository->getPutAttributes($input, $oldStatus);
+        $attr = $this->serviceRequestRepository->getPutAttributes($input, $serviceRequest);
         $updatedServiceRequest = $this->serviceRequestRepository->update($attr, $id);
         $this->serviceRequestRepository->notifyStatusChange($serviceRequest, $updatedServiceRequest);
 
@@ -383,17 +383,14 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
-        $input = [
-            'status' => $request->get('status', '')
-        ];
+        $input = ['status' => $request->get('status', '')];
+        $input = $this->serviceRequestRepository->getStatusRelatesAttributes($input, $serviceRequest);
 
         if (!$this->serviceRequestRepository->checkStatusPermission($input, $serviceRequest->status)) {
             return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
-        $oldStatus = $serviceRequest->status;
         $serviceRequest = $this->serviceRequestRepository->update($input, $id);
-        $this->saveRequestStatusLog($id, $oldStatus, $serviceRequest->status);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, __('models.request.status_changed'));
     }

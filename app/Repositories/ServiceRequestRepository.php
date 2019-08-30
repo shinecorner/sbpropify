@@ -150,10 +150,10 @@ class ServiceRequestRepository extends BaseRepository
 
     /**
      * @param $attributes
-     * @param $currentStatus
+     * @param $request
      * @return array
      */
-    public static function getPutAttributes($attributes, $currentStatus)
+    public static function getPutAttributes($attributes, $request)
     {
         $user = Auth::user();
         if ($user->can('edit-request_tenant')) {
@@ -184,14 +184,27 @@ class ServiceRequestRepository extends BaseRepository
             return $attr;
         }
 
-        if ($attributes['status'] != $currentStatus && $attributes['status'] == ServiceRequest::StatusDone) {
-            $attributes['solved_date'] = Carbon::now()->format('Y-m-d');
-        }
+
+        $attributes = self::getStatusRelatesAttributes($attributes, $request);
 
         if (isset($attributes['due_date'])) {
             $attributes['due_date'] = Carbon::parse($attributes['due_date'])->format('Y-m-d');
         }
 
+        return $attributes;
+    }
+
+    public static function getStatusRelatesAttributes($attributes, $request)
+    {
+        if ($attributes['status'] != $request->status) {
+            if (ServiceRequest::StatusDone == $attributes['status']) {
+                $attributes['solved_date'] = Carbon::now()->format('Y-m-d');
+                $time = $request->reactivation_date ?? $request->created_at;
+                $attributes['resolution_time'] = $request->resolution_time + now()->diffInSeconds($time);
+            } elseif (ServiceRequest::StatusReactivated == $attributes['status']) {
+                $attributes['reactivation_date'] = now();
+            }
+        }
         return $attributes;
     }
 
