@@ -25,6 +25,7 @@ return [
     'tenants_by_age' => 'Tenants by age',
     'actions' => 'Azioni',    
     'requests' => [
+      'total_request' => "Totale richieste",
       'requests_with_service_providers' => 'Con i fornitori di servizi',
       'request_wihout_service_providers' => 'Senza fornitori di servizi',
       'property_managers' => 'Gestori',

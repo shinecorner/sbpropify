@@ -57,7 +57,7 @@ export default ({
                 if( this.$route.name == "adminMypendingRequests") {
                     params = {...params, assignee_id : assignee_id, pending_request : true };
                 }
-
+                
                 await this[getAction](params)
             } catch (err) {
                 displayError(err);

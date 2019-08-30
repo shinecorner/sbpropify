@@ -227,19 +227,7 @@ return [
         'deleted' => "Erreur de suppression du bâtiment : ",
         'manager_assigned' => "Les gestionnaires immobiliers attribuent à l'erreur de construction : ",
         'provider_deleted' => "Erreur supprimée par le fournisseur de services : ",
-      ],
-      'requestStatuses' => 
-      [
-        "total" => "Nombre total de demandes",
-        "received" => "Demandes reçues",
-        "assigned" => "Demandes affectées",
-        "in_processing" => "Dans le traitement des demandes",
-        "reactivated" => "Demandes réactivées",
-        "done" => "J'ai fait mes demandes",
-        "archived" => "Demandes archivées",
-        'solved' => "Demandes résolues",
-        'pending' => "Demandes en attente"
-      ],
+      ],      
       'delete_building_modal' => 
       [
         "title" => "Supprimer le(s) bâtiment(s)",
@@ -623,11 +611,13 @@ return [
       [
         "label" => "Statut",
         "received" => "Reçu",
-        "in_processing" => "En cours de traitement",
         "assigned" => "Affecté",
-        "done" => "C'est fait",
+        "in_processing" => "En cours de traitement",        
         "reactivated" => "Réactivé",
+        "done" => "C'est fait",        
         "archived" => "Archivé",
+        "solved" => "Résolues",
+        "pending" => "En attente"
       ],
       'category_options' => 
       [
