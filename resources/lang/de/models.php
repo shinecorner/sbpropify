@@ -228,18 +228,6 @@ return [
 				'manager_assigned' => "Fehler beim Zuweisung des Bewirtschafters: ",
 				'provider_deleted' => "Fehler beim Entfernen des Diestleisters: ",
 			],
-			'requestStatuses' =>
-				[
-					'total' => 'Total Anfragen',
-					'received' => 'Neu',
-					'assigned' => 'Avisiert',
-					'in_processing' => 'In Bearbeitung',
-					'reactivated' => 'Reaktiviert',
-					'done' => 'Erledigt',
-					'archived' => 'Archiviert',
-					'solved' => "Erledigte Anfragen",
-					'pending' => "Ausstehende Anfragen"
-				],
 			'delete_building_modal' =>
 				[
 					'title' => 'Liegenschaft(en) löschen – Warnung!',
@@ -623,11 +611,13 @@ return [
 				[
 					'label' => 'Status',
 					'received' => 'Erhalten',
-					'in_processing' => 'In Bearbeitung',
 					'assigned' => 'Avisiert',
-					'done' => 'Erledigt',
+					'in_processing' => 'In Bearbeitung',					
 					'reactivated' => 'Reaktiviert',
+					'done' => 'Erledigt',					
 					'archived' => 'Archiviert',
+					'solved' => "Erledigte",
+					'pending' => "Ausstehende"
 				],
 			'category_options' =>
 				[

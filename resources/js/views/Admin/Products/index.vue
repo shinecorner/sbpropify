@@ -7,7 +7,7 @@
             <template v-if="$can($permissions.delete.product)">
                 <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
                            type="danger">
-                    {{$t('general.actions.delete_action')}}
+                    {{$t('general.actions.delete')}}
                 </el-button>
             </template>
         </heading>

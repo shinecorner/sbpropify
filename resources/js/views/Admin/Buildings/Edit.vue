@@ -318,7 +318,7 @@
                 activeRightTab: 'tenants',
                 tenantColumns: [{
                     type: 'requestTenantAvatar',
-                    width: 50,
+                    width: 70,
                     label: this.$t('general.tenant')
                 }, {
                     prop: 'name',

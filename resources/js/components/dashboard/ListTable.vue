@@ -119,6 +119,10 @@
                     >
                         {{ $t(scope.row[column.prop]) }}
                     </el-tag>
+                    <div v-if="column.type == 'icon-circle'">
+                        <i :class="`icon-dot-circled ${iconCircleClass(scope.row['status'])}`"></i>
+                        {{ $t(scope.row[column.prop]) }}
+                    </div>
 
                     <el-select
                          v-if="column.type == 'select'"
@@ -155,6 +159,10 @@
                             >
                                 <template v-if="action.title.indexOf('edit') !== -1">
                                     <i class="ti-pencil"></i>
+                                    <span>{{ $t(action.title) }}</span>    
+                                </template>
+                                <template v-else-if="action.title.indexOf('view') !== -1">
+                                    <i :class="action.icon"></i>
                                     <span>{{ $t(action.title) }}</span>    
                                 </template>
                                 <template v-else>
@@ -267,6 +275,14 @@
                     name: columnRoute.name,
                     params
                 }
+            },
+            iconCircleClass(status) {
+                const classObject = {
+                    '1': 'icon-success',
+                    '2': 'icon-danger'
+                };
+
+                return classObject[status];
             }
         }
     }

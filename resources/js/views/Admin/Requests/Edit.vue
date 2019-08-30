@@ -48,7 +48,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12"
-                                        v-if="this.showfirstlayout == true && this.showLiegenschaft == true && this.showUmgebung == false">
+                                        v-if="this.showfirstlayout == true && this.showLiegenschaft == true && this.showWohnung == false">
                                     <el-form-item :label="$t('models.request.category_options.range')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
@@ -125,7 +125,7 @@
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
                                                    class="custom-select"
-                                                   v-model="model.kostenfolge">
+                                                   v-model="model.payer">
                                             <el-option
                                                 :key="cost.value"
                                                 :label="cost.name"
@@ -137,26 +137,22 @@
                                 </el-col>
                                 <el-col :md="12">
                                     <el-form-item :label="$t('models.request.category_options.keywords')">
-                                        <el-tag
-                                        :key="tag.id"
-                                        v-for="tag in model.keywords"
-                                        closable
-                                        :disable-transitions="false"
-                                        @close="handleClose(tag)">
-                                            <span v-if="tag.name">{{tag.name}}</span>
-                                            <span v-else>{{tag}}</span>
-                                        </el-tag>
-                                        <el-input
-                                            class="input-new-tag"
-                                            v-if="inputVisible"
-                                            v-model="model.keyword"
-                                            ref="saveTagInput"
-                                            size="mini"
-                                            @keyup.enter.native="handleInputConfirm"
-                                            @blur="handleInputConfirm"
-                                        >
-                                        </el-input>
-                                        <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New</el-button>
+                                        <el-select
+                                            v-model="model.keywords"
+                                            v-if="this.showplaceholder == false"
+                                            multiple
+                                            filterable
+                                            allow-create
+                                            default-first-option
+                                            @remove-tag="deleteTag" 
+                                            >
+                                            <el-option
+                                                v-for="item in tags"
+                                                :key="item.id"
+                                                :label="item.name"
+                                                :value="item.name">
+                                            </el-option>
+                                        </el-select>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -334,7 +330,7 @@
                                     </el-col>
                                 </el-row>
                             </card>
-                            <card class="mt15" :loading="loading" :header="$t('models.request.assignment')">
+                            <card class="mt15 request" :loading="loading" :header="$t('models.request.assignment')">
                                 <assignment-by-type
                                     :resetToAssignList="resetToAssignList"
                                     :assignmentType.sync="assignmentType"
@@ -459,11 +455,9 @@
                         onClick: this.notifyUnassignment
                     }]
                 }],
-                showUmgebung: false,
-                showLiegenschaft: false,
-                showWohnung: false,
                 rolename: null,
                 inputVisible: false,
+                
             }
         },
         computed: {
@@ -496,9 +490,14 @@
         },
         async mounted() {
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
+            this.$root.$on('changeLanguage', () => {
+                console.log('change event');
+                this.getRealCategories();
+            });
+
         },
         methods: {
-            ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags']),
+            ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags', 'deleteRequestTag']),
             translateType(type) {
                 return this.$t(`models.request.userType.${type}`);
             },
@@ -601,38 +600,6 @@
                     this.showWohnung = false;
                 }
             },
-            
-            handleClose(tag) {
-                this.model.keywords.splice(this.model.keywords.indexOf(tag), 1);
-            },
-
-            showInput() {
-                this.inputVisible = true;
-                this.$nextTick(_ => {
-                    this.$refs.saveTagInput.$refs.input.focus();
-                });
-            },
-
-            async handleInputConfirm() {
-                let inputValue = this.model.keyword;
-                // const resp = await this.getRequestTags({id: this.$route.params.id});
-                
-                // if(resp.data.data.indexOf(inputValue) == -1) {
-                //     this.model.keywords.push(inputValue);
-                // }
-
-                console.log(this.model.keywords);
-                if (inputValue) {
-                    
-                    if(this.model.keywords.indexOf(inputValue) != -1) {
-                        return;
-                    }
-                    this.model.keywords.push(inputValue);
-                    
-                }
-                // this.inputVisible = false;
-                this.model.keyword = '';
-            },
 
             selectPayer() {
                 
@@ -642,6 +609,24 @@
                 else {
                     this.showpayer = false;
                 }
+            },
+            async deleteTag(tag) {
+                
+                const deleteTag = this.alltags.find((item) => {
+                    return item.name == tag;
+                });
+
+                if(deleteTag != null) {
+                    const resp = await this.deleteRequestTag({
+                        id: this.$route.params.id,
+                        tag_id: deleteTag.id
+                    });
+                    
+                }
+
+                this.tags = this.tags.filter(item => {
+                    return item.name != tag;
+                });
             }
         }
     };

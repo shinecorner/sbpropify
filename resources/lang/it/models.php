@@ -228,18 +228,6 @@ return [
         'manager_assigned' => "I gestori di proprietà assegnano all'errore dell'edificio: ",
         'provider_deleted' => "Il fornitore del servizio ha cancellato l'errore: ",
       ],
-      'requestStatuses' => 
-      [
-        "total" => "Totale richieste",
-        "received" => "Richieste ricevute",
-        "assigned" => "Richieste assegnate",
-        "in_processing" => "Nell'elaborazione delle richieste",
-        "reactivated" => "Richieste riattivate",
-        "done" => "Richieste fatte",
-        "archived" => "Richieste archiviate",
-        'solved' => "Richieste risolte",
-        'pending' => "Richieste in sospeso"
-      ],
       'delete_building_modal' => 
       [
         "title" => "Cancellare l'edificio o gli edifici",
@@ -623,11 +611,13 @@ return [
       [
         "label" => "Situazione",
         "received" => "Ricevuto",
+        "assigned" => "Assegnato",        
         "in_processing" => "In lavorazione",
-        "assigned" => "Assegnato",
-        "done" => "Fatto",
         "reactivated" => "Riattivato",
+        "done" => "Fatto",        
         "archived" => "Archiviato",
+        "solved" => "Risolte",
+        "pending" => "Pendenti"
       ],
       'category_options' => 
       [
