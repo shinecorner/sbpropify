@@ -148,25 +148,32 @@ export default {
     computed: {
         due() {
             var currentDate = new Date();
-
-            var updated = this.item.due_date.split('.');
-            var updated_date = new Date(parseInt(updated[2]), parseInt(updated[1])-1, parseInt(updated[0]));
-            var days = ( updated_date.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24 ;
-            if(days < 0)
-                return {
-                    label:'models.request.was_due_on',
-                    date: this.item.due_date
-                };
-            else if(days <= 30)
-                return {
-                    label:'models.request.due_in',
-                    date: Math.floor(days) + (Math.floor(days) > 1?` ${this.$t('general.timestamps.days')}`:` ${this.$t('validation.attributes.day')}`),
-                };
-            else
+            if(this.item.due_date !==undefined) {
+                var updated = this.item.due_date.split('.');
+                var updated_date = new Date(parseInt(updated[2]), parseInt(updated[1])-1, parseInt(updated[0]));
+                var days = ( updated_date.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24 ;
+                if(days < 0)
+                    return {
+                        label:'models.request.was_due_on',
+                        date: this.item.due_date
+                    };
+                else if(days <= 30)
+                    return {
+                        label:'models.request.due_in',
+                        date: Math.floor(days) + (Math.floor(days) > 1?` ${this.$t('general.timestamps.days')}`:` ${this.$t('validation.attributes.day')}`),
+                    };
+                else
+                    return {
+                        label:'models.request.due_on',
+                        date: this.item.due_date
+                    };
+            } else {
                 return {
                     label:'models.request.due_on',
-                    date: this.item.due_date
-                };
+                    date: ''
+                }
+            }
+            
         },
         updated_at() {
             var currentDate = new Date();
