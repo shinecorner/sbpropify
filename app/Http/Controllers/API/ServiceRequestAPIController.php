@@ -24,7 +24,6 @@ use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestAssignee;
-use App\Models\ServiceRequestStatus;
 use App\Repositories\PropertyManagerRepository;
 use App\Repositories\ServiceProviderRepository;
 use App\Repositories\ServiceRequestRepository;
@@ -322,7 +321,6 @@ class ServiceRequestAPIController extends AppBaseController
 
         $attr = $this->serviceRequestRepository->getPutAttributes($input, $oldStatus);
         $updatedServiceRequest = $this->serviceRequestRepository->update($attr, $id);
-        $this->saveRequestStatusLog($id, $oldStatus, $updatedServiceRequest->status);
         $this->serviceRequestRepository->notifyStatusChange($serviceRequest, $updatedServiceRequest);
 
         if ($updatedServiceRequest->due_date && $updatedServiceRequest->due_date != $serviceRequest->due_date) {
@@ -335,26 +333,6 @@ class ServiceRequestAPIController extends AppBaseController
         ]);
         $response = (new ServiceRequestTransformer)->transform($updatedServiceRequest);
         return $this->sendResponse($response, __('models.request.saved'));
-    }
-
-    /**
-     * @param $id
-     * @param $oldStatus
-     * @param $newStatus
-     */
-    public function saveRequestStatusLog($id, $oldStatus, $newStatus)
-    {
-        if ($oldStatus == $newStatus) {
-            return;
-        }
-
-        $data = [
-            'old_status' => $oldStatus,
-            'new_status' => $newStatus,
-            'request_id' => $id,
-            'started_at' => now()
-        ];
-        ServiceRequestStatus::create($data);
     }
 
     /**

@@ -78,16 +78,9 @@ class ServiceRequestRepository extends BaseRepository
                 unset($attr['qualification']);
             }
         }
-        // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-        $model = parent::create($attr);
-        $this->skipPresenter($temporarySkipPresenter);
 
-        $model = $this->updateRelations($model, $attr);
-        $model->save();
-
-        return $this->parserResult($model);
+        // $attr has assignee_ids where used?
+        return parent::create($attr);
     }
 
     /**
@@ -148,7 +141,7 @@ class ServiceRequestRepository extends BaseRepository
 
         $t = Tenant::find($attributes['tenant_id'] ?? 0);
         $attributes['unit_id'] = $t->unit_id;
-        $attributes['assignee_ids'] = [Auth::user()->id];
+        $attributes['assignee_ids'] = [Auth::user()->id]; // @TODO where used
         $attributes['status'] = ServiceRequest::StatusReceived;
         $attributes['due_date'] = Carbon::parse($attributes['due_date'])->format('Y-m-d');
 
