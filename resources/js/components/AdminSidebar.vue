@@ -112,6 +112,8 @@
             links() {
                 const routeName = this.$route.name;
                 
+                console.log(this.links);
+
                 this.links.map(link => {
                     if (link.route && link.route.name == routeName) {
                         this.currActive = link.title;

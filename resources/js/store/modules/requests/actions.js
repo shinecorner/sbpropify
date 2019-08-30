@@ -150,7 +150,6 @@ export default {
         });
     },
     deleteRequestTag({commit}, payload) {
-        console.log(payload)
         return new Promise((resolve, reject) => {
             axios.delete(`requests/${payload.id}/tags/${payload.tag_id}`).then((response) => {
                 resolve(response.data);

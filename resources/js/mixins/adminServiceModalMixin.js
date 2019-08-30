@@ -35,14 +35,12 @@ export default (config = {}) => {
                     try {
                         const resp = await this.sendServiceRequestMail({
                             request: this.model.id,
-                            service_provider_id: serviceAttachModel.provider.id,
-                            provider_id: serviceAttachModel.provider.id,
+                            service_provider_id: serviceAttachModel.provider,
                             title: serviceAttachModel.subject,
                             body: serviceAttachModel.body,
                             cc: serviceAttachModel.cc,
                             bcc: serviceAttachModel.bcc,
-                            property_manager_id: serviceAttachModel.manager.id,
-                            assignees_id: serviceAttachModel.manager.id,
+                            property_manager_ids: serviceAttachModel.manager.edit_id,
                             to: serviceAttachModel.to
                         });
 

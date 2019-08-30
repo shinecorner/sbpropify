@@ -246,7 +246,7 @@
                 if(column.property === 'name')
                 {
                     let edit_id = row.edit_id;
-                    if(row.type == 'user') {
+                    if(row.type == 'manager') {
                         this.$router.push({ name: 'adminPropertyManagersEdit', params: { id: edit_id } });
                     }
                     else if(row.type == 'provider') {

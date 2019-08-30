@@ -139,7 +139,6 @@
                                     <el-form-item :label="$t('models.request.category_options.keywords')">
                                         <el-select
                                             v-model="model.keywords"
-                                            v-if="this.showplaceholder == false"
                                             multiple
                                             filterable
                                             allow-create
@@ -491,7 +490,6 @@
         async mounted() {
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
             this.$root.$on('changeLanguage', () => {
-                console.log('change event');
                 this.getRealCategories();
             });
 
