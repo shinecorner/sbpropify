@@ -31,7 +31,7 @@
                             :label="item.name"
                             :value="item.id"
                             v-for="item in selectData">
-                            <i class="icon-dot-circled" :class="item.id == 1 ? 'icon-success':'icon-danger'" ></i> {{item.name}}
+                            {{item.name}}
                         </el-option>
                     </el-select>
                 </el-col>
