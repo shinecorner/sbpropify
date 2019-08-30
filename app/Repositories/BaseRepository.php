@@ -61,4 +61,10 @@ abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
         $this->model = $this->model->{$scopeName}();
         return $this;
     }
+
+    public function updateRelations($model, $attributes)
+    {
+        // @TODO if need
+        return $model;
+    }
 }
