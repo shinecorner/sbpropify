@@ -89,8 +89,9 @@
                             </el-form-item>
                              <el-form-item v-else-if="filter.type === filterTypes.language">
                                 <select-language
+                                    class="label-block"
                                     :role="'settings.language'"
-                                    :activeLanguage="this.language"
+                                    :activeLanguage.sync="filterModel['language']"
                                     @change="filterChanged(filter)"
                                 />
                             </el-form-item>
@@ -386,7 +387,6 @@
                 filterModel: {},
                 uuid,
                 selectedItems: [],
-                language: 'en'
             }
         },
         computed: {
@@ -551,7 +551,7 @@
                 }
 
                 if (filter.type == this.filterTypes.language) {
-
+                    this.updatePage();
                 }
             },
             isDisabled(select, selected, status) {
@@ -871,6 +871,19 @@
 </style>
 
 <style lang="scss">
+    .label-block .el-form-item__label {
+        display: block;
+        float: none;
+        text-align: left;
+    }
+    .el-form-item__content .selected {
+        #languageform.el-input__inner {
+            padding-left: 40px;
+        }
+        #languageflag.flag-icon {
+            padding-left: 20px;
+        }
+    }
     .el-table {
         tbody {
             tr {
