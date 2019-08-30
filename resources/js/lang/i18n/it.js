@@ -45,6 +45,7 @@ export default {
             "tenants_by_age": "Tenants by age",
             "actions": "Azioni",
             "requests": {
+                "total_request": "Totale richieste",
                 "requests_with_service_providers": "Con i fornitori di servizi",
                 "request_wihout_service_providers": "Senza fornitori di servizi",
                 "property_managers": "Gestori",
@@ -165,20 +166,20 @@ export default {
                 "district": "Distretto assegnato",
                 "provider": "Fornitore assegnato",
                 "tenant": "L'inquilino attaccato con successo",
-                "services": "Fornitore collegato con successo",
-                "managers": "Manager attaccato con successo",
-                "users": "Utente assegnato con successo",
-                "tags": "Tag assegnato con successo"
+                "service": "Fornitore collegato con successo",
+                "manager": "Manager attaccato con successo",
+                "user": "Utente assegnato con successo",
+                "tag": "Tag assegnato con successo"
             },
             "detached": {
                 "building": "Costruire senza assegnazione",
                 "district": "Distretto non assegnato",
                 "provider": "Fornitore non assegnato",
                 "tenant": "L'inquilino si è staccato con successo",
-                "services": "Fornitore staccato con successo",
-                "managers": "Manager staccato con successo",
-                "users": "Utente non assegnato con successo",
-                "tags": "Tag non assegnato con successo"
+                "service": "Fornitore staccato con successo",
+                "manager": "Manager staccato con successo",
+                "user": "Utente non assegnato con successo",
+                "tag": "Tag non assegnato con successo"
             },
             "no": "No",
             "name": "Nome",
@@ -895,17 +896,6 @@ export default {
                     "manager_assigned": "I gestori di proprietà assegnano all'errore dell'edificio: ",
                     "provider_deleted": "Il fornitore del servizio ha cancellato l'errore: "
                 },
-                "requestStatuses": {
-                    "total": "Totale richieste",
-                    "received": "Richieste ricevute",
-                    "assigned": "Richieste assegnate",
-                    "in_processing": "Nell'elaborazione delle richieste",
-                    "reactivated": "Richieste riattivate",
-                    "done": "Richieste fatte",
-                    "archived": "Richieste archiviate",
-                    "solved": "Richieste risolte",
-                    "pending": "Richieste in sospeso"
-                },
                 "delete_building_modal": {
                     "title": "Cancellare l'edificio o gli edifici",
                     "description_unit": "Le unità vengono assegnate alla proprietà selezionata. Se si desidera cancellare anche le unità, attivare l'opzione sottostante",
@@ -1251,11 +1241,13 @@ export default {
                 "status": {
                     "label": "Situazione",
                     "received": "Ricevuto",
-                    "in_processing": "In lavorazione",
                     "assigned": "Assegnato",
-                    "done": "Fatto",
+                    "in_processing": "In lavorazione",
                     "reactivated": "Riattivato",
-                    "archived": "Archiviato"
+                    "done": "Fatto",
+                    "archived": "Archiviato",
+                    "solved": "Risolte",
+                    "pending": "Pendenti"
                 },
                 "category_options": {
                     "disturbance": "Perturbazione",

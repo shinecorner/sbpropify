@@ -517,7 +517,7 @@ class ServiceProviderAPIController extends AppBaseController
         $sp->load('user', 'address:id,country_id,state_id,city,street,zip', 'districts', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
-        return $this->sendResponse($ret, __('models.service.attached.district'));
+        return $this->sendResponse($ret, __('general.attached.district'));
     }
 
     /**
@@ -570,7 +570,7 @@ class ServiceProviderAPIController extends AppBaseController
         $sp->load('user', 'address:id,country_id,state_id,city,street,zip', 'districts', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
-        return $this->sendResponse($ret, __('models.service.detached.district'));
+        return $this->sendResponse($ret, __('general.detached.district'));
     }
 
     /**
@@ -628,7 +628,7 @@ class ServiceProviderAPIController extends AppBaseController
         $sp->load('user', 'address:id,country_id,state_id,city,street,zip', 'districts', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
-        return $this->sendResponse($ret, __('models.service.attached.building'));
+        return $this->sendResponse($ret, __('general.attached.building'));
     }
 
     /**
@@ -681,7 +681,7 @@ class ServiceProviderAPIController extends AppBaseController
         $sp->load('user', 'address:id,country_id,state_id,city,street,zip', 'districts', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
-        return $this->sendResponse($ret, __('models.service.detached.building'));
+        return $this->sendResponse($ret, __('general.detached.building'));
     }
 
     /**

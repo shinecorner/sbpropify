@@ -147,37 +147,37 @@
                             prop: 'requests_count',
                             background: '#aaa',
                             color: '#fff',
-                            label: this.$t('models.building.requestStatuses.total')
+                            label: this.$t('dashboard.requests.total_request')
                         }, {
                             prop: 'requests_received_count',
                             background: '#bbb',
                             color: '#fff',
-                            label: this.$t('models.building.requestStatuses.received')
+                            label: this.$t('models.request.status.received')
                         }, {
                             prop: 'requests_assigned_count',
                             background: '#ebb563',
                             color: '#fff',
-                            label: this.$t('models.building.requestStatuses.assigned')
+                            label: this.$t('models.request.status.assigned')
                         }, {
                             prop: 'requests_in_processing_count',
                             background: '#ebb563',
                             color: '#fff',
-                            label: this.$t('models.building.requestStatuses.in_processing')
+                            label: this.$t('models.request.status.in_processing')
                         }, {
                             prop: 'requests_reactivated_count',
                             background: '#ebb563',
                             color: '#fff',
-                            label: this.$t('models.building.requestStatuses.reactivated')
+                            label: this.$t('models.request.status.reactivated')
                         }, {
                             prop: 'requests_done_count',
                             background: '#67C23A',
                             color: '#fff',
-                            label: this.$t('models.building.requestStatuses.done')
+                            label: this.$t('models.request.status.done')
                         }, {
                             prop: 'requests_archived_count',
                             background: '#67C23A',
                             color: '#fff',
-                            label: this.$t('models.building.requestStatuses.archived')
+                            label: this.$t('models.request.status.archived')
                         }
                     ]
                 }, {

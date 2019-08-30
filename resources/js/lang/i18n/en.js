@@ -45,6 +45,7 @@ export default {
             "tenants_by_age": "Tenants by age",
             "actions": "Actions",
             "requests": {
+                "total_request": "Total requests",
                 "requests_with_service_providers": "With service providers",
                 "request_wihout_service_providers": "Without service providers",
                 "property_managers": "Property managers",
@@ -165,20 +166,20 @@ export default {
                 "district": "District assigned",
                 "provider": "Provider assigned",
                 "tenant": "Tenant attached",
-                "services": "Provider attached successfully",
-                "managers": "Manager attached successfully",
-                "users": "User assigned successfully",
-                "tags": "Tag assigned successfully"
+                "service": "Provider attached successfully",
+                "manager": "Manager attached successfully",
+                "user": "User assigned successfully",
+                "tag": "Tag assigned successfully"
             },
             "detached": {
                 "building": "Buiding unassigned",
                 "district": "District unassigned",
                 "provider": "Provider unassigned",
                 "tenant": "Tenant detached",
-                "services": "Provider detached successfully",
-                "managers": "Manager detached successfully",
-                "users": "User unassigned successfully",
-                "tags": "Tag unassigned successfully"
+                "service": "Provider detached successfully",
+                "manager": "Manager detached successfully",
+                "user": "User unassigned successfully",
+                "tag": "Tag unassigned successfully"
             },
             "no": "No",
             "name": "Name",
@@ -895,17 +896,6 @@ export default {
                     "manager_assigned": "Property Managers assign to Building error: ",
                     "provider_deleted": "Service Provider deleted error: "
                 },
-                "requestStatuses": {
-                    "total": "Total requests",
-                    "received": "Received requests",
-                    "assigned": "Assigned requests",
-                    "in_processing": "In processing requests",
-                    "reactivated": "Reactivated requests",
-                    "done": "Done requests",
-                    "archived": "Archived requests",
-                    "solved": "Solved requests",
-                    "pending": "Pending requests"
-                },
                 "delete_building_modal": {
                     "title": "Delete Building(s)",
                     "description_unit": "Units are assigned to the selected property. If you want to delete the units as well, please activate the option below.",
@@ -1251,11 +1241,13 @@ export default {
                 "status": {
                     "label": "Status",
                     "received": "Received",
-                    "in_processing": "In processing",
                     "assigned": "Assigned",
-                    "done": "Done",
+                    "in_processing": "In processing",
                     "reactivated": "Reactivated",
-                    "archived": "Archived"
+                    "done": "Done",
+                    "archived": "Archived",
+                    "solved": "Solved",
+                    "pending": "Pending"
                 },
                 "category_options": {
                     "disturbance": "Disturbance",

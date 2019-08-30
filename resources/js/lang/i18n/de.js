@@ -45,6 +45,7 @@ export default {
             "tenants_by_age": "Mieter nach Altersgruppen",
             "actions": "Aktionen",
             "requests": {
+                "total_request": "Total Anfragen",
                 "requests_with_service_providers": "Mit Dienstleister",
                 "request_wihout_service_providers": "Ohne Dienstleister",
                 "property_managers": "Bewirtschafter mit Anfragen",
@@ -165,20 +166,20 @@ export default {
                 "district": "Überbauung wurde zugewiesen.",
                 "provider": "Dienstleister wurde zugewiesen.",
                 "tenant": "Mieter wurde zugewiesen.",
-                "services": "Dienstleister wurde zugewiesen.",
-                "managers": "Bewirtschafter wurde zugewiesen.",
-                "users": "Tag erfolgreich zugewiesen",
-                "tags": "Tag assigned successfully"
+                "service": "Dienstleister wurde zugewiesen.",
+                "manager": "Bewirtschafter wurde zugewiesen.",
+                "user": "Tag erfolgreich zugewiesen",
+                "tag": "Tag assigned successfully"
             },
             "detached": {
                 "building": "Liegenschaft wurde entfernt",
                 "district": "Überbbauung wurde entfernt",
                 "provider": "Dienstleister wurde wurde entfernt",
                 "tenant": "Mieter wurde entfernt.",
-                "services": "Dienstleister wurde entfernt.",
-                "managers": "Bewirtschafter wurde entfernt.",
-                "users": "Administrator wurde entfernt.",
-                "tags": "Tag nicht zugewiesen erfolgreich."
+                "service": "Dienstleister wurde entfernt.",
+                "manager": "Bewirtschafter wurde entfernt.",
+                "user": "Administrator wurde entfernt.",
+                "tag": "Tag nicht zugewiesen erfolgreich."
             },
             "no": "Nein",
             "name": "Nome",
@@ -899,17 +900,6 @@ export default {
                     "manager_assigned": "Fehler beim Zuweisung des Bewirtschafters: ",
                     "provider_deleted": "Fehler beim Entfernen des Diestleisters: "
                 },
-                "requestStatuses": {
-                    "total": "Total Anfragen",
-                    "received": "Neu",
-                    "assigned": "Avisiert",
-                    "in_processing": "In Bearbeitung",
-                    "reactivated": "Reaktiviert",
-                    "done": "Erledigt",
-                    "archived": "Archiviert",
-                    "solved": "Erledigte Anfragen",
-                    "pending": "Ausstehende Anfragen"
-                },
                 "delete_building_modal": {
                     "title": "Liegenschaft(en) löschen – Warnung!",
                     "description_unit": "Der ausgewählten Liegenschaft sind Einheiten zugewiesen. Wenn diese ebenfalls gelöscht werden sollen, dann aktivieren Sie die unten stehende Option.",
@@ -1255,11 +1245,13 @@ export default {
                 "status": {
                     "label": "Status",
                     "received": "Erhalten",
-                    "in_processing": "In Bearbeitung",
                     "assigned": "Avisiert",
-                    "done": "Erledigt",
+                    "in_processing": "In Bearbeitung",
                     "reactivated": "Reaktiviert",
-                    "archived": "Archiviert"
+                    "done": "Erledigt",
+                    "archived": "Archiviert",
+                    "solved": "Erledigte",
+                    "pending": "Ausstehende"
                 },
                 "category_options": {
                     "disturbance": "Störung",
