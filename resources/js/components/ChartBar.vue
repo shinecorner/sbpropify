@@ -29,7 +29,7 @@ export default {
         }
       },
       series: [{
-        name: this.$t('models.building.requestStatuses.total'),
+        name: this.$t('dashboard.requests.total_request'),
         data: this.yData
       }]
     }

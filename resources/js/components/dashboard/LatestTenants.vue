@@ -45,19 +45,20 @@
                     prop: 'address',
                     width: 300,
                 },{
-                    type: 'tag',
+                    type: 'icon-circle',
                     label: 'models.tenant.status.label',
                     prop: 'status_label',
                     classSuffix: 'status_class_suffix',
                 }, {
                     type: 'actions',
                     label: 'dashboard.actions',
-                    width: 120,
+                    width: 130,
                     actions: [ 
                         {
                             type: 'default',
-                            title: 'general.actions.edit',
-                            onClick: this.edit,
+                            icon: 'el-icon-user',
+                            title: 'models.tenant.view',
+                            onClick: this.tenantEditView,
                             permissions: [
                                 this.$permissions.update.tenant
                             ]
@@ -77,6 +78,14 @@
                     name: 'adminTenantsEdit',
                     params: {
                         id
+                    }
+                });
+            },     
+            tenantEditView(row) {
+                this.$router.push({
+                    name: 'adminTenantsView',
+                    params: {
+                        id: row.id
                     }
                 });
             },

@@ -3,7 +3,7 @@
         id="languageform" 
         :class="activeLanguage == '' || activeLanguage == undefined ? '' : ' selected'"
         style="display: block" :value="activeLanguage" @input="$emit('update:activeLanguage', $event)"
-        :placeholder="$t(`general.placeholders.select`)"
+        :placeholder="$t(role)"
         @change="$emit('change')"
     >
 
@@ -28,6 +28,12 @@ export default {
     props: {
         activeLanguage: {
             required: true
+        },
+        role: {
+            type: String,
+            default: ()=> {
+                return `general.placeholders.select`;
+            }
         }
     },
     computed: {
@@ -35,7 +41,7 @@ export default {
             return this.languages.filter((lang) => {
                 return lang.symbol == this.activeLanguage;
             })
-        }
+        },
     },
     mounted() {
         let languagesObject = this.$constants.app.languages;

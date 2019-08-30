@@ -11,7 +11,7 @@
             <div class="show-button" v-if="!showPicker" @click="handleShowClick(true)"><i class="el-icon-date"></i></div>
             <div class="hide-button" v-if="showPicker" @click="handleShowClick(false)"><i class="el-icon-circle-close"></i></div>
         </div>
-        <el-row type="flex">
+        <el-row type="flex" :class="{'legendMargin':bottom}">
             <el-col :span="24">
                 <apexchart :type="chartType" :options="chartOptions" :series="series" />
             </el-col>
@@ -55,6 +55,9 @@ export default {
     }
   },
   computed:{
+    legendBottomMargin() {
+        return this.bottom?5:0;
+    },
     chartOptions: function(){
         let responsive = [];
         if(this.bottom == true) {
@@ -160,7 +163,7 @@ export default {
             },
             colors: this.colors
         }
-    }
+    },
   },
     methods: {
         fetchData(){
@@ -301,10 +304,6 @@ export default {
                 display: flex;
                 //flex-direction: column;
                 justify-content: center !important;
-
-                .apexcharts-legend-series {
-                    margin: 5px 5px !important;
-                }
             }
 
             .chart-filter {
@@ -342,6 +341,13 @@ export default {
                 .el-range-editor {
                     padding-right: 15px;
                 }
+            }
+        }
+    }
+    .legendMargin {
+        .apexcharts-legend {
+            .apexcharts-legend-series {
+                margin-bottom: 5px !important;
             }
         }
     }

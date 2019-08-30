@@ -233,8 +233,6 @@
                                 else
                                     unit.typeLabel = this.$t('models.unit.type.business');
                             })
-                        console.log(this.fetchAction);
-                        console.log(this.list);
                     } else {
                         this.list.push(...resp.data.data);
                     }
@@ -299,9 +297,11 @@
     .icon-danger {
          color: #dd6161;
     }
-    .listing {
-        .normal {
-            color: #6AC06F;
+    .request {
+        .listing {
+            .normal {
+                color: #6AC06F;
+            }
         }
     }
 </style>
