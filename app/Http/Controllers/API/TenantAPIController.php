@@ -34,7 +34,7 @@ use Hashids\Hashids;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class TenantController
@@ -451,7 +451,10 @@ class TenantAPIController extends AppBaseController
         }
 
         try {
+            // for prevent user update log related tenant
+            User::disableAuditing();
             $this->userRepository->update($input['user'], $tenant->user_id);
+            User::enableAuditing();
         } catch (\Exception $e) {
             return $this->sendError(__('models.tenant.errors.update') . $e->getMessage());
         }
