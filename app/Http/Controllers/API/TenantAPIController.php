@@ -20,7 +20,6 @@ use App\Http\Requests\API\Tenant\ShowRequest;
 use App\Http\Requests\API\Tenant\UpdateLoggedInRequest;
 use App\Http\Requests\API\Tenant\UpdateRequest;
 use App\Http\Requests\API\Tenant\UpdateStatusRequest;
-use App\Mails\SendTenantCredentials;
 use App\Models\RealEstate;
 use App\Models\Tenant;
 use App\Models\User;
@@ -30,7 +29,6 @@ use App\Repositories\TemplateRepository;
 use App\Repositories\TenantRepository;
 use App\Repositories\UserRepository;
 use App\Transformers\TenantTransformer;
-use Hashids\Hashids;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
@@ -431,7 +429,7 @@ class TenantAPIController extends AppBaseController
     {
         $input = (new TenantTransformer)->transformRequest($request->all());
         /** @var Tenant $tenant */
-        $tenant = $this->tenantRepository->with('user')->findWithoutFail($id);
+        $tenant = $this->tenantRepository->findWithoutFail($id);
         if (empty($tenant)) {
             return $this->sendError(__('models.tenant.errors.not_found'));
         }
@@ -453,7 +451,8 @@ class TenantAPIController extends AppBaseController
         try {
             // for prevent user update log related tenant
             User::disableAuditing();
-            $this->userRepository->update($input['user'], $tenant->user_id);
+            $updatedUser = $this->userRepository->update($input['user'], $tenant->user_id);
+            $tenant->setRelation('user', $updatedUser);
             User::enableAuditing();
         } catch (\Exception $e) {
             return $this->sendError(__('models.tenant.errors.update') . $e->getMessage());
