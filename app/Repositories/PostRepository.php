@@ -77,6 +77,7 @@ class PostRepository extends BaseRepository
         $model->districts()->sync($atts['district_ids']);
         $model->buildings()->sync($atts['building_ids']);
         if (!$atts['needs_approval']) {
+            // @TODO improve
             return $this->setStatus($model->id, Post::StatusPublished, Carbon::now());
         }
 
@@ -123,18 +124,45 @@ class PostRepository extends BaseRepository
      */
     public function setStatusExisting(Post $post, $status, $publishedAt)
     {
-        if ($post->status != $status && $status == Post::StatusPublished) {
-            $post->status = $status;
-            $post->published_at = $publishedAt ?? Carbon::now();
-
+        $attributes = $this->correctStatusAttributes($publishedAt, $status, $post->status);
+        if ($attributes) {
+            foreach ($attributes as $attribute => $value) {
+                $post->setAttribute($attribute, $value);
+            }
             $post->save();
-            $this->notify($post);
-            return $post;
+            
+            if (! empty($attributes['published_at'])) {
+                $this->notify($post);
+            }
         }
 
-        $post->status = $status;
-        $post->save();
         return $post;
+    }
+
+    /**
+     * @param $publishedAt
+     * @param $newStatus
+     * @param $oldStatus
+     * @return array
+     */
+    protected function correctStatusAttributes($publishedAt, $newStatus, $oldStatus)
+    {
+
+        if ($oldStatus == $newStatus) {
+            return [];
+
+        }
+
+        if ($newStatus == Post::StatusPublished) {
+            return [
+                'status' => $newStatus,
+                'published_at' => $publishedAt
+            ];
+        }
+
+        return [
+            'status' => $newStatus
+        ];
     }
 
     /**
@@ -239,6 +267,8 @@ class PostRepository extends BaseRepository
         if ($tenant->homeless()) {
             return false;
         }
+
+
         $post = $this->create([
             'visibility' => Post::VisibilityAddress,
             'status' => Post::StatusNew,
@@ -254,7 +284,7 @@ class PostRepository extends BaseRepository
         if ($publishStart->isBefore(Carbon::now())) {
             $publishStart = Carbon::now();
         }
-        
+
         $this->setStatusExisting($post, Post::StatusPublished, $publishStart);
         return $post;
     }
