@@ -18,7 +18,7 @@
         </list-table>
         <el-dialog :title="modalText.title" :visible.sync="showModal">
             <el-form :model="model" ref="form">
-                <el-form-item :label="$t('models.requestCategory.name')" :rules="validationRules.name" prop="name">
+                <el-form-item :label="$t('general.name')" :rules="validationRules.name" prop="name">
                     <el-input autocomplete="off" v-model="model.name"></el-input>
                 </el-form-item>
                 <el-form-item :label="$t('models.requestCategory.parent')" :rules="validationRules.parent_id"
@@ -77,18 +77,18 @@
             return {
                 i18nName: 'requestCategory',
                 header: [{
-                    label: this.$t('models.requestCategory.name'),
+                    label: this.$t('general.name'),
                     prop: 'name'
                 }, {
                     width: 200,
                     actions: [{
                         icon: 'ti-pencil',
-                        title: this.$t('models.requestCategory.edit'),
+                        title: this.$t('general.actions.edit'),
                         onClick: this.openEdit
                     }, {
                         icon: 'ti-close',
                         type: 'danger',
-                        title: this.$t('models.requestCategory.delete'),
+                        title: this.$t('general.actions.delete'),
                         onClick: this.remove
                     }]
                 }],

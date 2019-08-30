@@ -593,16 +593,17 @@ class ServiceRequestAPIController extends AppBaseController
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
-        $providerId = $request->service_provider_id ?? $request->provider_id;
+
+        $providerId = $request->service_provider_id ?? $request->provider_id; // @TODO delete provider_id
         $sp = $spRepo->findWithoutFail($providerId);
         if (empty($sp)) {
             return $this->sendError(__('models.request.errors.provider_not_found'));
         }
 
-        $managerIds = $request->property_manager_ids ?? $request->manager_ids ?? $request->assignee_ids ?? [];
-        $propertyManagers = $pmRepo->with('user:email,id')->findWhereIn('id', $managerIds);
+        $managerId = $request->property_manager_id ?? $request->manager_id ?? $request->assignee_id ?? []; // @TODO delete manager_id, assignee_id
+        $propertyManager = $pmRepo->with('user:email,id')->find($managerId);
         $mailDetails = $request->only(['title', 'to', 'cc', 'bcc', 'body']);
-        $this->serviceRequestRepository->notifyProvider($sr, $sp, $propertyManagers, $mailDetails);
+        $this->serviceRequestRepository->notifyProvider($sr, $sp, $propertyManager, $mailDetails);
 
         return $this->sendResponse($sr, __('models.request.mail.success'));
     }
@@ -664,7 +665,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         $sr->conversationFor(Auth::user(), $sp->user);
 
-        return $this->sendResponse($sr, __('models.request.attached.services'));
+        return $this->sendResponse($sr, __('general.attached.services'));
     }
 
     /**
@@ -762,7 +763,7 @@ class ServiceRequestAPIController extends AppBaseController
             $sr->conversationFor($p->user, $u);
         }
 
-        return $this->sendResponse($sr, __('models.request.attached.user'));
+        return $this->sendResponse($sr, __('general.attached.user'));
     }
 
     /**
@@ -872,7 +873,7 @@ class ServiceRequestAPIController extends AppBaseController
             $sr->conversationFor($p->user, $manager->user);
         }
 
-        return $this->sendResponse($sr, __('models.request.attached.managers'));
+        return $this->sendResponse($sr, __('general.attached.managers'));
     }
 
     /**
@@ -1013,7 +1014,7 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
-        return $this->sendResponse($sr, __('models.request.attached.tags'));
+        return $this->sendResponse($sr, __('general.attached.tags'));
     }
 
     /**
@@ -1098,7 +1099,7 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
-        return $this->sendResponse($sr, __('models.request.attached.tags'));
+        return $this->sendResponse($sr, __('general.attached.tags'));
     }
 
     /**
@@ -1176,7 +1177,7 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
-        return $this->sendResponse($sr, __('models.request.detached.tags'));
+        return $this->sendResponse($sr, __('general.detached.tags'));
     }
 
     /**
@@ -1229,7 +1230,7 @@ class ServiceRequestAPIController extends AppBaseController
         $sr->load('media', 'tenant.user', 'category', 'comments.user',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
-        return $this->sendResponse($sr, __('models.request.detached.tags'));
+        return $this->sendResponse($sr, __('general.detached.tags'));
     }
 
     /**
@@ -1345,7 +1346,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
         $requestAssignee->delete();
 
-        return $this->sendResponse($id, __('models.request.detached.' . $requestAssignee->assignee_type));
+        return $this->sendResponse($id, __('general.detached.' . $requestAssignee->assignee_type));
     }
 
 

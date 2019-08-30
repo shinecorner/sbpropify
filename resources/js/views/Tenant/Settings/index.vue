@@ -10,13 +10,13 @@
                                 <el-form-item :label="$t('models.user.profile_image')">
                                     <cropper :resize="false" :viewportType="'circle'" @cropped="cropped"/>
                                 </el-form-item>
-                                <el-form-item :label="$t('models.user.email')" :rules="accountValidationRules.email"
+                                <el-form-item :label="$t('general.email')" :rules="accountValidationRules.email"
                                               prop="email">
                                     <el-input autocomplete="off" type="email" v-model="loggedInUser.email"></el-input>
                                 </el-form-item>
                                 <el-form-item>
                                     <el-button @click="submitEditDetailsForm()" icon="ti-save" type="primary">
-                                        {{$t('models.user.save')}}
+                                        {{$t('general.actions.save')}}
                                     </el-button>
                                 </el-form-item>
                             </el-form>

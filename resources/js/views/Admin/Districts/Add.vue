@@ -5,7 +5,7 @@
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
-                <card :loading="loading" :header="$t('models.district.details')">
+                <card :loading="loading" :header="$t('general.actions.view')">
                     <el-form :model="model" label-width="192px" ref="form">
                         <el-form-item label="Name" :rules="validationRules.name"
                                     prop="name">

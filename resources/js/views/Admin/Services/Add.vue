@@ -23,7 +23,7 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.user.name')" :rules="validationRules.name" prop="name">
+                                <el-form-item :label="$t('general.name')" :rules="validationRules.name" prop="name">
                                     <el-input type="text" v-model="model.name"/>
                                 </el-form-item>
                             </el-col>
@@ -38,7 +38,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12">
-                                    <el-form-item :label="$t('models.user.email')" :rules="validationRules.email" prop="email">
+                                    <el-form-item :label="$t('general.email')" :rules="validationRules.email" prop="email">
                                         <el-input type="email" v-model="model.email"/>
                                     </el-form-item>
                                 </el-col>
@@ -70,12 +70,12 @@
                                 </el-col>
                                 <el-col :md="12">
                                     <el-col :md="8">
-                                        <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip" prop="address.zip">
+                                        <el-form-item :label="$t('general.zip')" :rules="validationRules.zip" prop="address.zip">
                                             <el-input type="text" v-model="model.address.zip"></el-input>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :md="16">
-                                        <el-form-item :label="$t('models.address.city')" :rules="validationRules.city" prop="address.city">
+                                        <el-form-item :label="$t('general.city')" :rules="validationRules.city" prop="address.city">
                                             <el-input type="text" v-model="model.address.city"></el-input>
                                         </el-form-item>
                                     </el-col>
@@ -92,12 +92,12 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12">
-                                    <el-form-item :label="$t('models.user.phone')" prop="phone">
+                                    <el-form-item :label="$t('general.phone')" prop="phone">
                                         <el-input type="text" v-model="model.phone"/>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="24">
-                                    <el-form-item class="label-block" :label="$t('models.tenant.language')" prop="language">
+                                    <el-form-item class="label-block" :label="$t('general.language')" prop="language">
                                         <select-language :activeLanguage.sync="model.language"/>
                                     </el-form-item>
                                 </el-col>

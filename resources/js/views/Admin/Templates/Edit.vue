@@ -1,13 +1,13 @@
 <template>
     <div class="templates-edit">
-        <heading :title="$t('models.template.edit')" icon="ti-user" shadow="heavy" style="margin-bottom: 20px;">
+        <heading :title="$t('general.actions.edit')" icon="ti-user" shadow="heavy" style="margin-bottom: 20px;">
             <edit-actions :queryParams="{tab: 'templates'}" :saveAction="submit" route="adminSettings"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-form :model="model" label-width="100px" ref="form">
                 <el-col :md="12">
                     <card :loading="loading">
-                        <el-form-item :label="$t('models.template.name')" :rules="validationRules.name" prop="name">
+                        <el-form-item :label="$t('general.name')" :rules="validationRules.name" prop="name">
                             <el-input autocomplete="off" type="text"
                                       v-model="model.name"></el-input>
                         </el-form-item>

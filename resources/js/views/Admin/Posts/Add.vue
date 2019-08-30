@@ -67,7 +67,7 @@
                                 <el-input type="text" v-model="model.title"></el-input>
                             </el-form-item>
                         </template>
-                        <el-form-item :label="$t('models.post.content')" :rules="validationRules.content"
+                        <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                       prop="content">
                             <el-input
                                 :autosize="{minRows: 15}"
@@ -107,7 +107,7 @@
                             <el-col :lg="18" :xl="18">
                                 <el-select
                                     :loading="remoteLoading"
-                                    :placeholder="$t('models.post.placeholders.search')"
+                                    :placeholder="$t('general.placeholders.search')"
                                     :remote-method="remoteSearchBuildings"
                                     class="custom-remote-select"
                                     filterable

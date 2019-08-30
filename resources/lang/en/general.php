@@ -14,6 +14,7 @@ return [
     'years' => 'Years',
   ],
   'chooseLanguage' => 'Choose Language',
+  'language' => "Language",
   'languages' => 
   [
     'fr' => 'Français',
@@ -37,8 +38,51 @@ return [
     'saturday' => 'Saturday',
     'sunday' => 'Sunday',
   ],
+  'user' => 'User',
+  'tenant' => 'Tenant',
+  'tenants' => 'Tenants',
+  'date' => 'Date',
+  'title' => 'Title',
+  'description' => 'Description',
+  'requests' => 'Requests',
+  'unassign' => 'Unassign',
+  'assign' => 'Assign',
   'salutation' => 'Salutation',
+  'salutation_option' => [
+    'mr' => 'Mr.',
+    'mrs' => 'Mrs.',
+    'company' => 'Company',
+  ],
+  'attached' => 
+  [
+    'building' => 'Building assigned',
+    'district' => 'District assigned',
+    'provider' => 'Provider assigned',
+    'tenant' => 'Tenant attached',
+    'services' => 'Provider attached successfully',
+    'managers' => 'Manager attached successfully',
+    'users' => 'User assigned successfully',
+    'tags' => 'Tag assigned successfully',
+  ],
+  'detached' => 
+  [
+    'building' => 'Buiding unassigned',
+    'district' => 'District unassigned',
+    'provider' => 'Provider unassigned',
+    'tenant' => 'Tenant detached',
+    'services' => 'Provider detached successfully',
+    'managers' => 'Manager detached successfully',
+    'users' => 'User unassigned successfully',
+    'tags' => 'Tag unassigned successfully',
+  ],
   'no' => 'No',
+  'name' => "Name",
+  'phone' => 'Phone',
+  'id' => "ID",
+  'address' => "Address",
+  'city' => 'City',
+  'zip' => 'Zip',
+  'content' => 'Content',
   'none' => 'None',
   'all' => 'All',
   'loadMore' => 'Load more',
@@ -61,7 +105,7 @@ return [
   'reset_password_mail_sent' => 'We have sent you an e-mail with further instructions. Please check your inbox.',
   'back_to_login' => 'Go back to login',
   'forgot_password' => 'Forgot password',  
-  'forgot_password_info' => "Enter the email address by which you're registered here. We will send you an email with your I username and a link to reset your password.",
+  'forgot_password_info' => "Enter the email address by which you're registered here. We will send you an email with a link to reset your password.",
   'email_not_registered' => "The e-mail address you entered is not associated with an active account. Try a different email address.",
   'remember_me' => 'Remember me',
   'password' => 'Password',
@@ -125,6 +169,13 @@ return [
   ],
   'swal' => 
   [
+    'confirmChange' => 
+    [
+      'title' => 'Are you sure you want to continue?',
+      'warning' => 'Warning',
+      'confirmBtnText' => 'Ok',
+      'cancelBtnText' => 'Cancel',
+    ],
     'delete' => 
     [
       'title' => 'Are you sure?',
@@ -181,7 +232,7 @@ return [
     'week' => 'Week',
     'peek_week' => 'Pick a week',
   ],
-  'tenant' => [
+  'tenant_detail' => [
     'activate_required_credentials' => 'code, email, password required',
     'incorrect_email' => 'Incorrect email address',
     'user_not_tenant' => 'This user is not tenant',
@@ -194,5 +245,4 @@ return [
   ],
   'to_homepage' => 'To Homepage',
   'assignment' => 'Assignment',
-
 ];

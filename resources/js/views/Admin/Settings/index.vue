@@ -8,7 +8,7 @@
 
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
                     <el-tabs type="border-card" v-model="activeSettingsName">
-                        <el-tab-pane :label="$t('models.realEstate.details')" name="details">
+                        <el-tab-pane :label="$t('general.actions.view')" name="details">
                             <el-button class="save-tab" @click="saveRealEstate('realEstateDetailsForm')" icon="ti-save" type="primary">
                                 {{$t('general.actions.save')}}
                             </el-button>
@@ -19,19 +19,19 @@
                                         <el-card>
                                             <el-row :gutter="20">
                                                 <el-col :md="12">
-                                                    <el-form-item :label="$t('models.user.name')" :rules="validationRules.name" prop="name">
+                                                    <el-form-item :label="$t('general.name')" :rules="validationRules.name" prop="name">
                                                         <el-input type="text" v-model="model.name"></el-input>
                                                     </el-form-item>
                                                 </el-col>
                                                 <el-col :md="12">
-                                                    <el-form-item :label="$t('models.user.email')" :rules="validationRules.email" prop="email">
+                                                    <el-form-item :label="$t('general.email')" :rules="validationRules.email" prop="email">
                                                         <el-input type="email" v-model="model.email"></el-input>
                                                     </el-form-item>
                                                 </el-col>
                                             </el-row>
                                             <el-row :gutter="20">
                                                 <el-col :md="12">
-                                                    <el-form-item :label="$t('models.user.phone')" prop="phone">
+                                                    <el-form-item :label="$t('general.phone')" prop="phone">
                                                         <el-input type="string" v-model="model.phone"></el-input>
                                                     </el-form-item>
                                                 </el-col>
@@ -44,12 +44,12 @@
                                             </el-row>
                                             <el-row :gutter="20">
                                                     <el-col :md="4">
-                                                        <el-form-item :label="$t('models.address.zip')" :rules="validationRules.zip" prop="address.zip">
+                                                        <el-form-item :label="$t('general.zip')" :rules="validationRules.zip" prop="address.zip">
                                                             <el-input autocomplete="off" type="text" v-model="model.address.zip"></el-input>
                                                         </el-form-item>
                                                     </el-col>
                                                     <el-col :md="8">
-                                                        <el-form-item :label="$t('models.address.city')" :rules="validationRules.city"
+                                                        <el-form-item :label="$t('general.city')" :rules="validationRules.city"
                                                                       prop="address.city">
                                                             <el-input autocomplete="off" type="text" v-model="model.address.city"></el-input>
                                                         </el-form-item>
@@ -346,9 +346,9 @@
 
             </el-tab-pane>
             <el-tab-pane name="requests">
-                <template slot="label"><i class="icon icon-chat-empty"></i>{{$t('models.realEstate.requests')}}</template>
+                <template slot="label"><i class="icon icon-chat-empty"></i>{{$t('general.requests')}}</template>
 
-<!--                <heading :title="$t('models.realEstate.requests')" class="custom-heading" icon="ti-settings" shadow="heavy" />-->
+<!--                <heading :title="$t('general.requests')" class="custom-heading" icon="ti-settings" shadow="heavy" />-->
 
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
                     <el-tabs type="border-card" v-model="activeRequestName">

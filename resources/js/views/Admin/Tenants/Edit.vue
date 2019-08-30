@@ -9,7 +9,7 @@
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
                 <el-tabs type="border-card">
-                    <el-tab-pane :label="$t('models.tenant.details')" v-loading="loading.state">
+                    <el-tab-pane :label="$t('general.actions.view')" v-loading="loading.state">
                         <el-form :model="model" label-position="top" label-width="192px" ref="form">
                             <el-form-item>
                                 <el-button @click="downloadCredentials" size="mini"
@@ -31,7 +31,7 @@
                                         <el-select placeholder="Select" style="display: block" v-model="model.title">
                                             <el-option
                                                     :key="title"
-                                                    :label="$t(`models.tenant.titles.${title}`)"
+                                                    :label="$t(`general.salutation_option.${title}`)"
                                                     :value="title"
                                                     v-for="title in titles">
                                             </el-option>
@@ -240,7 +240,7 @@
                             <el-form-item :label="$t('models.tenant.building.name')" prop="building_id">
                                 <el-select
                                         :loading="remoteLoading"
-                                        :placeholder="$t('models.tenant.search_building')"
+                                        :placeholder="$t('general.placeholders.search_building')"
                                         :remote-method="remoteSearchBuildings"
                                         :rules="validationRules.building_id"
                                         @change="searchUnits"
@@ -262,7 +262,7 @@
                             </el-form-item>
                             <el-form-item :label="$t('models.tenant.unit.name')" prop="unit_id"
                                           v-if="model.building_id">
-                                <el-select :placeholder="$t('models.tenant.search_unit')" style="display: block"
+                                <el-select :placeholder="$t('general.placeholders.search_unit')" style="display: block"
                                            v-model="model.unit_id">
                                     <el-option
                                             :key="unit.id"
@@ -279,7 +279,7 @@
             </el-col>
             <el-col :md="12">
                 <el-tabs type="border-card">
-                    <el-tab-pane :label="$t('models.tenant.requests')">
+                    <el-tab-pane :label="$t('general.requests')">
                         <relation-list
                                 :actions="requestActions"
                                 :columns="requestColumns"
@@ -426,7 +426,7 @@
                 requestActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.request.edit'),
+                        title: this.$t('general.actions.edit'),
                         type: 'primary',
                         onClick: this.requestEditView
                     }]
@@ -438,7 +438,7 @@
                 postActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.post.edit'),
+                        title: this.$t('general.actions.edit'),
                         type: 'primary',
                         onClick: this.postEditView
                     }]
@@ -450,7 +450,7 @@
                 productActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.product.edit'),
+                        title: this.$t('general.actions.edit'),
                         type: 'primary',
                         onClick: this.productEditView
                     }]

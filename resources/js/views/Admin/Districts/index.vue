@@ -9,7 +9,7 @@
             <template v-if="$can($permissions.delete.district)">
                 <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
                            type="danger">
-                    {{$t('models.district.delete')}}
+                    {{$t('general.actions.delete')}}
                 </el-button>
             </template>
         </heading>
@@ -54,13 +54,13 @@
             return {
                 i18nName: 'district',
                 header: [{
-                    label: 'models.district.name',
+                    label: 'general.name',
                     prop: 'name'
                 }, {
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        title: 'models.district.edit_action',
+                        title: 'general.actions.edit',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.district

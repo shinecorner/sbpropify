@@ -16,7 +16,7 @@
         <el-col id="search">
             <el-select
                 :loading="remoteLoading"
-                :placeholder="$t('models.request.placeholders.search')"
+                :placeholder="$t('general.placeholders.search')"
                 :remote-method="remoteSearch"
                 class="custom-remote-select"
                 filterable
@@ -39,7 +39,7 @@
             <el-button :disabled="!toAssign" @click="assign(toAssign)" type="primary">
                 <div id="innerBtn" ref="innerBtn">
                     <i class="ti-save"></i>
-                    <span>&nbsp;{{$t('models.unit.assign')}}</span>
+                    <span>&nbsp;{{$t('general.assign')}}</span>
                 </div>
             </el-button>
         </el-col>

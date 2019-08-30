@@ -36,7 +36,7 @@
             return {
                 header: [{
                     type: 'tenant-details',
-                    label: 'models.tenant.name',
+                    label: 'general.name',
                     props: ['name', 'image_url'],
                     minWidth: '100px'
                 }, {
@@ -56,7 +56,7 @@
                     actions: [ 
                         {
                             type: 'default',
-                            title: 'models.tenant.edit',
+                            title: 'general.actions.edit',
                             onClick: this.edit,
                             permissions: [
                                 this.$permissions.update.tenant
