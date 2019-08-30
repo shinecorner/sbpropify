@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\AuditableModel;
-use OwenIt\Auditing\Facades\Auditor;
 use App\Mails\NotifyServiceProvider;
 use App\Models\Comment;
 use App\Models\PropertyManager;

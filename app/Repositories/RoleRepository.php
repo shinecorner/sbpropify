@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Role;
-use InfyOm\Generator\Common\BaseRepository;
 
 /**
  * Class RoleRepository

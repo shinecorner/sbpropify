@@ -27,7 +27,7 @@ abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
         }
         $extension = $this->mimeToExtension[$mimeType];
 
-        $diskName = sprintf("requests_%s", $collectionName);
+        $diskName = $model->getDiskPreName() . $collectionName;;
 
         $media = $model->addMediaFromBase64($dataBase64)
             ->sanitizingFileName(function ($fileName) use ($extension) {

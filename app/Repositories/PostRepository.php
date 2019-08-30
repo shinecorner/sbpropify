@@ -14,8 +14,6 @@ use App\Notifications\PinnedPostPublished;
 use App\Notifications\PostPublished;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use InfyOm\Generator\Common\BaseRepository;
-use Notification;
 
 /**
  * Class PostRepository

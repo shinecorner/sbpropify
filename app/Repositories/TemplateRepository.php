@@ -13,9 +13,8 @@ use App\Models\Template;
 use App\Models\TemplateCategory;
 use App\Models\Tenant;
 use App\Models\User;
-use Config;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Collection;
-use InfyOm\Generator\Common\BaseRepository;
 use Spatie\MediaLibrary\Models\Media;
 
 /**

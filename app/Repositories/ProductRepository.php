@@ -5,9 +5,8 @@ namespace App\Repositories;
 use App\Models\Product;
 use App\Models\User;
 use App\Notifications\ProductPublished;
-use InfyOm\Generator\Common\BaseRepository;
 use Carbon\Carbon;
-use Notification;
+use Illuminate\Support\Facades\Notification;
 
 /**
  * Class ProductRepository
