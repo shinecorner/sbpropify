@@ -83,7 +83,7 @@ export default [{
         component: () =>
             import ( /* webpackChunkName: "admin/serviceRequests/add" */ 'views/Admin/Requests/Add'),
         props: {
-            // title: 'Add request'
+            title: 'Add request'
         },
         meta: {
             title: 'Add Request',
@@ -97,7 +97,7 @@ export default [{
         component: () =>
             import ( /* webpackChunkName: "admin/serviceRequests/activity" */ 'views/Admin/Requests/Activity'),
         props: {
-            // title: 'Activity requests'
+            title: 'Activity requests'
         },
         meta: {
             title: 'Activity requests',
@@ -110,7 +110,7 @@ export default [{
         component: () =>
             import ( /* webpackChunkName: "admin/serviceRequests/edit" */ 'views/Admin/Requests/Edit'),
         props: {
-            // title: 'Edit request'
+            title: 'Edit request'
         },
         meta: {
             title: 'Edit Request',
