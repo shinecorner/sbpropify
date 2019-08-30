@@ -384,7 +384,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $input = ['status' => $request->get('status', '')];
-        $input = $this->serviceRequestRepository->getStatusRelatesAttributes($input, $serviceRequest);
+        $input = $this->serviceRequestRepository->getStatusRelatedAttributes($input, $serviceRequest);
 
         if (!$this->serviceRequestRepository->checkStatusPermission($input, $serviceRequest->status)) {
             return $this->sendError(__('models.request.errors.not_allowed_change_status'));

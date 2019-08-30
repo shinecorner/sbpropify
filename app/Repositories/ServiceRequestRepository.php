@@ -185,7 +185,7 @@ class ServiceRequestRepository extends BaseRepository
         }
 
 
-        $attributes = self::getStatusRelatesAttributes($attributes, $request);
+        $attributes = self::getStatusRelatedAttributes($attributes, $request);
 
         if (isset($attributes['due_date'])) {
             $attributes['due_date'] = Carbon::parse($attributes['due_date'])->format('Y-m-d');
@@ -194,7 +194,7 @@ class ServiceRequestRepository extends BaseRepository
         return $attributes;
     }
 
-    public static function getStatusRelatesAttributes($attributes, $request)
+    public static function getStatusRelatedAttributes($attributes, $request)
     {
         if ($attributes['status'] != $request->status) {
             if (ServiceRequest::StatusDone == $attributes['status']) {
