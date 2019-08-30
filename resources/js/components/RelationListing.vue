@@ -292,9 +292,11 @@
     .icon-danger {
          color: #dd6161;
     }
-    .listing {
-        .normal {
-            color: #6AC06F;
+    .request {
+        .listing {
+            .normal {
+                color: #6AC06F;
+            }
         }
     }
 </style>

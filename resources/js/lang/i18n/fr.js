@@ -1,23 +1,224 @@
 export default {
     "fr": {
-        "layouts": {
-            "tenant": {
-                "menu": {
-                    "logout": "Déconnexion"
-                },
-                "sidebar": {
-                    "dashboard": "Tableau de bord",
-                    "myTenancy": "Mon bail",
-                    "myPersonalData": "Mes données personnelles",
-                    "myRecentContract": "Mon récent contrat",
-                    "myDocuments": "Les documents",
-                    "myContactPersons": "Personnes de contact",
-                    "posts": "Actualités",
-                    "requests": "Demandes",
-                    "products": "Marché en ligne",
-                    "settings": "Réglages"
+        "auth": {
+            "failed": "Ces identifiants ne correspondent pas à nos enregistrements",
+            "throttle": "Tentatives de connexion trop nombreuses. Veuillez essayer de nouveau dans {seconds} secondes.",
+            "login_welcome": "Bienvenue, veuillez vous connecter à votre compte.",
+            "title": "Tout est plus facile avec notre application locataire",
+            "intro": "Afin de traiter encore plus rapidement les préoccupations de nos locataires, nos locataires ont accès à une zone protégée avec laquelle la location peut être gérée de manière numérique. Grâce au traitement numérique, nous pouvons agir encore plus rapidement et créer de la transparence pour toutes les parties concernées.",
+            "benefit_1": {
+                "title": "Toutes les données et documents sont disponibles en ligne",
+                "description": "Vous pouvez à tout moment télécharger toutes les informations sur le bail et les documents tels que le contrat de location au format PDF."
+            },
+            "benefit_2": {
+                "title": "Transmission numérique des demandes",
+                "description": "Vous pouvez saisir et transférer toutes vos demandes via l'application. L'équipe de direction prendra immédiatement les mesures nécessaires."
+            },
+            "benefit_3": {
+                "title": "Rester en contact avec le quartier",
+                "description": "Dans la section News, vous pouvez poster des articles qui sont visibles pour vos voisins. Par exemple, si l'on peut s'attendre à un bruit dû à un événement..."
+            },
+            "benefit_4": {
+                "title": "Location et marché en ligne",
+                "description": "Si vous avez des objets dont vous n'avez pas besoin, vous pouvez les écrire dans l'application et les offrir à vos voisins."
+            },
+            "login": {
+                "activate_account": {
+                    "title": "Première connexion (activation du compte)",
+                    "description": "Après avoir reçu le code d'activation, vous pouvez vous connecter pour la première fois au portail locataire et activer votre compte."
                 }
             }
+        },
+        "components": {
+            "common": {
+                "audit": {
+                    "type": {
+                        "post": "Poster",
+                        "product": "Produit",
+                        "request": "Demande"
+                    },
+                    "filter": {
+                        "type": {
+                            "post": "Poster",
+                            "product": "Produit",
+                            "request": "Demande"
+                        },
+                        "post": {
+                            "created": "Créé",
+                            "updated": "Mises à jour",
+                            "provider_assigned": "Fournisseur assigné",
+                            "user_assigned": "Affecté par l'utilisateur",
+                            "media_uploaded": "Média téléchargé",
+                            "media_deleted": "Médias supprimés"
+                        },
+                        "product": [],
+                        "request": {
+                            "created": "Créé",
+                            "updated": "Mises à jour",
+                            "provider_assigned": "Fournisseur assigné",
+                            "user_assigned": "Affecté par l'utilisateur",
+                            "media_uploaded": "Média téléchargé",
+                            "media_deleted": "Médias supprimés"
+                        }
+                    },
+                    "content": {
+                        "withId": {
+                            "post": {
+                                "created": "{userName} a ouvert ce {auditable_type} à bord de {auditable_type} #{auditable_id}.",
+                                "updated": {
+                                    "status": "Le statut est passé de \"{old}\" au \"{new}\".",
+                                    "published_at": "Article publié sur {new}."
+                                }
+                            },
+                            "product": {
+                                "created": "{userName} a ouvert ce {auditable_type}.",
+                                "updated": {
+                                    "title": "Le titre est passé de \"{old}\" au \"{new}\".",
+                                    "status": "Le statut est passé de \"{old}\" au \"{new}\".",
+                                    "due_date": "La date d'échéance est passée de '{old}' au '{new}'.",
+                                    "priority": "La priorité est passée de \"{old}\" au \"{new}\".",
+                                    "category_id": "La catégorie est passée de \"{old}\" au \"{new}\".",
+                                    "qualification": "La qualification est passée de \"{old}\" au \"{new}\".",
+                                    "visibility": "La visibilité est passée de \"{old}\" au \"{new}\"."
+                                },
+                                "provider_assigned": "{providerName} a été affecté en tant que prestataire.",
+                                "user_assigned": "{userName} a été affecté au poste de gestionnaire.",
+                                "media_uploaded": "Média téléchargé",
+                                "media_deleted": "Médias supprimés"
+                            },
+                            "request": {
+                                "created": "{userName} a ouvert ce {auditable_type}.",
+                                "updated": {
+                                    "title": "Le titre est passé de \"{old}\" au \"{new}\".",
+                                    "status": "Le statut est passé de \"{old}\" au \"{new}\".",
+                                    "due_date": "La date d'échéance est passée de '{old}' au '{new}'.",
+                                    "priority": "La priorité est passée de \"{old}\" au \"{new}\".",
+                                    "category_id": "La catégorie est passée de \"{old}\" au \"{new}\".",
+                                    "qualification": "La qualification est passée de \"{old}\" au \"{new}\".",
+                                    "visibility": "La visibilité est passée de \"{old}\" au \"{new}\"."
+                                },
+                                "provider_assigned": "{providerName} a été affecté en tant que prestataire.",
+                                "provider_unassigned": "Prestataire {providerName} n'a pas été affecté.",
+                                "manager_assigned": "{propertyManagerFirstName} {propertyManagerLastName} a été affecté au poste de gestionnaire.",
+                                "manager_unassigned": "Gestionnaire {propertyManagerFirstName} {propertyManagerLastName} n'a pas été affecté.",
+                                "user_assigned": "{userName} a été affecté au poste de gestionnaire.",
+                                "media_uploaded": "Média téléchargé",
+                                "media_deleted": "Médias supprimés"
+                            }
+                        },
+                        "withNoId": {
+                            "post": {
+                                "created": "{userName} a ouvert ce {auditable_type} à bord de {auditable_type} #{auditable_id}.",
+                                "updated": {
+                                    "status": "Le statut est passé de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
+                                    "published_at": "Article publié au {new} sur {auditable_type} #{auditable_id}."
+                                }
+                            },
+                            "product": {
+                                "created": "{userName} opened this {auditable_type} sur {auditable_type} #{auditable_id}.",
+                                "updated": {
+                                    "title": "Le titre est passé de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
+                                    "status": "Le statut est passé de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
+                                    "due_date": "La date d'échéance est passée de '{old}' au '{new}' sur {auditable_type} #{auditable_id}.",
+                                    "priority": "La priorité est passée de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
+                                    "category_id": "La catégorie est passée de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
+                                    "qualification": "La qualification est passée de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
+                                    "visibility": "La visibilité est passée de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}."
+                                },
+                                "provider_assigned": "{providerName} a été affecté en tant que prestataire sur {auditable_type} #{auditable_id}.",
+                                "user_assigned": "{userName} a été affecté au poste de gestionnaire sur {auditable_type} #{auditable_id}.",
+                                "media_uploaded": "Média téléchargé sur {auditable_type} #{auditable_id}.",
+                                "media_deleted": "Médias supprimés sur {auditable_type} #{auditable_id}."
+                            },
+                            "request": {
+                                "created": "{userName} opened this {auditable_type} sur {auditable_type} #{auditable_id}.",
+                                "updated": {
+                                    "title": "Le titre est passé de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
+                                    "status": "Le statut est passé de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
+                                    "due_date": "La date d'échéance est passée de '{old}' au '{new}' sur {auditable_type} #{auditable_id}.",
+                                    "priority": "La priorité est passée de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
+                                    "category_id": "La catégorie est passée de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
+                                    "qualification": "La qualification est passée de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
+                                    "visibility": "La visibilité est passée de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}."
+                                },
+                                "provider_assigned": "{providerName} a été affecté en tant que prestataire sur {auditable_type} #{auditable_id}.",
+                                "provider_unassigned": "Prestataire {providerName} n'a pas été affecté sur {auditable_type} #{auditable_id}.",
+                                "manager_assigned": "{propertyManagerFirstName} {propertyManagerLastName} a été affecté au poste de gestionnaire sur {auditable_type} #{auditable_id}.",
+                                "manager_unassigned": "Gestionnaire {propertyManagerFirstName} {propertyManagerLastName} n'a pas été affecté sur {auditable_type} #{auditable_id}.",
+                                "user_assigned": "{userName} a été affecté au poste de gestionnaire sur {auditable_type} #{auditable_id}.",
+                                "media_uploaded": "Média téléchargé sur {auditable_type} #{auditable_id}.",
+                                "media_deleted": "Médias supprimés sur {auditable_type} #{auditable_id}."
+                            }
+                        }
+                    }
+                },
+                "commentsList": {
+                    "loading": "Chargement...",
+                    "loadMore": {
+                        "simple": "Charge {count} plus",
+                        "detailed": "Charge {count} commentaires supplémentaires"
+                    },
+                    "emptyPlaceholder": {
+                        "title": "Il n'y a pas encore de messages...",
+                        "description": "Commencez la messagerie en utilisant le formulaire ci-dessous et appuyez sur Entrée."
+                    }
+                },
+                "comment": {
+                    "updateShortcut": "ou utiliser {shortcut} raccourci",
+                    "updateOrCancel": "{update} ou appuyez sur {esc} au {cancel}",
+                    "update": "mettre à jour",
+                    "esc": "ESC",
+                    "cancel": "résilier",
+                    "addChildComment": "Comment",
+                    "loadMore": "Load 1 more comment | Load {count} more comments",
+                    "deletedCommentPlaceholder": "Ce commentaire a été supprimé"
+                },
+                "addComment": {
+                    "placeholder": "Tapez un commentaire...",
+                    "tooltipTemplates": "Choisissez un modèle",
+                    "loadingTemplates": "Chargement des modèles...",
+                    "saveShortcut": "ou utiliser {shortcut} raccourci",
+                    "emptyTemplatesPlaceholder": "Aucun modèle disponible."
+                },
+                "media": {
+                    "buttons": {
+                        "selectFiles": {
+                            "withDrop": "Lâcher les fichiers ou cliquer pour sélectionner...",
+                            "withoutDrop": "Cliquez pour sélectionner..."
+                        },
+                        "upload": "Télécharger"
+                    },
+                    "dropActive": {
+                        "title": "Déposez vos fichiers ici...",
+                        "description": "Seuls les fichiers avec une certaine extension sont autorisés."
+                    },
+                    "messages": {
+                        "preview": "Ce fichier ne peut pas être prévisualisé",
+                        "uploading": "Téléchargement...",
+                        "uploaded": "Les fichiers médias ont été téléchargés avec succès.",
+                        "size": "Oups ! Certains fichiers avaient une taille supérieure au maximum autorisé de {bytes}.",
+                        "extensions": "Oups ! Certains fichiers ont eu une extension qui n'était pas autorisée. Sauter"
+                    }
+                }
+            },
+            "tenant": {
+                "weatherWidget": {
+                    "minTemp": "minute",
+                    "maxTemp": "maximum",
+                    "wind": "essouffler",
+                    "cloudiness": "essouffler",
+                    "humidity": "nébulosité",
+                    "pressure": "humidité"
+                },
+                "postAdd": {
+                    "visibility": {
+                        "address": "faire pression",
+                        "district": "Adresse",
+                        "all": "District"
+                    }
+                }
+            },
+            "admin": []
         },
         "dashboard": {
             "statistics": "Statistiques",
@@ -83,33 +284,25 @@ export default {
                 "counts": "Comptants"
             }
         },
-        "passwords": {
-            "password": "Les mots de passe doivent contenir au moins six caractères et être identiques.",
-            "reset": "Votre mot de passe a été réinitialisé !",
-            "sent": "Nous vous avons envoyé par email le lien de réinitialisation du mot de passe !",
-            "token": "Ce jeton de réinitialisation du mot de passe n'est pas valide.",
-            "user": "Aucun utilisateur n'a été trouvé avec cette adresse email."
-        },
-        "settings": {
-            "notifications": "Notifications et langue",
-            "admin": "Notifications admin",
-            "news": "Notifications de nouvelles",
-            "marketplace": "Notifications de marché",
-            "service": "Avis de service",
-            "updated": "Mise à jour des paramètres",
-            "language": "Langue",
-            "summary": {
-                "label": "Statistiques sommaires",
-                "daily": "Tous les jours",
-                "monthly": "Mensuel",
-                "yearly": "Tous les ans"
-            },
-            "contact_enable": {
-                "label": "Activer mes contacts",
-                "use_global": "Utilisez global",
-                "show": "Spectacle",
-                "hide": "Cacher"
-            }
+        "filters": {
+            "header": "Filtres",
+            "districts": "Districts",
+            "buildings": "Bâtiments",
+            "requests": "Demandes",
+            "open_requests": "Demandes en cours",
+            "units": "Unités",
+            "states": "États",
+            "status": "Statut",
+            "search": "Rechercher",
+            "requestStatus": "Statut de la demande",
+            "propertyManagers": "Gestionnaire immobilier",
+            "categories": "Catégories",
+            "created_from": "Créé à partir de",
+            "created_to": "Créé pour",
+            "services": "Prestations de services",
+            "tenant": "Locataire",
+            "roles": "Roles",
+            "type": "Type"
         },
         "general": {
             "en": "EN",
@@ -325,13 +518,6 @@ export default {
                 "week": "Semaine",
                 "peek_week": "Choisir une semaine"
             },
-            "tenant_detail": {
-                "activate_required_credentials": "code, email, mot de passe requis",
-                "incorrect_email": "Adresse e-mail incorrecte",
-                "user_not_tenant": "Cet utilisateur n'est pas locataire",
-                "invalid_code": "Le code n'est pas valide",
-                "not_active_tenant": "Le locataire n'est pas actif et ne peut pas changer de mot de passe"
-            },
             "page_not_found": {
                 "title": "Hmm... Quelque chose ne va pas ici.",
                 "message": "La page que vous avez demandée n'a pas été trouvée. Veuillez vérifier l'URL ou aller sur la page d'accueil."
@@ -339,57 +525,24 @@ export default {
             "to_homepage": "Vers la page d'accueil",
             "assignment": "Affectation"
         },
-        "filters": {
-            "header": "Filtres",
-            "districts": "Districts",
-            "buildings": "Bâtiments",
-            "requests": "Demandes",
-            "open_requests": "Demandes en cours",
-            "units": "Unités",
-            "states": "États",
-            "status": "Statut",
-            "search": "Rechercher",
-            "requestStatus": "Statut de la demande",
-            "propertyManagers": "Gestionnaire immobilier",
-            "categories": "Catégories",
-            "created_from": "Créé à partir de",
-            "created_to": "Créé pour",
-            "services": "Prestations de services",
-            "tenant": "Locataire",
-            "roles": "Roles",
-            "type": "Type"
-        },
-        "template": {
-            "mr": "Monsieur",
-            "mrs": "Madame",
-            "company": "Société",
-            "user_title_mr": "Monsieur",
-            "user_title_mrs": "Madame",
-            "user_title_company": "Société",
-            "tenant_title_mr": "Monsieur",
-            "tenant_title_mrs": "Madame",
-            "tenant_title_company": "Société",
-            "request_status_1": "Reçu",
-            "request_status_2": "En cours de traitement",
-            "request_status_3": "Assigné",
-            "request_status_4": "Fait",
-            "request_status_5": "Réactivé",
-            "request_status_6": "Archivé",
-            "originalRequest_status_1": "Reçu",
-            "originalRequest_status_2": "En cours de traitement",
-            "originalRequest_status_3": "Assigné",
-            "originalRequest_status_4": "Fait",
-            "originalRequest_status_5": "Réactivé",
-            "originalRequest_status_6": "Archivé",
-            "email_footer_message1": "Cet email a été généré automatiquement pour {UserName}.",
-            "email_footer_message2": "Vous recevez cet e-mail généré automatiquement en tant qu'utilisateur de {CompanyName}.",
-            "email_link_contacts": "Contacts",
-            "email_link_terms_of_use": "Conditions d'utilisation",
-            "email_link_data_protection": "Protection des données"
-        },
-        "pagination": {
-            "previous": "&laquo; Précédent",
-            "next": "Suivant &raquo;"
+        "layouts": {
+            "tenant": {
+                "menu": {
+                    "logout": "Déconnexion"
+                },
+                "sidebar": {
+                    "dashboard": "Tableau de bord",
+                    "myTenancy": "Mon bail",
+                    "myPersonalData": "Mes données personnelles",
+                    "myRecentContract": "Mon récent contrat",
+                    "myDocuments": "Les documents",
+                    "myContactPersons": "Personnes de contact",
+                    "posts": "Actualités",
+                    "requests": "Demandes",
+                    "products": "Marché en ligne",
+                    "settings": "Réglages"
+                }
+            }
         },
         "menu": {
             "dashboard": "Tableau de bord",
@@ -426,273 +579,6 @@ export default {
             "activity": "Activité",
             "propertyManagers": "Gestionnaires immobiliers",
             "templates": "Modèles"
-        },
-        "auth": {
-            "failed": "Ces identifiants ne correspondent pas à nos enregistrements",
-            "throttle": "Tentatives de connexion trop nombreuses. Veuillez essayer de nouveau dans {seconds} secondes.",
-            "login_welcome": "Bienvenue, veuillez vous connecter à votre compte.",
-            "title": "Tout est plus facile avec notre application locataire",
-            "intro": "Afin de traiter encore plus rapidement les préoccupations de nos locataires, nos locataires ont accès à une zone protégée avec laquelle la location peut être gérée de manière numérique. Grâce au traitement numérique, nous pouvons agir encore plus rapidement et créer de la transparence pour toutes les parties concernées.",
-            "benefit_1": {
-                "title": "Toutes les données et documents sont disponibles en ligne",
-                "description": "Vous pouvez à tout moment télécharger toutes les informations sur le bail et les documents tels que le contrat de location au format PDF."
-            },
-            "benefit_2": {
-                "title": "Transmission numérique des demandes",
-                "description": "Vous pouvez saisir et transférer toutes vos demandes via l'application. L'équipe de direction prendra immédiatement les mesures nécessaires."
-            },
-            "benefit_3": {
-                "title": "Rester en contact avec le quartier",
-                "description": "Dans la section News, vous pouvez poster des articles qui sont visibles pour vos voisins. Par exemple, si l'on peut s'attendre à un bruit dû à un événement..."
-            },
-            "benefit_4": {
-                "title": "Location et marché en ligne",
-                "description": "Si vous avez des objets dont vous n'avez pas besoin, vous pouvez les écrire dans l'application et les offrir à vos voisins."
-            },
-            "login": {
-                "activate_account": {
-                    "title": "Première connexion (activation du compte)",
-                    "description": "Après avoir reçu le code d'activation, vous pouvez vous connecter pour la première fois au portail locataire et activer votre compte."
-                }
-            }
-        },
-        "tenant": {
-            "tenant_credentials": "Accréditation des locataires",
-            "tenancy_details": "Détails de la location",
-            "unit": "Unité",
-            "floor": "L'étage",
-            "building": "Bâtiment",
-            "address": "Adresse",
-            "rent_start": "Début du loyer",
-            "login_credentials": "Identifiants de connexion",
-            "website": "Site Web",
-            "username": "Nom d'utilisateur",
-            "password": "Mot de passe",
-            "url": "URL",
-            "code": "Code"
-        },
-        "pages": {
-            "profile": {
-                "pageTitle": "Profil",
-                "profile": "Profil",
-                "account": "Compte",
-                "security": "Sécurité",
-                "notifications": "Notifications"
-            },
-            "user": {
-                "title": "Utilisateurs"
-            },
-            "request_activities": {
-                "title": "Demander des activités"
-            },
-            "tenant": {
-                "title": "Locataires"
-            }
-        },
-        "components": {
-            "common": {
-                "audit": {
-                    "type": {
-                        "post": "Poster",
-                        "product": "Produit",
-                        "request": "Demande"
-                    },
-                    "filter": {
-                        "type": {
-                            "post": "Poster",
-                            "product": "Produit",
-                            "request": "Demande"
-                        },
-                        "post": {
-                            "created": "Créé",
-                            "updated": "Mises à jour",
-                            "provider_assigned": "Fournisseur assigné",
-                            "user_assigned": "Affecté par l'utilisateur",
-                            "media_uploaded": "Média téléchargé",
-                            "media_deleted": "Médias supprimés"
-                        },
-                        "product": [],
-                        "request": {
-                            "created": "Créé",
-                            "updated": "Mises à jour",
-                            "provider_assigned": "Fournisseur assigné",
-                            "user_assigned": "Affecté par l'utilisateur",
-                            "media_uploaded": "Média téléchargé",
-                            "media_deleted": "Médias supprimés"
-                        }
-                    },
-                    "content": {
-                        "withId": {
-                            "post": {
-                                "created": "{userName} a ouvert ce {auditable_type} à bord de {auditable_type} #{auditable_id}.",
-                                "updated": {
-                                    "status": "Le statut est passé de \"{old}\" au \"{new}\".",
-                                    "published_at": "Article publié sur {new}."
-                                }
-                            },
-                            "product": {
-                                "created": "{userName} a ouvert ce {auditable_type}.",
-                                "updated": {
-                                    "title": "Le titre est passé de \"{old}\" au \"{new}\".",
-                                    "status": "Le statut est passé de \"{old}\" au \"{new}\".",
-                                    "due_date": "La date d'échéance est passée de '{old}' au '{new}'.",
-                                    "priority": "La priorité est passée de \"{old}\" au \"{new}\".",
-                                    "category_id": "La catégorie est passée de \"{old}\" au \"{new}\".",
-                                    "qualification": "La qualification est passée de \"{old}\" au \"{new}\".",
-                                    "visibility": "La visibilité est passée de \"{old}\" au \"{new}\"."
-                                },
-                                "provider_assigned": "{providerName} a été affecté en tant que prestataire.",
-                                "user_assigned": "{userName} a été affecté au poste de gestionnaire.",
-                                "media_uploaded": "Média téléchargé",
-                                "media_deleted": "Médias supprimés"
-                            },
-                            "request": {
-                                "created": "{userName} a ouvert ce {auditable_type}.",
-                                "updated": {
-                                    "title": "Le titre est passé de \"{old}\" au \"{new}\".",
-                                    "status": "Le statut est passé de \"{old}\" au \"{new}\".",
-                                    "due_date": "La date d'échéance est passée de '{old}' au '{new}'.",
-                                    "priority": "La priorité est passée de \"{old}\" au \"{new}\".",
-                                    "category_id": "La catégorie est passée de \"{old}\" au \"{new}\".",
-                                    "qualification": "La qualification est passée de \"{old}\" au \"{new}\".",
-                                    "visibility": "La visibilité est passée de \"{old}\" au \"{new}\"."
-                                },
-                                "provider_assigned": "{providerName} a été affecté en tant que prestataire.",
-                                "provider_unassigned": "Prestataire {providerName} n'a pas été affecté.",
-                                "manager_assigned": "{propertyManagerFirstName} {propertyManagerLastName} a été affecté au poste de gestionnaire.",
-                                "manager_unassigned": "Gestionnaire {propertyManagerFirstName} {propertyManagerLastName} n'a pas été affecté.",
-                                "user_assigned": "{userName} a été affecté au poste de gestionnaire.",
-                                "media_uploaded": "Média téléchargé",
-                                "media_deleted": "Médias supprimés"
-                            }
-                        },
-                        "withNoId": {
-                            "post": {
-                                "created": "{userName} a ouvert ce {auditable_type} à bord de {auditable_type} #{auditable_id}.",
-                                "updated": {
-                                    "status": "Le statut est passé de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
-                                    "published_at": "Article publié au {new} sur {auditable_type} #{auditable_id}."
-                                }
-                            },
-                            "product": {
-                                "created": "{userName} opened this {auditable_type} sur {auditable_type} #{auditable_id}.",
-                                "updated": {
-                                    "title": "Le titre est passé de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
-                                    "status": "Le statut est passé de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
-                                    "due_date": "La date d'échéance est passée de '{old}' au '{new}' sur {auditable_type} #{auditable_id}.",
-                                    "priority": "La priorité est passée de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
-                                    "category_id": "La catégorie est passée de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
-                                    "qualification": "La qualification est passée de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
-                                    "visibility": "La visibilité est passée de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}."
-                                },
-                                "provider_assigned": "{providerName} a été affecté en tant que prestataire sur {auditable_type} #{auditable_id}.",
-                                "user_assigned": "{userName} a été affecté au poste de gestionnaire sur {auditable_type} #{auditable_id}.",
-                                "media_uploaded": "Média téléchargé sur {auditable_type} #{auditable_id}.",
-                                "media_deleted": "Médias supprimés sur {auditable_type} #{auditable_id}."
-                            },
-                            "request": {
-                                "created": "{userName} opened this {auditable_type} sur {auditable_type} #{auditable_id}.",
-                                "updated": {
-                                    "title": "Le titre est passé de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
-                                    "status": "Le statut est passé de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
-                                    "due_date": "La date d'échéance est passée de '{old}' au '{new}' sur {auditable_type} #{auditable_id}.",
-                                    "priority": "La priorité est passée de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
-                                    "category_id": "La catégorie est passée de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
-                                    "qualification": "La qualification est passée de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}.",
-                                    "visibility": "La visibilité est passée de \"{old}\" au \"{new}\" sur {auditable_type} #{auditable_id}."
-                                },
-                                "provider_assigned": "{providerName} a été affecté en tant que prestataire sur {auditable_type} #{auditable_id}.",
-                                "provider_unassigned": "Prestataire {providerName} n'a pas été affecté sur {auditable_type} #{auditable_id}.",
-                                "manager_assigned": "{propertyManagerFirstName} {propertyManagerLastName} a été affecté au poste de gestionnaire sur {auditable_type} #{auditable_id}.",
-                                "manager_unassigned": "Gestionnaire {propertyManagerFirstName} {propertyManagerLastName} n'a pas été affecté sur {auditable_type} #{auditable_id}.",
-                                "user_assigned": "{userName} a été affecté au poste de gestionnaire sur {auditable_type} #{auditable_id}.",
-                                "media_uploaded": "Média téléchargé sur {auditable_type} #{auditable_id}.",
-                                "media_deleted": "Médias supprimés sur {auditable_type} #{auditable_id}."
-                            }
-                        }
-                    }
-                },
-                "commentsList": {
-                    "loading": "Chargement...",
-                    "loadMore": {
-                        "simple": "Charge {count} plus",
-                        "detailed": "Charge {count} commentaires supplémentaires"
-                    },
-                    "emptyPlaceholder": {
-                        "title": "Il n'y a pas encore de messages...",
-                        "description": "Commencez la messagerie en utilisant le formulaire ci-dessous et appuyez sur Entrée."
-                    }
-                },
-                "comment": {
-                    "updateShortcut": "ou utiliser {shortcut} raccourci",
-                    "updateOrCancel": "{update} ou appuyez sur {esc} au {cancel}",
-                    "update": "mettre à jour",
-                    "esc": "ESC",
-                    "cancel": "résilier",
-                    "addChildComment": "Comment",
-                    "loadMore": "Load 1 more comment | Load {count} more comments",
-                    "deletedCommentPlaceholder": "Ce commentaire a été supprimé"
-                },
-                "addComment": {
-                    "placeholder": "Tapez un commentaire...",
-                    "tooltipTemplates": "Choisissez un modèle",
-                    "loadingTemplates": "Chargement des modèles...",
-                    "saveShortcut": "ou utiliser {shortcut} raccourci",
-                    "emptyTemplatesPlaceholder": "Aucun modèle disponible."
-                },
-                "media": {
-                    "buttons": {
-                        "selectFiles": {
-                            "withDrop": "Lâcher les fichiers ou cliquer pour sélectionner...",
-                            "withoutDrop": "Cliquez pour sélectionner..."
-                        },
-                        "upload": "Télécharger"
-                    },
-                    "dropActive": {
-                        "title": "Déposez vos fichiers ici...",
-                        "description": "Seuls les fichiers avec une certaine extension sont autorisés."
-                    },
-                    "messages": {
-                        "preview": "Ce fichier ne peut pas être prévisualisé",
-                        "uploading": "Téléchargement...",
-                        "uploaded": "Les fichiers médias ont été téléchargés avec succès.",
-                        "size": "Oups ! Certains fichiers avaient une taille supérieure au maximum autorisé de {bytes}.",
-                        "extensions": "Oups ! Certains fichiers ont eu une extension qui n'était pas autorisée. Sauter"
-                    }
-                }
-            },
-            "tenant": {
-                "weatherWidget": {
-                    "minTemp": "minute",
-                    "maxTemp": "maximum",
-                    "wind": "essouffler",
-                    "cloudiness": "essouffler",
-                    "humidity": "nébulosité",
-                    "pressure": "humidité"
-                },
-                "postAdd": {
-                    "visibility": {
-                        "address": "faire pression",
-                        "district": "Adresse",
-                        "all": "District"
-                    }
-                }
-            },
-            "admin": []
-        },
-        "views": {
-            "tenant": {
-                "my": {
-                    "personal": {
-                        "title": "Données personnelles",
-                        "description": "Mes données personnelles.",
-                        "placeholder": {
-                            "title": "Aucune donnée personnelle disponible.",
-                            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                        }
-                    }
-                }
-            }
         },
         "models": {
             "user": {
@@ -1488,6 +1374,99 @@ export default {
                 "terms_text": "Texte des termes ici, texte descriptif"
             }
         },
+        "pages": {
+            "profile": {
+                "pageTitle": "Profil",
+                "profile": "Profil",
+                "account": "Compte",
+                "security": "Sécurité",
+                "notifications": "Notifications"
+            },
+            "user": {
+                "title": "Utilisateurs"
+            },
+            "request_activities": {
+                "title": "Demander des activités"
+            },
+            "tenant": {
+                "title": "Locataires"
+            }
+        },
+        "pagination": {
+            "previous": "&laquo; Précédent",
+            "next": "Suivant &raquo;"
+        },
+        "passwords": {
+            "password": "Les mots de passe doivent contenir au moins six caractères et être identiques.",
+            "reset": "Votre mot de passe a été réinitialisé !",
+            "sent": "Nous vous avons envoyé par email le lien de réinitialisation du mot de passe !",
+            "token": "Ce jeton de réinitialisation du mot de passe n'est pas valide.",
+            "user": "Aucun utilisateur n'a été trouvé avec cette adresse email."
+        },
+        "settings": {
+            "notifications": "Notifications et langue",
+            "admin": "Notifications admin",
+            "news": "Notifications de nouvelles",
+            "marketplace": "Notifications de marché",
+            "service": "Avis de service",
+            "updated": "Mise à jour des paramètres",
+            "language": "Langue",
+            "summary": {
+                "label": "Statistiques sommaires",
+                "daily": "Tous les jours",
+                "monthly": "Mensuel",
+                "yearly": "Tous les ans"
+            },
+            "contact_enable": {
+                "label": "Activer mes contacts",
+                "use_global": "Utilisez global",
+                "show": "Spectacle",
+                "hide": "Cacher"
+            }
+        },
+        "template": {
+            "mr": "Monsieur",
+            "mrs": "Madame",
+            "company": "Société",
+            "user_title_mr": "Monsieur",
+            "user_title_mrs": "Madame",
+            "user_title_company": "Société",
+            "tenant_title_mr": "Monsieur",
+            "tenant_title_mrs": "Madame",
+            "tenant_title_company": "Société",
+            "request_status_1": "Reçu",
+            "request_status_2": "En cours de traitement",
+            "request_status_3": "Assigné",
+            "request_status_4": "Fait",
+            "request_status_5": "Réactivé",
+            "request_status_6": "Archivé",
+            "originalRequest_status_1": "Reçu",
+            "originalRequest_status_2": "En cours de traitement",
+            "originalRequest_status_3": "Assigné",
+            "originalRequest_status_4": "Fait",
+            "originalRequest_status_5": "Réactivé",
+            "originalRequest_status_6": "Archivé",
+            "email_footer_message1": "Cet email a été généré automatiquement pour {UserName}.",
+            "email_footer_message2": "Vous recevez cet e-mail généré automatiquement en tant qu'utilisateur de {CompanyName}.",
+            "email_link_contacts": "Contacts",
+            "email_link_terms_of_use": "Conditions d'utilisation",
+            "email_link_data_protection": "Protection des données"
+        },
+        "tenant": {
+            "tenant_credentials": "Accréditation des locataires",
+            "tenancy_details": "Détails de la location",
+            "unit": "Unité",
+            "floor": "L'étage",
+            "building": "Bâtiment",
+            "address": "Adresse",
+            "rent_start": "Début du loyer",
+            "login_credentials": "Identifiants de connexion",
+            "website": "Site Web",
+            "username": "Nom d'utilisateur",
+            "password": "Mot de passe",
+            "url": "URL",
+            "code": "Code"
+        },
         "validation": {
             "validation_main_message": "Les données fournies n'étaient pas valides.",
             "accepted": "Le champ {attribute} doit être accepté.",
@@ -1658,6 +1637,20 @@ export default {
             },
             "terms": {
                 "required": "S'il vous plaît approuver avec les termes et conditions"
+            }
+        },
+        "views": {
+            "tenant": {
+                "my": {
+                    "personal": {
+                        "title": "Données personnelles",
+                        "description": "Mes données personnelles.",
+                        "placeholder": {
+                            "title": "Aucune donnée personnelle disponible.",
+                            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                        }
+                    }
+                }
             }
         }
     }
