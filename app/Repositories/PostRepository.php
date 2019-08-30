@@ -106,20 +106,32 @@ class PostRepository extends BaseRepository
     /**
      * @param int $id
      * @param $status
-     * @param $publish_at
+     * @param $publishedAt
      * @return Post
      */
-    public function setStatus(int $id, $status, $publish_at)
+    public function setStatus(int $id, $status, $publishedAt)
     {
         $post = $this->find($id);
+        return $this->setStatusExisting($post, $status, $publishedAt);
+    }
+
+    /**
+     * @param Post $post
+     * @param $status
+     * @param $publishedAt
+     * @return Post
+     */
+    public function setStatusExisting(Post $post, $status, $publishedAt)
+    {
         if ($post->status != $status && $status == Post::StatusPublished) {
             $post->status = $status;
-            $post->published_at = $publish_at ?? Carbon::now();
+            $post->published_at = $publishedAt ?? Carbon::now();
 
             $post->save();
             $this->notify($post);
             return $post;
         }
+
         $post->status = $status;
         $post->save();
         return $post;
@@ -242,7 +254,8 @@ class PostRepository extends BaseRepository
         if ($publishStart->isBefore(Carbon::now())) {
             $publishStart = Carbon::now();
         }
-        $this->setStatus($post->id, Post::StatusPublished, $publishStart);
+        
+        $this->setStatusExisting($post, Post::StatusPublished, $publishStart);
         return $post;
     }
 

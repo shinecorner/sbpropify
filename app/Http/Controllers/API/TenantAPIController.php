@@ -380,9 +380,11 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @param UpdateRequest $request
-     * @return Response
+     * @param PostRepository $pr
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Put(
      *      path="/tenants/{id}",
