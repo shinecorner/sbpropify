@@ -198,9 +198,10 @@ class ServiceRequestRepository extends BaseRepository
     {
         if ($attributes['status'] != $request->status) {
             if (ServiceRequest::StatusDone == $attributes['status']) {
-                $attributes['solved_date'] = Carbon::now()->format('Y-m-d');
+                $now = now();
+                $attributes['solved_date'] = $now;
                 $time = $request->reactivation_date ?? $request->created_at;
-                $attributes['resolution_time'] = $request->resolution_time + now()->diffInSeconds($time);
+                $attributes['resolution_time'] = $request->resolution_time + $now->diffInSeconds($time);
             } elseif (ServiceRequest::StatusReactivated == $attributes['status']) {
                 $attributes['reactivation_date'] = now();
             }

@@ -222,7 +222,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'priority' => 'integer',
         'internal_priority' => 'integer',
         'due_date' => 'date',
-        'solved_date' => 'date',
+        'solved_date' => 'datetime',
         'qualification' => 'integer',
         'visibility' => 'integer',
         'service_request_format' => 'string',

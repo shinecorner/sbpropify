@@ -832,6 +832,17 @@ class StatisticsAPIController extends AppBaseController
                                                       duration from service_requests where solved_date is not null;";
         $avgReqFix = DB::select($query);
 
+//        $query = "select time_to_sec(timediff(solved_date, created_at)) duration, created_at, solved_date, id from service_requests where id =3;";
+//        $avgReqFix = DB::select($query);
+//        $req = ServiceRequest::find(3);
+//        dd(
+//            $avgReqFix, $req->only('created_at', 'id', 'solved_date', 'resolution_time'), $req->solved_date->diffInSeconds( $req->created_at),
+//                gmdate("H:i",$avgReqFix[0]->duration),
+//                gmdate("H:i",$req->resolution_time),
+//                gmdate("Y-m-d H:i",$avgReqFix[0]->duration),
+//                gmdate("Y-m-d H:i",$req->resolution_time)
+//
+//        );
         $allStartDates = [
             'requests' => $this->timeFormat(ServiceRequest::min('created_at')),
             'tenants' => $this->timeFormat(Tenant::min('created_at')),
