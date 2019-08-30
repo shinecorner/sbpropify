@@ -35,7 +35,8 @@ export default (config = {}) => {
                     component: '',
                     keyword: '',
                     keywords: [],
-                    kostenfolge: ''
+                    payer: '',
+                    property_managers: [],
                 },
                 validationRules: {
                     category: [{
@@ -129,8 +130,13 @@ export default (config = {}) => {
                 ],
                 showfirstlayout: false,
                 showpayer: false,
+                showUmgebung: false,
+                showLiegenschaft: false,
+                showWohnung: false,
                 createTag: false,
-                editTag: false   
+                editTag: false,
+                tags: [],
+                alltags: [],
             };
         },
         computed: {
@@ -279,6 +285,29 @@ export default (config = {}) => {
                 }
 
                 return false;
+            },
+            async getRealCategories() {
+                const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
+
+                const filteredcategories = categories.filter(category => {
+                    if(category.id != 2) {
+                        return category;
+                    }
+                });
+
+                const initialcategories = this.prepareCategories(filteredcategories);
+                
+                this.categories = initialcategories.filter(category => {
+                    if(category.parent_id !== 1) {
+                        return category;
+                    }
+                });
+
+                this.first_layout_subcategories = initialcategories.filter(category => {
+                    if(category.parent_id == 1) {
+                        return category;
+                    }
+                })
             }
         }
     };
@@ -351,26 +380,34 @@ export default (config = {}) => {
                     ...mapActions(['getRequest', 'updateRequest', 'getTenant', 'getRequestConversations', 'getAddress', 'getRequestTags',
                 'createRequestTags', 'getTags']),
                     async fetchCurrentRequest() {
-                        const resp = await this.getRequest({id: this.$route.params.id});
                         
-                        if(resp.data.category.id == 1) {
-                            this.showfirstlayout = true;
-                        }
-                        else {
-                            this.showfirstlayout = false;
-                        }
+                        const resp = await this.getRequest({id: this.$route.params.id});
 
-                        if(resp.data.qualification == 5) {
-                            this.showpayer = true;
+                        if(resp) {
+                            this.model.property_managers = resp.data.property_managers.map((manager) => {
+                                manager.name = `${manager.first_name} ${manager.last_name}`;
+                                return manager
+                            });
                         }
-                        else {
-                            this.showpayer = false;
-                        }
+                        
+                        this.showfirstlayout = resp.data.category.parent_id == 1 ? true : false;
+                        
+                        this.showLiegenschaft = resp.data.location != null ? true : false;
+
+                        this.showWohnung = resp.data.room != null ? true : false;
+                        
+                        this.showpayer = resp.data.qualification == 5 ? true : false;
 
                         const data = resp.data;
 
                         this.model = Object.assign({}, this.model, data);
-                        this.$set(this.model, 'category_id', data.category.id);
+                        if(data.category.parent_id == null) {
+                            this.$set(this.model, 'category_id', data.category.id);
+                        }
+                        else {
+                            this.$set(this.model, 'category_id', data.category.parent_id);
+                            this.$set(this.model, 'defect', data.category.id);
+                        }
                         this.$set(this.model, 'created_by', data.created_by);
                         this.$set(this.model, 'building', data.tenant.building.name);
 
@@ -380,8 +417,6 @@ export default (config = {}) => {
                             this.model.tenant_id = data.tenant.id;
                             await this.getBuildingAddress(data.tenant.building.id);
                         }
-                        
-                        await this.getTags({get_all: true, search: ''})
                     },
                     submit() {
                         return new Promise((resolve, reject) => {
@@ -393,25 +428,26 @@ export default (config = {}) => {
 
                                 this.loading.state = true;
                                 let {service_providers, property_managers, ...params} = this.model;
+                                
+                                if(params.category_id == 1)
+                                    params.category_id = this.model.defect;
+        
+                                
                                 // const resptags = await this.createRequestTag({
                                 //     id: this.$route.params.id,
                                 //     keywords: this.model.keywords
                                 // });
                                 
-                                let tags = [];
-                                const tagsResp = await this.getTags({get_all: true, search: ''})
-                                if(tagsResp.success == true) 
-                                {
-                                    tags = tagsResp.data;
-                                }
+
 
                                 let existingsKeys = [];
                                 let newTags = [];
                                 
                                 this.model.keywords.forEach(keyword => {
-                                    let tagObj = tags.find((item) => {
+                                    let tagObj = this.alltags.find((item) => {
                                         return item.name == keyword;
-                                      });
+                                    });
+                                    
                                     if ( tagObj != null ) {
                                         existingsKeys.push(tagObj.id);
                                     }
@@ -420,24 +456,27 @@ export default (config = {}) => {
                                     }
                                 })
                                 
-
-                                // /requests/{id}/tags
                                 const requestTags = await this.createRequestTags({
                                     id: this.$route.params.id,
                                     tag_ids: existingsKeys,
                                     tags: newTags
                                 });
 
-                                
+                                requestTags.data.tags.forEach(item => {
+                                    if(this.alltags.findIndex((el) => {return el.id == item.id}) == -1)
+                                        this.alltags.push({ id: item.id, name: item.name });
+                                })
 
                                 try {
                                     await this.uploadNewMedia(params.id);
+                                    
                                     const resp = await this.updateRequest(params);
+                                    
+                                    
                                     this.media = [];
                                     this.$set(this.model, 'service_providers', resp.data.service_providers);
                                     this.$set(this.model, 'media', resp.data.media);
                                     this.$set(this.model, 'property_managers', resp.data.property_managers);
-                                    //this.$set(this.model, 'keywords', resptags.data.tags);
                                     displaySuccess(resp);
                                     resolve(true);
                                 } catch (err) {
@@ -471,30 +510,24 @@ export default (config = {}) => {
                 mixin.created = async function () {
                     this.loading.state = true;
 
-                    const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
+                    this.getRealCategories();
 
-                    const filteredcategories = categories.filter(category => {
-                        if(category.id != 2) {
-                            return category;
-                        }
-                    });
+                    const tagsResp = await this.getTags({get_all: true, search: ''});
 
-                    const initialcategories = this.prepareCategories(filteredcategories);
-                    
-                    this.categories = initialcategories.filter(category => {
-                        if(category.parent_id !== 1) {
-                            return category;
-                        }
-                    });
+                    if(tagsResp.success == true) 
+                    {
+                        this.alltags = tagsResp.data;
+                    }
 
                     const tags = await this.getRequestTags({id: this.$route.params.id});
                     
-                    this.$set(this.model, 'keywords', tags.data.data);
+                    this.tags = tags.data.data.map(item => ({
+                        id: item.id,
+                        name: item.name
+                    }));
 
-                    this.first_layout_subcategories = initialcategories.filter(category => {
-                        if(category.parent_id == 1) {
-                            return category;
-                        }
+                    tags.data.data.map(item => {
+                        this.model.keywords.push(item.name);
                     })
 
                     await this.fetchCurrentRequest();

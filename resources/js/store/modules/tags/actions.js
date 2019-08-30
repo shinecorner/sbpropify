@@ -3,7 +3,6 @@ import {buildFetchUrl} from 'helpers/url';
 
 export default {
     getTags({commit}, payload) {
-        
         return new Promise((resolve, reject) =>
             axios.get(buildFetchUrl('tags', payload))
                 .then(({data: r}) => (r && commit('SET_TAGS', r.data), resolve(r)))
