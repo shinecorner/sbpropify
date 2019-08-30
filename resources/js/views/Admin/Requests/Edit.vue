@@ -137,33 +137,15 @@
                                 </el-col>
                                 <el-col :md="12">
                                     <el-form-item :label="$t('models.request.category_options.keywords')">
-                                        <!-- <el-tag
-                                        :key="tag.id"
-                                        v-for="tag in model.keywords"
-                                        closable
-                                        :disable-transitions="false"
-                                        @close="handleClose(tag)">
-                                            <span v-if="tag.name">{{tag.name}}</span>
-                                            <span v-else>{{tag}}</span>
-                                        </el-tag>
-                                        <el-input
-                                            class="input-new-tag"
-                                            v-if="inputVisible"
-                                            v-model="model.keyword"
-                                            ref="saveTagInput"
-                                            size="mini"
-                                            @keyup.enter.native="handleInputConfirm"
-                                            @blur="handleInputConfirm"
-                                        >
-                                        </el-input>
-                                        <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New</el-button> -->
                                         <el-select
                                             v-model="model.keywords"
+                                            v-if="this.showplaceholder == false"
                                             multiple
                                             filterable
                                             allow-create
-                                            :placeholder="$t(`general.placeholders.select`)"
-                                            @close="handleClose(tag)">
+                                            default-first-option
+                                            @remove-tag="deleteTag" 
+                                            >
                                             <el-option
                                                 v-for="item in tags"
                                                 :key="item.id"
@@ -475,6 +457,7 @@
                 }],
                 rolename: null,
                 inputVisible: false,
+                
             }
         },
         computed: {
@@ -507,6 +490,11 @@
         },
         async mounted() {
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
+            this.$root.$on('changeLanguage', () => {
+                console.log('change event');
+                this.getRealCategories();
+            });
+
         },
         methods: {
             ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags', 'deleteRequestTag']),
@@ -612,54 +600,6 @@
                     this.showWohnung = false;
                 }
             },
-            
-            handleClose(tag) {
-                //this.model.keywords.splice(this.model.keywords.indexOf(tag), 1);
-                
-                if(tag.id != null) {
-                    const deleteresult = this.deleteRequestTag({
-                        id: this.$route.params.id,
-                        tag_id: tag.id
-                    });
-                }
-            },
-
-            showInput() {
-                this.inputVisible = true;
-                this.$nextTick(_ => {
-                    this.$refs.saveTagInput.$refs.input.focus();
-                });
-            },
-
-            async handleInputConfirm() {
-                let inputValue = this.model.keyword;
-                // const resp = await this.getRequestTags({id: this.$route.params.id});
-                
-                // if(resp.data.data.indexOf(inputValue) == -1) {
-                //     this.model.keywords.push(inputValue);
-                // }
-
-                if (inputValue) {
-                    let newkeyword = {
-                        id: null,
-                        name: inputValue
-                    }
-
-                    const existing = this.model.keywords.filter(keyword => {
-                        if(keyword.name == newkeyword.name) 
-                        {
-                            return keyword;
-                        }
-                    })
-
-                    if(existing.length == 0) {
-                        this.model.keywords.push(newkeyword);
-                    }
-                    
-                }
-                this.inputVisible = false;
-                this.model.keyword = '';
-            },
 
             selectPayer() {
                 
@@ -669,6 +609,24 @@
                 else {
                     this.showpayer = false;
                 }
+            },
+            async deleteTag(tag) {
+                
+                const deleteTag = this.alltags.find((item) => {
+                    return item.name == tag;
+                });
+
+                if(deleteTag != null) {
+                    const resp = await this.deleteRequestTag({
+                        id: this.$route.params.id,
+                        tag_id: deleteTag.id
+                    });
+                    
+                }
+
+                this.tags = this.tags.filter(item => {
+                    return item.name != tag;
+                });
             }
         }
     };

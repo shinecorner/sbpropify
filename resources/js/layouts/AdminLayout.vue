@@ -648,7 +648,7 @@
                 //this.$router.push({ name: 'adminBuildings' });
                 //this.$router.push({ path: `/` })
                 //this.$router.push({ path: `/admin/buildings` })
-                this.getRequestCategoriesTree({get_all: true});
+                
             },
 
             changeLanguage: function(language) {

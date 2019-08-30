@@ -135,7 +135,8 @@ export default (config = {}) => {
                 showWohnung: false,
                 createTag: false,
                 editTag: false,
-                tags: []   
+                tags: [],
+                alltags: [],
             };
         },
         computed: {
@@ -284,6 +285,29 @@ export default (config = {}) => {
                 }
 
                 return false;
+            },
+            async getRealCategories() {
+                const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
+
+                const filteredcategories = categories.filter(category => {
+                    if(category.id != 2) {
+                        return category;
+                    }
+                });
+
+                const initialcategories = this.prepareCategories(filteredcategories);
+                
+                this.categories = initialcategories.filter(category => {
+                    if(category.parent_id !== 1) {
+                        return category;
+                    }
+                });
+
+                this.first_layout_subcategories = initialcategories.filter(category => {
+                    if(category.parent_id == 1) {
+                        return category;
+                    }
+                })
             }
         }
     };
@@ -393,8 +417,6 @@ export default (config = {}) => {
                             this.model.tenant_id = data.tenant.id;
                             await this.getBuildingAddress(data.tenant.building.id);
                         }
-                        
-                        //await this.getTags({get_all: true, search: ''})
                     },
                     submit() {
                         return new Promise((resolve, reject) => {
@@ -416,46 +438,34 @@ export default (config = {}) => {
                                 //     keywords: this.model.keywords
                                 // });
                                 
-                                let tags = [];
-                                const tagsResp = await this.getTags({get_all: true, search: ''});
-                                
-                                
-                                this.model.keywords = this.model.keywords.map(keyword => ({
-                                    id: null,
-                                    name: keyword
-                                }));
-                                
-                            
-                                if(tagsResp.success == true) 
-                                {
-                                    tags = tagsResp.data;
-                                }
+
 
                                 let existingsKeys = [];
                                 let newTags = [];
                                 
                                 this.model.keywords.forEach(keyword => {
-                                    let tagObj = tags.find((item) => {
-                                        return item.name == keyword.name;
+                                    let tagObj = this.alltags.find((item) => {
+                                        return item.name == keyword;
                                     });
                                     
                                     if ( tagObj != null ) {
                                         existingsKeys.push(tagObj.id);
                                     }
                                     else {
-                                        newTags.push(keyword.name);
+                                        newTags.push(keyword);
                                     }
                                 })
                                 
-
-                                // /requests/{id}/tags
                                 const requestTags = await this.createRequestTags({
                                     id: this.$route.params.id,
                                     tag_ids: existingsKeys,
                                     tags: newTags
                                 });
 
-                                
+                                requestTags.data.tags.forEach(item => {
+                                    if(this.alltags.findIndex((el) => {return el.id == item.id}) == -1)
+                                        this.alltags.push({ id: item.id, name: item.name });
+                                })
 
                                 try {
                                     await this.uploadNewMedia(params.id);
@@ -500,21 +510,14 @@ export default (config = {}) => {
                 mixin.created = async function () {
                     this.loading.state = true;
 
-                    const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
+                    this.getRealCategories();
 
-                    const filteredcategories = categories.filter(category => {
-                        if(category.id != 2) {
-                            return category;
-                        }
-                    });
+                    const tagsResp = await this.getTags({get_all: true, search: ''});
 
-                    const initialcategories = this.prepareCategories(filteredcategories);
-                    
-                    this.categories = initialcategories.filter(category => {
-                        if(category.parent_id !== 1) {
-                            return category;
-                        }
-                    });
+                    if(tagsResp.success == true) 
+                    {
+                        this.alltags = tagsResp.data;
+                    }
 
                     const tags = await this.getRequestTags({id: this.$route.params.id});
                     
@@ -522,13 +525,9 @@ export default (config = {}) => {
                         id: item.id,
                         name: item.name
                     }));
-                    
 
-
-                    this.first_layout_subcategories = initialcategories.filter(category => {
-                        if(category.parent_id == 1) {
-                            return category;
-                        }
+                    tags.data.data.map(item => {
+                        this.model.keywords.push(item.name);
                     })
 
                     await this.fetchCurrentRequest();
