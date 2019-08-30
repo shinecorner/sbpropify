@@ -1278,7 +1278,9 @@ class StatisticsAPIController extends AppBaseController
     public function donutChartRequestByCategory(Request $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
-        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id');
+        $name = get_translation_attribute_name('name');
+        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck($name, 'id');
+
         $serviceRequests = ServiceRequest::selectRaw('count(service_requests.id) as count, IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
             ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
             ->leftJoin('service_request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
