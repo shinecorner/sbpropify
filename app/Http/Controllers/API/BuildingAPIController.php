@@ -305,10 +305,9 @@ class BuildingAPIController extends AppBaseController
         if ($validator->fails()) {
             return $this->sendError($validator->errors());
         }
-        $address = $this->addressRepository->create($addressInput);
 
+        $address = $this->addressRepository->create($addressInput);
         $input['address_id'] = $address->id;
-        $input['name'] = sprintf('%s %s', $address->street, $address->street_nr);
 
         $geoData = $this->getGeoDataByAddress($address);
         $input = array_merge($input, $geoData);
