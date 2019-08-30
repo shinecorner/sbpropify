@@ -89,6 +89,7 @@
                             </el-form-item>
                              <el-form-item v-else-if="filter.type === filterTypes.language">
                                 <select-language
+                                    :role="'settings.language'"
                                     :activeLanguage="this.language"
                                     @change="filterChanged(filter)"
                                 />

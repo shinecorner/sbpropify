@@ -3,18 +3,12 @@
          <el-row :gutter="24" type="flex">
             <el-col :span="12">
                 <div class="progress-label">
-                    <span>{{ label }}</span>
+                    <span>{{ label }} ({{ value }})</span>
                 </div>
             </el-col>
             <el-col :span="12">
                 <div class="progress-bar">
-                    <div class="progress-status">
-                        <span class="progress-value">{{ value }}</span>
-                        <span class="progress-percent" :style="style" >
-                            {{ Math.round(value*10000/maxValue)/100 }}%
-                        </span>
-                    </div>
-                    <el-progress :percentage="value*100/maxValue" :color="color" :show-text="false"></el-progress>
+                    <el-progress :text-inside="true" :stroke-width="26" :color="color" :percentage="value*100/maxValue"></el-progress>
                 </div>
             </el-col>
         </el-row>

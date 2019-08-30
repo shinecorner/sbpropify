@@ -20,12 +20,24 @@
                             <p>{{ item.description }}</p>
                         </el-col>
                         <el-col :span="3" class="request-tail">
-                            {{ $t('models.request.last_updated') }}
-                            <br>
-                            <span v-if="updated_at.h>12">{{ item.created_by }}</span>
-                            <span v-else-if="updated_at.h">{{ updated_at.h }}h</span>
-                            <span v-else-if="updated_at.m">{{  updated_at.m }}m</span>
-                            <span v-else>ago</span>
+                            <div>
+                                {{ $t('models.request.status.label') }}
+                                <br>
+                                <el-button v-if="item.status == 1" plain type="info" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(1),'color':getRequestStatusColor(1)}" round>{{ $t('models.request.status.received') }}</el-button>
+                                <el-button v-else-if="item.status == 2" plain type="warning" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(2),'color':getRequestStatusColor(2)}"  round>{{ $t('models.request.status.in_processing') }}</el-button>
+                                <el-button v-else-if="item.status == 3" plain type="warning" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(3),'color':getRequestStatusColor(3)}"  round>{{ $t('models.request.status.assigned') }}</el-button>
+                                <el-button v-else-if="item.status == 4" plain type="success" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(4),'color':getRequestStatusColor(4)}"  round>{{ $t('models.request.status.done') }}</el-button>
+                                <el-button v-else-if="item.status == 5" plain type="warning" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(5),'color':getRequestStatusColor(5)}"  round>{{ $t('models.request.status.reactivated') }}</el-button>
+                                <el-button v-else-if="item.status == 6" plain type="success" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(6),'color':getRequestStatusColor(6)}"  round>{{ $t('models.request.status.archived') }}</el-button>
+                            </div>
+                            <div>
+                                {{ $t('models.request.last_updated') }}
+                                <br>
+                                <span v-if="updated_at.h>12">{{ item.created_by }}</span>
+                                <span v-else-if="updated_at.h">{{ updated_at.h }}h</span>
+                                <span v-else-if="updated_at.m">{{  updated_at.m }}m</span>
+                                <span v-else>ago</span>
+                            </div>
                         </el-col>
                     </el-row>
                 </el-col>
@@ -71,7 +83,17 @@
                 </el-col>
                 <el-col :span="6">
                     <span>{{ $t('models.request.created_by') }}</span>
-                    <p>{{ item.tenant_name }}, {{ item.created_at }}</p>
+                    <p>
+                        <el-tooltip
+                            :content="item.tenant_name"
+                            class="item"
+                            effect="light" placement="top">
+
+                            <table-avatar :src="item.tenant.user.avatar" :name="item.tenant_name" :size="33" />
+                        </el-tooltip>
+                        {{ item.tenant_name }}, 
+                        {{ item.created_at }}
+                    </p>
                 </el-col> 
                 <el-col :span="6">
                     <span>{{ $t('models.request.priority.label') }}</span>
@@ -94,8 +116,11 @@
 
     import RequestCount from 'components/RequestCount.vue';
     import {Avatar} from 'vue-avatar'
+    import tableAvatar from 'components/Avatar';
+    import globalFunction from "helpers/globalFunction";
 
 export default {
+    mixins: [globalFunction],
     props: {
         item: {
             type: Object,
@@ -115,7 +140,8 @@ export default {
     },
     components: {
         RequestCount,
-        Avatar
+        Avatar,
+        'table-avatar': tableAvatar
     },
     computed: {
         due() {
@@ -132,7 +158,7 @@ export default {
             else if(days <= 30)
                 return {
                     label:'models.request.due_in',
-                    date: `${Math.floor(days)}`
+                    date: Math.floor(days) + (Math.floor(days) > 1?` ${this.$t('general.timestamps.days')}`:` ${this.$t('validation.attributes.day')}`),
                 };
             else
                 return {
@@ -215,6 +241,8 @@ export default {
                     }
                 }
                 .request-tail {
+                    display: flex;
+                    flex-direction: column;
                     padding-right: 50px;
                     padding-top: 17.5px;
                 }
