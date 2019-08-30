@@ -15,7 +15,7 @@
                 </el-col>
                 <el-col :span="18" class="request-content">
                     <h3>{{ item.title }}</h3>
-                    <p>{{ item.category.name }}</p>
+                    <p>{{ item.category.parent_id==null?'':item.category.parentCategory.name + ' > ' }}{{ item.category.name }}</p>
                     <p>{{ item.description }}</p>
                 </el-col>
                 <el-col :span="3" class="request-tail">
