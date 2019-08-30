@@ -78,3 +78,8 @@ export default {
         }
     }
 </style>
+<style lang="scss">
+    .progress-bar .el-progress-bar__innerText {
+        text-shadow: 0 0 3px #000;
+    }
+</style>

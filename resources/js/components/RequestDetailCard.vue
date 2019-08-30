@@ -268,7 +268,7 @@ export default {
                     margin-top: 5px;
                     width: 100%;
                     background-color: #ecf5ff;
-                    color: #409eff;
+                    color: #206eab;
                     border: 1px solid #d9ecff;
                 }
             }
