@@ -160,17 +160,7 @@ class TenantRepository extends BaseRepository
             unset($attributes['company']);
         }
 
-        // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-
-        $model = parent::update($attributes, $id);
-        $this->skipPresenter($temporarySkipPresenter);
-
-        $model = $this->updateRelations($model, $attributes);
-        $model->save();
-
-        return $this->parserResult($model);
+        return parent::update($attributes, $id);
     }
 
     /**

@@ -15,13 +15,15 @@ trait UpdateSettings
             $settingData = $attributes['settings'];
             $model->load('settings');
             $settings = $model->settings;
+
             if($settings) {
                 $settings->update($settingData);
             } else {
-                $model->settings()->create($settingData);
+                $newSetting = $model->settings()->create($settingData);
+                $model->setRelation('settings', $newSetting);
             }
         }
-        
+
         return $model;
     }
 }

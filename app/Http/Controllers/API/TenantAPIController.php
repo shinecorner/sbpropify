@@ -459,12 +459,12 @@ class TenantAPIController extends AppBaseController
         }
 
         try {
-            $tenant = $this->tenantRepository->update($input, $id);
+            $tenant = $this->tenantRepository->updateExisting($tenant, $input);
         } catch (\Exception $e) {
             return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
         }
 
-        $tenant->load('user', 'building', 'unit', 'address', 'media');
+        $tenant->load('building', 'unit', 'address', 'media');
         if ($shouldPost) {
             $pr->newTenantPost($tenant);
         }

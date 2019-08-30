@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Model;
+use Prettus\Repository\Events\RepositoryEntityUpdated;
 
 abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
 {
@@ -66,5 +67,22 @@ abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
     {
         // @TODO if need
         return $model;
+    }
+
+    /**
+     * @param Model $model
+     * @param $attributes
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function updateExisting(Model $model, $attributes)
+    {
+        $model = $this->updateRelations($model, $attributes);
+        $model->fill($attributes);
+        $model->save();
+        $this->resetModel();
+        event(new RepositoryEntityUpdated($this, $model));
+
+        return $this->parserResult($model);
     }
 }
