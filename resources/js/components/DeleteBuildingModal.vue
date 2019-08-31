@@ -81,7 +81,7 @@
         },        
     };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
     .delete_building_modal {        
 
         .el-row {
@@ -90,8 +90,10 @@
 
         .description {
             margin: 0;
-        }        
-        
+        }
+        .el-dialog__body {
+            word-break: break-word;
+        }
     }
 </style>
 

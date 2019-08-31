@@ -187,8 +187,8 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="8" class="summary-item">
-                                    <el-form-item :label="$t('models.request.internal_priority.label')">
-                                        <strong>{{$constants.service_requests.internal_priority[model.internal_priority]}}</strong>
+                                    <el-form-item :label="$t('models.request.priority.label')">
+                                        <strong>{{$constants.service_requests.priority[model.priority]}}</strong>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="8" class="summary-item">
@@ -297,6 +297,20 @@
                         <template v-if="$can($permissions.assign.request)">
                             <card :loading="loading" :header="$t('models.request.actions')">
                                 <el-row :gutter="10">
+                                    <el-col :md="12">
+                                        <el-form-item :label="$t('models.request.internal_priority.label')"
+                                                      :rules="validationRules.internal_priority"
+                                                      prop="internal_priority">
+                                            <el-select :placeholder="$t('models.request.internal_priority.label')" class="custom-select" v-model="model.internal_priority">
+                                                <el-option
+                                                    :key="k"
+                                                    :label="$t(`models.request.internal_priority.${priority}`)"
+                                                    :value="parseInt(k)"
+                                                    v-for="(priority, k) in $constants.service_requests.internal_priority">
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                    </el-col>
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.request.status.label')"
                                                       :rules="validationRules.status"

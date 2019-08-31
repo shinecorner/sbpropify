@@ -275,6 +275,7 @@ export default {
                 p {
                     margin-bottom: 2px;
                     line-height: 15px;
+                    word-break: break-word;
                 }
             }
             .request-tail {
