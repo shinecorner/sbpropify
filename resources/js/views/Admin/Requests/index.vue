@@ -65,6 +65,7 @@
                     label: '',
                     withOneCol: true,
                     editAction: this.edit,
+                    onChange: this.listingSelectChangedNotify
                 }],
                 categories:{},
                 districts:{},
@@ -84,7 +85,7 @@
             formattedItems() {
                 return this.items.map((request) => {
                     request.qualification_label = this.$t(`models.request.qualification.${request.qualification_label}`);
-                    return request
+                    return request;
                 });
             },
             routeName() {
@@ -112,10 +113,10 @@
                         data: this.prepareFilters("status"),
                     },
                     {
-                        name: this.$t('models.request.priority.label'),
+                        name: this.$t('models.request.internal_priority.label'),
                         type: 'select',
-                        key: 'priority',
-                        data: this.prepareFilters("priority"),
+                        key: 'internal_priority',
+                        data: this.prepareFilters("internal_priority"),
                     },
                     {
                         name: this.$t('filters.districts'),

@@ -209,6 +209,11 @@
                 await this.fetch();
             }
         },
+        mounted() {
+            if (!this.addedAssigmentList) {
+                this.$root.$on('changeLanguage', () => this.fetch());
+            }
+        },
         methods: {
             async fetch(page = 1) {
                 this.loading = true;

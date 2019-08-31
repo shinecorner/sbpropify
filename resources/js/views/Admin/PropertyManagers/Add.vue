@@ -208,6 +208,15 @@
         float: none;
         text-align: left;
     }
+    .el-form-item__content 
+    .selected
+    #languageform.el-input__inner {
+        padding-left: 40px;
+        #languageflag {
+            padding-left: 20px;
+        }
+    }
+    
 </style>
 <style lang="scss" scoped>
     .services-add {

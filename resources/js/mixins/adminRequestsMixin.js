@@ -51,6 +51,10 @@ export default (config = {}) => {
                         required: true,
                         message: this.$t('validation.general.required')
                     }],
+                    internal_priority: [{
+                        required: true,
+                        message: this.$t('validation.general.required')
+                    }],
                     status: [{
                         required: true,
                         message: this.$t('validation.general.required')
