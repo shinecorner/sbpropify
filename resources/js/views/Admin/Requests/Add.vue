@@ -34,15 +34,15 @@
                                 </el-option>
                             </el-select>
                         </el-form-item>
-                        <el-form-item :label="$t('models.request.priority.label')" :rules="validationRules.priority"
-                                      prop="priority">
-                            <el-select :placeholder="$t('models.request.placeholders.priority')" class="custom-select"
-                                       v-model="model.priority">
+                        <el-form-item :label="$t('models.request.internal_priority.label')" :rules="validationRules.internal_priority"
+                                      prop="internal_priority">
+                            <el-select :placeholder="$t('models.request.internal_priority.label')" class="custom-select"
+                                       v-model="model.internal_priority">
                                 <el-option
                                     :key="k"
-                                    :label="$t(`models.request.priority.${priority}`)"
+                                    :label="$t(`models.request.internal_priority.${priority}`)"
                                     :value="parseInt(k)"
-                                    v-for="(priority, k) in $constants.service_requests.priority">
+                                    v-for="(priority, k) in $constants.service_requests.internal_priority">
                                 </el-option>
                             </el-select>
                         </el-form-item>

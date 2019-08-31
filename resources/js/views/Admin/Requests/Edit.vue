@@ -187,8 +187,8 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="8" class="summary-item">
-                                    <el-form-item :label="$t('models.request.priority.label')">
-                                        <strong>{{$constants.service_requests.priority[model.priority]}}</strong>
+                                    <el-form-item :label="$t('models.request.internal_priority.label')">
+                                        <strong>{{$constants.service_requests.internal_priority[model.internal_priority]}}</strong>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="8" class="summary-item">

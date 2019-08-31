@@ -90,11 +90,11 @@
                     </p>
                 </el-col> 
                 <el-col :span="3">
-                    <span>{{ $t('models.request.priority.label') }}</span>
+                    <span>{{ $t('models.request.internal_priority.label') }}</span>
                     <p>
-                        <el-button v-if="item.priority_label == 'low'" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.priority.low') }}</el-button>
-                        <el-button v-else-if="item.priority_label == 'normal'" plain type="warning" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.priority.normal') }}</el-button>
-                        <el-button v-else-if="item.priority_label == 'urgent'" plain type="danger" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.priority.urgent') }}</el-button>
+                        <el-button v-if="item.internal_priority_label == 'low'" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.internal_priority.low') }}</el-button>
+                        <el-button v-else-if="item.internal_priority_label == 'normal'" plain type="warning" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.internal_priority.normal') }}</el-button>
+                        <el-button v-else-if="item.internal_priority_label == 'urgent'" plain type="danger" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.internal_priority.urgent') }}</el-button>
                     </p>
                 </el-col>
                 <el-col :span="3">
