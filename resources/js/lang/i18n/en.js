@@ -149,6 +149,7 @@ export default {
             "user": "User",
             "tenant": "Tenant",
             "tenants": "Tenants",
+            "recipients": "Recipients",
             "date": "Date",
             "title": "Title",
             "description": "Description",

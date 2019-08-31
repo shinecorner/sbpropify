@@ -65,6 +65,7 @@
                     label: '',
                     withOneCol: true,
                     editAction: this.edit,
+                    onChange: this.listingSelectChangedNotify
                 }],
                 categories:{},
                 districts:{},
@@ -84,7 +85,7 @@
             formattedItems() {
                 return this.items.map((request) => {
                     request.qualification_label = this.$t(`models.request.qualification.${request.qualification_label}`);
-                    return request
+                    return request;
                 });
             },
             routeName() {

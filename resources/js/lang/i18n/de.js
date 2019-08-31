@@ -149,6 +149,7 @@ export default {
             "user": "Benutzer",
             "tenant": "Mieter",
             "tenants": "Mieterinnen",
+            "recipients": "Empfänger",
             "date": "Datum",
             "title": "Titel",
             "description": "Beschreibung",

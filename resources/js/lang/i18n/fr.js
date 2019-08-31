@@ -149,6 +149,7 @@ export default {
             "user": "Utilisateur",
             "tenant": "Locataire",
             "tenants": "Locataires",
+            "recipients": "Récipiendaires",
             "date": "Date",
             "title": "intitulé",
             "description": "descriptif",

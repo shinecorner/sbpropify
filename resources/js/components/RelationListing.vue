@@ -209,6 +209,11 @@
                 await this.fetch();
             }
         },
+        mounted() {
+            if (!this.addedAssigmentList) {
+                this.$root.$on('changeLanguage', () => this.fetch());
+            }
+        },
         methods: {
             async fetch(page = 1) {
                 this.loading = true;
@@ -246,7 +251,7 @@
                 if(column.property === 'name')
                 {
                     let edit_id = row.edit_id;
-                    if(row.type == 'user') {
+                    if(row.type == 'manager') {
                         this.$router.push({ name: 'adminPropertyManagersEdit', params: { id: edit_id } });
                     }
                     else if(row.type == 'provider') {
