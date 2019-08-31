@@ -139,12 +139,12 @@
                                     <el-form-item :label="$t('models.request.category_options.keywords')">
                                         <el-select
                                             v-model="model.keywords"
-                                            v-if="this.showplaceholder == false"
                                             multiple
                                             filterable
                                             allow-create
                                             default-first-option
-                                            @remove-tag="deleteTag" 
+                                            @remove-tag="deleteTag"
+                                            style="display:block"
                                             >
                                             <el-option
                                                 v-for="item in tags"
@@ -405,7 +405,7 @@
     import {Avatar} from 'vue-avatar';
     import Audit from 'components/Audit';
     import AssignmentByType from 'components/AssignmentByType';
-
+    import Vue from 'vue';
 
     export default {
         name: 'AdminRequestsEdit',
@@ -491,7 +491,6 @@
         async mounted() {
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
             this.$root.$on('changeLanguage', () => {
-                console.log('change event');
                 this.getRealCategories();
             });
 
@@ -627,7 +626,7 @@
                 this.tags = this.tags.filter(item => {
                     return item.name != tag;
                 });
-            }
+            },
         }
     };
 </script>
@@ -694,7 +693,7 @@
             }
         }
         .summary-item {
-            margin-top: 10px;
+            margin-top: 20px;
             .el-form-item {
                 margin-bottom: 0px !important;
                 .el-form-item__content {

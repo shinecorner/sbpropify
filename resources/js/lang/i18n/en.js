@@ -342,6 +342,7 @@ export default {
             "user": "User",
             "tenant": "Tenant",
             "tenants": "Tenants",
+            "recipients": "Recipients",
             "date": "Date",
             "title": "Title",
             "description": "Description",
@@ -517,6 +518,13 @@ export default {
                 "all_time": "All time",
                 "week": "Week",
                 "peek_week": "Pick a week"
+            },
+            "tenant_detail": {
+                "activate_required_credentials": "code, email, password required",
+                "incorrect_email": "Incorrect email address",
+                "user_not_tenant": "This user is not tenant",
+                "invalid_code": "Code is invalid",
+                "not_active_tenant": "Tenant is not active and can not change password"
             },
             "page_not_found": {
                 "title": "Hmm... something's wrong here.",
