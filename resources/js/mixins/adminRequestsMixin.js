@@ -23,7 +23,7 @@ export default (config = {}) => {
                 model: {
                     title: '',
                     category: '',
-                    internal_priority: '',
+                    priority: '',
                     visibility: '',
                     provider_ids: [],
                     building: '',
@@ -44,6 +44,10 @@ export default (config = {}) => {
                         message: this.$t('validation.general.required')
                     }],
                     qualification: [{
+                        required: true,
+                        message: this.$t('validation.general.required')
+                    }],
+                    priority: [{
                         required: true,
                         message: this.$t('validation.general.required')
                     }],
