@@ -132,7 +132,7 @@ export default (config = {}) => {
                     {name: this.$t('models.request.category_options.costs.landlord'), value: 'lessor'},
                     {name: this.$t('models.request.category_options.costs.tenant'), value: 'tenant'},
                 ],
-                showfirstlayout: false,
+                showsubcategory: false,
                 showpayer: false,
                 showUmgebung: false,
                 showLiegenschaft: false,
