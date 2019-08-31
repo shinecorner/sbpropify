@@ -20,7 +20,7 @@
                                                    :placeholder="$t('models.request.placeholders.category')"
                                                    class="custom-select"
                                                    v-model="model.category_id"
-                                                   @change="showFirstLayout">
+                                                   @change="showSubcategory">
                                             <el-option
                                                 :key="category.id"
                                                 :label="category.name"
@@ -31,13 +31,13 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12"
-                                        v-if="this.showfirstlayout == true">
+                                        v-if="this.showsubcategory == true">
                                     <el-form-item label="Defekt/Mangel">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
                                                    class="custom-select"
                                                    v-model="model.defect"
-                                                   @change="showSecondLayout">
+                                                   @change="showLocationOrRoom">
                                             <el-option
                                                 :key="category.id"
                                                 :label="category.name"
@@ -48,7 +48,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12"
-                                        v-if="this.showfirstlayout == true && this.showLiegenschaft == true && this.showWohnung == false">
+                                        v-if="this.showsubcategory == true && this.showLiegenschaft == true && this.showWohnung == false">
                                     <el-form-item :label="$t('models.request.category_options.range')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
@@ -64,7 +64,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12"
-                                        v-if="this.showfirstlayout == true && this.showWohnung == true && this.showLiegenschaft == false">
+                                        v-if="this.showsubcategory == true && this.showWohnung == true && this.showLiegenschaft == false">
                                     <el-form-item :label="$t('models.request.category_options.room')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
@@ -157,7 +157,7 @@
                                 </el-col>
                             </el-row>
                             <el-row :gutter="20" id="request-summary">
-                                <el-col :md="8">
+                                <el-col :md="8" class="summary-item">
                                     <el-form-item v-if="model.tenant">
                                         <label slot="label">
                                             {{$t('general.tenant')}}
@@ -176,12 +176,12 @@
                                         </router-link>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="8">
+                                <el-col :md="8" class="summary-item">
                                     <el-form-item label="Building">
                                         <strong>{{this.model.building}}</strong>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="8">
+                                <el-col :md="8" class="summary-item">
                                     <el-form-item label="Creation Datetime">
                                         <strong>{{this.model.created_by}}</strong>
                                     </el-form-item>
@@ -446,6 +446,10 @@
                 selectedConversation: {},
                 constants: this.$store.getters['application/constants'],
                 assigneesColumns: [{
+                    type: 'assignProviderManagerAvatars',
+                    width: 70,
+                }, {
+                    type: 'assigneesName',
                     prop: 'name',
                     label: this.$t('general.name')
                 }, {
@@ -574,13 +578,13 @@
                     setTimeout( () => { active_bar.style.transform = 'translateX(265px)' }, 0)
                 }
             },
-            showFirstLayout() {
+            showSubcategory() {
 
                 if(this.model.category_id == 1) {
-                    this.showfirstlayout = true;
+                    this.showsubcategory = true;
                 }
                 else {
-                    this.showfirstlayout = false;
+                    this.showsubcategory = false;
                 }
 
                 if(this.model.qualification == 5) {
@@ -591,7 +595,7 @@
                 }
             },
             
-            showSecondLayout() {
+            showLocationOrRoom() {
                 const subcategory = this.first_layout_subcategories.filter(category => {
                     if(category.id == this.model.defect) {
                         return category;
@@ -601,26 +605,30 @@
                     this.showWohnung = true;
                     this.showLiegenschaft = false;
                     this.showUmgebung = false;
+                    this.model.location = '';
                 }
                 else if(subcategory[0].location == 1) {
                     this.showLiegenschaft = true;
                     this.showUmgebung = false;
                     this.showWohnung = false;
+                    this.model.room = '';
                 }
                 else if(subcategory[0].location == 0 && subcategory[0].room == 0) {
                     this.showUmgebung = true;
                     this.showLiegenschaft = false;
                     this.showWohnung = false;
+                    this.model.location = '';
+                    this.model.room = '';
                 }
             },
 
             selectPayer() {
-                
                 if(this.model.qualification == 5) {
                     this.showpayer = true;
                 }
                 else {
                     this.showpayer = false;
+                    this.model.payer = '';
                 }
             },
             async deleteTag(tag) {
@@ -707,7 +715,9 @@
             }
         }
         .summary-item {
-            margin-top: 20px;
+            max-height: 68px;
+            margin-top: 15px;
+            margin-bottom: 15px;
             .el-form-item {
                 margin-bottom: 0px !important;
                 .el-form-item__content {
