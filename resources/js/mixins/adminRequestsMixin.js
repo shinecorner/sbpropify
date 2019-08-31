@@ -401,10 +401,8 @@ export default (config = {}) => {
                         this.showsubcategory = resp.data.category.parent_id == 1 ? true : false;
                         
                         this.showLiegenschaft = resp.data.location != null ? true : false;
-                        console.log(this.showLiegenschaft);
 
                         this.showWohnung = resp.data.room != null ? true : false;
-                        console.log(this.showWohnung);
                         
                         this.showpayer = resp.data.qualification == 5 ? true : false;
 
