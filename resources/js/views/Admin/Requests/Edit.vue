@@ -579,20 +579,8 @@
                 }
             },
             showSubcategory() {
-
-                if(this.model.category_id == 1) {
-                    this.showsubcategory = true;
-                }
-                else {
-                    this.showsubcategory = false;
-                }
-
-                if(this.model.qualification == 5) {
-                    this.showpayer = true;
-                }
-                else {
-                    this.showpayer = false;
-                }
+                this.showsubcategory = this.model.category_id == 1 ? true : false;
+                this.showpayer = this.model.qualification == 5 ? true : false;
             },
             
             showLocationOrRoom() {
