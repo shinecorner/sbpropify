@@ -116,6 +116,7 @@ class RolesTableSeeder extends Seeder
             'view-building',
             'view-tenant',
             'assign-request',
+            'view-address',
 
         ];
         foreach ($servicePerms as $p) {
