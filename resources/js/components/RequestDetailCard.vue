@@ -94,6 +94,7 @@
                     </p>
                 </el-col> 
                 <el-col :span="4" class="request-category">
+                    <span>{{ $t('models.request.category') }}</span>
                     <p>{{ item.category.parent_id==null?'':item.category.parentCategory.name + ' > ' }}
                         {{ item.category.name }}
                     </p>
@@ -301,9 +302,6 @@ export default {
                 padding: 0px !important;
             }
             .request-category {
-                display: flex;
-                align-items: center;
-                justify-content: center;
             }
             .el-col {
                 border-right: 1px solid darken(#ebeef5, 10%);
@@ -327,7 +325,7 @@ export default {
     }
     .listing-link {
         text-decoration: none;
-        color: #6AC06F;
+        color: darken(#fff, 50%);
         font-weight: bold;
     }
 </style>
