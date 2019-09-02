@@ -828,21 +828,7 @@ class StatisticsAPIController extends AppBaseController
             'endDate' => null,
         ];
 
-        $query = "select coalesce(floor(avg(time_to_sec(timediff(solved_date, created_at)))), 0) 
-                                                      duration from service_requests where solved_date is not null;";
-        $avgReqFix = DB::select($query);
-
-//        $query = "select time_to_sec(timediff(solved_date, created_at)) duration, created_at, solved_date, id from service_requests where id =3;";
-//        $avgReqFix = DB::select($query);
-//        $req = ServiceRequest::find(3);
-//        dd(
-//            $avgReqFix, $req->only('created_at', 'id', 'solved_date', 'resolution_time'), $req->solved_date->diffInSeconds( $req->created_at),
-//                gmdate("H:i",$avgReqFix[0]->duration),
-//                gmdate("H:i",$req->resolution_time),
-//                gmdate("Y-m-d H:i",$avgReqFix[0]->duration),
-//                gmdate("Y-m-d H:i",$req->resolution_time)
-//
-//        );
+        $timeDifInSeconds = ServiceRequest::where('status', ServiceRequest::StatusDone)->avg('resolution_time');
         $allStartDates = [
             'requests' => $this->timeFormat(ServiceRequest::min('created_at')),
             'tenants' => $this->timeFormat(Tenant::min('created_at')),
@@ -852,7 +838,7 @@ class StatisticsAPIController extends AppBaseController
         ];
 
         $ret = [
-            'avg_request_duration' => $avgReqFix ? gmdate("H:i",$avgReqFix[0]->duration) : 0,
+            'avg_request_duration' => $this->formatTime($timeDifInSeconds),
             // all time total requests count and total request count of per status
             'total_requests' => $this->thousandsFormat(ServiceRequest::count('id')),
             'requests_per_status' => $this->donutChartByTable($request, $optionalArgs, 'service_requests'),
@@ -875,6 +861,17 @@ class StatisticsAPIController extends AppBaseController
         ];
 
         return $this->sendResponse($ret, 'Admin statistics retrieved successfully');
+    }
+
+    protected function formatTime($timeInSeconds)
+    {
+        $minutes = (int) floor($timeInSeconds / 60);
+        $seconds = (int)$timeInSeconds % 60;
+
+        $result = ($minutes < 10) ? '0' . $minutes : $minutes;
+        $result .= ':';
+        $result .= ($seconds < 10) ? '0' . $seconds : $seconds;
+        return $result;
     }
 
     /**
