@@ -292,6 +292,31 @@ export default (config = {}) => {
                 this.first_layout_subcategories.map(item => {
                     item.name = item.name.substring(3)
                 })
+            },
+            getLanguageI18n() {
+                let building_locations = this.$t('models.request.category_options.building_locations');
+                this.locations = [];
+                for (var key in building_locations) {
+                    this.locations.push({name : building_locations[key], value : key})
+                }
+
+                let apartment_rooms = this.$t('models.request.category_options.apartment_rooms');
+                this.rooms = [];
+                for (var key in apartment_rooms) {
+                    this.rooms.push({name : apartment_rooms[key], value : key})
+                }
+
+                let acquisitions = this.$t('models.request.category_options.acquisitions');
+                this.acquisitions = [];
+                for (var key in acquisitions) {
+                    this.acquisitions.push({name : acquisitions[key], value : key})
+                }
+
+                let costs = this.$t('models.request.category_options.costs');
+                this.costs = [];
+                for (var key in costs) {
+                    this.costs.push({name : costs[key], value : key})
+                }
             }
         }
     };
@@ -301,9 +326,14 @@ export default (config = {}) => {
             case 'add':
                 mixin.methods = {
                     ...mixin.methods,
-                    ...mapActions(['createRequest']),
+                    ...mapActions(['createRequest', 'createRequestTags']),
                     async saveRequest() {
+                        if(this.model.category_id == 1) {
+                            this.model.category_id = this.model.defect;
+                        }
                         const resp = await this.createRequest(this.model);
+                        console.log(resp)
+                        return;
 
                         await this.uploadNewMedia(resp.data.id);
 
@@ -320,6 +350,7 @@ export default (config = {}) => {
                             this.loading.state = true;
                             try {
                                 const resp = await this.saveRequest();
+        
                                 displaySuccess(resp);
 
                                 this.form.resetFields();
@@ -350,9 +381,8 @@ export default (config = {}) => {
                         message: 'This field is required'
                     }];
 
-                    const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
-
-                    this.categories = this.prepareCategories(categories);
+                    this.getRealCategories();
+                    this.getLanguageI18n();
 
                     this.loading.state = false;
                 };
@@ -364,30 +394,8 @@ export default (config = {}) => {
                     ...mapActions(['getRequest', 'updateRequest', 'getTenant', 'getRequestConversations', 'getAddress', 'getRequestTags',
                 'createRequestTags', 'getTags']),
                     async fetchCurrentRequest() {
-                        let building_locations = this.$t('models.request.category_options.building_locations');
-                        this.locations = [];
-                        for (var key in building_locations) {
-                            this.locations.push({name : building_locations[key], value : key})
-                        }
-
-                        let apartment_rooms = this.$t('models.request.category_options.apartment_rooms');
-                        this.rooms = [];
-                        for (var key in apartment_rooms) {
-                            this.rooms.push({name : apartment_rooms[key], value : key})
-                        }
-
-                        let acquisitions = this.$t('models.request.category_options.acquisitions');
-                        this.acquisitions = [];
-                        for (var key in acquisitions) {
-                            this.acquisitions.push({name : acquisitions[key], value : key})
-                        }
-
-                        let costs = this.$t('models.request.category_options.costs');
-                        this.costs = [];
-                        for (var key in costs) {
-                            this.costs.push({name : costs[key], value : key})
-                        }
                         
+                        this.getLanguageI18n();
                         const resp = await this.getRequest({id: this.$route.params.id});
 
                         if(resp) {

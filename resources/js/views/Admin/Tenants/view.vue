@@ -49,7 +49,7 @@
                                 <img
                                     src="~img/user-avatar.jpg"
                                     class="user-image"
-                                    v-if="model.avatar==null"/>
+                                    v-if="model.avatar==null && model.title == 'company'"/>
                                 <img
                                         style="width: 100%;"
                                         class="user-image"
