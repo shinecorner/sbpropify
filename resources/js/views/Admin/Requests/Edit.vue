@@ -586,40 +586,30 @@
             },
             
             showLocationOrRoom() {
-                const subcategory = this.first_layout_subcategories.filter(category => {
-                    if(category.id == this.model.defect) {
-                        return category;
-                    }
+                const subcategory = this.first_layout_subcategories.find(category => {
+                    return category.id == this.model.defect;
                 });
-                if(subcategory[0].room == 1) {
+
+                this.model.room = '';
+                this.model.location = '';
+                this.showLiegenschaft = false;
+                this.showUmgebung = false;
+                this.showWohnung = false;
+
+                if(subcategory.room == 1) {
                     this.showWohnung = true;
-                    this.showLiegenschaft = false;
-                    this.showUmgebung = false;
-                    this.model.location = '';
                 }
-                else if(subcategory[0].location == 1) {
+                else if(subcategory.location == 1) {
                     this.showLiegenschaft = true;
-                    this.showUmgebung = false;
-                    this.showWohnung = false;
-                    this.model.room = '';
                 }
-                else if(subcategory[0].location == 0 && subcategory[0].room == 0) {
+                else if(subcategory.location == 0 && subcategory.room == 0) {
                     this.showUmgebung = true;
-                    this.showLiegenschaft = false;
-                    this.showWohnung = false;
-                    this.model.location = '';
-                    this.model.room = '';
                 }
             },
 
             selectPayer() {
-                if(this.model.qualification == 5) {
-                    this.showpayer = true;
-                }
-                else {
-                    this.showpayer = false;
-                    this.model.payer = '';
-                }
+                this.model.payer = '';
+                this.showpayer = this.model.qualification == 5 ? true : false;
             },
             async deleteTag(tag) {
                 
