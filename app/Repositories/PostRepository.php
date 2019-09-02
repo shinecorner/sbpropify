@@ -14,8 +14,6 @@ use App\Notifications\PinnedPostPublished;
 use App\Notifications\PostPublished;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use InfyOm\Generator\Common\BaseRepository;
-use Notification;
 
 /**
  * Class PostRepository
@@ -79,6 +77,7 @@ class PostRepository extends BaseRepository
         $model->districts()->sync($atts['district_ids']);
         $model->buildings()->sync($atts['building_ids']);
         if (!$atts['needs_approval']) {
+            // @TODO improve
             return $this->setStatus($model->id, Post::StatusPublished, Carbon::now());
         }
 
@@ -108,23 +107,62 @@ class PostRepository extends BaseRepository
     /**
      * @param int $id
      * @param $status
-     * @param $publish_at
+     * @param $publishedAt
      * @return Post
      */
-    public function setStatus(int $id, $status, $publish_at)
+    public function setStatus(int $id, $status, $publishedAt)
     {
         $post = $this->find($id);
-        if ($post->status != $status && $status == Post::StatusPublished) {
-            $post->status = $status;
-            $post->published_at = $publish_at ?? Carbon::now();
+        return $this->setStatusExisting($post, $status, $publishedAt);
+    }
 
+    /**
+     * @param Post $post
+     * @param $status
+     * @param $publishedAt
+     * @return Post
+     */
+    public function setStatusExisting(Post $post, $status, $publishedAt)
+    {
+        $attributes = $this->correctStatusAttributes($publishedAt, $status, $post->status);
+        if ($attributes) {
+            foreach ($attributes as $attribute => $value) {
+                $post->setAttribute($attribute, $value);
+            }
             $post->save();
-            $this->notify($post);
-            return $post;
+            
+            if (! empty($attributes['published_at'])) {
+                $this->notify($post);
+            }
         }
-        $post->status = $status;
-        $post->save();
+
         return $post;
+    }
+
+    /**
+     * @param $publishedAt
+     * @param $newStatus
+     * @param $oldStatus
+     * @return array
+     */
+    protected function correctStatusAttributes($publishedAt, $newStatus, $oldStatus)
+    {
+
+        if ($oldStatus == $newStatus) {
+            return [];
+
+        }
+
+        if ($newStatus == Post::StatusPublished) {
+            return [
+                'status' => $newStatus,
+                'published_at' => $publishedAt
+            ];
+        }
+
+        return [
+            'status' => $newStatus
+        ];
     }
 
     /**
@@ -220,40 +258,6 @@ class PostRepository extends BaseRepository
     }
 
     /**
-     * @param string $collectionName
-     * @param string $dataBase64
-     * @param Post $model
-     * @return bool|\Spatie\MediaLibrary\Models\Media
-     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded
-     * @throws \Spatie\MediaLibrary\Exceptions\FileCannotBeAdded\InvalidBase64Data
-     */
-    public function uploadFile(string $collectionName, string $dataBase64, Post $model)
-    {
-        if (!$data = base64_decode($dataBase64)) {
-            return false;
-        }
-
-        $file  = finfo_open();
-        $mimeType  = finfo_buffer($file, $data, FILEINFO_MIME_TYPE);
-        finfo_close($file);
-
-        if (!isset($this->mimeToExtension[$mimeType])){
-            return false;
-        }
-        $extension = $this->mimeToExtension[$mimeType];
-
-        $diskName = sprintf("posts_%s", $collectionName);
-
-        $media = $model->addMediaFromBase64($dataBase64)
-            ->sanitizingFileName(function ($fileName) use ($extension) {
-                return sprintf('%s.%s', str_slug($fileName), $extension);
-            })
-            ->toMediaCollection($collectionName, $diskName);
-
-        return $media;
-    }
-
-    /**
      * @param Tenant $tenant
      * @return Post|bool|mixed
      * @throws \Prettus\Validator\Exceptions\ValidatorException
@@ -263,6 +267,8 @@ class PostRepository extends BaseRepository
         if ($tenant->homeless()) {
             return false;
         }
+
+
         $post = $this->create([
             'visibility' => Post::VisibilityAddress,
             'status' => Post::StatusNew,
@@ -278,7 +284,8 @@ class PostRepository extends BaseRepository
         if ($publishStart->isBefore(Carbon::now())) {
             $publishStart = Carbon::now();
         }
-        $this->setStatus($post->id, Post::StatusPublished, $publishStart);
+
+        $this->setStatusExisting($post, Post::StatusPublished, $publishStart);
         return $post;
     }
 

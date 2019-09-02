@@ -832,6 +832,17 @@ class StatisticsAPIController extends AppBaseController
                                                       duration from service_requests where solved_date is not null;";
         $avgReqFix = DB::select($query);
 
+//        $query = "select time_to_sec(timediff(solved_date, created_at)) duration, created_at, solved_date, id from service_requests where id =3;";
+//        $avgReqFix = DB::select($query);
+//        $req = ServiceRequest::find(3);
+//        dd(
+//            $avgReqFix, $req->only('created_at', 'id', 'solved_date', 'resolution_time'), $req->solved_date->diffInSeconds( $req->created_at),
+//                gmdate("H:i",$avgReqFix[0]->duration),
+//                gmdate("H:i",$req->resolution_time),
+//                gmdate("Y-m-d H:i",$avgReqFix[0]->duration),
+//                gmdate("Y-m-d H:i",$req->resolution_time)
+//
+//        );
         $allStartDates = [
             'requests' => $this->timeFormat(ServiceRequest::min('created_at')),
             'tenants' => $this->timeFormat(Tenant::min('created_at')),
@@ -915,7 +926,8 @@ class StatisticsAPIController extends AppBaseController
         $period = $this->getPeriod($request);
         [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate);
 
-        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id')->toArray();
+        $name = get_translation_attribute_name('name');
+        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck($name, 'id')->toArray();
         $serviceRequests = ServiceRequest::selectRaw($raw . ', IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
             ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
             ->leftJoin('service_request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
@@ -1267,7 +1279,9 @@ class StatisticsAPIController extends AppBaseController
     public function donutChartRequestByCategory(Request $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
-        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id');
+        $name = get_translation_attribute_name('name');
+        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck($name, 'id');
+
         $serviceRequests = ServiceRequest::selectRaw('count(service_requests.id) as count, IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
             ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
             ->leftJoin('service_request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')

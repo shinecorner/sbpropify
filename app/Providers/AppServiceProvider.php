@@ -3,12 +3,16 @@
 namespace App\Providers;
 
 use App\Models\Building;
+use App\Models\District;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\PropertyManager;
+use App\Models\RealEstate;
 use App\Models\ServiceRequest;
 use App\Models\Template;
 use App\Models\Conversation;
+use App\Models\Tenant;
+use App\Models\Unit;
 use App\Models\User;
 use App\Notifications\NewTenantPost;
 use App\Notifications\NewTenantRequest;
@@ -41,12 +45,16 @@ class AppServiceProvider extends ServiceProvider
         });
 
 	    Relation::morphMap([
+            'unit' => Unit::class,
             'user' => User::class,
             'post' => Post::class,
+            'tenant' => Tenant::class,
             'product' => Product::class,
+            'district' => District::class,
             'building' => Building::class,
             'templates' => Template::class,
             'request' => ServiceRequest::class,
+            'real_estate' => RealEstate::class,
             'manager' => PropertyManager::class,
             'provider' => \App\Models\ServiceProvider::class,
             'conversation' => Conversation::class,

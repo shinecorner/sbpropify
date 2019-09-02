@@ -201,7 +201,9 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'capture_phase',
         'component',
         'payer',
-        'location'
+        'location',
+        'reactivation_date',
+        'resolution_time',
     ];
 
     public $fillable = self::Fillable;
@@ -220,7 +222,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'priority' => 'integer',
         'internal_priority' => 'integer',
         'due_date' => 'date',
-        'solved_date' => 'date',
+        'solved_date' => 'datetime',
         'qualification' => 'integer',
         'visibility' => 'integer',
         'service_request_format' => 'string',
@@ -228,7 +230,9 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'capture_phase' => 'string',
         'component' => 'string',
         'payer' => 'string',
-        'location' => 'integer'
+        'location' => 'integer',
+        'reactivation_date' => 'datetime',
+        'resolution_time' => 'integer',
     ];
 
     protected $auditInclude = [
