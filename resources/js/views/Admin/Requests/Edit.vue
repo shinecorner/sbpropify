@@ -156,7 +156,7 @@
                                     </el-form-item>
                                 </el-col>
                             </el-row>
-                            <el-row :gutter="20" id="request-summary">
+                            <el-row :gutter="20" class="summary-row" style="margin-bottom: 0;padding-bottom: 0;">
                                 <el-col :md="8" class="summary-item">
                                     <el-form-item v-if="model.tenant">
                                         <label slot="label">
@@ -186,6 +186,8 @@
                                         <strong>{{this.model.created_by}}</strong>
                                     </el-form-item>
                                 </el-col>
+                            </el-row>
+                            <el-row :gutter="20" class="summary-row">
                                 <el-col :md="8" class="summary-item">
                                     <el-form-item :label="$t('models.request.priority.label')">
                                         <strong>{{$constants.service_requests.priority[model.priority]}}</strong>
@@ -687,7 +689,7 @@
         padding-left:40px;
     }
 
-    #request-summary {
+    .summary-row {
         background-color: #F3F3F3;
         padding: 2%;
         margin-left: 0px !important;
@@ -702,10 +704,13 @@
                 }
             }
         }
+
+        &:first-child {
+            margin-bottom: 0;
+        }
+
         .summary-item {
-            max-height: 68px;
-            margin-top: 15px;
-            margin-bottom: 15px;
+            
             .el-form-item {
                 margin-bottom: 0px !important;
                 .el-form-item__content {
@@ -714,6 +719,8 @@
             }
         }
     }
+
+
 
     .el-tag + .el-tag {
         margin-left: 10px;
