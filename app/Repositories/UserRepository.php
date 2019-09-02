@@ -5,10 +5,8 @@ namespace App\Repositories;
 use App;
 use App\Jobs\NewAdminNotification;
 use App\Models\User;
-use App\Models\UserSettings;
 use App\Notifications\PasswordResetSuccess;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager as Image;
 
@@ -23,7 +21,6 @@ use Intervention\Image\ImageManager as Image;
  */
 class UserRepository extends BaseRepository
 {
-    use App\Traits\UpdateSettings;
 
     /**
      * @var array

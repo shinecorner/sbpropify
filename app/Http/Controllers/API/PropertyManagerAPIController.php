@@ -292,7 +292,6 @@ class PropertyManagerAPIController extends AppBaseController
 
         if (isset($input['user'])) {
             $input['user']['name'] = sprintf('%s %s', $input['first_name'], $input['last_name']);;
-//            $input['user']['email'] = $propertyManager->user->email;
             $validator = Validator::make($input['user'], User::$rulesUpdate);
             if ($validator->fails()) {
                 return $this->sendError($validator->errors());
