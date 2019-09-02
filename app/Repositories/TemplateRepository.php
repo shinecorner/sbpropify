@@ -40,25 +40,6 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param array $attributes
-     * @return mixed
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     */
-    public function create(array $attributes)
-    {
-        // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-        $model = parent::create($attributes);
-        $this->skipPresenter($temporarySkipPresenter);
-
-        $model = $this->updateRelations($model, $attributes);
-        $model->save();
-
-        return $this->parserResult($model);
-    }
-
-    /**
      * @param User $user
      * @param User $subject
      * @return array

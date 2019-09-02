@@ -14,10 +14,12 @@ class AddNewRoles extends Migration
     public function up()
     {
         $role = \App\Models\Role::whereName('service')->first();
-        $role->attachPermissionIfNotExits('list-district');
-        $role->attachPermissionIfNotExits('list-property_manager');
-        $role->attachPermissionIfNotExits('list-building');
-        $role->attachPermissionIfNotExits('list-tenant');
+        if ($role) {
+            $role->attachPermissionIfNotExits('list-district');
+            $role->attachPermissionIfNotExits('list-property_manager');
+            $role->attachPermissionIfNotExits('list-building');
+            $role->attachPermissionIfNotExits('list-tenant');
+        }
     }
 
     /**

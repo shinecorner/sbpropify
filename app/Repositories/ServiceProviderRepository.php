@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\ServiceProvider;
 use App\Models\Building;
 use App\Models\District;
-use App\Traits\UpdateSettings;
+use Illuminate\Support\Arr;
 
 /**
  * Class ServiceProviderRepository
@@ -18,7 +18,6 @@ use App\Traits\UpdateSettings;
  */
 class ServiceProviderRepository extends BaseRepository
 {
-    use UpdateSettings;
 
     /**
      * @var array
@@ -48,16 +47,7 @@ class ServiceProviderRepository extends BaseRepository
             unset($attributes['address']);
         }
 
-        // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-        $model = parent::create($attributes);
-        $this->skipPresenter($temporarySkipPresenter);
-
-        $model = $this->updateRelations($model, $attributes);
-        $model->save();
-
-        return $this->parserResult($model);
+        return parent::create($attributes);
     }
 
     public function update(array $attributes, $id)
@@ -84,17 +74,13 @@ class ServiceProviderRepository extends BaseRepository
             unset($attributes['user']);
         }
 
-        // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
+        $model =  parent::update($attributes, $id);
+        $settings = Arr::pull($attributes, 'settings');
+        if ($settings) {
+            $model->settings()->update($settings);
+        }
 
-        $model = parent::update($attributes, $id);
-        $this->skipPresenter($temporarySkipPresenter);
-
-        $model = $this->updateRelations($model, $attributes);
-        $model->save();
-
-        return $this->parserResult($model);
+        return $model;
     }
 
     public function locations(ServiceProvider $sp)
