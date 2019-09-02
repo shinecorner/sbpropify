@@ -156,7 +156,7 @@
                         size="mini"
                         v-for="button in action.buttons"
                         v-if="!button.tooltipMode">
-                        &nbsp;{{button.title}}
+                        &nbsp;{{$t(button.title)}}
                     </el-button>
                     <el-tooltip
                         :content="$t(button.title)"

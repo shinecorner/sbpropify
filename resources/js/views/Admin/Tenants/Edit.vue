@@ -426,7 +426,7 @@
                 requestActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('general.actions.edit'),
+                        title: 'general.actions.edit',
                         type: 'primary',
                         onClick: this.requestEditView
                     }]
@@ -438,7 +438,7 @@
                 postActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('general.actions.edit'),
+                        title: 'general.actions.edit',
                         type: 'primary',
                         onClick: this.postEditView
                     }]
@@ -450,7 +450,7 @@
                 productActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('general.actions.edit'),
+                        title: 'general.actions.edit',
                         type: 'primary',
                         onClick: this.productEditView
                     }]

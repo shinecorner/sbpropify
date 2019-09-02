@@ -426,7 +426,7 @@
                 assignmentsActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('general.unassign'),
+                        title: 'general.unassign',
                         type: 'danger',
                         onClick: this.notifyUnassignment
                     }]
@@ -438,7 +438,7 @@
                 assignmentsProviderActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('general.unassign'),
+                        title: 'general.unassign',
                         type: 'danger',
                         onClick: this.notifyProviderUnassignment
                     }]

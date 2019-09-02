@@ -178,7 +178,7 @@
                 assigneesActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('general.unassign'),
+                        title: 'general.unassign',
                         tooltipMode: true,
                         type: 'danger',
                         icon: 'el-icon-close',

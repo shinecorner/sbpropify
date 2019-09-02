@@ -209,7 +209,7 @@
                     width: '90px',
                     buttons: [{
                         icon: 'ti-pencil',
-                        title: this.$t('general.actions.edit'),
+                        title: 'general.actions.edit',
                         onClick: this.requestEditView
                     }]
                 }],
@@ -224,7 +224,7 @@
                 assignmentsActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('general.unassign'),
+                        title: 'general.unassign',
                         type: 'danger',
                         onClick: this.notifyUnassignment
                     }]
