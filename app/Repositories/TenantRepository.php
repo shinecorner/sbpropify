@@ -143,7 +143,7 @@ class TenantRepository extends BaseRepository
         if ($settings) {
             $model->settings()->update($settings);
         }
-        
+
         return $model;
     }
 
@@ -205,14 +205,8 @@ class TenantRepository extends BaseRepository
     public function delete($id)
     {
         $this->applyScope();
-
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-
         $model = $this->find($id);
         $originalModel = clone $model;
-
-        $this->skipPresenter($temporarySkipPresenter);
         $this->resetModel();
 
         $requestsInProgress = $model->requests()

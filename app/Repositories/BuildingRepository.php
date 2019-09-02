@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Building;
-use Storage;
 
 /**
  * Class BuildingRepository
@@ -52,51 +51,31 @@ class BuildingRepository extends BaseRepository
         }
 
         // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
         $model = parent::create($attributes);
-        $this->skipPresenter($temporarySkipPresenter);
-
-        $model = $this->updateRelations($model, $attributes);
-        $model->save();
 
         if ($attributes['service_providers']) {
             $model->serviceProviders()->attach($attributes['service_providers']);
         }
 
-        return $this->parserResult($model);
+        return $model;
     }
 
     public function update(array $attributes, $id)
     {
-        // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-
         $model = parent::update($attributes, $id);
-        $this->skipPresenter($temporarySkipPresenter);
-
-        $model = $this->updateRelations($model, $attributes);
-        $model->save();
 
         if ($attributes['service_providers']) {
             $model->serviceProviders()->sync($attributes['service_providers']);
         }
 
-        return $this->parserResult($model);
+        return $model;
     }
 
     public function delete($id)
     {
         $this->applyScope();
 
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-
         $model = $this->find($id);
-
-        $this->skipPresenter($temporarySkipPresenter);
-        $this->resetModel();
 
         $model->serviceProviders()->detach();
 
@@ -137,13 +116,5 @@ class BuildingRepository extends BaseRepository
     public function getModel()
     {
         return $this->model;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function count()
-    {
-        return $this->model->count();
     }
 }
