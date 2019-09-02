@@ -106,6 +106,28 @@
                         </el-row>
                     </el-form>
                 </card>
+
+                <card class="mt15" :loading="loading" :header="$t('models.unit.assignment')">
+                    <assignment
+                            :toAssign.sync="toAssign"
+                            :assign="assignTenant"
+                            :toAssignList="toAssignList"
+                            :remoteLoading="remoteLoading"
+                            :remoteSearch="remoteSearchTenants"
+                            :multiple="multiple"
+                    />
+                    <relation-list
+                            :actions="assigneesActions"
+                            :columns="assigneesColumns"
+                            :filterValue="false"
+                            :fetchAction="false"
+                            :filter="false"
+                            :fetchStatus="false"
+                            :addedAssigmentList="addedAssigmentList"
+                            ref="assigneesList"
+                            v-if="addedAssigmentList"
+                    />
+                </card>
             </el-col>
             <el-col :md="12">
                 <card :loading="loading" :header="$t('general.requests')">
@@ -115,27 +137,6 @@
                         :filterValue="model.id"
                         fetchAction="getRequests"
                         filter="unit_id"
-                        v-if="model.id"
-                    />
-                </card>
-            </el-col>
-            <el-col :md="12">
-                <card class="mt15" :loading="loading" :header="$t('models.unit.assignment')">
-                    <assignment
-                        :toAssign.sync="toAssign"
-                        :assign="assignTenant"
-                        :toAssignList="toAssignList"
-                        :remoteLoading="remoteLoading"
-                        :remoteSearch="remoteSearchTenants"
-                        :multiple="multiple"
-                    />
-                    <relation-list
-                        :actions="assigneesActions"
-                        :columns="assigneesColumns"
-                        :filterValue="model.id"
-                        fetchAction="getTenantAssignees"
-                        filter="unit_id"
-                        ref="assigneesList"
                         v-if="model.id"
                     />
                 </card>
@@ -167,6 +168,28 @@
         },
         data() {
             return {
+                requestColumns: [{
+                    type: 'requestTenantAvatar',
+                    width: 75,
+                    prop: 'tenant',
+                    label: this.$t('general.tenant')
+                }, {
+                    type: 'requestTitleWithDesc',
+                    width: 270,
+                    label: this.$t('models.request.prop_title')
+                }, {
+                    type: 'requestStatus',
+                    width: 120,
+                    label: this.$t('models.request.status.label')
+                }],
+                requestActions: [{
+                    width: '120px',
+                    buttons: [{
+                        icon: 'ti-pencil',
+                        title: this.$t('general.actions.edit'),
+                        onClick: this.requestEditView
+                    }]
+                }],
                 assigneesColumns: [{
                     prop: 'name',
                     label: this.$t('general.name')
@@ -188,7 +211,7 @@
                 multiple: false
             }
         },
-        methods: {            
+        methods: {
             ...mapActions([
                 "deleteUnit"
             ])

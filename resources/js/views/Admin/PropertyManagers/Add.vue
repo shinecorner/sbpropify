@@ -132,6 +132,7 @@
                                     :actions="assignmentsActions"
                                     :columns="assignmentsColumns"
                                     :addedAssigmentList="addedAssigmentList"
+                                    :fetchStatus="false"
                                     :filterValue="false"
                                     :fetchAction="false"
                                     :filter="false"
