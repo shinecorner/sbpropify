@@ -6,7 +6,7 @@
         :placeholder="$t(role)"
         @change="$emit('change')"
     >
-
+        <el-option v-if="this.isTable == true" :label="'Select'" value=""></el-option>
         <template slot="prefix">
             <span id="languageflag" v-for="(language, index) in activeLanguages" :class="language.flag" :key="index"></span>
         </template>
@@ -34,7 +34,15 @@ export default {
             default: ()=> {
                 return `general.placeholders.select`;
             }
+        },
+        isTable: {
+            type: Boolean,
+            default: () => {
+                return false;
+            }
         }
+        
+
     },
     computed: {
         activeLanguages: function () {

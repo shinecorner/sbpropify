@@ -49,7 +49,9 @@
                                               prop="price">
                                     <el-row :gutter="5">
                                         <el-col :span="16">
-                                            <el-input type="text" v-model="price.integer" />
+                                            <el-input type="text" v-model="price.integer">
+                                                <span slot="prepend">CHF</span>
+                                            </el-input>
                                         </el-col>
                                         <el-col :span="1">.</el-col>
                                         <el-col :span="7">
@@ -59,7 +61,7 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
-                        <el-tabs type="card" @tab-click="handleTabClick" v-model="activeName">
+                        <el-tabs v-model="activeName">
                             <el-tab-pane :label="$t('menu.requests')" name="description">    
                                 <el-row>
                                     <el-col>
@@ -102,7 +104,6 @@
                             <span class="custom-label">
                                 <i class="icon-user"></i>&nbsp;{{$t('general.user')}}
                             </span>
-                            <br>
                             <span class="custom-value" v-if="model.user">
                                 <router-link :to="{name: 'adminUsersEdit', params: {id: model.user.id}}" class="tenant-link">
                                     <avatar :size="30"
@@ -122,7 +123,6 @@
                             <span class="custom-label">
                                 <i class="icon-contacts"></i>&nbsp;{{$t('models.product.contact')}}
                             </span>
-                            <br>
                             <span>
                                 {{model.contact}}
                                 </span>
@@ -132,7 +132,6 @@
                             <span class="custom-label">
                                 <i class="icon-paper-plane"></i>&nbsp;{{$t('models.product.published_at')}}
                             </span>
-                            <br>
                             <span class="custom-value" v-if="model.published_at">
                                     {{model.published_at}}
                                 </span>
@@ -152,7 +151,6 @@
                             <span class="custom-label">
                                 <i class="icon-thumbs-up"></i>&nbsp;{{$t('models.product.likes')}}
                             </span>
-                            <br>
                             <span class="custom-value">
                                 {{model.likes_count}}
                             </span>
@@ -162,7 +160,6 @@
                             <span class="custom-label">
                                 <i class="icon-chat"></i>&nbsp;{{$t('models.product.comments')}}
                             </span>
-                            <br>
                             <span class="custom-value">
                                 {{model.comments_count}}
                             </span>
@@ -268,6 +265,10 @@
         }
         
         .contact-info-card-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
             border-right: 1px solid #EBEEF5;
             min-height: 57px;
             padding-bottom: 10px;
@@ -297,5 +298,11 @@
         & > span {
             margin-left: 5px;
         }
+    }
+</style>
+<style lang="scss">
+    .el-input-group--prepend .el-input-group__prepend {
+        padding: 0 10px;
+        font-weight: bold;
     }
 </style>

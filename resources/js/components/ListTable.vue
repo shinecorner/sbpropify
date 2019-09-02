@@ -93,6 +93,7 @@
                                     :role="'settings.language'"
                                     :activeLanguage.sync="filterModel['language']"
                                     @change="filterChanged(filter)"
+                                    :isTable="true"
                                 />
                             </el-form-item>
                         </template>

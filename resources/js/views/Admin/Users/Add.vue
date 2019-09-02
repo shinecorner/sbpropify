@@ -54,9 +54,14 @@
             AddActions,
             SelectLanguage
         },
-        created() {
-            this.model.role = this.$route.params.role;
-        }
+        beforeCreate() {
+            if(this.$route.params.role == 'administrator')
+                document.title = 'Add Administrator';
+            else if(this.$route.params.role == 'super_admin')
+                document.title = 'Add Super admin'
+
+        },
+       
     }
 </script>
 

@@ -23,7 +23,7 @@ export default [{
         component: () =>
             import ( /* webpackChunkName: "admin/users/add" */ 'views/Admin/Users/Add'),
         props: {
-            title: 'Add user'
+            title: 'Add Administrator/Super admin'
         },
         meta: {
             title: 'Add User',
