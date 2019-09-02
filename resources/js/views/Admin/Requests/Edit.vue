@@ -462,13 +462,13 @@
                 assigneesActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.request.notify'),
+                        title: 'models.request.notify',
                         tooltipMode: true,
                         type: 'success',
                         icon: 'el-icon-message',
                         onClick: this.openNotifyProvider
                     }, {
-                        title: this.$t('general.unassign'),
+                        title: 'general.unassign',
                         tooltipMode: true,
                         type: 'danger',
                         icon: 'el-icon-close',

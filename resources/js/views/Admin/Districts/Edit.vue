@@ -100,7 +100,7 @@
                     width: '90px',
                     buttons: [{
                         icon: 'ti-pencil',
-                        title: this.$t('general.actions.edit'),
+                        title: 'general.actions.edit',
                         onClick: this.requestEditView
                     }]
                 }],
