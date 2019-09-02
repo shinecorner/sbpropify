@@ -157,7 +157,7 @@
                                 </el-col>
                             </el-row>
                             <el-row :gutter="20" class="summary-row" style="margin-bottom: 0;padding-bottom: 0;">
-                                <el-col :md="8" class="summary-item">
+                                <el-col :md="8" class="summary-item" id="tenant">
                                     <el-form-item v-if="model.tenant">
                                         <label slot="label">
                                             {{$t('general.tenant')}}
@@ -176,12 +176,12 @@
                                         </router-link>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="8" class="summary-item">
+                                <el-col :md="8" class="summary-item" id="building">
                                     <el-form-item label="Building">
                                         <strong>{{this.model.building}}</strong>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="8" class="summary-item">
+                                <el-col :md="8" class="summary-item" id="createtime">
                                     <el-form-item label="Creation Datetime">
                                         <strong>{{this.model.created_by}}</strong>
                                     </el-form-item>
@@ -726,5 +726,47 @@
         width: 90px;
         margin-left: 10px;
         vertical-align: bottom;
+    }
+
+    $min-width: 991px;
+    $max-width: 1228px;
+    @media only screen and (min-width: $min-width) and (max-width: $max-width) {
+        #tenant {
+            .el-form-item {
+                .el-form-item__label {
+                    min-height: 50px;
+                }
+            }
+        }
+        #building {
+            .el-form-item {
+                .el-form-item__label {
+                    min-height: 50px;
+                }
+            }
+        }
+        #createtime {
+            .el-form-item {
+                .el-form-item__label {
+                    line-height: 25px;
+                }
+            }
+        }
+    }
+    @media only screen and (max-width: $min-width) {
+        #tenant {
+            .el-form-item {
+                .el-form-item__label {
+                    min-height: 40px !important;
+                }
+            }
+        }
+        #building {
+            .el-form-item {
+                .el-form-item__label {
+                    min-height: 40px !important;
+                }
+            }
+        }
     }
 </style>

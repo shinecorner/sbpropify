@@ -6,35 +6,37 @@
             </li>
 
             <ul class="content">
-                <el-menu-item
-                        :class="{nested: link.nestedItem }"
-                        :index="link.title"
-                        :key="link.title"
-                        @click="handleLink($event, key, link)"
-                        v-for="(link, key) in links"
-                        v-if="!link.children && ($can(link.permission) || !link.permission)">
-                    <router-link :to="{name: link.route.name}">
-                        <i :class="[link.icon, 'icon']"/>
-                        <span class="title" v-if="!collapsed">{{ link.title }}</span>
-                    </router-link>
-                    <span class="title" slot="title" v-if="collapsed">{{ link.title }}</span>
-                </el-menu-item>
+                <router-link 
+                    :key="link.title"
+                    v-for="(link, key) in links"
+                    v-if="!link.children && ($can(link.permission) || !link.permission)"
+                    :to="{name: link.route.name}">
+                    <el-menu-item
+                            :class="{nested: link.nestedItem }"
+                            :index="link.title"
+                            >
+                            <i :class="[link.icon, 'icon']"/>
+                            <span class="title" v-if="!collapsed">{{ link.title }}</span>
+                        <span class="title" slot="title" v-if="collapsed">{{ link.title }}</span>
+                    </el-menu-item>
+                </router-link>
                 <el-submenu :index="link.title" v-else-if="($can(link.permission) || !link.permission)">
                     <template slot="title">
                         <i :class="[link.icon, 'icon']"/>
                         <span class="title" slot="title">{{ link.title }}</span>
                     </template>
-                    <el-menu-item
-                            :index="child.title"
-                            :key="child.title"
-                            @click="handleLink($event, childKey, child)"
-                            v-for="(child, childKey) in link.children">
-                        <router-link :to="child.route">
-                            <i :class="['icon-right-open', 'icon']"/>
-                            <span class="title">{{ child.title }}</span>
-                        </router-link>
-                        <el-badge :value="child.value" class="item" type="primary"></el-badge>
-                    </el-menu-item>
+                    <router-link 
+                        :key="child.title"
+                        v-for="(child, childKey) in link.children"
+                        :to="child.route">
+                        <el-menu-item
+                                :index="child.title"
+                                >
+                                <i :class="['icon-right-open', 'icon']"/>
+                                <span class="title">{{ child.title }}</span>
+                            <el-badge :value="child.value" class="item" type="primary"></el-badge>
+                        </el-menu-item>
+                    </router-link>
                 </el-submenu>
             </ul>
         </el-menu>

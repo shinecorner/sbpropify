@@ -443,14 +443,6 @@ export default (config = {}) => {
                                 
                                 if(params.category_id == 1)
                                     params.category_id = this.model.defect;
-        
-                                
-                                // const resptags = await this.createRequestTag({
-                                //     id: this.$route.params.id,
-                                //     keywords: this.model.keywords
-                                // });
-                                
-
 
                                 let existingsKeys = [];
                                 let newTags = [];
