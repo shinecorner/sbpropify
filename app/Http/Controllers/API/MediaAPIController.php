@@ -157,7 +157,7 @@ class MediaAPIController extends AppBaseController
             $data = $request->get('other_upload', '');
         }
 
-        if (!$media = $this->buildingRepository->uploadFiles($collectionName, $data, $building)) {
+        if (!$media = $this->buildingRepository->uploadFile($collectionName, $data, $building)) {
             return $this->sendError(__('general.upload_error'));
         }
 

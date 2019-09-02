@@ -11,7 +11,7 @@ abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepositor
      * @param string $collectionName
      * @param string $dataBase64
      * @param Model $model
-     * @return bool
+     * @return bool|\Spatie\MediaLibrary\Models\Media
      */
     public function uploadFile(string $collectionName, string $dataBase64, Model $model)
     {
