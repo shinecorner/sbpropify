@@ -121,17 +121,11 @@ class UserRepository extends BaseRepository
      */
     public function resetPassword(array $attributes, $id)
     {
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-
         $attributes['password'] = bcrypt($attributes['password']);
-
         $model = parent::update($attributes, $id);
-        $this->skipPresenter($temporarySkipPresenter);
-
         $model->notify(new PasswordResetSuccess($model));
 
-        return $this->parserResult($model);
+        return $model;
     }
 
     /**

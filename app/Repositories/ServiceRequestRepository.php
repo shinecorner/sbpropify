@@ -84,27 +84,6 @@ class ServiceRequestRepository extends BaseRepository
     }
 
     /**
-     * @param array $attributes
-     * @param $id
-     * @return mixed
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     */
-    public function update(array $attributes, $id)
-    {
-        // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-        $model = parent::update($attributes, $id);
-
-        $this->skipPresenter($temporarySkipPresenter);
-
-        $model = $this->updateRelations($model, $attributes);
-        $model->save();
-
-        return $this->parserResult($model);
-    }
-
-    /**
      * @param $attributes
      * @return array
      */

@@ -83,26 +83,7 @@ class PostRepository extends BaseRepository
 
         return $model;
     }
-
-    /**
-     * @param array $atts
-     * @param $id
-     * @return mixed
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     */
-    public function update(array $atts, $id)
-    {
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-        $model = parent::update($atts, $id);
-        $this->skipPresenter($temporarySkipPresenter);
-
-        $model = $this->updateRelations($model, $atts);
-        $model->save();
-
-        $post = $this->parserResult($model);
-        return $post;
-    }
+    
 
     /**
      * @param int $id
