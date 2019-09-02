@@ -34,6 +34,16 @@ use Zizaco\Entrust\EntrustRole;
  */
 class Role extends EntrustRole
 {
+    /**
+     * @param $permissionName
+     */
+    public function attachPermissionIfNotExits($permissionName)
+    {
+        if (! $this->hasPermission($permissionName)) {
+            $permission = Permission::whereName($permissionName)->firstOrFail();
+            $this->attachPermission($permission);
+        }
+    }
 }
 
 
