@@ -22,8 +22,9 @@ use App\Repositories\UserRepository;
 use App\Transformers\PropertyManagerTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class PropertyManagerController
@@ -151,6 +152,10 @@ class PropertyManagerAPIController extends AppBaseController
             return $this->sendError($validator->errors());
         }
 
+        if (isset($input['settings'])) {
+            $input['user']['settings'] = Arr::pull($input, 'settings');
+        }
+
         try {
             $user = $this->userRepository->create($input['user']);
         } catch (\Exception $e) {
@@ -159,13 +164,14 @@ class PropertyManagerAPIController extends AppBaseController
 
         $input['user_id'] = $user->id;
         try {
-            $propertyManagers = $this->propertyManagerRepository->create($input);
+            $propertyManager = $this->propertyManagerRepository->create($input);
         } catch (\Exception $e) {
             return $this->sendError(__('models.propertyManager.errors.create') . $e->getMessage());
         }
 
-        $propertyManagers->load('user', 'buildings', 'districts');
-        $response = (new PropertyManagerTransformer)->transform($propertyManagers);
+        $propertyManager->load('buildings', 'districts');
+        $propertyManager->setRelation('user', $user);
+        $response = (new PropertyManagerTransformer)->transform($propertyManager);
         return $this->sendResponse($response, __('models.propertyManager.saved'));
     }
 

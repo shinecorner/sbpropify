@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Model;
 use Prettus\Repository\Events\RepositoryEntityUpdated;
 
-abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
+abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepository
 {
     /**
      * @param string $collectionName
@@ -63,11 +63,15 @@ abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
         return $this;
     }
 
-    public function updateRelations($model, $attributes)
+    public function findWithoutFail($id, $columns = ['*'])
     {
-        // @TODO if need
-        return $model;
+        try {
+            return $this->find($id, $columns);
+        } catch (\Exception $e) {
+            return;
+        }
     }
+
 
     /**
      * @param Model $model

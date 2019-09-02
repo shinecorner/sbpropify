@@ -14,8 +14,6 @@ use App\Traits\UpdateSettings;
  */
 class PropertyManagerRepository extends BaseRepository
 {
-    use UpdateSettings;
-
     /**
      * @var array
      */
@@ -45,20 +43,13 @@ class PropertyManagerRepository extends BaseRepository
 
     public function create(array $attributes)
     {
-        // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
         $model = parent::create($attributes);
-        $this->skipPresenter($temporarySkipPresenter);
-
-        $model = $this->updateRelations($model, $attributes);
-        $model->save();
 
         if (isset($attributes['buildings'])) {
             $model->buildings()->sync($attributes['buildings']);
         }
 
-        return $this->parserResult($model);
+        return $model;
     }
 
     public function update(array $attributes, $id)

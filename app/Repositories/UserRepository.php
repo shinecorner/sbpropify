@@ -7,6 +7,8 @@ use App\Jobs\NewAdminNotification;
 use App\Models\User;
 use App\Models\UserSettings;
 use App\Notifications\PasswordResetSuccess;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager as Image;
 
@@ -47,33 +49,28 @@ class UserRepository extends BaseRepository
      */
     public function create(array $attributes)
     {
-        // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
         $attributes['password'] = bcrypt($attributes['password']);
+        $attributes['settings'] = $attributes['settings'] ?? [];
 
         $model = parent::create($attributes);
-        $this->skipPresenter($temporarySkipPresenter);
-
-        $model = $this->updateRelations($model, $attributes);
-        $model->save();
 
         //add user role
         if (!isset($attributes['role'])) {
             $attributes['role'] = 'registered';
         }
-        $role = (new RoleRepository(app()))->getRoleByName($attributes['role']);
 
+        $role = (new RoleRepository(app()))->getRoleByName($attributes['role']);
         $model->attachRole($role);
 
-        //add user settings
-        $model->settings()->save(new UserSettings());
+        $settings = Arr::pull($attributes, 'settings');
+        $settings = $model->settings()->create($settings);
+        $model->setRelation('settings', $settings);
 
         if (in_array($role->name, ['administrator'])) {
             dispatch(new NewAdminNotification($model));
         }
 
-        return $this->parserResult($model);
+        return $model;
     }
 
     /**
