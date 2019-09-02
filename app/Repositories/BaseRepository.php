@@ -81,7 +81,6 @@ abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepositor
      */
     public function updateExisting(Model $model, $attributes)
     {
-        $model = $this->updateRelations($model, $attributes);
         $model->fill($attributes);
         $model->save();
         $this->resetModel();
