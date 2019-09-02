@@ -134,7 +134,7 @@
                         &nbsp;{{button.title}}
                     </el-button>
                     <el-tooltip
-                        :content="button.title"
+                        :content="$t(button.title)"
                         :key="button.title"
                         class="item" effect="light" placement="top-end"
                         v-for="button in action.buttons"
