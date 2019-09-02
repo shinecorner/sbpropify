@@ -24,7 +24,7 @@
             </el-select>
         </el-col>
         <el-col id="assignBtn" :style="innerBtnWidth">
-            <el-button :disabled="!toAssign" @click="assign" type="primary">
+            <el-button :disabled="!toAssign" @click="assign(getAssigmentObjectById(toAssign))" type="primary">
                 <div id="innerBtn" ref="innerBtn">
                     <i class="ti-save"></i>
                     <span>&nbsp;{{$t('general.assign')}}</span>
@@ -66,6 +66,9 @@
             }
         },
         methods: {
+            getAssigmentObjectById(id) {
+                return this.toAssignList.filter(n => n.id === id)[0];
+            },
             getBtnWidth() {
                 this.innerBtnWidth = this.$refs.innerBtn.clientWidth;
             }
