@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddNewRoles extends Migration
+class AddShowRules extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +15,12 @@ class AddNewRoles extends Migration
     {
         $role = \App\Models\Role::whereName('service')->first();
         if ($role) {
-            $role->attachPermissionIfNotExits('list-district');
-            $role->attachPermissionIfNotExits('list-property_manager');
-            $role->attachPermissionIfNotExits('list-building');
-            $role->attachPermissionIfNotExits('list-tenant');
+            $role->attachPermissionIfNotExits('view-district');
+            $role->attachPermissionIfNotExits('view-property_manager');
+            $role->attachPermissionIfNotExits('view-building');
+            $role->attachPermissionIfNotExits('view-tenant');
+            $role->attachPermissionIfNotExits('assign-request');
+            $role->attachPermissionIfNotExits('view-address');
         }
     }
 

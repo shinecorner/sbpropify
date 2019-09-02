@@ -560,6 +560,6 @@ class ServiceRequest extends AuditableModel implements HasMedia
 
     public function getDiskPreName()
     {
-        return 'request_';
+        return 'requests_';
     }
 }

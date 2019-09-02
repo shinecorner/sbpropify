@@ -346,13 +346,13 @@
                 managerActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.building.unassign_manager'),
+                        title: 'models.building.unassign_manager',
                         type: 'danger',
                         onClick: this.unassignManager,
                         tooltipMode: true,
                         icon: 'el-icon-close'
                     }, {
-                        title: this.$t('general.actions.edit'),
+                        title: 'general.actions.edit',
                         type: 'primary',
                         onClick: this.managerEditView,
                         tooltipMode: true,
@@ -372,7 +372,7 @@
                 unitActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.unit.edit'),
+                        title: 'general.actions.edit',
                         type: 'primary',
                         onClick: this.unitEditView,
                         tooltipMode: true,

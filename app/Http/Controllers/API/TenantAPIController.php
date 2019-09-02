@@ -31,6 +31,7 @@ use App\Repositories\UserRepository;
 use App\Transformers\TenantTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Illuminate\Support\Facades\Validator;
 
@@ -260,7 +261,7 @@ class TenantAPIController extends AppBaseController
 
         try {
             $input['user']['role'] = 'registered';
-            $userPass = $input['user']['password'];
+            $input['user']['settings'] = Arr::pull($input, 'settings');
             $user = $this->userRepository->create($input['user']);
         } catch (\Exception $e) {
             return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());

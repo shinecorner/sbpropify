@@ -1258,11 +1258,19 @@ class ServiceRequestAPIController extends AppBaseController
         $managerType = get_morph_type_of(\App\Models\PropertyManager::class);
         $managerIds = $assignees->where('assignee_type', $managerType)->pluck('assignee_id');
 
-        $raw = DB::raw('(select email from users where users.id = property_managers.user_id) as email, Concat(first_name, " ", last_name) as name');
-        $managers = PropertyManager::select('id', $raw)
-            ->whereIn('id', $managerIds)->get();
+        $raw = DB::raw('(select email from users where users.id = property_managers.user_id) as email,
+                (select avatar from users where users.id = property_managers.user_id) as avatar, 
+                Concat(first_name, " ", last_name) as name');
 
-        $providers = ServiceProvider::select('id', 'email', 'name')->whereIn('id', $providerIds)->get();
+
+        $managers = PropertyManager::select('id', $raw)
+            ->whereIn('id', $managerIds)
+            ->get();
+
+        $raw = DB::raw('(select avatar from users where users.id = service_providers.user_id) as avatar');
+        $providers = ServiceProvider::select('id', 'email', 'name', $raw)
+            ->whereIn('id', $providerIds)
+            ->get();
         foreach ($assignees as $index => $assignee) {
             $related = null;
             if ($assignee->assignee_type == $providerType) {

@@ -5,13 +5,13 @@ namespace App\Repositories;
 use App\Models\Model;
 use Prettus\Repository\Events\RepositoryEntityUpdated;
 
-abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
+abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepository
 {
     /**
      * @param string $collectionName
      * @param string $dataBase64
      * @param Model $model
-     * @return bool
+     * @return bool|\Spatie\MediaLibrary\Models\Media
      */
     public function uploadFile(string $collectionName, string $dataBase64, Model $model)
     {
@@ -63,11 +63,15 @@ abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
         return $this;
     }
 
-    public function updateRelations($model, $attributes)
+    public function findWithoutFail($id, $columns = ['*'])
     {
-        // @TODO if need
-        return $model;
+        try {
+            return $this->find($id, $columns);
+        } catch (\Exception $e) {
+            return;
+        }
     }
+
 
     /**
      * @param Model $model
@@ -77,7 +81,6 @@ abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
      */
     public function updateExisting(Model $model, $attributes)
     {
-        $model = $this->updateRelations($model, $attributes);
         $model->fill($attributes);
         $model->save();
         $this->resetModel();

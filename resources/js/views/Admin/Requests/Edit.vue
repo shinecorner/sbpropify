@@ -342,6 +342,20 @@
                                             </el-date-picker>
                                         </el-form-item>
                                     </el-col>
+                                    <el-col :md="12">
+                                        <el-form-item :label="$t('models.request.internal_priority.label')"
+                                                      :rules="validationRules.internal_priority"
+                                                      prop="internal_priority">
+                                            <el-select :placeholder="$t('models.request.internal_priority.label')" class="custom-select" v-model="model.internal_priority">
+                                                <el-option
+                                                    :key="k"
+                                                    :label="$t(`models.request.internal_priority.${priority}`)"
+                                                    :value="parseInt(k)"
+                                                    v-for="(priority, k) in $constants.service_requests.internal_priority">
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                    </el-col>
                                 </el-row>
                             </card>
                             <card class="mt15 request" :loading="loading" :header="$t('models.request.assignment')">
@@ -460,13 +474,13 @@
                 assigneesActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.request.notify'),
+                        title: 'models.request.notify',
                         tooltipMode: true,
                         type: 'success',
                         icon: 'el-icon-message',
                         onClick: this.openNotifyProvider
                     }, {
-                        title: this.$t('general.unassign'),
+                        title: 'general.unassign',
                         tooltipMode: true,
                         type: 'danger',
                         icon: 'el-icon-close',

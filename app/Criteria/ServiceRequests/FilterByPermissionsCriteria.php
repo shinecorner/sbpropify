@@ -56,11 +56,11 @@ class FilterByPermissionsCriteria implements CriteriaInterface
             return $model->whereRaw('(' . implode(' or ', $qs) . ')', $vs);
         }
 
-        if ($u->hasRole('service') && $u->serviceProvider) {
-            $model->whereHas('providers', function ($q) use ($u) {
-                $q->where('service_providers.id', $u->serviceProvider->id);
-            });
-        }
+//        if ($u->hasRole('service') && $u->serviceProvider) {
+//            $model->whereHas('providers', function ($q) use ($u) {
+//                $q->where('service_providers.id', $u->serviceProvider->id);
+//            });
+//        }
 
         return $model;
     }

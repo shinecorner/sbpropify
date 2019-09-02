@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Building;
 use App\Models\District;
 use App\Models\PropertyManager;
-use App\Traits\UpdateSettings;
+use Illuminate\Support\Arr;
 
 /**
  * Class PropertyManagerRepository
@@ -14,8 +14,6 @@ use App\Traits\UpdateSettings;
  */
 class PropertyManagerRepository extends BaseRepository
 {
-    use UpdateSettings;
-
     /**
      * @var array
      */
@@ -45,56 +43,37 @@ class PropertyManagerRepository extends BaseRepository
 
     public function create(array $attributes)
     {
-        // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
         $model = parent::create($attributes);
-        $this->skipPresenter($temporarySkipPresenter);
-
-        $model = $this->updateRelations($model, $attributes);
-        $model->save();
 
         if (isset($attributes['buildings'])) {
             $model->buildings()->sync($attributes['buildings']);
         }
 
-        return $this->parserResult($model);
+        return $model;
     }
 
     public function update(array $attributes, $id)
     {
         unset($attributes['districts']);
-        // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-
         $model = parent::update($attributes, $id);
-        $this->skipPresenter($temporarySkipPresenter);
 
-        $model = $this->updateRelations($model, $attributes);
-        $model->save();
+        $settings = Arr::pull($attributes, 'settings');
+        if ($settings) {
+            $model->settings()->update($settings);
+        }
 
         if (isset($attributes['buildings'])) {
             $model->buildings()->sync($attributes['buildings']);
         }
 
-        return $this->parserResult($model);
+        return $model;
     }
 
     public function delete($id)
     {
         $this->applyScope();
-
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-
         $model = $this->find($id);
-
-        $this->skipPresenter($temporarySkipPresenter);
-        $this->resetModel();
-
         $model->buildings()->detach();
-
         $deleted = $model->delete();
 
         return $deleted;
