@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\RealEstate;
 use Illuminate\Support\Str;
-use InfyOm\Generator\Common\BaseRepository;
 use Intervention\Image\ImageManager as Image;
 
 /**

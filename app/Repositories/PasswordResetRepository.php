@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App;
 use App\Models\PasswordReset;
 use App\Notifications\PasswordResetRequest;
-use InfyOm\Generator\Common\BaseRepository;
 
 /**
  * Class UserRepository

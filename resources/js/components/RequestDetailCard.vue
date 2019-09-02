@@ -15,28 +15,25 @@
                 </el-col>
                 <el-col :span="18" class="request-content">
                     <h3>{{ item.title }}</h3>
-                    <p>{{ $t('models.request.category') }} : {{ item.category.name }}</p>
+                    <p>{{ item.category.parent_id==null?'':item.category.parentCategory.name + ' > ' }}{{ item.category.name }}</p>
                     <p>{{ item.description }}</p>
                 </el-col>
                 <el-col :span="3" class="request-tail">
-                    <div>
-                        {{ $t('models.request.status.label') }}
-                        <br>
-                        <el-button v-if="item.status == 1" plain type="info" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(1),'color':getRequestStatusColor(1)}" round>{{ $t('models.request.status.received') }}</el-button>
-                        <el-button v-else-if="item.status == 2" plain type="warning" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(2),'color':getRequestStatusColor(2)}"  round>{{ $t('models.request.status.in_processing') }}</el-button>
-                        <el-button v-else-if="item.status == 3" plain type="warning" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(3),'color':getRequestStatusColor(3)}"  round>{{ $t('models.request.status.assigned') }}</el-button>
-                        <el-button v-else-if="item.status == 4" plain type="success" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(4),'color':getRequestStatusColor(4)}"  round>{{ $t('models.request.status.done') }}</el-button>
-                        <el-button v-else-if="item.status == 5" plain type="warning" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(5),'color':getRequestStatusColor(5)}"  round>{{ $t('models.request.status.reactivated') }}</el-button>
-                        <el-button v-else-if="item.status == 6" plain type="success" class="btn-priority-badge btn-badge" :style="{'border-color': getRequestStatusColor(6),'color':getRequestStatusColor(6)}"  round>{{ $t('models.request.status.archived') }}</el-button>
-                    </div>
-                    <div>
-                        {{ $t('models.request.last_updated') }}
-                        <br>
-                        <span v-if="updated_at.h>12">{{ updated_at.date }}</span>
-                        <span v-else-if="updated_at.h">{{ updated_at.h }}h</span>
-                        <span v-else-if="updated_at.m">{{  updated_at.m }}m</span>
-                        <span v-else>ago</span>
-                    </div>
+                    <el-select 
+                        class="select-icon rounded-select"  
+                        v-model="item.status" 
+                        @change="$emit('onChange', $event)"
+                    >
+                        <template slot="prefix">
+                        </template>
+                        <el-option
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id"
+                            v-for="item in selectData">
+                            {{item.name}}
+                        </el-option>
+                    </el-select>
                 </el-col>
             </el-row>
         </div>
@@ -92,13 +89,21 @@
                         {{ item.created_at }}
                     </p>
                 </el-col> 
-                <el-col :span="6">
-                    <span>{{ $t('models.request.priority.label') }}</span>
+                <el-col :span="3">
+                    <span>{{ $t('models.request.internal_priority.label') }}</span>
                     <p>
-                        <el-button v-if="item.priority_label == 'low'" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.priority.low') }}</el-button>
-                        <el-button v-else-if="item.priority_label == 'normal'" plain type="warning" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.priority.normal') }}</el-button>
-                        <el-button v-else-if="item.priority_label == 'urgent'" plain type="danger" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.priority.urgent') }}</el-button>
+                        <el-button v-if="item.internal_priority_label == 'low'" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.internal_priority.low') }}</el-button>
+                        <el-button v-else-if="item.internal_priority_label == 'normal'" plain type="warning" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.internal_priority.normal') }}</el-button>
+                        <el-button v-else-if="item.internal_priority_label == 'urgent'" plain type="danger" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.internal_priority.urgent') }}</el-button>
                     </p>
+                </el-col>
+                <el-col :span="3">
+                    {{ $t('models.request.last_updated') }}
+                    <br>
+                    <span v-if="updated_at.h>12">{{ updated_at.date }}</span>
+                    <span v-else-if="updated_at.h">{{ updated_at.h }}h</span>
+                    <span v-else-if="updated_at.m">{{  updated_at.m }}m</span>
+                    <span v-else>ago</span>
                 </el-col>
                 <el-col :span="3">
                     <span>{{ $t(due.label) }}</span>
@@ -143,25 +148,32 @@ export default {
     computed: {
         due() {
             var currentDate = new Date();
-
-            var updated = this.item.due_date.split('.');
-            var updated_date = new Date(parseInt(updated[2]), parseInt(updated[1])-1, parseInt(updated[0]));
-            var days = ( updated_date.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24 ;
-            if(days < 0)
-                return {
-                    label:'models.request.was_due_on',
-                    date: this.item.due_date
-                };
-            else if(days <= 30)
-                return {
-                    label:'models.request.due_in',
-                    date: Math.floor(days) + (Math.floor(days) > 1?` ${this.$t('general.timestamps.days')}`:` ${this.$t('validation.attributes.day')}`),
-                };
-            else
+            if(this.item.due_date !==undefined) {
+                var updated = this.item.due_date.split('.');
+                var updated_date = new Date(parseInt(updated[2]), parseInt(updated[1])-1, parseInt(updated[0]));
+                var days = ( updated_date.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24 ;
+                if(days < 0)
+                    return {
+                        label:'models.request.was_due_on',
+                        date: this.item.due_date
+                    };
+                else if(days <= 30)
+                    return {
+                        label:'models.request.due_in',
+                        date: Math.floor(days) + (Math.floor(days) > 1?` ${this.$t('general.timestamps.days')}`:` ${this.$t('validation.attributes.day')}`),
+                    };
+                else
+                    return {
+                        label:'models.request.due_on',
+                        date: this.item.due_date
+                    };
+            } else {
                 return {
                     label:'models.request.due_on',
-                    date: this.item.due_date
-                };
+                    date: ''
+                }
+            }
+            
         },
         updated_at() {
             var currentDate = new Date();
@@ -179,7 +191,20 @@ export default {
                 h: Math.floor(minutes / 60),
                 m: Math.ceil(minutes % 60)
             }
-        }   
+        },
+        selectData() {
+            const storeConstants = this.$store.getters['application/requests'];
+            if (storeConstants) {
+                const constants = storeConstants['status'];
+                var data = Object.keys(constants).map((id) => {
+                    return {
+                        name: this.$t(`models.request.status.${constants[id]}`),
+                        id: parseInt(id)
+                    };
+                });
+                return data;
+            }
+        }
     },
     methods: {
         handleSelectionChanged(val) {
@@ -250,27 +275,17 @@ export default {
                 p {
                     margin-bottom: 2px;
                     line-height: 15px;
+                    word-break: break-word;
                 }
             }
             .request-tail {
                 display: flex;
-                flex-direction: column;
-                padding-right: 50px;
-                padding-top: 17.5px;
+                align-items: flex-end;
+                padding-right: 10px !important;
                 div {
-                    padding-left: 10px !important;
+                    margin-bottom: 20px
                 }
-                div:nth-of-type(1) {
-                    margin-top: 5px;
-                    margin-bottom: auto;
-                }
-                div:nth-of-type(2) {
-                    margin-top: 5px;
-                    width: 100%;
-                    background-color: #ecf5ff;
-                    color: #206eab;
-                    border: 1px solid #d9ecff;
-                }
+              
             }
         }
         .request-footer {

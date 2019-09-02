@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\State;
-use InfyOm\Generator\Common\BaseRepository;
 
 /**
  * Class StateRepository

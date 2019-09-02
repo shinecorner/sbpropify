@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\TemplateCategory;
-use InfyOm\Generator\Common\BaseRepository;
 
 /**
  * Class TemplateCategoryRepository

@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\ServiceRequestCategory;
-use InfyOm\Generator\Common\BaseRepository;
 
 /**
  * Class ServiceRequestCategoryRepository

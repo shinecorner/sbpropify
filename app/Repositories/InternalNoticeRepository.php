@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\InternalNotice;
-use InfyOm\Generator\Common\BaseRepository;
 
 /**
  * Class InternalNoticeRepository

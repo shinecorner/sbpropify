@@ -2,11 +2,6 @@
 
 namespace App\Traits;
 
-use BeyondCode\Comments\Traits\HasComments as OriginalHasTraits;
-use BeyondCode\Comments\Contracts\Commentator;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
-
 trait UpdateSettings
 {
     public function updateRelations($model, $attributes)
@@ -15,13 +10,15 @@ trait UpdateSettings
             $settingData = $attributes['settings'];
             $model->load('settings');
             $settings = $model->settings;
+
             if($settings) {
                 $settings->update($settingData);
             } else {
-                $model->settings()->create($settingData);
+                $newSetting = $model->settings()->create($settingData);
+                $model->setRelation('settings', $newSetting);
             }
         }
-        
+
         return $model;
     }
 }

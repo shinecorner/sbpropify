@@ -24,7 +24,6 @@ use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestAssignee;
-use App\Models\ServiceRequestStatus;
 use App\Repositories\PropertyManagerRepository;
 use App\Repositories\ServiceProviderRepository;
 use App\Repositories\ServiceRequestRepository;
@@ -320,9 +319,8 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
-        $attr = $this->serviceRequestRepository->getPutAttributes($input, $oldStatus);
+        $attr = $this->serviceRequestRepository->getPutAttributes($input, $serviceRequest);
         $updatedServiceRequest = $this->serviceRequestRepository->update($attr, $id);
-        $this->saveRequestStatusLog($id, $oldStatus, $updatedServiceRequest->status);
         $this->serviceRequestRepository->notifyStatusChange($serviceRequest, $updatedServiceRequest);
 
         if ($updatedServiceRequest->due_date && $updatedServiceRequest->due_date != $serviceRequest->due_date) {
@@ -335,26 +333,6 @@ class ServiceRequestAPIController extends AppBaseController
         ]);
         $response = (new ServiceRequestTransformer)->transform($updatedServiceRequest);
         return $this->sendResponse($response, __('models.request.saved'));
-    }
-
-    /**
-     * @param $id
-     * @param $oldStatus
-     * @param $newStatus
-     */
-    public function saveRequestStatusLog($id, $oldStatus, $newStatus)
-    {
-        if ($oldStatus == $newStatus) {
-            return;
-        }
-
-        $data = [
-            'old_status' => $oldStatus,
-            'new_status' => $newStatus,
-            'request_id' => $id,
-            'started_at' => now()
-        ];
-        ServiceRequestStatus::create($data);
     }
 
     /**
@@ -405,17 +383,14 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
-        $input = [
-            'status' => $request->get('status', '')
-        ];
+        $input = ['status' => $request->get('status', '')];
+        $input = $this->serviceRequestRepository->getStatusRelatedAttributes($input, $serviceRequest);
 
         if (!$this->serviceRequestRepository->checkStatusPermission($input, $serviceRequest->status)) {
             return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
-        $oldStatus = $serviceRequest->status;
         $serviceRequest = $this->serviceRequestRepository->update($input, $id);
-        $this->saveRequestStatusLog($id, $oldStatus, $serviceRequest->status);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, __('models.request.status_changed'));
     }

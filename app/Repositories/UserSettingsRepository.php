@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\UserSettings;
-use InfyOm\Generator\Common\BaseRepository;
 
 /**
  * Class UserSettingsRepository

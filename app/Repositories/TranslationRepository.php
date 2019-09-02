@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Translation;
-use InfyOm\Generator\Common\BaseRepository;
 
 /**
  * Class TranslationRepository

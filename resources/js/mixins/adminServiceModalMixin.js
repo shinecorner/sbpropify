@@ -33,18 +33,30 @@ export default (config = {}) => {
                     this.mailSending = true;
 
                     try {
-                        const resp = await this.sendServiceRequestMail({
-                            request: this.model.id,
-                            service_provider_id: serviceAttachModel.provider.id,
-                            provider_id: serviceAttachModel.provider.id,
-                            title: serviceAttachModel.subject,
-                            body: serviceAttachModel.body,
-                            cc: serviceAttachModel.cc,
-                            bcc: serviceAttachModel.bcc,
-                            property_manager_id: serviceAttachModel.manager.id,
-                            assignees_id: serviceAttachModel.manager.id,
-                            to: serviceAttachModel.to
-                        });
+                        if(typeof(serviceAttachModel.provider) == 'object') {
+                            const resp = await this.sendServiceRequestMail({
+                                request: this.model.id,
+                                service_provider_id: serviceAttachModel.provider.edit_id,
+                                title: serviceAttachModel.subject,
+                                body: serviceAttachModel.body,
+                                cc: serviceAttachModel.cc,
+                                bcc: serviceAttachModel.bcc,
+                                property_manager_id: serviceAttachModel.manager,
+                                to: serviceAttachModel.to
+                            });
+                        }
+                        else if(typeof(serviceAttachModel.provider) == 'number') {
+                            const resp = await this.sendServiceRequestMail({
+                                request: this.model.id,
+                                service_provider_id: serviceAttachModel.provider,
+                                title: serviceAttachModel.subject,
+                                body: serviceAttachModel.body,
+                                cc: serviceAttachModel.cc,
+                                bcc: serviceAttachModel.bcc,
+                                property_manager_id: serviceAttachModel.manager.edit_id,
+                                to: serviceAttachModel.to
+                            });
+                        }
 
                         if (resp) {
                             this.closeMailModal(false);
