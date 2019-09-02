@@ -109,6 +109,8 @@
                                                       v-model="model.private_phone"></el-input>
                                         </el-form-item>
                                     </el-col>
+                                </el-row>
+                                <el-row class="last-form-row" :gutter="20">
                                     <el-col :md='12'>
                                         <el-form-item :label="$t('models.tenant.work_phone')" prop="work_phone">
                                             <el-input autocomplete="off" type="text" v-model="model.work_phone"></el-input>
@@ -147,7 +149,7 @@
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
-                                <el-row :gutter="20">
+                                <el-row class="last-form-row" :gutter="20">
                                     <el-col :md="12">
                                         <el-form-item :label="$t('general.password')" :rules="validationRules.password"
                                                       prop="password">
@@ -205,7 +207,7 @@
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
-                                <el-form-item>
+                                <el-form-item style="margin-bottom: 0;">
                                     <el-row :gutter="20">
                                         <el-col :md="12">
                                             <upload-document @fileUploaded="contractUploaded" class="drag-custom" drag/>
@@ -237,7 +239,7 @@
                     <el-col :md="12">
                         <el-card class="chart-card">
                             <el-form :model="model" label-position="top" label-width="192px" ref="form">
-                                <el-row :gutter="20">
+                                <el-row class="last-form-row" :gutter="20">
                                     <h3 class="chart-card-header">
                                         <i class="icon-commerical-building icon"/>
                                         {{ $t('models.tenant.building.name') }}
@@ -449,6 +451,20 @@
     }
 </script>
 <style lang="scss">
+    .el-tabs--border-card {
+        border-radius: 6px;
+        .el-tabs__header {
+            border-radius: 6px 6px 0 0;
+        }
+        .el-tabs__nav-wrap.is-top {
+            border-radius: 6px 6px 0 0;
+        }
+    }
+
+    .last-form-row {
+        margin-bottom: -22px;
+    }
+
     .tenants-edit-new{
 
         .chart-card{
@@ -467,10 +483,11 @@
         }
 
         .chart-card-header{
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 400;
-            padding: 0 10px 20px;
-            margin: 0;
+            padding: 0 20px 16px;
+            margin: -4px -10px 10px;
+            border-bottom: 1px solid #EBEEF5;
 
             h3 {
                 font-size: 24px;

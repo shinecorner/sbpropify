@@ -53,7 +53,7 @@
                         </el-row>
                         <el-row :gutter="20">
                             <el-col :md="12" id="right_card">
-                                <el-form-item :label="$t('general.language')" :rules="validationRules.language" 
+                                <el-form-item style="margin-bottom: 0;" :label="$t('general.language')" :rules="validationRules.language"
                                     prop="settings.language">
                                     <select-language :activeLanguage.sync="model.settings.language"/>
                                 </el-form-item>
@@ -92,6 +92,10 @@
 </script>
 
 <style lang="scss" scoped>
+    .last-form-row {
+        margin-bottom: -22px;
+    }
+
     .users-edit {
         .heading {
             margin-bottom: 20px;
