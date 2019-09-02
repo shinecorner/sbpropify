@@ -161,14 +161,6 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         'notify_email' => 'boolean',
     ];
 
-    protected $auditInclude = [
-        'type',
-        'status',
-        'visibility',
-        'published_at',
-        'pinned',
-    ];
-
     const templateMap = [
         'title' => 'post.title',
         'content' => 'post.content',

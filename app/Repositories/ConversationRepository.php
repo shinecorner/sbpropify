@@ -3,16 +3,15 @@
 namespace App\Repositories;
 
 use App\Models\Conversation;
-use InfyOm\Generator\Common\BaseRepository;
 
 /**
  * Class ConversationRepository
  * @package App\Repositories
  * @version February 11, 2019, 6:22 pm UTC
  *
- * @method Comment findWithoutFail($id, $columns = ['*'])
- * @method Comment find($id, $columns = ['*'])
- * @method Comment first($columns = ['*'])
+ * @method Conversation findWithoutFail($id, $columns = ['*'])
+ * @method Conversation find($id, $columns = ['*'])
+ * @method Conversation first($columns = ['*'])
 */
 class ConversationRepository extends BaseRepository
 {

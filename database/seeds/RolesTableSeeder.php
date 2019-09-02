@@ -106,7 +106,11 @@ class RolesTableSeeder extends Seeder
             'post-comment',
             'list-service_request_category',
             'post-request_service',
-            'edit-request_service'
+            'edit-request_service',
+            'list-district',
+            'list-property_manager',
+            'list-building',
+            'list-tenant'
         ];
         foreach ($servicePerms as $p) {
             $RLCService->attachPermission(Permission::where('name', $p)->first());

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Model;
+use Prettus\Repository\Events\RepositoryEntityUpdated;
 
 abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
 {
@@ -27,7 +28,7 @@ abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
         }
         $extension = $this->mimeToExtension[$mimeType];
 
-        $diskName = sprintf("requests_%s", $collectionName);
+        $diskName = $model->getDiskPreName() . $collectionName;;
 
         $media = $model->addMediaFromBase64($dataBase64)
             ->sanitizingFileName(function ($fileName) use ($extension) {
@@ -60,5 +61,28 @@ abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
     {
         $this->model = $this->model->{$scopeName}();
         return $this;
+    }
+
+    public function updateRelations($model, $attributes)
+    {
+        // @TODO if need
+        return $model;
+    }
+
+    /**
+     * @param Model $model
+     * @param $attributes
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function updateExisting(Model $model, $attributes)
+    {
+        $model = $this->updateRelations($model, $attributes);
+        $model->fill($attributes);
+        $model->save();
+        $this->resetModel();
+        event(new RepositoryEntityUpdated($this, $model));
+
+        return $this->parserResult($model);
     }
 }

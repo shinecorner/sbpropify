@@ -82,7 +82,7 @@
                         try {
                             await this.login(this.model);
                             const {data: {settings: {language}}, ...rest} = await this.me();
-
+                            
                             this.$i18n.locale = language;
                             this.$router.push({
                                 name: 'tenantDashboard'

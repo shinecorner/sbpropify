@@ -3,7 +3,6 @@
         <el-table
             :data="list"
             style="width: 100%"
-            @row-click="editLink"
             >
             <el-table-column
                 :key="column.prop"
@@ -94,7 +93,33 @@
                                 v-if="scope.row[column.count]"></avatar>
                     </div>
 
-                    <div v-else class="normal">
+                    <div v-else-if="column.type === 'assignProviderManagerAvatars'">
+                        <el-tooltip
+                                :content="`${scope.row.name}`"
+                                class="item"
+                                effect="light" placement="top"
+                        >
+                            <avatar :size="30"
+                                    :src="'/' + scope.row.avatar"
+                                    v-if="scope.row.avatar"></avatar>
+                            <avatar :size="28"
+                                    backgroundColor="rgb(205, 220, 57)"
+                                    color="#fff"
+                                    :username="scope.row.name"
+                                    v-if="!scope.row.avatar"></avatar>
+                        </el-tooltip>
+                    </div>
+
+                    <div v-else-if="column.type === 'assigneesName'" class="normal">
+                        <router-link v-if="scope.row.type === 'manager'" :to="{name: 'adminPropertyManagersEdit', params: {id: scope.row.edit_id}}">
+                            {{scope.row.name}}
+                        </router-link>
+                        <router-link v-if="scope.row.type === 'provider'" :to="{name: 'adminServicesEdit', params: {id: scope.row.edit_id}}">
+                            {{scope.row.name}}
+                        </router-link>
+                    </div>
+
+                    <div v-else>
                         {{scope.row[column.prop]}}
                     </div>
                 </template>
@@ -144,6 +169,7 @@
                             :style="button.style"
                             :type="button.type"
                             @click="button.onClick(scope.row)"
+                            v-if="scope.row.type != 'manager' || button.type == 'danger'"
                             size="mini"
                         >
                         </el-button>
@@ -246,18 +272,6 @@
                 if (this.meta.current_page < this.meta.last_page) {
                     this.fetch(this.meta.current_page + 1);
                 }
-            },
-            editLink(row, column, cell, event) {
-                if(column.property === 'name')
-                {
-                    let edit_id = row.edit_id;
-                    if(row.type == 'manager') {
-                        this.$router.push({ name: 'adminPropertyManagersEdit', params: { id: edit_id } });
-                    }
-                    else if(row.type == 'provider') {
-                        this.$router.push({ name: 'adminServicesEdit', params: { id: edit_id } });
-                    }
-                }
             }
         }
     }
@@ -301,6 +315,14 @@
         .listing {
             .normal {
                 color: #6AC06F;
+                a {
+                    text-decoration: none;
+                    color:#6AC06F;
+                }
+                &:hover {
+                    text-decoration: none;
+                    color:#6AC06F;
+                }
             }
         }
     }

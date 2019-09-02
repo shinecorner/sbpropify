@@ -1,7 +1,8 @@
 <?php
 
-use App\Models\ServiceRequestCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class ServiceRequestCategoriesTableSeeder extends Seeder
 {
@@ -12,27 +13,9 @@ class ServiceRequestCategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        $json = File::get('database/data/serviceRequestCategories.json');
-        $data = json_decode($json);
-
-        if (!$data) {
-            return;
-        }
-
-        foreach ($data as $obj) {
-            $category = [];
-            $category['name'] = $obj->name;
-            if ($obj->parent_id) {
-                $category['parent_id'] = $obj->parent_id;
-            }
-
-            if ($obj->has_qualifications) {
-                $category['has_qualifications'] = $obj->has_qualifications;
-            }
-
-            ServiceRequestCategory::create(
-                $category
-            );
-        }
+        Schema::disableForeignKeyConstraints();
+        DB::table('service_request_categories')->truncate();
+        DB::unprepared(file_get_contents(database_path('sql' . DIRECTORY_SEPARATOR . 'service_request_categories.sql')));
+        Schema::enableForeignKeyConstraints();
     }
 }

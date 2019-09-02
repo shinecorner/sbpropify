@@ -39,7 +39,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      )
  * )
  */
-class District extends Model
+class District extends AuditableModel
 {
     use SoftDeletes, UniqueIDFormat;
 

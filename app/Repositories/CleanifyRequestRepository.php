@@ -2,21 +2,17 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
 use App\Models\CleanifyRequest;
 use App\Mails\CleanifyNotification;
-use InfyOm\Generator\Common\BaseRepository;
-use Illuminate\Database\Eloquent\Collection;
-use Notification;
 
 /**
  * Class CleanifyRequestRepository
  * @package App\Repositories
  * @version February 11, 2019, 6:22 pm UTC
  *
- * @method Post findWithoutFail($id, $columns = ['*'])
- * @method Post find($id, $columns = ['*'])
- * @method Post first($columns = ['*'])
+ * @method CleanifyRequest findWithoutFail($id, $columns = ['*'])
+ * @method CleanifyRequest find($id, $columns = ['*'])
+ * @method CleanifyRequest first($columns = ['*'])
 */
 class CleanifyRequestRepository extends BaseRepository
 {

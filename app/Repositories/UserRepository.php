@@ -84,16 +84,11 @@ class UserRepository extends BaseRepository
      */
     public function update(array $attributes, $id)
     {
-        // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-
         if (isset($attributes['password']) && !empty($attributes['password'])) {
             $attributes['password'] = bcrypt($attributes['password']);
         }
 
         $model = parent::update($attributes, $id);
-        $this->skipPresenter($temporarySkipPresenter);
 
         //change user role
         if (isset($attributes['role'])) {
@@ -103,11 +98,8 @@ class UserRepository extends BaseRepository
                 $model->attachRole($role);
             }
         }
-// @TODO tell
-//        $model = $this->updateRelations($model, $attributes);
-        $model->save();
 
-        return $this->parserResult($model);
+        return $model;
     }
 
     // TODO: move function to media repository
