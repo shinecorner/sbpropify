@@ -132,7 +132,7 @@ export default (config = {}) => {
                     {name: this.$t('models.request.category_options.costs.landlord'), value: 'lessor'},
                     {name: this.$t('models.request.category_options.costs.tenant'), value: 'tenant'},
                 ],
-                showfirstlayout: false,
+                showsubcategory: false,
                 showpayer: false,
                 showUmgebung: false,
                 showLiegenschaft: false,
@@ -313,16 +313,9 @@ export default (config = {}) => {
                     }
                 });
                 
-                this.first_layout_subcategories = this.first_layout_subcategories.map(item => ({
-                    categories: item.categories,
-                    description: item.description,
-                    has_qualifications: item.has_qualifications,
-                    id: item.id,
-                    location: item.location,
-                    name: item.name.substring(3),
-                    parent_id: item.parent_id,
-                    room: item.room
-                }))
+                this.first_layout_subcategories.map(item => {
+                    item.name = item.name.substring(3)
+                })
             }
         }
     };
@@ -405,7 +398,7 @@ export default (config = {}) => {
                             });
                         }
                         
-                        this.showfirstlayout = resp.data.category.parent_id == 1 ? true : false;
+                        this.showsubcategory = resp.data.category.parent_id == 1 ? true : false;
                         
                         this.showLiegenschaft = resp.data.location != null ? true : false;
 

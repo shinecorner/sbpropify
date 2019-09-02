@@ -170,7 +170,7 @@
                         }, {
                             icon: 'icon-chat-empty',
                             title: this.$t('menu.requests'),
-                            permission: this.$permissions.list.cleanify_request,
+                            permission: this.$permissions.list.request,
                             children: [{
                                 title: this.$t('menu.all_requests'),
                                 permission: this.$permissions.list.request,
@@ -298,7 +298,7 @@
                         }, {
                             icon: 'icon-chat-empty',
                             title: this.$t('menu.requests'),
-                            permission: this.$permissions.list.user,
+                            permission: this.$permissions.list.request,
                             children: [{
                                 title: this.$t('menu.all_requests'),
                                 permission: this.$permissions.list.request,
@@ -308,14 +308,14 @@
                                 }
                             },  {
                                 title: this.$t('menu.myRequests'),
-                                permission: this.$permissions.cleanify_request.list,
+                                permission: this.$permissions.list.request,
                                 value: this.my_request_count,
                                 route: {
                                     name: 'adminMyRequests'
                                 }
                             },  {
                                 title: this.$t('menu.myPendingRequests'),
-                                permission: this.$permissions.cleanify_request.list,
+                                permission: this.$permissions.list.request,
                                 value: this.my_pending_count,
                                 route: {
                                     name: 'adminMypendingRequests'
@@ -431,7 +431,7 @@
                         }, {
                             icon: 'icon-chat-empty',
                             title: this.$t('menu.requests'),
-                            permission: this.$permissions.list.user,
+                            permission: this.$permissions.list.request,
                             children: [{
                                 title: this.$t('menu.all_requests'),
                                 permission: this.$permissions.list.request,
@@ -441,14 +441,14 @@
                                 }
                             },  {
                                 title: this.$t('menu.myRequests'),
-                                permission: this.$permissions.cleanify_request.list,
+                                permission: this.$permissions.list.request,
                                 value: this.my_request_count,
                                 route: {
                                     name: 'adminMyRequests'
                                 }
                             },  {
                                 title: this.$t('menu.myPendingRequests'),
-                                permission: this.$permissions.cleanify_request.list,
+                                permission: this.$permissions.list.request,
                                 value: this.my_pending_count,
                                 route: {
                                     name: 'adminMypendingRequests'
@@ -542,7 +542,7 @@
                         {
                             icon: 'icon-chat-empty',
                             title: this.$t('menu.requests'),
-                            permission: this.$permissions.list.user,
+                            permission: this.$permissions.list.request,
                             children: [{
                                 title: this.$t('menu.all_requests'),
                                 permission: this.$permissions.list.request,
@@ -552,14 +552,14 @@
                                 }
                             },  {
                                 title: this.$t('menu.myRequests'),
-                                permission: this.$permissions.cleanify_request.list,
+                                permission: this.$permissions.list.request,
                                 value: this.my_request_count,
                                 route: {
                                     name: 'adminMyRequests'
                                 }
                             },  {
                                 title: this.$t('menu.myPendingRequests'),
-                                permission: this.$permissions.cleanify_request.list,
+                                permission: this.$permissions.list.request,
                                 value: this.my_pending_count,
                                 route: {
                                     name: 'adminMypendingRequests'
@@ -582,7 +582,6 @@
                         }
                     ] 
                 }
-                
                 return links;
             },
             dropmenuwidth () {

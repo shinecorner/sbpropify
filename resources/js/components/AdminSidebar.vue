@@ -13,10 +13,10 @@
                         @click="handleLink($event, key, link)"
                         v-for="(link, key) in links"
                         v-if="!link.children && ($can(link.permission) || !link.permission)">
-                    
+                    <router-link :to="{name: link.route.name}">
                         <i :class="[link.icon, 'icon']"/>
                         <span class="title" v-if="!collapsed">{{ link.title }}</span>
-                    
+                    </router-link>
                     <span class="title" slot="title" v-if="collapsed">{{ link.title }}</span>
                 </el-menu-item>
                 <el-submenu :index="link.title" v-else-if="($can(link.permission) || !link.permission)">
@@ -29,10 +29,10 @@
                             :key="child.title"
                             @click="handleLink($event, childKey, child)"
                             v-for="(child, childKey) in link.children">
-                        
+                        <router-link :to="child.route">
                             <i :class="['icon-right-open', 'icon']"/>
                             <span class="title">{{ child.title }}</span>
-                        
+                        </router-link>
                         <el-badge :value="child.value" class="item" type="primary"></el-badge>
                     </el-menu-item>
                 </el-submenu>
@@ -58,12 +58,13 @@
         },
         data() {
             return {
-                currActive: '0',
+                currActive: '',
             }
         },
         methods: {
             async handleLink(ev, key, {route, action, children, icon}) {
                 //this.currActive = key.toString();
+                
                 !children && route && this.$router.push(route);
 
                 /*if (!children && !!icon) {
@@ -112,6 +113,8 @@
             links() {
                 const routeName = this.$route.name;
 
+               
+
                 this.links.map(link => {
                     if (link.route && link.route.name == routeName) {
                         this.currActive = link.title;
@@ -129,7 +132,6 @@
                 immediate: true,
                 handler({page, per_page}, prevQuery) {
                     const routeName = this.$route.name;
-                
                     this.links.map(link => {
                         if (link.route && link.route.name == routeName) {
                             this.currActive = link.title;
