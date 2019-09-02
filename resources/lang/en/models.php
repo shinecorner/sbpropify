@@ -630,20 +630,14 @@ return [
       [
           'disturbance' => 'Disturbance',
           'defect' => 'Defect',
-          'order_documents' => 'Order documents',
-          'order_a_payment_slip' => 'Order a payment slip',
-          'questions_about_the_tenancy' => 'Questions about the tenancy',
           'other' => 'Other',
-          'environment' => 'Environment',
-          'house' => 'House',
-          'apartment' => 'Apartment',
           'room' => 'Room',
           'range' => 'Range',
           'component' => 'Component',
           'acquisition' => 'Acquisition Phase',
           'keywords' => 'Keywords',
           'cost' => 'Cost Impact',
-          'locations' => [
+          'building_locations' => [
 						'house_entrance' => 'House Entrance',
 						'staircase' => 'Staircase',
 						'elevator' => 'Elevator',
@@ -655,7 +649,7 @@ return [
 						'roof' => 'Roof',
 						'other' => 'Other'
           ],
-          'rooms' => [
+          'apartment_rooms' => [
 						'bath' => 'Bathroom/WC',
 						'shower' => 'Shower/WC',
 						'entrance' => 'Entrance',

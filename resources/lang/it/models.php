@@ -630,20 +630,14 @@ return [
       [
         "disturbance" => "Perturbazione",
         "defect" => "Difetto",
-        "order_documents" => "Ordinare i documenti",
-        "order_a_payment_slip" => "Ordina una polizza di pagamento",
-        "questions_about_the_tenancy" => "Domande sull'affitto",
         "other" => "Altro",
-        "environment" => "Ambiente",
-        "house" => "Casa",
-        "apartment" => "Appartamento",
         'room' => 'Camera',
         'range' => 'Gamma',
         'component' => 'Componente',
         'acquisition' => 'Fase di acquisizione',
         'cost' => 'Costo Impatto',
         'keywords' => 'Parole chiave',
-        'locations' => [
+        'building_locations' => [
           'house_entrance' => 'Ingresso Casa',
           'staircase' => 'Scala',
           'elevator' => 'Ascensore',
@@ -655,7 +649,7 @@ return [
           'roof' => 'Tetto',
           'other' => 'Altro'
         ],
-        'rooms' => [
+        'apartment_rooms' => [
           'bath' => 'Bagno/WC',
           'shower' => 'Doccia/WC',
           'entrance' => 'Ingresso',
