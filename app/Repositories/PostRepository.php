@@ -83,7 +83,7 @@ class PostRepository extends BaseRepository
 
         return $model;
     }
-    
+
 
     /**
      * @param int $id

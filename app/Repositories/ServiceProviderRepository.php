@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App\Models\ServiceProvider;
 use App\Models\Building;
 use App\Models\District;
-use App\Traits\UpdateSettings;
 use Illuminate\Support\Arr;
 
 /**
@@ -19,7 +18,6 @@ use Illuminate\Support\Arr;
  */
 class ServiceProviderRepository extends BaseRepository
 {
-    use UpdateSettings;
 
     /**
      * @var array
