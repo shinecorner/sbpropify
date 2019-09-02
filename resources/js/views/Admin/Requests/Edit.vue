@@ -20,7 +20,7 @@
                                                    :placeholder="$t('models.request.placeholders.category')"
                                                    class="custom-select"
                                                    v-model="model.category_id"
-                                                   @change="showFirstLayout">
+                                                   @change="showSubcategory">
                                             <el-option
                                                 :key="category.id"
                                                 :label="category.name"
@@ -31,13 +31,13 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12"
-                                        v-if="this.showfirstlayout == true">
+                                        v-if="this.showsubcategory == true">
                                     <el-form-item label="Defekt/Mangel">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
                                                    class="custom-select"
                                                    v-model="model.defect"
-                                                   @change="showSecondLayout">
+                                                   @change="showLocationOrRoom">
                                             <el-option
                                                 :key="category.id"
                                                 :label="category.name"
@@ -48,7 +48,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12"
-                                        v-if="this.showfirstlayout == true && this.showLiegenschaft == true && this.showWohnung == false">
+                                        v-if="this.showsubcategory == true && this.showLiegenschaft == true && this.showWohnung == false">
                                     <el-form-item :label="$t('models.request.category_options.range')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
@@ -64,7 +64,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12"
-                                        v-if="this.showfirstlayout == true && this.showWohnung == true && this.showLiegenschaft == false">
+                                        v-if="this.showsubcategory == true && this.showWohnung == true && this.showLiegenschaft == false">
                                     <el-form-item :label="$t('models.request.category_options.room')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
@@ -139,12 +139,12 @@
                                     <el-form-item :label="$t('models.request.category_options.keywords')">
                                         <el-select
                                             v-model="model.keywords"
-                                            v-if="this.showplaceholder == false"
                                             multiple
                                             filterable
                                             allow-create
                                             default-first-option
-                                            @remove-tag="deleteTag" 
+                                            @remove-tag="deleteTag"
+                                            style="display:block"
                                             >
                                             <el-option
                                                 v-for="item in tags"
@@ -156,8 +156,8 @@
                                     </el-form-item>
                                 </el-col>
                             </el-row>
-                            <el-row :gutter="20" id="request-summary">
-                                <el-col :md="8">
+                            <el-row :gutter="20" class="summary-row" style="margin-bottom: 0;padding-bottom: 0;">
+                                <el-col :md="8" class="summary-item" id="tenant">
                                     <el-form-item v-if="model.tenant">
                                         <label slot="label">
                                             {{$t('general.tenant')}}
@@ -176,16 +176,18 @@
                                         </router-link>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="8">
+                                <el-col :md="8" class="summary-item" id="building">
                                     <el-form-item label="Building">
                                         <strong>{{this.model.building}}</strong>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="8">
+                                <el-col :md="8" class="summary-item" id="createtime">
                                     <el-form-item label="Creation Datetime">
                                         <strong>{{this.model.created_by}}</strong>
                                     </el-form-item>
                                 </el-col>
+                            </el-row>
+                            <el-row :gutter="20" class="summary-row">
                                 <el-col :md="8" class="summary-item">
                                     <el-form-item :label="$t('models.request.priority.label')">
                                         <strong>{{$constants.service_requests.priority[model.priority]}}</strong>
@@ -298,6 +300,20 @@
                             <card :loading="loading" :header="$t('models.request.actions')">
                                 <el-row :gutter="10">
                                     <el-col :md="12">
+                                        <el-form-item :label="$t('models.request.internal_priority.label')"
+                                                      :rules="validationRules.internal_priority"
+                                                      prop="internal_priority">
+                                            <el-select :placeholder="$t('models.request.internal_priority.label')" class="custom-select" v-model="model.internal_priority">
+                                                <el-option
+                                                    :key="k"
+                                                    :label="$t(`models.request.internal_priority.${priority}`)"
+                                                    :value="parseInt(k)"
+                                                    v-for="(priority, k) in $constants.service_requests.internal_priority">
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :md="12">
                                         <el-form-item :label="$t('models.request.status.label')"
                                                       :rules="validationRules.status"
                                                       prop="status">
@@ -405,7 +421,7 @@
     import {Avatar} from 'vue-avatar';
     import Audit from 'components/Audit';
     import AssignmentByType from 'components/AssignmentByType';
-
+    import Vue from 'vue';
 
     export default {
         name: 'AdminRequestsEdit',
@@ -432,6 +448,10 @@
                 selectedConversation: {},
                 constants: this.$store.getters['application/constants'],
                 assigneesColumns: [{
+                    type: 'assignProviderManagerAvatars',
+                    width: 70,
+                }, {
+                    type: 'assigneesName',
                     prop: 'name',
                     label: this.$t('general.name')
                 }, {
@@ -442,13 +462,13 @@
                 assigneesActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.request.notify'),
+                        title: 'models.request.notify',
                         tooltipMode: true,
                         type: 'success',
                         icon: 'el-icon-message',
                         onClick: this.openNotifyProvider
                     }, {
-                        title: this.$t('general.unassign'),
+                        title: 'general.unassign',
                         tooltipMode: true,
                         type: 'danger',
                         icon: 'el-icon-close',
@@ -491,7 +511,6 @@
         async mounted() {
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
             this.$root.$on('changeLanguage', () => {
-                console.log('change event');
                 this.getRealCategories();
             });
 
@@ -561,54 +580,36 @@
                     setTimeout( () => { active_bar.style.transform = 'translateX(265px)' }, 0)
                 }
             },
-            showFirstLayout() {
-
-                if(this.model.category_id == 1) {
-                    this.showfirstlayout = true;
-                }
-                else {
-                    this.showfirstlayout = false;
-                }
-
-                if(this.model.qualification == 5) {
-                    this.showpayer = true;
-                }
-                else {
-                    this.showpayer = false;
-                }
+            showSubcategory() {
+                this.showsubcategory = this.model.category_id == 1 ? true : false;
+                this.showpayer = this.model.qualification == 5 ? true : false;
             },
             
-            showSecondLayout() {
-                const subcategory = this.first_layout_subcategories.filter(category => {
-                    if(category.id == this.model.defect) {
-                        return category;
-                    }
+            showLocationOrRoom() {
+                const subcategory = this.first_layout_subcategories.find(category => {
+                    return category.id == this.model.defect;
                 });
-                if(subcategory[0].room == 1) {
+
+                this.model.room = '';
+                this.model.location = '';
+                this.showLiegenschaft = false;
+                this.showUmgebung = false;
+                this.showWohnung = false;
+
+                if(subcategory.room == 1) {
                     this.showWohnung = true;
-                    this.showLiegenschaft = false;
-                    this.showUmgebung = false;
                 }
-                else if(subcategory[0].location == 1) {
+                else if(subcategory.location == 1) {
                     this.showLiegenschaft = true;
-                    this.showUmgebung = false;
-                    this.showWohnung = false;
                 }
-                else if(subcategory[0].location == 0 && subcategory[0].room == 0) {
+                else if(subcategory.location == 0 && subcategory.room == 0) {
                     this.showUmgebung = true;
-                    this.showLiegenschaft = false;
-                    this.showWohnung = false;
                 }
             },
 
             selectPayer() {
-                
-                if(this.model.qualification == 5) {
-                    this.showpayer = true;
-                }
-                else {
-                    this.showpayer = false;
-                }
+                this.model.payer = '';
+                this.showpayer = this.model.qualification == 5 ? true : false;
             },
             async deleteTag(tag) {
                 
@@ -627,7 +628,7 @@
                 this.tags = this.tags.filter(item => {
                     return item.name != tag;
                 });
-            }
+            },
         }
     };
 </script>
@@ -678,7 +679,7 @@
         padding-left:40px;
     }
 
-    #request-summary {
+    .summary-row {
         background-color: #F3F3F3;
         padding: 2%;
         margin-left: 0px !important;
@@ -693,8 +694,13 @@
                 }
             }
         }
+
+        &:first-child {
+            margin-bottom: 0;
+        }
+
         .summary-item {
-            margin-top: 10px;
+            
             .el-form-item {
                 margin-bottom: 0px !important;
                 .el-form-item__content {
@@ -703,6 +709,8 @@
             }
         }
     }
+
+
 
     .el-tag + .el-tag {
         margin-left: 10px;
@@ -718,5 +726,47 @@
         width: 90px;
         margin-left: 10px;
         vertical-align: bottom;
+    }
+
+    $min-width: 991px;
+    $max-width: 1228px;
+    @media only screen and (min-width: $min-width) and (max-width: $max-width) {
+        #tenant {
+            .el-form-item {
+                .el-form-item__label {
+                    min-height: 50px;
+                }
+            }
+        }
+        #building {
+            .el-form-item {
+                .el-form-item__label {
+                    min-height: 50px;
+                }
+            }
+        }
+        #createtime {
+            .el-form-item {
+                .el-form-item__label {
+                    line-height: 25px;
+                }
+            }
+        }
+    }
+    @media only screen and (max-width: $min-width) {
+        #tenant {
+            .el-form-item {
+                .el-form-item__label {
+                    min-height: 40px !important;
+                }
+            }
+        }
+        #building {
+            .el-form-item {
+                .el-form-item__label {
+                    min-height: 40px !important;
+                }
+            }
+        }
     }
 </style>

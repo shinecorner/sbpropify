@@ -41,6 +41,7 @@ return [
   "user" => "Utente",
   "tenant" => "Un inquilino",
   "tenants" => "Gli inquilini",
+  'recipients' => 'Destinatari',
   'date' => 'Data',
   'title' => "denominazione",
   'description' => "descrizione",

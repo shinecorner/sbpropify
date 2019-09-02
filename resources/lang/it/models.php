@@ -591,6 +591,13 @@ return [
         "low" => "Basso",
         "normal" => "Normale",
       ],
+      'internal_priority' => 
+      [
+        "label" => "Priorità interna",
+        "urgent" => "E' urgente",
+        "low" => "Basso",
+        "normal" => "Normale",
+      ],      
       'defect_location' => 
       [
         "label" => "Posizione del difetto",

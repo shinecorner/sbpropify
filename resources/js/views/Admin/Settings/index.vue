@@ -352,9 +352,9 @@
 
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
                     <el-tabs type="border-card" v-model="activeRequestName">
-                        <el-tab-pane :label="$t('models.realEstate.categories')" name="categories">
-                            <CategoriesListing/>
-                        </el-tab-pane>
+<!--                        <el-tab-pane :label="$t('models.realEstate.categories')" name="categories">-->
+<!--                            <CategoriesListing/>-->
+<!--                        </el-tab-pane>-->
                         <el-tab-pane :label="$t('models.realEstate.templates')" name="templates">
                             <TemplatesListing/>
                         </el-tab-pane>
@@ -412,7 +412,7 @@
                 },
                 activeName: 'settings',
                 activeSettingsName: 'details',
-                activeRequestName: 'categories',
+                activeRequestName: 'templates',
                 states: [],
                 mailEncryption: [
                     'tls',
@@ -561,12 +561,14 @@
         overflow: auto;
         height: calc(100% - 100px);
         > .el-tabs__header.is-left {
+            margin-top: 20px;
+            margin-left: 20px;
             position: sticky;
             top: 0;
             min-width: 200px;
             height: 100%;
             box-shadow: inset 7px 0 5px -7px rgba(0,0,0,0.2);
-            border-bottom-right-radius: 10px;
+            border-radius: 10px;
             background: #fff;
             .el-tabs__nav-wrap {
                 &:after {

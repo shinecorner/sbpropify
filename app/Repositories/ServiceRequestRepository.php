@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\AuditableModel;
-use OwenIt\Auditing\Facades\Auditor;
 use App\Mails\NotifyServiceProvider;
 use App\Models\Comment;
 use App\Models\PropertyManager;
@@ -79,37 +78,9 @@ class ServiceRequestRepository extends BaseRepository
                 unset($attr['qualification']);
             }
         }
-        // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-        $model = parent::create($attr);
-        $this->skipPresenter($temporarySkipPresenter);
 
-        $model = $this->updateRelations($model, $attr);
-        $model->save();
-
-        return $this->parserResult($model);
-    }
-
-    /**
-     * @param array $attributes
-     * @param $id
-     * @return mixed
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     */
-    public function update(array $attributes, $id)
-    {
-        // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-        $model = parent::update($attributes, $id);
-
-        $this->skipPresenter($temporarySkipPresenter);
-
-        $model = $this->updateRelations($model, $attributes);
-        $model->save();
-
-        return $this->parserResult($model);
+        // $attr has assignee_ids where used?
+        return parent::create($attr);
     }
 
     /**
@@ -149,7 +120,7 @@ class ServiceRequestRepository extends BaseRepository
 
         $t = Tenant::find($attributes['tenant_id'] ?? 0);
         $attributes['unit_id'] = $t->unit_id;
-        $attributes['assignee_ids'] = [Auth::user()->id];
+        $attributes['assignee_ids'] = [Auth::user()->id]; // @TODO where used
         $attributes['status'] = ServiceRequest::StatusReceived;
         $attributes['due_date'] = Carbon::parse($attributes['due_date'])->format('Y-m-d');
 
@@ -158,10 +129,10 @@ class ServiceRequestRepository extends BaseRepository
 
     /**
      * @param $attributes
-     * @param $currentStatus
+     * @param $request
      * @return array
      */
-    public static function getPutAttributes($attributes, $currentStatus)
+    public static function getPutAttributes($attributes, $request)
     {
         $user = Auth::user();
         if ($user->can('edit-request_tenant')) {
@@ -192,14 +163,28 @@ class ServiceRequestRepository extends BaseRepository
             return $attr;
         }
 
-        if ($attributes['status'] != $currentStatus && $attributes['status'] == ServiceRequest::StatusDone) {
-            $attributes['solved_date'] = Carbon::now()->format('Y-m-d');
-        }
+
+        $attributes = self::getStatusRelatedAttributes($attributes, $request);
 
         if (isset($attributes['due_date'])) {
             $attributes['due_date'] = Carbon::parse($attributes['due_date'])->format('Y-m-d');
         }
 
+        return $attributes;
+    }
+
+    public static function getStatusRelatedAttributes($attributes, $request)
+    {
+        if ($attributes['status'] != $request->status) {
+            if (ServiceRequest::StatusDone == $attributes['status']) {
+                $now = now();
+                $attributes['solved_date'] = $now;
+                $time = $request->reactivation_date ?? $request->created_at;
+                $attributes['resolution_time'] = $request->resolution_time + $now->diffInSeconds($time);
+            } elseif (ServiceRequest::StatusReactivated == $attributes['status']) {
+                $attributes['reactivation_date'] = now();
+            }
+        }
         return $attributes;
     }
 

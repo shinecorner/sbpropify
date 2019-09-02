@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Country;
-use InfyOm\Generator\Common\BaseRepository;
 
 /**
  * Class CountryRepository

@@ -828,10 +828,7 @@ class StatisticsAPIController extends AppBaseController
             'endDate' => null,
         ];
 
-        $query = "select coalesce(floor(avg(time_to_sec(timediff(solved_date, created_at)))), 0) 
-                                                      duration from service_requests where solved_date is not null;";
-        $avgReqFix = DB::select($query);
-
+        $timeDifInSeconds = ServiceRequest::where('status', ServiceRequest::StatusDone)->avg('resolution_time');
         $allStartDates = [
             'requests' => $this->timeFormat(ServiceRequest::min('created_at')),
             'tenants' => $this->timeFormat(Tenant::min('created_at')),
@@ -841,7 +838,7 @@ class StatisticsAPIController extends AppBaseController
         ];
 
         $ret = [
-            'avg_request_duration' => $avgReqFix ? gmdate("H:i",$avgReqFix[0]->duration) : 0,
+            'avg_request_duration' => $this->formatTime($timeDifInSeconds),
             // all time total requests count and total request count of per status
             'total_requests' => $this->thousandsFormat(ServiceRequest::count('id')),
             'requests_per_status' => $this->donutChartByTable($request, $optionalArgs, 'service_requests'),
@@ -864,6 +861,17 @@ class StatisticsAPIController extends AppBaseController
         ];
 
         return $this->sendResponse($ret, 'Admin statistics retrieved successfully');
+    }
+
+    protected function formatTime($timeInSeconds)
+    {
+        $minutes = (int) floor($timeInSeconds / 60);
+        $seconds = (int)$timeInSeconds % 60;
+
+        $result = ($minutes < 10) ? '0' . $minutes : $minutes;
+        $result .= ':';
+        $result .= ($seconds < 10) ? '0' . $seconds : $seconds;
+        return $result;
     }
 
     /**
@@ -915,7 +923,8 @@ class StatisticsAPIController extends AppBaseController
         $period = $this->getPeriod($request);
         [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate);
 
-        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id')->toArray();
+        $name = get_translation_attribute_name('name');
+        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck($name, 'id')->toArray();
         $serviceRequests = ServiceRequest::selectRaw($raw . ', IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
             ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
             ->leftJoin('service_request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')
@@ -1267,7 +1276,9 @@ class StatisticsAPIController extends AppBaseController
     public function donutChartRequestByCategory(Request $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
-        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck('name', 'id');
+        $name = get_translation_attribute_name('name');
+        $parentCategories = ServiceRequestCategory::whereNull('parent_id')->pluck($name, 'id');
+
         $serviceRequests = ServiceRequest::selectRaw('count(service_requests.id) as count, IF(cat2.id IS NULL, cat1.id, cat2.id) AS category_parent_id')
             ->join('service_request_categories AS cat1', 'service_requests.category_id', '=', 'cat1.id')
             ->leftJoin('service_request_categories AS cat2', 'cat1.parent_id', '=', 'cat2.id')

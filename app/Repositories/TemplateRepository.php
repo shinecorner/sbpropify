@@ -13,9 +13,8 @@ use App\Models\Template;
 use App\Models\TemplateCategory;
 use App\Models\Tenant;
 use App\Models\User;
-use Config;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Collection;
-use InfyOm\Generator\Common\BaseRepository;
 use Spatie\MediaLibrary\Models\Media;
 
 /**
@@ -38,25 +37,6 @@ class TemplateRepository extends BaseRepository
     public function model()
     {
         return Template::class;
-    }
-
-    /**
-     * @param array $attributes
-     * @return mixed
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     */
-    public function create(array $attributes)
-    {
-        // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-        $model = parent::create($attributes);
-        $this->skipPresenter($temporarySkipPresenter);
-
-        $model = $this->updateRelations($model, $attributes);
-        $model->save();
-
-        return $this->parserResult($model);
     }
 
     /**

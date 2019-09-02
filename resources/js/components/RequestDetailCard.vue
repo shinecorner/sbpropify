@@ -99,7 +99,7 @@
                     </p>
                 </el-col>
                 <el-col :span="3">
-                    <span>{{ $t('models.request.priority.label') }}</span>
+                    <span>{{ $t('models.request.internal_priority.label') }}</span>
                     <p>
                         {{ $t('models.request.priority.'+`${item.priority_label}`) }}
                     </p>
@@ -277,6 +277,7 @@ export default {
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
+                    word-break: break-word;
                 }
             }
             .request-tail {

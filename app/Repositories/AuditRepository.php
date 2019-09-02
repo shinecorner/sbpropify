@@ -3,16 +3,15 @@
 namespace App\Repositories;
 
 use OwenIt\Auditing\Models\Audit;
-use InfyOm\Generator\Common\BaseRepository;
 
 /**
  * Class AuditRepository
  * @package App\Repositories
  * @version March 08, 2019, 9:44 pm UTC
  *
- * @method Country findWithoutFail($id, $columns = ['*'])
- * @method Country find($id, $columns = ['*'])
- * @method Country first($columns = ['*'])
+ * @method Audit findWithoutFail($id, $columns = ['*'])
+ * @method Audit find($id, $columns = ['*'])
+ * @method Audit first($columns = ['*'])
 */
 class AuditRepository extends BaseRepository
 {

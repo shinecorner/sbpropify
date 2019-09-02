@@ -3,14 +3,15 @@
 namespace App\Repositories;
 
 use App\Models\Model;
+use Prettus\Repository\Events\RepositoryEntityUpdated;
 
-abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
+abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepository
 {
     /**
      * @param string $collectionName
      * @param string $dataBase64
      * @param Model $model
-     * @return bool
+     * @return bool|\Spatie\MediaLibrary\Models\Media
      */
     public function uploadFile(string $collectionName, string $dataBase64, Model $model)
     {
@@ -27,7 +28,7 @@ abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
         }
         $extension = $this->mimeToExtension[$mimeType];
 
-        $diskName = sprintf("requests_%s", $collectionName);
+        $diskName = $model->getDiskPreName() . $collectionName;;
 
         $media = $model->addMediaFromBase64($dataBase64)
             ->sanitizingFileName(function ($fileName) use ($extension) {
@@ -60,5 +61,31 @@ abstract class BaseRepository extends \InfyOm\Generator\Common\BaseRepository
     {
         $this->model = $this->model->{$scopeName}();
         return $this;
+    }
+
+    public function findWithoutFail($id, $columns = ['*'])
+    {
+        try {
+            return $this->find($id, $columns);
+        } catch (\Exception $e) {
+            return;
+        }
+    }
+
+
+    /**
+     * @param Model $model
+     * @param $attributes
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function updateExisting(Model $model, $attributes)
+    {
+        $model->fill($attributes);
+        $model->save();
+        $this->resetModel();
+        event(new RepositoryEntityUpdated($this, $model));
+
+        return $this->parserResult($model);
     }
 }

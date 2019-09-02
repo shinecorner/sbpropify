@@ -115,7 +115,7 @@ use Hashids\Hashids;
  *      )
  * )
  */
-class Tenant extends Model implements HasMedia
+class Tenant extends AuditableModel implements HasMedia
 {
     use HasMediaTrait, UniqueIDFormat, HashId, RequestRelation;
 

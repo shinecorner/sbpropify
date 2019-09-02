@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Comment;
-use InfyOm\Generator\Common\BaseRepository;
 
 /**
  * Class CommentRepository

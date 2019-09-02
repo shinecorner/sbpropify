@@ -51,6 +51,10 @@ export default (config = {}) => {
                         required: true,
                         message: this.$t('validation.general.required')
                     }],
+                    internal_priority: [{
+                        required: true,
+                        message: this.$t('validation.general.required')
+                    }],
                     status: [{
                         required: true,
                         message: this.$t('validation.general.required')
@@ -128,7 +132,7 @@ export default (config = {}) => {
                     {name: this.$t('models.request.category_options.costs.landlord'), value: 'lessor'},
                     {name: this.$t('models.request.category_options.costs.tenant'), value: 'tenant'},
                 ],
-                showfirstlayout: false,
+                showsubcategory: false,
                 showpayer: false,
                 showUmgebung: false,
                 showLiegenschaft: false,
@@ -173,16 +177,29 @@ export default (config = {}) => {
                     this.resetToAssignList();
                 } else {
                     this.remoteLoading = true;
-
+                    
                     try {
                         let resp = [];
+                        const respRequest = await this.getRequest({id: this.$route.params.id});
+                        let exclude_ids = [];
                         if (this.assignmentType === 'managers') {
+                            respRequest.data.property_managers.map(item => {
+                                exclude_ids.push(item.id);
+                            })
                             resp = await this.getPropertyManagers({
                                 get_all: true,
                                 search,
+                                exclude_ids
                             });
                         } else {
-                            resp = await this.getServices({get_all: true, search});
+                            respRequest.data.service_providers.map(item => {
+                                exclude_ids.push(item.id);
+                            })
+                            resp = await this.getServices({
+                                get_all: true, 
+                                search,
+                                exclude_ids
+                            });
                         }
 
                         this.toAssignList = resp.data;
@@ -302,11 +319,15 @@ export default (config = {}) => {
                         return category;
                     }
                 });
-
+                
                 this.first_layout_subcategories = initialcategories.filter(category => {
                     if(category.parent_id == 1) {
                         return category;
                     }
+                });
+                
+                this.first_layout_subcategories.map(item => {
+                    item.name = item.name.substring(3)
                 })
             }
         }
@@ -390,8 +411,12 @@ export default (config = {}) => {
                             });
                         }
                         
-                        this.showfirstlayout = resp.data.category.parent_id == 1 ? true : false;
+                        this.showsubcategory = resp.data.category.parent_id == 1 ? true : false;
                         
+                        // this.showLiegenschaft =  resp.data.category.parent_id == 1 && resp.data.category.location == 1 ? true : false;
+
+                        // this.showWohnung = resp.data.category.parent_id == 1 && resp.data.category.room == 1 ? true : false;
+
                         this.showLiegenschaft = resp.data.location != null ? true : false;
 
                         this.showWohnung = resp.data.room != null ? true : false;
@@ -431,14 +456,6 @@ export default (config = {}) => {
                                 
                                 if(params.category_id == 1)
                                     params.category_id = this.model.defect;
-        
-                                
-                                // const resptags = await this.createRequestTag({
-                                //     id: this.$route.params.id,
-                                //     keywords: this.model.keywords
-                                // });
-                                
-
 
                                 let existingsKeys = [];
                                 let newTags = [];

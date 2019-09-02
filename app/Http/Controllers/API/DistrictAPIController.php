@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Criteria\Districts\ExcludeIdsCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\District\CreateRequest;
 use App\Http\Requests\API\District\UpdateRequest;
@@ -67,7 +66,6 @@ class DistrictAPIController extends AppBaseController
     {
         $this->districtRepository->pushCriteria(new RequestCriteria($request));
         $this->districtRepository->pushCriteria(new LimitOffsetCriteria($request));
-        $this->districtRepository->pushCriteria(new ExcludeIdsCriteria($request));
 
         $getAll = $request->get('get_all', false);
         if ($getAll) {

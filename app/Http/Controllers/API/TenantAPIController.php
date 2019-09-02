@@ -20,7 +20,6 @@ use App\Http\Requests\API\Tenant\ShowRequest;
 use App\Http\Requests\API\Tenant\UpdateLoggedInRequest;
 use App\Http\Requests\API\Tenant\UpdateRequest;
 use App\Http\Requests\API\Tenant\UpdateStatusRequest;
-use App\Mails\SendTenantCredentials;
 use App\Models\RealEstate;
 use App\Models\Tenant;
 use App\Models\User;
@@ -30,11 +29,11 @@ use App\Repositories\TemplateRepository;
 use App\Repositories\TenantRepository;
 use App\Repositories\UserRepository;
 use App\Transformers\TenantTransformer;
-use Hashids\Hashids;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class TenantController
@@ -262,7 +261,7 @@ class TenantAPIController extends AppBaseController
 
         try {
             $input['user']['role'] = 'registered';
-            $userPass = $input['user']['password'];
+            $input['user']['settings'] = Arr::pull($input, 'settings');
             $user = $this->userRepository->create($input['user']);
         } catch (\Exception $e) {
             return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
@@ -382,9 +381,11 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @param UpdateRequest $request
-     * @return Response
+     * @param PostRepository $pr
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Put(
      *      path="/tenants/{id}",
@@ -431,7 +432,7 @@ class TenantAPIController extends AppBaseController
     {
         $input = (new TenantTransformer)->transformRequest($request->all());
         /** @var Tenant $tenant */
-        $tenant = $this->tenantRepository->with('user')->findWithoutFail($id);
+        $tenant = $this->tenantRepository->findWithoutFail($id);
         if (empty($tenant)) {
             return $this->sendError(__('models.tenant.errors.not_found'));
         }
@@ -451,18 +452,22 @@ class TenantAPIController extends AppBaseController
         }
 
         try {
-            $this->userRepository->update($input['user'], $tenant->user_id);
+            // for prevent user update log related tenant
+            User::disableAuditing();
+            $updatedUser = $this->userRepository->update($input['user'], $tenant->user_id);
+            $tenant->setRelation('user', $updatedUser);
+            User::enableAuditing();
         } catch (\Exception $e) {
             return $this->sendError(__('models.tenant.errors.update') . $e->getMessage());
         }
 
         try {
-            $tenant = $this->tenantRepository->update($input, $id);
+            $tenant = $this->tenantRepository->updateExisting($tenant, $input);
         } catch (\Exception $e) {
             return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
         }
 
-        $tenant->load('user', 'building', 'unit', 'address', 'media');
+        $tenant->load('building', 'unit', 'address', 'media');
         if ($shouldPost) {
             $pr->newTenantPost($tenant);
         }

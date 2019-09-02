@@ -1,6 +1,6 @@
 <template>
     <el-dialog  :close-on-click-modal="false" 
-                :title="$t('general.actions.delete_building_modal.title')"
+                :title="$t('models.building.delete_building_modal.title')"
                 :visible="deleteBuildingVisible"
                 width="30%"
                 class="delete_building_modal">
@@ -12,8 +12,8 @@
             <el-row v-if="(delBuildingStatus == 0 || delBuildingStatus == 2)">
                 <el-col :span="24">
                     <el-switch 
-                        :active-text="$t('general.actions.delete_building_modal.delete_units')"
-                        :inactive-text="$t('general.actions.delete_building_modal.dont_delete_units')"
+                        :active-text="$t('models.building.delete_building_modal.delete_units')"
+                        :inactive-text="$t('models.building.delete_building_modal.dont_delete_units')"
                         v-model="is_units" 
                         class="delete_switch" />
                 </el-col>
@@ -21,8 +21,8 @@
             <el-row v-if="(delBuildingStatus == 1 || delBuildingStatus == 2)">
                 <el-col :span="24">
                     <el-switch 
-                        :active-text="$t('general.actions.delete_building_modal.delete_requests')"
-                        :inactive-text="$t('general.actions.delete_building_modal.dont_delete_requests')"
+                        :active-text="$t('models.building.delete_building_modal.delete_requests')"
+                        :inactive-text="$t('models.building.delete_building_modal.dont_delete_requests')"
                         v-model="is_request"
                         class="delete_switch" />
                 </el-col>
@@ -64,11 +64,11 @@
             getDelBuildingDescription() {
                 switch(this.delBuildingStatus) {
                     case 0:
-                        return this.$t('general.actions.delete_building_modal.description_unit');
+                        return this.$t('models.building.delete_building_modal.description_unit');
                     case 1:
-                        return this.$t('general.actions.delete_building_modal.description_request');
+                        return this.$t('models.building.delete_building_modal.description_request');
                     case 2:
-                        return this.$t('general.actions.delete_building_modal.description_both');
+                        return this.$t('models.building.delete_building_modal.description_both');
                     default:
                         return "";
                 }
@@ -81,7 +81,7 @@
         },        
     };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
     .delete_building_modal {        
 
         .el-row {
@@ -90,8 +90,10 @@
 
         .description {
             margin: 0;
-        }        
-        
+        }
+        .el-dialog__body {
+            word-break: break-word;
+        }
     }
 </style>
 

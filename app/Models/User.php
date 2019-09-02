@@ -11,6 +11,7 @@ use Cog\Laravel\Love\Liker\Models\Traits\Liker;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use OwenIt\Auditing\Contracts\Auditable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 /**
@@ -68,14 +69,15 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  *      )
  * )
  */
-class User extends Authenticatable implements LikerContract, Commentator
+class User extends Authenticatable implements LikerContract, Commentator, Auditable
 {
     use EntrustUserTrait,
         HasApiTokens,
         Notifiable,
         Liker,
         BuildingRelation,
-        RequestRelation;
+        RequestRelation,
+        \App\Traits\Auditable;
 
     const Title = [
         'mr',

@@ -36,7 +36,7 @@
                         </el-form-item>
                         <el-form-item :label="$t('models.request.priority.label')" :rules="validationRules.priority"
                                       prop="priority">
-                            <el-select :placeholder="$t('models.request.placeholders.priority')" class="custom-select"
+                            <el-select :placeholder="$t('models.request.priority.label')" class="custom-select"
                                        v-model="model.priority">
                                 <el-option
                                     :key="k"
@@ -189,6 +189,14 @@
                 }
             }
         },
+        created(){
+            this.model['priority'] = '';
+            this.validationRules['priority'] = [{
+                required: true,
+                message: this.$t('validation.general.required')
+            }];
+
+        }
         
     };
 </script>

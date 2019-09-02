@@ -77,6 +77,7 @@ export default (config = {}) => {
                     }]
                 }],
                 toAssign: '',
+                addedAssigmentList: [],
             }
         },
         methods: {
@@ -117,6 +118,9 @@ export default (config = {}) => {
 
                         this.toAssignList = data;
                         this.toAssignList.forEach(t => t.name = `${t.first_name} ${t.last_name}`);
+                        this.toAssignList = this.toAssignList.filter((tenant) => {
+                            return this.addedAssigmentList.filter(obj => obj.id === tenant.id).length === 0;
+                        });
                     } catch (err) {
                         displayError(err);
                     } finally {
@@ -124,19 +128,30 @@ export default (config = {}) => {
                     }
                 }
             },
-            async assignTenant() {
+            async assignTenant(newTenant) {
                 if (!this.toAssign || !this.model.id) {
                     return false;
                 }
                 let resp; 
                 try {
-                    resp = await axios.post(`units/`+ this.model.id + `/assignees/` + this.toAssign);              
+                    resp = await axios.post(`units/`+ this.model.id + `/assignees/` + this.toAssign);
+                    this.addedAssigmentList.push(newTenant);
+                    this.addedAssigmentList.map((user) => {
+                        if (user.status == 1) {
+                            user.statusString = 'Active';
+                        } else {
+                            user.statusString = 'Not Active';
+                        }
+                        user.name = user.first_name + " " + user.last_name;
+                        return user;
+                    });
                 } catch {
                     console.log(e);
                 }
 
                 if (resp && resp.data) {
                     this.toAssign = '';
+                    this.toAssignList = [];
                     this.$refs.assigneesList.fetch();
                     displaySuccess(resp.data)
                 }
@@ -153,7 +168,13 @@ export default (config = {}) => {
                         let resp;
 
                         try {
-                            resp = await axios.delete(`units/`+ this.model.id + `/assignees/` + tenant.id);               
+                            resp = await axios.delete(`units/`+ this.model.id + `/assignees/` + tenant.id);
+                            this.addedAssigmentList.forEach(element => {
+                                if(element.id === tenant.id) {
+                                    let index = this.addedAssigmentList.indexOf(element);
+                                    this.addedAssigmentList.splice(index, 1);
+                                }
+                            });
                         } catch {
                             console.log(e);
                         }
@@ -261,6 +282,18 @@ export default (config = {}) => {
                         this.loading.state = true;
 
                         this.model = await this.getUnit({id: this.$route.params.id});
+                        this.addedAssigmentList = [];
+                        this.addedAssigmentList = this.model.tenants;
+
+                        this.addedAssigmentList.map((user) => {
+                            if (user.status == 1) {
+                                user.statusString = 'Active';
+                            } else {
+                                user.statusString = 'Not Active';
+                            }
+                            user.name = user.first_name + " " + user.last_name;
+                            return user;
+                        });
 
                         if (this.model.tenant) {
                             this.$set(this.model, 'tenant_id', this.model.tenant.id);

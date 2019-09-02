@@ -79,7 +79,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *      )
  * )
  */
-class Product extends Model implements HasMedia, LikeableContract, Auditable
+class Product extends AuditableModel implements HasMedia, LikeableContract, Auditable
 {
     use SoftDeletes;
     use HasMediaTrait;

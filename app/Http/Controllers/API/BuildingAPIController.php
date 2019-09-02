@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Buildings\FilterByRelatedFieldsCriteria;
-use App\Criteria\Buildings\ExcludeIdsCriteria;
 use App\Criteria\Common\HasRequestCriteria;
 use App\Criteria\Common\RequestCriteria;
-use App\Criteria\Posts\FilterByBuildingCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Building\BatchAssignManagers;
 use App\Http\Requests\API\Building\CreateRequest;
@@ -17,7 +15,6 @@ use App\Http\Requests\API\Building\ViewRequest;
 use App\Http\Requests\API\PropertyManager\AssignRequest;
 use App\Models\Address;
 use App\Models\Building;
-use App\Models\RealEstate;
 use App\Repositories\AddressRepository;
 use App\Repositories\BuildingRepository;
 use App\Repositories\PropertyManagerRepository;
@@ -27,7 +24,6 @@ use App\Repositories\ServiceRequestRepository;
 use App\Transformers\BuildingTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Spatie\Geocoder\Geocoder;
 use Validator;
@@ -120,7 +116,6 @@ class BuildingAPIController extends AppBaseController
         $request->merge(['model' => 'buildings']);
         $this->buildingRepository->pushCriteria(new RequestCriteria($request));
         $this->buildingRepository->pushCriteria(new FilterByRelatedFieldsCriteria($request));
-        $this->buildingRepository->pushCriteria(new ExcludeIdsCriteria($request));
         $this->buildingRepository->pushCriteria(new LimitOffsetCriteria($request));
 
         $hasRequest = $request->get('has_req', false);
@@ -305,10 +300,9 @@ class BuildingAPIController extends AppBaseController
         if ($validator->fails()) {
             return $this->sendError($validator->errors());
         }
-        $address = $this->addressRepository->create($addressInput);
 
+        $address = $this->addressRepository->create($addressInput);
         $input['address_id'] = $address->id;
-        $input['name'] = sprintf('%s %s', $address->street, $address->street_nr);
 
         $geoData = $this->getGeoDataByAddress($address);
         $input = array_merge($input, $geoData);

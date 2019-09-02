@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\District;
-use InfyOm\Generator\Common\BaseRepository;
 
 /**
  * Class DistrictRepository

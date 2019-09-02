@@ -213,16 +213,16 @@
                                     </span>   
                                 </div> 
                             </el-col>
-                            <el-col class="contact-info-card-col" :md="8">
+                            <el-col v-if="model.pinned" class="contact-info-card-col" :md="8">
                                 <div class="contact-info-title">
                                     <span class="custom-label">
-                                        <i class="icon-users"></i>&nbsp;&nbsp;{{$t('general.tenants')}}
+                                        <i class="icon-users"></i>&nbsp;&nbsp;{{$t('general.recipients')}}
                                     </span>
                                 </div>
                                 <div class="contact-info-content">
                                     <span class="custom-value">
                                         {{model.tenant}}
-                                    </span>   
+                                    </span>
                                 </div> 
                             </el-col>
                         </el-row>                                                    
@@ -426,7 +426,7 @@
                 assignmentsActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('general.unassign'),
+                        title: 'general.unassign',
                         type: 'danger',
                         onClick: this.notifyUnassignment
                     }]
@@ -438,7 +438,7 @@
                 assignmentsProviderActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('general.unassign'),
+                        title: 'general.unassign',
                         type: 'danger',
                         onClick: this.notifyProviderUnassignment
                     }]

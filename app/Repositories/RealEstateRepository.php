@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\RealEstate;
 use Illuminate\Support\Str;
-use InfyOm\Generator\Common\BaseRepository;
 use Intervention\Image\ImageManager as Image;
 
 /**
@@ -34,20 +33,6 @@ class RealEstateRepository extends BaseRepository
     public function model()
     {
         return RealEstate::class;
-    }
-
-    public function update(array $attributes, $id)
-    {
-        // Have to skip presenter to get a model not some data
-        $temporarySkipPresenter = $this->skipPresenter;
-        $this->skipPresenter(true);
-        $model = parent::update($attributes, $id);
-        $this->skipPresenter($temporarySkipPresenter);
-
-        $model = $this->updateRelations($model, $attributes);
-        $model->save();
-
-        return $this->parserResult($model);
     }
 
     // TODO: move function to media repository
