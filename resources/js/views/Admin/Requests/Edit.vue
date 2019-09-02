@@ -157,7 +157,7 @@
                                 </el-col>
                             </el-row>
                             <el-row :gutter="20" class="summary-row" style="margin-bottom: 0;padding-bottom: 0;">
-                                <el-col :md="8" class="summary-item">
+                                <el-col :md="8" class="summary-item" id="tenant">
                                     <el-form-item v-if="model.tenant">
                                         <label slot="label">
                                             {{$t('general.tenant')}}
@@ -176,12 +176,12 @@
                                         </router-link>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="8" class="summary-item">
+                                <el-col :md="8" class="summary-item" id="building">
                                     <el-form-item label="Building">
                                         <strong>{{this.model.building}}</strong>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="8" class="summary-item">
+                                <el-col :md="8" class="summary-item" id="createtime">
                                     <el-form-item label="Creation Datetime">
                                         <strong>{{this.model.created_by}}</strong>
                                     </el-form-item>
@@ -586,40 +586,30 @@
             },
             
             showLocationOrRoom() {
-                const subcategory = this.first_layout_subcategories.filter(category => {
-                    if(category.id == this.model.defect) {
-                        return category;
-                    }
+                const subcategory = this.first_layout_subcategories.find(category => {
+                    return category.id == this.model.defect;
                 });
-                if(subcategory[0].room == 1) {
+
+                this.model.room = '';
+                this.model.location = '';
+                this.showLiegenschaft = false;
+                this.showUmgebung = false;
+                this.showWohnung = false;
+
+                if(subcategory.room == 1) {
                     this.showWohnung = true;
-                    this.showLiegenschaft = false;
-                    this.showUmgebung = false;
-                    this.model.location = '';
                 }
-                else if(subcategory[0].location == 1) {
+                else if(subcategory.location == 1) {
                     this.showLiegenschaft = true;
-                    this.showUmgebung = false;
-                    this.showWohnung = false;
-                    this.model.room = '';
                 }
-                else if(subcategory[0].location == 0 && subcategory[0].room == 0) {
+                else if(subcategory.location == 0 && subcategory.room == 0) {
                     this.showUmgebung = true;
-                    this.showLiegenschaft = false;
-                    this.showWohnung = false;
-                    this.model.location = '';
-                    this.model.room = '';
                 }
             },
 
             selectPayer() {
-                if(this.model.qualification == 5) {
-                    this.showpayer = true;
-                }
-                else {
-                    this.showpayer = false;
-                    this.model.payer = '';
-                }
+                this.model.payer = '';
+                this.showpayer = this.model.qualification == 5 ? true : false;
             },
             async deleteTag(tag) {
                 
@@ -736,5 +726,47 @@
         width: 90px;
         margin-left: 10px;
         vertical-align: bottom;
+    }
+
+    $min-width: 991px;
+    $max-width: 1228px;
+    @media only screen and (min-width: $min-width) and (max-width: $max-width) {
+        #tenant {
+            .el-form-item {
+                .el-form-item__label {
+                    min-height: 50px;
+                }
+            }
+        }
+        #building {
+            .el-form-item {
+                .el-form-item__label {
+                    min-height: 50px;
+                }
+            }
+        }
+        #createtime {
+            .el-form-item {
+                .el-form-item__label {
+                    line-height: 25px;
+                }
+            }
+        }
+    }
+    @media only screen and (max-width: $min-width) {
+        #tenant {
+            .el-form-item {
+                .el-form-item__label {
+                    min-height: 40px !important;
+                }
+            }
+        }
+        #building {
+            .el-form-item {
+                .el-form-item__label {
+                    min-height: 40px !important;
+                }
+            }
+        }
     }
 </style>

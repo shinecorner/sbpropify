@@ -400,6 +400,10 @@ export default (config = {}) => {
                         
                         this.showsubcategory = resp.data.category.parent_id == 1 ? true : false;
                         
+                        // this.showLiegenschaft =  resp.data.category.parent_id == 1 && resp.data.category.location == 1 ? true : false;
+
+                        // this.showWohnung = resp.data.category.parent_id == 1 && resp.data.category.room == 1 ? true : false;
+
                         this.showLiegenschaft = resp.data.location != null ? true : false;
 
                         this.showWohnung = resp.data.room != null ? true : false;
@@ -439,14 +443,6 @@ export default (config = {}) => {
                                 
                                 if(params.category_id == 1)
                                     params.category_id = this.model.defect;
-        
-                                
-                                // const resptags = await this.createRequestTag({
-                                //     id: this.$route.params.id,
-                                //     keywords: this.model.keywords
-                                // });
-                                
-
 
                                 let existingsKeys = [];
                                 let newTags = [];
