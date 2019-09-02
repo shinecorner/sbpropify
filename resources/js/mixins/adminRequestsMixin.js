@@ -177,16 +177,29 @@ export default (config = {}) => {
                     this.resetToAssignList();
                 } else {
                     this.remoteLoading = true;
-
+                    
                     try {
                         let resp = [];
+                        const respRequest = await this.getRequest({id: this.$route.params.id});
+                        let exclude_ids = [];
                         if (this.assignmentType === 'managers') {
+                            respRequest.data.property_managers.map(item => {
+                                exclude_ids.push(item.id);
+                            })
                             resp = await this.getPropertyManagers({
                                 get_all: true,
                                 search,
+                                exclude_ids
                             });
                         } else {
-                            resp = await this.getServices({get_all: true, search});
+                            respRequest.data.service_providers.map(item => {
+                                exclude_ids.push(item.id);
+                            })
+                            resp = await this.getServices({
+                                get_all: true, 
+                                search,
+                                exclude_ids
+                            });
                         }
 
                         this.toAssignList = resp.data;
