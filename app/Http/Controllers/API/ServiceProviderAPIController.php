@@ -22,8 +22,9 @@ use App\Transformers\ServiceProviderTransformer;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
-use Validator;
 
 /**
  * Class ServiceProviderController
@@ -213,6 +214,10 @@ class ServiceProviderAPIController extends AppBaseController
         $validator = Validator::make($input['user'], User::$rules);
         if ($validator->fails()) {
             return $this->sendError($validator->errors());
+        }
+
+        if (isset($input['settings'])) {
+            $input['user']['settings'] = Arr::pull($input, 'settings');
         }
 
         try {

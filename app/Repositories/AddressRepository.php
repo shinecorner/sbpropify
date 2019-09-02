@@ -41,9 +41,7 @@ class AddressRepository extends BaseRepository
         unset($attributes['country']);
         $attributes['country_id'] = $attributes['country_id'] ?? \App\Models\Country::where('name', 'Switzerland')->value('id');
 
-        $model = parent::create($attributes);
-
-        return $this->parserResult($model);
+        return parent::create($attributes);
     }
 
     public function update(array $attributes, $id)
@@ -54,8 +52,6 @@ class AddressRepository extends BaseRepository
         }
         unset($attributes['country']);
 
-        $model = parent::update($attributes, $id);
-
-        return $model;
+        return parent::update($attributes, $id);
     }
 }
