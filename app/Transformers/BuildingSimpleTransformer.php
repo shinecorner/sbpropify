@@ -32,8 +32,9 @@ class BuildingSimpleTransformer extends BaseTransformer
             'created_at' => $model->created_at->format('Y-m-d'),
         ];
 
-        if ($model->district) {
-            $response['district'] = (new DistrictTransformer)->transform($model->district);
+        if ($model->quarter) {
+            $response['quarter'] = (new QuarterTransformer)->transform($model->quarter);
+            $response['district'] = $response['quarter'];
         }
 
         return $response;

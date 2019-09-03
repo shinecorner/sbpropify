@@ -55,8 +55,9 @@ class PostTransformer extends BaseTransformer
         if ($model->relationExists('buildings')) {
             $ret['buildings'] = (new BuildingTransformer)->transformCollection($model->buildings);
         }
-        if ($model->relationExists('districts')) {
-            $ret['districts'] = (new DistrictTransformer)->transformCollection($model->districts);
+        if ($model->relationExists('quarters')) {
+            $ret['quarters'] = (new QuarterTransformer)->transformCollection($model->quarters);
+            $ret['districts'] = $ret['quarters'];
         }
         if ($model->relationExists('providers')) {
             $ret['providers'] = (new ServiceProviderTransformer)->transformCollection($model->providers);
