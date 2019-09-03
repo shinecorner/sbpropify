@@ -307,6 +307,11 @@ export default {
                 padding: 0px !important;
             }
             .request-category {
+                p {
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
             }
             .el-col {
                 border-right: 1px solid darken(#ebeef5, 10%);
