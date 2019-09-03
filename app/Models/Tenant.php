@@ -300,7 +300,8 @@ class Tenant extends AuditableModel implements HasMedia
             'tenant' => $this,
             're' => $re,
             'url' => url('/activate'),
-            'code' => $this->activation_code
+            'code' => $this->activation_code,
+            'language'  => $this->settings->language
         ];
 
         $pdf = PDF::loadView('pdfs.tenantCredentialsXtended', $data);
@@ -312,13 +313,13 @@ class Tenant extends AuditableModel implements HasMedia
 
     public function pdfXFileName()
     {
-        $language  = $this->user->settings->language;
+        $language  = $this->settings->language;
         return $this->id . '-' . $language . '-X.pdf';
     }
 
     public function pdfFileName()
     {
-        $language  = $this->user->settings->language;
+        $language  = $this->settings->language;
         return $this->id . '-' . $language . '.pdf';
     }
 
