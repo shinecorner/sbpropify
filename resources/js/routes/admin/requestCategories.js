@@ -1,5 +1,6 @@
-import { auth, admin } from 'middlewares';
-import permissions from 'middlewares/permissions';
+import AdminPermissions from 'boot/roles/admin'
+import hasPermissionGuard from 'guards/hasPermissionGuard'
+import VueRouterMultiguard from 'vue-router-multiguard'
 
 export default [{
     path: 'request-categories',
@@ -7,14 +8,12 @@ export default [{
         template: '<router-view />'
     },
     children: [{
-        path: '/',
         name: 'adminRequestCategories',
-        component: () =>
-            import ( /* webpackChunkName: "admin/requestCategories/index" */ 'views/Admin/RequestCategories'),
+        path: '/',
+        component: () => import ( /* webpackChunkName: "admin/requestCategories/index" */ 'views/Admin/RequestCategories'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.list.requestCategory)]),
         meta: {
-            title: 'Request Categories',
-            middleware: [auth, admin],
-            permission: permissions.list.requestCategory
+            title: 'Request Categories'
         }
     }]
-}];
+}]

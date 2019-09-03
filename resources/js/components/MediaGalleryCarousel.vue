@@ -1,17 +1,16 @@
 <template>
     <div class="media-gallery-carousel" v-if="media.length">
-        <gallery :images="images" :index="galleryIndex" :options="galleryOptions" @close="gallleryClose" />
         <el-carousel v-bind="$attrs" v-on="$listeners" :arrow="images.length <= 1 ? 'never' : 'hover'">
             <el-carousel-item v-for="(url, idx) in images" :key="idx">
                 <div class="el-carousel-actions">
-                     <div class="el-icon-zoom-in" @click="openImage(idx)"></div>
+                    <div class="el-icon-zoom-in" @click="openViewer(idx)"></div>
                 </div>
-                <el-image :src="url" fit="cover" >
+                <ui-image ref="ui-image" :src="url" :src-list="images" :auto-preview="false">
                     <div slot="error" class="error" style="color: red;">
                         <i class="el-icon-document-delete" />
                     </div>
                     <div slot="placeholder" class="placeholder el-icon-loading"></div>
-                </el-image>
+                </ui-image>
             </el-carousel-item>
         </el-carousel>
     </div>
@@ -28,22 +27,16 @@
                 type: Array,
                 default: () => ([])
             },
-            galleryOptions: {
-                type: Object,
-                default: () => ({})
-            },
             usePlaceholder: {
                 type: Boolean,
                 default: true
             }
         },
         components: {
-            Gallery,
             Placeholder
         },
         data () {
             return {
-                galleryIndex: null,
                 sizes: {
                     minWidth: 0,
                     maxHeight: 0
@@ -51,14 +44,11 @@
             }
         },
         methods: {
-            openImage (idx) {
-                this.galleryIndex = idx
-            },
-            gallleryClose () {
-                this.galleryIndex = null
-            },
             isImage (file) {
                 return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(file.name.split('.').pop())
+            },
+            openViewer (idx) {
+                this.$refs['ui-image'][idx].openViewer()
             },
             resizeImage (x, y, percentage, minimum) {
                 if (x > y) {
@@ -128,18 +118,18 @@
                     }
                 }
 
-                .el-image {
+                .ui-image {
                     height: 100%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
 
-                    .error,
-                    .placeholder  {
+                    &__error,
+                    &__placeholder  {
                         font-size: 20px;
                     }
 
-                    .placeholder {
+                    &__placeholder {
                         background-color: #fff;
                         border-radius: 50%;
                         border: 4px #fff solid;

@@ -91,47 +91,10 @@ export default (config = {}) => {
                 toAssign: '',
                 conversations: [],
                 address: {},
-                locations: [
-                    {name: this.$t('models.request.category_options.locations.house_entrance'), value: 1},
-                    {name: this.$t('models.request.category_options.locations.staircase'), value: 2},
-                    {name: this.$t('models.request.category_options.locations.elevator'), value: 3},
-                    {name: this.$t('models.request.category_options.locations.car_park'), value: 4},
-                    {name: this.$t('models.request.category_options.locations.washing'), value: 5},
-                    {name: this.$t('models.request.category_options.locations.heating'), value: 6},
-                    {name: this.$t('models.request.category_options.locations.electro'), value: 7},
-                    {name: this.$t('models.request.category_options.locations.facade'), value: 8},
-                    {name: this.$t('models.request.category_options.locations.roof'), value: 9},
-                    {name: this.$t('models.request.category_options.locations.other'), value: 10}
-                ],
-                rooms: [
-                    {name: this.$t('models.request.category_options.rooms.bath'), value: 'Bad/WC'},
-                    {name: this.$t('models.request.category_options.rooms.shower'), value: 'Du/WC'},
-                    {name: this.$t('models.request.category_options.rooms.entrance'), value: 'Entrée'},
-                    {name: this.$t('models.request.category_options.rooms.passage'), value: 'Gang'},
-                    {name: this.$t('models.request.category_options.rooms.basement'), value: 'Keller'},
-                    {name: this.$t('models.request.category_options.rooms.kitchen'), value: 'Küche'},
-                    {name: this.$t('models.request.category_options.rooms.reduite'), value: 'Reduit'},
-                    {name: this.$t('models.request.category_options.rooms.habitation'), value: 'Wohnen'},
-                    {name: this.$t('models.request.category_options.rooms.room1'), value: 'Zimmer 1'},
-                    {name: this.$t('models.request.category_options.rooms.room2'), value: 'Zimmer 2'},
-                    {name: this.$t('models.request.category_options.rooms.room3'), value: 'Zimmer 3'},
-                    {name: this.$t('models.request.category_options.rooms.room4'), value: 'Zimmer 4'},
-                    {name: this.$t('models.request.category_options.rooms.all'), value: 'Alle'},
-                    {name: this.$t('models.request.category_options.rooms.other'), value: 'Anderes'},
-                ],
-                acquisitions: [
-                    {name: this.$t('models.request.category_options.acquisitions.other'), value: 'other'},
-                    {name: this.$t('models.request.category_options.acquisitions.construction'), value: 'building'},
-                    {name: this.$t('models.request.category_options.acquisitions.shell'), value: 'shell_building'},
-                    {name: this.$t('models.request.category_options.acquisitions.preliminary'), value: 'prehandover'},
-                    {name: this.$t('models.request.category_options.acquisitions.work'), value: 'prehandover_building'},
-                    {name: this.$t('models.request.category_options.acquisitions.surrender'), value: 'handover'},
-                    {name: this.$t('models.request.category_options.acquisitions.inspection'), value: 'inspection'},
-                ],
-                costs: [
-                    {name: this.$t('models.request.category_options.costs.landlord'), value: 'lessor'},
-                    {name: this.$t('models.request.category_options.costs.tenant'), value: 'tenant'},
-                ],
+                locations: [],
+                rooms: [],
+                acquisitions: [],
+                costs: [],
                 showsubcategory: false,
                 showpayer: false,
                 showUmgebung: false,
@@ -329,6 +292,31 @@ export default (config = {}) => {
                 this.first_layout_subcategories.map(item => {
                     item.name = item.name.substring(3)
                 })
+            },
+            getLanguageI18n() {
+                let building_locations = this.$t('models.request.category_options.building_locations');
+                this.locations = [];
+                for (var key in building_locations) {
+                    this.locations.push({name : building_locations[key], value : key})
+                }
+
+                let apartment_rooms = this.$t('models.request.category_options.apartment_rooms');
+                this.rooms = [];
+                for (var key in apartment_rooms) {
+                    this.rooms.push({name : apartment_rooms[key], value : key})
+                }
+
+                let acquisitions = this.$t('models.request.category_options.acquisitions');
+                this.acquisitions = [];
+                for (var key in acquisitions) {
+                    this.acquisitions.push({name : acquisitions[key], value : key})
+                }
+
+                let costs = this.$t('models.request.category_options.costs');
+                this.costs = [];
+                for (var key in costs) {
+                    this.costs.push({name : costs[key], value : key})
+                }
             }
         }
     };
@@ -338,9 +326,18 @@ export default (config = {}) => {
             case 'add':
                 mixin.methods = {
                     ...mixin.methods,
-                    ...mapActions(['createRequest']),
+                    ...mapActions(['createRequest', 'createRequestTags']),
                     async saveRequest() {
+                        if(this.model.category_id == 1) {
+                            this.model.category_id = this.model.defect;
+                        }
                         const resp = await this.createRequest(this.model);
+                        
+                        let requestId = resp.data.id;
+                        await this.createRequestTags({
+                            id: requestId,
+                            tags: this.model.keywords
+                        });
 
                         await this.uploadNewMedia(resp.data.id);
 
@@ -357,6 +354,7 @@ export default (config = {}) => {
                             this.loading.state = true;
                             try {
                                 const resp = await this.saveRequest();
+        
                                 displaySuccess(resp);
 
                                 this.form.resetFields();
@@ -387,9 +385,8 @@ export default (config = {}) => {
                         message: 'This field is required'
                     }];
 
-                    const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
-
-                    this.categories = this.prepareCategories(categories);
+                    this.getRealCategories();
+                    this.getLanguageI18n();
 
                     this.loading.state = false;
                 };
@@ -402,6 +399,7 @@ export default (config = {}) => {
                 'createRequestTags', 'getTags']),
                     async fetchCurrentRequest() {
                         
+                        this.getLanguageI18n();
                         const resp = await this.getRequest({id: this.$route.params.id});
 
                         if(resp) {
@@ -445,6 +443,7 @@ export default (config = {}) => {
                     },
                     submit() {
                         return new Promise((resolve, reject) => {
+                            
                             this.form.validate(async valid => {
                                 if (!valid) {
                                     resolve(false);

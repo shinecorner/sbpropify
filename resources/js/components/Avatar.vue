@@ -1,6 +1,9 @@
+<!-- temporary -- will be deprecated -->
 <template>
-    <div class="avatar" :style="style">
-        <span v-if="!src" style="pointer-events: none">{{ initials }}</span>
+    <div :class="['avatar', {'is-on-hover-shadow': shadow === 'hover', 'is-always-shadow': shadow === 'always'}]" :style="style" v-on="$listeners">
+        <div v-if="!src" style="pointer-events: none">
+            {{initials}}
+        </div>
     </div>
 </template>
 
@@ -17,6 +20,11 @@
             size: {
                 type: Number,
                 default: 40
+            },
+            shadow: {
+                type: String,
+                default: 'none',
+                validator: value => ['none', 'hover', 'always'].includes(value)
             }
         },
         methods: {
@@ -60,7 +68,7 @@
 
                 if (g > 255) g = 255
                 else if (g < 0) g = 0
-                
+
                 return (usePound ? '#' : '') + (g | (b << 8) | (r << 16)).toString(16)
             }
         },
@@ -85,7 +93,7 @@
                 } else {
                     style.backgroundColor = this.color(this.name)
                     style.fontSize = Math.floor(this.size / 2.5) + 'px'
-                    style.color = this.lightenColor(style.backgroundColor, 80)
+                    style.color = this.lightenColor(style.backgroundColor, 64)
                 }
 
                 return style
@@ -109,3 +117,18 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    .avatar {
+        transition: box-shadow .56s;
+
+        &:hover.is-on-hover-shadow {
+            cursor: pointer;
+            box-shadow: 0px 2px 4px -1px transparentize(#000, .8), 0px 4px 5px 0px transparentize(#000, .86), 0px 1px 10px 0px transparentize(#000, .88);
+        }
+
+        &.is-always-shadow {
+            box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
+        }
+    }
+</style>

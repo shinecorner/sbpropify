@@ -1,6 +1,6 @@
-import { auth, admin } from 'middlewares';
-import permissions from 'middlewares/permissions';
-
+import AdminPermissions from 'boot/roles/admin'
+import hasPermissionGuard from 'guards/hasPermissionGuard'
+import VueRouterMultiguard from 'vue-router-multiguard'
 
 export default [{
     path: 'services',
@@ -8,46 +8,37 @@ export default [{
         template: '<router-view />'
     },
     children: [{
-        path: '/',
         name: 'adminServices',
-        component: () =>
-            import ( /* webpackChunkName: "admin/services/index" */ 'views/Admin/Services'),
+        path: '/',
+        component: () => import ( /* webpackChunkName: "admin/services/index" */ 'views/Admin/Services'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.list.provider)]),
         props: {
             title: 'Add service'
         },
         meta: {
-            title: 'Users',
-            middleware: [auth, admin],
-            permission: permissions.list.provider,
-            breadcrumb: 'Users',
+            title: 'Users'
         }
     }, {
-        path: 'add',
         name: 'adminServicesAdd',
-        component: () =>
-            import ( /* webpackChunkName: "admin/services/add" */ 'views/Admin/Services/Add'),
+        path: 'add',
+        component: () => import ( /* webpackChunkName: "admin/services/add" */ 'views/Admin/Services/Add'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.create.provider)]),
         props: {
             title: 'Add service'
         },
         meta: {
-            title: 'Add Service',
-            middleware: [auth, admin],
-            permission: permissions.create.provider,
-            breadcrumb: 'Add service'
+            title: 'Add Service'
         }
     }, {
-        path: ':id',
         name: 'adminServicesEdit',
-        component: () =>
-            import ( /* webpackChunkName: "admin/services/edit" */ 'views/Admin/Services/Edit'),
+        path: ':id',
+        component: () => import ( /* webpackChunkName: "admin/services/edit" */ 'views/Admin/Services/Edit'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.update.provider)]),
         props: {
             title: 'Edit service'
         },
         meta: {
-            title: 'Edit Service',
-            middleware: [auth, admin],
-            permission: permissions.update.provider,
-            breadcrumb: 'Edit service'
+            title: 'Edit Service'
         }
     }]
-}];
+}]

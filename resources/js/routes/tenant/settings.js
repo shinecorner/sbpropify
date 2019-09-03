@@ -1,12 +1,12 @@
-import { auth, tenant } from 'middlewares'
+import {isAuthenticatedGuard, isTenantGuard} from 'guards'
+import VueRouterMultiguard from 'vue-router-multiguard'
 
 export default {
-    path: 'settings',
-    component: () =>
-        import ( /* webpackChunkName: "tenant/settings/index" */ 'views/Tenant/Settings'),
     name: 'tenantSettings',
+    path: 'settings',
+    component: () => import ( /* webpackChunkName: "tenant/settings/index" */ 'views/Tenant/Settings'),
+    beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isTenantGuard]),
     meta: {
-        title: 'Settings',
-        middleware: [auth, tenant]
+        title: 'Settings'
     }
 }

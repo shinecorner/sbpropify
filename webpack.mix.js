@@ -1,9 +1,12 @@
-// DO NOT FORGET TO DO -> NPM INSTALL AGAIN (older version of laravel-mix)
+require('mix-env-file')
+require('laravel-mix-alias')
+require('laravel-mix-auto-extract')
+
 const mix = require('laravel-mix');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CompressionPlugin = require('compression-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
- 
+
 /*
 |--------------------------------------------------------------------------
 | Mix Asset Management
@@ -15,77 +18,75 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 |
 */
 
-mix
-    .options({
-        extractVueStyles: true,
-        clearConsole: true
+mix.options({
+        // extractVueStyles: true,
+        clearConsole: true,
+        processCssUrls: true
     })
-    .copy('resources/fonts', 'public/fonts')
-    .sass('resources/sass/app.scss', 'public/css/app.css')
     .combine([
         'public/css/app.css',
-        'resources/css/fontello.css'
+        'public/css/fontello.css'
     ], 'public/css/app.css')
-    .js('resources/js/app.js', 'public/js')
-    .extract([
-        'vue',
-        'vuex',
-        'axios',
-        'vue-axios',
-        'v-router-transition',
-        'vue2-editor',
-        'vue-apexcharts',
-        'vue-avatar',
-        'vue-content-loader',
-        'vue-croppie',
-        'vue-debounce',
-        'vue-gallery',
-        'vue-i18n',
-        'vue-quill-editor',
-        'vue-read-more',
-        'vue-responsive-components',
-        'vue-router',
-        // 'vue-rss-feed',
-        'vue-sticky',
-        'vue-sticky-directive',
-        'vue-sweetalert2',
-        'vue-uid',
-        'vue-upload-component',
-        'vue-virtual-scroll-list',
-        'vue-virtual-scroller',
-        'vuedraggable',
-        'apexcharts',
-        'date-fns',
-        'element-ui',
-        'lodash',
-        'p-queue',
-        'query-string',
-        'rss-parser',
-        'uuid'
-    ])
+    // .combine([
+    //     'node_modules/animate.css/animate.min.css'
+    // ], 'public/css/vendor.css')
+    .sass('resources/sass/app.scss', 'public/css/app.css')
+    .postCss('resources/css/fontello.css', 'public/css/fontello.css')
+    .js('resources/js/index.js', 'public/js/app.js')
+    .alias({
+        '@': '/resources/js',
+        'img': '/resources/img',
+        'css': '/resources/css',
+        'sass': '/resources/sass',
+        'svg': '/resources/svg',
+        'fonts': '/resources/fonts',
+        'boot': '/resources/js/boot',
+        'plugins': '/resources/js/plugins',
+        'components': '/resources/js/components',
+        'helpers': '/resources/js/helpers',
+        'lang': '/resources/js/lang',
+        'routes': '/resources/js/routes',
+        'layouts': '/resources/js/layouts',
+        'middlewares': '/resources/js/middlewares',
+        'guards': '/resources/js/guards',
+        'mixins': '/resources/js/mixins',
+        'store': '/resources/js/store',
+        'views': '/resources/js/views',
+        'utils': '/resources/js/utils',
+        'config': '/resources/js/config'
+    })
     .webpackConfig({
-        resolve: {
-            alias: {
-                '@': path.resolve('resources/js'),
-                'img': path.resolve('resources/img'),
-                'sass': path.resolve('resources/sass'),
-                'components': path.resolve('resources/js/components'),
-                'helpers': path.resolve('resources/js/helpers'),
-                'lang': path.resolve('resources/js/lang'),
-                'layouts': path.resolve('resources/js/layouts'),
-                'middlewares': path.resolve('resources/js/middlewares'),
-                'mixins': path.resolve('resources/js/mixins'),
-                'store': path.resolve('resources/js/store'),
-                'views': path.resolve('resources/js/views')
+        devServer: {
+            open: false,
+            // hot: true,
+            inline: true,
+            overlay: true,
+            progress: true,
+            compress: true,
+            stats: {
+                colors: true,
+                hash: false,
+                version: false,
+                timings: false,
+                assets: false,
+                chunks: false,
+                modules: false,
+                reasons: false,
+                children: false,
+                source: false,
+                errors: false,
+                errorDetails: false,
+                warnings: false,
+                publicPath: false
             }
         }
     })
     .version()
     .disableNotifications();
+    // .env(process.env.ENV_FILE);
 
 if (mix.inProduction()) {
-    mix
-        .options({
+    mix.options({
             uglify: {
                 // exclude: /\/vendor.js(\?.*)?$/,
                 uglifyOptions: {
@@ -128,3 +129,5 @@ if (mix.inProduction()) {
         ]
     }).sourceMaps();
 }
+
+mix.autoExtract()

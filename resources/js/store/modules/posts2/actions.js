@@ -1,19 +1,30 @@
 // TODO - will eventually replace the old "products"
-import axios from '@/axios'
+import * as types from './types'
 import queryString from 'query-string'
 
 export default {
+    async fetch ({commit}, params = {}) {
+        const {id, ...restParams} = params
+
+        if (Object.keys(restParams).length) {
+            restParams = '?' + Object.entries(restParams).map(pair => pair.map(encodeURIComponent).join('=')).join('&')
+        }
+
+        const {data} = await this._vm.axios.get(id ? `posts/${id}` : 'posts' + restParams)
+
+        commit(types.FETCH, data)
+    },
     async get ({commit}, payload = {}) {
         try {
             const {id, ...restPayload} = payload
-            
+
             let request = id ? `posts/${id}`: 'posts'
-            
+
             if (Object.keys(restPayload).length) {
                 request += '?' + queryString.stringify(restPayload)
             }
 
-            const {data} = await axios.get(request)
+            const {data} = await this._vm.axios.get(request)
 
             commit('set', data.data)
 

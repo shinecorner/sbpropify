@@ -1,6 +1,6 @@
-import { auth, admin } from 'middlewares';
-import permissions from 'middlewares/permissions';
-
+import AdminPermissions from 'boot/roles/admin'
+import hasPermissionGuard from 'guards/hasPermissionGuard'
+import VueRouterMultiguard from 'vue-router-multiguard'
 
 export default [{
     path: 'posts',
@@ -8,37 +8,28 @@ export default [{
         template: '<router-view />'
     },
     children: [{
-        path: '/',
         name: 'adminPosts',
-        component: () =>
-            import ( /* webpackChunkName: "admin/posts/index" */ 'views/Admin/Posts'),
+        path: '/',
+        component: () => import ( /* webpackChunkName: "admin/posts/index" */ 'views/Admin/Posts'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.list.post)]),
         meta: {
-            title: 'Posts',
-            middleware: [auth, admin],
-            permission: permissions.list.post,
-            breadcrumb: 'Posts'
+            title: 'Posts'
         }
     }, {
-        path: 'add',
         name: 'adminPostsAdd',
-        component: () =>
-            import ( /* webpackChunkName: "admin/posts/add" */ 'views/Admin/Posts/Add'),
+        path: 'add',
+        component: () => import ( /* webpackChunkName: "admin/posts/add" */ 'views/Admin/Posts/Add'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.create.post)]),
         meta: {
-            title: 'Add Pinned Post',
-            middleware: [auth, admin],
-            permission: permissions.create.post,
-            breadcrumb: 'Add Posts'
+            title: 'Add Pinned Post'
         }
     }, {
-        path: ':id',
         name: 'adminPostsEdit',
-        component: () =>
-            import ( /* webpackChunkName: "admin/posts/edit" */ 'views/Admin/Posts/Edit'),
+        path: ':id',
+        component: () => import ( /* webpackChunkName: "admin/posts/edit" */ 'views/Admin/Posts/Edit'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.update.post)]),
         meta: {
-            title: 'Edit Post',
-            middleware: [auth, admin],
-            permission: permissions.update.post,
-            breadcrumb: 'Edit Posts'
+            title: 'Edit Post'
         }
     }]
-}];
+}]

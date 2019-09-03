@@ -1,158 +1,115 @@
 <template>
-    <drawer class="requests" :class="{empty: !loading.visible && !requests.data.length}" :visible.sync="visibleDrawer" @update:visible="resetDataFromDrawer" docked>
-        <el-tabs type="border-card" v-model="activeTab" stretch v-if="openedRequest">
-            <el-tab-pane name="chat" lazy>
-                <div slot="label">
-                    <i class="ti-comments"></i>
-                    Chat
-                </div>
-                <chat ref="chat" :id="openedRequest.id" type="request" size="100%" max-size="100%" />
-            </el-tab-pane>
-            <el-tab-pane name="media" lazy>
-                <div slot="label">
-                    <i class="ti-gallery"></i>
-                    Media
-                </div>
-                <div ref="media-content" id="media-content" class="content">
-                    <media-gallery :media="openedRequest.media" :cols="2" :use-placeholder="!uploadedMedia.length" :gallery-options="{container: '#gallery'}" lazy-scroll-container="#media-content" lazy />
-                    <el-divider>
-                        <div v-if="uploadedMedia.length">
-                            <el-button type="success" size="small" round :loading="uploadingMedia" @click="uploadMedia">
-                                <template v-if="uploadingMedia">Uploading...</template>
-                                <template v-else>Click here to upload {{uploadedMedia.length}} files</template>
-                            </el-button>
-                            <el-tooltip effect="dark" content="Reset upload" placement="bottom" v-if="!uploadingMedia">
-                                <el-button type="danger" icon="el-icon-delete" size="small" :disabled="uploadingMedia" circle @click="$refs.upload.clear" />
-                            </el-tooltip>
-                        </div>
-                        <template v-else>
-                            <i class="el-icon-upload"></i> Upload files...
-                        </template>
-                    </el-divider>
-                    <el-alert type="warning" title="Once confirmed the uploaded files, you can no longer delete them. Please proceed with caution!" :closable="false" center />
-                    <el-divider />
-                    <media-upload ref="upload" v-model="uploadedMedia" :loading="uploadingMedia" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="2" >
-                        <template slot="trigger" slot-scope="scope">
-                            <el-tooltip key="trigger" content="Drop files or click here to select" effect="dark" placement="bottom" >
-                                <el-button class="trigger" icon="el-icon-plus" :style="scope.mediaItemStyle" @click="scope.triggerSelect" :disabled="uploadingMedia" />
-                            </el-tooltip>
-                        </template>
-                    </media-upload>
-                    <media ref="media" :id="4" type="requests" layout="list" v-model="uploadedMedia" :upload-options="{drop: true, draggable: true, multiple: true, extensions: 'jpg'}" />
-                </div>
-            </el-tab-pane>
-            <el-tab-pane name="audit" lazy>
-                <div slot="label">
-                    <i class="ti-gallery"></i>
-                    Audit
-                </div>
-                <audit :id="openedRequest.id" type="request" showFilter/>
-            </el-tab-pane>
-        </el-tabs>
-        <div slot="content" class="container" v-infinite-scroll="fetch">
-            <placeholder :size="256" :src="require('img/5c7d3b0b0f0f4.png')" v-if="!loading.visible && !requests.data.length">
-                <template v-if="hasFilters">
-                    No requests found.
-                    <small>Use the below button to reset the applied filters.</small>
-                    <el-divider>
-                        <el-button size="small" icon="el-icon-sort-up" round @click="resetFilters">Reset filters</el-button>
-                    </el-divider>
+    <div :class="['requests']">
+        <div class="container" v-infinite-scroll="get" style="overflow: auto;">
+            <ui-heading icon="icon-chat-empty" title="Requests" description="Need some info? Encountered an issue? Contact us!">
+                <el-popover popper-class="requests__filter-popover" placement="bottom-end" trigger="click" :width="192">
+                    <el-button slot="reference" icon="el-icon-sort" round>Filters</el-button>
+                    <filters ref="filters" layout="column" :data.sync="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
+                    <el-button type="primary" size="small" icon="el-icon-sort-up" @click="resetFilters">Reset filters</el-button>
+                </el-popover>
+                <el-button type="primary" icon="ti-plus" round>
+                    Add request
+                </el-button>
+            </ui-heading>
+            <ui-divider />
+            <dynamic-scroller ref="dynamic-scroller" :items="requests.data" :min-item-size="249" page-mode v-if="!loading">
+                <template #before v-if="loading && !requests.data.length">
+                    <loader v-for="idx in 5" :key="idx" />
                 </template>
-                <template v-else>
-                    There are no requests available.
-                    <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
+                <template v-slot="{item, index, active}">
+                    <dynamic-scroller-item :item="item" :active="active" :data-index="index">
+                        <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" @hook:mounted="$refs['dynamic-scroller'].forceUpdate">
+                            <template #tab-overview-after>
+                                <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>View</el-button>
+                            </template>
+                            <template #tab-media-after>
+                                <ui-divider v-if="!item.media.length">
+                                    <el-button icon="el-icon-upload" round @click="toggleDrawer(item, 'media')">Upload files...</el-button>
+                                </ui-divider>
+                            </template>
+                        </request-card>
+                    </dynamic-scroller-item>
                 </template>
-            </placeholder>
-            <div class="content" v-else-if="requests.data.length">
-                <heading icon="icon-chat-empty" title="Requests">
-                    <div slot="description" class="description">Need some info? Encountered an issue? Contact us!</div>
-                    <el-button @click="addRequestDialogVisible = true" icon="ti-plus" round size="small" type="primary">
-                        Add request
-                    </el-button>
-                </heading>
-                <el-row :gutter="16">
-                    <el-col :span="16">
-                        <dynamic-scroller ref="dynamic-scroller" :items="requests.data" :min-item-size="249" page-mode>
-                            <template v-slot="{item, index, active}">
-                                <dynamic-scroller-item :item="item" :active="active" :data-index="index">
-                                    <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @show-more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" >
-                                        <template #tab-overview-after>
-                                            <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>View</el-button>
-                                        </template>
-                                        <template #tab-media-after>
-                                            <el-divider v-if="!item.media.length">
-                                                <el-button icon="el-icon-upload" round @click="toggleDrawer(item, 'media')">Upload files...</el-button>
-                                            </el-divider>
-                                        </template>
-                                    </request-card>
-                                </dynamic-scroller-item>
-                            </template>
-                            <template #after>
-                                <div ref="loader"></div>
-                            </template>
-                        </dynamic-scroller>
-                    </el-col>
-                    <el-col class="hidden-md-and-down" :span="8" v-sticky="{stickyTop: 16}">
-                        <el-card>
-                            <filters ref="filters" :data.sync="filters.data" :schema="filters.schema" @changed="filtersChanged"/>
-                            <el-button type="primary" icon="el-icon-sort-up" @click="resetFilters">Reset filters</el-button>
-                        </el-card>
-                    </el-col>
-                </el-row>
-                <el-dialog ref="add-request-dialog" title="Add request" :visible.sync="addRequestDialogVisible" custom-class="add-request-dialog" append-to-body>
-                    <request-add-form ref="request-add-form" />
-                    <span slot="footer" class="dialog-footer">
-                        <el-button icon="el-icon-close" @click="addRequestDialogVisible = false" round>Cancel</el-button>
-                        <el-button type="primary" icon="el-icon-check" round @click="addRequest">Confirm</el-button>
-                    </span>
-                </el-dialog>
-            </div>
+                <template #after v-if="loading && requests.data.length">
+                    <loader />
+                </template>
+            </dynamic-scroller>
         </div>
-    </drawer>
+        <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked @update:visibleDrawer="resetDataFromDrawer">
+            <el-tabs type="card" v-model="activeDrawerTab" stretch v-if="openedRequest">
+                <el-tab-pane name="chat" lazy>
+                    <div slot="label">
+                        <i class="ti-comments"></i>
+                        Chat
+                    </div>
+                    <chat ref="chat" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
+                </el-tab-pane>
+                <el-tab-pane name="media" lazy>
+                    <div slot="label">
+                        <i class="ti-gallery"></i>
+                        Media
+                    </div>
+                    <ui-media-gallery :files="openedRequest.media.map(({url}) => url)" />
+                    <!-- <ui-media-uploader v-model="media" :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" :action="`api/v1/requests/${openedRequest.id}/media`" :options="{drop: true, draggable: true, multiple: true}" /> -->
+
+                    <!-- <div ref="media-content" id="media-content" class="content">
+                        <ui-media-gallery :images="openedRequest.media.map(({url}) => url)" />
+                        <el-divider>
+                            <div v-if="uploadedMedia.length">
+                                <el-button type="success" size="small" round :loading="uploadingMedia" @click="uploadMedia">
+                                    <template v-if="uploadingMedia">Uploading...</template>
+                                    <template v-else>Click here to upload {{uploadedMedia.length}} files</template>
+                                </el-button>
+                                <el-tooltip effect="dark" content="Reset upload" placement="bottom" v-if="!uploadingMedia">
+                                    <el-button type="danger" icon="el-icon-delete" size="small" :disabled="uploadingMedia" circle @click="$refs.upload.clear" />
+                                </el-tooltip>
+                            </div>
+                            <template v-else>
+                                <i class="el-icon-upload"></i> Upload files...
+                            </template>
+                        </el-divider>
+                        <el-alert type="warning" title="Once confirmed the uploaded files, you can no longer delete them. Please proceed with caution!" :closable="false" center />
+                        <el-divider />
+                        <media-upload ref="upload" v-model="uploadedMedia" :loading="uploadingMedia" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="2" >
+                            <template slot="trigger" slot-scope="scope">
+                                <el-tooltip key="trigger" content="Drop files or click here to select" effect="dark" placement="bottom" >
+                                    <el-button class="trigger" icon="el-icon-plus" :style="scope.mediaItemStyle" @click="scope.triggerSelect" :disabled="uploadingMedia" />
+                                </el-tooltip>
+                            </template>
+                        </media-upload>
+                        <media ref="media" :id="4" type="requests" layout="list" v-model="uploadedMedia" :upload-options="{drop: true, draggable: true, multiple: true, extensions: 'jpg'}" />
+                    </div> -->
+                </el-tab-pane>
+                <el-tab-pane name="audit" lazy>
+                    <div slot="label">
+                        <i class="ti-gallery"></i>
+                        Audit
+                    </div>
+                    <audit :id="openedRequest.id" type="request" show-filter />
+                </el-tab-pane>
+            </el-tabs>
+        </ui-drawer>
+    </div>
 </template>
 
 <script>
-    import {MEDIA_UPLOAD_MAX_SIZE} from '@/config'
-    import Audit from 'components/Audit'
-    import Avatar from 'components/Avatar'
-    import Drawer from 'components/Drawer'
-    import Filters from 'components/Filters'
-    import Heading from 'components/Heading'
-    import Placeholder from 'components/Placeholder'
-    import MediaUpload from 'components/MediaUpload'
-    import MediaGallery from 'components/MediaGalleryList'
-    import RequestCard from 'components/tenant/RequestCard'
+    import {mapState} from 'vuex'
+    import Loader from 'components/tenant/RequestCard/Loader'
     import RequestAddForm from 'components/tenant/RequestAddForm'
-    import PQueue from 'p-queue'
-    import {format} from 'date-fns'
-    import VueSticky from 'vue-sticky'
-    import Media from 'components/Media'
 
     export default {
         components: {
-            Audit,
-            Avatar,
-            Drawer,
-            Filters,
-            Heading,
-            Placeholder,
-            MediaUpload,
-            MediaGallery,
-            RequestCard,
-            RequestAddForm,
-            Media
-        },
-        directives: {
-            sticky: VueSticky
+            Loader,
+            RequestAddForm
         },
         data () {
             return {
-                activeTab: 'chat',
-                mediaUploadMaxSize: MEDIA_UPLOAD_MAX_SIZE,
-                uploadedMedia: [],
-                requests: {
-                    data: []
-                },
+                loading: false,
+                media: [],
+                openedRequest: null,
+                visibleDrawer: false,
+                activeDrawerTab: 'chat',
+                activeDrawerMediaTab: 0,
                 filters: {
                     schema: [{
                         type: 'el-select',
@@ -160,7 +117,8 @@
                         name: 'status',
                         props: {
                             placeholder: 'Select the status',
-                            clearable: true
+                            clearable: true,
+                            size: 'small'
                         },
                         children: Object.entries(this.$store.getters['application/constants'].service_requests.status).map(([value, label]) => ({
                             type: 'el-option',
@@ -176,6 +134,7 @@
                         props: {
                             placeholder: 'Select the priority',
                             clearable: true,
+                            size: 'small'
                         },
                         children: Object.entries(this.$store.getters['application/constants'].service_requests.priority).map(([value, label]) => ({
                             type: 'el-option',
@@ -192,7 +151,8 @@
                             placeholder: 'Choose the created date',
                             valueFormat: 'yyyy-MM-dd',
                             format: 'dd.MM.yyyy',
-                            style: 'width: 100%'
+                            style: 'width: 100%',
+                            size: 'small'
                         }
                     }, {
                         type: 'el-date-picker',
@@ -202,7 +162,8 @@
                             placeholder: 'Choose the due date',
                             format: 'dd.MM.yyyy',
                             valueFormat: 'yyyy-MM-dd',
-                            style: 'width: 100%'
+                            style: 'width: 100%',
+                            size: 'small'
                         }
                     }],
                     data: {
@@ -212,356 +173,171 @@
                         due_date: null
                     },
                 },
-                loading: {
-                    visible: true
-                },
-                openedRequest: null,
-                visibleDrawer: false,
-                uploadingMedia: false,
-                addRequestDialogVisible: false
             }
         },
-        filters: {
-            formatDate (date) {
-                return format(date, 'DD.MM.YYYY hh:mma')
+        computed: {
+             ...mapState('newRequests', {
+                requests: state => state
+            }),
+
+            openedRequestMedia () {
+                return this.openedRequest.media.map(({url}) => url)
             }
         },
         methods: {
-            async fetch(params = {}) {
-                if (this.loading.visible && this.requests.data.length) {
+            async get (params = {}) {
+                if (this.loading && this.requests.data.length) {
                     return
                 }
 
-                const {
-                    current_page,
-                    last_page
-                } = this.requests;
+                const {current_page, last_page} = this.requests
 
-                if (current_page && last_page && current_page == last_page) {
+                if (current_page && last_page && current_page === last_page) {
                     return
                 }
 
                 let page = current_page || 0
 
-                page++;
+                page++
 
-                let loadingOptions = {
-                    target: this.$el
-                }
+                this.loading = true
 
-                if (!this.requests.data.length) {
-                    loadingOptions.text = 'Fetching the requests...'
-                } else {
-                    loadingOptions.target = this.$refs.loader
-                    loadingOptions.background = 'transparent'
-                }
-
-                this.loading = this.$loading(loadingOptions)
-
-                try {
-                    const {data: {data, ...rest}} = await this.$store.dispatch('getRequests', {
-                        page,
-                        per_page: 25,
-                        sortedBy: 'desc',
-                        orderBy: 'created_at',
-                        ...params
-                    })
-
-                    this.requests = {data: [...this.requests.data, ...data], ...rest}
-                } catch (err) {
-                    this.$notify.error({
-                        title: 'Oops!',
-                        message: err
-                    })
-                } finally {
-                    this.loading.close()
-                }
-            },
-            async resetFilters () {
-                if (this.$refs.filters) {
-                    this.$refs.filters.reset()
-                } else {
-                    this.requests = {
-                        data: []
-                    }
-
-                    Object.keys(this.filters.data).forEach(property => this.filters.data[property] = null)
-
-                    await this.fetch()
-                }
-            },
-            uploadMedia () {
-                this.$confirm('Are you sure you want to upload these files?', 'Confirm', {
-                    roundButton: true
-                }).then(async () => {
-                    this.uploadingMedia = true
-
-                    const queue = new PQueue({concurrency: 1})
-
-                    this.uploadedMedia.forEach(({file}) => queue.add(async () => {
-                        try {
-                            const {data} = await this.$store.dispatch('uploadRequestMedia', {
-                                id: this.openedRequest.id,
-                                media: file.src
-                            })
-
-                            this.openedRequest.media.push(data)
-
-                            if (this.openedRequest.media.length === 1) {
-                                this.$refs['dynamic-scroller'].forceUpdate()
-                            }
-
-                            this.$refs.upload.removeFile(file)
-                        } catch (error) {
-                            this.$notify.error({title: 'Oops!', message: error, position: 'bottom-left'})
-                        }
-                    }))
-
-                    await queue.onIdle()
-
-                    this.uploadingMedia = false
-                    this.$refs.upload.clear()
-                }).catch(() => null)
-            },
-            async filtersChanged (filters) {
-                this.requests = {
-                    data: []
-                }
-
-                await this.fetch(filters)
-            },
-            addRequest () {
-                this.$watch(() => this.$refs['request-add-form'].loading, state => {
-                    this.$nextTick(async () => {
-                        this.$refs['request-add-form'].$el.classList.remove('el-loading-parent--relative')
-
-                        if (!state) {
-                            this.addRequestDialogVisible = false
-
-                            this.requests = {
-                                data: []
-                            }
-
-                            await this.fetch()
-                        }
-                    })
+                await this.$store.dispatch('newRequests/get', {
+                    page,
+                    per_page: 25,
+                    sortedBy: 'desc',
+                    orderBy: 'created_at',
+                    ...params
                 })
 
-                this.$refs['request-add-form'].submit()
+                this.loading = false
+            },
+            async onFiltersChanged (filters) {
+                await this.get(filters)
+            },
+            resetFilters () {
+                this.$refs.filters.reset()
             },
             toggleDrawer (request, tab = 'chat') {
-                this.openedRequest = request;
-
-                this.activeTab = tab
-
-                if (this.activeTab === 'media') {
-                    this.$nextTick(() => this.$refs['media-content'].scrollTop = this.$refs['media-content'].scrollHeight)
-                }
+                this.activeDrawerTab = tab
+                this.openedRequest = request
 
                 this.visibleDrawer = !this.visibleDrawer
             },
             resetDataFromDrawer () {
-                this.activeTab = 'chat'
-                this.uploadedMedia = []
+                this.activeDrawerTab = 'chat'
                 this.openedRequest = null
             }
         },
-        computed: {
-            hasFilters () {
-                return Object.values(this.filters.data).some(value => value)
-            }
+        mounted () {
+            // this.$refs['dynamic-scroller'].forceUpdate()
         }
     }
 </script>
 
-<style lang="scss">
-    .el-dialog.add-request-dialog {
-        position: relative;
-        z-index: 1;
-        border-radius: 6px;
-        max-width: 768px;
-        overflow: hidden;
-        .el-dialog__body {
-            &:before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: -1;
-                width: 100%;
-                height: 100%;
-                border-radius: 6px;
-                background-image: url('~img/5c8eb142577df.png');
-                background-repeat: no-repeat;
-                background-size: 64em;
-                background-position: -16em -7em;
-                opacity: .16;
-                pointer-events: none;
-            }
+<style lang="sass">
+    .requests__filter-popover
+        padding: 16px
+        border-radius: 12px
+        box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76)
 
-        }
-    }
+        .el-button
+            width: 100%
+            margin-top: 8px
 </style>
 
-<style lang="scss" scoped>
-    .requests {
-        height: auto !important;
+<style lang="sass" scoped>
+    .requests
+        display: flex
+        padding: 0 !important
+        flex-direction: column
+        overflow: hidden !important
 
-        &:not(.empty):before {
-            content: '';
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            background-image: url('~img/5c7d3b0b0f0f4.png');
-            background-repeat: no-repeat;
-            background-position: 100% 100%;
-            width: 100%;
-            height: 100%;
-            opacity: .16;
-            pointer-events: none;
-        }
-        .drawer {
-            .el-tabs {
-                display: flex;
-                flex-direction: column;
-                height: 100%;
-                :global(.el-tabs__header) {
-                    margin: 0;
-                }
-                :global(.el-tabs__content) {
-                    padding: 0;
-                    &, :global(.el-tab-pane) {
-                        height: 100%;;
-                        display: flex;
-                        flex-direction: column;
-                    }
-                    #pane-media {
-                        display: flex;
-                        flex-direction: column;
-                        height: 100%;
-                        .content {
-                            height: 100%;
-                            overflow: auto;
-                            padding: 8px;
-                            display: flex;
-                            flex-direction: column;
-                            .media-upload {
-                                .trigger {
-                                    border-style: dashed;
-                                    order: 1;
-                                    position: relative;
-                                    :global(i) {
-                                        position: absolute;
-                                        top: 0;
-                                        left: 0;
-                                        width: 100%;
-                                        height: 100%;
-                                        display: flex;
-                                        align-items: center;
-                                        justify-content: center;
-                                        pointer-events: none;
-                                    }
-                                }
-                            }
-                            .el-alert {
-                                overflow: visible;
-                                margin-bottom: -12px;
-                                :global(.el-alert__content) {
-                                    text-align: center;
-                                }
-                            }
-                            .el-divider {
-                                flex-shrink: 0;
-                                &.before {
-                                    margin-bottom: 16px;
-                                }
-                                &.after {
-                                    margin: 12px 0;
-                                }
-                                div {
-                                    display: flex;
-                                    align-items: center;
-                                    i {
-                                        font-size: 24px;
-                                        margin-right: 5px;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    #pane-audit {
-                        .audit :global(.el-timeline) {
-                            padding: 24px;
-                        }
-                    }
-                }
-            }
-        }
-        .container {
-            height: 100%;
-            overflow-y: auto;
-            position: relative;
-            will-change: transform;
-            -webkit-overflow-scrolling: touch;
-            > .placeholder {
-                height: 100% !important;
-                font-size: 20px;
-                color: darken(#F2F4F9, 32%);
-                .el-divider :global(.el-divider__text) {
-                    background-color: #F2F4F9;
-                }
-                small {
-                    font-size: 72%;
-                    color: darken(#F2F4F9, 16%);
-                }
-            }
-            .content {
-                padding: 16px;
+        &:before
+            content: ''
+            top: 0
+            left: 0
+            z-index: -1
+            width: 100%
+            height: 100%
+            position: fixed
+            filter: opacity(.08)
+            pointer-events: none
+            background-repeat: no-repeat
+            background-attachment: fixed
+            background-position: top left
+            background-image: url('~img/5c7d3b0b0f0f4.png')
 
-                .heading {
-                    margin-bottom: 24px;
+        .container
+            height: 100%
+            padding: 16px
+            overflow-y: auto
 
-                    .description {
-                        color: darken(#fff, 40%);
-                    }
-                }
+            .vue-recycle-scroller
+                max-width: 640px
 
-                .el-row {
-                    .el-col {
-                        &:first-child {
-                            max-width: 640px;
-                            .vue-recycle-scroller {
-                                margin: -.5em -1em;
-                                :global(.vue-recycle-scroller__item-wrapper) {
-                                    :global(.vue-recycle-scroller__item-view) > div {
-                                        padding: .5em 1em;
-                                        .request-card {
-                                            .el-button {
-                                                float: right;
-                                            }
-                                        }
-                                    }
-                                }
-                                :global(.vue-recycle-scroller__slot) .el-loading-parent--relative {
-                                    min-height: 42px;
-                                }
-                            }
-                        }
-                        &:last-child {
-                            max-width: 480px;
-                            .el-card {
-                                :global(.el-card__body) {
-                                    padding: 16px;
-                                    .el-button {
-                                        width: 100%;
-                                        margin-top: 16px;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+                /deep/ .vue-recycle-scroller__item-wrapper
+                    overflow: visible
+
+                    /deep/ .vue-recycle-scroller__item-view > div
+                        padding: 8px 0
+
+                        .request-card
+                            .el-tabs .el-tabs__content .el-tab-pane
+                                &:nth-child(1)
+                                    .el-button
+                                        float: right
+
+                                &:nth-child(2)
+                                    .ui-divider
+                                        margin-top: 32px
+
+                /deep/ .vue-recycle-scroller__slot .el-loading-parent--relative
+                    min-height: 42px
+
+        .ui-drawer
+            .el-tabs
+                height: 100%
+                display: flex
+                flex-direction: column
+
+                /deep/ .el-tabs__header
+                    margin-bottom: 0
+
+                    /deep/ .el-tabs__nav-wrap
+                        /deep/ .el-tabs__nav-scroll
+                            /deep/ .el-tabs__nav
+                                border: 0
+
+                /deep/ .el-tabs__content
+                    height: 100%
+                    overflow-y: auto
+                    display: flex
+                    flex-direction: column
+
+                    /deep/ .el-tab-pane
+                        height: 100%
+                        display: flex
+                        flex-direction: column
+
+                        > *
+                            padding: 16px
+
+                        .el-tabs
+                            padding: 0
+
+                        .chat
+                            .comments-list
+                                .vue-recycle-scroller
+                                    margin-top: -16px
+                                    margin-right: -16px
+                                    padding-top: 16px
+                                    padding-right: 16px
+
+                        // .ui-media-gallery
+                        //     height: 100%
+                        //     padding: 16px
+
+                        // .audit
+                        //     padding: 16px
 </style>
