@@ -465,10 +465,10 @@
                 }, {
                     type: 'assigneesName',
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }, {
                     prop: 'type',
-                    label: this.$t('models.request.userType.label'),
+                    label: 'models.request.userType.label',
                     i18n: this.translateType
                 }],
                 assigneesActions: [{

@@ -88,13 +88,13 @@
                     type: 'requestTenantAvatar',
                     width: 75,
                     prop: 'tenant',
-                    label: this.$t('general.tenant')
+                    label: 'general.tenant'
                 }, {
                     type: 'requestTitleWithDesc',
-                    label: this.$t('models.request.prop_title')
+                    label: 'models.request.prop_title'
                 }, {
                     type: 'requestStatus',
-                    label: this.$t('models.request.status.label')
+                    label: 'models.request.status.label'
                 }],
                 requestActions: [{
                     width: '90px',
@@ -106,24 +106,24 @@
                 }],
                 districtColumns: [{
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }, {
                     align: 'center',
                     prop: 'units_count',
-                    label: this.$t('dashboard.buildings.total_units')
+                    label: 'dashboard.buildings.total_units'
                 }, {
                     type: 'buildingTenantAvatars',
                     align: 'center',
                     prop: 'tenants',
                     propLimit: 2,
                     count: 'tenants_count',
-                    label: this.$t('general.tenants')
+                    label: 'general.tenants'
                 }],
                 districtActions: [{
                     width: '90px',
                     buttons: [{
                         icon: 'ti-pencil',
-                        title: this.$t('general.actions.edit'),
+                        title: 'general.actions.edit',
                         onClick: this.buildingEditView
                     }]
                 }],

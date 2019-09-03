@@ -318,20 +318,19 @@
                 activeRightTab: 'tenants',
                 tenantColumns: [{
                     type: 'requestTenantAvatar',
-                    width: 70,
-                    label: this.$t('general.tenant')
+                    width: 70                    
                 }, {
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }, {
                     prop: 'status',
                     i18n: this.tenantStatusLabel,
                     withBadge: this.tenantStatusBadge,
-                    label: this.$t('models.tenant.status.label')
+                    label: 'models.tenant.status.label'
                 }],
                 tenantActions: [{
                     buttons: [{
-                        title: this.$t('models.tenant.view'),
+                        title: 'models.tenant.view',
                         onClick: this.tenantEditView,
                         icon: 'el-icon-user'
                     }]
@@ -341,7 +340,7 @@
                     width: 50,
                 }, {
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }],
                 managerActions: [{
                     width: '180px',
@@ -361,13 +360,13 @@
                 }],
                 unitColumns: [{
                     prop: 'name',
-                    label: this.$t('models.unit.name')
+                    label: 'models.unit.name'
                 },{
                     prop: 'typeLabel',
-                    label: this.$t('models.unit.type.label')
+                    label: 'models.unit.type.label'
                 },{
                     prop: 'floor',
-                    label: this.$t('models.unit.floor')
+                    label: 'models.unit.floor'
                 }],
                 unitActions: [{
                     width: '180px',
@@ -383,20 +382,20 @@
                     type: 'requestTenantAvatar',
                     width: 75,
                     prop: 'tenant',
-                    label: this.$t('general.tenant')
+                    label: 'general.tenant'
                 }, {
                     type: 'requestTitleWithDesc',
-                    label: this.$t('models.request.prop_title')
+                    label: 'models.request.prop_title'
                 }, {
                     type: 'requestStatus',
                     width: 120,
-                    label: this.$t('models.request.status.label')
+                    label: 'models.request.status.label'
                 }],
                 requestActions: [{
                     width: '120px',
                     buttons: [{
                         icon: 'ti-pencil',
-                        title: this.$t('general.actions.edit'),
+                        title: 'general.actions.edit',
                         onClick: this.requestEditView
                     }]
                 }],

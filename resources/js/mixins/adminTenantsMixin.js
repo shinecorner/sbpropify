@@ -1,4 +1,4 @@
-import {mapActions} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 import PasswordValidatorMixin from './passwordValidatorMixin';
 import EmailCheckValidatorMixin from './emailCheckValidatorMixin';
 import TenantTitleTypes from './methods/tenantTitleTypes';
@@ -39,7 +39,6 @@ export default (config = {}) => {
                         language: '',
                     },
                     nation: '',
-                    title: ''
                 },
                 validationRules: {
                     first_name: [{
@@ -161,12 +160,16 @@ export default (config = {}) => {
                 });
             },
 
-            ...mapActions(['getBuildings', 'getUnits', 'uploadMediaFile']),
+            ...mapActions(['getBuildings', 'getUnits', 'getCountries', 'uploadMediaFile']),
+        },
+        async mounted() {
+            await this.getCountries();
         },
         computed: {
             form() {
                 return this.$refs.form;
-            }
+            },
+            ...mapGetters(['countries'])
         }
     };
 
