@@ -6,11 +6,11 @@
             </template>
             <edit-actions :saveAction="submit" :deleteAction="deleteRequest" route="adminRequests"/>
         </heading>
-        <div class="crud-view">
+        <div class="crud-view" id="edit_request">
             <el-form :model="model" label-position="top" label-width="192px" ref="form">
                 <el-row :gutter="20">
                     <el-col :md="12">
-                        <card :loading="loading" :header="$t('models.request.request_details')">
+                        <card :loading="loading" :header="$t('models.request.request_details')" id="request_details">
                             <el-row :gutter="20">
                                 <el-col :md="12">
                                     <el-form-item :label="$t('models.request.category')"
@@ -32,7 +32,7 @@
                                 </el-col>
                                 <el-col :md="12"
                                         v-if="this.showsubcategory == true">
-                                    <el-form-item label="Defekt/Mangel">
+                                    <el-form-item :label="$t('models.request.defect_location.label')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
                                                    class="custom-select"
@@ -157,7 +157,7 @@
                                 </el-col>
                             </el-row>
                             <el-row :gutter="20" class="summary-row" style="margin-bottom: 0;padding-bottom: 0;">
-                                <el-col :md="8" class="summary-item">
+                                <el-col :md="8" class="summary-item" id="tenant">
                                     <el-form-item v-if="model.tenant">
                                         <label slot="label">
                                             {{$t('general.tenant')}}
@@ -176,12 +176,12 @@
                                         </router-link>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="8" class="summary-item">
+                                <el-col :md="8" class="summary-item" id="building">
                                     <el-form-item label="Building">
                                         <strong>{{this.model.building}}</strong>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="8" class="summary-item">
+                                <el-col :md="8" class="summary-item" id="createtime">
                                     <el-form-item label="Creation Datetime">
                                         <strong>{{this.model.created_by}}</strong>
                                     </el-form-item>
@@ -223,8 +223,6 @@
                                     <span slot="label">
                                         <el-badge :value="mediaCount" :max="99" class="admin-layout">{{ $t('models.request.images') }}</el-badge>
                                     </span>
-                                    <p class="dividerletter">{{$t('models.request.images')}}</p>
-                                    <el-divider class="column-divider"></el-divider>
                                     <el-alert
                                         v-if="!media.length || (!model.media && !model.media.length)"
                                         :title="$t('models.request.no_images_message')"
@@ -297,7 +295,7 @@
                     </el-col>
                     <el-col :md="12">
                         <template v-if="$can($permissions.assign.request)">
-                            <card :loading="loading" :header="$t('models.request.actions')">
+                            <card :loading="loading" :header="$t('models.request.actions')" id="request_actions">
                                 <el-row :gutter="10">
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.request.internal_priority.label')"
@@ -344,6 +342,20 @@
                                             </el-date-picker>
                                         </el-form-item>
                                     </el-col>
+                                    <el-col :md="12">
+                                        <el-form-item :label="$t('models.request.internal_priority.label')"
+                                                      :rules="validationRules.internal_priority"
+                                                      prop="internal_priority">
+                                            <el-select :placeholder="$t('models.request.internal_priority.label')" class="custom-select" v-model="model.internal_priority">
+                                                <el-option
+                                                    :key="k"
+                                                    :label="$t(`models.request.internal_priority.${priority}`)"
+                                                    :value="parseInt(k)"
+                                                    v-for="(priority, k) in $constants.service_requests.internal_priority">
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                    </el-col>
                                 </el-row>
                             </card>
                             <card class="mt15 request" :loading="loading" :header="$t('models.request.assignment')">
@@ -369,7 +381,7 @@
                             </card>
                         </template>
                         <!--                    v-if="(!$can($permissions.update.serviceRequest)) || ($can($permissions.update.serviceRequest) && (media.length || (model.media && model.media.length)))"-->
-                        <card class="mt15" v-if="model.id">
+                        <card class="mt15" v-if="model.id" id="comments">
                             <el-tabs id="comments-card" v-model="activeTab2"  @tab-click="adjustAuditTabPadding">
                                 <el-tab-pane :label="$t('models.request.comments')" name="comments">
                                     <chat :id="model.id" type="request" show-templates />
@@ -453,22 +465,22 @@
                 }, {
                     type: 'assigneesName',
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }, {
                     prop: 'type',
-                    label: this.$t('models.request.userType.label'),
+                    label: 'models.request.userType.label',
                     i18n: this.translateType
                 }],
                 assigneesActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('models.request.notify'),
+                        title: 'models.request.notify',
                         tooltipMode: true,
                         type: 'success',
                         icon: 'el-icon-message',
                         onClick: this.openNotifyProvider
                     }, {
-                        title: this.$t('general.unassign'),
+                        title: 'general.unassign',
                         tooltipMode: true,
                         type: 'danger',
                         icon: 'el-icon-close',
@@ -512,6 +524,7 @@
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
             this.$root.$on('changeLanguage', () => {
                 this.getRealCategories();
+                this.fetchCurrentRequest();
             });
 
         },
@@ -586,40 +599,30 @@
             },
             
             showLocationOrRoom() {
-                const subcategory = this.first_layout_subcategories.filter(category => {
-                    if(category.id == this.model.defect) {
-                        return category;
-                    }
+                const subcategory = this.first_layout_subcategories.find(category => {
+                    return category.id == this.model.defect;
                 });
-                if(subcategory[0].room == 1) {
+
+                this.model.room = '';
+                this.model.location = '';
+                this.showLiegenschaft = false;
+                this.showUmgebung = false;
+                this.showWohnung = false;
+
+                if(subcategory.room == 1) {
                     this.showWohnung = true;
-                    this.showLiegenschaft = false;
-                    this.showUmgebung = false;
-                    this.model.location = '';
                 }
-                else if(subcategory[0].location == 1) {
+                else if(subcategory.location == 1) {
                     this.showLiegenschaft = true;
-                    this.showUmgebung = false;
-                    this.showWohnung = false;
-                    this.model.room = '';
                 }
-                else if(subcategory[0].location == 0 && subcategory[0].room == 0) {
+                else if(subcategory.location == 0 && subcategory.room == 0) {
                     this.showUmgebung = true;
-                    this.showLiegenschaft = false;
-                    this.showWohnung = false;
-                    this.model.location = '';
-                    this.model.room = '';
                 }
             },
 
             selectPayer() {
-                if(this.model.qualification == 5) {
-                    this.showpayer = true;
-                }
-                else {
-                    this.showpayer = false;
-                    this.model.payer = '';
-                }
+                this.model.payer = '';
+                this.showpayer = this.model.qualification == 5 ? true : false;
             },
             async deleteTag(tag) {
                 
@@ -736,5 +739,59 @@
         width: 90px;
         margin-left: 10px;
         vertical-align: bottom;
+    }
+
+    $min-width: 991px;
+    $max-width: 1228px;
+    @media only screen and (min-width: $min-width) and (max-width: $max-width) {
+        #tenant {
+            .el-form-item {
+                .el-form-item__label {
+                    min-height: 50px;
+                }
+            }
+        }
+        #building {
+            .el-form-item {
+                .el-form-item__label {
+                    min-height: 50px;
+                }
+            }
+        }
+        #createtime {
+            .el-form-item {
+                .el-form-item__label {
+                    line-height: 25px;
+                }
+            }
+        }
+    }
+    @media only screen and (max-width: $min-width) {
+        #tenant {
+            .el-form-item {
+                .el-form-item__label {
+                    min-height: 40px !important;
+                }
+            }
+        }
+        #building {
+            .el-form-item {
+                .el-form-item__label {
+                    min-height: 40px !important;
+                }
+            }
+        }
+    }
+
+    #edit_request {
+        .el-card__body {
+            padding: 16px 16px 0px 16px !important;
+        }
+        .request {
+            padding: 16px !important;
+        }
+        #comments {
+            padding: 16px !important;
+        }
     }
 </style>

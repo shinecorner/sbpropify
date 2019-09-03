@@ -1,6 +1,6 @@
-import { auth, admin } from 'middlewares';
-import permissions from 'middlewares/permissions';
-
+import AdminPermissions from 'boot/roles/admin'
+import hasPermissionGuard from 'guards/hasPermissionGuard'
+import VueRouterMultiguard from 'vue-router-multiguard'
 
 export default [{
     path: 'tenants',
@@ -8,71 +8,56 @@ export default [{
         template: '<router-view />'
     },
     children: [{
-        path: '/',
         name: 'adminTenants',
-        component: () =>
-            import ( /* webpackChunkName: "admin/tenants/index" */ 'views/Admin/Tenants'),
+        path: '/',
+        component: () => import ( /* webpackChunkName: "admin/tenants/index" */ 'views/Admin/Tenants'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.list.tenant)]),
         meta: {
-            title: 'Tenants',
-            middleware: [auth, admin],
-            permission: permissions.list.tenant,
-            breadcrumb: 'Tenants'
+            title: 'Tenants'
         }
     }, {
-        path: 'add',
         name: 'adminTenantsAdd',
-        component: () =>
-            import ( /* webpackChunkName: "admin/tenants/add" */ 'views/Admin/Tenants/Add'),
+        path: 'add',
+        component: () => import ( /* webpackChunkName: "admin/tenants/add" */ 'views/Admin/Tenants/Add'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.create.tenant)]),
         props: {
             title: 'Add tenant'
         },
         meta: {
-            title: 'Add Tenant',
-            middleware: [auth, admin],
-            permission: permissions.create.tenant,
-            breadcrumb: 'Add tenant'
+            title: 'Add Tenant'
         }
     }, {
         path: ':id',
         name: 'adminTenantsEdit2',
-        component: () =>
-            import ( /* webpackChunkName: "admin/tenants/edit" */ 'views/Admin/Tenants/Edit'),
+        component: () => import ( /* webpackChunkName: "admin/tenants/edit" */ 'views/Admin/Tenants/Edit'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.update.tenant)]),
         props: {
             title: 'Edit tenant'
         },
         meta: {
-            title: 'Edit Tenant',
-            middleware: [auth, admin],
-            permission: permissions.update.tenant,
-            breadcrumb: 'Edit tenant'
+            title: 'Edit Tenant'
         }
     }, {
-        path: ':id',
         name: 'adminTenantsEdit',
-        component: () =>
-            import ( /* webpackChunkName: "admin/tenants/editNew" */ 'views/Admin/Tenants/editNew'),
+        path: ':id',
+        component: () => import ( /* webpackChunkName: "admin/tenants/editNew" */ 'views/Admin/Tenants/editNew'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.update.tenant)]),
         props: {
             title: 'Edit tenant'
         },
         meta: {
-            title: 'Edit Tenant',
-            middleware: [auth, admin],
-            permission: permissions.update.tenant,
-            breadcrumb: 'Edit tenant'
+            title: 'Edit Tenant'
         }
     }, {
         path: ':id/view',
         name: 'adminTenantsView',
-        component: () =>
-            import ( /* webpackChunkName: "admin/tenants/view" */ 'views/Admin/Tenants/view'),
+        component: () => import ( /* webpackChunkName: "admin/tenants/view" */ 'views/Admin/Tenants/view'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.view.tenant)]),
         props: {
             title: 'View tenant'
         },
         meta: {
-            title: 'View Tenant',
-            middleware: [auth, admin],
-            permission: permissions.view.tenant,
-            breadcrumb: 'View tenant'
+            title: 'View Tenant'
         }
     }]
-}];
+}]

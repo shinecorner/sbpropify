@@ -59,7 +59,7 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
-                        <el-tabs type="card" @tab-click="handleTabClick" v-model="activeName">
+                        <el-tabs v-model="activeName">
                             <el-tab-pane :label="$t('menu.requests')" name="description">    
                                 <el-row>
                                     <el-col>
@@ -69,7 +69,7 @@
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
-                                <el-row>
+                                <el-row class="last-form-row">
                                     <el-col>
                                         <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                                     prop="content">
@@ -83,6 +83,9 @@
                                 </el-row>
                             </el-tab-pane>
                             <el-tab-pane :label="$t('models.request.images')" name="image">
+                                <span slot="label">
+                                    <el-badge :value="mediaCount" :max="99" class="admin-layout">{{ $t('models.request.images') }}</el-badge>
+                                </span>
                                 <card :loading="loading">
                                     <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
                                     <div class="mt15">
@@ -219,15 +222,35 @@
         methods: {            
             ...mapActions([
                 "deleteProduct"
-            ]), 
-            handleClick(tab, event) {
-                console.log(tab, event);
+            ])
+        },
+        computed: {
+            mediaCount() {
+                if(this.model.media) {
+                    return this.model.media.length;
+                } else {
+                    return 0;
+                }
             }
         }
     }
 </script>
 
 <style lang="scss" scoped>
+    .el-tabs--border-card {
+        border-radius: 6px;
+        .el-tabs__header {
+            border-radius: 6px 6px 0 0;
+        }
+        .el-tabs__nav-wrap.is-top {
+            border-radius: 6px 6px 0 0;
+        }
+    }
+
+    .last-form-row {
+        margin-bottom: -22px;
+    }
+
     .custom-select {
         display: block;
     }
@@ -297,5 +320,15 @@
         & > span {
             margin-left: 5px;
         }
+    }
+</style>
+<style lang="scss">
+    .admin-layout .el-badge__content.is-fixed {
+        top: 19px;
+        right: -5px;
+        background-color: #6AC06F;
+        margin-left: 5px;
+        height: 18px;
+        width: 6px;
     }
 </style>

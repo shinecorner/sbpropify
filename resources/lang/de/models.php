@@ -630,20 +630,14 @@ return [
 				[
 					'disturbance' => 'Störung',
 					'defect' => 'Defekt/Mangel',
-					'order_documents' => 'Unterlagen bestellen',
-					'order_a_payment_slip' => 'Einzahlungsschein(e) bestellen',
-					'questions_about_the_tenancy' => 'Fragen zum Mietverhältnis',
 					'other' => 'Sonstiges',
-					'environment' => 'Umgebung',
-					'house' => 'Haus',
-					'apartment' => 'Wohnung',
 					'room' => 'Raum',
 					'range' => 'Bereich',
 					'component' => 'Bauteil',
 					'acquisition' => 'Erfassungsphase',
 					'cost' => 'Kostenfolge',
 					'keywords' => 'Stichworte',
-					'locations' => [
+					'building_locations' => [
 						'house_entrance' => 'Hauseingang',
 						'staircase' => 'Treppenhaus',
 						'elevator' => 'Lift',
@@ -655,7 +649,7 @@ return [
 						'roof' => 'Dach',
 						'other' => 'Anderes'
 					],
-					'rooms' => [
+					'apartment_rooms' => [
 						'bath' => 'Bad/WC',
 						'shower' => 'Du/WC',
 						'entrance' => 'Entrée',

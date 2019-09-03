@@ -8,7 +8,7 @@
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
-                <card :loading="loading">
+                <card :loading="loading" :header="$t('general.actions.edit')">
                     <el-form :model="model" label-position="top" label-width="192px" ref="form">
                         <el-row :gutter="20">
                             <el-col :md="12">
@@ -68,7 +68,7 @@
                             </el-col>
 
                         </el-row>
-                        <el-row :gutter="20">
+                        <el-row class="last-form-row" :gutter="20">
                             <el-col :md="6" v-if="!isBusiness">
                                 <el-form-item :label="$t('models.unit.room_no')" :rules="validationRules.room_no"
                                               prop="room_no"
@@ -106,6 +106,28 @@
                         </el-row>
                     </el-form>
                 </card>
+
+                <card class="mt15" :loading="loading" :header="$t('models.unit.assignment')">
+                    <assignment
+                            :toAssign.sync="toAssign"
+                            :assign="assignTenant"
+                            :toAssignList="toAssignList"
+                            :remoteLoading="remoteLoading"
+                            :remoteSearch="remoteSearchTenants"
+                            :multiple="multiple"
+                    />
+                    <relation-list
+                            :actions="assigneesActions"
+                            :columns="assigneesColumns"
+                            :filterValue="false"
+                            :fetchAction="false"
+                            :filter="false"
+                            :fetchStatus="false"
+                            :addedAssigmentList="addedAssigmentList"
+                            ref="assigneesList"
+                            v-if="addedAssigmentList"
+                    />
+                </card>
             </el-col>
             <el-col :md="12">
                 <card :loading="loading" :header="$t('general.requests')">
@@ -115,27 +137,6 @@
                         :filterValue="model.id"
                         fetchAction="getRequests"
                         filter="unit_id"
-                        v-if="model.id"
-                    />
-                </card>
-            </el-col>
-            <el-col :md="12">
-                <card class="mt15" :loading="loading" :header="$t('models.unit.assignment')">
-                    <assignment
-                        :toAssign.sync="toAssign"
-                        :assign="assignTenant"
-                        :toAssignList="toAssignList"
-                        :remoteLoading="remoteLoading"
-                        :remoteSearch="remoteSearchTenants"
-                        :multiple="multiple"
-                    />
-                    <relation-list
-                        :actions="assigneesActions"
-                        :columns="assigneesColumns"
-                        :filterValue="model.id"
-                        fetchAction="getTenantAssignees"
-                        filter="unit_id"
-                        ref="assigneesList"
                         v-if="model.id"
                     />
                 </card>
@@ -167,18 +168,39 @@
         },
         data() {
             return {
+                requestColumns: [{
+                    type: 'requestTenantAvatar',
+                    width: 75,
+                    prop: 'tenant',
+                    label: 'general.tenant'
+                }, {
+                    type: 'requestTitleWithDesc',
+                    label: 'models.request.prop_title'
+                }, {
+                    type: 'requestStatus',
+                    width: 120,
+                    label: 'models.request.status.label'
+                }],
+                requestActions: [{
+                    width: '120px',
+                    buttons: [{
+                        icon: 'ti-pencil',
+                        title: 'general.actions.edit',
+                        onClick: this.requestEditView
+                    }]
+                }],
                 assigneesColumns: [{
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }, {
                     prop: 'statusString',
-                    label: this.$t('models.request.userType.label'),
+                    label: 'models.request.userType.label',
                     i18n: this.translateType
                 }],
                 assigneesActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('general.unassign'),
+                        title: 'general.unassign',
                         tooltipMode: true,
                         type: 'danger',
                         icon: 'el-icon-close',
@@ -188,7 +210,7 @@
                 multiple: false
             }
         },
-        methods: {            
+        methods: {
             ...mapActions([
                 "deleteUnit"
             ])
@@ -199,3 +221,24 @@
 </script>
 
 
+
+<style lang="scss">
+    .el-card .el-card__body {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+<style lang="scss" scoped>
+    .el-tabs--border-card {
+        border-radius: 6px;
+        .el-tabs__header {
+            border-radius: 6px 6px 0 0;
+        }
+        .el-tabs__nav-wrap.is-top {
+            border-radius: 6px 6px 0 0;
+        }
+    }
+    .last-form-row {
+        margin-bottom: -22px;
+    }
+</style>

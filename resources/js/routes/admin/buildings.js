@@ -1,6 +1,6 @@
-import { auth, admin } from 'middlewares';
-import permissions from 'middlewares/permissions';
-
+import AdminPermissions from 'boot/roles/admin'
+import hasPermissionGuard from 'guards/hasPermissionGuard'
+import VueRouterMultiguard from 'vue-router-multiguard'
 
 export default [{
     path: 'buildings',
@@ -8,76 +8,64 @@ export default [{
         template: '<router-view />'
     },
     children: [{
-        path: '/',
         name: 'adminBuildings',
-        component: () =>
-            import ( /* webpackChunkName: "admin/buildings/index" */ 'views/Admin/Buildings'),
+        path: '/',
+        component: () => import ( /* webpackChunkName: "admin/buildings/index" */ 'views/Admin/Buildings'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.list.building)]),
         meta: {
-            title: 'Buildings',
-            middleware: [auth, admin],
-            permission: permissions.list.building
+            title: 'Buildings'
         }
     }, {
-        path: 'add',
         name: 'adminBuildingsAdd',
-        component: () =>
-            import ( /* webpackChunkName: "admin/buildings/add" */ 'views/Admin/Buildings/Add'),
+        path: 'add',
+        component: () => import ( /* webpackChunkName: "admin/buildings/add" */ 'views/Admin/Buildings/Add'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.create.building)]),
         props: {
             title: 'Add building'
         },
         meta: {
-            title: 'Add Building',
-            middleware: [auth, admin],
-            permission: permissions.create.building
+            title: 'Add Building'
         }
     }, {
-        path: ':id',
         name: 'adminBuildingsEdit',
-        component: () =>
-            import ( /* webpackChunkName: "admin/buildings/edit" */ 'views/Admin/Buildings/Edit'),
+        path: ':id',
+        component: () => import ( /* webpackChunkName: "admin/buildings/edit" */ 'views/Admin/Buildings/Edit'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.update.building)]),
         props: {
             title: 'Edit building'
         },
         meta: {
-            title: 'Edit Building',
-            middleware: [auth, admin],
-            permission: permissions.update.building
+            title: 'Edit Building'
         }
     }, {
-        path: ':id/units',
         name: 'adminBuildingUnits',
-        component: () =>
-            import ( /* webpackChunkName: "admin/units/index" */ 'views/Admin/Buildings/Units'),
+        path: ':id/units',
+        component: () => import ( /* webpackChunkName: "admin/units/index" */ 'views/Admin/Buildings/Units'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.list.unit)]),
         meta: {
-            title: 'Building Units',
-            middleware: [auth, admin],
-            permission: permissions.list.unit
+            title: 'Building Units'
         }
     }, {
-        path: ':id/units/add',
         name: 'adminBuildingUnitsAdd',
-        component: () =>
-            import ( /* webpackChunkName: "admin/units/add" */ 'views/Admin/Buildings/Units/Add'),
+        path: ':id/units/add',
+        component: () => import ( /* webpackChunkName: "admin/units/add" */ 'views/Admin/Buildings/Units/Add'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.create.unit)]),
         props: {
             title: 'Add unit'
         },
         meta: {
-            title: 'Add Unit',
-            middleware: [auth, admin],
-            permission: permissions.create.unit
+            title: 'Add Unit'
         }
     }, {
-        path: ':buildingId/units/:id/edit',
         name: 'adminBuildingUnitsEdit',
-        component: () =>
-            import ( /* webpackChunkName: "admin/units/edit" */ 'views/Admin/Buildings/Units/Edit'),
+        path: ':buildingId/units/:id/edit',
+        component: () => import ( /* webpackChunkName: "admin/units/edit" */ 'views/Admin/Buildings/Units/Edit'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.update.unit)]),
         props: {
             title: 'Edit unit'
         },
         meta: {
-            title: 'Edit Unit',
-            middleware: [auth, admin],
-            permission: permissions.update.unit
+            title: 'Edit Unit'
         }
     }]
-}];
+}]

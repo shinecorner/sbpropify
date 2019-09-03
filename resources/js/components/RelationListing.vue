@@ -8,14 +8,14 @@
                 :key="column.prop"
                 :width="column.width"
                 :align="column.align"
-                :label="column.label"
+                :label="$t(column.label)"
                 :prop="column.prop"
                 v-for="column in columns"
                 v-if="!column.i18n"
             >
                 <template slot-scope="scope">
                     <div v-if="column.type === 'requestTitleWithDesc'">
-                        <div>{{scope.row.title}}</div>
+                        <div>{{$t(scope.row.title)}}</div>
                         <div class="category">
                         <span v-if="scope.row.category.parentCategory">
                             {{scope.row.category.parentCategory.name}} >&nbsp;
@@ -126,7 +126,7 @@
             </el-table-column>
             <el-table-column
                 :key="column.prop"
-                :label="column.label"
+                :label="$t(column.label)"
                 v-for="column in columns"
                 v-if="column.i18n"
             >
@@ -156,10 +156,10 @@
                         size="mini"
                         v-for="button in action.buttons"
                         v-if="!button.tooltipMode">
-                        &nbsp;{{button.title}}
+                        &nbsp;{{$t(button.title)}}
                     </el-button>
                     <el-tooltip
-                        :content="button.title"
+                        :content="$t(button.title)"
                         :key="button.title"
                         class="item" effect="light" placement="top-end"
                         v-for="button in action.buttons"
@@ -210,6 +210,10 @@
                     return [];
                 }
             },
+            fetchStatus: {
+                type: Boolean,
+                default: () => true
+            },
             actions: {
                 type: Array,
                 default() {
@@ -229,19 +233,28 @@
             }
         },
         async created() {
-            if (!!this.addedAssigmentList) {
+            if (!this.fetchStatus) {
                 this.list = this.addedAssigmentList;
             } else {
                 await this.fetch();
             }
         },
-        mounted() {
-            if (!this.addedAssigmentList) {
+        async mounted() {
+            if (!this.fetchStatus) {
                 this.$root.$on('changeLanguage', () => this.fetch());
+            }
+        },
+        watch: {
+            addedAssigmentList: {
+                immediate: true,
+                handler() {
+                    this.list = this.addedAssigmentList
+                }
             }
         },
         methods: {
             async fetch(page = 1) {
+                if (!this.fetchStatus) return;
                 this.loading = true;
                 try {
                     const resp = await this.$store.dispatch(this.fetchAction, {
@@ -269,7 +282,7 @@
                 }
             },
             loadMore() {
-                if (this.meta.current_page < this.meta.last_page) {
+                if (this.fetchStatus && this.meta.current_page < this.meta.last_page) {
                     this.fetch(this.meta.current_page + 1);
                 }
             }

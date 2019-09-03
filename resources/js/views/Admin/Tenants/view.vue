@@ -47,9 +47,17 @@
                         <el-row :gutter="20" class="main-section">
                             <el-col :md="4">
                                 <img
-                                    src="~img/user-avatar.jpg"
+                                    src="~img/man.png"
                                     class="user-image"
-                                    v-if="model.avatar==null"/>
+                                    v-if="model.avatar==null && model.title == 'mr'"/>
+                                <img
+                                    src="~img/woman.png"
+                                    class="user-image"
+                                    v-else-if="model.avatar==null && model.title == 'mrs'"/>
+                                <img
+                                    src="~img/company.png"
+                                    class="user-image"
+                                    v-else-if="model.avatar==null && model.title == 'company'"/>
                                 <img
                                         style="width: 100%;"
                                         class="user-image"
@@ -111,7 +119,9 @@
                                 <el-row :gutter="20">
                                     <el-col :sm="8" :xs="12">{{$t('models.tenant.nation')}}:</el-col>
                                     <el-col :sm="16" :xs="12" class="text-secondary">
-                                        {{ model.nation}}
+                                        <span v-if="countries.length > 0 && model.nation">
+                                            {{ countries.find(element => +element.id === +model.nation).name }}
+                                        </span>
                                     </el-col>
                                 </el-row>
                             </el-col>
@@ -397,6 +407,9 @@
                     query: this.queryParams
                 })
             },
+        },
+        mounted() {
+            this.$root.$on('changeLanguage', () => this.getCountries());
         },
         computed: {
             ...mapGetters('application', {

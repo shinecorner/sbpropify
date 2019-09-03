@@ -417,28 +417,28 @@
             return {
                 assignmentsColumns: [{
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }, {
                     prop: 'type',
-                    label: this.$t('models.post.assignType'),
+                    label: 'models.post.assignType',
                     i18n: this.translateType
                 }],
                 assignmentsActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('general.unassign'),
+                        title: 'general.unassign',
                         type: 'danger',
                         onClick: this.notifyUnassignment
                     }]
                 }],
                 assignmentsProviderColumns: [{
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }],
                 assignmentsProviderActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('general.unassign'),
+                        title: 'general.unassign',
                         type: 'danger',
                         onClick: this.notifyProviderUnassignment
                     }]

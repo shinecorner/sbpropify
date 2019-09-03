@@ -1,129 +1,49 @@
 <template>
-    <div class="tenant-marketplace">
-        <heading icon="icon-basket" title="Marketplace">
-            <div slot="description" class="description">Start selling things you don't need anymore.</div>
-            <el-button type="primary" icon="el-icon-circle-plus-outline" round @click="dialogs.addProductForm.visible = true">Add product</el-button>
-            <el-dialog top="0" width="100%" :class="['el-dialog-add-product-form-wrapper', {'is-md': el.is.md}]" custom-class="el-dialog-add-product-form" title="Add product" :visible.sync="dialogs.addProductForm.visible" :fullscreen="dialogs.addProductForm.fullscreen" append-to-body>
-                <add-product-form ref="add-product-form" />
-                <template class="dialog-footer" slot="footer">
-                    <el-button icon="el-icon-close" round @click="dialogs.addProductForm.visible = false">
-                        Cancel
-                    </el-button>
-                    <el-button type="primary" icon="el-icon-check" round @click="addProduct">
-                        Save
-                    </el-button>
-                </template>
-            </el-dialog>
-        </heading>
-        <el-card class="products" v-loading="loading">
-            <div class="title">
-                Latest products added
-                <div class="content">
-                    <el-input size="small" prefix-icon="el-icon-search" v-model="searchModel" v-debounce:240="handleSearch" placeholder="Search..." />
-                    <el-popover popper-class="products-filter" placement="bottom-end" trigger="click" :width="192">
-                        <el-button size="small" slot="reference" icon="el-icon-sort" round>Filters</el-button>
+    <div :class="['marketplace', {md: el.is.md}]">
+        <div class="container">
+            <ui-heading icon="icon-basket" title="Marketplace" description="Start selling things you don't need anymore." />
+            <ui-divider />
+            <ui-card class="content" shadow="always" v-loading="loading">
+                <template #header>
+                    <el-popover popper-class="marketplace__filter-popover" placement="bottom-start" trigger="click" :width="192">
+                        <el-button slot="reference" icon="el-icon-sort">Filters</el-button>
                         <filters ref="filters" layout="row" :data.sync="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
-                        <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">Reset filters</el-button>
+                        <el-button type="primary" size="small" icon="el-icon-sort-up" @click="resetFilters">Reset filters</el-button>
                     </el-popover>
+                    <el-input prefix-icon="el-icon-search" v-model="search" placeholder="Search for a product..." clearable @clear="handleSearch" @keyup.enter.native="handleSearch" />
+                    <el-button type="primary" icon="el-icon-search" :disabled="loading" @click="handleSearch">Search</el-button>
+                    <el-button type="primary" icon="icon-plus" @click="visibleDrawer = !visibleDrawer">Add product</el-button>
+                </template>
+                <template v-if="loading">
+                    <loader v-for="idx in 5" :key="idx" />
+                </template>
+                <div class="placeholder" v-else-if="!loading && !products.data.length">
+                    <img class="image" :src="require('img/5ca7dde590fa1.png')" />
+                    <div class="title">No products available yet.</div>
+                    <div class="description">Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.</div>
                 </div>
-            </div>
-            <placeholder :src="require('img/5ca7dde590fa1.png')" :size="512" v-if="!loading && !products.data.length">
-                Unfortunately, no one is selling what you are looking for...
-                <small slot="secondary">Do not worry, definitely there will be someone selling soon the product you want, so you may come and check again a bit later!</small>
-            </placeholder>
-            <!-- <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis urna non justo hendrerit mattis. Vivamus tristique nisi lorem, ac egestas orci varius sit amet. Morbi venenatis lacinia libero, ac imperdiet est volutpat quis. Nulla luctus, dolor eget porttitor elementum, nisl nunc imperdiet nulla, vitae volutpat dolor ante non nisi. Proin id nibh sit amet ante molestie eleifend eu eu orci. In hac habitasse platea dictumst. Nunc nec velit commodo dolor lobortis lobortis venenatis at arcu. Sed aliquam mi eget massa vehicula, nec fermentum justo efficitur. Nam convallis dui et tortor vulputate pulvinar. Duis pharetra diam vitae sapien condimentum fringilla. Nam at bibendum metus, vel rutrum tellus. Cras rhoncus pulvinar dapibus. Morbi pretium interdum augue quis convallis.
-
-In at mi eu nisi sollicitudin iaculis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent eget mauris ac dui ultricies condimentum quis et dui. Cras dui massa, posuere ut laoreet quis, hendrerit sed diam. Donec diam ex, ultricies ac nibh sit amet, pretium commodo urna. Quisque sit amet leo ligula. Phasellus ut gravida tellus, sed commodo leo. In hac habitasse platea dictumst. Fusce sapien nibh, scelerisque eu volutpat et, mollis quis tortor. Donec finibus tincidunt vehicula. Praesent maximus, quam eu tristique rhoncus, sapien ante tempor magna, in condimentum turpis eros sed felis.
-
-Mauris ut nisi dignissim, porta lectus ac, blandit quam. Maecenas consequat massa urna, eget posuere augue aliquam sit amet. In hac habitasse platea dictumst. Aenean ut erat venenatis nisl malesuada varius. Donec at commodo sapien, vel feugiat nunc. Etiam finibus, purus nec pharetra sollicitudin, nulla justo sagittis lorem, ut ornare urna urna eu erat. Nulla laoreet condimentum nibh, a auctor quam imperdiet a. Aliquam lacinia malesuada ante vel vehicula. In a ligula quam. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ut mi pretium, luctus lectus sit amet, auctor ipsum. Mauris ante leo, mattis nec urna eu, pretium laoreet nisi. Duis venenatis sit amet velit ut ornare.
-
-Aliquam erat volutpat. Pellentesque consectetur euismod elementum. Cras tempus metus et ipsum placerat, nec dictum mi aliquam. Ut molestie eu mi a interdum. In suscipit turpis eget libero imperdiet aliquam. Cras ornare feugiat neque lacinia varius. Integer vitae magna eget orci fringilla bibendum.
-
-Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interdum quam in sodales. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam lacinia orci a dui interdum faucibus. Quisque aliquam massa nec luctus posuere. Donec rutrum nunc ornare consequat semper. In aliquam nisl sollicitudin, commodo massa ut, sollicitudin massa. Maecenas justo nisi, elementum ac mollis sodales, volutpat vitae lacus. Quisque imperdiet justo at egestas ornare. Nulla cursus ornare purus eget tempor. Donec eleifend suscipit massa, sed vehicula nulla fermentum id. Maecenas sagittis lacus ipsum, quis rhoncus velit eleifend non. Quisque et est elit. Donec ac sapien odio. Cras molestie libero erat, nec rhoncus arcu congue sit amet.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis urna non justo hendrerit mattis. Vivamus tristique nisi lorem, ac egestas orci varius sit amet. Morbi venenatis lacinia libero, ac imperdiet est volutpat quis. Nulla luctus, dolor eget porttitor elementum, nisl nunc imperdiet nulla, vitae volutpat dolor ante non nisi. Proin id nibh sit amet ante molestie eleifend eu eu orci. In hac habitasse platea dictumst. Nunc nec velit commodo dolor lobortis lobortis venenatis at arcu. Sed aliquam mi eget massa vehicula, nec fermentum justo efficitur. Nam convallis dui et tortor vulputate pulvinar. Duis pharetra diam vitae sapien condimentum fringilla. Nam at bibendum metus, vel rutrum tellus. Cras rhoncus pulvinar dapibus. Morbi pretium interdum augue quis convallis.
-
-In at mi eu nisi sollicitudin iaculis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent eget mauris ac dui ultricies condimentum quis et dui. Cras dui massa, posuere ut laoreet quis, hendrerit sed diam. Donec diam ex, ultricies ac nibh sit amet, pretium commodo urna. Quisque sit amet leo ligula. Phasellus ut gravida tellus, sed commodo leo. In hac habitasse platea dictumst. Fusce sapien nibh, scelerisque eu volutpat et, mollis quis tortor. Donec finibus tincidunt vehicula. Praesent maximus, quam eu tristique rhoncus, sapien ante tempor magna, in condimentum turpis eros sed felis.
-
-Mauris ut nisi dignissim, porta lectus ac, blandit quam. Maecenas consequat massa urna, eget posuere augue aliquam sit amet. In hac habitasse platea dictumst. Aenean ut erat venenatis nisl malesuada varius. Donec at commodo sapien, vel feugiat nunc. Etiam finibus, purus nec pharetra sollicitudin, nulla justo sagittis lorem, ut ornare urna urna eu erat. Nulla laoreet condimentum nibh, a auctor quam imperdiet a. Aliquam lacinia malesuada ante vel vehicula. In a ligula quam. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ut mi pretium, luctus lectus sit amet, auctor ipsum. Mauris ante leo, mattis nec urna eu, pretium laoreet nisi. Duis venenatis sit amet velit ut ornare.
-
-Aliquam erat volutpat. Pellentesque consectetur euismod elementum. Cras tempus metus et ipsum placerat, nec dictum mi aliquam. Ut molestie eu mi a interdum. In suscipit turpis eget libero imperdiet aliquam. Cras ornare feugiat neque lacinia varius. Integer vitae magna eget orci fringilla bibendum.
-
-Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interdum quam in sodales. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam lacinia orci a dui interdum faucibus. Quisque aliquam massa nec luctus posuere. Donec rutrum nunc ornare consequat semper. In aliquam nisl sollicitudin, commodo massa ut, sollicitudin massa. Maecenas justo nisi, elementum ac mollis sodales, volutpat vitae lacus. Quisque imperdiet justo at egestas ornare. Nulla cursus ornare purus eget tempor. Donec eleifend suscipit massa, sed vehicula nulla fermentum id. Maecenas sagittis lacus ipsum, quis rhoncus velit eleifend non. Quisque et est elit. Donec ac sapien odio. Cras molestie libero erat, nec rhoncus arcu congue sit amet.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis urna non justo hendrerit mattis. Vivamus tristique nisi lorem, ac egestas orci varius sit amet. Morbi venenatis lacinia libero, ac imperdiet est volutpat quis. Nulla luctus, dolor eget porttitor elementum, nisl nunc imperdiet nulla, vitae volutpat dolor ante non nisi. Proin id nibh sit amet ante molestie eleifend eu eu orci. In hac habitasse platea dictumst. Nunc nec velit commodo dolor lobortis lobortis venenatis at arcu. Sed aliquam mi eget massa vehicula, nec fermentum justo efficitur. Nam convallis dui et tortor vulputate pulvinar. Duis pharetra diam vitae sapien condimentum fringilla. Nam at bibendum metus, vel rutrum tellus. Cras rhoncus pulvinar dapibus. Morbi pretium interdum augue quis convallis.
-
-In at mi eu nisi sollicitudin iaculis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent eget mauris ac dui ultricies condimentum quis et dui. Cras dui massa, posuere ut laoreet quis, hendrerit sed diam. Donec diam ex, ultricies ac nibh sit amet, pretium commodo urna. Quisque sit amet leo ligula. Phasellus ut gravida tellus, sed commodo leo. In hac habitasse platea dictumst. Fusce sapien nibh, scelerisque eu volutpat et, mollis quis tortor. Donec finibus tincidunt vehicula. Praesent maximus, quam eu tristique rhoncus, sapien ante tempor magna, in condimentum turpis eros sed felis.
-
-Mauris ut nisi dignissim, porta lectus ac, blandit quam. Maecenas consequat massa urna, eget posuere augue aliquam sit amet. In hac habitasse platea dictumst. Aenean ut erat venenatis nisl malesuada varius. Donec at commodo sapien, vel feugiat nunc. Etiam finibus, purus nec pharetra sollicitudin, nulla justo sagittis lorem, ut ornare urna urna eu erat. Nulla laoreet condimentum nibh, a auctor quam imperdiet a. Aliquam lacinia malesuada ante vel vehicula. In a ligula quam. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ut mi pretium, luctus lectus sit amet, auctor ipsum. Mauris ante leo, mattis nec urna eu, pretium laoreet nisi. Duis venenatis sit amet velit ut ornare.
-
-Aliquam erat volutpat. Pellentesque consectetur euismod elementum. Cras tempus metus et ipsum placerat, nec dictum mi aliquam. Ut molestie eu mi a interdum. In suscipit turpis eget libero imperdiet aliquam. Cras ornare feugiat neque lacinia varius. Integer vitae magna eget orci fringilla bibendum.
-
-Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interdum quam in sodales. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam lacinia orci a dui interdum faucibus. Quisque aliquam massa nec luctus posuere. Donec rutrum nunc ornare consequat semper. In aliquam nisl sollicitudin, commodo massa ut, sollicitudin massa. Maecenas justo nisi, elementum ac mollis sodales, volutpat vitae lacus. Quisque imperdiet justo at egestas ornare. Nulla cursus ornare purus eget tempor. Donec eleifend suscipit massa, sed vehicula nulla fermentum id. Maecenas sagittis lacus ipsum, quis rhoncus velit eleifend non. Quisque et est elit. Donec ac sapien odio. Cras molestie libero erat, nec rhoncus arcu congue sit amet.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis urna non justo hendrerit mattis. Vivamus tristique nisi lorem, ac egestas orci varius sit amet. Morbi venenatis lacinia libero, ac imperdiet est volutpat quis. Nulla luctus, dolor eget porttitor elementum, nisl nunc imperdiet nulla, vitae volutpat dolor ante non nisi. Proin id nibh sit amet ante molestie eleifend eu eu orci. In hac habitasse platea dictumst. Nunc nec velit commodo dolor lobortis lobortis venenatis at arcu. Sed aliquam mi eget massa vehicula, nec fermentum justo efficitur. Nam convallis dui et tortor vulputate pulvinar. Duis pharetra diam vitae sapien condimentum fringilla. Nam at bibendum metus, vel rutrum tellus. Cras rhoncus pulvinar dapibus. Morbi pretium interdum augue quis convallis.
-
-In at mi eu nisi sollicitudin iaculis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent eget mauris ac dui ultricies condimentum quis et dui. Cras dui massa, posuere ut laoreet quis, hendrerit sed diam. Donec diam ex, ultricies ac nibh sit amet, pretium commodo urna. Quisque sit amet leo ligula. Phasellus ut gravida tellus, sed commodo leo. In hac habitasse platea dictumst. Fusce sapien nibh, scelerisque eu volutpat et, mollis quis tortor. Donec finibus tincidunt vehicula. Praesent maximus, quam eu tristique rhoncus, sapien ante tempor magna, in condimentum turpis eros sed felis.
-
-Mauris ut nisi dignissim, porta lectus ac, blandit quam. Maecenas consequat massa urna, eget posuere augue aliquam sit amet. In hac habitasse platea dictumst. Aenean ut erat venenatis nisl malesuada varius. Donec at commodo sapien, vel feugiat nunc. Etiam finibus, purus nec pharetra sollicitudin, nulla justo sagittis lorem, ut ornare urna urna eu erat. Nulla laoreet condimentum nibh, a auctor quam imperdiet a. Aliquam lacinia malesuada ante vel vehicula. In a ligula quam. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ut mi pretium, luctus lectus sit amet, auctor ipsum. Mauris ante leo, mattis nec urna eu, pretium laoreet nisi. Duis venenatis sit amet velit ut ornare.
-
-Aliquam erat volutpat. Pellentesque consectetur euismod elementum. Cras tempus metus et ipsum placerat, nec dictum mi aliquam. Ut molestie eu mi a interdum. In suscipit turpis eget libero imperdiet aliquam. Cras ornare feugiat neque lacinia varius. Integer vitae magna eget orci fringilla bibendum.
-
-Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interdum quam in sodales. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam lacinia orci a dui interdum faucibus. Quisque aliquam massa nec luctus posuere. Donec rutrum nunc ornare consequat semper. In aliquam nisl sollicitudin, commodo massa ut, sollicitudin massa. Maecenas justo nisi, elementum ac mollis sodales, volutpat vitae lacus. Quisque imperdiet justo at egestas ornare. Nulla cursus ornare purus eget tempor. Donec eleifend suscipit massa, sed vehicula nulla fermentum id. Maecenas sagittis lacus ipsum, quis rhoncus velit eleifend non. Quisque et est elit. Donec ac sapien odio. Cras molestie libero erat, nec rhoncus arcu congue sit amet.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis urna non justo hendrerit mattis. Vivamus tristique nisi lorem, ac egestas orci varius sit amet. Morbi venenatis lacinia libero, ac imperdiet est volutpat quis. Nulla luctus, dolor eget porttitor elementum, nisl nunc imperdiet nulla, vitae volutpat dolor ante non nisi. Proin id nibh sit amet ante molestie eleifend eu eu orci. In hac habitasse platea dictumst. Nunc nec velit commodo dolor lobortis lobortis venenatis at arcu. Sed aliquam mi eget massa vehicula, nec fermentum justo efficitur. Nam convallis dui et tortor vulputate pulvinar. Duis pharetra diam vitae sapien condimentum fringilla. Nam at bibendum metus, vel rutrum tellus. Cras rhoncus pulvinar dapibus. Morbi pretium interdum augue quis convallis.
-
-In at mi eu nisi sollicitudin iaculis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent eget mauris ac dui ultricies condimentum quis et dui. Cras dui massa, posuere ut laoreet quis, hendrerit sed diam. Donec diam ex, ultricies ac nibh sit amet, pretium commodo urna. Quisque sit amet leo ligula. Phasellus ut gravida tellus, sed commodo leo. In hac habitasse platea dictumst. Fusce sapien nibh, scelerisque eu volutpat et, mollis quis tortor. Donec finibus tincidunt vehicula. Praesent maximus, quam eu tristique rhoncus, sapien ante tempor magna, in condimentum turpis eros sed felis.
-
-Mauris ut nisi dignissim, porta lectus ac, blandit quam. Maecenas consequat massa urna, eget posuere augue aliquam sit amet. In hac habitasse platea dictumst. Aenean ut erat venenatis nisl malesuada varius. Donec at commodo sapien, vel feugiat nunc. Etiam finibus, purus nec pharetra sollicitudin, nulla justo sagittis lorem, ut ornare urna urna eu erat. Nulla laoreet condimentum nibh, a auctor quam imperdiet a. Aliquam lacinia malesuada ante vel vehicula. In a ligula quam. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ut mi pretium, luctus lectus sit amet, auctor ipsum. Mauris ante leo, mattis nec urna eu, pretium laoreet nisi. Duis venenatis sit amet velit ut ornare.
-
-Aliquam erat volutpat. Pellentesque consectetur euismod elementum. Cras tempus metus et ipsum placerat, nec dictum mi aliquam. Ut molestie eu mi a interdum. In suscipit turpis eget libero imperdiet aliquam. Cras ornare feugiat neque lacinia varius. Integer vitae magna eget orci fringilla bibendum.
-
-Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interdum quam in sodales. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam lacinia orci a dui interdum faucibus. Quisque aliquam massa nec luctus posuere. Donec rutrum nunc ornare consequat semper. In aliquam nisl sollicitudin, commodo massa ut, sollicitudin massa. Maecenas justo nisi, elementum ac mollis sodales, volutpat vitae lacus. Quisque imperdiet justo at egestas ornare. Nulla cursus ornare purus eget tempor. Donec eleifend suscipit massa, sed vehicula nulla fermentum id. Maecenas sagittis lacus ipsum, quis rhoncus velit eleifend non. Quisque et est elit. Donec ac sapien odio. Cras molestie libero erat, nec rhoncus arcu congue sit amet.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis urna non justo hendrerit mattis. Vivamus tristique nisi lorem, ac egestas orci varius sit amet. Morbi venenatis lacinia libero, ac imperdiet est volutpat quis. Nulla luctus, dolor eget porttitor elementum, nisl nunc imperdiet nulla, vitae volutpat dolor ante non nisi. Proin id nibh sit amet ante molestie eleifend eu eu orci. In hac habitasse platea dictumst. Nunc nec velit commodo dolor lobortis lobortis venenatis at arcu. Sed aliquam mi eget massa vehicula, nec fermentum justo efficitur. Nam convallis dui et tortor vulputate pulvinar. Duis pharetra diam vitae sapien condimentum fringilla. Nam at bibendum metus, vel rutrum tellus. Cras rhoncus pulvinar dapibus. Morbi pretium interdum augue quis convallis.
-
-In at mi eu nisi sollicitudin iaculis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent eget mauris ac dui ultricies condimentum quis et dui. Cras dui massa, posuere ut laoreet quis, hendrerit sed diam. Donec diam ex, ultricies ac nibh sit amet, pretium commodo urna. Quisque sit amet leo ligula. Phasellus ut gravida tellus, sed commodo leo. In hac habitasse platea dictumst. Fusce sapien nibh, scelerisque eu volutpat et, mollis quis tortor. Donec finibus tincidunt vehicula. Praesent maximus, quam eu tristique rhoncus, sapien ante tempor magna, in condimentum turpis eros sed felis.
-
-Mauris ut nisi dignissim, porta lectus ac, blandit quam. Maecenas consequat massa urna, eget posuere augue aliquam sit amet. In hac habitasse platea dictumst. Aenean ut erat venenatis nisl malesuada varius. Donec at commodo sapien, vel feugiat nunc. Etiam finibus, purus nec pharetra sollicitudin, nulla justo sagittis lorem, ut ornare urna urna eu erat. Nulla laoreet condimentum nibh, a auctor quam imperdiet a. Aliquam lacinia malesuada ante vel vehicula. In a ligula quam. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ut mi pretium, luctus lectus sit amet, auctor ipsum. Mauris ante leo, mattis nec urna eu, pretium laoreet nisi. Duis venenatis sit amet velit ut ornare.
-
-Aliquam erat volutpat. Pellentesque consectetur euismod elementum. Cras tempus metus et ipsum placerat, nec dictum mi aliquam. Ut molestie eu mi a interdum. In suscipit turpis eget libero imperdiet aliquam. Cras ornare feugiat neque lacinia varius. Integer vitae magna eget orci fringilla bibendum.
-
-Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interdum quam in sodales. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam lacinia orci a dui interdum faucibus. Quisque aliquam massa nec luctus posuere. Donec rutrum nunc ornare consequat semper. In aliquam nisl sollicitudin, commodo massa ut, sollicitudin massa. Maecenas justo nisi, elementum ac mollis sodales, volutpat vitae lacus. Quisque imperdiet justo at egestas ornare. Nulla cursus ornare purus eget tempor. Donec eleifend suscipit massa, sed vehicula nulla fermentum id. Maecenas sagittis lacus ipsum, quis rhoncus velit eleifend non. Quisque et est elit. Donec ac sapien odio. Cras molestie libero erat, nec rhoncus arcu congue sit amet.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis urna non justo hendrerit mattis. Vivamus tristique nisi lorem, ac egestas orci varius sit amet. Morbi venenatis lacinia libero, ac imperdiet est volutpat quis. Nulla luctus, dolor eget porttitor elementum, nisl nunc imperdiet nulla, vitae volutpat dolor ante non nisi. Proin id nibh sit amet ante molestie eleifend eu eu orci. In hac habitasse platea dictumst. Nunc nec velit commodo dolor lobortis lobortis venenatis at arcu. Sed aliquam mi eget massa vehicula, nec fermentum justo efficitur. Nam convallis dui et tortor vulputate pulvinar. Duis pharetra diam vitae sapien condimentum fringilla. Nam at bibendum metus, vel rutrum tellus. Cras rhoncus pulvinar dapibus. Morbi pretium interdum augue quis convallis.
-
-In at mi eu nisi sollicitudin iaculis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent eget mauris ac dui ultricies condimentum quis et dui. Cras dui massa, posuere ut laoreet quis, hendrerit sed diam. Donec diam ex, ultricies ac nibh sit amet, pretium commodo urna. Quisque sit amet leo ligula. Phasellus ut gravida tellus, sed commodo leo. In hac habitasse platea dictumst. Fusce sapien nibh, scelerisque eu volutpat et, mollis quis tortor. Donec finibus tincidunt vehicula. Praesent maximus, quam eu tristique rhoncus, sapien ante tempor magna, in condimentum turpis eros sed felis.
-
-Mauris ut nisi dignissim, porta lectus ac, blandit quam. Maecenas consequat massa urna, eget posuere augue aliquam sit amet. In hac habitasse platea dictumst. Aenean ut erat venenatis nisl malesuada varius. Donec at commodo sapien, vel feugiat nunc. Etiam finibus, purus nec pharetra sollicitudin, nulla justo sagittis lorem, ut ornare urna urna eu erat. Nulla laoreet condimentum nibh, a auctor quam imperdiet a. Aliquam lacinia malesuada ante vel vehicula. In a ligula quam. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ut mi pretium, luctus lectus sit amet, auctor ipsum. Mauris ante leo, mattis nec urna eu, pretium laoreet nisi. Duis venenatis sit amet velit ut ornare.
-
-Aliquam erat volutpat. Pellentesque consectetur euismod elementum. Cras tempus metus et ipsum placerat, nec dictum mi aliquam. Ut molestie eu mi a interdum. In suscipit turpis eget libero imperdiet aliquam. Cras ornare feugiat neque lacinia varius. Integer vitae magna eget orci fringilla bibendum.
-
-Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interdum quam in sodales. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam lacinia orci a dui interdum faucibus. Quisque aliquam massa nec luctus posuere. Donec rutrum nunc ornare consequat semper. In aliquam nisl sollicitudin, commodo massa ut, sollicitudin massa. Maecenas justo nisi, elementum ac mollis sodales, volutpat vitae lacus. Quisque imperdiet justo at egestas ornare. Nulla cursus ornare purus eget tempor. Donec eleifend suscipit massa, sed vehicula nulla fermentum id. Maecenas sagittis lacus ipsum, quis rhoncus velit eleifend non. Quisque et est elit. Donec ac sapien odio. Cras molestie libero erat, nec rhoncus arcu congue sit amet.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis urna non justo hendrerit mattis. Vivamus tristique nisi lorem, ac egestas orci varius sit amet. Morbi venenatis lacinia libero, ac imperdiet est volutpat quis. Nulla luctus, dolor eget porttitor elementum, nisl nunc imperdiet nulla, vitae volutpat dolor ante non nisi. Proin id nibh sit amet ante molestie eleifend eu eu orci. In hac habitasse platea dictumst. Nunc nec velit commodo dolor lobortis lobortis venenatis at arcu. Sed aliquam mi eget massa vehicula, nec fermentum justo efficitur. Nam convallis dui et tortor vulputate pulvinar. Duis pharetra diam vitae sapien condimentum fringilla. Nam at bibendum metus, vel rutrum tellus. Cras rhoncus pulvinar dapibus. Morbi pretium interdum augue quis convallis.
-
-In at mi eu nisi sollicitudin iaculis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Praesent eget mauris ac dui ultricies condimentum quis et dui. Cras dui massa, posuere ut laoreet quis, hendrerit sed diam. Donec diam ex, ultricies ac nibh sit amet, pretium commodo urna. Quisque sit amet leo ligula. Phasellus ut gravida tellus, sed commodo leo. In hac habitasse platea dictumst. Fusce sapien nibh, scelerisque eu volutpat et, mollis quis tortor. Donec finibus tincidunt vehicula. Praesent maximus, quam eu tristique rhoncus, sapien ante tempor magna, in condimentum turpis eros sed felis.
-
-Mauris ut nisi dignissim, porta lectus ac, blandit quam. Maecenas consequat massa urna, eget posuere augue aliquam sit amet. In hac habitasse platea dictumst. Aenean ut erat venenatis nisl malesuada varius. Donec at commodo sapien, vel feugiat nunc. Etiam finibus, purus nec pharetra sollicitudin, nulla justo sagittis lorem, ut ornare urna urna eu erat. Nulla laoreet condimentum nibh, a auctor quam imperdiet a. Aliquam lacinia malesuada ante vel vehicula. In a ligula quam. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut ut mi pretium, luctus lectus sit amet, auctor ipsum. Mauris ante leo, mattis nec urna eu, pretium laoreet nisi. Duis venenatis sit amet velit ut ornare.
-
-Aliquam erat volutpat. Pellentesque consectetur euismod elementum. Cras tempus metus et ipsum placerat, nec dictum mi aliquam. Ut molestie eu mi a interdum. In suscipit turpis eget libero imperdiet aliquam. Cras ornare feugiat neque lacinia varius. Integer vitae magna eget orci fringilla bibendum.
-
-Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interdum quam in sodales. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam lacinia orci a dui interdum faucibus. Quisque aliquam massa nec luctus posuere. Donec rutrum nunc ornare consequat semper. In aliquam nisl sollicitudin, commodo massa ut, sollicitudin massa. Maecenas justo nisi, elementum ac mollis sodales, volutpat vitae lacus. Quisque imperdiet justo at egestas ornare. Nulla cursus ornare purus eget tempor. Donec eleifend suscipit massa, sed vehicula nulla fermentum id. Maecenas sagittis lacus ipsum, quis rhoncus velit eleifend non. Quisque et est elit. Donec ac sapien odio. Cras molestie libero erat, nec rhoncus arcu congue sit amet.
-            </p> -->
-            <product-card v-for="product in products.data" :key="product.id" :data="product" :lazy-image-scroll-container="$el" @click="openProduct(product)" />
-            <el-dialog top="0" width="100%" :class="['el-dialog-product-details-wrapper', {'is-md': el.is.md}]" custom-class="el-dialog-product-details" :visible.sync="dialogs.productDetails.visible" :before-close="onProductDetailsDialogClose" :fullscreen="dialogs.productDetails.fullscreen" append-to-body>
+                <template v-else>
+                    <product-card v-for="product in products.data" :key="product.id" :data="product" @click="openProductDetailsDialog(product)" />
+                </template>
+                <el-pagination slot="footer" :layout="pagination.layout" :current-page="pagination.current" :page-size="pagination.size" :page-sizes="pagination.sizes" :total="products.total" @size-change="onSizeChange" @current-change="onCurrentPageChange" background />
+            </ui-card>
+            <el-dialog :custom-class="`marketplace__opened-product-dialog ${el.is.md ? 'marketplace__opened-product-md-dialog' : ''}`" :visible.sync="visibleDialog" :before-close="onProductDetailsDialogClose" :show-close="false" append-to-body>
                 <product-details :data="openedProduct" v-if="openedProduct" />
             </el-dialog>
-            <el-pagination :layout="pagination.layout" :current-page="pagination.current" :page-size="pagination.size" :page-sizes="pagination.sizes" :total="products.total" @size-change="onSizeChange" @current-change="onCurrentPageChange" background hide-on-single-page />
-        </el-card>
+        </div>
+        <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
+            <ui-divider content-position="left">Add a product</ui-divider>
+            <div class="content">
+                <product-add-form />
+            </div>
+        </ui-drawer>
     </div>
 </template>
 
 <script>
-    import Filters from 'components/Filters'
-    import Placeholder from 'components/Placeholder'
-    import Heading from 'components/Heading'
-    import StickyHeading from 'components/StickyHeading'
-    import {displayError, displaySuccess} from 'helpers/messages'
-    import ProductCard from 'components/tenant/MarketplaceProductCard'
-    import AddProductForm from 'components/tenant/MarketplaceAddProductForm'
-    import ProductDetails from 'components/tenant/MarketplaceProductDetails'
+    import Loader from 'components/tenant/ProductCard/Loader'
     import {ResponsiveMixin} from 'vue-responsive-components'
+    import {mapState} from 'vuex'
 
     const DEFAULT_PAGINATION_LAYOUT = 'total, sizes, prev, pager, next, jumper'
     const MINIMAL_PAGINATION_LAYOUT = 'prev, pager, next'
@@ -133,32 +53,15 @@ Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interd
             ResponsiveMixin
         ],
         components: {
-            Heading,
-            Filters,
-            ProductCard,
-            Placeholder,
-            StickyHeading,
-            ProductDetails,
-            AddProductForm
+            Loader
         },
         data () {
             return {
                 loading: false,
-                searchModel: undefined,
+                search: undefined,
                 openedProduct: null,
-                products: {
-                    data: []
-                },
-                dialogs: {
-                    productDetails: {
-                        visible: false,
-                        fullscreen: false
-                    },
-                    addProductForm: {
-                        visible: false,
-                        fullscreen: false
-                    }
-                },
+                visibleDrawer: false,
+                visibleDialog: false,
                 pagination: {
                     current: 1,
                     size: 15,
@@ -179,8 +82,7 @@ Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interd
                         title: 'Type',
                         name: 'type',
                         props: {
-                            clearable: true,
-                            size: 'mini'
+                            size: 'small'
                         },
                         children: [{
                             type: 'el-option',
@@ -194,17 +96,37 @@ Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interd
                         })))
                     }],
                     data: {
-                        user_id: null,
-                        type: null
+                        type: null,
+                        user_id: null
                     }
                 }
             }
         },
+        computed: {
+            ...mapState('newProducts', {
+                products: state => state
+            }),
+
+            breakpoints () {
+                return {
+                    md: el => {
+                        if (el.width <= 1024) {
+                            this.pagination.layout = MINIMAL_PAGINATION_LAYOUT
+
+                            return true
+                        } else {
+                            this.pagination.layout = DEFAULT_PAGINATION_LAYOUT
+                        }
+                    },
+                    sm: el => el.width <= 768
+                }
+            }
+        },
         methods: {
-            async fetch(params = {
+            async get(params = {
+                search: this.search,
                 page: this.pagination.current,
-                per_page: this.pagination.size,
-                search: this.searchModel
+                per_page: this.pagination.size
             }) {
                 if (this.loading && this.products.data.length) {
                     return
@@ -215,67 +137,47 @@ Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interd
                 this.pagination.current = +params.page
                 this.pagination.size = +params.per_page
 
-                if ('search' in params && !params.searchModel) {
-                    delete params.searchModel
+                if ('search' in params && !params.search) {
+                    delete params.search
                 }
 
                 this.$router.replace({query: params, name: this.$route.name})
 
-                try {
-                    const {data} = await this.$store.dispatch('products2/get', {
-                        sortedBy: 'desc',
-                        orderBy: 'created_at',
-                        ...params
-                    })
+                await this.$store.dispatch('newProducts/get', {
+                    per_page: 5,
+                    sortedBy: 'desc',
+                    orderBy: 'created_at',
+                    ...params
+                })
 
-                    this.products = data
-
-                    this.$el.scrollTop = 0
-                } catch (error) {
-                    displayError(error)
-                } finally {
-                    this.loading = false
-                }
+                this.loading = false
+                this.$el.scrollTop = 0
             },
             async handleSearch (value) {
                 const {page, per_page, search, ...rest} = this.$route.query
 
-                await this.fetch({page, per_page, search: value, ...rest})
+                await this.get({page, per_page, search: this.search, ...rest})
             },
             async onFiltersChanged (filters) {
-                await this.fetch({
+                await this.get({
                     page: 1,
                     per_page: this.pagination.size,
+                    search: this.$route.query.search,
                     ...filters
                 })
             },
             async onSizeChange (per_page) {
-                await this.fetch({page: 1, per_page})
+                await this.get({page: 1, per_page})
             },
             async onCurrentPageChange (page) {
-                await this.fetch({page, per_page: this.pagination.size})
+                await this.get({page, per_page: this.pagination.size})
             },
             resetFilters () {
                 this.$refs.filters.reset()
             },
-            addProduct () {
-                this.$watch(() => this.$refs['add-product-form'].loading, state => {
-                    this.$nextTick(async () => {
-                        this.$refs['add-product-form'].$el.classList.remove('el-loading-parent--relative')
-
-                        if (!state) {
-                            this.dialogs.addProductForm.visible = false
-
-                            await this.fetch()
-                        }
-                    })
-                })
-
-                this.$refs['add-product-form'].submit()
-            },
-            openProduct (product) {
+            openProductDetailsDialog (product) {
                 this.openedProduct = product
-                this.dialogs.productDetails.visible = true
+                this.visibleDialog = true
             },
             onProductDetailsDialogClose (done) {
                 this.openedProduct = null
@@ -283,53 +185,11 @@ Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interd
                 done()
             }
         },
-        computed: {
-            breakpoints () {
-                return {
-                    sm: el => {
-
-                    },
-                    md: el => {
-                        if (el.width <= 735) {
-                            this.dialogs.addProductForm.fullscreen = true
-                            this.pagination.layout = MINIMAL_PAGINATION_LAYOUT
-
-                            return true
-                        } else if (el.width <= 848) {
-                            this.dialogs.productDetails.fullscreen = true
-                            this.dialogs.addProductForm.fullscreen = false
-                            this.pagination.layout = MINIMAL_PAGINATION_LAYOUT
-
-                            return true
-                        } else if (el.width <= 880) {
-                            this.pagination.layout = MINIMAL_PAGINATION_LAYOUT
-                            this.dialogs.addProductForm.fullscreen = false
-
-                            return true
-                        } else {
-                            this.dialogs.productDetails.fullscreen = false
-                            this.dialogs.addProductForm.fullscreen = false
-                            this.pagination.layout = DEFAULT_PAGINATION_LAYOUT
-
-                            return false
-                        }
-                    },
-                    lg: el => {
-
-                    }
-                }
-            }
-        },
-        async mounted () {
-            const {page = this.pagination.current, per_page = this.pagination.size, search, ...rest} = this.$route.query
-
-            await this.fetch({page, per_page, search, ...rest})
-        },
         created () {
             const {search, ...rest} = this.$route.query
 
             if (search) {
-                this.searchModel = search
+                this.search = search
             }
 
             Object.entries(rest).forEach(([param, value]) => {
@@ -337,246 +197,168 @@ Praesent in sapien a tortor varius ultrices sed at nisl. Integer accumsan interd
                     this.filters.data[param] = value
                 }
             })
+        },
+        async mounted () {
+            const {page = this.pagination.current, per_page = this.pagination.size, search, ...rest} = this.$route.query
+
+            await this.get({page, per_page, search, ...rest})
         }
     }
 </script>
 
-<style lang="scss">
-    .el-dialog__wrapper.el-dialog-add-product-form-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+<style lang="sass">
+    .marketplace__opened-product-dialog
+        width: 80%
+        max-width: 1024px
+        overflow: hidden
+        border-radius: 12px
 
-        .el-dialog-add-product-form {
-            z-index: 1;
-            margin: 0;
-            overflow: hidden;
-            max-width: 750px;
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
+        &.marketplace__opened-product-md-dialog .el-dialog__body .product-details
+            grid-template-columns: 1fr
 
-            .el-dialog__body {
-                height: 100%;
+            .ui-images-carousel
+                height: 384px !important
 
-                .add-product-form {
-                    .el-input__inner,
-                    .el-textarea__inner {
-                        background-color: transparentize(#fff, .44);
-                    }
-                }
+        .el-dialog__header
+            display: none
 
-                &:before {
-                    content: '';
-                    top: 0;
-                    left: 0;
-                    z-index: -1;
-                    width: 100%;
-                    height: 100%;
-                    opacity: .16;
-                    border-radius: 6px;
-                    position: absolute;
-                    background-size: 64em;
-                    pointer-events: none;
-                    background-repeat: no-repeat;
-                    background-position: -4em -12em;
-                    background-image: url('~img/5ca7ec589fc67.png');
-                }
-            }
-        }
-    }
+        .el-dialog__body
+            padding: 0
 
-    .el-dialog__wrapper.el-dialog-product-details-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .marketplace__filter-popover
+        padding: 16px
+        border-radius: 12px
+        box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76)
 
-        .el-dialog-product-details {
-            margin: 0;
-            overflow: hidden;
-            max-width: 1024px;
-            border-radius: 6px;
-
-            .el-dialog__header {
-                padding: 0;
-
-                .el-dialog__headerbtn {
-                    z-index: 3;
-                }
-            }
-
-            .el-dialog__body {
-                padding: 0;
-
-                .product-details {
-                    will-change: display;
-                }
-            }
-        }
-
-        &.is-md .el-dialog-product-details {
-            border-radius: 0;
-
-            .el-dialog__body {
-                height: 100%;
-
-                .product-details {
-                    height: 100%;
-                    display: flex;
-                    flex-direction: column;
-
-                    .media-gallery-carousel .el-carousel {
-                        height: 336px;
-                    }
-
-                    .el-tabs {
-                        height: 100%;
-                        margin-top: -12px;
-                        display: flex;
-                        flex-direction: column;
-
-                        .el-tabs__content {
-                            height: 100%;
-                            display: flex;
-                            flex-direction: column;
-
-                            #pane-overview,
-                            #pane-comments {
-                                height: 100%;
-                                display: flex;
-                                flex-direction: column;
-                            }
-
-                            #pane-overview {
-                                .container {
-                                    height: 100%;
-                                    overflow: auto;
-                                    padding: 12px 0;
-                                    margin: -12px 0;
-                                }
-                            }
-
-                            #pane-comments {
-                                .chat {
-                                    .add-comment {
-                                        margin-bottom: 0;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    .el-popover.products-filter {
-        .el-button {
-            width: 100%;
-            margin-top: 12px;
-        }
-    }
+        .el-button
+            width: 100%
+            margin-top: 8px
 </style>
 
-<style lang="scss" scoped>
-    .tenant-marketplace {
-        // height: 100% !important;
-        // margin: -16px;
-        // padding: 16px;
-        // overflow-y: auto;
-        // -webkit-overflow-scrolling: touch;
-        // transform: translate3d(0,0,0);
-        // padding: 16px;
-        // margin: -16px;
-        // overflow-y: auto;
-        // will-change: transform;
-        // height: 100% !important;
-        // -webkit-overflow-scrolling: touch;
-        // -webkit-backface-visibility: hidden;
-        // -webkit-perspective: 1000;
+<style lang="sass" scoped>
+    .marketplace
+        display: flex
+        padding: 0 !important
+        flex-direction: column
+        overflow: hidden !important
 
-        .heading {
-            margin-bottom: 24px;
+        &:before
+            content: ''
+            top: 0
+            left: 0
+            z-index: -1
+            width: 100%
+            height: 100%
+            position: fixed
+            filter: opacity(.08)
+            pointer-events: none
+            background-repeat: no-repeat
+            background-attachment: fixed
+            background-position: top left
+            background-image: url('~img/5c3a1aefbaf4e.png')
 
-            .description {
-                color: darken(#fff, 40%);
-            }
-        }
+        &.md .container .content /deep/ .ui-card__footer .el-pagination
+            justify-content: center
 
-        .el-card.products {
-            will-change:transform;
-            -webkit-backface-visibility: hidden;
-            -webkit-perspective: 1000;
-            -webkit-overflow-scrolling: touch;
+        .container
+            height: 100%
+            padding: 16px
+            overflow-y: auto
 
-            :global(.el-card__body) {
-                padding: 8px;
-                min-height: 256px;
-                display: grid;
-                grid-gap: 8px;
-                grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
+            .content
+                background-color: transparentize(#fff, .28) !important
 
-                .title {
-                    width: 100%;
-                    padding: 8px;
-                    display: flex;
-                    font-size: 16px;
-                    font-weight: bold;
-                    align-items: center;
-                    grid-column: 1 / -1;
-                    box-sizing: border-box;
-                    align-self: flex-start;
+                /deep/ .ui-card__header
+                    display: flex
+                    align-items: center
 
-                    .content {
-                        display: flex;
-                        margin-left: auto;
-                        align-items: center;
+                    .el-button
+                        margin: 0
 
-                        > * {
-                            &.el-input {
-                                :global(.el-input__inner) {
-                                    border-radius: 20px;
-                                }
-                            }
+                    > *:not(:last-child)
+                        margin-right: 8px
 
-                            &:not(:last-child) {
-                                margin-right: 8px;
-                            }
-                        }
-                    }
-                }
+                /deep/ > .ui-card__body
+                    display: grid
+                    grid-gap: 24px
+                    grid-template-rows: auto auto auto
+                    grid-template-columns: repeat(auto-fill, minmax(256px, 1fr))
 
-                .placeholder {
-                    font-size: 16px;
-                    grid-column: 1 / -1;
+                    .placeholder
+                        grid-column: 1 / -1
+                        grid-row-end: 3
+                        display: flex
+                        flex-direction: column
+                        align-items: center
 
-                    small {
-                        color: darken(#fff, 40%);
-                    }
-                }
+                        .image
+                            width: 320px
+                            margin-bottom: 16px
 
-                .product {
-                    cursor: pointer;
-                    align-self: flex-start;
-                    transition: box-shadow .32s ease;
-                    // will-change: box-shadow, transform;
+                        .title
+                            font-size: 28px
+                            font-weight: 800
+                            color: var(--color-primary)
 
-                    &:hover {
-                        box-shadow: 0 1px 3px transparentize(#000, .88),
-                                    0 1px 2px transparentize(#000, .76);
-                    }
-                }
-                .el-pagination {
-                    width: 100%;
-                    display: flex;
-                    grid-column: 1 / -1;
-                    justify-content: center;
+                        .description
+                            font-size: 16px
+                            color: var(--color-text-placeholder)
 
-                    :global(.el-pagination__sizes) {
-                        flex: 1;
-                    }
-                }
-            }
-        }
-    }
+                    .ui-card
+                        background-color: transparent
+
+                /deep/ .ui-card__footer
+                    .el-pagination
+                        display: flex
+                        align-items: center
+
+                        /deep/ .el-pagination__sizes
+                            flex: 1
+
+        .ui-drawer
+            display: flex
+            flex-direction: column
+
+            &:before
+                content: ''
+                position: fixed
+                top: 0
+                left: 0
+                width: 100%
+                height: 100%
+                background-image: url('~img/5d619aede1e3c.png')
+                background-repeat: no-repeat
+                background-position: top center
+                width: 100%
+                height: 100%
+                filter: opacity(0.08)
+                pointer-events: none
+
+            .ui-divider
+                margin: 32px 16px 0 16px
+
+                /deep/ .ui-divider__content
+                    left: 0
+                    z-index: 1
+                    padding-left: 0
+                    font-size: 20px
+                    font-weight: 700
+                    color: var(--color-primary)
+
+            .content
+                height: 100%
+                display: flex
+                padding: 16px
+                overflow-y: auto
+                flex-direction: column
+
+                .el-form
+                    flex: 1
+
+                    /deep/ .el-input .el-input__inner,
+                    /deep/ .el-textarea .el-textarea__inner
+                        background-color: transparentize(#fff, .44)
+
+                    /deep/ .el-loading-mask
+                        position: fixed
 </style>

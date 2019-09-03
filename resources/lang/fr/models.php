@@ -630,20 +630,14 @@ return [
       [
         "disturbance" => "Perturbation",
         "defect" => "Défaut",
-        "order_documents" => "Commander des documents",
-        "order_a_payment_slip" => "Commandez un bulletin de versement",
-        "questions_about_the_tenancy" => "Questions sur la location",
-        "other" => "Autre",
-        "environment" => "Environnement",
-        "house" => "House",
-        "apartment" => "Appartement",   
+        "other" => "Autre",  
         'room' => 'Chambre',
         'range' => 'Gamme',
         'component' => 'Composante',
         'acquisition' => 'Phase d\'acquisition',
         'cost' => 'Incidence sur les coûts',
         'keywords' => 'Mots-clés',
-        'locations' => [
+        'building_locations' => [
           'house_entrance' => 'Entrée de maison',
           'staircase' => 'Escalier',
           'elevator' => 'Ascenseur',
@@ -655,7 +649,7 @@ return [
           'roof' => 'Toit',
           'other' => 'Autre'
         ],
-        'rooms' => [
+        'apartment_rooms' => [
           'bath' => 'Salle de bains/WC',
           'shower' => 'Douche/WC',
           'entrance' => 'L\'entrée',

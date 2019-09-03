@@ -1,4 +1,4 @@
-import {mapActions} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 import PasswordValidatorMixin from './passwordValidatorMixin';
 import EmailCheckValidatorMixin from './emailCheckValidatorMixin';
 import TenantTitleTypes from './methods/tenantTitleTypes';
@@ -160,12 +160,16 @@ export default (config = {}) => {
                 });
             },
 
-            ...mapActions(['getBuildings', 'getUnits', 'uploadMediaFile']),
+            ...mapActions(['getBuildings', 'getUnits', 'getCountries', 'uploadMediaFile']),
+        },
+        async mounted() {
+            await this.getCountries();
         },
         computed: {
             form() {
                 return this.$refs.form;
-            }
+            },
+            ...mapGetters(['countries'])
         }
     };
 
@@ -301,7 +305,6 @@ export default (config = {}) => {
                         this.loading.state = true;
 
                         const {address, building, unit, user, ...r} = await this.getTenant({id: this.$route.params.id});
-                        
                         this.user = user;
                         this.model = Object.assign({}, this.model, r);
                         this.original_email = this.user.email;

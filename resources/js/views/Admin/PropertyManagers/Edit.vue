@@ -59,7 +59,7 @@
                                 </el-row>
 
 
-                                <el-row :gutter="20">
+                                <el-row class="last-form-row" :gutter="20">
                                     <el-col :md="12">
                                         <el-form-item :label="$t('general.phone')" prop="user.phone">
                                             <el-input type="text" v-model="model.user.phone"/>
@@ -101,14 +101,15 @@
                                          v-if="!avatar.length && model.user.avatar">
                                 </el-form-item>
 
-                                <el-form-item :label="$t('models.propertyManager.slogan')"
+                                <el-form-item style="margin-bottom: 0;" :label="$t('models.propertyManager.slogan')"
                                               :rules="validationRules.slogan"
                                               prop="slogan">
                                     <el-input type="text" v-model="model.slogan"/>
                                 </el-form-item>
                             </el-tab-pane>
                             <el-tab-pane :label="$t('models.propertyManager.social_card')" name="social">
-                                <el-row :gutter="20">
+                                <el-row class="last-form-row" :gutter="20">
+
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.propertyManager.linkedin_url')"
                                                       :rules="validationRules.linkedin_url"
@@ -208,34 +209,34 @@
                     type: 'requestTenantAvatar',
                     width: 75,
                     prop: 'tenant',
-                    label: this.$t('general.tenant')
+                    label: 'general.tenant'
                 }, {
                     type: 'requestTitleWithDesc',
-                    label: this.$t('models.request.prop_title')
+                    label: 'models.request.prop_title'
                 }, {
                     type: 'requestStatus',
-                    label: this.$t('models.request.status.label')
+                    label: 'models.request.status.label'
                 }],
                 requestActions: [{
                     width: '90px',
                     buttons: [{
                         icon: 'ti-pencil',
-                        title: this.$t('general.actions.edit'),
+                        title: 'general.actions.edit',
                         onClick: this.requestEditView
                     }]
                 }],
                 assignmentsColumns: [{
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }, {
                     prop: 'type',
-                    label: this.$t('models.propertyManager.assignType'),
+                    label: 'models.propertyManager.assignType',
                     i18n: this.translateType
                 }],
                 assignmentsActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('general.unassign'),
+                        title: 'general.unassign',
                         type: 'danger',
                         onClick: this.notifyUnassignment
                     }]
@@ -294,7 +295,22 @@
     }
 </script>
 
+<style lang="scss">
+    .el-tabs--border-card {
+        border-radius: 6px;
+        .el-tabs__header {
+            border-radius: 6px 6px 0 0;
+        }
+        .el-tabs__nav-wrap.is-top {
+            border-radius: 6px 6px 0 0;
+        }
+    }
+</style>
 <style lang="scss" scoped>
+    .last-form-row {
+        margin-bottom: -22px;
+    }
+
     .services-edit {
         .heading {
             margin-bottom: 20px;

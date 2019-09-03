@@ -11,7 +11,7 @@
             <el-form :label-position="labelPosition" :model="model" label-width="144px" ref="form">
                 <el-form-item label="Title" prop="title">
                     <el-select placeholder="Select title" v-model="model.title">
-                            <el-option v-for="title in $constants.tenants.title" :key="title" :label="$t(`general.salutation_option.${title}`)" :value="title" />
+                        <el-option v-for="title in $constants.tenants.title" :key="title" :label="$t(`general.salutation_option.${title}`)" :value="title" />
                     </el-select>
                 </el-form-item>
                 <el-form-item label="Company name" prop="company" v-if="model.title === 'company'">
@@ -191,11 +191,11 @@
 
         .placeholder {
             font-size: 20px;
-            color: darken(#F2F4F9, 32%);
+            color: var(--color-main-background-darker);
 
             small {
                 font-size: 72%;
-                color: darken(#F2F4F9, 16%);
+                color: var(--color-main-background-lighter);
             }
         }
 
