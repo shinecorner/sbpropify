@@ -68,7 +68,7 @@
                     </div>
                    
                     <div v-if="column.type == 'users'" class="avatars-wrapper">
-                        <span :key="index" v-for="(user, index) in scope.row[column.prop]">
+                        <span :key="index" v-for="(user, index) in scope.row[column.prop]" v-if="index<2">
                             <el-tooltip
                                 :content="user.first_name ? `${user.first_name} ${user.last_name}`: (user.user ? `${user.user.name}`:`${user.name}`)"
                                 class="item"
@@ -102,9 +102,9 @@
 
                         </span>
                         <avatar
-                            class="avatar-count" :size="28" :username="`+ ${scope.row[column.count]}`"
+                            class="avatar-count" :size="28" :username="`+ ${scope.row[column.prop].length - 2}`"
                             color="#fff"
-                            v-if="scope.row[column.count]"
+                            v-if="scope.row[column.prop].length>2"
                         />
                     </div>
 

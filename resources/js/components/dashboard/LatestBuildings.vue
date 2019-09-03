@@ -45,9 +45,9 @@
                     prop: 'units_count',
                     
                 }, {
-                    type: 'plain',
+                    type: 'users',
                     label: 'general.tenants',
-                    prop: 'tenants_count'
+                    prop: 'tenants',
                 }, {
                     type: 'actions',
                     label: 'dashboard.actions',
@@ -76,10 +76,11 @@
             },
             fetchData() {
                 let that = this;
-                const url = 'buildings/latest';
+                const url = 'buildings/?&page=1&per_page=50';
                 return axios.get(url)
                 .then(function (response) {
-                    that.items = response.data.data;
+                    that.items = response.data.data.data;
+                    console.log(that.items);
                 }).catch(function (error) {
                     console.log(error);
                 })

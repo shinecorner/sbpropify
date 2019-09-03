@@ -42,7 +42,7 @@
                     <el-checkbox @change="handleSelectionChanged"></el-checkbox>
                 </el-col> 
                 <el-col :span="1" class="request-actions">
-                    <el-tooltip content="go to the building" placement="top" effect="light">
+                    <el-tooltip :content="$t('dashboard.buildings.go_to_buildings')" placement="top" effect="light">
                         <router-link :to="{name: 'adminBuildingsEdit', params: {id:item.tenant.building.id}}" class="listing-link">
                              <i class="icon icon-commerical-building"></i>
                         </router-link>
@@ -274,11 +274,16 @@ export default {
                 padding-right: 5px !important;
                
                 p {
+                    display: block;
+                    display: -webkit-box;
+                    max-width: 100%;
+                    height: 27px;
+                    margin: 0 auto;
                     line-height: 15px;
-                    white-space: nowrap;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
                     overflow: hidden;
                     text-overflow: ellipsis;
-                    word-break: break-word;
                 }
             }
             .request-tail {
@@ -315,11 +320,14 @@ export default {
                 }
                 p {
                     font-weight: 700;
+                    margin: 0px;
+                    padding-top: 2px;
                 }
-            }
-            p {
-                margin: 0px;
-                padding: 0px;
+                &:nth-of-type(5) {
+                    p {
+                        padding-top: 0px;
+                    }
+                }
             }
         }
     }
