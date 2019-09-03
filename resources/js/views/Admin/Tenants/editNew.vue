@@ -94,7 +94,8 @@
                                             <el-col :md="6">
                                                 <el-form-item :label="$t('models.tenant.nation')"
                                                               prop="nation">
-                                                    <el-select v-model="+model.nation">
+                                                    <el-select filterable
+                                                               v-model="+model.nation">
                                                         <el-option :key="country.id"
                                                                    :label="country.name"
                                                                    :value="country.id"
