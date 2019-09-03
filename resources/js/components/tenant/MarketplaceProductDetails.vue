@@ -27,7 +27,7 @@
                     <el-divider />
                     <read-more class="description" :text="data.content" :max-chars="512" more-str="Read more" less-str="Read less" />
                     <el-divider />
-                    <reactions :id="data.id" type="products" />
+                    <like :id="data.id" type="product" />
                 </div>
                 <el-divider />
                 <el-alert class="contact" type="info" :description="data.contact" center v-if="showContactInformations" :closable="false" />
@@ -44,7 +44,6 @@
 </template>
 
 <script>
-    import Reactions from 'components/Reactions'
     import MediaGalleryCarousel from 'components/MediaGalleryCarousel'
     import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
 
@@ -57,7 +56,6 @@
             }
         },
         components: {
-            Reactions,
             MediaGalleryCarousel
         },
         data () {

@@ -3,7 +3,7 @@
         <heading icon="ti-announcement" title="News" description="Sed placerat volutpat mollis." />
         <el-row :gutter="24">
             <el-col :span="16">
-                <post :data="data" v-if="data" />
+                <post-card :data="data" v-if="data" />
             </el-col>
             <el-col :span="8">
                 <rss-feed title="Blick.ch News"/>
@@ -13,14 +13,14 @@
 </template>
 
 <script>
-    import Post from 'components/tenant/Post'
+    import PostCard from 'components/tenant/PostCard'
     import Heading from 'components/Heading'
     import RssFeed from 'components/tenant/RSSFeed'
     import {displaySuccess, displayError} from 'helpers/messages'
 
     export default {
         components: {
-            Post,
+            PostCard,
             Heading,
             RssFeed
         },

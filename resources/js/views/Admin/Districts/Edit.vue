@@ -10,7 +10,7 @@
             <el-col :md="12">
                 <card :loading="loading" :header="$t('general.actions.view')">
                     <el-form :model="model" ref="form">
-                        <el-row :gutter="20">
+                        <el-row class="last-form-row" :gutter="20">
                             <el-col :md="12">
                                 <el-form-item label="Name" :rules="validationRules.name"
                                               prop="name">
@@ -160,8 +160,27 @@
         float: none;
         text-align: left;
     }
+
+    .el-card .el-card__body {
+        display: flex;
+        flex-direction: column;
+    }
 </style>
 <style lang="scss" scoped>
+    .el-tabs--border-card {
+        border-radius: 6px;
+        .el-tabs__header {
+            border-radius: 6px 6px 0 0;
+        }
+        .el-tabs__nav-wrap.is-top {
+            border-radius: 6px 6px 0 0;
+        }
+    }
+
+    .last-form-row {
+        margin-bottom: -22px;
+    }
+
     .districts-edit {
         .crud-view {
             margin-top: 1%;

@@ -1,21 +1,23 @@
-import {auth, admin} from 'middlewares';
+import {isAuthenticatedGuard, isAdminGuard} from 'guards'
+import VueRouterMultiguard from 'vue-router-multiguard'
+
 import permissions from 'middlewares/permissions';
 import Layout from 'layouts/AdminLayout';
 import Dashboard from 'views/Admin';
 import Profile from 'views/Admin/Profile';
 import Settings from 'views/Admin/Settings';
 
-import BuildingsRoutes from './buildings';
-import UnitsRoutes from './units';
-import TenantsRoutes from './tenants';
-import UsersRoutes from './users';
-import ServicesRoutes from './services';
-import PostsRoutes from './posts';
-import DistrictsRoutes from './districts';
-import RequestsRoutes from './requests';
-import PropertyManagersRoutes from './propertyManagers';
-import ProductsRoutes from './products';
-import TemplatesRoutes from './templates';
+import BuildingsRoutes from 'routes/admin/buildings';
+import UnitsRoutes from 'routes/admin/units';
+import TenantsRoutes from 'routes/admin/tenants';
+import UsersRoutes from 'routes/admin/users';
+import ServicesRoutes from 'routes/admin/services';
+import PostsRoutes from 'routes/admin/posts';
+import DistrictsRoutes from 'routes/admin/districts';
+import RequestsRoutes from 'routes/admin/requests';
+import PropertyManagersRoutes from 'routes/admin/propertyManagers';
+import ProductsRoutes from 'routes/admin/products';
+import TemplatesRoutes from 'routes/admin/templates';
 
 
 export default [{
@@ -26,7 +28,6 @@ export default [{
         name: 'admin',
         component: Dashboard,
         meta: {
-            middleware: [auth, admin],
             breadcrumb: 'Home'
         },
     }, {
@@ -34,7 +35,6 @@ export default [{
         name: 'adminDashboard',
         component: Dashboard,
         meta: {
-            middleware: [auth, admin],
             breadcrumb: 'Home'
         },
     }, {
@@ -42,7 +42,6 @@ export default [{
         name: 'adminProfile',
         component: Profile,
         meta: {
-            middleware: [auth, admin],
             breadcrumb: 'Profile'
         }
     }, {
@@ -50,7 +49,6 @@ export default [{
         name: 'adminSettings',
         component: Settings,
         meta: {
-            middleware: [auth, admin],
             permission: permissions.view.realEstate,
             breadcrumb: 'Settings'
         },
@@ -66,5 +64,6 @@ export default [{
         ...PropertyManagersRoutes,
         ...ProductsRoutes,
         ...TemplatesRoutes,
-    ]
+    ],
+    beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isAdminGuard]),
 }];

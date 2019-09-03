@@ -10,7 +10,7 @@
             <el-col :md="12">
                 <el-form :model="model" label-position="top" label-width="192px" ref="form">
                     <card :loading="loading" :header="$t('models.service.company_details')">
-                        <el-row :gutter="20">
+                        <el-row class="last-form-row" :gutter="20">
                             <el-col :md="12">
                                 <el-form-item :label="$t('models.service.category')" prop="category">
                                     <el-select :placeholder="$t('models.service.placeholders.category')"
@@ -77,7 +77,7 @@
                             </el-col>
                         </el-row>
 
-                        <el-row :gutter="20">
+                        <el-row class="last-form-row" :gutter="20">
                             <el-col :md="24">
                                 <el-form-item :label="$t('general.language')" prop="settings.language">
                                     <select-language :activeLanguage.sync="model.settings.language"/>
@@ -102,7 +102,7 @@
                             </el-col>
                         </el-row>
 
-                        <el-row :gutter="20">
+                        <el-row class="last-form-row" :gutter="20">
                             <el-col :md="12">
                                 <el-form-item :label="$t('general.password')" :rules="validationRules.password"
                                               autocomplete="off"
@@ -293,7 +293,27 @@
     }
 </script>
 
+<style lang="scss">
+    .el-card .el-card__body {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
 <style lang="scss" scoped>
+    .el-tabs--border-card {
+        border-radius: 6px;
+        .el-tabs__header {
+            border-radius: 6px 6px 0 0;
+        }
+        .el-tabs__nav-wrap.is-top {
+            border-radius: 6px 6px 0 0;
+        }
+    }
+
+    .last-form-row {
+        margin-bottom: -22px;
+    }
+
     .services-edit {
         .heading {
             margin-bottom: 20px;

@@ -1,0 +1,25 @@
+
+.el-card {
+    border-radius: 12px !important; // TODO - fix this, why is it loading in fontello
+
+    .el-card__header,
+    .el-card__body {
+        padding: 16px;
+    }
+
+    &.is-always-shadow {
+        box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76) !important;
+    }
+}
+
+.el-tabs {
+    &.el-tabs--border-card {
+        border-radius: 12px;
+    }
+}
+
+.el-button {
+    [class*=icon] + span {
+        margin-left: 4px;
+    }
+}
