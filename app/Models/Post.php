@@ -89,7 +89,7 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
     const StatusNotApproved = 4;
 
     const VisibilityAddress = 1;
-    const VisibilityDistrict = 2;
+    const VisibilityQuarter = 2;
     const VisibilityAll = 3;
 
     const CategoryGeneral = 1;
@@ -111,7 +111,7 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
     ];
     const Visibility = [
         self::VisibilityAddress => 'address',
-        self::VisibilityDistrict => 'district',
+        self::VisibilityQuarter => 'quarter',
         self::VisibilityAll => 'all',
     ];
     const Category = [
@@ -136,7 +136,7 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         'content',
         'visibility',
         'category',
-        'district_id',
+        'quarter_id',
         'pinned',
         'pinned_to',
         'execution_start',
@@ -183,8 +183,8 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         $categories[] = null;
         $re = RealEstate::first();
         $visibilities = self::Visibility;
-        if (!$re->district_enable) {
-            unset($visibilities[self::VisibilityDistrict]);
+        if (!$re->quarter_enable) {
+            unset($visibilities[self::VisibilityQuarter]);
         }
         return [
             'content' => 'required',
@@ -227,9 +227,9 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         return $this->belongsToMany(Building::class);
     }
 
-    public function districts()
+    public function quarters()
     {
-        return $this->belongsToMany(District::class);
+        return $this->belongsToMany(Quarter::class);
     }
 
     public function providers()
@@ -286,12 +286,12 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         return implode(', ', $pNames);
     }
 
-    public function getDistrictsStrAttribute()
+    public function getQuartersStrAttribute()
     {
-        if (!count($this->districts)) {
+        if (!count($this->quarters)) {
             return "-";
         }
-        $pNames = $this->districts->map(function($el) {
+        $pNames = $this->quarters->map(function($el) {
             return $el->name;
         })->toArray();
 
