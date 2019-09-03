@@ -321,7 +321,7 @@ export default {
                 p {
                     font-weight: 700;
                     margin: 0px;
-                    padding-top: 2px;
+                    padding-top: 4px;
                 }
                 &:nth-of-type(5) {
                     p {
