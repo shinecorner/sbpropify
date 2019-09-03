@@ -51,11 +51,11 @@ class District extends AuditableModel
     public static $rules = [
         'name' => 'required|string',
     ];
-    public $table = 'districts';
+    public $table = 'quarters';
     public $fillable = [
         'name',
         'description',
-        'district_format'
+        'quarter_format'
     ];
     protected $dates = ['deleted_at'];
     /**
