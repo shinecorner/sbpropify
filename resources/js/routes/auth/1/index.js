@@ -38,7 +38,7 @@ export default [{
         }
     }, {
         path: 'activate',
-        component: () => import( /* webpackChunkName: "auth/1/activateAccount" */ 'views/Auth/1/activateAccount'),
+        component: () => import( /* webpackChunkName: "auth/1/activateAccount" */ 'views/Auth/1/ActivateAccount'),
         name: 'activateAccount',
         beforeEnter: VueRouterMultiguard([isGuestGuard]),
         meta: {
