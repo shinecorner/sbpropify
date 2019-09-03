@@ -105,5 +105,11 @@ export default {
                 .then((resp) => resolve(resp))
                 .catch(({response: {data: err}}) => reject(err));
         });
+    },
+    getCountries({commit}, payload) {
+        return new Promise((resolve, reject) =>
+            axios.get(`countries`)
+                .then(({data: r}) => (r && commit('SET_COUNTRIES', r.data), resolve(r)))
+                .catch(({response: {data: err}}) => reject(err)));
     }
 }

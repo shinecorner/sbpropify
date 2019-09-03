@@ -22,5 +22,8 @@ export default {
     },
     tenantsMeta({tenants}) {
         return _.omit(tenants, 'data');
+    },
+    countries ({countries}) {
+        return countries;
     }
 }

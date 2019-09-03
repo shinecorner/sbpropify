@@ -62,9 +62,17 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="12">
-                                    <el-form-item :label="$t('models.tenant.nation')"
+                                    <el-form-item class="label-block"
+                                                  :label="$t('models.tenant.nation')"
                                                   prop="nation">
-                                        <el-input autocomplete="off" type="text" v-model="model.nation"></el-input>
+                                        <el-select filterable
+                                                   style="display: block"
+                                                   v-model="model.nation">
+                                            <el-option :key="country.id"
+                                                       :label="country.name"
+                                                       :value="country.id"
+                                                       v-for="country in countries"></el-option>
+                                        </el-select>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -245,7 +253,10 @@
             deleteToUploadContract() {
                 this.toUploadContract = {};
             }
-        }
+        },
+        mounted() {
+            this.$root.$on('changeLanguage', () => this.getCountries());
+        },
     }
 </script>
 
