@@ -417,10 +417,10 @@
             return {
                 assignmentsColumns: [{
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }, {
                     prop: 'type',
-                    label: this.$t('models.post.assignType'),
+                    label: 'models.post.assignType',
                     i18n: this.translateType
                 }],
                 assignmentsActions: [{
@@ -433,7 +433,7 @@
                 }],
                 assignmentsProviderColumns: [{
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }],
                 assignmentsProviderActions: [{
                     width: '180px',

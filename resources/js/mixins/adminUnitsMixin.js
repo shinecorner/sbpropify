@@ -66,12 +66,12 @@ export default (config = {}) => {
                 },
                 requestColumns: [{
                     prop: 'category.name',
-                    label: this.$t('models.request.category')
+                    label: 'models.request.category'
                 }],
                 requestActions: [{
                     width: '180px',
                     buttons: [{
-                        title: this.$t('general.actions.edit'),
+                        title: 'general.actions.edit',
                         type: 'primary',
                         onClick: this.requestEditView
                     }]
