@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\API\District;
+namespace App\Http\Requests\API\Quarter;
 
-use App\Models\District;
 use InfyOm\Generator\Request\APIRequest;
 
-class UpdateRequest extends APIRequest
+class ViewRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +13,7 @@ class UpdateRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('edit-district');
+        return $this->user()->can('view-quarter');
     }
 
     /**
@@ -24,6 +23,6 @@ class UpdateRequest extends APIRequest
      */
     public function rules()
     {
-        return District::$rules;
+        return [];
     }
 }
