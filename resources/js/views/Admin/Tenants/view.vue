@@ -119,7 +119,9 @@
                                 <el-row :gutter="20">
                                     <el-col :sm="8" :xs="12">{{$t('models.tenant.nation')}}:</el-col>
                                     <el-col :sm="16" :xs="12" class="text-secondary">
-                                        {{ model.nation}}
+                                        <span v-if="countries.length > 0 && model.nation">
+                                            {{ countries.find(element => +element.id === +model.nation).name }}
+                                        </span>
                                     </el-col>
                                 </el-row>
                             </el-col>
@@ -405,6 +407,9 @@
                     query: this.queryParams
                 })
             },
+        },
+        mounted() {
+            this.$root.$on('changeLanguage', () => this.getCountries());
         },
         computed: {
             ...mapGetters('application', {

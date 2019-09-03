@@ -94,7 +94,12 @@
                                             <el-col :md="6">
                                                 <el-form-item :label="$t('models.tenant.nation')"
                                                               prop="nation">
-                                                    <el-input autocomplete="off" type="text" v-model="model.nation"></el-input>
+                                                    <el-select v-model="+model.nation">
+                                                        <el-option :key="country.id"
+                                                                   :label="country.name"
+                                                                   :value="country.id"
+                                                                   v-for="country in countries"></el-option>
+                                                    </el-select>
                                                 </el-form-item>
                                             </el-col>
                                     </el-col>
@@ -447,6 +452,9 @@
             requestStatusLabel(status) {
                 return this.$t(`models.request.status.${this.requestStatusConstants[status]}`)
             },
+        },
+        mounted() {
+            this.$root.$on('changeLanguage', () => this.getCountries());
         },
         computed: {
             ...mapGetters('application', {
