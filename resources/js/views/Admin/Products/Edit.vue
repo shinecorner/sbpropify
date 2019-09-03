@@ -69,7 +69,7 @@
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
-                                <el-row>
+                                <el-row class="last-form-row">
                                     <el-col>
                                         <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                                     prop="content">
@@ -237,6 +237,20 @@
 </script>
 
 <style lang="scss" scoped>
+    .el-tabs--border-card {
+        border-radius: 6px;
+        .el-tabs__header {
+            border-radius: 6px 6px 0 0;
+        }
+        .el-tabs__nav-wrap.is-top {
+            border-radius: 6px 6px 0 0;
+        }
+    }
+
+    .last-form-row {
+        margin-bottom: -22px;
+    }
+
     .custom-select {
         display: block;
     }

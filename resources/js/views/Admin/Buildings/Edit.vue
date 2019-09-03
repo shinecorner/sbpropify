@@ -71,7 +71,7 @@
                                     </el-form-item>
                                 </el-col>
                             </el-row>
-                            <el-row :gutter="20">
+                            <el-row class="last-form-row" :gutter="20">
                                 <el-col :md="12">
                                     <el-form-item :label="$t('models.building.district')" prop="district_id"
                                                   style="max-width: 512px;">
@@ -156,7 +156,7 @@
                                     :value="contactEnableValue.value"
                                     v-for="contactEnableValue in contactEnableValues"/>
                         </el-select>
-                        <div v-if="model.service_providers && model.service_providers.length" class="mt15">
+                        <div v-if="model.service_providers && model.service_providers.length" class="mt15" style="padding: 0 5px;">
                             <el-row :gutter="10" :key="service.id" class="list-complete-item"
                                     v-for="service in model.service_providers">
                                 <el-col :md="7">
@@ -180,7 +180,7 @@
                             <label class="">{{$t('models.building.add_companies')}}</label>
                             <el-select multiple
                                        placeholder="Select"
-                                       style="margin: 15px 0;width: 100%" v-model="model.service_providers_ids">
+                                       style="margin: 15px 0 0; width: 100%" v-model="model.service_providers_ids">
                                 <el-option-group
                                     :key="serviceCategory"
                                     :label="$t(`models.service.${serviceCategory}`)"
@@ -386,7 +386,6 @@
                     label: this.$t('general.tenant')
                 }, {
                     type: 'requestTitleWithDesc',
-                    width: 270,
                     label: this.$t('models.request.prop_title')
                 }, {
                     type: 'requestStatus',
@@ -691,7 +690,22 @@
     }
 </script>
 
+<style lang="scss">
+    .el-tabs--border-card {
+        border-radius: 6px;
+        .el-tabs__header {
+            border-radius: 6px 6px 0 0;
+        }
+        .el-tabs__nav-wrap.is-top {
+            border-radius: 6px 6px 0 0;
+        }
+    }
+</style>
 <style lang="scss" scoped>
+    .last-form-row {
+        margin-bottom: -22px;
+    }
+
     .mt15 {
         margin-top: 15px;
     }
