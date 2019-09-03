@@ -28,6 +28,9 @@ class ChangeDitrictRelatedColumns extends Migration
         Schema::table('quarters', function (Blueprint $table) {
             $table->renameColumn('district_format', 'quarter_format');
         });
+        Schema::table('real_estates', function (Blueprint $table) {
+            $table->renameColumn('district_enable', 'quarter_enable');
+        });
     }
 
     /**
@@ -51,6 +54,9 @@ class ChangeDitrictRelatedColumns extends Migration
         });
         Schema::table('quarters', function (Blueprint $table) {
             $table->renameColumn('quarter_format', 'district_format');
+        });
+        Schema::table('real_estates', function (Blueprint $table) {
+            $table->renameColumn('quarter_enable', 'district_enable');
         });
     }
 }
