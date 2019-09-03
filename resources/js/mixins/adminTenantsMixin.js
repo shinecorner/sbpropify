@@ -39,6 +39,7 @@ export default (config = {}) => {
                         language: '',
                     },
                     nation: '',
+                    title: ''
                 },
                 validationRules: {
                     first_name: [{
@@ -301,7 +302,6 @@ export default (config = {}) => {
                         this.loading.state = true;
 
                         const {address, building, unit, user, ...r} = await this.getTenant({id: this.$route.params.id});
-                        
                         this.user = user;
                         this.model = Object.assign({}, this.model, r);
                         this.original_email = this.user.email;
