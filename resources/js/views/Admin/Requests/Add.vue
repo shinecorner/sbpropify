@@ -114,26 +114,6 @@
                             </el-form-item>
                         </el-col>
                         <el-col :md="12">
-                            <el-form-item :label="$t('models.request.category_options.keywords')">
-                                <el-select
-                                    v-model="model.keywords"
-                                    multiple
-                                    filterable
-                                    allow-create
-                                    default-first-option
-                                    @remove-tag="deleteTag"
-                                    class="custom-select"
-                                    >
-                                    <el-option
-                                        v-for="item in tags"
-                                        :key="item.id"
-                                        :label="item.name"
-                                        :value="item.name">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :md="12">
                             <el-form-item :label="$t('models.request.priority.label')" :rules="validationRules.priority"
                                       prop="priority">
                                 <el-select :placeholder="$t('models.request.priority.label')" class="custom-select"
@@ -236,6 +216,26 @@
                                     type="textarea"
                                     v-model="model.description">
                                 </el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :md="12">
+                            <el-form-item :label="$t('models.request.category_options.keywords')">
+                                <el-select
+                                    v-model="model.keywords"
+                                    multiple
+                                    filterable
+                                    allow-create
+                                    default-first-option
+                                    @remove-tag="deleteTag"
+                                    class="custom-select"
+                                    >
+                                    <el-option
+                                        v-for="item in tags"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.name">
+                                    </el-option>
+                                </el-select>
                             </el-form-item>
                         </el-col>
                         <!--                        <el-form-item :label="$t('models.request.is_public')"-->
@@ -378,7 +378,10 @@
 <style lang="scss">
     #add_request {
         .el-input__suffix {
-            height: 121px;
+            height: 120px !important;
+        }
+        .el-select__tags {
+            top: 70% !important;
         }
     }
 </style>

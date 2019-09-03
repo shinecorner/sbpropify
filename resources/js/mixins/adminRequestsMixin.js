@@ -332,8 +332,12 @@ export default (config = {}) => {
                             this.model.category_id = this.model.defect;
                         }
                         const resp = await this.createRequest(this.model);
-                        console.log(resp)
-                        return;
+                        
+                        let requestId = resp.data.id;
+                        await this.createRequestTags({
+                            id: requestId,
+                            tags: this.model.keywords
+                        });
 
                         await this.uploadNewMedia(resp.data.id);
 

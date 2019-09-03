@@ -20,7 +20,18 @@
                                 <el-row :gutter="20">
                                     <el-col :md="4">
                                         <cropper :resize="false" :viewportType="'circle'" @cropped="cropped"/>
-
+                                        <img
+                                            src="~img/man.png"
+                                            class="user-image"
+                                            v-if="model.avatar==null && model.title == 'mr'"/>
+                                        <img
+                                            src="~img/woman.png"
+                                            class="user-image"
+                                            v-else-if="model.avatar==null && model.title == 'mrs'"/>
+                                        <img
+                                            src="~img/company.png"
+                                            class="user-image"
+                                            v-else-if="model.avatar==null && model.title == 'company'"/>
                                         <img :src="`/${user.avatar}?${Date.now()}`"
                                              class="user-image"
                                              v-if="avatar.length == 0 && user.avatar">

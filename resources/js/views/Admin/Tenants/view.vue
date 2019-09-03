@@ -47,9 +47,17 @@
                         <el-row :gutter="20" class="main-section">
                             <el-col :md="4">
                                 <img
-                                    src="~img/user-avatar.jpg"
+                                    src="~img/man.png"
                                     class="user-image"
-                                    v-if="model.avatar==null && model.title == 'company'"/>
+                                    v-if="model.avatar==null && model.title == 'mr'"/>
+                                <img
+                                    src="~img/woman.png"
+                                    class="user-image"
+                                    v-else-if="model.avatar==null && model.title == 'mrs'"/>
+                                <img
+                                    src="~img/company.png"
+                                    class="user-image"
+                                    v-else-if="model.avatar==null && model.title == 'company'"/>
                                 <img
                                         style="width: 100%;"
                                         class="user-image"
