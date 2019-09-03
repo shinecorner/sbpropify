@@ -7,7 +7,7 @@ use App\Criteria\Products\FilterByTenantCriteria;
 use App\Criteria\Products\FilterByTypeCriteria;
 use App\Criteria\Products\FilterByUserCriteria;
 use App\Criteria\Products\FilterByStatusCriteria;
-use App\Criteria\Products\FilterByDistrictCriteria;
+use App\Criteria\Products\FilterByQuarterCriteria;
 use App\Notifications\ProductLiked;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Product\CreateRequest;
@@ -106,14 +106,14 @@ class ProductAPIController extends AppBaseController
         $this->productRepository->pushCriteria(new FilterByUserCriteria($request));
         $this->productRepository->pushCriteria(new FilterByTypeCriteria($request));
         $this->productRepository->pushCriteria(new FilterByStatusCriteria($request));
-        $this->productRepository->pushCriteria(new FilterByDistrictCriteria($request));
+        $this->productRepository->pushCriteria(new FilterByQuarterCriteria($request));
         
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $products = $this->productRepository->with([
             'media',
             'user.tenant',
             'likesCounter',
-            'likes' => function($q){$q->take(3);},
+            'likes',
             'likes.user',
         ])->orderBy('published_at', 'desc')->orderBy('created_at', 'desc')
             ->paginate($perPage);
@@ -224,7 +224,7 @@ class ProductAPIController extends AppBaseController
             'media',
             'user.tenant',
             'likesCounter',
-            'likes' => function($q){$q->take(3);},
+            'likes',
             'likes.user',
         ])->withCount('allComments')->findWithoutFail($id);
 
