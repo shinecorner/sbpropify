@@ -1,158 +1,94 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-//modules
-import users from './modules/users';
-import tenants from './modules/tenants';
-import buildings from './modules/buildings';
-import units from './modules/units';
-import addresses from './modules/addresses';
-import services from './modules/services';
-import posts from './modules/posts';
-import * as comments from './modules/comments';
-import districts from './modules/districts';
-import requests from './modules/requests';
-import requestCategories from './modules/requestCategories';
-import propertyManagers from './modules/propertyManagers';
-import products from './modules/products';
-import application from './modules/application';
-import notifications from './modules/notifications';
-import likes from './modules/likes';
-import products2 from './modules/products2';
-import media from './modules/media'
-import posts2 from './modules/posts2'
-import templates from './modules/templates'
-import cleanify from './modules/cleanify'
-import tags from './modules/tags'
+// These wil be depracated soon - awful structure - yet keeping to not cause breaking changes
+import UsersStore from 'store/modules/users'
+import UnitsStore from 'store/modules/units'
+import TenantsStore from 'store/modules/tenants'
+import TemplatesStore from 'store/modules/templates'
+import ServicesStore from 'store/modules/services'
+import RequestsStore from 'store/modules/requests'
+import RequestCategoriesStore from 'store/modules/requestCategories'
+import PropertyManagersStore from 'store/modules/propertyManagers'
+import ProductsStore from 'store/modules/products'
+import PostsStore from 'store/modules/posts'
+import NotificationsStore from 'store/modules/notifications'
+import MediaStore from 'store/modules/media'
+import DistrictsStore from 'store/modules/districts'
+import DashboardStore from 'store/modules/dashboard'
+import CommentsStore from 'store/modules/comments'
+import CleanifyStore from 'store/modules/cleanify'
+import BuildingsStore from 'store/modules/buildings'
+import ApplicationStore from 'store/modules/application'
+import AddressesStore from 'store/modules/addresses'
+import Products2Store from 'store/modules/products2' // :(
+import Posts2Store from 'store/modules/posts2' // :(
+import TagsStore from 'store/modules/tags'
 
-Vue.use(Vuex);
+// new ones - this will stay in the future, the above one will be removed at some point
+import NewPostsStore from 'store/modules/newPosts'
+import NewRequestsStore from 'store/modules/newRequests'
+import NewProductsStore from 'store/modules/newProducts'
 
-// TBD in future
-const {post, request, product, ...restcomments} = comments;
+import createPersistedState from 'vuex-persistedstate'
 
-const state = {
-    token: null,
-    sidebarLevel: {
-        level: 1,
-        direction: 0,
-        maxLevel: 1
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+    state: {
+
+        allLanguages: ['en', 'fr', 'de', 'it']
     },
-    allLanguages: [
-        "en", "fr", "de", "it"
-    ]
-};
-
-const getters = {
-    getSidebarLevel(state) {
-        return state.sidebarLevel;
-    },
-    getAllAvailableLanguages(state) {
-        return state.allLanguages;
-    }
-};
-
-const mutations = {
-    SET_TOKEN(state, token) {
-        state.token = token
-    },
-    REMOVE_TOKEN(state) {
-        state.token = null
-    },
-    CHANGE_SIDEBAR_LEVEL(state, level) {
-        document.body.className = document.body.className.replace(/level-[0-9]/g, "");
-        document.body.className += ' level-' + level.level;
-        state.sidebarLevel = level;
-    },
-};
-
-const actions = {
-    changeSidebarMenuLevel({state, commit}) {
-        let currentLevel = state.sidebarLevel;
-        if (currentLevel.direction) {
-            currentLevel.level += 1;
-            if (currentLevel.level == currentLevel.maxLevel) {
-                currentLevel.direction = 0;
-            }
-        } else {
-            currentLevel.level -= 1;
-            if (currentLevel.level == 0) {
-                currentLevel.direction = 1;
-            }
+    mutations: {},
+    actions: {},
+    getters: {
+        getAllAvailableLanguages (state) {
+            return state.allLanguages
         }
-
-        commit('CHANGE_SIDEBAR_LEVEL', currentLevel);
     },
-    setSidebarMenuMaxLevel({state, commit}, payload) {
-        commit('CHANGE_SIDEBAR_LEVEL', payload);
-    },
-};
-
-
-const store = new Vuex.Store({
-    state,
-    mutations,
-    actions,
-    getters,
     modules: {
-        users,
-        tenants,
-        buildings,
-        units,
-        addresses,
-        services,
-        posts,
-        comments: {
-            namespaced: true,
-            ...restcomments,
-            modules: {
-                post: {
-                    namespaced: true,
-                    ...post
-                },
-                request: {
-                    namespaced: true,
-                    ...request
-                },
-                product: {
-                    namespaced: true,
-                    ...product
-                }
-            }
-        },
-        districts,
-        requests,
-        requestCategories,
-        propertyManagers,
-        products,
-        templates,
-        cleanify,
+        users: UsersStore,
+        tenants: TenantsStore,
+        buildings: BuildingsStore,
+        units: UnitsStore,
+        addresses: AddressesStore,
+        services: ServicesStore,
+        posts: PostsStore,
+        districts: DistrictsStore,
+        requests: RequestsStore,
+        requestCategories: RequestCategoriesStore,
+        propertyManagers: PropertyManagersStore,
+        products: ProductsStore,
+        templates: TemplatesStore,
+        cleanify: CleanifyStore,
         application: {
             namespaced: true,
-            ...application
+            ...ApplicationStore
         },
-        notifications: {
-            namespaced: true,
-            ...notifications
-        },
-        likes: {
-            namespaced: true,
-            ...likes
-        },
-        products2: {
-            namespaced: true,
-            ...products2
-        },
+        notifications: NotificationsStore,
         media: {
             namespaced: true,
-            ...media
+            ...MediaStore
         },
         posts2: {
             namespaced: true,
-            ...posts2
+            ...Posts2Store
         },
-        tags
-    }
-});
+        products2: {
+            namespaced: true,
+            ...Products2Store
+        },
+        TagsStore,
 
-
-export default store;
+        // this will stay in the future only
+        comments: CommentsStore,
+        newPosts: NewPostsStore,
+        newProducts: NewProductsStore,
+        newRequests: NewRequestsStore
+    },
+    plugins: [createPersistedState({
+        key: 'state',
+        paths: ['application.locale']
+    })],
+})

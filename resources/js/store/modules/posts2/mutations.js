@@ -1,4 +1,10 @@
+import * as types from './types'
+
 export default {
+    [types.FETCH] (state, payload) {
+        state = Object.assign({}, payload)
+    },
+
     set (state, payload) {
         if (payload.data) {
             Object.assign(state, payload)

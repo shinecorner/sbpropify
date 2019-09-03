@@ -1,5 +1,6 @@
-import { auth, admin } from 'middlewares';
-import permissions from 'middlewares/permissions';
+import AdminPermissions from 'boot/roles/admin'
+import hasPermissionGuard from 'guards/hasPermissionGuard'
+import VueRouterMultiguard from 'vue-router-multiguard'
 
 export default [{
     path: 'users',
@@ -7,43 +8,34 @@ export default [{
         template: '<router-view />'
     },
     children: [{
-        path: '/',
         name: 'adminUsers',
-        component: () =>
-            import ( /* webpackChunkName: "admin/users/index */ 'views/Admin/Users'),
+        path: '/',
+        component: () => import ( /* webpackChunkName: "admin/users/index */ 'views/Admin/Users'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.list.user)]),
         meta: {
-            title: 'Users',
-            middleware: [auth, admin],
-            permission: permissions.list.user,
-            breadcrumb: 'Users',
+            title: 'Users'
         }
     }, {
-        path: 'add',
         name: 'adminUsersAdd',
-        component: () =>
-            import ( /* webpackChunkName: "admin/users/add" */ 'views/Admin/Users/Add'),
+        path: 'add',
+        component: () => import ( /* webpackChunkName: "admin/users/add" */ 'views/Admin/Users/Add'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.create.user)]),
         props: {
             title: 'Add user'
         },
         meta: {
-            title: 'Add User',
-            middleware: [auth, admin],
-            permission: permissions.create.user,
-            breadcrumb: 'Add user'
+            title: 'Add User'
         }
     }, {
-        path: ':id',
         name: 'adminUsersEdit',
-        component: () =>
-            import ( /* webpackChunkName: "admin/users/edit" */ 'views/Admin/Users/Edit'),
+        path: ':id',
+        component: () => import ( /* webpackChunkName: "admin/users/edit" */ 'views/Admin/Users/Edit'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.update.user)]),
         props: {
             title: 'Edit user'
         },
         meta: {
-            title: 'Edit User',
-            middleware: [auth, admin],
-            permission: permissions.update.user,
-            breadcrumb: 'Edit user'
+            title: 'Edit User'
         }
     }]
-}];
+}]

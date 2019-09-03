@@ -1,6 +1,6 @@
-import {auth, admin} from 'middlewares';
-import permissions from 'middlewares/permissions';
-
+import AdminPermissions from 'boot/roles/admin'
+import hasPermissionGuard from 'guards/hasPermissionGuard'
+import VueRouterMultiguard from 'vue-router-multiguard'
 
 export default [{
     path: 'templates',
@@ -8,27 +8,23 @@ export default [{
         template: '<router-view />'
     },
     children: [{
-        path: '/',
         name: 'adminTemplates',
-        component: () =>
-            import ( /* webpackChunkName: "admin/templates/index" */ 'views/Admin/Templates'),
+        path: '/',
+        component: () => import ( /* webpackChunkName: "admin/templates/index" */ 'views/Admin/Templates'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.list.template)]),
         meta: {
-            title: 'Templates',
-            middleware: [auth, admin],
-            permission: permissions.list.template
+            title: 'Templates'
         }
     }, {
-        path: ':id',
         name: 'adminTemplatesEdit',
-        component: () =>
-            import ( /* webpackChunkName: "admin/templates/edit" */ 'views/Admin/Templates/Edit'),
+        path: ':id',
+        component: () => import ( /* webpackChunkName: "admin/templates/edit" */ 'views/Admin/Templates/Edit'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.update.template)]),
         props: {
             title: 'Edit template'
         },
         meta: {
-            title: 'Edit Building',
-            middleware: [auth, admin],
-            permission: permissions.update.template
+            title: 'Edit Building'
         }
     }]
-}];
+}]

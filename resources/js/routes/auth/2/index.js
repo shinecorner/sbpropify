@@ -1,52 +1,48 @@
-import {guest} from 'middlewares';
-import Layout from 'layouts/Auth/2/Layout';
-import Login from 'views/Auth/2/Login';
-import AutoLogin from 'views/Auth/2/AutoLogin';
-import ForgotPassword from 'views/Auth/2/ForgotPassword';
-import ResetPassword from 'views/Auth/2/ResetPassword';
-import ActivateAccount from 'views/Auth/2/ActivateAccount';
+import Layout from 'layouts/Auth/2/Layout'
+import isGuestGuard from 'guards/isGuestGuard'
+import VueRouterMultiguard from 'vue-router-multiguard'
 
 export default [{
     path: '/',
     component: Layout,
     children: [{
-        path: 'login2',
-        component: Login,
-        name: 'login2',
+        name: 'login',
+        path: 'login',
+        component: () => import( /* webpackChunkName: "auth/2/login" */ 'views/Auth/2/Login'),
+        beforeEnter: VueRouterMultiguard([isGuestGuard]),
         meta: {
-            title: 'Login',
-            middleware: guest
-        },
+            title: 'Login'
+        }
     }, {
-        path: 'autologin2',
-        component: AutoLogin,
-        name: 'autoLogin2',
+        path: 'autologin',
+        component: () => import( /* webpackChunkName: "auth/2/autoLogin" */ 'views/Auth/2/AutoLogin'),
+        name: 'autoLogin',
         meta: {
             title: 'Auto Login'
-        },
+        }
     }, {
-        path: 'forgot2',
-        component: ForgotPassword,
-        name: 'forgot2',
+        name: 'forgot',
+        path: 'forgot',
+        component: () => import( /* webpackChunkName: "auth/2/forgotPassword" */ 'views/Auth/2/ForgotPassword'),
+        beforeEnter: VueRouterMultiguard([isGuestGuard]),
         meta: {
-            title: 'Forgot Password',
-            middleware: guest
-        },
+            title: 'Forgot Password'
+        }
     }, {
-        path: 'reset-password2',
-        component: ResetPassword,
-        name: 'resetPassword2',
+        name: 'resetPassword',
+        path: 'reset-password',
+        component: () => import( /* webpackChunkName: "auth/2/resetPassword" */ 'views/Auth/2/ResetPassword'),
+        beforeEnter: VueRouterMultiguard([isGuestGuard]),
         meta: {
-            title: 'Reset Password',
-            middleware: guest
-        },
+            title: 'Reset Password'
+        }
     }, {
-        path: 'activate2',
-        component: ActivateAccount,
-        name: 'activateAccount2',
+        path: 'activate',
+        component: () => import( /* webpackChunkName: "auth/2/activateAccount" */ 'views/Auth/2/activateAccount'),
+        name: 'activateAccount',
+        beforeEnter: VueRouterMultiguard([isGuestGuard]),
         meta: {
             title: 'Activate Account',
-            middleware: guest
-        },
+        }
     }]
-}];
+}]

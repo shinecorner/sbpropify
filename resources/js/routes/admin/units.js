@@ -1,5 +1,6 @@
-import { auth, admin } from 'middlewares';
-import permissions from 'middlewares/permissions';
+import AdminPermissions from 'boot/roles/admin'
+import hasPermissionGuard from 'guards/hasPermissionGuard'
+import VueRouterMultiguard from 'vue-router-multiguard'
 
 export default [{
     path: 'units',
@@ -7,40 +8,34 @@ export default [{
         template: '<router-view />'
     },
     children: [{
-        path: '/',
         name: 'adminUnits',
-        component: () =>
-            import ( /* webpackChunkName: "admin/units/index */ 'views/Admin/Units'),
+        path: '/',
+        component: () => import ( /* webpackChunkName: "admin/units/index */ 'views/Admin/Units'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.list.unit)]),
         meta: {
-            title: 'Units',
-            middleware: [auth, admin],
-            permission: permissions.list.unit
+            title: 'Units'
         }
     }, {
-        path: 'add',
         name: 'adminUnitsAdd',
-        component: () =>
-            import ( /* webpackChunkName: "admin/units/add" */ 'views/Admin/Units/Add'),
+        path: 'add',
+        component: () => import ( /* webpackChunkName: "admin/units/add" */ 'views/Admin/Units/Add'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.create.unit)]),
         props: {
             title: 'Add units'
         },
         meta: {
-            title: 'Add Unit',
-            middleware: [auth, admin],
-            permission: permissions.create.unit
+            title: 'Add Unit'
         }
     }, {
-        path: ':id',
         name: 'adminUnitsEdit',
-        component: () =>
-            import ( /* webpackChunkName: "admin/units/edit" */ 'views/Admin/Units/Edit'),
+        path: ':id',
+        component: () => import ( /* webpackChunkName: "admin/units/edit" */ 'views/Admin/Units/Edit'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.update.unit)]),
         props: {
             title: 'Edit units'
         },
         meta: {
-            title: 'Edit Unit',
-            middleware: [auth, admin],
-            permission: permissions.update.unit
+            title: 'Edit Unit'
         }
     }]
-}];
+}]

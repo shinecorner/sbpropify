@@ -1,27 +1,53 @@
 <template>
     <div class="greeting">
-        {{ greeting }}
+        {{greeting}} <strong style="color: var(--primary-color);">{{user.name}}</strong>
     </div>
 </template>
 
 <script>
+    import {mapGetters} from 'vuex'
+
     export default {
+        props: {
+            afternoonHour: {
+                type: Number,
+                default: 12
+            },
+            eveningHour: {
+                type: Number,
+                default: 19
+            }
+        },
+        data () {
+            return {
+                timeOfDay: null
+            }
+        },
         computed: {
+            ...mapGetters({
+                user: 'loggedInUser'
+            }), 
+
             greeting () {
-                const split_afternoon = 12
-                const split_evening = 17
                 const currentHour = (new Date()).getHours()
 
-                let g
+                let greeting
 
-                if (currentHour >= split_afternoon && currentHour <= split_evening)
-                    g = 'Good afternoon'
-                else if (currentHour >= split_afternoon)
-                    g = 'Good evening'
-                else
-                    g = 'Good morning'
+                if (currentHour >= this.afternoonHour && currentHour <= this.eveningHour) {
+                    greeting = 'Good afternoon'
 
-                return g + ' ' + this.$store.getters.loggedInUser.name
+                    this.timeOfDay = 'day'
+                } else if (currentHour >= this.afternoonHour) {
+                    greeting = 'Good evening'
+
+                    this.timeOfDay = 'night'
+                } else {
+                    greeting = 'Good morning'
+
+                    this.timeOfDay = 'day'
+                }
+
+                return greeting
             }
         }
     }

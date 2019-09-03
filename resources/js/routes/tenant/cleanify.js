@@ -1,12 +1,12 @@
-import { auth, tenant } from 'middlewares'
+import {isAuthenticatedGuard, isTenantGuard} from 'guards'
+import VueRouterMultiguard from 'vue-router-multiguard'
 
 export default {
-    path: 'cleanify',
-    component: () =>
-        import ( /* webpackChunkName: "tenant/cleanify/index" */ 'views/Tenant/Cleanify'),
     name: 'cleanifyRequest',
+    path: 'cleanify',
+    component: () => import ( /* webpackChunkName: "tenant/cleanify/index" */ 'views/Tenant/Cleanify'),
+    beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isTenantGuard]),
     meta: {
-        title: 'Cleanify',
-        middleware: [auth, tenant]
-    }
+        title: 'Cleanify'
+    },
 }

@@ -1,28 +1,25 @@
-import { auth, tenant } from 'middlewares'
+import {isAuthenticatedGuard, isTenantGuard} from 'guards'
+import VueRouterMultiguard from 'vue-router-multiguard'
 
 export default {
     path: 'news',
     component: {
         template: '<router-view />'
     },
-    meta: {
-        middleware: [auth, tenant]
-    },
     children: [{
-        path: '/',
         name: 'tenantPosts',
-        component: () =>
-            import ( /* webpackChunkName: "tenant/posts/index" */ 'views/Tenant/Posts'),
+        path: '/',
+        component: () => import ( /* webpackChunkName: "tenant/posts/index" */ 'views/Tenant/Posts'),
         meta: {
             title: 'Posts'
         }
     }, {
-        path: ':id',
         name: 'tenantPost',
-        component: () =>
-            import ( /* webpackChunkName: "tenant/posts/detail" */ 'views/Tenant/Posts/Detail'),
+        path: ':id',
+        component: () => import ( /* webpackChunkName: "tenant/posts/detail" */ 'views/Tenant/Posts/Detail'),
         meta: {
             title: 'Post'
         }
-    }]
+    }],
+    beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isTenantGuard]),
 }
