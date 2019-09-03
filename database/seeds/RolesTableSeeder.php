@@ -25,7 +25,7 @@ class RolesTableSeeder extends Seeder
         $addressPermissions = Permission::where('name', 'like', '%-address')->get();
         $unitPermissions = Permission::where('name', 'like', '%-unit')->get();
         $pManagerPermissions = Permission::where('name', 'like', '%-property_manager')->get();
-        $districtPermissions = Permission::where('name', 'like', '%-district')->get();
+        $quarterPermissions = Permission::where('name', 'like', '%-quarter')->get();
         $realEstatePermissions = Permission::where('name', 'like', '%-real_estate')->get();
         $templatePermissions = Permission::where('name', 'like', '%-template')->get();
         $sReqCategPermissions = Permission::where('name', 'like', '%-service_request_category')->get();
@@ -42,7 +42,7 @@ class RolesTableSeeder extends Seeder
             ->merge($addressPermissions)
             ->merge($unitPermissions)
             ->merge($pManagerPermissions)
-            ->merge($districtPermissions)
+            ->merge($quarterPermissions)
             ->merge($realEstatePermissions)
             ->merge($templatePermissions)
             ->merge($sReqCategPermissions)
@@ -57,7 +57,7 @@ class RolesTableSeeder extends Seeder
             ->merge($addressPermissions)
             ->merge($unitPermissions)
             ->merge($pManagerPermissions)
-            ->merge($districtPermissions)
+            ->merge($quarterPermissions)
             ->merge($realEstatePermissions)
             ->merge($templatePermissions)
             ->merge($sReqCategPermissions)
@@ -107,11 +107,11 @@ class RolesTableSeeder extends Seeder
             'list-service_request_category',
             'post-request_service',
             'edit-request_service',
-            'list-district',
+            'list-quarter',
             'list-property_manager',
             'list-building',
             'list-tenant',
-            'view-district',
+            'view-quarter',
             'view-property_manager',
             'view-building',
             'view-tenant',
