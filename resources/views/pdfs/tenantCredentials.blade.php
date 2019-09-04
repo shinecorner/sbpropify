@@ -5,8 +5,8 @@
 @endsection
 
 @section('body')
-    <p>{{ __("tenant.url") }}: <a href="{{ url('/') }}">{{ url('/') }}</a></p>
-    <p>{{ __("tenant.username") }}: {{ $tenant->user->email }}</p>
-    <p>{{ __("tenant.url") }}: {{ $url }}</p>
-    <p>{{ __("tenant.code") }}: {{ $code }}</p>
+    <p>@lang("tenant.url", [], $language): <a href="{{ url('/') }}">{{ url('/') }}</a></p>
+    <p>@lang("tenant.username", [], $language): {{ $tenant->user->email }}</p>
+    <p>@lang("tenant.url", [], $language): {{ $url }}</p>
+    <p>@lang("tenant.code", [], $language): {{ $code }}</p>
 @endsection

@@ -32,7 +32,7 @@ $factory->define(App\Models\Product::class, function (Faker $f) {
 
     if ($u->tenant && $u->tenant->building) {
         $ret['address_id'] = $u->tenant->building->address_id;
-        $ret['district_id'] = $u->tenant->building->district_id;
+        $ret['quarter_id'] = $u->tenant->building->quarter_id;
     }
 
     return $ret;

@@ -7,68 +7,88 @@
 @section('body')
 <table>
   <tr>
-    <td class="logo"><img src="{{ asset('images/logo3.png') }}" /></td>
-    <td class="contact">
-        <p>{{ $re->name }}</p>
-        <p>{{ $re->address->street_nr }}, {{ $re->address->street }}<br />
+    <td colspan="2" class="tenant">
+      <p>
+        @lang("tenant.dear", [], $language)
+        <br>
+        <b>{{ $tenant->first_name . ' ' . $tenant->last_name }}</b>
+      </p>
+
+      @if ($tenant->address)
+       <p>{{ $tenant->address->street_nr }}, {{ $tenant->address->street }} {{ $tenant->address->city }}</p>
+      @endif
+    </td>
+    <td colspan="2" class="contact">
+      <img src="{{ asset('images/logo3.png') }}" />
+      <p>{{ $re->name }}</p>
+      <p>{{ $re->address->street_nr }}, {{ $re->address->street }}<br />
         {{ $re->address->city }}, {{ $re->address->state->name }}</p>
-        <p>T:{{ $re->phone }}; E:{{ $re->email }}</p>
+      <p>
+        @lang('tenant.telephone', [], $language): {{ $re->phone }}
+        <br>
+        @lang('tenant.email', [], $language): {{ $re->email }}</p>
     </td>
   </tr>
   <tr>
-    <td colspan=2><hr class="separator" /></td>
-  </tr>
-</table>
+    <td colspan="4">
+      <br>
+      <br>
+      @lang('tenant.born', [], $language), {{$tenant->birth_date ? $tenant->birth_date->format('d.m.Y') : ''}}
+      <br>
+      <br>
+      <br>
+      <b>@lang('tenant.welcome', [], $language) {{ $re->name }}</b>
+      <br>
+      <br>
+      @lang('tenant.dear_sir', [], $language) {{ $tenant->last_name }}
+      <br>
+      <br>
+      @lang('tenant.content_1', [], $language)
+      <br>
+      <br>
+      <b>@lang('tenant.offer', [], $language)</b>
+      <ul>
+        <li>@lang('tenant.offer_1', [], $language)</li>
+        <li>@lang('tenant.offer_2', [], $language)</li>
+        <li>@lang('tenant.offer_3', [], $language)</li>
+        <li>@lang('tenant.offer_4', [], $language)</li>
+        <li>@lang('tenant.offer_5', [], $language)</li>
+      </ul>
 
-<table>
-  <tr><th><h2>{{ __("tenant.tenancy_details") }}</h2></th></tr>
-  @if ($tenant->unit)
-  <tr>
-    <td class="detail-key">{{ __("tenant.unit") }}</td>
-    <td>{{ $tenant->unit->name }}</td>
+      <b>@lang('tenant.register', [], $language)</b>
+      <br>
+      <br>
+      @lang('tenant.content_2', [], $language)
+      <br>
+      <br>
+    </td>
   </tr>
   <tr>
-    <td class="detail-key">{{ __("tenant.floor") }}</td>
-    <td>{{ $tenant->unit->floor }}</td>
-  </tr>
-  @endif
-  @if ($tenant->building)
-  <tr>
-    <td class="detail-key">{{ __("tenant.building") }}</td>
-    <td>{{ $tenant->building->name }}</td>
-  </tr>
-  @endif
-  @if ($tenant->address)
-  <tr>
-    <td class="detail-key">{{ __("tenant.address") }}</td>
-    <td>{{ $tenant->address->street_nr }}, {{ $tenant->address->street }} {{ $tenant->address->city }}</td>
-  </tr>
-  @endif
-  @if ($tenant->rent_start)
-  <tr>
-    <td class="detail-key">{{ __("tenant.rent_start") }}</td>
-    <td>{{ $tenant->rent_start->format('Y-m-d')}}</td>
-  </tr>
-  @endif
-</table>
-
-<table>
-  <tr><th><h2>{{ __("tenant.login_credentials") }}</h2></th></tr>
-  <tr>
-    <td class="detail-key">{{ __("tenant.website") }}</td>
-    <td>{{ url('/') }}</td>
+    <td colspan="1">@lang("tenant.link_application", [], $language)</td>
+    <td colspan="3">{{ url('/') }}</td>
   </tr>
   <tr>
-    <td class="detail-key">{{ __("tenant.username") }}</td>
-    <td>{{ $tenant->user->email }}</td>
+    <td colspan="1">{{ __("tenant.code") }}</td>
+    <td colspan="3">{{ $code }}</td>
   </tr>
   <tr>
-    <td class="detail-key">{{ __("tenant.url") }}</td>
-    <td>{{ $url }}</td>
+    <td colspan="1">{{ __("tenant.your_email") }}</td>
+    <td colspan="3">{{ $tenant->user->email }}</td>
   </tr>
   <tr>
-    <td class="detail-key">{{ __("tenant.code") }}</td>
-    <td>{{ $code }}</td>
+    <td colspan="4">
+      <br>
+      @lang('tenant.content_3', [], $language)
+      <br>
+      <br>
+      @lang('tenant.content_4', [], $language)
+      <br>
+      <br>
+      <br>
+      @lang('tenant.your_sincerely', [], $language)
+      <br>
+      @lang('tenant.your_administration', [], $language)
+    </td>
   </tr>
 </table>
 @endsection

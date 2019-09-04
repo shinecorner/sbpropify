@@ -360,7 +360,7 @@ class BuildingAPIController extends AppBaseController
         }
 
         $building
-            ->load('address.state', 'serviceProviders', 'tenants.user', 'propertyManagers', 'media', 'district')
+            ->load('address.state', 'serviceProviders', 'tenants.user', 'propertyManagers', 'media', 'quarter')
             ->loadCount('activeTenants', 'inActiveTenants');
         $response = (new BuildingTransformer)->transform($building);
         $response['media_category'] = Building::BuildingMediaCategories;

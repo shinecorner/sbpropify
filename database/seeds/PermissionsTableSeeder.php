@@ -50,7 +50,7 @@ class PermissionsTableSeeder extends Seeder
         ['edit-provider', 'Edit service provider', 'edit service provider'],
         ['delete-provider', 'Delete service provider', 'delete service provider'],
         ['notify-provider', 'Notify service provider', 'Notify provider, property managers and admins'],
-        ['assign-provider', 'Assign district and building to provider', 'Assign district and building to provider'],
+        ['assign-provider', 'Assign quarter and building to provider', 'Assign quarter and building to provider'],
         // Request
         ['list-request', 'List ServiceRequests', 'list all ServiceRequests'],
         ['post-request_tenant', 'Tenant Post ServiceRequests', 'tenant add serviceRequest'],
@@ -88,13 +88,13 @@ class PermissionsTableSeeder extends Seeder
         ['post-property_manager', 'Post property manager', 'add property manager'],
         ['edit-property_manager', 'Edit property manager', 'edit existing property manager'],
         ['delete-property_manager', 'Delete property manager', 'delete existing property manager'],
-        ['assign-property_manager', 'Assign district and building to property manager', 'Assign district and building to property manager'],
-        // District
-        ['list-district', 'List district', 'list district'],
-        ['view-district', 'View district', 'view district'],
-        ['post-district', 'Post district', 'add district'],
-        ['edit-district', 'Edit district', 'edit existing district'],
-        ['delete-district', 'Delete district', 'delete existing district'],
+        ['assign-property_manager', 'Assign quarter and building to property manager', 'Assign quarter and building to property manager'],
+        // Quarter
+        ['list-quarter', 'List quarter', 'list quarter'],
+        ['view-quarter', 'View quarter', 'view quarter'],
+        ['post-quarter', 'Post quarter', 'add quarter'],
+        ['edit-quarter', 'Edit quarter', 'edit existing quarter'],
+        ['delete-quarter', 'Delete quarter', 'delete existing quarter'],
         // Real estate
         ['view-real_estate', 'View real estate', 'view real estate'],
         ['edit-real_estate', 'Edit real estate', 'edit existing real estate'],

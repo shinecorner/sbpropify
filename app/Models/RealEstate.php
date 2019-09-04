@@ -52,8 +52,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="district_enable",
- *          description="district_enable",
+ *          property="quarter_enable",
+ *          description="quarter_enable",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -117,7 +117,7 @@ class RealEstate extends AuditableModel
         'language',
         'logo',
         'blank_pdf',
-        'district_enable',
+        'quarter_enable',
         'contact_enable',
         'marketplace_approval_enable',
         'news_approval_enable',
@@ -155,7 +155,7 @@ class RealEstate extends AuditableModel
         'language' => 'string',
         'logo' => 'string',
         'blank_pdf' => 'boolean',
-        'district_enable' => 'boolean',
+        'quarter_enable' => 'boolean',
         'contact_enable' => 'boolean',
         'marketplace_approval_enable' => 'boolean',
         'news_approval_enable' => 'boolean',

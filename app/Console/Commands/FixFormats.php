@@ -54,9 +54,9 @@ class FixFormats extends Command
             $unit->unit_format  = $unit->getUniqueIDFormat($unit->id, $unit->created_at);
             $unit->save();
         });
-        \App\Models\District::get(['id', 'created_at'])->each(function ($district) {
-            $district->district_format  = $district->getUniqueIDFormat($district->id, $district->created_at);
-            $district->save();
+        \App\Models\Quarter::get(['id', 'created_at'])->each(function ($quarter) {
+            $quarter->quarter_format  = $quarter->getUniqueIDFormat($quarter->id, $quarter->created_at);
+            $quarter->save();
         });
         \App\Models\ServiceRequest::get(['id', 'created_at'])->each(function ($service_request) {
             $service_request->service_request_format  = $service_request->getUniqueIDFormat($service_request->id, $service_request->created_at);

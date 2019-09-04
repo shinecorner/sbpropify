@@ -46,6 +46,9 @@ class BuildingRepository extends BaseRepository
             unset($attributes['address']);
         }
 
+        if (isset($attributes['quarter'])) {
+            unset($attributes['quarter']);
+        }
         if (isset($attributes['district'])) {
             unset($attributes['district']);
         }

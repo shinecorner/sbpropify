@@ -19,7 +19,7 @@ class BuildingPropertyManager extends Pivot
         return $this->belongsTo(PropertyManager::class);
     }
 
-    public function districts()
+    public function quarters()
     {
         return $this->hasManyThrough(Building::class, PropertyManager::class);
     }

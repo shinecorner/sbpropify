@@ -3,7 +3,6 @@
 namespace App\Criteria\ServiceRequests;
 
 use App\Models\ServiceRequest;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -43,7 +42,7 @@ class FilterPublicCriteria implements CriteriaInterface
 
         $vs = [
             ServiceRequest::VisibilityBuilding,
-            ServiceRequest::VisibilityDistrict,
+            ServiceRequest::VisibilityQuarter,
         ];
         return $model->whereIn('service_requests.visibility', $vs);
     }

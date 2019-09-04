@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\ServiceProviders\FilterByPostCriteria;
 use App\Criteria\Common\HasRequestCriteria;
+use App\Criteria\ServiceProviders\FilterByQuarterCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\ServiceProvider\AssignRequest;
 use App\Http\Requests\API\ServiceProvider\CreateRequest;
@@ -14,7 +15,7 @@ use App\Http\Requests\API\ServiceProvider\UpdateRequest;
 use App\Models\ServiceProvider;
 use App\Models\User;
 use App\Repositories\AddressRepository;
-use App\Repositories\DistrictRepository;
+use App\Repositories\QuarterRepository;
 use App\Repositories\BuildingRepository;
 use App\Repositories\ServiceProviderRepository;
 use App\Repositories\UserRepository;
@@ -82,6 +83,7 @@ class ServiceProviderAPIController extends AppBaseController
         $this->serviceProviderRepository->pushCriteria(new RequestCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new LimitOffsetCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new FilterByPostCriteria($request));
+        $this->serviceProviderRepository->pushCriteria(new FilterByQuarterCriteria($request));
 
         $getAll = $request->get('get_all', false);
 
@@ -452,6 +454,11 @@ class ServiceProviderAPIController extends AppBaseController
 
         return $this->sendResponse($id, __('models.service.deleted'));
     }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function destroyWithIds(Request $request){
         $ids = $request->get('ids');
         try{
@@ -476,14 +483,14 @@ class ServiceProviderAPIController extends AppBaseController
      * @param int $id
      * @param int $did
      * @param AssignRequest $r
-     * @param DistrictRepository $dRepo
+     * @param QuarterRepository $qRepo
      * @return Response
      *
      * @SWG\Post(
-     *      path="/services/{id}/districts/{did}",
-     *      summary="Assign the provided district to the service provider",
+     *      path="/services/{id}/quarters/{did}",
+     *      summary="Assign the provided quarter to the service provider",
      *      tags={"ServiceProvider"},
-     *      description="Assign the provided district to the service provider",
+     *      description="Assign the provided quarter to the service provider",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -506,37 +513,36 @@ class ServiceProviderAPIController extends AppBaseController
      *      )
      * )
      */
-    public function assignDistrict(int $id, int $did,
-                                   DistrictRepository $dRepo, AssignRequest $r)
+    public function assignQuarter(int $id, int $did, QuarterRepository $qRepo, AssignRequest $r)
     {
         $sp = $this->serviceProviderRepository->findWithoutFail($id);
         if (empty($sp)) {
             return $this->sendError(__('models.service.errors.not_found'));
         }
-        $d = $dRepo->findWithoutFail($did);
+        $d = $qRepo->findWithoutFail($did);
         if (empty($d)) {
-            return $this->sendError(__('models.service.errors.district_not_found'));
+            return $this->sendError(__('models.service.errors.quarter_not_found'));
         }
 
-        $sp->districts()->sync($d, false);
-        $sp->load('user', 'address:id,country_id,state_id,city,street,zip', 'districts', 'buildings');
+        $sp->quarters()->sync($d, false);
+        $sp->load('user', 'address:id,country_id,state_id,city,street,zip', 'quarters', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
-        return $this->sendResponse($ret, __('general.attached.district'));
+        return $this->sendResponse($ret, __('general.attached.quarter'));
     }
 
     /**
      * @param int $id
      * @param int $did
-     * @param AssignRequest $request
-     * @param DistrictRepository $dRepo
+     * @param AssignRequest $r
+     * @param QuarterRepository $qRepo
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/services/{id}/districts/{did}",
-     *      summary="Unassign the provided district from the service provider",
+     *      path="/services/{id}/quarters/{did}",
+     *      summary="Unassign the provided quarter from the service provider",
      *      tags={"ServiceProvider"},
-     *      description="Unassign the provided district from the service provider",
+     *      description="Unassign the provided quarter from the service provider",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -559,23 +565,22 @@ class ServiceProviderAPIController extends AppBaseController
      *      )
      * )
      */
-    public function unassignDistrict(int $id, int $did,
-                                     DistrictRepository $dRepo, AssignRequest $r)
+    public function unassignQuarter(int $id, int $did, QuarterRepository $qRepo, AssignRequest $r)
     {
         $sp = $this->serviceProviderRepository->findWithoutFail($id);
         if (empty($sp)) {
             return $this->sendError(__('models.service.errors.not_found'));
         }
-        $d = $dRepo->findWithoutFail($did);
+        $d = $qRepo->findWithoutFail($did);
         if (empty($d)) {
-            return $this->sendError(__('models.service.errors.district_not_found'));
+            return $this->sendError(__('models.service.errors.quarter_not_found'));
         }
 
-        $sp->districts()->detach($d);
-        $sp->load('user', 'address:id,country_id,state_id,city,street,zip', 'districts', 'buildings');
+        $sp->quarters()->detach($d);
+        $sp->load('user', 'address:id,country_id,state_id,city,street,zip', 'quarters', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
-        return $this->sendResponse($ret, __('general.detached.district'));
+        return $this->sendResponse($ret, __('general.detached.quarter'));
     }
 
     /**
@@ -612,8 +617,7 @@ class ServiceProviderAPIController extends AppBaseController
      *      )
      * )
      */
-    public function assignBuilding(int $id, int $bid,
-                                   BuildingRepository $bRepo, AssignRequest $r)
+    public function assignBuilding(int $id, int $bid, BuildingRepository $bRepo, AssignRequest $r)
     {
         $sp = $this->serviceProviderRepository->findWithoutFail($id);
         if (empty($sp)) {
@@ -623,14 +627,14 @@ class ServiceProviderAPIController extends AppBaseController
         if (empty($b)) {
             return $this->sendError(__('models.service.errors.building_not_found'));
         }
-        if ($b->district) {
-            if ($sp->districts->contains($b->district)) {
+        if ($b->quarter) {
+            if ($sp->quarters->contains($b->quarter)) {
                 return $this->sendError(__('models.service.errors.building_already_assign'));
             }
         }
 
         $sp->buildings()->sync($b, false);
-        $sp->load('user', 'address:id,country_id,state_id,city,street,zip', 'districts', 'buildings');
+        $sp->load('user', 'address:id,country_id,state_id,city,street,zip', 'quarters', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
         return $this->sendResponse($ret, __('general.attached.building'));
@@ -670,8 +674,7 @@ class ServiceProviderAPIController extends AppBaseController
      *      )
      * )
      */
-    public function unassignBuilding(int $id, int $bid,
-                                     BuildingRepository $bRepo, AssignRequest $r)
+    public function unassignBuilding(int $id, int $bid, BuildingRepository $bRepo, AssignRequest $r)
     {
         $sp = $this->serviceProviderRepository->findWithoutFail($id);
         if (empty($sp)) {
@@ -683,7 +686,7 @@ class ServiceProviderAPIController extends AppBaseController
         }
 
         $sp->buildings()->detach($b);
-        $sp->load('user', 'address:id,country_id,state_id,city,street,zip', 'districts', 'buildings');
+        $sp->load('user', 'address:id,country_id,state_id,city,street,zip', 'quarters', 'buildings');
         $ret = (new ServiceProviderTransformer)->transform($sp);
 
         return $this->sendResponse($ret, __('general.detached.building'));

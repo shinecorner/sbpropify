@@ -55,7 +55,7 @@
         "searchable": false
     },
     {
-        "name": "district_enable",
+        "name": "quarter_enable",
         "dbType": "integer:unsigned:default,1",
         "htmlType": "text",
         "validations": "",

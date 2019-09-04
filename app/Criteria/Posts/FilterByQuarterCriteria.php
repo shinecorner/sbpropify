@@ -9,10 +9,10 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByDistrictCriteria
+ * Class FilterByQuarterCriteria
  * @package Prettus\Repository\Criteria
  */
-class FilterByDistrictCriteria implements CriteriaInterface
+class FilterByQuarterCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -35,18 +35,18 @@ class FilterByDistrictCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $district_id = $this->request->get('district_id', null);
-        if (!$district_id) {
+        $quarter_id = $this->request->get('quarter_id', null) ?? $this->request->get('district_id', null);
+        if (!$quarter_id) {
             return $model;
         }
 
         $u = \Auth::user();
         if (!$u->can('list-post') && $u->tenant) {
-            $district_id = $u->tenant->building->district_id;
+            $quarter_id = $u->tenant->building->quarter_id;
         }
 
-        $model->whereHas('districts', function ($query) use ($district_id) {
-            $query->where('id', $district_id);
+        $model->whereHas('quarters', function ($query) use ($quarter_id) {
+            $query->where('id', $quarter_id);
         });
 
         return $model;

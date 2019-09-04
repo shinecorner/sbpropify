@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @SWG\Definition(
- *      definition="District",
+ *      definition="Quarter",
  *      required={"name", "description"},
  *      @SWG\Property(
  *          property="id",
@@ -39,7 +39,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      )
  * )
  */
-class District extends AuditableModel
+class Quarter extends AuditableModel
 {
     use SoftDeletes, UniqueIDFormat;
 
@@ -51,11 +51,11 @@ class District extends AuditableModel
     public static $rules = [
         'name' => 'required|string',
     ];
-    public $table = 'districts';
+    public $table = 'quarters';
     public $fillable = [
         'name',
         'description',
-        'district_format'
+        'quarter_format'
     ];
     protected $dates = ['deleted_at'];
     /**
@@ -66,11 +66,11 @@ class District extends AuditableModel
     protected $casts = [
         'name' => 'string',
         'description' => 'string',
-        'district_format' => 'string'
+        'quarter_format' => 'string'
     ];
 
     public function propertyManagers()
     {
-        return $this->belongsToMany(PropertyManager::class, 'district_property_manager', 'district_id', 'property_manager_id');
+        return $this->belongsToMany(PropertyManager::class, 'quarter_property_manager', 'quarter_id', 'property_manager_id');
     }
 }

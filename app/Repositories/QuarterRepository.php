@@ -2,18 +2,18 @@
 
 namespace App\Repositories;
 
-use App\Models\District;
+use App\Models\Quarter;
 
 /**
- * Class DistrictRepository
+ * Class QuarterRepository
  * @package App\Repositories
  * @version February 21, 2019, 9:27 pm UTC
  *
- * @method District findWithoutFail($id, $columns = ['*'])
- * @method District find($id, $columns = ['*'])
- * @method District first($columns = ['*'])
+ * @method Quarter findWithoutFail($id, $columns = ['*'])
+ * @method Quarter find($id, $columns = ['*'])
+ * @method Quarter first($columns = ['*'])
  */
-class DistrictRepository extends BaseRepository
+class QuarterRepository extends BaseRepository
 {
     /**
      * @var array
@@ -28,6 +28,6 @@ class DistrictRepository extends BaseRepository
      **/
     public function model()
     {
-        return District::class;
+        return Quarter::class;
     }
 }

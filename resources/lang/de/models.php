@@ -177,7 +177,8 @@ return [
 			'companies' => 'Dienstleister',
 			'no_services' => 'Keine Partnerfirmen gewählt.',
 			'select_media_category' => 'Kategorie der Mediendatei wählen',
-			'district' => 'Überbauung',
+			'quarter' => 'Quartal',
+			'district' => 'Quartal',
 			'managers' => 'Bewirtschafter',
 			'house_nr' => 'Hausnummer',			
 			'assign_managers' => 'Bewirtschafter zuweisen',
@@ -369,7 +370,8 @@ return [
 			'notify_email' => 'Mieter benachrichtigen',
 			'pinned_to' => 'Hervorheben bis',
 			'comments' => 'Kommentare',
-			'images' => 'Fotos und Dokumente',			
+			'images' => 'Fotos und Dokumente',
+			'category_default_image_label' => 'Möchten Sie dieses Bild verwenden?',			
 			'placeholders' =>
 				[
 					'buildings' => 'Liegenschaft wählen',
@@ -385,7 +387,8 @@ return [
 				],
 			'errors' => [
 				'not_found' => "Beitrag nicht gefunden",
-				'district_not_found' => "Überbbauung nicht gefunden",
+				'quarter_not_found' => "Quartal nicht gefunden",
+				'district_not_found' => "Quartal nicht gefunden",
 				'building_not_found' => "Liegenschaft nicht gefunden",
 				'provider_not_found' => "Dienstanbieter nicht gefunden",
 				'deleted' => "Gelöschten Fehler buchen: ",
@@ -402,11 +405,12 @@ return [
 				[
 					'label' => 'Sichtbarkeit',
 					'address' => 'Liegenschaft',
-					'district' => 'Überbauung',
+					'quarter' => 'Quartal',
+					'district' => 'Quartal',
 					'all' => 'Alle App-Nutzer',
 				],
 			'assignType' => 'Typ',					
-			'buildingAlreadyAssigned' => 'Liegenschaft ist bereits einer Überauung zugewiesen.',
+			'buildingAlreadyAssigned' => 'Das Gebäude ist bereits innen auf einem Viertel.',
 			'execution_interval' =>
 				[
 					'label' => 'Datum der Durchführung',
@@ -443,7 +447,7 @@ return [
 			'user_credentials' => 'Logindaten',
 			'company_details' => 'Firmendaten',
 			'assignType' => 'Typ',						
-			'buildingAlreadyAssigned' => 'Diese Liegenschaft ist bereits mit dieser Überbauung verbunden.',
+			'buildingAlreadyAssigned' => 'Das Gebäude ist bereits innen auf einem Viertel.',
 			'placeholders' =>
 				[
 					'category' => 'Gewerk wählen',
@@ -453,25 +457,26 @@ return [
 				'create' => "Fehler beim Erstellen des Dienstleisters: ",
 				'update' => "Fehler beim Aktualisieren des Dienstleisters: ",
 				'deleted' => "Fehler beim Löschen des Dienstleisters: ",
-				'district_not_found' => "Überbauung nicht gefunden",
+				'quarter_not_found' => "Quartal nicht gefunden",
+				'district_not_found' => "Quartal nicht gefunden",
 				'building_not_found' => "Liegenschaft nicht gefunden",
-				'building_already_assign' => "Liegenschaft wurde bereits einer Überbauung zugewiesen."
+				'building_already_assign' => "Gebäude bereits vergeben durch das Quartal"
 			],
 		],
-	'district' =>
+	'quarter' =>
 		[
-			'title' => 'Überbauungen',						
-			'add' => 'Überbauung hinzufügen',
-			"edit" => "Überbauung bearbeiten",			
-			'saved' => 'Überbauung gespeichert',
-			'deleted' => 'Überbauung gelöscht',
+			'title' => 'Quartale',
+			'add' => 'Quartal hinzufügen',
+			"edit" => "Quartal bearbeiten",
+			'saved' => 'Eingespartes Quartal',
+			'deleted' => 'Quartal gelöscht',
 			'cancel' => 'Schliessen',
 			'required' => 'Dies ist ein Pflichfeld!',
 			'buildings' => 'Liegenschaften',
 			'count_of_buildings' => 'Anzahl Liegenschaften',
 			'errors' => [
-				'not_found' => "Überbauung nicht gefunden",
-				'deleted' => "Fehler durch den Bezirk gelöscht: ",
+				'not_found' => "Quartal nicht gefunden",
+				'deleted' => "Fehler beim Löschen des Quartals: ",
 			],
 		],
 	'realEstate' =>
@@ -482,7 +487,8 @@ return [
 			'theme' => 'Thema',
 			'login_variation' => 'Login-Variante',
 			'login_variation_slider' => 'Möchten Sie den Schieberegler anzeigen?',
-			'district_enable' => 'Überbauung',
+			'quarter_enable' => 'Quartal',
+			'district_enable' => 'Quartal',
 			'marketplace_approval_enable' => 'Marktplatz aktivieren',
 			'news_approval_enable' => 'Pinnwand-Beiträge zuerst prüfen',
 			'comment_update_timeout' => 'Comment update timeout',
@@ -725,7 +731,8 @@ return [
 				[
 					'label' => 'Sichtbarkeit',
 					'tenant' => 'Nur ich',
-					'district' => 'Überbauung',
+					'quarter' => 'Quartal',
+					'district' => 'Quartal',
 					'building' => 'Liegenschaft',
 				],
 			'errors' => [
@@ -777,7 +784,8 @@ return [
 			'no_buildings' => 'Keine Liegenschaft zugewiesen',
 			'add_buildings' => 'Liegenschaft hinzufügen',
 			'buildings_search' => 'Liegenschaft suchen',
-			'districts' => 'Überbauungen',						
+			'quarters' => 'Quartale',
+			'districts' => 'Quartale',
 			'delete_with_reassign_modal' =>
 				[
 					'title' => 'Andere Person zuweisen und dann Benutzer löschen',
@@ -788,14 +796,15 @@ return [
 			'profile_card' => 'User Profile',
 			'social_card' => 'Social Media',
 			'assignType' => 'Typ',
-			'buildingAlreadyAssigned' => 'Liegenschaft ist bereits einer Überbauung zugewiesen.',
+			'buildingAlreadyAssigned' => 'Das Gebäude ist bereits innen auf einem Viertel.',
 			'errors' => [
 				'not_found' => "Bewirtschafter nicht gefunden",
 				'create' => "Fehler beim Erstellen des Bewirtschafters: ",
 				'update' => "Fehler beim Aktualisieren des Bewirtschafters:",
-				'district_not_found' => "Überbauung nicht gefunden",
+				'quarter_not_found' => "Quartal nicht gefunden",
+				'district_not_found' => "Quartal nicht gefunden",
 				'building_not_found' => "Liegenschaft nicht gefunden",
-				'building_already_assign' => "Die Liegenschaft ist dieser Überbauung bereits zugewiesen.",
+				'building_already_assign' => "Edificio già assegnato per tutto il trimestre",
 				'building_assign_deleted_property_manager' => "Sie können einem gelöschten Bewirtschafter keine Liegenschaft(en) zuordnen.",
 				'deleted' => "Bewirtschafter löschte Fehler: ",
 			],
@@ -840,7 +849,8 @@ return [
 				[
 					'label' => 'Sichtbarkeit',
 					'address' => 'Meine Nachbarn',
-					'district' => 'Überbauung',
+					'quarter' => 'Quartal',
+					'district' => 'Quartal',
 					'all' => 'Alle App-Nutzer',
 				],
 		],
