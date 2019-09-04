@@ -1,8 +1,8 @@
 <?php
 return [  
   'header' => 'Filter',
-  'quarters' => 'Quartale',
-  'districts' => 'Quartale',
+  'quarters' => 'Überbauungen',
+  'districts' => 'Überbauungen',
   'buildings' => 'Liegenschaften',
   'requests' => 'Anfragen',
   'open_requests' => 'Offene Anfragen',
@@ -17,6 +17,6 @@ return [
   'created_to' => 'Erstellt bis',
   'services' => 'Partnerfirmen',
   'tenant' => 'Mieter',
-  'roles' => 'Roles',
+  'roles' => 'Rollen',
   'type' => 'Typ',
 ];
