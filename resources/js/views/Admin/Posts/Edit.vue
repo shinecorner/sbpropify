@@ -494,7 +494,6 @@
                     }]
                 }],
                 activeTab1: "details",
-                rolename: ''
             }
         },
         mounted() {
