@@ -73,6 +73,12 @@ class PostRepository extends BaseRepository
             }
         }
 
+        if (isset($atts['category_image'])) {
+            $atts['category_image'] = ($atts['category_image'] == 'true') ? 1 : 0;
+        } else {
+            $atts['category_image'] = 0;
+        }
+
         $model = parent::create($atts);
         $model->quarters()->sync($atts['quarter_ids']);
         $model->buildings()->sync($atts['building_ids']);

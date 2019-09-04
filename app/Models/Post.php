@@ -143,6 +143,7 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         'execution_end',
         'title',
         'notify_email',
+        'category_image',
     ];
     public $fillable = self::Fillable;
 
@@ -159,6 +160,7 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         'content' => 'string',
         'pinned' => 'boolean',
         'notify_email' => 'boolean',
+        'category_image' => 'boolean',
     ];
 
     const templateMap = [

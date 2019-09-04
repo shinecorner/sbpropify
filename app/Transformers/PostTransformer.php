@@ -29,6 +29,7 @@ class PostTransformer extends BaseTransformer
             'type' => $model->type,
             'status' => $model->status,
             'visibility' => $model->visibility,
+            'category_image' => (bool) $model->category_image,
             'category' => $model->category,
             'content' => $model->content,
             'title' => $model->title,
