@@ -370,7 +370,7 @@ return [
       'pinned_to' => 'Pinned to',
       'comments' => 'Comments',
       'images' => 'Images',
-      'confirm_use_image' => 'Do want to use this image?',
+      'category_default_image_label' => 'Do want to use this image?',
       'placeholders' => 
       [
         'buildings' => 'Choose buildings',        

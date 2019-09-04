@@ -91,7 +91,7 @@
                                     </el-input>
                                 </el-form-item>
                                 <el-form-item v-if="model.pinned && this.showdefaultimage == true">
-                                    <label>{{$t('models.post.confirm_use_image')}}</label>
+                                    <label>{{$t('models.post.category_default_image_label')}}</label>
                                     <el-switch v-model="model.pinned_category"/>
                                     <el-row :gutter="20">
                                         <img

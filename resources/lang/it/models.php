@@ -370,7 +370,7 @@ return [
       "pinned_to" => "Inchiodato a",
       "comments" => "Commenti",
       "images" => "Immagini",
-      'confirm_use_image' => 'Vuoi usare questa immagine?',      
+      'category_default_image_label' => 'Vuoi usare questa immagine?',      
       'placeholders' => 
       [
         "buildings" => "Scegliere gli edifici",
