@@ -24,6 +24,7 @@ use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
 use App\Models\ServiceRequestAssignee;
+use App\Models\User;
 use App\Repositories\PropertyManagerRepository;
 use App\Repositories\ServiceProviderRepository;
 use App\Repositories\ServiceRequestRepository;
@@ -143,6 +144,7 @@ class ServiceRequestAPIController extends AppBaseController
                 'providers.address:id,country_id,state_id,city,street,zip',
                 'providers.user',
                 'managers.user',
+                'users'
             ])->paginate($perPage);
 
         $serviceRequests->getCollection()->loadCount('allComments');
@@ -250,7 +252,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $serviceRequest->load([
-            'media', 'tenant.user', 'tenant.building', 'category', 'managers',
+            'media', 'tenant.user', 'tenant.building', 'category', 'managers', 'users',
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers',
         ]);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
@@ -328,7 +330,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $updatedServiceRequest->load([
-            'media', 'tenant.user', 'category', 'managers.user',
+            'media', 'tenant.user', 'category', 'managers.user', 'users',
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers.user',
         ]);
         $response = (new ServiceRequestTransformer)->transform($updatedServiceRequest);
@@ -629,7 +631,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $sr->providers()->sync([$pid => ['created_at' => now()]], false);
-        $sr->load('media', 'tenant.user', 'category', 'comments.user',
+        $sr->load('media', 'tenant.user', 'category', 'comments.user', 'users',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user');
 
         foreach ($sr->managers as $manager) {
@@ -731,7 +733,7 @@ class ServiceRequestAPIController extends AppBaseController
         // @TODO check admin or super admin
 
         $sr->users()->sync([$uid => ['created_at' => now()]], false);
-        $sr->load('media', 'tenant.user', 'category', 'comments.user',
+        $sr->load('media', 'tenant.user', 'category', 'comments.user', 'users',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user');
 
         foreach ($sr->providers as $p) {
@@ -841,7 +843,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $sr->managers()->sync([$pmid => ['created_at' => now()]], false);
-        $sr->load('media', 'tenant.user', 'category', 'comments.user',
+        $sr->load('media', 'tenant.user', 'category', 'comments.user', 'users',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user');
 
         foreach ($sr->providers as $p) {
@@ -986,7 +988,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $sr->tags()->sync($tag, false);
-        $sr->load('media', 'tenant.user', 'category', 'comments.user',
+        $sr->load('media', 'tenant.user', 'category', 'comments.user', 'users',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
         return $this->sendResponse($sr, __('general.attached.tag'));
@@ -1071,7 +1073,7 @@ class ServiceRequestAPIController extends AppBaseController
             $sr->tags()->sync($tagIds, false);
         }
 
-        $sr->load('media', 'tenant.user', 'category', 'comments.user',
+        $sr->load('media', 'tenant.user', 'category', 'comments.user', 'users',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
         return $this->sendResponse($sr, __('general.attached.tag'));
@@ -1149,7 +1151,7 @@ class ServiceRequestAPIController extends AppBaseController
             $sr->tags()->detach($tagIds);
         }
 
-        $sr->load('media', 'tenant.user', 'category', 'comments.user',
+        $sr->load('media', 'tenant.user', 'category', 'comments.user', 'users',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
         return $this->sendResponse($sr, __('general.detached.tag'));
@@ -1202,7 +1204,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $sr->tags()->detach($tag);
-        $sr->load('media', 'tenant.user', 'category', 'comments.user',
+        $sr->load('media', 'tenant.user', 'category', 'comments.user', 'users',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
         return $this->sendResponse($sr, __('general.detached.tag'));
@@ -1252,33 +1254,39 @@ class ServiceRequestAPIController extends AppBaseController
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $assignees = $sr->assignees()->paginate($perPage);
 
-        $providerType = get_morph_type_of(\App\Models\ServiceProvider::class);
+        $providerType = get_morph_type_of(ServiceProvider::class);
         $providerIds = $assignees->where('assignee_type', $providerType)->pluck('assignee_id');
-
-        $managerType = get_morph_type_of(\App\Models\PropertyManager::class);
-        $managerIds = $assignees->where('assignee_type', $managerType)->pluck('assignee_id');
-
-        $raw = DB::raw('(select email from users where users.id = property_managers.user_id) as email,
-                (select avatar from users where users.id = property_managers.user_id) as avatar, 
-                Concat(first_name, " ", last_name) as name');
-
-
-        $managers = PropertyManager::select('id', $raw)
-            ->whereIn('id', $managerIds)
-            ->get();
-
         $raw = DB::raw('(select avatar from users where users.id = service_providers.user_id) as avatar');
         $providers = ServiceProvider::select('id', 'email', 'name', $raw)
             ->whereIn('id', $providerIds)
             ->get();
+
+
+        $managerType = get_morph_type_of(PropertyManager::class);
+        $managerIds = $assignees->where('assignee_type', $managerType)->pluck('assignee_id');
+        $raw = DB::raw('(select email from users where users.id = property_managers.user_id) as email,
+                (select avatar from users where users.id = property_managers.user_id) as avatar, 
+                Concat(first_name, " ", last_name) as name');
+        $managers = PropertyManager::select('id', $raw)
+            ->whereIn('id', $managerIds)
+            ->get();
+
+        $userType = get_morph_type_of(User::class);
+        $userIds = $assignees->where('assignee_type', $userType)->pluck('assignee_id');
+        $users = User::select('id', 'name', 'email')
+            ->whereIn('id', $userIds)
+            ->get();
+
+
+
         foreach ($assignees as $index => $assignee) {
             $related = null;
             if ($assignee->assignee_type == $providerType) {
                 $related = $providers->where('id', $assignee->assignee_id)->first();
-            }
-
-            if ($assignee->assignee_type == $managerType) {
+            } elseif ($assignee->assignee_type == $managerType) {
                 $related = $managers->where('id', $assignee->assignee_id)->first();
+            } elseif ($assignee->assignee_type == $userType) {
+                $related = $users->where('id', $assignee->assignee_id)->first();
             }
 
             $assignee->related = $related;

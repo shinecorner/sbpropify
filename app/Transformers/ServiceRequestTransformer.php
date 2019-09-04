@@ -62,6 +62,11 @@ class ServiceRequestTransformer extends BaseTransformer
             $response['property_managers'] = (new PropertyManagerTransformer())->transformCollection($model->managers);
         }
 
+        if ($model->relationExists('users')) {
+            $assignedUsers = $assignedUsers->merge($model->users);
+            $response['users'] = (new UserTransformer())->transformCollection($model->users);
+        }
+
         if ($assignedUsers->count()) {
             $response['assignedUsers'] = (new UserTransformer)->transformCollection($assignedUsers);
         } else {
