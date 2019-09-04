@@ -197,7 +197,7 @@ HTML
                     'category' => 'post.categoryStr',
                     'providers' => 'post.providersStr',
                     'buildings' => 'post.buildingsStr',
-                    'districts' => 'post.districtsStr',
+                    'quarters' => 'post.quartersStr',
                     'autologin' => 'user.autologinUrl',
                 ],
                 'subject' => 'New Pined post: {{title}}',
