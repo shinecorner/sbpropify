@@ -61,6 +61,8 @@ class AppBaseController extends Controller
     }
 
     /**
+     * get assignees related users
+     *
      * @param $assignees
      * @return mixed
      */
@@ -76,6 +78,8 @@ class AppBaseController extends Controller
     }
 
     /**
+     * get assignees related property managers
+     *
      * @param $assignees
      * @return mixed
      */
@@ -94,6 +98,8 @@ class AppBaseController extends Controller
     }
 
     /**
+     * Get assignees related service providers
+     *
      * @param $assignees
      * @return mixed
      */
@@ -109,19 +115,22 @@ class AppBaseController extends Controller
         return [ $providerType => $providers];
     }
 
+    /**
+     * Get assignees related item details
+     *
+     * @param $assignees
+     * @param $classes
+     * @return mixed
+     */
     public function getAssigneesRelated($assignees, $classes)
     {
         $data = [];
 
         if (in_array(PropertyManager::class, $classes)) {
             $data += $this->getAssignedManagersBy($assignees);
-        }
-
-        if (in_array(User::class, $classes)) {
+        } elseif (in_array(User::class, $classes)) {
             $data += $this->getAssignedUsersBy($assignees);
-        }
-
-        if (in_array(ServiceProvider::class, $classes)) {
+        } else if (in_array(ServiceProvider::class, $classes)) {
             $data += $this->getAssignedProvidersBy($assignees);
         }
 
