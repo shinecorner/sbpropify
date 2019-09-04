@@ -724,7 +724,7 @@ return [
         "label" => "Type",
         "provider" => "Service",
         "manager" => "Directeur",
-        'admin' => 'Administrator',
+        'user' => 'Administrator',
       ],
       'visibility' => 
       [

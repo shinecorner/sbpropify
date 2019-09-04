@@ -148,6 +148,7 @@ return [
     'building' => 'Liegenschaft',
     'quarter' => 'Quartal',
     'district' => 'Quartal',
+    'administrator' => 'Verwalterin'
   ],
   'email' => 'E-Mail',
   'email_validation' => 

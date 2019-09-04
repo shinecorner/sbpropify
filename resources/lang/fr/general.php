@@ -148,6 +148,7 @@ return [
     "district" => "Trimestre",
     "services" => "Services",
     "managers" => "Gestionnaires",        
+    "administrator" => "Administrateur",
   ],
   'email' => 'Courriel',
   'email_validation' => 
