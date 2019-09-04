@@ -224,7 +224,7 @@
                                         <el-badge :value="mediaCount" :max="99" class="admin-layout">{{ $t('models.request.images') }}</el-badge>
                                     </span>
                                     <el-alert
-                                        v-if="media.length == 0 || (!model.media && mediaCount == 0)"
+                                        v-if="( !media || media.length == 0) && mediaCount == 0"
                                         :title="$t('models.request.no_images_message')"
                                         type="info"
                                         show-icon
