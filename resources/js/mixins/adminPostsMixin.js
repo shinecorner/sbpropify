@@ -27,18 +27,18 @@ export default (config = {}) => {
                 remoteLoading: false,
                 model: {
                     content: '',
-                    type: 1,
                     visibility: 1,
                     status: 1,
                     media: [],
                     published_at: '',
                     user_id: '',
-                    pinned: false,
+                    pinned: '',
                     notify_email: false,
                     category: '',
                     pinned_to: null,
                     execution_start: null,
                     execution_end: null,
+                    pinned_category: true
                 },
                 validationRules: {
                     content: [{
@@ -76,7 +76,11 @@ export default (config = {}) => {
                 toAssign: '',
                 toAssignList: [],
                 toAssignProvider: '',
-                toAssignProviderList: []
+                toAssignProviderList: [],
+                types: [],
+                showdefaultimage: false,
+                rolename: ''
+
             }
         },
         computed: {
@@ -284,6 +288,7 @@ export default (config = {}) => {
                         this.loading.state = true;
 
                         try {
+                            this.model.pinned = this.model.type == 3 ? true : false;
                             const resp = await this.createPost(this.model);
 
                             if (resp && resp.data.id) {
@@ -340,6 +345,7 @@ export default (config = {}) => {
                                 try {
                                     this.loading.state = true;
                                     this.model.status = 2;
+                                    this.model.pinned = this.model.type == 3 ? true : false;
 
                                     await this.uploadNewMedia(this.model.id);
 
@@ -366,6 +372,7 @@ export default (config = {}) => {
                     },
                     async fetchCurrentPost() {
                         this.model = await this.getPost({id: this.$route.params.id});
+                        this.showdefaultimage = this.model.category != null ? true : false;
                         return this.model;
                     }
                 };

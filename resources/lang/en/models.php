@@ -371,6 +371,7 @@ return [
       'pinned_to' => 'Pinned to',
       'comments' => 'Comments',
       'images' => 'Images',
+      'category_default_image_label' => 'Do want to use this image?',
       'placeholders' => 
       [
         'buildings' => 'Choose buildings',        
