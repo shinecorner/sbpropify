@@ -14,8 +14,8 @@ class RenameDistrictToQuarters extends Migration
     public function up()
     {
         Schema::rename('districts', 'quarters');
-        Schema::rename('district_property_manager', 'quarters_property_manager');
-        Schema::rename('district_service_provider', 'quarters_service_provider');
+        Schema::rename('district_property_manager', 'quarter_property_manager');
+        Schema::rename('district_service_provider', 'quarter_service_provider');
         Schema::rename('district_post', 'quarter_post');
     }
 
@@ -27,8 +27,8 @@ class RenameDistrictToQuarters extends Migration
     public function down()
     {
         Schema::rename('quarters', 'districts');
-        Schema::rename('quarters_property_manager', 'district_property_manager');
-        Schema::rename('quarters_service_provider', 'district_service_provider');
+        Schema::rename('quarter_property_manager', 'district_property_manager');
+        Schema::rename('quarter_service_provider', 'district_service_provider');
         Schema::rename('quarter_post', 'district_post');
     }
 }
