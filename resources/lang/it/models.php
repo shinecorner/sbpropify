@@ -370,7 +370,8 @@ return [
       "notify_email" => "Notifica e-mail",
       "pinned_to" => "Inchiodato a",
       "comments" => "Commenti",
-      "images" => "Immagini",      
+      "images" => "Immagini",
+      'category_default_image_label' => 'Vuoi usare questa immagine?',      
       'placeholders' => 
       [
         "buildings" => "Scegliere gli edifici",

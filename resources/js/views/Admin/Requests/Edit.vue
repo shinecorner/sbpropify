@@ -224,7 +224,7 @@
                                         <el-badge :value="mediaCount" :max="99" class="admin-layout">{{ $t('models.request.images') }}</el-badge>
                                     </span>
                                     <el-alert
-                                        v-if="!media.length || (!model.media && !model.media.length)"
+                                        v-if="( !media || media.length == 0) && mediaCount == 0"
                                         :title="$t('models.request.no_images_message')"
                                         type="info"
                                         show-icon
@@ -784,14 +784,21 @@
     }
 
     #edit_request {
+        .el-form-item {
+            margin-bottom: 16px;
+        }
         .el-card__body {
             padding: 16px 16px 0px 16px !important;
         }
         .request {
-            padding: 16px !important;
+            .el-card__body {
+                padding: 16px !important;
+            }
         }
         #comments {
-            padding: 16px !important;
+            .el-card__body {
+                padding: 16px !important;
+            }
         }
     }
 </style>

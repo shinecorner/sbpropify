@@ -332,6 +332,7 @@ export default {
                 "pinned_to": "Épinglé sur",
                 "comments": "Commentaires",
                 "images": "Images",
+                "category_default_image_label": "Voulez-vous utiliser cette image?",
                 "placeholders": {
                     "buildings": "Choisir des bâtiments",
                     "search_provider": "Fournisseur de recherche"

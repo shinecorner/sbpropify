@@ -332,6 +332,7 @@ export default {
                 "pinned_to": "Hervorheben bis",
                 "comments": "Kommentare",
                 "images": "Fotos und Dokumente",
+                "category_default_image_label": "Möchten Sie dieses Bild verwenden?",
                 "placeholders": {
                     "buildings": "Liegenschaft wählen",
                     "search_provider": "Dienstleister suchen"

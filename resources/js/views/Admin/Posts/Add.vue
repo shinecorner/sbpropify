@@ -10,7 +10,7 @@
                         <el-row :gutter="20">
                             <el-col :lg="model.pinned? 12 : 8">
                                 <el-form-item :label="$t('models.post.type.label')">
-                                    <el-select style="display: block" v-model="model.pinned" @change="chagePinned">
+                                    <el-select style="display: block" v-model="model.pinned" @change="changePinned">
                                         <el-option
                                             :label="$t(`models.post.type.article`)"
                                             :value="false"
@@ -240,7 +240,7 @@
                 const executionStart = new Date(this.model.execution_start).getTime();
                 return d <= executionStart;
             },
-            chagePinned(nValue) {
+            changePinned(nValue) {
                 if(nValue) {
                     this.model.status = 2;
                 }else {
