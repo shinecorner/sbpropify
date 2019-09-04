@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\API\District;
+namespace App\Http\Requests\API\Quarter;
 
-use App\Models\District;
+use App\Models\Quarter;
 use InfyOm\Generator\Request\APIRequest;
 
 class CreateRequest extends APIRequest
@@ -14,7 +14,7 @@ class CreateRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('post-district');
+        return $this->user()->can('post-quarter');
     }
 
     /**
@@ -24,6 +24,6 @@ class CreateRequest extends APIRequest
      */
     public function rules()
     {
-        return District::$rules;
+        return Quarter::$rules;
     }
 }

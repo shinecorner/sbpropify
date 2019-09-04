@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\API\District;
+namespace App\Http\Requests\API\Quarter;
 
-use App\Models\District;
+use App\Models\Quarter;
 use InfyOm\Generator\Request\APIRequest;
 
-class ListRequest extends APIRequest
+class UpdateRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class ListRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('list-district');
+        return $this->user()->can('edit-quarter');
     }
 
     /**
@@ -24,6 +24,6 @@ class ListRequest extends APIRequest
      */
     public function rules()
     {
-        return [];
+        return Quarter::$rules;
     }
 }

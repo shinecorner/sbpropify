@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Building;
-use App\Models\District;
+use App\Models\Quarter;
 use App\Models\Post;
 use App\Models\Tenant;
 use App\Models\RealEstate;
@@ -58,7 +58,7 @@ class PostRepository extends BaseRepository
     public function create(array $atts)
     {
         $atts['building_ids'] = $atts['building_ids'] ?? [];
-        $atts['district_ids'] = $atts['district_ids'] ?? [];
+        $atts['quarter_ids'] = $atts['quarter_ids'] ?? $atts['district_ids'] ?? [];
         $u = \Auth::user();
         if ($u->can('post-post') && !($u->can('post-located-post'))) {
             if ($u->tenant()->exists()) {
@@ -67,14 +67,20 @@ class PostRepository extends BaseRepository
                 }
 
                 $atts['building_ids'] = [$u->tenant->building->id];
-                if ($u->tenant->building->district_id) {
-                    $atts['district_ids'] = [$u->tenant->building->district_id];
+                if ($u->tenant->building->quarter_id) {
+                    $atts['quarter_ids'] = [$u->tenant->building->quarter_id]; // @TODO fix overwrite quarter_ids
                 }
             }
         }
 
+        if (isset($atts['category_image'])) {
+            $atts['category_image'] = ($atts['category_image'] == 'true') ? 1 : 0;
+        } else {
+            $atts['category_image'] = 0;
+        }
+
         $model = parent::create($atts);
-        $model->districts()->sync($atts['district_ids']);
+        $model->quarters()->sync($atts['quarter_ids']);
         $model->buildings()->sync($atts['building_ids']);
         if (!$atts['needs_approval']) {
             // @TODO improve
@@ -159,13 +165,13 @@ class PostRepository extends BaseRepository
             $users = User::has('tenant')->where('id', '!=', $post->user_id)->get();
             $usersToNotify = $usersToNotify->merge($users);
         }
-        if ($post->visibility == Post::VisibilityDistrict) {
-            $district_ids = $post->districts()->pluck('id')->toArray();
+        if ($post->visibility == Post::VisibilityQuarter) {
+            $quarter_ids = $post->quarters()->pluck('id')->toArray();
             $users = User::select('users.*')
                 ->join('tenants', 'tenants.user_id', '=', 'users.id')
                 ->join('buildings', 'tenants.building_id', '=', 'buildings.id')
                 ->where('tenants.deleted_at', null)
-                ->whereIn('buildings.district_id', $district_ids)
+                ->whereIn('buildings.quarter_id', $quarter_ids)
                 ->get();
             $usersToNotify = $usersToNotify->merge($users);
         }
@@ -180,7 +186,7 @@ class PostRepository extends BaseRepository
         }
         if ($post->pinned) {
             $building_ids = $post->buildings()->pluck('id')->toArray();
-            $district_ids = $post->districts()->pluck('id')->toArray();
+            $quarter_ids = $post->quarters()->pluck('id')->toArray();
             $bUsers = User::select('users.*')
                 ->join('tenants', 'tenants.user_id', '=', 'users.id')
                 ->where('tenants.deleted_at', null)
@@ -190,7 +196,7 @@ class PostRepository extends BaseRepository
                 ->join('tenants', 'tenants.user_id', '=', 'users.id')
                 ->join('buildings', 'tenants.building_id', '=', 'buildings.id')
                 ->where('tenants.deleted_at', null)
-                ->whereIn('buildings.district_id', $district_ids)
+                ->whereIn('buildings.quarter_id', $quarter_ids)
                 ->get();
             $usersToNotify = $usersToNotify->merge($bUsers);
             $usersToNotify = $usersToNotify->merge($dUsers);
@@ -276,14 +282,14 @@ class PostRepository extends BaseRepository
      */
     public function locations(Post $p)
     {
-        // Cannot use $p->buildings() and $p->districts() because of a bug
+        // Cannot use $p->buildings() and $p->quarters() because of a bug
         // related to different number of columns in union
         $pbs = Building::select(\DB::raw('id, name, "building" as type'))
             ->join('building_post', 'building_post.building_id', '=', 'id')
             ->where('building_post.post_id', $p->id);
-        $pds = District::select(\DB::raw('id, name, "district" as type'))
-            ->join('district_post', 'district_post.district_id', '=', 'id')
-            ->where('district_post.post_id', $p->id);
+        $pds = Quarter::select(\DB::raw('id, name, "quarter" as type'))
+            ->join('quarter_post', 'quarter_post.quarter_id', '=', 'id')
+            ->where('quarter_post.post_id', $p->id);
 
         return $pbs->union($pds);
     }

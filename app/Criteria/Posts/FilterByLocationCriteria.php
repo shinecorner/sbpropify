@@ -60,16 +60,16 @@ class FilterByLocationCriteria implements CriteriaInterface
             Post::VisibilityAll,
             $t->building_id,
         ];
-        // If the tenant building is in a district, show the pinned posts from that district
-        if ($t->building && $t->building->district_id) {
-            $conds[] = "district_post.district_id = ?";
-            $args[] = $t->building->district_id;
+        // If the tenant building is in a quarter, show the pinned posts from that quarter
+        if ($t->building && $t->building->quarter_id) {
+            $conds[] = "quarter_post.quarter_id = ?";
+            $args[] = $t->building->quarter_id;
         }
 
         // It's raw, Melissa, because  https://github.com/laravel/framework/issues/23957
         return $model->select('posts.*')->distinct()
             ->leftJoin("building_post", "building_post.post_id", "=", "posts.id")
-            ->leftJoin("district_post", "district_post.post_id", "=", "posts.id")
+            ->leftJoin("quarter_post", "quarter_post.post_id", "=", "posts.id")
             ->whereRaw("(" . implode(" or ", $conds) . ")", $args);
     }
 }

@@ -3,42 +3,43 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
-use App\Http\Requests\API\District\CreateRequest;
-use App\Http\Requests\API\District\UpdateRequest;
-use App\Http\Requests\API\District\ListRequest;
-use App\Http\Requests\API\District\ViewRequest;
-use App\Http\Requests\API\District\DeleteRequest;
-use App\Models\District;
-use App\Repositories\DistrictRepository;
-use App\Transformers\DistrictTransformer;
+use App\Http\Requests\API\Quarter\CreateRequest;
+use App\Http\Requests\API\Quarter\UpdateRequest;
+use App\Http\Requests\API\Quarter\ListRequest;
+use App\Http\Requests\API\Quarter\ViewRequest;
+use App\Http\Requests\API\Quarter\DeleteRequest;
+use App\Models\Quarter;
+use App\Repositories\QuarterRepository;
+use App\Transformers\QuarterTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use App\Criteria\Common\RequestCriteria;
 
 /**
- * Class DistrictController
+ * Class QuarterController
  * @package App\Http\Controllers\API
  */
-class DistrictAPIController extends AppBaseController
+class QuarterAPIController extends AppBaseController
 {
-    /** @var  DistrictRepository */
-    private $districtRepository;
+    /** @var  QuarterRepository */
+    private $quarterRepository;
 
-    public function __construct(DistrictRepository $districtRepo)
+    public function __construct(QuarterRepository $quarterRepo)
     {
-        $this->districtRepository = $districtRepo;
+        $this->quarterRepository = $quarterRepo;
     }
 
     /**
-     * @param Request $request
-     * @return Response
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      *
      * @SWG\Get(
-     *      path="/districts",
-     *      summary="Get a listing of the Districts.",
-     *      tags={"District"},
-     *      description="Get all Districts",
+     *      path="/quarters",
+     *      summary="Get a listing of the Quarters.",
+     *      tags={"Quarter"},
+     *      description="Get all Quarters",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -52,7 +53,7 @@ class DistrictAPIController extends AppBaseController
      *              @SWG\Property(
      *                  property="data",
      *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/District")
+     *                  @SWG\Items(ref="#/definitions/Quarter")
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -64,39 +65,40 @@ class DistrictAPIController extends AppBaseController
      */
     public function index(ListRequest $request)
     {
-        $this->districtRepository->pushCriteria(new RequestCriteria($request));
-        $this->districtRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $this->quarterRepository->pushCriteria(new RequestCriteria($request));
+        $this->quarterRepository->pushCriteria(new LimitOffsetCriteria($request));
 
         $getAll = $request->get('get_all', false);
         if ($getAll) {
-            $districts = $this->districtRepository->get();
-            $response = (new DistrictTransformer)->transformCollection($districts);
-            return $this->sendResponse($response, 'Districts retrieved successfully');
+            $quarters = $this->quarterRepository->get();
+            $response = (new QuarterTransformer)->transformCollection($quarters);
+            return $this->sendResponse($response, 'Quarters retrieved successfully');
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $districts = $this->districtRepository->paginate($perPage);
+        $quarters = $this->quarterRepository->paginate($perPage);
 
-        $response = (new DistrictTransformer)->transformPaginator($districts);
-        return $this->sendResponse($response, 'Districts retrieved successfully');
+        $response = (new QuarterTransformer)->transformPaginator($quarters);
+        return $this->sendResponse($response, 'Quarters retrieved successfully');
     }
 
     /**
      * @param CreateRequest $request
-     * @return Response
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Post(
-     *      path="/districts",
-     *      summary="Store a newly created District in storage",
-     *      tags={"District"},
-     *      description="Store District",
+     *      path="/quarters",
+     *      summary="Store a newly created Quarter in storage",
+     *      tags={"Quarter"},
+     *      description="Store Quarter",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="District that should be stored",
+     *          description="Quarter that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/District")
+     *          @SWG\Schema(ref="#/definitions/Quarter")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -109,7 +111,7 @@ class DistrictAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/District"
+     *                  ref="#/definitions/Quarter"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -122,10 +124,10 @@ class DistrictAPIController extends AppBaseController
     public function store(CreateRequest $request)
     {
         $input = $request->all();
-        $district = $this->districtRepository->create($input);
-        $response = (new DistrictTransformer)->transform($district);
+        $quarter = $this->quarterRepository->create($input);
+        $response = (new QuarterTransformer)->transform($quarter);
 
-        return $this->sendResponse($response, __('models.district.saved'));
+        return $this->sendResponse($response, __('models.quarter.saved'));
     }
 
     /**
@@ -133,14 +135,14 @@ class DistrictAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Get(
-     *      path="/districts/{id}",
-     *      summary="Display the specified District",
-     *      tags={"District"},
-     *      description="Get District",
+     *      path="/quarters/{id}",
+     *      summary="Display the specified Quarter",
+     *      tags={"Quarter"},
+     *      description="Get Quarter",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of District",
+     *          description="id of Quarter",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -156,7 +158,7 @@ class DistrictAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/District"
+     *                  ref="#/definitions/Quarter"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -168,31 +170,32 @@ class DistrictAPIController extends AppBaseController
      */
     public function show($id, ViewRequest $r)
     {
-        /** @var District $district */
-        $district = $this->districtRepository->findWithoutFail($id);
-        if (empty($district)) {
-            return $this->sendError(__('models.district.errors.not_found'));
+        /** @var Quarter $quarter */
+        $quarter = $this->quarterRepository->findWithoutFail($id);
+        if (empty($quarter)) {
+            return $this->sendError(__('models.quarter.errors.not_found'));
         }
 
-        $response = (new DistrictTransformer)->transform($district);
+        $response = (new QuarterTransformer)->transform($quarter);
 
-        return $this->sendResponse($response, 'District retrieved successfully');
+        return $this->sendResponse($response, 'Quarter retrieved successfully');
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @param UpdateRequest $request
-     * @return Response
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Put(
-     *      path="/districts/{id}",
-     *      summary="Update the specified District in storage",
-     *      tags={"District"},
-     *      description="Update District",
+     *      path="/quarters/{id}",
+     *      summary="Update the specified Quarter in storage",
+     *      tags={"Quarter"},
+     *      description="Update Quarter",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of District",
+     *          description="id of Quarter",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -200,9 +203,9 @@ class DistrictAPIController extends AppBaseController
      *      @SWG\Parameter(
      *          name="body",
      *          in="body",
-     *          description="District that should be updated",
+     *          description="Quarter that should be updated",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/District")
+     *          @SWG\Schema(ref="#/definitions/Quarter")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -215,7 +218,7 @@ class DistrictAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/District"
+     *                  ref="#/definitions/Quarter"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -229,32 +232,35 @@ class DistrictAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        /** @var District $district */
-        $district = $this->districtRepository->findWithoutFail($id);
+        /** @var Quarter $quarter */
+        $quarter = $this->quarterRepository->findWithoutFail($id);
 
-        if (empty($district)) {
-            return $this->sendError(__('models.district.errors.not_found'));
+        if (empty($quarter)) {
+            return $this->sendError(__('models.quarter.errors.not_found'));
         }
 
-        $district = $this->districtRepository->update($input, $id);
+        $quarter = $this->quarterRepository->update($input, $id);
 
-        $response = (new DistrictTransformer)->transform($district);
-        return $this->sendResponse($response, __('models.district.saved'));
+        $response = (new QuarterTransformer)->transform($quarter);
+        return $this->sendResponse($response, __('models.quarter.saved'));
     }
 
     /**
-     * @param int $id
-     * @return Response
+     * @param $id
+     * @param DeleteRequest $r
+     * @return mixed
+     * @throws \Exception
+     *
      *
      * @SWG\Delete(
-     *      path="/districts/{id}",
-     *      summary="Remove the specified District from storage",
-     *      tags={"District"},
-     *      description="Delete District",
+     *      path="/quarters/{id}",
+     *      summary="Remove the specified Quarter from storage",
+     *      tags={"Quarter"},
+     *      description="Delete Quarter",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of District",
+     *          description="id of Quarter",
      *          type="integer",
      *          required=true,
      *          in="path"
@@ -282,25 +288,30 @@ class DistrictAPIController extends AppBaseController
      */
     public function destroy($id, DeleteRequest $r)
     {
-        /** @var District $district */
-        $district = $this->districtRepository->findWithoutFail($id);
+        /** @var Quarter $quarter */
+        $quarter = $this->quarterRepository->findWithoutFail($id);
 
-        if (empty($district)) {
-            return $this->sendError(__('models.district.errors.not_found'));
+        if (empty($quarter)) {
+            return $this->sendError(__('models.quarter.errors.not_found'));
         }
 
-        $district->delete();
+        $quarter->delete();
 
-        return $this->sendResponse($id, __('models.district.deleted'));
+        return $this->sendResponse($id, __('models.quarter.deleted'));
     }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function destroyWithIds(Request $request){
         $ids = $request->get('ids');
         try{
-            District::destroy($ids);            
+            Quarter::destroy($ids);
         }
         catch (\Exception $e) {
-            return $this->sendError(__('models.district.errors.deleted') . $e->getMessage());
+            return $this->sendError(__('models.quarter.errors.deleted') . $e->getMessage());
         }
-        return $this->sendResponse($ids, __('models.district.deleted'));
+        return $this->sendResponse($ids, __('models.quarter.deleted'));
     }
 }

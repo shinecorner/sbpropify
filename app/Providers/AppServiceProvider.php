@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Building;
-use App\Models\District;
+use App\Models\Quarter;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\PropertyManager;
@@ -50,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
             'post' => Post::class,
             'tenant' => Tenant::class,
             'product' => Product::class,
-            'district' => District::class,
+            'quarter' => Quarter::class,
             'building' => Building::class,
             'templates' => Template::class,
             'request' => ServiceRequest::class,

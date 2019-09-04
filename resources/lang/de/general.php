@@ -57,7 +57,8 @@ return [
   'attached' =>
   [
     'building' => 'Liegenschaft wurde zugewiesen.',
-    'district' => 'Überbauung wurde zugewiesen.',
+    'quarter' => 'Zugeordnetes Quartal',
+    'district' => 'Zugeordnetes Quartal',
     'provider' => 'Dienstleister wurde zugewiesen.',
     'tenant' => "Mieter wurde zugewiesen.",
     'service' => 'Dienstleister wurde zugewiesen.',
@@ -68,7 +69,8 @@ return [
   'detached' =>
   [
     'building' => 'Liegenschaft wurde entfernt',
-    'district' => 'Überbbauung wurde entfernt',
+    'quarter' => 'Quartal nicht zugeordnet',
+    'district' => 'Quartal nicht zugeordnet',
     'provider' => 'Dienstleister wurde wurde entfernt',
     'tenant' => "Mieter wurde entfernt.",
     'service' => 'Dienstleister wurde entfernt.',
@@ -144,7 +146,8 @@ return [
     'services' => 'Dienstleister',
     'managers' => 'Bewirtschafter',
     'building' => 'Liegenschaft',
-    'district' => 'Überbauung',
+    'quarter' => 'Quartal',
+    'district' => 'Quartal',
   ],
   'email' => 'E-Mail',
   'email_validation' => 

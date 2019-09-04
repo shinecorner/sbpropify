@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\Common\WhereCriteria;
 use App\Criteria\Tenants\FilterByBuildingCriteria;
-use App\Criteria\Tenants\FilterByDistrictCriteria;
+use App\Criteria\Tenants\FilterByQuarterCriteria;
 use App\Criteria\Tenants\FilterByRequestCriteria;
 use App\Criteria\Tenants\FilterByStateCriteria;
 use App\Criteria\Tenants\FilterByStatusCriteria;
@@ -103,7 +103,7 @@ class TenantAPIController extends AppBaseController
         ]);
 
         $this->tenantRepository->pushCriteria(new FilterByBuildingCriteria($request));
-        $this->tenantRepository->pushCriteria(new FilterByDistrictCriteria($request));
+        $this->tenantRepository->pushCriteria(new FilterByQuarterCriteria($request));
         $this->tenantRepository->pushCriteria(new FilterByStateCriteria($request));
         $this->tenantRepository->pushCriteria(new FilterByRequestCriteria($request));
         $this->tenantRepository->pushCriteria(new FilterByUnitCriteria($request));

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class DistrictsTableSeeder extends Seeder
+class QuartersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,8 +16,8 @@ class DistrictsTableSeeder extends Seeder
         }
 
         for ($i = 1; $i <= 10; $i++) {
-            factory(App\Models\District::class, 1)->create([
-                'name' => 'District ' . $i,
+            factory(App\Models\Quarter::class, 1)->create([
+                'name' => 'Quarter ' . $i,
             ]);
         }
     }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class FilDistrictFormatInDistrictsTable extends Migration
+class FixQuarterTableData extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class FilDistrictFormatInDistrictsTable extends Migration
      */
     public function up()
     {
-
-        $quarter = new \App\Models\Quarter();
-        $quarter->setTable('districts');
-        $quarter->get(['id', 'created_at'])->each(function ($district) {
-            $district->district_format  = $district->getUniqueIDFormat($district->id, $district->created_at);
+        update_district_to_quarter(\App\Models\Quarter::class, ['name']);
+        \App\Models\Quarter::get(['id', 'quarter_format'])->each(function ($district) {
+            $district->quarter_format = str_replace('DI', 'QT',  $district->quarter_format);
             $district->save();
         });
+
     }
 
     /**
@@ -29,5 +28,6 @@ class FilDistrictFormatInDistrictsTable extends Migration
      */
     public function down()
     {
+        //
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Criteria\Posts\FeedCriteria;
 use App\Criteria\Posts\FilterByBuildingCriteria;
-use App\Criteria\Posts\FilterByDistrictCriteria;
+use App\Criteria\Posts\FilterByQuarterCriteria;
 use App\Criteria\Posts\FilterByLocationCriteria;
 use App\Criteria\Posts\FilterByPinnedCriteria;
 use App\Criteria\Posts\FilterByStatusCriteria;
@@ -20,11 +20,9 @@ use App\Http\Requests\API\Post\ShowRequest;
 use App\Http\Requests\API\Post\UpdateRequest;
 use App\Http\Requests\API\Post\ListViewsRequest;
 use App\Models\Post;
-use App\Models\User;
-use App\Notifications\NewTenantPost;
 use App\Notifications\PostLiked;
 use App\Repositories\BuildingRepository;
-use App\Repositories\DistrictRepository;
+use App\Repositories\QuarterRepository;
 use App\Repositories\PostRepository;
 use App\Repositories\RealEstateRepository;
 use App\Repositories\ServiceProviderRepository;
@@ -36,7 +34,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
-use Notification;
 
 /**
  * Class PostController
@@ -109,7 +106,7 @@ class PostAPIController extends AppBaseController
         $this->postRepository->pushCriteria(new FilterByTypeCriteria($request));
         $this->postRepository->pushCriteria(new FilterByLocationCriteria($request));
         $this->postRepository->pushCriteria(new FilterByUserCriteria($request));
-        $this->postRepository->pushCriteria(new FilterByDistrictCriteria($request));
+        $this->postRepository->pushCriteria(new FilterByQuarterCriteria($request));
         $this->postRepository->pushCriteria(new FilterByBuildingCriteria($request));
         $this->postRepository->pushCriteria(new FilterByPinnedCriteria($request));
         $this->postRepository->pushCriteria(new FilterByTenantCriteria($request));
@@ -119,7 +116,7 @@ class PostAPIController extends AppBaseController
             'media',
             'user.tenant',
             'likesCounter',
-            'likes' => function($q){$q->take(3);},
+            'likes',
             'likes.user',
             'buildings.address.state',
             'buildings.serviceProviders',
@@ -242,12 +239,12 @@ class PostAPIController extends AppBaseController
             'media',
             'user.tenant',
             'likesCounter',
-            'likes' => function($q){$q->take(3);},
+            'likes',
             'likes.user',
             'buildings.address.state',
             'buildings.serviceProviders',
             'buildings.media',
-            'districts',
+            'quarters',
             'providers',
             'views',
         ])->withCount('allComments')->findWithoutFail($id);
@@ -326,12 +323,12 @@ class PostAPIController extends AppBaseController
             'media',
             'user.tenant',
             'likesCounter',
-            'likes' => function($q){$q->take(3);},
+            'likes',
             'likes.user',
             'buildings.address.state',
             'buildings.serviceProviders',
             'buildings.media',
-            'districts',
+            'quarters',
         ])->withCount('allComments')->findWithoutFail($id);
         $post->status = $status;
         $data = $this->transformer->transform($post);
@@ -339,8 +336,10 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
+     * @param $id
+     * @param DeleteRequest $request
+     * @return mixed
+     * @throws \Exception
      *
      * @SWG\Delete(
      *      path="/posts/{id}",
@@ -389,6 +388,11 @@ class PostAPIController extends AppBaseController
 
         return $this->sendResponse($id, __('models.post.deleted'));
     }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function destroyWithIds(Request $request){
         $ids = $request->get('ids');
         try{
@@ -620,12 +624,12 @@ class PostAPIController extends AppBaseController
             'media',
             'user.tenant',
             'likesCounter',
-            'likes' => function($q){$q->take(3);},
+            'likes',
             'likes.user',
             'buildings.address.state',
             'buildings.serviceProviders',
             'buildings.media',
-            'districts',
+            'quarters',
         ])->withCount('allComments')->findWithoutFail($id);
         $p->likers = $p->collectLikers();
 
@@ -683,12 +687,12 @@ class PostAPIController extends AppBaseController
             'media',
             'user.tenant',
             'likesCounter',
-            'likes' => function($q){$q->take(3);},
+            'likes',
             'likes.user',
             'buildings.address.state',
             'buildings.serviceProviders',
             'buildings.media',
-            'districts',
+            'quarters',
         ])->withCount('allComments')->findWithoutFail($id);
         $p->likers = $p->collectLikers();
 
@@ -698,16 +702,16 @@ class PostAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @param int $did
-     * @param DistrictRepository $dRepo
+     * @param int $qid
+     * @param QuarterRepository $qRepo
      * @param AssignRequest $r
      * @return Response
      *
      * @SWG\Post(
-     *      path="/posts/{id}/districts/{did}",
-     *      summary="Assign the provided district to the post",
+     *      path="/posts/{id}/quarters/{did}",
+     *      summary="Assign the provided quarter to the post",
      *      tags={"Listing"},
-     *      description="Assign the provided district to the post",
+     *      description="Assign the provided quarter to the post",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -730,47 +734,47 @@ class PostAPIController extends AppBaseController
      *      )
      * )
      */
-    public function assignDistrict(int $id, int $did, DistrictRepository $dRepo, AssignRequest $r)
+    public function assignQuarter(int $id, int $qid, QuarterRepository $qRepo, AssignRequest $r)
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
             return $this->sendError(__('models.post.errors.not_found'));
         }
-        $d = $dRepo->findWithoutFail($did);
+        $d = $qRepo->findWithoutFail($qid);
         if (empty($d)) {
-            return $this->sendError(__('models.post.errors.district_not_found'));
+            return $this->sendError(__('models.post.errors.quarter_not_found'));
         }
 
-        $p->districts()->sync($d, false);
+        $p->quarters()->sync($d, false);
         $p = $this->postRepository->with([
             'media',
             'user.tenant',
             'likesCounter',
-            'likes' => function($q){$q->take(3);},
+            'likes',
             'likes.user',
             'buildings.address.state',
             'buildings.serviceProviders',
             'buildings.media',
-            'districts',
+            'quarters',
         ])->withCount('allComments')->findWithoutFail($id);
         $p->likers = $p->collectLikers();
 
 
-        return $this->sendResponse($p, __('general.attached.district'));
+        return $this->sendResponse($p, __('general.attached.quarter'));
     }
 
     /**
      * @param int $id
-     * @param int $did
-     * @param DistrictRepository $dRepo
+     * @param int $qid
+     * @param QuarterRepository $qRepo
      * @param AssignRequest $r
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/posts/{id}/districts/{did}",
-     *      summary="Unassign the provided district to the post",
+     *      path="/posts/{id}/quarters/{did}",
+     *      summary="Unassign the provided quarter to the post",
      *      tags={"Listing"},
-     *      description="Unassign the provided district to the post",
+     *      description="Unassign the provided quarter to the post",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -793,33 +797,33 @@ class PostAPIController extends AppBaseController
      *      )
      * )
      */
-    public function unassignDistrict(int $id, int $did, DistrictRepository $dRepo, AssignRequest $r)
+    public function unassignQuarter(int $id, int $qid, QuarterRepository $qRepo, AssignRequest $r)
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
             return $this->sendError(__('models.post.errors.not_found'));
         }
-        $d = $dRepo->findWithoutFail($did);
+        $d = $qRepo->findWithoutFail($qid);
         if (empty($d)) {
             return $this->sendError(__('models.post.errors.building_not_found'));
         }
 
-        $p->districts()->detach($d);
+        $p->quarters()->detach($d);
         $p = $this->postRepository->with([
             'media',
             'user.tenant',
             'likesCounter',
-            'likes' => function($q){$q->take(3);},
+            'likes',
             'likes.user',
             'buildings.address.state',
             'buildings.serviceProviders',
             'buildings.media',
-            'districts',
+            'quarters',
         ])->withCount('allComments')->findWithoutFail($id);
         $p->likers = $p->collectLikers();
 
 
-        return $this->sendResponse($p, __('general.detached.district'));
+        return $this->sendResponse($p, __('general.detached.quarter'));
     }
 
     /**
@@ -919,12 +923,12 @@ class PostAPIController extends AppBaseController
             'media',
             'user.tenant',
             'likesCounter',
-            'likes' => function($q){$q->take(3);},
+            'likes',
             'likes.user',
             'buildings.address.state',
             'buildings.serviceProviders',
             'buildings.media',
-            'districts',
+            'quarters',
             'providers',
         ])->withCount('allComments')->findWithoutFail($id);
         $p->likers = $p->collectLikers();
@@ -983,12 +987,12 @@ class PostAPIController extends AppBaseController
             'media',
             'user.tenant',
             'likesCounter',
-            'likes' => function($q){$q->take(3);},
+            'likes',
             'likes.user',
             'buildings.address.state',
             'buildings.serviceProviders',
             'buildings.media',
-            'districts',
+            'quarters',
             'providers',
         ])->withCount('allComments')->findWithoutFail($id);
         $p->likers = $p->collectLikers();

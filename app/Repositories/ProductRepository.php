@@ -48,12 +48,13 @@ class ProductRepository extends BaseRepository
         $u = \Auth::user();
         if ($u->tenant()->exists() && !$u->tenant->homeless()) {
             $atts['address_id'] = $u->tenant->building->address_id;
-            $atts['district_id'] = $u->tenant->building->district_id;
+            $atts['quarter_id'] = $u->tenant->building->quarter_id;
         }
 
         if ($atts['visibility'] != Product::VisibilityAll &&
-            !isset($atts['address_id']) && !isset($atts['district_id'])) {
-            throw new \Exception("Missing address or missing district for new product");
+            !isset($atts['address_id']) && (!isset($atts['quarter_id']) || !isset($atts['district_id']))
+        ) {
+            throw new \Exception("Missing address or missing quarter for new product");
         }
 
         $model = parent::create($atts);
@@ -84,11 +85,11 @@ class ProductRepository extends BaseRepository
         if ($product->visibility == Product::VisibilityAll) {
             $users = User::all();
         }
-        if ($product->visibility == Product::VisibilityDistrict) {
+        if ($product->visibility == Product::VisibilityQuarter) {
             $users = User::select('users.*')
                 ->join('tenants', 'tenants.user_id', '=', 'users.id')
                 ->join('buildings', 'buildings.id', '=', 'tenants.building_id')
-                ->where('buildings.district_id', $product->district_id)
+                ->where('buildings.quarter_id', $product->quarter_id)
                 ->get();
         }
         if ($product->visibility == Product::VisibilityAddress) {

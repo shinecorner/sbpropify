@@ -54,9 +54,9 @@ class FilterByRelatedFieldsCriteria implements CriteriaInterface
             });
         }
 
-        $district_id = $this->request->get('district_id', null);
-        if ($district_id) {
-            $model->where('district_id', $district_id);
+        $quarter_id = $this->request->get('quarter_id', null) ?? $this->request->get('district_id', null);
+        if ($quarter_id) {
+            $model->where('quarter_id', $quarter_id);
         }
 
         $manager_id = $this->request->get('manager_id', null);

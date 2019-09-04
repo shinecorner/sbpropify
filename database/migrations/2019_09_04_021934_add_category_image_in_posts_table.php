@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class FilDistrictFormatInDistrictsTable extends Migration
+class AddCategoryImageInPostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class FilDistrictFormatInDistrictsTable extends Migration
      */
     public function up()
     {
-
-        $quarter = new \App\Models\Quarter();
-        $quarter->setTable('districts');
-        $quarter->get(['id', 'created_at'])->each(function ($district) {
-            $district->district_format  = $district->getUniqueIDFormat($district->id, $district->created_at);
-            $district->save();
+        Schema::table('posts', function (Blueprint $table) {
+            $table->tinyInteger('category_image')->nullable()->default(0)->after('visibility');
         });
     }
 
@@ -29,5 +25,8 @@ class FilDistrictFormatInDistrictsTable extends Migration
      */
     public function down()
     {
+        Schema::table('posts', function (Blueprint $table) {
+            $table->dropColumn('category_image');
+        });
     }
 }

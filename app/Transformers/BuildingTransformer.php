@@ -35,7 +35,8 @@ class BuildingTransformer extends BaseTransformer
             'basement' => $model->basement,
             'attic' => $model->attic,
             'created_at' => $model->created_at->format('Y-m-d'),
-            'district_id' => $model->district_id,
+            'quarter_id' => $model->quarter_id,
+            'district_id' => $model->quarter_id,
 
             'units_count' => $model->units_count,
             'tenants_count' => 0,
@@ -52,8 +53,9 @@ class BuildingTransformer extends BaseTransformer
             $response['address'] = (new AddressTransformer)->transform($model->address);
         }
 
-        if ($model->relationExists('district')) {
-            $response['district'] = (new DistrictTransformer)->transform($model->district);
+        if ($model->relationExists('quarter')) {
+            $response['quarter'] = (new QuarterTransformer)->transform($model->quarter);
+            $response['district'] = $response['quarter'];
         }
 
         if(! is_null($model->getAttribute('active_tenants_count'))) {
