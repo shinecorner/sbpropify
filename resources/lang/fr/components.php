@@ -200,8 +200,9 @@ return [
         'visibility' => 
         [
           'address' => 'faire pression',
-          'district' => 'Adresse',
-          'all' => 'District',
+          'quarter' => 'Trimestre',
+          'district' => 'Trimestre',
+          'all' => 'Tous',
         ],
       ],
     ],

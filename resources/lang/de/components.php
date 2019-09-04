@@ -200,7 +200,8 @@ return [
         'visibility' => 
         [
           'address' => 'Nachbarn',
-          'district' => 'Überbauung',
+          'quarter' => 'Quartal',
+          'district' => 'Quartal',
           'all' => 'Alle',
         ],
       ],
