@@ -55,35 +55,5 @@ class AppBaseController extends Controller
     {
         return Response::json(ResponseUtil::makeError($error), $code);
     }
-
-    /**
-     * @param int $id
-     * @return Audit
-     */
-    protected function newRequestAudit(int $id)
-    {
-        $aType = array_flip(Relation::$morphMap)[ServiceRequest::class];
-        $a = $this->newAudit();
-        $a->auditable_type = $aType ?? ServiceRequest::class;
-        $a->auditable_id = $id;
-        return $a;
-    }
-
-    /**
-     * @return Audit
-     */
-    protected function newAudit()
-    {
-        return new Audit([
-            'user_type' => \App\Models\User::class,
-            'user_id' => \Auth::id(),
-            'url' => Request::fullUrl(),
-            'ip_address' => Request::ip(),
-            'user_agent' => Request::header('User-Agent'),
-            'old_values' => [],
-            'new_values' => [],
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-    }
+    
 }
