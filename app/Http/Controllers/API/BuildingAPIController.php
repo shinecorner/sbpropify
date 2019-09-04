@@ -685,33 +685,7 @@ class BuildingAPIController extends AppBaseController
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $assignees = $building->assignees()->paginate($perPage);
-
-
-        $managerType = get_morph_type_of(PropertyManager::class);
-        $managerIds = $assignees->where('assignee_type', $managerType)->pluck('assignee_id');
-        $raw = DB::raw('(select email from users where users.id = property_managers.user_id) as email,
-                (select avatar from users where users.id = property_managers.user_id) as avatar, 
-                Concat(first_name, " ", last_name) as name');
-        $managers = PropertyManager::select('id', $raw)
-            ->whereIn('id', $managerIds)
-            ->get();
-
-        $userType = get_morph_type_of(User::class);
-        $userIds = $assignees->where('assignee_type', $userType)->pluck('assignee_id');
-        $users = User::select('id', 'name', 'email')
-            ->whereIn('id', $userIds)
-            ->get();
-
-        foreach ($assignees as $index => $assignee) {
-            $related = null;
-            if ($assignee->assignee_type == $managerType) {
-                $related = $managers->where('id', $assignee->assignee_id)->first();
-            } elseif ($assignee->assignee_type == $userType) {
-                $related = $users->where('id', $assignee->assignee_id)->first();
-            }
-
-            $assignee->related = $related;
-        }
+        $assignees = $this->getAssigneesRelated($assignees, [PropertyManager::class, User::class]);
 
         $response = (new BuildingAssigneeTransformer())->transformPaginator($assignees) ;
         return $this->sendResponse($response, 'Assignees retrieved successfully');

@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PropertyManager;
+use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use InfyOm\Generator\Utils\ResponseUtil;
@@ -55,5 +59,82 @@ class AppBaseController extends Controller
     {
         return Response::json(ResponseUtil::makeError($error), $code);
     }
-    
+
+    /**
+     * @param $assignees
+     * @return mixed
+     */
+    public function getAssignedUsersBy($assignees)
+    {
+        $userType = get_morph_type_of(User::class);
+        $userIds = $assignees->where('assignee_type', $userType)->pluck('assignee_id');
+        $users = User::select('id', 'name', 'email')
+            ->whereIn('id', $userIds)
+            ->get();
+
+        return [$userType => $users];
+    }
+
+    /**
+     * @param $assignees
+     * @return mixed
+     */
+    public function getAssignedManagersBy($assignees)
+    {
+        $managerType = get_morph_type_of(PropertyManager::class);
+        $managerIds = $assignees->where('assignee_type', $managerType)->pluck('assignee_id');
+        $raw = DB::raw('(select email from users where users.id = property_managers.user_id) as email,
+                (select avatar from users where users.id = property_managers.user_id) as avatar, 
+                Concat(first_name, " ", last_name) as name');
+        $managers = PropertyManager::select('id', $raw)
+            ->whereIn('id', $managerIds)
+            ->get();
+
+        return [$managerType => $managers];
+    }
+
+    /**
+     * @param $assignees
+     * @return mixed
+     */
+    public function getAssignedProvidersBy($assignees)
+    {
+        $providerType = get_morph_type_of(ServiceProvider::class);
+        $providerIds = $assignees->where('assignee_type', $providerType)->pluck('assignee_id');
+        $raw = DB::raw('(select avatar from users where users.id = service_providers.user_id) as avatar');
+        $providers = ServiceProvider::select('id', 'email', 'name', $raw)
+            ->whereIn('id', $providerIds)
+            ->get();
+
+        return [ $providerType => $providers];
+    }
+
+    public function getAssigneesRelated($assignees, $classes)
+    {
+        $data = [];
+
+        if (in_array(PropertyManager::class, $classes)) {
+            $data += $this->getAssignedManagersBy($assignees);
+        }
+
+        if (in_array(User::class, $classes)) {
+            $data += $this->getAssignedUsersBy($assignees);
+        }
+
+        if (in_array(ServiceProvider::class, $classes)) {
+            $data += $this->getAssignedProvidersBy($assignees);
+        }
+
+        foreach ($assignees as $index => $assignee) {
+            $related = null;
+            if (key_exists($assignee->assignee_type, $data)) {
+                $items = $data[$assignee->assignee_type];
+                $related = $items->where('id', $assignee->assignee_id)->first();
+            }
+
+            $assignee->related = $related;
+        }
+        return $assignees;
+    }
+
 }
