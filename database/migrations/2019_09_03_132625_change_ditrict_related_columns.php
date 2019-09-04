@@ -22,10 +22,10 @@ class ChangeDitrictRelatedColumns extends Migration
         Schema::table('quarter_post', function (Blueprint $table) {
             $table->renameColumn('district_id', 'quarter_id');
         });
-        Schema::table('quarters_property_manager', function (Blueprint $table) {
+        Schema::table('quarter_property_manager', function (Blueprint $table) {
             $table->renameColumn('district_id', 'quarter_id');
         });
-        Schema::table('quarters_service_provider', function (Blueprint $table) {
+        Schema::table('quarter_service_provider', function (Blueprint $table) {
             $table->renameColumn('district_id', 'quarter_id');
         });
         Schema::table('quarters', function (Blueprint $table) {
@@ -52,10 +52,10 @@ class ChangeDitrictRelatedColumns extends Migration
         Schema::table('quarter_post', function (Blueprint $table) {
             $table->renameColumn('quarter_id', 'district_id');
         });
-        Schema::table('quarters_property_manager', function (Blueprint $table) {
+        Schema::table('quarter_property_manager', function (Blueprint $table) {
             $table->renameColumn('quarter_id', 'district_id');
         });
-        Schema::table('quarters_service_provider', function (Blueprint $table) {
+        Schema::table('quarter_service_provider', function (Blueprint $table) {
             $table->renameColumn('quarter_id', 'district_id');
         });
         Schema::table('quarters', function (Blueprint $table) {
