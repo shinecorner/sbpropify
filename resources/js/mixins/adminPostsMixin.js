@@ -78,7 +78,8 @@ export default (config = {}) => {
                 toAssignProvider: '',
                 toAssignProviderList: [],
                 types: [],
-                showdefaultimage: false
+                showdefaultimage: false,
+                rolename: ''
 
             }
         },
@@ -287,6 +288,7 @@ export default (config = {}) => {
                         this.loading.state = true;
 
                         try {
+                            this.model.pinned = this.model.type == 3 ? true : false;
                             const resp = await this.createPost(this.model);
 
                             if (resp && resp.data.id) {
