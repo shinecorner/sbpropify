@@ -8,6 +8,7 @@ use App\Criteria\ServiceProviders\FilterByLanguageCriteria;
 use App\Criteria\ServiceProviders\FilterByPostCriteria;
 use App\Criteria\Common\HasRequestCriteria;
 use App\Criteria\ServiceProviders\FilterByQuarterCriteria;
+use App\Criteria\ServiceProviders\FilterByRequestCategoryCriteria;
 use App\Criteria\ServiceProviders\FilterByStateCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\ServiceProvider\AssignRequest;
@@ -90,6 +91,7 @@ class ServiceProviderAPIController extends AppBaseController
         $this->serviceProviderRepository->pushCriteria(new FilterByLanguageCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new FilterByStateCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new FilterByBuildingCriteria($request));
+        $this->serviceProviderRepository->pushCriteria(new FilterByRequestCategoryCriteria($request));
 
         $getAll = $request->get('get_all', false);
 
