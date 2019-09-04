@@ -369,7 +369,8 @@ return [
       "notify_email" => "Prévenez par courriel",
       "pinned_to" => "Épinglé sur",
       "comments" => "Commentaires",
-      "images" => "Images",      
+      "images" => "Images",
+      'confirm_use_image' => 'Voulez-vous utiliser cette image?',      
       'placeholders' => 
       [
         "buildings" => "Choisir des bâtiments",

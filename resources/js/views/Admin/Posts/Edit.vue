@@ -90,46 +90,40 @@
                                         v-model="model.content">
                                     </el-input>
                                 </el-form-item>
-                                <el-form-item label="Default Image" v-if="model.pinned && this.showdefaultimage == true">
+                                <el-form-item v-if="model.pinned && this.showdefaultimage == true">
+                                    <label>{{$t('models.post.confirm_use_image')}}</label>
+                                    <el-switch v-model="model.pinned_category"/>
                                     <el-row :gutter="20">
-                                        <el-col :md="12">
-                                            <img
-                                                src="~img/pinned_category/general.jpg"
-                                                class="user-image"
-                                                v-if="this.model.category == 1"
-                                                width="50%" 
-                                                height="50%"/>
-                                            <img
-                                                src="~img/pinned_category/maintenance.jpg"
-                                                class="user-image"
-                                                v-else-if="this.model.category == 2"
-                                                width="50%" 
-                                                height="50%"/>
-                                            <img
-                                                src="~img/pinned_category/electricity.jpg"
-                                                class="user-image"
-                                                v-else-if="this.model.category == 3"
-                                                width="50%" 
-                                                height="50%"/>
-                                            <img
-                                                src="~img/pinned_category/heating.jpg"
-                                                class="user-image"
-                                                v-else-if="this.model.category == 4"
-                                                width="50%" 
-                                                height="50%"/>
-                                            <img
-                                                src="~img/pinned_category/sanitary.jpg"
-                                                class="user-image"
-                                                v-else-if="this.model.category == 5"
-                                                width="50%" 
-                                                height="50%"/>  
-                                        </el-col>
-                                        <el-col :md="12">
-                                            <el-form-item class="switcher mt-20">
-                                                <label class="switcher__label">Do you want to use default provided image?</label>
-                                                <el-switch v-model="model.pinned_category"/>
-                                            </el-form-item>
-                                        </el-col>
+                                        <img
+                                            src="~img/pinned_category/1.png"
+                                            class="user-image"
+                                            v-if="this.model.category == 1"
+                                            width="50%" 
+                                            height="50%"/>
+                                        <img
+                                            src="~img/pinned_category/2.png"
+                                            class="user-image"
+                                            v-else-if="this.model.category == 2"
+                                            width="50%" 
+                                            height="50%"/>
+                                        <img
+                                            src="~img/pinned_category/3.png"
+                                            class="user-image"
+                                            v-else-if="this.model.category == 3"
+                                            width="50%" 
+                                            height="50%"/>
+                                        <img
+                                            src="~img/pinned_category/4.png"
+                                            class="user-image"
+                                            v-else-if="this.model.category == 4"
+                                            width="50%" 
+                                            height="50%"/>
+                                        <img
+                                            src="~img/pinned_category/5.png"
+                                            class="user-image"
+                                            v-else-if="this.model.category == 5"
+                                            width="50%" 
+                                            height="50%"/>  
                                     </el-row>  
                                 </el-form-item> 
                                 <el-form-item :label="$t('models.post.images')">

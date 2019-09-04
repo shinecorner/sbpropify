@@ -912,6 +912,7 @@ export default {
                 "pinned_to": "Inchiodato a",
                 "comments": "Commenti",
                 "images": "Immagini",
+                "confirm_use_image": "Vuoi usare questa immagine?",
                 "placeholders": {
                     "buildings": "Scegliere gli edifici",
                     "search_provider": "Fornitore di ricerca"

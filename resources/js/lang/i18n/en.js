@@ -912,6 +912,7 @@ export default {
                 "pinned_to": "Pinned to",
                 "comments": "Comments",
                 "images": "Images",
+                "confirm_use_image": "Do want to use this image?",
                 "placeholders": {
                     "buildings": "Choose buildings",
                     "search_provider": "Search provider"

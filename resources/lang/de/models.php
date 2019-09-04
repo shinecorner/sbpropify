@@ -369,7 +369,8 @@ return [
 			'notify_email' => 'Mieter benachrichtigen',
 			'pinned_to' => 'Hervorheben bis',
 			'comments' => 'Kommentare',
-			'images' => 'Fotos und Dokumente',			
+			'images' => 'Fotos und Dokumente',
+			'confirm_use_image' => 'Möchten Sie dieses Bild verwenden?',			
 			'placeholders' =>
 				[
 					'buildings' => 'Liegenschaft wählen',
