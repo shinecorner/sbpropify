@@ -1,6 +1,6 @@
-import { auth, admin } from 'middlewares';
-import permissions from 'middlewares/permissions';
-
+import AdminPermissions from 'boot/roles/admin'
+import hasPermissionGuard from 'guards/hasPermissionGuard'
+import VueRouterMultiguard from 'vue-router-multiguard'
 
 export default [{
     path: 'property-managers',
@@ -8,46 +8,37 @@ export default [{
         template: '<router-view />'
     },
     children: [{
-        path: '/',
         name: 'adminPropertyManagers',
-        component: () =>
-            import ( /* : "admin/propertyManagers/index" */ 'views/Admin/PropertyManagers'),
+        path: '/',
+        component: () => import ( /* : "admin/propertyManagers/index" */ 'views/Admin/PropertyManagers'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.list.propertyManager)]),
         props: {
             title: 'List property manager'
         },
         meta: {
-            title: 'Users',
-            middleware: [auth, admin],
-            permission: permissions.list.propertyManager,
-            breadcrumb: 'Users',
+            title: 'Users'
         }
     }, {
-        path: 'add',
         name: 'adminPropertyManagersAdd',
-        component: () =>
-            import ( /* : "admin/propertyManagers/add" */ 'views/Admin/PropertyManagers/Add'),
+        path: 'add',
+        component: () => import ( /* : "admin/propertyManagers/add" */ 'views/Admin/PropertyManagers/Add'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.create.propertyManager)]),
         props: {
             title: 'Add property manager'
         },
         meta: {
-            title: 'Add Property Manager',
-            middleware: [auth, admin],
-            permission: permissions.create.propertyManager,
-            breadcrumb: 'Add property manager'
+            title: 'Add Property Manager'
         }
     }, {
-        path: ':id',
         name: 'adminPropertyManagersEdit',
-        component: () =>
-            import ( /* : "admin/propertyManagers/edit" */ 'views/Admin/PropertyManagers/Edit'),
+        path: ':id',
+        component: () => import ( /* : "admin/propertyManagers/edit" */ 'views/Admin/PropertyManagers/Edit'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.update.propertyManager)]),
         props: {
             title: 'Edit property manager'
         },
         meta: {
-            title: 'Edit Property Manager',
-            middleware: [auth, admin],
-            permission: permissions.update.propertyManager,
-            breadcrumb: 'Edit property manager'
+            title: 'Edit Property Manager'
         }
     }]
 }];

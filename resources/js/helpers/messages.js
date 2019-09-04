@@ -1,7 +1,6 @@
-import Vue from '@/app';
+import Vue from 'boot';
 
-
-export const errorMessage = async (defaultMessage, status, err = {}) => {
+export const errorMessage = (defaultMessage, status, err = {}) => {
     let message = {
         message: defaultMessage,
         success: false
@@ -21,7 +20,7 @@ export const errorMessage = async (defaultMessage, status, err = {}) => {
     }
 
     if (status == 401) {
-        const {$store} = await Vue;
+        const {$store} = Vue;
 
         $store.dispatch("forceLogout");
     }
@@ -29,10 +28,11 @@ export const errorMessage = async (defaultMessage, status, err = {}) => {
     return message;
 };
 
-export const displayError = async (err) => {
-    const {$swal, $i18n, $route} = await Vue;
+export const displayError = (err) => {
+    const {$swal, $i18n, $route} = Vue;
 
     const isAdmin = $route.path.includes('/admin');
+    console.error(err);
 
     if (err && err.message) {
         if (err.status && err.error) {
@@ -89,9 +89,9 @@ export const displayError = async (err) => {
     }
 };
 
-export const displaySuccess = async (resp) => {
+export const displaySuccess = (resp) => {
     if (resp && resp.message) {
-        const {$i18n, $swal, $route} = await Vue;
+        const {$i18n, $swal, $route} = Vue;
 
         /*$swal({
             toast: true,

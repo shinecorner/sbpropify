@@ -1,5 +1,6 @@
-import { auth, admin } from 'middlewares';
-import permissions from 'middlewares/permissions';
+import AdminPermissions from 'boot/roles/admin'
+import hasPermissionGuard from 'guards/hasPermissionGuard'
+import VueRouterMultiguard from 'vue-router-multiguard'
 
 export default [{
     path: 'districts',
@@ -7,40 +8,28 @@ export default [{
         template: '<router-view />'
     },
     children: [{
-        path: '/',
         name: 'adminDistricts',
-        component: () =>
-            import ( /* webpackChunkName: "admin/districts/index" */ 'views/Admin/Districts'),
+        path: '/',
+        component: () => import ( /* webpackChunkName: "admin/districts/index" */ 'views/Admin/Districts'),
+        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.list.district)]),
         meta: {
-            title: 'Districts',
-            middleware: [auth, admin],
-            permission: permissions.list.district
+            title: 'Districts'
         }
     }, {
-        path: 'add',
         name: 'adminDistrictsAdd',
-        component: () =>
-            import ( /* webpackChunkName: "admin/serviceRequests/add" */ 'views/Admin/Districts/Add'),
-        props: {
-            title: 'Add district'
-        },
+        path: 'add',
+        component: () => import ( /* webpackChunkName: "admin/districts/add" */ 'views/Admin/Districts/Add'),
+        // beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.edit.district)]),
         meta: {
-            title: 'Add District',
-            middleware: [auth, admin],
-            permission: permissions.create.district,
-            breadcrumb: 'Add districts'
+            title: 'Add district'
         }
     }, {
-        path: ':id',
         name: 'adminDistrictsEdit',
-        component: () =>
-            import ( /* webpackChunkName: "admin/serviceRequests/edit" */ 'views/Admin/Districts/Edit'),
-        props: {},
+        path: ':id',
+        component: () => import ( /* webpackChunkName: "admin/districts/edit" */ 'views/Admin/Districts/Edit'),
+        // beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.add.district)]),
         meta: {
-            title: 'Edit District',
-            middleware: [auth, admin],
-            permission: [permissions.update.district, permissions.update.serviceDistrict],
-            breadcrumb: 'Edit district'
+            title: 'Edit district'
         }
     }]
 }];

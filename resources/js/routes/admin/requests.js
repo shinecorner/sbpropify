@@ -1,5 +1,6 @@
-import { auth, admin } from 'middlewares';
-import permissions from 'middlewares/permissions';
+import AdminPermissions from 'boot/roles/admin'
+import {isAuthenticatedGuard, isAdminGuard, hasPermissionGuard} from 'guards'
+import VueRouterMultiguard from 'vue-router-multiguard'
 
 
 export default [{
@@ -10,113 +11,90 @@ export default [{
     children: [{
         path: '/',
         name: 'adminRequests',
-        component: () =>
-            import ( /* webpackChunkName: "admin/serviceRequests/index" */ 'views/Admin/Requests'),
+        component: () => import ( /* webpackChunkName: "admin/requests/index" */ 'views/Admin/Requests'),
+        beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isAdminGuard, hasPermissionGuard(AdminPermissions.list.request)]),
         props: {
-            // title: 'Requests'
+            title: 'Requests'
         },
         meta: {
             title: 'Requests',
-            middleware: [auth, admin],
-            permission: permissions.list.request,
-            breadcrumb: 'Requests',
         }
     },  {
         path: 'my',
         name: 'adminMyRequests',
-        component: () =>
-            import ( /* webpackChunkName: "admin/serviceRequests/index" */ 'views/Admin/Requests'),
+        component: () => import ( /* webpackChunkName: "admin/requests/index" */ 'views/Admin/Requests'),
+        beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isAdminGuard, hasPermissionGuard(AdminPermissions.list.request)]),
         props: {
-            // title: 'My Requests'
+            title: 'My Requests'
         },
         meta: {
             title: 'My Requests',
-            middleware: [auth, admin],
-            permission: permissions.list.request,
-            breadcrumb: 'My Requests',
         }
     }, {
         path: 'mypending',
         name: 'adminMypendingRequests',
-        component: () =>
-            import ( /* webpackChunkName: "admin/serviceRequests/index" */ 'views/Admin/Requests'),
+        component: () => import ( /* webpackChunkName: "admin/requests/index" */ 'views/Admin/Requests'),
+        beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isAdminGuard, hasPermissionGuard(AdminPermissions.list.request)]),
         props: {
-            // title: 'My pending requests'
+            title: 'My pending requests'
         },
         meta: {
-            title: 'My Requests',
-            middleware: [auth, admin],
-            permission: permissions.list.request,
-            breadcrumb: 'My Requests',
+            title: 'My Requests'
         }
     }, {
         path: 'notassigned',
         name: 'adminUnassignedRequests',
-        component: () =>
-            import ( /* webpackChunkName: "admin/serviceRequests/index" */ 'views/Admin/Requests'),
+        component: () => import ( /* webpackChunkName: "admin/requests/index" */ 'views/Admin/Requests'),
+        beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isAdminGuard, hasPermissionGuard(AdminPermissions.list.request)]),
         props: {
-            // title: 'Not Assigned'
+            title: 'Not Assigned'
         },
         meta: {
-            title: 'Not Assigned',
-            middleware: [auth, admin],
-            permission: permissions.list.request,
-            breadcrumb: 'Not Assigned',
+            title: 'Not Assigned'
         }
     }, {
         path: 'pending',
         name: 'adminAllpendingRequests',
-        component: () =>
-            import ( /* webpackChunkName: "admin/serviceRequests/index" */ 'views/Admin/Requests'),
+        component: () => import ( /* webpackChunkName: "admin/requests/index" */ 'views/Admin/Requests'),
+        beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isAdminGuard, hasPermissionGuard(AdminPermissions.list.request)]),
         props: {
-            // title: 'All pending requests'
+            title: 'All pending requests'
         },
         meta: {
-            title: 'All pending requests',
-            middleware: [auth, admin],
-            permission: permissions.list.request,
-            breadcrumb: 'All pending requests',
+            title: 'All pending requests'
         }
     }, {
         path: 'add',
         name: 'adminRequestsAdd',
-        component: () =>
-            import ( /* webpackChunkName: "admin/serviceRequests/add" */ 'views/Admin/Requests/Add'),
+        component: () => import ( /* webpackChunkName: "admin/requests/add" */ 'views/Admin/Requests/Add'),
+        beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isAdminGuard, hasPermissionGuard(AdminPermissions.create.request)]),
         props: {
             title: 'Add request'
         },
         meta: {
-            title: 'Add Request',
-            middleware: [auth, admin],
-            permission: permissions.create.request,
-            breadcrumb: 'Add request'
+            title: 'Add Request'
         }
     }, {
         path: 'activity',
         name: 'adminRequestsActivity',
-        component: () =>
-            import ( /* webpackChunkName: "admin/serviceRequests/activity" */ 'views/Admin/Requests/Activity'),
+        component: () => import ( /* webpackChunkName: "admin/requests/activity" */ 'views/Admin/Requests/Activity'),
+        beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isAdminGuard]),
         props: {
             title: 'Activity requests'
         },
         meta: {
-            title: 'Activity requests',
-            middleware: [auth, admin],
-            breadcrumb: 'Activity requests'
+            title: 'Activity requests'
         }
     }, {
         path: ':id',
         name: 'adminRequestsEdit',
-        component: () =>
-            import ( /* webpackChunkName: "admin/serviceRequests/edit" */ 'views/Admin/Requests/Edit'),
+        component: () => import ( /* webpackChunkName: "admin/requests/edit" */ 'views/Admin/Requests/Edit'),
+        beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isAdminGuard, hasPermissionGuard(AdminPermissions.update.request)]),
         props: {
             title: 'Edit request'
         },
         meta: {
-            title: 'Edit Request',
-            middleware: [auth, admin],
-            permission: [permissions.update.request, permissions.update.serviceRequest],
-            breadcrumb: 'Edit request'
+            title: 'Edit Request'
         }
     }]
 }];

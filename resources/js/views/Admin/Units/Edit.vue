@@ -8,7 +8,7 @@
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
-                <card :loading="loading">
+                <card :loading="loading" :header="$t('general.actions.edit')">
                     <el-form :model="model" label-position="top" label-width="192px" ref="form">
                         <el-row :gutter="20">
                             <el-col :md="12">
@@ -68,7 +68,7 @@
                             </el-col>
 
                         </el-row>
-                        <el-row :gutter="20">
+                        <el-row class="last-form-row" :gutter="20">
                             <el-col :md="6" v-if="!isBusiness">
                                 <el-form-item :label="$t('models.unit.room_no')" :rules="validationRules.room_no"
                                               prop="room_no"
@@ -172,30 +172,29 @@
                     type: 'requestTenantAvatar',
                     width: 75,
                     prop: 'tenant',
-                    label: this.$t('general.tenant')
+                    label: 'general.tenant'
                 }, {
                     type: 'requestTitleWithDesc',
-                    width: 270,
-                    label: this.$t('models.request.prop_title')
+                    label: 'models.request.prop_title'
                 }, {
                     type: 'requestStatus',
                     width: 120,
-                    label: this.$t('models.request.status.label')
+                    label: 'models.request.status.label'
                 }],
                 requestActions: [{
                     width: '120px',
                     buttons: [{
                         icon: 'ti-pencil',
-                        title: this.$t('general.actions.edit'),
+                        title: 'general.actions.edit',
                         onClick: this.requestEditView
                     }]
                 }],
                 assigneesColumns: [{
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }, {
                     prop: 'statusString',
-                    label: this.$t('models.request.userType.label'),
+                    label: 'models.request.userType.label',
                     i18n: this.translateType
                 }],
                 assigneesActions: [{
@@ -222,3 +221,24 @@
 </script>
 
 
+
+<style lang="scss">
+    .el-card .el-card__body {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+<style lang="scss" scoped>
+    .el-tabs--border-card {
+        border-radius: 6px;
+        .el-tabs__header {
+            border-radius: 6px 6px 0 0;
+        }
+        .el-tabs__nav-wrap.is-top {
+            border-radius: 6px 6px 0 0;
+        }
+    }
+    .last-form-row {
+        margin-bottom: -22px;
+    }
+</style>

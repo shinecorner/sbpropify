@@ -1,11 +1,12 @@
-import { auth, tenant } from 'middlewares'
+import {isAuthenticatedGuard, isTenantGuard} from 'guards'
+import VueRouterMultiguard from 'vue-router-multiguard'
 
 export default {
-    path: 'dashboard',
-    component: () =>
-        import ( /* webpackChunkName: "tenant/dashboard/index" */ 'views/Tenant/Dashboard'),
     name: 'tenantDashboard',
+    path: 'dashboard',
+    component: () => import ( /* webpackChunkName: "tenant/dashboard/index" */ 'views/Tenant/Dashboard'),
+    beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isTenantGuard]),
     meta: {
-        middleware: [auth, tenant]
+        title: 'Dashboard'
     }
 }

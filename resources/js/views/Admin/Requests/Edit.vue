@@ -6,11 +6,11 @@
             </template>
             <edit-actions :saveAction="submit" :deleteAction="deleteRequest" route="adminRequests"/>
         </heading>
-        <div class="crud-view">
+        <div class="crud-view" id="edit_request">
             <el-form :model="model" label-position="top" label-width="192px" ref="form">
                 <el-row :gutter="20">
                     <el-col :md="12">
-                        <card :loading="loading" :header="$t('models.request.request_details')">
+                        <card :loading="loading" :header="$t('models.request.request_details')" id="request_details">
                             <el-row :gutter="20">
                                 <el-col :md="12">
                                     <el-form-item :label="$t('models.request.category')"
@@ -32,7 +32,7 @@
                                 </el-col>
                                 <el-col :md="12"
                                         v-if="this.showsubcategory == true">
-                                    <el-form-item label="Defekt/Mangel">
+                                    <el-form-item :label="$t('models.request.defect_location.label')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
                                                    class="custom-select"
@@ -223,8 +223,6 @@
                                     <span slot="label">
                                         <el-badge :value="mediaCount" :max="99" class="admin-layout">{{ $t('models.request.images') }}</el-badge>
                                     </span>
-                                    <p class="dividerletter">{{$t('models.request.images')}}</p>
-                                    <el-divider class="column-divider"></el-divider>
                                     <el-alert
                                         v-if="!media.length || (!model.media && !model.media.length)"
                                         :title="$t('models.request.no_images_message')"
@@ -297,7 +295,7 @@
                     </el-col>
                     <el-col :md="12">
                         <template v-if="$can($permissions.assign.request)">
-                            <card :loading="loading" :header="$t('models.request.actions')">
+                            <card :loading="loading" :header="$t('models.request.actions')" id="request_actions">
                                 <el-row :gutter="10">
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.request.internal_priority.label')"
@@ -344,6 +342,20 @@
                                             </el-date-picker>
                                         </el-form-item>
                                     </el-col>
+                                    <el-col :md="12">
+                                        <el-form-item :label="$t('models.request.internal_priority.label')"
+                                                      :rules="validationRules.internal_priority"
+                                                      prop="internal_priority">
+                                            <el-select :placeholder="$t('models.request.internal_priority.label')" class="custom-select" v-model="model.internal_priority">
+                                                <el-option
+                                                    :key="k"
+                                                    :label="$t(`models.request.internal_priority.${priority}`)"
+                                                    :value="parseInt(k)"
+                                                    v-for="(priority, k) in $constants.service_requests.internal_priority">
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                    </el-col>
                                 </el-row>
                             </card>
                             <card class="mt15 request" :loading="loading" :header="$t('models.request.assignment')">
@@ -369,7 +381,7 @@
                             </card>
                         </template>
                         <!--                    v-if="(!$can($permissions.update.serviceRequest)) || ($can($permissions.update.serviceRequest) && (media.length || (model.media && model.media.length)))"-->
-                        <card class="mt15" v-if="model.id">
+                        <card class="mt15" v-if="model.id" id="comments">
                             <el-tabs id="comments-card" v-model="activeTab2"  @tab-click="adjustAuditTabPadding">
                                 <el-tab-pane :label="$t('models.request.comments')" name="comments">
                                     <chat :id="model.id" type="request" show-templates />
@@ -453,10 +465,10 @@
                 }, {
                     type: 'assigneesName',
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }, {
                     prop: 'type',
-                    label: this.$t('models.request.userType.label'),
+                    label: 'models.request.userType.label',
                     i18n: this.translateType
                 }],
                 assigneesActions: [{
@@ -512,6 +524,7 @@
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
             this.$root.$on('changeLanguage', () => {
                 this.getRealCategories();
+                this.fetchCurrentRequest();
             });
 
         },
@@ -767,6 +780,18 @@
                     min-height: 40px !important;
                 }
             }
+        }
+    }
+
+    #edit_request {
+        .el-card__body {
+            padding: 16px 16px 0px 16px !important;
+        }
+        .request {
+            padding: 16px !important;
+        }
+        #comments {
+            padding: 16px !important;
         }
     }
 </style>

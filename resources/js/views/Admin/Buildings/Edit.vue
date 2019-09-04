@@ -71,7 +71,7 @@
                                     </el-form-item>
                                 </el-col>
                             </el-row>
-                            <el-row :gutter="20">
+                            <el-row class="last-form-row" :gutter="20">
                                 <el-col :md="12">
                                     <el-form-item :label="$t('models.building.district')" prop="district_id"
                                                   style="max-width: 512px;">
@@ -156,7 +156,7 @@
                                     :value="contactEnableValue.value"
                                     v-for="contactEnableValue in contactEnableValues"/>
                         </el-select>
-                        <div v-if="model.service_providers && model.service_providers.length" class="mt15">
+                        <div v-if="model.service_providers && model.service_providers.length" class="mt15" style="padding: 0 5px;">
                             <el-row :gutter="10" :key="service.id" class="list-complete-item"
                                     v-for="service in model.service_providers">
                                 <el-col :md="7">
@@ -180,7 +180,7 @@
                             <label class="">{{$t('models.building.add_companies')}}</label>
                             <el-select multiple
                                        placeholder="Select"
-                                       style="margin: 15px 0;width: 100%" v-model="model.service_providers_ids">
+                                       style="margin: 15px 0 0; width: 100%" v-model="model.service_providers_ids">
                                 <el-option-group
                                     :key="serviceCategory"
                                     :label="$t(`models.service.${serviceCategory}`)"
@@ -318,20 +318,19 @@
                 activeRightTab: 'tenants',
                 tenantColumns: [{
                     type: 'requestTenantAvatar',
-                    width: 70,
-                    label: this.$t('general.tenant')
+                    width: 70                    
                 }, {
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }, {
                     prop: 'status',
                     i18n: this.tenantStatusLabel,
                     withBadge: this.tenantStatusBadge,
-                    label: this.$t('models.tenant.status.label')
+                    label: 'models.tenant.status.label'
                 }],
                 tenantActions: [{
                     buttons: [{
-                        title: this.$t('models.tenant.view'),
+                        title: 'models.tenant.view',
                         onClick: this.tenantEditView,
                         icon: 'el-icon-user'
                     }]
@@ -341,7 +340,7 @@
                     width: 50,
                 }, {
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }],
                 managerActions: [{
                     width: '180px',
@@ -361,13 +360,13 @@
                 }],
                 unitColumns: [{
                     prop: 'name',
-                    label: this.$t('models.unit.name')
+                    label: 'models.unit.name'
                 },{
                     prop: 'typeLabel',
-                    label: this.$t('models.unit.type.label')
+                    label: 'models.unit.type.label'
                 },{
                     prop: 'floor',
-                    label: this.$t('models.unit.floor')
+                    label: 'models.unit.floor'
                 }],
                 unitActions: [{
                     width: '180px',
@@ -383,21 +382,20 @@
                     type: 'requestTenantAvatar',
                     width: 75,
                     prop: 'tenant',
-                    label: this.$t('general.tenant')
+                    label: 'general.tenant'
                 }, {
                     type: 'requestTitleWithDesc',
-                    width: 270,
-                    label: this.$t('models.request.prop_title')
+                    label: 'models.request.prop_title'
                 }, {
                     type: 'requestStatus',
                     width: 120,
-                    label: this.$t('models.request.status.label')
+                    label: 'models.request.status.label'
                 }],
                 requestActions: [{
                     width: '120px',
                     buttons: [{
                         icon: 'ti-pencil',
-                        title: this.$t('general.actions.edit'),
+                        title: 'general.actions.edit',
                         onClick: this.requestEditView
                     }]
                 }],
@@ -691,7 +689,22 @@
     }
 </script>
 
+<style lang="scss">
+    .el-tabs--border-card {
+        border-radius: 6px;
+        .el-tabs__header {
+            border-radius: 6px 6px 0 0;
+        }
+        .el-tabs__nav-wrap.is-top {
+            border-radius: 6px 6px 0 0;
+        }
+    }
+</style>
 <style lang="scss" scoped>
+    .last-form-row {
+        margin-bottom: -22px;
+    }
+
     .mt15 {
         margin-top: 15px;
     }

@@ -127,11 +127,11 @@
    .placeholder {
         height: 100% !important;
         font-size: 20px;
-        color: darken(#F2F4F9, 32%);
+        color: var(--color-main-background-darker);
 
         small {
             font-size: 72%;
-            color: darken(#F2F4F9, 16%);
+            color: var(--color-main-background-lighter);
         }
     }
     .contracts {

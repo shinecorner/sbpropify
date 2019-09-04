@@ -1,0 +1,12 @@
+{
+    "plugins": [
+        "@babel/plugin-syntax-dynamic-import",
+        [
+            "component",
+            {
+                "libraryName": "element-ui",
+                "styleLibraryName": "~resources/css/theme"
+            }
+        ]
+    ]
+}

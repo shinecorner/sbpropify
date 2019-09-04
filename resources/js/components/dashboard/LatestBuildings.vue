@@ -76,11 +76,10 @@
             },
             fetchData() {
                 let that = this;
-                const url = 'buildings/?&page=1&per_page=50';
+                const url = 'buildings/?&page=1&per_page=5';
                 return axios.get(url)
                 .then(function (response) {
                     that.items = response.data.data.data;
-                    console.log(that.items);
                 }).catch(function (error) {
                     console.log(error);
                 })

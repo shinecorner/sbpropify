@@ -18,7 +18,6 @@
 
 <script>
     import Heading from 'components/Heading';
-    import Audit from 'components/Audit'
 
     export default {
         components: {
