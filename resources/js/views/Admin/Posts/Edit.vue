@@ -38,7 +38,7 @@
                                     </el-select>
                                 </el-form-item>
                             </el-col>
-                            <el-col :lg="8" v-if="!model.pinned">
+                            <el-col :lg="8" v-if="this.model.type != 3">
                                 <el-form-item :label="$t('models.post.status.label')">
                                     <el-select style="display: block" v-model="model.status">
                                         <el-option
@@ -50,7 +50,7 @@
                                     </el-select>
                                 </el-form-item>
                             </el-col>
-                            <el-col :lg="8" v-if="model.pinned">
+                            <el-col :lg="8" v-if="this.model.type == 3">
                                 <el-form-item :label="$t('models.post.category.label')">
                                     <el-select style="display: block" v-model="model.category" @change="ShowSlide">
                                         <el-option
@@ -76,7 +76,7 @@
                             </el-col>
                         </el-row>
 
-                        <el-tabs v-if="model.pinned" v-model="activeTab1">
+                        <el-tabs v-if="this.model.type == 3" v-model="activeTab1">
                             <el-tab-pane :label="$t('general.actions.view')" name="details">
                                 <el-form-item :label="$t('models.post.title_label')" :rules="validationRules.title"
                                             prop="title">
@@ -90,7 +90,7 @@
                                         v-model="model.content">
                                     </el-input>
                                 </el-form-item>
-                                <el-form-item v-if="model.pinned && this.showdefaultimage == true">
+                                <el-form-item v-if="this.model.type == 3 && this.showdefaultimage == true">
                                     <label>{{$t('models.post.category_default_image_label')}}</label>
                                     <el-switch v-model="model.pinned_category"/>
                                     <el-row :gutter="20">
@@ -139,7 +139,7 @@
                             </el-tab-pane>
                         </el-tabs>
                         
-                        <template v-if="!model.pinned">
+                        <template v-if="this.model.type != 3">
                             <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                         prop="content">
                                 <el-input
@@ -159,7 +159,7 @@
                         </template>                        
                     </el-card>
 
-                    <el-card :loading="loading" v-if="!model.pinned && (!model.tenant)">
+                    <el-card :loading="loading" v-if="this.model.type != 3 && (!model.tenant)">
                         <div slot="header" class="clearfix">
                             <span>{{$t('general.assignment')}}</span>
                         </div>
