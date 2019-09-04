@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
+use App\Criteria\ServiceProviders\FilterByLanguageCriteria;
 use App\Criteria\ServiceProviders\FilterByPostCriteria;
 use App\Criteria\Common\HasRequestCriteria;
 use App\Criteria\ServiceProviders\FilterByQuarterCriteria;
@@ -84,6 +85,7 @@ class ServiceProviderAPIController extends AppBaseController
         $this->serviceProviderRepository->pushCriteria(new LimitOffsetCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new FilterByPostCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new FilterByQuarterCriteria($request));
+        $this->serviceProviderRepository->pushCriteria(new FilterByLanguageCriteria($request));
 
         $getAll = $request->get('get_all', false);
 
