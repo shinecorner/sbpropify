@@ -784,14 +784,21 @@
     }
 
     #edit_request {
+        .el-form-item {
+            margin-bottom: 16px;
+        }
         .el-card__body {
             padding: 16px 16px 0px 16px !important;
         }
         .request {
-            padding: 16px !important;
+            .el-card__body {
+                padding: 16px !important;
+            }
         }
         #comments {
-            padding: 16px !important;
+            .el-card__body {
+                padding: 16px !important;
+            }
         }
     }
 </style>

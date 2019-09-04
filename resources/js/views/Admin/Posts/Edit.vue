@@ -10,15 +10,29 @@
                         <el-row :gutter="20" class="mb20">
                             <el-col :lg="8">
                                 <el-form-item :label="$t('models.post.type.label')">
-                                    <el-select style="display: block" v-model="model.pinned">
+                                    <!-- <el-select style="display: block" v-model="model.type">
                                         <el-option
-                                            :label="$t(`models.post.type.article`)"
-                                            :value="false"
+                                            :key="key"
+                                            :label="$t(`models.post.type.${type}`)"
+                                            :value="parseInt(key)"
+                                            v-for="(type, key) in postConstants.type">
+                                        </el-option>
+                                    </el-select> -->
+                                    <el-select style="display: block" v-model="model.type">
+                                        <el-option
+                                            :label="$t(`models.post.type.post`)"
+                                            :value="1"
                                         >
                                         </el-option>
                                         <el-option
                                             :label="$t(`models.post.type.pinned`)"
-                                            :value="true"
+                                            :value="3"
+                                        >
+                                        </el-option>
+                                        <el-option
+                                            :label="$t(`models.post.type.article`)"
+                                            :value="4"
+                                            v-if="this.rolename == 'administrator'"
                                         >
                                         </el-option>
                                     </el-select>
@@ -38,7 +52,7 @@
                             </el-col>
                             <el-col :lg="8" v-if="model.pinned">
                                 <el-form-item :label="$t('models.post.category.label')">
-                                    <el-select style="display: block" v-model="model.category">
+                                    <el-select style="display: block" v-model="model.category" @change="ShowSlide">
                                         <el-option
                                             :key="key"
                                             :label="$t(`models.post.category.${category}`)"
@@ -76,8 +90,50 @@
                                         v-model="model.content">
                                     </el-input>
                                 </el-form-item>
+                                <el-form-item label="Default Image" v-if="model.pinned && this.showdefaultimage == true">
+                                    <el-row :gutter="20">
+                                        <el-col :md="12">
+                                            <img
+                                                src="~img/pinned_category/general.jpg"
+                                                class="user-image"
+                                                v-if="this.model.category == 1"
+                                                width="50%" 
+                                                height="50%"/>
+                                            <img
+                                                src="~img/pinned_category/maintenance.jpg"
+                                                class="user-image"
+                                                v-else-if="this.model.category == 2"
+                                                width="50%" 
+                                                height="50%"/>
+                                            <img
+                                                src="~img/pinned_category/electricity.jpg"
+                                                class="user-image"
+                                                v-else-if="this.model.category == 3"
+                                                width="50%" 
+                                                height="50%"/>
+                                            <img
+                                                src="~img/pinned_category/heating.jpg"
+                                                class="user-image"
+                                                v-else-if="this.model.category == 4"
+                                                width="50%" 
+                                                height="50%"/>
+                                            <img
+                                                src="~img/pinned_category/sanitary.jpg"
+                                                class="user-image"
+                                                v-else-if="this.model.category == 5"
+                                                width="50%" 
+                                                height="50%"/>  
+                                        </el-col>
+                                        <el-col :md="12">
+                                            <el-form-item class="switcher mt-20">
+                                                <label class="switcher__label">Do you want to use default provided image?</label>
+                                                <el-switch v-model="model.pinned_category"/>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>  
+                                </el-form-item> 
                                 <el-form-item :label="$t('models.post.images')">
-                                    <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
+                                    <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple />   
                                     <div class="mt15" v-if="media.length || (model.media && model.media.length)">
                                         <request-media :data="[...model.media, ...media]" @deleteMedia="deleteMedia"
                                                        v-if="media.length || (model.media && model.media.length)"></request-media>
@@ -443,8 +499,12 @@
                         onClick: this.notifyProviderUnassignment
                     }]
                 }],
-                activeTab1: "details"
+                activeTab1: "details",
+                rolename: ''
             }
+        },
+        mounted() {
+            this.rolename = this.$store.getters.loggedInUser.roles[0].name;
         },
         methods: {
             ...mapActions(['unassignPostBuilding', 'unassignPostDistrict', 'unassignPostProvider', 'deletePost']),
@@ -536,6 +596,10 @@
             },
             setPinnedTo(val) {
                 this.$set(this.model, 'pinned_to', val)
+            },
+            ShowSlide() {
+                this.showdefaultimage = '';
+                this.showdefaultimage = true;
             }
         }
     }
