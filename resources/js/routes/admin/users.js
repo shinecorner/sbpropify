@@ -21,7 +21,7 @@ export default [{
         component: () => import ( /* webpackChunkName: "admin/users/add" */ 'views/Admin/Users/Add'),
         beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.create.user)]),
         props: {
-            title: 'Add user'
+            title: 'Add Administrator/Super admin'
         },
         meta: {
             title: 'Add User'
