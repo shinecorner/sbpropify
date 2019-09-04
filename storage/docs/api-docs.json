@@ -508,6 +508,40 @@
                 }
             }
         },
+        "/buildings/{id}/assignees": {
+            "get": {
+                "tags": [
+                    "Building"
+                ],
+                "summary": "Get a listing of the Building assignees.",
+                "description": "Get a listing of the Building assignees.",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/BuildingAssignee"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/buildings/{id}/propertyManagers": {
             "post": {
                 "tags": [
@@ -1036,205 +1070,6 @@
                                     "items": {
                                         "$ref": "#/definitions/Country"
                                     }
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/districts": {
-            "get": {
-                "tags": [
-                    "District"
-                ],
-                "summary": "Get a listing of the Districts.",
-                "description": "Get all Districts",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/District"
-                                    }
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "District"
-                ],
-                "summary": "Store a newly created District in storage",
-                "description": "Store District",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "District that should be stored",
-                        "required": false,
-                        "schema": {
-                            "$ref": "#/definitions/District"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/District"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/districts/{id}": {
-            "get": {
-                "tags": [
-                    "District"
-                ],
-                "summary": "Display the specified District",
-                "description": "Get District",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of District",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/District"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "District"
-                ],
-                "summary": "Update the specified District in storage",
-                "description": "Update District",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of District",
-                        "required": true,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "District that should be updated",
-                        "required": false,
-                        "schema": {
-                            "$ref": "#/definitions/District"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/District"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "District"
-                ],
-                "summary": "Remove the specified District from storage",
-                "description": "Delete District",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of District",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "type": "string"
                                 },
                                 "message": {
                                     "type": "string"
@@ -2507,13 +2342,13 @@
                 }
             }
         },
-        "/posts/{id}/districts/{did}": {
+        "/posts/{id}/quarters/{did}": {
             "post": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Assign the provided district to the post",
-                "description": "Assign the provided district to the post",
+                "summary": "Assign the provided quarter to the post",
+                "description": "Assign the provided quarter to the post",
                 "produces": [
                     "application/json"
                 ],
@@ -2541,8 +2376,8 @@
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Unassign the provided district to the post",
-                "description": "Unassign the provided district to the post",
+                "summary": "Unassign the provided quarter to the post",
+                "description": "Unassign the provided quarter to the post",
                 "produces": [
                     "application/json"
                 ],
@@ -3252,13 +3087,13 @@
                 }
             }
         },
-        "/propertyManagers/{id}/districts/{did}": {
+        "/propertyManagers/{id}/quarters/{did}": {
             "post": {
                 "tags": [
                     "PropertyManager"
                 ],
-                "summary": "Assign the provided district to the property manager",
-                "description": "Assign the provided district to the property manager",
+                "summary": "Assign the provided quarter to the property manager",
+                "description": "Assign the provided quarter to the property manager",
                 "produces": [
                     "application/json"
                 ],
@@ -3286,8 +3121,8 @@
                 "tags": [
                     "PropertyManager"
                 ],
-                "summary": "Unassign the provided district from the property manager",
-                "description": "Unassign the provided district from the property manager",
+                "summary": "Unassign the provided quarter from the property manager",
+                "description": "Unassign the provided quarter from the property manager",
                 "produces": [
                     "application/json"
                 ],
@@ -3417,8 +3252,8 @@
                 "tags": [
                     "ServiceRequest"
                 ],
-                "summary": "Get a listing of the ServiceProvider assigned buildings and districts.",
-                "description": "Get a listing of the ServiceProvider assigned buildings and districts.",
+                "summary": "Get a listing of the ServiceProvider assigned buildings and quarters.",
+                "description": "Get a listing of the ServiceProvider assigned buildings and quarters.",
                 "produces": [
                     "application/json"
                 ],
@@ -3435,6 +3270,205 @@
                                     "items": {
                                         "$ref": "#/definitions/ServiceRequest"
                                     }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/quarters": {
+            "get": {
+                "tags": [
+                    "Quarter"
+                ],
+                "summary": "Get a listing of the Quarters.",
+                "description": "Get all Quarters",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Quarter"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Quarter"
+                ],
+                "summary": "Store a newly created Quarter in storage",
+                "description": "Store Quarter",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Quarter that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Quarter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Quarter"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/quarters/{id}": {
+            "get": {
+                "tags": [
+                    "Quarter"
+                ],
+                "summary": "Display the specified Quarter",
+                "description": "Get Quarter",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Quarter",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Quarter"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Quarter"
+                ],
+                "summary": "Update the specified Quarter in storage",
+                "description": "Update Quarter",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Quarter",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Quarter that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Quarter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Quarter"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Quarter"
+                ],
+                "summary": "Remove the specified Quarter from storage",
+                "description": "Delete Quarter",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Quarter",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
                                 },
                                 "message": {
                                     "type": "string"
@@ -3752,13 +3786,13 @@
                 }
             }
         },
-        "/services/{id}/districts/{did}": {
+        "/services/{id}/quarters/{did}": {
             "post": {
                 "tags": [
                     "ServiceProvider"
                 ],
-                "summary": "Assign the provided district to the service provider",
-                "description": "Assign the provided district to the service provider",
+                "summary": "Assign the provided quarter to the service provider",
+                "description": "Assign the provided quarter to the service provider",
                 "produces": [
                     "application/json"
                 ],
@@ -3786,8 +3820,8 @@
                 "tags": [
                     "ServiceProvider"
                 ],
-                "summary": "Unassign the provided district from the service provider",
-                "description": "Unassign the provided district from the service provider",
+                "summary": "Unassign the provided quarter from the service provider",
+                "description": "Unassign the provided quarter from the service provider",
                 "produces": [
                     "application/json"
                 ],
@@ -8511,7 +8545,7 @@
                 }
             }
         },
-        "BuildingRequestAssignee": {
+        "BuildingAssignee": {
             "properties": {
                 "id": {
                     "description": "id",
@@ -8647,37 +8681,6 @@
                 "name_it": {
                     "description": "name_it",
                     "type": "string"
-                }
-            }
-        },
-        "District": {
-            "required": [
-                "name",
-                "description"
-            ],
-            "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "name": {
-                    "description": "name",
-                    "type": "string"
-                },
-                "description": {
-                    "description": "description",
-                    "type": "string"
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
                 }
             }
         },
@@ -8963,6 +8966,37 @@
                 }
             }
         },
+        "Quarter": {
+            "required": [
+                "name",
+                "description"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "description": "name",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "description",
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
         "RealEstate": {
             "required": [
                 "name",
@@ -9004,8 +9038,8 @@
                     "type": "integer",
                     "format": "int32"
                 },
-                "district_enable": {
-                    "description": "district_enable",
+                "quarter_enable": {
+                    "description": "quarter_enable",
                     "type": "integer",
                     "format": "int32"
                 },
@@ -9259,35 +9293,6 @@
                     "description": "updated_at",
                     "type": "string",
                     "format": "date-time"
-                }
-            }
-        },
-        "ServiceRequestStatus": {
-            "required": [
-                "old_status",
-                "new_status",
-                "started_at",
-                "request_id"
-            ],
-            "properties": {
-                "request_id": {
-                    "description": "request_id",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "old_status": {
-                    "description": "old_status",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "new_status": {
-                    "description": "new_status",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "started_at": {
-                    "description": "started_at",
-                    "type": "string"
                 }
             }
         },

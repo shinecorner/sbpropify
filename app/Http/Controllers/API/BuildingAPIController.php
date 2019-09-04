@@ -15,15 +15,19 @@ use App\Http\Requests\API\Building\ViewRequest;
 use App\Http\Requests\API\PropertyManager\AssignRequest;
 use App\Models\Address;
 use App\Models\Building;
+use App\Models\PropertyManager;
+use App\Models\User;
 use App\Repositories\AddressRepository;
 use App\Repositories\BuildingRepository;
 use App\Repositories\PropertyManagerRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\UnitRepository;
 use App\Repositories\ServiceRequestRepository;
+use App\Transformers\BuildingAssigneeTransformer;
 use App\Transformers\BuildingTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Spatie\Geocoder\Geocoder;
 use Validator;
@@ -635,6 +639,82 @@ class BuildingAPIController extends AppBaseController
         }
 
         return $this->sendResponse($id, __('models.building.service.deleted'));
+    }
+
+    /**
+     * @param int $id
+     * @param Request $request
+     * @return Response
+     * @throws Exception
+     *
+     * @SWG\Get(
+     *      path="/buildings/{id}/assignees",
+     *      summary="Get a listing of the Building assignees.",
+     *      tags={"Building"},
+     *      description="Get a listing of the Building assignees.",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @SWG\Items(ref="#/definitions/BuildingAssignee")
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function getAssignees(int $id, Request $request)
+    {
+        // @TODO permissions
+        $building = $this->buildingRepository->findWithoutFail($id);
+        if (empty($building)) {
+            return $this->sendError(__('models.building.errors.not_found'));
+        }
+
+        $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
+        $assignees = $building->assignees()->paginate($perPage);
+
+
+        $managerType = get_morph_type_of(PropertyManager::class);
+        $managerIds = $assignees->where('assignee_type', $managerType)->pluck('assignee_id');
+        $raw = DB::raw('(select email from users where users.id = property_managers.user_id) as email,
+                (select avatar from users where users.id = property_managers.user_id) as avatar, 
+                Concat(first_name, " ", last_name) as name');
+        $managers = PropertyManager::select('id', $raw)
+            ->whereIn('id', $managerIds)
+            ->get();
+
+        $userType = get_morph_type_of(User::class);
+        $userIds = $assignees->where('assignee_type', $userType)->pluck('assignee_id');
+        $users = User::select('id', 'name', 'email')
+            ->whereIn('id', $userIds)
+            ->get();
+
+        foreach ($assignees as $index => $assignee) {
+            $related = null;
+            if ($assignee->assignee_type == $managerType) {
+                $related = $managers->where('id', $assignee->assignee_id)->first();
+            } elseif ($assignee->assignee_type == $userType) {
+                $related = $users->where('id', $assignee->assignee_id)->first();
+            }
+
+            $assignee->related = $related;
+        }
+
+        $response = (new BuildingAssigneeTransformer())->transformPaginator($assignees) ;
+        return $this->sendResponse($response, 'Assignees retrieved successfully');
     }
 
     /**

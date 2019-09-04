@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 /**
  * @SWG\Definition(
- *      definition="BuildingRequestAssignee",
+ *      definition="BuildingAssignee",
  *      @SWG\Property(
  *          property="id",
  *          description="id",
@@ -15,14 +15,8 @@ use Illuminate\Support\Str;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="item_id",
- *          description="related assigner id",
- *          type="integer",
- *          format="int32"
- *      ),
- *      @SWG\Property(
  *          property="edit_id",
- *          description="@TODO must be delete",
+ *          description=",
  *          type="integer",
  *          format="int32"
  *      ),

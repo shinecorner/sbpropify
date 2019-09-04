@@ -1246,6 +1246,7 @@ class ServiceRequestAPIController extends AppBaseController
      */
     public function getAssignees(int $id, Request $request)
     {
+        // @TODO permissions
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
             return $this->sendError(__('models.request.errors.not_found'));
@@ -1276,8 +1277,6 @@ class ServiceRequestAPIController extends AppBaseController
         $users = User::select('id', 'name', 'email')
             ->whereIn('id', $userIds)
             ->get();
-
-
 
         foreach ($assignees as $index => $assignee) {
             $related = null;
