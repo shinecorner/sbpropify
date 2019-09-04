@@ -109,13 +109,13 @@ export default (config = {}) => {
                     text: 'Please wait...'
                 },
                 requests: [],
-                assignmentTypes: ['building', 'district'],
+                assignmentTypes: ['building', 'quarter'],
                 assignmentType: 'building',
                 toAssign: '',
                 toAssignList: [],
                 alreadyAssigned: {
                     buildings: [],
-                    districts: []
+                    quarters: []
                 },
                 remoteLoading: false,
                 isFormSubmission: false,
@@ -127,7 +127,7 @@ export default (config = {}) => {
             },
         },
         methods: {
-            ...mapActions(['getBuildings', 'getDistricts', 'assignBuilding', 'assignDistrict', 'unassignBuilding', 'unassignDistrict']),
+            ...mapActions(['getBuildings', 'getQuarters', 'assignBuilding', 'assignQuarter', 'unassignBuilding', 'unassignQuarter']),
             async remoteSearchBuildings(search) {
                 if (search === '') {
                     this.resetToAssignList();
@@ -146,10 +146,10 @@ export default (config = {}) => {
                                 return !this.alreadyAssigned.buildings.includes(building.id)
                             });
                         } else {
-                            resp = await this.getDistricts({get_all: true, search});
+                            resp = await this.getQuarters({get_all: true, search});
 
-                            resp.data = resp.data.filter((district) => {
-                                return !this.alreadyAssigned.districts.includes(district.id)
+                            resp.data = resp.data.filter((quarter) => {
+                                return !this.alreadyAssigned.quarters.includes(quarter.id)
                             });
                         }
 
@@ -195,7 +195,7 @@ export default (config = {}) => {
                             toAssignId: this.toAssign
                         });
                     } else {
-                        resp = await this.assignDistrict({
+                        resp = await this.assignQuarter({
                             id: this.model.id,
                             toAssignId: this.toAssign
                         });
@@ -224,7 +224,7 @@ export default (config = {}) => {
                                 toAssignId: element.id
                             });
                         } else {
-                            resp = await this.assignDistrict({
+                            resp = await this.assignQuarter({
                                 id: modelId,
                                 toAssignId: element.id
                             });
@@ -246,7 +246,7 @@ export default (config = {}) => {
                 }
 
                 this.alreadyAssigned.buildings = this.addedAssigmentList.filter(item => item['type'] === 'building').map((building) => building.id);
-                this.alreadyAssigned.districts = this.addedAssigmentList.filter(item => item['type'] === 'district').map((district) => district.id);
+                this.alreadyAssigned.quarters = this.addedAssigmentList.filter(item => item['type'] === 'quarter').map((quarter) => quarter.id);
 
                 this.toAssign = '';
                 this.toAssignList = [];
@@ -259,7 +259,7 @@ export default (config = {}) => {
                         toAssignId: toUnassign.id
                     })
                 } else {
-                    resp = await this.unassignDistrict({
+                    resp = await this.unassignQuarter({
                         id: this.model.id,
                         toAssignId: toUnassign.id
                     })
@@ -270,7 +270,7 @@ export default (config = {}) => {
                     this.$refs.assignmentsList.fetch();
 
                     this.toAssign = '';
-                    const type = toUnassign.aType == 1 ? 'Building' : 'District';
+                    const type = toUnassign.aType == 1 ? 'Building' : 'Quarter';
                     displaySuccess(resp);
                 }
             }
@@ -375,7 +375,7 @@ export default (config = {}) => {
                         this.model = Object.assign({}, this.model, data);
 
                         this.alreadyAssigned.buildings = this.model.buildings.map((building) => building.id);
-                        this.alreadyAssigned.districts = this.model.districts.map((district) => district.id);
+                        this.alreadyAssigned.quarters = this.model.quarters.map((quarter) => quarter.id);
 
                         return resp.data;
                     },

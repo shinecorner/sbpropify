@@ -1,7 +1,7 @@
 <template>
-    <div class="districts-edit">
+    <div class="quarters-edit">
         <heading :title="$t('models.district.add')" icon="icon-share" shadow="heavy">
-            <add-actions :saveAction="submit" route="adminDistricts" editRoute="adminDistrictsEdit"/>
+            <add-actions :saveAction="submit" route="adminQuarters" editRoute="adminQuartersEdit"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
@@ -21,14 +21,14 @@
 <script>
     import Heading from 'components/Heading';
     import Card from 'components/Card';
-    import DistrictsMixin from 'mixins/adminDistrictsMixin';
+    import QuartersMixin from 'mixins/adminQuartersMixin';
     import {displayError} from "helpers/messages";
     import AddActions from 'components/EditViewActions';
 
 
     export default {
-        name: 'AdminDistrictsEdit',
-        mixins: [DistrictsMixin({
+        name: 'AdminQuartersEdit',
+        mixins: [QuartersMixin({
             mode: 'add'
         })],
         components: {
@@ -40,7 +40,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .districts-edit {
+    .quarters-edit {
         .crud-view {
             margin-top: 1%;
         }

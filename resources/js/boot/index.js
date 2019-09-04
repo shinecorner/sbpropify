@@ -56,7 +56,7 @@ Vue.component('AnimatedNumber', AnimatedNumber)
 // TODO - temporary workaround - will be using this later https://github.com/leonardovilarinho/vue-acl
 Vue.prototype.$can = hasPermission
 Vue.prototype.$permissions = AdminPermissions
-console.log(Vue.prototype.$permissions)
+console.log(AdminPermissions);
 // ...really?! - keeping it to not break things within admin yet - will be removed
 Vue.prototype._ = window._
 

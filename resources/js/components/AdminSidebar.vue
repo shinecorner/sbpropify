@@ -66,7 +66,6 @@
         methods: {
             async handleLink(ev, key, {route, action, children, icon}) {
                 //this.currActive = key.toString();
-                
                 !children && route && this.$router.push(route);
 
                 /*if (!children && !!icon) {
@@ -146,6 +145,9 @@
                     }); 
                 }
             }
+        },
+        created() {
+            console.log(this.$props);
         }
     }
 </script>

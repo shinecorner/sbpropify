@@ -37,7 +37,7 @@
     import ListTableMixin from 'mixins/ListTableMixin';
     import getFilterPropertyManager from 'mixins/methods/getFilterPropertyManager';
     import PrepareCategories from 'mixins/methods/prepareCategories';
-    import getFilterDistricts from 'mixins/methods/getFilterDistricts';
+    import getFilterQuarters from 'mixins/methods/getFilterQuarters';
     import RequestListTable from 'components/RequestListTable';
 
 
@@ -54,7 +54,7 @@
 
     export default {
         name: 'AdminRequests',
-        mixins: [mixin, getFilterPropertyManager, PrepareCategories, getFilterDistricts],
+        mixins: [mixin, getFilterPropertyManager, PrepareCategories, getFilterQuarters],
         components: {
             Heading,
             RequestListTable
@@ -68,7 +68,7 @@
                     onChange: this.listingSelectChangedNotify
                 }],
                 categories:{},
-                districts:{},
+                quarters:{},
                 buildings:{},
                 propertyManagers:{},
                 tenants: {},
@@ -121,8 +121,8 @@
                     {
                         name: this.$t('filters.districts'),
                         type: 'select',
-                        key: 'district_id',
-                        data: this.districts,
+                        key: 'quarter_id',
+                        data: this.quarters,
                     },
                     {
                         name: this.$t('filters.buildings'),
@@ -282,8 +282,8 @@
         },
         async created(){
             this.isLoadingFilters = true;
-            const districts = await this.axios.get('districts')
-            this.districts = districts.data.data.data;
+            const quarters = await this.axios.get('quarters')
+            this.quarters = quarters.data.data.data;
 
             const propertyManagers = await this.axios.get('propertyManagers?get_all=true')
             this.propertyManagers = propertyManagers.data.data.map((propertyManager) => {

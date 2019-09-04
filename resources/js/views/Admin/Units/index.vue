@@ -35,7 +35,7 @@
     import Heading from 'components/Heading';
     import {mapActions} from 'vuex';
     import ListTableMixin from 'mixins/ListTableMixin';
-    import getFilterDistricts from 'mixins/methods/getFilterDistricts';
+    import getFilterQuarters from 'mixins/methods/getFilterQuarters';
     import getFilterStates from "mixins/methods/getFilterStates";
     import getFilterPropertyManager from "mixins/methods/getFilterPropertyManager";
 
@@ -55,14 +55,14 @@
         components: {
             Heading
         },
-        mixins: [mixin, getFilterDistricts, getFilterStates, getFilterPropertyManager],
+        mixins: [mixin, getFilterQuarters, getFilterStates, getFilterPropertyManager],
         data() {
             return {
                 isReady: false,
                 fetchParams: {},
                 states:{},
                 propertyManagers:{},
-                districts:{},
+                quarters:{},
                 buildings:{},
                 header: [{
                     label: 'models.unit.name',
@@ -155,8 +155,8 @@
                     {
                         name: this.$t('filters.districts'),
                         type: 'select',
-                        key: 'district_id',
-                        data: this.districts,
+                        key: 'quarter_id',
+                        data: this.quarters,
                     },
                     {
                         name: this.$t('filters.buildings'),
@@ -198,8 +198,8 @@
         async created() {
             this.isLoadingFilters = true;
             this.isReady = true;
-            const districts = await this.axios.get('districts')
-            this.districts = districts.data.data.data;
+            const quarters = await this.axios.get('quarters')
+            this.quarters = quarters.data.data.data;
 
             const propertyManagers = await this.axios.get('propertyManagers?get_all=true')
             this.propertyManagers = propertyManagers.data.data.map((propertyManager) => {
