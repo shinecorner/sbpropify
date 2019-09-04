@@ -14,8 +14,10 @@ class FilDistrictFormatInDistrictsTable extends Migration
     public function up()
     {
 
-        \App\Models\Quarter::get(['id', 'created_at'])->each(function ($district) {
-            $district->quarter_format  = $district->getUniqueIDFormat($district->id, $district->created_at);
+        $quarter = new \App\Models\Quarter();
+        $quarter->setTable('districts');
+        $quarter->get(['id', 'created_at'])->each(function ($district) {
+            $district->district_format  = $district->getUniqueIDFormat($district->id, $district->created_at);
             $district->save();
         });
     }

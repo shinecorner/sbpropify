@@ -16,7 +16,7 @@ class RenameDistrictToQuarters extends Migration
         Schema::rename('districts', 'quarters');
         Schema::rename('district_property_manager', 'quarters_property_manager');
         Schema::rename('district_service_provider', 'quarters_service_provider');
-        Schema::rename('district_post', 'quarters_post');
+        Schema::rename('district_post', 'quarter_post');
     }
 
     /**
@@ -29,6 +29,6 @@ class RenameDistrictToQuarters extends Migration
         Schema::rename('quarters', 'districts');
         Schema::rename('quarters_property_manager', 'district_property_manager');
         Schema::rename('quarters_service_provider', 'district_service_provider');
-        Schema::rename('quarters_post', 'district_post');
+        Schema::rename('quarter_post', 'district_post');
     }
 }

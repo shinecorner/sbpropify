@@ -229,7 +229,7 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
 
     public function quarters()
     {
-        return $this->belongsToMany(Quarter::class);
+        return $this->belongsToMany(Quarter::class, 'quarter_post');
     }
 
     public function providers()
