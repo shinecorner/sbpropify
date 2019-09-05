@@ -41,21 +41,21 @@
                                        v-for="state in states"></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item :label="$t('models.building.district')" prop="district_id" style="max-width: 512px;">
+                    <el-form-item :label="$t('models.building.district')" prop="quarter_id" style="max-width: 512px;">
                         <el-select
                             :loading="remoteLoading"
                             :placeholder="$t('general.placeholders.search')"
-                            :remote-method="remoteSearchDistricts"
+                            :remote-method="remoteSearchQuarters"
                             filterable
                             remote
                             reserve-keyword
                             style="width: 100%;"
-                            v-model="model.district_id">
+                            v-model="model.quarter_id">
                             <el-option
-                                :key="district.id"
-                                :label="district.name"
-                                :value="district.id"
-                                v-for="district in districts"/>
+                                :key="quarter.id"
+                                :label="quarter.name"
+                                :value="quarter.id"
+                                v-for="quarter in quarters"/>
                         </el-select>
                     </el-form-item>
                 </el-form>

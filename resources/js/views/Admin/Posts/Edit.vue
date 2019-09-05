@@ -500,7 +500,7 @@
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
         },
         methods: {
-            ...mapActions(['unassignPostBuilding', 'unassignPostDistrict', 'unassignPostProvider', 'deletePost']),
+            ...mapActions(['unassignPostBuilding', 'unassignPostQuarter', 'unassignPostProvider', 'deletePost']),
             disabledExecutionStart(date) {
                 const d = new Date(date).getTime();
                 const executionEnd = new Date(this.model.execution_end).getTime();
@@ -539,7 +539,7 @@
                         toAssignId: toUnassign.id
                     })
                 } else {
-                    resp = await this.unassignPostDistrict({
+                    resp = await this.unassignPostQuarter({
                         id: this.model.id,
                         toAssignId: toUnassign.id
                     })
@@ -551,7 +551,7 @@
 
                     this.toAssign = '';
 
-                    const type = toUnassign.aType == 1 ? 'building' : 'district';
+                    const type = toUnassign.aType == 1 ? 'building' : 'quarter';
                     displaySuccess(resp)
                 }
             },
