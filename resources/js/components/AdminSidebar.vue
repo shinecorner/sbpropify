@@ -146,9 +146,6 @@
                 }
             }
         },
-        created() {
-            console.log(this.$props);
-        }
     }
 </script>
 <style lang="scss">
