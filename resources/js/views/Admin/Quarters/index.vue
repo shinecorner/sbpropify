@@ -1,12 +1,12 @@
 <template>
-    <div class="districts">
-        <heading :title="$t('models.district.title')" icon="icon-share" shadow="heavy">
-            <template v-if="$can($permissions.create.district)">
+    <div class="quarters">
+        <heading :title="$t('models.quarter.title')" icon="icon-share" shadow="heavy">
+            <template v-if="$can($permissions.create.quarter)">
                 <el-button @click="add" icon="ti-plus" round size="mini" type="primary">
-                    {{$t('models.district.add')}}
+                    {{$t('models.quarter.add')}}
                 </el-button>
             </template>
-            <template v-if="$can($permissions.delete.district)">
+            <template v-if="$can($permissions.delete.quarter)">
                 <el-button :disabled="!selectedItems.length" @click="batchDeleteWithIds" icon="ti-trash" round size="mini"
                            type="danger">
                     {{$t('general.actions.delete')}}
@@ -36,12 +36,12 @@
 
     const mixin = ListTableMixin({
         actions: {
-            get: 'getDistricts',
-            delete: 'deleteDistrictWithIds'
+            get: 'getQuarters',
+            delete: 'deleteQuarterWithIds'
         },
         getters: {
-            items: 'districts',
-            pagination: 'districtsMeta'
+            items: 'quarters',
+            pagination: 'quartersMeta'
         }
     });
 
@@ -52,7 +52,7 @@
         mixins: [mixin],
         data() {
             return {
-                i18nName: 'district',
+                i18nName: 'quarter',
                 header: [{
                     label: 'general.name',
                     prop: 'name'
@@ -63,7 +63,7 @@
                         title: 'general.actions.edit',
                         onClick: this.edit,
                         permissions: [
-                            this.$permissions.update.district
+                            this.$permissions.update.quarter
                         ]
                     }]
                 }],
@@ -76,7 +76,7 @@
                 validationRules: {
                     name: [{
                         required: true,
-                        message: this.$t('models.district.required')
+                        message: this.$t('models.quarter.required')
                     }],
                 }
             };
@@ -95,21 +95,21 @@
         },
         methods: {
             ...mapActions(['getBuildings']),
-            async openEditWithRelation(district) {
+            async openEditWithRelation(quarter) {
                 this.loading = true;
-                const buildingsResp = await this.getBuildings({get_all: true, district_id: district.id});
-                await this.openEdit(district);
+                const buildingsResp = await this.getBuildings({get_all: true, quarter_id: quarter.id});
+                await this.openEdit(quarter);
                 this.$set(this.model, 'buildings', buildingsResp.data);
                 this.loading = false;
             },
             add() {
                 this.$router.push({
-                    name: 'adminDistrictsAdd'
+                    name: 'adminQuartersAdd'
                 });
             },
             edit({id}) {
                 this.$router.push({
-                    name: 'adminDistrictsEdit',
+                    name: 'adminQuartersEdit',
                     params: {
                         id
                     }

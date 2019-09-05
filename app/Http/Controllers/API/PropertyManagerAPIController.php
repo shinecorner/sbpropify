@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Criteria\Common\FilterFullnameCriteria;
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\PropertyManagers\FilterByRelatedFieldsCriteria;
 use App\Criteria\PropertyManagers\HasRequestCriteria;
@@ -23,6 +24,7 @@ use App\Transformers\PropertyManagerTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Illuminate\Support\Facades\Validator;
 
@@ -80,6 +82,7 @@ class PropertyManagerAPIController extends AppBaseController
     public function index(ListRequest $request)
     {
         $this->propertyManagerRepository->pushCriteria(new RequestCriteria($request));
+        $this->propertyManagerRepository->pushCriteria(new FilterFullnameCriteria($request));
         $this->propertyManagerRepository->pushCriteria(new LimitOffsetCriteria($request));
         $this->propertyManagerRepository->pushCriteria(new FilterByRelatedFieldsCriteria($request));
 

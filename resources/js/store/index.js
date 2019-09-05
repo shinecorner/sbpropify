@@ -14,7 +14,7 @@ import ProductsStore from 'store/modules/products'
 import PostsStore from 'store/modules/posts'
 import NotificationsStore from 'store/modules/notifications'
 import MediaStore from 'store/modules/media'
-import DistrictsStore from 'store/modules/districts'
+import QuartersStore from 'store/modules/quarters'
 import DashboardStore from 'store/modules/dashboard'
 import CommentsStore from 'store/modules/comments'
 import CleanifyStore from 'store/modules/cleanify'
@@ -55,7 +55,7 @@ export default new Vuex.Store({
         addresses: AddressesStore,
         services: ServicesStore,
         posts: PostsStore,
-        districts: DistrictsStore,
+        quarters: QuartersStore,
         requests: RequestsStore,
         requestCategories: RequestCategoriesStore,
         propertyManagers: PropertyManagersStore,

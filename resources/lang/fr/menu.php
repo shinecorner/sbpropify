@@ -28,7 +28,6 @@ return [
     'addresses' => 'Adresses',
     'posts' => 'Actualités',
     'quarters' => 'Trimestres',
-    'districts' => 'Trimestres',
     'products' => 'Produits',
     'requestCategories' => 'Catégories de demandes',
     'services' => 'Partenaires de service',

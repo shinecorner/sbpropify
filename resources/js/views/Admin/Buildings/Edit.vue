@@ -73,26 +73,26 @@
                             </el-row>
                             <el-row class="last-form-row" :gutter="20">
                                 <el-col :md="12">
-                                    <el-form-item :label="$t('models.building.district')" prop="district_id"
+                                    <el-form-item :label="$t('models.building.quarter')" prop="quarter_id"
                                                   style="max-width: 512px;">
                                         <el-select
                                                 :loading="remoteLoading"
                                                 :placeholder="$t('general.placeholders.search')"
-                                                :remote-method="remoteSearchDistricts"
+                                                :remote-method="remoteSearchQuarters"
                                                 filterable
                                                 remote
                                                 reserve-keyword
                                                 style="width: 100%;"
-                                                v-model="model.district_id">
+                                                v-model="model.quarter_id">
                                             <el-option
                                                     :label="$t('general.none')"
                                                     value=""
                                             />
                                             <el-option
-                                                    :key="district.id"
-                                                    :label="district.name"
-                                                    :value="district.id"
-                                                    v-for="district in districts"/>
+                                                    :key="quarter.id"
+                                                    :label="quarter.name"
+                                                    :value="quarter.id"
+                                                    v-for="quarter in quarters"/>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>

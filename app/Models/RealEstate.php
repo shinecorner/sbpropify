@@ -46,6 +46,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          type="string"
  *      ),
  *      @SWG\Property(
+ *          property="circle_logo",
+ *          description="circle_logo",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="favicon_icon",
+ *          description="favicon_icon",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
  *          property="blank_pdf",
  *          description="blank_pdf",
  *          type="integer",
@@ -116,6 +126,8 @@ class RealEstate extends AuditableModel
         'phone',
         'language',
         'logo',
+        'circle_logo',
+        'favicon_icon',
         'blank_pdf',
         'quarter_enable',
         'contact_enable',
@@ -154,6 +166,8 @@ class RealEstate extends AuditableModel
         'phone' => 'string',
         'language' => 'string',
         'logo' => 'string',
+        'circle_logo' => 'string',
+        'favicon_icon' => 'string',
         'blank_pdf' => 'boolean',
         'quarter_enable' => 'boolean',
         'contact_enable' => 'boolean',

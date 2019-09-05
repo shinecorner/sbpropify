@@ -1,10 +1,10 @@
 <template>
-    <div class="districts-edit">
-        <heading :title="$t('models.district.edit')" icon="icon-chat-empty" shadow="heavy">
-            <template slot="description" v-if="model.district_format">
-                <div class="subtitle">{{`${model.district_format} > ${model.name}`}}</div>
+    <div class="quarters-edit">
+        <heading :title="$t('models.quarter.edit')" icon="icon-chat-empty" shadow="heavy">
+            <template slot="description" v-if="model.quarter_format">
+                <div class="subtitle">{{`${model.quarter_format} > ${model.name}`}}</div>
             </template>
-            <edit-actions :saveAction="submit" :deleteAction="deleteDistrict" route="adminDistricts"/>
+            <edit-actions :saveAction="submit" :deleteAction="deleteQuarter" route="adminQuarters"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
@@ -18,7 +18,7 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12">
-                                <el-form-item class="label-block" :label="$t('models.district.count_of_buildings')"
+                                <el-form-item class="label-block" :label="$t('models.quarter.count_of_buildings')"
                                               prop="title">
                                     <el-select style="display: block" v-model="model.count_of_buildings">
                                         <el-option
@@ -40,19 +40,19 @@
                             :columns="requestColumns"
                             :filterValue="model.id"
                             fetchAction="getRequests"
-                            filter="district_id"
+                            filter="quarter_id"
                             v-if="model.id"
                     />
                 </card>
             </el-col>
             <el-col :md="12">
-                <card :loading="loading" :header="$t('models.district.buildings')">
+                <card :loading="loading" :header="$t('models.quarter.buildings')">
                     <relation-list
-                        :actions="districtActions"
-                        :columns="districtColumns"
+                        :actions="quarterActions"
+                        :columns="quarterColumns"
                         :filterValue="model.id"
                         fetchAction="getBuildings"
-                        filter="district_id"
+                        filter="quarter_id"
                         v-if="model.id"
                     />
                 </card>
@@ -64,7 +64,7 @@
 <script>
     import Heading from 'components/Heading';
     import Card from 'components/Card';
-    import DistrictsMixin from 'mixins/adminDistrictsMixin';
+    import QuartersMixin from 'mixins/adminQuartersMixin';
     import {displayError} from "helpers/messages";
     import EditActions from 'components/EditViewActions';
     import {mapActions} from 'vuex';
@@ -72,7 +72,7 @@
 
     export default {
         name: 'AdminRequestsEdit',
-        mixins: [DistrictsMixin({
+        mixins: [QuartersMixin({
             mode: 'edit',
             withRelation: true
         })],
@@ -104,7 +104,7 @@
                         onClick: this.requestEditView
                     }]
                 }],
-                districtColumns: [{
+                quarterColumns: [{
                     prop: 'name',
                     label: 'general.name'
                 }, {
@@ -119,7 +119,7 @@
                     count: 'tenants_count',
                     label: 'general.tenants'
                 }],
-                districtActions: [{
+                quarterActions: [{
                     width: '90px',
                     buttons: [{
                         icon: 'ti-pencil',
@@ -131,7 +131,7 @@
             }
         },
         methods: {
-            ...mapActions(['deleteDistrict']),
+            ...mapActions(['deleteQuarter']),
 
             requestEditView(row) {
                 this.$router.push({
@@ -181,7 +181,7 @@
         margin-bottom: -22px;
     }
 
-    .districts-edit {
+    .quarters-edit {
         .crud-view {
             margin-top: 1%;
         }
