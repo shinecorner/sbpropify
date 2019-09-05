@@ -34,7 +34,6 @@ class BuildingSimpleTransformer extends BaseTransformer
 
         if ($model->quarter) {
             $response['quarter'] = (new QuarterTransformer)->transform($model->quarter);
-            $response['district'] = $response['quarter'];
         }
 
         return $response;

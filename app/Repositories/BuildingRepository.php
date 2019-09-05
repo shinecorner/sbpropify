@@ -49,9 +49,6 @@ class BuildingRepository extends BaseRepository
         if (isset($attributes['quarter'])) {
             unset($attributes['quarter']);
         }
-        if (isset($attributes['district'])) {
-            unset($attributes['district']);
-        }
 
         // Have to skip presenter to get a model not some data
         $model = parent::create($attributes);

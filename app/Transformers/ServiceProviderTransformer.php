@@ -55,7 +55,6 @@ class ServiceProviderTransformer extends BaseTransformer
 
         if ($model->relationExists('quarters')) {
             $response['quarters'] = (new QuarterTransformer)->transformCollection($model->quarters);
-            $response['districts'] = $response['quarters'];
         }
         if ($model->relationExists('buildings')) {
             $response['buildings'] = (new BuildingTransformer)->transformCollection($model->buildings);

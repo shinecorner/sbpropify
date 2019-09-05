@@ -58,7 +58,7 @@ class PostRepository extends BaseRepository
     public function create(array $atts)
     {
         $atts['building_ids'] = $atts['building_ids'] ?? [];
-        $atts['quarter_ids'] = $atts['quarter_ids'] ?? $atts['district_ids'] ?? [];
+        $atts['quarter_ids'] = $atts['quarter_ids'] ?? [];
         $u = \Auth::user();
         if ($u->can('post-post') && !($u->can('post-located-post'))) {
             if ($u->tenant()->exists()) {
