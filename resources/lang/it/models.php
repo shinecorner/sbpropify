@@ -785,7 +785,6 @@ return [
       "add_buildings" => "Aggiungere edifici",
       "buildings_search" => "Ricerca di edifici",
       "quarters" => "Quartieri",
-      "districts" => "Quartieri",
       'delete_with_reassign_modal' =>
       [
         "title" => "Cancellare e riassegnare gli edifici",

@@ -785,7 +785,6 @@ return [
       'add_buildings' => 'Add buildings',
       'buildings_search' => 'Search for buildings',
       'quarters' => 'Quarters',
-      'districts' => 'Quarters',
       'delete_with_reassign_modal' =>
       [
         'title' => 'Delete & reassign buildings',

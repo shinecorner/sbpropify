@@ -2,7 +2,6 @@
 return [
     'header' => 'Filters',
     'quarters' => 'Quarters',
-    'districts' => 'Quarters',
     'buildings' => 'Buildings',
     'requests' => 'Requests',
     'open_requests' => 'Open requests',

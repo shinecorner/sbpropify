@@ -2,7 +2,6 @@
 return [  
   'header' => 'Filter',
   'quarters' => 'Überbauungen',
-  'districts' => 'Überbauungen',
   'buildings' => 'Liegenschaften',
   'requests' => 'Anfragen',
   'open_requests' => 'Offene Anfragen',

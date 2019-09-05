@@ -785,7 +785,6 @@ return [
       "add_buildings" => "Ajouter des bâtiments",
       "buildings_search" => "Recherche de bâtiments",
       "quarters" => "Trimestres",
-      "districts" => "Trimestres",
       'delete_with_reassign_modal' =>
       [
         "title" => "Supprimer et réaffecter des bâtiments",

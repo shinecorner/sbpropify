@@ -785,7 +785,6 @@ return [
 			'add_buildings' => 'Liegenschaft hinzufügen',
 			'buildings_search' => 'Liegenschaft suchen',
 			'quarters' => 'Quartale',
-			'districts' => 'Quartale',
 			'delete_with_reassign_modal' =>
 				[
 					'title' => 'Andere Person zuweisen und dann Benutzer löschen',
