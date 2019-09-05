@@ -494,7 +494,7 @@
         },
         computed: {
             visibilities() {
-                if (this.model.tenant && this.model.tenant.building && this.model.tenant.building.district_id) {
+                if (this.model.tenant && this.model.tenant.building && this.model.tenant.building.quarter_id) {
                     return this.constants.serviceRequests.visibility;
                 } else {
                     return Object.keys(this.constants.serviceRequests.visibility)

@@ -232,7 +232,7 @@
             }
         },
         methods: {
-            ...mapActions(['unassignServiceBuilding', 'unassignServiceDistrict', 'deleteService']),
+            ...mapActions(['unassignServiceBuilding', 'unassignServiceQuarter', 'deleteService']),
             requestEditView(row) {
                 this.$router.push({
                     name: 'adminRequestsEdit',
@@ -270,7 +270,7 @@
                         toAssignId: toUnassign.id
                     })
                 } else {
-                    resp = await this.unassignServiceDistrict({
+                    resp = await this.unassignServiceQuarter({
                         id: this.model.id,
                         toAssignId: toUnassign.id
                     })
@@ -281,7 +281,7 @@
 
                     this.toAssign = '';
 
-                    const type = toUnassign.aType == 1 ? 'building' : 'district';
+                    const type = toUnassign.aType == 1 ? 'building' : 'quarter';
 
                     displaySuccess(resp)
                 }

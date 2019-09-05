@@ -2,39 +2,39 @@ import axios from '@/axios';
 import {buildFetchUrl} from 'helpers/url';
 
 export default {
-    getDistricts({commit}, payload) {
+    getQuarters({commit}, payload) {
         return new Promise((resolve, reject) =>
-            axios.get(buildFetchUrl('districts', payload))
-                .then(({data: r}) => (r && commit('SET_DISTRICTS', r.data), resolve(r)))
+            axios.get(buildFetchUrl('quarters', payload))
+                .then(({data: r}) => (r && commit('SET_QUARTERS', r.data), resolve(r)))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    getDistrict(_, {id}) {
+    getQuarter(_, {id}) {
         return new Promise((resolve, reject) =>
-            axios.get(`districts/${id}`)
+            axios.get(`quarters/${id}`)
                 .then(({data: r}) => resolve(r.data))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    createDistrict(_, payload) {
+    createQuarter(_, payload) {
         return new Promise((resolve, reject) =>
-            axios.post('districts', payload)
+            axios.post('quarters', payload)
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    updateDistrict(_, {id, ...restPayload}) {
+    updateQuarter(_, {id, ...restPayload}) {
         return new Promise((resolve, reject) =>
-            axios.put(`districts/${id}`, restPayload)
+            axios.put(`quarters/${id}`, restPayload)
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    deleteDistrict(_, {id}) {
+    deleteQuarter(_, {id}) {
         return new Promise((resolve, reject) =>
-            axios.delete(`districts/${id}`)
+            axios.delete(`quarters/${id}`)
                 .then(({data: r}) => resolve(r))
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    deleteDistrictWithIds({}, payload) {        
+    deleteQuarterWithIds({}, payload) {        
         return new Promise((resolve, reject) => {
-            axios.post(`districts/deletewithids`, {ids: _.map(payload, 'id')}).then((resp) => {                
+            axios.post(`quarters/deletewithids`, {ids: _.map(payload, 'id')}).then((resp) => {                
                 resolve(resp.data);
             }).catch(({response: {data: err}}) => reject(err))
         });

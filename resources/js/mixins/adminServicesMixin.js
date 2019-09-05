@@ -127,7 +127,7 @@ export default (config = {}) => {
                     state: false,
                     text: 'Please wait...'
                 },
-                assignmentTypes: ['building', 'district'],
+                assignmentTypes: ['building', 'quarter'],
                 assignmentType: 'building',
                 toAssign: '',
                 toAssignList: [],
@@ -141,8 +141,8 @@ export default (config = {}) => {
             ...mapGetters(['states'])
         },
         methods: {
-            ...mapActions(['getStates', 'getBuildings', 'getDistricts', 'assignServiceBuilding',
-                'assignServiceDistrict']),
+            ...mapActions(['getStates', 'getBuildings', 'getQuarters', 'assignServiceBuilding',
+                'assignServiceQuarter']),
             translateType(type) {
                 return this.$t(`general.assignmentTypes.${type}`);
             },
@@ -160,7 +160,7 @@ export default (config = {}) => {
                                 search,
                             });
                         } else {
-                            resp = await this.getDistricts({get_all: true, search});
+                            resp = await this.getQuarters({get_all: true, search});
                         }
 
                         this.toAssignList = resp.data;
@@ -203,7 +203,7 @@ export default (config = {}) => {
                                 toAssignId: this.toAssign
                             });
                         } else {
-                            resp = await this.assignServiceDistrict({
+                            resp = await this.assignServiceQuarter({
                                 id: this.model.id,
                                 toAssignId: this.toAssign
                             });
