@@ -224,7 +224,7 @@
                                         <el-badge :value="mediaCount" :max="99" class="admin-layout">{{ $t('models.request.images') }}</el-badge>
                                     </span>
                                     <el-alert
-                                        v-if="!media.length || (!model.media && !model.media.length)"
+                                        v-if="( !media || media.length == 0) && mediaCount == 0"
                                         :title="$t('models.request.no_images_message')"
                                         type="info"
                                         show-icon
@@ -296,21 +296,7 @@
                     <el-col :md="12">
                         <template v-if="$can($permissions.assign.request)">
                             <card :loading="loading" :header="$t('models.request.actions')" id="request_actions">
-                                <el-row :gutter="10">
-                                    <el-col :md="12">
-                                        <el-form-item :label="$t('models.request.internal_priority.label')"
-                                                      :rules="validationRules.internal_priority"
-                                                      prop="internal_priority">
-                                            <el-select :placeholder="$t('models.request.internal_priority.label')" class="custom-select" v-model="model.internal_priority">
-                                                <el-option
-                                                    :key="k"
-                                                    :label="$t(`models.request.internal_priority.${priority}`)"
-                                                    :value="parseInt(k)"
-                                                    v-for="(priority, k) in $constants.service_requests.internal_priority">
-                                                </el-option>
-                                            </el-select>
-                                        </el-form-item>
-                                    </el-col>
+                                <el-row :gutter="10">                                    
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.request.status.label')"
                                                       :rules="validationRules.status"
@@ -494,7 +480,7 @@
         },
         computed: {
             visibilities() {
-                if (this.model.tenant && this.model.tenant.building && this.model.tenant.building.district_id) {
+                if (this.model.tenant && this.model.tenant.building && this.model.tenant.building.quarter_id) {
                     return this.constants.serviceRequests.visibility;
                 } else {
                     return Object.keys(this.constants.serviceRequests.visibility)
@@ -784,14 +770,21 @@
     }
 
     #edit_request {
+        .el-form-item {
+            margin-bottom: 16px;
+        }
         .el-card__body {
             padding: 16px 16px 0px 16px !important;
         }
         .request {
-            padding: 16px !important;
+            .el-card__body {
+                padding: 16px !important;
+            }
         }
         #comments {
-            padding: 16px !important;
+            .el-card__body {
+                padding: 16px !important;
+            }
         }
     }
 </style>

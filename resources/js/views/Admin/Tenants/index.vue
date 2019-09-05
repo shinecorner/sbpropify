@@ -34,7 +34,7 @@
     import Heading from 'components/Heading';
     import ListTableMixin from 'mixins/ListTableMixin';
     import getFilterStates from 'mixins/methods/getFilterStates';
-    import getFilterDistricts from 'mixins/methods/getFilterDistricts';
+    import getFilterQuarters from 'mixins/methods/getFilterQuarters';
 
 
     const mixin = ListTableMixin({
@@ -50,7 +50,7 @@
 
     export default {
         name: 'AdminTenants',
-        mixins: [mixin, getFilterStates, getFilterDistricts],
+        mixins: [mixin, getFilterStates, getFilterQuarters],
         components: {
             Heading
         },
@@ -114,14 +114,14 @@
                 buildings:{},
                 units:{},
                 states:{},
-                districts:{},
+                quarters:{},
                 isLoadingFilters: false,
             };
         },
         async created(){
             this.isLoadingFilters = true;
-            const districts = await this.axios.get('districts')
-            this.districts = districts.data.data.data;
+            const quarters = await this.axios.get('quarters')
+            this.quarters = quarters.data.data.data;
 
             const states = await this.axios.get('states?filters=true')
             this.states = states.data.data;
@@ -238,10 +238,10 @@
                         key: 'unit_id',
                         data: this.units,
                     }, {
-                        name: this.$t('filters.districts'),
+                        name: this.$t('filters.quarters'),
                         type: 'select',
-                        key: 'district_id',
-                        data: this.districts,
+                        key: 'quarter_id',
+                        data: this.quarters,
                     }, {
                         name: this.$t('filters.requestStatus'),
                         type: 'select',

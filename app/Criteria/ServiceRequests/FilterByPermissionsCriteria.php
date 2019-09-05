@@ -41,7 +41,7 @@ class FilterByPermissionsCriteria implements CriteriaInterface
         $qs = [
             '(service_requests.visibility = ? and service_requests.tenant_id = ?)',
             '(service_requests.visibility = ? and units.building_id = ?)',
-            '(service_requests.visibility = ? and buildings.district_id = ?)',
+            '(service_requests.visibility = ? and buildings.quarter_id = ?)',
         ];
 
         if ($u->hasRole('registered') && $u->tenant) {
@@ -51,7 +51,7 @@ class FilterByPermissionsCriteria implements CriteriaInterface
             $vs = [
                 ServiceRequest::VisibilityTenant, $u->tenant->id,
                 ServiceRequest::VisibilityBuilding, $u->tenant->building_id,
-                ServiceRequest::VisibilityDistrict, $u->tenant->building->district_id, // @TODO check maybe throw exception
+                ServiceRequest::VisibilityQuarter, $u->tenant->building->quarter_id, // @TODO check maybe throw exception
             ];
             return $model->whereRaw('(' . implode(' or ', $qs) . ')', $vs);
         }

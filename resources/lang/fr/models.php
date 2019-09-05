@@ -177,7 +177,7 @@ return [
       "companies" => "Sociétés de services",
       "no_services" => "Aucun service ajouté",
       "select_media_category" => "Sélectionner une catégorie de médias",
-      "district" => "District",
+      "quarter" => "Trimestre",
       "managers" => "Gestionnaires",
       "house_nr" => "Maison Nr.",      
       "assign_managers" => "Affecter des gestionnaires",
@@ -369,7 +369,8 @@ return [
       "notify_email" => "Prévenez par courriel",
       "pinned_to" => "Épinglé sur",
       "comments" => "Commentaires",
-      "images" => "Images",      
+      "images" => "Images",
+      'category_default_image_label' => 'Voulez-vous utiliser cette image?',      
       'placeholders' => 
       [
         "buildings" => "Choisir des bâtiments",
@@ -385,7 +386,7 @@ return [
       ],
       'errors' => [
         'not_found' => "Message non trouvé",
-        'district_not_found' => "District non trouvé",
+        'quarter_not_found' => "Trimestre non trouvé",
         'building_not_found' => "Bâtiment non trouvé",
         'provider_not_found' => "Fournisseur de services introuvable",
         'deleted' => "Enregistrer l'erreur supprimée : ",
@@ -402,11 +403,11 @@ return [
       [
         "label" => "Visibilité",
         "address" => "Adresse",
-        "district" => "District",
+        "quarter" => "Trimestre",
         "all" => "Tous",
       ],
       "assignType" => "Type",
-      "buildingAlreadyAssigned" => "Le bâtiment est déjà à l'intérieur d'un quartier",
+      "buildingAlreadyAssigned" => "Le bâtiment est déjà à l'intérieur sur un quart",
       'execution_interval' => 
       [
         "label" => "Intervalle d'exécution",
@@ -443,7 +444,7 @@ return [
       "user_credentials" => "Informations d'identification de l'utilisateur",
       "company_details" => "Coordonnées de l'entreprise",
       "assignType" => "Type",
-      "buildingAlreadyAssigned" => "Le bâtiment est déjà à l'intérieur d'un quartier",
+      "buildingAlreadyAssigned" => "Le bâtiment est déjà à l'intérieur sur un quart",
       'placeholders' => 
       [
         "category" => "Sélectionnez une catégorie",
@@ -453,25 +454,25 @@ return [
         'create' => "Le fournisseur de services crée l'erreur : ",
         'update' => "Erreur de mise à jour du fournisseur de services : ",	
         'deleted' => "Erreur supprimée par le fournisseur de services : ",
-        'district_not_found' => "District non trouvé",
+        'quarter_not_found' => "Trimestre non trouvé",
         'building_not_found' => "Bâtiment non trouvé",
-        'building_already_assign' => "Bâtiment déjà attribué par le district",        
+        'building_already_assign' => "Immeuble déjà assigné jusqu'au quart",
       ],
     ],
-    'district' => 
+    'quarter' =>
     [
-      "title" => "Districts",      
-      "add" => "Ajouter un district",
-      "edit" => "Edit District",
-      "saved" => "Distretto salvato",
-      "deleted" => "Distretto soppresso",
+      "title" => "Trimestres",
+      "add" => "Ajouter un trimestre",
+      "edit" => "Modifier le trimestre",
+      "saved" => "Trimestre économisé",
+      "deleted" => "Trimestre supprimé",
       "cancel" => "Annuler",
       "required" => "Ce champ est obligatoire",
       "buildings" => "Bâtiments",
       'count_of_buildings' => 'Nombre de bâtiments',
       'errors' => [
-        'not_found' => "District non trouvé",
-        'deleted' => "Erreur de suppression de district : ",
+        'not_found' => "Trimestre non trouvé",
+        'deleted' => "Erreur d'effacement trimestriel : ",
       ],
     ],
     'realEstate' => 
@@ -482,7 +483,7 @@ return [
       'theme' => 'Thème',
       'login_variation' => 'Modification de l\'ouverture de session',
       'login_variation_slider' => 'Voulez-vous montrer le slider ?',
-      "district_enable" => "District",
+      "quarter_enable" => "Trimestre",
       "marketplace_approval_enable" => "Activer le marché",
       "news_approval_enable" => "Approbation des nouvelles",
       "comment_update_timeout" => "Délai de mise à jour des commentaires",
@@ -719,13 +720,13 @@ return [
         "label" => "Type",
         "provider" => "Service",
         "manager" => "Directeur",
-        'admin' => 'Administrator',
+        'user' => 'Administrator',
       ],
       'visibility' => 
       [
         "label" => "Visibilité",
         "tenant" => "Soldat",
-        "district" => "District",
+        "quarter" => "Trimestre",
         "building" => "Bâtiment",
       ],
       'errors' => [
@@ -777,7 +778,7 @@ return [
       "no_buildings" => "Il n'y a pas de bâtiments assignés",
       "add_buildings" => "Ajouter des bâtiments",
       "buildings_search" => "Recherche de bâtiments",
-      "districts" => "Districts",
+      "quarters" => "Trimestres",
       'delete_with_reassign_modal' =>
       [
         "title" => "Supprimer et réaffecter des bâtiments",
@@ -788,14 +789,14 @@ return [
       "profile_card" => "Profil de l'utilisateur",
       "social_card" => "Médias sociaux",
       "assignType" => "Type",
-      "buildingAlreadyAssigned" => "Le bâtiment est déjà à l'intérieur d'un quartier",
+      "buildingAlreadyAssigned" => "Le bâtiment est déjà à l'intérieur sur un quart",
       'errors' => [
         'not_found' => "Gestionnaire immobilier introuvable",
         'create' => "Le gestionnaire immobilier crée l'erreur : ",
         'update' => "Erreur de mise à jour du gestionnaire immobilier : ",
-        'district_not_found' => "District non trouvé",
+        'quarter_not_found' => "Trimestre non trouvé",
         'building_not_found' => "Bâtiment non trouvé",
-        'building_already_assign' => "Bâtiment déjà attribué par le district",
+        'building_already_assign' => "Immeuble déjà assigné jusqu'au quart",
         'building_assign_deleted_property_manager' => "Vous ne pouvez pas affecter de bâtiments à un gestionnaire immobilier supprimé.",
         'deleted' => "Le gestionnaire immobilier a supprimé l'erreur : ",
       ],
@@ -839,7 +840,7 @@ return [
       [
         'label' => 'Visibilité',
         'address' => 'Adresse',
-        'district' => 'District',
+        'quarter' => 'Trimestre',
         'all' => 'Tous',
       ],
     ],

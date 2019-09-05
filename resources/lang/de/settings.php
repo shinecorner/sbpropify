@@ -2,9 +2,9 @@
 return [  
   'notifications' => 'Benachrichtigungen und Sprache',
   'admin' => 'Benachrichtigungen vom Vermieter',
-  'news' => 'Pinnwand',
-  'marketplace' => 'Marketplace notifications',
-  'service' => 'Partnerfirmen',
+  'news' => 'Pinnwand Moderation',
+  'marketplace' => 'Markplatz Moderation',
+  'service' => 'Dienstleister',
   'updated' => 'Einstellungen wurden gespeichert.',
   'language' => 'Sprache',
   'summary' => 
@@ -16,7 +16,7 @@ return [
   ],
   'contact_enable' =>
     [
-      'label' => 'Meine Kontakte aktivieren',
+      'label' => 'Dienstleister öffentlich machen',
       'use_global' => 'Globale Einstellung verwenden',
       'show' => 'Zeigen',
       'hide' => 'Verbergen ',

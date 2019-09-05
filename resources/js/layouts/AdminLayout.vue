@@ -161,10 +161,10 @@
                                     name: 'adminUnits'
                                 }
                             }, {
-                                title: this.$t('menu.districts'),
-                                permission: this.$permissions.list.district,
+                                title: this.$t('menu.quarters'),
+                                permission: this.$permissions.list.quarter,
                                 route: {
-                                    name: 'adminDistricts'
+                                    name: 'adminQuarters'
                                 }
                             }]
                         }, {
@@ -289,10 +289,10 @@
                                     name: 'adminUnits'
                                 }
                             }, {
-                                title: this.$t('menu.districts'),
-                                permission: this.$permissions.list.district,
+                                title: this.$t('menu.quarters'),
+                                permission: this.$permissions.list.quarter,
                                 route: {
-                                    name: 'adminDistricts'
+                                    name: 'adminQuarters'
                                 }
                             }]
                         }, {
@@ -422,10 +422,10 @@
                                     name: 'adminUnits'
                                 }
                             }, {
-                                title: this.$t('menu.districts'),
-                                permission: this.$permissions.list.district,
+                                title: this.$t('menu.quarters'),
+                                permission: this.$permissions.list.quarter,
                                 route: {
-                                    name: 'adminDistricts'
+                                    name: 'adminQuarters'
                                 }
                             }]
                         }, {

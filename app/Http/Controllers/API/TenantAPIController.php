@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Criteria\Common\FilterFullnameCriteria;
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\Common\WhereCriteria;
 use App\Criteria\Tenants\FilterByBuildingCriteria;
-use App\Criteria\Tenants\FilterByDistrictCriteria;
+use App\Criteria\Tenants\FilterByQuarterCriteria;
 use App\Criteria\Tenants\FilterByRequestCriteria;
 use App\Criteria\Tenants\FilterByStateCriteria;
 use App\Criteria\Tenants\FilterByStatusCriteria;
@@ -103,13 +104,14 @@ class TenantAPIController extends AppBaseController
         ]);
 
         $this->tenantRepository->pushCriteria(new FilterByBuildingCriteria($request));
-        $this->tenantRepository->pushCriteria(new FilterByDistrictCriteria($request));
+        $this->tenantRepository->pushCriteria(new FilterByQuarterCriteria($request));
         $this->tenantRepository->pushCriteria(new FilterByStateCriteria($request));
         $this->tenantRepository->pushCriteria(new FilterByRequestCriteria($request));
         $this->tenantRepository->pushCriteria(new FilterByUnitCriteria($request));
         $this->tenantRepository->pushCriteria(new FilterByStatusCriteria($request));
         $this->tenantRepository->pushCriteria(new RequestCriteria($request));
         $this->tenantRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $this->tenantRepository->pushCriteria(new FilterFullnameCriteria($request));
 
         $getAll = $request->get('get_all', false);
         if ($getAll) {

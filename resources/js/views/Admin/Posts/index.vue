@@ -51,7 +51,7 @@
     import ListTableMixin from 'mixins/ListTableMixin';
     import PostDetails from "components/PostDetails";
     import postConstants from 'mixins/methods/postTypes';
-    import getFilterDistricts from 'mixins/methods/getFilterDistricts';
+    import getFilterQuarters from 'mixins/methods/getFilterQuarters';
 
 
     const mixin = ListTableMixin({
@@ -70,7 +70,7 @@
             Heading,
             PostDetails
         },
-        mixins: [mixin, getFilterDistricts],
+        mixins: [mixin, getFilterQuarters],
         data() {
             return {
                 header: [{
@@ -122,7 +122,7 @@
                 post: {},
                 postDetailsVisible: false,
                 postConstants,
-                districts:{},
+                quarters:{},
                 buildings:{},
                 tenants:{},
                 isLoadingFilters: false,
@@ -163,10 +163,10 @@
                         data: this.prepareFilters("type"),
                     },
                     {
-                        name: this.$t('filters.districts'),
+                        name: this.$t('filters.quarters'),
                         type: 'select',
-                        key: 'district_id',
-                        data: this.districts,
+                        key: 'quarter_id',
+                        data: this.quarters,
                     },
                     {
                         name: this.$t('filters.buildings'),
@@ -268,8 +268,8 @@
             this.isLoadingFilters = true;
             this.buildings = await this.getFilterBuildings();
             this.tenants = this.fetchRemoteTenants();
-            const districts = await this.axios.get('districts')
-            this.districts = districts.data.data.data;
+            const quarters = await this.axios.get('quarters')
+            this.quarters = quarters.data.data.data;
             this.isLoadingFilters = false;
         }
     }

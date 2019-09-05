@@ -117,6 +117,9 @@
                         <router-link v-if="scope.row.type === 'provider'" :to="{name: 'adminServicesEdit', params: {id: scope.row.edit_id}}">
                             {{scope.row.name}}
                         </router-link>
+                        <router-link v-if="scope.row.type === 'user'" :to="{name: 'adminUsersEdit', params: {id: scope.row.edit_id}}">
+                            {{scope.row.name}}
+                        </router-link>
                     </div>
 
                     <div v-else>

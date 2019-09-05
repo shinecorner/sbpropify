@@ -22,7 +22,6 @@ class ServiceRequestAssigneeTransformer extends BaseTransformer
     {
         $response = [
             'id' => $model->id,
-            'item_id' => $model->assignee_id,
             'edit_id' => $model->assignee_id,
             'type' => $model->assignee_type,
             'email' => $model->related ? $model->related->email : 'incorrect relation',

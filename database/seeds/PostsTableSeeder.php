@@ -21,8 +21,8 @@ class PostsTableSeeder extends Seeder
                 $u = $post->user;
                 if ($u->tenant && $u->tenant->building) {
                     $post->buildings()->sync($u->tenant->building->id);
-                    if ($u->tenant->building->district_id) {
-                        $post->districts()->sync($u->tenant->building->district_id);
+                    if ($u->tenant->building->quarter_id) {
+                        $post->quarters()->sync($u->tenant->building->quarter_id);
                     }
                 }
                 //$pRepo->setStatus($post->id, Post::StatusPublished, now());

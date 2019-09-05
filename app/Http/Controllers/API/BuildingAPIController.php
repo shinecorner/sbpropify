@@ -7,6 +7,7 @@ use App\Criteria\Common\HasRequestCriteria;
 use App\Criteria\Common\RequestCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Building\BatchAssignManagers;
+use App\Http\Requests\API\Building\BatchAssignUsers;
 use App\Http\Requests\API\Building\CreateRequest;
 use App\Http\Requests\API\Building\DeleteRequest;
 use App\Http\Requests\API\Building\ListRequest;
@@ -15,18 +16,22 @@ use App\Http\Requests\API\Building\ViewRequest;
 use App\Http\Requests\API\PropertyManager\AssignRequest;
 use App\Models\Address;
 use App\Models\Building;
+use App\Models\BuildingAssignee;
+use App\Models\PropertyManager;
+use App\Models\User;
 use App\Repositories\AddressRepository;
 use App\Repositories\BuildingRepository;
 use App\Repositories\PropertyManagerRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\UnitRepository;
 use App\Repositories\ServiceRequestRepository;
+use App\Transformers\BuildingAssigneeTransformer;
 use App\Transformers\BuildingTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Spatie\Geocoder\Geocoder;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class BuildingController
@@ -135,10 +140,12 @@ class BuildingAPIController extends AppBaseController
                 'serviceProviders',
                 'tenants.user',
                 'propertyManagers',
+                'users'
             ])->withCount([
                 'units',
                 'propertyManagers',
                 'tenants',
+                'users'
             ])
             ->scope('allRequestStatusCount')
             ->paginate($perPage);
@@ -246,6 +253,7 @@ class BuildingAPIController extends AppBaseController
                 'units',
                 'propertyManagers',
                 'tenants',
+                'users'
             ])->allRequestStatusCount()
             ->get();
         return $this->sendResponse($buildings->toArray(), 'Buildings retrieved successfully');
@@ -360,7 +368,7 @@ class BuildingAPIController extends AppBaseController
         }
 
         $building
-            ->load('address.state', 'serviceProviders', 'tenants.user', 'propertyManagers', 'media', 'district')
+            ->load('address.state', 'serviceProviders', 'tenants.user', 'propertyManagers', 'media', 'quarter', 'users')
             ->loadCount('activeTenants', 'inActiveTenants');
         $response = (new BuildingTransformer)->transform($building);
         $response['media_category'] = Building::BuildingMediaCategories;
@@ -639,6 +647,55 @@ class BuildingAPIController extends AppBaseController
 
     /**
      * @param int $id
+     * @param Request $request
+     * @return Response
+     *
+     * @SWG\Get(
+     *      path="/buildings/{id}/assignees",
+     *      summary="Get a listing of the Building assignees.",
+     *      tags={"Building"},
+     *      description="Get a listing of the Building assignees.",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @SWG\Items(ref="#/definitions/BuildingAssignee")
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function getAssignees(int $id, Request $request)
+    {
+        // @TODO permissions
+        $building = $this->buildingRepository->findWithoutFail($id);
+        if (empty($building)) {
+            return $this->sendError(__('models.building.errors.not_found'));
+        }
+
+        $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
+        $assignees = $building->assignees()->paginate($perPage);
+        $assignees = $this->getAssigneesRelated($assignees, [PropertyManager::class, User::class]);
+
+        $response = (new BuildingAssigneeTransformer())->transformPaginator($assignees) ;
+        return $this->sendResponse($response, 'Assignees retrieved successfully');
+    }
+
+    /**
+     * @param int $id
      * @param BatchAssignManagers $request
      * @return Response
      *
@@ -646,8 +703,55 @@ class BuildingAPIController extends AppBaseController
      *      path="/buildings/{id}/propertyManagers",
      *      summary="Assign the provided propertyManagers to the Building",
      *      tags={"Building"},
-     *      description="Assign the provided propertyManagers to the Building",
+     *      description=" <a href='http://dev.propify.ch/api/docs#/Building/post_buildings__id__managers'>http://dev.propify.ch/api/docs#/Building/post_buildings__id__managers</a>",
      *      produces={"application/json"},
+     *      deprecated=true,
+     *      @SWG\Parameter(
+     *          name="managerIds",
+     *          description="ids of managers",
+     *          type="array",
+     *          required=true,
+     *          in="query",
+     *          @SWG\Items(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/Building"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     * @SWG\Post(
+     *      path="/buildings/{id}/managers",
+     *      summary="Assign the provided managers to the Building",
+     *      tags={"Building"},
+     *      description="Assign the provided managers to the Building",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="managerIds",
+     *          description="ids of managers",
+     *          type="array",
+     *          required=true,
+     *          in="query",
+     *          @SWG\Items(
+     *              type="integer"
+     *          )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -677,10 +781,14 @@ class BuildingAPIController extends AppBaseController
             return $this->sendError(__('models.building.errors.not_found'));
         }
 
-        $managersIds = $request->get('managersIds');
+        $managerIds = $request->get('managersIds') ?? $request->get('managerIds');
         try {
-            $currentManagers = $building->propertyManagers()->pluck('property_managers.id')->toArray();
-            $newManagers = array_diff($managersIds, $currentManagers);
+            $currentManagers = $building->propertyManagers()
+                ->whereIn('property_managers.id', $managerIds)
+                ->pluck('property_managers.id')
+                ->toArray();
+
+            $newManagers = array_diff($managerIds, $currentManagers);
             $attachData  = [];
             foreach ($newManagers as $manager) {
                 $attachData[$manager] = ['created_at' => now()];
@@ -690,9 +798,125 @@ class BuildingAPIController extends AppBaseController
             return $this->sendError( __('models.building.errors.manager_assigned') . $e->getMessage());
         }
 
-        $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers']);
+        $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers', 'users']);
         $response = (new BuildingTransformer)->transform($building);
         return $this->sendResponse($response, __('models.building.managers_assigned'));
+    }
+
+    /**
+     * @param int $id
+     * @param BatchAssignUsers $request
+     * @return Response
+     *
+     * @SWG\Post(
+     *      path="/buildings/{id}/users",
+     *      summary="Assign the provided users to the Building",
+     *      tags={"Building"},
+     *      description="Assign the provided users(administrator, super-administrator) to the Building",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="userIds",
+     *          description="ids of users",
+     *          type="array",
+     *          required=true,
+     *          in="query",
+     *          @SWG\Items(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/Building"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function assignUsers(int $id, BatchAssignUsers $request)
+    {
+        /** @var Building $building */
+        $building = $this->buildingRepository->findWithoutFail($id);
+        if (empty($building)) {
+            return $this->sendError(__('models.building.errors.not_found'));
+        }
+
+        $userIds = $request->get('userIds');
+        try {
+            $currentUsers = $building->users()
+                ->whereIn('users.id', $userIds)
+                ->pluck('users.id')
+                ->toArray();
+
+            $newUsers = array_diff($userIds, $currentUsers);
+            $attachData  = [];
+            foreach ($newUsers as $userId) {
+                $attachData[$userId] = ['created_at' => now()];
+            }
+            $building->users()->attach($attachData);
+        } catch (\Exception $e) {
+            return $this->sendError( __('models.building.errors.user_assigned') . $e->getMessage());
+        }
+
+        $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers', 'users']);
+        $response = (new BuildingTransformer)->transform($building);
+        return $this->sendResponse($response, __('models.building.user_assigned'));
+    }
+
+    /**
+     * @SWG\Delete(
+     *      path="/buildings-assignees/{buildings_assignee_id}",
+     *      summary="Unassign the user or manager to the building",
+     *      tags={"Building", "User", "PropertyManager"},
+     *      description="Unassign the user or manager to the request",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="integer",
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @param int $id
+     * @param AssignRequest $request
+     * @return mixed
+     */
+    public function deleteBuildingAssignee(int $id, AssignRequest $request)
+    {
+        $buildingAssignee = BuildingAssignee::find($id);
+        if (empty($buildingAssignee)) {
+            // @TODO fix message
+            return $this->sendError(__('models.building.errors.not_found'));
+        }
+        $buildingAssignee->delete();
+
+        return $this->sendResponse($id, __('general.detached.' . $buildingAssignee->assignee_type));
     }
 
     /**
@@ -705,7 +929,8 @@ class BuildingAPIController extends AppBaseController
      *      path="/buildings/{building_id}/propertyManagers/{manager_id}",
      *      summary="Unassign the provided property managerfrom the building ",
      *      tags={"Building"},
-     *      description="Unassign the provided property manager from the building",
+     *      deprecated=true,
+     *      description="<a href='http://dev.propify.ch/api/docs#/Building/delete_buildings_assignees__buildings_assignee_id_'>http://dev.propify.ch/api/docs#/Building/delete_buildings_assignees__buildings_assignee_id_</a>",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -730,21 +955,12 @@ class BuildingAPIController extends AppBaseController
      */
     public function unAssignPropertyManager(int $building_id, int $manager_id, AssignRequest $r)
     {
-        $building = $this->buildingRepository->findWithoutFail($building_id);
-        if (empty($building)) {
-            return $this->sendError(__('models.building.errors.not_found'));
-        }
-
-        $propertyManager = $this->propertyManagerRepository->findWithoutFail($manager_id);
-        if (empty($propertyManager)) {
-            return $this->sendError(__('models.building.errors.manager_not_found'));
-        }
-
-        $building->propertyManagers()->detach($propertyManager);
-
-        $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers']);
-        $response = (new BuildingTransformer)->transform($building);
-        return $this->sendResponse($response, __('models.building.manager.unassigned'));
+        $assigneeId = BuildingAssignee::where([
+                'building_id' => $building_id,
+                'assignee_id' => $manager_id,
+                'assignee_type' => get_morph_type_of(PropertyManager::class)
+            ])->value('id');
+        return $this->deleteBuildingAssignee($assigneeId, $r);
     }
 
     /**

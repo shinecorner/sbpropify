@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\ServiceProvider;
 use App\Models\Building;
-use App\Models\District;
+use App\Models\Quarter;
 use Illuminate\Support\Arr;
 
 /**
@@ -85,14 +85,14 @@ class ServiceProviderRepository extends BaseRepository
 
     public function locations(ServiceProvider $sp)
     {
-        // Cannot use $sp->buildings() and $sp->districts() because of a bug
+        // Cannot use $sp->buildings() and $sp->quarters() because of a bug
         // related to different number of columns in union
         $spbs = Building::select(\DB::raw('id, name, "building" as type'))
             ->join('building_service_provider', 'building_service_provider.building_id', '=', 'id')
             ->where('building_service_provider.service_provider_id', $sp->id);
-        $spds = District::select(\DB::raw('id, name, "district" as type'))
-            ->join('district_service_provider', 'district_service_provider.district_id', '=', 'id')
-            ->where('district_service_provider.service_provider_id', $sp->id);
+        $spds = Quarter::select(\DB::raw('id, name, "quarter" as type'))
+            ->join('quarter_service_provider', 'quarter_service_provider.quarter_id', '=', 'id')
+            ->where('quarter_service_provider.service_provider_id', $sp->id);
 
         return $spbs->union($spds);
     }

@@ -175,34 +175,34 @@ return [
         'size'                  => 'Grösse',
     ],
     'general' => [
-      'required' => 'Dies ist ein Pflichtfeld',
+      'required' => 'Dies ist ein Pflichtfeld.',
     ],
     'price' => [
       'valid' => 'Bitte geben Sie einen gültigen Preis ein.',
-      'required' => 'Der Preis ist ein Pflichtfeld',
+      'required' => 'Bitte geben Sie den Preis an.',
     ],
     'firstName' => [
-      'required' => 'Vorname ist obligatorisch',
+      'required' => 'Vorname ist obligatorisch.',
     ],
     'lastName' => [
-      'required' => 'Name ist obligatorisch',
+      'required' => 'Name ist obligatorisch.',
     ],
     'phone' => [
-      'required' => 'Telefon ist obligatorisch',
+      'required' => 'Telefon ist obligatorisch.',
     ],
     'address' => [
-      'required' => 'Adresse ist obligatorisch',
+      'required' => 'Adresse ist obligatorisch.',
     ],
     'zip' => [
-      'required' => 'Postleitzahl ist obligatorisch',
+      'required' => 'Postleitzahl ist obligatorisch.',
     ],
     'city' => [
-      'required' => 'Ortschaft ist obligatorisch',
+      'required' => 'Die Ortschaft ist obligatorisch.',
     ],
     'title' => [
       'required' => 'Anrede',
     ],
     'terms' => [
-      'required' => 'Bitte genehmigen Sie mit den Allgemeinen Geschäftsbedingungen.',
+      'required' => 'Sie müssen die allgemeinen Geschäftsbedingungen akzeptieren.',
     ],
 ];

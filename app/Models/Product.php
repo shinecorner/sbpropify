@@ -98,7 +98,7 @@ class Product extends AuditableModel implements HasMedia, LikeableContract, Audi
     const StatusPublished = 2;
 
     const VisibilityAddress = 1;
-    const VisibilityDistrict = 2;
+    const VisibilityQuarter = 2;
     const VisibilityAll = 3;
 
     const Type = [
@@ -113,7 +113,7 @@ class Product extends AuditableModel implements HasMedia, LikeableContract, Audi
     ];
     const Visibility = [
         self::VisibilityAddress => 'address',
-        self::VisibilityDistrict => 'district',
+        self::VisibilityQuarter => 'quarter',
         self::VisibilityAll => 'all',
     ];
 

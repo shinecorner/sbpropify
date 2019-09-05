@@ -11,7 +11,7 @@ export default {
     },
     visibility: {
         1: 'Address',
-        2: 'District',
+        2: 'Quarter',
         3: 'All'
     },
     published: 2,

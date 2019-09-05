@@ -27,18 +27,18 @@ export default (config = {}) => {
                 remoteLoading: false,
                 model: {
                     content: '',
-                    type: 1,
                     visibility: 1,
                     status: 1,
                     media: [],
                     published_at: '',
                     user_id: '',
-                    pinned: false,
+                    pinned: '',
                     notify_email: false,
                     category: '',
                     pinned_to: null,
                     execution_start: null,
                     execution_end: null,
+                    pinned_category: true
                 },
                 validationRules: {
                     content: [{
@@ -71,12 +71,16 @@ export default (config = {}) => {
                     text: 'Please wait...'
                 },
                 media: [],
-                assignmentTypes: ['building', 'district'],
+                assignmentTypes: ['building', 'quarter'],
                 assignmentType: 'building',
                 toAssign: '',
                 toAssignList: [],
                 toAssignProvider: '',
-                toAssignProviderList: []
+                toAssignProviderList: [],
+                types: [],
+                showdefaultimage: false,
+                rolename: ''
+
             }
         },
         computed: {
@@ -91,8 +95,8 @@ export default (config = {}) => {
             }
         },
         methods: {
-            ...mapActions(['uploadPostMedia', 'deletePostMedia', 'getBuildings', 'getDistricts', 'assignPostBuilding',
-                'assignPostDistrict', 'getServices', 'assignPostProvider']),
+            ...mapActions(['uploadPostMedia', 'deletePostMedia', 'getBuildings', 'getQuarters', 'assignPostBuilding',
+                'assignPostQuarter', 'getServices', 'assignPostProvider']),
             translateType(type) {
                 return this.$t(`general.assignmentTypes.${type}`);
             },
@@ -159,7 +163,7 @@ export default (config = {}) => {
                                 search,
                             });
                         } else {
-                            resp = await this.getDistricts({get_all: true, search});
+                            resp = await this.getQuarters({get_all: true, search});
                         }
 
                         this.toAssignList = resp.data;
@@ -187,7 +191,7 @@ export default (config = {}) => {
                                 toAssignId: this.toAssign
                             });
                         } else {
-                            resp = await this.assignPostDistrict({
+                            resp = await this.assignPostQuarter({
                                 id: this.model.id,
                                 toAssignId: this.toAssign
                             });
@@ -284,6 +288,7 @@ export default (config = {}) => {
                         this.loading.state = true;
 
                         try {
+                            this.model.pinned = this.model.type == 3 ? true : false;
                             const resp = await this.createPost(this.model);
 
                             if (resp && resp.data.id) {
@@ -340,6 +345,7 @@ export default (config = {}) => {
                                 try {
                                     this.loading.state = true;
                                     this.model.status = 2;
+                                    this.model.pinned = this.model.type == 3 ? true : false;
 
                                     await this.uploadNewMedia(this.model.id);
 
@@ -366,6 +372,7 @@ export default (config = {}) => {
                     },
                     async fetchCurrentPost() {
                         this.model = await this.getPost({id: this.$route.params.id});
+                        this.showdefaultimage = this.model.category != null ? true : false;
                         return this.model;
                     }
                 };

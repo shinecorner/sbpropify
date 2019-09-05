@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Criteria\Common\FilterFullnameCriteria;
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\PropertyManagers\FilterByRelatedFieldsCriteria;
 use App\Criteria\PropertyManagers\HasRequestCriteria;
@@ -16,13 +17,14 @@ use App\Http\Requests\API\PropertyManager\ViewRequest;
 use App\Models\PropertyManager;
 use App\Models\User;
 use App\Repositories\BuildingRepository;
-use App\Repositories\DistrictRepository;
+use App\Repositories\QuarterRepository;
 use App\Repositories\PropertyManagerRepository;
 use App\Repositories\UserRepository;
 use App\Transformers\PropertyManagerTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Illuminate\Support\Facades\Validator;
 
@@ -80,6 +82,7 @@ class PropertyManagerAPIController extends AppBaseController
     public function index(ListRequest $request)
     {
         $this->propertyManagerRepository->pushCriteria(new RequestCriteria($request));
+        $this->propertyManagerRepository->pushCriteria(new FilterFullnameCriteria($request));
         $this->propertyManagerRepository->pushCriteria(new LimitOffsetCriteria($request));
         $this->propertyManagerRepository->pushCriteria(new FilterByRelatedFieldsCriteria($request));
 
@@ -169,7 +172,7 @@ class PropertyManagerAPIController extends AppBaseController
             return $this->sendError(__('models.propertyManager.errors.create') . $e->getMessage());
         }
 
-        $propertyManager->load('buildings', 'districts');
+        $propertyManager->load('buildings', 'quarters');
         $propertyManager->setRelation('user', $user);
         $response = (new PropertyManagerTransformer)->transform($propertyManager);
         return $this->sendResponse($response, __('models.propertyManager.saved'));
@@ -223,7 +226,7 @@ class PropertyManagerAPIController extends AppBaseController
             return $this->sendError(__('models.propertyManager.errors.not_found'));
         }
 
-        $propertyManager->load(['user', 'buildings', 'districts'])
+        $propertyManager->load(['user', 'buildings', 'quarters'])
             ->loadCount('requests', 'solvedRequests', 'pendingRequests', 'buildings');
         $response = (new PropertyManagerTransformer)->transform($propertyManager);
         return $this->sendResponse($response, 'Property Manager retrieved successfully');
@@ -304,15 +307,16 @@ class PropertyManagerAPIController extends AppBaseController
             }
         }
 
-        $propertyManager->load('user', 'buildings', 'districts');
+        $propertyManager->load('user', 'buildings', 'quarters');
         $response = (new PropertyManagerTransformer)->transform($propertyManager);
         return $this->sendResponse($response, __('models.propertyManager.saved'));
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @param DeleteRequest $r
-     * @return Response
+     * @return mixed
+     * @throws \Exception
      *
      * @SWG\Delete(
      *      path="/propertyManagers/{id}",
@@ -365,14 +369,14 @@ class PropertyManagerAPIController extends AppBaseController
      * @param int $id
      * @param int $did
      * @param AssignRequest $r
-     * @param DistrictRepository $dRepo
+     * @param QuarterRepository $dRepo
      * @return Response
      *
      * @SWG\Post(
-     *      path="/propertyManagers/{id}/districts/{did}",
-     *      summary="Assign the provided district to the property manager",
+     *      path="/propertyManagers/{id}/quarters/{did}",
+     *      summary="Assign the provided quarter to the property manager",
      *      tags={"PropertyManager"},
-     *      description="Assign the provided district to the property manager",
+     *      description="Assign the provided quarter to the property manager",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -395,36 +399,35 @@ class PropertyManagerAPIController extends AppBaseController
      *      )
      * )
      */
-    public function assignDistrict(int $id, int $did,
-                                   DistrictRepository $dRepo, AssignRequest $r)
+    public function assignQuarter(int $id, int $did, QuarterRepository $qRepo, AssignRequest $r)
     {
         $pm = $this->propertyManagerRepository->findWithoutFail($id);
         if (empty($pm)) {
             return $this->sendError(__('models.propertyManager.errors.not_found'));
         }
-        $d = $dRepo->findWithoutFail($did);
+        $d = $qRepo->findWithoutFail($did);
         if (empty($d)) {
-            return $this->sendError(__('models.propertyManager.errors.district_not_found'));
+            return $this->sendError(__('models.propertyManager.errors.quarter_not_found'));
         }
 
-        $pm->districts()->sync($d, false);
-        $pm->load('districts', 'buildings');
+        $pm->quarters()->sync($d, false);
+        $pm->load('quarters', 'buildings');
 
-        return $this->sendResponse($pm, __('general.attached.district'));
+        return $this->sendResponse($pm, __('general.attached.quarter'));
     }
 
     /**
      * @param int $id
      * @param int $did
      * @param AssignRequest $request
-     * @param DistrictRepository $dRepo
+     * @param QuarterRepository $qRepo
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/propertyManagers/{id}/districts/{did}",
-     *      summary="Unassign the provided district from the property manager",
+     *      path="/propertyManagers/{id}/quarters/{did}",
+     *      summary="Unassign the provided quarter from the property manager",
      *      tags={"PropertyManager"},
-     *      description="Unassign the provided district from the property manager",
+     *      description="Unassign the provided quarter from the property manager",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -447,22 +450,21 @@ class PropertyManagerAPIController extends AppBaseController
      *      )
      * )
      */
-    public function unassignDistrict(int $id, int $did,
-                                     DistrictRepository $dRepo, AssignRequest $r)
+    public function unassignQuarter(int $id, int $did, QuarterRepository $qRepo, AssignRequest $r)
     {
         $pm = $this->propertyManagerRepository->findWithoutFail($id);
         if (empty($pm)) {
             return $this->sendError(__('models.propertyManager.errors.not_found'));
         }
-        $d = $dRepo->findWithoutFail($did);
+        $d = $qRepo->findWithoutFail($did);
         if (empty($d)) {
-            return $this->sendError(__('models.propertyManager.errors.district_not_found'));
+            return $this->sendError(__('models.propertyManager.errors.quarter_not_found'));
         }
 
-        $pm->districts()->detach($d);
-        $pm->load('districts', 'buildings');
+        $pm->quarters()->detach($d);
+        $pm->load('quarters', 'buildings');
 
-        return $this->sendResponse($pm, __('general.detached.district'));
+        return $this->sendResponse($pm, __('general.detached.quarter'));
     }
 
     /**
@@ -499,8 +501,7 @@ class PropertyManagerAPIController extends AppBaseController
      *      )
      * )
      */
-    public function assignBuilding(int $id, int $bid,
-                                   BuildingRepository $bRepo, AssignRequest $r)
+    public function assignBuilding(int $id, int $bid, BuildingRepository $bRepo, AssignRequest $r)
     {
         $pm = $this->propertyManagerRepository->findWithoutFail($id);
         if (empty($pm)) {
@@ -511,12 +512,12 @@ class PropertyManagerAPIController extends AppBaseController
             return $this->sendError(__('models.propertyManager.errors.building_not_found'));
         }
 
-        if ($b->district_id && $pm->districts->contains('id', $b->district_id)) {
+        if ($b->quarter_id && $pm->quarters->contains('id', $b->quarter_id)) {
             return $this->sendError(__('models.propertyManager.errors.building_already_assign'));
         }
 
         $pm->buildings()->sync($b, false);
-        $pm->load('districts', 'buildings');
+        $pm->load('quarters', 'buildings');
 
         return $this->sendResponse($pm, __('general.attached.building'));
     }
@@ -555,8 +556,7 @@ class PropertyManagerAPIController extends AppBaseController
      *      )
      * )
      */
-    public function unassignBuilding(int $id, int $bid,
-                                     BuildingRepository $bRepo, AssignRequest $r)
+    public function unassignBuilding(int $id, int $bid, BuildingRepository $bRepo, AssignRequest $r)
     {
         $pm = $this->propertyManagerRepository->findWithoutFail($id);
         if (empty($pm)) {
@@ -568,7 +568,7 @@ class PropertyManagerAPIController extends AppBaseController
         }
 
         $pm->buildings()->detach($b);
-        $pm->load('districts', 'buildings');
+        $pm->load('quarters', 'buildings');
 
         return $this->sendResponse($pm, __('general.detached.building'));
     }
@@ -663,9 +663,9 @@ class PropertyManagerAPIController extends AppBaseController
      *
      * @SWG\Get(
      *      path="/requests/{id}/assignments",
-     *      summary="Get a listing of the ServiceProvider assigned buildings and districts.",
+     *      summary="Get a listing of the ServiceProvider assigned buildings and quarters.",
      *      tags={"ServiceRequest"},
-     *      description="Get a listing of the ServiceProvider assigned buildings and districts.",
+     *      description="Get a listing of the ServiceProvider assigned buildings and quarters.",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -702,6 +702,10 @@ class PropertyManagerAPIController extends AppBaseController
         return $this->sendResponse($assignments, 'Assignments retrieved successfully');
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function getIDsAssignmentsCount(Request $request)
     {
         /** @var PropertyManager $propertyManager */

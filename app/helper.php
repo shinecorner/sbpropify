@@ -33,3 +33,22 @@ function get_translation_attribute_name($attribute)
 
     return $attribute;
 }
+
+function update_district_to_quarter($class, $fields)
+{
+    $model = new $class();
+    $query = $model->newQuery();
+    $query->where('id', 0);
+    foreach ($fields as $field) {
+        $query->orWhere($field, 'like', '%district%');
+    }
+    $items = $query->select($fields)->addSelect('id')->get();
+    foreach ($items as $item) {
+        foreach ($fields as $field) {
+            $value = str_replace('District', 'Quarter', $item->{$field});
+            $value = str_replace('district', 'quarter', $value);
+            $item->{$field} = $value;
+            $item->save();
+        }
+    }
+}

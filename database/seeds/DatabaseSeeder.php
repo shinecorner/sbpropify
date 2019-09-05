@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CountriesTableSeeder::class);
         $this->call(StatesTableSeeder::class);
         //$this->call(AddressesTableSeeder::class);
-        $this->call(DistrictsTableSeeder::class);
+        $this->call(QuartersTableSeeder::class);
         $this->call(RealEstateTableSeeder::class);
 
         $this->call(BuildingsTableSeeder::class);

@@ -10,7 +10,7 @@
                         <el-row :gutter="20">
                             <el-col :lg="model.pinned? 12 : 8">
                                 <el-form-item :label="$t('models.post.type.label')">
-                                    <el-select style="display: block" v-model="model.pinned" @change="chagePinned">
+                                    <!-- <el-select style="display: block" v-model="model.pinned" @change="changePinned">
                                         <el-option
                                             :label="$t(`models.post.type.article`)"
                                             :value="false"
@@ -21,10 +21,28 @@
                                             :value="true"
                                         >
                                         </el-option>
+                                    </el-select> -->
+                                    <el-select style="display: block" v-model="model.type" @change="changePinned">
+                                        <el-option
+                                            :label="$t(`models.post.type.post`)"
+                                            :value="1"
+                                        >
+                                        </el-option>
+                                        <el-option
+                                            :label="$t(`models.post.type.pinned`)"
+                                            :value="3"
+                                        >
+                                        </el-option>
+                                        <el-option
+                                            :label="$t(`models.post.type.article`)"
+                                            :value="4"
+                                            v-if="this.rolename == 'administrator'"
+                                        >
+                                        </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
-                            <el-col :lg="8" v-if="!model.pinned">
+                            <el-col :lg="8" v-if="this.model.type != 3">
                                 <el-form-item :label="$t('models.post.status.label')">
                                     <el-select style="display: block" v-model="model.status">
                                         <el-option
@@ -36,9 +54,9 @@
                                     </el-select>
                                 </el-form-item>
                             </el-col>
-                            <el-col :lg="12" v-if="model.pinned">
+                            <el-col :lg="12" v-if="this.model.type == 3">
                                 <el-form-item :label="$t('models.post.category.label')">
-                                    <el-select style="display: block" v-model="model.category">
+                                    <el-select style="display: block" v-model="model.category"  @change="ShowSlide">
                                         <el-option
                                             :key="key"
                                             :label="$t(`models.post.category.${category}`)"
@@ -61,7 +79,7 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
-                        <template v-if="model.pinned">
+                        <template v-if="this.model.type == 3">
                             <el-form-item :label="$t('models.post.title_label')" :rules="validationRules.title"
                                           prop="title">
                                 <el-input type="text" v-model="model.title"></el-input>
@@ -75,6 +93,42 @@
                                 v-model="model.content">
                             </el-input>
                         </el-form-item>
+                        <el-form-item v-if="this.model.type == 3 && this.showdefaultimage == true">
+                            <label>{{$t('models.post.category_default_image_label')}}</label>
+                            <el-switch v-model="model.pinned_category"/>
+                            <el-row :gutter="20">
+                                <img
+                                    src="~img/pinned_category/1.png"
+                                    class="user-image"
+                                    v-if="this.model.category == 1"
+                                    width="50%" 
+                                    height="50%"/>
+                                <img
+                                    src="~img/pinned_category/2.png"
+                                    class="user-image"
+                                    v-else-if="this.model.category == 2"
+                                    width="50%" 
+                                    height="50%"/>
+                                <img
+                                    src="~img/pinned_category/3.png"
+                                    class="user-image"
+                                    v-else-if="this.model.category == 3"
+                                    width="50%" 
+                                    height="50%"/>
+                                <img
+                                    src="~img/pinned_category/4.png"
+                                    class="user-image"
+                                    v-else-if="this.model.category == 4"
+                                    width="50%" 
+                                    height="50%"/>
+                                <img
+                                    src="~img/pinned_category/5.png"
+                                    class="user-image"
+                                    v-else-if="this.model.category == 5"
+                                    width="50%" 
+                                    height="50%"/>  
+                            </el-row>  
+                        </el-form-item> 
                         <el-form-item :label="$t('models.post.images')"
                         >
                             <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple/>
@@ -128,7 +182,7 @@
                             </el-col>
                         </el-row>
                     </card>
-                    <template v-if="model.pinned">
+                    <template v-if="this.model.type == 3">
 
                         <card :loading="loading" class="mt15" :header="$t('models.post.placeholders.search_provider')">
                             <el-row :gutter="10">
@@ -229,6 +283,9 @@
         components: {
             AddActions
         },
+        mounted() {
+            this.rolename = this.$store.getters.loggedInUser.roles[0].name;
+        },
         methods: {
             disabledExecutionStart(date) {
                 const d = new Date(date).getTime();
@@ -240,7 +297,7 @@
                 const executionStart = new Date(this.model.execution_start).getTime();
                 return d <= executionStart;
             },
-            chagePinned(nValue) {
+            changePinned(nValue) {
                 if(nValue) {
                     this.model.status = 2;
                 }else {
@@ -249,6 +306,10 @@
             },
             setPinnedTo(val) {
                 this.$set(this.model, 'pinned_to', val)
+            },
+            ShowSlide() {
+                this.showdefaultimage = '';
+                this.showdefaultimage = true;
             }
         }
     }

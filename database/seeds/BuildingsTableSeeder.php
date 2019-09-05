@@ -2,7 +2,7 @@
 
 use App\Models\Address;
 use App\Models\Building;
-use App\Models\District;
+use App\Models\Quarter;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
@@ -24,11 +24,11 @@ class BuildingsTableSeeder extends Seeder
         $faker = Faker::create();
         for($i = 1; $i <= 100; $i++) {
             $date = $this->getRandomTime();
-            $hasDistrict = $faker->boolean;
+            $hasQuarter = $faker->boolean;
 
             $data = $this->getDateColumns($date);
-            if ($hasDistrict) {
-                $data['district_id'] = District::inRandomOrder()->first()->id;
+            if ($hasQuarter) {
+                $data['quarter_id'] = Quarter::inRandomOrder()->first()->id;
             }
 
             $address = factory(Address::class)->create($this->getDateColumns($date));

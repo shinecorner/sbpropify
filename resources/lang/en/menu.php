@@ -27,7 +27,7 @@ return [
     'units' => 'Units',
     'addresses' => 'Addresses',
     'posts' => 'News',
-    'districts' => 'Districts',
+    'quarters' => 'Quarters',
     'products' => 'Products',
     'requestCategories' => 'Request categories',
     'services' => 'Service Partners',

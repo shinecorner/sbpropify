@@ -110,7 +110,7 @@ class Building extends AuditableModel implements HasMedia
         'description',
         'label',
         'address_id',
-        'district_id',
+        'quarter_id',
         'floor_nr',
         'basement',
         'attic',
@@ -130,7 +130,7 @@ class Building extends AuditableModel implements HasMedia
         'description' => 'string',
         'label' => 'string',
         'address_id' => 'integer',
-        'district_id' => 'integer',
+        'quarter_id' => 'integer',
         'floor_nr' => 'integer',
         'contact_enable' => 'integer',
         'basement' => 'boolean',
@@ -205,9 +205,9 @@ class Building extends AuditableModel implements HasMedia
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      **/
-    public function district()
+    public function quarter()
     {
-        return $this->hasOne(District::class, 'id', 'district_id');
+        return $this->hasOne(Quarter::class, 'id', 'quarter_id');
     }
 
     /**
@@ -232,7 +232,19 @@ class Building extends AuditableModel implements HasMedia
     public function propertyManagers()
     {
         return $this->morphedByMany(PropertyManager::class, 'assignee', 'building_assignees', 'building_id');
+    }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function users()
+    {
+        return $this->morphedByMany(User::class, 'assignee', 'building_assignees', 'building_id');
+    }
+
+    public function assignees()
+    {
+        return $this->hasMany(BuildingAssignee::class, 'building_id');
     }
 
     /**

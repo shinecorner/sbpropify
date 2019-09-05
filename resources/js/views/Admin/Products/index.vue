@@ -48,7 +48,7 @@
     import {displayError, displaySuccess} from "helpers/messages";
     import ListTableMixin from 'mixins/ListTableMixin';
     import ProductDetails from "components/ProductDetails";
-    import getFilterDistricts from 'mixins/methods/getFilterDistricts';
+    import getFilterQuarters from 'mixins/methods/getFilterQuarters';
     
     const mixin = ListTableMixin({
         actions: {
@@ -66,7 +66,7 @@
             Heading,
             ProductDetails
         },
-        mixins: [mixin, getFilterDistricts],
+        mixins: [mixin, getFilterQuarters],
         data() {
             return {
                 header: [{
@@ -108,7 +108,7 @@
                 product: {},
                 productDetailsVisible: false,
                 tenants: {},
-                districts: {},
+                quarters: {},
                 isLoadingFilters: false,
             };
         },
@@ -142,11 +142,10 @@
                         data: this.prepareFilters("type"),
                     },
                     {
-                        name: this.$t('filters.districts'),
+                        name: this.$t('filters.quarters'),
                         type: 'select',
-                        key: 'district_id',
-                        data: this.districts,
-                        // fetch: this.getFilterDistricts
+                        key: 'quarter_id',
+                        data: this.quarters
                     },
                     {
                         name: this.$t('filters.tenant'),
@@ -222,8 +221,8 @@
         async created(){
             this.isLoadingFilters = true;
             this.tenants = await this.fetchRemoteTenants();
-            const districts = await this.axios.get('districts')
-            this.districts = districts.data.data.data;
+            const quarters = await this.axios.get('quarters')
+            this.quarters = quarters.data.data.data;
             this.isLoadingFilters = false;
         }
     }

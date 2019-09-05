@@ -46,14 +46,24 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          type="string"
  *      ),
  *      @SWG\Property(
+ *          property="circle_logo",
+ *          description="circle_logo",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="favicon_icon",
+ *          description="favicon_icon",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
  *          property="blank_pdf",
  *          description="blank_pdf",
  *          type="integer",
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="district_enable",
- *          description="district_enable",
+ *          property="quarter_enable",
+ *          description="quarter_enable",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -116,8 +126,10 @@ class RealEstate extends AuditableModel
         'phone',
         'language',
         'logo',
+        'circle_logo',
+        'favicon_icon',
         'blank_pdf',
-        'district_enable',
+        'quarter_enable',
         'contact_enable',
         'marketplace_approval_enable',
         'news_approval_enable',
@@ -154,8 +166,10 @@ class RealEstate extends AuditableModel
         'phone' => 'string',
         'language' => 'string',
         'logo' => 'string',
+        'circle_logo' => 'string',
+        'favicon_icon' => 'string',
         'blank_pdf' => 'boolean',
-        'district_enable' => 'boolean',
+        'quarter_enable' => 'boolean',
         'contact_enable' => 'boolean',
         'marketplace_approval_enable' => 'boolean',
         'news_approval_enable' => 'boolean',

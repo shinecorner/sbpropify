@@ -200,7 +200,7 @@ return [
         'visibility' => 
         [
           'address' => 'Address',
-          'district' => 'District',
+          'quarter' => 'Quarter',
           'all' => 'All',
         ],
       ],

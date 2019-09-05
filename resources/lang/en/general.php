@@ -57,7 +57,7 @@ return [
   'attached' => 
   [
     'building' => 'Building assigned',
-    'district' => 'District assigned',
+    'quarter' => 'Quarter assigned',
     'provider' => 'Provider assigned',
     'tenant' => 'Tenant attached',
     'service' => 'Provider attached successfully',
@@ -68,7 +68,7 @@ return [
   'detached' => 
   [
     'building' => 'Buiding unassigned',
-    'district' => 'District unassigned',
+    'quarter' => 'Quarter unassigned',
     'provider' => 'Provider unassigned',
     'tenant' => 'Tenant detached',
     'service' => 'Provider detached successfully',
@@ -142,9 +142,10 @@ return [
   'assignmentTypes' => 
   [
     'building' => 'Building',
-    'district' => 'District',
+    'quarter' => 'Quarter',
     'services' => 'Services',
     'managers' => 'Managers',
+    'administrator' => 'Administrator',
   ],
   'email' => 'Email',
   'email_validation' => 
