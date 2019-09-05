@@ -645,7 +645,6 @@ class BuildingAPIController extends AppBaseController
      * @param int $id
      * @param Request $request
      * @return Response
-     * @throws Exception
      *
      * @SWG\Get(
      *      path="/buildings/{id}/assignees",
@@ -700,8 +699,55 @@ class BuildingAPIController extends AppBaseController
      *      path="/buildings/{id}/propertyManagers",
      *      summary="Assign the provided propertyManagers to the Building",
      *      tags={"Building"},
+     *      description=" <a href='http://dev.propify.ch/api/docs#/Building/post_buildings__id__managers'>http://dev.propify.ch/api/docs#/Building/post_buildings__id__managers</a>",
+     *      produces={"application/json"},
+     *      deprecated=true,
+     *      @SWG\Parameter(
+     *          name="managerIds",
+     *          description="ids of managers",
+     *          type="array",
+     *          required=true,
+     *          in="query",
+     *          @SWG\Items(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/Building"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     * @SWG\Post(
+     *      path="/buildings/{id}/managers",
+     *      summary="Assign the provided propertyManagers to the Building",
+     *      tags={"Building"},
      *      description="Assign the provided propertyManagers to the Building",
      *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="managerIds",
+     *          description="ids of managers",
+     *          type="array",
+     *          required=true,
+     *          in="query",
+     *          @SWG\Items(
+     *              type="integer"
+     *          )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",
@@ -731,9 +777,13 @@ class BuildingAPIController extends AppBaseController
             return $this->sendError(__('models.building.errors.not_found'));
         }
 
-        $managersIds = $request->get('managersIds');
+        $managersIds = $request->get('managersIds') ?? $request->get('managerIds');
         try {
-            $currentManagers = $building->propertyManagers()->pluck('property_managers.id')->toArray();
+            $currentManagers = $building->propertyManagers()
+                ->whereIn('property_managers.id', $managersIds)
+                ->pluck('property_managers.id')
+                ->toArray();
+
             $newManagers = array_diff($managersIds, $currentManagers);
             $attachData  = [];
             foreach ($newManagers as $manager) {
@@ -748,6 +798,7 @@ class BuildingAPIController extends AppBaseController
         $response = (new BuildingTransformer)->transform($building);
         return $this->sendResponse($response, __('models.building.managers_assigned'));
     }
+
 
     /**
      * @param int $building_id

@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
  *      ),
  *      @SWG\Property(
  *          property="edit_id",
- *          description=",
+ *          description="edit_id",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -34,7 +34,7 @@ use Illuminate\Support\Str;
  *      ),
  *      @SWG\Property(
  *          property="email",
- *          description="emai;",
+ *          description="email",
  *          type="string"
  *      ),
  * )

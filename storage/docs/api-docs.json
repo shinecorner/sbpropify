@@ -548,9 +548,65 @@
                     "Building"
                 ],
                 "summary": "Assign the provided propertyManagers to the Building",
+                "description": " <a href='http://dev.propify.local/api/docs#/Building/post_buildings__id__managers'>http://dev.propify.local/api/docs#/Building/post_buildings__id__managers</a>",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "managerIds",
+                        "in": "query",
+                        "description": "ids of managers",
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Building"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "deprecated": true
+            }
+        },
+        "/buildings/{id}/managers": {
+            "post": {
+                "tags": [
+                    "Building"
+                ],
+                "summary": "Assign the provided propertyManagers to the Building",
                 "description": "Assign the provided propertyManagers to the Building",
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "managerIds",
+                        "in": "query",
+                        "description": "ids of managers",
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        }
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -8552,13 +8608,8 @@
                     "type": "integer",
                     "format": "int32"
                 },
-                "item_id": {
-                    "description": "related assigner id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "edit_id": {
-                    "description": "@TODO must be delete",
+                    "description": "edit_id",
                     "type": "integer",
                     "format": "int32"
                 },
@@ -8577,7 +8628,7 @@
                     "type": "string"
                 },
                 "email": {
-                    "description": "emai;",
+                    "description": "emai",
                     "type": "string"
                 }
             }
