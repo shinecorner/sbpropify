@@ -55,7 +55,6 @@ class PropertyManagerRepository extends BaseRepository
     public function update(array $attributes, $id)
     {
         unset($attributes['quarters']);
-        unset($attributes['districts']);
         $model = parent::update($attributes, $id);
 
         $settings = Arr::pull($attributes, 'settings');

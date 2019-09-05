@@ -24,7 +24,6 @@ class QuarterTransformer extends BaseTransformer
             'id' => $model->id,
             'name' => $model->name,
             'quarter_format' => $model->quarter_format,
-            'district_format' => $model->quarter_format,
             'description' => $model->description,
         ];
 
