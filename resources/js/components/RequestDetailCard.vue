@@ -305,6 +305,10 @@ export default {
                 justify-content: center;
                 align-items: center;
                 padding: 0px !important;
+
+                i {
+                    font-size: 20px;
+                }
             }
             .request-category {
                 p {
