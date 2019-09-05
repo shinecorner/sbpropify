@@ -24,8 +24,10 @@ class BatchAssignManagers extends APIRequest
     public function rules()
     {
         return [
-            'managerIds' => 'array', // 'required|array' // @TODO
-            'managerIds.*' => 'integer'
+            'managerIds' => 'required_without:managersIds|array',
+            'managersIds' => 'array', // @TODO delete
+            'managerIds.*' => 'integer',
+            'managersIds.*' => 'integer',
         ];
     }
 }

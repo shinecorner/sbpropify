@@ -16,6 +16,7 @@ use App\Http\Requests\API\Building\ViewRequest;
 use App\Http\Requests\API\PropertyManager\AssignRequest;
 use App\Models\Address;
 use App\Models\Building;
+use App\Models\BuildingAssignee;
 use App\Models\PropertyManager;
 use App\Models\User;
 use App\Repositories\AddressRepository;
@@ -871,7 +872,51 @@ class BuildingAPIController extends AppBaseController
 
         $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers', 'users']);
         $response = (new BuildingTransformer)->transform($building);
-        return $this->sendResponse($response, __('models.building.managers_assigned'));
+        return $this->sendResponse($response, __('models.building.user_assigned'));
+    }
+
+    /**
+     * @SWG\Delete(
+     *      path="/buildings-assignees/{buildings_assignee_id}",
+     *      summary="Unassign the user or manager to the building",
+     *      tags={"Building", "User", "PropertyManager"},
+     *      description="Unassign the user or manager to the request",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="integer",
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @param int $id
+     * @param AssignRequest $request
+     * @return mixed
+     */
+    public function deleteBuildingAssignee(int $id, AssignRequest $request)
+    {
+        $buildingAssignee = BuildingAssignee::find($id);
+        if (empty($buildingAssignee)) {
+            // @TODO fix message
+            return $this->sendError(__('models.building.errors.not_found'));
+        }
+        $buildingAssignee->delete();
+
+        return $this->sendResponse($id, __('general.detached.' . $buildingAssignee->assignee_type));
     }
 
     /**
@@ -884,7 +929,8 @@ class BuildingAPIController extends AppBaseController
      *      path="/buildings/{building_id}/propertyManagers/{manager_id}",
      *      summary="Unassign the provided property managerfrom the building ",
      *      tags={"Building"},
-     *      description="Unassign the provided property manager from the building",
+     *      deprecated=true,
+     *      description="<a href='http://dev.propify.ch/api/docs#/Building/delete_buildings_assignees__buildings_assignee_id_'>http://dev.propify.ch/api/docs#/Building/delete_buildings_assignees__buildings_assignee_id_</a>",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -907,23 +953,14 @@ class BuildingAPIController extends AppBaseController
      *      )
      * )
      */
-    public function unAssignPropertyManager(int $building_id, int $manager_id, AssignRequest $r)
+    public function unAssignPropertyManager(int $building_id, int $manager_id, BatchAssignManagers $r)
     {
-        $building = $this->buildingRepository->findWithoutFail($building_id);
-        if (empty($building)) {
-            return $this->sendError(__('models.building.errors.not_found'));
-        }
-
-        $propertyManager = $this->propertyManagerRepository->findWithoutFail($manager_id);
-        if (empty($propertyManager)) {
-            return $this->sendError(__('models.building.errors.manager_not_found'));
-        }
-
-        $building->propertyManagers()->detach($propertyManager);
-
-        $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers', 'users']);
-        $response = (new BuildingTransformer)->transform($building);
-        return $this->sendResponse($response, __('models.building.manager.unassigned'));
+        $assigneeId = BuildingAssignee::where([
+                'building_id' => $building_id,
+                'assignee_id' => $manager_id,
+                'assignee_type' => get_morph_type_of(PropertyManager::class)
+            ])->value('id');
+        return $this->deleteBuildingAssignee($assigneeId, $r);
     }
 
     /**

@@ -672,13 +672,46 @@
                 }
             }
         },
+        "/buildings-assignees/{buildings_assignee_id}": {
+            "delete": {
+                "tags": [
+                    "Building",
+                    "User",
+                    "PropertyManager"
+                ],
+                "summary": "Unassign the user or manager to the building",
+                "description": "Unassign the user or manager to the request",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/buildings/{building_id}/propertyManagers/{manager_id}": {
             "delete": {
                 "tags": [
                     "Building"
                 ],
                 "summary": "Unassign the provided property managerfrom the building ",
-                "description": "Unassign the provided property manager from the building",
+                "description": "<a href='http://dev.propify.ch/api/docs#/Building/delete_buildings_assignees__buildings_assignee_id_'>http://dev.propify.ch/api/docs#/Building/delete_buildings_assignees__buildings_assignee_id_</a>",
                 "produces": [
                     "application/json"
                 ],
@@ -700,7 +733,8 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "deprecated": true
             }
         },
         "/cleanify": {
