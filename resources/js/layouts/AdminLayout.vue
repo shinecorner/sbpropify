@@ -161,7 +161,7 @@
                                     name: 'adminUnits'
                                 }
                             }, {
-                                title: this.$t('menu.districts'),
+                                title: this.$t('menu.quarters'),
                                 permission: this.$permissions.list.quarter,
                                 route: {
                                     name: 'adminQuarters'
@@ -289,7 +289,7 @@
                                     name: 'adminUnits'
                                 }
                             }, {
-                                title: this.$t('menu.districts'),
+                                title: this.$t('menu.quarters'),
                                 permission: this.$permissions.list.quarter,
                                 route: {
                                     name: 'adminQuarters'
@@ -422,7 +422,7 @@
                                     name: 'adminUnits'
                                 }
                             }, {
-                                title: this.$t('menu.districts'),
+                                title: this.$t('menu.quarters'),
                                 permission: this.$permissions.list.quarter,
                                 route: {
                                     name: 'adminQuarters'

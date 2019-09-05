@@ -238,7 +238,7 @@
                         key: 'unit_id',
                         data: this.units,
                     }, {
-                        name: this.$t('filters.districts'),
+                        name: this.$t('filters.quarters'),
                         type: 'select',
                         key: 'quarter_id',
                         data: this.quarters,

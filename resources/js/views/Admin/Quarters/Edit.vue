@@ -1,6 +1,6 @@
 <template>
     <div class="quarters-edit">
-        <heading :title="$t('models.district.edit')" icon="icon-chat-empty" shadow="heavy">
+        <heading :title="$t('models.quarter.edit')" icon="icon-chat-empty" shadow="heavy">
             <template slot="description" v-if="model.quarter_format">
                 <div class="subtitle">{{`${model.quarter_format} > ${model.name}`}}</div>
             </template>
@@ -18,7 +18,7 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12">
-                                <el-form-item class="label-block" :label="$t('models.district.count_of_buildings')"
+                                <el-form-item class="label-block" :label="$t('models.quarter.count_of_buildings')"
                                               prop="title">
                                     <el-select style="display: block" v-model="model.count_of_buildings">
                                         <el-option
@@ -46,7 +46,7 @@
                 </card>
             </el-col>
             <el-col :md="12">
-                <card :loading="loading" :header="$t('models.district.buildings')">
+                <card :loading="loading" :header="$t('models.quarter.buildings')">
                     <relation-list
                         :actions="quarterActions"
                         :columns="quarterColumns"

@@ -58,7 +58,6 @@ return [
   [
     'building' => 'Liegenschaft wurde zugewiesen.',
     'quarter' => 'Überbauung wurde zugewiesen.',
-    'district' => 'Überbauung wurde zugewiesen.',
     'provider' => 'Dienstleister wurde zugewiesen.',
     'tenant' => "Mieter wurde zugewiesen.",
     'service' => 'Dienstleister wurde zugewiesen.',
@@ -70,7 +69,6 @@ return [
   [
     'building' => 'Liegenschaft wurde entfernt',
     'quarter' => 'Überbauung wurde entfernt',
-    'district' => 'Überbauung wurde entfernt',
     'provider' => 'Dienstleister wurde wurde entfernt',
     'tenant' => "Mieter wurde entfernt.",
     'service' => 'Dienstleister wurde entfernt.',
@@ -147,7 +145,6 @@ return [
     'managers' => 'Bewirtschafter',
     'building' => 'Liegenschaft',
     'quarter' => 'Überbauung',
-    'district' => 'Überbauung',
   ],
   'email' => 'E-Mail',
   'email_validation' => 
