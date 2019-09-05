@@ -201,7 +201,6 @@ return [
         [
           'address' => 'faire pression',
           'quarter' => 'Trimestre',
-          'district' => 'Trimestre',
           'all' => 'Tous',
         ],
       ],

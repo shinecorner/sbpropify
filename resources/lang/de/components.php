@@ -203,7 +203,6 @@ return [
         [
           'address' => 'Nachbarn',
           'quarter' => 'Überbauung',
-          'district' => 'Überbauung',
           'all' => 'Alle',
         ],
       ],
