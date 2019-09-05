@@ -36,9 +36,9 @@ class RealEstateRepository extends BaseRepository
     }
 
     // TODO: move function to media repository
-    public function uploadImage(string $fileData, RealEstate $realEstate)
+    public function uploadImage(string $fileData, RealEstate $realEstate, $fileName = null)
     {
-        $fileName = Str::slug(sprintf('%s-%d', $realEstate->name, $realEstate->id)) . '.png';
+        $fileName = $fileName ?? Str::slug(sprintf('%s-%d', $realEstate->name, $realEstate->id)) . '.png';
         $imgPath = storage_path(sprintf('app/public/%s', $fileName));
 
         (new Image)->make($fileData)->encode('png', 65)->fit(800, 600)->save($imgPath);
