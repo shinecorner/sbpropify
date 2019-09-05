@@ -39,7 +39,6 @@ class RealEstateTransformer extends TransformerAbstract
             'login_variation_2_slider' => (bool) $model->login_variation_2_slider,
             'blank_pdf' => $model->blank_pdf,
             'quarter_enable' => $model->quarter_enable,
-            'district_enable' => $model->quarter_enable,
             'contact_enable' => $model->contact_enable,
             'marketplace_approval_enable' => $model->marketplace_approval_enable,
             'news_approval_enable' => $model->news_approval_enable,

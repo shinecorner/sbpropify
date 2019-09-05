@@ -12,6 +12,7 @@ use App\Repositories\RealEstateRepository;
 use App\Transformers\RealEstateTransformer;
 use Cache;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 
 /**
  * Class RealEstateController
@@ -128,13 +129,24 @@ class RealEstateAPIController extends AppBaseController
         }
 
         // image upload
-        $fileData = base64_decode($request->get('logo_upload', ''));
-        if ($fileData) {
-            try {
-                $input['logo'] = $this->realEstateRepository->uploadImage($fileData, $realEstate);
-            } catch (\Exception $e) {
-                return $this->sendError(__('models.user.errors.image_upload') . $e->getMessage());
+        $logoFileData = base64_decode($request->get('logo_upload', ''));
+        $circleLogoFileData = base64_decode($request->get('circle_logo_upload', ''));
+        $faviconIconFileData = base64_decode($request->get('favicon_icon_upload', ''));
+
+        try {
+            if ($logoFileData) {
+                $input['logo'] = $this->realEstateRepository->uploadImage($logoFileData, $realEstate);
             }
+            if ($circleLogoFileData) {
+                $fileName = Str::slug(sprintf('%s-%d', $realEstate->name, $realEstate->id)) . '-circle-logo.png';
+                $input['circle_logo'] = $this->realEstateRepository->uploadImage($circleLogoFileData, $realEstate, $fileName);
+            }
+            if ($faviconIconFileData) {
+                $fileName = Str::slug(sprintf('%s-%d', $realEstate->name, $realEstate->id)) . '-favicon-icon.png';
+                $input['favicon_icon'] = $this->realEstateRepository->uploadImage($faviconIconFileData, $realEstate, $fileName);
+            }
+        } catch (\Exception $e) {
+            return $this->sendError(__('models.user.errors.image_upload') . $e->getMessage());
         }
 
         try {
