@@ -41,7 +41,7 @@
                                        v-for="state in states"></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item :label="$t('models.building.district')" prop="quarter_id" style="max-width: 512px;">
+                    <el-form-item :label="$t('models.building.quarter')" prop="quarter_id" style="max-width: 512px;">
                         <el-select
                             :loading="remoteLoading"
                             :placeholder="$t('general.placeholders.search')"

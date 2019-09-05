@@ -104,7 +104,7 @@
                         }, {
                             type: 'el-option',
                             props: {
-                                label: 'From the district',
+                                label: 'From the quarter',
                                 value: 3
                             }
                         }]

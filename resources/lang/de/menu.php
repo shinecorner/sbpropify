@@ -28,7 +28,6 @@ return [
   'addresses' => 'Liegenschaften',
   'posts' => 'Pinnwand',
   'quarters' => 'Überbauungen',
-  'districts' => 'Überbauungen',
   'products' => 'Marktplatz',
   'requestCategories' => 'Kategorien',
   'services' => 'Dienstleister',

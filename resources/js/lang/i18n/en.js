@@ -165,7 +165,6 @@ export default {
             "attached": {
                 "building": "Building assigned",
                 "quarter": "Quarter assigned",
-                "district": "Quarter assigned",
                 "provider": "Provider assigned",
                 "tenant": "Tenant attached",
                 "service": "Provider attached successfully",
@@ -176,7 +175,6 @@ export default {
             "detached": {
                 "building": "Buiding unassigned",
                 "quarter": "Quarter unassigned",
-                "district": "Quarter unassigned",
                 "provider": "Provider unassigned",
                 "tenant": "Tenant detached",
                 "service": "Provider detached successfully",
@@ -249,7 +247,6 @@ export default {
             "assignmentTypes": {
                 "building": "Building",
                 "quarter": "Quarter",
-                "district": "Quarter",
                 "services": "Services",
                 "managers": "Managers",
                 "administrator": "Administrator"
@@ -347,7 +344,6 @@ export default {
         "filters": {
             "header": "Filters",
             "quarters": "Quarters",
-            "districts": "Quarters",
             "buildings": "Buildings",
             "requests": "Requests",
             "open_requests": "Open requests",
@@ -426,7 +422,6 @@ export default {
             "addresses": "Addresses",
             "posts": "News",
             "quarters": "Quarters",
-            "districts": "Quarters",
             "products": "Products",
             "requestCategories": "Request categories",
             "services": "Service Partners",
@@ -702,7 +697,6 @@ export default {
                     "visibility": {
                         "address": "Address",
                         "quarter": "Quarter",
-                        "district": "Quarter",
                         "all": "All"
                     }
                 }
@@ -884,7 +878,6 @@ export default {
                 "no_services": "No services added",
                 "select_media_category": "Selected media category",
                 "quarter": "Quarter",
-                "district": "Quarter",
                 "managers": "Managers",
                 "house_nr": "House Nr.",
                 "assign_managers": "Assign managers",
@@ -1063,7 +1056,6 @@ export default {
                 "errors": {
                     "not_found": "Post not found",
                     "quarter_not_found": "Quarter not found",
-                    "district_not_found": "Quarter not found",
                     "building_not_found": "Building not found",
                     "provider_not_found": "Service provider not found",
                     "deleted": "Post deleted error: "
@@ -1079,7 +1071,6 @@ export default {
                     "label": "Visibility",
                     "address": "Address",
                     "quarter": "Quarter",
-                    "district": "Quarter",
                     "all": "All"
                 },
                 "assignType": "Type",
@@ -1127,7 +1118,6 @@ export default {
                     "update": "Service Provider updated error: ",
                     "deleted": "Service Provider deleted error: ",
                     "quarter_not_found": "Quarter not found",
-                    "district_not_found": "Quarter not found",
                     "building_not_found": "Building not found",
                     "building_already_assign": "Building already assigned through quarter"
                 }
@@ -1155,7 +1145,6 @@ export default {
                 "login_variation": "Login variation",
                 "login_variation_slider": "Do you want to show slider?",
                 "quarter_enable": "Quarter",
-                "district_enable": "Quarter",
                 "marketplace_approval_enable": "Enable Market",
                 "news_approval_enable": "News approval",
                 "comment_update_timeout": "Comment update timeout",
@@ -1384,7 +1373,6 @@ export default {
                     "label": "Visibility",
                     "tenant": "Private",
                     "quarter": "Quarter",
-                    "district": "Quarter",
                     "building": "Building"
                 },
                 "errors": {
@@ -1435,7 +1423,6 @@ export default {
                 "add_buildings": "Add buildings",
                 "buildings_search": "Search for buildings",
                 "quarters": "Quarters",
-                "districts": "Quarters",
                 "delete_with_reassign_modal": {
                     "title": "Delete & reassign buildings",
                     "description": "The selected property manager is linked to properties. You can assign the properties to another person. To do this, select a property manager from the list.",
@@ -1451,7 +1438,6 @@ export default {
                     "create": "Property Manager create error: ",
                     "update": "Property Manager updated error: ",
                     "quarter_not_found": "Quarter not found",
-                    "district_not_found": "Quarter not found",
                     "building_not_found": "Building not found",
                     "building_already_assign": "Building already assigned through quarter",
                     "building_assign_deleted_property_manager": "You cannot assign buildings to an deleted Property Manager",
@@ -1495,7 +1481,6 @@ export default {
                     "label": "Visibility",
                     "address": "Address",
                     "quarter": "Quarter",
-                    "district": "Quarter",
                     "all": "All"
                 }
             },

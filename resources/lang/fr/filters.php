@@ -2,7 +2,6 @@
 return [
     'header' => 'Filtres',
     'quarters' => 'Trimestres',
-    'districts' => 'Trimestres',
     'buildings' => 'Bâtiments',
     'requests' => 'Demandes',
     'open_requests' => 'Demandes en cours',

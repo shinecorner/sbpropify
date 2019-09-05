@@ -165,7 +165,6 @@ export default {
             "attached": {
                 "building": "Edificio assegnato",
                 "quarter": "Trimestre assegnato",
-                "district": "Trimestre assegnato",
                 "provider": "Fornitore assegnato",
                 "tenant": "L'inquilino attaccato con successo",
                 "service": "Fornitore collegato con successo",
@@ -176,7 +175,6 @@ export default {
             "detached": {
                 "building": "Costruire senza assegnazione",
                 "quarter": "Quartiere non assegnato",
-                "district": "Quartiere non assegnato",
                 "provider": "Fornitore non assegnato",
                 "tenant": "L'inquilino si è staccato con successo",
                 "service": "Fornitore staccato con successo",
@@ -249,7 +247,6 @@ export default {
             "assignmentTypes": {
                 "building": "Edificio",
                 "quarter": "Quartiere",
-                "district": "Quartiere",
                 "services": "Servizi",
                 "managers": "Manager",
                 "administrator": "Gestore"
@@ -347,7 +344,6 @@ export default {
         "filters": {
             "header": "Filtri",
             "quarters": "Quartieri",
-            "districts": "Quartieri",
             "buildings": "Edifici",
             "requests": "Richieste",
             "open_requests": "Richieste aperte",
@@ -426,7 +422,6 @@ export default {
             "addresses": "Indirizzi",
             "posts": "Notizie",
             "quarters": "Quartieri",
-            "districts": "Quartieri",
             "products": "Prodotti",
             "requestCategories": "Richiesta categorie",
             "services": "Partner di servizio",
@@ -702,7 +697,6 @@ export default {
                     "visibility": {
                         "address": "Indirizzo",
                         "quarter": "Quartiere",
-                        "district": "Quartiere",
                         "all": "Tutti"
                     }
                 }
@@ -884,7 +878,6 @@ export default {
                 "no_services": "Nessun servizio aggiunto",
                 "select_media_category": "Categoria di supporti selezionati",
                 "quarter": "Quartiere",
-                "district": "Quartiere",
                 "managers": "Manager",
                 "house_nr": "Casa Nr...",
                 "assign_managers": "Assegnare i manager",
@@ -1063,7 +1056,6 @@ export default {
                 "errors": {
                     "not_found": "Posta non trovata",
                     "quarter_not_found": "Quartiere non trovato",
-                    "district_not_found": "Quartiere non trovato",
                     "building_not_found": "Edificio non trovato",
                     "provider_not_found": "Fornitore di servizi non trovato",
                     "deleted": "Messaggio errore cancellato: "
@@ -1079,7 +1071,6 @@ export default {
                     "label": "Visibilità",
                     "address": "Indirizzo",
                     "quarter": "Quartiere",
-                    "district": "Quartiere",
                     "all": "Tutti"
                 },
                 "assignType": "Tipo",
@@ -1127,7 +1118,6 @@ export default {
                     "update": "Errore aggiornato del fornitore di servizi: ",
                     "deleted": "Errore cancellato dal fornitore di servizi: ",
                     "quarter_not_found": "Quartiere non trovato",
-                    "district_not_found": "Quartiere non trovato",
                     "building_not_found": "Edificio non trovato",
                     "building_already_assign": "Edificio già assegnato per tutto il trimestre"
                 }
@@ -1155,7 +1145,6 @@ export default {
                 "login_variation": "Variazione del login",
                 "login_variation_slider": "Vuoi mostrare il cursore?",
                 "quarter_enable": "Quartiere",
-                "district_enable": "Quartiere",
                 "marketplace_approval_enable": "Attivare il mercato",
                 "news_approval_enable": "Approvazione delle notizie",
                 "comment_update_timeout": "Timeout aggiornamento commento",
@@ -1384,7 +1373,6 @@ export default {
                     "label": "Visibilità",
                     "tenant": "Soldato",
                     "quarter": "Quartiere",
-                    "district": "Quartiere",
                     "building": "Edificio"
                 },
                 "errors": {
@@ -1435,7 +1423,6 @@ export default {
                 "add_buildings": "Aggiungere edifici",
                 "buildings_search": "Ricerca di edifici",
                 "quarters": "Quartieri",
-                "districts": "Quartieri",
                 "delete_with_reassign_modal": {
                     "title": "Cancellare e riassegnare gli edifici",
                     "description": "Il gestore di proprietà selezionato è collegato alle proprietà. È possibile assegnare le proprietà ad un'altra persona. Per fare questo, selezionare un gestore di proprietà dall'elenco",
@@ -1451,7 +1438,6 @@ export default {
                     "create": "Property Manager crea un errore: ",
                     "update": "Errore aggiornato Property Manager: ",
                     "quarter_not_found": "Quartiere non trovato",
-                    "district_not_found": "Quartiere non trovato",
                     "building_not_found": "Edificio non trovato",
                     "building_already_assign": "Edificio già assegnato per tutto il trimestre",
                     "building_assign_deleted_property_manager": "Non è possibile assegnare edifici a un gestore di proprietà cancellato",
@@ -1495,7 +1481,6 @@ export default {
                     "label": "Visibilità",
                     "address": "Indirizzo",
                     "quarter": "Quartiere",
-                    "district": "Quartiere",
                     "all": "Tutti"
                 }
             },

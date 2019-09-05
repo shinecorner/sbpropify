@@ -165,7 +165,6 @@ export default {
             "attached": {
                 "building": "Liegenschaft wurde zugewiesen.",
                 "quarter": "Überbauung wurde zugewiesen.",
-                "district": "Überbauung wurde zugewiesen.",
                 "provider": "Dienstleister wurde zugewiesen.",
                 "tenant": "Mieter wurde zugewiesen.",
                 "service": "Dienstleister wurde zugewiesen.",
@@ -176,7 +175,6 @@ export default {
             "detached": {
                 "building": "Liegenschaft wurde entfernt",
                 "quarter": "Überbauung wurde entfernt",
-                "district": "Überbauung wurde entfernt",
                 "provider": "Dienstleister wurde wurde entfernt",
                 "tenant": "Mieter wurde entfernt.",
                 "service": "Dienstleister wurde entfernt.",
@@ -347,7 +345,6 @@ export default {
         "filters": {
             "header": "Filter",
             "quarters": "Überbauungen",
-            "districts": "Überbauungen",
             "buildings": "Liegenschaften",
             "requests": "Anfragen",
             "open_requests": "Offene Anfragen",
@@ -426,7 +423,6 @@ export default {
             "addresses": "Liegenschaften",
             "posts": "Pinnwand",
             "quarters": "Überbauungen",
-            "districts": "Überbauungen",
             "products": "Marktplatz",
             "requestCategories": "Kategorien",
             "services": "Dienstleister",
@@ -708,7 +704,6 @@ export default {
                     "visibility": {
                         "address": "Nachbarn",
                         "quarter": "Überbauung",
-                        "district": "Überbauung",
                         "all": "Alle"
                     }
                 }
@@ -890,7 +885,6 @@ export default {
                 "no_services": "Keine Partnerfirmen gewählt.",
                 "select_media_category": "Kategorie der Mediendatei wählen",
                 "quarter": "Quartal",
-                "district": "Quartal",
                 "managers": "Bewirtschafter",
                 "house_nr": "Hausnummer",
                 "assign_managers": "Bewirtschafter zuweisen",
@@ -1069,7 +1063,6 @@ export default {
                 "errors": {
                     "not_found": "Beitrag nicht gefunden",
                     "quarter_not_found": "Quartal nicht gefunden",
-                    "district_not_found": "Quartal nicht gefunden",
                     "building_not_found": "Liegenschaft nicht gefunden",
                     "provider_not_found": "Dienstanbieter nicht gefunden",
                     "deleted": "Gelöschten Fehler buchen: "
@@ -1085,7 +1078,6 @@ export default {
                     "label": "Sichtbarkeit",
                     "address": "Liegenschaft",
                     "quarter": "Quartal",
-                    "district": "Quartal",
                     "all": "Alle App-Nutzer"
                 },
                 "assignType": "Typ",
@@ -1133,7 +1125,6 @@ export default {
                     "update": "Fehler beim Aktualisieren des Dienstleisters: ",
                     "deleted": "Fehler beim Löschen des Dienstleisters: ",
                     "quarter_not_found": "Quartal nicht gefunden",
-                    "district_not_found": "Quartal nicht gefunden",
                     "building_not_found": "Liegenschaft nicht gefunden",
                     "building_already_assign": "Gebäude bereits vergeben durch das Quartal"
                 }
@@ -1161,7 +1152,6 @@ export default {
                 "login_variation": "Login-Variante",
                 "login_variation_slider": "Möchten Sie den Schieberegler anzeigen?",
                 "quarter_enable": "Quartal",
-                "district_enable": "Quartal",
                 "marketplace_approval_enable": "Marktplatz aktivieren",
                 "news_approval_enable": "Pinnwand-Beiträge zuerst prüfen",
                 "comment_update_timeout": "Comment update timeout",
@@ -1390,7 +1380,6 @@ export default {
                     "label": "Sichtbarkeit",
                     "tenant": "Nur ich",
                     "quarter": "Quartal",
-                    "district": "Quartal",
                     "building": "Liegenschaft"
                 },
                 "errors": {
@@ -1441,7 +1430,6 @@ export default {
                 "add_buildings": "Liegenschaft hinzufügen",
                 "buildings_search": "Liegenschaft suchen",
                 "quarters": "Quartale",
-                "districts": "Quartale",
                 "delete_with_reassign_modal": {
                     "title": "Andere Person zuweisen und dann Benutzer löschen",
                     "description": "Der gewählte Bewirtschafter ist mit Liegenschaften verbunden. Sie können die Liegenschaft(en) an eine anderen Person zuweisen. Wählen Sie hierzu einen Bewirtschafter aus der Liste aus.",
@@ -1457,7 +1445,6 @@ export default {
                     "create": "Fehler beim Erstellen des Bewirtschafters: ",
                     "update": "Fehler beim Aktualisieren des Bewirtschafters:",
                     "quarter_not_found": "Quartal nicht gefunden",
-                    "district_not_found": "Quartal nicht gefunden",
                     "building_not_found": "Liegenschaft nicht gefunden",
                     "building_already_assign": "Edificio già assegnato per tutto il trimestre",
                     "building_assign_deleted_property_manager": "Sie können einem gelöschten Bewirtschafter keine Liegenschaft(en) zuordnen.",
@@ -1501,7 +1488,6 @@ export default {
                     "label": "Sichtbarkeit",
                     "address": "Meine Nachbarn",
                     "quarter": "Quartal",
-                    "district": "Quartal",
                     "all": "Alle App-Nutzer"
                 }
             },

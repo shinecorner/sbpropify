@@ -165,7 +165,6 @@ export default {
             "attached": {
                 "building": "Bâtiment affecté",
                 "quarter": "Trimestre assigné",
-                "district": "Trimestre assigné",
                 "provider": "Prestataire désigné",
                 "tenant": "Locataire attaché avec succès",
                 "service": "Le prestataire s'est attaché avec succès",
@@ -176,7 +175,6 @@ export default {
             "detached": {
                 "building": "Bâtiment non assigné",
                 "quarter": "Trimestre non attribué",
-                "district": "Trimestre non attribué",
                 "provider": "Prestataire non assigné",
                 "tenant": "Locataire détaché avec succès",
                 "service": "Le prestataire s'est détaché avec succès",
@@ -249,7 +247,6 @@ export default {
             "assignmentTypes": {
                 "building": "Bâtiment",
                 "quarter": "Trimestre",
-                "district": "Trimestre",
                 "services": "Services",
                 "managers": "Gestionnaires",
                 "administrator": "Administrateur"
@@ -347,7 +344,6 @@ export default {
         "filters": {
             "header": "Filtres",
             "quarters": "Trimestres",
-            "districts": "Trimestres",
             "buildings": "Bâtiments",
             "requests": "Demandes",
             "open_requests": "Demandes en cours",
@@ -426,7 +422,6 @@ export default {
             "addresses": "Adresses",
             "posts": "Actualités",
             "quarters": "Trimestres",
-            "districts": "Trimestres",
             "products": "Produits",
             "requestCategories": "Catégories de demandes",
             "services": "Partenaires de service",
@@ -702,7 +697,6 @@ export default {
                     "visibility": {
                         "address": "faire pression",
                         "quarter": "Trimestre",
-                        "district": "Trimestre",
                         "all": "Tous"
                     }
                 }
@@ -884,7 +878,6 @@ export default {
                 "no_services": "Aucun service ajouté",
                 "select_media_category": "Sélectionner une catégorie de médias",
                 "quarter": "Trimestre",
-                "district": "Trimestre",
                 "managers": "Gestionnaires",
                 "house_nr": "Maison Nr.",
                 "assign_managers": "Affecter des gestionnaires",
@@ -1063,7 +1056,6 @@ export default {
                 "errors": {
                     "not_found": "Message non trouvé",
                     "quarter_not_found": "Trimestre non trouvé",
-                    "district_not_found": "Trimestre non trouvé",
                     "building_not_found": "Bâtiment non trouvé",
                     "provider_not_found": "Fournisseur de services introuvable",
                     "deleted": "Enregistrer l'erreur supprimée : "
@@ -1079,7 +1071,6 @@ export default {
                     "label": "Visibilité",
                     "address": "Adresse",
                     "quarter": "Trimestre",
-                    "district": "Trimestre",
                     "all": "Tous"
                 },
                 "assignType": "Type",
@@ -1127,7 +1118,6 @@ export default {
                     "update": "Erreur de mise à jour du fournisseur de services : ",
                     "deleted": "Erreur supprimée par le fournisseur de services : ",
                     "quarter_not_found": "Trimestre non trouvé",
-                    "district_not_found": "Trimestre non trouvé",
                     "building_not_found": "Bâtiment non trouvé",
                     "building_already_assign": "Immeuble déjà assigné jusqu'au quart"
                 }
@@ -1155,7 +1145,6 @@ export default {
                 "login_variation": "Modification de l'ouverture de session",
                 "login_variation_slider": "Voulez-vous montrer le slider ?",
                 "quarter_enable": "Trimestre",
-                "district_enable": "Trimestre",
                 "marketplace_approval_enable": "Activer le marché",
                 "news_approval_enable": "Approbation des nouvelles",
                 "comment_update_timeout": "Délai de mise à jour des commentaires",
@@ -1384,7 +1373,6 @@ export default {
                     "label": "Visibilité",
                     "tenant": "Soldat",
                     "quarter": "Trimestre",
-                    "district": "Trimestre",
                     "building": "Bâtiment"
                 },
                 "errors": {
@@ -1435,7 +1423,6 @@ export default {
                 "add_buildings": "Ajouter des bâtiments",
                 "buildings_search": "Recherche de bâtiments",
                 "quarters": "Trimestres",
-                "districts": "Trimestres",
                 "delete_with_reassign_modal": {
                     "title": "Supprimer et réaffecter des bâtiments",
                     "description": "Le gestionnaire immobilier sélectionné est lié aux biens immobiliers. Vous pouvez affecter les propriétés à une autre personne. Pour ce faire, sélectionnez un gestionnaire immobilier dans la liste..",
@@ -1451,7 +1438,6 @@ export default {
                     "create": "Le gestionnaire immobilier crée l'erreur : ",
                     "update": "Erreur de mise à jour du gestionnaire immobilier : ",
                     "quarter_not_found": "Trimestre non trouvé",
-                    "district_not_found": "Trimestre non trouvé",
                     "building_not_found": "Bâtiment non trouvé",
                     "building_already_assign": "Immeuble déjà assigné jusqu'au quart",
                     "building_assign_deleted_property_manager": "Vous ne pouvez pas affecter de bâtiments à un gestionnaire immobilier supprimé.",
@@ -1494,7 +1480,6 @@ export default {
                     "label": "Visibilité",
                     "address": "Adresse",
                     "quarter": "Trimestre",
-                    "district": "Trimestre",
                     "all": "Tous"
                 }
             },
