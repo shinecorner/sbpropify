@@ -47,7 +47,6 @@ class FilterByInternalFieldsCriteria implements CriteriaInterface
         if ($dueDate && $dueDate !== "null") {
             $model->where('due_date', '=', Carbon::parse($dueDate)->format('Y-m-d'));
         }
-        // dd($model->toSql());
         $createdFrom = $this->request->get('created_from', null);
         if ($createdFrom && $createdFrom !== "null") {
             $model->where('service_requests.created_at', '>=', Carbon::parse($createdFrom)->format('Y-m-d'));
