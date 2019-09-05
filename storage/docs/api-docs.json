@@ -548,7 +548,7 @@
                     "Building"
                 ],
                 "summary": "Assign the provided propertyManagers to the Building",
-                "description": " <a href='http://dev.propify.local/api/docs#/Building/post_buildings__id__managers'>http://dev.propify.local/api/docs#/Building/post_buildings__id__managers</a>",
+                "description": " <a href='http://dev.propify.ch/api/docs#/Building/post_buildings__id__managers'>http://dev.propify.ch/api/docs#/Building/post_buildings__id__managers</a>",
                 "produces": [
                     "application/json"
                 ],
@@ -591,8 +591,8 @@
                 "tags": [
                     "Building"
                 ],
-                "summary": "Assign the provided propertyManagers to the Building",
-                "description": "Assign the provided propertyManagers to the Building",
+                "summary": "Assign the provided managers to the Building",
+                "description": "Assign the provided managers to the Building",
                 "produces": [
                     "application/json"
                 ],
@@ -601,6 +601,49 @@
                         "name": "managerIds",
                         "in": "query",
                         "description": "ids of managers",
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Building"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/buildings/{id}/users": {
+            "post": {
+                "tags": [
+                    "Building"
+                ],
+                "summary": "Assign the provided users to the Building",
+                "description": "Assign the provided users(administrator, super-administrator) to the Building",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userIds",
+                        "in": "query",
+                        "description": "ids of users",
                         "required": true,
                         "type": "array",
                         "items": {
@@ -8628,7 +8671,7 @@
                     "type": "string"
                 },
                 "email": {
-                    "description": "emai",
+                    "description": "email",
                     "type": "string"
                 }
             }

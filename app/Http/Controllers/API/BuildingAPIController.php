@@ -7,6 +7,7 @@ use App\Criteria\Common\HasRequestCriteria;
 use App\Criteria\Common\RequestCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Building\BatchAssignManagers;
+use App\Http\Requests\API\Building\BatchAssignUsers;
 use App\Http\Requests\API\Building\CreateRequest;
 use App\Http\Requests\API\Building\DeleteRequest;
 use App\Http\Requests\API\Building\ListRequest;
@@ -734,9 +735,9 @@ class BuildingAPIController extends AppBaseController
      * )
      * @SWG\Post(
      *      path="/buildings/{id}/managers",
-     *      summary="Assign the provided propertyManagers to the Building",
+     *      summary="Assign the provided managers to the Building",
      *      tags={"Building"},
-     *      description="Assign the provided propertyManagers to the Building",
+     *      description="Assign the provided managers to the Building",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="managerIds",
@@ -777,14 +778,14 @@ class BuildingAPIController extends AppBaseController
             return $this->sendError(__('models.building.errors.not_found'));
         }
 
-        $managersIds = $request->get('managersIds') ?? $request->get('managerIds');
+        $managerIds = $request->get('managersIds') ?? $request->get('managerIds');
         try {
             $currentManagers = $building->propertyManagers()
-                ->whereIn('property_managers.id', $managersIds)
+                ->whereIn('property_managers.id', $managerIds)
                 ->pluck('property_managers.id')
                 ->toArray();
 
-            $newManagers = array_diff($managersIds, $currentManagers);
+            $newManagers = array_diff($managerIds, $currentManagers);
             $attachData  = [];
             foreach ($newManagers as $manager) {
                 $attachData[$manager] = ['created_at' => now()];
@@ -799,6 +800,77 @@ class BuildingAPIController extends AppBaseController
         return $this->sendResponse($response, __('models.building.managers_assigned'));
     }
 
+    /**
+     * @param int $id
+     * @param BatchAssignUsers $request
+     * @return Response
+     *
+     * @SWG\Post(
+     *      path="/buildings/{id}/users",
+     *      summary="Assign the provided users to the Building",
+     *      tags={"Building"},
+     *      description="Assign the provided users(administrator, super-administrator) to the Building",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="userIds",
+     *          description="ids of users",
+     *          type="array",
+     *          required=true,
+     *          in="query",
+     *          @SWG\Items(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/Building"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function assignUsers(int $id, BatchAssignUsers $request)
+    {
+        /** @var Building $building */
+        $building = $this->buildingRepository->findWithoutFail($id);
+        if (empty($building)) {
+            return $this->sendError(__('models.building.errors.not_found'));
+        }
+
+        $userIds = $request->get('userIds');
+        try {
+            $currentUsers = $building->users()
+                ->whereIn('users.id', $userIds)
+                ->pluck('users.id')
+                ->toArray();
+
+            $newUsers = array_diff($userIds, $currentUsers);
+            $attachData  = [];
+            foreach ($newUsers as $userId) {
+                $attachData[$userId] = ['created_at' => now()];
+            }
+            $building->users()->attach($attachData);
+        } catch (\Exception $e) {
+            return $this->sendError( __('models.building.errors.user_assigned') . $e->getMessage());
+        }
+
+        $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers']);
+        $response = (new BuildingTransformer)->transform($building);
+        return $this->sendResponse($response, __('models.building.managers_assigned'));
+    }
 
     /**
      * @param int $building_id
