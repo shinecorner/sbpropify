@@ -4,7 +4,7 @@ namespace App\Http\Requests\API\Building;
 
 use InfyOm\Generator\Request\APIRequest;
 
-class BatchAssignManagers extends APIRequest
+class BatchAssignUsers extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,8 @@ class BatchAssignManagers extends APIRequest
     public function rules()
     {
         return [
-            'managerIds' => 'required_without:managersIds|array',
-            'managersIds' => 'array', // @TODO delete
-            'managerIds.*' => 'integer',
-            'managersIds.*' => 'integer',
+            'userIds' => 'required|array',
+            'userIds.*' => 'integer'
         ];
     }
 }

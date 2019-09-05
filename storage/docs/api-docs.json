@@ -508,15 +508,105 @@
                 }
             }
         },
+        "/buildings/{id}/assignees": {
+            "get": {
+                "tags": [
+                    "Building"
+                ],
+                "summary": "Get a listing of the Building assignees.",
+                "description": "Get a listing of the Building assignees.",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/BuildingAssignee"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/buildings/{id}/propertyManagers": {
             "post": {
                 "tags": [
                     "Building"
                 ],
                 "summary": "Assign the provided propertyManagers to the Building",
-                "description": "Assign the provided propertyManagers to the Building",
+                "description": " <a href='http://dev.propify.ch/api/docs#/Building/post_buildings__id__managers'>http://dev.propify.ch/api/docs#/Building/post_buildings__id__managers</a>",
                 "produces": [
                     "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "managerIds",
+                        "in": "query",
+                        "description": "ids of managers",
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Building"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "deprecated": true
+            }
+        },
+        "/buildings/{id}/managers": {
+            "post": {
+                "tags": [
+                    "Building"
+                ],
+                "summary": "Assign the provided managers to the Building",
+                "description": "Assign the provided managers to the Building",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "managerIds",
+                        "in": "query",
+                        "description": "ids of managers",
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        }
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -539,13 +629,89 @@
                 }
             }
         },
+        "/buildings/{id}/users": {
+            "post": {
+                "tags": [
+                    "Building"
+                ],
+                "summary": "Assign the provided users to the Building",
+                "description": "Assign the provided users(administrator, super-administrator) to the Building",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "userIds",
+                        "in": "query",
+                        "description": "ids of users",
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Building"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/buildings-assignees/{buildings_assignee_id}": {
+            "delete": {
+                "tags": [
+                    "Building",
+                    "User",
+                    "PropertyManager"
+                ],
+                "summary": "Unassign the user or manager to the building",
+                "description": "Unassign the user or manager to the request",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/buildings/{building_id}/propertyManagers/{manager_id}": {
             "delete": {
                 "tags": [
                     "Building"
                 ],
                 "summary": "Unassign the provided property managerfrom the building ",
-                "description": "Unassign the provided property manager from the building",
+                "description": "<a href='http://dev.propify.ch/api/docs#/Building/delete_buildings_assignees__buildings_assignee_id_'>http://dev.propify.ch/api/docs#/Building/delete_buildings_assignees__buildings_assignee_id_</a>",
                 "produces": [
                     "application/json"
                 ],
@@ -567,7 +733,8 @@
                             "type": "object"
                         }
                     }
-                }
+                },
+                "deprecated": true
             }
         },
         "/cleanify": {
@@ -8511,20 +8678,15 @@
                 }
             }
         },
-        "BuildingRequestAssignee": {
+        "BuildingAssignee": {
             "properties": {
                 "id": {
                     "description": "id",
                     "type": "integer",
                     "format": "int32"
                 },
-                "item_id": {
-                    "description": "related assigner id",
-                    "type": "integer",
-                    "format": "int32"
-                },
                 "edit_id": {
-                    "description": "@TODO must be delete",
+                    "description": "edit_id",
                     "type": "integer",
                     "format": "int32"
                 },
@@ -8543,7 +8705,7 @@
                     "type": "string"
                 },
                 "email": {
-                    "description": "emai;",
+                    "description": "email",
                     "type": "string"
                 }
             }
