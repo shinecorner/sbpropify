@@ -86,7 +86,7 @@ export default (config = {}) => {
                 tenants: [],
                 toAssignList: [],
                 media: [],
-                assignmentTypes: ['managers', 'services'],
+                assignmentTypes: ['managers', 'services', 'administrator'],
                 assignmentType: 'managers',
                 toAssign: '',
                 conversations: [],
@@ -112,7 +112,7 @@ export default (config = {}) => {
             },
         },
         methods: {
-            ...mapActions(['getRequestCategoriesTree', 'getTenants', 'getServices', 'uploadRequestMedia', 'deleteRequestMedia', 'getPropertyManagers', 'assignProvider', 'assignManager']),
+            ...mapActions(['getRequestCategoriesTree', 'getTenants', 'getServices', 'uploadRequestMedia', 'deleteRequestMedia', 'getPropertyManagers', 'assignProvider', 'assignManager', 'getUsers', 'assignAdministrator']),
             async remoteSearchTenants(search) {
                 if (search === '') {
                     this.tenants = [];
@@ -154,7 +154,18 @@ export default (config = {}) => {
                                 search,
                                 exclude_ids
                             });
-                        } else {
+                        } else if(this.assignmentType === 'administrator'){
+                            respRequest.data.assignedUsers.map(item => {
+                                exclude_ids.push(item.id);
+                            })
+                            resp = await this.getUsers({
+                                get_all: true,
+                                search,
+                                exclude_ids,
+                                role: 'administrator'
+                            });
+                        }
+                        else {
                             respRequest.data.service_providers.map(item => {
                                 exclude_ids.push(item.id);
                             })
@@ -188,7 +199,12 @@ export default (config = {}) => {
                         request: this.model.id,
                         toAssignId: this.toAssign
                     });
-                } else {
+                } else if (this.assignmentType === 'administrator') {
+                    resp = await this.assignAdministrator({
+                        request: this.model.id,
+                        toAssignId: this.toAssign
+                    });
+                }else {
                     resp = await this.assignProvider({
                         request: this.model.id,
                         toAssignId: this.toAssign
