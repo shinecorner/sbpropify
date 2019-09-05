@@ -52,7 +52,7 @@ class ProductRepository extends BaseRepository
         }
 
         if ($atts['visibility'] != Product::VisibilityAll &&
-            !isset($atts['address_id']) && (!isset($atts['quarter_id']) || !isset($atts['district_id']))
+            !isset($atts['address_id']) && (!isset($atts['quarter_id']))
         ) {
             throw new \Exception("Missing address or missing quarter for new product");
         }

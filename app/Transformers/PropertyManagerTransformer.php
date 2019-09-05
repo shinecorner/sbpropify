@@ -51,7 +51,6 @@ class PropertyManagerTransformer extends BaseTransformer
 
         if ($model->relationExists('quarters')) {
             $response['quarters'] = (new QuarterTransformer)->transformCollection($model->quarters);
-            $response['districts'] = $response['quarters'];
         }
 
         return $response;
