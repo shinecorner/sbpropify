@@ -720,7 +720,7 @@ return [
         "label" => "Tipo",
         "provider" => "Servizio",
         "manager" => "Manager",
-        'admin' => 'Administrator',
+        'user' => 'Administrator',
       ],
       'visibility' => 
       [

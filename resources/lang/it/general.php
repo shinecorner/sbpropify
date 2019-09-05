@@ -145,6 +145,7 @@ return [
     "quarter" => "Quartiere",
     "services" => "Servizi",
     "managers" => "Manager",        
+    "administrator" => "Gestore",
   ],
   'email' => 'eMail',
   'email_validation' => 
