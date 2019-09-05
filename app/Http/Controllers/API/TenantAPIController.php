@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Criteria\Common\FilterFullnameCriteria;
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\Common\WhereCriteria;
 use App\Criteria\Tenants\FilterByBuildingCriteria;
@@ -110,6 +111,7 @@ class TenantAPIController extends AppBaseController
         $this->tenantRepository->pushCriteria(new FilterByStatusCriteria($request));
         $this->tenantRepository->pushCriteria(new RequestCriteria($request));
         $this->tenantRepository->pushCriteria(new LimitOffsetCriteria($request));
+        $this->tenantRepository->pushCriteria(new FilterFullnameCriteria($request));
 
         $getAll = $request->get('get_all', false);
         if ($getAll) {

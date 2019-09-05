@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -85,5 +84,9 @@ class InternalNotice extends Model
         'comment' => 'required'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     
 }
