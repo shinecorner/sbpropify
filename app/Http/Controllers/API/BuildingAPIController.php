@@ -953,7 +953,7 @@ class BuildingAPIController extends AppBaseController
      *      )
      * )
      */
-    public function unAssignPropertyManager(int $building_id, int $manager_id, BatchAssignManagers $r)
+    public function unAssignPropertyManager(int $building_id, int $manager_id, AssignRequest $r)
     {
         $assigneeId = BuildingAssignee::where([
                 'building_id' => $building_id,
