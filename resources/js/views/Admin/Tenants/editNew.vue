@@ -18,7 +18,7 @@
                                     </h3>
                                 </el-row>
                                 <el-row :gutter="20">
-                                    <el-col :md="4">
+                                    <el-col :md="4" class="tenant_avatar">
                                         <cropper :resize="false" :viewportType="'circle'" @cropped="cropped"/>
                                         <img
                                             src="~img/man.png"
@@ -559,6 +559,11 @@
         #language_select {
             margin-left: 0px !important;
             margin-right: 0px !important;
+        }
+        .tenant_avatar {
+            img {
+                border-radius: 50%;
+            }
         }
     }
 </style>
