@@ -86,7 +86,7 @@ class UtilsAPIController extends AppBaseController
             'languages' => $languages,
         ];
 
-        $re = App\Models\RealEstate::first(['primary_color', 'accent_color']);
+        $re = App\Models\RealEstate::first(['primary_color', 'accent_color', 'logo', 'circle_logo', 'favicon_icon']);
 
         if ($re) {
             $colors = $re->only(['primary_color', 'accent_color']);
@@ -94,6 +94,16 @@ class UtilsAPIController extends AppBaseController
             $colors = [
                 'primary_color' => '#6AC06F',
                 'accent_color' => '#F7CA18'
+            ];
+        }
+
+        if ($re) {
+            $logo = $re->only(['logo', 'circle_logo', 'favicon_icon']);
+        } else {
+            $logo = [
+                'logo' => null,
+                'circle_logo' => null,
+                'favicon_icon' => null,
             ];
         }
         $response = [
@@ -110,7 +120,8 @@ class UtilsAPIController extends AppBaseController
             'products' => self::getProductConstants(),
             'templates' => self::getTemplateConstants(),
             'audits' => self::getAuditConstants(),
-            'colors' => $colors
+            'colors' => $colors,
+            'logo' => $logo
         ];
 
         return $this->sendResponse($response, 'App constants statistics retrieved successfully');
