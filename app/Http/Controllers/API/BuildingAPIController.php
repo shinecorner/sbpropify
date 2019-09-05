@@ -28,10 +28,9 @@ use App\Transformers\BuildingAssigneeTransformer;
 use App\Transformers\BuildingTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Spatie\Geocoder\Geocoder;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class BuildingController
@@ -140,10 +139,12 @@ class BuildingAPIController extends AppBaseController
                 'serviceProviders',
                 'tenants.user',
                 'propertyManagers',
+                'users'
             ])->withCount([
                 'units',
                 'propertyManagers',
                 'tenants',
+                'users'
             ])
             ->scope('allRequestStatusCount')
             ->paginate($perPage);
@@ -251,6 +252,7 @@ class BuildingAPIController extends AppBaseController
                 'units',
                 'propertyManagers',
                 'tenants',
+                'users'
             ])->allRequestStatusCount()
             ->get();
         return $this->sendResponse($buildings->toArray(), 'Buildings retrieved successfully');
@@ -365,7 +367,7 @@ class BuildingAPIController extends AppBaseController
         }
 
         $building
-            ->load('address.state', 'serviceProviders', 'tenants.user', 'propertyManagers', 'media', 'quarter')
+            ->load('address.state', 'serviceProviders', 'tenants.user', 'propertyManagers', 'media', 'quarter', 'users')
             ->loadCount('activeTenants', 'inActiveTenants');
         $response = (new BuildingTransformer)->transform($building);
         $response['media_category'] = Building::BuildingMediaCategories;
@@ -795,7 +797,7 @@ class BuildingAPIController extends AppBaseController
             return $this->sendError( __('models.building.errors.manager_assigned') . $e->getMessage());
         }
 
-        $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers']);
+        $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers', 'users']);
         $response = (new BuildingTransformer)->transform($building);
         return $this->sendResponse($response, __('models.building.managers_assigned'));
     }
@@ -867,7 +869,7 @@ class BuildingAPIController extends AppBaseController
             return $this->sendError( __('models.building.errors.user_assigned') . $e->getMessage());
         }
 
-        $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers']);
+        $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers', 'users']);
         $response = (new BuildingTransformer)->transform($building);
         return $this->sendResponse($response, __('models.building.managers_assigned'));
     }
@@ -919,7 +921,7 @@ class BuildingAPIController extends AppBaseController
 
         $building->propertyManagers()->detach($propertyManager);
 
-        $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers']);
+        $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers', 'users']);
         $response = (new BuildingTransformer)->transform($building);
         return $this->sendResponse($response, __('models.building.manager.unassigned'));
     }

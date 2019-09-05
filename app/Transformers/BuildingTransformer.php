@@ -80,12 +80,25 @@ class BuildingTransformer extends BaseTransformer
             $response['service_providers'] = (new ServiceProviderTransformer)->transformCollection($model->serviceProviders);
         }
 
+        $assignedUsers = $model->newCollection();
         if ($model->relationExists('propertyManagers')) {
+            $assignedUsers = $assignedUsers->merge($model->propertyManagers->pluck('user'));
             $response['managers'] = (new PropertyManagerSimpleTransformer)->transformCollection($model->propertyManagers);
             $response['managers_last'] = (new PropertyManagerSimpleTransformer)->transformCollection($model->lastPropertyManagers);
             if ($model->property_managers_count > 2) {
                 $response['property_managers_count'] = $model->property_managers_count - 2;
             }
+        }
+
+        if ($model->relationExists('users')) {
+            $assignedUsers = $assignedUsers->merge($model->users);
+            $response['users'] = (new UserTransformer())->transformCollection($model->users);
+        }
+
+        if ($assignedUsers->count()) {
+            $response['assignedUsers'] = (new UserTransformer)->transformCollection($assignedUsers);
+        } else {
+            $response['assignedUsers'] = [];
         }
 
         if ($model->relationExists('media')) {
