@@ -28,7 +28,6 @@ return [
     'addresses' => 'Indirizzi',
     'posts' => 'Notizie',
     'quarters' => 'Quartieri',
-    'districts' => 'Quartieri',
     'products' => 'Prodotti',
     'requestCategories' => 'Richiesta categorie',
     'services' => 'Partner di servizio',

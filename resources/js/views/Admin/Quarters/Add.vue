@@ -1,6 +1,6 @@
 <template>
     <div class="quarters-edit">
-        <heading :title="$t('models.district.add')" icon="icon-share" shadow="heavy">
+        <heading :title="$t('models.quarter.add')" icon="icon-share" shadow="heavy">
             <add-actions :saveAction="submit" route="adminQuarters" editRoute="adminQuartersEdit"/>
         </heading>
         <el-row :gutter="20" class="crud-view">

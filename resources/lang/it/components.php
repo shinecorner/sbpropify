@@ -201,7 +201,6 @@ return [
         [
           'address' => 'Indirizzo',
           'quarter' => 'Quartiere',
-          'district' => 'Quartiere',
           'all' => 'Tutti',
         ],
       ],

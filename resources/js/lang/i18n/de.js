@@ -46,8 +46,8 @@ export default {
                         "post": {
                             "created": "Erstellt",
                             "updated": "Aktualisiert",
-                            "provider_assigned": "Dienstleister zugewiesen",
-                            "user_assigned": "Benutzer zugewiesen",
+                            "provider_assigned": "Dienstleister wurde zugewiesen",
+                            "user_assigned": "Benutzer wurde zugewiesen",
                             "media_uploaded": "Mediendateien hinaufgeladen",
                             "media_deleted": "Mediendateien gelöscht"
                         },
@@ -64,19 +64,20 @@ export default {
                     "content": {
                         "withId": {
                             "post": {
-                                "created": "{userName} hat dieses Beitrag erstellt.",
+                                "created": "{userName} hat diesen Beitrag erstellt.",
                                 "updated": {
                                     "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
-                                    "published_at": "Beitrag wurde veröffentlicht am {new}."
+                                    "published_at": "Beitrag wurde am {new} veröffentlicht."
                                 }
                             },
                             "product": {
-                                "created": "{userName} dieses {auditable_type} erstellt.",
+                                "created": "{userName} dieses Inserat erstellt: {auditable_type}",
                                 "updated": {
                                     "title": "Der Titel wurde von \"{old}\" zu \"{new}\" geändert.",
                                     "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
                                     "due_date": "Das Erledigungsdatum wurde von \"{old}\" zu \"{new}\" geändert.",
                                     "priority": "Die Priorität wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "internal_priority": "Die interne Priorität wurde von \"{old}\" zu \"{new}\" geändert.",
                                     "category_id": "Die Kategorie wurde von \"{old}\" zu \"{new}\" geändert.",
                                     "qualification": "Die Qualifikation wurde von \"{old}\" zu \"{new}\" geändert.",
                                     "visibility": "Die Sichtbarkeit wurde von \"{old}\" zu \"{new}\" geändert."
@@ -93,6 +94,7 @@ export default {
                                     "status": "Der Status wurde von \"{old}\" zu \"{new}\" geändert.",
                                     "due_date": "Das Erledigungsdatum wurde von \"{old}\" zu \"{new}\" geändert.",
                                     "priority": "Die Priorität wurde von \"{old}\" zu \"{new}\" geändert.",
+                                    "internal_priority": "Die interne Priorität wurde von \"{old}\" zu \"{new}\" geändert.",
                                     "category_id": "Die Kategorie wurde von \"{old}\" zu \"{new}\" geändert.",
                                     "qualification": "Die Qualifikation wurde von \"{old}\" zu \"{new}\" geändert.",
                                     "visibility": "Die Sichtbarkeit wurde von \"{old}\" zu \"{new}\" geändert."
@@ -101,14 +103,14 @@ export default {
                                 "provider_unassigned": "Dienstleisterin {providerName} wurde nicht beauftragt.",
                                 "manager_assigned": "{propertyManagerFirstName} {propertyManagerLastName} wurde als Managerin zugewiesen.",
                                 "manager_unassigned": "Managerin {propertyManagerFirstName} {propertyManagerLastName} wurde nicht zugewiesen.",
-                                "user_assigned": "{userName} wurde als zuständige Person zugewiesen.",
+                                "user_assigned": "{userName} wurde dieser Anfrage hinzugefügt.",
                                 "media_uploaded": "Mediendateien aktualisiert",
                                 "media_deleted": "Mediendateien gelöscht"
                             }
                         },
                         "withNoId": {
                             "post": {
-                                "created": "{userName} hat die Anfrage {auditable_type} im {auditable_type} #{auditable_id}.",
+                                "created": "{userName} hat folgende Anfrage erstellt: {auditable_type} im {auditable_type} #{auditable_id}.",
                                 "updated": {
                                     "status": "Der Status wurde von \"{old}\" zu \"{new}\" im {auditable_type} #{auditable_id} geändert.",
                                     "published_at": "Post published im {new} im {auditable_type} #{auditable_id}."
@@ -213,8 +215,7 @@ export default {
                 "postAdd": {
                     "visibility": {
                         "address": "Nachbarn",
-                        "quarter": "Quartal",
-                        "district": "Quartal",
+                        "quarter": "Überbauung",
                         "all": "Alle"
                     }
                 }
@@ -287,8 +288,7 @@ export default {
         },
         "filters": {
             "header": "Filter",
-            "quarters": "Quartale",
-            "districts": "Quartale",
+            "quarters": "Überbauungen",
             "buildings": "Liegenschaften",
             "requests": "Anfragen",
             "open_requests": "Offene Anfragen",
@@ -303,7 +303,7 @@ export default {
             "created_to": "Erstellt bis",
             "services": "Partnerfirmen",
             "tenant": "Mieter",
-            "roles": "Roles",
+            "roles": "Rollen",
             "type": "Typ"
         },
         "general": {
@@ -328,7 +328,7 @@ export default {
                 "en": "English"
             },
             "footerText": {
-                "companyName": "Propify",
+                "companyName": "Propify®",
                 "leftSideText": "Sie brauchen Unterstützung? Kontaktieren Sie unser Support-Team unter<br/>0800 000 000 oder via eine E-Mail an support@propify.ch.",
                 "allRightsSaved": "Alle Rechte vorbehalten"
             },
@@ -359,47 +359,45 @@ export default {
             },
             "attached": {
                 "building": "Liegenschaft wurde zugewiesen.",
-                "quarter": "Zugeordnetes Quartal",
-                "district": "Zugeordnetes Quartal",
+                "quarter": "Überbauung wurde zugewiesen.",
                 "provider": "Dienstleister wurde zugewiesen.",
                 "tenant": "Mieter wurde zugewiesen.",
                 "service": "Dienstleister wurde zugewiesen.",
                 "manager": "Bewirtschafter wurde zugewiesen.",
-                "user": "Tag erfolgreich zugewiesen",
-                "tag": "Tag assigned successfully"
+                "user": "Tag erfolgreich zugewiesen.",
+                "tag": "Tag wurde enternt."
             },
             "detached": {
                 "building": "Liegenschaft wurde entfernt",
-                "quarter": "Quartal nicht zugeordnet",
-                "district": "Quartal nicht zugeordnet",
+                "quarter": "Überbauung wurde entfernt",
                 "provider": "Dienstleister wurde wurde entfernt",
                 "tenant": "Mieter wurde entfernt.",
                 "service": "Dienstleister wurde entfernt.",
                 "manager": "Bewirtschafter wurde entfernt.",
                 "user": "Administrator wurde entfernt.",
-                "tag": "Tag nicht zugewiesen erfolgreich."
+                "tag": "Tag wurde entfernt"
             },
             "no": "Nein",
-            "name": "Nome",
+            "name": "Name",
             "phone": "Telefon",
             "id": "ID",
             "address": "Adresse",
             "city": "Ort",
-            "zip": "Postleitzahl",
+            "zip": "PLZ",
             "content": "Inhalt",
             "none": "Nichts gewählt",
             "all": "Alle",
-            "loadMore": "Mehr laden",
+            "loadMore": "Weitere laden",
             "account": "Konto",
-            "activate_account": "Account akvitieren",
+            "activate_account": "Konto akvitieren",
             "activate_code": "Aktivierunscode",
-            "activate_code_required": "Aktivierunscode ist ein Pflichtfeld",
-            "activate_terms_condition_1": "Ich stimme zu, dass die Angaben korrekt sind.",
-            "activate_terms_condition_2": "Ich habe die Allgemeinen Geschäftsbedingungen gelesen.",
+            "activate_code_required": "Sie müssen einen gültigen Aktivierunscode einfügen.",
+            "activate_terms_condition_1": "Ich akzpetiere die allgemeinen Nutzungebedingungen und die Bestimmungem zum Datenschautz.",
+            "activate_terms_condition_2": "Ich akzpetiere die allgemeinen Nutzungebedingungen und die Bestimmungem zum Datenschautz.",
             "back": "Zurück",
             "activate": "Aktivieren",
             "activate_info": "Wenn Sie von Ihrem Vermieter einen Aktivierungscode erhalten haben, dann können Sie hier Ihr Konto aktivieren. Bitte geben Sie folgende Daten ein:",
-            "unauthenticated": "Unautorisiert",
+            "unauthenticated": "Anfrage fehlgeschlagen. Bitte aktualisieren Sie die Seite.",
             "logged_out": "Ausgeloggt",
             "logged_in": "Eingeloggt",
             "invalid_credentials": "Die eingegebenen Daten stimmen nicht.",
@@ -445,8 +443,7 @@ export default {
                 "services": "Dienstleister",
                 "managers": "Bewirtschafter",
                 "building": "Liegenschaft",
-                "quarter": "Quartal",
-                "district": "Quartal"
+                "quarter": "Überbauung"
             },
             "email": "E-Mail",
             "email_validation": {
@@ -457,7 +454,7 @@ export default {
             "login": "Login",
             "support": "Support",
             "actions": {
-                "label": "Operationen",
+                "label": "Aktionen",
                 "edit": "Öffnen",
                 "add": "Hinzufügen",
                 "delete": "Löschen",
@@ -525,11 +522,11 @@ export default {
                 "peek_week": "Wählen wählen"
             },
             "tenant_detail": {
-                "activate_required_credentials": "Code, E-Mail, Passwort erforderlich",
+                "activate_required_credentials": "Avktivierungscode, E-Mail, Passwort sind erforderlich.",
                 "incorrect_email": "Falsche E-Mail-Adresse",
-                "user_not_tenant": "Dieser Benutzer ist nicht Mieter.",
-                "invalid_code": "Der Code ist ungültig",
-                "not_active_tenant": "Der Mieter ist nicht aktiv und kann das Passwort nicht ändern."
+                "user_not_tenant": "Dieser Benutzer ist keinem Mieterdossier zugewiesen.",
+                "invalid_code": "Der Avktivierungscode ist ungültig",
+                "not_active_tenant": "Das Mieterkonto ist inaktiv und kann nicht bearbeitet werden."
             },
             "page_not_found": {
                 "title": "Hmm… hier stimmt etwas nicht.",
@@ -560,7 +557,7 @@ export default {
         "menu": {
             "dashboard": "Dashboard",
             "news": "Pinnwand",
-            "requests": "Servicezentrum",
+            "requests": "Service-Center",
             "all_requests": "Alle Anfragen",
             "myRequests": "Meine Anfragen",
             "myPendingRequests": "Meine offenen Anfragen",
@@ -581,15 +578,14 @@ export default {
             "feedback": "Feedback",
             "tenants": "Mieter",
             "buildings": "Liegenschaften",
-            "all_buildings": "Objekte",
+            "all_buildings": "Alle Liegenschaften",
             "units": "Einheiten",
             "addresses": "Liegenschaften",
             "posts": "Pinnwand",
-            "quarters": "Quartale",
-            "districts": "Quartale",
+            "quarters": "Überbauungen",
             "products": "Marktplatz",
             "requestCategories": "Kategorien",
-            "services": "Partnerfirmen",
+            "services": "Dienstleister",
             "activity": "Aktivität",
             "propertyManagers": "Bewirtschafter",
             "templates": "Vorlagen"
@@ -755,7 +751,6 @@ export default {
                 "no_services": "Keine Partnerfirmen gewählt.",
                 "select_media_category": "Kategorie der Mediendatei wählen",
                 "quarter": "Quartal",
-                "district": "Quartal",
                 "managers": "Bewirtschafter",
                 "house_nr": "Hausnummer",
                 "assign_managers": "Bewirtschafter zuweisen",
@@ -934,7 +929,6 @@ export default {
                 "errors": {
                     "not_found": "Beitrag nicht gefunden",
                     "quarter_not_found": "Quartal nicht gefunden",
-                    "district_not_found": "Quartal nicht gefunden",
                     "building_not_found": "Liegenschaft nicht gefunden",
                     "provider_not_found": "Dienstanbieter nicht gefunden",
                     "deleted": "Gelöschten Fehler buchen: "
@@ -950,7 +944,6 @@ export default {
                     "label": "Sichtbarkeit",
                     "address": "Liegenschaft",
                     "quarter": "Quartal",
-                    "district": "Quartal",
                     "all": "Alle App-Nutzer"
                 },
                 "assignType": "Typ",
@@ -998,7 +991,6 @@ export default {
                     "update": "Fehler beim Aktualisieren des Dienstleisters: ",
                     "deleted": "Fehler beim Löschen des Dienstleisters: ",
                     "quarter_not_found": "Quartal nicht gefunden",
-                    "district_not_found": "Quartal nicht gefunden",
                     "building_not_found": "Liegenschaft nicht gefunden",
                     "building_already_assign": "Gebäude bereits vergeben durch das Quartal"
                 }
@@ -1026,7 +1018,6 @@ export default {
                 "login_variation": "Login-Variante",
                 "login_variation_slider": "Möchten Sie den Schieberegler anzeigen?",
                 "quarter_enable": "Quartal",
-                "district_enable": "Quartal",
                 "marketplace_approval_enable": "Marktplatz aktivieren",
                 "news_approval_enable": "Pinnwand-Beiträge zuerst prüfen",
                 "comment_update_timeout": "Comment update timeout",
@@ -1255,7 +1246,6 @@ export default {
                     "label": "Sichtbarkeit",
                     "tenant": "Nur ich",
                     "quarter": "Quartal",
-                    "district": "Quartal",
                     "building": "Liegenschaft"
                 },
                 "errors": {
@@ -1306,7 +1296,6 @@ export default {
                 "add_buildings": "Liegenschaft hinzufügen",
                 "buildings_search": "Liegenschaft suchen",
                 "quarters": "Quartale",
-                "districts": "Quartale",
                 "delete_with_reassign_modal": {
                     "title": "Andere Person zuweisen und dann Benutzer löschen",
                     "description": "Der gewählte Bewirtschafter ist mit Liegenschaften verbunden. Sie können die Liegenschaft(en) an eine anderen Person zuweisen. Wählen Sie hierzu einen Bewirtschafter aus der Liste aus.",
@@ -1322,7 +1311,6 @@ export default {
                     "create": "Fehler beim Erstellen des Bewirtschafters: ",
                     "update": "Fehler beim Aktualisieren des Bewirtschafters:",
                     "quarter_not_found": "Quartal nicht gefunden",
-                    "district_not_found": "Quartal nicht gefunden",
                     "building_not_found": "Liegenschaft nicht gefunden",
                     "building_already_assign": "Edificio già assegnato per tutto il trimestre",
                     "building_assign_deleted_property_manager": "Sie können einem gelöschten Bewirtschafter keine Liegenschaft(en) zuordnen.",
@@ -1366,7 +1354,6 @@ export default {
                     "label": "Sichtbarkeit",
                     "address": "Meine Nachbarn",
                     "quarter": "Quartal",
-                    "district": "Quartal",
                     "all": "Alle App-Nutzer"
                 }
             },
@@ -1430,9 +1417,9 @@ export default {
         "settings": {
             "notifications": "Benachrichtigungen und Sprache",
             "admin": "Benachrichtigungen vom Vermieter",
-            "news": "Pinnwand",
-            "marketplace": "Marketplace notifications",
-            "service": "Partnerfirmen",
+            "news": "Pinnwand Moderation",
+            "marketplace": "Markplatz Moderation",
+            "service": "Dienstleister",
             "updated": "Einstellungen wurden gespeichert.",
             "language": "Sprache",
             "summary": {
@@ -1442,7 +1429,7 @@ export default {
                 "yearly": "Jährlich"
             },
             "contact_enable": {
-                "label": "Meine Kontakte aktivieren",
+                "label": "Dienstleister öffentlich machen",
                 "use_global": "Globale Einstellung verwenden",
                 "show": "Zeigen",
                 "hide": "Verbergen "
@@ -1657,35 +1644,35 @@ export default {
                 "size": "Grösse"
             },
             "general": {
-                "required": "Dies ist ein Pflichtfeld"
+                "required": "Dies ist ein Pflichtfeld."
             },
             "price": {
                 "valid": "Bitte geben Sie einen gültigen Preis ein.",
-                "required": "Der Preis ist ein Pflichtfeld"
+                "required": "Bitte geben Sie den Preis an."
             },
             "firstName": {
-                "required": "Vorname ist obligatorisch"
+                "required": "Vorname ist obligatorisch."
             },
             "lastName": {
-                "required": "Name ist obligatorisch"
+                "required": "Name ist obligatorisch."
             },
             "phone": {
-                "required": "Telefon ist obligatorisch"
+                "required": "Telefon ist obligatorisch."
             },
             "address": {
-                "required": "Adresse ist obligatorisch"
+                "required": "Adresse ist obligatorisch."
             },
             "zip": {
-                "required": "Postleitzahl ist obligatorisch"
+                "required": "Postleitzahl ist obligatorisch."
             },
             "city": {
-                "required": "Ortschaft ist obligatorisch"
+                "required": "Die Ortschaft ist obligatorisch."
             },
             "title": {
                 "required": "Anrede"
             },
             "terms": {
-                "required": "Bitte genehmigen Sie mit den Allgemeinen Geschäftsbedingungen."
+                "required": "Sie müssen die allgemeinen Geschäftsbedingungen akzeptieren."
             }
         },
         "views": {

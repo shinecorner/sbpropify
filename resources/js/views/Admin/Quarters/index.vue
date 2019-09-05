@@ -1,9 +1,9 @@
 <template>
     <div class="quarters">
-        <heading :title="$t('models.district.title')" icon="icon-share" shadow="heavy">
+        <heading :title="$t('models.quarter.title')" icon="icon-share" shadow="heavy">
             <template v-if="$can($permissions.create.quarter)">
                 <el-button @click="add" icon="ti-plus" round size="mini" type="primary">
-                    {{$t('models.district.add')}}
+                    {{$t('models.quarter.add')}}
                 </el-button>
             </template>
             <template v-if="$can($permissions.delete.quarter)">
@@ -52,7 +52,7 @@
         mixins: [mixin],
         data() {
             return {
-                i18nName: 'district',
+                i18nName: 'quarter',
                 header: [{
                     label: 'general.name',
                     prop: 'name'
@@ -76,7 +76,7 @@
                 validationRules: {
                     name: [{
                         required: true,
-                        message: this.$t('models.district.required')
+                        message: this.$t('models.quarter.required')
                     }],
                 }
             };

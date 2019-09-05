@@ -58,7 +58,6 @@ return [
   [
     "building" => "Edificio assegnato",
     "quarter" => "Trimestre assegnato",
-    "district" => "Trimestre assegnato",
     "provider" => "Fornitore assegnato",
     'tenant' => "L'inquilino attaccato con successo",
     "service" => "Fornitore collegato con successo",
@@ -70,7 +69,6 @@ return [
   [
     "building" => "Costruire senza assegnazione",
     "quarter" => "Quartiere non assegnato",
-    "district" => "Quartiere non assegnato",
     "provider" => "Fornitore non assegnato",
     'tenant' => "L'inquilino si è staccato con successo",
     "service" => "Fornitore staccato con successo",
@@ -145,7 +143,6 @@ return [
   [
     "building" => "Edificio",
     "quarter" => "Quartiere",
-    "district" => "Quartiere",
     "services" => "Servizi",
     "managers" => "Manager",        
   ],
