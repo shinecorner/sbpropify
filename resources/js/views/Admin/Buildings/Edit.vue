@@ -73,7 +73,7 @@
                             </el-row>
                             <el-row class="last-form-row" :gutter="20">
                                 <el-col :md="12">
-                                    <el-form-item :label="$t('models.building.district')" prop="quarter_id"
+                                    <el-form-item :label="$t('models.building.quarter')" prop="quarter_id"
                                                   style="max-width: 512px;">
                                         <el-select
                                                 :loading="remoteLoading"

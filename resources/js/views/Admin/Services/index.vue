@@ -109,7 +109,7 @@
                         key: 'category_id',
                         data: this.categories,
                     }, {
-                        name: this.$t('filters.districts'),
+                        name: this.$t('filters.quarters'),
                         type: 'select',
                         key: 'quarter_id',
                         data: this.quarters,

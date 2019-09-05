@@ -15,7 +15,7 @@ export default (config = {}) => {
                 validationRules: {
                     name: [{
                         required: true,
-                        message: this.$t('models.district.required')
+                        message: this.$t('models.quarter.required')
                     }]
                 },
                 loading: {

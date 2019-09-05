@@ -174,7 +174,7 @@
             return {
                 assignmentsColumns: [{
                     prop: 'name',
-                    label: this.$t('models.district.name')
+                    label: this.$t('models.quarter.name')
                 }, {
                     prop: 'type',
                     label: this.$t('models.propertyManager.assignType'),
