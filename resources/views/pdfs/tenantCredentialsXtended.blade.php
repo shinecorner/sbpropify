@@ -7,8 +7,8 @@
 @section('body')
 <table>
   <tr>
-    <td colspan="2" class="tenant">
-      <p>
+    <td>
+      <p id="tenant-header">
         @lang("tenant.dear", [], $language)
         <br>
         <b>{{ $tenant->first_name . ' ' . $tenant->last_name }}</b>
@@ -18,8 +18,8 @@
        <p>{{ $tenant->address->street_nr }}, {{ $tenant->address->street }} {{ $tenant->address->city }}</p>
       @endif
     </td>
-    <td colspan="2" class="contact">
-      <img src="{{ asset('images/logo3.png') }}" />
+    <td id="real-estate">
+      <img class="logo" src="{{ asset('images/logo3.png') }}"/>
       <p>{{ $re->name }}</p>
       <p>{{ $re->address->street_nr }}, {{ $re->address->street }}<br />
         {{ $re->address->city }}, {{ $re->address->state->name }}</p>
@@ -30,7 +30,8 @@
     </td>
   </tr>
   <tr>
-    <td colspan="4">
+    <td colspan="2">
+      <br>
       <br>
       <br>
       @lang('tenant.born', [], $language), {{$tenant->birth_date ? $tenant->birth_date->format('d.m.Y') : ''}}
@@ -46,8 +47,8 @@
       @lang('tenant.content_1', [], $language)
       <br>
       <br>
-      <b>@lang('tenant.offer', [], $language)</b>
-      <ul>
+      <p class="offer"><b>@lang('tenant.offer', [], $language)</b></p>
+      <ul class="offer">
         <li>@lang('tenant.offer_1', [], $language)</li>
         <li>@lang('tenant.offer_2', [], $language)</li>
         <li>@lang('tenant.offer_3', [], $language)</li>
@@ -57,23 +58,22 @@
 
       <b>@lang('tenant.register', [], $language)</b>
       <br>
-      <br>
       @lang('tenant.content_2', [], $language)
       <br>
       <br>
     </td>
   </tr>
   <tr>
-    <td colspan="1">@lang("tenant.link_application", [], $language)</td>
-    <td colspan="3">{{ url('/') }}</td>
+    <td>@lang("tenant.link_application", [], $language)</td>
+    <td>{{ url('/') }}</td>
   </tr>
   <tr>
-    <td colspan="1">{{ __("tenant.code") }}</td>
-    <td colspan="3">{{ $code }}</td>
+    <td>{{ __("tenant.code") }}</td>
+    <td>{{ $code }}</td>
   </tr>
   <tr>
-    <td colspan="1">{{ __("tenant.your_email") }}</td>
-    <td colspan="3">{{ $tenant->user->email }}</td>
+    <td>{{ __("tenant.your_email") }}</td>
+    <td>{{ $tenant->user->email }}</td>
   </tr>
   <tr>
     <td colspan="4">
