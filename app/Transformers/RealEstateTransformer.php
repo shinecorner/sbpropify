@@ -33,6 +33,8 @@ class RealEstateTransformer extends TransformerAbstract
             'phone' => $model->phone,
             'language' => $model->language,
             'logo' => $model->logo,
+            'circle_logo' => $model->circle_logo,
+            'favicon_icon' => $model->favicon_icon,
             'login_variation' => $model->login_variation,
             'login_variation_2_slider' => (bool) $model->login_variation_2_slider,
             'blank_pdf' => $model->blank_pdf,
