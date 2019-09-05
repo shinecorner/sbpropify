@@ -78,7 +78,7 @@
     import Heading from 'components/Heading';
     import ListTableMixin from 'mixins/ListTableMixin';
     import getFilterStates from 'mixins/methods/getFilterStates';
-    import getFilterDistricts from 'mixins/methods/getFilterDistricts';
+    import getFilterQuarters from 'mixins/methods/getFilterQuarters';
     import getFilterPropertyManager from 'mixins/methods/getFilterPropertyManager';
     import {displaySuccess, displayError} from "helpers/messages";
     import DeleteBuildingModal from 'components/DeleteBuildingModal';
@@ -94,7 +94,7 @@
     });
 
     export default {
-        mixins: [mixin, getFilterStates, getFilterDistricts, getFilterPropertyManager],
+        mixins: [mixin, getFilterStates, getFilterQuarters, getFilterPropertyManager],
         components: {
             Heading,
             DeleteBuildingModal
@@ -110,7 +110,7 @@
                 propertyManagers:{},
                 toAssign: [],
                 isLoadingFilters: false,
-                districts: {},
+                quarters: {},
                 remoteLoading: false,
                 delBuildingStatus: -1, // 0: unit, 1: request, 2: both
                 header: [{
@@ -198,8 +198,8 @@
             const states = await this.axios.get('states?filters=true')
             this.states = states.data.data;
 
-            const districts = await this.axios.get('districts')
-            this.districts = districts.data.data.data;
+            const quarters = await this.axios.get('quarters')
+            this.quarters = quarters.data.data.data;
 
             const propertyManagers = await this.axios.get('propertyManagers?get_all=true')
             this.propertyManagers = propertyManagers.data.data.map((propertyManager) => {
@@ -228,22 +228,19 @@
                         name: this.$t('filters.states'),
                         type: 'select',
                         key: 'state_id',
-                        data: this.states,
-                        // fetch: this.getFilterStates
+                        data: this.states
                     },
                     {
                         name: this.$t('filters.districts'),
                         type: 'select',
-                        key: 'district_id',
-                        data: this.districts,
-                        // fetch: this.getFilterDistricts
+                        key: 'quarter_id',
+                        data: this.quarters
                     },
                     {
                         name: this.$t('filters.propertyManagers'),
                         type: 'select',
                         key: 'manager_id',
-                        data: this.propertyManagers,
-                        // fetch: this.getFilterPropertyManagers
+                        data: this.propertyManagers
                     },
                     {
                         name: this.$t('filters.requestStatus'),

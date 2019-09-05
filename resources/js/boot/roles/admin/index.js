@@ -10,7 +10,7 @@ export default {
         address: 'list-address',
         unit: 'list-unit',
         propertyManager: 'list-property_manager',
-        district: 'list-district',
+        quarter: 'list-quarter',
         template: 'list-template',
         provider: 'list-provider',
         requestCategory: 'list-service_request_category',
@@ -26,7 +26,7 @@ export default {
         address: 'view-address',
         unit: 'view-unit',
         propertyManager: 'view-property_manager',
-        district: 'view-district',
+        quarter: 'view-quarter',
         realEstate: 'view-real_estate',
         template: 'view-template',
         requestCategory: 'view-service_request_category'
@@ -46,7 +46,7 @@ export default {
         address: 'post-address',
         unit: 'post-unit',
         propertyManager: 'post-property_manager',
-        district: 'post-district',
+        quarter: 'post-quarter',
         template: 'post-template',
         requestCategory: 'post-service_request_category'
     },
@@ -66,7 +66,7 @@ export default {
         address: 'edit-address',
         unit: 'edit-unit',
         propertyManager: 'edit-property_manager',
-        district: 'edit-district',
+        quarter: 'edit-quarter',
         realEstate: 'edit-real_estate',
         template: 'edit-template',
         requestCategory: 'edit-service_request_category'
@@ -82,7 +82,7 @@ export default {
         address: 'delete-address',
         unit: 'delete-unit',
         propertyManager: 'delete-property_manager',
-        district: 'delete-district',
+        quarter: 'delete-quarter',
         template: 'delete-template',
         requestCategory: 'delete-service_request_category'
     },

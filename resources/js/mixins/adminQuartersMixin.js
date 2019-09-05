@@ -11,7 +11,7 @@ export default (config = {}) => {
                     description: '',
                     buildings: []
                 },
-                district_format: '',
+                quarter_format: '',
                 validationRules: {
                     name: [{
                         required: true,
@@ -36,9 +36,9 @@ export default (config = {}) => {
             case 'add':
                 mixin.methods = {
                     ...mixin.methods,
-                    ...mapActions(['createDistrict']),
-                    async saveDistrict() {
-                        const resp = await this.createDistrict(this.model);
+                    ...mapActions(['createQuarter']),
+                    async saveQuarter() {
+                        const resp = await this.createQuarter(this.model);
                         return resp;
                     },
                     async submit(afterValid = false) {
@@ -46,7 +46,7 @@ export default (config = {}) => {
                         if (valid) {
                             this.loading.state = true;
                             try {
-                                const resp = await this.saveDistrict();
+                                const resp = await this.saveQuarter();
                                 displaySuccess(resp);
                                 
                                 this.form.resetFields();
@@ -54,7 +54,7 @@ export default (config = {}) => {
                                     afterValid(resp);
                                 } else {
                                     this.$router.push({
-                                        name: 'adminDistrictsEdit',
+                                        name: 'adminQuartersEdit',
                                         params: {id: response.data.id}
                                     })
                                 }
@@ -72,14 +72,14 @@ export default (config = {}) => {
             case 'edit':
                 mixin.methods = {
                     ...mixin.methods,
-                    ...mapActions(['getDistrict', 'updateDistrict']),
-                    async fetchCurrentDistrict() {
-                        const resp = await this.getDistrict({id: this.$route.params.id});
+                    ...mapActions(['getQuarter', 'updateQuarter']),
+                    async fetchCurrentQuarter() {
+                        const resp = await this.getQuarter({id: this.$route.params.id});
                         
                         this.model.id = resp.id;
                         this.model.name = resp.name;
                         this.model.description = resp.description;
-                        this.district_format = resp.district_format;
+                        this.quarter_format = resp.quarter_format;
                     },
                     submit() {
                         return new Promise((resolve, reject) => {
@@ -92,7 +92,7 @@ export default (config = {}) => {
                                 this.loading.state = true;
                                 
                                 try {
-                                    const resp = await this.updateDistrict(this.model);                                    
+                                    const resp = await this.updateQuarter(this.model);                                    
                                     displaySuccess(resp);
                                     resolve(true);
                                 } catch (err) {
@@ -108,7 +108,7 @@ export default (config = {}) => {
 
                 mixin.created = async function () {
                     this.loading.state = true;
-                    await this.fetchCurrentDistrict();
+                    await this.fetchCurrentQuarter();
                     this.loading.state = false;
                 };
 

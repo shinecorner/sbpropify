@@ -162,9 +162,9 @@
                                 }
                             }, {
                                 title: this.$t('menu.districts'),
-                                permission: this.$permissions.list.district,
+                                permission: this.$permissions.list.quarter,
                                 route: {
-                                    name: 'adminDistricts'
+                                    name: 'adminQuarters'
                                 }
                             }]
                         }, {
@@ -290,9 +290,9 @@
                                 }
                             }, {
                                 title: this.$t('menu.districts'),
-                                permission: this.$permissions.list.district,
+                                permission: this.$permissions.list.quarter,
                                 route: {
-                                    name: 'adminDistricts'
+                                    name: 'adminQuarters'
                                 }
                             }]
                         }, {
@@ -423,9 +423,9 @@
                                 }
                             }, {
                                 title: this.$t('menu.districts'),
-                                permission: this.$permissions.list.district,
+                                permission: this.$permissions.list.quarter,
                                 route: {
-                                    name: 'adminDistricts'
+                                    name: 'adminQuarters'
                                 }
                             }]
                         }, {

@@ -9,10 +9,10 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByQuarterCriteria
+ * Class FilterByStateCriteria
  * @package App\Criteria\ServiceProviders
  */
-class FilterByQuarterCriteria implements CriteriaInterface
+class FilterByStateCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -36,11 +36,11 @@ class FilterByQuarterCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $quarter_id = $this->request->get('quarter_id', null) ?? $this->request->get('district_id', null);
-        if (!$quarter_id) { return $model; }
+        $stateId = $this->request->get('state_id', null);
+        if (!$stateId) { return $model; }
 
-        $model->join('quarter_service_provider', 'quarter_service_provider.service_provider_id', '=', 'service_providers.id')
-            ->where('quarter_service_provider.quarter_id', $quarter_id);
+        $model->join('loc_addresses', 'loc_addresses.id', '=', 'service_providers.address_id')
+            ->where('loc_addresses.state_id', $stateId);
 
         return $model;
     }

@@ -88,9 +88,9 @@ export default {
                 })
                 .catch(({response: {data: err}}) => reject(err)));
     },
-    assignPostDistrict({}, payload) {
+    assignPostQuarter({}, payload) {
         return new Promise((resolve, reject) => {
-            axios.post(`posts/${payload.id}/districts/${payload.toAssignId}`, {}).then((resp) => {
+            axios.post(`posts/${payload.id}/quarters/${payload.toAssignId}`, {}).then((resp) => {
                 resolve(resp.data);
             }).catch(({response: {data: err}}) => reject(err))
         });
@@ -109,9 +109,9 @@ export default {
             }).catch(({response: {data: err}}) => reject(err))
         })
     },
-    unassignPostDistrict({}, payload) {
+    unassignPostQuarter({}, payload) {
         return new Promise((resolve, reject) => {
-            axios.delete(`posts/${payload.id}/districts/${payload.toAssignId}`).then((response) => {
+            axios.delete(`posts/${payload.id}/quarters/${payload.toAssignId}`).then((response) => {
                 resolve(response.data)
             }).catch(({response: {data: err}}) => reject(err))
         })
@@ -125,7 +125,7 @@ export default {
                         building.assignmentType = 'building';
                     } else {
                         building.aType = 2;
-                        building.assignmentType = 'district';
+                        building.assignmentType = 'quarter';
                     }
                     return building;
                 });
