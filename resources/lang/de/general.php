@@ -146,14 +146,9 @@ return [
     'services' => 'Dienstleister',
     'managers' => 'Bewirtschafter',
     'building' => 'Liegenschaft',
-<<<<<<< HEAD
-    'quarter' => 'Quartal',
-    'district' => 'Quartal',
-    'administrator' => 'Verwalterin'
-=======
     'quarter' => 'Überbauung',
     'district' => 'Überbauung',
->>>>>>> 8333f80ff4aeae6dfc8eaefc73e4296b6f1ec7cd
+    'administrator' => 'Verwalterin'
   ],
   'email' => 'E-Mail',
   'email_validation' => 
