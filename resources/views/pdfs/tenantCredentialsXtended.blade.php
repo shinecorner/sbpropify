@@ -9,7 +9,7 @@
   <tr>
     <td>
       <p id="tenant-header">
-        @lang("tenant.dear", [], $language)
+        @lang("general.salutation_option." . $tenant->title, [], $language)
         <br>
         <b>{{ $tenant->first_name . ' ' . $tenant->last_name }}</b>
       </p>
@@ -41,7 +41,10 @@
       <b>@lang('tenant.welcome', [], $language) {{ $re->name }}</b>
       <br>
       <br>
-      @lang('tenant.dear_sir', [], $language) {{ $tenant->last_name }}
+      @lang('tenant.dear_sir', [
+          'salutation' => __("general.salutation_option." . $tenant->title, [], $language),
+          'name' => $tenant->last_name
+        ], $language)
       <br>
       <br>
       @lang('tenant.content_1', [], $language)
@@ -49,11 +52,7 @@
       <br>
       <p class="offer"><b>@lang('tenant.offer', [], $language)</b></p>
       <ul class="offer">
-        <li>@lang('tenant.offer_1', [], $language)</li>
-        <li>@lang('tenant.offer_2', [], $language)</li>
-        <li>@lang('tenant.offer_3', [], $language)</li>
-        <li>@lang('tenant.offer_4', [], $language)</li>
-        <li>@lang('tenant.offer_5', [], $language)</li>
+        {!! __('tenant.offers', [], $language) !!}
       </ul>
 
       <b>@lang('tenant.register', [], $language)</b>
