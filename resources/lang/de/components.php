@@ -18,8 +18,8 @@ return [
           'post' => [
             'created' => 'Erstellt',
             'updated' => 'Aktualisiert',
-            'provider_assigned' => 'Dienstleister zugewiesen',
-            'user_assigned' => 'Benutzer zugewiesen',
+            'provider_assigned' => 'Dienstleister wurde zugewiesen',
+            'user_assigned' => 'Benutzer wurde zugewiesen',
             'media_uploaded' => 'Mediendateien hinaufgeladen',
             'media_deleted' => 'Mediendateien gelöscht'  
           ],
@@ -36,19 +36,20 @@ return [
         'content' => [
           'withId' => [
             'post' => [
-              'created' => '{userName} hat dieses Beitrag erstellt.',
+              'created' => '{userName} hat diesen Beitrag erstellt.',
               'updated' => [
                   'status' => 'Der Status wurde von "{old}" zu "{new}" geändert.',
-                  'published_at' => 'Beitrag wurde veröffentlicht am {new}.'
+                  'published_at' => 'Beitrag wurde am {new} veröffentlicht.'
                 ]              
               ],
               'product' => [
-                'created' => '{userName} dieses {auditable_type} erstellt.',
+                'created' => '{userName} dieses Inserat erstellt: {auditable_type}',
                 'updated' => [
                   'title' => 'Der Titel wurde von "{old}" zu "{new}" geändert.',
                   'status' => 'Der Status wurde von "{old}" zu "{new}" geändert.',
                   'due_date' => 'Das Erledigungsdatum wurde von "{old}" zu "{new}" geändert.',
                   'priority' => 'Die Priorität wurde von "{old}" zu "{new}" geändert.',
+                  'internal_priority' => 'Die interne Priorität wurde von "{old}" zu "{new}" geändert.',
                   'category_id' => 'Die Kategorie wurde von "{old}" zu "{new}" geändert.',
                   'qualification' => 'Die Qualifikation wurde von "{old}" zu "{new}" geändert.',
                   'visibility' => 'Die Sichtbarkeit wurde von "{old}" zu "{new}" geändert.',   
@@ -65,6 +66,7 @@ return [
                   'status' => 'Der Status wurde von "{old}" zu "{new}" geändert.',
                   'due_date' => 'Das Erledigungsdatum wurde von "{old}" zu "{new}" geändert.',
                   'priority' => 'Die Priorität wurde von "{old}" zu "{new}" geändert.',
+                  'internal_priority' => 'Die interne Priorität wurde von "{old}" zu "{new}" geändert.',
                   'category_id' => 'Die Kategorie wurde von "{old}" zu "{new}" geändert.',
                   'qualification' => 'Die Qualifikation wurde von "{old}" zu "{new}" geändert.',
                   'visibility' => 'Die Sichtbarkeit wurde von "{old}" zu "{new}" geändert.',   
@@ -73,14 +75,14 @@ return [
                 'provider_unassigned' => 'Dienstleisterin {providerName} wurde nicht beauftragt.',
                 'manager_assigned' => '{propertyManagerFirstName} {propertyManagerLastName} wurde als Managerin zugewiesen.',
                 'manager_unassigned' => 'Managerin {propertyManagerFirstName} {propertyManagerLastName} wurde nicht zugewiesen.',
-                'user_assigned' => '{userName} wurde als zuständige Person zugewiesen.',
+                'user_assigned' => '{userName} wurde dieser Anfrage hinzugefügt.',
                 'media_uploaded' => 'Mediendateien aktualisiert',
                 'media_deleted' => 'Mediendateien gelöscht',
               ]
           ],
           'withNoId' => [
             'post' => [
-              'created' => '{userName} hat die Anfrage {auditable_type} im {auditable_type} #{auditable_id}.',
+              'created' => '{userName} hat folgende Anfrage erstellt: {auditable_type} im {auditable_type} #{auditable_id}.',
               'updated' => [
                   'status' => 'Der Status wurde von "{old}" zu "{new}" im {auditable_type} #{auditable_id} geändert.',
                   'published_at' => 'Post published im {new} im {auditable_type} #{auditable_id}.'
@@ -200,8 +202,8 @@ return [
         'visibility' => 
         [
           'address' => 'Nachbarn',
-          'quarter' => 'Quartal',
-          'district' => 'Quartal',
+          'quarter' => 'Überbauung',
+          'district' => 'Überbauung',
           'all' => 'Alle',
         ],
       ],
