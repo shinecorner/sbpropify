@@ -101,7 +101,7 @@
                 </card>
             </el-col>
             <el-col :md="12">
-                <card :loading="loading" class="mb20 contact-info-card">
+                <card :loading="loading" class="contact-info-card">
                     <el-row  :gutter="30" class="contact-info-card-row">
                         <el-col class="contact-info-card-col" :md="8">
                             <span class="custom-label">
