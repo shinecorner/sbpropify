@@ -652,9 +652,10 @@
             }
 
             _.each(this.filters, (filter) => {
-                const queryFilterValue = this.$route.query[filter.key];
+                let queryFilterValue = this.$route.query[filter.key];
+                
                 const dateReg = /^\d{2}([./-])\d{2}\1\d{4}$/;
-                const value = queryFilterValue && queryFilterValue.match(dateReg) ? queryFilterValue : parseInt(queryFilterValue);
+                const value = queryFilterValue && queryFilterValue.toString().match(dateReg) ? queryFilterValue : parseInt(queryFilterValue);
                 this.$set(this.filterModel, filter.key, value);
 
                 if (!this.filterModel[filter.key]) {
