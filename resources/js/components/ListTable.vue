@@ -435,9 +435,12 @@
                 return this.header.filter((filter) => {
                     if (filter.select) {
                         if (filter.select.getter) {
-                            const storeConstants = this.$store.getters[filter.select.getter];
+                            // console.log(this.$store.getters);
+                            const storeConstants = this.$store.getters['application/constants'][filter.select.getter];
+                            console.log(storeConstants);
                             if (storeConstants) {
                                 const constants = storeConstants[filter.prop];
+                                console.log(constants);
                                 filter.select.data = Object.keys(constants).map((id) => {
                                     return {
                                         name: !filter.i18nPath ? constants[id] : this.$t(`${filter.i18nPath}.${constants[id]}`),
@@ -626,14 +629,18 @@
             "$route.query": {
                 immediate: true,
                 handler({page, per_page}, prevQuery) {
-                    
+                    if(this.$route.name == "login") {
+                        return;
+                    }
+
                     if (!page || !per_page && prevQuery) {
                         this.page.currPage = 1;
                         this.page.currSize = 20;
+                        this.filterModel = {};
 
                         return this.syncUrl();
                     }
-
+                    
                     page = parseInt(page);
                     per_page = parseInt(per_page);
 
@@ -641,6 +648,7 @@
                     this.page.currSize = per_page < 1 ? this.pagination.currSize : per_page;
 
                     prevQuery && this.syncUrl();
+                    
                     this.fetch(this.page.currPage, this.page.currSize);
                 }
             }
@@ -883,6 +891,9 @@
         #languageflag.flag-icon {
             padding-left: 20px;
         }
+    }
+    .el-table th>.cell, .el-table-column--selection .cell{
+        text-overflow: unset;
     }
     .el-table {
         tbody {

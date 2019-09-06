@@ -613,7 +613,6 @@
                 this.$confirm(this.$t('general.swal.logout_confirm'), this.$t('general.swal.delete.title'), {
                     type: 'warning'
                 }).then(() => {
-                    //this.$router.push({name: 'login'});
                     this.logout()
                         .then(() => {
                             this.$router.push({name: 'login'});

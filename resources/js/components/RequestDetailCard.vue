@@ -1,21 +1,12 @@
 <template>
     <div class="request-card">
         <div class="request-card-header clearfix">
-            <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+            <el-row  :gutter="20" type="flex">
                 <el-col :span="3" class="request-aside">
                    <h4>{{ item.service_request_format }}</h4>
-                    <el-button
-                        type="primary"
-                        size="medium"
-                        @click="edit"
-                    >
-                        <i class="ti-pencil"></i>
-                        <span>{{ $t('general.actions.edit') }}</span>    
-                    </el-button>
                 </el-col>
                 <el-col :span="18" class="request-content">
                     <h3>{{ item.title }}</h3>
-                    <p>{{ item.description }}</p>
                 </el-col>
                 <el-col :span="3" class="request-tail">
                     <el-select 
@@ -26,13 +17,30 @@
                         <template slot="prefix">
                         </template>
                         <el-option
-                            :key="item.id"
-                            :label="item.name"
-                            :value="item.id"
-                            v-for="item in selectData">
-                            {{item.name}}
+                            :key="k"
+                            :label="$t(`models.request.status.${status}`)"
+                            :value="parseInt(k)"
+                            v-for="(status, k) in $constants.service_requests.status">
                         </el-option>
                     </el-select>
+                </el-col>
+            </el-row>
+            <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
+                <el-col :span="3" class="request-aside">
+                    <el-button
+                        type="primary"
+                        size="medium"
+                        @click="edit"
+                    >
+                        <i class="ti-pencil"></i>
+                        <span>{{ $t('general.actions.edit') }}</span>    
+                    </el-button>
+                </el-col>
+                <el-col :span="18" class="request-content">
+                    <p>{{ item.description }}</p>
+                </el-col>
+                <el-col :span="3" class="request-tail">
+                   
                 </el-col>
             </el-row>
         </div>
@@ -202,8 +210,8 @@ export default {
                 m: Math.ceil(minutes % 60)
             }
         },
-        selectData() {
-            const storeConstants = this.$store.getters['application/requests'];
+        selectData() {                        
+            const storeConstants = this.$store.getters['application/constants'].serviceRequests;
             if (storeConstants) {
                 const constants = storeConstants['status'];
                 var data = Object.keys(constants).map((id) => {
@@ -258,8 +266,11 @@ export default {
                 flex-direction: column;
                 justify-content: center;
                 text-align: center;
-            
                 padding: 0px !important;
+
+                h4 {
+                    margin: 14px 0;
+                }
                 .el-button {
                     width: 100%;
                     border-radius: 0px;
@@ -272,27 +283,32 @@ export default {
             .request-content {
                 padding-left: 10px !important;
                 padding-right: 5px !important;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-align: start;
                
                 p {
                     display: block;
                     display: -webkit-box;
                     max-width: 100%;
-                    height: 27px;
-                    margin: 0 auto;
-                    line-height: 15px;
+                    max-height: 28px;
+                    line-height: 1;
                     -webkit-line-clamp: 2;
                     -webkit-box-orient: vertical;
                     overflow: hidden;
                     text-overflow: ellipsis;
+                    text-align: start;
+                    margin: 0;
+                }
+                h3 {
+                    margin: 0;
                 }
             }
             .request-tail {
                 display: flex;
-                align-items: flex-end;
+                align-items: center;
                 padding-right: 10px !important;
-                div {
-                    margin-bottom: 20px
-                }
               
             }
         }
@@ -305,6 +321,10 @@ export default {
                 justify-content: center;
                 align-items: center;
                 padding: 0px !important;
+
+                i {
+                    font-size: 20px;
+                }
             }
             .request-category {
                 p {
