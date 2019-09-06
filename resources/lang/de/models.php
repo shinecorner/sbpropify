@@ -20,7 +20,7 @@ return [
 			'logo' => 'Firmenlogo',			
 			'circle_logo' => 'Rundes Logo',
 			'favicon_icon' => 'Favicon-Symbol',
-			'tenant_logo' => 'Mieter-Porta Logo',
+			'tenant_logo' => 'Mieter-Portal Logo',
 			'blank_pdf' => 'PDF ohne Briefkopf verwenden',
       		'blank_pdf_desc' => 'PDF-Dateien ohne Briefkopf generieren, damit diese auf das eigene Briefpapier gedruckt werden können.',
       		'font_family' => 'Schriftfamilie',
