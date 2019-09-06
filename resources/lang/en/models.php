@@ -169,6 +169,7 @@ return [
       'basement' => 'Basement',
       'attic' => 'Attic',
       'floor_nr' => 'Number of floors',
+      'internal_building_id' => 'Internal Building Id',
       'label' => 'Label',
       'address_search' => 'Please enter address',
       'not_found' => 'Building not found',

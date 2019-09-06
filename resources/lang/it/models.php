@@ -169,6 +169,7 @@ return [
       "basement" => "Nel seminterrato",
       "attic" => "In soffitta",
       "floor_nr" => "Numero di piani",
+      "internal_building_id" => "Id edificio interno",
       "label" => "Etichetta",
       "address_search" => "Inserire l'indirizzo",
       "not_found" => "Edificio non trovato",

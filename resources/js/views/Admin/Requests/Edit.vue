@@ -79,8 +79,7 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="12"
-                                        v-if="this.rolename == 'administrator'">
+                                <el-col :md="12">
                                     <el-form-item :label="$t('models.request.category_options.acquisition')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
