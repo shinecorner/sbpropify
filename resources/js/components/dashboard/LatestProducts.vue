@@ -78,7 +78,7 @@
         },
         computed: {
             productConstants() {
-                return this.$store.getters['application/constants'].products;
+                return this.$constants.products;
             },
 
         },
