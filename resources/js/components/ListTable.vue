@@ -629,8 +629,7 @@
                     if(this.$route.name == "login") {
                         return;
                     }
-                    console.log('route change', page, per_page, prevQuery)
-                    console.log('url', this.$route.name);
+                    
                     if (!page || !per_page && prevQuery) {
                         this.page.currPage = 1;
                         this.page.currSize = 20;

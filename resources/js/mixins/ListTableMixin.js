@@ -58,7 +58,6 @@ export default ({
                     params = {...params, assignee_id : assignee_id, pending_request : true };
                 }
                 
-                console.log('fetchMore func', getAction);
                 await this[getAction](params)
             } catch (err) {
                 displayError(err);
