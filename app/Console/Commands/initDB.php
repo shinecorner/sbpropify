@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class initDB extends Command
 {
@@ -44,8 +46,10 @@ class initDB extends Command
         system('composer dump-autoload');
         $bar->advance();
 
-         $this->call('passport:install', ['--force' => true]);
-         $bar->advance();
+        if (Schema::hasTable('oauth_clients')) {
+            $this->call('passport:install', ['--force' => true]);
+            $bar->advance();
+        }
 
         $this->call('migrate:fresh');
         $bar->advance();
