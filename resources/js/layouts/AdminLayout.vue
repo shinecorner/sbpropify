@@ -148,7 +148,14 @@
                             icon: 'icon-commerical-building',
                             title: this.$t('menu.buildings'),
                             permission: this.$permissions.list.user,
-                            children: [{
+                            children: [
+                            {
+                                title: this.$t('menu.quarters'),
+                                permission: this.$permissions.list.quarter,
+                                route: {
+                                    name: 'adminQuarters'
+                                }
+                            },{
                                 title: this.$t('menu.all_buildings'),
                                 permission: this.$permissions.list.building,
                                 route: {
@@ -159,12 +166,6 @@
                                 permission: this.$permissions.list.unit,
                                 route: {
                                     name: 'adminUnits'
-                                }
-                            }, {
-                                title: this.$t('menu.quarters'),
-                                permission: this.$permissions.list.quarter,
-                                route: {
-                                    name: 'adminQuarters'
                                 }
                             }]
                         }, {
@@ -276,7 +277,14 @@
                             icon: 'icon-commerical-building',
                             title: this.$t('menu.buildings'),
                             permission: this.$permissions.list.user,
-                            children: [{
+                            children: [
+                            {
+                                title: this.$t('menu.quarters'),
+                                permission: this.$permissions.list.quarter,
+                                route: {
+                                    name: 'adminQuarters'
+                                }
+                            }, {
                                 title: this.$t('menu.all_buildings'),
                                 permission: this.$permissions.list.building,
                                 route: {
@@ -287,12 +295,6 @@
                                 permission: this.$permissions.list.unit,
                                 route: {
                                     name: 'adminUnits'
-                                }
-                            }, {
-                                title: this.$t('menu.quarters'),
-                                permission: this.$permissions.list.quarter,
-                                route: {
-                                    name: 'adminQuarters'
                                 }
                             }]
                         }, {
@@ -409,7 +411,14 @@
                             icon: 'icon-commerical-building',
                             title: this.$t('menu.buildings'),
                             permission: this.$permissions.list.user,
-                            children: [{
+                            children: [
+                            {
+                                title: this.$t('menu.quarters'),
+                                permission: this.$permissions.list.quarter,
+                                route: {
+                                    name: 'adminQuarters'
+                                }
+                            }, {
                                 title: this.$t('menu.all_buildings'),
                                 permission: this.$permissions.list.building,
                                 route: {
@@ -420,12 +429,6 @@
                                 permission: this.$permissions.list.unit,
                                 route: {
                                     name: 'adminUnits'
-                                }
-                            }, {
-                                title: this.$t('menu.quarters'),
-                                permission: this.$permissions.list.quarter,
-                                route: {
-                                    name: 'adminQuarters'
                                 }
                             }]
                         }, {
