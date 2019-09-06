@@ -444,7 +444,7 @@
                 activeTab2: 'comments',
                 conversationVisible: false,
                 selectedConversation: {},
-                constants: this.$store.getters['application/constants'],
+                constants: this.$constants,
                 assigneesColumns: [{
                     type: 'assignProviderManagerAvatars',
                     width: 70,
