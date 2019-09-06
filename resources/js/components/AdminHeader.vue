@@ -172,9 +172,9 @@
     }
 
     .el-menu-item{
-
+        
         &:hover {
-            background-color: #f0f9f1!important;
+            background-color: var(--color-main-background-lighter) !important;
         }
 
         &-link{
@@ -205,7 +205,7 @@
     }
 
     .el-menu-item-d.is-active{
-        background-color: #f0f9f1!important;
+        background-color: #f0f9f1 !important;
     }
 
     .dropdown-menu .el-submenu{

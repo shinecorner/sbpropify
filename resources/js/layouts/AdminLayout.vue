@@ -985,4 +985,19 @@
             font-size: 16px !important;
         }
     }
+    .el-button--primary:hover {
+        background: var(--color-main-background-lighter);
+        border-color: var(--color-main-background-lighter);
+        color: var(--primary-color);
+    }
+    .el-button--default:hover {
+        background: var(--color-main-background-lighter);
+        border-color: var(--color-main-background-lighter);
+        color: var(--primary-color);
+    }
+    .el-button--default:active {
+        background: var(--color-main-background-lighter);
+        border-color: var(--color-main-background-lighter);
+        color: var(--primary-color);
+    } 
 </style>

@@ -691,7 +691,7 @@
             padding: 0 13px !important;
 
             &.is-active, &:hover{
-                background: #6AC06F;
+                background: var(--primary-color);
                 //border-radius: 120px;
                 border-right-color: none;
                 border-left-color: none;
