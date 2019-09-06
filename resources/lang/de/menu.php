@@ -23,7 +23,7 @@ return [
   'feedback' => 'Feedback',
   'tenants' => 'Mieter',
   'buildings' => 'Liegenschaften',
-  'all_buildings' => 'Alle Liegenschaften',
+  'all_buildings' => 'Objekte',
   'units' => 'Einheiten',
   'addresses' => 'Liegenschaften',
   'posts' => 'Pinnwand',
