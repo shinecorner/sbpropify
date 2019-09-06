@@ -79,7 +79,7 @@
         },
         computed: {
             newsConstants() {
-                return this.$store.getters['application/constants'].posts;
+                return this.$constants.posts;
             },
 
         },

@@ -91,7 +91,7 @@ export default (config = {}) => {
                 return [...this.model.media, ...this.media];
             },
             postConstants() {
-                return this.$store.getters['application/constants'].posts
+                return this.$constants.posts
             }
         },
         methods: {

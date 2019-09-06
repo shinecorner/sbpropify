@@ -114,7 +114,7 @@
         },
         computed: {
             formattedItems() {
-                const storeConstants = this.$store.getters['application/constants'].products;
+                const storeConstants = this.$constants.products;
                 return this.items.map((product) => {                                        
                     product.formatted_status_label = this.$t(`models.product.status.${storeConstants.status[product.status]}`);
                     product.formatted_visibility_label = this.$t(`models.product.visibility.${storeConstants.visibility[product.visibility]}`);
@@ -159,7 +159,7 @@
                 ];
             },
             productConstants() {
-                return this.$store.getters['application/constants'].products;
+                return this.$constants.products;
             },
 
         },
