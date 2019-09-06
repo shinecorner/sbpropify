@@ -303,7 +303,7 @@ class ServiceProviderAPIController extends AppBaseController
             return $this->sendError(__('models.service.errors.not_found'));
         }
 
-        $serviceProvider->load(['user', 'address:id,country_id,state_id,city,street,zip'])
+        $serviceProvider->load(['user', 'address:id,country_id,state_id,city,street,zip', 'settings'])
             ->loadCount('requests',  'solvedRequests', 'pendingRequests', 'buildings');
         $response = (new ServiceProviderTransformer)->transform($serviceProvider);
 
