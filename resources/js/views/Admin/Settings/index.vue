@@ -301,9 +301,44 @@
                                     <el-col :md="12">
                                         <el-card>
                                             <el-form-item :label="$t('models.user.logo')">
-                                                <cropper @cropped="setLogoUpload"/>
-                                                <img :src="realEstateLogo" ref="realEstateLogo"
+                                                <!-- <cropper @cropped="setLogoUpload"/> -->
+                                                <!-- <img :src="realEstateLogo" ref="realEstateLogo"
                                                      v-show="realEstateLogo || model.logo_upload"
+                                                     width="300px"> -->
+                                                <upload-avatar @imageUploaded="setAvatarLogoUpload"/>
+                                                <img :src="logo_upload_img"
+                                                     v-show="logo_upload_img"
+                                                     width="300px">
+                                                <img :src="realEstateLogo" ref="realEstateLogo"
+                                                     v-show="realEstateLogo"
+                                                     width="300px">
+                                                
+                                            </el-form-item>
+                                            <el-form-item :label="$t('models.user.circle_logo')">
+                                                <upload-avatar @imageUploaded="setCircleLogoUpload"/>
+                                                <img :src="circle_logo_upload_img"
+                                                     v-show="circle_logo_upload_img"
+                                                     width="300px">
+                                                <img :src="realEstateCircleLogo" ref="realEstateCircleLogo"
+                                                     v-show="realEstateCircleLogo"
+                                                     width="300px">
+                                            </el-form-item>
+                                            <el-form-item :label="$t('models.user.favicon_icon')">
+                                                <upload-avatar @imageUploaded="setFaviconIconUpload"/>
+                                                <img :src="favicon_icon_upload_img"
+                                                     v-show="favicon_icon_upload_img"
+                                                     width="300px">
+                                                <img :src="realEstateFaviconIcon" ref="realEstateFaviconIcon"
+                                                     v-show="realEstateFaviconIcon"
+                                                     width="300px">
+                                            </el-form-item>
+                                            <el-form-item :label="$t('models.user.tenant_logo')">
+                                                <upload-avatar @imageUploaded="setTenantLogoUpload"/>
+                                                <img :src="tenant_logo_upload_img"
+                                                     v-show="tenant_logo_upload_img"
+                                                     width="300px">
+                                                <img :src="realEstateTenantLogo" ref="realEstateTenantLogo"
+                                                     v-show="realEstateTenantLogo"
                                                      width="300px">
                                             </el-form-item>
                                             <el-form-item :label="$t('models.realEstate.primary_color')">
@@ -404,6 +439,7 @@
 <script>
     import Heading from 'components/Heading';
     import Cropper from 'components/Cropper';
+    import UploadAvatar from 'components/UploadAvatar';
     import {mapActions} from 'vuex';
     import {displayError, displaySuccess} from 'helpers/messages';
     import CategoriesListing from './Categories'
@@ -414,6 +450,7 @@
         components: {
             Heading,
             Cropper,
+            UploadAvatar,
             CategoriesListing,
             TemplatesListing
         },
@@ -426,7 +463,15 @@
                     blank_pdf: true,
                     quarter_enable: true,
                     logo: '',
+                    circle_logo: '',
+                    favicon_icon: '',
+                    tenant_logo: '',
                     logo_upload: '',
+                    tenant_logo: '',
+                    circle_logo_upload: '',
+                    favicon_icon_upload: '',
+                    tenant_logo_upload: '',
+                    tenant_logo_upload: '',
                     marketplace_approval_enable: true,
                     news_approval_enable: false,
                     comment_update_timeout: 60,
@@ -448,6 +493,10 @@
                     login_variation_2_slider: false,
                     pdf_font_family: '',
                 },
+                logo_upload_img: '',
+                circle_logo_upload_img: '',
+                favicon_icon_upload_img: '',
+                tenant_logo_upload_img: '',
                 activeName: 'settings',
                 activeSettingsName: 'settings_settings',
                 activeRequestName: 'templates',
@@ -485,6 +534,15 @@
         computed: {
             realEstateLogo() {
                 return this.model.logo ? `/${this.model.logo}?${Date.now()}` : '';
+            },
+            realEstateCircleLogo() {
+                return this.model.circle_logo ? `/${this.model.circle_logo}?${Date.now()}` : '';
+            },
+            realEstateFaviconIcon() {
+                return this.model.favicon_icon ? `/${this.model.favicon_icon}?${Date.now()}` : '';
+            },
+            realEstateTenantLogo() {
+                return this.model.tenant_logo ? `/${this.model.tenant_logo}?${Date.now()}` : '';
             },
             validationRules() {
                 setTimeout(() => {this.validateForm('realEstateSettingsForm')}, 0);
@@ -581,6 +639,22 @@
             },
             setLogoUpload(image) {
                 this.model.logo_upload = image;
+            },
+            setAvatarLogoUpload(image) {
+                this.model.logo_upload = image;
+                this.logo_upload_img = "data:image/png;base64," + image;
+            },
+            setCircleLogoUpload(image) {
+                this.model.circle_logo_upload = image;
+                this.circle_logo_upload_img = "data:image/png;base64," + image;
+            },
+            setFaviconIconUpload(image) {
+                this.model.favicon_icon_upload = image;
+                this.favicon_icon_upload_img = "data:image/png;base64," + image;
+            },
+            setTenantLogoUpload(image) {
+                this.model.tenant_logo_upload = image;
+                this.tenant_logo_upload_img = "data:image/png;base64," + image;
             },
         },
         watch: {
