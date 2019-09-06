@@ -88,6 +88,13 @@ export default {
             }).catch(({response: {data: err}}) => reject(err))
         });
     },
+    assignAdministrator({}, payload) {
+        return new Promise((resolve, reject) => {
+            axios.post(`requests/${payload.request}/users/${payload.toAssignId}`, {}).then((resp) => {
+                resolve(resp);
+            }).catch(({response: {data: err}}) => reject(err))
+        });
+    },
     unassignAssignee({}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`requests-assignees/${payload.toAssignId}`).then((resp) => {
@@ -106,7 +113,9 @@ export default {
                         r.data.data = r.data.data.map((user) => {
                             if (user.type == 'provider') {
                                 user.uType = 1;
-                            } else {
+                            } else if(user.type == 'user'){
+                                user.uType = 3;
+                            } else{
                                 user.uType = 2;
                             }
                             return user;

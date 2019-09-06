@@ -197,13 +197,13 @@
                     type: 'requestTenantAvatar',
                     width: 75,
                     prop: 'tenant',
-                    label: this.$t('general.tenant')
+                    label: 'general.tenant'
                 }, {
                     type: 'requestTitleWithDesc',
-                    label: this.$t('models.request.prop_title')
+                    label: 'models.request.prop_title'
                 }, {
                     type: 'requestStatus',
-                    label: this.$t('models.request.status.label')
+                    label: 'models.request.status.label'
                 }],
                 requestActions: [{
                     width: '90px',
@@ -215,10 +215,10 @@
                 }],
                 assignmentsColumns: [{
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }, {
                     prop: 'type',
-                    label: this.$t('models.service.assignType'),
+                    label: 'models.service.assignType',
                     i18n: this.translateType
                 }],
                 assignmentsActions: [{
@@ -232,7 +232,7 @@
             }
         },
         methods: {
-            ...mapActions(['unassignServiceBuilding', 'unassignServiceDistrict', 'deleteService']),
+            ...mapActions(['unassignServiceBuilding', 'unassignServiceQuarter', 'deleteService']),
             requestEditView(row) {
                 this.$router.push({
                     name: 'adminRequestsEdit',
@@ -270,7 +270,7 @@
                         toAssignId: toUnassign.id
                     })
                 } else {
-                    resp = await this.unassignServiceDistrict({
+                    resp = await this.unassignServiceQuarter({
                         id: this.model.id,
                         toAssignId: toUnassign.id
                     })
@@ -281,7 +281,7 @@
 
                     this.toAssign = '';
 
-                    const type = toUnassign.aType == 1 ? 'building' : 'district';
+                    const type = toUnassign.aType == 1 ? 'building' : 'quarter';
 
                     displaySuccess(resp)
                 }

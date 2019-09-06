@@ -87,10 +87,13 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/buildings/map', 'BuildingAPIController@map')->name('buildings.map');
     Route::get('/buildings/{id}', 'BuildingAPIController@show')->name('buildings.show');
     Route::get('/buildings/{id}/statistics', 'StatisticsAPIController@buildingStatistics')->name('buildings.statistics.show');
+    Route::get('/buildings/{id}/assignees', 'BuildingAPIController@getAssignees');
 
     Route::post('/buildings', 'BuildingAPIController@store')->name('buildings.store');
     Route::post('/buildings/{id}/media', 'MediaAPIController@buildingUpload')->name('buildings.media.upload');
-    Route::post('/buildings/{id}/propertyManagers', 'BuildingAPIController@assignManagers')->name('buildings.assign.managers');
+    Route::post('/buildings/{id}/propertyManagers', 'BuildingAPIController@assignManagers')->name('buildings.assign.managers'); // @TODO delete
+    Route::post('/buildings/{id}/managers', 'BuildingAPIController@assignManagers')->name('buildings.assign.managers');
+    Route::post('/buildings/{id}/users', 'BuildingAPIController@assignUsers')->name('buildings.assign.users');
     Route::post('/buildings/deletewithids', 'BuildingAPIController@destroyWithIds')->name('buildings.destroyWithIds');
     Route::post('/buildings/checkunitrequest', 'BuildingAPIController@checkUnitRequest')->name('buildings.checkUnitRequest');
 
@@ -100,6 +103,9 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::delete('/buildings/{building_id}/media/{media_id}', 'MediaAPIController@buildingDestroy')->name('buildings.media.destroy');
     Route::delete('/buildings/{building_id}/service/{service_id}', 'BuildingAPIController@serviceRemove')->name('buildings.service.destroy');
     Route::delete('/buildings/{building_id}/propertyManagers/{manager_id}', 'BuildingAPIController@unAssignPropertyManager')->name('buildings.manager.destroy');
+    Route::delete('/buildings-assignees/{buildings_assignee_id}', 'BuildingAPIController@deleteBuildingAssignee');
+
+
     // Units
     Route::get('/units', 'UnitAPIController@index')->name('units');
     Route::get('/units/{id}', 'UnitAPIController@show')->name('units.show');
@@ -126,19 +132,27 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::put('/services/{id}', 'ServiceProviderAPIController@update')->name('services.update');
     Route::delete('/services/{id}', 'ServiceProviderAPIController@destroy')->name('services.destroy');
     Route::post('/services/deletewithids', 'ServiceProviderAPIController@destroyWithIds')->name('services.destroyWithIds');
-    Route::post('/services/{id}/districts/{district_id}', 'ServiceProviderAPIController@assignDistrict');
-    Route::delete('/services/{id}/districts/{district_id}', 'ServiceProviderAPIController@unassignDistrict');
+    Route::post('/services/{id}/districts/{district_id}', 'ServiceProviderAPIController@assignQuarter');
+    Route::post('/services/{id}/quarters/{quarter_id}', 'ServiceProviderAPIController@assignQuarter');
+    Route::delete('/services/{id}/districts/{district_id}', 'ServiceProviderAPIController@unassignQuarter');
+    Route::delete('/services/{id}/quarters/{quarter_id}', 'ServiceProviderAPIController@unassignQuarter');
     Route::post('/services/{id}/buildings/{building_id}', 'ServiceProviderAPIController@assignBuilding');
     Route::delete('/services/{id}/buildings/{building_id}', 'ServiceProviderAPIController@unassignBuilding');
     Route::get('/services/{id}/locations', 'ServiceProviderAPIController@getLocations');
 
-    // Districts
-    Route::get('/districts', 'DistrictAPIController@index')->name('services');
-    Route::get('/districts/{id}', 'DistrictAPIController@show')->name('services.show');
-    Route::post('/districts', 'DistrictAPIController@store')->name('services.store');
-    Route::put('/districts/{id}', 'DistrictAPIController@update')->name('services.update');
-    Route::delete('/districts/{id}', 'DistrictAPIController@destroy')->name('services.destroy');
-    Route::post('/districts/deletewithids', 'DistrictAPIController@destroyWithIds')->name('districts.destroyWithIds');
+    // Quarters
+    Route::get('/districts', 'QuarterAPIController@index')->name('quarters');
+    Route::get('/quarters', 'QuarterAPIController@index')->name('quarters');
+    Route::get('/districts/{id}', 'QuarterAPIController@show')->name('quarters.show');
+    Route::get('/quarters/{id}', 'QuarterAPIController@show')->name('quarters.show');
+    Route::post('/districts', 'QuarterAPIController@store')->name('quarters.store');
+    Route::post('/quarters', 'QuarterAPIController@store')->name('quarters.store');
+    Route::put('/districts/{id}', 'QuarterAPIController@update')->name('quarters.update');
+    Route::put('/quarters/{id}', 'QuarterAPIController@update')->name('quarters.update');
+    Route::delete('/districts/{id}', 'QuarterAPIController@destroy')->name('quarters.destroy');
+    Route::delete('/quarters/{id}', 'QuarterAPIController@destroy')->name('quarters.destroy');
+    Route::post('/districts/deletewithids', 'QuarterAPIController@destroyWithIds')->name('quarters.destroyWithIds');
+    Route::post('/quarters/deletewithids', 'QuarterAPIController@destroyWithIds')->name('quarters.destroyWithIds');
 
     // Posts
     Route::resource('posts', 'PostAPIController');
@@ -152,8 +166,10 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/posts/{id}/locations', 'PostAPIController@getLocations');
     Route::post('/posts/{id}/buildings/{building_id}', 'PostAPIController@assignBuilding');
     Route::delete('/posts/{id}/buildings/{building_id}', 'PostAPIController@unassignBuilding');
-    Route::post('/posts/{id}/districts/{district_id}', 'PostAPIController@assignDistrict');
-    Route::delete('/posts/{id}/districts/{district_id}', 'PostAPIController@unassignDistrict');
+    Route::post('/posts/{id}/quarters/{quarter_id}', 'PostAPIController@assignQuarter');
+    Route::post('/posts/{id}/districts/{district_id}', 'PostAPIController@assignQuarter');
+    Route::delete('/posts/{id}/quarters/{quarter_id}', 'PostAPIController@unassignQuarter');
+    Route::delete('/posts/{id}/districts/{district_id}', 'PostAPIController@unassignQuarter');
     Route::post('/posts/{id}/providers/{provider_id}', 'PostAPIController@assignProvider');
     Route::delete('/posts/{id}/providers/{provider_id}', 'PostAPIController@unassignProvider');
     Route::put('/posts/{id}/views', 'PostAPIController@incrementViews');
@@ -246,8 +262,10 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::put('propertyManagers/{id}', 'PropertyManagerAPIController@update')->name('propertyManagers.update');
     Route::delete('/propertyManagers/batchDelete', 'PropertyManagerAPIController@batchDelete');
     Route::delete('propertyManagers/{id}', 'PropertyManagerAPIController@destroy')->name('propertyManagers.destroy');
-    Route::post('/propertyManagers/{id}/districts/{district_id}', 'PropertyManagerAPIController@assignDistrict');
-    Route::delete('/propertyManagers/{id}/districts/{district_id}', 'PropertyManagerAPIController@unassignDistrict');
+    Route::post('/propertyManagers/{id}/districts/{district_id}', 'PropertyManagerAPIController@assignQuarter');
+    Route::post('/propertyManagers/{id}/quarters/{quarter_id}', 'PropertyManagerAPIController@assignQuarter');
+    Route::delete('/propertyManagers/{id}/districts/{district_id}', 'PropertyManagerAPIController@unassignQuarter');
+    Route::delete('/propertyManagers/{id}/quarters/{quarter_id}', 'PropertyManagerAPIController@unassignQuarter');
     Route::post('/propertyManagers/{id}/buildings/{building_id}', 'PropertyManagerAPIController@assignBuilding');
     Route::delete('/propertyManagers/{id}/buildings/{building_id}', 'PropertyManagerAPIController@unassignBuilding');
 

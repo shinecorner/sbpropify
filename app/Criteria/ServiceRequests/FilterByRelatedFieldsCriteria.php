@@ -77,10 +77,10 @@ class FilterByRelatedFieldsCriteria implements CriteriaInterface
             });
         }
 
-        $districtId = $this->request->get('district_id', null);
-        if ($districtId) {
-            $model->whereHas('tenant.building', function ($query) use ($districtId) {
-                $query->where('district_id', $districtId);
+        $quarterId = $this->request->get('quarter_id', null);
+        if ($quarterId) {
+            $model->whereHas('tenant.building', function ($query) use ($quarterId) {
+                $query->where('quarter_id', $quarterId);
             });
         }
 

@@ -85,21 +85,21 @@ export default (config = {}) => {
                     text: 'Please wait...'
                 },
                 allServices: [],
-                districts: []
+                quarters: []
             };
         },
         methods: {
-            ...mapActions(['getStates', 'getServicesGroupedByCategory', 'getDistricts']),
-            async remoteSearchDistricts(search) {
+            ...mapActions(['getStates', 'getServicesGroupedByCategory', 'getQuarters']),
+            async remoteSearchQuarters(search) {
                 if (search === '') {
-                    this.districts = [];
+                    this.quarters = [];
                 } else {
                     this.remoteLoading = true;
 
                     try {
-                        const {data} = await this.getDistricts({get_all: true, search});
+                        const {data} = await this.getQuarters({get_all: true, search});
 
-                        this.districts = data;
+                        this.quarters = data;
                     } catch (err) {
                         displayError(err);
                     } finally {
@@ -235,9 +235,9 @@ export default (config = {}) => {
 
                         this.model = {state_id, ...restAddress, ...restData, service_providers_ids: []};
 
-                        if (this.model.district) {
-                            this.$set(this.model, 'district_id', this.model.district.id);
-                            this.remoteSearchDistricts(`${this.model.district.name}`);
+                        if (this.model.quarter) {
+                            this.$set(this.model, 'quarter_id', this.model.quarter.id);
+                            this.remoteSearchQuarters(`${this.model.quarter.name}`);
                         }
 
                         const {

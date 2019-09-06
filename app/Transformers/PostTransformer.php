@@ -29,6 +29,7 @@ class PostTransformer extends BaseTransformer
             'type' => $model->type,
             'status' => $model->status,
             'visibility' => $model->visibility,
+            'category_image' => (bool) $model->category_image,
             'category' => $model->category,
             'content' => $model->content,
             'title' => $model->title,
@@ -55,8 +56,8 @@ class PostTransformer extends BaseTransformer
         if ($model->relationExists('buildings')) {
             $ret['buildings'] = (new BuildingTransformer)->transformCollection($model->buildings);
         }
-        if ($model->relationExists('districts')) {
-            $ret['districts'] = (new DistrictTransformer)->transformCollection($model->districts);
+        if ($model->relationExists('quarters')) {
+            $ret['quarters'] = (new QuarterTransformer)->transformCollection($model->quarters);
         }
         if ($model->relationExists('providers')) {
             $ret['providers'] = (new ServiceProviderTransformer)->transformCollection($model->providers);

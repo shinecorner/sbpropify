@@ -59,10 +59,10 @@
                                     class="user-image"
                                     v-else-if="model.avatar==null && model.title == 'company'"/>
                                 <img
-                                        style="width: 100%;"
-                                        class="user-image"
-                                        :src="`/${user.avatar}?${Date.now()}`"
-                                        v-else
+                                    style="width: 100%;"
+                                    class="user-image"
+                                    :src="`/${user.avatar}?${Date.now()}`"
+                                    v-else
                                 />
                             </el-col>
                             <el-col :md="7">

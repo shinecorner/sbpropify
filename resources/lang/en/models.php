@@ -177,7 +177,7 @@ return [
       'companies' => 'Services companies',
       'no_services' => 'No services added',
       'select_media_category' => 'Selected media category',
-      'district' => 'District',
+      'quarter' => 'Quarter',
       'managers' => 'Managers',
       'house_nr' => 'House Nr.',      
       'assign_managers' => 'Assign managers',
@@ -370,6 +370,7 @@ return [
       'pinned_to' => 'Pinned to',
       'comments' => 'Comments',
       'images' => 'Images',
+      'category_default_image_label' => 'Do want to use this image?',
       'placeholders' => 
       [
         'buildings' => 'Choose buildings',        
@@ -385,7 +386,7 @@ return [
       ],
       'errors' => [
         'not_found' => "Post not found",        
-        'district_not_found' => "District not found",
+        'quarter_not_found' => "Quarter not found",
         'building_not_found' => "Building not found",
         'provider_not_found' => "Service provider not found",
         'deleted' => "Post deleted error: ",
@@ -402,11 +403,11 @@ return [
       [
         'label' => 'Visibility',
         'address' => 'Address',
-        'district' => 'District',
+        'quarter' => 'Quarter',
         'all' => 'All',
       ],
       'assignType' => 'Type',
-      'buildingAlreadyAssigned' => 'Building is already inside on a district',
+      'buildingAlreadyAssigned' => 'Building is already inside on a quarter',
       'execution_interval' => 
       [
         'label' => 'Execution interval',
@@ -443,7 +444,7 @@ return [
       'user_credentials' => 'User credentials',
       'company_details' => 'Company details',
       'assignType' => 'Type',      
-      'buildingAlreadyAssigned' => 'Building is already inside on a district',      
+      'buildingAlreadyAssigned' => 'Building is already inside on a quarter',
       'placeholders' => 
       [
         'category' => 'Select category',
@@ -453,25 +454,25 @@ return [
         'create' => "Service Provider create error: ",
         'update' => "Service Provider updated error: ",	
         'deleted' => "Service Provider deleted error: ",
-        'district_not_found' => "District not found",
+        'quarter_not_found' => "Quarter not found",
         'building_not_found' => "Building not found",
-        'building_already_assign' => "Building already assigned through district",
+        'building_already_assign' => "Building already assigned through quarter",
       ],
     ],
-    'district' => 
+    'quarter' =>
     [
-      'title' => 'Districts',      
-      "edit" => "Edit District",
-      'add' => 'Add District',
-      'saved' => 'District saved',           
-      'deleted' => 'District deleted',
+      'title' => 'Quarters',
+      'add' => 'Add Quarter',
+      "edit" => "Edit Quarter",
+      'saved' => 'Quarter saved',
+      'deleted' => 'Quarter deleted',
       'cancel' => 'Cancel',
       'required' => 'This field is required',      
       'buildings' => 'Buildings',
       'count_of_buildings' => 'Count of buildings',
       'errors' => [
-        'not_found' => "District not found",
-        'deleted' => "District deleted error: ",
+        'not_found' => "Quarter not found",
+        'deleted' => "Quarter deleted error: ",
       ],
     ],
     'realEstate' => 
@@ -482,7 +483,7 @@ return [
       'theme' => 'Theme',
       'login_variation' => 'Login variation',
       'login_variation_slider' => 'Do you want to show slider?',
-      'district_enable' => 'District',
+      'quarter_enable' => 'Quarter',
       'marketplace_approval_enable' => 'Enable Market',
       'news_approval_enable' => 'News approval',
       'comment_update_timeout' => 'Comment update timeout',
@@ -719,13 +720,13 @@ return [
         'label' => 'Type',
         'provider' => 'Service',
         'manager' => 'Manager',
-        'admin' => 'Administrator',
+        'user' => 'Administrator',
       ],
       'visibility' => 
       [
         'label' => 'Visibility',
         'tenant' => 'Private',
-        'district' => 'District',
+        'quarter' => 'Quarter',
         'building' => 'Building',
       ],
       'errors' => [
@@ -777,7 +778,7 @@ return [
       'no_buildings' => 'There are no buildings assigned',
       'add_buildings' => 'Add buildings',
       'buildings_search' => 'Search for buildings',
-      'districts' => 'Districts',
+      'quarters' => 'Quarters',
       'delete_with_reassign_modal' =>
       [
         'title' => 'Delete & reassign buildings',
@@ -788,14 +789,14 @@ return [
       'profile_card' => 'User Profile',
       'social_card' => 'Social Media',
       'assignType' => 'Type',      
-      'buildingAlreadyAssigned' => 'Building is already inside on a district',
+      'buildingAlreadyAssigned' => 'Building is already inside on a quarter',
       'errors' => [
         'not_found' => "Property Manager not found",
         'create' => "Property Manager create error: ",
         'update' => "Property Manager updated error: ",	        
-        'district_not_found' => "District not found",
+        'quarter_not_found' => "Quarter not found",
         'building_not_found' => "Building not found",
-        'building_already_assign' => "Building already assigned through district",
+        'building_already_assign' => "Building already assigned through quarter",
         'building_assign_deleted_property_manager' => "You cannot assign buildings to an deleted Property Manager",
         'deleted' => "Property Manager deleted error: ",
       ],
@@ -840,7 +841,7 @@ return [
       [
         'label' => 'Visibility',
         'address' => 'Address',
-        'district' => 'District',
+        'quarter' => 'Quarter',
         'all' => 'All',
       ],
     ],

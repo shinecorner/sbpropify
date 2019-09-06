@@ -13,7 +13,7 @@ import TenantsRoutes from 'routes/admin/tenants';
 import UsersRoutes from 'routes/admin/users';
 import ServicesRoutes from 'routes/admin/services';
 import PostsRoutes from 'routes/admin/posts';
-import DistrictsRoutes from 'routes/admin/districts';
+import QuartersRoutes from 'routes/admin/quarters';
 import RequestsRoutes from 'routes/admin/requests';
 import PropertyManagersRoutes from 'routes/admin/propertyManagers';
 import ProductsRoutes from 'routes/admin/products';
@@ -59,7 +59,7 @@ export default [{
         ...BuildingsRoutes,
         ...PostsRoutes,
         ...UnitsRoutes,
-        ...DistrictsRoutes,
+        ...QuartersRoutes,
         ...RequestsRoutes,
         ...PropertyManagersRoutes,
         ...ProductsRoutes,

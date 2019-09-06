@@ -87,8 +87,8 @@
                                                 </label>
                                                 <el-switch v-model="model.blank_pdf"/>
                                             </el-form-item>
-                                            <!-- <el-form-item :label="$t('models.realEstate.district_enable')" prop="district_enable">
-                                                <el-switch v-model="model.district_enable"/>
+                                            <!-- <el-form-item :label="$t('models.realEstate.quarter_enable')" prop="quarter_enable">
+                                                <el-switch v-model="model.quarter_enable"/>
                                             </el-form-item>
                                             <el-form-item :label="$t('models.realEstate.marketplace_approval_enable')"
                                                           prop="marketplace_approval_enable">
@@ -387,7 +387,7 @@
                     email: '',
                     phone: '',
                     blank_pdf: true,
-                    district_enable: true,
+                    quarter_enable: true,
                     logo: '',
                     logo_upload: '',
                     marketplace_approval_enable: true,

@@ -81,13 +81,13 @@ export default {
 
             commit('update', data.data)
         },
-        async assignDistrict ({commit}, {id, districtId}) {
-            const {data} = await this._vm.axios.post(`posts/${id}/districts/${districtId}`)
+        async assignQuarter ({commit}, {id, quarterId}) {
+            const {data} = await this._vm.axios.post(`posts/${id}/quarters/${quarterId}`)
 
             commit('update', data.data)
         },
-        async unassignDistrict ({commit}, {id, districtId}) {
-            const {data} = await this._vm.axios.delete(`posts/${id}/districts/${districtId}`)
+        async unassignQuarter ({commit}, {id, quarterId}) {
+            const {data} = await this._vm.axios.delete(`posts/${id}/quarters/${quarterId}`)
 
             commit('update', data.data)
         },

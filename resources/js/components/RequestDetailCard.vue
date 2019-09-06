@@ -15,7 +15,6 @@
                 </el-col>
                 <el-col :span="18" class="request-content">
                     <h3>{{ item.title }}</h3>
-                    <p>{{ item.category.parent_id==null?'':item.category.parentCategory.name + ' > ' }}{{ item.category.name }}</p>
                     <p>{{ item.description }}</p>
                 </el-col>
                 <el-col :span="3" class="request-tail">
@@ -43,10 +42,15 @@
                     <el-checkbox @change="handleSelectionChanged"></el-checkbox>
                 </el-col> 
                 <el-col :span="1" class="request-actions">
+                    <el-tooltip :content="$t('dashboard.buildings.go_to_buildings')" placement="top" effect="light">
+                        <router-link :to="{name: 'adminBuildingsEdit', params: {id:item.tenant.building.id}}" class="listing-link">
+                             <i class="icon icon-commerical-building"></i>
+                        </router-link>
+                    </el-tooltip>
                 </el-col>
                 <el-col :span="1" class="request-actions">
                 </el-col>
-                <el-col :span="6">
+                <el-col :span="3">
                     <span>{{ $t('models.request.assigned_to') }}</span>
                         <div class="avatars-wrapper">
                         <span :key="index" v-for="(user, index) in item.assignedUsers">
@@ -75,7 +79,7 @@
                         </span>
                     </div>
                 </el-col>
-                <el-col :span="6">
+                <el-col :span="5">
                     <span>{{ $t('models.request.created_by') }}</span>
                     <p>
                         <el-tooltip
@@ -89,21 +93,27 @@
                         {{ item.created_at }}
                     </p>
                 </el-col> 
-                <el-col :span="3">
-                    <span>{{ $t('models.request.internal_priority.label') }}</span>
-                    <p>
-                        <el-button v-if="item.internal_priority_label == 'low'" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.internal_priority.low') }}</el-button>
-                        <el-button v-else-if="item.internal_priority_label == 'normal'" plain type="warning" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.internal_priority.normal') }}</el-button>
-                        <el-button v-else-if="item.internal_priority_label == 'urgent'" plain type="danger" class="btn-priority-badge btn-badge"  round>{{ $t('models.request.internal_priority.urgent') }}</el-button>
+                <el-col :span="4" class="request-category">
+                    <span>{{ $t('models.request.category') }}</span>
+                    <p>{{ item.category.parent_id==null?'':item.category.parentCategory.name + ' > ' }}
+                        {{ item.category.name }}
                     </p>
                 </el-col>
                 <el-col :span="3">
-                    {{ $t('models.request.last_updated') }}
+                    <span>{{ $t('models.request.internal_priority.label') }}</span>
+                    <p>
+                        {{ $t('models.request.priority.'+`${item.priority_label}`) }}
+                    </p>
+                </el-col>
+                <el-col :span="3">
+                   <span>{{ $t('models.request.last_updated') }}</span>
                     <br>
-                    <span v-if="updated_at.h>12">{{ updated_at.date }}</span>
-                    <span v-else-if="updated_at.h">{{ updated_at.h }}h</span>
-                    <span v-else-if="updated_at.m">{{  updated_at.m }}m</span>
-                    <span v-else>ago</span>
+                    <p v-if="updated_at.h>12">{{ updated_at.date }}</p>
+                    <div v-else style="display: flex">
+                        <p v-if="updated_at.h">{{ updated_at.h }}h&nbsp;</p>
+                        <p v-else-if="updated_at.m">{{  updated_at.m }}m&nbsp;</p>
+                        <p>ago</p>
+                    </div>
                 </el-col>
                 <el-col :span="3">
                     <span>{{ $t(due.label) }}</span>
@@ -250,9 +260,6 @@ export default {
                 text-align: center;
             
                 padding: 0px !important;
-                h4 {
-                    margin-bottom: auto;
-                }
                 .el-button {
                     width: 100%;
                     border-radius: 0px;
@@ -265,17 +272,18 @@ export default {
             .request-content {
                 padding-left: 10px !important;
                 padding-right: 5px !important;
-                h3 {
-                    margin-bottom: 10px;
-                }
-                p:nth-of-type(1) {
-                    margin: 0px;
-                    padding: 0px;
-                }
+               
                 p {
-                    margin-bottom: 2px;
+                    display: block;
+                    display: -webkit-box;
+                    max-width: 100%;
+                    height: 27px;
+                    margin: 0 auto;
                     line-height: 15px;
-                    word-break: break-word;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
             }
             .request-tail {
@@ -298,6 +306,13 @@ export default {
                 align-items: center;
                 padding: 0px !important;
             }
+            .request-category {
+                p {
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+            }
             .el-col {
                 border-right: 1px solid darken(#ebeef5, 10%);
                 padding: 5px 15px !important;
@@ -309,13 +324,21 @@ export default {
                     color: darken(#ffffff, 45%);
                 }
                 p {
-                    font-weight: 600;
+                    font-weight: 700;
+                    margin: 0px;
+                    padding-top: 4px;
+                }
+                &:nth-of-type(5) {
+                    p {
+                        padding-top: 0px;
+                    }
                 }
             }
-            p {
-                margin: 0px;
-                padding: 0px;
-            }
         }
+    }
+    .listing-link {
+        text-decoration: none;
+        color: darken(#fff, 50%);
+        font-weight: bold;
     }
 </style>

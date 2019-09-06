@@ -46,8 +46,8 @@ class BuildingRepository extends BaseRepository
             unset($attributes['address']);
         }
 
-        if (isset($attributes['district'])) {
-            unset($attributes['district']);
+        if (isset($attributes['quarter'])) {
+            unset($attributes['quarter']);
         }
 
         // Have to skip presenter to get a model not some data

@@ -66,7 +66,6 @@
         methods: {
             async handleLink(ev, key, {route, action, children, icon}) {
                 //this.currActive = key.toString();
-                
                 !children && route && this.$router.push(route);
 
                 /*if (!children && !!icon) {
@@ -146,7 +145,7 @@
                     }); 
                 }
             }
-        }
+        },
     }
 </script>
 <style lang="scss">
@@ -159,6 +158,10 @@
         .el-badge {
             float: right;
         }
+    }
+    .el-menu-item.is-active {
+        color: var(--color-text-primary) !important;
+        font-weight: bolder;
     }
 </style>
 

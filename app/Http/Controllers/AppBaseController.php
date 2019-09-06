@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PropertyManager;
+use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use InfyOm\Generator\Utils\ResponseUtil;
@@ -57,33 +61,89 @@ class AppBaseController extends Controller
     }
 
     /**
-     * @param int $id
-     * @return Audit
+     * get assignees related users
+     *
+     * @param $assignees
+     * @return mixed
      */
-    protected function newRequestAudit(int $id)
+    public function getAssignedUsersBy($assignees)
     {
-        $aType = array_flip(Relation::$morphMap)[ServiceRequest::class];
-        $a = $this->newAudit();
-        $a->auditable_type = $aType ?? ServiceRequest::class;
-        $a->auditable_id = $id;
-        return $a;
+        $userType = get_morph_type_of(User::class);
+        $userIds = $assignees->where('assignee_type', $userType)->pluck('assignee_id');
+        $users = User::select('id', 'name', 'email')
+            ->whereIn('id', $userIds)
+            ->get();
+
+        return [$userType => $users];
     }
 
     /**
-     * @return Audit
+     * get assignees related property managers
+     *
+     * @param $assignees
+     * @return mixed
      */
-    protected function newAudit()
+    public function getAssignedManagersBy($assignees)
     {
-        return new Audit([
-            'user_type' => \App\Models\User::class,
-            'user_id' => \Auth::id(),
-            'url' => Request::fullUrl(),
-            'ip_address' => Request::ip(),
-            'user_agent' => Request::header('User-Agent'),
-            'old_values' => [],
-            'new_values' => [],
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
+        $managerType = get_morph_type_of(PropertyManager::class);
+        $managerIds = $assignees->where('assignee_type', $managerType)->pluck('assignee_id');
+        $raw = DB::raw('(select email from users where users.id = property_managers.user_id) as email,
+                (select avatar from users where users.id = property_managers.user_id) as avatar, 
+                Concat(first_name, " ", last_name) as name');
+        $managers = PropertyManager::select('id', $raw)
+            ->whereIn('id', $managerIds)
+            ->get();
+
+        return [$managerType => $managers];
     }
+
+    /**
+     * Get assignees related service providers
+     *
+     * @param $assignees
+     * @return mixed
+     */
+    public function getAssignedProvidersBy($assignees)
+    {
+        $providerType = get_morph_type_of(ServiceProvider::class);
+        $providerIds = $assignees->where('assignee_type', $providerType)->pluck('assignee_id');
+        $raw = DB::raw('(select avatar from users where users.id = service_providers.user_id) as avatar');
+        $providers = ServiceProvider::select('id', 'email', 'name', $raw)
+            ->whereIn('id', $providerIds)
+            ->get();
+
+        return [ $providerType => $providers];
+    }
+
+    /**
+     * Get assignees related item details
+     *
+     * @param $assignees
+     * @param $classes
+     * @return mixed
+     */
+    public function getAssigneesRelated($assignees, $classes)
+    {
+        $data = [];
+
+        if (in_array(PropertyManager::class, $classes)) {
+            $data += $this->getAssignedManagersBy($assignees);
+        } elseif (in_array(User::class, $classes)) {
+            $data += $this->getAssignedUsersBy($assignees);
+        } else if (in_array(ServiceProvider::class, $classes)) {
+            $data += $this->getAssignedProvidersBy($assignees);
+        }
+
+        foreach ($assignees as $index => $assignee) {
+            $related = null;
+            if (key_exists($assignee->assignee_type, $data)) {
+                $items = $data[$assignee->assignee_type];
+                $related = $items->where('id', $assignee->assignee_id)->first();
+            }
+
+            $assignee->related = $related;
+        }
+        return $assignees;
+    }
+
 }

@@ -159,8 +159,8 @@ class ServiceProvider extends AuditableModel
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      **/
-    public function districts()
+    public function quarters()
     {
-        return $this->belongsToMany(District::class, 'district_service_provider', 'service_provider_id', 'district_id');
+        return $this->belongsToMany(Quarter::class, 'quarter_service_provider', 'service_provider_id', 'quarter_id');
     }
 }

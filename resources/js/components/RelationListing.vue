@@ -8,14 +8,14 @@
                 :key="column.prop"
                 :width="column.width"
                 :align="column.align"
-                :label="column.label"
+                :label="$t(column.label)"
                 :prop="column.prop"
                 v-for="column in columns"
                 v-if="!column.i18n"
             >
                 <template slot-scope="scope">
                     <div v-if="column.type === 'requestTitleWithDesc'">
-                        <div>{{scope.row.title}}</div>
+                        <div>{{$t(scope.row.title)}}</div>
                         <div class="category">
                         <span v-if="scope.row.category.parentCategory">
                             {{scope.row.category.parentCategory.name}} >&nbsp;
@@ -117,6 +117,9 @@
                         <router-link v-if="scope.row.type === 'provider'" :to="{name: 'adminServicesEdit', params: {id: scope.row.edit_id}}">
                             {{scope.row.name}}
                         </router-link>
+                        <router-link v-if="scope.row.type === 'user'" :to="{name: 'adminUsersEdit', params: {id: scope.row.edit_id}}">
+                            {{scope.row.name}}
+                        </router-link>
                     </div>
 
                     <div v-else>
@@ -126,7 +129,7 @@
             </el-table-column>
             <el-table-column
                 :key="column.prop"
-                :label="column.label"
+                :label="$t(column.label)"
                 v-for="column in columns"
                 v-if="column.i18n"
             >

@@ -394,7 +394,7 @@
     margin-top: 24px;
 }
 .el-row.dashboard {
-    margin-top: -110px;
+    margin-top: -137px;
 
     @media screen and (max-width: 1000px) {
         margin-top: 0;

@@ -416,12 +416,12 @@
                 }],
                 requestColumns: [{
                     prop: 'category.name',
-                    label: this.$t('models.request.category')
+                    label: 'models.request.category'
                 }, {
                     prop: 'status',
                     i18n: this.requestStatusLabel,
                     withBadge: this.requestStatusBadge,
-                    label: this.$t('models.request.status.label')
+                    label: 'models.request.status.label'
                 }],
                 requestActions: [{
                     width: '180px',
@@ -433,7 +433,7 @@
                 }],
                 postColumns: [{
                     prop: 'preview',
-                    label: this.$t('models.post.preview')
+                    label: 'models.post.preview'
                 }],
                 postActions: [{
                     width: '180px',
@@ -445,7 +445,7 @@
                 }],
                 productColumns: [{
                     prop: 'title',
-                    label: this.$t('models.product.title')
+                    label: 'models.product.title'
                 }],
                 productActions: [{
                     width: '180px',

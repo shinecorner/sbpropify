@@ -1,7 +1,7 @@
 <?php
 return [
     'header' => 'Filters',
-    'districts' => 'Districts',
+    'quarters' => 'Quarters',
     'buildings' => 'Buildings',
     'requests' => 'Requests',
     'open_requests' => 'Open requests',

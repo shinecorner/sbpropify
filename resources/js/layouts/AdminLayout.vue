@@ -161,10 +161,10 @@
                                     name: 'adminUnits'
                                 }
                             }, {
-                                title: this.$t('menu.districts'),
-                                permission: this.$permissions.list.district,
+                                title: this.$t('menu.quarters'),
+                                permission: this.$permissions.list.quarter,
                                 route: {
-                                    name: 'adminDistricts'
+                                    name: 'adminQuarters'
                                 }
                             }]
                         }, {
@@ -289,10 +289,10 @@
                                     name: 'adminUnits'
                                 }
                             }, {
-                                title: this.$t('menu.districts'),
-                                permission: this.$permissions.list.district,
+                                title: this.$t('menu.quarters'),
+                                permission: this.$permissions.list.quarter,
                                 route: {
-                                    name: 'adminDistricts'
+                                    name: 'adminQuarters'
                                 }
                             }]
                         }, {
@@ -422,10 +422,10 @@
                                     name: 'adminUnits'
                                 }
                             }, {
-                                title: this.$t('menu.districts'),
-                                permission: this.$permissions.list.district,
+                                title: this.$t('menu.quarters'),
+                                permission: this.$permissions.list.quarter,
                                 route: {
-                                    name: 'adminDistricts'
+                                    name: 'adminQuarters'
                                 }
                             }]
                         }, {
@@ -973,6 +973,14 @@
                     }
                 }
             }
+        }
+    }
+</style>
+<style lang="less">
+    .crud-view {
+        .el-card__header {
+            border-bottom: 1px solid #EBEEF5 !important;
+            font-size: 16px !important;
         }
     }
 </style>

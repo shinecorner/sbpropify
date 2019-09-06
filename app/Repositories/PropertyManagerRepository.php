@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Building;
-use App\Models\District;
+use App\Models\Quarter;
 use App\Models\PropertyManager;
 use Illuminate\Support\Arr;
 
@@ -54,7 +54,7 @@ class PropertyManagerRepository extends BaseRepository
 
     public function update(array $attributes, $id)
     {
-        unset($attributes['districts']);
+        unset($attributes['quarters']);
         $model = parent::update($attributes, $id);
 
         $settings = Arr::pull($attributes, 'settings');
@@ -86,11 +86,11 @@ class PropertyManagerRepository extends BaseRepository
             ->where('assignee_type', get_morph_type_of(PropertyManager::class))
             ->where('building_assignees.assignee_id',  $propertyManager->id);
 
-        $districts = District::select(\DB::raw('districts.id, districts.name, "district" as type'))
-            ->join('district_property_manager', 'district_id', '=', 'districts.id')
-            ->where('district_property_manager.property_manager_id', $propertyManager->id);
+        $quarters = Quarter::select(\DB::raw('quarters.id, quarters.name, "quarter" as type'))
+            ->join('quarter_property_manager', 'quarter_id', '=', 'quarters.id')
+            ->where('quarter_property_manager.property_manager_id', $propertyManager->id);
 
-        return $buildings->union($districts)->orderBy('name');
+        return $buildings->union($quarters)->orderBy('name');
     }
 
     public function assignmentsWithIds(array $ids)

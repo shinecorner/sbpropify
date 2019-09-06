@@ -209,13 +209,13 @@
                     type: 'requestTenantAvatar',
                     width: 75,
                     prop: 'tenant',
-                    label: this.$t('general.tenant')
+                    label: 'general.tenant'
                 }, {
                     type: 'requestTitleWithDesc',
-                    label: this.$t('models.request.prop_title')
+                    label: 'models.request.prop_title'
                 }, {
                     type: 'requestStatus',
-                    label: this.$t('models.request.status.label')
+                    label: 'models.request.status.label'
                 }],
                 requestActions: [{
                     width: '90px',
@@ -227,10 +227,10 @@
                 }],
                 assignmentsColumns: [{
                     prop: 'name',
-                    label: this.$t('general.name')
+                    label: 'general.name'
                 }, {
                     prop: 'type',
-                    label: this.$t('models.propertyManager.assignType'),
+                    label: 'models.propertyManager.assignType',
                     i18n: this.translateType
                 }],
                 assignmentsActions: [{

@@ -57,7 +57,7 @@ return [
   'attached' => 
   [
     "building" => "Bâtiment affecté",
-    "district" => "District assigné",
+    "quarter" => "Trimestre assigné",
     "provider" => "Prestataire désigné",
     'tenant' => "Locataire attaché avec succès",
     "service" => "Le prestataire s'est attaché avec succès",
@@ -68,7 +68,7 @@ return [
   'detached' => 
   [
     "building" => "Bâtiment non assigné",
-    "district" => "District non attribué",
+    "quarter" => "Trimestre non attribué",
     "provider" => "Prestataire non assigné",
     'tenant' => "Locataire détaché avec succès",
     "service" => "Le prestataire s'est détaché avec succès",
@@ -142,9 +142,10 @@ return [
   'assignmentTypes' => 
   [
     "building" => "Bâtiment",
-    "district" => "District",
+    "quarter" => "Trimestre",
     "services" => "Services",
     "managers" => "Gestionnaires",        
+    "administrator" => "Administrateur",
   ],
   'email' => 'Courriel',
   'email_validation' => 

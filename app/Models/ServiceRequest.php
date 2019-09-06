@@ -110,7 +110,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
 
     const VisibilityTenant = 1;
     const VisibilityBuilding = 2;
-    const VisibilityDistrict = 3;
+    const VisibilityQuarter = 3;
 
     const PendingStatuses = [
         ServiceRequest::StatusReceived,
@@ -163,7 +163,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
     const Visibility = [
         self::VisibilityTenant => 'tenant',
         self::VisibilityBuilding => 'building',
-        self::VisibilityDistrict => 'district',
+        self::VisibilityQuarter => 'quarter',
     ];
 
     const Priority = [

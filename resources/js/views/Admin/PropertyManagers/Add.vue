@@ -174,7 +174,7 @@
             return {
                 assignmentsColumns: [{
                     prop: 'name',
-                    label: this.$t('models.district.name')
+                    label: this.$t('models.quarter.name')
                 }, {
                     prop: 'type',
                     label: this.$t('models.propertyManager.assignType'),
@@ -208,14 +208,6 @@
         display: block;
         float: none;
         text-align: left;
-    }
-    .el-form-item__content 
-    .selected
-    #languageform.el-input__inner {
-        padding-left: 40px;
-        #languageflag {
-            padding-left: 20px;
-        }
     }
     
 </style>

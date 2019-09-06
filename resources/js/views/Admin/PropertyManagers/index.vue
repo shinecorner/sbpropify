@@ -81,7 +81,7 @@
     import ListTableMixin from 'mixins/ListTableMixin';
     import {displayError, displaySuccess} from "helpers/messages";
     import {mapActions} from 'vuex';
-    import getFilterDistricts from 'mixins/methods/getFilterDistricts';
+    import getFilterQuarters from 'mixins/methods/getFilterQuarters';
 
     const mixin = ListTableMixin({
         actions: {
@@ -96,7 +96,7 @@
 
     export default {
         name: 'AdminPropertyManagers',
-        mixins: [mixin, getFilterDistricts],
+        mixins: [mixin, getFilterQuarters],
         components: {
             Heading,
             RequestDetailCard
@@ -133,7 +133,7 @@
                 toAssignList: '',
                 toAssign: '',
                 remoteLoading: false,
-                districts: {},
+                quarters: {},
                 buildings:{},
                 isLoadingFilters: false,
             }
@@ -148,10 +148,10 @@
                         key: 'search'
                     },
                     {
-                        name: this.$t('filters.districts'),
+                        name: this.$t('filters.quarters'),
                         type: 'select',
-                        key: 'district_id',
-                        data: this.districts,
+                        key: 'quarter_id',
+                        data: this.quarters,
                     },
                     {
                         name: this.$t('filters.buildings'),
@@ -259,8 +259,8 @@
         },
         async created(){
             this.isLoadingFilters = true;
-            const districts = await this.axios.get('districts')
-            this.districts = districts.data.data.data;
+            const quarters = await this.axios.get('quarters')
+            this.quarters = quarters.data.data.data;
 
             this.buildings = await this.getFilterBuildings()
             this.isLoadingFilters = false;

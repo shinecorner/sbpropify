@@ -18,7 +18,7 @@ class InternalNotesTransformer extends BaseTransformer
      */
     public function transform(InternalNotice $model)
     {
-        return [
+        $response = [
             'id' => $model->id,
             'request_id' => $model->request_id,
             'user_id' => $model->user_id,
@@ -26,6 +26,10 @@ class InternalNotesTransformer extends BaseTransformer
             'created_at'=> $model->created_at,
             'updated_at'=> $model->updated_at,
         ];
+        if ($model->relationExists('user')) {
+            $response['user'] = (new UserTransformer())->transform($model->user);
+        }
 
+        return $response;
     }
 }
