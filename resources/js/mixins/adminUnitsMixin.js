@@ -17,6 +17,8 @@ export default (config = {}) => {
                 remoteLoading: false,
                 toAssignList: [],
                 buildings: [],
+                buildingId: '',
+                buildingName: '',
                 model: {
                     tenant_id: '',
                     name: '',
@@ -295,15 +297,16 @@ export default (config = {}) => {
                             return user;
                         });
 
-                        if (this.model.tenant) {
-                            this.$set(this.model, 'tenant_id', this.model.tenant.id);
-                            this.remoteSearchTenants(`${this.model.tenant.first_name}`);
-                        }
-
-                        if (config.withRelation && this.model.building_id) {
-                            const building = await this.getBuilding({id: this.model.building_id});
-                            this.remoteSearchBuildings(`${building.name}`);
-                        }
+                        // if (this.model.tenant) {
+                        //     this.$set(this.model, 'tenant_id', this.model.tenant.id);
+                        //     this.remoteSearchTenants(`${this.model.tenant.first_name}`);
+                        // }
+                        
+                        this.buildings.push(this.model.building);
+                        // if (config.withRelation && this.model.building_id) {
+                        //     const building = await this.getBuilding({id: this.model.building_id});
+                        //     this.remoteSearchBuildings(`${building.name}`);
+                        // }
 
                     } catch (err) {
                         this.$router.replace({

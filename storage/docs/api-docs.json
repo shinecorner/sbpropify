@@ -9161,6 +9161,14 @@
                     "description": "logo",
                     "type": "string"
                 },
+                "circle_logo": {
+                    "description": "circle_logo",
+                    "type": "string"
+                },
+                "favicon_icon": {
+                    "description": "favicon_icon",
+                    "type": "string"
+                },
                 "blank_pdf": {
                     "description": "blank_pdf",
                     "type": "integer",
