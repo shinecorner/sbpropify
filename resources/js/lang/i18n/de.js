@@ -249,7 +249,6 @@ export default {
                 "managers": "Bewirtschafter",
                 "building": "Liegenschaft",
                 "quarter": "Überbauung",
-                "district": "Überbauung",
                 "administrator": "Verwalterin"
             },
             "email": "E-Mail",
@@ -862,10 +861,10 @@ export default {
                 "deleted": "Liegenschaft erfolgreich gelöscht",
                 "units": "Einheiten",
                 "saved": "Liegenschaft gespeichert",
-                "floors": "Stockwerke",
+                "floors": "Etagen",
                 "basement": "Erdgeschoss",
                 "attic": "Attikageschoss",
-                "floor_nr": "Anzahl Stockwerke",
+                "floor_nr": "Anzahl Etagen",
                 "label": "Label",
                 "address_search": "Bitte Adresse eingeben.",
                 "not_found": "Liegenschaft nicht gefunden.",
@@ -902,7 +901,7 @@ export default {
                         "required": "Name ist obligatorisch"
                     },
                     "floor_nr": {
-                        "required": "Stockwerk ist obligatorisch"
+                        "required": "Etage ist obligatorisch"
                     },
                     "description": {
                         "required": "Beschreibung ist obligatorisch"
@@ -940,7 +939,7 @@ export default {
                 "name": "Einheit-ID",
                 "deleted": "Einheit gelöscht",
                 "saved": "Einheit gespeichert",
-                "floor": "Stockwerk",
+                "floor": "Etage",
                 "sq_meter": "Fläche",
                 "room_no": "Anzahl Zimmer",
                 "monthly_rent": "Monatsmiete",
@@ -969,7 +968,7 @@ export default {
                         "required": "Monatsmiete ist obligatorisch"
                     },
                     "floor": {
-                        "required": "Stockwerk ist obligatorisch"
+                        "required": "Etagen ist obligatorisch"
                     },
                     "room_no": {
                         "required": "Nummer der Einheit ist obligatorisch"
@@ -1076,7 +1075,7 @@ export default {
                     "all": "Alle App-Nutzer"
                 },
                 "assignType": "Typ",
-                "buildingAlreadyAssigned": "Das Gebäude ist bereits innen auf einem Viertel.",
+                "buildingAlreadyAssigned": "Diese Liegschaft ist bereits einer Überbauung zugewiesen.",
                 "execution_interval": {
                     "label": "Datum der Durchführung",
                     "end": "Ende",
@@ -1110,7 +1109,7 @@ export default {
                 "user_credentials": "Logindaten",
                 "company_details": "Firmendaten",
                 "assignType": "Typ",
-                "buildingAlreadyAssigned": "Das Gebäude ist bereits innen auf einem Viertel.",
+                "buildingAlreadyAssigned": "Diese Liegschaft ist bereits einer Überbauung zugewiesen.",
                 "placeholders": {
                     "category": "Gewerk wählen"
                 },
@@ -1119,39 +1118,39 @@ export default {
                     "create": "Fehler beim Erstellen des Dienstleisters: ",
                     "update": "Fehler beim Aktualisieren des Dienstleisters: ",
                     "deleted": "Fehler beim Löschen des Dienstleisters: ",
-                    "quarter_not_found": "Quartal nicht gefunden",
+                    "quarter_not_found": "Überbauung nicht gefunden",
                     "building_not_found": "Liegenschaft nicht gefunden",
-                    "building_already_assign": "Gebäude bereits vergeben durch das Quartal"
+                    "building_already_assign": "Diese Liegschaft ist bereits einer Überbauung zugewiesen."
                 }
             },
             "quarter": {
-                "title": "Quartale",
-                "add": "Quartal hinzufügen",
-                "edit": "Quartal bearbeiten",
-                "saved": "Eingespartes Quartal",
-                "deleted": "Quartal gelöscht",
+                "title": "Überbauungen",
+                "add": "Überbauung hinzufügen",
+                "edit": "Überbauung bearbeiten",
+                "saved": "Überbauung gespeichert!",
+                "deleted": "Überbauung gelöscht",
                 "cancel": "Schliessen",
-                "required": "Dies ist ein Pflichfeld!",
+                "required": "Überbauung ist ein Pflichfeld!",
                 "buildings": "Liegenschaften",
                 "count_of_buildings": "Anzahl Liegenschaften",
                 "errors": {
-                    "not_found": "Quartal nicht gefunden",
-                    "deleted": "Fehler beim Löschen des Quartals: "
+                    "not_found": "Überbauung nicht gefunden.",
+                    "deleted": "Fehler beim Löschen der Überbauung: "
                 }
             },
             "realEstate": {
                 "title": "Einstellungen Liegenschaftsverwaltung",
                 "settings": "Einstellungen",
-                "iframe": "Iframe",
-                "theme": "Thema",
+                "iframe": "Freie Objekte",
+                "theme": "Design",
                 "login_variation": "Login-Variante",
-                "login_variation_slider": "Möchten Sie den Schieberegler anzeigen?",
-                "quarter_enable": "Quartal",
+                "login_variation_slider": "Möchten Sie den Slider it Vorteilen anzeigen?",
+                "quarter_enable": "Überbauungen aktivieren",
                 "marketplace_approval_enable": "Marktplatz aktivieren",
                 "news_approval_enable": "Pinnwand-Beiträge zuerst prüfen",
                 "comment_update_timeout": "Comment update timeout",
                 "closed": "Geschlossen",
-                "saved": "Gespeichert",
+                "saved": "Gespeichert!",
                 "schedule": "Terminplanung",
                 "endTime": "Ende",
                 "startTime": "Start",
@@ -1165,7 +1164,7 @@ export default {
                 "accent_color": "Akzentfarbe",
                 "iframe_enable": "Iframe aktivieren",
                 "iframe_url": {
-                    "label": "Iframe URL",
+                    "label": "URL mit Ihren Objekten (z.B. Immoscout24 oder Homegate)",
                     "validation": "Bitte geben Sie eine korrekte URL ein."
                 },
                 "mail_from_name": {
@@ -1201,7 +1200,7 @@ export default {
             "request": {
                 "audits": "History",
                 "deleted": "Anfrage gelöscht",
-                "title": "Übersicht Mieter-Anfragen",
+                "title": "Anfragen Management",
                 "created": "Erstellt",
                 "saved": "Anfrage gespeichert",
                 "prop_title": "Titel",
@@ -1218,12 +1217,12 @@ export default {
                 "assign_providers": "Zuweisen",
                 "assign_managers": "Zuweisen",
                 "notify": "Kommunikation",
-                "public_legend": "Aktivieren Sie die Option, um die Anfrage allen Bewohnern einer Liegenschaft/Überbauung zu zeigen.",
+                "public_legend": "Aktivieren Sie diese Option, um dies Anliegen allen Bewohnern einer Liegenschaft / Überbauung zu zeigen.",
                 "conversation": "Chat-Mitteilungen",
-                "conversation_created": "Chat-Mitteilung wurde erstellt",
-                "internal_notice_saved": "Interne Notiz wurde gespeichert",
-                "internal_notice_updated": "Interne Notiz wurde aktualisiert",
-                "internal_notice_deleted": "Interne Notiz wurde gelöscht",
+                "conversation_created": "Nachricht wurde übermittelt.",
+                "internal_notice_saved": "Interne Notiz wurde gespeichert.",
+                "internal_notice_updated": "Interne Notiz wurde aktualisiert.",
+                "internal_notice_deleted": "Interne Notiz wurde gelöscht.",
                 "open_conversation": "Offen",
                 "other_recipients": "Weitere Empfänger",
                 "recipients": "Empfänger",
@@ -1234,10 +1233,10 @@ export default {
                 "status_changed": "Status wurde geändert",
                 "priority_changed": "Priorität wurde geändert",
                 "assignment": "Zugewiesene Personen/Firmen",
-                "last_updated": "Last updated",
-                "due_in": "Due in",
-                "was_due_on": "Was due on",
-                "due_on": "Due on",
+                "last_updated": "Zuletzt bearbeitet",
+                "due_in": "Zu erledigen in",
+                "was_due_on": "In Verzug seit",
+                "due_on": "Erledigt am",
                 "media": {
                     "added": "Mediendatei hinzugefügt",
                     "removed": "Mediendatei entfernt.",
@@ -1279,7 +1278,7 @@ export default {
                     "done": "Erledigt",
                     "archived": "Archiviert",
                     "solved": "Erledigte",
-                    "pending": "Ausstehende"
+                    "pending": "Hängige??"
                 },
                 "category_options": {
                     "disturbance": "Störung",
@@ -1374,7 +1373,7 @@ export default {
                 "visibility": {
                     "label": "Sichtbarkeit",
                     "tenant": "Nur ich",
-                    "quarter": "Quartal",
+                    "quarter": "Überbauung",
                     "building": "Liegenschaft"
                 },
                 "errors": {
@@ -1383,7 +1382,7 @@ export default {
                     "provider_not_found": "Dienstleister nicht gefunden",
                     "tag_not_found": "Tag nicht gefunden",
                     "user_not_found": "Benutzer nicht gefunden",
-                    "conversation_not_found": "Konversation nicht gefunden",
+                    "conversation_not_found": "Mitteilung(en) nicht gefunden",
                     "statistics_error": "Statistik-Fehler: ",
                     "internal_notice_not_found": "Interne Notiz nicht gefunden",
                     "deleted": "Service Request gelöschter Fehler: "
@@ -1482,7 +1481,7 @@ export default {
                 "visibility": {
                     "label": "Sichtbarkeit",
                     "address": "Meine Nachbarn",
-                    "quarter": "Quartal",
+                    "quarter": "Überbauung",
                     "all": "Alle App-Nutzer"
                 }
             },
