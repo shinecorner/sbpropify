@@ -17,6 +17,8 @@ export default (config = {}) => {
                 remoteLoading: false,
                 toAssignList: [],
                 buildings: [],
+                buildingId: '',
+                buildingName: '',
                 model: {
                     tenant_id: '',
                     name: '',
@@ -108,9 +110,7 @@ export default (config = {}) => {
                 }
             },
             async remoteSearchTenants(search) {
-                if (search === '') {
-                    this.toAssignList = [];
-                } else {
+                if(search) {
                     this.remoteLoading = true;
 
                     try {

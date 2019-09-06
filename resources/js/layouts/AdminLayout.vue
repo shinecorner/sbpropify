@@ -976,3 +976,11 @@
         }
     }
 </style>
+<style lang="less">
+    .crud-view {
+        .el-card__header {
+            border-bottom: 1px solid #EBEEF5 !important;
+            font-size: 16px !important;
+        }
+    }
+</style>

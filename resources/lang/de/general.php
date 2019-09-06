@@ -145,7 +145,6 @@ return [
     'managers' => 'Bewirtschafter',
     'building' => 'Liegenschaft',
     'quarter' => 'Überbauung',
-    'district' => 'Überbauung',
     'administrator' => 'Verwalterin'
   ],
   'email' => 'E-Mail',

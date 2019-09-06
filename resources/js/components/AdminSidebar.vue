@@ -159,6 +159,10 @@
             float: right;
         }
     }
+    .el-menu-item.is-active {
+        color: var(--color-text-primary) !important;
+        font-weight: bolder;
+    }
 </style>
 
 
