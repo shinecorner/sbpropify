@@ -93,7 +93,7 @@
                     select: {
                         icon: 'ti-pencil',
                         data: [],
-                        getter: "application/posts",
+                        getter: "posts",
                         onChange: this.listingSelectChangedNotify
                     }
                 }, {
@@ -135,10 +135,12 @@
                 }
             }),
             formattedItems() {
+                const storeConstants = this.$store.getters['application/constants'].posts;
+                // console.log(this.$store.getters)
                 return this.items.map((post) => {
                     // post.formatted_status_label = this.$t(`models.post.status.${post.status_label}`);
-                    post.formatted_visibility_label = this.$t(`models.post.visibility.${post.visibility_label}`);
-                    post.formatted_type_label = this.$t(`models.post.type.${post.type_label}`);
+                    post.formatted_visibility_label = this.$t(`models.post.visibility.${storeConstants.visibility[post.visibility]}`);
+                    post.formatted_type_label = this.$t(`models.post.type.${storeConstants.type[post.type]}`);
                     return post;
                 });
             },

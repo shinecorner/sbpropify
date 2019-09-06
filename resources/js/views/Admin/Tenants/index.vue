@@ -85,7 +85,7 @@
                     select: {
                         icon: 'ti-pencil',
                         data: [],
-                        getter: "application/tenants",
+                        getter: "tenants",
                         onChange: this.listingSelectChangedNotify
                     }
                 }/*, {
