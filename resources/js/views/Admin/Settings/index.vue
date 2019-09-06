@@ -72,22 +72,22 @@
                                         <el-card header="PDF">
                                             <el-form-item class="switcher" prop="blank_pdf">
                                                 <label class="switcher__label">
-                                                    {{$t('models.user.blank_pdf')}}
-                                                    <span class="switcher__desc">{{$t('models.user.blank_pdf_desc')}}</span>
+                                                    {{$t('models.realEstate.blank_pdf')}}
+                                                    <span class="switcher__desc">{{$t('models.realEstate.blank_pdf_desc')}}</span>
                                                 </label>
                                                 <el-switch v-model="model.blank_pdf"/>
                                             </el-form-item>
-                                            <el-form-item>
+                                            <el-form-item prop="model.pdf_font_family">
                                                 <label class="card-label">
-                                                    {{$t('models.user.font_family')}}
+                                                    {{$t('models.realEstate.font_family')}}
                                                 </label>
                                                 <el-select
                                                            style="display: block"
-                                                           v-model="model.font">
+                                                           v-model="model.pdf_font_family">
                                                     <el-option :key="font.id"
                                                                :style="`font-family: '${font.label}';`"
                                                                :label="font.label"
-                                                               :value="font.value"
+                                                               :value="font.label"
                                                                v-for="font in fonts"></el-option>
                                                 </el-select>
                                             </el-form-item>
@@ -152,12 +152,6 @@
                                                               prop="comment_update_timeout">
                                                     <el-input autocomplete="off" type="number"
                                                               v-model="model.comment_update_timeout"></el-input>
-                                                </el-form-item>
-                                            </el-col>
-                                            <el-col :md="12">
-                                                <el-form-item :label="$t('models.realEstate.cleanify_email')"
-                                                              :rules="validationRules.cleanify_email" prop="cleanify_email">
-                                                    <el-input type="email" v-model="model.cleanify_email"></el-input>
                                                 </el-form-item>
                                             </el-col>
                                         </el-row>
@@ -254,15 +248,15 @@
                             </el-form>
                         </el-tab-pane>
                         <el-tab-pane :label="$t('menu.marketplace')" name="iframe">
-                            <el-button class="save-tab" @click="saveRealEstate('iframeSettingsForm')" icon="ti-save"
+                            <el-button class="save-tab" @click="saveRealEstate('marketplaceSettingsForm')" icon="ti-save"
                                        type="primary">
                                 {{$t('general.actions.save')}}
                             </el-button>
-                            <el-row :gutter="20">
-                                <el-col :md="12">
-                                    <el-card>
-                                        <el-form :model="model" :rules="validationRules"
-                                                 ref="iframeSettingsForm">
+                            <el-form :model="model" :rules="validationRules"
+                                     ref="marketplaceSettingsForm">
+                                <el-card class="marketplace-card">
+                                    <el-row :gutter="20">
+                                        <el-col :md="8">
                                             <el-form-item class="switcher"
                                                           prop="contact_enable">
                                                 <label class="switcher__label">
@@ -278,10 +272,23 @@
                                                 <el-input autocomplete="off" type="text"
                                                           v-model="model.iframe_url"></el-input>
                                             </el-form-item>
-                                        </el-form>
-                                    </el-card>
-                                </el-col>
-                            </el-row>
+                                        </el-col>
+                                        <el-col :md="8">
+                                            <el-form-item :label="$t('models.realEstate.gocaution')">
+                                                <div>
+                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid, delectus doloribus iusto molestias quam.
+                                                </div>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :md="8">
+                                            <el-form-item :label="$t('models.realEstate.cleanify_email')"
+                                                          :rules="validationRules.cleanify_email" prop="cleanify_email">
+                                                <el-input type="email" v-model="model.cleanify_email"></el-input>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                </el-card>
+                            </el-form>
                         </el-tab-pane>
                         <el-tab-pane :label="$t('models.realEstate.theme')" name="theme">
                             <el-button class="save-tab" @click="saveRealEstate('themeSettingsForm')" icon="ti-save"
@@ -484,7 +491,7 @@
                     primary_color: '',
                     login_variation: '',
                     login_variation_2_slider: false,
-                    font: '1',
+                    pdf_font_family: '',
                 },
                 logo_upload_img: '',
                 circle_logo_upload_img: '',
@@ -500,11 +507,9 @@
                     'ssl'
                 ],
                 fonts: [{
-                    label: 'Arial',
-                    value: '1'
+                    label: 'Arial'
                 }, {
-                    label: 'Times New Roman',
-                    value: '2'
+                    label: 'Times New Roman'
                 }]
             }
         },
@@ -1054,6 +1059,19 @@
         display: flex;
         align-items: center;
         margin-right: 20px;
+    }
+
+    .marketplace-card .el-form-item {
+        .el-form-item__label {
+            display: block;
+            margin-bottom: 5px;
+            line-height: 20px;
+            float: none;
+            text-align: left;
+        }
+        .el-form-item__content {
+            line-height: 28px;
+        }
     }
 
 </style>
