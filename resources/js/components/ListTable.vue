@@ -571,7 +571,6 @@
                 return false;
             },
             handleSelectionChange(val) {
-                console.log(val);
                 this.selectedItems = val;
                 this.$emit('selectionChanged', this.selectedItems);
             },

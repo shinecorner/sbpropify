@@ -110,7 +110,9 @@ export default (config = {}) => {
                 }
             },
             async remoteSearchTenants(search) {
-                if(search) {
+                if (search === '') {
+                    this.toAssignList = [];
+                } else {
                     this.remoteLoading = true;
 
                     try {
