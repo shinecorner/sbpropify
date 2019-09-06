@@ -239,7 +239,7 @@ class QuarterAPIController extends AppBaseController
             return $this->sendError(__('models.quarter.errors.not_found'));
         }
 
-        $quarter = $this->quarterRepository->update($input, $id);
+        $quarter = $this->quarterRepository->updateExisting($quarter, $input);
 
         $response = (new QuarterTransformer)->transform($quarter);
         return $this->sendResponse($response, __('models.quarter.saved'));
