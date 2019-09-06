@@ -618,6 +618,7 @@
                     this.logout()
                         .then(() => {
                             //console.log('routing changes to login');
+                            console.log('main route change', localStorage.token);
                             this.$router.push({name: 'login'});
                         })
                         .catch(err => {

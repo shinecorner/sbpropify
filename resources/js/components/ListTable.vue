@@ -626,7 +626,11 @@
             "$route.query": {
                 immediate: true,
                 handler({page, per_page}, prevQuery) {
-                    
+                    if(this.$route.name == "login") {
+                        return;
+                    }
+                    console.log('route change', page, per_page, prevQuery)
+                    console.log('url', this.$route.name);
                     if (!page || !per_page && prevQuery) {
                         this.page.currPage = 1;
                         this.page.currSize = 20;
@@ -641,6 +645,7 @@
                     this.page.currSize = per_page < 1 ? this.pagination.currSize : per_page;
 
                     prevQuery && this.syncUrl();
+                    
                     this.fetch(this.page.currPage, this.page.currSize);
                 }
             }
