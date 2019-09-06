@@ -51,8 +51,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          type="string"
  *      ),
  *      @SWG\Property(
+ *          property="tenant_logo",
+ *          description="tenant_logo",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
  *          property="favicon_icon",
  *          description="favicon_icon",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="pdf_font_family",
+ *          description="pdf_font_family",
  *          type="string"
  *      ),
  *      @SWG\Property(
@@ -127,7 +137,9 @@ class RealEstate extends AuditableModel
         'language',
         'logo',
         'circle_logo',
+        'tenant_logo',
         'favicon_icon',
+        'pdf_font_family',
         'blank_pdf',
         'quarter_enable',
         'contact_enable',
@@ -167,7 +179,9 @@ class RealEstate extends AuditableModel
         'language' => 'string',
         'logo' => 'string',
         'circle_logo' => 'string',
+        'tenant_logo' => 'string',
         'favicon_icon' => 'string',
+        'pdf_font_family' => 'string',
         'blank_pdf' => 'boolean',
         'quarter_enable' => 'boolean',
         'contact_enable' => 'boolean',

@@ -48,6 +48,9 @@ class ServiceProviderTransformer extends BaseTransformer
         if ($model->relationExists('user')) {
             $response['user'] = (new UserTransformer)->transform($model->user);
         }
+        if ($model->relationExists('settings')) {
+            $response['settings'] = $model->settings;
+        }
 
         if ($model->relationExists('address')) {
             $response['address'] = (new AddressTransformer)->transform($model->address);
