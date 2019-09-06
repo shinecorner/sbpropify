@@ -435,9 +435,12 @@
                 return this.header.filter((filter) => {
                     if (filter.select) {
                         if (filter.select.getter) {
-                            const storeConstants = this.$store.getters[filter.select.getter];
+                            // console.log(this.$store.getters);
+                            const storeConstants = this.$store.getters['application/constants'][filter.select.getter];
+                            console.log(storeConstants);
                             if (storeConstants) {
                                 const constants = storeConstants[filter.prop];
+                                console.log(constants);
                                 filter.select.data = Object.keys(constants).map((id) => {
                                     return {
                                         name: !filter.i18nPath ? constants[id] : this.$t(`${filter.i18nPath}.${constants[id]}`),
@@ -888,6 +891,9 @@
         #languageflag.flag-icon {
             padding-left: 20px;
         }
+    }
+    .el-table th>.cell, .el-table-column--selection .cell{
+        text-overflow: unset;
     }
     .el-table {
         tbody {

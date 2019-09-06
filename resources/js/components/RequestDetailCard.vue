@@ -210,8 +210,8 @@ export default {
                 m: Math.ceil(minutes % 60)
             }
         },
-        selectData() {
-            const storeConstants = this.$store.getters['application/requests'];
+        selectData() {                        
+            const storeConstants = this.$store.getters['application/constants'].serviceRequests;
             if (storeConstants) {
                 const constants = storeConstants['status'];
                 var data = Object.keys(constants).map((id) => {
