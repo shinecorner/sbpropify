@@ -259,7 +259,6 @@
     .mb20 {
         margin-bottom: 20px;
     }
-
     .contact-info-card {
         .contact-info-card-row {
             display: flex;
@@ -335,5 +334,8 @@
         margin-left: 5px;
         height: 18px;
         width: 6px;
+    }
+    .el-card .el-card__body, .el-card .el-card__header {
+        padding: 20px !important;
     }
 </style>
