@@ -8,7 +8,8 @@
                 <i class="icon-menu"></i>
             </div>
             <div class="logo-image">
-                <img src="~img/logo3.png"/>
+                <img src="~img/logo3.png" v-show="!logo"/>
+                <img :src="logo" v-show="logo"/>
             </div>
         </el-menu-item>
         <el-menu-item class="header-menu-links" index="content" v-if="hasSlot()">
@@ -23,6 +24,23 @@
         props: {
             toggleSidebar: { type: Function },
         },
+        data() {
+            return {
+                logo_src: '',
+            }
+        },
+        computed: {
+            logo() {
+                return this.logo_src ? `/${this.logo_src}` : '';
+            },
+        },
+        mounted() {
+            
+            this.$root.$on('fetch_logo', (logo) => {
+                this.logo_src = logo;
+            });
+
+        },
         methods: {
             hasSlot(slot) {
                 if (slot) {
@@ -35,6 +53,7 @@
                 this.toggleSidebar();
             }
         }
+        
     }
 </script>
 
