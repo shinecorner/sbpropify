@@ -1,6 +1,5 @@
 import axios from '../../../axios';
 import {buildFetchUrl} from "../../../helpers/url";
-import router from '../../../routes';
 
 export default {
     getUsers({commit}, payload) {
@@ -101,7 +100,6 @@ export default {
                     localStorage.removeItem('token');
                     //commit('SET_LOGGED_IN', false);
                     //commit('SET_LOGGED_IN_USER', {});
-                    //window.location.href = '/';
                 }
                 resolve();
             }).catch((response) => {
