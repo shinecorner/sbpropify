@@ -1,7 +1,6 @@
 export default {
     SET_USERS(state, users) {
         state.users = users;
-        console.log(users);
     },
     SET_LOGGED_IN(state, loggedIn) {
         state.loggedIn = loggedIn;

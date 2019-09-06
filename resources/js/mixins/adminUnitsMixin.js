@@ -285,7 +285,6 @@ export default (config = {}) => {
 
                         this.model = await this.getUnit({id: this.$route.params.id});
                         this.addedAssigmentList = [];
-                        console.log('tenants', this.model.tenants);
                         this.addedAssigmentList = this.model.tenants;
 
                         this.addedAssigmentList.map((user) => {
@@ -302,7 +301,7 @@ export default (config = {}) => {
                         //     this.$set(this.model, 'tenant_id', this.model.tenant.id);
                         //     this.remoteSearchTenants(`${this.model.tenant.first_name}`);
                         // }
-                        console.log('building', this.model);
+                        
                         this.buildings.push(this.model.building);
                         // if (config.withRelation && this.model.building_id) {
                         //     const building = await this.getBuilding({id: this.model.building_id});
