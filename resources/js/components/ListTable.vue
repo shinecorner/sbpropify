@@ -629,14 +629,15 @@
                     if(this.$route.name == "login") {
                         return;
                     }
-                    
+
                     if (!page || !per_page && prevQuery) {
                         this.page.currPage = 1;
                         this.page.currSize = 20;
+                        this.filterModel = {};
 
                         return this.syncUrl();
                     }
-
+                    
                     page = parseInt(page);
                     per_page = parseInt(per_page);
 
