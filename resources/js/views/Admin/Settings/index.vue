@@ -8,15 +8,16 @@
 
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
                     <el-tabs type="border-card" v-model="activeSettingsName">
-                        <el-tab-pane :label="$t('general.actions.view')" name="details">
-                            <el-button class="save-tab" @click="saveRealEstate('realEstateDetailsForm')" icon="ti-save" type="primary">
+                        <el-tab-pane :label="$t('models.realEstate.settings')" name="settings_settings">
+                            <el-button class="save-tab" @click="saveRealEstate('realEstateSettingsForm')" icon="ti-save" type="primary">
                                 {{$t('general.actions.save')}}
                             </el-button>
-
-                            <el-form :model="model" ref="realEstateDetailsForm">
+                            <el-form :model="model" :rules="validationRules"
+                                     ref="realEstateSettingsForm">
                                 <el-row :gutter="20">
                                     <el-col :md="12">
-                                        <el-card>
+
+                                        <el-card :header="$t('general.actions.view')">
                                             <el-row :gutter="20">
                                                 <el-col :md="12">
                                                     <el-form-item :label="$t('general.name')" :rules="validationRules.name" prop="name">
@@ -43,89 +44,53 @@
                                                 </el-col>
                                             </el-row>
                                             <el-row :gutter="20">
-                                                    <el-col :md="4">
-                                                        <el-form-item :label="$t('general.zip')" :rules="validationRules.zip" prop="address.zip">
-                                                            <el-input autocomplete="off" type="text" v-model="model.address.zip"></el-input>
-                                                        </el-form-item>
-                                                    </el-col>
-                                                    <el-col :md="8">
-                                                        <el-form-item :label="$t('general.city')" :rules="validationRules.city"
-                                                                      prop="address.city">
-                                                            <el-input autocomplete="off" type="text" v-model="model.address.city"></el-input>
-                                                        </el-form-item>
-                                                    </el-col>
-                                                    <el-col :md="12">
-                                                        <el-form-item :rules="validationRules.state_id"
-                                                                      prop="address.state.id">
-                                                            <label class="card-label">{{$t('models.address.state.label')}}</label>
-                                                            <el-select :placeholder="$t('models.address.state.label')" style="display: block"
-                                                                       v-model="model.address.state.id">
-                                                                <el-option :key="state.id" :label="state.name" :value="state.id"
-                                                                           v-for="state in states"></el-option>
-                                                            </el-select>
-                                                        </el-form-item>
-                                                    </el-col>
-                                                </el-row>
-                                        </el-card>
-                                    </el-col>
-                                </el-row>
-                            </el-form>
-                        </el-tab-pane>
-                        <el-tab-pane :label="$t('models.realEstate.settings')" name="settings_settings">
-                            <el-button class="save-tab" @click="saveRealEstate('realEstateSettingsForm')" icon="ti-save" type="primary">
-                                {{$t('general.actions.save')}}
-                            </el-button>
-                            <el-form :model="model" :rules="validationRules"
-                                     ref="realEstateSettingsForm">
-                                <el-row :gutter="20">
-                                    <el-col :md="12">
-                                        <el-card>
-                                            <el-form-item class="switcher" prop="blank_pdf">
-                                                <label class="switcher__label">
-                                                    {{$t('models.user.blank_pdf')}}
-                                                    <span class="switcher__desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
-                                                </label>
-                                                <el-switch v-model="model.blank_pdf"/>
-                                            </el-form-item>
-                                            <!-- <el-form-item :label="$t('models.realEstate.quarter_enable')" prop="quarter_enable">
-                                                <el-switch v-model="model.quarter_enable"/>
-                                            </el-form-item>
-                                            <el-form-item :label="$t('models.realEstate.marketplace_approval_enable')"
-                                                          prop="marketplace_approval_enable">
-                                                <el-switch v-model="model.marketplace_approval_enable"/>
-                                            </el-form-item> -->
-                                            <el-form-item class="switcher"
-                                                          prop="news_approval_enable">
-                                                <label class="switcher__label">
-                                                    {{$t('models.realEstate.news_approval_enable')}}
-                                                    <span class="switcher__desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem in nam quaerat tenetur vel. Unde, voluptatibus?</span>
-                                                </label>
-                                                <el-switch v-model="model.news_approval_enable"/>
-                                            </el-form-item>
-                                            <el-form-item class="switcher"
-                                                          prop="contact_enable">
-                                                <label class="switcher__label">
-                                                    {{$t('models.realEstate.contact_enable')}}
-                                                    <span class="switcher__desc">Lorem ipsum dolor.</span>
-                                                </label>
-                                                <el-switch v-model="model.contact_enable"/>
-                                            </el-form-item>
-                                            <el-row :gutter="20">
-                                                <el-col :md="12">
-                                                    <el-form-item :label="$t('models.realEstate.comment_update_timeout')"
-                                                                  :rules="validationRules.comment_update_timeout"
-                                                                  prop="comment_update_timeout">
-                                                        <el-input autocomplete="off" type="number"
-                                                                  v-model="model.comment_update_timeout"></el-input>
+                                                <el-col :md="4">
+                                                    <el-form-item :label="$t('general.zip')" :rules="validationRules.zip" prop="address.zip">
+                                                        <el-input autocomplete="off" type="text" v-model="model.address.zip"></el-input>
+                                                    </el-form-item>
+                                                </el-col>
+                                                <el-col :md="8">
+                                                    <el-form-item :label="$t('general.city')" :rules="validationRules.city"
+                                                                  prop="address.city">
+                                                        <el-input autocomplete="off" type="text" v-model="model.address.city"></el-input>
                                                     </el-form-item>
                                                 </el-col>
                                                 <el-col :md="12">
-                                                    <el-form-item :label="$t('models.realEstate.cleanify_email')"
-                                                                  :rules="validationRules.cleanify_email" prop="cleanify_email">
-                                                        <el-input type="email" v-model="model.cleanify_email"></el-input>
+                                                    <el-form-item :rules="validationRules.state_id"
+                                                                  prop="address.state.id">
+                                                        <label class="card-label">{{$t('models.address.state.label')}}</label>
+                                                        <el-select :placeholder="$t('models.address.state.label')" style="display: block"
+                                                                   v-model="model.address.state.id">
+                                                            <el-option :key="state.id" :label="state.name" :value="state.id"
+                                                                       v-for="state in states"></el-option>
+                                                        </el-select>
                                                     </el-form-item>
                                                 </el-col>
                                             </el-row>
+                                        </el-card>
+
+                                        <el-card header="PDF">
+                                            <el-form-item class="switcher" prop="blank_pdf">
+                                                <label class="switcher__label">
+                                                    {{$t('models.user.blank_pdf')}}
+                                                    <span class="switcher__desc">{{$t('models.user.blank_pdf_desc')}}</span>
+                                                </label>
+                                                <el-switch v-model="model.blank_pdf"/>
+                                            </el-form-item>
+                                            <el-form-item>
+                                                <label class="card-label">
+                                                    {{$t('models.user.font_family')}}
+                                                </label>
+                                                <el-select
+                                                           style="display: block"
+                                                           v-model="model.font">
+                                                    <el-option :key="font.id"
+                                                               :style="`font-family: '${font.label}';`"
+                                                               :label="font.label"
+                                                               :value="font.value"
+                                                               v-for="font in fonts"></el-option>
+                                                </el-select>
+                                            </el-form-item>
                                         </el-card>
                                     </el-col>
                                     <el-col :md="12">
@@ -156,7 +121,49 @@
                                     <!--                            </el-form>-->
                                     <!--                        </el-card>-->
 
-                                    <el-card>
+                                    <el-card :header="$t('models.realEstate.settings')">
+                                        <!-- <el-form-item :label="$t('models.realEstate.quarter_enable')" prop="quarter_enable">
+                                            <el-switch v-model="model.quarter_enable"/>
+                                        </el-form-item>
+                                        <el-form-item :label="$t('models.realEstate.marketplace_approval_enable')"
+                                                      prop="marketplace_approval_enable">
+                                            <el-switch v-model="model.marketplace_approval_enable"/>
+                                        </el-form-item> -->
+                                        <el-form-item class="switcher"
+                                                      prop="news_approval_enable">
+                                            <label class="switcher__label">
+                                                {{$t('models.realEstate.news_approval_enable')}}
+                                                <span class="switcher__desc">{{$t('models.realEstate.news_approval_enable_desc')}}</span>
+                                            </label>
+                                            <el-switch v-model="model.news_approval_enable"/>
+                                        </el-form-item>
+                                        <el-form-item class="switcher"
+                                                      prop="contact_enable">
+                                            <label class="switcher__label">
+                                                {{$t('models.realEstate.contact_enable')}}
+                                                <span class="switcher__desc">{{$t('models.realEstate.contact_enable_desc')}}</span>
+                                            </label>
+                                            <el-switch v-model="model.contact_enable"/>
+                                        </el-form-item>
+                                        <el-row :gutter="20">
+                                            <el-col :md="12">
+                                                <el-form-item :label="$t('models.realEstate.comment_update_timeout')"
+                                                              :rules="validationRules.comment_update_timeout"
+                                                              prop="comment_update_timeout">
+                                                    <el-input autocomplete="off" type="number"
+                                                              v-model="model.comment_update_timeout"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :md="12">
+                                                <el-form-item :label="$t('models.realEstate.cleanify_email')"
+                                                              :rules="validationRules.cleanify_email" prop="cleanify_email">
+                                                    <el-input type="email" v-model="model.cleanify_email"></el-input>
+                                                </el-form-item>
+                                            </el-col>
+                                        </el-row>
+                                    </el-card>
+
+                                    <el-card header="SMTP">
                                         <el-row :gutter="20">
                                             <el-col :md="12">
                                                 <el-form-item :label="$t('models.realEstate.mail_from_name.label')"
@@ -246,7 +253,7 @@
                                 </el-row>
                             </el-form>
                         </el-tab-pane>
-                        <el-tab-pane :label="$t('models.realEstate.iframe')" name="iframe">
+                        <el-tab-pane :label="$t('menu.marketplace')" name="iframe">
                             <el-button class="save-tab" @click="saveRealEstate('iframeSettingsForm')" icon="ti-save"
                                        type="primary">
                                 {{$t('general.actions.save')}}
@@ -260,7 +267,7 @@
                                                           prop="contact_enable">
                                                 <label class="switcher__label">
                                                     {{$t('models.realEstate.iframe_enable')}}
-                                                    <span class="switcher__desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
+                                                    <span class="switcher__desc">{{$t('models.realEstate.iframe_enable_desc')}}</span>
                                                 </label>
                                                 <el-switch v-model="model.iframe_enable"/>
                                             </el-form-item>
@@ -283,9 +290,9 @@
                             </el-button>
                             <el-form :model="model" :rules="validationRules"
                                      ref="themeSettingsForm">
-                                <el-card>
-                                    <el-row :gutter="20">
-                                        <el-col :md="12">
+                                <el-row :gutter="20">
+                                    <el-col :md="12">
+                                        <el-card>
                                             <el-form-item :label="$t('models.user.logo')">
                                                 <cropper @cropped="setLogoUpload"/>
                                                 <img :src="realEstateLogo" ref="realEstateLogo"
@@ -303,8 +310,48 @@
                                                         v-model="model.accent_color">
                                                 </el-color-picker>
                                             </el-form-item>
-                                        </el-col>
-                                        <el-col :md="12">
+                                        </el-card>
+                                    </el-col>
+                                </el-row>
+                            </el-form>
+                        </el-tab-pane>
+                    </el-tabs>
+                </div>
+
+            </el-tab-pane>
+            <el-tab-pane name="requests">
+                <template slot="label"><i class="icon icon-chat-empty"></i>{{$t('general.requests')}}</template>
+
+<!--                <heading :title="$t('general.requests')" class="custom-heading" icon="ti-settings" shadow="heavy" />-->
+
+                <div class="dashboard-tabpanel dashboard-tabpanel_left">
+                    <el-tabs type="border-card" v-model="activeRequestName">
+<!--                        <el-tab-pane :label="$t('models.realEstate.categories')" name="categories">-->
+<!--                            <CategoriesListing/>-->
+<!--                        </el-tab-pane>-->
+                        <el-tab-pane :label="$t('models.realEstate.templates')" name="templates">
+                            <TemplatesListing/>
+                        </el-tab-pane>
+                    </el-tabs>
+                </div>
+            </el-tab-pane>
+            <el-tab-pane name="tenants">
+                <template slot="label"><i class="icon icon-group"></i>{{$t('menu.tenants')}}</template>
+
+                <div class="dashboard-tabpanel dashboard-tabpanel_left">
+                    <el-tabs type="border-card" v-model="activeTenantsName">
+                        <el-tab-pane :label="$t('models.realEstate.login_variations')" name="login_variations">
+                            <el-button class="save-tab" @click="saveRealEstate('tenantsLoginVariationsForm')" icon="ti-save"
+                                       type="primary">
+                                {{$t('general.actions.save')}}
+                            </el-button>
+
+                            <el-form :model="model" :rules="validationRules"
+                                     ref="tenantsLoginVariationsForm">
+
+                                <el-row :gutter="20">
+                                    <el-col :md="12">
+                                        <el-card>
                                             <el-radio-group class="login-radio-group" v-model="model.login_variation">
                                                 <el-row :gutter="20">
                                                     <el-col :md="12">
@@ -336,27 +383,10 @@
                                                 <label class="switcher__label">{{$t('models.realEstate.login_variation_slider')}}</label>
                                                 <el-switch v-model="model.login_variation_2_slider"/>
                                             </el-form-item>
-                                        </el-col>
-                                    </el-row>
-                                </el-card>
+                                        </el-card>
+                                    </el-col>
+                                </el-row>
                             </el-form>
-                        </el-tab-pane>
-                    </el-tabs>
-                </div>
-
-            </el-tab-pane>
-            <el-tab-pane name="requests">
-                <template slot="label"><i class="icon icon-chat-empty"></i>{{$t('general.requests')}}</template>
-
-<!--                <heading :title="$t('general.requests')" class="custom-heading" icon="ti-settings" shadow="heavy" />-->
-
-                <div class="dashboard-tabpanel dashboard-tabpanel_left">
-                    <el-tabs type="border-card" v-model="activeRequestName">
-<!--                        <el-tab-pane :label="$t('models.realEstate.categories')" name="categories">-->
-<!--                            <CategoriesListing/>-->
-<!--                        </el-tab-pane>-->
-                        <el-tab-pane :label="$t('models.realEstate.templates')" name="templates">
-                            <TemplatesListing/>
                         </el-tab-pane>
                     </el-tabs>
                 </div>
@@ -409,15 +439,24 @@
                     primary_color: '',
                     login_variation: '',
                     login_variation_2_slider: false,
+                    font: '1',
                 },
                 activeName: 'settings',
-                activeSettingsName: 'details',
+                activeSettingsName: 'settings_settings',
                 activeRequestName: 'templates',
+                activeTenantsName: 'login_variations',
                 states: [],
                 mailEncryption: [
                     'tls',
                     'ssl'
                 ],
+                fonts: [{
+                    label: 'Arial',
+                    value: '1'
+                }, {
+                    label: 'Times New Roman',
+                    value: '2'
+                }]
             }
         },
         async created() {
@@ -552,7 +591,200 @@
     }
 
 </script>
+
 <style lang="scss">
+    .dashboard-tabpanel{
+        .el-tabs--border-card > .el-tabs__header .el-tabs__item{
+            flex-basis: 0;
+            -webkit-box-flex: 1;
+            flex-grow: 1;
+            text-align: center;
+            color: #495057;
+            cursor: pointer;
+            font-weight:400;
+            -webkit-box-align: center;
+            align-items: center;
+            text-align: center;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 0 13px !important;
+
+            &.is-active, &:hover{
+                background: #6AC06F;
+                //border-radius: 120px;
+                border-right-color: none;
+                border-left-color: none;
+                -ms-flex-positive: 1;
+                color: #fff !important;
+                transition: background-color .3s ease,color .3s ease !important;
+            }
+
+            &:first-child {
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+
+            &:last-child {
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+        }
+        .el-tabs__nav {
+            float: none;
+            text-align: center;
+            border-radius: 120px;
+            padding: .75rem;
+            display: flex;
+            flex-wrap: wrap;
+            width: fit-content;
+            margin: 1.5rem 0 1.5em auto;
+
+            @media screen and (max-width: 1000px) {
+                margin: 1.5rem auto;
+            }
+        }
+        .el-tabs--border-card{
+            background:none;
+        }
+        .el-tabs--border-card{
+            border: none;
+            background: none;
+            box-shadow: none;
+        }
+        .el-tabs--border-card > .el-tabs__header{
+            border-bottom: none !important;
+            background: none !important;
+        }
+        .chart-card{
+            //height: 420px;
+
+            overflow: visible;
+
+            .el-card__header {
+                padding: 15px;
+                font-size: 15px;
+            }
+
+            .dashboard-table {
+                position: relative;
+
+                .link-container {
+                    position: absolute;
+                    top: -55px;
+                    right: 0px;
+                    text-align: right;
+                    padding: 20px 15px;
+                    font-size: 14px;
+
+                    a {
+                        text-decoration: none;
+                        color: #525252;
+
+                        &:hover {
+                            color: #303133;
+                        }
+                    }
+                }
+            }
+
+            .chart-filter {
+                display: flex;
+                align-items: center;
+
+                &.in-toolbar {
+                    position: absolute;
+                    top: -42px;
+                    right: 50px;
+
+                    background-color: transparent;
+                    border-bottom: none;
+                    padding: 0;
+                }
+
+                .el-radio-button__inner {
+                    padding: 8px 12px;
+                    font-weight: 400;
+                }
+
+                .el-date-editor {
+                    width: 135px;
+
+                    .el-input__inner {
+                        height: 33px;
+                        line-height: 33px;
+                    }
+
+                    .el-input__icon {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        &.el-range__close-icon {
+                            display: none;
+                        }
+                    }
+                }
+
+                .el-date-editor--week {
+                    width: 160px;
+
+                    input {
+                        text-align: center;
+                        padding-right: 10px;
+                    }
+
+                    .el-input__suffix {
+                        display: none;
+                    }
+                }
+
+                .el-range-editor {
+                    width: 250px;
+                    padding: 0 0 0 7px;
+                    height: 32px;
+                    line-height: 32px;
+
+                    .el-range-separator {
+                        width: 6%;
+                    }
+                }
+            }
+
+            .apexcharts-toolbar {
+                // margin-top: -88px;
+                margin-top: -38px;
+                margin-right: 7px;
+                .apexcharts-menu.open {
+                    right: 7px;
+                }
+            }
+
+            .apexcharts-legend.center.position-bottom {
+                padding-top: 10px;
+            }
+
+            .el-tabs {
+                .el-tabs__header {
+                    margin-bottom: 0;
+                    .el-tabs__nav {
+                        margin: 0;
+                        padding: 6px 0;
+                        margin-left: 15px;
+
+                        .el-tabs__item {
+                            font-size: 15px;
+                            font-weight: 400;
+                        }
+                    }
+                }
+
+                .el-tabs__content {
+                    overflow: visible;
+                }
+            }
+        }
+    }
+
     .mt-20 {
         margin-top: 20px;
     }
