@@ -128,9 +128,13 @@ class AppBaseController extends Controller
 
         if (in_array(PropertyManager::class, $classes)) {
             $data += $this->getAssignedManagersBy($assignees);
-        } elseif (in_array(User::class, $classes)) {
+        }
+
+        if (in_array(User::class, $classes)) {
             $data += $this->getAssignedUsersBy($assignees);
-        } else if (in_array(ServiceProvider::class, $classes)) {
+        }
+
+        if (in_array(ServiceProvider::class, $classes)) {
             $data += $this->getAssignedProvidersBy($assignees);
         }
 
