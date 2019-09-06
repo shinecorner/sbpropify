@@ -86,7 +86,7 @@ class UtilsAPIController extends AppBaseController
             'languages' => $languages,
         ];
 
-        $re = App\Models\RealEstate::first(['primary_color', 'accent_color', 'logo', 'circle_logo', 'favicon_icon']);
+        $re = App\Models\RealEstate::first(['primary_color', 'accent_color', 'logo', 'circle_logo', 'tenant_logo', 'favicon_icon']);
 
         if ($re) {
             $colors = $re->only(['primary_color', 'accent_color']);
@@ -98,12 +98,13 @@ class UtilsAPIController extends AppBaseController
         }
 
         if ($re) {
-            $logo = $re->only(['logo', 'circle_logo', 'favicon_icon']);
+            $logo = $re->only(['logo', 'circle_logo', 'favicon_icon', 'tenant_logo']);
         } else {
             $logo = [
                 'logo' => null,
                 'circle_logo' => null,
                 'favicon_icon' => null,
+                'tenant_logo' => null,
             ];
         }
         $response = [
