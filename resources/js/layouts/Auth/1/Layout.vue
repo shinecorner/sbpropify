@@ -212,12 +212,6 @@
     }
 </style>
 <style lang="less">
-    .crud-view {
-        .el-card__header {
-            border-bottom: 1px solid #EBEEF5 !important;
-            font-size: 16px !important;
-        }
-    }
     @media screen and (max-height: 950px) {
         .activate-account-container {
             .el-form-item__label {

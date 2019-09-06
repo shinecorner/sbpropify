@@ -200,7 +200,7 @@
                                 </el-col>
                             </el-row>
 
-                            <el-tabs v-model="activeTab1">
+                            <el-tabs type="card" v-model="activeTab1">
 
                                 <el-tab-pane :label="$t('models.request.request_details')" name="request_details">
                                     <el-form-item :label="$t('models.request.prop_title')" :rules="validationRules.title"
@@ -707,6 +707,10 @@
                 }
             }
         }
+    }
+
+    #tab-request_images {
+        padding-right: 40px !important;
     }
 
 
