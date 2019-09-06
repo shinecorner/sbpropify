@@ -85,7 +85,7 @@
         },
         data() {
             return {
-                postConstants: this.$store.getters['application/constants'].posts,
+                postConstants: this.$constants.posts,
             }
         }
     }

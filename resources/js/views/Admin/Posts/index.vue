@@ -134,8 +134,8 @@
                     return state.constants.posts;
                 }
             }),
-            formattedItems() {
-                const storeConstants = this.$store.getters['application/constants'].posts;
+            formattedItems() {                
+                const storeConstants = this.$constants.posts;
                 // console.log(this.$store.getters)
                 return this.items.map((post) => {
                     // post.formatted_status_label = this.$t(`models.post.status.${post.status_label}`);

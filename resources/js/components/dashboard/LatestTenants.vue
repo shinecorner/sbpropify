@@ -69,7 +69,7 @@
         },
         computed: {
             tenantConstants() {
-                return this.$store.getters['application/constants'].tenants;
+                return this.$constants.tenants;
             },
         },
         methods: {
