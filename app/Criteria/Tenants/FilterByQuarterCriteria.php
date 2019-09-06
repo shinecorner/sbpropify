@@ -35,7 +35,7 @@ class FilterByQuarterCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $did = $this->request->get('quarter_id', null) ?? $this->request->get('district_id', null);
+        $did = $this->request->get('quarter_id', null);
         if ($did) {
             $model->join('buildings', 'buildings.id', '=', 'tenants.building_id')
                 ->where('buildings.quarter_id', $did);

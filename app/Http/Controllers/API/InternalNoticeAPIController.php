@@ -10,7 +10,7 @@ use App\Repositories\InternalNoticeRepository;
 use App\Transformers\InternalNotesTransformer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use Response;
+use Illuminate\Support\Facades\Response;
 
 /**
  * Class InternalNoticeController
@@ -186,8 +186,9 @@ class InternalNoticeAPIController extends AppBaseController
         if (empty($internalNotice)) {
             return $this->sendError(__('models.request.errors.internal_notice_not_found'));
         }
-
-        return $this->sendResponse($internalNotice->toArray(), 'Internal Notice retrieved successfully');
+        $internalNotice->load('user');
+        $response = (new InternalNotesTransformer())->transform($internalNotice);
+        return $this->sendResponse($response, 'Internal Notice retrieved successfully');
     }
 
     /**

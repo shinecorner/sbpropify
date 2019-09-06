@@ -36,7 +36,6 @@ class BuildingTransformer extends BaseTransformer
             'attic' => $model->attic,
             'created_at' => $model->created_at->format('Y-m-d'),
             'quarter_id' => $model->quarter_id,
-            'district_id' => $model->quarter_id,
 
             'units_count' => $model->units_count,
             'tenants_count' => 0,
@@ -55,7 +54,6 @@ class BuildingTransformer extends BaseTransformer
 
         if ($model->relationExists('quarter')) {
             $response['quarter'] = (new QuarterTransformer)->transform($model->quarter);
-            $response['district'] = $response['quarter'];
         }
 
         if(! is_null($model->getAttribute('active_tenants_count'))) {

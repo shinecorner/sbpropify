@@ -116,8 +116,7 @@
             :element-loading-text="loading.text"
             :empty-text="emptyText"
             @selection-change="handleSelectionChange"
-            v-loading="loading.state"
-            @row-click="editLink">
+            v-loading="loading.state">
             <el-table-column
                 type="selection"
                 v-if="withCheckSelection"
@@ -159,11 +158,18 @@
             >
                 <template slot-scope="scope">
                     <component :class="{'listing-link': column.withLinks}" :is="column.withLinks ? 'router-link':'div'"
-                               :key="prop" :to="buildRouteObject(column.route, scope.row)"
+                               :key="prop" :to="{name: 'adminUnits', query: { page : 1, per_page : 20, building_id : scope.row.id }}"
                                v-for="(prop, ind) in column.props" v-if="scope.row[prop]">
                         {{scope.row[prop]}}
                     </component>
                 </template>
+                <!-- <template slot-scope="scope">
+                    <component :class="{'listing-link': column.withLinks}" :is="column.withLinks ? 'router-link':'div'"
+                               :key="prop" :to="buildRouteObject(column.route, scope.row)"
+                               v-for="(prop, ind) in column.props" v-if="scope.row[prop]">
+                        {{scope.row[prop]}}
+                    </component>
+                </template> -->
             </el-table-column>
 
             <el-table-column
@@ -609,13 +615,6 @@
                 } finally {
                     filter.remoteSearch = false;
                 }
-            },
-            editLink(row, column, cell, event) {
-                if(column.label === 'Units')
-                {
-                    let building_id = row.id;
-                    this.$router.push({ name: 'adminUnits', query: { page : 1, per_page : 20, building_id : building_id } });
-                }
             }
         },
         watch: {
@@ -630,14 +629,18 @@
             "$route.query": {
                 immediate: true,
                 handler({page, per_page}, prevQuery) {
-                    
+                    if(this.$route.name == "login") {
+                        return;
+                    }
+
                     if (!page || !per_page && prevQuery) {
                         this.page.currPage = 1;
                         this.page.currSize = 20;
+                        this.filterModel = {};
 
                         return this.syncUrl();
                     }
-
+                    
                     page = parseInt(page);
                     per_page = parseInt(per_page);
 
@@ -645,6 +648,7 @@
                     this.page.currSize = per_page < 1 ? this.pagination.currSize : per_page;
 
                     prevQuery && this.syncUrl();
+                    
                     this.fetch(this.page.currPage, this.page.currSize);
                 }
             }
@@ -655,9 +659,10 @@
             }
 
             _.each(this.filters, (filter) => {
-                const queryFilterValue = this.$route.query[filter.key];
+                let queryFilterValue = this.$route.query[filter.key];
+                
                 const dateReg = /^\d{2}([./-])\d{2}\1\d{4}$/;
-                const value = queryFilterValue && queryFilterValue.match(dateReg) ? queryFilterValue : parseInt(queryFilterValue);
+                const value = queryFilterValue && queryFilterValue.toString().match(dateReg) ? queryFilterValue : parseInt(queryFilterValue);
                 this.$set(this.filterModel, filter.key, value);
 
                 if (!this.filterModel[filter.key]) {

@@ -8,7 +8,7 @@
             </el-col>
             <el-col :span="12">
                 <div class="progress-bar">
-                    <el-progress :text-inside="true" :stroke-width="26" :color="color" :percentage="value*100/maxValue"></el-progress>
+                    <el-progress :text-inside="true" :stroke-width="20" :color="color" :percentage="value*100/maxValue"></el-progress>
                 </div>
             </el-col>
         </el-row>

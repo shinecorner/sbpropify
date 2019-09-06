@@ -5,7 +5,9 @@ export default {
     getUsers({commit}, payload) {
         return new Promise((resolve, reject) =>
             axios.get(buildFetchUrl('users', payload))
-                .then(({data: r}) => (r && commit('SET_USERS', r.data), resolve(r)))
+                .then(({data: r}) => (
+                    r && commit('SET_USERS', r.data), resolve(r))
+                )
                 .catch(({response: {data: err}}) => reject(err)));
     },
     getUser(_, {id}) {
@@ -94,14 +96,11 @@ export default {
     logout({dispatch, commit}) {
         return new Promise((resolve, reject) =>
             axios.get('auth/logout').then(({status}) => {
-                console.log('then:', status);
                 if (status === 200) {
                     localStorage.removeItem('token');
                     //commit('SET_LOGGED_IN', false);
                     //commit('SET_LOGGED_IN_USER', {});
-                    //window.location.href = '/';
                 }
-
                 resolve();
             }).catch((response) => {
                 console.log('error response', response);
