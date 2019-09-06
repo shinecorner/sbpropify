@@ -613,9 +613,11 @@
                 this.$confirm(this.$t('general.swal.logout_confirm'), this.$t('general.swal.delete.title'), {
                     type: 'warning'
                 }).then(() => {
+                    console.log('logout called');
                     //this.$router.push({name: 'login'});
                     this.logout()
                         .then(() => {
+                            //console.log('routing changes to login');
                             this.$router.push({name: 'login'});
                         })
                         .catch(err => {

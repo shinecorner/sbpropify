@@ -375,6 +375,7 @@
             }
         },
         created(){
+            console.log('admin view created');
             this.getReqStatastics();
         }
     }
