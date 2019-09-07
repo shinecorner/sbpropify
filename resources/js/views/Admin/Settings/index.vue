@@ -633,6 +633,7 @@
                         this.updateRealEstate(this.model).then((resp) => {
                             this.fetchRealEstate();
                             displaySuccess(resp);
+                            
                         }).catch((error) => {
                             displayError(error);
                         });
@@ -698,6 +699,10 @@
                 -ms-flex-positive: 1;
                 color: #fff !important;
                 transition: background-color .3s ease,color .3s ease !important;
+            }
+
+            &:hover{
+                background: var(--color-main-background-lighter);;
             }
 
             &:first-child {
@@ -900,7 +905,7 @@
                     margin-right: 8px;
                 }
                 &:hover {
-                    background: #f0f9f1;
+                    background: var(--color-main-background-lighter);
                 }
             }
         }

@@ -961,7 +961,7 @@
 
 
                         &:hover{
-                            background-color: #f0f9f1;
+                            background-color: var(--color-main-background-lighter);
                         }
 
                         span{
@@ -985,11 +985,12 @@
             font-size: 16px !important;
         }
     }
-    .el-button--primary:hover {
+    .el-button--primary:focus, .el-button--primary:hover {
         background: var(--color-main-background-lighter);
         border-color: var(--color-main-background-lighter);
         color: var(--primary-color);
     }
+    
     .el-button--default:hover {
         background: var(--color-main-background-lighter);
         border-color: var(--color-main-background-lighter);
