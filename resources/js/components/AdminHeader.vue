@@ -155,7 +155,7 @@
                 }
 
                 .dropdown-list-item-link.active{
-                    background-color: #f0f9f1;
+                    background-color: var(--color-main-background-lighter);
                     padding: 10px 100% 10px 10px;
                     margin-left: -10px;
                 }
@@ -205,7 +205,7 @@
     }
 
     .el-menu-item-d.is-active{
-        background-color: #f0f9f1 !important;
+        background-color: var(--color-main-background-lighter) !important;
     }
 
     .dropdown-menu .el-submenu{

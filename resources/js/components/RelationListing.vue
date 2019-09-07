@@ -335,14 +335,14 @@
     .request {
         .listing {
             .normal {
-                color: #6AC06F;
+                color: var(--color-main-background-lighter);
                 a {
                     text-decoration: none;
-                    color:#6AC06F;
+                    color:var(--color-main-background-lighter);;
                 }
                 &:hover {
                     text-decoration: none;
-                    color:#6AC06F;
+                    color:var(--color-main-background-lighter);
                 }
             }
         }

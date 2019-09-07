@@ -308,38 +308,38 @@
                                                 <upload-avatar @imageUploaded="setAvatarLogoUpload"/>
                                                 <img :src="logo_upload_img"
                                                      v-show="logo_upload_img"
-                                                     width="300px">
+                                                     >
                                                 <img :src="realEstateLogo" ref="realEstateLogo"
                                                      v-show="realEstateLogo && !logo_upload_img"
-                                                     width="300px">
+                                                    >
                                                 
                                             </el-form-item>
                                             <el-form-item :label="$t('models.user.circle_logo')">
                                                 <upload-avatar @imageUploaded="setCircleLogoUpload"/>
                                                 <img :src="circle_logo_upload_img"
                                                      v-show="circle_logo_upload_img"
-                                                     width="300px">
+                                                    >
                                                 <img :src="realEstateCircleLogo" ref="realEstateCircleLogo"
                                                      v-show="realEstateCircleLogo && !circle_logo_upload_img"
-                                                     width="300px">
+                                                    >
                                             </el-form-item>
                                             <el-form-item :label="$t('models.user.favicon_icon')">
                                                 <upload-avatar @imageUploaded="setFaviconIconUpload"/>
                                                 <img :src="favicon_icon_upload_img"
                                                      v-show="favicon_icon_upload_img"
-                                                     width="300px">
+                                                    >
                                                 <img :src="realEstateFaviconIcon" ref="realEstateFaviconIcon"
                                                      v-show="realEstateFaviconIcon && !favicon_icon_upload_img"
-                                                     width="300px">
+                                                    >
                                             </el-form-item>
                                             <el-form-item :label="$t('models.user.tenant_logo')">
                                                 <upload-avatar @imageUploaded="setTenantLogoUpload"/>
                                                 <img :src="tenant_logo_upload_img"
                                                      v-show="tenant_logo_upload_img"
-                                                     width="300px">
+                                                    >
                                                 <img :src="realEstateTenantLogo" ref="realEstateTenantLogo"
                                                      v-show="realEstateTenantLogo && !tenant_logo_upload_img"
-                                                     width="300px">
+                                                     >
                                             </el-form-item>
                                             <el-form-item :label="$t('models.realEstate.primary_color')">
                                                 <el-color-picker
@@ -633,6 +633,7 @@
                         this.updateRealEstate(this.model).then((resp) => {
                             this.fetchRealEstate();
                             displaySuccess(resp);
+                            
                         }).catch((error) => {
                             displayError(error);
                         });
@@ -698,6 +699,10 @@
                 -ms-flex-positive: 1;
                 color: #fff !important;
                 transition: background-color .3s ease,color .3s ease !important;
+            }
+
+            &:hover{
+                background: var(--color-main-background-lighter);;
             }
 
             &:first-child {
@@ -900,7 +905,7 @@
                     margin-right: 8px;
                 }
                 &:hover {
-                    background: #f0f9f1;
+                    background: var(--color-main-background-lighter);
                 }
             }
         }
