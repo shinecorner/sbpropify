@@ -15,14 +15,20 @@
       </p>
 
       @if ($tenant->address)
-       <p>{{ $tenant->address->street_nr }}, {{ $tenant->address->street }} {{ $tenant->address->city }}</p>
+       <p>
+         {{ $tenant->address->street }} {{ $tenant->address->street_nr }}
+         <br>
+         {{ $tenant->address->zip }} {{ $tenant->address->city }}
+       </p>
       @endif
     </td>
     <td id="real-estate">
-      <img class="logo" src="{{ asset('images/logo3.png') }}"/>
+      <img class="logo" src="{{ $re->logo ? asset($re->logo) : asset('images/logo3.png') }}"/>
       <p>{{ $re->name }}</p>
-      <p>{{ $re->address->street_nr }}, {{ $re->address->street }}<br />
-        {{ $re->address->city }}, {{ $re->address->state->name }}</p>
+      <p>
+        {{ $re->address->street }}<br />
+        {{ $re->address->zip }} {{ $re->address->city }}
+      </p>
       <p>
         @lang('tenant.telephone', [], $language): {{ $re->phone }}
         <br>
@@ -34,7 +40,7 @@
       <br>
       <br>
       <br>
-      @lang('tenant.born', [], $language), {{$tenant->birth_date ? $tenant->birth_date->format('d.m.Y') : ''}}
+      @lang('tenant.born', [], $language), {{now()->format('d.m.Y')}}
       <br>
       <br>
       <br>
@@ -64,7 +70,7 @@
   </tr>
   <tr>
     <td>@lang("tenant.link_application", [], $language)</td>
-    <td>{{ url('/') }}</td>
+    <td>{{ url('/activate') }}</td>
   </tr>
   <tr>
     <td>{{ __("tenant.code") }}</td>
