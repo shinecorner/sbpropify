@@ -499,6 +499,13 @@
                 } else if (this.withSearch) {
                     delete query.search;
                 }
+                if(this.$route.name=='adminUsers') {
+                    query = {roles: ['administrator', 'super_admin'], ...query};
+                    if(query.role)
+                        delete query.roles;
+                    else
+                        delete query.role;
+                }
 
                 this.$router.replace({name: this.$route.name, query, params});
             },
@@ -650,6 +657,7 @@
                     prevQuery && this.syncUrl();
                     
                     this.fetch(this.page.currPage, this.page.currSize);
+                    console.log("QUERY");
                 }
             }
         },
@@ -664,6 +672,7 @@
                 const dateReg = /^\d{2}([./-])\d{2}\1\d{4}$/;
                 const value = queryFilterValue && queryFilterValue.toString().match(dateReg) ? queryFilterValue : parseInt(queryFilterValue);
                 this.$set(this.filterModel, filter.key, value);
+                
 
                 if (!this.filterModel[filter.key]) {
                     delete this.filterModel[filter.key];
