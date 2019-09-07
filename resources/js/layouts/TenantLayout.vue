@@ -113,8 +113,15 @@
         },
         computed: {
             tenant_logo() {
-                console.log('logo_src', this.tenant_logo_src);
-                return this.tenant_logo_src ? `/${this.tenant_logo_src}` : '';
+                console.log('called1', this.$constants.logo.tenant_logo);
+                if(localStorage.getItem('tenant_logo_src') != this.$constants.logo.tenant_logo ) {
+                    console.log('called');
+                    localStorage.setItem('tenant_logo_src', this.$constants.logo.tenant_logo);
+                }
+
+                return localStorage.getItem('tenant_logo_src') ? `/${localStorage.getItem('tenant_logo_src')}` : '';
+
+
             },
         },
         methods: {
