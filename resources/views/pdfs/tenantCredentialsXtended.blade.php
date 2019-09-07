@@ -47,10 +47,11 @@
       <b>@lang('tenant.welcome', [], $language) {{ $re->name }}</b>
       <br>
       <br>
-      @lang('tenant.dear_sir', [
-          'salutation' => __("general.salutation_option." . $tenant->title, [], $language),
-          'name' => $tenant->last_name
-        ], $language)
+      @if(\App\Models\Tenant::TitleCompany == $tenant->title)
+        @lang('tenant.pdf_dear_' . $tenant->title, [], $language)
+      @else
+        @lang('tenant.pdf_dear_' . $tenant->title, ['name' => $tenant->last_name], $language)
+      @endif
       <br>
       <br>
       @lang('tenant.content_1', [], $language)

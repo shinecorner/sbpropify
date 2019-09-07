@@ -19,7 +19,9 @@ return [
     'email' => 'E-Mail:',
     'born' => 'Bern',
     'welcome' => 'Welcome to the tenant portal of the',
-    'dear_sir' => 'Dear :salutation :name',
+    'pdf_dear_company' => 'Firm',
+    'pdf_dear_mr' => 'Dear Sir :name',
+    'pdf_dear_mrs' => 'Dear Lady :name',
     'content_1' => 'We are pleased to inform you that an account has been set up for you in the tenant\'s total. and send you the activation code.',
     'offer' => 'What does the application offer?',
     'offers' => '

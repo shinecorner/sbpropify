@@ -19,7 +19,9 @@ return [
     'email' => 'messaggio di posta elettronica',
     'born' => 'Berna',
     'welcome' => 'Benvenuti nel portale degli inquilini della',
-    'dear_sir' => 'Gentile  :salutation :name',
+    'pdf_dear_company' => 'Solido',
+    'pdf_dear_mr' => 'Gentile Signore :name',
+    'pdf_dear_mrs' => 'Cara Signora :name',
     'content_1' => 'Siamo lieti di informarvi che è stato creato un account per voi nel totale dell\'inquilino e vi invieremo il codice di attivazione.',
     'offer' => 'Cosa offre l\'applicazione?',
     'offers' => '
