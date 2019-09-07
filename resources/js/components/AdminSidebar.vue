@@ -160,8 +160,11 @@
         }
     }
     .el-menu-item.is-active {
-        color: var(--color-text-primary) !important;
         font-weight: bolder;
+        background-color: var(--color-main-background-lighter) !important;
+    }
+    .el-submenu__title:hover {
+        background-color: var(--color-main-background-lighter) !important;
     }
 </style>
 
@@ -213,7 +216,6 @@
             }
 
             .is-active:not(.el-submenu) {
-                background-color: #f0f9f1;
 
                 > a {
                     font-weight: bold;

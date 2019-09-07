@@ -322,7 +322,7 @@
     }
 
     .custom-label {
-        color: #6AC06F;
+        color: var(--primary-color);
     }
 
     .mb20 {

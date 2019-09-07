@@ -15,7 +15,7 @@
             >
                 <template slot-scope="scope">
                     <div v-if="column.type === 'requestTitleWithDesc'">
-                        <div>{{$t(scope.row.title)}}</div>
+                        <div class="request-title">{{$t(scope.row.title)}}</div>
                         <div class="category">
                         <span v-if="scope.row.category.parentCategory">
                             {{scope.row.category.parentCategory.name}} >&nbsp;
@@ -294,6 +294,11 @@
 </script>
 
 <style lang="scss" scoped>
+    .request-title {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
     .category {
         color: #909399;
     }

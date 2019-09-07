@@ -253,7 +253,7 @@
     }
 
     .custom-label {
-        color: #6AC06F;
+        color: var(--primary-color);
     }
 
     .mb20 {
@@ -302,7 +302,7 @@
     }
 
     .custom-label {
-        color: #6AC06F;
+        color: var(--primary-color);
         display: inline-block;
         margin-bottom: 10px;
     }
@@ -330,7 +330,7 @@
     .admin-layout .el-badge__content.is-fixed {
         top: 19px;
         right: -5px;
-        background-color: #6AC06F;
+        background-color: var(--primary-color) !important;
         margin-left: 5px;
         height: 18px;
         width: 6px;

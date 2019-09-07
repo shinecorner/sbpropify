@@ -741,6 +741,7 @@ export default {
                 "basement": "Sous-sol",
                 "attic": "Grenier aménageable",
                 "floor_nr": "Nombre d'étages",
+                "internal_building_id": "Numéro d'identification interne de l'immeuble",
                 "label": "Étiquette",
                 "address_search": "Veuillez entrer l'adresse",
                 "not_found": "Bâtiment non trouvé",

@@ -8,6 +8,7 @@
         <meta http-equiv="expires" content="0" />
         <meta http-equiv="pragma" content="no-cache" />
 
+        <link rel="icon" type="image/png" href="/storage/test-estate-1-favicon-icon.png"/>
         <title>{{ config('app.name') }}</title>
 
         <!-- Fonts -->

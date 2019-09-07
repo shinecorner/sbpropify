@@ -310,7 +310,7 @@
                                                      v-show="logo_upload_img"
                                                      width="300px">
                                                 <img :src="realEstateLogo" ref="realEstateLogo"
-                                                     v-show="realEstateLogo"
+                                                     v-show="realEstateLogo && !logo_upload_img"
                                                      width="300px">
                                                 
                                             </el-form-item>
@@ -320,7 +320,7 @@
                                                      v-show="circle_logo_upload_img"
                                                      width="300px">
                                                 <img :src="realEstateCircleLogo" ref="realEstateCircleLogo"
-                                                     v-show="realEstateCircleLogo"
+                                                     v-show="realEstateCircleLogo && !circle_logo_upload_img"
                                                      width="300px">
                                             </el-form-item>
                                             <el-form-item :label="$t('models.user.favicon_icon')">
@@ -329,7 +329,7 @@
                                                      v-show="favicon_icon_upload_img"
                                                      width="300px">
                                                 <img :src="realEstateFaviconIcon" ref="realEstateFaviconIcon"
-                                                     v-show="realEstateFaviconIcon"
+                                                     v-show="realEstateFaviconIcon && !favicon_icon_upload_img"
                                                      width="300px">
                                             </el-form-item>
                                             <el-form-item :label="$t('models.user.tenant_logo')">
@@ -338,7 +338,7 @@
                                                      v-show="tenant_logo_upload_img"
                                                      width="300px">
                                                 <img :src="realEstateTenantLogo" ref="realEstateTenantLogo"
-                                                     v-show="realEstateTenantLogo"
+                                                     v-show="realEstateTenantLogo && !tenant_logo_upload_img"
                                                      width="300px">
                                             </el-form-item>
                                             <el-form-item :label="$t('models.realEstate.primary_color')">
@@ -346,12 +346,12 @@
                                                         size="medium"
                                                         v-model="model.primary_color"></el-color-picker>
                                             </el-form-item>
-                                            <el-form-item :label="$t('models.realEstate.accent_color')">
+                                            <!-- <el-form-item :label="$t('models.realEstate.accent_color')">
                                                 <el-color-picker
                                                         size="medium"
                                                         v-model="model.accent_color">
                                                 </el-color-picker>
-                                            </el-form-item>
+                                            </el-form-item> -->
                                         </el-card>
                                     </el-col>
                                 </el-row>
@@ -515,6 +515,7 @@
         },
         async created() {
             await this.fetchRealEstate();
+            
 
             if (this.$route.query.tab) {
                 this.goToTab(this.$route.query.tab);
@@ -614,6 +615,7 @@
                 });
                 this.getRealEstate().then((resp) => {
                     this.model = Object.assign({}, this.model, resp.data);
+                    this.$root.$emit('fetch_logo', this.model.logo);
                     try {
                         this.$set(this.model, 'opening_hours', JSON.parse(this.model.opening_hours));
                     } catch (e) {
@@ -689,7 +691,7 @@
             padding: 0 13px !important;
 
             &.is-active, &:hover{
-                background: #6AC06F;
+                background: var(--primary-color);
                 //border-radius: 120px;
                 border-right-color: none;
                 border-left-color: none;
