@@ -287,19 +287,17 @@ class PropertyManagerAPIController extends AppBaseController
             return $this->sendError(__('models.propertyManager.errors.not_found'));
         }
 
-        try {
-            $propertyManager = $this->propertyManagerRepository->update($input, $id);
-        } catch (\Exception $e) {
-            return $this->sendError(__('models.propertyManager.errors.update') . $e->getMessage());
-        }
-
         if (isset($input['user'])) {
             $input['user']['name'] = sprintf('%s %s', $input['first_name'], $input['last_name']);;
             $validator = Validator::make($input['user'], User::$rulesUpdate);
             if ($validator->fails()) {
                 return $this->sendError($validator->errors());
             }
+        } else {
+            $input['user']['settings'] = Arr::pull($input, 'settings', []);
+        }
 
+        if (! empty($input['user'])) {
             try {
                 $this->userRepository->update($input['user'], $propertyManager->user_id);
             } catch (\Exception $e) {
@@ -307,7 +305,13 @@ class PropertyManagerAPIController extends AppBaseController
             }
         }
 
-        $propertyManager->load('user', 'buildings', 'quarters');
+        try {
+            $propertyManager = $this->propertyManagerRepository->updateExisting($propertyManager, $input);
+        } catch (\Exception $e) {
+            return $this->sendError(__('models.propertyManager.errors.update') . $e->getMessage());
+        }
+
+        $propertyManager->load('user', 'buildings', 'quarters', 'settings');
         $response = (new PropertyManagerTransformer)->transform($propertyManager);
         return $this->sendResponse($response, __('models.propertyManager.saved'));
     }
