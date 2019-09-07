@@ -59,7 +59,7 @@ Router.beforeEach(async (to, from, next) => {
 
         document.documentElement.style.setProperty('--primary-color', store.state.application.constants.colors.primary_color) // this will be removed
         document.documentElement.style.setProperty('--color-primary', store.state.application.constants.colors.primary_color)
-        document.documentElement.style.setProperty('--color-main-background-lighter', LightenDarkenColor(store.state.application.constants.colors.primary_color, 99) )
+        document.documentElement.style.setProperty('--primary-color-lighter', LightenDarkenColor(store.state.application.constants.colors.primary_color, 90) + '59' )
 
         if (!store.state.application.locale) {
             const [lang, locale] = (((navigator.userLanguage || navigator.language).replace('-', '_')).toLowerCase()).split('_')

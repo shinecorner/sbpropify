@@ -10,6 +10,7 @@
             // TODO -> primary-color to color-primary and text-color to color-text
             document.documentElement.setAttribute('style', `
                 --primary-color: #6AC06F;
+                --primary-color-lighter: #bac5df;
                 --text-color: #3f3f3f;
 
                 --color-main-background-base: #F2F4F9;

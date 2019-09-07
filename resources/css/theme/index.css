@@ -1392,7 +1392,7 @@
     outline:0
 }
 .el-dropdown-menu__item:focus,.el-dropdown-menu__item:not(.is-disabled):hover{
-    background-color:var(--color-main-background-lighter);
+    background-color:var(--primary-color-lighter);
     color:#88cd8c
 }
 .el-dropdown-menu__item i{
@@ -10274,12 +10274,12 @@
 }
 .el-button:focus,.el-button:hover{
     color:var(--primary-color);
-    border-color:#d2ecd4;
-    background-color:var(--color-main-background-lighter);
+    border-color:var(--primary-color-lighter);
+    background-color:var(--primary-color-lighter);
 }
 .el-button:active{
-    color:#5fad64;
-    border-color:#5fad64;
+    color:var(--primary-color)4;
+    border-color:var(--primary-color);
     outline:0
 }
 .el-button::-moz-focus-inner{
@@ -10351,8 +10351,8 @@
     border-color:var(--primary-color)
 }
 .el-button--primary:focus,.el-button--primary:hover{
-    background:var(--color-main-background-lighter);
-    border-color:var(--color-main-background-lighter);
+    background:var(--primary-color-lighter);
+    border-color:var(--primary-color-lighter);
     color:#FFF
 }
 .el-button--primary.is-active,.el-button--primary:active{
@@ -10365,8 +10365,8 @@
 }
 .el-button--primary.is-disabled,.el-button--primary.is-disabled:active,.el-button--primary.is-disabled:focus,.el-button--primary.is-disabled:hover{
     color:#FFF;
-    background-color:var(--color-main-background-lighter);
-    border-color:var(--color-main-background-lighter);
+    background-color:var(--primary-color-lighter);
+    border-color:var(--primary-color-lighter);
 }
 .el-button--primary.is-plain{
     color:var(--primary-color);
@@ -10395,13 +10395,13 @@
     border-color:var(--color-success)
 }
 .el-button--success:focus,.el-button--success:hover{
-    background:var(--color-main-background-lighter);
-    border-color:var(--color-main-background-lighter);
+    background:var(--primary-color-lighter);
+    border-color:var(--primary-color-lighter);
     color:#FFF
 }
 .el-button--success.is-active,.el-button--success:active{
-    background:var(--color-main-background-lighter);
-    border-color:var(--color-main-background-lighter);
+    background:var(--primary-color-lighter);
+    border-color:var(--primary-color-lighter);
     color:#FFF
 }
 .el-button--success:active{

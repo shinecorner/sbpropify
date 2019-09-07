@@ -335,14 +335,14 @@
     .request {
         .listing {
             .normal {
-                color: var(--color-main-background-lighter);
+                color: var(--primary-color-lighter);
                 a {
                     text-decoration: none;
-                    color:var(--color-main-background-lighter);;
+                    color:var(--primary-color-lighter);;
                 }
                 &:hover {
                     text-decoration: none;
-                    color:var(--color-main-background-lighter);
+                    color:var(--primary-color-lighter);
                 }
             }
         }

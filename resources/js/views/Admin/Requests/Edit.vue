@@ -644,7 +644,7 @@
     .tenant-link {
         display: flex;
         align-items: center;
-        color: var(--color-main-background-lighter);
+        color: var(--primary-color-lighter);
         text-decoration: none;
 
         & > span {
