@@ -374,16 +374,13 @@ class ServiceProviderAPIController extends AppBaseController
             if ($validator->fails()) {
                 return $this->sendError($validator->errors());
             }
-        } else {
-            $input['user']['settings'] = Arr::pull($input, 'settings', []);
         }
 
-        if (! empty($input['user'])) {
-            try {
-                $this->userRepository->update($input['user'], $serviceProvider->user_id);
-            } catch (Exception $e) {
-                return $this->sendError(__('models.service.errors.update') . $e->getMessage());
-            }
+        $input['user']['settings'] = Arr::pull($input, 'settings', []);
+        try {
+            $this->userRepository->update($input['user'], $serviceProvider->user_id);
+        } catch (Exception $e) {
+            return $this->sendError(__('models.service.errors.update') . $e->getMessage());
         }
 
         if (isset($input['address'])) {
