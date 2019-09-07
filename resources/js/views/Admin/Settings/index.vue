@@ -960,7 +960,7 @@
         &.is-checked {
             .login-card {
                 box-shadow: none;
-                border: 1px #6AC06F solid;
+                border: 1px var(--primary-color) solid;
             }
         }
     }

@@ -10274,12 +10274,12 @@
 }
 .el-button:focus,.el-button:hover{
     color:var(--primary-color);
-    border-color:#d2ecd4;
+    border-color:var(--color-main-background-lighter);
     background-color:var(--color-main-background-lighter);
 }
 .el-button:active{
-    color:#5fad64;
-    border-color:#5fad64;
+    color:var(--primary-color)4;
+    border-color:var(--primary-color);
     outline:0
 }
 .el-button::-moz-focus-inner{
