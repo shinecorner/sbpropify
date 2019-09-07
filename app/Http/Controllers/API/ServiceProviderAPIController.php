@@ -365,20 +365,20 @@ class ServiceProviderAPIController extends AppBaseController
             return $this->sendError(__('models.service.errors.not_found'));
         }
 
-        try {
-            $serviceProvider = $this->serviceProviderRepository->update($input, $id);
-        } catch (Exception $e) {
-            return $this->sendError(__('models.service.errors.update') . $e->getMessage());
-        }
-
         if (isset($input['user'])) {
             $input['user']['email'] = $input['email'];
             $input['user']['name'] = $input['name'];
+            $input['user']['settings'] = Arr::pull($input, 'settings', []);
 
             $validator = Validator::make($input['user'], User::$rulesUpdate);
             if ($validator->fails()) {
                 return $this->sendError($validator->errors());
             }
+        } else {
+            $input['user']['settings'] = Arr::pull($input, 'settings', []);
+        }
+
+        if (! empty($input['user'])) {
             try {
                 $this->userRepository->update($input['user'], $serviceProvider->user_id);
             } catch (Exception $e) {
@@ -395,7 +395,13 @@ class ServiceProviderAPIController extends AppBaseController
             }
         }
 
-        $serviceProvider->load(['user', 'address:id,country_id,state_id,city,street,zip']);
+        try {
+            $serviceProvider = $this->serviceProviderRepository->updateExisting($serviceProvider, $input);
+        } catch (Exception $e) {
+            return $this->sendError(__('models.service.errors.update') . $e->getMessage());
+        }
+
+        $serviceProvider->load(['user', 'address:id,country_id,state_id,city,street,zip', 'settings']);
         $response = (new ServiceProviderTransformer)->transform($serviceProvider);
 
         return $this->sendResponse($response, __('models.service.saved'));

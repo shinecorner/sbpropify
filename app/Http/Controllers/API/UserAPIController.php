@@ -422,7 +422,7 @@ class UserAPIController extends AppBaseController
             }
         }
 
-        $user = $this->userRepository->updateExisting($user, $input);
+        $user = $this->userRepository->updateExistingUser($user, $input);
 
         $user->load('settings')->load('roles');
 
@@ -494,7 +494,7 @@ class UserAPIController extends AppBaseController
             }
         }
 
-        $user = $this->userRepository->updateExisting($user, $input);
+        $user = $this->userRepository->updateExistingUser($user, $input);
 
         $user->load('settings')->load('roles');
         $response = (new UserTransformer)->transform($user);
