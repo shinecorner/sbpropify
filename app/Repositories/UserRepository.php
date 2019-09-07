@@ -4,11 +4,13 @@ namespace App\Repositories;
 
 use App;
 use App\Jobs\NewAdminNotification;
+use App\Models\Model;
 use App\Models\User;
 use App\Notifications\PasswordResetSuccess;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager as Image;
+use Prettus\Repository\Events\RepositoryEntityUpdated;
 
 /**
  * Class UserRepository
@@ -73,16 +75,31 @@ class UserRepository extends BaseRepository
     /**
      * @param array $attributes
      * @param $id
-     * @return mixed
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @return Model|mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function update(array $attributes, $id)
+    {
+        $model = $this->model->findOrFail($id);
+        return $this->updateExistingUser($model, $attributes);
+    }
+
+    /**
+     * @param User $model
+     * @param $attributes
+     * @return User
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function updateExistingUser(User $model, $attributes)
     {
         if (isset($attributes['password']) && !empty($attributes['password'])) {
             $attributes['password'] = bcrypt($attributes['password']);
         }
 
-        $model = parent::update($attributes, $id);
+        $model->fill($attributes);
+        $model->save();
+        $this->resetModel();
+        event(new RepositoryEntityUpdated($this, $model));
 
         //change user role
         if (isset($attributes['role'])) {
@@ -91,6 +108,11 @@ class UserRepository extends BaseRepository
                 $model->detachRoles();
                 $model->attachRole($role);
             }
+        }
+
+        $settings = Arr::pull($attributes, 'settings');
+        if ($settings) {
+            $model->settings()->update($settings);
         }
 
         return $model;
