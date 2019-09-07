@@ -633,14 +633,18 @@
             "$route.query": {
                 immediate: true,
                 handler({page, per_page}, prevQuery) {
-                    
+                    if(this.$route.name == "login") {
+                        return;
+                    }
+
                     if (!page || !per_page && prevQuery) {
                         this.page.currPage = 1;
                         this.page.currSize = 20;
+                        this.filterModel = {};
 
                         return this.syncUrl();
                     }
-
+                    
                     page = parseInt(page);
                     per_page = parseInt(per_page);
 
@@ -648,6 +652,7 @@
                     this.page.currSize = per_page < 1 ? this.pagination.currSize : per_page;
 
                     prevQuery && this.syncUrl();
+                    
                     this.fetch(this.page.currPage, this.page.currSize);
                     console.log("QUERY");
                 }
