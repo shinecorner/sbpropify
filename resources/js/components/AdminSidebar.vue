@@ -159,12 +159,22 @@
             float: right;
         }
     }
-    .el-menu-item.is-active {
+    .el-menu-item.is-active, .el-menu-item:hover {
         font-weight: bolder;
-        background-color: var(--color-main-background-lighter) !important;
+        background-color: var(--primary-color) !important;
+        color: white;
+
+        i {
+            color: white;
+        }
     }
     .el-submenu__title:hover {
-        background-color: var(--color-main-background-lighter) !important;
+        background-color: var(--primary-color) !important;
+        color: white;
+
+        i {
+            color: white;
+        }
     }
 </style>
 

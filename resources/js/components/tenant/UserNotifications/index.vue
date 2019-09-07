@@ -160,7 +160,7 @@
 
                 &.is-unread {
                     :global(.el-timeline-item__wrapper) {
-                        background-color: var(--color-primary-lighter);
+                        background-color: var(--color-main-background-lighter);
 
                         :global(.el-timeline-item__content) {
                             .el-dropdown {

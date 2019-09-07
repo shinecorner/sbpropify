@@ -24,20 +24,22 @@
         props: {
             toggleSidebar: { type: Function },
         },
-        data() {
-            return {
-                logo_src: '',
-            }
-        },
         computed: {
             logo() {
-                return this.logo_src ? `/${this.logo_src}` : '';
+                
+                if(localStorage.getItem('logo') != this.$constants.logo.logo ) {
+                    localStorage.setItem('logo', this.$constants.logo.logo);
+                }
+
+                return localStorage.getItem('logo') ? `/${localStorage.getItem('logo')}` : '';
             },
         },
         mounted() {
-            
+
             this.$root.$on('fetch_logo', (logo) => {
-                this.logo_src = logo;
+                if(localStorage.getItem('logo') != logo ) {
+                    localStorage.setItem('logo', logo);
+                }
             });
 
         },
@@ -174,7 +176,7 @@
     .el-menu-item{
         
         &:hover {
-            background-color: var(--color-main-background-lighter) !important;
+            background-color: var(--primary-color) !important;
         }
 
         &-link{

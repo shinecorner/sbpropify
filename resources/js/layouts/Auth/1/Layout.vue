@@ -151,7 +151,7 @@
                 z-index: 2;
                 h1 {
                     font-size: 2.5em;
-                    color: #6AC06F;
+                    color: var(--primary-color);
                     margin-top: 0;
                     margin-bottom: .5em;
                     text-shadow: 0 0 3px #000;
@@ -186,7 +186,7 @@
                             text-align: center;
                             line-height: 72px;
                             color: #fff;
-                            background-color: #6AC06F !important;
+                            background-color: var(--primary-color) !important;
                             box-shadow: 0 10px 20px rgba(0,0,0,0.19),
                             0 6px 6px rgba(0,0,0,0.23);
                             margin-right: .5em;
@@ -196,7 +196,7 @@
                                 font-size: 1.2em;
                                 margin: 0;
                                 margin-bottom: .32em;
-                                color: #6AC06F;
+                                color: var(--primary-color);
                                 text-shadow: 0 0 3px #000;
                             }
                             p {
