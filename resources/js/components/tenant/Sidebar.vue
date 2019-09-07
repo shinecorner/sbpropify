@@ -525,7 +525,7 @@
                 }
 
                 &:hover {
-                    background-color: var(--color-main-background-lighter);
+                    background-color: var(--primary-color-lighter);
                 }
             }
 

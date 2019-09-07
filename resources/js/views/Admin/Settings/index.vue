@@ -702,7 +702,7 @@
             }
 
             &:hover{
-                background: var(--color-main-background-lighter);;
+                background: var(--primary-color-lighter);;
             }
 
             &:first-child {
@@ -905,7 +905,7 @@
                     margin-right: 8px;
                 }
                 &:hover {
-                    background: var(--color-main-background-lighter);
+                    background: var(--primary-color-lighter);
                 }
             }
         }

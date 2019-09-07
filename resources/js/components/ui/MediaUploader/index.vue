@@ -250,7 +250,7 @@
 
                 &:hover
                     color: var(--color-primary)
-                    background-color: var(--color-main-background-lighter)
+                    background-color: var(--primary-color-lighter)
                     border-color: var(--color-primary)
 
             &__content

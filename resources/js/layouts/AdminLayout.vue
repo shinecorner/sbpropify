@@ -961,7 +961,7 @@
 
 
                         &:hover{
-                            background-color: var(--color-main-background-lighter);
+                            background-color: var(--primary-color-lighter);
                         }
 
                         span{
@@ -986,19 +986,19 @@
         }
     }
     .el-button--primary:focus, .el-button--primary:hover {
-        background: var(--color-main-background-lighter);
-        border-color: var(--color-main-background-lighter);
+        background: var(--primary-color-lighter);
+        border-color: var(--primary-color-lighter);
         color: var(--primary-color);
     }
     
     .el-button--default:hover {
-        background: var(--color-main-background-lighter);
-        border-color: var(--color-main-background-lighter);
+        background: var(--primary-color-lighter);
+        border-color: var(--primary-color-lighter);
         color: var(--primary-color);
     }
     .el-button--default:active {
-        background: var(--color-main-background-lighter);
-        border-color: var(--color-main-background-lighter);
+        background: var(--primary-color-lighter);
+        border-color: var(--primary-color-lighter);
         color: var(--primary-color);
     } 
 </style>
