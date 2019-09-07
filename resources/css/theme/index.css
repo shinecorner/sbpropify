@@ -10275,7 +10275,7 @@
 .el-button:focus,.el-button:hover{
     color:var(--primary-color);
     border-color:#d2ecd4;
-    background-color:#f0f9f1
+    background-color:var(--color-main-background-lighter);
 }
 .el-button:active{
     color:#5fad64;
@@ -10351,22 +10351,22 @@
     border-color:var(--primary-color)
 }
 .el-button--primary:focus,.el-button--primary:hover{
-    background:#88cd8c;
-    border-color:#88cd8c;
+    background:var(--color-main-background-lighter);
+    border-color:var(--color-main-background-lighter);
     color:#FFF
 }
 .el-button--primary.is-active,.el-button--primary:active{
-    background:#5fad64;
-    border-color:#5fad64;
-    color:#FFF
+    background:var(--primary-color);
+    border-color:var(--primary-color);
+    color:#FFF;
 }
 .el-button--primary:active{
     outline:0
 }
 .el-button--primary.is-disabled,.el-button--primary.is-disabled:active,.el-button--primary.is-disabled:focus,.el-button--primary.is-disabled:hover{
     color:#FFF;
-    background-color:#b5e0b7;
-    border-color:#b5e0b7
+    background-color:var(--color-main-background-lighter);
+    border-color:var(--color-main-background-lighter);
 }
 .el-button--primary.is-plain{
     color:var(--primary-color);
@@ -10395,13 +10395,13 @@
     border-color:var(--color-success)
 }
 .el-button--success:focus,.el-button--success:hover{
-    background:var(--color-success-lighter);
-    border-color:var(--color-success-lighter);
+    background:var(--color-main-background-lighter);
+    border-color:var(--color-main-background-lighter);
     color:#FFF
 }
 .el-button--success.is-active,.el-button--success:active{
-    background:var(--color-success-lighter);
-    border-color:var(--color-success-lighter);
+    background:var(--color-main-background-lighter);
+    border-color:var(--color-main-background-lighter);
     color:#FFF
 }
 .el-button--success:active{

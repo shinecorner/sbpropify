@@ -59,9 +59,6 @@ Router.beforeEach(async (to, from, next) => {
 
         document.documentElement.style.setProperty('--primary-color', store.state.application.constants.colors.primary_color) // this will be removed
         document.documentElement.style.setProperty('--color-primary', store.state.application.constants.colors.primary_color)
-        document.documentElement.style.setProperty('--color-success', store.state.application.constants.colors.primary_color)
-        document.documentElement.style.setProperty('--color-primary-lighter', LightenDarkenColor(store.state.application.constants.colors.primary_color, 99))
-        document.documentElement.style.setProperty('--color-success-lighter', LightenDarkenColor(store.state.application.constants.colors.primary_color, 99))
         document.documentElement.style.setProperty('--color-main-background-lighter', LightenDarkenColor(store.state.application.constants.colors.primary_color, 99) )
 
         if (!store.state.application.locale) {
