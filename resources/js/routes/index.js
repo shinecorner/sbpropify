@@ -29,6 +29,8 @@ Router.beforeEach(async (to, from, next) => {
 
         document.documentElement.style.setProperty('--primary-color', store.state.application.constants.colors.primary_color) // this will be removed
         document.documentElement.style.setProperty('--color-primary', store.state.application.constants.colors.primary_color)
+        document.documentElement.style.setProperty('--color-primary-lighter', store.state.application.constants.colors.primary_color)
+        document.documentElement.style.setProperty('--color-main-background-lighter', store.state.application.constants.colors.primary_color)
 
         if (!store.state.application.locale) {
             const [lang, locale] = (((navigator.userLanguage || navigator.language).replace('-', '_')).toLowerCase()).split('_')

@@ -1214,7 +1214,8 @@ export default {
                     },
                     "costs": {
                         "landlord": "Propriétaire",
-                        "tenant": "Locataire"
+                        "tenant": "Locataire",
+                        "tenant/landlord": "Locataire/Propriétaire"
                     }
                 },
                 "placeholders": {

@@ -579,7 +579,7 @@ export default {
             "feedback": "Feedback",
             "tenants": "Mieter",
             "buildings": "Liegenschaften",
-            "all_buildings": "Alle Liegenschaften",
+            "all_buildings": "Objekte",
             "units": "Einheiten",
             "addresses": "Liegenschaften",
             "posts": "Pinnwand",
@@ -609,9 +609,9 @@ export default {
                 "avatar_uploaded": "Profilbild aktualisiert",
                 "logo_uploaded": "Logo aktualisiert.",
                 "logo": "Firmenlogo",
-                "circle_logo": "Kreis-Logo",
+                "circle_logo": "Rundes Logo",
                 "favicon_icon": "Favicon-Symbol",
-                "tenant_logo": "Mieterlogo",
+                "tenant_logo": "Mieter-Portal Logo",
                 "blank_pdf": "PDF ohne Briefkopf verwenden",
                 "blank_pdf_desc": "PDF-Dateien ohne Briefkopf generieren, damit diese auf das eigene Briefpapier gedruckt werden können.",
                 "font_family": "Schriftfamilie",
@@ -652,9 +652,9 @@ export default {
                 "credentials_send_fail": "Credentials file not found. Try updating the tenant password to regenerate it",
                 "credentials_download_failed": "Credentials file not found. Try updating the tenant password to regenerate it",
                 "add": "Mieter hinzufügen",
-                "saved": "Mieter gespeichert",
-                "deleted": "Mieter gelöscht",
-                "status_changed": "Status geändert",
+                "saved": "Mieter wurde gespeichert",
+                "deleted": "Mieter wurde gelöscht",
+                "status_changed": "Status wurde geändert",
                 "password_reset": "Passwort erfolgreich zurückgesetzt",
                 "update": "Update",
                 "first_name": "Vorname",
@@ -757,7 +757,7 @@ export default {
                 "companies": "Dienstleister",
                 "no_services": "Keine Partnerfirmen gewählt.",
                 "select_media_category": "Kategorie der Mediendatei wählen",
-                "quarter": "Quartal",
+                "quarter": "Überbauung",
                 "managers": "Bewirtschafter",
                 "house_nr": "Hausnummer",
                 "assign_managers": "Bewirtschafter zuweisen",
@@ -935,8 +935,8 @@ export default {
                 },
                 "errors": {
                     "not_found": "Beitrag nicht gefunden",
-                    "quarter_not_found": "Quartal nicht gefunden",
-                    "building_not_found": "Liegenschaft nicht gefunden",
+                    "quarter_not_found": "Überbauung nicht gefunden",
+                    "building_not_found": "Überbauung nicht gefunden",
                     "provider_not_found": "Dienstanbieter nicht gefunden",
                     "deleted": "Gelöschten Fehler buchen: "
                 },
@@ -950,7 +950,7 @@ export default {
                 "visibility": {
                     "label": "Sichtbarkeit",
                     "address": "Liegenschaft",
-                    "quarter": "Quartal",
+                    "quarter": "Überbauung",
                     "all": "Alle App-Nutzer"
                 },
                 "assignType": "Typ",
@@ -1006,8 +1006,8 @@ export default {
                 "title": "Überbauungen",
                 "add": "Überbauung hinzufügen",
                 "edit": "Überbauung bearbeiten",
-                "saved": "Überbauung gespeichert!",
-                "deleted": "Überbauung gelöscht",
+                "saved": "Überbauung wurde gespeichert!",
+                "deleted": "Überbauung wurde gelöscht",
                 "cancel": "Schliessen",
                 "required": "Überbauung ist ein Pflichfeld!",
                 "buildings": "Liegenschaften",
@@ -1175,7 +1175,7 @@ export default {
                     "range": "Bereich",
                     "component": "Bauteil",
                     "acquisition": "Erfassungsphase",
-                    "cost": "Kostenfolge",
+                    "cost": "Zu Lasten von",
                     "keywords": "Stichworte",
                     "building_locations": {
                         "house_entrance": "Hauseingang",
@@ -1216,7 +1216,8 @@ export default {
                     },
                     "costs": {
                         "landlord": "Vermieter",
-                        "tenant": "Mieter"
+                        "tenant": "Mieter",
+                        "tenant/landlord": "Mieter/Vermieter"
                     }
                 },
                 "placeholders": {
@@ -1310,7 +1311,7 @@ export default {
                 "no_buildings": "Keine Liegenschaft zugewiesen",
                 "add_buildings": "Liegenschaft hinzufügen",
                 "buildings_search": "Liegenschaft suchen",
-                "quarters": "Quartale",
+                "quarters": "Überbauungen",
                 "delete_with_reassign_modal": {
                     "title": "Andere Person zuweisen und dann Benutzer löschen",
                     "description": "Der gewählte Bewirtschafter ist mit Liegenschaften verbunden. Sie können die Liegenschaft(en) an eine anderen Person zuweisen. Wählen Sie hierzu einen Bewirtschafter aus der Liste aus.",
@@ -1325,7 +1326,7 @@ export default {
                     "not_found": "Bewirtschafter nicht gefunden",
                     "create": "Fehler beim Erstellen des Bewirtschafters: ",
                     "update": "Fehler beim Aktualisieren des Bewirtschafters:",
-                    "quarter_not_found": "Quartal nicht gefunden",
+                    "quarter_not_found": "Überbauung nicht gefunden",
                     "building_not_found": "Liegenschaft nicht gefunden",
                     "building_already_assign": "Edificio già assegnato per tutto il trimestre",
                     "building_assign_deleted_property_manager": "Sie können einem gelöschten Bewirtschafter keine Liegenschaft(en) zuordnen.",
