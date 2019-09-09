@@ -459,6 +459,7 @@ export default {
                 "settings": "Réglages",
                 "tenants_portal": "Portail locataires",
                 "iframe": "Iframe",
+                "micro_apps": "Micro-Applications",
                 "theme": "Thème",
                 "smtp": "SMTP",
                 "pdf": "PDF",

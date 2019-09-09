@@ -514,6 +514,7 @@ return [
       "settings" => "Impostazioni",
       'tenants_portal' => 'Portale inquilini',
       'iframe' => 'Iframe',
+      'micro_apps' => 'Micro-Apps',
       'theme' => 'Tema',
       'smtp' => 'SMTP',
       'pdf' => 'PDF',
