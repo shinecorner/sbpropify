@@ -438,7 +438,7 @@
 
     .listing-link {
         text-decoration: none;
-        color: #6AC06F;
+        color: var(--primary-color);
         font-weight: bold;
     }
 

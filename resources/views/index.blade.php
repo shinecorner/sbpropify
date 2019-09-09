@@ -8,7 +8,7 @@
         <meta http-equiv="expires" content="0" />
         <meta http-equiv="pragma" content="no-cache" />
 
-        <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="{{base_path('resource')}}/img/favicon/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon/favicon-16x16.png">
         <link rel="manifest" href="/images/favicon/site.webmanifest">
