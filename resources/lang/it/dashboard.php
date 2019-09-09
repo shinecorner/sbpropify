@@ -46,7 +46,8 @@ return [
       'tenants' => 'inquilini',
       'requests' => 'richieste',
       'go_to_buildings' => 'vai agli edifici',
-      'buildings_by_state' => 'Edifici per stato'
+      'buildings_by_state' => 'Edifici per stato',
+      'go_to_building' => 'go to building'
     ],
     'tenants' => 
     [

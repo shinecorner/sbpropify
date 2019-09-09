@@ -519,7 +519,10 @@
                             title: this.$t('menu.users'),
                             permission: this.$permissions.list.user,
                             route: {
-                                name: 'adminUsers'
+                                name: 'adminUsers',
+                                query: {
+                                    role: ['administrator', 'super_admin']
+                                }
                             }
                             // children: [{
                             //     title: this.$t('menu.admins'),
