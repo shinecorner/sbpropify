@@ -139,7 +139,7 @@ class ServiceProvider extends AuditableModel
         AuditableModel::EventQuarterUnassigned => 'getDetachedEventAttributes',
         AuditableModel::EventBuildingUnassigned => 'getDetachedEventAttributes',
     ];
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
