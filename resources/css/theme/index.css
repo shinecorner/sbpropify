@@ -10273,12 +10273,12 @@
     margin-left:10px
 }
 .el-button:focus,.el-button:hover{
-    color:var(--primary-color);
+    color: white;
     border-color:var(--primary-color-lighter);
     background-color:var(--primary-color-lighter);
 }
 .el-button:active{
-    color:var(--primary-color)4;
+    color:var(--primary-color);
     border-color:var(--primary-color);
     outline:0
 }

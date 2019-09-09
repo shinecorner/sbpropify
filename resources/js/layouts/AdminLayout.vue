@@ -994,7 +994,7 @@
     .el-button--default:hover {
         background: var(--primary-color-lighter);
         border-color: var(--primary-color-lighter);
-        color: var(--primary-color);
+        color: white;
     }
     .el-button--default:active {
         background: var(--primary-color-lighter);
