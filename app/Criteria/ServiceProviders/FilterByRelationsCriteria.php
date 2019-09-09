@@ -55,7 +55,7 @@ class FilterByRelationsCriteria implements CriteriaInterface
                 $q->where('buildings.id', $buildingId);
             })->when($quarterId, function ($q) use ($quarterId) {
                 $q->where('buildings.quarter_id', $quarterId);
-            })->when($quarterId, function ($q) use ($categoryId) {
+            })->when($categoryId, function ($q) use ($categoryId) {
                 $q->where('sr.category_id', $categoryId);
             });
 
