@@ -2,6 +2,7 @@
 
 namespace App\Criteria\ServiceProviders;
 
+use App\Models\ServiceProvider;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  * Class FilterByBuildingCriteria
  * @package App\Criteria\ServiceProviders
  */
-class FilterByBuildingCriteria implements CriteriaInterface
+class FilterByBuildingQuarterCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -37,10 +38,21 @@ class FilterByBuildingCriteria implements CriteriaInterface
     public function apply($model, RepositoryInterface $repository)
     {
         $buildingId = $this->request->get('building_id', null);
-        if (!$buildingId) { return $model; }
+        $quarterId = $this->request->get('quarter_id', null);
 
-        $model->join('building_service_provider', 'building_service_provider.service_provider_id', '=', 'service_providers.id')
-            ->where('building_service_provider.building_id', $buildingId);
+        if (!$quarterId && !$buildingId) { return $model; }
+
+        $type = get_morph_type_of(ServiceProvider::class);
+        $model->join('request_assignees as ra', 'ra.assignee_id', '=', 'service_providers.id')
+            ->join('service_requests as sr', 'sr.id', '=', 'ra.request_id')
+            ->join('tenants', 'tenants.id', '=', 'sr.tenant_id')
+            ->join('buildings', 'tenants.building_id', '=', 'buildings.id')
+            ->where('ra.assignee_type', $type)
+            ->when($buildingId, function ($q) use ($buildingId) {
+                $q->where('buildings.id', $buildingId);
+            })->when($quarterId, function ($q) use ($quarterId) {
+                $q->where('buildings.quarter_id', $quarterId);
+            });
 
         return $model;
     }

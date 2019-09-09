@@ -44,7 +44,7 @@ class FilterByRequestCategoryCriteria implements CriteriaInterface
         $model->join('request_assignees', 'request_assignees.assignee_id', '=', 'service_providers.id')
             ->join('service_requests', 'service_requests.id', '=', 'request_assignees.request_id')
             ->where('request_assignees.assignee_type', $type)
-            ->where('category_id', $categoryId);
+            ->where('service_requests.category_id', $categoryId);
 
         return $model;
     }
