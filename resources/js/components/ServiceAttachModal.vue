@@ -228,7 +228,8 @@
                         + this.requestData.tenant.last_name 
                         + ", " + this.address.street 
                         + " " + this.address.street_nr
-                        + " " + this.address.city
+                        + " " + this.address.city 
+                        +"\n"
                         + " [ " + this.requestData.service_request_format
                         +" | " + this.requestData.category +" ]";
                 }else {
@@ -271,7 +272,7 @@
                     this.model[prop] = '';
                 }
             }
-        }
+        },
     };
 </script>
 <style>
@@ -294,6 +295,10 @@
     .request-chat .el-textarea .el-textarea__inner{
         min-height: 56px !important;
     }
+
+    #service-attach-modal .el-dialog__title {
+        white-space: pre-line;
+    }
     #service-attach-modal .el-dialog__header  {
         border-bottom: 1px solid #EBEEF5;
     }
@@ -309,4 +314,5 @@
     #service-attach-modal .el-tabs__header{
         margin-bottom: 0;
     }
+
 </style>

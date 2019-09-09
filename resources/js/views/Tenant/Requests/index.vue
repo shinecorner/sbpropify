@@ -7,7 +7,7 @@
                     <filters ref="filters" layout="column" :data.sync="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
                     <el-button type="primary" size="small" icon="el-icon-sort-up" @click="resetFilters">Reset filters</el-button>
                 </el-popover>
-                <el-button type="primary" icon="ti-plus" round>
+                <el-button @click="addRequestDialogVisible = true" type="primary" icon="ti-plus" round>
                     Add request
                 </el-button>
             </ui-heading>
@@ -89,6 +89,13 @@
                 </el-tab-pane>
             </el-tabs>
         </ui-drawer>
+        <el-dialog ref="add-request-dialog" title="Add request" :visible.sync="addRequestDialogVisible" custom-class="add-request-dialog" append-to-body>
+            <request-add-form ref="request-add-form" />
+            <span slot="footer" class="dialog-footer">
+                <el-button icon="el-icon-close" @click="addRequestDialogVisible = false" round>Cancel</el-button>
+                <el-button type="primary" icon="el-icon-check" round @click="addRequest">Confirm</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -110,6 +117,7 @@
                 visibleDrawer: false,
                 activeDrawerTab: 'chat',
                 activeDrawerMediaTab: 0,
+                addRequestDialogVisible: false,
                 filters: {
                     schema: [{
                         type: 'el-select',
@@ -227,7 +235,26 @@
             resetDataFromDrawer () {
                 this.activeDrawerTab = 'chat'
                 this.openedRequest = null
-            }
+            },
+            addRequest () {
+                this.$watch(() => this.$refs['request-add-form'].loading, state => {
+                    this.$nextTick(async () => {
+                        this.$refs['request-add-form'].$el.classList.remove('el-loading-parent--relative')
+
+                        if (!state) {
+                            this.addRequestDialogVisible = false
+
+                            this.requests = {
+                                data: []
+                            }
+
+                            await this.fetch()
+                        }
+                    })
+                })
+
+                this.$refs['request-add-form'].submit()
+            },
         },
         mounted () {
             // this.$refs['dynamic-scroller'].forceUpdate()
