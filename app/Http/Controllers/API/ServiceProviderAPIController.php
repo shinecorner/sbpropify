@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\RequestCriteria;
-use App\Criteria\ServiceProviders\FilterByBuildingCriteria;
+use App\Criteria\ServiceProviders\FilterByRelationsCriteria;
 use App\Criteria\ServiceProviders\FilterByLanguageCriteria;
 use App\Criteria\ServiceProviders\FilterByPostCriteria;
 use App\Criteria\Common\HasRequestCriteria;
-use App\Criteria\ServiceProviders\FilterByQuarterCriteria;
-use App\Criteria\ServiceProviders\FilterByRequestCategoryCriteria;
 use App\Criteria\ServiceProviders\FilterByStateCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\ServiceProvider\AssignRequest;
@@ -87,11 +85,9 @@ class ServiceProviderAPIController extends AppBaseController
         $this->serviceProviderRepository->pushCriteria(new RequestCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new LimitOffsetCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new FilterByPostCriteria($request));
-        $this->serviceProviderRepository->pushCriteria(new FilterByQuarterCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new FilterByLanguageCriteria($request));
         $this->serviceProviderRepository->pushCriteria(new FilterByStateCriteria($request));
-        $this->serviceProviderRepository->pushCriteria(new FilterByBuildingCriteria($request));
-        $this->serviceProviderRepository->pushCriteria(new FilterByRequestCategoryCriteria($request));
+        $this->serviceProviderRepository->pushCriteria(new FilterByRelationsCriteria($request));
 
         $getAll = $request->get('get_all', false);
 
@@ -111,12 +107,12 @@ class ServiceProviderAPIController extends AppBaseController
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $query = $this->serviceProviderRepository->with([
+        $this->serviceProviderRepository->with([
             'user', 'address:id,country_id,state_id,city,street,zip'
         ]);
 
-        $query = $query->withCount('requests')->scope('allRequestStatusCount');
-        $serviceProviders = $query->paginate($perPage);
+        $this->serviceProviderRepository->withCount('requests')->scope('allRequestStatusCount');
+        $serviceProviders = $this->serviceProviderRepository->paginate($perPage);
 
         return $this->sendResponse($serviceProviders->toArray(), 'Service Providers retrieved successfully');
     }
