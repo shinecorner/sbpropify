@@ -221,21 +221,23 @@
                         />
                     </el-tab-pane>
                     <el-tab-pane :label="$t('models.building.managers')" name="managers">
-                        <assignment
+                        <assignment-by-type
+                            :resetToAssignList="resetToAssignList"
+                            :assignmentType.sync="assignmentType"
                             :toAssign.sync="toAssign"
-                            :assign="assignManagers"
+                            :assignmentTypes="assignmentTypes"
+                            :assign="assignUser"
                             :toAssignList="toAssignList"
                             :remoteLoading="remoteLoading"
-                            :remoteSearch="remoteSearchManagers"
-                            :multiple="multiple"
+                            :remoteSearch="remoteSearchAssignees"
                         />
                         <relation-list
-                            :actions="managerActions"
-                            :columns="managerColumns"
+                            :actions="assigneesActions"
+                            :columns="assigneesColumns"
                             :filterValue="model.id"
-                            fetchAction="getPropertyManagers"
+                            fetchAction="getBuildingAssignees"
                             filter="building_id"
-                            ref="propertyManagersList"
+                            ref="assigneesList"
                             v-if="model.id"
                         />
                     </el-tab-pane>
@@ -293,7 +295,7 @@
     import RelationList from 'components/RelationListing';    
     import globalFunction from "helpers/globalFunction";
     import DeleteBuildingModal from 'components/DeleteBuildingModal';
-    import Assignment from 'components/Assignment';
+    import AssignmentByType from 'components/AssignmentByType';
 
     export default {
         mixins: [globalFunction, BuildingsMixin({
@@ -309,7 +311,7 @@
             draggable,
             RelationList,
             DeleteBuildingModal,
-            Assignment       
+            AssignmentByType       
         },
         data() {
             return {
@@ -335,27 +337,34 @@
                         icon: 'el-icon-user'
                     }]
                 }],
-                managerColumns: [{
-                    type: 'requestTenantAvatar',
-                    width: 50,
+                assigneesColumns: [{
+                    type: 'assignProviderManagerAvatars',
+                    width: 70,
                 }, {
+                    type: 'assigneesName',
                     prop: 'name',
                     label: 'general.name'
+                }, {
+                    prop: 'type',
+                    label: 'models.request.userType.label',
+                    i18n: this.translateType
                 }],
-                managerActions: [{
+                assigneesActions: [{
                     width: '180px',
                     buttons: [{
                         title: 'models.building.unassign_manager',
                         type: 'danger',
-                        onClick: this.unassignManager,
+                        onClick: this.unassignBuilding,
                         tooltipMode: true,
-                        icon: 'el-icon-close'
+                        icon: 'el-icon-close',
+                        view: 'building'
                     }, {
                         title: 'general.actions.edit',
-                        type: 'primary',
-                        onClick: this.managerEditView,
+                        type: 'primary',                        
+                        onClick: this.assigneeEditView,
                         tooltipMode: true,
-                        icon: 'el-icon-edit'
+                        icon: 'el-icon-edit',
+                        view: 'building'                        
                     }]
                 }],
                 unitColumns: [{
@@ -398,9 +407,7 @@
                         title: 'general.actions.edit',
                         onClick: this.requestEditView
                     }]
-                }],
-                toAssignList: [],
-                toAssign: '',
+                }],                
                 remoteLoading: false,
                 deleteBuildingVisible: false,
                 multiple: true,
@@ -414,13 +421,18 @@
                 "uploadBuildingFile",
                 "deleteBuildingFile",
                 "deleteBuildingService",
-                "getPropertyManagers",
-                "batchAssignUsersToBuilding",
-                "unassignBuildingManager",
+                "getBuildingAssignees",
+                "assignManagerToBuilding",
+                "unassignBuildingAssignee",
+                "assignUsersToBuilding",
+                "unassignUserToBuilding",
                 "deleteBuilding",
                 'deleteBuildingWithIds', 
                 'checkUnitRequestWidthIds'
             ]),
+            translateType(type) {
+                return this.$t(`models.request.userType.${type}`);
+            },
             fetchRealEstate() {
                 this.getRealEstate().then((resp) => {
                     this.contactUseGlobalAddition = resp.data.contact_enable ? this.$t('settings.contact_enable.show') : this.$t('settings.contact_enable.hide');
@@ -428,21 +440,20 @@
                     displayError(error);
                 });
             },
-            unassignManager(manager) {
+            unassignBuilding(assignee) {
                 this.$confirm(this.$t(`general.swal.confirmChange.title`), this.$t('general.swal.confirmChange.warning'), {
                     confirmButtonText: this.$t(`general.swal.confirmChange.confirmBtnText`),
                     cancelButtonText: this.$t(`general.swal.confirmChange.cancelBtnText`),
                     type: 'warning'
                 }).then(async () => {
-                    try {
-                        const resp = await this.unassignBuildingManager({
-                            building_id: this.model.id,
-                            id: manager.id
+                    try {                        
+                        const resp = await this.unassignBuildingAssignee({                            
+                            assignee_id: assignee.id
                         });
 
                         displaySuccess(resp);
 
-                        this.$refs.propertyManagersList.fetch();
+                        this.$refs.assigneesList.fetch();
 
                     } catch (e) {
                         displayError(e);
@@ -462,13 +473,23 @@
                     }
                 });
             },
-            managerEditView(row) {
-                this.$router.push({
-                    name: 'adminPropertyManagersEdit',
-                    params: {
-                        id: row.id
-                    }
-                });
+            assigneeEditView(row) {                    
+                if(row.type == 'user'){
+                    this.$router.push({
+                        name: 'adminUsersEdit',
+                        params: {
+                            id: row.edit_id
+                        }
+                    });
+                }
+                else if(row.type == 'manager'){
+                    this.$router.push({
+                        name: 'adminPropertyManagersEdit',
+                        params: {
+                            id: row.edit_id
+                        }
+                    });
+                }             
             },
             unitEditView(row) {
                  this.$router.push({
@@ -551,50 +572,7 @@
                 }).catch((error) => {
                     displayError(error);
                 });
-            },
-
-            async assignManagers() {
-                if (!this.toAssign || !this.model.id) {
-                    return false;
-                }
-                try {
-                    const resp = await this.batchAssignUsersToBuilding({
-                        id: this.model.id,
-                        managersIds: this.toAssign
-                    });                    
-                    displaySuccess(resp);
-                    this.resetToAssignList();
-                    this.$refs.propertyManagersList.fetch();
-                } catch (e) {
-                    displayError(e);
-                    this.resetToAssignList();
-                }
-            },
-
-            async remoteSearchManagers(search) {
-                if (search === '') {
-                    this.resetToAssignList();
-                } else {
-                    this.remoteLoading = true;
-
-                    try {
-                        const resp = await this.getPropertyManagers({
-                            get_all: true,
-                            search
-                        });
-
-                        this.toAssignList = resp.data;
-                    } catch (err) {
-                        displayError(err);
-                    } finally {
-                        this.remoteLoading = false;
-                    }
-                }
-            },
-            resetToAssignList() {
-                this.toAssignList = [];
-                this.toAssign = [];
-            },
+            },            
             async batchDeleteBuilding() {
                 try {              
                     const resp = await this.checkUnitRequestWidthIds({ids:[this.model.id]});                    

@@ -92,6 +92,7 @@
             this.getBtnWidth();
         },
         created() {
+            console.log(this.toAssign);
             this.resetToAssignList();
             this.assign();
         }
