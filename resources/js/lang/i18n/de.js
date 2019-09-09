@@ -580,11 +580,7 @@ export default {
             "feedback": "Feedback",
             "tenants": "Mieter",
             "buildings": "Liegenschaften",
-<<<<<<< HEAD
-            "all_buildings": "Objekte",
-=======
             "all_buildings": "Alle Liegenschaften",
->>>>>>> 83700398789c1a46ce2e5be4d7441cd6719ec2ac
             "units": "Einheiten",
             "addresses": "Liegenschaften",
             "posts": "Pinnwand",
