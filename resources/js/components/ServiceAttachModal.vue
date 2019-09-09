@@ -111,6 +111,7 @@
     import 'quill/dist/quill.bubble.css'
 
     import {quillEditor} from 'vue-quill-editor'
+    import { mapActions } from 'vuex';
 
 
     export default {
@@ -228,7 +229,7 @@
                         + this.requestData.tenant.last_name 
                         + ", " + this.address.street 
                         + " " + this.address.street_nr
-                        + " " + this.address.city 
+                        + " " + this.address.city
                         +"\n"
                         + " [ " + this.requestData.service_request_format
                         +" | " + this.requestData.category +" ]";
@@ -238,6 +239,7 @@
             }
         },
         methods: {
+            ...mapActions(['getAddress']),
             close() {
                 this.$refs.form.resetFields();
                 this.model.provider = '';
