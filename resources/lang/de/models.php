@@ -514,6 +514,7 @@ return [
 			'settings' => 'Einstellungen',
       'tenants_portal' => 'Mieterportal',
 			'iframe' => 'Freie Objekte',
+      'micro_apps' => 'Micro-Apps',
 			'theme' => 'Design',
       'smtp' => 'SMTP',
       'pdf' => 'PDF',

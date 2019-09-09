@@ -514,6 +514,7 @@ return [
       'settings' => 'Settings',
       'tenants_portal' => 'Tenants portal',
       'iframe' => 'Iframe',
+      'micro_apps' => 'Micro-Apps',
       'theme' => 'Theme',
       'smtp' => 'SMTP',
       'pdf' => 'PDF',
