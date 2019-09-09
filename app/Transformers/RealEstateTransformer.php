@@ -42,6 +42,8 @@ class RealEstateTransformer extends TransformerAbstract
             'blank_pdf' => $model->blank_pdf,
             'quarter_enable' => $model->quarter_enable,
             'contact_enable' => $model->contact_enable,
+            'gocaution_enable' => $model->gocaution_enable,
+            'cleanify_enable' => $model->cleanify_enable,
             'marketplace_approval_enable' => $model->marketplace_approval_enable,
             'news_approval_enable' => $model->news_approval_enable,
             'comment_update_timeout' => $model->comment_update_timeout,
