@@ -28,19 +28,19 @@
                     </div>
                 </div>
                 <div class="category">{{getCompleteCategory(data.category)}}</div>
-                <div class="title">{{data.id}} - {{data.title}}</div>
+                <div class="title">{{data.title}}</div>
                 <ui-readmore class="description" :text="data.description" :max="512" />
                 <div class="assignees" v-if="assignees.length">
                     Assignees
                     <div :key="assignee.id" class="assignee" v-for="assignee in visibleAssignees">
-                        <ui-avatar :name="assignee.name" :size="32" :src="assignee.avatar" />
+                        <ui-avatar :name="assignee.user.name" :size="32" :src="assignee.user.avatar" />
                         <div class="content">
-                            {{assignee.name}}
-                            <small>{{assignee.email}}</small>
+                            {{assignee.user.name}}
+                            <small>{{assignee.user.email}}</small>
                         </div>
                     </div>
                     <div class="more" v-if="!idState.showAllAssginees && assignees.length > 4">
-                        <ui-avatar :key="assignee.id" :name="assignee.name" :size="32" :src="assignee.avatar" v-for="assignee in assignees.slice(3)" />
+                        <ui-avatar :key="assignee.user.id" :name="assignee.user.name" :size="32" :src="assignee.user.avatar" v-for="assignee in assignees.slice(3)" />
                         <el-link @click="showRestAssignees" type="success">and {{assignees.slice(3).length}} more</el-link>
                     </div>
                 </div>
@@ -49,12 +49,12 @@
                     <ui-avatar :name="data.tenant.user.name" :size="32" :src="data.tenant.user.avatar" />
                     <div class="content">
                         {{data.tenant.user.name}}
-                        <small>
+                        <!-- <small>
                             created on {{formatDatetime(data.created_at)}}
-                            <template v-if="$constants.service_requests.status[data.status] === 'done'">
+                            <template v-if="$constants.service_requests.status[data.status] === 'done'"> -->
                                 <!-- and solved on {{formatDatetime(data.solved_date)}} -->
-                            </template>
-                        </small>
+                            <!-- </template> -->
+                        <!-- </small> -->
                     </div>
                 </div>
                 <slot name="tab-overview-after" />
