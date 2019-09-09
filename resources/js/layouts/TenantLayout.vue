@@ -156,13 +156,15 @@
                 })
             },
             logout () {
+                let router = this.$route;
+                console.log('tenant route', this.$router);
                 this.$confirm('Logout', 'Are you sure?', {
                     type: 'warning',
                     roundButton: true
                 }).then(async () => {
                     await this.$store.dispatch('logout')
 
-                    this.$route.push({name: 'login'})
+                    this.$router.push({name: 'login'})
                 })
             },
             toggleDrawer () {
@@ -296,9 +298,9 @@
         },
         async mounted () {
             this.loading = true
-
+            this.tenant_logo_src = this.$constants.logo.tenant_logo;
             await this.$store.dispatch('getRealEstate').then((resp) => {
-                    this.tenant_logo_src = resp.data.tenant_logo
+                    //this.tenant_logo_src = resp.data.tenant_logo
                 }).catch((error) => {
                     
                 });

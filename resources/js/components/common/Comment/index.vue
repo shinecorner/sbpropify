@@ -482,8 +482,8 @@
                     }
 
                     .text {
-                        border-color: darken(mix(#fff, #6AC06F, 90%), 5%);
-                        background-color: mix(#fff, #6AC06F, 90%);
+                        border-color: var(--primary-color);
+                        background-color: var(--primary-color-lighter);
                         border-bottom-right-radius: 0;
 
                         &:before,
