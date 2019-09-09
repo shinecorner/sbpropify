@@ -904,7 +904,8 @@ export default {
                 "tenants": "locataires",
                 "requests": "demandes",
                 "go_to_buildings": "Aller aux bâtiments",
-                "buildings_by_state": "Immeubles par état"
+                "buildings_by_state": "Immeubles par état",
+                "go_to_building": "go to building"
             },
             "tenants": {
                 "total_tenants": "Nombre total",

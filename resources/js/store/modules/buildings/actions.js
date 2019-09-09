@@ -65,17 +65,26 @@ export default {
             }).catch(({response: {data: err}}) => reject(err))
         });
     },
-    batchAssignUsersToBuilding({}, payload) {
+    assignManagerToBuilding({}, payload) {
         return new Promise((resolve, reject) => {
-            axios.post(`buildings/${payload.id}/propertyManagers`, {...payload})
+            axios.post(`buildings/${payload.id}/propertyManagers`, {managerIds: [payload.toAssignId]})
+                .then((resp) => {
+                    resolve(resp.data);
+                }).catch(({response: {data: err}}) => reject(err))
+        });
+    },    
+    assignUsersToBuilding({}, payload) {
+        console.log(payload);
+        return new Promise((resolve, reject) => {
+            axios.post(`buildings/${payload.id}/users`, {userIds: [payload.toAssignId]})
                 .then((resp) => {
                     resolve(resp.data);
                 }).catch(({response: {data: err}}) => reject(err))
         });
     },
-    unassignBuildingManager(_, {building_id, id}) {
+    unassignBuildingAssignee(_, {assignee_id}) {
         return new Promise((resolve, reject) => {
-            axios.delete(`buildings/${building_id}/propertyManagers/${id}`).then((resp) => {
+            axios.delete(`buildings-assignees/${assignee_id}`).then((resp) => {
                 resolve(resp.data);
             }).catch(({response: {data: err}}) => reject(err))
         });
@@ -93,5 +102,29 @@ export default {
                 resolve(resp.data);
             }).catch(({response: {data: err}}) => reject(err))
         });
-    }    
+    },
+    getBuildingAssignees({commit}, payload) {        
+        return new Promise((resolve, reject) => {
+                axios.get(buildFetchUrl(`buildings/${payload.building_id}/assignees`, payload))
+                    .then(({data: r}) => {
+                        if (!Array.isArray(r.data.data)) {
+                            r.data.data = Object.values(r.data.data);
+                        }                        
+                        r.data.data = r.data.data.map((user) => {
+                            if (user.type == 'provider') {
+                                user.uType = 1;
+                            } else if(user.type == 'user'){
+                                user.uType = 3;
+                            } else{
+                                user.uType = 2;
+                            }
+                            return user;
+                        });
+
+                        resolve(r)
+                    })
+                    .catch(({response: {data: err}}) => reject(err));
+            }
+        );
+    },    
 }
