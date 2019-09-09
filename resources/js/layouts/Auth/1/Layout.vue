@@ -2,7 +2,8 @@
     <el-container>
         <el-aside width="30%">
             <router-link to="/" class="logo">
-                <img src="~img/logo5.png"/>
+                <img src="~img/logo5.png" v-show="!tenant_logo_src"/>
+                <img :src="tenant_logo_src" v-show="tenant_logo_src"/>
             </router-link>
             <router-view></router-view>
         </el-aside>
@@ -58,9 +59,17 @@
 </template>
 <script>
     export default {
+        data() {
+            return {
+                tenant_logo_src: '',
+            }
+        },
         beforeCreate() {
             document.getElementById('viewport').setAttribute('content', 'width=device-width, initial-scale=1.0');
         },
+        mounted () {
+            this.tenant_logo_src = this.$constants.logo.tenant_logo;
+        }
     }
 </script>
 <style lang="scss" scoped>
