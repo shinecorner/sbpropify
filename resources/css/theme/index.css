@@ -10273,7 +10273,7 @@
     margin-left:10px
 }
 .el-button:focus,.el-button:hover{
-    color: white;
+    color: var(--primary-color);
     border-color:var(--primary-color-lighter);
     background-color:var(--primary-color-lighter);
 }
@@ -10391,13 +10391,13 @@
 }
 .el-button--success{
     color:#FFF;
-    background-color:var(--color-success);
-    border-color:var(--color-success)
+    background-color:var(--primary-color);
+    border-color:var(--primary-color)
 }
 .el-button--success:focus,.el-button--success:hover{
+    color:var(--primary-color);
     background:var(--primary-color-lighter);
     border-color:var(--primary-color-lighter);
-    color:#FFF
 }
 .el-button--success.is-active,.el-button--success:active{
     background:var(--primary-color-lighter);
@@ -10602,12 +10602,12 @@
     padding-right:0
 }
 .el-button--text:focus,.el-button--text:hover{
-    color:#88cd8c;
+    color:var(--primary-color-lighter);
     border-color:transparent;
     background-color:transparent
 }
 .el-button--text:active{
-    color:#5fad64;
+    color:var(--primary-color);
     background-color:transparent
 }
 .el-button-group{

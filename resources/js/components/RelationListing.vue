@@ -335,16 +335,35 @@
     .request {
         .listing {
             .normal {
-                color: var(--primary-color-lighter);
+                color: var(--primary-color);
                 a {
                     text-decoration: none;
-                    color:var(--primary-color-lighter);;
+                    color:var(--primary-color);
+
+                    &:hover {
+                        color:var(--primary-color-lighter);
+                    }
                 }
                 &:hover {
                     text-decoration: none;
                     color:var(--primary-color-lighter);
                 }
             }
+        }
+    }
+    .normal {
+        color: var(--primary-color);
+        a {
+            text-decoration: none;
+            color:var(--primary-color);
+
+            &:hover {
+                color:var(--primary-color-lighter);
+            }
+        }
+        &:hover {
+            text-decoration: none;
+            color:var(--primary-color-lighter);
         }
     }
 </style>

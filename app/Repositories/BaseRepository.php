@@ -45,18 +45,6 @@ abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepositor
         return $this;
     }
 
-    public function count()
-    {
-        $this->applyCriteria();
-        $this->applyScope();
-
-        $results = $this->model->count();
-
-        $this->resetModel();
-        $this->resetScope();
-        return $this->parserResult($results);
-    }
-
     public function scope($scopeName)
     {
         $this->model = $this->model->{$scopeName}();
