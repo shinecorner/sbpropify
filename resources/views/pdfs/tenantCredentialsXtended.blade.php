@@ -48,9 +48,9 @@
       <br>
       <br>
       @if(\App\Models\Tenant::TitleCompany == $tenant->title)
-        @lang('general.pdf_salutation_' . $tenant->title, [], $language)
+        @lang('general.pdf_salutation.' . $tenant->title, [], $language)
       @else
-        @lang('general.pdf_salutation_' . $tenant->title, ['name' => $tenant->last_name], $language)
+        @lang('general.pdf_salutation.' . $tenant->title, ['name' => $tenant->last_name], $language)
       @endif
       <br>
       <br>
