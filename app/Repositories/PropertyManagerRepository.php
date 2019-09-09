@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Building;
+use App\Models\Model;
 use App\Models\Quarter;
 use App\Models\PropertyManager;
 use Illuminate\Support\Arr;
@@ -52,15 +53,28 @@ class PropertyManagerRepository extends BaseRepository
         return $model;
     }
 
+    /**
+     * @param array $attributes
+     * @param $id
+     * @return Model|mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
     public function update(array $attributes, $id)
     {
-        unset($attributes['quarters']);
-        $model = parent::update($attributes, $id);
+        $model = $this->model->findOrFail($id);
+        return $this->updateExisting($model, $attributes);
+    }
 
-        $settings = Arr::pull($attributes, 'settings');
-        if ($settings) {
-            $model->settings()->update($settings);
-        }
+    /**
+     * @param Model $model
+     * @param $attributes
+     * @return Model|mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function updateExisting(Model $model, $attributes)
+    {
+        unset($attributes['quarters']);
+        $model = parent::updateExisting($model, $attributes);
 
         if (isset($attributes['buildings'])) {
             $model->buildings()->sync($attributes['buildings']);

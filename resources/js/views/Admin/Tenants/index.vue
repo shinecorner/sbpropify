@@ -103,7 +103,6 @@
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        type: 'success',
                         title: 'models.tenant.view',
                         onClick: this.view,
                         permissions: [

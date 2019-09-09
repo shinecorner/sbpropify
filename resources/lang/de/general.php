@@ -54,6 +54,9 @@ return [
     'mrs' => 'Frau',
     'company' => 'Firma',    
   ],
+  'pdf_salutation_company' => 'Firma',
+  'pdf_salutation_mr' => 'Sehr geehrter Herr :name',
+  'pdf_salutation_mrs' => 'Sehr geehrte Frau :name',
   'attached' =>
   [
     'building' => 'Liegenschaft wurde zugewiesen.',

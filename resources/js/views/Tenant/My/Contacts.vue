@@ -83,7 +83,7 @@
         color: var(--color-main-background-darker);
         small {
             font-size: 72%;
-            color: var(--color-main-background-lighter);
+            color: var(--primary-color-lighter);
         }
     }
     .contacts {

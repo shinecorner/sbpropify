@@ -54,6 +54,9 @@ return [
     "mrs" => "Signora",
     "company" => "Azienda",    
   ],
+  'pdf_salutation_company' => 'Solido',
+  'pdf_salutation_mr' => 'Gentile Signore :name',
+  'pdf_salutation_mrs' => 'Cara Signora :name',
   'attached' => 
   [
     "building" => "Edificio assegnato",

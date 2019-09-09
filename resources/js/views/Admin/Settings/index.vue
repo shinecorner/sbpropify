@@ -308,50 +308,50 @@
                                                 <upload-avatar @imageUploaded="setAvatarLogoUpload"/>
                                                 <img :src="logo_upload_img"
                                                      v-show="logo_upload_img"
-                                                     width="300px">
+                                                     >
                                                 <img :src="realEstateLogo" ref="realEstateLogo"
-                                                     v-show="realEstateLogo"
-                                                     width="300px">
+                                                     v-show="realEstateLogo && !logo_upload_img"
+                                                    >
                                                 
                                             </el-form-item>
                                             <el-form-item :label="$t('models.user.circle_logo')">
                                                 <upload-avatar @imageUploaded="setCircleLogoUpload"/>
                                                 <img :src="circle_logo_upload_img"
                                                      v-show="circle_logo_upload_img"
-                                                     width="300px">
+                                                    >
                                                 <img :src="realEstateCircleLogo" ref="realEstateCircleLogo"
-                                                     v-show="realEstateCircleLogo"
-                                                     width="300px">
+                                                     v-show="realEstateCircleLogo && !circle_logo_upload_img"
+                                                    >
                                             </el-form-item>
                                             <el-form-item :label="$t('models.user.favicon_icon')">
                                                 <upload-avatar @imageUploaded="setFaviconIconUpload"/>
                                                 <img :src="favicon_icon_upload_img"
                                                      v-show="favicon_icon_upload_img"
-                                                     width="300px">
+                                                    >
                                                 <img :src="realEstateFaviconIcon" ref="realEstateFaviconIcon"
-                                                     v-show="realEstateFaviconIcon"
-                                                     width="300px">
+                                                     v-show="realEstateFaviconIcon && !favicon_icon_upload_img"
+                                                    >
                                             </el-form-item>
                                             <el-form-item :label="$t('models.user.tenant_logo')">
                                                 <upload-avatar @imageUploaded="setTenantLogoUpload"/>
                                                 <img :src="tenant_logo_upload_img"
                                                      v-show="tenant_logo_upload_img"
-                                                     width="300px">
+                                                    >
                                                 <img :src="realEstateTenantLogo" ref="realEstateTenantLogo"
-                                                     v-show="realEstateTenantLogo"
-                                                     width="300px">
+                                                     v-show="realEstateTenantLogo && !tenant_logo_upload_img"
+                                                     >
                                             </el-form-item>
                                             <el-form-item :label="$t('models.realEstate.primary_color')">
                                                 <el-color-picker
                                                         size="medium"
                                                         v-model="model.primary_color"></el-color-picker>
                                             </el-form-item>
-                                            <el-form-item :label="$t('models.realEstate.accent_color')">
+                                            <!-- <el-form-item :label="$t('models.realEstate.accent_color')">
                                                 <el-color-picker
                                                         size="medium"
                                                         v-model="model.accent_color">
                                                 </el-color-picker>
-                                            </el-form-item>
+                                            </el-form-item> -->
                                         </el-card>
                                     </el-col>
                                 </el-row>
@@ -515,6 +515,7 @@
         },
         async created() {
             await this.fetchRealEstate();
+            
 
             if (this.$route.query.tab) {
                 this.goToTab(this.$route.query.tab);
@@ -614,6 +615,7 @@
                 });
                 this.getRealEstate().then((resp) => {
                     this.model = Object.assign({}, this.model, resp.data);
+                    this.$root.$emit('fetch_logo', this.model.logo);
                     try {
                         this.$set(this.model, 'opening_hours', JSON.parse(this.model.opening_hours));
                     } catch (e) {
@@ -631,6 +633,7 @@
                         this.updateRealEstate(this.model).then((resp) => {
                             this.fetchRealEstate();
                             displaySuccess(resp);
+                            
                         }).catch((error) => {
                             displayError(error);
                         });
@@ -689,13 +692,17 @@
             padding: 0 13px !important;
 
             &.is-active, &:hover{
-                background: #6AC06F;
+                background: var(--primary-color);
                 //border-radius: 120px;
                 border-right-color: none;
                 border-left-color: none;
                 -ms-flex-positive: 1;
                 color: #fff !important;
                 transition: background-color .3s ease,color .3s ease !important;
+            }
+
+            &:hover{
+                background: var(--primary-color-lighter);;
             }
 
             &:first-child {
@@ -898,7 +905,7 @@
                     margin-right: 8px;
                 }
                 &:hover {
-                    background: #f0f9f1;
+                    background: var(--primary-color-lighter);
                 }
             }
         }
@@ -953,7 +960,7 @@
         &.is-checked {
             .login-card {
                 box-shadow: none;
-                border: 1px #6AC06F solid;
+                border: 1px var(--primary-color) solid;
             }
         }
     }

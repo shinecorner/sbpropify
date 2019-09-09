@@ -178,11 +178,11 @@
                     label: 'models.request.prop_title'
                 }, {
                     type: 'requestStatus',
-                    width: 120,
+                    width: 100,
                     label: 'models.request.status.label'
                 }],
                 requestActions: [{
-                    width: '120px',
+                    width: '100',
                     buttons: [{
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
