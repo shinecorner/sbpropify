@@ -227,7 +227,9 @@ class ServiceProviderAPIController extends AppBaseController
         }
 
         try {
+            User::disableAuditing();
             $user = $this->userRepository->create($input['user']);
+            User::enableAuditing();
         } catch (Exception $e) {
             return $this->sendError(__('models.service.errors.create') . $e->getMessage());
         }
@@ -373,7 +375,9 @@ class ServiceProviderAPIController extends AppBaseController
 
         $input['user']['settings'] = Arr::pull($input, 'settings', []);
         try {
+            User::disableAuditing();
             $this->userRepository->update($input['user'], $serviceProvider->user_id);
+            User::enableAuditing();
         } catch (Exception $e) {
             return $this->sendError(__('models.service.errors.update') . $e->getMessage());
         }
