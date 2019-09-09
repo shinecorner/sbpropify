@@ -13,9 +13,9 @@ export default {
             const {data} = await this._vm.axios.post('products', params, {showMessage: true})
             const newData = state
 
-            newData.data.unshift(data.data)
-
+            newData.data.unshift(data.data)                        
             commit('set', newData)
+            return data;
         },
         async update ({commit}, {id, ...params}) {
             const {data} = await this._vm.axios.put(`products/${id}`, params, {showMessage: true})

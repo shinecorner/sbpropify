@@ -32,7 +32,7 @@
             <el-input v-model="model.tenant_phone" />
         </el-form-item>
         <el-form-item style="grid-column: span 6">
-            <media-uploader ref="media" :id="4" type="products" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
+            <media-uploader ref="media" :id="product_id" type="products" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
         </el-form-item>
         <el-form-item v-if="!hideSubmit" style="grid-column: span 6">
             <el-button class="submit" type="primary" :disabled="loading" @click="submit">Save</el-button>
@@ -63,6 +63,7 @@
                     extensions: 'png,jpg,jpeg',
                     hideSelectFilesButton: false
                 },
+                product_id: null,
                 model: {
                     media: [],
                     type: null,
@@ -74,7 +75,7 @@
                     content: null,
                     visibility: null,
                     tenant_name: null,
-                    tenant_phone: null
+                    tenant_phone: null,                    
                 },
                 validationRules: {
                     type: {
@@ -119,12 +120,16 @@
                         params.price = `${price.integer}.${price.decimals}`
                         params.contact = `${tenant_name} - ${tenant_phone}`
 
-                        await this.$store.dispatch('newProducts/create', params);
-
-                        if (this.model.media.length) {
-                            // TODO - make await for this
-                            this.$refs.media.startUploading()
+                        const resp = await this.$store.dispatch('newProducts/create', params);
+                        if (resp && resp.data) {
+                            console.log(resp.data);
+                            if (this.model.media.length) {
+                            // TODO - make await for this   
+                                this.product_id = resp.data.id;            
+                               this.$refs.media.startUploading();
+                            }
                         }
+                        
 
                         this.loading = false
                         this.$refs.form.resetFields()
