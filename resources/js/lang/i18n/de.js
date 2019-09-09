@@ -904,7 +904,8 @@ export default {
                 "tenants": "Mieter",
                 "requests": "Anfragen",
                 "go_to_buildings": "zu den Liegenschaften",
-                "buildings_by_state": "Liegenschaften nach Kanton"
+                "buildings_by_state": "Liegenschaften nach Kanton",
+                "go_to_building": "go to building"
             },
             "tenants": {
                 "total_tenants": "Total Mieter",
@@ -1508,9 +1509,11 @@ export default {
                 "mrs": "Frau",
                 "company": "Firma"
             },
-            "pdf_salutation_company": "Firma",
-            "pdf_salutation_mr": "Sehr geehrter Herr {name}",
-            "pdf_salutation_mrs": "Sehr geehrte Frau {name}",
+            "pdf_salutation": {
+                "company": "Firma",
+                "mr": "Sehr geehrter Herr {name}",
+                "mrs": "Sehr geehrte Frau {name}"
+            },
             "attached": {
                 "building": "Liegenschaft wurde zugewiesen.",
                 "quarter": "Überbauung wurde zugewiesen.",

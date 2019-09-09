@@ -904,7 +904,8 @@ export default {
                 "tenants": "inquilini",
                 "requests": "richieste",
                 "go_to_buildings": "vai agli edifici",
-                "buildings_by_state": "Edifici per stato"
+                "buildings_by_state": "Edifici per stato",
+                "go_to_building": "go to building"
             },
             "tenants": {
                 "total_tenants": "Totale",
@@ -1502,9 +1503,11 @@ export default {
                 "mrs": "Signora",
                 "company": "Azienda"
             },
-            "pdf_salutation_company": "Solido",
-            "pdf_salutation_mr": "Gentile Signore {name}",
-            "pdf_salutation_mrs": "Cara Signora {name}",
+            "pdf_salutation": {
+                "company": "Solido",
+                "mr": "Gentile Signore {name}",
+                "mrs": "Cara Signora {name}"
+            },
             "attached": {
                 "building": "Edificio assegnato",
                 "quarter": "Trimestre assegnato",

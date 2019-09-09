@@ -904,7 +904,8 @@ export default {
                 "tenants": "locataires",
                 "requests": "demandes",
                 "go_to_buildings": "Aller aux bâtiments",
-                "buildings_by_state": "Immeubles par état"
+                "buildings_by_state": "Immeubles par état",
+                "go_to_building": "go to building"
             },
             "tenants": {
                 "total_tenants": "Nombre total",
@@ -1502,9 +1503,11 @@ export default {
                 "mrs": "Mme",
                 "company": "Société"
             },
-            "pdf_salutation_company": "Inébranlable",
-            "pdf_salutation_mr": "Cher Monsieur {name}",
-            "pdf_salutation_mrs": "Chère Madame {name}",
+            "pdf_salutation": {
+                "company": "Inébranlable",
+                "mr": "Cher Monsieur {name}",
+                "mrs": "Chère Madame {name}"
+            },
             "attached": {
                 "building": "Bâtiment affecté",
                 "quarter": "Trimestre assigné",

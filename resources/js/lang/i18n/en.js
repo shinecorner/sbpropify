@@ -904,7 +904,8 @@ export default {
                 "tenants": "Tenants",
                 "requests": "Requests",
                 "go_to_buildings": "go to buildings",
-                "buildings_by_state": "Buildings by state"
+                "buildings_by_state": "Buildings by state",
+                "go_to_building": "go to building"
             },
             "tenants": {
                 "total_tenants": "Total Count",
@@ -1502,9 +1503,11 @@ export default {
                 "mrs": "Mrs.",
                 "company": "Company"
             },
-            "pdf_salutation_company": "Firm",
-            "pdf_salutation_mr": "Dear Sir {name}",
-            "pdf_salutation_mrs": "Dear Lady {name}",
+            "pdf_salutation": {
+                "company": "Firm",
+                "mr": "Dear Sir {name}",
+                "mrs": "Dear Lady {name}"
+            },
             "attached": {
                 "building": "Building assigned",
                 "quarter": "Quarter assigned",

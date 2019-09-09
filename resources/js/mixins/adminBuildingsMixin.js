@@ -14,6 +14,10 @@ export default (config = {}) => {
         data() {
             return {
                 remoteLoading: false,
+                assignmentTypes: ['managers', 'administrator'],
+                assignmentType: 'managers',
+                toAssignList: [],
+                toAssign: '',
                 statistics: {
                     raw: [{
                         icon: 'ti-user',
@@ -89,7 +93,79 @@ export default (config = {}) => {
             };
         },
         methods: {
-            ...mapActions(['getStates', 'getServicesGroupedByCategory', 'getQuarters']),
+            ...mapActions(['getStates', 'getServicesGroupedByCategory', 'getQuarters','getUsers']),
+            async remoteSearchAssignees(search) {
+
+                if (!this.$can(this.$permissions.assign.request)) {
+                    return false;
+                }
+
+                if (search === '') {
+                    this.resetToAssignList();
+                } else {
+                    this.remoteLoading = true;
+                    
+                    try {
+                        let resp = [];
+                        // const respRequest = await this.getRequest({id: this.$route.params.id});
+                        let exclude_ids = [];
+                        if (this.assignmentType === 'managers') {
+                            // respRequest.data.property_managers.map(item => {
+                            //     exclude_ids.push(item.id);
+                            // })
+                            resp = await this.getPropertyManagers({
+                                get_all: true,
+                                search,
+                                exclude_ids
+                            });
+                        } else if(this.assignmentType === 'administrator'){
+                            // respRequest.data.assignedUsers.map(item => {
+                            //     exclude_ids.push(item.id);
+                            // })
+                            resp = await this.getUsers({
+                                get_all: true,
+                                search,
+                                exclude_ids,
+                                role: 'administrator'
+                            });
+                        }                       
+
+                        this.toAssignList = resp.data;
+                    } catch (err) {
+                        displayError(err);
+                    } finally {
+                        this.remoteLoading = false;
+                    }
+                }
+            },            
+            resetToAssignList() {
+                this.toAssignList = [];
+                this.toAssign = '';
+            },
+            async assignUser() {
+                if (!this.toAssign || !this.model.id) {
+                    return false;
+                }
+                let resp;
+
+                if (this.assignmentType === 'managers') {
+                    resp = await this.assignManagerToBuilding({
+                        id: this.model.id,
+                        toAssignId: this.toAssign   
+                    });
+                } else if (this.assignmentType === 'administrator') {
+                    resp = await this.assignUsersToBuilding({
+                        id: this.model.id,
+                        toAssignId: this.toAssign
+                    });
+                }
+
+                if (resp && resp.data) {             
+                    displaySuccess(resp.data)                           
+                    this.resetToAssignList();
+                    this.$refs.assigneesList.fetch();                    
+                }
+            },
             async remoteSearchQuarters(search) {
                 if (search === '') {
                     this.quarters = [];
