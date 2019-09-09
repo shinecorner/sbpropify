@@ -102,7 +102,7 @@
                 }*/, {
                     width: 120,
                     actions: [{
-                        type: 'primary',
+                        type: '',
                         icon: 'ti-pencil',
                         title: 'models.tenant.view',
                         onClick: this.view,
