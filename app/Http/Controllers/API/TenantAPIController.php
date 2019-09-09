@@ -264,7 +264,9 @@ class TenantAPIController extends AppBaseController
         try {
             $input['user']['role'] = 'registered';
             $input['user']['settings'] = Arr::pull($input, 'settings');
+            User::disableAuditing();
             $user = $this->userRepository->create($input['user']);
+            User::enableAuditing();
         } catch (\Exception $e) {
             return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
         }
