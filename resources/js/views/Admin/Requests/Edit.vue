@@ -644,8 +644,12 @@
     .tenant-link {
         display: flex;
         align-items: center;
-        color: var(--primary-color-lighter);
+        color: var(--primary-color);
         text-decoration: none;
+
+        &:hover {
+            color: var(--primary-color-lighter);
+        }
 
         & > span {
             margin-left: 5px;

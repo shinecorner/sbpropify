@@ -332,7 +332,7 @@
                                                      v-show="realEstateFaviconIcon && !favicon_icon_upload_img"
                                                     >
                                             </el-form-item>
-                                            <el-form-item :label="$t('models.user.tenant_logo')">
+                                            <!-- <el-form-item :label="$t('models.user.tenant_logo')">
                                                 <upload-avatar @imageUploaded="setTenantLogoUpload"/>
                                                 <img :src="tenant_logo_upload_img"
                                                      v-show="tenant_logo_upload_img"
@@ -340,7 +340,7 @@
                                                 <img :src="realEstateTenantLogo" ref="realEstateTenantLogo"
                                                      v-show="realEstateTenantLogo && !tenant_logo_upload_img"
                                                      >
-                                            </el-form-item>
+                                            </el-form-item> -->
                                             <el-form-item :label="$t('models.realEstate.primary_color')">
                                                 <el-color-picker
                                                         size="medium"
