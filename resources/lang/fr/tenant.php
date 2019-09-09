@@ -19,9 +19,9 @@ return [
     'email' => 'courriel',
     'born' => 'Berne',
     'welcome' => 'Bienvenue sur le portail des locataires de la',
-    'pdf_dear_company' => 'Inébranlable',
-    'pdf_dear_mr' => 'Cher Monsieur :name',
-    'pdf_dear_mrs' => 'Chère Madame :name',
+    'pdf_salutation_company' => 'Inébranlable',
+    'pdf_salutation_mr' => 'Cher Monsieur :name',
+    'pdf_salutation_mrs' => 'Chère Madame :name',
     'content_1' => 'Nous avons le plaisir de vous informer qu\'un compte a été créé pour vous dans le total du locataire et de vous envoyer le code d\'activation.',
     'offer' => 'Qu\'offre l\'application ?',
     'offers' => '

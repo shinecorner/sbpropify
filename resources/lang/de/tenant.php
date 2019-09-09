@@ -23,9 +23,9 @@ return [
     'email' => 'E-Mail',
     'born' => 'Bern',
     'welcome' => 'Willkommen im Mieterportal der',
-    'pdf_dear_company' => 'Firma',
-    'pdf_dear_mr' => 'Sehr geehrter Herr :name',
-    'pdf_dear_mrs' => 'Sehr geehrte Frau :name',
+    'pdf_salutation_company' => 'Firma',
+    'pdf_salutation_mr' => 'Sehr geehrter Herr :name',
+    'pdf_salutation_mrs' => 'Sehr geehrte Frau :name',
     'content_1' => 'Wir freuen uns, Ihnen mitzuteilen, dass für Sie ein Konto im Mieterpotal eingerichtet wurde und übermitteln Ihnen den Aktivierungscode',
     'offer' => 'Was bietet die Applikation',
     'offers' => '
