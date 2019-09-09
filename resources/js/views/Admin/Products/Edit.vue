@@ -61,7 +61,7 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
-                        <el-tabs v-model="activeName">
+                        <el-tabs type="card" v-model="activeName">
                             <el-tab-pane :label="$t('menu.requests')" name="description">    
                                 <el-row>
                                     <el-col>
@@ -321,6 +321,7 @@
             margin-left: 5px;
         }
     }
+ 
 </style>
 <style lang="scss">
     .el-input-group--prepend .el-input-group__prepend {
@@ -337,5 +338,8 @@
     }
     .el-card .el-card__body, .el-card .el-card__header {
         padding: 20px !important;
+    }
+    #tab-image {
+        padding-right: 40px !important;
     }
 </style>
