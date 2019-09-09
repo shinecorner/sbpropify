@@ -934,8 +934,12 @@
 
     .listing-link {
         text-decoration: none;
-        color: #6AC06F;
+        color: var(--primary-color);
         font-weight: bold;
+
+        &:hover {
+            color: var(--primary-color-lighter);
+        }
     }
 
     .rounded-select .el-input .el-input__prefix {
