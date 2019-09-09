@@ -27,8 +27,8 @@
             {{-- <router-view></router-view> --}}
         </div>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAPS_API')}}"></script>
-        <script src="{{ (env('APP_ENV') === 'local') ? mix('js/manifest.js?v=1.1') : asset('js/manifest.js') }}" defer></script>
-        <script src="{{ (env('APP_ENV') === 'local') ? mix('js/vendor.js?v=1.1') : asset('js/vendor.js') }}" defer></script>
-        <script src="{{ (env('APP_ENV') === 'local') ? mix('js/app.js?v=1.1') : asset('js/app.js') }}" defer></script>
+        <script src="{{ (env('APP_ENV') === 'local') ? mix('js/manifest.js') : asset('js/manifest.js') }}" defer></script>
+        <script src="{{ (env('APP_ENV') === 'local') ? mix('js/vendor.js') : asset('js/vendor.js') }}" defer></script>
+        <script src="{{ (env('APP_ENV') === 'local') ? mix('js/app.js') : asset('js/app.js') }}" defer></script>
     </body>
 </html>
