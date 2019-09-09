@@ -97,7 +97,7 @@
                         //     ]
                         // }, 
                         {
-                            type: 'primary',
+                            type: '',
                             title: 'general.actions.edit',
                             onClick: this.edit,
                             permissions: [
