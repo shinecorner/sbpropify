@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Traits\BuildingRelation;
 use App\Traits\RequestRelation;
 use App\Traits\UniqueIDFormat;
+use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
+use Chelout\RelationshipEvents\Concerns\HasMorphedByManyEvents;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -109,6 +111,19 @@ class PropertyManager extends AuditableModel
     ];
 
     protected $dates = ['deleted_at'];
+
+    /**
+     * @var array
+     */
+    protected $auditEvents = [
+        AuditableModel::EventCreated,
+        AuditableModel::EventUpdated,
+        AuditableModel::EventDeleted,
+        AuditableModel::EventQuarterAssigned => 'getAttachedEventAttributes',
+        AuditableModel::EventBuildingAssigned => 'getAttachedEventAttributes',
+        AuditableModel::EventQuarterUnassigned => 'getDetachedEventAttributes',
+        AuditableModel::EventBuildingUnassigned => 'getDetachedEventAttributes',
+    ];
 
     /**
      * The attributes that should be casted to native types.
