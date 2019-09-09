@@ -107,12 +107,12 @@ class ServiceProviderAPIController extends AppBaseController
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $query = $this->serviceProviderRepository->with([
+        $this->serviceProviderRepository->with([
             'user', 'address:id,country_id,state_id,city,street,zip'
         ]);
 
-        $query = $query->withCount('requests')->scope('allRequestStatusCount');
-        $serviceProviders = $query->paginate($perPage);
+        $this->serviceProviderRepository->withCount('requests')->scope('allRequestStatusCount');
+        $serviceProviders = $this->serviceProviderRepository->paginate($perPage);
 
         return $this->sendResponse($serviceProviders->toArray(), 'Service Providers retrieved successfully');
     }
