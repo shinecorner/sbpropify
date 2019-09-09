@@ -36,6 +36,7 @@ class BuildingTransformer extends BaseTransformer
             'attic' => $model->attic,
             'created_at' => $model->created_at->format('Y-m-d'),
             'quarter_id' => $model->quarter_id,
+            'address_id' => $model->address_id,
 
             'units_count' => $model->units_count,
             'tenants_count' => 0,
