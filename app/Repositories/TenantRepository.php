@@ -212,14 +212,6 @@ class TenantRepository extends BaseRepository
     }
 
     /**
-     * @return mixed
-     */
-    public function count()
-    {
-        return $this->model->count();
-    }
-
-    /**
      * @param $id
      * @param array $columns
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Model[]|null|void
