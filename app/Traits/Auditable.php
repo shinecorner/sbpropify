@@ -93,7 +93,7 @@ trait Auditable
     /**
      * @return array
      */
-    public function getUserUnassignedEventAttributes(): array
+    public function getDetachedEventAttributes(): array
     {
         return $this->getSyncEventAttributes('detach');
     }
@@ -101,39 +101,7 @@ trait Auditable
     /**
      * @return array
      */
-    public function getUserAssignedEventAttributes(): array
-    {
-        return $this->getSyncEventAttributes('attach');
-    }
-
-    /**
-     * @return array
-     */
-    public function getManagerUnassignedEventAttributes(): array
-    {
-        return $this->getSyncEventAttributes('detach');
-    }
-
-    /**
-     * @return array
-     */
-    public function getManagerAssignedEventAttributes(): array
-    {
-        return $this->getSyncEventAttributes('attach');
-    }
-
-    /**
-     * @return array
-     */
-    public function getProviderUnassignedEventAttributes(): array
-    {
-        return $this->getSyncEventAttributes('detach');
-    }
-
-    /**
-     * @return array
-     */
-    public function getProviderAssignedEventAttributes(): array
+    public function getAttachedEventAttributes(): array
     {
         return $this->getSyncEventAttributes('attach');
     }
