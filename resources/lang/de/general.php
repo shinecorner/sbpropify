@@ -199,7 +199,7 @@ return [
       'added' => 'Dokument/Foto hinzugefügt',
       'deleted' => 'Dokument/Foto gelöscht',
     ],
-    'logout_confirm' => 'Sie werden eingelogt ausgeloggt.',
+    'logout_confirm' => 'Sie werden ausgeloggt.',
   ],
   'roles' => 
   [
