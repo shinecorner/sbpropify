@@ -1,5 +1,5 @@
 <template>
-    <div class="units-edit mb20">
+    <div class="units-edit product-edit mb20">
         <heading :title="$t('models.product.edit_title')" icon="icon-basket" shadow="heavy" style="margin-bottom: 20px;">
             <edit-actions :saveAction="submit" :deleteAction="deleteProduct" route="adminProducts"/>
         </heading>
@@ -324,22 +324,24 @@
  
 </style>
 <style lang="scss">
-    .el-input-group--prepend .el-input-group__prepend {
-        padding: 0 10px;
-        font-weight: bold;
-    }
-    .admin-layout .el-badge__content.is-fixed {
-        top: 19px;
-        right: -5px;
-        background-color: var(--primary-color) !important;
-        margin-left: 5px;
-        height: 18px;
-        width: 6px;
-    }
-    .el-card .el-card__body, .el-card .el-card__header {
-        padding: 20px !important;
-    }
-    #tab-image {
-        padding-right: 40px !important;
+    .product-edit {
+        .el-input-group--prepend .el-input-group__prepend {
+            padding: 0 10px;
+            font-weight: bold;
+        }
+        .admin-layout .el-badge__content.is-fixed {
+            top: 19px;
+            right: -5px;
+            background-color: var(--primary-color) !important;
+            margin-left: 5px;
+            height: 18px;
+            width: 6px;
+        }
+        .el-card .el-card__body, .el-card .el-card__header {
+            padding: 20px !important;
+        }
+        #tab-image {
+            padding-right: 40px !important;
+        }
     }
 </style>
