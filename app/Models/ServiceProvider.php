@@ -128,6 +128,19 @@ class ServiceProvider extends AuditableModel
     ];
 
     /**
+     * @var array
+     */
+    protected $auditEvents = [
+        AuditableModel::EventCreated,
+        AuditableModel::EventUpdated,
+        AuditableModel::EventDeleted,
+        AuditableModel::EventQuarterAssigned => 'getAttachedEventAttributes',
+        AuditableModel::EventBuildingAssigned => 'getAttachedEventAttributes',
+        AuditableModel::EventQuarterUnassigned => 'getDetachedEventAttributes',
+        AuditableModel::EventBuildingUnassigned => 'getDetachedEventAttributes',
+    ];
+    
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
