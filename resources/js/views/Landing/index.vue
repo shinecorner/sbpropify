@@ -650,7 +650,7 @@
                     color: #fff;
                     padding: 8em;
                     position: relative;
-                    background: linear-gradient(to right, #6AC06F, lighten(#6AC06F, 24%));
+                    background: linear-gradient(to right, var(--primary-color), var(--primary-color-lighter));
                     text-align: center;
                     .container {
                         position: relative;
