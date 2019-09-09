@@ -91,7 +91,7 @@
         mounted() {
             this.getBtnWidth();
         },
-        created() {
+        created() {            
             this.resetToAssignList();
             this.assign();
         }
