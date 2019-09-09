@@ -8,7 +8,8 @@
                 <i class="icon-menu"></i>
             </div>
             <div class="logo-image">
-                <img src="~img/logo3.png"/>
+                <img src="~img/logo3.png" v-show="!logo"/>
+                <img :src="logo" v-show="logo"/>
             </div>
         </el-menu-item>
         <el-menu-item class="header-menu-links" index="content" v-if="hasSlot()">
@@ -23,6 +24,25 @@
         props: {
             toggleSidebar: { type: Function },
         },
+        computed: {
+            logo() {
+                
+                if(localStorage.getItem('logo') != this.$constants.logo.logo ) {
+                    localStorage.setItem('logo', this.$constants.logo.logo);
+                }
+
+                return localStorage.getItem('logo') ? `/${localStorage.getItem('logo')}` : '';
+            },
+        },
+        mounted() {
+
+            this.$root.$on('fetch_logo', (logo) => {
+                if(localStorage.getItem('logo') != logo ) {
+                    localStorage.setItem('logo', logo);
+                }
+            });
+
+        },
         methods: {
             hasSlot(slot) {
                 if (slot) {
@@ -35,6 +55,7 @@
                 this.toggleSidebar();
             }
         }
+        
     }
 </script>
 
@@ -136,7 +157,7 @@
                 }
 
                 .dropdown-list-item-link.active{
-                    background-color: #f0f9f1;
+                    background-color: var(--primary-color-lighter);
                     padding: 10px 100% 10px 10px;
                     margin-left: -10px;
                 }
@@ -153,9 +174,9 @@
     }
 
     .el-menu-item{
-
+        
         &:hover {
-            background-color: #f0f9f1!important;
+            background-color: var(--primary-color) !important;
         }
 
         &-link{
@@ -186,7 +207,7 @@
     }
 
     .el-menu-item-d.is-active{
-        background-color: #f0f9f1!important;
+        background-color: var(--primary-color-lighter) !important;
     }
 
     .dropdown-menu .el-submenu{

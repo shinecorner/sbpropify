@@ -25,6 +25,12 @@ export default {
                 "avatar_uploaded": "Avatar caricato",
                 "logo_uploaded": "Logo caricato",
                 "logo": "Logo",
+                "circle_logo": "Logo del cerchio",
+                "favicon_icon": "Icona Favicon",
+                "tenant_logo": "Logo dell'inquilino",
+                "blank_pdf": "PDF in bianco",
+                "blank_pdf_desc": "Genera file PDF senza carta intestata in modo che possano essere stampati sulla tua carta intestata.",
+                "font_family": "Famiglia di font",
                 "notificationSaved": "Impostazione della notifica salvata",
                 "realEstateSaved": "Impostazioni immobiliari salvate",
                 "serviceRequestCategorySaved": "Categoria della richiesta di servizio salvata",
@@ -139,6 +145,27 @@ export default {
                     "label": "Situazione",
                     "active": "Attivo",
                     "not_active": "Non attivo"
+                },
+                "credentials_pdf": {
+                    "tenant_credentials": "Le credenziali dell'inquilino",
+                    "username": "Nome utente",
+                    "url": "URL",
+                    "code": "Codice di sblocco personale",
+                    "telephone": "Telefono",
+                    "your_email": "Il tuo indirizzo e-mail",
+                    "email": "messaggio di posta elettronica",
+                    "born": "Berna",
+                    "welcome": "Benvenuti nel portale degli inquilini della",
+                    "content_1": "Siamo lieti di informarvi che è stato creato un account per voi nel totale dell'inquilino e vi invieremo il codice di attivazione.",
+                    "offer": "Cosa offre l'applicazione?",
+                    "offers": "\n          <li>Con il dossier digitale dell'inquilino avete accesso a tutti i documenti rilevanti, come il contratto di locazione, il regolamento interno o altri documenti relativi alla proprietà.</li>\n          <li>Il sistema di ticketing vi permette di elaborare le vostre richieste in modo semplice e senza complicazioni - potete comunicare le vostre preoccupazioni all'amministrazione in qualsiasi momento e da qualsiasi luogo . </li>\n          <li>Puoi vendere o prestare oggetti al tuo quartiere sulla piazza del mercato e sull'area di prestito . </li>\n          <li>Condividi le notizie con i tuoi vicini pubblicando un contributo. La bacheca è utilizzata anche dall'amministrazione per la comunicazione, in modo che tutti siano sempre aggiornati .</li>\n          <li>Ulteriori Micro-Apps all'interno dell'applicazione stabiliscono nuovi standard nella qualità della vita, per cui è possibile utilizzare comodamente diversi servizi.</li>\n        ",
+                    "register": "Prima registrazione e attivazione del tuo account",
+                    "content_2": "Per registrarsi, clicca sul link sottostante e accedi con il tuo indirizzo e-mail e codice di attivazione personale. Una volta effettuato l'accesso, è possibile definire la propria password e utilizzarla per l'accesso.",
+                    "link_application": "Collegamento all'applicazione",
+                    "content_3": "Vi aspettiamo a bordo!",
+                    "content_4": "Se avete bisogno di assistenza per la registrazione, allora siamo a vostra disposizione.",
+                    "your_sincerely": "La vostra sinceramente",
+                    "your_administration": "la sua amministrazione"
                 }
             },
             "building": {
@@ -153,6 +180,7 @@ export default {
                 "basement": "Nel seminterrato",
                 "attic": "In soffitta",
                 "floor_nr": "Numero di piani",
+                "internal_building_id": "Id edificio interno",
                 "label": "Etichetta",
                 "address_search": "Inserire l'indirizzo",
                 "not_found": "Edificio non trovato",
@@ -625,7 +653,8 @@ export default {
                     },
                     "costs": {
                         "landlord": "Padrone di casa",
-                        "tenant": "Affittuario"
+                        "tenant": "Affittuario",
+                        "tenant/landlord": "Affittuario/Padrone di casa"
                     }
                 },
                 "placeholders": {
@@ -974,23 +1003,7 @@ export default {
             "username": "Nome utente",
             "password": "La password",
             "url": "URL",
-            "code": "Codice di sblocco personale",
-            "telephone": "Telefono",
-            "your_email": "Il tuo indirizzo e-mail",
-            "email": "messaggio di posta elettronica",
-            "born": "Berna",
-            "welcome": "Benvenuti nel portale degli inquilini della",
-            "dear_sir": "Gentile  {salutation} {name}",
-            "content_1": "Siamo lieti di informarvi che è stato creato un account per voi nel totale dell'inquilino e vi invieremo il codice di attivazione.",
-            "offer": "Cosa offre l'applicazione?",
-            "offers": "\n        <li>Con il dossier digitale dell'inquilino avete accesso a tutti i documenti rilevanti, come il contratto di locazione, il regolamento interno o altri documenti relativi alla proprietà.</li>\n        <li>Il sistema di ticketing vi permette di elaborare le vostre richieste in modo semplice e senza complicazioni - potete comunicare le vostre preoccupazioni all'amministrazione in qualsiasi momento e da qualsiasi luogo . </li>\n        <li>Puoi vendere o prestare oggetti al tuo quartiere sulla piazza del mercato e sull'area di prestito . </li>\n        <li>Condividi le notizie con i tuoi vicini pubblicando un contributo. La bacheca è utilizzata anche dall'amministrazione per la comunicazione, in modo che tutti siano sempre aggiornati .</li>\n        <li>Ulteriori Micro-Apps all'interno dell'applicazione stabiliscono nuovi standard nella qualità della vita, per cui è possibile utilizzare comodamente diversi servizi.</li>\n    ",
-            "register": "Prima registrazione e attivazione del tuo account",
-            "content_2": "Per registrarsi, clicca sul link sottostante e accedi con il tuo indirizzo e-mail e codice di attivazione personale. Una volta effettuato l'accesso, è possibile definire la propria password e utilizzarla per l'accesso.",
-            "link_application": "Collegamento all'applicazione",
-            "content_3": "Vi aspettiamo a bordo!",
-            "content_4": "Se avete bisogno di assistenza per la registrazione, allora siamo a vostra disposizione.",
-            "your_sincerely": "La vostra sinceramente",
-            "your_administration": "la sua amministrazione"
+            "code": "Codice di sblocco personale"
         },
         "menu": {
             "dashboard": "Cruscotto",
@@ -1489,6 +1502,9 @@ export default {
                 "mrs": "Signora",
                 "company": "Azienda"
             },
+            "pdf_salutation_company": "Solido",
+            "pdf_salutation_mr": "Gentile Signore {name}",
+            "pdf_salutation_mrs": "Cara Signora {name}",
             "attached": {
                 "building": "Edificio assegnato",
                 "quarter": "Trimestre assegnato",

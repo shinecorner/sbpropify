@@ -18,6 +18,12 @@ return [
       "avatar_uploaded" => "Avatar téléchargé",
       "logo_uploaded" => "Logo téléchargé",
       "logo" => "Logo",
+      'circle_logo' => "Logo du cercle",
+      'favicon_icon' => "Icône Favicon",
+      "tenant_logo" => "Logo du locataire",
+      "blank_pdf" => "PDF vierge",
+      'blank_pdf_desc' => 'Générez des fichiers PDF sans papier à en-tête afin qu\'ils puissent être imprimés sur votre propre papeterie.',
+      'font_family' => 'Font family',
       "notificationSaved" => "Réglage de la notification sauvegardé",
       "realEstateSaved" => "Options des biens immobiliers sauvegardées",
       "serviceRequestCategorySaved" => "Catégorie de demande de service sauvegardée",
@@ -149,6 +155,33 @@ return [
         "active" => "Actif",
         "not_active" => "Non actif",
       ],
+      'credentials_pdf' => [
+        'tenant_credentials' => 'Accréditation des locataires',
+        'username' => 'Nom d\'utilisateur',
+        'url' => 'URL',
+        'code' => 'Code de déverrouillage personnel',
+        'telephone' => 'Téléphone',
+        'your_email' => 'Votre adresse e-mail',
+        'email' => 'courriel',
+        'born' => 'Berne',
+        'welcome' => 'Bienvenue sur le portail des locataires de la',
+        'content_1' => 'Nous avons le plaisir de vous informer qu\'un compte a été créé pour vous dans le total du locataire et de vous envoyer le code d\'activation.',
+        'offer' => 'Qu\'offre l\'application ?',
+        'offers' => '
+          <li>Avec le dossier locatif numérique, vous avez accès à tous les documents pertinents, tels que le contrat de location, le règlement intérieur ou d\'autres documents relatifs à la propriété . </li>
+          <li>Le système de billetterie vous permet de traiter vos demandes facilement et sans complications - vous pouvez communiquer vos préoccupations à l\'administration à tout moment et de n\'importe quel endroit.</li>
+          <li>Vous pouvez vendre ou prêter des objets à votre quartier sur la place du marché et dans la zone de prêt.</li>
+          <li>Partagez les nouvelles avec vos voisins en publiant une contribution. Le tableau d\'affichage est également utilisé par l\'administration pour la communication, de sorte que tout le monde est toujours à jour.</li>
+          <li>D\'autres Micro - Apps au sein de l\'application fixent de nouveaux standards de qualité de vie, grâce auxquels divers services peuvent être utilisés de manière pratique.</li>
+        ',
+        'register' => 'Première inscription et activation de votre compte',
+        'content_2' => 'Pour vous inscrire, cliquez sur le lien ci-dessous et connectez-vous avec votre adresse e-mail et votre code d\'activation personnel. Une fois connecté, vous pouvez définir votre propre mot de passe et l\'utiliser pour vous connecter.',
+        'link_application' => 'Lien vers l\'application',
+        'content_3' => 'Au plaisir de vous accueillir à bord !',
+        'content_4' => 'Si vous avez besoin d\'aide pour l\'enregistrement, nous sommes à votre disposition.',
+        'your_sincerely' => 'Sincèrement vôtre',
+        'your_administration' => 'votre administration'
+      ]
     ],
     'building' => 
     [
@@ -163,6 +196,7 @@ return [
       "basement" => "Sous-sol",
       "attic" => "Grenier aménageable",
       "floor_nr" => "Nombre d'étages",
+      "internal_building_id" => "Numéro d'identification interne de l'immeuble",
       "label" => "Étiquette",
       "address_search" => "Veuillez entrer l'adresse",
       "not_found" => "Bâtiment non trouvé",
@@ -684,7 +718,8 @@ return [
         ],
         'costs' => [
           'landlord' => 'Propriétaire',
-          'tenant' => 'Locataire'
+          'tenant' => 'Locataire',
+          'tenant/landlord' => 'Locataire/Propriétaire'
         ]
       ],
       'placeholders' => 

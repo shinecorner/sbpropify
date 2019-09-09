@@ -248,7 +248,9 @@ export default (config = {}) => {
                         if (valid) {
                             this.loading.state = true;
                             try {
+
                                 const resp = await this.createService(this.model);
+
 
                                 if (resp.data.user && resp.data.user.id) {
                                     await this.uploadAvatarIfNeeded(resp.data.user.id);
@@ -290,6 +292,7 @@ export default (config = {}) => {
                         return new Promise((resolve, reject) => {
                             this.isFormSubmission = true;
                             this.form.validate(async valid => {
+
                                 if (!valid) {
                                     resolve(false);
                                     return false;
@@ -342,6 +345,8 @@ export default (config = {}) => {
                         this.model.user.avatar = data.user.avatar;
                         this.model.user.id = data.user.id;
                         this.model.service_provider_format = data.service_provider_format;
+
+                        this.model.settings = data.settings;
 
                         this.statistics.raw[0].value = data.requests_count;
                         this.statistics.raw[1].value = data.solved_requests_count;

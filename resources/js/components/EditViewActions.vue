@@ -64,6 +64,7 @@
             async saveAndClose() {
                 try {
                     const resp = await this.saveAction();
+                    console.log(resp);
                     if(resp) {
                         this.goToListing();
                     }
@@ -80,6 +81,7 @@
                     });
             },
             async SaveAndEdit() {
+                console.log('saveandedit');
                 try {
                     this.saveAction(resp => {
                         if (resp && resp.data) {

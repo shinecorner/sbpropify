@@ -301,22 +301,57 @@
                                     <el-col :md="12">
                                         <el-card>
                                             <el-form-item :label="$t('models.user.logo')">
-                                                <cropper @cropped="setLogoUpload"/>
-                                                <img :src="realEstateLogo" ref="realEstateLogo"
+                                                <!-- <cropper @cropped="setLogoUpload"/> -->
+                                                <!-- <img :src="realEstateLogo" ref="realEstateLogo"
                                                      v-show="realEstateLogo || model.logo_upload"
-                                                     width="300px">
+                                                     width="300px"> -->
+                                                <upload-avatar @imageUploaded="setAvatarLogoUpload"/>
+                                                <img :src="logo_upload_img"
+                                                     v-show="logo_upload_img"
+                                                     >
+                                                <img :src="realEstateLogo" ref="realEstateLogo"
+                                                     v-show="realEstateLogo && !logo_upload_img"
+                                                    >
+                                                
+                                            </el-form-item>
+                                            <el-form-item :label="$t('models.user.circle_logo')">
+                                                <upload-avatar @imageUploaded="setCircleLogoUpload"/>
+                                                <img :src="circle_logo_upload_img"
+                                                     v-show="circle_logo_upload_img"
+                                                    >
+                                                <img :src="realEstateCircleLogo" ref="realEstateCircleLogo"
+                                                     v-show="realEstateCircleLogo && !circle_logo_upload_img"
+                                                    >
+                                            </el-form-item>
+                                            <el-form-item :label="$t('models.user.favicon_icon')">
+                                                <upload-avatar @imageUploaded="setFaviconIconUpload"/>
+                                                <img :src="favicon_icon_upload_img"
+                                                     v-show="favicon_icon_upload_img"
+                                                    >
+                                                <img :src="realEstateFaviconIcon" ref="realEstateFaviconIcon"
+                                                     v-show="realEstateFaviconIcon && !favicon_icon_upload_img"
+                                                    >
+                                            </el-form-item>
+                                            <el-form-item :label="$t('models.user.tenant_logo')">
+                                                <upload-avatar @imageUploaded="setTenantLogoUpload"/>
+                                                <img :src="tenant_logo_upload_img"
+                                                     v-show="tenant_logo_upload_img"
+                                                    >
+                                                <img :src="realEstateTenantLogo" ref="realEstateTenantLogo"
+                                                     v-show="realEstateTenantLogo && !tenant_logo_upload_img"
+                                                     >
                                             </el-form-item>
                                             <el-form-item :label="$t('models.realEstate.primary_color')">
                                                 <el-color-picker
                                                         size="medium"
                                                         v-model="model.primary_color"></el-color-picker>
                                             </el-form-item>
-                                            <el-form-item :label="$t('models.realEstate.accent_color')">
+                                            <!-- <el-form-item :label="$t('models.realEstate.accent_color')">
                                                 <el-color-picker
                                                         size="medium"
                                                         v-model="model.accent_color">
                                                 </el-color-picker>
-                                            </el-form-item>
+                                            </el-form-item> -->
                                         </el-card>
                                     </el-col>
                                 </el-row>
@@ -404,6 +439,7 @@
 <script>
     import Heading from 'components/Heading';
     import Cropper from 'components/Cropper';
+    import UploadAvatar from 'components/UploadAvatar';
     import {mapActions} from 'vuex';
     import {displayError, displaySuccess} from 'helpers/messages';
     import CategoriesListing from './Categories'
@@ -414,6 +450,7 @@
         components: {
             Heading,
             Cropper,
+            UploadAvatar,
             CategoriesListing,
             TemplatesListing
         },
@@ -426,7 +463,15 @@
                     blank_pdf: true,
                     quarter_enable: true,
                     logo: '',
+                    circle_logo: '',
+                    favicon_icon: '',
+                    tenant_logo: '',
                     logo_upload: '',
+                    tenant_logo: '',
+                    circle_logo_upload: '',
+                    favicon_icon_upload: '',
+                    tenant_logo_upload: '',
+                    tenant_logo_upload: '',
                     marketplace_approval_enable: true,
                     news_approval_enable: false,
                     comment_update_timeout: 60,
@@ -448,6 +493,10 @@
                     login_variation_2_slider: false,
                     pdf_font_family: '',
                 },
+                logo_upload_img: '',
+                circle_logo_upload_img: '',
+                favicon_icon_upload_img: '',
+                tenant_logo_upload_img: '',
                 activeName: 'settings',
                 activeSettingsName: 'settings_settings',
                 activeRequestName: 'templates',
@@ -466,6 +515,7 @@
         },
         async created() {
             await this.fetchRealEstate();
+            
 
             if (this.$route.query.tab) {
                 this.goToTab(this.$route.query.tab);
@@ -485,6 +535,15 @@
         computed: {
             realEstateLogo() {
                 return this.model.logo ? `/${this.model.logo}?${Date.now()}` : '';
+            },
+            realEstateCircleLogo() {
+                return this.model.circle_logo ? `/${this.model.circle_logo}?${Date.now()}` : '';
+            },
+            realEstateFaviconIcon() {
+                return this.model.favicon_icon ? `/${this.model.favicon_icon}?${Date.now()}` : '';
+            },
+            realEstateTenantLogo() {
+                return this.model.tenant_logo ? `/${this.model.tenant_logo}?${Date.now()}` : '';
             },
             validationRules() {
                 setTimeout(() => {this.validateForm('realEstateSettingsForm')}, 0);
@@ -556,6 +615,7 @@
                 });
                 this.getRealEstate().then((resp) => {
                     this.model = Object.assign({}, this.model, resp.data);
+                    this.$root.$emit('fetch_logo', this.model.logo);
                     try {
                         this.$set(this.model, 'opening_hours', JSON.parse(this.model.opening_hours));
                     } catch (e) {
@@ -573,6 +633,7 @@
                         this.updateRealEstate(this.model).then((resp) => {
                             this.fetchRealEstate();
                             displaySuccess(resp);
+                            
                         }).catch((error) => {
                             displayError(error);
                         });
@@ -581,6 +642,22 @@
             },
             setLogoUpload(image) {
                 this.model.logo_upload = image;
+            },
+            setAvatarLogoUpload(image) {
+                this.model.logo_upload = image;
+                this.logo_upload_img = "data:image/png;base64," + image;
+            },
+            setCircleLogoUpload(image) {
+                this.model.circle_logo_upload = image;
+                this.circle_logo_upload_img = "data:image/png;base64," + image;
+            },
+            setFaviconIconUpload(image) {
+                this.model.favicon_icon_upload = image;
+                this.favicon_icon_upload_img = "data:image/png;base64," + image;
+            },
+            setTenantLogoUpload(image) {
+                this.model.tenant_logo_upload = image;
+                this.tenant_logo_upload_img = "data:image/png;base64," + image;
             },
         },
         watch: {
@@ -615,13 +692,17 @@
             padding: 0 13px !important;
 
             &.is-active, &:hover{
-                background: #6AC06F;
+                background: var(--primary-color);
                 //border-radius: 120px;
                 border-right-color: none;
                 border-left-color: none;
                 -ms-flex-positive: 1;
                 color: #fff !important;
                 transition: background-color .3s ease,color .3s ease !important;
+            }
+
+            &:hover{
+                background: var(--primary-color-lighter);;
             }
 
             &:first-child {
@@ -824,7 +905,7 @@
                     margin-right: 8px;
                 }
                 &:hover {
-                    background: #f0f9f1;
+                    background: var(--primary-color-lighter);
                 }
             }
         }
@@ -879,7 +960,7 @@
         &.is-checked {
             .login-card {
                 box-shadow: none;
-                border: 1px #6AC06F solid;
+                border: 1px var(--primary-color) solid;
             }
         }
     }

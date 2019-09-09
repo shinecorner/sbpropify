@@ -41,7 +41,7 @@ class RealEstateRepository extends BaseRepository
         $fileName = $fileName ?? Str::slug(sprintf('%s-%d', $realEstate->name, $realEstate->id)) . '.png';
         $imgPath = storage_path(sprintf('app/public/%s', $fileName));
 
-        (new Image)->make($fileData)->encode('png', 65)->fit(800, 600)->save($imgPath);
+        (new Image)->make($fileData)->encode('png', 65)->save($imgPath);
 
         return sprintf('storage/%s', $fileName);
     }

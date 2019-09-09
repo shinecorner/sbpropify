@@ -119,10 +119,13 @@ class Tenant extends AuditableModel implements HasMedia
 {
     use HasMediaTrait, UniqueIDFormat, HashId, RequestRelation;
 
+    const TitleCompany = 'company';
+    const TitleMr = 'mr';
+    const TitleMrs = 'mrs';
     const Title = [
-        'mr',
-        'mrs',
-        'company',
+        self::TitleMr,
+        self::TitleMrs,
+        self::TitleCompany
     ];
     const StatusActive = 1;
     const StatusNotActive = 2;

@@ -453,6 +453,7 @@ class TenantAPIController extends AppBaseController
             return $this->sendError($validator->errors());
         }
 
+        $input['user']['settings'] = Arr::pull($input, 'settings', []);
         try {
             // for prevent user update log related tenant
             User::disableAuditing();
@@ -469,7 +470,7 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
         }
 
-        $tenant->load('building', 'unit', 'address', 'media');
+        $tenant->load('building', 'unit', 'address', 'media', 'settings');
         if ($shouldPost) {
             $pr->newTenantPost($tenant);
         }

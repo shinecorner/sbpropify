@@ -159,9 +159,22 @@
             float: right;
         }
     }
-    .el-menu-item.is-active {
-        color: var(--color-text-primary) !important;
+    .el-menu-item.is-active, .el-menu-item:hover {
         font-weight: bolder;
+        background-color: var(--primary-color) !important;
+        color: white;
+
+        i {
+            color: white;
+        }
+    }
+    .el-submenu__title:hover {
+        background-color: var(--primary-color) !important;
+        color: white;
+
+        i {
+            color: white;
+        }
     }
 </style>
 
@@ -213,7 +226,6 @@
             }
 
             .is-active:not(.el-submenu) {
-                background-color: #f0f9f1;
 
                 > a {
                     font-weight: bold;

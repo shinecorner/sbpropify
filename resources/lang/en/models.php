@@ -18,6 +18,12 @@ return [
       'avatar_uploaded' => 'Avatar uploaded',
       'logo_uploaded' => 'Logo uploaded',
       'logo' => 'Logo',
+      'circle_logo' => 'Circle Logo',
+      'favicon_icon' => 'Favicon Icon',
+      'tenant_logo' => 'Tenant Logo',
+      'blank_pdf' => 'Blank pdf',
+      'blank_pdf_desc' => 'Generate PDF files without letterhead so that they can be printed on your own stationery.',
+      'font_family' => 'Font family',
       'notificationSaved' => 'Notificatin setting saved',
       'realEstateSaved' => 'Real Estate settings saved',
       'serviceRequestCategorySaved' => 'Service request category saved',
@@ -149,6 +155,33 @@ return [
         'active' => 'Active',
         'not_active' => 'Not active',
       ],
+      'credentials_pdf' => [
+        'tenant_credentials' => 'Tenant credentials',
+        'username' => 'Username',
+        'url' => 'URL',
+        'code' => 'Personal unlock code',
+        'telephone' => 'Telephone',
+        'your_email' => 'Your e-mail address',
+        'email' => 'E-Mail:',
+        'born' => 'Bern',
+        'welcome' => 'Welcome to the tenant portal of the',
+        'content_1' => 'We are pleased to inform you that an account has been set up for you in the tenant\'s total. and send you the activation code.',
+        'offer' => 'What does the application offer?',
+        'offers' => '
+          <li>With the digital tenant dossier you have access to all relevant documents, such as Tenancy agreement, house rules or other documents relating to the property</li>
+          <li>The ticketing system enables you to process your enquiries simply and uncomplicatedly - with the following features Communicate your concerns to the administration at any time and from any place.</li>
+          <li>On the market and lending place you can send objects to your neighbourhood. sell or lend.</li>
+          <li>Share news with your neighbours by publishing a contribution. The pinboard is also used by the administration for the communication, so all are always on the Running.</li>
+          <li>Further micro apps within the application set new standards in living quality where various services can be conveniently used.</li>,
+        ',
+        'register' => 'First registration and activation of your account',
+        'content_2' => 'To register, please click on the link below and log in with your e-mail address and the personal unlock code. Once you have logged in, you can Define your own password and use it from now on for the login.',
+        'link_application' => 'Link to the application',
+        'content_3' => 'We look forward to welcoming you on board!',
+        'content_4' => 'If you should need assistance with the registration, then we are gladly at your disposal.',
+        'your_sincerely' => 'Yours sincerely',
+        'your_administration' => 'your administration'
+      ],
     ],
     'building' => 
     [
@@ -163,6 +196,7 @@ return [
       'basement' => 'Basement',
       'attic' => 'Attic',
       'floor_nr' => 'Number of floors',
+      'internal_building_id' => 'Internal Building Id',
       'label' => 'Label',
       'address_search' => 'Please enter address',
       'not_found' => 'Building not found',
@@ -684,7 +718,8 @@ return [
           ],
           'costs' => [
 						'landlord' => 'Landlord',
-						'tenant' => 'Tenant'
+            'tenant' => 'Tenant',
+            'tenant/landlord' => 'Tenant/Landlord'
 					]
       ],
       'placeholders' => 

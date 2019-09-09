@@ -150,7 +150,7 @@
                 &:not(.letter) {
                     &:hover :global(.el-timeline-item__wrapper) :global(.el-timeline-item__content) {
                         cursor: pointer;
-                        background-color: var(--color-primary-lighter);
+                        background-color: var(--primary-color-lighter);
                     }
 
                     :global(.el-timeline-item__wrapper) {

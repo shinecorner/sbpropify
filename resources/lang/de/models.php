@@ -17,7 +17,13 @@ return [
 			'profile_text' => 'Profil-Text',
 			'avatar_uploaded' => 'Profilbild aktualisiert',
 			'logo_uploaded' => 'Logo aktualisiert.',
-			'logo' => 'Firmenlogo',
+			'logo' => 'Firmenlogo',			
+			'circle_logo' => 'Rundes Logo',
+			'favicon_icon' => 'Favicon-Symbol',
+			'tenant_logo' => 'Mieter-Portal Logo',
+			'blank_pdf' => 'PDF ohne Briefkopf verwenden',
+      		'blank_pdf_desc' => 'PDF-Dateien ohne Briefkopf generieren, damit diese auf das eigene Briefpapier gedruckt werden können.',
+      		'font_family' => 'Schriftfamilie',
 			'notificationSaved' => 'Benachrichtigungseinstellung gespeichert',
 			'realEstateSaved' => 'Einstellungen gespeichert.',
 			'serviceRequestCategorySaved' => 'Anfrage-Kategorie gespeichert',
@@ -59,9 +65,9 @@ return [
 			'credentials_send_fail' => 'Credentials file not found. Try updating the tenant password to regenerate it',
 			'credentials_download_failed' => 'Credentials file not found. Try updating the tenant password to regenerate it',
 			'add' => 'Mieter hinzufügen',			
-			'saved' => 'Mieter gespeichert',
-			'deleted' => 'Mieter gelöscht',
-			'status_changed' => 'Status geändert',
+			'saved' => 'Mieter wurde gespeichert',
+			'deleted' => 'Mieter wurde gelöscht',
+			'status_changed' => 'Status wurde geändert',
 			'password_reset' => 'Passwort erfolgreich zurückgesetzt',
 			'update' => 'Update',			
 			'first_name' => 'Vorname',
@@ -149,6 +155,33 @@ return [
 					'active' => 'Aktiv',
 					'not_active' => 'Inaktiv',
 				],
+            'credentials_pdf' => [
+                "tenant_credentials" => "Anmeldedaten des Mieters",
+                'username' => 'Benutzername',
+                'url' => 'URL',
+                'code' => 'Persönlicher Freischaltcode',
+                'telephone' => 'Telefon',
+                'your_email' => 'Ihre E-Mail Adresse',
+                'email' => 'E-Mail',
+                'born' => 'Bern',
+                'welcome' => 'Willkommen im Mieterportal der',
+                'content_1' => 'Wir freuen uns, Ihnen mitzuteilen, dass für Sie ein Konto im Mieterpotal eingerichtet wurde und übermitteln Ihnen den Aktivierungscode',
+                'offer' => 'Was bietet die Applikation',
+                'offers' => '
+                    <li>Mit dem digitalen Mieterdossier habe Sie Zugriff auf alle relevanten Dokumente, wie Mietvertrag, Hausordnung oder sonstige Unterlagen zur Liegenschaft</li>
+                    <li>Über das Ticketing-System wickeln Sie Ihre Anfragen einfach und unkompliziert ab – Anliegen zeit- und ortsungebunden an die Verwaltung mitteilen</li>
+                    <li>Auf dem Markt- und Leihplatz können Sie Gegenstände an Ihre Nachbarschaft verkaufen oder verleihen.</li>
+                    <li>Teilen Sie Neuigkeiten mit Ihren Nachbarn indem Sie einen Beitrag publizieren. Die Pinnwand wird ebenfalls durch die Verwaltung für die Kommunikation genutzt, so sind alle stets auf dem Laufenden.</li>
+                    <li>Weitere Micro-Apps innerhalb der Applikation setzen neue Standards in der Wohnqualität wobei bequem diverse Dienstleistungen in Anspruch genommen werden können</li>
+                ',
+                'register' => 'Erste Anmeldung und Aktivierung Ihres Accounts',
+                'content_2' => 'Um sich anzumelden, klicken Sie auf den untenstehenden Link und loggen Sie sich mit Ihrer E-Mail-Adresse und dem persönlichen Freischaltcode ein. Einmal eingeloggt können Sie Ihr eigenes Passwort definieren und dieses fortan für die Anmeldung nutzen.',
+                'link_application' => 'Link zur Applikation',
+                'content_3' => 'Wir freuen uns, Sie an Board begrüssen zu dürfen!',
+                'content_4' => 'Sollten Sie Hilfe bei der Anmeldung benötigen, so stehen wir Ihnen gerne zur Verfügung.',
+                'your_sincerely' => 'Mit freundlichen Grüssen',
+                'your_administration' => 'Ihre Verwaltung'
+            ]
 		],
 	'building' =>
 		[
@@ -163,6 +196,7 @@ return [
 			'basement' => 'Erdgeschoss',
 			'attic' => 'Attikageschoss',
 			'floor_nr' => 'Anzahl Etagen',
+			'internal_building_id' => "Interne Gebäude-ID",
 			'label' => 'Label',			
 			'address_search' => 'Bitte Adresse eingeben.',
 			'not_found' => 'Liegenschaft nicht gefunden.',
@@ -176,7 +210,7 @@ return [
 			'companies' => 'Dienstleister',
 			'no_services' => 'Keine Partnerfirmen gewählt.',
 			'select_media_category' => 'Kategorie der Mediendatei wählen',
-			'quarter' => 'Quartal',
+			'quarter' => 'Überbauung',
 			'managers' => 'Bewirtschafter',
 			'house_nr' => 'Hausnummer',			
 			'assign_managers' => 'Bewirtschafter zuweisen',
@@ -385,8 +419,8 @@ return [
 				],
 			'errors' => [
 				'not_found' => "Beitrag nicht gefunden",
-				'quarter_not_found' => "Quartal nicht gefunden",
-				'building_not_found' => "Liegenschaft nicht gefunden",
+				'quarter_not_found' => "Überbauung nicht gefunden",
+				'building_not_found' => "Überbauung nicht gefunden",
 				'provider_not_found' => "Dienstanbieter nicht gefunden",
 				'deleted' => "Gelöschten Fehler buchen: ",
 			],
@@ -402,7 +436,7 @@ return [
 				[
 					'label' => 'Sichtbarkeit',
 					'address' => 'Liegenschaft',
-					'quarter' => 'Quartal',
+					'quarter' => 'Überbauung',
 					'all' => 'Alle App-Nutzer',
 				],
 			'assignType' => 'Typ',					
@@ -463,8 +497,8 @@ return [
 			'title' => 'Überbauungen',
 			'add' => 'Überbauung hinzufügen',
 			"edit" => "Überbauung bearbeiten",
-			'saved' => 'Überbauung gespeichert!',
-			'deleted' => 'Überbauung gelöscht',
+			'saved' => 'Überbauung wurde gespeichert!',
+			'deleted' => 'Überbauung wurde gelöscht',
 			'cancel' => 'Schliessen',
 			'required' => 'Überbauung ist ein Pflichfeld!',
 			'buildings' => 'Liegenschaften',
@@ -643,7 +677,7 @@ return [
 					'range' => 'Bereich',
 					'component' => 'Bauteil',
 					'acquisition' => 'Erfassungsphase',
-					'cost' => 'Kostenfolge',
+					'cost' => 'Zu Lasten von',
 					'keywords' => 'Stichworte',
 					'building_locations' => [
 						'house_entrance' => 'Hauseingang',
@@ -684,7 +718,8 @@ return [
 					],
 					'costs' => [
 						'landlord' => 'Vermieter',
-						'tenant' => 'Mieter'
+						'tenant' => 'Mieter',
+						'tenant/landlord' => 'Mieter/Vermieter'
 					]					
 				],
 			'placeholders' =>
@@ -785,7 +820,7 @@ return [
 			'no_buildings' => 'Keine Liegenschaft zugewiesen',
 			'add_buildings' => 'Liegenschaft hinzufügen',
 			'buildings_search' => 'Liegenschaft suchen',
-			'quarters' => 'Quartale',
+			'quarters' => 'Überbauungen',
 			'delete_with_reassign_modal' =>
 				[
 					'title' => 'Andere Person zuweisen und dann Benutzer löschen',
@@ -801,7 +836,7 @@ return [
 				'not_found' => "Bewirtschafter nicht gefunden",
 				'create' => "Fehler beim Erstellen des Bewirtschafters: ",
 				'update' => "Fehler beim Aktualisieren des Bewirtschafters:",
-				'quarter_not_found' => "Quartal nicht gefunden",
+				'quarter_not_found' => "Überbauung nicht gefunden",
 				'building_not_found' => "Liegenschaft nicht gefunden",
 				'building_already_assign' => "Edificio già assegnato per tutto il trimestre",
 				'building_assign_deleted_property_manager' => "Sie können einem gelöschten Bewirtschafter keine Liegenschaft(en) zuordnen.",
