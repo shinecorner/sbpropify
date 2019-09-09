@@ -86,7 +86,7 @@ export default (config = {}) => {
                 tenants: [],
                 toAssignList: [],
                 media: [],
-                assignmentTypes: ['managers', 'services', 'administrator'],
+                assignmentTypes: ['managers', 'administrator', 'services'],
                 assignmentType: 'managers',
                 toAssign: '',
                 conversations: [],
