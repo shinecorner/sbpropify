@@ -7,10 +7,11 @@
                          :router="true"
                          :background-color="header.menu.background"
                          v-on:scroll="handleScroll">
-                    <el-menu-item index="1" class="logo">
-                        <img src="~img/logo3.png" />
+                    <el-menu-item index="1" route="/" class="logo">
+                        <img src="~img/logo3.png" v-show="!tenant_logo_src"/>
+                        <img :src="tenant_logo_src" v-show="tenant_logo_src"/>
                     </el-menu-item>
-                    <el-menu-item index="2" class="spacer"></el-menu-item>
+                    <el-menu-item index="2" route="/"  class="spacer"></el-menu-item>
                     <el-menu-item index="3" route="login">
                         <el-button type="primary" icon="ti-user" round>Login</el-button>
                     </el-menu-item>
@@ -247,7 +248,8 @@
                     menu: {
                         background: 'transparent'
                     }
-                }
+                },
+                tenant_logo_src: '',
             }
         },
         methods: {
@@ -268,6 +270,9 @@
         },
         destroyed () {
             window.removeEventListener('scroll', this.handleScroll);
+        },
+        mounted () {
+            this.tenant_logo_src = this.$constants.logo.tenant_logo;
         }
     }
 </script>
