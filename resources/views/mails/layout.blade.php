@@ -1,403 +1,204 @@
-
-@php
-    $re = \App\Models\RealEstate::first();
-@endphp
-
-<!DOCTYPE html>
-
-<html>
-
+<!--suppress ProblematicWhitespace -->
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0;">
+    <meta name="format-detection" content="telephone=no"/>
 
-    <title>@yield('title')</title>
+    <!-- Responsive Mobile-First Email Template by Konstantin Savchenko, 2015.
+    https://github.com/konsav/email-templates/  -->
 
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        /* Reset styles */
+        body { margin: 0; padding: 0; min-width: 100%; width: 100% !important; height: 100% !important;}
+        body, table, td, div, p, a { -webkit-font-smoothing: antialiased; text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; line-height: 100%; }
+        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse !important; border-spacing: 0; }
+        img { border: 0; line-height: 100%; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }
+        #outlook a { padding: 0; }
+        .ReadMsgBody { width: 100%; } .ExternalClass { width: 100%; }
+        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div { line-height: 100%; }
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <style type="text/css">
-
-        /* FONTS */
-
-
-
-
-
-        /* CLIENT-SPECIFIC STYLES */
-
-        body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-
-        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
-
-        img { -ms-interpolation-mode: bicubic; }
-
-
-
-        /* RESET STYLES */
-
-        img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
-
-        table { border-collapse: collapse !important; }
-
-        body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
-
-        /* iOS BLUE LINKS */
-
-        a[x-apple-data-detectors] {
-
-            color: inherit !important;
-
-            text-decoration: none !important;
-
-            font-size: inherit !important;
-
-            font-family: inherit !important;
-
-            font-weight: inherit !important;
-
-            line-height: inherit !important;
-
+        /* Rounded corners for advanced mail clients only */
+        @media all and (min-width: 560px) {
+            .container { border-radius: 8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; -khtml-border-radius: 8px;}
         }
 
-        a {
-
-            color: black;
-
-            text-decoration: none;
-
+        /* Set color for auto links (addresses, dates, etc.) */
+        a, a:hover {
+            color: #127DB3;
+        }
+        .footer a, .footer a:hover {
+            color: #999999;
         }
 
-        table tr td {
-
-            padding-right: 30px;
-
-            padding-left: 30px;
-
+        .ql-align-center {
+            text-align: center;
         }
-
-        p {
-
-            font-size: 16px;
-
-        }
-
-        p, h1, h2, h3, h4, h5, h6, span {
-
-            padding: 0;
-
-            margin: 0;
-
-        }
-
-        /* MOBILE STYLES */
-
-        @media screen and (max-width:650px){
-
-            h1 {
-
-                font-size: 32px !important;
-
-                line-height: 32px !important;
-
-            }
-
-        }
-
-
-
-        body {
-
-            margin: 0 !important;
-
-            padding: 0 !important;
-
-            font-family: sans-serif, 'Times New Roman', Times, serif;
-
-        }
-
-
-
-        @media screen and (max-width:650px) {
-
-            .wrapper {
-
-                width: 100% !important;
-
-            }
-
-        }
-
-
-
-        /* ANDROID CENTER FIX */
-
-        div[style*="margin: 16px 0;"] { margin: 0 !important; }
-
     </style>
+
+    <!-- MESSAGE SUBJECT -->
+    <title>@yield('title')</title>
 
 </head>
 
-<body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
+<!-- BODY -->
+<!-- Set message background color (twice) and text color (twice) -->
+<body topmargin="0" rightmargin="0" bottommargin="0" leftmargin="0" marginwidth="0" marginheight="0" width="100%" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%; height: 100%; -webkit-font-smoothing: antialiased; text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; line-height: 100%;
+    background-color: #FFFFFF;
+    color: #000000;"
+      bgcolor="#FFFFFF"
+      text="#000000">
 
+<!-- SECTION / BACKGROUND -->
+<!-- Set message background color one again -->
+<table width="100%" align="center" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; width: 100%;" class="background"><tr><td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;">
 
-
-<table border="0" cellpadding="0" cellspacing="0" width="100%">
-
-    <tr>
-
-        <td bgcolor="#ffffff" align="center">
-
-            <table border="0" cellpadding="0" cellspacing="0" width="650" class="wrapper">
+            <!-- WRAPPER -->
+            <!-- Set wrapper width (twice) -->
+            <table border="0" cellpadding="0" cellspacing="0" align="center"
+                   width="560" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: inherit;
+    max-width: 560px;" class="wrapper">
 
                 <tr>
+                    <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%;
+            padding-top: 20px;
+            padding-bottom: 20px;">
 
-                    <td bgcolor="#ffffff" height="60"></td>
+                        <!-- PREHEADER -->
+                        <!-- Set text color to background color -->
+                        <div style="display: none; visibility: hidden; overflow: hidden; opacity: 0; font-size: 1px; line-height: 1px; height: 0; max-height: 0; max-width: 0;
+            color: #F0F0F0;" class="preheader">
+                            Available on&nbsp;GitHub and&nbsp;CodePen. Highly compatible. Designer friendly. More than 50%&nbsp;of&nbsp;total email opens occurred on&nbsp;a&nbsp;mobile device&nbsp;— a&nbsp;mobile-friendly design is&nbsp;a&nbsp;must for&nbsp;email campaigns.</div>
 
-                </tr>
-
-                <tr>
-
-                    <td bgcolor="#ffffff">
-
-                        <img src="{{ $re->logo ? asset($re->logo) : asset('images/logo3.png') }}" width="200" alt="Propify"/>
-
+                        <!-- LOGO -->
+                        <a target="_blank" style="text-decoration: none;"
+                           href=""><img border="0" vspace="0" hspace="0"
+                                        src="{{ $companyLogo ?? '' }}"
+                                        width="140"
+                                        alt="{{ $companyName ?? '' }}" title="{{ $companyName ?? '' }}" style="
+                color: #000000;
+                font-size: 10px; margin: 0; padding: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; border: none; display: block;" /></a>
                     </td>
-
                 </tr>
 
-                <tr>
-
-                    <td bgcolor="#ffffff" height="23"></td>
-
-                </tr>
-
-                <tr>
-
-                    <td style="background-color: #ffffff; font-size: 18px;color: #878991;">
-
-                        <h3 style="padding: 0; margin: 0">Mieterportal</h3>
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td bgcolor="#ffffff" height="23"></td>
-
-                </tr>
-
+                <!-- End of WRAPPER -->
             </table>
 
-        </td>
+            <!-- WRAPPER / CONTEINER -->
+            <!-- Set conteiner background color -->
+            <table border="0" cellpadding="0" cellspacing="0" align="center"
+                   bgcolor="#FFFFFF"
+                   width="560" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: inherit;
+    max-width: 560px;" class="container">
 
-    </tr>
-
-    <tr>
-
-        <td bgcolor="#ffffff" align="center" >
-
-            <table width="650" border="0" cellpadding="0" cellspacing="0" class="wrapper">
-
+                <!-- HEADER -->
+                <!-- Set text color and font family ("sans-serif" or "Georgia, serif") -->
                 <tr>
-
-                    <td bgcolor="#ffffff"
-
-                        align="center"
-
-                        height="40"
-
-                        valign="top"
-
-                        style="
-
-border-radius: 4px 4px 0px 0px;
-
-color: #111111;
-
-font-size: 48px; font-weight: 400;
-
-letter-spacing: 4px;
-
-line-height: 48px;
-
-border-top: 1px solid rgba(0,0,0,0.05);
-
-border-left: 1px solid rgba(0,0,0,0.05);
-
-border-right: 1px solid rgba(0,0,0,0.05);
-
-box-shadow: 5px 0 20px rgba(0,0,0,0.05), -5px 0 20px rgba(0,0,0,0.05), 0 -5px 20px rgba(0,0,0,0.05);
-
--moz-box-shadow: 5px 0 20px rgba(0,0,0,0.05), -5px 0 20px rgba(0,0,0,0.05), 0 -5px 20px rgba(0,0,0,0.05);
-
--webkit-box-shadow: 5px 0 20px rgba(0,0,0,0.05), -5px 0 20px rgba(0,0,0,0.05), 0 -5px 20px rgba(0,0,0,0.05);"
-
-                    >
-
+                    <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 24px; font-weight: bold; line-height: 130%;
+            padding-top: 25px;
+            color: #000000;
+            font-family: 'Open Sans',sans-serif;" class="header">
+                        @yield('title')
                     </td>
-
                 </tr>
 
+                <!-- SUBHEADER -->
+                <!-- Set text color and font family ("sans-serif" or "Georgia, serif") -->
+                <tr>
+                    <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-bottom: 3px; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 18px; font-weight: 300; line-height: 150%;
+            padding-top: 5px;
+            color: #000000;
+            font-family: 'Open Sans',sans-serif;" class="subheader">
+                    </td>
+                </tr>
+
+                <!-- LINE -->
+                <!-- Set line color -->
+                <tr>
+                    <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%;
+            padding-top: 25px;" class="line"><hr
+                                color="#E0E0E0" align="center" width="100%" size="1" noshade style="margin: 0; padding: 0;" />
+                    </td>
+                </tr>
+
+                <!-- LIST -->
+                <tr>
+                    <td align="left" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-top: 25px; padding-left: 6.25%; padding-right: 6.25%;" class="list-item">
+                        <table align="left" border="0" cellspacing="0" cellpadding="0" style="width: inherit; margin: 0; padding: 0; border-collapse: collapse; border-spacing: 0;">
+                            @yield('body')
+                        </table>
+                    </td>
+                </tr>
+                <!-- End of WRAPPER -->
             </table>
 
-        </td>
+            <!-- WRAPPER -->
+            <!-- Set wrapper width (twice) -->
+            <table border="0" cellpadding="0" cellspacing="0" align="center"
+                   width="560" style="border-collapse: collapse; border-spacing: 0; padding: 0; width: inherit;
+    max-width: 560px;" class="wrapper">
 
-    </tr>
-
-    <tr>
-
-        <td bgcolor="#f4f4f4" align="center">
-
-            @yield('body')
-        </td>
-
-    </tr>
-
-    <tr>
-
-        <td bgcolor="#ffffff" align="center" cellpadding="0" cellspacing="0" style="padding-bottom: 20px">
-
-            <table border="0" width="650" class="wrapper">
-
+                <!-- PARAGRAPH -->
+                <!-- Set text color and font family ("sans-serif" or "Georgia, serif"). Duplicate all text styles in links, including line-height -->
+                @isset($userName)
+                    <tr>
+                        <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 17px; font-weight: 400; line-height: 160%;
+            padding-top: 20px;
+            color: #000000;
+            font-family: 'Open Sans',sans-serif;" class="paragraph">
+                            {{  __('common.email_footer_message1', ['UserName' => $userName]) }}
+                        </td>
+                    </tr>
+                @endisset
                 <tr>
-
-                    <td bgcolor="#ffffff"
-
-                        align="center"
-
-                        valign="top"
-
-                        height="40"
-
-                        style="border-radius: 0px 0px 4px 4px;
-
-border-bottom: 1px solid rgba(0,0,0,0.05);
-
-border-left: 1px solid rgba(0,0,0,0.05);
-
-border-right: 1px solid rgba(0,0,0,0.05);
-
-box-shadow: 5px 0 20px rgba(0,0,0,0.05), -5px 0 20px rgba(0,0,0,0.05), 0 5px 20px rgba(0,0,0,0.05)"
-
-                    >
-
-
-
+                    <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 17px; font-weight: 400; line-height: 160%;
+            padding-top: 20px;
+            color: #000000;
+            font-family: 'Open Sans',sans-serif;" class="paragraph">
+                        {{  __('common.email_footer_message2', ['CompanyName' => $companyName ?? '']) }}
                     </td>
-
                 </tr>
-
+                <!-- FOOTER -->
+                <!-- Set text color and font family ("sans-serif" or "Georgia, serif"). Duplicate all text styles in links, including line-height -->
+                <tr>
+                    <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 13px; font-weight: 400; line-height: 150%;
+            padding-top: 20px;
+            color: #999999;
+            font-family: 'Open Sans',sans-serif;" class="footer">
+                        {{ $companyName ?? '' }}
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 13px; font-weight: 400; line-height: 150%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            color: #999999;
+            font-family: 'Open Sans',sans-serif;" class="footer">
+                        {{ $companyAddress ?? '' }}
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%; font-size: 13px; font-weight: 400; line-height: 150%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            color: #999999;
+            font-family: 'Open Sans',sans-serif;" class="footer">
+                        <p align="center" style="text-align:center"> <span style="font-size:7.5pt;font-family:&quot;Open Sans&quot;,sans-serif;color:#333333">
+                <a href="{{ $linkContact ?? '' }}" target="_blank">
+                    <span style="text-decoration:none">{{  __('common.email_link_contacts') }}</span>
+                </a> |
+                <a href="{{ $linkTermsOfUse ?? '' }}" target="_blank">
+                    <span style="text-decoration:none">{{  __('common.email_link_terms_of_use') }}</span></a> |
+                <a href="{{ $linkDataProtection ?? '' }}" target="_blank">
+                    <span style="text-decoration:none">{{  __('common.email_link_data_protection') }}</span></a></span>
+                        </p>
+                    </td>
+                </tr>
+                <!-- End of WRAPPER -->
             </table>
 
-        </td>
-
-    </tr>
-
-    <tr>
-
-        <td bgcolor="#ffffff" align="center">
-
-            <table border="0" width="650" cellpadding="0" cellspacing="0" class="wrapper">
-
-                <tr>
-
-                    <td bgcolor="#ffffff" align="center" style="color: grey; font-size: 12px; font-weight: 400; line-height: 25px;">
-
-                        Diese E-Mail wurde automatisch für {user} generiert.
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td height="15"></td>
-
-                </tr>
-
-                <tr>
-
-                    <td bgcolor="#ffffff" align="center" style="color: #000000; font-size: 14px; font-weight: 400; line-height: 1.3;padding: 0" >
-
-<span style="padding: 0 10px">
-
-Sie erhalten diese automatisch generierte E-Mail als User des Mieterportal der {real_estate_company} . Das Mieterportal wird von der Propify AG betrieben.
-
-</span>
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td bgcolor="#ffffff" height="30"></td>
-
-                </tr>
-
-                <tr>
-
-                    <td bgcolor="#ffffff" align="center" style="color: #000000; font-size: 18px; font-weight: 400; line-height: 25px;" >
-
-                        <img src="http://dev.propify.ch/images/logo3.png?457809be3146f072c0b6f87bfea7cbf6" width="100" height="30" alt="Creating Email Magic" style="display: block;" />
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td bgcolor="#ffffff" height="10"></td>
-
-                </tr>
-
-                <tr>
-
-                    <td bgcolor="#ffffff" align="center" style="color: #000000; font-size: 14px; font-weight: 400; line-height: 1;" >
-
-                        Lange Gasse 8, 4052 Basel, Schweiz
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td height="20"></td>
-
-                </tr>
-
-                <tr>
-
-                    <td bgcolor="#ffffff" align="center" style="color: #000000; font-size: 14px; font-weight: 400; line-height: 25px;" >
-
-                        <a href="#">Impressum </a>&ensp; | &ensp;<a href="#">Nutzungsbedingungen</a>&ensp; | &ensp;<a href="#">Datenschutzerklärung</a>
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td height="30"></td>
-
-                </tr>
-
-            </table>
-
-        </td>
-
-    </tr>
-
-</table>
-
-
+            <!-- End of SECTION / BACKGROUND -->
+        </td></tr></table>
 
 </body>
-
 </html>
-
-
