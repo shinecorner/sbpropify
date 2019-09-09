@@ -7,7 +7,7 @@
 
     * {
         font-size: 14px;
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: {{$re->pdf_font_family ?? 'Arial'}};
     }
     body {
         padding-left: 42px;
