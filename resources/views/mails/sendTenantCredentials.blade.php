@@ -1,4 +1,4 @@
-@extends('mails.layout')
+@extends('mails.layout-new')
 
 @section('title')
     {{ $subject ?? "" }}
