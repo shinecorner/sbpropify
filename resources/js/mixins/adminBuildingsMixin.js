@@ -93,7 +93,7 @@ export default (config = {}) => {
             };
         },
         methods: {
-            ...mapActions(['getStates', 'getServicesGroupedByCategory', 'getQuarters','getUsers']),
+            ...mapActions(['getStates', 'getPropertyManagers','getServicesGroupedByCategory', 'getQuarters','getUsers']),
             async remoteSearchAssignees(search) {
 
                 if (!this.$can(this.$permissions.assign.request)) {

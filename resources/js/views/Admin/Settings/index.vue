@@ -69,7 +69,7 @@
                                             </el-row>
                                         </el-card>
 
-                                        <el-card header="PDF">
+                                        <el-card :header="$t('models.realEstate.pdf')">
                                             <el-form-item class="switcher" prop="blank_pdf">
                                                 <label class="switcher__label">
                                                     {{$t('models.realEstate.blank_pdf')}}
@@ -157,7 +157,7 @@
                                         </el-row>
                                     </el-card>
 
-                                    <el-card header="SMTP">
+                                    <el-card :header="$t('models.realEstate.smtp')">
                                         <el-row :gutter="20">
                                             <el-col :md="12">
                                                 <el-form-item :label="$t('models.realEstate.mail_from_name.label')"
@@ -332,7 +332,7 @@
                                                      v-show="realEstateFaviconIcon && !favicon_icon_upload_img"
                                                     >
                                             </el-form-item>
-                                            <el-form-item :label="$t('models.user.tenant_logo')">
+                                            <!-- <el-form-item :label="$t('models.user.tenant_logo')">
                                                 <upload-avatar @imageUploaded="setTenantLogoUpload"/>
                                                 <img :src="tenant_logo_upload_img"
                                                      v-show="tenant_logo_upload_img"
@@ -340,7 +340,7 @@
                                                 <img :src="realEstateTenantLogo" ref="realEstateTenantLogo"
                                                      v-show="realEstateTenantLogo && !tenant_logo_upload_img"
                                                      >
-                                            </el-form-item>
+                                            </el-form-item> -->
                                             <el-form-item :label="$t('models.realEstate.primary_color')">
                                                 <el-color-picker
                                                         size="medium"
@@ -378,7 +378,7 @@
                 </div>
             </el-tab-pane>
             <el-tab-pane name="tenants">
-                <template slot="label"><i class="icon icon-group"></i>{{$t('menu.tenants')}}</template>
+                <template slot="label"><i class="icon icon-group"></i>{{$t('models.realEstate.tenants_portal')}}</template>
 
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
                     <el-tabs type="border-card" v-model="activeTenantsName">

@@ -457,8 +457,11 @@ export default {
             "realEstate": {
                 "title": "Settings real estate",
                 "settings": "Settings",
+                "tenants_portal": "Tenants portal",
                 "iframe": "Iframe",
                 "theme": "Theme",
+                "smtp": "SMTP",
+                "pdf": "PDF",
                 "login_variations": "Login variations",
                 "login_variation": "Login variation",
                 "login_variation_slider": "Do you want to show slider?",

@@ -183,6 +183,7 @@
                 }, {
                     width: 120,
                     actions: [{
+                        type: '',
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
                         onClick: this.edit,
