@@ -99,8 +99,11 @@ class ServiceRequestAssignee extends AuditableModel
 
         $instance = new $model();
         $columns = array_merge([$instance->getKeyName()], $config[$model] ?? []);
-        $instance = $instance->where($instance->getKeyName(), $this->assignee_id)->withTrashed()->first($columns);
-
+        try {
+            $instance = $instance->where($instance->getKeyName(), $this->assignee_id)->withTrashed()->first($columns);
+        } catch (\Exception $e) {
+            $instance = $instance->where($instance->getKeyName(), $this->assignee_id)->first($columns);
+        }
         if (empty($instance)) {
             return [$eventConvig[$model] ?? 'deleted', []];
         }
