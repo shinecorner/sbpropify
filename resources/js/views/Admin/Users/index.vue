@@ -60,7 +60,7 @@
                     label: 'general.phone',
                     prop: 'phone'
                 }, {
-                    label: 'filters.roles',
+                    label: 'general.roles.label',
                     prop: 'roles[0].name'
                 }, {
                     width: 120,
