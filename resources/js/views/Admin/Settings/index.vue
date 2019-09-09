@@ -247,13 +247,13 @@
                                 </el-row>
                             </el-form>
                         </el-tab-pane>
-                        <el-tab-pane :label="$t('menu.marketplace')" name="iframe">
-                            <el-button class="save-tab" @click="saveRealEstate('marketplaceSettingsForm')" icon="ti-save"
+                        <el-tab-pane :label="$t('models.realEstate.micro_apps')" name="microApps">
+                            <el-button class="save-tab" @click="saveRealEstate('microAppsSettingsForm')" icon="ti-save"
                                        type="primary">
                                 {{$t('general.actions.save')}}
                             </el-button>
                             <el-form :model="model" :rules="validationRules"
-                                     ref="marketplaceSettingsForm">
+                                     ref="microAppsSettingsForm">
                                 <el-card class="marketplace-card">
                                     <el-row :gutter="20">
                                         <el-col :md="8">
