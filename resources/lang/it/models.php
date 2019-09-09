@@ -18,7 +18,12 @@ return [
       "avatar_uploaded" => "Avatar caricato",
       "logo_uploaded" => "Logo caricato",
       "logo" => "Logo",
+      "circle_logo" => "Logo del cerchio",
+      "favicon_icon" => "Icona Favicon",
+      "tenant_logo" => "Logo dell'inquilino",
       "blank_pdf" => "PDF in bianco",
+      'blank_pdf_desc' => 'Genera file PDF senza carta intestata in modo che possano essere stampati sulla tua carta intestata.',
+      'font_family' => 'Famiglia di font',
       "notificationSaved" => "Impostazione della notifica salvata",
       "realEstateSaved" => "Impostazioni immobiliari salvate",
       "serviceRequestCategorySaved" => "Categoria della richiesta di servizio salvata",
@@ -164,6 +169,7 @@ return [
       "basement" => "Nel seminterrato",
       "attic" => "In soffitta",
       "floor_nr" => "Numero di piani",
+      "internal_building_id" => "Id edificio interno",
       "label" => "Etichetta",
       "address_search" => "Inserire l'indirizzo",
       "not_found" => "Edificio non trovato",
@@ -481,11 +487,17 @@ return [
       "settings" => "Impostazioni",
       'iframe' => 'Iframe',
       'theme' => 'Tema',
+      'login_variations' => 'Variazioni del login',
       'login_variation' => 'Variazione del login',
       'login_variation_slider' => 'Vuoi mostrare il cursore?',
       "quarter_enable" => "Quartiere",
       "marketplace_approval_enable" => "Attivare il mercato",
+      'gocaution' => 'Gocauzione',
+      "blank_pdf" => "PDF in bianco",
+      'blank_pdf_desc' => 'Genera file PDF senza carta intestata in modo che possano essere stampati sulla tua carta intestata.',
+      'font_family' => 'Famiglia di font',
       "news_approval_enable" => "Approvazione delle notizie",
+      'news_approval_enable_desc' => 'I messaggi di notizie vengono prima controllati dall\'amministratore e poi attivati.',
       "comment_update_timeout" => "Timeout aggiornamento commento",
       "closed" => "Chiuso",
       "saved" => "Beni immobili salvati",
@@ -496,11 +508,13 @@ return [
       "categories" => "Categorie",
       "templates" => "Modelli",
       "contact_enable" => "Attivare 'I miei contatti'",
+      'contact_enable_desc' => 'Gli inquilini possono vedere i dati di contatto dei partner di servizio coinvolti nel portale degli inquilini.',
       "cleanify_email" => "Pulire le e-mail",
       "mail_encryption" => "Crittografia",
       'primary_color' => 'Colore primario',
       'accent_color' => 'Colore d\'accento',
       'iframe_enable' => 'Attivare Iframe',
+      'iframe_enable_desc' => 'Nel portale degli affittuari è indicata una pagina con i vostri oggetti in affitto gratuito.',
       'iframe_url' => 
       [
         "label" => "URL Iframe",
@@ -677,7 +691,8 @@ return [
         ],
         'costs' => [
           'landlord' => 'Padrone di casa',
-          'tenant' => 'Affittuario'
+          'tenant' => 'Affittuario',
+          'tenant/landlord' => 'Affittuario/Padrone di casa'
         ]
       ],
       'placeholders' => 

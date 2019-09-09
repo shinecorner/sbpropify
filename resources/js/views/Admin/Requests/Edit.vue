@@ -79,8 +79,7 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="12"
-                                        v-if="this.rolename == 'administrator'">
+                                <el-col :md="12">
                                     <el-form-item :label="$t('models.request.category_options.acquisition')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
@@ -95,7 +94,7 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="12">
+                                <el-col :md="12" v-if="this.showsubcategory == true">
                                     <el-form-item :label="$t('models.request.category_options.component')">
                                         <el-input v-model="model.component"></el-input>
                                     </el-form-item>
@@ -444,7 +443,7 @@
                 activeTab2: 'comments',
                 conversationVisible: false,
                 selectedConversation: {},
-                constants: this.$store.getters['application/constants'],
+                constants: this.$constants,
                 assigneesColumns: [{
                     type: 'assignProviderManagerAvatars',
                     width: 70,
@@ -645,7 +644,7 @@
     .tenant-link {
         display: flex;
         align-items: center;
-        color: #6AC06F;
+        color: var(--primary-color-lighter);
         text-decoration: none;
 
         & > span {
@@ -669,7 +668,7 @@
     .admin-layout .el-badge__content.is-fixed {
         top: 19px;
         right: -5px;
-        background-color: #6AC06F;
+        background-color: var(--primary-color) !important;
         margin-left: 5px;
         height: 18px;
         width: 6px;

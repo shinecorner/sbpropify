@@ -19,11 +19,9 @@ use App\Models\RealEstate;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Transformers\UserTransformer;
-use Auth;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Config;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 
 /**
@@ -424,7 +422,7 @@ class UserAPIController extends AppBaseController
             }
         }
 
-        $user = $this->userRepository->update($input, $id);
+        $user = $this->userRepository->updateExistingUser($user, $input);
 
         $user->load('settings')->load('roles');
 
@@ -496,7 +494,7 @@ class UserAPIController extends AppBaseController
             }
         }
 
-        $user = $this->userRepository->update($input, $id);
+        $user = $this->userRepository->updateExistingUser($user, $input);
 
         $user->load('settings')->load('roles');
         $response = (new UserTransformer)->transform($user);

@@ -17,10 +17,11 @@
                         <template slot="prefix">
                         </template>
                         <el-option
-                            :key="k"
-                            :label="$t(`models.request.status.${status}`)"
-                            :value="parseInt(k)"
-                            v-for="(status, k) in $constants.service_requests.status">
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id"
+                            v-for="item in selectData">
+                            {{item.name}}
                         </el-option>
                     </el-select>
                 </el-col>
@@ -210,8 +211,8 @@ export default {
                 m: Math.ceil(minutes % 60)
             }
         },
-        selectData() {
-            const storeConstants = this.$store.getters['application/requests'];
+        selectData() {                        
+            const storeConstants = this.$constants.serviceRequests;
             if (storeConstants) {
                 const constants = storeConstants['status'];
                 var data = Object.keys(constants).map((id) => {

@@ -131,6 +131,7 @@ class RealEstateAPIController extends AppBaseController
         // image upload
         $logoFileData = base64_decode($request->get('logo_upload', ''));
         $circleLogoFileData = base64_decode($request->get('circle_logo_upload', ''));
+        $tenantLogoFileData = base64_decode($request->get('tenant_logo_upload', ''));
         $faviconIconFileData = base64_decode($request->get('favicon_icon_upload', ''));
 
         try {
@@ -140,6 +141,10 @@ class RealEstateAPIController extends AppBaseController
             if ($circleLogoFileData) {
                 $fileName = Str::slug(sprintf('%s-%d', $realEstate->name, $realEstate->id)) . '-circle-logo.png';
                 $input['circle_logo'] = $this->realEstateRepository->uploadImage($circleLogoFileData, $realEstate, $fileName);
+            }
+            if ($tenantLogoFileData) {
+                $fileName = Str::slug(sprintf('%s-%d', $realEstate->name, $realEstate->id)) . '-tenant-logo.png';
+                $input['tenant_logo'] = $this->realEstateRepository->uploadImage($tenantLogoFileData, $realEstate, $fileName);
             }
             if ($faviconIconFileData) {
                 $fileName = Str::slug(sprintf('%s-%d', $realEstate->name, $realEstate->id)) . '-favicon-icon.png';

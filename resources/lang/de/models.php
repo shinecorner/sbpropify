@@ -18,7 +18,12 @@ return [
 			'avatar_uploaded' => 'Profilbild aktualisiert',
 			'logo_uploaded' => 'Logo aktualisiert.',
 			'logo' => 'Firmenlogo',			
+			'circle_logo' => 'Rundes Logo',
+			'favicon_icon' => 'Favicon-Symbol',
+			'tenant_logo' => 'Mieter-Portal Logo',
 			'blank_pdf' => 'PDF ohne Briefkopf verwenden',
+      		'blank_pdf_desc' => 'PDF-Dateien ohne Briefkopf generieren, damit diese auf das eigene Briefpapier gedruckt werden können.',
+      		'font_family' => 'Schriftfamilie',
 			'notificationSaved' => 'Benachrichtigungseinstellung gespeichert',
 			'realEstateSaved' => 'Einstellungen gespeichert.',
 			'serviceRequestCategorySaved' => 'Anfrage-Kategorie gespeichert',
@@ -60,9 +65,9 @@ return [
 			'credentials_send_fail' => 'Credentials file not found. Try updating the tenant password to regenerate it',
 			'credentials_download_failed' => 'Credentials file not found. Try updating the tenant password to regenerate it',
 			'add' => 'Mieter hinzufügen',			
-			'saved' => 'Mieter gespeichert',
-			'deleted' => 'Mieter gelöscht',
-			'status_changed' => 'Status geändert',
+			'saved' => 'Mieter wurde gespeichert',
+			'deleted' => 'Mieter wurde gelöscht',
+			'status_changed' => 'Status wurde geändert',
 			'password_reset' => 'Passwort erfolgreich zurückgesetzt',
 			'update' => 'Update',			
 			'first_name' => 'Vorname',
@@ -160,10 +165,11 @@ return [
 			'deleted' => 'Liegenschaft erfolgreich gelöscht',
 			'units' => 'Einheiten',			
 			'saved' => 'Liegenschaft gespeichert',
-			'floors' => 'Stockwerke',
+			'floors' => 'Etagen',
 			'basement' => 'Erdgeschoss',
 			'attic' => 'Attikageschoss',
-			'floor_nr' => 'Anzahl Stockwerke',
+			'floor_nr' => 'Anzahl Etagen',
+			'internal_building_id' => "Interne Gebäude-ID",
 			'label' => 'Label',			
 			'address_search' => 'Bitte Adresse eingeben.',
 			'not_found' => 'Liegenschaft nicht gefunden.',
@@ -177,7 +183,7 @@ return [
 			'companies' => 'Dienstleister',
 			'no_services' => 'Keine Partnerfirmen gewählt.',
 			'select_media_category' => 'Kategorie der Mediendatei wählen',
-			'quarter' => 'Quartal',
+			'quarter' => 'Überbauung',
 			'managers' => 'Bewirtschafter',
 			'house_nr' => 'Hausnummer',			
 			'assign_managers' => 'Bewirtschafter zuweisen',
@@ -206,7 +212,7 @@ return [
 						],
 					'floor_nr' =>
 						[
-							'required' => 'Stockwerk ist obligatorisch',
+							'required' => 'Etage ist obligatorisch',
 						],
 					'description' =>
 						[
@@ -249,7 +255,7 @@ return [
 			'name' => 'Einheit-ID',								
 			'deleted' => 'Einheit gelöscht',
 			'saved' => 'Einheit gespeichert',
-			'floor' => 'Stockwerk',
+			'floor' => 'Etage',
 			'sq_meter' => 'Fläche',
 			'room_no' => 'Anzahl Zimmer',
 			'monthly_rent' => 'Monatsmiete',
@@ -284,7 +290,7 @@ return [
 						],
 					'floor' =>
 						[
-							'required' => 'Stockwerk ist obligatorisch',
+							'required' => 'Etagen ist obligatorisch',
 						],
 					'room_no' =>
 						[
@@ -386,8 +392,8 @@ return [
 				],
 			'errors' => [
 				'not_found' => "Beitrag nicht gefunden",
-				'quarter_not_found' => "Quartal nicht gefunden",
-				'building_not_found' => "Liegenschaft nicht gefunden",
+				'quarter_not_found' => "Überbauung nicht gefunden",
+				'building_not_found' => "Überbauung nicht gefunden",
 				'provider_not_found' => "Dienstanbieter nicht gefunden",
 				'deleted' => "Gelöschten Fehler buchen: ",
 			],
@@ -403,11 +409,11 @@ return [
 				[
 					'label' => 'Sichtbarkeit',
 					'address' => 'Liegenschaft',
-					'quarter' => 'Quartal',
+					'quarter' => 'Überbauung',
 					'all' => 'Alle App-Nutzer',
 				],
 			'assignType' => 'Typ',					
-			'buildingAlreadyAssigned' => 'Das Gebäude ist bereits innen auf einem Viertel.',
+			'buildingAlreadyAssigned' => 'Diese Liegschaft ist bereits einer Überbauung zugewiesen.',
 			'execution_interval' =>
 				[
 					'label' => 'Datum der Durchführung',
@@ -444,7 +450,7 @@ return [
 			'user_credentials' => 'Logindaten',
 			'company_details' => 'Firmendaten',
 			'assignType' => 'Typ',						
-			'buildingAlreadyAssigned' => 'Das Gebäude ist bereits innen auf einem Viertel.',
+			'buildingAlreadyAssigned' => 'Diese Liegschaft ist bereits einer Überbauung zugewiesen.',
 			'placeholders' =>
 				[
 					'category' => 'Gewerk wählen',
@@ -454,56 +460,64 @@ return [
 				'create' => "Fehler beim Erstellen des Dienstleisters: ",
 				'update' => "Fehler beim Aktualisieren des Dienstleisters: ",
 				'deleted' => "Fehler beim Löschen des Dienstleisters: ",
-				'quarter_not_found' => "Quartal nicht gefunden",
+				'quarter_not_found' => "Überbauung nicht gefunden",
 				'building_not_found' => "Liegenschaft nicht gefunden",
-				'building_already_assign' => "Gebäude bereits vergeben durch das Quartal"
+				'building_already_assign' => "Diese Liegschaft ist bereits einer Überbauung zugewiesen."
 			],
 		],
 	'quarter' =>
 		[
-			'title' => 'Quartale',
-			'add' => 'Quartal hinzufügen',
-			"edit" => "Quartal bearbeiten",
-			'saved' => 'Eingespartes Quartal',
-			'deleted' => 'Quartal gelöscht',
+			'title' => 'Überbauungen',
+			'add' => 'Überbauung hinzufügen',
+			"edit" => "Überbauung bearbeiten",
+			'saved' => 'Überbauung wurde gespeichert!',
+			'deleted' => 'Überbauung wurde gelöscht',
 			'cancel' => 'Schliessen',
-			'required' => 'Dies ist ein Pflichfeld!',
+			'required' => 'Überbauung ist ein Pflichfeld!',
 			'buildings' => 'Liegenschaften',
 			'count_of_buildings' => 'Anzahl Liegenschaften',
 			'errors' => [
-				'not_found' => "Quartal nicht gefunden",
-				'deleted' => "Fehler beim Löschen des Quartals: ",
+				'not_found' => "Überbauung nicht gefunden.",
+				'deleted' => "Fehler beim Löschen der Überbauung: ",
 			],
 		],
 	'realEstate' =>
 		[
 			'title' => 'Einstellungen Liegenschaftsverwaltung',
 			'settings' => 'Einstellungen',
-			'iframe' => 'Iframe',
-			'theme' => 'Thema',
+			'iframe' => 'Freie Objekte',
+			'theme' => 'Design',
+			'login_variations' => 'Login-Varianten',
 			'login_variation' => 'Login-Variante',
-			'login_variation_slider' => 'Möchten Sie den Schieberegler anzeigen?',
-			'quarter_enable' => 'Quartal',
+			'login_variation_slider' => 'Möchten Sie den Slider it Vorteilen anzeigen?',
+			'quarter_enable' => 'Überbauungen aktivieren',
 			'marketplace_approval_enable' => 'Marktplatz aktivieren',
+      'gocaution' => 'Vorsicht',
+      'blank_pdf' => 'PDF ohne Briefkopf verwenden',
+      'blank_pdf_desc' => 'PDF-Dateien ohne Briefkopf generieren, damit diese auf das eigene Briefpapier gedruckt werden können.',
+      'font_family' => 'Schriftfamilie',
 			'news_approval_enable' => 'Pinnwand-Beiträge zuerst prüfen',
+      'news_approval_enable_desc' => 'Beiträge werden zuerst durch den Admin geprüft und dann freigeschaltet.',
 			'comment_update_timeout' => 'Comment update timeout',
 			'closed' => 'Geschlossen',
-			'saved' => 'Gespeichert',
+			'saved' => 'Gespeichert!',
 			'schedule' => 'Terminplanung',
 			'endTime' => 'Ende',
 			'startTime' => 'Start',
 			'to' => 'An',
 			'categories' => 'Kategorien',
 			'contact_enable' => 'Dienstleister-Kontakte für Mieter aktivieren',
+      'contact_enable_desc' => 'Mieter können die Kontaktdaten der involvierten Dienstleister im Mieterportal sehen.',
 			'templates' => 'Vorlagen',
 			'cleanify_email' => 'Cleanify email',
 			'mail_encryption' => 'Verschlüsselung',
 			'primary_color' => 'Primärfarbe',
 			'accent_color' => 'Akzentfarbe',
 			'iframe_enable' => 'Iframe aktivieren',
+      'iframe_enable_desc' => 'Im Mieterportal wird eine Rubrik mit Ihren freien Mietobjekten angezeigt.',
 			'iframe_url' =>
 				[
-					'label' => 'Iframe URL',
+					'label' => 'URL mit Ihren Objekten (z.B. Immoscout24 oder Homegate)',
 					'validation' => 'Bitte geben Sie eine korrekte URL ein.',
 				],
 			"mail_from_name" =>
@@ -541,7 +555,7 @@ return [
 		[
 			'audits' => 'History',	
 			'deleted' => 'Anfrage gelöscht',
-			'title' => 'Übersicht Mieter-Anfragen',
+			'title' => 'Anfragen Management',
 			'created' => 'Erstellt',
 			'saved' => 'Anfrage gespeichert',
 			'prop_title' => 'Titel',
@@ -558,12 +572,12 @@ return [
 			'assign_providers' => 'Zuweisen',
 			'assign_managers' => 'Zuweisen',			
 			'notify' => 'Kommunikation',
-			'public_legend' => 'Aktivieren Sie die Option, um die Anfrage allen Bewohnern einer Liegenschaft/Überbauung zu zeigen.',
+			'public_legend' => 'Aktivieren Sie diese Option, um dies Anliegen allen Bewohnern einer Liegenschaft / Überbauung zu zeigen.',
 			'conversation' => 'Chat-Mitteilungen',
-			'conversation_created' => "Chat-Mitteilung wurde erstellt",
-			'internal_notice_saved' => "Interne Notiz wurde gespeichert",
-			'internal_notice_updated' => "Interne Notiz wurde aktualisiert",
-			'internal_notice_deleted' => "Interne Notiz wurde gelöscht",
+			'conversation_created' => "Nachricht wurde übermittelt.",
+			'internal_notice_saved' => "Interne Notiz wurde gespeichert.",
+			'internal_notice_updated' => "Interne Notiz wurde aktualisiert.",
+			'internal_notice_deleted' => "Interne Notiz wurde gelöscht.",
 			'open_conversation' => 'Offen',
 			'other_recipients' => 'Weitere Empfänger',
 			'recipients' => 'Empfänger',			
@@ -574,10 +588,10 @@ return [
 			'status_changed' => 'Status wurde geändert',
 			'priority_changed' => 'Priorität wurde geändert',
 			'assignment'=> 'Zugewiesene Personen/Firmen',
-			'last_updated' => 'Last updated',
-			'due_in' => 'Due in',
-			'was_due_on' => 'Was due on',
-			'due_on' => 'Due on',
+			'last_updated' => 'Zuletzt bearbeitet',
+			'due_in' => 'Zu erledigen in',
+			'was_due_on' => 'In Verzug seit',
+			'due_on' => 'Erledigt am',
 			'media' =>
 				[
 					'added' => 'Mediendatei hinzugefügt',
@@ -625,7 +639,7 @@ return [
 					'done' => 'Erledigt',					
 					'archived' => 'Archiviert',
 					'solved' => "Erledigte",
-					'pending' => "Ausstehende"
+					'pending' => "Hängige??"
 				],
 			'category_options' =>
 				[
@@ -636,7 +650,7 @@ return [
 					'range' => 'Bereich',
 					'component' => 'Bauteil',
 					'acquisition' => 'Erfassungsphase',
-					'cost' => 'Kostenfolge',
+					'cost' => 'Zu Lasten von',
 					'keywords' => 'Stichworte',
 					'building_locations' => [
 						'house_entrance' => 'Hauseingang',
@@ -677,7 +691,8 @@ return [
 					],
 					'costs' => [
 						'landlord' => 'Vermieter',
-						'tenant' => 'Mieter'
+						'tenant' => 'Mieter',
+						'tenant/landlord' => 'Mieter/Vermieter'
 					]					
 				],
 			'placeholders' =>
@@ -726,7 +741,7 @@ return [
 				[
 					'label' => 'Sichtbarkeit',
 					'tenant' => 'Nur ich',
-					'quarter' => 'Quartal',
+					'quarter' => 'Überbauung',
 					'building' => 'Liegenschaft',
 				],
 			'errors' => [
@@ -735,7 +750,7 @@ return [
 				'provider_not_found' => 'Dienstleister nicht gefunden',
                 'tag_not_found' => 'Tag nicht gefunden',
 				'user_not_found' => 'Benutzer nicht gefunden',
-				'conversation_not_found' => "Konversation nicht gefunden",
+				'conversation_not_found' => "Mitteilung(en) nicht gefunden",
 				'statistics_error' => "Statistik-Fehler: ",
 				'internal_notice_not_found' => "Interne Notiz nicht gefunden",
 				'deleted' => "Service Request gelöschter Fehler: ",
@@ -778,7 +793,7 @@ return [
 			'no_buildings' => 'Keine Liegenschaft zugewiesen',
 			'add_buildings' => 'Liegenschaft hinzufügen',
 			'buildings_search' => 'Liegenschaft suchen',
-			'quarters' => 'Quartale',
+			'quarters' => 'Überbauungen',
 			'delete_with_reassign_modal' =>
 				[
 					'title' => 'Andere Person zuweisen und dann Benutzer löschen',
@@ -794,7 +809,7 @@ return [
 				'not_found' => "Bewirtschafter nicht gefunden",
 				'create' => "Fehler beim Erstellen des Bewirtschafters: ",
 				'update' => "Fehler beim Aktualisieren des Bewirtschafters:",
-				'quarter_not_found' => "Quartal nicht gefunden",
+				'quarter_not_found' => "Überbauung nicht gefunden",
 				'building_not_found' => "Liegenschaft nicht gefunden",
 				'building_already_assign' => "Edificio già assegnato per tutto il trimestre",
 				'building_assign_deleted_property_manager' => "Sie können einem gelöschten Bewirtschafter keine Liegenschaft(en) zuordnen.",
@@ -841,7 +856,7 @@ return [
 				[
 					'label' => 'Sichtbarkeit',
 					'address' => 'Meine Nachbarn',
-					'quarter' => 'Quartal',
+					'quarter' => 'Überbauung',
 					'all' => 'Alle App-Nutzer',
 				],
 		],

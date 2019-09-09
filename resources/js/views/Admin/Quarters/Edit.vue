@@ -94,10 +94,11 @@
                     label: 'models.request.prop_title'
                 }, {
                     type: 'requestStatus',
+                    width: 100,
                     label: 'models.request.status.label'
                 }],
                 requestActions: [{
-                    width: '90px',
+                    width: 100,
                     buttons: [{
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',

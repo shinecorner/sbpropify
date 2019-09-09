@@ -114,10 +114,11 @@
         },
         computed: {
             formattedItems() {
-                return this.items.map((product) => {                    
-                    product.formatted_status_label = this.$t(`models.product.status.${product.status_label}`);
-                    product.formatted_visibility_label = this.$t(`models.product.visibility.${product.visibility_label}`);
-                    product.formatted_type_label = this.$t(`models.product.type.${product.type_label}`);
+                const storeConstants = this.$constants.products;
+                return this.items.map((product) => {                                        
+                    product.formatted_status_label = this.$t(`models.product.status.${storeConstants.status[product.status]}`);
+                    product.formatted_visibility_label = this.$t(`models.product.visibility.${storeConstants.visibility[product.visibility]}`);
+                    product.formatted_type_label = this.$t(`models.product.type.${storeConstants.type[product.type]}`);
                     return product
                 });
             },
@@ -158,7 +159,7 @@
                 ];
             },
             productConstants() {
-                return this.$store.getters['application/constants'].products;
+                return this.$constants.products;
             },
 
         },

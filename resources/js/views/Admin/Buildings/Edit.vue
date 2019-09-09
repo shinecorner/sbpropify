@@ -72,7 +72,7 @@
                                 </el-col>
                             </el-row>
                             <el-row class="last-form-row" :gutter="20">
-                                <el-col :md="12">
+                                <el-col :md="8">
                                     <el-form-item :label="$t('models.building.quarter')" prop="quarter_id"
                                                   style="max-width: 512px;">
                                         <el-select
@@ -96,11 +96,18 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="12">
+                                <el-col :md="8">
                                     <el-form-item :label="$t('models.building.floor_nr')"
                                                   :rules="validationRules.floor_nr"
                                                   prop="floor_nr" style="max-width: 512px;">
                                         <el-input type="number" v-model="model.floor_nr"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="8">
+                                    <el-form-item :label="$t('models.building.internal_building_id')"
+                                                  :rules="validationRules.internal_building_id"
+                                                  prop="internal_building_id" style="max-width: 512px;">
+                                        <el-input type="text" v-model="model.internal_building_id"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -388,11 +395,11 @@
                     label: 'models.request.prop_title'
                 }, {
                     type: 'requestStatus',
-                    width: 120,
+                    width: 100,
                     label: 'models.request.status.label'
                 }],
                 requestActions: [{
-                    width: '120px',
+                    width: 100,
                     buttons: [{
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',

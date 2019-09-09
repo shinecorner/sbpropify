@@ -598,7 +598,7 @@
     }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
     .custom-select {
         display: block;
     }
@@ -606,7 +606,7 @@
         display: flex;
         justify-content: center;
         .custom-label {
-            color: #6AC06F;
+            color: var(--primary-color);
             display: inline-block;
             margin-bottom: 10px;
         }

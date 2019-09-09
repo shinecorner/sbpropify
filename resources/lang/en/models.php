@@ -18,7 +18,12 @@ return [
       'avatar_uploaded' => 'Avatar uploaded',
       'logo_uploaded' => 'Logo uploaded',
       'logo' => 'Logo',
+      'circle_logo' => 'Circle Logo',
+      'favicon_icon' => 'Favicon Icon',
+      'tenant_logo' => 'Tenant Logo',
       'blank_pdf' => 'Blank pdf',
+      'blank_pdf_desc' => 'Generate PDF files without letterhead so that they can be printed on your own stationery.',
+      'font_family' => 'Font family',
       'notificationSaved' => 'Notificatin setting saved',
       'realEstateSaved' => 'Real Estate settings saved',
       'serviceRequestCategorySaved' => 'Service request category saved',
@@ -164,6 +169,7 @@ return [
       'basement' => 'Basement',
       'attic' => 'Attic',
       'floor_nr' => 'Number of floors',
+      'internal_building_id' => 'Internal Building Id',
       'label' => 'Label',
       'address_search' => 'Please enter address',
       'not_found' => 'Building not found',
@@ -481,11 +487,17 @@ return [
       'settings' => 'Settings',
       'iframe' => 'Iframe',
       'theme' => 'Theme',
+      'login_variations' => 'Login variations',
       'login_variation' => 'Login variation',
       'login_variation_slider' => 'Do you want to show slider?',
       'quarter_enable' => 'Quarter',
       'marketplace_approval_enable' => 'Enable Market',
+      'gocaution' => 'Gocaution',
+      'blank_pdf' => 'Blank pdf',
+      'blank_pdf_desc' => 'Generate PDF files without letterhead so that they can be printed on your own stationery.',
+      'font_family' => 'Font family',
       'news_approval_enable' => 'News approval',
+      'news_approval_enable_desc' => 'News posts are first checked by the admin and then activated.',
       'comment_update_timeout' => 'Comment update timeout',
       'closed' => 'Closed',
       'saved' => 'Real estate saved',
@@ -496,11 +508,13 @@ return [
       'categories' => 'Categories',
       'templates' => 'Templates',
       'contact_enable' => 'Enable \'My contacts\'',
+      'contact_enable_desc' => 'Tenants can see the contact data of the service partners involved in the tenant portal.',
       'cleanify_email' => 'Cleanify email',
       'mail_encryption' => 'Encryption',
       'primary_color' => 'Primary color',
       'accent_color' => 'Accent color',
       'iframe_enable' => 'Iframe enable',
+      'iframe_enable_desc' => 'In the tenant portal a page with your free renting objects is indicated.',
       'iframe_url' =>
       [
         'label' => 'Iframe URL',
@@ -677,7 +691,8 @@ return [
           ],
           'costs' => [
 						'landlord' => 'Landlord',
-						'tenant' => 'Tenant'
+            'tenant' => 'Tenant',
+            'tenant/landlord' => 'Tenant/Landlord'
 					]
       ],
       'placeholders' => 

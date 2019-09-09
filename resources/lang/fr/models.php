@@ -18,7 +18,12 @@ return [
       "avatar_uploaded" => "Avatar téléchargé",
       "logo_uploaded" => "Logo téléchargé",
       "logo" => "Logo",
+      'circle_logo' => "Logo du cercle",
+      'favicon_icon' => "Icône Favicon",
+      "tenant_logo" => "Logo du locataire",
       "blank_pdf" => "PDF vierge",
+      'blank_pdf_desc' => 'Générez des fichiers PDF sans papier à en-tête afin qu\'ils puissent être imprimés sur votre propre papeterie.',
+      'font_family' => 'Font family',
       "notificationSaved" => "Réglage de la notification sauvegardé",
       "realEstateSaved" => "Options des biens immobiliers sauvegardées",
       "serviceRequestCategorySaved" => "Catégorie de demande de service sauvegardée",
@@ -164,6 +169,7 @@ return [
       "basement" => "Sous-sol",
       "attic" => "Grenier aménageable",
       "floor_nr" => "Nombre d'étages",
+      "internal_building_id" => "Numéro d'identification interne de l'immeuble",
       "label" => "Étiquette",
       "address_search" => "Veuillez entrer l'adresse",
       "not_found" => "Bâtiment non trouvé",
@@ -481,11 +487,17 @@ return [
       "settings" => "Réglages",
       'iframe' => 'Iframe',
       'theme' => 'Thème',
+      'login_variations' => 'Variations d\'ouverture de session',
       'login_variation' => 'Modification de l\'ouverture de session',
       'login_variation_slider' => 'Voulez-vous montrer le slider ?',
       "quarter_enable" => "Trimestre",
       "marketplace_approval_enable" => "Activer le marché",
+      'gocaution' => 'Gocaution',
+      "blank_pdf" => "PDF vierge",
+      'blank_pdf_desc' => 'Générez des fichiers PDF sans papier à en-tête afin qu\'ils puissent être imprimés sur votre propre papeterie.',
+      'font_family' => 'Font family',
       "news_approval_enable" => "Approbation des nouvelles",
+      'news_approval_enable_desc' => 'Les messages d\'actualité sont d\'abord vérifiés par l\'administrateur, puis activés.',
       "comment_update_timeout" => "Délai de mise à jour des commentaires",
       "closed" => "Fermé",
       "saved" => "Immobilier épargné",
@@ -496,11 +508,13 @@ return [
       "categories" => "Catégories",
       "templates" => "Modèles",
       "contact_enable" => "Activez'Mes contacts'",
+      'contact_enable_desc' => 'Les locataires peuvent voir les coordonnées des partenaires de service impliqués dans le portail des locataires.',
       "cleanify_email" => "Nettoyer les e-mails",
       "mail_encryption" => "Cryptage",
       'primary_color' => 'Couleur primaire',
       'accent_color' => 'Couleur d\'accent',
       'iframe_enable' => 'Activation de l\'iframe',
+      'iframe_enable_desc' => 'Dans le portail des locataires, une page avec vos objets de location gratuits est indiquée.',
       'iframe_url' => 
       [
         "label" => "URL de l'iframe",
@@ -677,7 +691,8 @@ return [
         ],
         'costs' => [
           'landlord' => 'Propriétaire',
-          'tenant' => 'Locataire'
+          'tenant' => 'Locataire',
+          'tenant/landlord' => 'Locataire/Propriétaire'
         ]
       ],
       'placeholders' => 

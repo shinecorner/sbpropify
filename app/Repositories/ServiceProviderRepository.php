@@ -2,9 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Models\Model;
 use App\Models\ServiceProvider;
 use App\Models\Building;
 use App\Models\Quarter;
+use App\Models\Unit;
 use Illuminate\Support\Arr;
 
 /**
@@ -50,7 +52,25 @@ class ServiceProviderRepository extends BaseRepository
         return parent::create($attributes);
     }
 
+    /**
+     * @param array $attributes
+     * @param $id
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
     public function update(array $attributes, $id)
+    {
+        $model = $this->model->findOrFail($id);
+        return $this->updateExisting($model, $attributes);
+    }
+
+    /**
+     * @param Model $model
+     * @param $attributes
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function updateExisting(Model $model, $attributes)
     {
         if (isset($attributes['unit_id'])) {
             $unit = Unit::with('building')->find($attributes['unit_id']);
@@ -74,13 +94,7 @@ class ServiceProviderRepository extends BaseRepository
             unset($attributes['user']);
         }
 
-        $model =  parent::update($attributes, $id);
-        $settings = Arr::pull($attributes, 'settings');
-        if ($settings) {
-            $model->settings()->update($settings);
-        }
-
-        return $model;
+        return parent::updateExisting($model, $attributes);
     }
 
     public function locations(ServiceProvider $sp)

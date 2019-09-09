@@ -61,7 +61,7 @@ export default (config = {}) => {
                 return [...this.model.media, ...this.media];
             },
             productConstants() {
-                return this.$store.getters['application/constants'].products;
+                return this.$constants.products;
             },
             productPrice() {
                 return `${this.price.integer}.${this.price.decimals}`;

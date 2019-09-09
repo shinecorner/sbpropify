@@ -85,7 +85,7 @@
                     select: {
                         icon: 'ti-pencil',
                         data: [],
-                        getter: "application/tenants",
+                        getter: "tenants",
                         onChange: this.listingSelectChangedNotify
                     }
                 }/*, {
@@ -103,7 +103,6 @@
                     width: 120,
                     actions: [{
                         icon: 'ti-pencil',
-                        type: 'success',
                         title: 'models.tenant.view',
                         onClick: this.view,
                         permissions: [

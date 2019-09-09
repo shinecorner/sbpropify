@@ -81,7 +81,7 @@
         },
         data() {
             return {
-                productConstants: this.$store.getters['application/constants'].products
+                productConstants: this.$constants.products
             }
         }
     }

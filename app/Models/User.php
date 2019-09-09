@@ -253,4 +253,9 @@ class User extends Authenticatable implements LikerContract, Commentator, Audita
 
         return $a->url;
     }
+
+    public function relationExists($key)
+    {
+        return parent::relationLoaded($key) && isset($this->$key);
+    }
 }

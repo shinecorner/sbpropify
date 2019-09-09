@@ -20,11 +20,11 @@ axiosCancel(Axios, {
 
 Axios.interceptors.request.use(config => {
     const token = localStorage.getItem('token')
-
+    const selectedLocale = localStorage.getItem('locale') || 'de';    
     if (token) {
         config.headers.Authorization = `Bearer ${token}`
     }
-
+    config.headers.Localization = selectedLocale;
     return new Promise((resolve, reject) => {
         let interval = setInterval(() => {
             if (PENDING_REQUESTS < MAX_REQUESTS_COUNT) {
