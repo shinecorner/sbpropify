@@ -209,6 +209,7 @@ export default {
                     "cloudiness": "nebulosità",
                     "humidity": "umidità",
                     "pressure": "pressione"
+<<<<<<< HEAD
                 },
                 "postAdd": {
                     "visibility": {
@@ -471,6 +472,271 @@ export default {
                     "confirmBtnText": "Ok",
                     "cancelBtnText": "Annulla"
                 },
+=======
+                },
+                "postAdd": {
+                    "visibility": {
+                        "address": "Indirizzo",
+                        "quarter": "Quartiere",
+                        "all": "Tutti"
+                    }
+                }
+            },
+            "admin": []
+        },
+        "dashboard": {
+            "statistics": "Statistiche",
+            "requests_by_creation_date": "Richieste per data di creazione",
+            "requests_by_status": "Richieste per stato",
+            "requests_by_category": "Richieste per categoria",
+            "requests_by_assigned_status": "Requests by assigned status",
+            "each_hour_request": "Ogni ora richiede",
+            "average_request_duration": "Tempo di risoluzione",
+            "week_hour": "Settimana vs. Ora",
+            "month_date": "Mese vs. data",
+            "news_by_creation_date": "Notizie per data di creazione",
+            "news_by_status": "Notizie per stato",
+            "news_by_type": "Notizie per tipo",
+            "latest_products": "Ultimi prodotti",
+            "products_by_creation_date": "Mercato dei prodotti per data di creazione",
+            "products_by_type": "Piazza del mercato prodotti per tipologia",
+            "tenants_by_creation_date": "Gli inquilini per data di creazione",
+            "tenants_by_request_status": "Situazione degli inquilini in base alle richieste",
+            "tenants_by_status": "Affittuari per stato",
+            "tenants_by_language": "Affittuari per lingua",
+            "tenants_by_title": "Affittuari per titolo",
+            "tenants_by_device": "Affittuari per dispositivo",
+            "tenants_by_gender": "Affittuari per sesso",
+            "tenants_by_age": "Tenants by age",
+            "actions": "Azioni",
+            "requests": {
+                "total_request": "Totale richieste",
+                "requests_with_service_providers": "Con i fornitori di servizi",
+                "request_wihout_service_providers": "Senza fornitori di servizi",
+                "property_managers": "Gestori",
+                "service_partners": "Partner di servizio",
+                "go_to_property_managers": "Vai ai gestori immobiliari",
+                "go_to_service_partners": "vai ai partner di servizio"
+            },
+            "buildings": {
+                "total_building": "Totale",
+                "total_units": "Totale unità",
+                "occupied_units": "Unità occupate",
+                "free_units": "Unità libere",
+                "buildings_by_creation_date": "Edifici per data di creazione",
+                "buildings_map": "Mappa degli edifici",
+                "latest_buildings": "Ultimi edifici",
+                "managers": "manager",
+                "tenants": "inquilini",
+                "requests": "richieste",
+                "go_to_buildings": "vai agli edifici",
+                "buildings_by_state": "Edifici per stato",
+                "go_to_building": "go to building"
+            },
+            "tenants": {
+                "total_tenants": "Totale",
+                "average_age": "Età media",
+                "average_age_acr": "Media Età",
+                "latest_tenants": "Ultimi inquilini",
+                "go_to_tenants": "andare dagli inquilini"
+            },
+            "marketplace": {
+                "go_to_marketplace": "vai al mercato"
+            },
+            "news": {
+                "latest_news": "Ultime notizie",
+                "go_to_news": "vai alle notizie",
+                "counts": "Conta"
+            }
+        },
+        "filters": {
+            "header": "Filtri",
+            "quarters": "Quartieri",
+            "buildings": "Edifici",
+            "requests": "Richieste",
+            "open_requests": "Richieste aperte",
+            "units": "Unità",
+            "states": "Stati",
+            "status": "Stato",
+            "search": "Ricerca",
+            "requestStatus": "Stato della richiesta",
+            "propertyManagers": "Proprietà Manager",
+            "categories": "Categorie",
+            "created_from": "Creato da",
+            "created_to": "Creato per",
+            "services": "Servizi",
+            "tenant": "Inquilino",
+            "roles": "Roles",
+            "type": "Modello"
+        },
+        "general": {
+            "en": "EN",
+            "fr": "FR",
+            "it": "IT",
+            "de": "DE",
+            "yes": "Yes",
+            "timestamps": {
+                "hours": "Orario",
+                "days": "Giorni",
+                "weeks": "Settimane",
+                "months": "Mesi",
+                "years": "Anni"
+            },
+            "chooseLanguage": "Scegliere la lingua",
+            "language": "Linguaggio",
+            "languages": {
+                "fr": "Français",
+                "it": "Italiano",
+                "de": "Deutsch",
+                "en": "English"
+            },
+            "footerText": {
+                "companyName": "Propify",
+                "leftSideText": "Hai bisogno di supporto? Contattate il nostro team di supporto a <br/>0800 000 000 000 o via e-mail a support@propify.ch",
+                "allRightsSaved": "Tutti i diritti riservati"
+            },
+            "days": {
+                "monday": "lunedì",
+                "tuesday": "martedì",
+                "wednesday": "mercoledì",
+                "thursday": "Giovedì",
+                "friday": "venerdì",
+                "saturday": "sabato",
+                "sunday": "domenicale"
+            },
+            "user": "Utente",
+            "tenant": "Un inquilino",
+            "tenants": "Gli inquilini",
+            "recipients": "Destinatari",
+            "date": "Data",
+            "title": "denominazione",
+            "description": "descrizione",
+            "unassign": "Disassegnare",
+            "assign": "Assegnare",
+            "requests": "Richieste",
+            "salutation": "Saluto",
+            "salutation_option": {
+                "mr": "Signor",
+                "mrs": "Signora",
+                "company": "Azienda"
+            },
+            "attached": {
+                "building": "Edificio assegnato",
+                "quarter": "Trimestre assegnato",
+                "provider": "Fornitore assegnato",
+                "tenant": "L'inquilino attaccato con successo",
+                "service": "Fornitore collegato con successo",
+                "manager": "Manager attaccato con successo",
+                "user": "Utente assegnato con successo",
+                "tag": "Tag assegnato con successo"
+            },
+            "detached": {
+                "building": "Costruire senza assegnazione",
+                "quarter": "Quartiere non assegnato",
+                "provider": "Fornitore non assegnato",
+                "tenant": "L'inquilino si è staccato con successo",
+                "service": "Fornitore staccato con successo",
+                "manager": "Manager staccato con successo",
+                "user": "Utente non assegnato con successo",
+                "tag": "Tag non assegnato con successo"
+            },
+            "no": "No",
+            "name": "Nome",
+            "phone": "Telefono",
+            "id": "ID",
+            "address": "Indirizzo",
+            "city": "cittadino",
+            "zip": "cerniera",
+            "content": "Contenuto",
+            "none": "Nessuna",
+            "all": "Tutti",
+            "loadMore": "Carica di più",
+            "account": "Conto",
+            "activate_account": "Attivare l'account",
+            "activate_code": "Attivare il codice",
+            "activate_code_required": "Attivare il codice è obbligatorio",
+            "activate_terms_condition_1": "Accetto che i dati sono corretti",
+            "activate_terms_condition_2": "Ho letto i termini e le condizioni d'uso",
+            "back": "Indietro",
+            "activate": "Attivare",
+            "activate_info": "Se hai ricevuto un codice di attivazione dal tuo padrone di casa, puoi attivare il tuo account qui. Inserite i seguenti dati:",
+            "unauthenticated": "Non autenticato",
+            "logged_out": "Disconnesso",
+            "logged_in": "Loggato",
+            "invalid_credentials": "Credenziali non valide",
+            "server_error": "Errore del server",
+            "reset_password": "Reimpostare la password",
+            "reset_password_mail": "Inviare la mail di reset della password",
+            "reset_password_mail_sent": "Le abbiamo inviato un'e-mail con ulteriori istruzioni. Controlla la tua casella di posta in arrivo.",
+            "back_to_login": "Torna al login",
+            "forgot_password": "Password dimenticata",
+            "forgot_password_info": "Inserisci l'indirizzo e-mail con cui ti sei registrato qui. Ti invieremo un'e-mail con un link per reimpostare la tua password.",
+            "email_not_registered": "L'indirizzo e-mail inserito non è associato ad un account attivo. Prova con un altro indirizzo e-mail.",
+            "remember_me": "Ricordati di me",
+            "password": "La password",
+            "change_password": "Imposta nuova password",
+            "change_password_info": "Inserisci qui la tua nuova password:",
+            "new_password": "Nuova password",
+            "old_password": "Vecchia password",
+            "new_password_confirmation": "Conferma della nuova password",
+            "change": "Cambiamento",
+            "cancel": "Annulla",
+            "confirm": "Conferma",
+            "confirm_password": "Conferma la password",
+            "incorrect_password": "La vecchia password è incorect",
+            "password_changed": "Password modificata con successo",
+            "details_saved": "Dettagli salvati",
+            "please_wait": "Attendere per favore...",
+            "no_data_available": "Nessun dato disponibile",
+            "upload_error": "Errore di caricamento dei media",
+            "media_not_found": "Media non trovati",
+            "comment_not_found": "Commento non trovato",
+            "comment_created": "Commento creato",
+            "comment_updated": "Commento aggiornato",
+            "comment_deleted": "Commento soppresso",
+            "password_validation": {
+                "required": "La password è richiesta",
+                "confirm": "Inserisci nuovamente la password",
+                "match": "Le password non sono uguali",
+                "min": "La password deve essere di almeno 6 caratteri",
+                "old_password_min": "La vecchia password deve essere di almeno 6 caratteri",
+                "old_password_required": "È richiesta una vecchia password"
+            },
+            "assignmentTypes": {
+                "building": "Edificio",
+                "quarter": "Quartiere",
+                "services": "Servizi",
+                "managers": "Manager",
+                "administrator": "Gestore"
+            },
+            "email": "eMail",
+            "email_validation": {
+                "required": "è richiesta una e-mail",
+                "email": "Inserisci un'e-mail valida"
+            },
+            "token_invalid": "Gettone non valido",
+            "login": "Accedi",
+            "support": "Support",
+            "actions": {
+                "label": "Operazioni",
+                "edit": "Modifica",
+                "add": "Aggiungi",
+                "delete": "Cancellare",
+                "create": "Creare",
+                "view": "Dettagli",
+                "save": "Risparmiate",
+                "close": "Chiuditi",
+                "saveAndClose": "Salva & Chiudi",
+                "upload": "Carica"
+            },
+            "swal": {
+                "confirmChange": {
+                    "title": "Sei sicuro di voler continuare?",
+                    "warning": "Attenzione",
+                    "confirmBtnText": "Ok",
+                    "cancelBtnText": "Annulla"
+                },
+>>>>>>> 83700398789c1a46ce2e5be4d7441cd6719ec2ac
                 "delete": {
                     "title": "Ne sei sicuro?",
                     "text": "Non sarai in grado di tornare indietro!",

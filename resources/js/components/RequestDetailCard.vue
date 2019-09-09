@@ -51,7 +51,7 @@
                     <el-checkbox @change="handleSelectionChanged"></el-checkbox>
                 </el-col> 
                 <el-col :span="1" class="request-actions">
-                    <el-tooltip :content="$t('dashboard.buildings.go_to_buildings')" placement="top" effect="light">
+                    <el-tooltip :content="$t('dashboard.buildings.go_to_building')" placement="top" effect="light">
                         <router-link :to="{name: 'adminBuildingsEdit', params: {id:item.tenant.building.id}}" class="listing-link">
                              <i class="icon icon-commerical-building"></i>
                         </router-link>

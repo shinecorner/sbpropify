@@ -266,7 +266,8 @@ export default {
                 "tenants": "Tenants",
                 "requests": "Requests",
                 "go_to_buildings": "go to buildings",
-                "buildings_by_state": "Buildings by state"
+                "buildings_by_state": "Buildings by state",
+                "go_to_building": "go to building"
             },
             "tenants": {
                 "total_tenants": "Total Count",
