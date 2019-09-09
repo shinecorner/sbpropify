@@ -33,6 +33,7 @@ class AuditableModel extends Model implements Auditable
         'attach' => [
             'providers' =>  AuditableModel::EventProviderAssigned,
             'managers' =>  AuditableModel::EventManagerAssigned,
+            'propertyManagers' =>  AuditableModel::EventManagerAssigned,
             'users' =>  AuditableModel::EventUserAssigned,
             'buildings' => AuditableModel::EventBuildingAssigned,
             'quarters' => AuditableModel::EventQuarterAssigned,
@@ -40,6 +41,7 @@ class AuditableModel extends Model implements Auditable
         'detach' => [
             'providers' =>  AuditableModel::EventProviderUnassigned,
             'managers' =>  AuditableModel::EventManagerUnassigned,
+            'propertyManagers' =>  AuditableModel::EventManagerUnassigned,
             'users' =>  AuditableModel::EventUserAssigned,
             'buildings' => AuditableModel::EventBuildingUnassigned,
             'quarters' => AuditableModel::EventQuarterUnassigned,
@@ -48,6 +50,7 @@ class AuditableModel extends Model implements Auditable
 
     protected $syncAuditable = [
         'managers' => ['first_name', 'last_name'],
+        'propertyManagers' => ['first_name', 'last_name'],
         'providers' => ['name'],
         'users' => ['name'],
         'buildings' => ['name'],
