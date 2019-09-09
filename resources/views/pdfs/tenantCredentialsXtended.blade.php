@@ -1,7 +1,7 @@
 @extends('pdfs.layout')
 
 @section('title')
-    {{ __("tenant.tenant_credentials") }}
+    {{ __("models.tenant.credentials_pdf.tenant_credentials") }}
 @endsection
 
 @section('body')
@@ -30,9 +30,9 @@
         {{ $re->address->zip }} {{ $re->address->city }}
       </p>
       <p>
-        @lang('tenant.telephone', [], $language): {{ $re->phone }}
+        @lang('models.tenant.credentials_pdf.telephone', [], $language): {{ $re->phone }}
         <br>
-        @lang('tenant.email', [], $language): {{ $re->email }}</p>
+        @lang('models.tenant.credentials_pdf.email', [], $language): {{ $re->email }}</p>
     </td>
   </tr>
   <tr>
@@ -40,60 +40,60 @@
       <br>
       <br>
       <br>
-      @lang('tenant.born', [], $language), {{now()->format('d.m.Y')}}
+      @lang('models.tenant.credentials_pdf.born', [], $language), {{now()->format('d.m.Y')}}
       <br>
       <br>
       <br>
-      <b>@lang('tenant.welcome', [], $language) {{ $re->name }}</b>
+      <b>@lang('models.tenant.credentials_pdf.welcome', [], $language) {{ $re->name }}</b>
       <br>
       <br>
       @if(\App\Models\Tenant::TitleCompany == $tenant->title)
-        @lang('tenant.pdf_salutation_' . $tenant->title, [], $language)
+        @lang('general.pdf_salutation_' . $tenant->title, [], $language)
       @else
-        @lang('tenant.pdf_salutation_' . $tenant->title, ['name' => $tenant->last_name], $language)
+        @lang('general.pdf_salutation_' . $tenant->title, ['name' => $tenant->last_name], $language)
       @endif
       <br>
       <br>
-      @lang('tenant.content_1', [], $language)
+      @lang('models.tenant.credentials_pdf.content_1', [], $language)
       <br>
       <br>
-      <p class="offer"><b>@lang('tenant.offer', [], $language)</b></p>
+      <p class="offer"><b>@lang('models.tenant.credentials_pdf.offer', [], $language)</b></p>
       <ul class="offer">
-        {!! __('tenant.offers', [], $language) !!}
+        {!! __('models.tenant.credentials_pdf.offers', [], $language) !!}
       </ul>
 
-      <b>@lang('tenant.register', [], $language)</b>
+      <b>@lang('models.tenant.credentials_pdf.register', [], $language)</b>
       <br>
-      @lang('tenant.content_2', [], $language)
+      @lang('models.tenant.credentials_pdf.content_2', [], $language)
       <br>
       <br>
     </td>
   </tr>
   <tr>
-    <td>@lang("tenant.link_application", [], $language)</td>
+    <td>@lang("models.tenant.credentials_pdf.link_application", [], $language)</td>
     <td>{{ url('/activate') }}</td>
   </tr>
   <tr>
-    <td>{{ __("tenant.code") }}</td>
+    <td>{{ __("models.tenant.credentials_pdf.code") }}</td>
     <td>{{ $code }}</td>
   </tr>
   <tr>
-    <td>{{ __("tenant.your_email") }}</td>
+    <td>{{ __("models.tenant.credentials_pdf.your_email") }}</td>
     <td>{{ $tenant->user->email }}</td>
   </tr>
   <tr>
     <td colspan="4">
       <br>
-      @lang('tenant.content_3', [], $language)
+      @lang('models.tenant.credentials_pdf.content_3', [], $language)
       <br>
       <br>
-      @lang('tenant.content_4', [], $language)
+      @lang('models.tenant.credentials_pdf.content_4', [], $language)
       <br>
       <br>
       <br>
-      @lang('tenant.your_sincerely', [], $language)
+      @lang('models.tenant.credentials_pdf.your_sincerely', [], $language)
       <br>
-      @lang('tenant.your_administration', [], $language)
+      @lang('models.tenant.credentials_pdf.your_administration', [], $language)
     </td>
   </tr>
 </table>

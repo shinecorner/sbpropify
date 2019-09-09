@@ -54,6 +54,9 @@ return [
     'mrs' => 'Mrs.',
     'company' => 'Company',
   ],
+  'pdf_salutation_company' => 'Firm',
+  'pdf_salutation_mr' => 'Dear Sir :name',
+  'pdf_salutation_mrs' => 'Dear Lady :name',
   'attached' => 
   [
     'building' => 'Building assigned',
