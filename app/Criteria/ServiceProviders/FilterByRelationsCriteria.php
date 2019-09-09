@@ -13,7 +13,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  * Class FilterByBuildingCriteria
  * @package App\Criteria\ServiceProviders
  */
-class FilterByBuildingQuarterCriteria implements CriteriaInterface
+class FilterByRelationsCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -39,8 +39,11 @@ class FilterByBuildingQuarterCriteria implements CriteriaInterface
     {
         $buildingId = $this->request->get('building_id', null);
         $quarterId = $this->request->get('quarter_id', null);
+        $categoryId = $this->request->get('category_id', null);
 
-        if (!$quarterId && !$buildingId) { return $model; }
+        if (empty($quarterId) && empty($buildingId) && empty($categoryId)) {
+            return $model;
+        }
 
         $type = get_morph_type_of(ServiceProvider::class);
         $model->join('request_assignees as ra', 'ra.assignee_id', '=', 'service_providers.id')
@@ -52,6 +55,8 @@ class FilterByBuildingQuarterCriteria implements CriteriaInterface
                 $q->where('buildings.id', $buildingId);
             })->when($quarterId, function ($q) use ($quarterId) {
                 $q->where('buildings.quarter_id', $quarterId);
+            })->when($quarterId, function ($q) use ($categoryId) {
+                $q->where('sr.category_id', $categoryId);
             });
 
         return $model;
