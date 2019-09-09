@@ -691,7 +691,8 @@ return [
         ],
         'costs' => [
           'landlord' => 'Padrone di casa',
-          'tenant' => 'Affittuario'
+          'tenant' => 'Affittuario',
+          'tenant/landlord' => 'Affittuario/Padrone di casa'
         ]
       ],
       'placeholders' => 

@@ -10,16 +10,19 @@
             // TODO -> primary-color to color-primary and text-color to color-text
             document.documentElement.setAttribute('style', `
                 --primary-color: #6AC06F;
+                --primary-color-lighter: #bac5df;
                 --text-color: #3f3f3f;
 
                 --color-main-background-base: #F2F4F9;
                 --color-main-background-lighter: #bac5df;
                 --color-main-background-darker: #8296c5;
 
+                
                 --color-primary: #6AC06F;
                 --color-primary-lighter: #f0f9f1;
-
+                --test-color: color-mod(var(--color-primary) alpha(1%));
                 --color-success: #67C23A;
+                --color-success-lighter: #85ce61;
                 --color-warning: #E6A23C;
                 --color-danger: #F56C6C;
                 --color-info: #909399;

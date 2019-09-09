@@ -3,7 +3,8 @@
     <div :class="['layout', {[sidebarDirection]: true}, {md: el.is.md}]" v-else>
         <div class="header">
             <div class="item">
-                <img src="~img/logo3.png" />
+                <img src="~img/logo3.png" v-show="!tenant_logo_src"/>
+                <img :src="tenant_logo_src" v-show="tenant_logo_src"/>
             </div>
             <div class="item spacer"></div>
             <div class="item">
@@ -88,6 +89,7 @@
                 origin: null,
                 loadingBackground: null,
                 sidebarKey: 'vertical',
+                tenant_logo_src: '',
                 quickLinks: [{
                     icon: 'icon-megaphone-1',
                     title: 'Add a post',
@@ -108,6 +110,19 @@
                     }
                 }]
             }
+        },
+        computed: {
+            tenant_logo() {
+                console.log('called1', this.$constants.logo.tenant_logo);
+                if(localStorage.getItem('tenant_logo_src') != this.$constants.logo.tenant_logo ) {
+                    console.log('called');
+                    localStorage.setItem('tenant_logo_src', this.$constants.logo.tenant_logo);
+                }
+
+                return localStorage.getItem('tenant_logo_src') ? `/${localStorage.getItem('tenant_logo_src')}` : '';
+
+
+            },
         },
         methods: {
             test () {
@@ -282,7 +297,11 @@
         async mounted () {
             this.loading = true
 
-            await this.$store.dispatch('getRealEstate')
+            await this.$store.dispatch('getRealEstate').then((resp) => {
+                    this.tenant_logo_src = resp.data.tenant_logo
+                }).catch((error) => {
+                    
+                });
 
             this.loading = false
         }

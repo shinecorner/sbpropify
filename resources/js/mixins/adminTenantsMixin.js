@@ -4,6 +4,7 @@ import EmailCheckValidatorMixin from './emailCheckValidatorMixin';
 import TenantTitleTypes from './methods/tenantTitleTypes';
 import {displayError, displaySuccess} from '../helpers/messages';
 import UploadUserAvatarMixin from './adminUploadUserAvatarMixin';
+import { parse } from 'querystring';
 
 export default (config = {}) => {
     let mixin = {
@@ -310,7 +311,7 @@ export default (config = {}) => {
                         this.original_email = this.user.email;
                         this.model.email = user.email;
                         this.model.avatar = user.avatar;
-                        
+                        this.model.nation = parseInt(this.model.nation)
                         if (building) {
                             this.model.building_id = building.id;
                             this.remoteSearchBuildings(building.name);

@@ -650,7 +650,7 @@ return [
 					'range' => 'Bereich',
 					'component' => 'Bauteil',
 					'acquisition' => 'Erfassungsphase',
-					'cost' => 'Kostenfolge',
+					'cost' => 'Zu Lasten von',
 					'keywords' => 'Stichworte',
 					'building_locations' => [
 						'house_entrance' => 'Hauseingang',
@@ -691,7 +691,8 @@ return [
 					],
 					'costs' => [
 						'landlord' => 'Vermieter',
-						'tenant' => 'Mieter'
+						'tenant' => 'Mieter',
+						'tenant/landlord' => 'Mieter/Vermieter'
 					]					
 				],
 			'placeholders' =>

@@ -964,7 +964,7 @@
 
 
                         &:hover{
-                            background-color: #f0f9f1;
+                            background-color: var(--primary-color-lighter);
                         }
 
                         span{
@@ -988,19 +988,20 @@
             font-size: 16px !important;
         }
     }
-    .el-button--primary:hover {
-        background: var(--color-main-background-lighter);
-        border-color: var(--color-main-background-lighter);
+    .el-button--primary:focus, .el-button--primary:hover {
+        background: var(--primary-color-lighter);
+        border-color: var(--primary-color-lighter);
         color: var(--primary-color);
     }
+    
     .el-button--default:hover {
-        background: var(--color-main-background-lighter);
-        border-color: var(--color-main-background-lighter);
-        color: var(--primary-color);
+        background: var(--primary-color-lighter);
+        border-color: var(--primary-color-lighter);
+        color: white;
     }
     .el-button--default:active {
-        background: var(--color-main-background-lighter);
-        border-color: var(--color-main-background-lighter);
+        background: var(--primary-color-lighter);
+        border-color: var(--primary-color-lighter);
         color: var(--primary-color);
     } 
 </style>

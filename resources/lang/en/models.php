@@ -691,7 +691,8 @@ return [
           ],
           'costs' => [
 						'landlord' => 'Landlord',
-						'tenant' => 'Tenant'
+            'tenant' => 'Tenant',
+            'tenant/landlord' => 'Tenant/Landlord'
 					]
       ],
       'placeholders' => 
