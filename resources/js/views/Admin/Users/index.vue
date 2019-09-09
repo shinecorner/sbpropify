@@ -61,7 +61,8 @@
                     prop: 'phone'
                 }, {
                     label: 'general.roles.label',
-                    prop: 'roles[0].name'
+                    roles: true,
+                    prop: 'roles'
                 }, {
                     width: 120,
                     actions: [{
