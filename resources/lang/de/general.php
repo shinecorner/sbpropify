@@ -93,7 +93,7 @@ return [
   'all' => 'Alle',
   'loadMore' => 'Weitere laden',
   'account' => 'Konto',
-  'activate_account' => 'Konto akvitieren',
+  'activate_account' => 'Konto aktivieren',
   'activate_code' => 'Aktivierunscode',
   'activate_code_required' => 'Sie müssen einen gültigen Aktivierunscode einfügen.',
   'activate_terms_condition_1' => "Ich akzpetiere die allgemeinen Nutzungebedingungen und die Bestimmungem zum Datenschautz.",
