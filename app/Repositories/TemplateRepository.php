@@ -382,7 +382,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('post_published');
 
-        $user->redirect = '/news/' . $post->id;
+	    $receiver->redirect = '/news/' . $post->id;
         $context = [
             'receiver' => $receiver,
             'post' => $post,
