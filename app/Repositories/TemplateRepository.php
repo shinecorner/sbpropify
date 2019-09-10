@@ -183,7 +183,7 @@ class TemplateRepository extends BaseRepository
     {
         $text = $text ?? $url; // @TODO sprintf some problem fix later
         return  '<a href="' . $url . '" style="font-size:16px; font-weight: bold; text-decoration: none; line-height:40px; width:100%; display:inline-block">
-               <span style="color:' . $this->realEstate->primary_color . '">' . $text . '</span>
+               <span>' . $text . '</span>
             </a>';
     }
 
