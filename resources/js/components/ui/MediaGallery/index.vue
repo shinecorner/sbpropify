@@ -6,7 +6,7 @@
             <div class="ui-media-gallery__item__content">
                 <template v-if="isFileImage(file)">
                     <ui-image ref="ui-image" :src="file" :src-list="files">
-                        <div slot="error" class="error" style "color: red;">
+                        <div slot="error" class="error" style="color: red;">
                             <i class="el-icon-document-delete" />
                         </div>
                         <div slot="placeholder" class="placeholder el-icon-loading"></div>
@@ -37,6 +37,15 @@
             files: {
                 type: Array,
                 default: () => ([])
+            }
+        },
+        data () {
+            return {
+                test : [
+                    "http://localhost:8000/storage/requests/media/21/med3736tmp.png", 
+                    "http://localhost:8000/storage/requests/media/22/medf497tmp.png", 
+                    "http://localhost:8000/storage/requests/media/23/med2f40tmp.png"
+                    ]
             }
         },
         methods: {
