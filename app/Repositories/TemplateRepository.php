@@ -183,7 +183,7 @@ class TemplateRepository extends BaseRepository
     {
         $text = $text ?? $url; // @TODO sprintf some problem fix later
         return  '<a href="' . $url . '" style="font-size:16px; font-weight: bold; text-decoration: none; line-height:40px; width:100%; display:inline-block">
-               <span>' . $text . '</span>
+               <span style="color:#ffffff;">' . $text . '</span>
             </a>';
     }
 
