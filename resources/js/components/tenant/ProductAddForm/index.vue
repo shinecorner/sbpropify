@@ -121,8 +121,7 @@
                         params.contact = `${tenant_name} - ${tenant_phone}`
 
                         const resp = await this.$store.dispatch('newProducts/create', params);
-                        if (resp && resp.data) {
-                            console.log(resp.data);
+                        if (resp && resp.data) {                            
                             if (this.model.media.length) {
                             // TODO - make await for this   
                                 this.product_id = resp.data.id;            
