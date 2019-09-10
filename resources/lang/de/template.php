@@ -35,4 +35,10 @@ return [
     'email_link_contacts' => 'Kontakt',
     'email_link_terms_of_use' => 'Nutzungsbedingungen',
     'email_link_data_protection' => 'Datenschutz',
+
+    // email new layout
+    'tenant_portal' => 'Mieterportal',
+    'generated_email_for_user' => 'Diese E-Mail wurde automatisch für :userName generiert.',
+    'generated_email_for_company' => 'Sie erhalten diese automatisch generierte E-Mail als User des Mieterportal der :companyName . Das Mieterportal wird von der Propify AG betrieben.',
+    'links' => '<a href="#">Impressum </a>&ensp; | &ensp;<a href="#">Nutzungsbedingungen</a>&ensp; | &ensp;<a href="#">Datenschutzerklärung</a>'
 ];
