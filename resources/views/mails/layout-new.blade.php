@@ -121,7 +121,12 @@
     </tr>
     <tr>
         <td bgcolor="#f4f4f4" align="center">
+            <table border="0" cellpadding="0" cellspacing="0" width="650" class="wrapper" style="border-left: 1px solid rgba(0,0,0,0.05);border-right: 1px solid rgba(0,0,0,0.05);">
+                <tbody><tr>
+<td bgcolor="#ffffff">
             @yield('body')
+                </td></tr>
+                </tbody></table>
         </td>
     </tr>
     <tr>
