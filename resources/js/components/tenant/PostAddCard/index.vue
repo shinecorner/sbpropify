@@ -114,7 +114,7 @@
 
                     displaySuccess(data)
                     //temporary fix browser refresh. later change this things with proper router things.
-                    window.location = '/news';
+                    // window.location = '/news';
                 } catch (error) {
                     displayError(error)
                 } finally {
