@@ -20,12 +20,15 @@ class TemplateCategoryTransformer extends BaseTransformer
      */
     public function transform(TemplateCategory $model)
     {
+        $tags = is_array($model->tag_map) ? array_keys($model->tag_map) : [];
+        $tags[] = 'realEstateCompany';
+        $tags[] = 'primaryColor';
         $response = [
             'id' => $model->id,
             'parent_id' => $model->parent_id,
             'name' => $model->name,
             'description' => $model->description,
-            'tags' => is_array($model->tag_map) ? array_keys($model->tag_map) : [],
+            'tags' => $tags
         ];
 
         if ($model->parent_id == 0 || !$model->parentCategory) {

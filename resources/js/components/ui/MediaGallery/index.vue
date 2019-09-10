@@ -51,7 +51,7 @@
             }
         },
         mounted () {
-            console.log(this.files)
+            console.log('gallery mounted', this.files);
         }
     }
 </script>

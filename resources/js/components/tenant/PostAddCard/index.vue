@@ -2,7 +2,7 @@
     <el-card :class="['post-add', {'is-focused': focused}]" v-loading="loading">
         <ui-avatar :size="42" :src="loggedInUser.avatar" :name="loggedInUser.name" />
         <el-input ref="content" type="textarea" v-model="model.content" autosize resize="none" placeholder="What do you want to publish?" :validate-event="false" @focus="focused = true" @blur="focused = false" @keydown.native.alt.enter.exact="submit" />
-        <media-uploader ref="media" :id="4" type="requests" layout="list" v-model="model.media" :upload-options="uploadOptions" />
+        <media-uploader ref="media" :id="post_id" type="posts" layout="list" v-model="model.media" :upload-options="uploadOptions" />
         <div class="actions" :style="[model.content && {'width': '100%', 'justify-content': 'flex-end'}]">
             <el-tag size="mini">
                 <i class="icon-eye"></i>
@@ -63,6 +63,7 @@
                     content: '',
                     visibility: null
                 },
+                post_id: null,
                 focused: false,
                 loading: false,
                 dropdownVisible: false,
@@ -101,17 +102,19 @@
 
                     params.visibility = params.visibility.key
 
-                    const {data: {data}} = await this.axios.post('posts', params)
-
-                    if (media.length) {
-
+                    const {data: {data}} = await this.axios.post('posts', params);                                        
+                    if (data.hasOwnProperty('id') && this.model.media.length) {                        
+                        this.post_id = data.id;
+                        await this.$refs.media.startUploading();
                         // this.$refs.media.
                     }
 
                     this.model.content = ''
-                    this.$refs.media.clearUploader()
+                    //this.$refs.media.clearUploader()
 
                     displaySuccess(data)
+                    //temporary fix browser refresh. later change this things with proper router things.
+                    window.location = '/news';
                 } catch (error) {
                     displayError(error)
                 } finally {

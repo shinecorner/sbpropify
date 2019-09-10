@@ -1,7 +1,7 @@
 <template>
     <el-container>
         <el-aside width="30%">
-            <router-link to="/" class="logo">
+            <router-link to="/login" class="logo">
                 <img src="~img/logo5.png" v-show="!tenant_logo_src"/>
                 <img :src="tenant_logo_src" v-show="tenant_logo_src"/>
             </router-link>
