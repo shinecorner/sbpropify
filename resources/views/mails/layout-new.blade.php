@@ -84,7 +84,7 @@
                 </tr>
                 <tr>
                     <td style="background-color: #ffffff; font-size: 18px;color: #878991;">
-                        <h3 style="padding: 0; margin: 0">Mieterportal</h3>
+                        <h3 style="padding: 0; margin: 0">@lang('template.tenant_portal', [], $lang)</h3>
                     </td>
                 </tr>
                 <tr>
@@ -154,7 +154,7 @@
             <table border="0" width="650"  cellpadding="0" cellspacing="0" class="wrapper">
                 <tr>
                     <td bgcolor="#ffffff" align="center" style="color: grey; font-size: 12px; font-weight: 400; line-height: 25px;">
-                        Diese E-Mail wurde automatisch für {{ $userName }} generiert.
+                        @lang('template.generated_email_for_user', ['userName' =>  $userName], $lang)
                     </td>
                 </tr>
                 <tr>
@@ -163,7 +163,7 @@
                 <tr>
                     <td bgcolor="#ffffff" align="center" style="color: #000000; font-size: 14px; font-weight: 400; line-height: 1.3;padding: 0" >
                         <span style="padding: 0 10px">
-                           Sie erhalten diese automatisch generierte E-Mail als User des Mieterportal der {{ $company->name }} . Das Mieterportal wird von der Propify AG betrieben.
+                            @lang('template.generated_email_for_company', ['companyName' =>  $companyName], $lang)
                         </span>
                     </td>
                 </tr>
@@ -188,7 +188,7 @@
                 </tr>
                 <tr>
                     <td bgcolor="#ffffff" align="center" style="color: #000000; font-size: 14px; font-weight: 400; line-height: 25px;" >
-                        <a href="#">Impressum </a>&ensp; | &ensp;<a href="#">Nutzungsbedingungen</a>&ensp; | &ensp;<a href="#">Datenschutzerklärung</a>
+                        @lang('template.links', [], $lang)
                     </td>
                 </tr>
                 <tr>

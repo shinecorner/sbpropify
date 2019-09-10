@@ -13,6 +13,7 @@ use App\Models\Template;
 use App\Models\TemplateCategory;
 use App\Models\Tenant;
 use App\Models\User;
+use Illuminate\Container\Container as Application;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\MediaLibrary\Models\Media;
@@ -30,6 +31,14 @@ class TemplateRepository extends BaseRepository
         'name' => 'like',
         'description' => 'like',
     ];
+
+    protected $realEstate;
+
+    public function __construct(Application $app)
+    {
+        parent::__construct($app);
+        $this->realEstate = RealEstate::first();
+    }
 
     /**
      * Configure the Model
@@ -160,8 +169,9 @@ class TemplateRepository extends BaseRepository
     function button($url, $text)
     {
         $linkClass = 'button button-primary';
-        $linkStyle = 'font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Helvetica, Arial, sans-serif, \'Apple Color Emoji\', \'Segoe UI Emoji\', \'Segoe UI Symbol\'; box-sizing: border-box; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); color: #FFF; display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; background-color: #3490DC; border-top: 10px solid #3490DC; border-right: 18px solid #3490DC; border-bottom: 10px solid #3490DC; border-left: 18px solid #3490DC;';
-
+        $bgColor = $this->realEstate->primary_color ?? '#3490DC';
+        $linkStyle = 'font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Helvetica, Arial, sans-serif, \'Apple Color Emoji\', \'Segoe UI Emoji\', \'Segoe UI Symbol\'; box-sizing: border-box; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); color: #FFF; display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; background-color: {color}; border-top: 10px solid {color}; border-right: 18px solid {color}; border-bottom: 10px solid {color}; border-left: 18px solid {color};';
+        $linkStyle = str_replace('{color}', $bgColor, $linkStyle);
         return sprintf('<a class="%s" style="%s" href="%s">%s</a>', $linkClass, $linkStyle, $url, $text);
     }
 
@@ -212,17 +222,18 @@ class TemplateRepository extends BaseRepository
             ];
         }
 
-        $template = self::getParsedTemplate($template, $tagMap, $lang);
-
-        $company = (new RealEstate())->first();
+        $company = $this->realEstate;
         $appUrl = env('APP_URL', '');
-
         $companyAddress = [
             $company->address->street,
             $company->address->street_nr . ',',
             $company->address->zip,
             $company->address->city,
         ];
+
+        $tagMap['primaryColor'] = $company->primary_color;
+        $tagMap['companyName'] = $company->name;
+        $template = self::getParsedTemplate($template, $tagMap, $lang);
 
         return [
             'subject' => $template->subject,
