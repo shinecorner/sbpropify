@@ -163,7 +163,7 @@
                     color: var(--primary-color);
                     margin-top: 0;
                     margin-bottom: .5em;
-                    text-shadow: 0 0 3px #000;
+                    text-shadow: 0 0 3px #fff;
                 }
                 p {
                     font-size: 16px;
@@ -206,7 +206,7 @@
                                 margin: 0;
                                 margin-bottom: .32em;
                                 color: var(--primary-color);
-                                text-shadow: 0 0 3px #000;
+                                text-shadow: 0 0 3px #fff;
                             }
                             p {
                                 margin: 0;

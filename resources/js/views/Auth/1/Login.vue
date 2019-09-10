@@ -129,10 +129,10 @@
     }
     @media screen and (min-width: 1369px) {
         .activate-account{
-            position:absolute;
+            /*position:absolute;
             bottom:42px;
             left:42px;
-            right:42px;
+            right:42px;*/
             .el-menu-item-link {
                 margin-bottom: 5%;
 
