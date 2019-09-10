@@ -33,10 +33,10 @@
                 <div class="assignees" v-if="assignees.length">
                     Assignees
                     <div :key="assignee.id" class="assignee" v-for="assignee in visibleAssignees">
-                        <ui-avatar :name="assignee.user.name" :size="32" :src="assignee.user.avatar" />
+                        <ui-avatar :name="assignee.name" :size="32" :src="assignee.avatar" />
                         <div class="content">
-                            {{assignee.user.name}}
-                            <small>{{assignee.user.email}}</small>
+                            {{assignee.name}}
+                            <small>{{assignee.email}}</small>
                         </div>
                     </div>
                     <div class="more" v-if="!idState.showAllAssginees && assignees.length > 4">
@@ -119,18 +119,19 @@
         },
         computed: {
             assignees () {
-                return [...this.data.property_managers, ...this.data.service_providers]
+                return [...this.data.assignedUsers]
             },
             visibleAssignees () {
                 if (this.idState.showAllAssginees) {
                     return this.assignees
                 }
 
-                if (this.assignees.length === 4) {
+                /*if (this.assignees.length === 4) {
                     return this.assignees.slice(0, 4)
                 }
 
-                return this.assignees.slice(0, 3)
+                return this.assignees.slice(0, 3)*/
+                return this.assignees;
             }
         },
         methods: {
