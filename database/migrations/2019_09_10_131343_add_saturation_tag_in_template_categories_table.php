@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddNewTagsInEmailTemplates extends Migration
+class AddSaturationTagInTemplateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class AddNewTagsInEmailTemplates extends Migration
      */
     public function up()
     {
-
         $tagMap = [
             'name' => 'user.name',
+            'salutation' => 'tenant.title',
+            'firstName' => 'tenant.first_name',
+            'lastName' => 'tenant.last_name',
             'birthDate' => 'tenant.birthDate',
             'mobilePhone' => 'tenant.mobile_phone',
             'privatePhone' => 'tenant.private_phone',
