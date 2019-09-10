@@ -257,6 +257,9 @@
             },
         },
         mounted () {
+            console.log('request', this.openedRequest);
+            // console.log('requets media', this.openedRequest.media);
+            // console.log('requets media', this.openedRequest.media.map(({url}) => url));
             // this.$refs['dynamic-scroller'].forceUpdate()
         }
     }

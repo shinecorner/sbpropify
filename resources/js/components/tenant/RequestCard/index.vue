@@ -20,10 +20,18 @@
                             {{$t(`models.request.priority.${$constants.service_requests.priority[data.priority]}`)}}
                         </div>
                     </div>
-                    <div class="item">
+                    <div class="item" v-if="this.data.category.parent_id == 1 && this.data.qualification != 1" >
                         Qualification:
                         <div class="label">
                             {{$t(`models.request.qualification.${$constants.service_requests.qualification[data.qualification]}`)}}
+                        </div>
+                    </div>
+                </div>
+                <div class="statuses">
+                    <div class="item" v-if="this.data.category.parent_id == 1 && this.data.qualification ==5" >
+                        Cost Impact:
+                        <div class="label">
+                            {{$t(`models.request.category_options.costs.${this.data.payer}`)}}
                         </div>
                     </div>
                 </div>
@@ -80,7 +88,7 @@
 </template>
 
 <script>
-    import MediaGallery from 'components/MediaGalleryList'
+    
     import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
     import {IdState} from 'vue-virtual-scroller'
 
@@ -92,7 +100,7 @@
             })
         ],
         components: {
-            MediaGallery
+            
         },
         props: {
             data: {
@@ -154,7 +162,10 @@
             }
         },
         mounted () {
-
+            console.log('Request Card', this.data);
+            console.log('tenant media1', this.data.media);
+            console.log('tenant media2', this.data.media.slice(0, 3).map(({url}) => url));
+            
         }
     }
 </script>
