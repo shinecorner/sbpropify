@@ -463,6 +463,7 @@
                         tooltipMode: true,
                         type: 'success',
                         icon: 'el-icon-message',
+                        view: 'request',
                         onClick: this.openNotifyProvider
                     }, {
                         title: 'general.unassign',

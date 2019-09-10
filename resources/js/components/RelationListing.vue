@@ -172,7 +172,7 @@
                             :style="button.style"
                             :type="button.type"
                             @click="button.onClick(scope.row)"
-                            v-if="(button.view == 'building') || scope.row.type != 'manager' || button.type == 'danger'"
+                            v-if="(button.view == 'building') || (scope.row.type != 'user' && scope.row.type != 'manager') || button.type == 'danger'"
                             size="mini"
                         >
                         </el-button>
