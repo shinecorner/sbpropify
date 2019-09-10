@@ -101,6 +101,7 @@
                 if (this.$refs['dynamic-scroller']) {
                     prevScrollHeight = this.$refs['dynamic-scroller'].$el.scrollHeight
                 }
+                console.log('prevScrollHeight', prevScrollHeight);
 
                 let page = current_page || 0;
 
@@ -108,8 +109,6 @@
 
                 this.loading = true
 
-
-                console.log('comments id ', this.id)
                 try {
                     await this.$store.dispatch('comments/get', {
                         id: this.id,

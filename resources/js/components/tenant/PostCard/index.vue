@@ -25,7 +25,9 @@
         <div class="providers" v-if="data.pinned && data.providers && data.providers.length">
             Providers: {{data.providers.map(provider => provider.name).join(', ')}}
         </div>
-        <ui-media-gallery :files="data.media.map(({url}) => url)" />
+        <div class="gallery">
+            <ui-media-gallery :files="data.media.map(({url}) => url)" />
+        </div>
         <!-- <ui-images-carousel :images="data.media.map(({url}) => url)" :use-placeholder="false" /> -->
         <!-- <media-gallery-carousel :media="data.media" :use-placeholder="false" height="320px" :autoplay="false" :gallery-options="{container: '#gallery'}" /> -->
         <likes type="post" :data="data.likes" layout="row" />
@@ -146,6 +148,10 @@
         .execution {
             font-size: 12px;
             color: darken(#fff, 48%);
+        }
+
+        .gallery {
+            padding-bottom: 20px;
         }
 
         .media-gallery-carousel {
