@@ -235,10 +235,12 @@
 
         .vue-recycle-scroller
             height: 100%
+            min-height: 300px
             overflow: auto
             will-change: transform
 
             /deep/ .vue-recycle-scroller__item-wrapper
+                min-height: 300px
                 overflow: visible
 
         .el-button
