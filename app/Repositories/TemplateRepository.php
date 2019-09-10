@@ -13,6 +13,7 @@ use App\Models\Template;
 use App\Models\TemplateCategory;
 use App\Models\Tenant;
 use App\Models\User;
+use Illuminate\Container\Container as Application;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\MediaLibrary\Models\Media;
@@ -30,6 +31,14 @@ class TemplateRepository extends BaseRepository
         'name' => 'like',
         'description' => 'like',
     ];
+
+    protected $realEstate;
+
+    public function __construct(Application $app)
+    {
+        parent::__construct($app);
+        $this->realEstate = RealEstate::first();
+    }
 
     /**
      * Configure the Model
@@ -212,17 +221,18 @@ class TemplateRepository extends BaseRepository
             ];
         }
 
-        $template = self::getParsedTemplate($template, $tagMap, $lang);
-
-        $company = (new RealEstate())->first();
+        $company = $this->realEstate;
         $appUrl = env('APP_URL', '');
-
         $companyAddress = [
             $company->address->street,
             $company->address->street_nr . ',',
             $company->address->zip,
             $company->address->city,
         ];
+
+        $tagMap['primaryColor'] = $company->primary_color;
+        $tagMap['companyName'] = $company->name;
+        $template = self::getParsedTemplate($template, $tagMap, $lang);
 
         return [
             'subject' => $template->subject,
