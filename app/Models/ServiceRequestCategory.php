@@ -25,6 +25,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          description="name",
  *          type="string"
  *      ),
+ *     @SWG\Property(
+ *          property="acquisition",
+ *          description="acquisition",
+ *          type="boolean"
+ *      ),
  *      @SWG\Property(
  *          property="description",
  *          description="description",
@@ -63,7 +68,8 @@ class ServiceRequestCategory extends Model
         'room',
         'location',
         'description',
-        'has_qualifications'
+        'has_qualifications',
+        'acquisition'
     ];
 
     /**
@@ -80,6 +86,7 @@ class ServiceRequestCategory extends Model
         'room'=> 'integer',
         'location'=> 'integer',
         'description' => 'string',
+        'acquisition' => 'boolean',
     ];
 
     /**

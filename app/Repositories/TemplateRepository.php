@@ -232,7 +232,7 @@ class TemplateRepository extends BaseRepository
         ];
 
         $tagMap['primaryColor'] = $company->primary_color;
-        $tagMap['companyName'] = $company->name;
+        $tagMap['realEstateCompany'] = $company->name;
         $template = self::getParsedTemplate($template, $tagMap, $lang);
 
         return [
