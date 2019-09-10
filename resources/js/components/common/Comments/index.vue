@@ -227,6 +227,7 @@
         position: relative
         flex-direction: column
         box-sizing: border-box
+        min-height: 300px
 
         svg
             &:not(:last-of-type)
