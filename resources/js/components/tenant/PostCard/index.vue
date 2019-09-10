@@ -18,6 +18,8 @@
         </div>
         <hr v-if="data.pinned" />
         <read-more class="content" :text="data.content" :max-chars="512" more-str="Read more" less-str="Read less" />
+        <gallery-list :media="data.media" :cols="4" />
+        <br />
         <hr v-if="data.pinned"/>
         <div class="execution" v-if="data.pinned">
             Execution {{execution}}
@@ -45,6 +47,7 @@
     import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
     import {format, isSameDay} from 'date-fns'
     import {IdState} from 'vue-virtual-scroller'
+    import GalleryList from 'components/MediaGalleryList'
 
     export default {
         name: 'p-post-card',
@@ -69,7 +72,8 @@
             Card,
             Likes,
             // AddComment,
-            MediaGalleryCarousel
+            MediaGalleryCarousel,
+            GalleryList
         },
         methods: {
             showChildrenAddComment() {
