@@ -108,6 +108,8 @@
 
                 this.loading = true
 
+
+                console.log('comments id ', this.id)
                 try {
                     await this.$store.dispatch('comments/get', {
                         id: this.id,

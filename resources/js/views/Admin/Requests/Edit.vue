@@ -389,6 +389,7 @@
             </el-form>
         </div>
         <ServiceDialog
+            :request_id="model.id"
             :address="address"
             :conversations="conversations"
             :mailSending="mailSending"
