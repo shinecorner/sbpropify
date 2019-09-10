@@ -213,7 +213,6 @@
                 page++
 
                 this.loading = true
-                console.log('data load');
 
                 await this.$store.dispatch('newRequests/get', {
                     page,
@@ -226,7 +225,6 @@
                 this.loading = false
             },
             async onFiltersChanged (filters) {
-                console.log('filter changed');
                 await this.get(filters)
             },
             resetFilters () {
@@ -263,9 +261,7 @@
             },
         },
         mounted () {
-            console.log('request', this.requests);
-            // console.log('requets media', this.openedRequest.media);
-            // console.log('requets media', this.openedRequest.media.map(({url}) => url));
+            //console.log('request', this.requests);
             // this.$refs['dynamic-scroller'].forceUpdate()
         }
     }
