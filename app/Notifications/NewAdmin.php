@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\App;
  * Class NewAdmin
  * @package App\Notifications
  */
-class NewAdmin extends Notification //implements ShouldQueue
+class NewAdmin extends Notification implements ShouldQueue
 {
     use Queueable, InteractsWithQueue;
 
