@@ -8,6 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\App;
 
 /**
  * Class TenantCredentials
@@ -53,8 +54,9 @@ class TenantCredentials extends Notification implements ShouldQueue
         $tRepo = new TemplateRepository(app());
         $data = $tRepo->getTenantCredentialsParsedTemplate($this->tenant);
         $data['userName'] = $notifiable->name;
-
+        $data['lang'] = $notifiable->settings->language ?? App::getLocale();
         $pdfName = $this->tenant->pdfXFileName();
+
         if ($data['company'] && $data['company']->blank_pdf) {
             $pdfName = $this->tenant->pdfFileName();
         }

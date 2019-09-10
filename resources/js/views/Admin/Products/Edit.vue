@@ -75,11 +75,11 @@
                                     <el-col>
                                         <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                                     prop="content">
-                                            <el-input
-                                                :autosize="{minRows: 5}"
-                                                type="textarea"
-                                                v-model="model.content">
-                                            </el-input>
+                                            <quill-editor
+                                                    ref="quillEditor"
+                                                    v-model="model.content"
+                                            >
+                                            </quill-editor>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
@@ -199,7 +199,12 @@
     import {mapActions} from 'vuex';
     import ProductsMixin from 'mixins/adminProductsMixin';
     import EditActions from 'components/EditViewActions';
-    import {Avatar} from 'vue-avatar'
+    import {Avatar} from 'vue-avatar';
+
+    import 'quill/dist/quill.core.css';
+    import 'quill/dist/quill.snow.css';
+    import 'quill/dist/quill.bubble.css';
+    import {quillEditor} from 'vue-quill-editor';
 
     const mixin = ProductsMixin({mode: 'edit'});
 
@@ -209,7 +214,8 @@
         ],
         components: {
             EditActions,
-            Avatar
+            Avatar,
+            quillEditor,
         },
         data() {
             return {

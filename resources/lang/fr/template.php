@@ -35,4 +35,10 @@ return [
     'email_link_contacts' => 'Contacts',
     'email_link_terms_of_use' => "Conditions d'utilisation",
     'email_link_data_protection' => 'Protection des données',
+
+    // email new layout
+    'tenant_portal' => 'Portail des locataires',
+    'generated_email_for_user' => 'Cet email a été généré automatiquement pour :userName.',
+    'generated_email_for_company' => 'Vous recevrez cet e-mail généré automatiquement en tant qu\'utilisateur du portail locataires :companyName. Le portail des locataires est exploité par Propify AG.',
+    'links' => '<a href="#">Impression </a>&ensp ; | <a href="#">Conditions d\'utilisation </a>&ensp ; || &ensp;<a href="#">Déclaration de confidentialité </a>'
 ];
