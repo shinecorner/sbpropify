@@ -209,12 +209,12 @@
                                     </el-form-item>
                                     <el-form-item :label="$t('general.description')" :rules="validationRules.description"
                                                   prop="description">
-                                        <el-input
-                                            :autosize="{minRows: 16}"
+                                        <quill-editor
                                             :disabled="$can($permissions.update.serviceRequest)"
-                                            type="textarea"
-                                            v-model="model.description">
-                                        </el-input>
+                                            ref="quillEditor"
+                                            v-model="model.description"
+                                        >
+                                        </quill-editor>
                                     </el-form-item>
                                 </el-tab-pane>
 
@@ -420,6 +420,11 @@
     import AssignmentByType from 'components/AssignmentByType';
     import Vue from 'vue';
 
+    import 'quill/dist/quill.core.css';
+    import 'quill/dist/quill.snow.css';
+    import 'quill/dist/quill.bubble.css';
+    import {quillEditor} from 'vue-quill-editor';
+
     export default {
         name: 'AdminRequestsEdit',
         mixins: [RequestsMixin({
@@ -435,7 +440,8 @@
             EditActions,
             Avatar,
             Audit,
-            AssignmentByType
+            AssignmentByType,
+            quillEditor,
         },
         data() {
             return {
