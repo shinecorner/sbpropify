@@ -230,14 +230,14 @@
             },
             selectedTitle () {
                 if(this.requestData.tenant && this.address) {
-                     return this.requestData.tenant.first_name + " " 
-                        + this.requestData.tenant.house_nr 
+                    return this.requestData.tenant.first_name + " " 
+                        + this.requestData.tenant.last_name 
                         + ", " + this.address.street 
                         + " " + this.address.street_nr
                         + " " + this.address.city
                         +"\n"
                         + " [ " + this.requestData.service_request_format
-                        +" | " + this.requestData.category +" ]";    
+                        +" | " + this.requestData.category +" ]";
                 }else {
                     return "";
                 }
