@@ -154,7 +154,7 @@ class TemplateRepository extends BaseRepository
             // @TODO hard code query params
             $linkHref = url(sprintf('/activate?&code=%s', $tenant->activation_code));
             $linkText = __('Activate Account');
-            return $this->button($linkHref, $linkText);
+            return $this->ahref($linkHref, $linkText);
         }
 
         return $val;
@@ -165,8 +165,7 @@ class TemplateRepository extends BaseRepository
      * @param $text
      * @return string
      */
-    private
-    function button($url, $text)
+    private function button($url, $text)
     {
         $linkClass = 'button button-primary';
         $bgColor = $this->realEstate->primary_color ?? '#3490DC';
@@ -174,6 +173,15 @@ class TemplateRepository extends BaseRepository
         $linkStyle = str_replace('{color}', $bgColor, $linkStyle);
         return sprintf('<a class="%s" style="%s" href="%s">%s</a>', $linkClass, $linkStyle, $url, $text);
     }
+
+    public function ahref($url, $text = null)
+    {
+        $text = $text ?? $url; // @TODO sprintf some problem fix later
+        return  '<a href="' . $url . '" style="font-size:16px; font-weight: bold; text-decoration: none; line-height:40px; width:100%; display:inline-block">
+               <span style="color:' . $this->realEstate->primary_color . '">' . $text . '</span>
+            </a>';
+    }
+
 
     /**
      * @param $context
