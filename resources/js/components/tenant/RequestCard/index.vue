@@ -20,10 +20,18 @@
                             {{$t(`models.request.priority.${$constants.service_requests.priority[data.priority]}`)}}
                         </div>
                     </div>
-                    <div class="item">
+                    <div class="item" v-if="this.data.category.parent_id == 1 && this.data.qualification != 1" >
                         Qualification:
                         <div class="label">
                             {{$t(`models.request.qualification.${$constants.service_requests.qualification[data.qualification]}`)}}
+                        </div>
+                    </div>
+                </div>
+                <div class="statuses">
+                    <div class="item" v-if="this.data.category.parent_id == 1 && this.data.qualification ==5" >
+                        Cost Impact:
+                        <div class="label">
+                            {{$t(`models.request.category_options.costs.${this.data.payer}`)}}
                         </div>
                     </div>
                 </div>
@@ -65,14 +73,15 @@
                     Media
                 </div>
                 <slot name="tab-media-before" />
-                <ui-media-gallery :files="data.media.slice(0, 3).map(({url}) => url)">
+                <!-- <ui-media-gallery :files="data.media.slice(0, 3).map(({url}) => url)"> -->
                     <!-- <div slot="after" key="view-all" class="ui-media-gallery__item" @click="$emit('more-media')" v-if="data.media.length">
                         <div class="ui-media-gallery__item__content">
                             <i class="icon-picture"></i>
                             View all
                         </div>
                     </div> -->
-                </ui-media-gallery>
+                <!-- </ui-media-gallery> -->
+                <gallery-list :media="data.media" :cols="4" />
                 <slot name="tab-media-after" />
             </el-tab-pane>
         </el-tabs>
@@ -80,7 +89,7 @@
 </template>
 
 <script>
-    import MediaGallery from 'components/MediaGalleryList'
+    import GalleryList from 'components/MediaGalleryList'
     import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
     import {IdState} from 'vue-virtual-scroller'
 
@@ -92,7 +101,7 @@
             })
         ],
         components: {
-            MediaGallery
+            GalleryList,
         },
         props: {
             data: {
@@ -155,7 +164,10 @@
             }
         },
         mounted () {
-
+            console.log('Request Card', this.data);
+            console.log('tenant media1', this.data.media);
+            console.log('tenant media2', this.data.media.slice(0, 3).map(({url}) => url));
+            
         }
     }
 </script>
