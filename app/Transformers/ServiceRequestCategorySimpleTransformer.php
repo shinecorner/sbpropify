@@ -25,7 +25,7 @@ class ServiceRequestCategorySimpleTransformer extends BaseTransformer
             'parent_id' => $model->parent_id,
             'name' => $model->name,
             'description' => $model->description,
-            'acquisition' => (bool) $model->acquisition,
+            'acquisition' => $model->acquisition,
         ];
 
         if ($model->parent_id > 0 && $model->parentCategory) {
