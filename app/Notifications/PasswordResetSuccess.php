@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\App;
 
 class PasswordResetSuccess extends Notification implements ShouldQueue
 {
@@ -45,6 +46,7 @@ class PasswordResetSuccess extends Notification implements ShouldQueue
         $tRepo = new TemplateRepository(app());
         $data = $tRepo->getUserResetPasswordSuccessTemplate($this->user);
         $data['userName'] = $notifiable->name;
+        $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 
         return (new MailMessage)
             ->view('mails.users.userPasswordReset', $data)

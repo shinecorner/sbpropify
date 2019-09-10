@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
 use App\Models\CleanifyRequest;
+use Illuminate\Support\Facades\App;
 
 class CleanifyNotification extends Mailable
 {
@@ -42,6 +43,7 @@ class CleanifyNotification extends Mailable
             ->with([
                 'body' => $this->body,
                 'subject' => $this->subject,
+                'lang' =>  App::getLocale()
             ]);
     }
 }

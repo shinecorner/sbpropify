@@ -9,6 +9,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\Models\Media;
 
@@ -73,6 +74,7 @@ class RequestMedia extends Notification implements ShouldQueue
         $data = $tRepo->getRequestMediaParsedTemplate($this->request, $this->uploader, $notifiable, $this->media);
         $data['userName'] = $notifiable->name;
 
+        $data['lang'] = $notifiable->settings->language ?? App::getLocale();
         return (new MailMessage)
             ->view('mails.requestMedia', $data)->subject($data['subject'])->attach($data['media']->getPath());
     }
