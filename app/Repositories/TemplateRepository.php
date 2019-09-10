@@ -14,6 +14,7 @@ use App\Models\TemplateCategory;
 use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Container\Container as Application;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\MediaLibrary\Models\Media;
@@ -81,14 +82,16 @@ class TemplateRepository extends BaseRepository
     /**
      * @param array $tagMap
      * @param array $context
+     * @param null $language
      * @return array
      */
-    public function getTags(array $tagMap, array $context): array
+    public function getTags(array $tagMap, array $context, $language = null): array
     {
+        $language = $language ?? App::getLocale();
         $tags = [];
         foreach ($tagMap as $tag => $val) {
             if (in_array($tag, ['autologinUrl', 'passwordResetUrl', 'tenantCredentials', 'activationUrl'])) {
-                $tags[$tag] = $this->getStaticTagValue($tag, $val, $context);
+                $tags[$tag] = $this->getStaticTagValue($tag, $val, $context, $language);
                 continue;
             }
 
@@ -110,7 +113,7 @@ class TemplateRepository extends BaseRepository
             $valMap = array_values($valMap);
 
             if ($trString) {
-                $val = __('template.' . $trString . '_' . $val);
+                $val = __('template.' . $trString . '_' . $val, [], $language);
             } else {
                 $val = self::getContextValue($cContext, $valMap);
             }
@@ -125,35 +128,37 @@ class TemplateRepository extends BaseRepository
      * @param string $tag
      * @param string $val
      * @param array $context
+     * @param null $language
      * @return string
      */
-    private function getStaticTagValue(string $tag, string $val, array $context)
+    private function getStaticTagValue(string $tag, string $val, array $context, $language = null)
     {
+        $language = $language ?? App::getLocale();
         $user = $context['user'] ?? null;
         $pwReset = $context['pwReset'] ?? null;
         $tenant = $context['tenant'] ?? null;
 
         if ($tag == 'autologinUrl' && $user) {
-            $linkText = __('See post');
+            $linkText = __('See post', [], $language);
             return $this->button($user->autologinUrl, $linkText);
         }
 
         if ($tag == 'passwordResetUrl' && $pwReset) {
             $linkHref = url(sprintf('/reset-password?email=%s&token=%s', $user->email, $pwReset->token));
-            $linkText = __('Reset password');
+            $linkText = __('Reset password', [], $language);
             return $this->button($linkHref, $linkText);
         }
 
         if ($tag == 'tenantCredentials' && $tenant) {
             $linkHref = env('APP_URL') . \Storage::url($tenant->pdfXFileName());
-            $linkText = __('Download Credentials');
+            $linkText = __('Download Credentials', [], $language);
             return $this->button($linkHref, $linkText);
         }
 
         if ($tag == 'activationUrl' && $tenant) {
             // @TODO hard code query params
             $linkHref = url(sprintf('/activate?&code=%s', $tenant->activation_code));
-            $linkText = __('Activate Account');
+            $linkText = __('template.activate_account', [], $language);
             return $this->ahref($linkHref, $linkText);
         }
 
@@ -356,8 +361,7 @@ class TemplateRepository extends BaseRepository
      * @param Tenant $tenant
      * @return array
      */
-    public
-    function getTenantCredentialsParsedTemplate(Tenant $tenant): array
+    public function getTenantCredentialsParsedTemplate(Tenant $tenant): array
     {
         $template = $this->getByCategoryName('tenant_credentials');
 
@@ -365,7 +369,16 @@ class TemplateRepository extends BaseRepository
             'tenant' => $tenant,
             'user' => $tenant->user,
         ];
-        $tags = $this->getTags($template->category->tag_map, $context);
+        $language = $tenant->settings->language ?? App::getLocale();
+        $tags = $this->getTags($template->category->tag_map, $context, $language);
+
+        if (!empty($tags['salutation'])) {
+            if(\App\Models\Tenant::TitleCompany == $tags['salutation']) {
+                $tags['salutation'] = __('general.pdf_salutation.' . $tenant->title, [], $language);
+            } else {
+                $tags['salutation'] = __('general.pdf_salutation.' . $tenant->title, ['name' => $tenant->last_name], $language);
+            }
+        }
 
         return $this->getParsedTemplateData($template, $tags, $tenant->user->settings->language);
     }
@@ -375,8 +388,7 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return array
      */
-    public
-    function getPinnedPostParsedTemplate(Post $post, User $user): array
+    public function getPinnedPostParsedTemplate(Post $post, User $user): array
     {
         $template = $this->getByCategoryName('pinned_post');
 
