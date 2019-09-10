@@ -5,6 +5,7 @@ namespace App\Criteria\ServiceRequests;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
@@ -53,11 +54,28 @@ class FilterByRelatedFieldsCriteria implements CriteriaInterface
 //            });
         }
 
+        $myRequests = $this->request->get('my_request');
+        $providerIds = [];
+        $managerIds = [];
+        if ($myRequests) {
+            $user = Auth::user();
+            $user->load('propertyManager', 'serviceProvider');
+            if ($user->propertyManager) {
+                $managerIds[] = $user->propertyManager->id;
+            } elseif ($user->serviceProvider) {
+                $providerIds[] = $user->serviceProvider->id;
+            }
+        }
+
         $providerId = $this->request->get('service_provider_id', null) ?? $this->request->get('service_id', null);
 
         if ($providerId) {
-            $model->whereHas('providers', function ($q) use ($providerId) {
-                $q->where('assignee_id', $providerId);
+            $providerIds[] = $providerId;
+        }
+
+        if ($providerIds) {
+            $model->whereHas('providers', function ($q) use ($providerIds) {
+                $q->whereIn('assignee_id', $providerIds);
             });
         }
 
@@ -65,8 +83,11 @@ class FilterByRelatedFieldsCriteria implements CriteriaInterface
         $managerId = $this->request->get('property_manager_id', null) ?? $this->request->get('assignee_id', null);
 
         if ($managerId) {
-            $model->whereHas('managers', function ($q) use ($managerId) {
-                $q->where('assignee_id', $managerId);
+            $managerIds[] = $managerId;
+        }
+        if ($managerIds) {
+            $model->whereHas('managers', function ($q) use ($managerIds) {
+                $q->whereIn('assignee_id', $managerIds);
             });
         }
 
