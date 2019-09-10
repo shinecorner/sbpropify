@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *     @SWG\Property(
  *          property="acquisition",
  *          description="acquisition",
- *          type="boolean"
+ *          type="integer"
  *      ),
  *      @SWG\Property(
  *          property="description",
@@ -86,7 +86,7 @@ class ServiceRequestCategory extends Model
         'room'=> 'integer',
         'location'=> 'integer',
         'description' => 'string',
-        'acquisition' => 'boolean',
+        'acquisition' => 'integer',
     ];
 
     /**

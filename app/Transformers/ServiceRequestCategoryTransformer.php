@@ -26,7 +26,7 @@ class ServiceRequestCategoryTransformer extends BaseTransformer
             'name' => get_translated_filed($model, 'name'),
             'description' => $model->description,
             'has_qualifications' => $model->has_qualifications,
-            'acquisition' => (bool) $model->acquisition,
+            'acquisition' => $model->acquisition,
             'location' => $model->location,
             'room' => $model->room,
         ];
