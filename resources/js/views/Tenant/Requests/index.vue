@@ -194,9 +194,13 @@
         },
         methods: {
             async get (params = {}) {
-                if (this.loading && this.requests.data.length) {
+                if (this.loading) {
                     return
                 }
+                // if (this.loading && this.requests.data.length) {
+                //     return
+                // }
+                this.loading = false
 
                 const {current_page, last_page} = this.requests
 
@@ -209,6 +213,7 @@
                 page++
 
                 this.loading = true
+                console.log('data load');
 
                 await this.$store.dispatch('newRequests/get', {
                     page,
@@ -221,6 +226,7 @@
                 this.loading = false
             },
             async onFiltersChanged (filters) {
+                console.log('filter changed');
                 await this.get(filters)
             },
             resetFilters () {
@@ -257,7 +263,7 @@
             },
         },
         mounted () {
-            console.log('request', this.openedRequest);
+            console.log('request', this.requests);
             // console.log('requets media', this.openedRequest.media);
             // console.log('requets media', this.openedRequest.media.map(({url}) => url));
             // this.$refs['dynamic-scroller'].forceUpdate()
