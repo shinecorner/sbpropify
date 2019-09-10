@@ -51,11 +51,11 @@ export default ({
                 }
 
                 if( this.$route.name == "adminMyRequests") {
-                    params = {...params, assignee_id : assignee_id};
+                    params = {...params, my_request:true};
                 }
 
                 if( this.$route.name == "adminMypendingRequests") {
-                    params = {...params, assignee_id : assignee_id, pending_request : true };
+                    params = {...params, pending_request : true ,my_request:true};
                 }
                 
                 await this[getAction](params)
