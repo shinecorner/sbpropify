@@ -164,6 +164,8 @@ HTML
                     'phone' => 'tenant.phone',
                     'title' => 'constant.tenant.title',
                     'tenantCredentials' => 'tenantCredentials',
+                    'activationUrl' => 'activationUrl',
+                    'activationCode' => 'activationCode'
                 ],
                 'subject' => 'Account created',
                 'body' => <<<HTML
