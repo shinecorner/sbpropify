@@ -105,7 +105,7 @@
                     const {data: {data}} = await this.axios.post('posts', params);                                        
                     if (data.hasOwnProperty('id') && this.model.media.length) {                        
                         this.post_id = data.id;
-                        this.$refs.media.startUploading();
+                        await this.$refs.media.startUploading();
                         // this.$refs.media.
                     }
 
@@ -113,6 +113,8 @@
                     //this.$refs.media.clearUploader()
 
                     displaySuccess(data)
+                    //temporary fix browser refresh. later change this things with proper router things.
+                    window.location = '/news';
                 } catch (error) {
                     displayError(error)
                 } finally {
