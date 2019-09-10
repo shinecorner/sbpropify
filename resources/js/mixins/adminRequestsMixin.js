@@ -454,7 +454,7 @@ export default (config = {}) => {
                         
                         if (data.tenant) {
                             this.model.tenant_id = data.tenant.id;
-                            await this.getBuildingAddress(data.tenant.building.id);
+                            await this.getBuildingAddress(data.tenant.building.address_id);
                         }
                     },
                     submit() {

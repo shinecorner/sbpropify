@@ -1,4 +1,4 @@
-<template>  
+0<template>  
     <div class="services">
         <heading :title="$t('models.request.title')" icon="icon-chat-empty" shadow="heavy">
             <template v-if="$can($permissions.create.request)">
@@ -307,3 +307,8 @@
         }
     }
 </script>
+<style>
+    .vue-recycle-scroller__item-view {
+        min-height: 41px !important;
+    }
+</style>

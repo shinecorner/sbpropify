@@ -494,13 +494,13 @@
                         &:before {
                             right: -6px;
                             bottom: -1px;
-                            border-left-color: darken(mix(#fff, #6AC06F, 90%), 5%);
+                            border-left-color: var(--primary-color);
                         }
 
                         &:after {
                             right: -4px;
                             bottom: 0;
-                            border-left-color: mix(#fff, #6AC06F, 90%);
+                            border-left-color: var(--primary-color-lighter);
                         }
                     }
                 }
