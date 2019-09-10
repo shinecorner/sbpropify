@@ -1,8 +1,3 @@
-
-@php
-    $re = \App\Models\RealEstate::first();
-@endphp
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,9 +76,7 @@
                 </tr>
                 <tr>
                     <td bgcolor="#ffffff">
-
-                        <img src="{{ $re->logo ? asset($re->logo) : asset('images/logo3.png') }}" width="200" alt="Propify"/>
-
+                        <img src="{{ $company->logo ? asset($company->logo) : asset('images/logo3.png') }}" width="200" alt="Propify"/>
                     </td>
                 </tr>
                 <tr>
@@ -156,7 +149,7 @@
             <table border="0" width="650"  cellpadding="0" cellspacing="0" class="wrapper">
                 <tr>
                     <td bgcolor="#ffffff" align="center" style="color: grey; font-size: 12px; font-weight: 400; line-height: 25px;">
-                        Diese E-Mail wurde automatisch für {user} generiert.
+                        Diese E-Mail wurde automatisch für {{ $userName }} generiert.
                     </td>
                 </tr>
                 <tr>
@@ -165,7 +158,7 @@
                 <tr>
                     <td bgcolor="#ffffff" align="center" style="color: #000000; font-size: 14px; font-weight: 400; line-height: 1.3;padding: 0" >
                         <span style="padding: 0 10px">
-                           Sie erhalten diese automatisch generierte E-Mail als User des Mieterportal der {real_estate_company} . Das Mieterportal wird von der Propify AG betrieben.
+                           Sie erhalten diese automatisch generierte E-Mail als User des Mieterportal der {{ $company->name }} . Das Mieterportal wird von der Propify AG betrieben.
                         </span>
                     </td>
                 </tr>
