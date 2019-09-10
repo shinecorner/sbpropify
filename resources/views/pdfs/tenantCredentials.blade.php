@@ -7,6 +7,25 @@
 @section('body')
     <table>
         <tr>
+            <td>
+                <p id="tenant-header">
+                    @lang("general.salutation_option." . $tenant->title, [], $language)
+                    <br>
+                    <b>{{ $tenant->first_name . ' ' . $tenant->last_name }}</b>
+                </p>
+
+                @if ($tenant->address)
+                    <p>
+                        {{ $tenant->address->street }} {{ $tenant->address->street_nr }}
+                        <br>
+                        {{ $tenant->address->zip }} {{ $tenant->address->city }}
+                    </p>
+                @endif
+            </td>
+            <td id="real-estate">
+            </td>
+        </tr>
+        <tr>
             <td colspan="2">
                 <br>
                 <br>
