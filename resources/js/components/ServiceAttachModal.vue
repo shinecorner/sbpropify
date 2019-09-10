@@ -91,7 +91,7 @@
                 </el-form>
             </el-tab-pane>
             <el-tab-pane :label="$t('models.request.conversation')" name="conversation"
-                         v-if="model.provider && currentConversation && shouldFetchConversation">
+                         v-if="model.provider && shouldFetchConversation">
                 <span slot="label"><i class="ti-comment"></i> {{$t('models.request.conversation')}}</span>
                 <chat :id="currentConversation" ref="chat" type="conversation" class="request-chat"/>
             </el-tab-pane>
@@ -195,6 +195,11 @@
                 },
                 shouldFetchConversation: true
             }
+        },
+        mounted () {
+            console.log('provider', this.model.provider);
+            console.log('currentConversation', this.currentConversation);
+            console.log('shouldFetchConversation', this.shouldFetchConversation); 
         },
         computed: {
             isValidForm() {
