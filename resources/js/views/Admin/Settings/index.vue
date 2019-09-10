@@ -361,7 +361,7 @@
                 </div>
 
             </el-tab-pane>
-            <el-tab-pane name="templates">
+            <el-tab-pane name="requests">
                 <template slot="label"><i class="icon icon-chat-empty"></i>{{$t('general.requests')}}</template>
 
 <!--                <heading :title="$t('general.requests')" class="custom-heading" icon="ti-settings" shadow="heavy" />-->
@@ -371,7 +371,7 @@
 <!--                        <el-tab-pane :label="$t('models.realEstate.categories')" name="categories">-->
 <!--                            <CategoriesListing/>-->
 <!--                        </el-tab-pane>-->
-                        <el-tab-pane :label="$t('models.realEstate.templates')" name="templates_templates">
+                        <el-tab-pane :label="$t('models.realEstate.templates')" name="templates">
                             <TemplatesListing/>
                         </el-tab-pane>
                     </el-tabs>
@@ -499,7 +499,7 @@
                 tenant_logo_upload_img: '',
                 activeName: 'settings',
                 activeSettingsName: 'settings_settings',
-                activeRequestName: 'templates_templates',
+                activeRequestName: 'templates',
                 activeTenantsName: 'login_variations',
                 states: [],
                 mailEncryption: [

@@ -1,7 +1,7 @@
 <template>
     <div class="templates-edit">
         <heading :title="$t('general.actions.edit')" icon="ti-user" shadow="heavy" style="margin-bottom: 20px;">
-            <edit-actions :queryParams="{tab: 'templates'}" :saveAction="submit" route="adminSettings"/>
+            <edit-actions :queryParams="{tab: 'requests'}" :saveAction="submit" route="adminSettings"/>
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-form :model="model" label-width="100px" ref="form">
