@@ -165,7 +165,7 @@ HTML
                     'title' => 'constant.tenant.title',
                     'tenantCredentials' => 'tenantCredentials',
                     'activationUrl' => 'activationUrl',
-                    'activationCode' => 'activationCode'
+                    'activationCode' => 'tenant.activation_code'
                 ],
                 'subject' => 'Account created',
                 'body' => <<<HTML

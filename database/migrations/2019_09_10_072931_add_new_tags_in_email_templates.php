@@ -24,7 +24,7 @@ class AddNewTagsInEmailTemplates extends Migration
             'title' => 'constant.tenant.title',
             'tenantCredentials' => 'tenantCredentials',
             'activationUrl' => 'activationUrl',
-            'activationCode' => 'activationCode'
+            'activationCode' => 'tenant.activation_code'
         ];
         $templateCategory = \App\Models\TemplateCategory::where('name', 'tenant_credentials')->first();
         if ($templateCategory) {
