@@ -53,8 +53,8 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *          type="integer"
  *      ),
  *     @SWG\Property(
- *          property="tenant_rent_contract_formats",
- *          description="tenant_rent_contract_formats",
+ *          property="tenant_rent_contract_format",
+ *          description="tenant_rent_contract_format",
  *          type="integer"
  *      ),
  *     @SWG\Property(
@@ -180,9 +180,9 @@ class TenantRentContract extends AuditableModel implements HasMedia
         'end_date' => 'date|after_or_equal:start_date',
         'status' => 'digits_between:1,2|numeric'
     ];
-
-    public $table = 'tenants';
-
+    /**
+     * @var array
+     */
     public $fillable = [
         'tenant_id',
         'building_id',
@@ -190,7 +190,7 @@ class TenantRentContract extends AuditableModel implements HasMedia
         'type',
         'duration',
         'status',
-        'tenant_rent_contract_formats',
+        'tenant_rent_contract_format',
         'deposit_type',
         'deposit_status',
         'deposit_amount',
@@ -203,6 +203,9 @@ class TenantRentContract extends AuditableModel implements HasMedia
         'pdf',
     ];
 
+    /**
+     * @var array
+     */
     protected $dates = ['deleted_at', 'start_date', 'end_date'];
 
     /**

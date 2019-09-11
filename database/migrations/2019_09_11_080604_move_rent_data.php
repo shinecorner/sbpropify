@@ -13,7 +13,16 @@ class MoveRentData extends Migration
      */
     public function up()
     {
-        //
+        $tenants = \App\Models\Tenant::whereNotNull('rent_start')->get();
+        $tenants->each(function ($tenant) {
+            \App\Models\TenantRentContract::create([
+                'tenant_id' => $tenant->id,
+                'building_id' => $tenant->building_id,
+                'unit_id' => $tenant->unit_id,
+                'start_date' => $tenant->rent_start,
+                'end_date' => $tenant->rent_end
+            ]);
+        });
     }
 
     /**
