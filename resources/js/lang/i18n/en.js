@@ -746,7 +746,7 @@ export default {
                     "welcome": "Welcome to the tenant portal of the",
                     "content_1": "We are pleased to inform you that an account has been set up for you in the tenant's total. and send you the activation code.",
                     "offer": "What does the application offer?",
-                    "offers": "\r\n          <li>With the digital tenant dossier you have access to all relevant documents, such as Tenancy agreement, house rules or other documents relating to the property</li>\r\n          <li>The ticketing system enables you to process your enquiries simply and uncomplicatedly - with the following features Communicate your concerns to the administration at any time and from any place.</li>\r\n          <li>On the market and lending place you can send objects to your neighbourhood. sell or lend.</li>\r\n          <li>Share news with your neighbours by publishing a contribution. The pinboard is also used by the administration for the communication, so all are always on the Running.</li>\r\n          <li>Further micro apps within the application set new standards in living quality where various services can be conveniently used.</li>,\r\n        ",
+                    "offers": "\r\n          <li>With the digital tenant dossier you have access to all relevant documents, such as Tenancy agreement, house rules or other documents relating to the property</li>\r\n          <li>The ticketing system enables you to process your enquiries simply and uncomplicatedly - with the following features Communicate your concerns to the administration at any time and from any place.</li>\r\n          <li>On the market and lending place you can send objects to your neighbourhood. sell or lend.</li>\r\n          <li>Share news with your neighbours by publishing a contribution. The pinboard is also used by the administration for the communication, so all are always on the Running.</li>\r\n          <li>Further micro apps within the application set new standards in living quality where various services can be conveniently used.</li>\r\n        ",
                     "register": "First registration and activation of your account",
                     "content_2": "To register, please click on the link below and log in with your e-mail address and the personal unlock code. Once you have logged in, you can Define your own password and use it from now on for the login.",
                     "link_application": "Link to the application",
@@ -1225,7 +1225,7 @@ export default {
                         "passage": "Passage",
                         "basement": "Basement",
                         "kitchen": "Kitchen",
-                        "reduite": "Reduite",
+                        "storeroom": "Reduite",
                         "habitation": "Habitation",
                         "room1": "Room 1",
                         "room2": "Room 2",
@@ -1506,7 +1506,12 @@ export default {
             "email_footer_message2": "You get this automatically generated e-mail as a user of {CompanyName}.",
             "email_link_contacts": "Contacts.",
             "email_link_terms_of_use": "Terms of Use",
-            "email_link_data_protection": "Data protection"
+            "email_link_data_protection": "Data protection",
+            "activate_account": "Activate Account",
+            "tenant_portal": "Tenant portal",
+            "generated_email_for_user": "This email was automatically generated for {userName}.",
+            "generated_email_for_company": "You will receive this automatically generated e-mail as a user of the {companyName} tenant portal. The tenant portal is operated by Propify AG.",
+            "links": "<a href=\"#\">Imprint </a>&ensp; | &ensp;<a href=\"#\">Conditions of use</a>&ensp; | &ensp;<a href=\"#\">Privacy statement</a>"
         },
         "tenant": {
             "tenant_credentials": "Tenant credentials",
