@@ -230,4 +230,20 @@ class TenantRentContract extends AuditableModel implements HasMedia
         'parking_price' => 'integer',
         'pdf' => 'string',
     ];
+
+    /**
+     * @return BelongsTo
+     **/
+    public function building()
+    {
+        return $this->belongsTo(Building::class, 'building_id', 'id');
+    }
+
+    /**
+     * @return BelongsTo
+     **/
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class, 'unit_id', 'id');
+    }
 }

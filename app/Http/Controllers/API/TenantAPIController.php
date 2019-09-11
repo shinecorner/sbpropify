@@ -333,7 +333,8 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
-        $tenant->load('user', 'building', 'unit', 'address', 'media');
+        $tenant->load('user', 'tenant_rent_contracts.media',
+            'tenant_rent_contracts.building.address', 'tenant_rent_contracts.unit');
         $response = (new TenantTransformer)->transform($tenant);
 
         return $this->sendResponse($response, 'Tenant retrieved successfully');
