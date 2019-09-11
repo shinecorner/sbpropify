@@ -28,11 +28,8 @@
             Providers: {{data.providers.map(provider => provider.name).join(', ')}}
         </div>
         <div class="gallery">
-            <!-- <ui-media-gallery :files="data.media.map(({url}) => url)" :use-placeholder="false"/> -->
             <ui-images-carousel :images="data.media.map(({url}) => url)" :use-placeholder="false" :show-indicator="false" v-if="data.media.length > 0"/>
-            <!-- <request-media :data="data.media" v-if="data.media.length > 0"></request-media> -->
         </div>
-        <!-- <ui-images-carousel :images="data.media.map(({url}) => url)"  /> -->
         <!-- <media-gallery-carousel :media="data.media" :use-placeholder="false" height="320px" :autoplay="false" :gallery-options="{container: '#gallery'}" /> -->
         <likes type="post" :data="data.likes" layout="row" />
         <like :id="data.id" type="post">
