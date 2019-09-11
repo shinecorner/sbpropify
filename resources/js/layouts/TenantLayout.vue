@@ -108,6 +108,87 @@
                     route: {
                         name: 'tenantMarketplace'
                     }
+                }],
+                routes: [{
+                    icon: 'icon-th',
+                    title: this.$t('layouts.tenant.sidebar.dashboard'),
+                    route: {
+                        name: 'tenantDashboard'
+                    }
+                }, 
+                {
+                    icon: 'icon-vcard',
+                    title: this.$t('layouts.tenant.sidebar.myTenancy'),
+                    children: [{
+                        icon: 'icon-user',
+                        title: this.$t('layouts.tenant.sidebar.myPersonalData'),
+                        route: {
+                            name: 'tenantMyPersonal'
+                        }
+                    }, {
+                        icon: 'icon-handshake-o',
+                        title: this.$t('layouts.tenant.sidebar.myRecentContract'),
+                        route: {
+                            name: 'tenantMyContracts'
+                        }
+                    }, {
+                        icon: 'icon-doc-text',
+                        title: this.$t('layouts.tenant.sidebar.myDocuments'),
+                        route: {
+                            name: 'tenantMyDocuments'
+                        }
+                        // do not show if no documents
+                    }, {
+                        icon: 'icon-contacts',
+                        title: this.$t('layouts.tenant.sidebar.myContactPersons'),
+                        route: {
+                            name: 'tenantMyContacts'
+                        },
+                        visible: this.realEstate && this.realEstate.contact_enable // OR no service partners for the building
+                    }, {
+                        icon: 'icon-users',
+                        title: 'Property managers',
+                        route: {
+                            name: 'tenantPropertyManagers'
+                        }
+                    }, {
+                        icon: 'icon-group',
+                        title: 'My neighbours',
+                        route: {
+                            name: 'tenantMyNeighbours'
+                        }
+                    }]
+                }, {
+                    icon: 'icon-megaphone-1',
+                    title: this.$t('layouts.tenant.sidebar.posts'),
+                    route: {
+                        name: 'tenantPosts'
+                    }
+                }, {
+                    icon: 'icon-chat-empty',
+                    title: this.$t('layouts.tenant.sidebar.requests'),
+                    route: {
+                        name: 'tenantRequests'
+                    }
+                }, {
+                    icon: 'icon-basket',
+                    title: this.$t('layouts.tenant.sidebar.products'),
+                    route: {
+                        name: 'tenantMarketplace'
+                    }
+                }, {
+                    icon: 'icon-water',
+                    title: 'Cleanify',
+                    route: {
+                        name: 'cleanifyRequest'
+                    },
+                }, {
+                    icon: 'icon-cog',
+                    title: this.$t('layouts.tenant.sidebar.settings'),
+                    positionedBottom: true,
+                    route: {
+                        name: 'tenantSettings'
+                    }
                 }]
             }
         },
@@ -203,88 +284,6 @@
                     }
                 }
             },
-            routes () {
-                return [{
-                    icon: 'icon-th',
-                    title: this.$t('layouts.tenant.sidebar.dashboard'),
-                    route: {
-                        name: 'tenantDashboard'
-                    }
-                }, {
-                    icon: 'icon-vcard',
-                    title: this.$t('layouts.tenant.sidebar.myTenancy'),
-                    children: [{
-                        icon: 'icon-user',
-                        title: this.$t('layouts.tenant.sidebar.myPersonalData'),
-                        route: {
-                            name: 'tenantMyPersonal'
-                        }
-                    }, {
-                        icon: 'icon-handshake-o',
-                        title: this.$t('layouts.tenant.sidebar.myRecentContract'),
-                        route: {
-                            name: 'tenantMyContracts'
-                        }
-                    }, {
-                        icon: 'icon-doc-text',
-                        title: this.$t('layouts.tenant.sidebar.myDocuments'),
-                        route: {
-                            name: 'tenantMyDocuments'
-                        }
-                        // do not show if no documents
-                    }, {
-                        icon: 'icon-contacts',
-                        title: this.$t('layouts.tenant.sidebar.myContactPersons'),
-                        route: {
-                            name: 'tenantMyContacts'
-                        },
-                        visible: this.realEstate && this.realEstate.contact_enable // OR no service partners for the building
-                    }, {
-                        icon: 'icon-users',
-                        title: 'Property managers',
-                        route: {
-                            name: 'tenantPropertyManagers'
-                        }
-                    }, {
-                        icon: 'icon-group',
-                        title: 'My neighbours',
-                        route: {
-                            name: 'tenantMyNeighbours'
-                        }
-                    }]
-                }, {
-                    icon: 'icon-megaphone-1',
-                    title: this.$t('layouts.tenant.sidebar.posts'),
-                    route: {
-                        name: 'tenantPosts'
-                    }
-                }, {
-                    icon: 'icon-chat-empty',
-                    title: this.$t('layouts.tenant.sidebar.requests'),
-                    route: {
-                        name: 'tenantRequests'
-                    }
-                }, {
-                    icon: 'icon-basket',
-                    title: this.$t('layouts.tenant.sidebar.products'),
-                    route: {
-                        name: 'tenantMarketplace'
-                    }
-                }, {
-                    icon: 'icon-water',
-                    title: 'Cleanify',
-                    route: {
-                        name: 'cleanifyRequest'
-                    }
-                }, {
-                    icon: 'icon-cog',
-                    title: this.$t('layouts.tenant.sidebar.settings'),
-                    positionedBottom: true,
-                    route: {
-                        name: 'tenantSettings'
-                    }
-                }]
-            }
         },
         beforeCreate() {
             document.getElementById('viewport').setAttribute('content', 'width=device-width, initial-scale=1.0')
@@ -296,9 +295,17 @@
             this.loading = true
             this.tenant_logo_src = "/" + this.$constants.logo.tenant_logo;
             await this.$store.dispatch('getRealEstate').then((resp) => {
+                this.realEstate = resp.data;
+                    if( resp.data.cleanify_enable == false )
+                    {
+                        this.routes = this.routes.filter((item) => { 
+                            if(item.route && item.route.name == "cleanifyRequest")
+                                return false;
+                            return true;
+                        });
+                    }
                 }).catch((error) => {
-                    
-                });
+            });
 
             this.loading = false
         }

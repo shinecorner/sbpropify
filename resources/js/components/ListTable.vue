@@ -671,7 +671,7 @@
                     prevQuery && this.syncUrl();
                     
                     this.fetch(this.page.currPage, this.page.currSize);
-                    console.log("QUERY");
+                    
                 }
             }
         },
