@@ -37,6 +37,7 @@ class BuildingTransformer extends BaseTransformer
             'created_at' => $model->created_at->format('Y-m-d'),
             'quarter_id' => $model->quarter_id,
             'address_id' => $model->address_id,
+            'internal_building_id' => $model->internal_building_id,
 
             'units_count' => $model->units_count,
             'tenants_count' => 0,
