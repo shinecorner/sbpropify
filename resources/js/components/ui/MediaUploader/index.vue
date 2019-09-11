@@ -30,7 +30,8 @@
                 </div>
             </div>
         </draggable>
-        <el-button type="primary" @click="$refs.uploader.active = true">Upload</el-button>
+        <!-- <el-button type="primary" round @click="$refs.uploader.active = true">Upload</el-button> -->
+        <el-button class="ui-media-uploader__btn" icon="el-icon-upload" type="primary" round @click="$refs.uploader.active = true">Upload</el-button>
         <div v-if="$refs.uploader && $refs.uploader.dropActive" class="ui-media-uploader--drop--active">
             <i class="icon-upload-cloud"></i>
             Drop your files here..
@@ -226,8 +227,10 @@
             grid-auto-rows: min-content
 
             & + .el-button
-                width: 100%
-                margin-top: 8px
+                width: 96%
+                position: absolute
+                bottom: 10px
+                left: 2%
 
         &__item
             position: relative
@@ -280,4 +283,5 @@
                 display: flex
                 align-items: center
                 justify-content: center
+          
 </style>

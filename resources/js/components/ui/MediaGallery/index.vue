@@ -26,7 +26,7 @@
                 All of them will be listed here in columns and can be seen in fullsize by hovering on any of them.
             </div>
         </div>
-        <!-- <slot name="after" /> -->
+        <slot name="after" />
     </div>
 </template>
 
