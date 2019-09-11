@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\TenantRentContract;
+use App\Models\Unit;
 
 /**
  * Class TenantRentContractRepository
@@ -25,5 +26,24 @@ class TenantRentContractRepository extends BaseRepository
     public function model()
     {
         return TenantRentContract::class;
+    }
+
+    /**
+     * @param array $attributes
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     */
+    public function create(array $attributes)
+    {
+        if (isset($attributes['unit_id'])) {
+            $unit = Unit::with('building')->find($attributes['unit_id']);
+            if ($unit) {
+                $attributes['building_id'] = $unit->building_id;
+                $attributes['unit_id'] = $unit->id;
+            }
+            unset($attributes['unit']);
+        }
+
+        return parent::create($attributes);
     }
 }

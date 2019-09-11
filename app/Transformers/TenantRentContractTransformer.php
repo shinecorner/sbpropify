@@ -42,9 +42,13 @@ class TenantRentContractTransformer extends BaseTransformer
         if ($model->start_date) {
             $response['start_date'] = $model->start_date->format('Y-m-d');
         }
-        
+
         if ($model->end_date) {
             $response['end_date'] = $model->end_date->format('Y-m-d');
+        }
+
+        if ($model->relationExists('tenant')) {
+            $response['tenant'] = (new TenantTransformer())->transform($model->unit);
         }
 
         if ($model->relationExists('building')) {

@@ -226,6 +226,14 @@ class TenantRentContract extends AuditableModel implements HasMedia
     /**
      * @return BelongsTo
      **/
+    public function tenant()
+    {
+        return $this->belongsTo(Tenant::class, 'tenant_id', 'id');
+    }
+
+    /**
+     * @return BelongsTo
+     **/
     public function building()
     {
         return $this->belongsTo(Building::class, 'building_id', 'id');

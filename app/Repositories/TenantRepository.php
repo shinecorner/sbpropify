@@ -57,24 +57,6 @@ class TenantRepository extends BaseRepository
      */
     public function create(array $attributes)
     {
-        if (isset($attributes['unit_id'])) {
-            $unit = Unit::with('building')->find($attributes['unit_id']);
-            if ($unit) {
-                $attributes['building_id'] = $unit->building_id;
-                $attributes['unit_id'] = $unit->id;
-                $attributes['address_id'] = $unit->building->address_id;
-            }
-            unset($attributes['unit']);
-        }
-
-        if (isset($attributes['address'])) {
-            unset($attributes['address']);
-        }
-
-        if (isset($attributes['building'])) {
-            unset($attributes['building']);
-        }
-
         if (isset($attributes['user'])) {
             unset($attributes['user']);
         }
