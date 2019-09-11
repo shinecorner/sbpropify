@@ -163,12 +163,6 @@
                 this.$emit('tab-click')
             }
         },
-        mounted () {
-            console.log('Request Card', this.data);
-            console.log('tenant media1', this.data.media);
-            console.log('tenant media2', this.data.media.slice(0, 3).map(({url}) => url));
-            
-        }
     }
 </script>
 
