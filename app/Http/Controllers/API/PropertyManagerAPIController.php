@@ -160,7 +160,9 @@ class PropertyManagerAPIController extends AppBaseController
         }
 
         try {
+            User::disableAuditing();
             $user = $this->userRepository->create($input['user']);
+            User::enableAuditing();
         } catch (\Exception $e) {
             return $this->sendError(__('models.propertyManager.errors.create') . $e->getMessage());
         }
@@ -297,7 +299,9 @@ class PropertyManagerAPIController extends AppBaseController
 
         $input['user']['settings'] = Arr::pull($input, 'settings', []);
         try {
+            User::disableAuditing();
             $this->userRepository->update($input['user'], $propertyManager->user_id);
+            User::enableAuditing();
         } catch (\Exception $e) {
             return $this->sendError(__('models.propertyManager.errors.update') . $e->getMessage());
         }

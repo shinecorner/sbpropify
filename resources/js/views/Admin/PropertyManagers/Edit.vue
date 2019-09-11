@@ -82,7 +82,12 @@
                                                       :rules="validationRules.password"
                                                       autocomplete="off"
                                                       prop="user.password">
-                                            <el-input type="password" v-model="model.user.password"/>
+                                            <el-input type="password"
+                                                      v-model="model.user.password"
+                                                      class="dis-autofill"
+                                                      readonly
+                                                      onfocus="this.removeAttribute('readonly');"
+                                            />
                                         </el-form-item>
                                     </el-col>
                                     <el-col :md="12">
@@ -123,7 +128,12 @@
                                         <el-form-item :label="$t('models.propertyManager.xing_url')"
                                                       :rules="validationRules.xing_url"
                                                       prop="xing_url">
-                                            <el-input type="text" v-model="model.xing_url">
+                                            <el-input type="text"
+                                                      v-model="model.xing_url"
+                                                      class="dis-autofill"
+                                                      readonly
+                                                      onfocus="this.removeAttribute('readonly');"
+                                            >
                                                 <template slot="prepend"><i class="icon-xing"></i></template>
                                             </el-input>
                                         </el-form-item>
@@ -215,11 +225,11 @@
                     label: 'models.request.prop_title'
                 }, {
                     type: 'requestStatus',
-                    width: 100,
+                    width: 120,
                     label: 'models.request.status.label'
                 }],
                 requestActions: [{
-                    width: '100',
+                    width: '120',
                     buttons: [{
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',

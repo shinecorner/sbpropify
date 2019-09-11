@@ -35,4 +35,11 @@ return [
     'email_link_contacts' => 'Contacts.',
     'email_link_terms_of_use' => 'Terms of Use',
     'email_link_data_protection' => 'Data protection',
+
+    // email new layout
+    'activate_account' => 'Activate Account',
+    'tenant_portal' => 'Tenant portal',
+    'generated_email_for_user' => 'This email was automatically generated for :userName.',
+    'generated_email_for_company' => 'You will receive this automatically generated e-mail as a user of the :companyName tenant portal. The tenant portal is operated by Propify AG.',
+    'links' => '<a href="#">Imprint </a>&ensp; | &ensp;<a href="#">Conditions of use</a>&ensp; | &ensp;<a href="#">Privacy statement</a>'
 ];

@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\App;
 
 /**
  * Class NewAdmin
@@ -62,6 +63,7 @@ class NewAdmin extends Notification implements ShouldQueue
     {
         $tRepo = new TemplateRepository(app());
         $data = $tRepo->getUserNewAdminTemplate($this->user, $this->subjectUser);
+        $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 
         return (new MailMessage)
             ->view('mails.users.userPasswordReset', $data)

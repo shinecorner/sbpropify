@@ -9165,8 +9165,16 @@
                     "description": "circle_logo",
                     "type": "string"
                 },
+                "tenant_logo": {
+                    "description": "tenant_logo",
+                    "type": "string"
+                },
                 "favicon_icon": {
                     "description": "favicon_icon",
+                    "type": "string"
+                },
+                "pdf_font_family": {
+                    "description": "pdf_font_family",
                     "type": "string"
                 },
                 "blank_pdf": {
@@ -9415,6 +9423,10 @@
                 "name": {
                     "description": "name",
                     "type": "string"
+                },
+                "acquisition": {
+                    "description": "acquisition",
+                    "type": "boolean"
                 },
                 "description": {
                     "description": "description",

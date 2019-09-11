@@ -183,6 +183,7 @@
                 }, {
                     width: 120,
                     actions: [{
+                        type: '',
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
                         onClick: this.edit,
@@ -253,7 +254,7 @@
             
         },
         methods: {
-            ...mapActions(['getPropertyManagers', 'batchAssignUsersToBuilding', 'deleteBuildingWithIds', 'checkUnitRequestWidthIds']),
+            ...mapActions(['getPropertyManagers', 'assignManagerToBuilding', 'deleteBuildingWithIds', 'checkUnitRequestWidthIds']),
             prepareFilters(property) {
                 return Object.keys(this.requestConstants[property]).map((id) => {
                     return {
@@ -294,7 +295,7 @@
             },
             assignManagers() {
                 const promises = this.selectedItems.map((building) => {
-                    return this.batchAssignUsersToBuilding({
+                    return this.assignManagerToBuilding({
                         id: building.id,
                         managersIds: this.toAssign
                     })

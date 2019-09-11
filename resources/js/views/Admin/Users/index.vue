@@ -60,8 +60,13 @@
                     label: 'general.phone',
                     prop: 'phone'
                 }, {
+                    label: 'general.roles.label',
+                    roles: true,
+                    prop: 'roles'
+                }, {
                     width: 120,
                     actions: [{
+                        type: '',
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
                         onClick: this.edit,

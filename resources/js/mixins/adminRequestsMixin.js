@@ -86,7 +86,7 @@ export default (config = {}) => {
                 tenants: [],
                 toAssignList: [],
                 media: [],
-                assignmentTypes: ['managers', 'services', 'administrator'],
+                assignmentTypes: ['managers', 'administrator', 'services'],
                 assignmentType: 'managers',
                 toAssign: '',
                 conversations: [],
@@ -99,6 +99,7 @@ export default (config = {}) => {
                 showpayer: false,
                 showUmgebung: false,
                 showLiegenschaft: false,
+                showacquisition: false,
                 showWohnung: false,
                 createTag: false,
                 editTag: false,
@@ -437,6 +438,9 @@ export default (config = {}) => {
                         
                         this.showpayer = resp.data.qualification == 5 ? true : false;
 
+                        let p_category = this.categories.find(item => { return item.id == resp.data.category.parent_id});
+                        this.showacquisition =  p_category && p_category.acquisition == 1 ? true : false;
+                        
                         const data = resp.data;
 
                         this.model = Object.assign({}, this.model, data);
@@ -454,7 +458,7 @@ export default (config = {}) => {
                         
                         if (data.tenant) {
                             this.model.tenant_id = data.tenant.id;
-                            await this.getBuildingAddress(data.tenant.building.id);
+                            await this.getBuildingAddress(data.tenant.building.address_id);
                         }
                     },
                     submit() {

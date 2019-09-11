@@ -91,9 +91,9 @@
                 </el-form>
             </el-tab-pane>
             <el-tab-pane :label="$t('models.request.conversation')" name="conversation"
-                         v-if="model.provider && currentConversation && shouldFetchConversation">
+                         v-if="model.provider && shouldFetchConversation">
                 <span slot="label"><i class="ti-comment"></i> {{$t('models.request.conversation')}}</span>
-                <chat :id="currentConversation" ref="chat" type="conversation" class="request-chat"/>
+                <chat :id="request_id" ref="chat" type="conversation" class="request-chat"/>
             </el-tab-pane>
         </el-tabs>
 
@@ -111,6 +111,7 @@
     import 'quill/dist/quill.bubble.css'
 
     import {quillEditor} from 'vue-quill-editor'
+    import { mapActions } from 'vuex';
 
 
     export default {
@@ -118,6 +119,10 @@
             quillEditor
         },
         props: {
+            request_id: {
+                type: Number,
+                required: true
+            },
             providers: {
                 type: Array,
                 required: true
@@ -195,6 +200,12 @@
                 shouldFetchConversation: true
             }
         },
+        mounted () {
+            console.log('provider', this.model.provider);
+            console.log('currentConversation', this.currentConversation);
+            console.log('model', this.model);
+            console.log('shouldFetchConversation', this.shouldFetchConversation); 
+        },
         computed: {
             isValidForm() {
                 return this.model.provider && !_.isEmpty(this.model.body) && !_.isEmpty(this.model.subject);
@@ -229,6 +240,7 @@
                         + ", " + this.address.street 
                         + " " + this.address.street_nr
                         + " " + this.address.city
+                        +"\n"
                         + " [ " + this.requestData.service_request_format
                         +" | " + this.requestData.category +" ]";
                 }else {
@@ -237,6 +249,7 @@
             }
         },
         methods: {
+            ...mapActions(['getAddress']),
             close() {
                 this.$refs.form.resetFields();
                 this.model.provider = '';
@@ -271,7 +284,7 @@
                     this.model[prop] = '';
                 }
             }
-        }
+        },
     };
 </script>
 <style>
@@ -294,6 +307,10 @@
     .request-chat .el-textarea .el-textarea__inner{
         min-height: 56px !important;
     }
+
+    #service-attach-modal .el-dialog__title {
+        white-space: pre-line;
+    }
     #service-attach-modal .el-dialog__header  {
         border-bottom: 1px solid #EBEEF5;
     }
@@ -309,4 +326,5 @@
     #service-attach-modal .el-tabs__header{
         margin-bottom: 0;
     }
+
 </style>

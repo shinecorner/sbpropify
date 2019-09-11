@@ -793,7 +793,7 @@ class BuildingAPIController extends AppBaseController
             foreach ($newManagers as $manager) {
                 $attachData[$manager] = ['created_at' => now()];
             }
-            $building->propertyManagers()->attach($attachData);
+            $building->propertyManagers()->syncWithoutDetaching($attachData);
         } catch (\Exception $e) {
             return $this->sendError( __('models.building.errors.manager_assigned') . $e->getMessage());
         }
@@ -865,7 +865,7 @@ class BuildingAPIController extends AppBaseController
             foreach ($newUsers as $userId) {
                 $attachData[$userId] = ['created_at' => now()];
             }
-            $building->users()->attach($attachData);
+            $building->users()->syncWithoutDetaching($attachData);
         } catch (\Exception $e) {
             return $this->sendError( __('models.building.errors.user_assigned') . $e->getMessage());
         }

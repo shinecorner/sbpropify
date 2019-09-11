@@ -110,6 +110,7 @@
                         //     hidden: this.checkPostType
                         // }, 
                         {
+                            type: '', 
                             title: 'general.actions.edit',
                             onClick: this.edit,
                             permissions: [

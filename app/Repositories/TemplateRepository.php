@@ -13,6 +13,8 @@ use App\Models\Template;
 use App\Models\TemplateCategory;
 use App\Models\Tenant;
 use App\Models\User;
+use Illuminate\Container\Container as Application;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\MediaLibrary\Models\Media;
@@ -30,6 +32,14 @@ class TemplateRepository extends BaseRepository
         'name' => 'like',
         'description' => 'like',
     ];
+
+    protected $realEstate;
+
+    public function __construct(Application $app)
+    {
+        parent::__construct($app);
+        $this->realEstate = RealEstate::first();
+    }
 
     /**
      * Configure the Model
@@ -72,14 +82,16 @@ class TemplateRepository extends BaseRepository
     /**
      * @param array $tagMap
      * @param array $context
+     * @param null $language
      * @return array
      */
-    public function getTags(array $tagMap, array $context): array
+    public function getTags(array $tagMap, array $context, $language = null): array
     {
+        $language = $language ?? App::getLocale();
         $tags = [];
         foreach ($tagMap as $tag => $val) {
             if (in_array($tag, ['autologinUrl', 'passwordResetUrl', 'tenantCredentials', 'activationUrl'])) {
-                $tags[$tag] = $this->getStaticTagValue($tag, $val, $context);
+                $tags[$tag] = $this->getStaticTagValue($tag, $val, $context, $language);
                 continue;
             }
 
@@ -101,7 +113,7 @@ class TemplateRepository extends BaseRepository
             $valMap = array_values($valMap);
 
             if ($trString) {
-                $val = __('template.' . $trString . '_' . $val);
+                $val = __('template.' . $trString . '_' . $val, [], $language);
             } else {
                 $val = self::getContextValue($cContext, $valMap);
             }
@@ -116,36 +128,38 @@ class TemplateRepository extends BaseRepository
      * @param string $tag
      * @param string $val
      * @param array $context
+     * @param null $language
      * @return string
      */
-    private function getStaticTagValue(string $tag, string $val, array $context)
+    private function getStaticTagValue(string $tag, string $val, array $context, $language = null)
     {
+        $language = $language ?? App::getLocale();
         $user = $context['user'] ?? null;
         $pwReset = $context['pwReset'] ?? null;
         $tenant = $context['tenant'] ?? null;
 
         if ($tag == 'autologinUrl' && $user) {
-            $linkText = __('See post');
+            $linkText = __('See post', [], $language);
             return $this->button($user->autologinUrl, $linkText);
         }
 
         if ($tag == 'passwordResetUrl' && $pwReset) {
             $linkHref = url(sprintf('/reset-password?email=%s&token=%s', $user->email, $pwReset->token));
-            $linkText = __('Reset password');
+            $linkText = __('Reset password', [], $language);
             return $this->button($linkHref, $linkText);
         }
 
         if ($tag == 'tenantCredentials' && $tenant) {
             $linkHref = env('APP_URL') . \Storage::url($tenant->pdfXFileName());
-            $linkText = __('Download Credentials');
+            $linkText = __('Download Credentials', [], $language);
             return $this->button($linkHref, $linkText);
         }
 
         if ($tag == 'activationUrl' && $tenant) {
             // @TODO hard code query params
             $linkHref = url(sprintf('/activate?&code=%s', $tenant->activation_code));
-            $linkText = __('Activate Account');
-            return $this->button($linkHref, $linkText);
+            $linkText = __('template.activate_account', [], $language);
+            return $this->ahref($linkHref, $linkText);
         }
 
         return $val;
@@ -156,14 +170,23 @@ class TemplateRepository extends BaseRepository
      * @param $text
      * @return string
      */
-    private
-    function button($url, $text)
+    private function button($url, $text)
     {
         $linkClass = 'button button-primary';
-        $linkStyle = 'font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Helvetica, Arial, sans-serif, \'Apple Color Emoji\', \'Segoe UI Emoji\', \'Segoe UI Symbol\'; box-sizing: border-box; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); color: #FFF; display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; background-color: #3490DC; border-top: 10px solid #3490DC; border-right: 18px solid #3490DC; border-bottom: 10px solid #3490DC; border-left: 18px solid #3490DC;';
-
+        $bgColor = $this->realEstate->primary_color ?? '#3490DC';
+        $linkStyle = 'font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, Helvetica, Arial, sans-serif, \'Apple Color Emoji\', \'Segoe UI Emoji\', \'Segoe UI Symbol\'; box-sizing: border-box; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); color: #FFF; display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; background-color: {color}; border-top: 10px solid {color}; border-right: 18px solid {color}; border-bottom: 10px solid {color}; border-left: 18px solid {color};';
+        $linkStyle = str_replace('{color}', $bgColor, $linkStyle);
         return sprintf('<a class="%s" style="%s" href="%s">%s</a>', $linkClass, $linkStyle, $url, $text);
     }
+
+    public function ahref($url, $text = null)
+    {
+        $text = $text ?? $url; // @TODO sprintf some problem fix later
+        return  '<a href="' . $url . '" style="font-size:16px; font-weight: bold; text-decoration: none; line-height:40px; width:100%; display:inline-block">
+               <span style="color:#ffffff;">' . $text . '</span>
+            </a>';
+    }
+
 
     /**
      * @param $context
@@ -212,17 +235,18 @@ class TemplateRepository extends BaseRepository
             ];
         }
 
-        $template = self::getParsedTemplate($template, $tagMap, $lang);
-
-        $company = (new RealEstate())->first();
+        $company = $this->realEstate;
         $appUrl = env('APP_URL', '');
-
         $companyAddress = [
             $company->address->street,
             $company->address->street_nr . ',',
             $company->address->zip,
             $company->address->city,
         ];
+
+        $tagMap['primaryColor'] = $company->primary_color;
+        $tagMap['realEstateCompany'] = $company->name;
+        $template = self::getParsedTemplate($template, $tagMap, $lang);
 
         return [
             'subject' => $template->subject,
@@ -337,8 +361,7 @@ class TemplateRepository extends BaseRepository
      * @param Tenant $tenant
      * @return array
      */
-    public
-    function getTenantCredentialsParsedTemplate(Tenant $tenant): array
+    public function getTenantCredentialsParsedTemplate(Tenant $tenant): array
     {
         $template = $this->getByCategoryName('tenant_credentials');
 
@@ -346,7 +369,16 @@ class TemplateRepository extends BaseRepository
             'tenant' => $tenant,
             'user' => $tenant->user,
         ];
-        $tags = $this->getTags($template->category->tag_map, $context);
+        $language = $tenant->settings->language ?? App::getLocale();
+        $tags = $this->getTags($template->category->tag_map, $context, $language);
+
+        if (!empty($tags['salutation'])) {
+            if(\App\Models\Tenant::TitleCompany == $tags['salutation']) {
+                $tags['salutation'] = __('general.pdf_salutation.' . $tenant->title, [], $language);
+            } else {
+                $tags['salutation'] = __('general.pdf_salutation.' . $tenant->title, ['name' => $tenant->last_name], $language);
+            }
+        }
 
         return $this->getParsedTemplateData($template, $tags, $tenant->user->settings->language);
     }
@@ -356,8 +388,7 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return array
      */
-    public
-    function getPinnedPostParsedTemplate(Post $post, User $user): array
+    public function getPinnedPostParsedTemplate(Post $post, User $user): array
     {
         $template = $this->getByCategoryName('pinned_post');
 
@@ -382,7 +413,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('post_published');
 
-        $user->redirect = '/news/' . $post->id;
+	    $receiver->redirect = '/news/' . $post->id;
         $context = [
             'receiver' => $receiver,
             'post' => $post,

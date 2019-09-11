@@ -134,6 +134,16 @@
                 :key="column.prop"
                 :label="$t(column.label)"
                 :width="column.width"
+                v-for="column in headerWithRoles">
+                <template slot-scope="scope">
+                    {{$t(`general.roles.${scope.row[column.prop][0].name}`)}}
+                </template>
+            </el-table-column>
+
+            <el-table-column
+                :key="column.prop"
+                :label="$t(column.label)"
+                :width="column.width"
                 v-for="column in headerWithAvatars" class="request-table">
                 
                 <template slot-scope="scope">
@@ -408,6 +418,7 @@
             },
             headerWithoutActions() {
                 return this.header.reduce((acc, row) => (!row.actions
+                && !row.roles
                 && !row.select
                 && !row.withUsers
                 && !row.withAvatars
@@ -415,6 +426,9 @@
                 && !row.withMultipleProps
                 && !row.withBadgeProps
                 && acc.push(row), acc), []);
+            },
+            headerWithRoles() {
+                return this.header.reduce((acc, row) => (row.roles && acc.push(row), acc), []);
             },
             headerWithMultipleProps() {
                 return this.header.reduce((acc, row) => (row.withMultipleProps && acc.push(row), acc), []);
@@ -934,8 +948,12 @@
 
     .listing-link {
         text-decoration: none;
-        color: #6AC06F;
+        color: var(--primary-color);
         font-weight: bold;
+
+        &:hover {
+            color: var(--primary-color-lighter);
+        }
     }
 
     .rounded-select .el-input .el-input__prefix {

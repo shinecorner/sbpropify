@@ -512,8 +512,12 @@ return [
 		[
 			'title' => 'Einstellungen Liegenschaftsverwaltung',
 			'settings' => 'Einstellungen',
+      'tenants_portal' => 'Mieterportal',
 			'iframe' => 'Freie Objekte',
+      'micro_apps' => 'Micro-Apps',
 			'theme' => 'Design',
+      'smtp' => 'SMTP',
+      'pdf' => 'PDF',
 			'login_variations' => 'Login-Varianten',
 			'login_variation' => 'Login-Variante',
 			'login_variation_slider' => 'Möchten Sie den Slider it Vorteilen anzeigen?',

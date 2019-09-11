@@ -20,16 +20,16 @@
                     <el-timeline-item v-for="{id, title, first_name, last_name, user} in tenants" :key="id">
                         <ui-avatar :src="user.avatar" :size="36" :name="user.name" shadow="hover" />
                         <div class="content">
-                            <div class="title">
+                            <!-- <div class="title">
                                 {{title}}
-                            </div>
+                            </div> -->
                             <div class="name">
                                 {{first_name}} {{last_name}}
                             </div>
                         </div>
-                        <el-tooltip content="Send an email" v-if="title !== 'company'">
+                        <!-- <el-tooltip content="Send an email" v-if="title !== 'company'">
                             <el-button size="small" icon="el-icon-message" plain circle></el-button>
-                        </el-tooltip>
+                        </el-tooltip> -->
                     </el-timeline-item>
                 </template>
             </el-timeline>

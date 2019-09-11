@@ -7,7 +7,7 @@
                     <filters ref="filters" layout="column" :data.sync="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
                     <el-button type="primary" size="small" icon="el-icon-sort-up" @click="resetFilters">Reset filters</el-button>
                 </el-popover>
-                <el-button type="primary" icon="ti-plus" round>
+                <el-button @click="addRequestDialogVisible = true" type="primary" icon="ti-plus" round>
                     Add request
                 </el-button>
             </ui-heading>
@@ -26,6 +26,9 @@
                                 <ui-divider v-if="!item.media.length">
                                     <el-button icon="el-icon-upload" round @click="toggleDrawer(item, 'media')">Upload files...</el-button>
                                 </ui-divider>
+                                <!-- <ui-divider v-if="item.media.length">
+                                    Exist
+                                </ui-divider> -->
                             </template>
                         </request-card>
                     </dynamic-scroller-item>
@@ -50,7 +53,8 @@
                         Media
                     </div>
                     <ui-media-gallery :files="openedRequest.media.map(({url}) => url)" />
-                    <!-- <ui-media-uploader v-model="media" :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" :action="`api/v1/requests/${openedRequest.id}/media`" :options="{drop: true, draggable: true, multiple: true}" /> -->
+                    
+                    <ui-media-uploader v-model="media" :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" :action="`api/v1/requests/${openedRequest.id}/media`" :options="{drop: true, draggable: true, multiple: true}" />
 
                     <!-- <div ref="media-content" id="media-content" class="content">
                         <ui-media-gallery :images="openedRequest.media.map(({url}) => url)" />
@@ -89,6 +93,13 @@
                 </el-tab-pane>
             </el-tabs>
         </ui-drawer>
+        <el-dialog ref="add-request-dialog" title="Add request" :visible.sync="addRequestDialogVisible" custom-class="add-request-dialog" append-to-body>
+            <request-add-form ref="request-add-form" />
+            <span slot="footer" class="dialog-footer">
+                <el-button icon="el-icon-close" @click="addRequestDialogVisible = false" round>Cancel</el-button>
+                <el-button type="primary" icon="el-icon-check" round @click="addRequest">Confirm</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -96,11 +107,13 @@
     import {mapState} from 'vuex'
     import Loader from 'components/tenant/RequestCard/Loader'
     import RequestAddForm from 'components/tenant/RequestAddForm'
+    import GalleryList from 'components/MediaGalleryList'
 
     export default {
         components: {
             Loader,
-            RequestAddForm
+            RequestAddForm,
+            GalleryList
         },
         data () {
             return {
@@ -110,6 +123,7 @@
                 visibleDrawer: false,
                 activeDrawerTab: 'chat',
                 activeDrawerMediaTab: 0,
+                addRequestDialogVisible: false,
                 filters: {
                     schema: [{
                         type: 'el-select',
@@ -186,9 +200,13 @@
         },
         methods: {
             async get (params = {}) {
-                if (this.loading && this.requests.data.length) {
+                if (this.loading) {
                     return
                 }
+                // if (this.loading && this.requests.data.length) {
+                //     return
+                // }
+                this.loading = false
 
                 const {current_page, last_page} = this.requests
 
@@ -227,9 +245,29 @@
             resetDataFromDrawer () {
                 this.activeDrawerTab = 'chat'
                 this.openedRequest = null
-            }
+            },
+            addRequest () {
+                this.$watch(() => this.$refs['request-add-form'].loading, state => {
+                    this.$nextTick(async () => {
+                        this.$refs['request-add-form'].$el.classList.remove('el-loading-parent--relative')
+
+                        if (!state) {
+                            this.addRequestDialogVisible = false
+
+                            this.requests = {
+                                data: []
+                            }
+
+                            await this.fetch()
+                        }
+                    })
+                })
+
+                this.$refs['request-add-form'].submit()
+            },
         },
         mounted () {
+            //console.log('request', this.requests);
             // this.$refs['dynamic-scroller'].forceUpdate()
         }
     }

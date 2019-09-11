@@ -130,7 +130,13 @@
                                 <el-row class="last-form-row" :gutter="20">
                                     <el-col :md='12'>
                                         <el-form-item :label="$t('models.tenant.work_phone')" prop="work_phone">
-                                            <el-input autocomplete="off" type="text" v-model="model.work_phone"></el-input>
+                                            <el-input autocomplete="off"
+                                                      type="text"
+                                                      v-model="model.work_phone"
+                                                      class="dis-autofill"
+                                                      readonly
+                                                      onfocus="this.removeAttribute('readonly');"
+                                            ></el-input>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :md='12'>
@@ -170,8 +176,13 @@
                                     <el-col :md="12">
                                         <el-form-item :label="$t('general.password')" :rules="validationRules.password"
                                                       prop="password">
-                                            <el-input autocomplete="off" type="password"
-                                                      v-model="model.password"></el-input>
+                                            <el-input autocomplete="off"
+                                                      type="password"
+                                                      v-model="model.password"
+                                                      class="dis-autofill"
+                                                      readonly
+                                                      onfocus="this.removeAttribute('readonly');"
+                                            ></el-input>
                                         </el-form-item>
                                     </el-col>
                                     <el-col :md="12">

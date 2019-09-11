@@ -10,10 +10,20 @@
                         <el-input type="text" v-model="model.name"/>
                     </el-form-item>
                     <el-form-item :label="$t('general.email')" :rules="validationRules.email" prop="email">
-                        <el-input type="email" v-model="model.email"/>
+                        <el-input type="email"
+                                  v-model="model.email"
+                                  class="dis-autofill"
+                                  readonly
+                                  onfocus="this.removeAttribute('readonly');"
+                        />
                     </el-form-item>
                     <el-form-item :label="$t('general.password')" :rules="validationRules.password" prop="password">
-                        <el-input type="password" v-model="model.password"/>
+                        <el-input type="password"
+                                  v-model="model.password"
+                                  class="dis-autofill"
+                                  readonly
+                                  onfocus="this.removeAttribute('readonly');"
+                        />
                     </el-form-item>
                     <el-form-item :label="$t('general.confirm_password')" :rules="validationRules.password_confirmation"
                                   prop="password_confirmation">

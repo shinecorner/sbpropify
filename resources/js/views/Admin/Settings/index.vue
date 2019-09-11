@@ -69,7 +69,7 @@
                                             </el-row>
                                         </el-card>
 
-                                        <el-card header="PDF">
+                                        <el-card :header="$t('models.realEstate.pdf')">
                                             <el-form-item class="switcher" prop="blank_pdf">
                                                 <label class="switcher__label">
                                                     {{$t('models.realEstate.blank_pdf')}}
@@ -157,7 +157,7 @@
                                         </el-row>
                                     </el-card>
 
-                                    <el-card header="SMTP">
+                                    <el-card :header="$t('models.realEstate.smtp')">
                                         <el-row :gutter="20">
                                             <el-col :md="12">
                                                 <el-form-item :label="$t('models.realEstate.mail_from_name.label')"
@@ -247,13 +247,13 @@
                                 </el-row>
                             </el-form>
                         </el-tab-pane>
-                        <el-tab-pane :label="$t('menu.marketplace')" name="iframe">
-                            <el-button class="save-tab" @click="saveRealEstate('marketplaceSettingsForm')" icon="ti-save"
+                        <el-tab-pane :label="$t('models.realEstate.micro_apps')" name="microApps">
+                            <el-button class="save-tab" @click="saveRealEstate('microAppsSettingsForm')" icon="ti-save"
                                        type="primary">
                                 {{$t('general.actions.save')}}
                             </el-button>
                             <el-form :model="model" :rules="validationRules"
-                                     ref="marketplaceSettingsForm">
+                                     ref="microAppsSettingsForm">
                                 <el-card class="marketplace-card">
                                     <el-row :gutter="20">
                                         <el-col :md="8">
@@ -323,7 +323,7 @@
                                                      v-show="realEstateCircleLogo && !circle_logo_upload_img"
                                                     >
                                             </el-form-item>
-                                            <el-form-item :label="$t('models.user.favicon_icon')">
+                                            <!-- <el-form-item :label="$t('models.user.favicon_icon')">
                                                 <upload-avatar @imageUploaded="setFaviconIconUpload"/>
                                                 <img :src="favicon_icon_upload_img"
                                                      v-show="favicon_icon_upload_img"
@@ -331,7 +331,7 @@
                                                 <img :src="realEstateFaviconIcon" ref="realEstateFaviconIcon"
                                                      v-show="realEstateFaviconIcon && !favicon_icon_upload_img"
                                                     >
-                                            </el-form-item>
+                                            </el-form-item> -->
                                             <el-form-item :label="$t('models.user.tenant_logo')">
                                                 <upload-avatar @imageUploaded="setTenantLogoUpload"/>
                                                 <img :src="tenant_logo_upload_img"
@@ -378,7 +378,7 @@
                 </div>
             </el-tab-pane>
             <el-tab-pane name="tenants">
-                <template slot="label"><i class="icon icon-group"></i>{{$t('menu.tenants')}}</template>
+                <template slot="label"><i class="icon icon-group"></i>{{$t('models.realEstate.tenants_portal')}}</template>
 
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
                     <el-tabs type="border-card" v-model="activeTenantsName">

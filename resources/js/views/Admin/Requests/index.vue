@@ -307,3 +307,8 @@
         }
     }
 </script>
+<style>
+    .vue-recycle-scroller__item-view {
+        min-height: 41px !important;
+    }
+</style>

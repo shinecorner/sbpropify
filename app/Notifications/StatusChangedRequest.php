@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\App;
 
 /**
  * Class StatusChangedRequest
@@ -80,6 +81,7 @@ class StatusChangedRequest extends Notification implements ShouldQueue
         $data = $tRepo->getRequestStatusChangedParsedTemplate($this->request, $this->originalRequest, $this->user);
         $data['userName'] = $notifiable->name;
 
+        $data['lang'] = $notifiable->settings->language ?? App::getLocale();
         return (new MailMessage)
             ->view('mails.request', $data)->subject($data['subject']);
     }

@@ -512,8 +512,12 @@ return [
     [
       "title" => "Réglages de l'immobilier",
       "settings" => "Réglages",
+      'tenants_portal' => 'Portail locataires',
       'iframe' => 'Iframe',
+      'micro_apps' => 'Micro-Applications',
       'theme' => 'Thème',
+      'smtp' => 'SMTP',
+      'pdf' => 'PDF',
       'login_variations' => 'Variations d\'ouverture de session',
       'login_variation' => 'Modification de l\'ouverture de session',
       'login_variation_slider' => 'Voulez-vous montrer le slider ?',

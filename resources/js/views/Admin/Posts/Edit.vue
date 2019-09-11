@@ -84,11 +84,11 @@
                                 </el-form-item>
                                 <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                             prop="content">
-                                    <el-input
-                                        :autosize="{minRows: 5}"
-                                        type="textarea"
-                                        v-model="model.content">
-                                    </el-input>
+                                    <quill-editor
+                                        ref="quillEditor"
+                                        v-model="model.content"
+                                    >
+                                    </quill-editor>
                                 </el-form-item>
                                 <el-form-item v-if="this.model.type == 3 && this.showdefaultimage == true">
                                     <label>{{$t('models.post.category_default_image_label')}}</label>
@@ -142,11 +142,11 @@
                         <template v-if="this.model.type != 3">
                             <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                         prop="content">
-                                <el-input
-                                    :autosize="{minRows: 5}"
-                                    type="textarea"
-                                    v-model="model.content">
-                                </el-input>
+                                <quill-editor
+                                    ref="quillEditor"
+                                    v-model="model.content"
+                                >
+                                </quill-editor>
                             </el-form-item>
                             <el-form-item :label="$t('models.post.images')"
                             >
@@ -453,6 +453,11 @@
     import {Avatar} from 'vue-avatar'
     import AssignmentByType from 'components/AssignmentByType';
 
+    import 'quill/dist/quill.core.css';
+    import 'quill/dist/quill.snow.css';
+    import 'quill/dist/quill.bubble.css';
+    import {quillEditor} from 'vue-quill-editor';
+
     const mixin = PostsMixin({mode: 'edit'});
 
     export default {
@@ -461,7 +466,8 @@
             EditActions,
             RelationList,
             Avatar,
-            AssignmentByType
+            AssignmentByType,
+            quillEditor,
         },
         data() {
             return {
@@ -664,8 +670,12 @@
     .tenant-link {
         display: flex;
         align-items: center;
-        color: #6AC06F;
+        color: var(--primary-color);
         text-decoration: none;
+
+        &:hover {
+            color: var(--primary-color-lighter);
+        }
 
         & > span {
             margin-left: 5px;

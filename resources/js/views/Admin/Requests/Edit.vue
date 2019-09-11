@@ -79,7 +79,7 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="12">
+                                <el-col :md="12" v-if="this.showacquisition == true">
                                     <el-form-item :label="$t('models.request.category_options.acquisition')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
@@ -209,12 +209,12 @@
                                     </el-form-item>
                                     <el-form-item :label="$t('general.description')" :rules="validationRules.description"
                                                   prop="description">
-                                        <el-input
-                                            :autosize="{minRows: 16}"
+                                        <quill-editor
                                             :disabled="$can($permissions.update.serviceRequest)"
-                                            type="textarea"
-                                            v-model="model.description">
-                                        </el-input>
+                                            ref="quillEditor"
+                                            v-model="model.description"
+                                        >
+                                        </quill-editor>
                                     </el-form-item>
                                 </el-tab-pane>
 
@@ -389,6 +389,7 @@
             </el-form>
         </div>
         <ServiceDialog
+            :request_id="model.id"
             :address="address"
             :conversations="conversations"
             :mailSending="mailSending"
@@ -420,6 +421,11 @@
     import AssignmentByType from 'components/AssignmentByType';
     import Vue from 'vue';
 
+    import 'quill/dist/quill.core.css';
+    import 'quill/dist/quill.snow.css';
+    import 'quill/dist/quill.bubble.css';
+    import {quillEditor} from 'vue-quill-editor';
+
     export default {
         name: 'AdminRequestsEdit',
         mixins: [RequestsMixin({
@@ -435,7 +441,8 @@
             EditActions,
             Avatar,
             Audit,
-            AssignmentByType
+            AssignmentByType,
+            quillEditor,
         },
         data() {
             return {
@@ -463,6 +470,7 @@
                         tooltipMode: true,
                         type: 'success',
                         icon: 'el-icon-message',
+                        view: 'request',
                         onClick: this.openNotifyProvider
                     }, {
                         title: 'general.unassign',
@@ -581,6 +589,8 @@
             showSubcategory() {
                 this.showsubcategory = this.model.category_id == 1 ? true : false;
                 this.showpayer = this.model.qualification == 5 ? true : false;
+                let p_category = this.categories.find(item => { return item.id == this.model.category_id});
+                this.showacquisition =  p_category && p_category.acquisition == 1 ? true : false;
             },
             
             showLocationOrRoom() {
@@ -644,8 +654,12 @@
     .tenant-link {
         display: flex;
         align-items: center;
-        color: var(--primary-color-lighter);
+        color: var(--primary-color);
         text-decoration: none;
+
+        &:hover {
+            color: var(--primary-color-lighter);
+        }
 
         & > span {
             margin-left: 5px;

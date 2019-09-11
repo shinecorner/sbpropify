@@ -16,7 +16,12 @@
                             <el-col :md="12">
                                 <el-form-item :label="$t('general.email')" :rules="validationRules.email"
                                             prop="email">
-                                    <el-input type="email" v-model="model.email"/>
+                                    <el-input type="email"
+                                              v-model="model.email"
+                                              class="dis-autofill"
+                                              readonly
+                                              onfocus="this.removeAttribute('readonly');"
+                                    />
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -25,7 +30,12 @@
                                 <el-form-item :label="$t('general.password')" :rules="validationRules.password"
                                             autocomplete="off"
                                             prop="password">
-                                    <el-input type="password" v-model="model.password"/>
+                                    <el-input type="password"
+                                              v-model="model.password"
+                                              class="dis-autofill"
+                                              readonly
+                                              onfocus="this.removeAttribute('readonly');"
+                                    />
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12">

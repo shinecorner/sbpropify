@@ -54,10 +54,12 @@ return [
     "mrs" => "Mme",
     "company" => "Société",    
   ],
-  'pdf_salutation_company' => 'Inébranlable',
-  'pdf_salutation_mr' => 'Cher Monsieur :name',
-  'pdf_salutation_mrs' => 'Chère Madame :name',
-  'attached' => 
+  'pdf_salutation' => [
+    'company' => 'Inébranlable',
+    'mr' => 'Cher Monsieur :name',
+    'mrs' => 'Chère Madame :name',
+  ],
+  'attached' =>
   [
     "building" => "Bâtiment affecté",
     "quarter" => "Trimestre assigné",

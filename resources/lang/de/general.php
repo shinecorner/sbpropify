@@ -54,9 +54,11 @@ return [
     'mrs' => 'Frau',
     'company' => 'Firma',    
   ],
-  'pdf_salutation_company' => 'Firma',
-  'pdf_salutation_mr' => 'Sehr geehrter Herr :name',
-  'pdf_salutation_mrs' => 'Sehr geehrte Frau :name',
+  'pdf_salutation' => [
+    'company' => 'Firma',
+    'mr' => 'Sehr geehrter Herr :name',
+    'mrs' => 'Sehr geehrte Frau :name',
+  ],
   'attached' =>
   [
     'building' => 'Liegenschaft wurde zugewiesen.',
@@ -91,7 +93,7 @@ return [
   'all' => 'Alle',
   'loadMore' => 'Weitere laden',
   'account' => 'Konto',
-  'activate_account' => 'Konto akvitieren',
+  'activate_account' => 'Konto aktivieren',
   'activate_code' => 'Aktivierunscode',
   'activate_code_required' => 'Sie müssen einen gültigen Aktivierunscode einfügen.',
   'activate_terms_condition_1' => "Ich akzpetiere die allgemeinen Nutzungebedingungen und die Bestimmungem zum Datenschautz.",
@@ -197,7 +199,7 @@ return [
       'added' => 'Dokument/Foto hinzugefügt',
       'deleted' => 'Dokument/Foto gelöscht',
     ],
-    'logout_confirm' => 'Sie werden eingelogt ausgeloggt.',
+    'logout_confirm' => 'Sie werden ausgeloggt.',
   ],
   'roles' => 
   [

@@ -512,8 +512,12 @@ return [
     [
       "title" => "Impostazioni immobiliari",
       "settings" => "Impostazioni",
+      'tenants_portal' => 'Portale inquilini',
       'iframe' => 'Iframe',
+      'micro_apps' => 'Micro-Apps',
       'theme' => 'Tema',
+      'smtp' => 'SMTP',
+      'pdf' => 'PDF',
       'login_variations' => 'Variazioni del login',
       'login_variation' => 'Variazione del login',
       'login_variation_slider' => 'Vuoi mostrare il cursore?',

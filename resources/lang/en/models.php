@@ -172,7 +172,7 @@ return [
           <li>The ticketing system enables you to process your enquiries simply and uncomplicatedly - with the following features Communicate your concerns to the administration at any time and from any place.</li>
           <li>On the market and lending place you can send objects to your neighbourhood. sell or lend.</li>
           <li>Share news with your neighbours by publishing a contribution. The pinboard is also used by the administration for the communication, so all are always on the Running.</li>
-          <li>Further micro apps within the application set new standards in living quality where various services can be conveniently used.</li>,
+          <li>Further micro apps within the application set new standards in living quality where various services can be conveniently used.</li>
         ',
         'register' => 'First registration and activation of your account',
         'content_2' => 'To register, please click on the link below and log in with your e-mail address and the personal unlock code. Once you have logged in, you can Define your own password and use it from now on for the login.',
@@ -512,8 +512,12 @@ return [
     [
       'title' => 'Settings real estate',
       'settings' => 'Settings',
+      'tenants_portal' => 'Tenants portal',
       'iframe' => 'Iframe',
+      'micro_apps' => 'Micro-Apps',
       'theme' => 'Theme',
+      'smtp' => 'SMTP',
+      'pdf' => 'PDF',
       'login_variations' => 'Login variations',
       'login_variation' => 'Login variation',
       'login_variation_slider' => 'Do you want to show slider?',
