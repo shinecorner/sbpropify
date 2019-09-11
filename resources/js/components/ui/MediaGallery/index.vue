@@ -39,7 +39,7 @@
                 default: () => ([])
             },
             showNoMedia: {
-                type: Array,
+                type: Boolean,
                 default: true
             }
         },
