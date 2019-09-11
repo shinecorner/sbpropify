@@ -40,9 +40,6 @@
                     this.$emit('deleteMedia', image);
                 }
             }
-        },
-        mounted () {
-            console.log('media data', this.data);
         }
     }
 </script>

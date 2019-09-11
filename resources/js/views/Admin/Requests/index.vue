@@ -222,7 +222,6 @@
                 });
             },
             edit({id}) {
-                console.log('edit clicked');
                 this.$router.push({
                     name: 'adminRequestsEdit',
                     params: {

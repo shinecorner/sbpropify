@@ -267,7 +267,6 @@
             },
         },
         mounted () {
-            //console.log('request', this.requests);
             // this.$refs['dynamic-scroller'].forceUpdate()
         }
     }

@@ -34,7 +34,11 @@
         <likes type="post" :data="data.likes" layout="row" />
         <like :id="data.id" type="post">
             <el-button @click="$refs.addComment.focus()" icon="ti-comment-alt" type="text"> &nbsp;Comment</el-button>
+            <el-button icon="icon-picture" type="text"> {{data.media.length}} {{data.media.length > 1 ? "Images" : 'Image'}} </el-button>
         </like>
+
+            
+        
         <comments ref="comments" :id="data.id" type="post" :use-placeholder="false" />
         <add-comment ref="addComment" :id="data.id" type="post"/>
     </el-card>
