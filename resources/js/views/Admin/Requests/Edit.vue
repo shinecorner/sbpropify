@@ -79,7 +79,7 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="12" v-if="this.showsubcategory == true">
+                                <el-col :md="12" v-if="this.showacquisition == true">
                                     <el-form-item :label="$t('models.request.category_options.acquisition')">
                                         <el-select :disabled="$can($permissions.update.serviceRequest)"
                                                    :placeholder="$t(`general.placeholders.select`)"
@@ -389,6 +389,7 @@
             </el-form>
         </div>
         <ServiceDialog
+            :request_id="model.id"
             :address="address"
             :conversations="conversations"
             :mailSending="mailSending"
@@ -588,6 +589,8 @@
             showSubcategory() {
                 this.showsubcategory = this.model.category_id == 1 ? true : false;
                 this.showpayer = this.model.qualification == 5 ? true : false;
+                let p_category = this.categories.find(item => { return item.id == this.model.category_id});
+                this.showacquisition =  p_category && p_category.acquisition == 1 ? true : false;
             },
             
             showLocationOrRoom() {

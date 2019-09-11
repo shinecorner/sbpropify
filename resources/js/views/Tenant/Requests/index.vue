@@ -26,9 +26,9 @@
                                 <ui-divider v-if="!item.media.length">
                                     <el-button icon="el-icon-upload" round @click="toggleDrawer(item, 'media')">Upload files...</el-button>
                                 </ui-divider>
-                                <ui-divider v-if="item.media.length">
+                                <!-- <ui-divider v-if="item.media.length">
                                     Exist
-                                </ui-divider>
+                                </ui-divider> -->
                             </template>
                         </request-card>
                     </dynamic-scroller-item>

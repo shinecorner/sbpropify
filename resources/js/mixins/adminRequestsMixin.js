@@ -99,6 +99,7 @@ export default (config = {}) => {
                 showpayer: false,
                 showUmgebung: false,
                 showLiegenschaft: false,
+                showacquisition: false,
                 showWohnung: false,
                 createTag: false,
                 editTag: false,
@@ -437,6 +438,9 @@ export default (config = {}) => {
                         
                         this.showpayer = resp.data.qualification == 5 ? true : false;
 
+                        let p_category = this.categories.find(item => { return item.id == resp.data.category.parent_id});
+                        this.showacquisition =  p_category && p_category.acquisition == 1 ? true : false;
+                        
                         const data = resp.data;
 
                         this.model = Object.assign({}, this.model, data);
