@@ -105,12 +105,6 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *          format="date"
  *      ),
  *      @SWG\Property(
- *          property="pdf",
- *          description="end_date",
- *          type="string",
- *          format="date"
- *      ),
- *      @SWG\Property(
  *          property="created_at",
  *          description="created_at",
  *          type="string",
@@ -200,7 +194,6 @@ class TenantRentContract extends AuditableModel implements HasMedia
         'parking_price',
         'start_date',
         'end_date',
-        'pdf',
     ];
 
     /**
@@ -228,7 +221,6 @@ class TenantRentContract extends AuditableModel implements HasMedia
         'operating_cost' => 'integer',
         'gross_rent' => 'integer',
         'parking_price' => 'integer',
-        'pdf' => 'string',
     ];
 
     /**

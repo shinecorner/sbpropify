@@ -31,7 +31,6 @@ class CreateTenantRentContractsTable extends Migration
             $table->integer('parking_price')->nullable()->default(0);
             $table->date('start_date');
             $table->date('end_date')->nullable();
-            $table->string('pdf')->nullable();
             $table->timestamps();
             $table->foreign('tenant_id')->references('id')->on('tenants')->onDelete('cascade');
             $table->foreign('building_id')->references('id')->on('buildings');
