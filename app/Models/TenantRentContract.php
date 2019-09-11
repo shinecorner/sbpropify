@@ -143,6 +143,31 @@ class TenantRentContract extends AuditableModel implements HasMedia
         self::DurationUnlimited => 'unlimited',
         self::DurationLimited => 'limited',
     ];
+    
+    const StatusActive = 1;
+    const StatusInactive = 2;
+    const Status = [
+        self::StatusActive => 'active',
+        self::StatusInactive => 'inactive',
+    ];
+
+    const DepositTypeBankDepot = 1;
+    const DepositTypeBankGuarantee = 2;
+    const DepositTypeInsurance = 3;
+    const DepositTypeOther = 4;
+    const DepositType = [
+        self::DepositTypeBankDepot => 'Bank depot',
+        self::DepositTypeBankGuarantee => 'Bank guarantee',
+        self::DepositTypeInsurance => 'Insurance',
+        self::DepositTypeOther => 'Other'
+    ];
+
+    const DepositStatusYes = 1;
+    const DepositStatusNo = 2;
+    const DepositStatus = [
+        self::DepositStatusYes => 'yes',
+        self::DepositStatusNo => 'no',
+    ];
 
     /**
      * Validation rules
