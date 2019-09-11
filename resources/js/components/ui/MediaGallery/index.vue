@@ -6,7 +6,7 @@
             <div class="ui-media-gallery__item__content">
                 <template v-if="isFileImage(file)">
                     <ui-image ref="ui-image" :src="file" :src-list="files">
-                        <div slot="error" class="error" style "color: red;">
+                        <div slot="error" class="error" style="color: red;">
                             <i class="el-icon-document-delete" />
                         </div>
                         <div slot="placeholder" class="placeholder el-icon-loading"></div>
@@ -41,7 +41,7 @@
         },
         methods: {
             isFileImage (file) {
-                console.log('is', file)
+
                 const extension = file.split('.').pop()
 
                 return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(extension)
@@ -51,7 +51,7 @@
             }
         },
         mounted () {
-            console.log('gallery mounted', this.files);
+            
         }
     }
 </script>

@@ -37,6 +37,7 @@ return [
     'email_link_data_protection' => 'Datenschutz',
 
     // email new layout
+    'activate_account' => 'Konto aktivieren',
     'tenant_portal' => 'Mieterportal',
     'generated_email_for_user' => 'Diese E-Mail wurde automatisch für :userName generiert.',
     'generated_email_for_company' => 'Sie erhalten diese automatisch generierte E-Mail als User des Mieterportal der :companyName . Das Mieterportal wird von der Propify AG betrieben.',

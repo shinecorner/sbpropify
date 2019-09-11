@@ -5,7 +5,7 @@
                 <el-timeline-item
                         v-for="(element, index) in list"
                         :key="index"
-                        :color="'#6AC06F'">
+                        :color="'var(--primary-color)'">
                         <el-row :gutter="20" class="main-section">
                             <el-col :md="2" class="avatar-square" v-if="element.media.length > 0">
                                  <el-tooltip

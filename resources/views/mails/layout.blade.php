@@ -1,3 +1,7 @@
+@php
+    $lang = $lang ?? App::getLocale();
+@endphp
+
 <!--suppress ProblematicWhitespace -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -146,7 +150,7 @@
             padding-top: 20px;
             color: #000000;
             font-family: 'Open Sans',sans-serif;" class="paragraph">
-                            {{  __('template.email_footer_message1', ['UserName' => $userName]) }}
+                            {{  __('template.email_footer_message1', ['UserName' => $userName], $lang) }}
                         </td>
                     </tr>
                 @endisset
@@ -155,7 +159,7 @@
             padding-top: 20px;
             color: #000000;
             font-family: 'Open Sans',sans-serif;" class="paragraph">
-                        {{  __('template.email_footer_message2', ['CompanyName' => $companyName ?? '']) }}
+                        {{  __('template.email_footer_message2', ['CompanyName' => $companyName ?? ''], $lang) }}
                     </td>
                 </tr>
                 <!-- FOOTER -->
@@ -185,12 +189,12 @@
             font-family: 'Open Sans',sans-serif;" class="footer">
                         <p align="center" style="text-align:center"> <span style="font-size:7.5pt;font-family:&quot;Open Sans&quot;,sans-serif;color:#333333">
                 <a href="{{ $linkContact ?? '' }}" target="_blank">
-                    <span style="text-decoration:none">{{  __('template.email_link_contacts') }}</span>
+                    <span style="text-decoration:none">{{  __('template.email_link_contacts', [], $lang) }}</span>
                 </a> |
                 <a href="{{ $linkTermsOfUse ?? '' }}" target="_blank">
-                    <span style="text-decoration:none">{{  __('template.email_link_terms_of_use') }}</span></a> |
+                    <span style="text-decoration:none">{{  __('template.email_link_terms_of_use', [], $lang) }}</span></a> |
                 <a href="{{ $linkDataProtection ?? '' }}" target="_blank">
-                    <span style="text-decoration:none">{{  __('template.email_link_data_protection') }}</span></a></span>
+                    <span style="text-decoration:none">{{  __('template.email_link_data_protection', [], $lang) }}</span></a></span>
                         </p>
                     </td>
                 </tr>

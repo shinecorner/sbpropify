@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\App;
 
 class NotifyServiceProvider extends Mailable
 {
@@ -51,6 +52,7 @@ class NotifyServiceProvider extends Mailable
                 'provider' => $this->provider,
                 'details' => $this->mailDetails,
                 'user' => $this->receivingUser,
+                'lang' => $this->provider->settings->language ?? App::getLocale()
             ]);
     }
 }

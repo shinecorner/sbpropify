@@ -9,6 +9,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\App;
 
 /**
  * Class NewTenantRequest
@@ -66,6 +67,7 @@ class NewTenantRequest extends Notification implements ShouldQueue
         $tRepo = new TemplateRepository(app());
         $data = $tRepo->getNewRequestParsedTemplate($this->serviceRequest, $this->user, $this->subjectUser);
         $data['userName'] = $notifiable->name;
+        $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 
         return (new MailMessage)
             ->view('mails.request', $data)->subject($data['subject']);

@@ -6,6 +6,7 @@ use App\Models\ServiceRequest;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\App;
 
 class RequestAdded extends Mailable
 {
@@ -36,6 +37,7 @@ class RequestAdded extends Mailable
             ->with([
                 'post' => $this->serviceRequest,
                 'tenant' => $this->serviceRequest->tenant,
+                'lang' => $this->serviceRequest->tenant->settings->language ?? App::getLocale()
             ]);
     }
 }

@@ -40,7 +40,7 @@
       <br>
       <br>
       <br>
-      @lang('models.tenant.credentials_pdf.born', [], $language), {{now()->format('d.m.Y')}}
+      {{ $re->address->city }}, {{now()->format('d.m.Y')}}
       <br>
       <br>
       <br>

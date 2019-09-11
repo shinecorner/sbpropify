@@ -702,7 +702,7 @@ return [
           'passage' => 'Passaggio',
           'basement' => 'Seminterrato',
           'kitchen' => 'Cucina',
-          'reduite' => 'Reduite',
+          'storeroom' => 'Reduite',
           'habitation' => 'Abitazione',
           'room1' => 'Camera 1',
           'room2' => 'Camera 2',

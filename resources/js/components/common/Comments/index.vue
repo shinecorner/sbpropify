@@ -101,6 +101,7 @@
                 if (this.$refs['dynamic-scroller']) {
                     prevScrollHeight = this.$refs['dynamic-scroller'].$el.scrollHeight
                 }
+                console.log('prevScrollHeight', prevScrollHeight);
 
                 let page = current_page || 0;
 
@@ -235,10 +236,12 @@
 
         .vue-recycle-scroller
             height: 100%
+            min-height: 300px
             overflow: auto
             will-change: transform
 
             /deep/ .vue-recycle-scroller__item-wrapper
+                min-height: 300px
                 overflow: visible
 
         .el-button

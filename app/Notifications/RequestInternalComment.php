@@ -10,6 +10,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\App;
 
 /**
  * Class RequestInternalComment
@@ -71,6 +72,7 @@ class RequestInternalComment extends Notification implements ShouldQueue
         $tRepo = new TemplateRepository(app());
         $data = $tRepo->getRequestInternalCommentParsedTemplate($this->sr, $this->comment, $this->comment->user, $this->receiver);
         $data['userName'] = $notifiable->name;
+        $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 
         return (new MailMessage)
             ->view('mails.requestInternalComment', $data)->subject($data['subject']);

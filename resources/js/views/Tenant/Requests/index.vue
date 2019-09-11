@@ -26,9 +26,9 @@
                                 <ui-divider v-if="!item.media.length">
                                     <el-button icon="el-icon-upload" round @click="toggleDrawer(item, 'media')">Upload files...</el-button>
                                 </ui-divider>
-                                <ui-divider v-if="item.media.length">
+                                <!-- <ui-divider v-if="item.media.length">
                                     Exist
-                                </ui-divider>
+                                </ui-divider> -->
                             </template>
                         </request-card>
                     </dynamic-scroller-item>
@@ -52,9 +52,9 @@
                         <i class="ti-gallery"></i>
                         Media
                     </div>
-                    <!-- <ui-media-gallery :files="openedRequest.media.map(({url}) => url)" /> -->
-                    <gallery-list :media="openedRequest.media" :cols="4" />
-                    <!-- <ui-media-uploader v-model="media" :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" :action="`api/v1/requests/${openedRequest.id}/media`" :options="{drop: true, draggable: true, multiple: true}" /> -->
+                    <ui-media-gallery :files="openedRequest.media.map(({url}) => url)" />
+                    
+                    <ui-media-uploader v-model="media" :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" :action="`api/v1/requests/${openedRequest.id}/media`" :options="{drop: true, draggable: true, multiple: true}" />
 
                     <!-- <div ref="media-content" id="media-content" class="content">
                         <ui-media-gallery :images="openedRequest.media.map(({url}) => url)" />

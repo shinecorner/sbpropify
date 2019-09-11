@@ -1225,7 +1225,7 @@ export default {
                         "passage": "Passaggio",
                         "basement": "Seminterrato",
                         "kitchen": "Cucina",
-                        "reduite": "Reduite",
+                        "storeroom": "Reduite",
                         "habitation": "Abitazione",
                         "room1": "Camera 1",
                         "room2": "Camera 2",
@@ -1506,7 +1506,12 @@ export default {
             "email_footer_message2": "Si ottiene questa e-mail generata automaticamente come utente di {CompanyName}.",
             "email_link_contacts": "Contatti.",
             "email_link_terms_of_use": "Condizioni d'uso",
-            "email_link_data_protection": "Protezione dei dati"
+            "email_link_data_protection": "Protezione dei dati",
+            "activate_account": "Attivare l'account",
+            "tenant_portal": "Portale degli inquilini",
+            "generated_email_for_user": "Questa e-mail è stata generata automaticamente per {userName}.",
+            "generated_email_for_company": "Riceverai questa e-mail generata automaticamente come utente del portale {companyName} tenant. Il portale per gli affittuari è gestito da Propify AG.",
+            "links": "<a href=\"#\">Impressum </a>&ensp; | &ensp;<a href=\"#\">Condizioni di utilizzo</a>&ensp; | &ensp;<a href=\"#\">Dichiarazione sulla privacy</a>/a>."
         },
         "tenant": {
             "tenant_credentials": "Le credenziali dell'inquilino",
