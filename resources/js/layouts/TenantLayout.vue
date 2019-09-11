@@ -113,15 +113,11 @@
         },
         computed: {
             tenant_logo() {
-                console.log('called1', this.$constants.logo.tenant_logo);
                 if(localStorage.getItem('tenant_logo_src') != this.$constants.logo.tenant_logo ) {
-                    console.log('called');
                     localStorage.setItem('tenant_logo_src', this.$constants.logo.tenant_logo);
                 }
 
                 return localStorage.getItem('tenant_logo_src') ? `/${localStorage.getItem('tenant_logo_src')}` : '';
-
-
             },
         },
         methods: {
@@ -298,9 +294,8 @@
         },
         async mounted () {
             this.loading = true
-            this.tenant_logo_src = this.$constants.logo.tenant_logo;
+            this.tenant_logo_src = "/" + this.$constants.logo.tenant_logo;
             await this.$store.dispatch('getRealEstate').then((resp) => {
-                    //this.tenant_logo_src = resp.data.tenant_logo
                 }).catch((error) => {
                     
                 });

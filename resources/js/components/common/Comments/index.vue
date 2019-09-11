@@ -1,9 +1,11 @@
 <template>
     <loader v-if="loading && !comments.data.length" />
     <div class="placeholder" v-else-if="!loading && !comments.data.length">
+        <template v-if="showNoMessage">
         <img class="image" :src="require('img/5c98b47a97050.png')" />
         <div class="title">{{$t('components.common.commentsList.emptyPlaceholder.title')}}</div>
         <div class="description">{{$t('components.common.commentsList.emptyPlaceholder.description')}}</div>
+        </template>
     </div>
     <div class="comments-list" v-else>
         <template v-if="withScroller">
@@ -68,6 +70,10 @@
                 default: true
             },
             usePlaceholder: {
+                type: Boolean,
+                default: true
+            },
+            showNoMessage: {
                 type: Boolean,
                 default: true
             }

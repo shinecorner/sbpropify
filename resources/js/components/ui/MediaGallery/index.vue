@@ -2,7 +2,7 @@
     <div class="ui-media-gallery">
         <!-- <slot name="before" /> -->
         <div class="ui-media-gallery__item" v-for="(file, index) in files" :key="file">
-        asda
+        
             <div class="ui-media-gallery__item__content">
                 <template v-if="isFileImage(file)">
                     <ui-image ref="ui-image" :src="file" :src-list="files">
@@ -17,7 +17,7 @@
                 </template>
             </div>
         </div>
-        <div class="ui-media-gallery__placeholder" v-if="!files.length">
+        <div class="ui-media-gallery__placeholder" v-if="!files.length && showNoMedia">
             <img class="ui-media-gallery__placeholder__image" :src="require('img/5c98a90bb5c05.png')" />
             <div class="ui-media-gallery__placeholder__title">
                 There are no media files available.
@@ -37,6 +37,10 @@
             files: {
                 type: Array,
                 default: () => ([])
+            },
+            showNoMedia: {
+                type: Array,
+                default: true
             }
         },
         methods: {
