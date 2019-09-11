@@ -17,7 +17,7 @@
                 </template>
             </div>
         </div>
-        <div class="ui-media-gallery__placeholder" v-if="!files.length && showNoMedia">
+        <div class="ui-media-gallery__placeholder" v-if="!files.length && usePlaceholder">
             <img class="ui-media-gallery__placeholder__image" :src="require('img/5c98a90bb5c05.png')" />
             <div class="ui-media-gallery__placeholder__title">
                 There are no media files available.
@@ -38,7 +38,7 @@
                 type: Array,
                 default: () => ([])
             },
-            showNoMedia: {
+            usePlaceholder: {
                 type: Boolean,
                 default: true
             }
@@ -54,9 +54,6 @@
                 this.$refs['ui-image'][index].openViewer()
             }
         },
-        mounted () {
-            
-        }
     }
 </script>
 

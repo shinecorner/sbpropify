@@ -28,15 +28,17 @@
             Providers: {{data.providers.map(provider => provider.name).join(', ')}}
         </div>
         <div class="gallery">
-            <ui-media-gallery :files="data.media.map(({url}) => url)" :show-no-media="false"/>
+            <!-- <ui-media-gallery :files="data.media.map(({url}) => url)" :use-placeholder="false"/> -->
+            <ui-images-carousel :images="data.media.map(({url}) => url)" :use-placeholder="false" :show-indicator="false" v-if="data.media.length > 0"/>
+            <!-- <request-media :data="data.media" v-if="data.media.length > 0"></request-media> -->
         </div>
-        <!-- <ui-images-carousel :images="data.media.map(({url}) => url)" :use-placeholder="false" /> -->
+        <!-- <ui-images-carousel :images="data.media.map(({url}) => url)"  /> -->
         <!-- <media-gallery-carousel :media="data.media" :use-placeholder="false" height="320px" :autoplay="false" :gallery-options="{container: '#gallery'}" /> -->
         <likes type="post" :data="data.likes" layout="row" />
         <like :id="data.id" type="post">
             <el-button @click="$refs.addComment.focus()" icon="ti-comment-alt" type="text"> &nbsp;Comment</el-button>
         </like>
-        <comments ref="comments" :id="data.id" type="post" :use-placeholder="false" :show-no-message="false" />
+        <comments ref="comments" :id="data.id" type="post" :use-placeholder="false" />
         <add-comment ref="addComment" :id="data.id" type="post"/>
     </el-card>
 </template>
@@ -51,6 +53,7 @@
     import {format, isSameDay} from 'date-fns'
     import {IdState} from 'vue-virtual-scroller'
     import GalleryList from 'components/MediaGalleryList'
+    import RequestMedia from 'components/RequestMedia';
 
     export default {
         name: 'p-post-card',
@@ -76,7 +79,8 @@
             Likes,
             // AddComment,
             MediaGalleryCarousel,
-            GalleryList
+            GalleryList,
+            RequestMedia
         },
         methods: {
             showChildrenAddComment() {

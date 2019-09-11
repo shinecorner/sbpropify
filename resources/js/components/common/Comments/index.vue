@@ -1,7 +1,7 @@
 <template>
     <loader v-if="loading && !comments.data.length" />
     <div class="placeholder" v-else-if="!loading && !comments.data.length">
-        <template v-if="showNoMessage">
+        <template v-if="usePlaceholder">
         <img class="image" :src="require('img/5c98b47a97050.png')" />
         <div class="title">{{$t('components.common.commentsList.emptyPlaceholder.title')}}</div>
         <div class="description">{{$t('components.common.commentsList.emptyPlaceholder.description')}}</div>
@@ -73,10 +73,6 @@
                 type: Boolean,
                 default: true
             },
-            showNoMessage: {
-                type: Boolean,
-                default: true
-            }
         },
         components: {
             Loader
@@ -107,6 +103,7 @@
                 if (this.$refs['dynamic-scroller']) {
                     prevScrollHeight = this.$refs['dynamic-scroller'].$el.scrollHeight
                 }
+
 
                 let page = current_page || 0;
 

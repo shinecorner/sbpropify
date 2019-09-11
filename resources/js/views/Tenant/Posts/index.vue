@@ -123,8 +123,6 @@
 
                 const {current_page, last_page} = this.posts
 
-                console.log('x', current_page, last_page)
-
                 if (this.posts.data.length && current_page === last_page) {
                     return
                 }
