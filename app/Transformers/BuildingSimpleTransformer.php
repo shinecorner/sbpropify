@@ -29,6 +29,7 @@ class BuildingSimpleTransformer extends BaseTransformer
             'floor_nr' => $model->floor_nr,
             'basement' => $model->basement,
             'attic' => $model->attic,
+            'internal_building_id' => $model->internal_building_id,
             'created_at' => $model->created_at->format('Y-m-d'),
         ];
 
