@@ -1225,7 +1225,7 @@ export default {
                         "passage": "Passage",
                         "basement": "Sous-sol",
                         "kitchen": "Cuisine",
-                        "reduite": "Reduite",
+                        "storeroom": "Reduite",
                         "habitation": "Habitation",
                         "room1": "Chambre 1",
                         "room2": "Chambre 2",
@@ -1506,7 +1506,12 @@ export default {
             "email_footer_message2": "Vous recevez cet e-mail généré automatiquement en tant qu'utilisateur de {CompanyName}.",
             "email_link_contacts": "Contacts",
             "email_link_terms_of_use": "Conditions d'utilisation",
-            "email_link_data_protection": "Protection des données"
+            "email_link_data_protection": "Protection des données",
+            "activate_account": "Activer un compte",
+            "tenant_portal": "Portail des locataires",
+            "generated_email_for_user": "Cet email a été généré automatiquement pour {userName}.",
+            "generated_email_for_company": "Vous recevrez cet e-mail généré automatiquement en tant qu'utilisateur du portail locataires {companyName}. Le portail des locataires est exploité par Propify AG.",
+            "links": "<a href=\"#\">Impression </a>&ensp ; | <a href=\"#\">Conditions d'utilisation </a>&ensp ; || &ensp;<a href=\"#\">Déclaration de confidentialité </a>"
         },
         "tenant": {
             "tenant_credentials": "Accréditation des locataires",
