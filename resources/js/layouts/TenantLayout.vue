@@ -234,7 +234,7 @@
             },
             logout () {
                 let router = this.$route;
-                console.log('tenant route', this.$router);
+                
                 this.$confirm('Logout', 'Are you sure?', {
                     type: 'warning',
                     roundButton: true

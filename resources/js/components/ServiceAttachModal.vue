@@ -200,12 +200,6 @@
                 shouldFetchConversation: true
             }
         },
-        mounted () {
-            console.log('provider', this.model.provider);
-            console.log('currentConversation', this.currentConversation);
-            console.log('model', this.model);
-            console.log('shouldFetchConversation', this.shouldFetchConversation); 
-        },
         computed: {
             isValidForm() {
                 return this.model.provider && !_.isEmpty(this.model.body) && !_.isEmpty(this.model.subject);

@@ -69,9 +69,8 @@
                 !children && route && this.$router.push(route);
 
                 /*if (!children && !!icon) {
-                    console.log('el', this.$el);
                     const element1 = document.body.querySelector('.el-submenu.is-opened');
-                    console.log('element', element1);
+
                     if (element1) {
                         element1.classList.remove('is-opened');
                         element1.removeAttribute('aria-expanded');
