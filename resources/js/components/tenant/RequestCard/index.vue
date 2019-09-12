@@ -11,19 +11,19 @@
                     <div class="item">
                         Status:
                         <div class="label">
-                            {{$t(`models.request.status.${$constants.service_requests.status[data.status]}`)}}
+                            {{$t(`models.request.status.${$constants.serviceRequests.status[data.status]}`)}}
                         </div>
                     </div>
                     <div class="item">
                         Priority:
                         <div class="label">
-                            {{$t(`models.request.priority.${$constants.service_requests.priority[data.priority]}`)}}
+                            {{$t(`models.request.priority.${$constants.serviceRequests.priority[data.priority]}`)}}
                         </div>
                     </div>
                     <div class="item" v-if="this.data.category.parent_id == 1 && this.data.qualification != 1" >
                         Qualification:
                         <div class="label">
-                            {{$t(`models.request.qualification.${$constants.service_requests.qualification[data.qualification]}`)}}
+                            {{$t(`models.request.qualification.${$constants.serviceRequests.qualification[data.qualification]}`)}}
                         </div>
                     </div>
                 </div>
@@ -57,12 +57,12 @@
                     <ui-avatar :name="data.tenant.user.name" :size="32" :src="data.tenant.user.avatar" />
                     <div class="content">
                         {{data.tenant.user.name}}
-                        <!-- <small>
-                            created on {{formatDatetime(data.created_at)}}
-                            <template v-if="$constants.service_requests.status[data.status] === 'done'"> -->
+                        <small>
+                            {{formatDatetime(data.created_by)}}
+                            <!-- <template v-if="$constants.serviceRequests.status[data.status] === 'done'"> -->
                                 <!-- and solved on {{formatDatetime(data.solved_date)}} -->
                             <!-- </template> -->
-                        <!-- </small> -->
+                        </small>
                     </div>
                 </div>
                 <slot name="tab-overview-after" />
@@ -73,14 +73,14 @@
                     Media
                 </div>
                 <slot name="tab-media-before" />
-                <ui-media-gallery :files="data.media.slice(0, 3).map(({url}) => url)"/>
-                    <!-- <div slot="after" key="view-all" class="ui-media-gallery__item" @click="$emit('more-media')" v-if="data.media.length">
+                <ui-media-gallery :files="data.media.slice(0, 3).map(({url}) => url)">
+                    <div slot="after" key="view-all" class="ui-media-gallery__item" @click="$emit('more-media')" v-if="data.media.length">
                         <div class="ui-media-gallery__item__content">
                             <i class="icon-picture"></i>
                             View all
                         </div>
-                    </div> -->
-                
+                    </div>
+                </ui-media-gallery>
                 <!-- <gallery-list :media="data.media" :cols="4" /> -->
                 <slot name="tab-media-after" />
             </el-tab-pane>
@@ -163,12 +163,6 @@
                 this.$emit('tab-click')
             }
         },
-        mounted () {
-            console.log('Request Card', this.data);
-            console.log('tenant media1', this.data.media);
-            console.log('tenant media2', this.data.media.slice(0, 3).map(({url}) => url));
-            
-        }
     }
 </script>
 

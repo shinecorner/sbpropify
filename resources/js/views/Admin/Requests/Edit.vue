@@ -114,7 +114,7 @@
                                                 :key="k"
                                                 :label="$t(`models.request.qualification.${qualification}`)"
                                                 :value="parseInt(k)"
-                                                v-for="(qualification, k) in constants.service_requests.qualification">
+                                                v-for="(qualification, k) in constants.serviceRequests.qualification">
                                             </el-option>
                                         </el-select>
                                     </el-form-item>
@@ -189,7 +189,7 @@
                             <el-row :gutter="20" class="summary-row">
                                 <el-col :md="8" class="summary-item">
                                     <el-form-item :label="$t('models.request.priority.label')">
-                                        <strong>{{$constants.service_requests.priority[model.priority]}}</strong>
+                                        <strong>{{$constants.serviceRequests.priority[model.priority]}}</strong>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="8" class="summary-item">
@@ -307,7 +307,7 @@
                                                     :key="k"
                                                     :label="$t(`models.request.status.${status}`)"
                                                     :value="parseInt(k)"
-                                                    v-for="(status, k) in constants.service_requests.status">
+                                                    v-for="(status, k) in constants.serviceRequests.status">
                                                 </el-option>
                                             </el-select>
                                         </el-form-item>
@@ -336,7 +336,7 @@
                                                     :key="k"
                                                     :label="$t(`models.request.internal_priority.${priority}`)"
                                                     :value="parseInt(k)"
-                                                    v-for="(priority, k) in $constants.service_requests.internal_priority">
+                                                    v-for="(priority, k) in $constants.serviceRequests.internal_priority">
                                                 </el-option>
                                             </el-select>
                                         </el-form-item>
@@ -527,7 +527,7 @@
                 return this.$t(`models.request.userType.${type}`);
             },
             isDisabled(status) {
-                return _.indexOf(this.constants.service_requests.statusByAgent[this.model.status], parseInt(status)) < 0
+                return _.indexOf(this.constants.serviceRequests.statusByAgent[this.model.status], parseInt(status)) < 0
             },
             notifyUnassignment(provider) {
                 this.$confirm(this.$t(`general.swal.confirmChange.title`), this.$t('general.swal.confirmChange.warning'), {

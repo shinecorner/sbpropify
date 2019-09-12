@@ -2,7 +2,7 @@
     <div class="ui-media-gallery">
         <!-- <slot name="before" /> -->
         <div class="ui-media-gallery__item" v-for="(file, index) in files" :key="file">
-        asda
+        
             <div class="ui-media-gallery__item__content">
                 <template v-if="isFileImage(file)">
                     <ui-image ref="ui-image" :src="file" :src-list="files">
@@ -17,7 +17,7 @@
                 </template>
             </div>
         </div>
-        <div class="ui-media-gallery__placeholder" v-if="!files.length">
+        <div class="ui-media-gallery__placeholder" v-if="!files.length && usePlaceholder">
             <img class="ui-media-gallery__placeholder__image" :src="require('img/5c98a90bb5c05.png')" />
             <div class="ui-media-gallery__placeholder__title">
                 There are no media files available.
@@ -26,7 +26,7 @@
                 All of them will be listed here in columns and can be seen in fullsize by hovering on any of them.
             </div>
         </div>
-        <!-- <slot name="after" /> -->
+        <slot name="after" />
     </div>
 </template>
 
@@ -37,6 +37,10 @@
             files: {
                 type: Array,
                 default: () => ([])
+            },
+            usePlaceholder: {
+                type: Boolean,
+                default: true
             }
         },
         methods: {
@@ -50,9 +54,6 @@
                 this.$refs['ui-image'][index].openViewer()
             }
         },
-        mounted () {
-            
-        }
     }
 </script>
 

@@ -1,4 +1,4 @@
-<template functional>
+<template >
     <ui-card shadow="always">
         <template #header>
             <i class="icon-group"></i> My neighbours
