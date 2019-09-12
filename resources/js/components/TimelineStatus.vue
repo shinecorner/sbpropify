@@ -33,7 +33,7 @@ export default {
     },
     methods: {
         setStatus(id){
-            return this.constants.service_requests.status[id];
+            return this.constants.serviceRequests.status[id];
         }
     }
 }
