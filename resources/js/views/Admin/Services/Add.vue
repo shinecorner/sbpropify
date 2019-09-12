@@ -17,7 +17,7 @@
                                                 :key="category"
                                                 :label="$t(`models.service.${category}`)"
                                                 :value="category"
-                                                v-for="category in serviceCategories">
+                                                v-for="category in $constants.serviceProviders.category">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
