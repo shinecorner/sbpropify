@@ -44,12 +44,14 @@
 </template>
 
 <script>
+import Heading from 'components/Heading'
     import Loader from './Loader'
     import {mapGetters} from 'vuex'
 
     export default {
         components: {
-            Loader
+            Loader,
+            Heading
         },
         props: {
             limit: {

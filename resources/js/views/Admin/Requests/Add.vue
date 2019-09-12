@@ -87,7 +87,7 @@
                                         :key="k"
                                         :label="$t(`models.request.qualification.${qualification}`)"
                                         :value="parseInt(k)"
-                                        v-for="(qualification, k) in $constants.service_requests.qualification">
+                                        v-for="(qualification, k) in $constants.serviceRequests.qualification">
                                     </el-option>
                                 </el-select>
                             </el-form-item>
@@ -122,7 +122,7 @@
                                         :key="k"
                                         :label="$t(`models.request.priority.${priority}`)"
                                         :value="parseInt(k)"
-                                        v-for="(priority, k) in $constants.service_requests.priority">
+                                        v-for="(priority, k) in $constants.serviceRequests.priority">
                                     </el-option>
                                 </el-select>
                             </el-form-item>
@@ -136,7 +136,7 @@
                                         :key="k"
                                         :label="$t(`models.request.status.${status}`)"
                                         :value="parseInt(k)"
-                                        v-for="(status, k) in $constants.service_requests.status">
+                                        v-for="(status, k) in $constants.serviceRequests.status">
                                     </el-option>
                                 </el-select>
                             </el-form-item>

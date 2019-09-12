@@ -7,9 +7,9 @@
                 <img :src="tenant_logo_src" v-show="tenant_logo_src"/>
             </div>
             <div class="item spacer"></div>
-            <div class="item">
+            <!-- <div class="item">
                 <quick-links :data="quickLinks" />
-            </div>
+            </div> -->
             <div class="item">
                 <locale-switcher />
             </div>
@@ -108,113 +108,15 @@
                     route: {
                         name: 'tenantMarketplace'
                     }
-                }]
-            }
-        },
-        computed: {
-            tenant_logo() {
-                console.log('called1', this.$constants.logo.tenant_logo);
-                if(localStorage.getItem('tenant_logo_src') != this.$constants.logo.tenant_logo ) {
-                    console.log('called');
-                    localStorage.setItem('tenant_logo_src', this.$constants.logo.tenant_logo);
-                }
-
-                return localStorage.getItem('tenant_logo_src') ? `/${localStorage.getItem('tenant_logo_src')}` : '';
-
-
-            },
-        },
-        methods: {
-            test () {
-                this.$refs.sidebar.$forceUpdate()
-            },
-            onEnterTransition(el, done) {
-                this.$anime({
-                    targets: el,
-                    scale: [.92, 1],
-                    duration: 480,
-                    translateX: ['100%', 0],
-                    translateZ: 0,
-                    easing: 'easeInOutCirc',
-                    begin: () => this.$refs.container.style.overflow = 'hidden',
-                    complete: () => {
-                        this.$refs.container.style.overflow = ''
-
-                        done()
-                    }
-                })
-            },
-            onLeaveTransition(el, done) {
-                this.$anime({
-                    targets: el,
-                    opacity: [1, 0],
-                    translateX: [0, '-100%'],
-                    translateZ: 0,
-                    duration: 720,
-                    easing: 'easeInOutCirc',
-                    complete: done
-                })
-            },
-            logout () {
-                let router = this.$route;
-                console.log('tenant route', this.$router);
-                this.$confirm('Logout', 'Are you sure?', {
-                    type: 'warning',
-                    roundButton: true
-                }).then(async () => {
-                    await this.$store.dispatch('logout')
-
-                    this.$router.push({name: 'login'})
-                })
-            },
-            toggleDrawer () {
-                this.visibleDrawer = !this.visibleDrawer
-            },
-            openNotificationsDrawer () {
-                if (!this.visibleDrawer || this.drawerTabsModel === 'notifications') {
-                    this.toggleDrawer()
-                }
-
-                this.drawerTabsModel = 'notifications'
-            },
-            openSettingsDrawer () {
-                if (!this.visibleDrawer || this.drawerTabsModel === 'settings') {
-                    this.toggleDrawer()
-                }
-
-                this.drawerTabsModel = 'settings'
-            }
-        },
-        computed: {
-            ...mapGetters('notifications', {
-                unreadNotifications: 'unread'
-            }),
-
-            breakpoints () {
-                return {
-                    md: el => {
-                        if (el.width <= 828) {
-                            if (this.sidebarDirection === 'vertical') {
-                                this.sidebarDirection = 'horizontal'
-                            }
-
-                            return true
-                        } else {
-                            if (this.sidebarDirection === 'horizontal') {
-                                this.sidebarDirection = 'vertical'
-                            }
-                        }
-                    }
-                }
-            },
-            routes () {
-                return [{
+                }],
+                routes: [{
                     icon: 'icon-th',
                     title: this.$t('layouts.tenant.sidebar.dashboard'),
                     route: {
                         name: 'tenantDashboard'
                     }
-                }, {
+                }, 
+                {
                     icon: 'icon-vcard',
                     title: this.$t('layouts.tenant.sidebar.myTenancy'),
                     children: [{
@@ -279,7 +181,7 @@
                     title: 'Cleanify',
                     route: {
                         name: 'cleanifyRequest'
-                    }
+                    },
                 }, {
                     icon: 'icon-cog',
                     title: this.$t('layouts.tenant.sidebar.settings'),
@@ -290,6 +192,99 @@
                 }]
             }
         },
+        computed: {
+            tenant_logo() {
+                if(localStorage.getItem('tenant_logo_src') != this.$constants.logo.tenant_logo ) {
+                    localStorage.setItem('tenant_logo_src', this.$constants.logo.tenant_logo);
+                }
+
+                return localStorage.getItem('tenant_logo_src') ? `/${localStorage.getItem('tenant_logo_src')}` : '';
+            },
+        },
+        methods: {
+            test () {
+                this.$refs.sidebar.$forceUpdate()
+            },
+            onEnterTransition(el, done) {
+                this.$anime({
+                    targets: el,
+                    scale: [.92, 1],
+                    duration: 480,
+                    translateX: ['100%', 0],
+                    translateZ: 0,
+                    easing: 'easeInOutCirc',
+                    begin: () => this.$refs.container.style.overflow = 'hidden',
+                    complete: () => {
+                        this.$refs.container.style.overflow = ''
+
+                        done()
+                    }
+                })
+            },
+            onLeaveTransition(el, done) {
+                this.$anime({
+                    targets: el,
+                    opacity: [1, 0],
+                    translateX: [0, '-100%'],
+                    translateZ: 0,
+                    duration: 720,
+                    easing: 'easeInOutCirc',
+                    complete: done
+                })
+            },
+            logout () {
+                let router = this.$route;
+                
+                this.$confirm('Logout', 'Are you sure?', {
+                    type: 'warning',
+                    roundButton: true
+                }).then(async () => {
+                    await this.$store.dispatch('logout')
+
+                    this.$router.push({name: 'login'})
+                })
+            },
+            toggleDrawer () {
+                this.visibleDrawer = !this.visibleDrawer
+            },
+            openNotificationsDrawer () {
+                if (!this.visibleDrawer || this.drawerTabsModel === 'notifications') {
+                    this.toggleDrawer()
+                }
+
+                this.drawerTabsModel = 'notifications'
+            },
+            openSettingsDrawer () {
+                if (!this.visibleDrawer || this.drawerTabsModel === 'settings') {
+                    this.toggleDrawer()
+                }
+
+                this.drawerTabsModel = 'settings'
+            }
+        },
+        computed: {
+            ...mapGetters('notifications', {
+                unreadNotifications: 'unread'
+            }),
+
+            breakpoints () {
+                return {
+                    md: el => {
+                        if (el.width <= 828) {
+                            if (this.sidebarDirection === 'vertical') {
+                                this.sidebarDirection = 'horizontal'
+                            }
+
+                            return true
+                        } else {
+                            if (this.sidebarDirection === 'horizontal') {
+                                this.sidebarDirection = 'vertical'
+                            }
+                        }
+                    }
+                }
+            },
+        },
         beforeCreate() {
             document.getElementById('viewport').setAttribute('content', 'width=device-width, initial-scale=1.0')
         },
@@ -298,12 +293,19 @@
         },
         async mounted () {
             this.loading = true
-            this.tenant_logo_src = this.$constants.logo.tenant_logo;
+            this.tenant_logo_src = "/" + this.$constants.logo.tenant_logo;
             await this.$store.dispatch('getRealEstate').then((resp) => {
-                    //this.tenant_logo_src = resp.data.tenant_logo
+                this.realEstate = resp.data;
+                    if( resp.data.cleanify_enable == false )
+                    {
+                        this.routes = this.routes.filter((item) => { 
+                            if(item.route && item.route.name == "cleanifyRequest")
+                                return false;
+                            return true;
+                        });
+                    }
                 }).catch((error) => {
-                    
-                });
+            });
 
             this.loading = false
         }

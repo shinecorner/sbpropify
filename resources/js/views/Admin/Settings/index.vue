@@ -629,7 +629,6 @@
             saveRealEstate(form) {
                 this.$refs[form].validate((valid) => {
                     if (valid) {
-                        console.log(valid);
                         this.updateRealEstate(this.model).then((resp) => {
                             this.fetchRealEstate();
                             displaySuccess(resp);

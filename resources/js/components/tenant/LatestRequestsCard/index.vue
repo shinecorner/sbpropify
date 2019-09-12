@@ -2,7 +2,7 @@
     <ui-card shadow="always">
         <template #header>
             <i class="icon-chat-empty"></i> Latest public requests
-            <el-button type="text" @click="$router.push({name: 'tenantPosts'})">View all</el-button>
+            <el-button type="text" @click="$router.push({name: 'tenantRequests'})">View all</el-button>
         </template>
         <loader v-if="loading" />
         <div class="placeholder" v-else-if="!loading && !requests.length">

@@ -212,7 +212,7 @@
 
                 let constant_variables = {}
                 switch (auditable_type) {
-                    case 'request': constant_variables = this.$constants.service_requests
+                    case 'request': constant_variables = this.$constants.serviceRequests
                     break;
                     case 'post': constant_variables = this.$constants.posts;
                     break;
