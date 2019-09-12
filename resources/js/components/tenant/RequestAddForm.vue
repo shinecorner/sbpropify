@@ -83,12 +83,16 @@
 
                             const {media, ...params} = this.model
 
-                            const data = await this.$store.dispatch('createRequest', params)
+                            //const data = await this.$store.dispatch('createRequest', params)
 
                             
-                            displaySuccess(data)
+                            
 
-                            const {data: {id}} = data
+                            const resp = await this.$store.dispatch('newRequests/create', params);
+                            
+                            displaySuccess(resp.message)
+
+                            const {id} = resp.data
 
                             if (media.length) {
                                 const queue = new PQueue({concurrency: 1})

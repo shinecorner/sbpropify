@@ -257,6 +257,7 @@ class ServiceRequestAPIController extends AppBaseController
     {
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+       
         if (empty($serviceRequest)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
