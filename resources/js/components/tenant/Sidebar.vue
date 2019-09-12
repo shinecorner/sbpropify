@@ -19,7 +19,7 @@
         <div ref="submenu" class="submenu" :style="{'width': `${submenu.width}px`}">
             <div :class="['item', {'active': item.active}]" v-for="item in submenu.items" :key="item.title" @click.stop="handleRoute($event, item)">
                 <router-link 
-                    :to="{name: item.route.name}" v-if="!item.children">
+                    :to="{name: item.route.name}" >
                 <i :class="['icon', item.icon]"></i>
                 <div class="title">{{item.title}}</div>
                 {{item.visible}}
@@ -76,7 +76,7 @@
                 localStorage.setItem('sidebar:visibility', this.visible)
             },
             handleRoute (e, item) {
-                return;
+                
                 let i, items
 
                 if (item.key.includes('.')) {
