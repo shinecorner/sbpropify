@@ -22,7 +22,11 @@
                         </el-form-item>
                         <el-form-item :label="$t('models.template.body')" :prop="`translations.${language}.body`"
                                       :rules="validationRules.body">
-                            <yimo-vue-editor v-model="model.translations[language].body"></yimo-vue-editor>
+                            <vue-editor
+                                          ref="editor"
+                                          v-model="model.translations[language].body"
+                            >
+                            </vue-editor>
                         </el-form-item>
                     </card>
                 </el-col>
@@ -66,8 +70,12 @@
     import EditActions from 'components/EditViewActions';
     import SelectLanguage from 'components/SelectLanguage';
     import TemplatesMixin from 'mixins/adminTemplatesMixin';
-    import YimoVueEditor from 'yimo-vue-editor';
 
+    let VueEditor, Quill;
+    if (process.browser) {
+        VueEditor = require("vue2-editor").VueEditor;
+        Quill = require("vue2-editor").Quill;
+    }
 
     export default {
         mixins: [TemplatesMixin({
@@ -77,12 +85,8 @@
             Heading,
             Card,
             EditActions,
-            YimoVueEditor,
+            VueEditor,
             SelectLanguage
-        },
-        data() {
-            return {
-            }
         },
     }
 </script>

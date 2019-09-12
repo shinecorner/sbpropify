@@ -9426,7 +9426,7 @@
                 },
                 "acquisition": {
                     "description": "acquisition",
-                    "type": "boolean"
+                    "type": "integer"
                 },
                 "description": {
                     "description": "description",
@@ -9682,6 +9682,103 @@
                 },
                 "rent_end": {
                     "description": "rent_end",
+                    "type": "string",
+                    "format": "date"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "TenantRentContract": {
+            "required": [
+                "first_name",
+                "birthdate"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "tenant_id": {
+                    "description": "tenant_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "building_id": {
+                    "description": "building_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "unit_id": {
+                    "description": "unit_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "type": {
+                    "description": "type",
+                    "type": "integer"
+                },
+                "duration": {
+                    "description": "duration",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "status",
+                    "type": "integer"
+                },
+                "tenant_rent_contract_formats": {
+                    "description": "tenant_rent_contract_formats",
+                    "type": "integer"
+                },
+                "deposit_type": {
+                    "description": "deposit_type",
+                    "type": "integer"
+                },
+                "deposit_status": {
+                    "description": "deposit_status",
+                    "type": "integer"
+                },
+                "deposit_amount": {
+                    "description": "deposit_amount",
+                    "type": "integer"
+                },
+                "net_rent": {
+                    "description": "net_rent",
+                    "type": "integer"
+                },
+                "operating_cost": {
+                    "description": "operating_cost",
+                    "type": "integer"
+                },
+                "gross_rent": {
+                    "description": "gross_rent",
+                    "type": "integer"
+                },
+                "parking_price": {
+                    "description": "parking_price",
+                    "type": "integer"
+                },
+                "start_date": {
+                    "description": "start_date",
+                    "type": "string",
+                    "format": "date"
+                },
+                "end_date": {
+                    "description": "end_date",
+                    "type": "string",
+                    "format": "date"
+                },
+                "pdf": {
+                    "description": "end_date",
                     "type": "string",
                     "format": "date"
                 },

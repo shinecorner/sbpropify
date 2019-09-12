@@ -19,11 +19,12 @@ use App\Repositories\BuildingRepository;
 use App\Repositories\PostRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ServiceRequestRepository;
+use App\Repositories\TenantRentContractRepository;
 use App\Repositories\TenantRepository;
 use App\Transformers\MediaTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class MediaController
@@ -46,6 +47,11 @@ class MediaAPIController extends AppBaseController
     /** @var  TenantRepository */
     private $tenantRepository;
 
+    /**
+     * @var TenantRentContractRepository
+     */
+    private $tenantRentContractRepository;
+
     /** @var  ServiceRequestRepository */
     private $serviceRequestRepository;
 
@@ -64,6 +70,7 @@ class MediaAPIController extends AppBaseController
         PostRepository $postRepo,
         ProductRepository $productRepo,
         TenantRepository $tenantRepo,
+        TenantRentContractRepository $tenantRentContractRepository,
         ServiceRequestRepository $serviceRequestRepo
     )
     {
@@ -73,6 +80,7 @@ class MediaAPIController extends AppBaseController
         $this->productRepository = $productRepo;
         $this->tenantRepository = $tenantRepo;
         $this->serviceRequestRepository = $serviceRequestRepo;
+        $this->tenantRentContractRepository = $tenantRentContractRepository;
     }
 
     /**
@@ -379,6 +387,18 @@ class MediaAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
+        //@TODO tmp solution
+        $tenant->load('tenant_rent_contracts');
+        $tenantRentContract = $tenant->tenant_rent_contracts->first();
+        if (empty($tenantRentContract)) {
+            return $this->sendError(__('models.tenant_rent_contracts.errors.not_found'));
+        }
+
+        $data = $request->get('media', '');
+        if (!$media = $this->tenantRentContractRepository->uploadFile('media', $data, $tenantRentContract)) {
+            return $this->sendError(__('general.upload_error'));
+        }
+
         $data = $request->get('media', '');
         if (!$media = $this->tenantRepository->uploadFile('media', $data, $tenant)) {
             return $this->sendError(__('general.upload_error'));
@@ -387,6 +407,7 @@ class MediaAPIController extends AppBaseController
         $response = (new MediaTransformer)->transform($media);
         return $this->sendResponse($response, __('general.swal.media.added'));
     }
+
 
     /**
      * @param int $id

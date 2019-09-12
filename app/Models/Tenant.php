@@ -293,6 +293,14 @@ class Tenant extends AuditableModel implements HasMedia
     }
 
     /**
+     * @return HasMany
+     */
+    public function tenant_rent_contracts()
+    {
+        return $this->hasMany(TenantRentContract::class);
+    }
+
+    /**
      * @param $tenant_id
      * @param $language
      */
