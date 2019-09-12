@@ -307,7 +307,7 @@ class TenantAPIController extends AppBaseController
             }
         }
 
-        $tenant->load(['user', 'tenant_rent_contracts' => function ($q) {
+        $tenant->load(['user', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
             $q->with('building.address', 'unit', 'media');
         }]);
         $pr->newTenantPost($tenant);
@@ -366,7 +366,7 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
-        $tenant->load(['user', 'tenant_rent_contracts' => function ($q) {
+        $tenant->load(['user', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
             $q->with('building.address', 'unit', 'media');
         }]);
         $response = (new TenantTransformer)->transform($tenant);
@@ -415,7 +415,7 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
-        $user->tenant->load(['user', 'tenant_rent_contracts' => function ($q) {
+        $user->tenant->load(['user', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
             $q->with('building.address', 'unit', 'media');
         }]);
         $response = (new TenantTransformer)->transform($user->tenant);

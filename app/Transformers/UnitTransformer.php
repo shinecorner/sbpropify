@@ -40,10 +40,12 @@ class UnitTransformer extends BaseTransformer
             'tenants' => [],
         ];
 
+        // @TODO use $model->relationExists('building')
         if ($model->building) {
             $response['building'] = (new BuildingSimpleTransformer)->transform($model->building);
         }
 
+        // @TODO use $model->relationExists('address')
         if ($model->address) {
             $response['address'] = (new AddressTransformer)->transform($model->address);
         }
@@ -56,6 +58,7 @@ class UnitTransformer extends BaseTransformer
             $response['tenant'] = (new TenantTransformer)->transform($model->tenant);
         }
 
+        // @TODO use $model->relationExists('tenants')
         foreach ($model->tenants as $tenant) {
             $response['tenants'][] = (new TenantTransformer)->transform($tenant);
         }

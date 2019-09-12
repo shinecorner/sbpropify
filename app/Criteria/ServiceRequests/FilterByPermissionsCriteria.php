@@ -38,21 +38,25 @@ class FilterByPermissionsCriteria implements CriteriaInterface
     public function apply($model, RepositoryInterface $repository)
     {
         $u = $this->request->user();
-        $qs = [
-            '(service_requests.visibility = ? and service_requests.tenant_id = ?)',
-            '(service_requests.visibility = ? and units.building_id = ?)',
-            '(service_requests.visibility = ? and buildings.quarter_id = ?)',
-        ];
 
         if ($u->hasRole('registered') && $u->tenant) {
+
+            $qs = [
+                '(service_requests.visibility = ? and service_requests.tenant_id = ?)',
+                '(service_requests.visibility = ? and buildings.quarter_id = ?)',
+            ];
             $model->select('service_requests.*')
                 ->join('units', 'units.id', '=', 'service_requests.unit_id')
                 ->join('buildings', 'units.building_id', '=', 'buildings.id');
             $vs = [
                 ServiceRequest::VisibilityTenant, $u->tenant->id,
                 ServiceRequest::VisibilityBuilding, $u->tenant->building_id,
-                ServiceRequest::VisibilityQuarter, $u->tenant->building->quarter_id, // @TODO check maybe throw exception
             ];
+            if ($u->tenant->building) {
+                $vs[] = ServiceRequest::VisibilityQuarter;
+                $vs[] = $u->tenant->building->quarter_id;
+                $qs[] = '(service_requests.visibility = ? and units.building_id = ?)';
+            }
             return $model->whereRaw('(' . implode(' or ', $qs) . ')', $vs);
         }
 

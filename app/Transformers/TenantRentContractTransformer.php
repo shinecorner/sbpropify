@@ -48,7 +48,7 @@ class TenantRentContractTransformer extends BaseTransformer
         }
 
         if ($model->relationExists('tenant')) {
-            $response['tenant'] = (new TenantTransformer())->transform($model->unit);
+            $response['tenant'] = (new TenantTransformer())->transform($model->tenant);
         }
 
         if ($model->relationExists('building')) {
@@ -56,6 +56,7 @@ class TenantRentContractTransformer extends BaseTransformer
 
             if ($model->building->relationExists('address')) {
                 $response['address'] = (new AddressTransformer)->transform($model->building->address);
+                unset($response['building']['address']);
             }
         }
 
