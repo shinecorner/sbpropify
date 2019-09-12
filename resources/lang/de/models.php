@@ -299,7 +299,12 @@ return [
 				[
 					'label' => 'Typ',
 					'apartment' => 'Wohnung',
-					'business' => 'Gewerbe',
+					'business' => 'Gewerbefläche',
+					'hobby_room' => 'Hobbyraum',
+                    'storeroom' => 'Abstellraum',
+                    'underground_parking_space' => 'Tiefgaragenplatz',
+                    'outdoor_parking' => 'Aussenparkplatz',
+                    'motorbike_pitch' => 'Motorradplatz'
 				],
 			'validation' =>
 				[

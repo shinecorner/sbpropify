@@ -162,7 +162,7 @@
 
                 this.$emit('tab-click')
             }
-        },
+        }
     }
 </script>
 

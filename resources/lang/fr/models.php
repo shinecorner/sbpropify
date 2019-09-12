@@ -299,7 +299,12 @@ return [
       [
         "label" => "Type",
         "apartment" => "Appartement",
-        "business" => "Les affaires",
+        "business" => "Espace commercial",
+        'hobby_room' => 'Pièce de loisirs',
+        'storeroom' => 'Local de stockage',
+        'underground_parking_space' => 'Place de parking souterrain',
+        'outdoor_parking' => 'Parking extérieur',
+        'motorbike_pitch' => 'Emplacement moto'
       ],
       'validation' => 
       [
