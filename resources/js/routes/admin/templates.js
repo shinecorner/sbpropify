@@ -24,7 +24,7 @@ export default [{
             title: 'Edit template'
         },
         meta: {
-            title: 'Edit Building'
+            title: 'Edit template'
         }
     }]
 }]
