@@ -30,6 +30,7 @@ export default {
             newData.data.unshift(data.data)
 
             commit('set', newData)
+            return data;
         },
         async update ({commit}, {id, ...params}) {
             const {data} = await this._vm.axios.put(`requests/${id}`, params, {showMessage: true})

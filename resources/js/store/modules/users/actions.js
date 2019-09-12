@@ -98,6 +98,7 @@ export default {
             axios.get('auth/logout').then(({status}) => {
                 if (status === 200) {
                     localStorage.removeItem('token');
+                    console.log('logout called');
                     //commit('SET_LOGGED_IN', false);
                     //commit('SET_LOGGED_IN_USER', {});
                 }
