@@ -279,17 +279,17 @@ class TenantAPIController extends AppBaseController
         $rentData = [];
         if (isset($input['rent_start'])) {
             $rentData['start_date'] = $input['rent_start'];
-            unset($input['rent_start']);
+          //  unset($input['rent_start']);
         }
 
         if (isset($input['building_id'])) {
             $rentData['building_id'] = $input['building_id'];
-            unset($input['building_id']);
+           // unset($input['building_id']);
         }
 
         if (isset($input['unit_id'])) {
             $rentData['unit_id'] = $input['unit_id'];
-            unset($input['unit_id']);
+          //  unset($input['unit_id']);
         }
         try {
             $tenant = $this->tenantRepository->create($input);

@@ -32,7 +32,7 @@ class MoveTenantUploadedFilesToTenantRentContract extends Migration
                 }
 
                 if (\Illuminate\Support\Facades\Storage::disk('local')->exists('public\tenants\media\\' . $media->id)) {
-                    \Illuminate\Support\Facades\Storage::disk('local')->move('public\tenants\media\\' . $media->id, 'public\tenant-rent-contracts\media\\' . $media->id);
+                    \Illuminate\Support\Facades\Storage::disk('local')->copy('public\tenants\media\\' . $media->id, 'public\tenant-rent-contracts\media\\' . $media->id);
                 }
 
                 $media->update([

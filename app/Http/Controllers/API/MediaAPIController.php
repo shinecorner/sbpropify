@@ -399,6 +399,11 @@ class MediaAPIController extends AppBaseController
             return $this->sendError(__('general.upload_error'));
         }
 
+        $data = $request->get('media', '');
+        if (!$media = $this->tenantRepository->uploadFile('media', $data, $tenant)) {
+            return $this->sendError(__('general.upload_error'));
+        }
+
         $response = (new MediaTransformer)->transform($media);
         return $this->sendResponse($response, __('general.swal.media.added'));
     }
