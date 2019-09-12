@@ -1357,7 +1357,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $serviceRequest->load([
-            'media', 'tenant.user', 'general.building', 'category',
+            'media', 'tenant.user', 'tenant.building', 'category',
         ]);
 
         $templates = $tempRepo->getParsedCommunicationTemplates($serviceRequest, Auth::user());
@@ -1417,7 +1417,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $serviceRequest->load([
-            'media', 'tenant.user', 'general.building', 'category',
+            'media', 'tenant.user', 'tenant.building', 'category',
         ]);
 
         $templates = $tempRepo->getParsedServiceCommunicationTemplates($serviceRequest, Auth::user());
@@ -1477,7 +1477,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $serviceRequest->load([
-            'media', 'tenant.user', 'general.building', 'category',
+            'media', 'tenant.user', 'tenant.building', 'category',
         ]);
 
         $templates = $tempRepo->getParsedServiceEmailTemplates($serviceRequest, Auth::user());
