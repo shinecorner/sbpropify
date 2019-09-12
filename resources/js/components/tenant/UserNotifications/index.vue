@@ -73,7 +73,6 @@
                 page++
 
                 this.loading.notifications = true
-                console.log('getNotifications');
                 await this.$store.dispatch('notifications/get', {
                     page,
                     per_page: 50,
