@@ -7,9 +7,9 @@
                 <img :src="tenant_logo_src" v-show="tenant_logo_src"/>
             </div>
             <div class="item spacer"></div>
-            <div class="item">
+            <!-- <div class="item">
                 <quick-links :data="quickLinks" />
-            </div>
+            </div> -->
             <div class="item">
                 <locale-switcher />
             </div>
