@@ -2,16 +2,28 @@
     <div :class="['sidebar', {'hidden': !visible, [`${direction}-direction`]: true, 'with-toggler': showToggler}]">
         <div :class="['toggler', direction === 'vertical' && {'icon-left': visible, 'icon-right': !visible}, direction === 'horizontal' && {'icon-down': visible, 'icon-up': !visible}]" v-if="showToggler && !submenu.visible" @click="handleVisibility"></div>
         <div ref="menu" class="menu">
+            
             <div :class="['item', {'active': item.active}]" v-for="item in items" :key="item.title" :style="item.style" @mouseover="onMouseOver" @click.stop="handleRoute($event, item)">
+                <router-link 
+                    :to="{name: item.route.name}" v-if="!item.children">
+                    <i :class="['icon', item.icon]"></i>
+                    <div class="title">{{item.title}}</div>
+                </router-link>
+                <template v-else>
                 <i :class="['icon', item.icon]"></i>
                 <div class="title">{{item.title}}</div>
+                </template>
             </div>
+            
         </div>
         <div ref="submenu" class="submenu" :style="{'width': `${submenu.width}px`}">
             <div :class="['item', {'active': item.active}]" v-for="item in submenu.items" :key="item.title" @click.stop="handleRoute($event, item)">
+                <router-link 
+                    :to="{name: item.route.name}" v-if="!item.children">
                 <i :class="['icon', item.icon]"></i>
                 <div class="title">{{item.title}}</div>
                 {{item.visible}}
+                </router-link>
             </div>
         </div>
     </div>
@@ -64,6 +76,7 @@
                 localStorage.setItem('sidebar:visibility', this.visible)
             },
             handleRoute (e, item) {
+                return;
                 let i, items
 
                 if (item.key.includes('.')) {
@@ -419,6 +432,10 @@
 
                 .item {
                     padding-left: 32px;
+
+                    a {
+                        display: flex;
+                    }
                 }
             }
         }
@@ -509,6 +526,8 @@
                 width: 100%;
                 cursor: pointer;
                 box-sizing: border-box;
+                
+                
 
                 .title {
                     font-size: 14px;
@@ -526,6 +545,12 @@
 
                 &:hover {
                     background-color: var(--primary-color-lighter);
+                }
+
+                a {
+                    text-decoration: none;
+                    color:inherit;
+                    width: inherit;
                 }
             }
 

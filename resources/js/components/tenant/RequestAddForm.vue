@@ -30,8 +30,8 @@
         </el-form-item>
         <el-divider />
         <media-upload ref="upload" v-model="model.media" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="4" />
-        <el-form-item v-if="showSubmit">
-            <el-button class="submit" type="primary" @click="submit">Save</el-button>
+        <el-form-item class="submitBtnDiv" v-if="showSubmit" style="grid-column: span 6">
+            <el-button class="submit" type="primary" :disabled="loading" @click="submit">Save</el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -52,7 +52,7 @@
         props: {
             showSubmit: {
                 type: Boolean,
-                default: false
+                default: true
             }
         },
         components: {
@@ -152,8 +152,19 @@
                 margin-bottom: 0;
             }
         }
+
+        .submitBtnDiv {
+            position: absolute;
+            width: 100%;
+            bottom: 40px;
+
+            :global(.el-form-item__content) {
+                margin-right: 7%;
+            }
+        }
         .el-button.submit {
             margin-top: 1em;
+            width: 100%;
         }
     }
 </style>
