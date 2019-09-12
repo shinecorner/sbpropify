@@ -47,17 +47,20 @@ class TenantRentContractAPIController extends AppBaseController
      *      @SWG\Parameter(
      *          name="building_id",
      *          in="query",
+     *          type="integer",
      *          description="fuilter by building",
      *          required=false,
      *      ),
      *     @SWG\Parameter(
      *          name="tenant_id",
+     *          type="integer",
      *          in="query",
      *          description="fuilter by tenant",
      *          required=false,
      *      ),
      *     @SWG\Parameter(
      *          name="unit_id",
+     *          type="integer",
      *          in="query",
      *          description="fuilter by unit",
      *          required=false,
