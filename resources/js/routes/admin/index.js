@@ -52,7 +52,8 @@ export default [{
         component: Settings,
         meta: {
             permission: permissions.view.realEstate,
-            breadcrumb: 'Settings'
+            breadcrumb: 'Settings',
+            title: 'Settings'
         },
     },
         ...UsersRoutes,
