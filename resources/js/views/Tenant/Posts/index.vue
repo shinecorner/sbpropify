@@ -6,7 +6,7 @@
         <div class="content">
             <post-add-card />
             <el-divider content-position="left">
-                <el-button @click="$router.go()" size="small" icon="icon-refresh" plain round>Refresh</el-button>
+                <el-button @click="refreshPage" size="small" icon="icon-refresh" plain round>Refresh</el-button>
                 <el-popover popper-class="posts-filter" placement="bottom-end" trigger="click" :width="192">
                     <el-button size="small" slot="reference" icon="el-icon-sort" round>Filters</el-button>
                     <filters ref="filters" layout="row" :data="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
@@ -151,6 +151,10 @@
             resetFilters () {
                 this.$refs.filters.reset()
                 this.filterCategory = null;
+            },
+            refreshPage () {
+                this.getPosts();
+                this.resetFilters ()
             }
         },
         computed: {

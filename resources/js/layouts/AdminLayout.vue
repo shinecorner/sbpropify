@@ -39,7 +39,7 @@
                                         {{$t('menu.profile')}}
                                     </el-dropdown-item>
                                 </router-link>
-                                <router-link  v-if="this.user.roles[0].name == 'manager'" :to="{name: 'adminPropertyManagersEdit', params: {id: this.user.id}}" class="el-menu-item-link">
+                                <router-link  v-if="this.user.roles[0].name == 'manager'" :to="{name: 'adminPropertyManagersEdit', params: {id: this.user.property_manager_id}}" class="el-menu-item-link">
                                     <el-dropdown-item>
                                         <i class="icon-user"/>
                                         {{$t('menu.profile')}}
@@ -598,6 +598,7 @@
                 this.$confirm(this.$t('general.swal.logout_confirm'), this.$t('general.swal.delete.title'), {
                     type: 'warning'
                 }).then(() => {
+                    console.log('call this.logout');
                     this.logout()
                         .then(() => {
                             this.$router.push({name: 'login'});
