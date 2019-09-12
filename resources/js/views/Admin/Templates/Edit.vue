@@ -106,10 +106,11 @@
                                 [{ color: [] }, { background: [] }],
                                 ["link", "image", "video"],
                                 ["clean"],
-                                ["showHtml"]
+                                ["showSource"],
+                                // ["showHtml"]
                             ],
                             handlers: {
-                                showHtml: () => {
+                                showSource: () => {
                                     if (this.txtArea.style.display === "") {
                                         const html = this.txtArea.value;
                                         if (html === '<p><br/></p>') {
@@ -141,6 +142,7 @@
 
             this.quill.on("text-change", (delta, oldDelta, source) => {
                 var html = this.quill.getHTML();
+                // var html = this.quill.getText();
                 this.txtArea.value = html;
             });
             this.content = this.value;
@@ -227,8 +229,15 @@
         display: block !important;
     }
 
-    .ql-showHtml:after {
+    .ql-showSource:after {
         content: "[source]";
+    }
+    button.ql-showSource {
+        width: 100% !important;
+    }
+
+    .ql-showHtml:after {
+        content: "[paste HTML mode]";
     }
     button.ql-showHtml {
         width: 100% !important;
