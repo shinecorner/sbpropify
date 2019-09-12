@@ -120,7 +120,7 @@
                 displayError(err)
             }
 
-            this.priorities = Object.entries(this.$constants.service_requests.priority).map(([value, label]) => ({value: +value, label}));
+            this.priorities = Object.entries(this.$constants.serviceRequests.priority).map(([value, label]) => ({value: +value, label}));
         }
     };
 </script>
