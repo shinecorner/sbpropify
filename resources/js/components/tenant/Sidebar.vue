@@ -136,7 +136,7 @@
                     if (item.route) {
                         item.active = true
 
-                        this.$router.push(item.route)
+                        //this.$router.push(item.route)
                     }
                 }
             },

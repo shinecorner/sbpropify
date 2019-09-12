@@ -90,8 +90,6 @@
 
                             const resp = await this.$store.dispatch('newRequests/create', params);
                             
-                            console.log('data', resp.data);
-                            
                             displaySuccess(resp.message)
 
                             const {id} = resp.data
