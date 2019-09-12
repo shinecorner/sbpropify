@@ -110,7 +110,7 @@ class UtilsAPIController extends AppBaseController
         $response = [
             'app' => $app,
             'buildings' => [],
-            'units' => [],
+            'units' => self::getUnitConstants(),
             'tenants' => self::getTenantConstants(),
             'serviceProviders' => self::getServiceProviderConstants(),
             'serviceRequests' => self::getServiceRequestsConstants(),
@@ -137,6 +137,15 @@ class UtilsAPIController extends AppBaseController
         $result = [
             'title' => Tenant::Title,
             'status' => Tenant::Status,
+        ];
+
+        return $result;
+    }
+
+    private function getUnitConstants()
+    {
+        $result = [
+            'type' => App\Models\Unit::Type,
         ];
 
         return $result;

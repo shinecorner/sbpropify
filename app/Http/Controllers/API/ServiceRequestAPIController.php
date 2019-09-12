@@ -200,7 +200,17 @@ class ServiceRequestAPIController extends AppBaseController
         if (isset($input['due_date'])) {
             $this->serviceRequestRepository->notifyDue($serviceRequest);
         }
-
+        $serviceRequest->load([
+            'media',
+            'tenant.user',
+            'tenant.building.address',
+            'category',
+            'comments.user',
+            'providers.address:id,country_id,state_id,city,street,zip',
+            'providers.user',
+            'managers.user',
+            'users'
+        ]);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, __('models.request.saved'));
     }
