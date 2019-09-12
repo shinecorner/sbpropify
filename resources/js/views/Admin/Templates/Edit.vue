@@ -23,8 +23,6 @@
                         <el-form-item :label="$t('models.template.body')" :prop="`translations.${language}.body`"
                                       :rules="validationRules.body">
                             <vue-editor
-                                          :editor-options="toolbarOptions"
-                                          @text-change="updateValue"
                                           ref="editor"
                                           v-model="model.translations[language].body"
                             >
@@ -90,76 +88,6 @@
             VueEditor,
             SelectLanguage
         },
-        data() {
-            return {
-                toolbarOptions: {
-                    modules: {
-                        toolbar: {
-                            container: [
-                                [{ font: [] }],
-                                [{ header: [false, 1, 2, 3, 4, 5, 6] }],
-                                ["bold", "italic", "underline", "strike"],
-                                [{ align: [] }],
-                                ["blockquote", "code-block"],
-                                [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
-                                [{ indent: "-1" }, { indent: "+1" }],
-                                [{ color: [] }, { background: [] }],
-                                ["link", "image", "video"],
-                                ["clean"],
-                                ["showSource"],
-                                // ["showHtml"]
-                            ],
-                            handlers: {
-                                showSource: () => {
-                                    if (this.txtArea.style.display === "") {
-                                        const html = this.txtArea.value;
-                                        if (html === '<p><br/></p>') {
-                                            this.html = null;
-                                        } else {
-                                            this.html = html.replace(new RegExp('<p><br/>', 'g'), '<p>')
-                                        }
-                                        this.quill.pasteHTML(html);
-                                    }
-                                    this.txtArea.style.display =
-                                        this.txtArea.style.display === "none" ? "" : "none";
-                                }
-                            }
-                        }
-                    }
-                },
-                content: "",
-                rawContent: ""
-            }
-        },
-        mounted() {
-            this.quill = this.$refs.editor.quill;
-            this.txtArea = document.createElement("textarea");
-            this.txtArea.style.cssText =
-                "width: 100%;margin: 0px;background: rgb(29, 29, 29);box-sizing: border-box;color: rgb(204, 204, 204);font-size: 15px;outline: none;padding: 20px;line-height: 24px;font-family: Consolas, Menlo, Monaco, &quot;Courier New&quot;, monospace;position: absolute;top: 0;bottom: 0;border: none;display:none;resize: none;";
-
-            const htmlEditor = this.quill.addContainer("ql-custom");
-            htmlEditor.appendChild(this.txtArea);
-
-            this.quill.on("text-change", (delta, oldDelta, source) => {
-                var html = this.quill.getHTML();
-                // var html = this.quill.getText();
-                this.txtArea.value = html;
-            });
-            this.content = this.value;
-        },
-        watch: {
-            content() {
-                this.rawContent = this.content;
-            },
-            rawContent() {
-                this.content = this.rawContent;
-            }
-        },
-        methods: {
-            updateValue () {
-                this.$emit('input', this.$refs.editor.quill.getHTML())
-            }
-        }
     }
 </script>
 
