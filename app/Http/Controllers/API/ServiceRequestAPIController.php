@@ -247,12 +247,13 @@ class ServiceRequestAPIController extends AppBaseController
     {
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+       
         if (empty($serviceRequest)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $serviceRequest->load([
-            'media', 'tenant.user', 'general.building', 'category', 'managers', 'users',
+            'media', 'tenant.user', 'tenant.building', 'category', 'managers', 'users',
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers',
         ]);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);

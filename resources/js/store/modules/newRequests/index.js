@@ -27,8 +27,11 @@ export default {
             const {data} = await this._vm.axios.post('requests', params, {showMessage: true})
             const newData = state
 
+            console.log('old data', newData);
+
             newData.data.unshift(data.data)
 
+            console.log('new data', newData);
             commit('set', newData)
         },
         async update ({commit}, {id, ...params}) {
