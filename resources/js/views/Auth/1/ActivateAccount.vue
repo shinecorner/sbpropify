@@ -98,10 +98,9 @@
                 this.$refs.form.validate(async valid => {
                     if (valid) {
                         try {
-                            resp = await axios.post(`tenants/activateTenant?code=` + this.model.act_code +
-                                `&email=` + this.model.email + `&password=` + this.model.password);
-                            
-                            displaySuccess(rest);
+                            const resp = await axios.post(`tenants/activateTenant?code=` + this.model.act_code +
+                                `&email=` + this.model.email + `&password=` + this.model.password);                            
+                            displaySuccess(resp.data);
                         } catch (err) {
                             displayError(err);
                         }

@@ -1,5 +1,5 @@
 <template>
-    <div class="ui-images-carousel" :style="usePlaceholder && {'height': `${this.height}px`}">
+    <div class="ui-images-carousel" :style="{'height': `${this.height}px`}">
         <template v-if="images.length > 1">
             <div class="ui-images-carousel__btn ui-images-carousel__btn--prev icon-left" @click="prev"></div>
             <div class="ui-images-carousel__btn ui-images-carousel__btn--next icon-right" @click="next"></div>
@@ -8,7 +8,7 @@
             <div :class="['ui-images-carousel__item', {'ui-images-carousel__item--active': index === activeIndex}]" v-for="(src, index) in images" :key="index" :style="{'transform': `translate3d(${getPosition(index) * 100}%, 0, 0)`}">
                 <ui-image ref="ui-image" :src="src" :src-list="images" />
             </div>
-            <div class="ui-images-carousel__indicators">
+            <div class="ui-images-carousel__indicators" v-if="showIndicator">
                 <div :class="['ui-images-carousel__indicator', {'ui-images-carousel__indicator--active': index - 1 === activeIndex}]" v-for="index in images.length" :key="index" @click="activeIndex = index - 1"></div>
             </div>
             <!-- <div class="ui-images-carousel__actions">
@@ -32,6 +32,10 @@
                 default: 384
             },
             usePlaceholder: {
+                type: Boolean,
+                default: true
+            },
+            showIndicator: {
                 type: Boolean,
                 default: true
             }

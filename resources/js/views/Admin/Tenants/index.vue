@@ -212,7 +212,7 @@
                     return state.constants.tenants;
                 },
                 requestConstants(state) {
-                    return state.constants.service_requests;
+                    return state.constants.serviceRequests;
                 }
             }),
             filters() {

@@ -33,13 +33,19 @@
                         </span>
                         
                         <el-dropdown-menu slot="dropdown" :style="dropmenuwidth" @click.native="removeMenuActive">
-                                <router-link :to="{name: 'adminProfile'}" class="el-menu-item-link">
+                                <router-link  v-if="this.user.roles[0].name != 'manager'" :to="{name: 'adminProfile'}" class="el-menu-item-link">
                                     <el-dropdown-item>
                                         <i class="icon-user"/>
                                         {{$t('menu.profile')}}
                                     </el-dropdown-item>
                                 </router-link>
-                                <template v-if="$can($permissions.view.realEstate)">
+                                <router-link  v-if="this.user.roles[0].name == 'manager'" :to="{name: 'adminPropertyManagersEdit', params: {id: this.user.id}}" class="el-menu-item-link">
+                                    <el-dropdown-item>
+                                        <i class="icon-user"/>
+                                        {{$t('menu.profile')}}
+                                    </el-dropdown-item>
+                                </router-link>
+                                <template v-if="$can($permissions.view.realEstate) && this.user.roles[0].name != 'manager'">
                                     <router-link :to="{name: 'adminSettings'}" class="el-menu-item-link">
                                         <el-dropdown-item>
                                             <i class="icon-cog"/>
@@ -514,33 +520,6 @@
                             route: {
                                 name: 'adminProducts'
                             }
-                        }, {
-                            icon: 'icon-user',
-                            title: this.$t('menu.users'),
-                            permission: this.$permissions.list.user,
-                            route: {
-                                name: 'adminUsers',
-                                query: {
-                                    role: ['administrator', 'super_admin']
-                                }
-                            }
-                            // children: [{
-                            //     title: this.$t('menu.admins'),
-                            //     route: {
-                            //         name: 'adminUsers',
-                            //         query: {
-                            //             role: 'administrator'
-                            //         }
-                            //     }
-                            // }, {
-                            //     title: this.$t('menu.super_admins'),
-                            //     route: {
-                            //         name: 'adminUsers',
-                            //         query: {
-                            //             role: 'super_admin'
-                            //         }
-                            //     }
-                            // }]
                         }];
                 }
                 else if (this.rolename == 'service') {
@@ -663,7 +642,6 @@
                 this.$i18n.locale = language;
                 this.selectedFlag = flag;
                 this.$root.$emit('changeLanguage');
-                //console.log('language --- ', this.$i18n.locale);
 
                 this.toggleShow();
 

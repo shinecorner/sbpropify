@@ -117,7 +117,8 @@ class Building extends AuditableModel implements HasMedia
         'building_format',
         'longitude',
         'latitude',
-        'contact_enable'
+        'contact_enable',
+        'internal_building_id'
     ];
 
     /**
@@ -135,7 +136,8 @@ class Building extends AuditableModel implements HasMedia
         'contact_enable' => 'integer',
         'basement' => 'boolean',
         'attic' => 'boolean',
-        'building_format' => 'string'
+        'building_format' => 'string',
+        'internal_building_id' => 'string',
     ];
 
     /**
