@@ -73,7 +73,7 @@
                 page++
 
                 this.loading.notifications = true
-
+                console.log('getNotifications');
                 await this.$store.dispatch('notifications/get', {
                     page,
                     per_page: 50,
@@ -109,6 +109,9 @@
                     'pinned_post_published': '#BF55EC'
                 }[type]
             }
+        },
+        mounted () {
+            this.getNotifications();
         }
     }
 </script>
