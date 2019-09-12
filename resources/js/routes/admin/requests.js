@@ -89,7 +89,7 @@ export default [{
         path: ':id',
         name: 'adminRequestsEdit',
         component: () => import ( /* webpackChunkName: "admin/requests/edit" */ 'views/Admin/Requests/Edit'),
-        beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isAdminGuard, hasPermissionGuard(AdminPermissions.update.request)]),
+        beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isAdminGuard /* , hasPermissionGuard(AdminPermissions.update.request) */]),
         props: {
             title: 'Edit request'
         },
@@ -98,3 +98,5 @@ export default [{
         }
     }]
 }];
+
+//beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isAdminGuard, hasPermissionGuard(AdminPermissions.update.request)]),

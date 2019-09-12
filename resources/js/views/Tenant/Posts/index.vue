@@ -6,15 +6,15 @@
         <div class="content">
             <post-add-card />
             <el-divider content-position="left">
-                <el-button size="small" icon="icon-refresh" plain round>Refresh</el-button>
+                <el-button @click="$router.go()" size="small" icon="icon-refresh" plain round>Refresh</el-button>
                 <el-popover popper-class="posts-filter" placement="bottom-end" trigger="click" :width="192">
                     <el-button size="small" slot="reference" icon="el-icon-sort" round>Filters</el-button>
                     <filters ref="filters" layout="row" :data="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
                     <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">Reset filters</el-button>
                 </el-popover>
             </el-divider>
-            <dynamic-scroller ref="dynamic-scroller" :items="posts.data" :min-item-size="131" page-mode>
-                <template #before v-if="loading && !posts.data.length">
+            <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" page-mode>
+                <template #before v-if="loading && !filteredPosts.length">
                     <loader v-for="idx in 5" :key="idx" />
                 </template>
                 <template v-slot="{item, index, active}">
@@ -23,7 +23,7 @@
                         <post-card :data="item" @hook:updated="$refs['dynamic-scroller'].forceUpdate" v-else />
                     </dynamic-scroller-item>
                 </template>
-                <template #after v-if="loading && posts.data.length">
+                <template #after v-if="loading && filteredPosts.length">
                     <loader />
                 </template>
             </dynamic-scroller>
@@ -113,6 +113,7 @@
                         category: null
                     }
                 },
+                filterCategory: null
             }
         },
         methods: {
@@ -122,8 +123,6 @@
                 }
 
                 const {current_page, last_page} = this.posts
-
-                console.log('x', current_page, last_page)
 
                 if (this.posts.data.length && current_page === last_page) {
                     return
@@ -147,16 +146,20 @@
                 this.loading = false
             },
             async onFiltersChanged (filters) {
-                console.log('filters', filters)
+                this.filterCategory = filters.category;
             },
             resetFilters () {
                 this.$refs.filters.reset()
+                this.filterCategory = null;
             }
         },
         computed: {
             ...mapState('newPosts', {
                 posts: state => state
-            })
+            }),
+            filteredPosts() {
+                return this.posts.data.filter( post => { return this.filterCategory == null || post.category == this.filterCategory})
+            }
         }
     }
 </script>

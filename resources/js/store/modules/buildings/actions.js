@@ -74,7 +74,7 @@ export default {
         });
     },    
     assignUsersToBuilding({}, payload) {
-        console.log(payload);
+
         return new Promise((resolve, reject) => {
             axios.post(`buildings/${payload.id}/users`, {userIds: [payload.toAssignId]})
                 .then((resp) => {

@@ -85,8 +85,7 @@
 
                             const data = await this.$store.dispatch('createRequest', params)
 
-                            console.log(data);
-                            console.log('orgin',this.requests);
+                            
                             displaySuccess(data)
 
                             const {data: {id}} = data
