@@ -1,4 +1,4 @@
-import {isAuthenticatedGuard, isAdminGuard, isServiceGuard} from 'guards'
+import {isAuthenticatedGuard, isAdminGuard, isServiceGuard, isManagerGuard} from 'guards'
 import VueRouterMultiguard from 'vue-router-multiguard'
 
 import permissions from 'middlewares/permissions';
@@ -27,7 +27,7 @@ export default [{
         path: '/',
         name: 'admin',
         component: Dashboard,
-        beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isAdminGuard, isServiceGuard]),
+        beforeEnter: VueRouterMultiguard([isServiceGuard, isManagerGuard]),
         meta: {
             breadcrumb: 'Home'
         },
@@ -35,7 +35,7 @@ export default [{
         path: 'dashboard',
         name: 'adminDashboard',
         component: Dashboard,
-        beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isAdminGuard, isServiceGuard]),
+        beforeEnter: VueRouterMultiguard([isServiceGuard, isManagerGuard]),
         meta: {
             breadcrumb: 'Home'
         },

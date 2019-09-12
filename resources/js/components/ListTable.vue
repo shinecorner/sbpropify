@@ -449,9 +449,7 @@
                 return this.header.filter((filter) => {
                     if (filter.select) {
                         if (filter.select.getter) {
-                            // console.log(this.$store.getters);
                             const storeConstants = this.$store.getters['application/constants'][filter.select.getter];
-                            //console.log(storeConstants);
                             if (storeConstants) {
                                 const constants = storeConstants[filter.prop];
                                 filter.select.data = Object.keys(constants).map((id) => {

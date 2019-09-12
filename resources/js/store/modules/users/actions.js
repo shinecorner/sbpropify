@@ -102,8 +102,8 @@ export default {
                     //commit('SET_LOGGED_IN_USER', {});
                 }
                 resolve();
-            }).catch((response) => {
-                console.log('error response', response);
+            }).catch((error) => {
+                console.log(error);
             }));
     },
     forceLogout({commit}) {

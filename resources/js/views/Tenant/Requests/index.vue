@@ -93,13 +93,20 @@
                 </el-tab-pane>
             </el-tabs>
         </ui-drawer>
-        <el-dialog ref="add-request-dialog" title="Add request" :visible.sync="addRequestDialogVisible" custom-class="add-request-dialog" append-to-body>
-            <request-add-form ref="request-add-form" />
+        <ui-drawer :size="448" :visible.sync="addRequestDialogVisible" :z-index="1" direction="right" docked>
+            <ui-divider content-position="left">Add a request</ui-divider>
+            <div class="content">
+                <request-add-form ref="request-add-form" />
+            </div>
+        </ui-drawer>
+
+        <!-- <el-dialog ref="add-request-dialog" title="Add request" :visible.sync="addRequestDialogVisible" custom-class="add-request-dialog" append-to-body>
+            
             <span slot="footer" class="dialog-footer">
                 <el-button icon="el-icon-close" @click="addRequestDialogVisible = false" round>Cancel</el-button>
                 <el-button type="primary" icon="el-icon-check" round @click="addRequest">Confirm</el-button>
             </span>
-        </el-dialog>
+        </el-dialog> -->
     </div>
 </template>
 
@@ -377,4 +384,31 @@
 
                         // .audit
                         //     padding: 16px
+            .ui-divider
+                margin: 32px 16px 0 16px
+
+                /deep/ .ui-divider__content
+                    left: 0
+                    z-index: 1
+                    padding-left: 0
+                    font-size: 20px
+                    font-weight: 700
+                    color: var(--color-primary)
+            .content
+                height: 100%
+                display: flex
+                padding: 16px
+                overflow-y: auto
+                flex-direction: column
+                position: relative
+
+                .el-form
+                    flex: 1
+
+                    /deep/ .el-input .el-input__inner,
+                    /deep/ .el-textarea .el-textarea__inner
+                        background-color: transparentize(#fff, .44)
+
+                    /deep/ .el-loading-mask
+                        position: fixed
 </style>
