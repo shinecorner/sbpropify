@@ -112,8 +112,6 @@ class UtilsAPIController extends AppBaseController
             'buildings' => [],
             'units' => [],
             'tenants' => self::getTenantConstants(),
-            'service_providers' => self::getServiceProviderConstants(),
-            'service_requests' => self::getServiceRequestsConstants(),
             'serviceProviders' => self::getServiceProviderConstants(),
             'serviceRequests' => self::getServiceRequestsConstants(),
             'propertyManager' => self::getPropertyManagerConstants(),
