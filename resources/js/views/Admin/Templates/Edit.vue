@@ -22,7 +22,9 @@
                         </el-form-item>
                         <el-form-item :label="$t('models.template.body')" :prop="`translations.${language}.body`"
                                       :rules="validationRules.body">
-                            <yimo-vue-editor v-model="model.translations[language].body"></yimo-vue-editor>
+                            <yimo-vue-editor
+                                :config="editorConfig"
+                                v-model="model.translations[language].body"></yimo-vue-editor>
                         </el-form-item>
                     </card>
                 </el-col>
@@ -66,8 +68,8 @@
     import EditActions from 'components/EditViewActions';
     import SelectLanguage from 'components/SelectLanguage';
     import TemplatesMixin from 'mixins/adminTemplatesMixin';
-    import YimoVueEditor from 'yimo-vue-editor';
 
+    let YimoVueEditor = require("yimo-vue-editor");
 
     export default {
         mixins: [TemplatesMixin({
@@ -77,93 +79,19 @@
             Heading,
             Card,
             EditActions,
-            YimoVueEditor,
+            'yimo-vue-editor': YimoVueEditor.default,
             SelectLanguage
         },
         data() {
             return {
+                editorConfig: {
+                    printLog: false,
+                    lang: YimoVueEditor.E.langs.en,
+                },
             }
         },
     }
 </script>
 
 <style>
-    .quillWrapper {
-        line-height: normal;
-    }
-    span.ql-formats:first-child > .ql-picker,
-    span.ql-header.ql-picker {
-        border: 1px solid #ddd;
-        display: flex;
-        height: 100%;
-        padding: 2px;
-        box-shadow: inset 0 1px 1px -1px rgba(0, 0, 0, 0.2);
-        background: white;
-    }
-    .ql-toolbar.ql-snow {
-        border: 1px solid #eee !important;
-        background: #f5f5f58c;
-        border-radius: 0 0 4px 4px;
-    }
-    .ql-container.ql-snow {
-        background: #fff;
-        width: 100%;
-        min-height: 200px;
-        border-top: 0 !important;
-        border-left: 1px solid #ddd !important;
-        border-right: 1px solid #ddd !important;
-        border-bottom: 1px solid #ddd !important;
-    }
-    .ql-stroke {
-        stroke: #555d66 !important;
-    }
-    .ql-snow .ql-fill,
-    .ql-snow .ql-stroke.ql-fill {
-        fill: #555d66 !important;
-    }
-    .ql-editor.ql-blank::before {
-        color: rgba(0, 0, 0, 0.3) !important;
-        font-style: normal !important;
-    }
-    .ql-editor {
-        min-height: 250px;
-        font-size: 14px;
-        line-height: 24px;
-    }
-    .ql-container {
-        font-size: 14px;
-        line-height: 24px;
-    }
-    .ql-container p {
-        margin-bottom: 10px;
-    }
-    .ql-formats button:hover,
-    .ql-formats .ql-picker:hover {
-        background: #abd4ff73 !important;
-    }
-    .ql-formats .ql-header.ql-picker:hover,
-    .ql-formats .ql-font.ql-picker:hover {
-        background: white !important;
-        border-color: #b4b9be;
-    }
-    .ql-picker-label {
-        display: flex !important;
-    }
-    .ql-align.ql-picker.ql-icon-picker .ql-picker-label {
-        display: block !important;
-    }
-
-    .ql-showSource:after {
-        content: "[source]";
-    }
-    button.ql-showSource {
-        width: 100% !important;
-    }
-
-    .ql-showHtml:after {
-        content: "[paste HTML mode]";
-    }
-    button.ql-showHtml {
-        width: 100% !important;
-    }
 </style>
