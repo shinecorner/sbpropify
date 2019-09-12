@@ -263,7 +263,7 @@
                 this.search = '';
             },
             onChange() {
-                console.log("change");
+                
             },
             fetch(fetchPage, fetchPerPage) {
                 fetchPerPage = 4;

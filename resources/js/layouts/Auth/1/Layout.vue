@@ -68,7 +68,7 @@
             document.getElementById('viewport').setAttribute('content', 'width=device-width, initial-scale=1.0');
         },
         mounted () {
-            this.tenant_logo_src = this.$constants.logo.tenant_logo;
+            this.tenant_logo_src = "/" + this.$constants.logo.tenant_logo;
         }
     }
 </script>
