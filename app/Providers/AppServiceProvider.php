@@ -12,6 +12,7 @@ use App\Models\ServiceRequest;
 use App\Models\Template;
 use App\Models\Conversation;
 use App\Models\Tenant;
+use App\Models\TenantRentContract;
 use App\Models\Unit;
 use App\Models\User;
 use App\Notifications\NewTenantPost;
@@ -57,6 +58,7 @@ class AppServiceProvider extends ServiceProvider
             'real_estate' => RealEstate::class,
             'manager' => PropertyManager::class,
             'provider' => \App\Models\ServiceProvider::class,
+            'tenant_rent_contract' => TenantRentContract::class,
             'conversation' => Conversation::class,
 
             'post_published' => PostPublished::class,
