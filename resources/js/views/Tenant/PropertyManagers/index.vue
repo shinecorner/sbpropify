@@ -1,6 +1,6 @@
 <template>
     <div class="property-managers">
-        <heading icon="icon-users" title="Property managers">
+        <heading icon="icon-users" :title="$t('tenant.property_managers')">
             <div slot="description">Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.</div>
         </heading>
         <el-divider />

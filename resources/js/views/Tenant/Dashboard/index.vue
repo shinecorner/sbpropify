@@ -1,6 +1,6 @@
 <template>
     <div class="dashboard">
-        <heading icon="ti-home" title="My dashboard">
+        <heading icon="ti-home" :title="$t('tenant.my_dashboard')">
             <greeting ref="greeting" class="description" slot="description" />
         </heading>
         <el-divider />

@@ -16,7 +16,7 @@
                 </el-form-item>
             </el-col>
         </el-row>
-        <el-form-item prop="title" label="Title" required>
+        <el-form-item prop="title" :label="$t('tenant.title')" required>
             <el-input v-model="model.title" />
         </el-form-item>
         <el-form-item prop="description" label="Description" required>
@@ -31,7 +31,7 @@
         <el-divider />
         <media-upload ref="upload" v-model="model.media" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="4" />
         <el-form-item class="submitBtnDiv" v-if="showSubmit" style="grid-column: span 6">
-            <el-button class="submit" type="primary" :disabled="loading" @click="submit">Save</el-button>
+            <el-button class="submit" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -83,19 +83,29 @@
 
                             const {media, ...params} = this.model
 
-                            const data = await this.$store.dispatch('createRequest', params)
+                            //const data = await this.$store.dispatch('createRequest', params)
 
+                            const resp = await this.$store.dispatch('newRequests/create', params);
                             
-                            displaySuccess(data)
+                            displaySuccess(resp.message)
 
-                            const {data: {id}} = data
+                            const {id} = resp.data
 
                             if (media.length) {
                                 const queue = new PQueue({concurrency: 1})
 
-                                media.forEach(({file}) => queue.add(async () => await this.$store.dispatch('uploadRequestMedia', {
-                                    id, media: file.src
-                                })))
+                                // media.forEach(({file}) => queue.add(async () => await this.$store.dispatch('uploadRequestMedia', {
+                                //     id, media: file.src
+                                // })))
+                                media.forEach(
+                                    ({file}) => queue.add(
+                                        async () => { 
+                                            const mediaResp = await this.$store.dispatch('newRequests/uploadMedia', {
+                                                id, media: file.src
+                                            }) 
+                                        }
+                                    )
+                                )
 
                                 await queue.onIdle()
                             }
@@ -154,12 +164,17 @@
         }
 
         .submitBtnDiv {
-            position: absolute;
+            // position: absolute;
             width: 100%;
-            bottom: 40px;
-
+            grid-column: span 6 / auto;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: flex-end;
+            margin-bottom: 30px;
+            
             :global(.el-form-item__content) {
-                margin-right: 7%;
+                // margin-right: 9%;
             }
         }
         .el-button.submit {

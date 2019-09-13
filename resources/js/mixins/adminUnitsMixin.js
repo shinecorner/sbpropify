@@ -1,11 +1,9 @@
 import {mapGetters, mapActions} from 'vuex';
 import {displayError, displaySuccess} from 'helpers/messages';
-import unitTypes from 'mixins/methods/unitTypes';
 import axios from '@/axios';
 
 export default (config = {}) => {
     let mixin = {
-        mixins: [unitTypes],
         props: {
             title: {
                 type: String,
@@ -22,7 +20,7 @@ export default (config = {}) => {
                 model: {
                     tenant_id: '',
                     name: '',
-                    type: 1,
+                    type: '',
                     room_no: '',
                     monthly_rent: '',
                     floor: '',

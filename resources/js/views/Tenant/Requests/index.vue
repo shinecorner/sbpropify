@@ -1,14 +1,14 @@
 <template>
     <div :class="['requests']">
         <div class="container" v-infinite-scroll="get" style="overflow: auto;">
-            <ui-heading icon="icon-chat-empty" title="Requests" description="Need some info? Encountered an issue? Contact us!">
+            <ui-heading icon="icon-chat-empty" :title="$t('tenant.requests')" description="Need some info? Encountered an issue? Contact us!">
                 <el-popover popper-class="requests__filter-popover" placement="bottom-end" trigger="click" :width="192">
-                    <el-button slot="reference" icon="el-icon-sort" round>Filters</el-button>
+                    <el-button slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
                     <filters ref="filters" layout="column" :data.sync="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
-                    <el-button type="primary" size="small" icon="el-icon-sort-up" @click="resetFilters">Reset filters</el-button>
+                    <el-button type="primary" size="small" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
                 </el-popover>
                 <el-button @click="addRequestDialogVisible = true" type="primary" icon="ti-plus" round>
-                    Add request
+                    {{$t('tenant.add_request')}}
                 </el-button>
             </ui-heading>
             <ui-divider />
@@ -20,11 +20,11 @@
                     <dynamic-scroller-item :item="item" :active="active" :data-index="index">
                         <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" @hook:mounted="$refs['dynamic-scroller'].forceUpdate">
                             <template #tab-overview-after>
-                                <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>View</el-button>
+                                <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
                             </template>
                             <template #tab-media-after>
                                 <ui-divider v-if="!item.media.length">
-                                    <el-button icon="el-icon-upload" round @click="toggleDrawer(item, 'media')">Upload files...</el-button>
+                                    <el-button icon="el-icon-upload" round @click="toggleDrawer(item, 'media')">{{$t('tenant.placeholder.upload')}}...</el-button>
                                 </ui-divider>
                                 <!-- <ui-divider v-if="item.media.length">
                                     Exist
@@ -50,7 +50,7 @@
                 <el-tab-pane name="media" lazy>
                     <div slot="label">
                         <i class="ti-gallery"></i>
-                        Media
+                        {{$t('tenant.media')}}
                     </div>
                     <ui-media-gallery :files="openedRequest.media.map(({url}) => url)" />
                     
@@ -69,7 +69,7 @@
                                 </el-tooltip>
                             </div>
                             <template v-else>
-                                <i class="el-icon-upload"></i> Upload files...
+                                <i class="el-icon-upload"></i> {{$t('tenant.placeholder.upload')}}...
                             </template>
                         </el-divider>
                         <el-alert type="warning" title="Once confirmed the uploaded files, you can no longer delete them. Please proceed with caution!" :closable="false" center />
@@ -94,7 +94,7 @@
             </el-tabs>
         </ui-drawer>
         <ui-drawer :size="448" :visible.sync="addRequestDialogVisible" :z-index="1" direction="right" docked>
-            <ui-divider content-position="left">Add a request</ui-divider>
+            <ui-divider content-position="left">{{$t('tenant.add_request')}}</ui-divider>
             <div class="content">
                 <request-add-form ref="request-add-form" />
             </div>
@@ -395,7 +395,7 @@
                     font-weight: 700
                     color: var(--color-primary)
             .content
-                height: 100%
+                height: calc(100% - 32px)
                 display: flex
                 padding: 16px
                 overflow-y: auto
@@ -404,6 +404,8 @@
 
                 .el-form
                     flex: 1
+                    display: flex
+                    flex-direction: column
 
                     /deep/ .el-input .el-input__inner,
                     /deep/ .el-textarea .el-textarea__inner

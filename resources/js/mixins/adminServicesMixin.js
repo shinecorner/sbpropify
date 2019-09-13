@@ -1,4 +1,3 @@
-import ServicesTypes from './methods/servicesTypes';
 import {mapActions, mapGetters} from 'vuex';
 import {displayError, displaySuccess} from 'helpers/messages';
 import PasswordValidatorMixin from './passwordValidatorMixin';
@@ -238,7 +237,7 @@ export default (config = {}) => {
             case 'add':
                 mixin.mixins = [PasswordValidatorMixin({
                     nestedModel: 'user'
-                }), ServicesTypes, UploadUserAvatarMixin];
+                }), UploadUserAvatarMixin];
 
                 mixin.methods = {
                     async submit(afterValid = false) {
@@ -285,7 +284,7 @@ export default (config = {}) => {
                 mixin.mixins = [PasswordValidatorMixin({
                     required: false,
                     nestedModel: 'user'
-                }), ServicesTypes, UploadUserAvatarMixin];
+                }), UploadUserAvatarMixin];
 
                 mixin.methods = {
                     submit() {

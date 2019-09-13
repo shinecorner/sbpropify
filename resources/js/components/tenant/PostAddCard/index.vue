@@ -1,7 +1,7 @@
 <template>
     <el-card :class="['post-add', {'is-focused': focused}]" v-loading="loading">
         <ui-avatar :size="42" :src="loggedInUser.avatar" :name="loggedInUser.name" />
-        <el-input ref="content" type="textarea" v-model="model.content" autosize resize="none" placeholder="What do you want to publish?" :validate-event="false" @focus="focused = true" @blur="focused = false" @keydown.native.alt.enter.exact="submit" />
+        <el-input ref="content" type="textarea" v-model="model.content" autosize resize="none" :placeholder="$t('tenant.placeholder.publish')" :validate-event="false" @focus="focused = true" @blur="focused = false" @keydown.native.alt.enter.exact="submit" />
         <media-uploader ref="media" :id="post_id" type="posts" layout="list" v-model="model.media" :upload-options="uploadOptions" />
         <div class="actions" :style="[model.content && {'width': '100%', 'justify-content': 'flex-end'}]">
             <el-tag size="mini">
@@ -9,7 +9,7 @@
                 {{$t(`components.tenant.postAdd.visibility.${model.visibility.name}`)}}
             </el-tag>
             <el-dropdown size="small" trigger="click" placement="bottom-end" @command="onVisibilityChoosen" @visible-change="onDropdownVisibility">
-                <el-tooltip ref="visibility-button-tooltip" content="Choose the visibility">
+                <el-tooltip ref="visibility-button-tooltip" :content="$t('tenant.choose_visibility')">
                     <el-button type="text" class="el-dropdown-link">
                         <i class="icon-ellipsis-vert"></i>
                     </el-button>
@@ -25,7 +25,7 @@
             <el-tag size="mini" v-show="model.media.length">
                 +{{model.media.length}}
             </el-tag>
-            <el-tooltip content="Upload media or drag and drop files here">
+            <el-tooltip :content="$t('tenant.placeholder.media_upload')">
                 <el-button type="text" @click="uploadMedia">
                     <i class="icon-picture"></i>
                 </el-button>
@@ -102,19 +102,24 @@
 
                     params.visibility = params.visibility.key
 
-                    const {data: {data}} = await this.axios.post('posts', params);                                        
-                    if (data.hasOwnProperty('id') && this.model.media.length) {                        
+                    
+                    const resp = await this.$store.dispatch('newPosts/create', params);
+
+                    displaySuccess(resp.message)
+                    const data = resp.data
+                    //const {data: {data}} = await this.axios.post('posts', params);                                        
+                    if (data.hasOwnProperty('id') && this.model.media.length) { 
                         this.post_id = data.id;
                         await this.$refs.media.startUploading();
+                        //console.log('data', this.data);
                         // this.$refs.media.
                     }
 
                     this.model.content = ''
                     //this.$refs.media.clearUploader()
 
-                    displaySuccess(data)
-                    //temporary fix browser refresh. later change this things with proper router things.
-                    // window.location = '/news';
+                    //displaySuccess(data)
+                   
                 } catch (error) {
                     displayError(error)
                 } finally {

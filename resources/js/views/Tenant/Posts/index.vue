@@ -6,11 +6,11 @@
         <div class="content">
             <post-add-card />
             <el-divider content-position="left">
-                <el-button @click="$router.go()" size="small" icon="icon-refresh" plain round>Refresh</el-button>
+                <el-button @click="refreshPage" size="small" icon="icon-refresh" plain round>{{$t('tenant.refresh')}}</el-button>
                 <el-popover popper-class="posts-filter" placement="bottom-end" trigger="click" :width="192">
-                    <el-button size="small" slot="reference" icon="el-icon-sort" round>Filters</el-button>
+                    <el-button size="small" slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
                     <filters ref="filters" layout="row" :data="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
-                    <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">Reset filters</el-button>
+                    <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
                 </el-popover>
             </el-divider>
             <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" page-mode>
@@ -86,25 +86,25 @@
                         children: [{
                             type: 'el-option',
                             props: {
-                                label: 'All',
+                                label: this.$t('tenant.all'),
                                 value: null
                             }
                         }, {
                             type: 'el-option',
                             props: {
-                                label: 'My posts',
+                                label: this.$t('tenant.my_posts'),
                                 value: 1
                             }
                         }, {
                             type: 'el-option',
                             props: {
-                                label: 'From the neighbourhood',
+                                label: this.$t('tenant.from_neighbourhood'),
                                 value: 2
                             }
                         }, {
                             type: 'el-option',
                             props: {
-                                label: 'From the quarter',
+                                label: this.$t('tenant.from_quarter'),
                                 value: 3
                             }
                         }]
@@ -151,6 +151,10 @@
             resetFilters () {
                 this.$refs.filters.reset()
                 this.filterCategory = null;
+            },
+            refreshPage () {
+                this.getPosts();
+                this.resetFilters ()
             }
         },
         computed: {

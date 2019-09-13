@@ -255,7 +255,6 @@ class PostRepository extends BaseRepository
             return false;
         }
 
-
         $post = $this->create([
             'visibility' => Post::VisibilityAddress,
             'status' => Post::StatusNew,

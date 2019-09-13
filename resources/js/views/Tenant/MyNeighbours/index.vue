@@ -1,6 +1,6 @@
 <template>
     <div class="my-neighbours">
-        <heading icon="icon-group" title="My neighbours">
+        <heading icon="icon-group" :title="$t('tenant.my_neighbours')">
             <div slot="description">Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.</div>
         </heading>
         <el-divider />
