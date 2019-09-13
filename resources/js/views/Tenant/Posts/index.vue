@@ -3,35 +3,35 @@
         <ui-heading icon="icon-megaphone-1" title="News" description="Sed placerat volutpat mollis." />
         
         <ui-divider />
-    <div class="posts" v-infinite-scroll="getPosts" style="overflow: auto;">
-        
-        <div class="content">
-            <post-add-card />
-            <el-divider content-position="left">
-                <el-button @click="refreshPage" size="small" icon="icon-refresh" plain round>{{$t('tenant.refresh')}}</el-button>
-                <el-popover popper-class="posts-filter" placement="bottom-end" trigger="click" :width="192">
-                    <el-button size="small" slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
-                    <filters ref="filters" layout="row" :data="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
-                    <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
-                </el-popover>
-            </el-divider>
-            <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" page-mode>
-                <template #before v-if="loading && !filteredPosts.length">
-                    <loader v-for="idx in 5" :key="idx" />
-                </template>
-                <template v-slot="{item, index, active}">
-                    <dynamic-scroller-item :item="item" :active="active" :data-index="index">
-                        <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour'" @hook:updated="$refs['dynamic-scroller'].forceUpdate" />
-                        <post-card :data="item" @hook:updated="$refs['dynamic-scroller'].forceUpdate" v-else />
-                    </dynamic-scroller-item>
-                </template>
-                <template #after v-if="loading && filteredPosts.length">
-                    <loader />
-                </template>
-            </dynamic-scroller>
+        <div class="posts" v-infinite-scroll="getPosts" style="overflow: auto;">
+            
+            <div class="content">
+                <post-add-card />
+                <el-divider content-position="left">
+                    <el-button @click="refreshPage" size="small" icon="icon-refresh" plain round>{{$t('tenant.refresh')}}</el-button>
+                    <el-popover popper-class="posts-filter" placement="bottom-end" trigger="click" :width="192">
+                        <el-button size="small" slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
+                        <filters ref="filters" layout="row" :data="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
+                        <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
+                    </el-popover>
+                </el-divider>
+                <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" page-mode>
+                    <template #before v-if="loading && !filteredPosts.length">
+                        <loader v-for="idx in 5" :key="idx" />
+                    </template>
+                    <template v-slot="{item, index, active}">
+                        <dynamic-scroller-item :item="item" :active="active" :data-index="index">
+                            <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour'" @hook:updated="$refs['dynamic-scroller'].forceUpdate" />
+                            <post-card :data="item" @hook:updated="$refs['dynamic-scroller'].forceUpdate" v-else />
+                        </dynamic-scroller-item>
+                    </template>
+                    <template #after v-if="loading && filteredPosts.length">
+                        <loader />
+                    </template>
+                </dynamic-scroller>
+            </div>
+            <rss-feed title="Blick.ch News" />
         </div>
-        <rss-feed title="Blick.ch News" />
-    </div>
     </div>
 </template>
 

@@ -595,19 +595,26 @@
             },
 
             handleLogout() {
-                this.$confirm(this.$t('general.swal.logout_confirm'), this.$t('general.swal.delete.title'), {
-                    type: 'warning'
-                }).then(() => {
-                    this.logout()
-                        .then(() => {
-                            this.$router.push({name: 'login'});
-                        })
-                        .catch(err => {
-                            displayError(err);
-                        });
-                }).catch(() => {
+                // this.$confirm(this.$t('general.swal.logout_confirm'), this.$t('general.swal.delete.title'), {
+                //     type: 'warning'
+                // }).then(() => {
+                //     this.logout()
+                //         .then(() => {
+                //             this.$router.push({name: 'login'});
+                //         })
+                //         .catch(err => {
+                //             displayError(err);
+                //         });
+                // }).catch(() => {
 
-                });
+                // });
+                this.logout()
+                    .then(() => {
+                        this.$router.push({name: 'login'});
+                    })
+                    .catch(err => {
+                        displayError(err);
+                    });
             },
 
             removeMenuActive() {
