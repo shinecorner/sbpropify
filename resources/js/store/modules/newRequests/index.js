@@ -27,7 +27,6 @@ export default {
             const {data} = await this._vm.axios.post('requests', params, {showMessage: true})
 
             const newData = state
-            
             newData.data.unshift(data.data)
 
             commit('set', newData)
@@ -55,7 +54,7 @@ export default {
         getById: ({data}) => id => data.find(request => request.id === id)
     },
     mutations: {
-        set: (state, payload) => { console.log('set', state); Object.assign(state, payload) },
+        set: (state, payload) => Object.assign(state, payload),
         update: ({data}, payload) => Object.assign(data.find(({id}) => id === payload.id), payload),
         delete: ({data}, id) => {
             let i = data.length
