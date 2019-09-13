@@ -4,7 +4,7 @@
         <el-tabs value="overview" stretch>
             <el-tab-pane name="overview">
                 <div slot="label">
-                    <i class="icon-th"></i> Overview
+                    <i class="icon-th"></i> {{$t('tenant.overview')}}
                 </div>
                 <div class="type">{{$constants.products.type[data.type]}}</div>
                 <div class="title">{{data.title}}</div>
@@ -13,27 +13,27 @@
                 <div class="price">
                     <template v-if="isFree">Free</template>
                     <template v-else>
-                        Price
+                        {{$t('tenant.price')}}
                         <div class="value">
                             {{data.price}}CHF
                         </div>
                     </template>
                 </div>
                 <ui-divider />
-                <read-more class="description" :text="data.content" :max-chars="512" more-str="Read more" less-str="Read less" />
+                <read-more class="description" :text="data.content" :max-chars="512" :more-str="$t('tenant.read_more')" :less-str="$t('tenant.read_less')" />
                 <like :id="data.id" type="product" />
                 <ui-divider />
                 <div class="contact" v-if="showContactInformations">
                     {{data.contact}}
                 </div>
                 <template v-else>
-                    <el-button type="primary" round @click="showContactInformations = true">Get in touch</el-button>
+                    <el-button type="primary" round @click="showContactInformations = true">{{$t('tenant.get_in_touch')}}</el-button>
                     <div class="hint">Use the above button to get to know how you may contact the seller in order to get this product.</div>
                 </template>
             </el-tab-pane>
             <el-tab-pane name="comments" lazy>
                 <div slot="label">
-                    <i class="icon-chat-empty"></i> Comments
+                    <i class="icon-chat-empty"></i> {{$t('tenant.comments')}}
                 </div>
                 <chat :id="data.id" type="product" size="100%" max-size="512px" />
             </el-tab-pane>

@@ -299,7 +299,12 @@ return [
       [
         'label' => 'Type',
         'apartment' => 'Apartment',
-        'business' => 'Business',
+        'business' => 'Commercial space',
+        'hobby_room' => 'Hobby room',
+        'storeroom' => 'Storeroom',
+        'underground_parking_space' => 'Underground parking space',
+        'outdoor_parking' => 'Outdoor parking',
+        'motorbike_pitch' => 'Motorbike pitch'
       ],
       'validation' => 
       [

@@ -27,12 +27,14 @@ use App\Models\User;
 use App\Notifications\TenantCredentials;
 use App\Repositories\PostRepository;
 use App\Repositories\TemplateRepository;
+use App\Repositories\TenantRentContractRepository;
 use App\Repositories\TenantRepository;
 use App\Repositories\UserRepository;
 use App\Transformers\TenantTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Illuminate\Support\Facades\Validator;
 
@@ -123,6 +125,7 @@ class TenantAPIController extends AppBaseController
         }
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
+        // @TODO TENANT_RENT_CONTRACT is need? building, address, unit . I think not need because many
         $tenants = $this->tenantRepository->with(['user', 'building.address', 'unit'])->paginate($perPage);
         $this->fixCreatedBy($tenants);
         return $this->sendResponse($tenants->toArray(), 'Tenants retrieved successfully');
@@ -198,6 +201,7 @@ class TenantAPIController extends AppBaseController
         ]);
         $this->tenantRepository->pushCriteria(new LimitOffsetCriteria($request));
         $this->tenantRepository->pushCriteria(new RequestCriteria($request));
+        // @TODO TENANT_RENT_CONTRACT is need? address. I think not need because many
         $tenants = $this->tenantRepository->with('address:id,street,street_nr')->get(['id', 'address_id', 'first_name', 'last_name', 'status', 'created_at']);
         $this->fixCreatedBy($tenants);
         return $this->sendResponse($tenants->toArray(), 'Tenants retrieved successfully');
@@ -214,8 +218,8 @@ class TenantAPIController extends AppBaseController
      * @param CreateRequest $request
      * @param PostRepository $pr
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Prettus\Validator\Exceptions\ValidatorException
-     *
      *
      * @SWG\Post(
      *      path="/tenants",
@@ -272,13 +276,40 @@ class TenantAPIController extends AppBaseController
         }
 
         $input['user_id'] = $user->id;
+        $rentData = [];
+        if (isset($input['rent_start'])) {
+            $rentData['start_date'] = $input['rent_start'];
+          //  unset($input['rent_start']);
+        }
+
+        if (isset($input['building_id'])) {
+            $rentData['building_id'] = $input['building_id'];
+           // unset($input['building_id']);
+        }
+
+        if (isset($input['unit_id'])) {
+            $rentData['unit_id'] = $input['unit_id'];
+          //  unset($input['unit_id']);
+        }
         try {
             $tenant = $this->tenantRepository->create($input);
         } catch (\Exception $e) {
             return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
         }
 
-        $tenant->load('user', 'building', 'unit', 'address');
+        if (!empty($rentData)) {
+            $rentData['tenant_id'] = $tenant->id;
+            try {
+                $rentRepository = App::make(TenantRentContractRepository::class);
+                $rentRepository->create($rentData);
+            } catch (\Exception $e) {
+                return $this->sendError(__('models.tenant_rent_contract.errors.create') . $e->getMessage());
+            }
+        }
+
+        $tenant->load(['user', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
+            $q->with('building.address', 'unit', 'media');
+        }]);
         $pr->newTenantPost($tenant);
         //$tenant->setCredentialsPDF();
 
@@ -287,8 +318,10 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
+     * @param $id
+     * @param ShowRequest $request
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
      * @SWG\Get(
      *      path="/tenants/{id}",
@@ -328,12 +361,13 @@ class TenantAPIController extends AppBaseController
     {
         /** @var Tenant $tenant */
         $tenant = $this->tenantRepository->findWithoutFail($id);
-        $tenant->load('settings');
         if (empty($tenant)) {
             return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
-        $tenant->load('user', 'building', 'unit', 'address', 'media');
+        $tenant->load(['settings', 'user', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
+            $q->with('building.address', 'unit', 'media');
+        }]);
         $response = (new TenantTransformer)->transform($tenant);
 
         return $this->sendResponse($response, 'Tenant retrieved successfully');
@@ -341,7 +375,8 @@ class TenantAPIController extends AppBaseController
 
     /**
      * @param Request $request
-     * @return Response
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
      * @SWG\Get(
      *      path="/tenants/me",
@@ -369,6 +404,7 @@ class TenantAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
      */
     public function showLoggedIn(Request $request)
     {
@@ -378,7 +414,9 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
-        $user->tenant->load('user', 'building', 'unit', 'address', 'media');
+        $user->tenant->load(['user', 'settings', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
+            $q->with('building.address', 'unit', 'media');
+        }]);
         $response = (new TenantTransformer)->transform($user->tenant);
 
         return $this->sendResponse($response, 'Tenant retrieved successfully');
@@ -485,7 +523,8 @@ class TenantAPIController extends AppBaseController
 
     /**
      * @param UpdateLoggedInRequest $request
-     * @return Response
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
      * @SWG\Put(
      *      path="/tenants/me",
@@ -683,7 +722,9 @@ class TenantAPIController extends AppBaseController
 
         return $this->sendResponse($id, __('models.tenant.deleted'));
     }
-    public function destroyWithIds(Request $request){
+
+    public function destroyWithIds(DeleteRequest $request)
+    {
         $ids = $request->get('ids');
         try{
             Tenant::destroy($ids);
@@ -693,6 +734,7 @@ class TenantAPIController extends AppBaseController
         }
         return $this->sendResponse($ids, __('models.tenant.deleted'));
     }
+
     /**
      * @param $id
      * @param DownloadCredentialsRequest $r

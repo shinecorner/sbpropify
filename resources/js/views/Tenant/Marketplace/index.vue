@@ -6,13 +6,13 @@
             <ui-card class="content" shadow="always" v-loading="loading">
                 <template #header>
                     <el-popover popper-class="marketplace__filter-popover" placement="bottom-start" trigger="click" :width="192">
-                        <el-button slot="reference" icon="el-icon-sort">Filters</el-button>
+                        <el-button slot="reference" icon="el-icon-sort">{{$t('tenant.filters')}}</el-button>
                         <filters ref="filters" layout="row" :data.sync="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
-                        <el-button type="primary" size="small" icon="el-icon-sort-up" @click="resetFilters">Reset filters</el-button>
+                        <el-button type="primary" size="small" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
                     </el-popover>
-                    <el-input prefix-icon="el-icon-search" v-model="search" placeholder="Search for a product..." clearable @clear="handleSearch" @keyup.enter.native="handleSearch" />
-                    <el-button type="primary" icon="el-icon-search" :disabled="loading" @click="handleSearch">Search</el-button>
-                    <el-button type="primary" icon="icon-plus" @click="visibleDrawer = !visibleDrawer">Add product</el-button>
+                    <el-input prefix-icon="el-icon-search" v-model="search" :placeholder="$t('tenant.placeholder.search_product')" clearable @clear="handleSearch" @keyup.enter.native="handleSearch" />
+                    <el-button type="primary" icon="el-icon-search" :disabled="loading" @click="handleSearch">{{$t('tenant.actions.search')}}</el-button>
+                    <el-button type="primary" icon="icon-plus" @click="visibleDrawer = !visibleDrawer">{{$t('tenant.add_product')}}</el-button>
                 </template>
                 <template v-if="loading">
                     <loader v-for="idx in 5" :key="idx" />
@@ -79,7 +79,7 @@
                         }
                     }, {
                         type: 'el-select',
-                        title: 'Type',
+                        title: this.$t('tenant.type'),
                         name: 'type',
                         props: {
                             size: 'small'
@@ -87,7 +87,7 @@
                         children: [{
                             type: 'el-option',
                             props: {
-                                label: 'All',
+                                label: this.$t('tenant.all'),
                                 value: null
                             }
                         }].concat(Object.entries(this.$constants.products.type).map(([value, label]) => ({

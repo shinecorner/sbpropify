@@ -326,7 +326,17 @@ class UserAPIController extends AppBaseController
             return $this->sendError(__('models.user.errors.not_found'));
         }
 
-        $user->load(['settings', 'roles.perms', 'tenant.media', 'tenant.building:id,contact_enable', 'propertyManager', 'serviceProvider']);
+        $user->load(['settings', 'roles.perms', 'tenant.media', 'tenant.building:id,contact_enable', 'propertyManager:id,user_id', 'serviceProvider:id,user_id']);
+        if ($user->propertyManager) {
+            $user->property_manager_id = $user->propertyManager->id;
+        }
+
+        if ($user->serviceProvider) {
+            $user->service_privider_id = $user->serviceProvider->id;
+        }
+
+        unset($user->serviceProvider);
+        unset($user->propertyManager);
         $user->unread_notifications_count = $user->unreadNotifications()->count();
         $tenant = $user->tenant;
 

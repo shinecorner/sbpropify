@@ -2,7 +2,7 @@
     <div class="product-details">
         <media-gallery-carousel ref="media-gallery-carousel" :media="data.media" :autoplay="false" />
         <el-tabs value="overview">
-            <el-tab-pane name="overview" label="Overview">
+            <el-tab-pane name="overview" :label="$t('tenant.overview')">
                 <div class="container">
                     <div class="heading">
                         {{data.title}}
@@ -17,7 +17,7 @@
                             <div class="content">Free</div>
                         </span>
                         <template v-else>
-                            <div class="title">Price</div>
+                            <div class="title">{{$t('tenant.price')}}</div>
                             <div class="content">
                                 {{data.price.split('.')[0]}}.{{data.price.split('.')[1]}}
                                 CHF
@@ -25,18 +25,18 @@
                         </template>
                     </div>
                     <el-divider />
-                    <read-more class="description" :text="data.content" :max-chars="512" more-str="Read more" less-str="Read less" />
+                    <read-more class="description" :text="data.content" :max-chars="512" :more-str="$t('tenant.read_more')" :less-str="$t('tenant.read_less')" />
                     <el-divider />
                     <like :id="data.id" type="product" />
                 </div>
                 <el-divider />
                 <el-alert class="contact" type="info" :description="data.contact" center v-if="showContactInformations" :closable="false" />
                 <template v-else>
-                    <el-button type="primary" round @click="showContactInformations = true">Get in touch</el-button>
+                    <el-button type="primary" round @click="showContactInformations = true">{{$t('tenant.get_in_touch')}}</el-button>
                     <small class="hint">Use the above button to get to know how you may contact the seller in order to get this product.</small>
                 </template>
             </el-tab-pane>
-            <el-tab-pane name="comments" label="Comments" lazy>
+            <el-tab-pane name="comments" :label="$t('tenant.comments')" lazy>
                 <chat :id="data.id" type="product" size="100%" max-size="512px" autofocus />
             </el-tab-pane>
         </el-tabs>

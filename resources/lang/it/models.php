@@ -299,7 +299,12 @@ return [
       [
         "label" => "Tipo",
         "apartment" => "Appartamento",
-        "business" => "Affari",
+        "business" => "Spazio commerciale",
+        'hobby_room' => 'Camera hobby',
+        'storeroom' => 'Sgabuzzino',
+        'underground_parking_space' => 'Parcheggio sotterraneo',
+        'outdoor_parking' => 'Parcheggio esterno',
+        'motorbike_pitch' => 'Passo moto'
       ],
       'validation' => 
       [

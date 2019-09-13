@@ -210,7 +210,7 @@
             },
             filtersHeader: {
                 type: String,
-                default: () => ("Filters")
+                default: () => (this.$t('tenant.filters'))
             },
             withSearch: {
                 type: Boolean,
@@ -444,7 +444,10 @@
             "$route.query": {
                 immediate: true,
                 handler({page, per_page}, prevQuery) {
-                    
+                    if(this.$route.name == "login") {
+                        return;
+                    }
+
                     if (!page || !per_page && prevQuery) {
                         this.page.currPage = 1;
                         this.page.currSize = 20;

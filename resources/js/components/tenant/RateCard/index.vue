@@ -1,8 +1,8 @@
 <template>
-    <ui-card class="rate" icon="icon-thumbs-up" title="Rate us" shadow="always" v-loading="loading">
+    <ui-card class="rate" icon="icon-thumbs-up" :title="$t('tenant.rate_us')" shadow="always" v-loading="loading">
         <el-rate v-model="model.rating" :max="10"></el-rate>
-        <el-input type="textarea" v-model="model.review" placeholder="How would you rate us?" resize="none" :validate-event="false" :autosize="{minRows: 2, maxRows: 6}" />
-        <el-button type="primary" icon="icon-paper-plane" :disabled="!model.rating || !model.review || loading" @click="send">Send</el-button>
+        <el-input type="textarea" v-model="model.review" :placeholder="$t('tenant.placeholder.rate')" resize="none" :validate-event="false" :autosize="{minRows: 2, maxRows: 6}" />
+        <el-button type="primary" icon="icon-paper-plane" :disabled="!model.rating || !model.review || loading" @click="send">{{$t('tenant.actions.send')}}</el-button>
     </ui-card>
 </template>
 

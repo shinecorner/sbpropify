@@ -89,6 +89,24 @@ class Unit extends AuditableModel
 
     protected $dates = ['deleted_at'];
 
+    const TypeApartment = 1;
+    const TypeBusiness = 2;
+    const TypeHobbyRoom = 3;
+    const TypeStoreroom = 4;
+    const TypeUndergroundParkingSpace = 5;
+    const TypeOutdoorParking = 6;
+    const TypeMotorbikePitch = 7;
+
+    const Type = [
+        self::TypeApartment => 'apartment',
+        self::TypeBusiness => 'business',
+        self::TypeHobbyRoom => 'hobby_room',
+        self::TypeStoreroom => 'storeroom',
+        self::TypeUndergroundParkingSpace => 'underground_parking_space',
+        self::TypeOutdoorParking => 'outdoor_parking',
+        self::TypeMotorbikePitch => 'motorbike_pitch',
+    ];
+
     public $fillable = [
         'building_id',
         'type',
@@ -151,8 +169,8 @@ class Unit extends AuditableModel
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     **/
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function tenants()
     {
         return $this->hasMany(Tenant::class, 'unit_id', 'id');

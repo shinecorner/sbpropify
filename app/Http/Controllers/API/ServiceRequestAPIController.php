@@ -200,7 +200,17 @@ class ServiceRequestAPIController extends AppBaseController
         if (isset($input['due_date'])) {
             $this->serviceRequestRepository->notifyDue($serviceRequest);
         }
-
+        $serviceRequest->load([
+            'media',
+            'tenant.user',
+            'tenant.building.address',
+            'category',
+            'comments.user',
+            'providers.address:id,country_id,state_id,city,street,zip',
+            'providers.user',
+            'managers.user',
+            'users'
+        ]);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, __('models.request.saved'));
     }
@@ -247,12 +257,13 @@ class ServiceRequestAPIController extends AppBaseController
     {
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
+       
         if (empty($serviceRequest)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
 
         $serviceRequest->load([
-            'media', 'tenant.user', 'general.building', 'category', 'managers', 'users',
+            'media', 'tenant.user', 'tenant.building', 'category', 'managers', 'users',
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers',
         ]);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
@@ -1356,7 +1367,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $serviceRequest->load([
-            'media', 'tenant.user', 'general.building', 'category',
+            'media', 'tenant.user', 'tenant.building', 'category',
         ]);
 
         $templates = $tempRepo->getParsedCommunicationTemplates($serviceRequest, Auth::user());
@@ -1416,7 +1427,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $serviceRequest->load([
-            'media', 'tenant.user', 'general.building', 'category',
+            'media', 'tenant.user', 'tenant.building', 'category',
         ]);
 
         $templates = $tempRepo->getParsedServiceCommunicationTemplates($serviceRequest, Auth::user());
@@ -1476,7 +1487,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $serviceRequest->load([
-            'media', 'tenant.user', 'general.building', 'category',
+            'media', 'tenant.user', 'tenant.building', 'category',
         ]);
 
         $templates = $tempRepo->getParsedServiceEmailTemplates($serviceRequest, Auth::user());

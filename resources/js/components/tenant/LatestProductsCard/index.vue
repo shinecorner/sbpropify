@@ -1,8 +1,8 @@
 <template>
     <ui-card class="p-latest-products-card" shadow="always">
         <template #header>
-            <i class="icon-basket"></i> Latest products
-            <el-button type="text" @click="$router.push({name: 'tenantMarketplace'})">View all</el-button>
+            <i class="icon-basket"></i> {{$t('tenant.latest_products')}}
+            <el-button type="text" @click="$router.push({name: 'tenantMarketplace'})">{{$t('tenant.actions.view_all')}}</el-button>
         </template>
         <div v-if="loading">loading...</div>
         <div class="placeholder" v-else-if="!loading && !products">

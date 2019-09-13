@@ -17,7 +17,7 @@
             <strong>{{data.title}}</strong>
         </div>
         <hr v-if="data.pinned" />
-        <read-more class="content" :text="data.content" :max-chars="512" more-str="Read more" less-str="Read less" />
+        <read-more class="content" :text="data.content" :max-chars="512" :more-str="$t('tenant.read_more')" :less-str="$t('tenant.read_less')" />
         
         <br />
         <hr v-if="data.pinned"/>
@@ -33,7 +33,7 @@
         <!-- <media-gallery-carousel :media="data.media" :use-placeholder="false" height="320px" :autoplay="false" :gallery-options="{container: '#gallery'}" /> -->
         <likes type="post" :data="data.likes" layout="row" />
         <like :id="data.id" type="post">
-            <el-button @click="$refs.addComment.focus()" icon="ti-comment-alt" type="text"> &nbsp;Comment</el-button>
+            <el-button @click="$refs.addComment.focus()" icon="ti-comment-alt" type="text"> &nbsp;{{$t('tenant.comment')}}</el-button>
             <el-button icon="icon-picture" type="text"> {{data.media.length}} {{data.media.length > 1 ? "Images" : 'Image'}} </el-button>
         </like>
 

@@ -4,40 +4,40 @@
         <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
     </placeholder>
     <div class="personal" v-else-if="model && !loading.visible">
-        <heading icon="ti-book" title="Personal data">
-            <div slot="description" class="description">My personal details.</div>
+        <heading icon="ti-book" :title="$t('tenant.personal_data')">
+            <div slot="description" class="description">{{$t('tenant.my_personal_details')}}</div>
         </heading>
         <el-card ref="card" v-loading="loading.visible">
             <el-form :label-position="labelPosition" :model="model" label-width="144px" ref="form">
-                <el-form-item label="Title" prop="title">
+                <el-form-item :label="$t('tenant.title')" prop="title">
                     <el-select placeholder="Select title" v-model="model.title">
                         <el-option v-for="title in $constants.tenants.title" :key="title" :label="$t(`general.salutation_option.${title}`)" :value="title" />
                     </el-select>
                 </el-form-item>
-                <el-form-item label="Company name" prop="company" v-if="model.title === 'company'">
+                <el-form-item :label="$t('tenant.company_name')" prop="company" v-if="model.title === 'company'">
                     <el-input type="text" v-model="model.company" />
                 </el-form-item>
-                <el-form-item :rules="validationRules.first_name" label="First name" prop="first_name">
+                <el-form-item :rules="validationRules.first_name" :label="$t('tenant.first_name')" prop="first_name">
                     <el-input type="text" v-model="model.first_name"/>
                 </el-form-item>
-                <el-form-item :rules="validationRules.last_name" label="Last name" prop="last_name">
+                <el-form-item :rules="validationRules.last_name" :label="$t('tenant.last_name')" prop="last_name">
                     <el-input type="text" v-model="model.last_name"/>
                 </el-form-item>
-                <el-form-item :rules="validationRules.birth_date" label="Birth date" prop="birth_date">
+                <el-form-item :rules="validationRules.birth_date" :label="$t('tenant.birth_date')" prop="birth_date">
                     <el-date-picker format="dd.MM.yyyy" type="date" v-model="model.birth_date" value-format="yyyy-MM-dd" />
                 </el-form-item>
-                <el-form-item label="Mobile phone" prop="mobile_phone">
+                <el-form-item :label="$t('tenant.mobile_phone')" prop="mobile_phone">
                     <el-input type="text" v-model="model.mobile_phone"/>
                 </el-form-item>
-                <el-form-item label="Work phone" prop="work_phone">
+                <el-form-item :label="$t('tenant.work_phone')" prop="work_phone">
                     <el-input type="text" v-model="model.work_phone"/>
                 </el-form-item>
-                <el-form-item label="Personal phone" prop="private_phone">
+                <el-form-item :label="$t('tenant.personal_phone')" prop="private_phone">
                     <el-input type="text" v-model="model.private_phone"/>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" icon="ti-save" :disabled="loading.visible" @click="submit">
-                        Save
+                        {{$t('tenant.actions.save')}}
                     </el-button>
                 </el-form-item>
             </el-form>
@@ -48,13 +48,11 @@
 <script>
     import Heading from 'components/Heading'
     import Placeholder from 'components/Placeholder'
-    import unitTypes from 'mixins/methods/unitTypes'
     import {displayError, displaySuccess} from 'helpers/messages'
     import {ResponsiveMixin} from 'vue-responsive-components'
 
     export default {
         mixins: [
-            unitTypes,
             ResponsiveMixin
         ],
         components: {
@@ -85,11 +83,6 @@
             }
         },
         methods: {
-            getUnitType (type) {
-                const {label} = this.unitTypes.find(unit => unit.type === type);
-
-                return label
-            },
             submit () {
                 this.$refs.form.validate(async valid => {
                     if (!valid) {

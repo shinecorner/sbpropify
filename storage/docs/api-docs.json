@@ -1633,6 +1633,88 @@
                 }
             }
         },
+        "/tenant-rent-contracts/{id}/media": {
+            "post": {
+                "tags": [
+                    "TenantRentContract"
+                ],
+                "summary": "Store a newly created TenantRentContract Media in storage",
+                "description": "Store Media",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Media that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Media"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/TenantRentContract"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenant-rent-contracts/{id}/media/{media_id}": {
+            "delete": {
+                "tags": [
+                    "TenantRentContract"
+                ],
+                "summary": "Remove the specified Media from storage",
+                "description": "Delete Media",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Media",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/tenants/{id}/media/{media_id}": {
             "delete": {
                 "tags": [
@@ -7338,6 +7420,270 @@
                 }
             }
         },
+        "/tenant-rent-contracts": {
+            "get": {
+                "tags": [
+                    "TenantRentContract"
+                ],
+                "summary": "Get a listing of the TenantRentContracts.",
+                "description": "Get all TenantRentContracts",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "building_id",
+                        "in": "query",
+                        "description": "fuilter by building",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "tenant_id",
+                        "in": "query",
+                        "description": "fuilter by tenant",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "unit_id",
+                        "in": "query",
+                        "description": "fuilter by unit",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/TenantRentContract"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenant-rent-contracts/{id}": {
+            "get": {
+                "tags": [
+                    "TenantRentContract"
+                ],
+                "summary": "Display the specified Tenant Rent Contract",
+                "description": "Get Tenant Rent Contract",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Tenant Rent Contract",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/TenantRentContract"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "TenantRentContract"
+                ],
+                "summary": "Update the specified Tenant Rent Contract in storage",
+                "description": "Update Tenant Rent Contract",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Tenant Rent Contract",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Tenant that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/TenantRentContract"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/TenantRentContract"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "TenantRentContract"
+                ],
+                "summary": "Remove the specified Tenant Rent Contract from storage",
+                "description": "Delete TenantRentContract",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of TenantRentContract",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenants-rent-contracts": {
+            "post": {
+                "tags": [
+                    "TenantRentContract"
+                ],
+                "summary": "Store a newly created Tenant renat Contract in storage",
+                "description": "Store Tenant Rent Contract",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Tenant that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/TenantRentContract"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/TenantRentContract"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenant-rent-contracts/deletewithids": {
+            "post": {
+                "tags": [
+                    "TenantRentContract"
+                ],
+                "summary": "Remove multiple Tenant Rent Contract from storage",
+                "description": "Delete multiple TenantRentContract",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "path",
+                        "description": "id of TenantRentContract",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/translations": {
             "get": {
                 "tags": [
@@ -8850,6 +9196,39 @@
                 }
             }
         },
+        "Media": {
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "collection_name": {
+                    "description": "collection_name",
+                    "type": "string"
+                },
+                "file_name": {
+                    "description": "file_name",
+                    "type": "string"
+                },
+                "mime_type": {
+                    "description": "mime_type",
+                    "type": "string"
+                },
+                "disk": {
+                    "description": "disk",
+                    "type": "string"
+                },
+                "order_column": {
+                    "description": "order_column",
+                    "type": "string"
+                },
+                "size": {
+                    "description": "size",
+                    "type": "string"
+                }
+            }
+        },
         "PasswordReset": {
             "required": [
                 "email"
@@ -9426,7 +9805,7 @@
                 },
                 "acquisition": {
                     "description": "acquisition",
-                    "type": "boolean"
+                    "type": "integer"
                 },
                 "description": {
                     "description": "description",
@@ -9682,6 +10061,98 @@
                 },
                 "rent_end": {
                     "description": "rent_end",
+                    "type": "string",
+                    "format": "date"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "TenantRentContract": {
+            "required": [
+                "first_name",
+                "birthdate"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "tenant_id": {
+                    "description": "tenant_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "building_id": {
+                    "description": "building_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "unit_id": {
+                    "description": "unit_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "type": {
+                    "description": "type",
+                    "type": "integer"
+                },
+                "duration": {
+                    "description": "duration",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "status",
+                    "type": "integer"
+                },
+                "tenant_rent_contract_format": {
+                    "description": "tenant_rent_contract_format",
+                    "type": "integer"
+                },
+                "deposit_type": {
+                    "description": "deposit_type",
+                    "type": "integer"
+                },
+                "deposit_status": {
+                    "description": "deposit_status",
+                    "type": "integer"
+                },
+                "deposit_amount": {
+                    "description": "deposit_amount",
+                    "type": "integer"
+                },
+                "net_rent": {
+                    "description": "net_rent",
+                    "type": "integer"
+                },
+                "operating_cost": {
+                    "description": "operating_cost",
+                    "type": "integer"
+                },
+                "gross_rent": {
+                    "description": "gross_rent",
+                    "type": "integer"
+                },
+                "parking_price": {
+                    "description": "parking_price",
+                    "type": "integer"
+                },
+                "start_date": {
+                    "description": "start_date",
+                    "type": "string",
+                    "format": "date"
+                },
+                "end_date": {
+                    "description": "end_date",
                     "type": "string",
                     "format": "date"
                 },

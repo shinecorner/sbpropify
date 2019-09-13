@@ -6,6 +6,48 @@ use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Facades\Auditor;
 use Spatie\MediaLibrary\Models\Media as SpatieMedia;
 
+/**
+ * @SWG\Definition(
+ *      definition="Media",
+ *      @SWG\Property(
+ *          property="id",
+ *          description="id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="collection_name",
+ *          description="collection_name",
+ *          type="string",
+ *      ),
+ *      @SWG\Property(
+ *          property="file_name",
+ *          description="file_name",
+ *          type="string",
+ *      ),
+ *      @SWG\Property(
+ *          property="mime_type",
+ *          description="mime_type",
+ *          type="string",
+ *      ),
+ *      @SWG\Property(
+ *          property="disk",
+ *          description="disk",
+ *          type="string",
+ *      ),
+ *      @SWG\Property(
+ *          property="order_column",
+ *          description="order_column",
+ *          type="string",
+ *      ),
+ *      @SWG\Property(
+ *          property="size",
+ *          description="size",
+ *          type="string",
+ *      ),
+ * )
+ */
+
 class Media extends SpatieMedia implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
