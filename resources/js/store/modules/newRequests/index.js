@@ -25,8 +25,9 @@ export default {
         },
         async create ({state, commit}, params) {
             const {data} = await this._vm.axios.post('requests', params, {showMessage: true})
-            const newData = state
 
+            const newData = state
+            
             newData.data.unshift(data.data)
 
             commit('set', newData)
@@ -42,10 +43,11 @@ export default {
 
             commit('delete', id)
         },
-        async uploadMedia({}, {id, ...payload}) {
-            console.log('uplaod media called', id, payload)
+        async uploadMedia({state, commit}, {id, ...payload}) {
             const {data} = await this._vm.axios.post(`requests/${id}/media`, payload);
-            console.log('uploadreqmedia success', data);
+            if(data.success == true) {
+                commit('addmedia', {data_id : id, media : data.data})
+            }
             return data;
         },
     },
@@ -65,6 +67,12 @@ export default {
                     break
                 }
             }
+        },
+        addmedia: ({data}, {data_id, media}) => {
+            let item = data.find(({id}) => id === data_id)
+            if(!item.media)
+                item.media = [];
+            item.media.push(media);
         }
     }
 }
