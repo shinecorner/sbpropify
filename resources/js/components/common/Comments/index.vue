@@ -29,6 +29,7 @@
             <el-button type="text" @click="fetch" :loading="loading" v-if="!data && comments.current_page !== comments.last_page">
                 {{$t('components.common.commentsList.loadMore.detailed', {count: comments.total - comments.data.length})}}
             </el-button>
+            <h1>asfasfsadf</h1>
             <comment v-bind="commentComponentProps" :show-children="showChildren" v-for="comment in comments.data" :key="comment.id" :data="comment" :reversed="isCommentReversed(comment)" />
         </template>
     </div>

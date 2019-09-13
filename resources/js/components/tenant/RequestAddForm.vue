@@ -91,7 +91,6 @@
 
                             const {id} = resp.data
 
-                            console.log('id', id);
                             if (media.length) {
                                 const queue = new PQueue({concurrency: 1})
 
@@ -156,12 +155,17 @@
         }
 
         .submitBtnDiv {
-            position: absolute;
+            // position: absolute;
             width: 100%;
-            bottom: 40px;
-
+            grid-column: span 6 / auto;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: flex-end;
+            margin-bottom: 30px;
+            
             :global(.el-form-item__content) {
-                margin-right: 7%;
+                // margin-right: 9%;
             }
         }
         .el-button.submit {

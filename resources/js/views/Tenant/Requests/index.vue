@@ -395,7 +395,7 @@
                     font-weight: 700
                     color: var(--color-primary)
             .content
-                height: 100%
+                height: calc(100% - 32px)
                 display: flex
                 padding: 16px
                 overflow-y: auto
@@ -404,6 +404,8 @@
 
                 .el-form
                     flex: 1
+                    display: flex
+                    flex-direction: column
 
                     /deep/ .el-input .el-input__inner,
                     /deep/ .el-textarea .el-textarea__inner
