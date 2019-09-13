@@ -110,15 +110,11 @@
                     //const {data: {data}} = await this.axios.post('posts', params);                                        
                     if (data.hasOwnProperty('id') && this.model.media.length) { 
                         this.post_id = data.id;
-                        await this.$refs.media.startUploading();
-                        //console.log('data', this.data);
-                        // this.$refs.media.
+                        this.$refs.media.startUploading();
                     }
 
                     this.model.content = ''
                     //this.$refs.media.clearUploader()
-
-                    //displaySuccess(data)
                    
                 } catch (error) {
                     displayError(error)

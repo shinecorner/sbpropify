@@ -128,7 +128,9 @@
         },
         data () {
             return {
-                galleryIndex: null
+                galleryIndex: null,
+                length: 0,
+                uploaded_count: 0
             }
         },
         methods: {
@@ -227,6 +229,8 @@
             },
             clearUploader () {
                 this.$refs.uploader.clear()
+                this.uploaded_count = 0
+                this.length = 0
             },
             async customAction (file) {
                 const xhr = new XMLHttpRequest()
@@ -254,15 +258,27 @@
                     }
                 }
 
-                return this.$refs.uploader.uploadXhr(xhr, file, JSON.stringify({
+                return await this.$refs.uploader.uploadXhr(xhr, file, JSON.stringify({
                     media: file.file.src
                 }))
+                .then(data => {
+                    
+                    this.$store.dispatch('newPosts/addMedia', {
+                        id : this.id, media: data.response.data
+                    })  
+                    this.uploaded_count ++;
+                    if(this.uploaded_count == this.length) {
+                        this.clearUploader();
+                    }
+                })
+                .catch(error => console.log(error));
             },
             getProgressStatus ({success, error}) {
                 return success ? 'success' : error ? 'exception' : undefined
             },
             startUploading () {
                 this.$refs.uploader.active = true
+                this.length = this.value.length
             },
             canShowProgress ({active, success}) {
                 return active || success
