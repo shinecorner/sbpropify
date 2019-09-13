@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Criteria\Common\FilterFullnameCriteria;
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\Posts\FilterByTenantCriteria;
 use App\Criteria\TenantsRentContract\FilterByBuildingCriteria;
 use App\Criteria\TenantsRentContract\FilterByUnitCriteria;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\API\TenantRentContract\UpdateRequest;
 use App\Http\Requests\API\TenantRentContract\CreateRequest;
 use App\Http\Requests\API\TenantRentContract\ListRequest;
 use App\Models\TenantRentContract;
@@ -174,5 +174,72 @@ class TenantRentContractAPIController extends AppBaseController
         return $this->sendResponse($response, __('models.tenant_rent_contract.saved'));
     }
 
+    /**
+     * @param $id
+     * @param UpdateRequest $request
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @SWG\Put(
+     *      path="/tenant-rent-contracts/{id}",
+     *      summary="Update the specified Tenant rent contract in storage",
+     *      tags={"TenantRentContract"},
+     *      description="Update Tenant rent contract",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="id",
+     *          description="id of Tenant",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          description="Tenant that should be updated",
+     *          required=false,
+     *          @SWG\Schema(ref="#/definitions/TenantRentContract")
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/TenantRentContract"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function update($id, UpdateRequest $request)
+    {
+        $input =  $input = $request->all();
+        /** @var TenantRentContract $tenantRentContract */
+        $tenantRentContract = $this->tenantRentContractRepository->findWithoutFail($id);
+        if (empty($tenantRentContract)) {
+            return $this->sendError(__('models.tenant_rent_contract.errors.not_found'));
+        }
+
+        try {
+            $tenant = $this->tenantRentContractRepository->updateExisting($tenantRentContract, $input);
+        } catch (\Exception $e) {
+            return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
+        }
+
+        $tenantRentContract->load(['tenant', 'building.address', 'unit']);
+        $response = (new TenantRentContractTransformer())->transform($tenantRentContract);
+        return $this->sendResponse($response, __('models.tenant.saved'));
+    }
 
 }
