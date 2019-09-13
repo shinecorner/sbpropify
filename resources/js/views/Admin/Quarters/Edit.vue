@@ -12,7 +12,7 @@
                     <el-form :model="model" ref="form">
                         <el-row class="last-form-row" :gutter="20">
                             <el-col :md="12">
-                                <el-form-item label="Name" :rules="validationRules.name"
+                                <el-form-item :label="$t('tenant.name')" :rules="validationRules.name"
                                               prop="name">
                                     <el-input type="text" v-model="model.name"/>
                                 </el-form-item>

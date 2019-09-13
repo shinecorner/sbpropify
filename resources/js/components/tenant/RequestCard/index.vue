@@ -4,24 +4,24 @@
             <el-tab-pane name="overview">
                 <div slot="label">
                     <i class="el-icon-tickets"></i>
-                    Overview
+                    {{$t('tenant.overview')}}
                 </div>
                 <slot name="tab-overview-before" />
                 <div class="statuses">
                     <div class="item">
-                        Status:
+                        {{$t('tenant.status')}}:
                         <div class="label">
                             {{$t(`models.request.status.${$constants.serviceRequests.status[data.status]}`)}}
                         </div>
                     </div>
                     <div class="item">
-                        Priority:
+                        {{$t('tenant.priority')}}:
                         <div class="label">
                             {{$t(`models.request.priority.${$constants.serviceRequests.priority[data.priority]}`)}}
                         </div>
                     </div>
                     <div class="item" v-if="this.data.category.parent_id == 1 && this.data.qualification != 1" >
-                        Qualification:
+                        {{$t('tenant.qualification')}}:
                         <div class="label">
                             {{$t(`models.request.qualification.${$constants.serviceRequests.qualification[data.qualification]}`)}}
                         </div>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="statuses">
                     <div class="item" v-if="this.data.category.parent_id == 1 && this.data.qualification ==5" >
-                        Cost Impact:
+                        {{$t('tenant.cost_impact')}}:
                         <div class="label">
                             {{$t(`models.request.category_options.costs.${this.data.payer}`)}}
                         </div>
@@ -39,7 +39,7 @@
                 <div class="title">{{data.title}}</div>
                 <ui-readmore class="description" :text="data.description" :max="512" />
                 <div class="assignees" v-if="assignees.length">
-                    Assignees
+                    {{$t('tenant.assignees')}}
                     <div :key="assignee.id" class="assignee" v-for="assignee in visibleAssignees">
                         <ui-avatar :name="assignee.name" :size="32" :src="assignee.avatar" />
                         <div class="content">
@@ -70,14 +70,14 @@
             <el-tab-pane name="media">
                 <div slot="label">
                     <i class="el-icon-picture-outline"></i>
-                    Media
+                    {{$t('tenant.media')}}
                 </div>
                 <slot name="tab-media-before" />
                 <ui-media-gallery :files="data.media.slice(0, 3).map(({url}) => url)">
                     <div slot="after" key="view-all" class="ui-media-gallery__item" @click="$emit('more-media')" v-if="data.media.length">
                         <div class="ui-media-gallery__item__content">
                             <i class="icon-picture"></i>
-                            View all
+                            {{$t('tenant.actions.view_all')}}
                         </div>
                     </div>
                 </ui-media-gallery>

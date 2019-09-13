@@ -1,9 +1,9 @@
 <template>
     <el-form ref="form" :model="model" :rules="validationRules" label-position="top" v-loading="loading">
-        <el-form-item prop="title" label="Title" style="grid-column: span 6">
+        <el-form-item prop="title" :label="$t('tenant.title')" style="grid-column: span 6">
             <el-input v-model="model.title" />
         </el-form-item>
-        <el-form-item prop="type" label="Type" style="grid-column: span 3">
+        <el-form-item prop="type" :label="$t('tenant.type')" style="grid-column: span 3">
             <el-select v-model="model.type">
                 <el-option v-for="category in types" :key="category.value" :label="category.label" :value="category.value" />
             </el-select>
@@ -13,7 +13,7 @@
                 <el-option v-for="visibility in visibilities" :key="visibility.value" :label="visibility.label" :value="visibility.value" />
             </el-select>
         </el-form-item>
-        <el-form-item prop="price" label="Price" v-if="isPriceVisible" style="grid-column: span 3">
+        <el-form-item prop="price" :label="$t('tenant.price')" v-if="isPriceVisible" style="grid-column: span 3">
             <div style="display: flex">
                 <el-input v-model="model.price.integer">
                     <template slot="prepend">CHF</template>
@@ -35,7 +35,7 @@
             <media-uploader ref="media" :id="product_id" type="products" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
         </el-form-item>
         <el-form-item v-if="!hideSubmit" style="grid-column: span 6">
-            <el-button class="submit" type="primary" :disabled="loading" @click="submit">Save</el-button>
+            <el-button class="submit" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
         </el-form-item>
     </el-form>
 </template>

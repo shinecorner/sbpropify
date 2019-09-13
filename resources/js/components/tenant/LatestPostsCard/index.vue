@@ -1,8 +1,8 @@
 <template>
     <ui-card shadow="always">
         <template #header>
-            <i class="icon-megaphone-1"></i> Latest news
-            <el-button type="text" @click="$router.push({name: 'tenantPosts'})">View all</el-button>
+            <i class="icon-megaphone-1"></i> {{$t('tenant.latest_news')}}
+            <el-button type="text" @click="$router.push({name: 'tenantPosts'})">{{$t('tenant.actions.view_all')}}</el-button>
         </template>
         <loader v-if="loading" />
         <div class="placeholder" v-else-if="!loading && !posts.length">
@@ -34,7 +34,7 @@
                     </div>
                 </template>
                 <div class="content">{{post.content}}</div>
-                <el-button size="mini" icon="icon-right-1" plain round>View</el-button>
+                <el-button size="mini" icon="icon-right-1" plain round>{{$t('tenant.actions.view')}}</el-button>
             </el-collapse-item>
         </el-collapse>
     </ui-card>

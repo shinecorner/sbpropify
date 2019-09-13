@@ -92,19 +92,19 @@
                 tenant_logo_src: '',
                 quickLinks: [{
                     icon: 'icon-megaphone-1',
-                    title: 'Add a post',
+                    title: this.$t('tenant.add_post'),
                     route: {
                         name: 'tenantPosts'
                     }
                 }, {
                     icon: 'icon-chat-empty',
-                    title: 'Add a request',
+                    title: this.$t('tenant.add_request'),
                     route: {
                         name: 'tenantRequests'
                     }
                 }, {
                     icon: 'icon-basket',
-                    title: 'Add a product',
+                    title: this.$t('tenant.add_product'),
                     route: {
                         name: 'tenantMarketplace'
                     }
@@ -147,13 +147,13 @@
                         visible: this.realEstate && this.realEstate.contact_enable // OR no service partners for the building
                     }, {
                         icon: 'icon-users',
-                        title: 'Property managers',
+                        title: this.$t('tenant.property_managers'),
                         route: {
                             name: 'tenantPropertyManagers'
                         }
                     }, {
                         icon: 'icon-group',
-                        title: 'My neighbours',
+                        title: this.$t('tenant.my_neighbours'),
                         route: {
                             name: 'tenantMyNeighbours'
                         }
@@ -235,7 +235,7 @@
             logout () {
                 let router = this.$route;
                 
-                this.$confirm('Logout', 'Are you sure?', {
+                this.$confirm(this.$t('tenant.logout'), this.$t('tenant.logout_confirm'), {
                     type: 'warning',
                     roundButton: true
                 }).then(async () => {

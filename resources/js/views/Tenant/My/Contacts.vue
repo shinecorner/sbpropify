@@ -18,7 +18,7 @@
                         {{$t(`models.service.${contact.category}`)}}
                     </div>
                     <div class="title">
-                        <small>Name</small>
+                        <small>{{$t('tenant.name')}}</small>
                         {{contact.name}}
                     </div>
                     <div class="title">
