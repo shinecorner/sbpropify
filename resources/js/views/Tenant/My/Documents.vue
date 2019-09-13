@@ -5,7 +5,7 @@
     </placeholder>
     <div class="documents" v-else-if="!isEmpty">
         <el-card v-sticky="{stickyTop: -16}">
-            <heading icon="ti-book" title="My documents">
+            <heading icon="ti-book" :title="$t('tenant.my_documents')">
                 <div slot="description">A list with all the building and unit's documents.</div>
             </heading>
         </el-card>
@@ -14,7 +14,7 @@
             <el-col :span="24" v-for="(files, category) in documents" :key="category">
                 <div class="title">
                     {{$t(`models.building.${category}`)}}
-                    <small>{{files.length}} documents available</small>
+                    <small>{{$t('tenant.doc_available',{num: files.length})}}</small>
                 </div>
                 <gallery-list :media="files" :cols="4" />
                 <el-divider />

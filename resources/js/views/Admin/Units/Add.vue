@@ -48,15 +48,12 @@
                     <el-form-item :label="$t('models.unit.type.label')" :rules="validationRules.type" prop="type">
                         <el-select :placeholder="$t('models.unit.type.label')" class="w100p" style="width: 100%;"
                                    v-model="model.type">
-                            <el-option :key="key"
-                                       :label="$t('models.unit.type.' + value )"
-                                       :value="+key"
-                                       v-for="(value, key) in $constants.units.type">
-                            </el-option>
+                            <el-option :key="type.type" :label="$t('models.unit.type.' + type.label )" :value="type.type"
+                                       v-for="type in unitTypes"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item :label="$t('models.unit.room_no')" :rules="validationRules.room_no" prop="room_no"
-                                  v-if="+model.type === 1">
+                                  v-if="!isBusiness">
                         <el-select :placeholder="$t('general.placeholders.select')" class="w100p" style="width: 100%;"
                                    v-model="model.room_no">
                             <el-option :key="room.value"

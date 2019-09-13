@@ -1,8 +1,8 @@
 <template >
     <ui-card shadow="always">
         <template #header>
-            <i class="icon-group"></i> My neighbours
-            <el-button type="text" @click="$router.push({name: 'tenantMyNeighbours'})">View all</el-button>
+            <i class="icon-group"></i> {{$t('tenant.my_neighbours')}}
+            <el-button type="text" @click="$router.push({name: 'tenantMyNeighbours'})">{{$t('tenant.actions.view_all')}}</el-button>
         </template>
         <my-neighbours ref="my-neighbours" :limit="limit" />
     </ui-card>

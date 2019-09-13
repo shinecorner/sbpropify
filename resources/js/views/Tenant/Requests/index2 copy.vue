@@ -15,11 +15,11 @@
                 <dynamic-scroller-item :item="item" :active="active" :data-index="index">
                     <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @show-more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" >
                         <template #tab-overview-after>
-                            <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>View</el-button>
+                            <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
                         </template>
                         <template #tab-media-after>
                             <el-divider v-if="!item.media.length">
-                                <el-button icon="el-icon-upload" round @click="toggleDrawer(item, 'media')">Upload files...</el-button>
+                                <el-button icon="el-icon-upload" round @click="toggleDrawer(item, 'media')">{{$t('tenant.placeholder.upload')}}...</el-button>
                             </el-divider>
                         </template>
                     </request-card>

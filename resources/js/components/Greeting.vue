@@ -34,15 +34,15 @@
                 let greeting
 
                 if (currentHour >= this.afternoonHour && currentHour <= this.eveningHour) {
-                    greeting = 'Good afternoon'
+                    greeting = this.$t('tenant.good_afternoon')
 
                     this.timeOfDay = 'day'
                 } else if (currentHour >= this.afternoonHour) {
-                    greeting = 'Good evening'
+                    greeting = this.$t('tenant.good_evening')
 
                     this.timeOfDay = 'night'
                 } else {
-                    greeting = 'Good morning'
+                    greeting = this.$t('tenant.good_morning')
 
                     this.timeOfDay = 'day'
                 }
