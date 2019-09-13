@@ -70,6 +70,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     //Tenant rent contract
     Route::get('/tenant-rent-contracts', 'TenantRentContractAPIController@index')->name('tenant-rent-contracts');
+    Route::post('/tenant-rent-contracts', 'TenantRentContractAPIController@store')->name('tenant-rent-contracts.store');
 
     // Location
     Route::get('/states', 'StateAPIController@index')->name('states');

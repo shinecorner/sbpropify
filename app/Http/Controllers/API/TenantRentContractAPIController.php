@@ -8,10 +8,13 @@ use App\Criteria\Posts\FilterByTenantCriteria;
 use App\Criteria\TenantsRentContract\FilterByBuildingCriteria;
 use App\Criteria\TenantsRentContract\FilterByUnitCriteria;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\API\TenantRentContract\CreateRequest;
 use App\Http\Requests\API\TenantRentContract\ListRequest;
 use App\Models\TenantRentContract;
+use App\Repositories\PostRepository;
 use App\Repositories\TenantRentContractRepository;
 use App\Transformers\TenantRentContractTransformer;
+use App\Transformers\TenantTransformer;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 
@@ -114,4 +117,62 @@ class TenantRentContractAPIController extends AppBaseController
         $response = (new TenantRentContractTransformer())->transformPaginator($tenantRentContracts);
         return $this->sendResponse($response, 'TenantRentContracts retrieved successfully');
     }
+
+    /**
+     * @param CreateRequest $request
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     *
+     * @SWG\Post(
+     *      path="/tenants-rent-contracts",
+     *      summary="Store a newly created Tenant renat contract in storage",
+     *      tags={"TenantRentContract"},
+     *      description="Store Tenant rent contract",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          description="Tenant that should be stored",
+     *          required=false,
+     *          @SWG\Schema(ref="#/definitions/TenantRentContract")
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/TenantRentContract"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function store(CreateRequest $request)
+    {
+        $input = $request->all();
+        try {
+            $tenantRentContract = $this->tenantRentContractRepository->create($input);
+        } catch (\Exception $e) {
+            return $this->sendError(__('models.tenant_rent_contract.errors.create') . $e->getMessage());
+        }
+
+
+        $tenantRentContract->load(['tenant', 'building.address', 'unit']);
+
+        $response = (new TenantRentContractTransformer())->transform($tenantRentContract);
+        return $this->sendResponse($response, __('models.tenant_rent_contract.saved'));
+    }
+
+
 }
