@@ -17,7 +17,7 @@
             <el-divider class="column-divider" content-position="left">{{$t('tenant.unit')}}</el-divider>
             <div>
                 <b>{{$t('tenant.type')}}:</b>
-                {{getUnitType(contract.unit.type)}}
+                {{$t('models.unit.type.' + $constants.units.type[contract.unit.type])}}
             </div>
             <div>
                 <b>{{$t('tenant.unit_number')}}:</b>
@@ -42,7 +42,7 @@
             <template v-if="contract.rent_start">
                 <el-divider content-position="left">{{$t('tenant.rent_date')}}</el-divider>
                 <el-tag class="rent" type="warning" disable-transitions>
-                    {{$t('tenant.start_date')}}:  
+                    {{$t('tenant.start_date')}}:
                     <el-tag type="warning" effect="plain" disable-transitions>{{contract.rent_start | formatDate}}</el-tag>
                     <template v-if="contract.rent_end">
                         End date: <el-tag type="warning" effect="plain" disable-transitions>{{contract.rent_end | formatDate}}</el-tag>
@@ -62,12 +62,10 @@
     import Heading from 'components/Heading'
     import Placeholder from 'components/Placeholder'
     import {displayError} from 'helpers/messages'
-    import unitTypes from 'mixins/methods/unitTypes'
     import {format} from 'date-fns'
     import VueSticky from 'vue-sticky'
 
     export default {
-        mixins: [unitTypes],
         components: {
             Heading,
             Placeholder
@@ -94,11 +92,6 @@
 
                 return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(ext);
             },
-            getUnitType(type) {
-                const {label} = this.unitTypes.find(unit => unit.type === type);
-
-                return label
-            }
         },
         async mounted () {
             this.loading = this.$loading({
