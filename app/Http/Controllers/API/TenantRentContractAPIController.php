@@ -8,6 +8,7 @@ use App\Criteria\TenantsRentContract\FilterByBuildingCriteria;
 use App\Criteria\TenantsRentContract\FilterByUnitCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Post\ShowRequest;
+use App\Http\Requests\API\TenantRentContract\DeleteRequest;
 use App\Http\Requests\API\TenantRentContract\UpdateRequest;
 use App\Http\Requests\API\TenantRentContract\CreateRequest;
 use App\Http\Requests\API\TenantRentContract\ListRequest;
@@ -297,4 +298,103 @@ class TenantRentContractAPIController extends AppBaseController
         return $this->sendResponse($response, __('models.tenant.saved'));
     }
 
+    /**
+     * @param int $id
+     * @param DeleteRequest $request
+     * @return Response
+     *
+     * @SWG\Delete(
+     *      path="/tenant-rent-contracts/{id}",
+     *      summary="Remove the specified Tenant Rent Contract from storage",
+     *      tags={"TenantRentContract"},
+     *      description="Delete TenantRentContract",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="id",
+     *          description="id of TenantRentContract",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function destroy($id, DeleteRequest $request)
+    {
+        try {
+            $this->tenantRentContractRepository->delete($id);
+        } catch (\Exception $e) {
+            return $this->sendError('Delete error: ' . $e->getMessage());
+        }
+
+        return $this->sendResponse($id, __('models.tenant_rent_contract.deleted'));
+    }
+
+    /**
+     * @param DeleteRequest $request
+     * @return mixed
+     *
+     *
+     * @SWG\Post(
+     *      path="/tenant-rent-contracts/deletewithids",
+     *      summary="Remove multiple Tenant Rent Contract from storage",
+     *      tags={"TenantRentContract"},
+     *      description="Delete multiple TenantRentContract",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="ids",
+     *          description="id of TenantRentContract",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function destroyWithIds(DeleteRequest $request){
+        $ids = $request->get('ids');
+        try{
+            TenantRentContract::destroy($ids);
+        }
+        catch (\Exception $e) {
+            return $this->sendError(__('models.tenant_rent_contract.errors.deleted') . $e->getMessage());
+        }
+        return $this->sendResponse($ids, __('models.tenant_rent_contract.deleted'));
+    }
 }

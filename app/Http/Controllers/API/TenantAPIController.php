@@ -722,7 +722,9 @@ class TenantAPIController extends AppBaseController
 
         return $this->sendResponse($id, __('models.tenant.deleted'));
     }
-    public function destroyWithIds(Request $request){
+
+    public function destroyWithIds(DeleteRequest $request)
+    {
         $ids = $request->get('ids');
         try{
             Tenant::destroy($ids);
@@ -732,6 +734,7 @@ class TenantAPIController extends AppBaseController
         }
         return $this->sendResponse($ids, __('models.tenant.deleted'));
     }
+
     /**
      * @param $id
      * @param DownloadCredentialsRequest $r

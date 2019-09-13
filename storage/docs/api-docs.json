@@ -7400,7 +7400,7 @@
                 "tags": [
                     "TenantRentContract"
                 ],
-                "summary": "Display the specified Tenant rent contract",
+                "summary": "Display the specified Tenant Rent Contract",
                 "description": "Get Tenant Rent Contract",
                 "produces": [
                     "application/json"
@@ -7438,8 +7438,8 @@
                 "tags": [
                     "TenantRentContract"
                 ],
-                "summary": "Update the specified Tenant rent contract in storage",
-                "description": "Update Tenant rent contract",
+                "summary": "Update the specified Tenant Rent Contract in storage",
+                "description": "Update Tenant Rent Contract",
                 "produces": [
                     "application/json"
                 ],
@@ -7447,7 +7447,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id of Tenant",
+                        "description": "id of Tenant Rent Contract",
                         "required": true,
                         "type": "integer"
                     },
@@ -7480,6 +7480,44 @@
                         }
                     }
                 }
+            },
+            "delete": {
+                "tags": [
+                    "TenantRentContract"
+                ],
+                "summary": "Remove the specified Tenant Rent Contract from storage",
+                "description": "Delete TenantRentContract",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of TenantRentContract",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
             }
         },
         "/tenants-rent-contracts": {
@@ -7487,8 +7525,8 @@
                 "tags": [
                     "TenantRentContract"
                 ],
-                "summary": "Store a newly created Tenant renat contract in storage",
-                "description": "Store Tenant rent contract",
+                "summary": "Store a newly created Tenant renat Contract in storage",
+                "description": "Store Tenant Rent Contract",
                 "produces": [
                     "application/json"
                 ],
@@ -7513,6 +7551,46 @@
                                 },
                                 "data": {
                                     "$ref": "#/definitions/TenantRentContract"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenant-rent-contracts/deletewithids": {
+            "post": {
+                "tags": [
+                    "TenantRentContract"
+                ],
+                "summary": "Remove multiple Tenant Rent Contract from storage",
+                "description": "Delete multiple TenantRentContract",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "path",
+                        "description": "id of TenantRentContract",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
                                 },
                                 "message": {
                                     "type": "string"

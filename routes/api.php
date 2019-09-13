@@ -73,6 +73,8 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/tenant-rent-contracts/{id}', 'TenantRentContractAPIController@show')->name('tenant-rent-contracts.show');
     Route::post('/tenant-rent-contracts', 'TenantRentContractAPIController@store')->name('tenant-rent-contracts.store');
     Route::put('/tenant-rent-contracts/{id}', 'TenantRentContractAPIController@update')->name('tenant-rent-contracts.update');
+    Route::delete('/tenant-rent-contracts/{id}', 'TenantRentContractAPIController@destroy')->name('tenant-rent-contracts.destroy');
+    Route::post('/tenant-rent-contracts/deletewithids', 'TenantRentContractAPIController@destroyWithIds')->name('tenant-rent-contracts.destroyWithIds');
 
     // Location
     Route::get('/states', 'StateAPIController@index')->name('states');
