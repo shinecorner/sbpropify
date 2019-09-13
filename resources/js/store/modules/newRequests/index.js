@@ -41,7 +41,14 @@ export default {
             await this._vm.axios.delete(`requests/${id}`, {showMessage: true})
 
             commit('delete', id)
-        }
+        },
+        async uploadMedia({state, commit}, {id, ...payload}) {
+            const {data} = await this._vm.axios.post(`requests/${id}/media`, payload);
+            if(data.success == true) {
+                commit('addmedia', {data_id : id, media : data.data})
+            }
+            return data;
+        },
     },
     getters: {
         getById: ({data}) => id => data.find(request => request.id === id)
@@ -59,6 +66,12 @@ export default {
                     break
                 }
             }
+        },
+        addmedia: ({data}, {data_id, media}) => {
+            let item = data.find(({id}) => id === data_id)
+            if(!item.media)
+                item.media = [];
+            item.media.push(media);
         }
     }
 }
