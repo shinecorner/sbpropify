@@ -276,35 +276,31 @@ class TenantAPIController extends AppBaseController
         }
 
         $input['user_id'] = $user->id;
-        $rentData = [];
-        if (isset($input['rent_start'])) {
-            $rentData['start_date'] = $input['rent_start'];
-          //  unset($input['rent_start']);
-        }
-
-        if (isset($input['building_id'])) {
-            $rentData['building_id'] = $input['building_id'];
-           // unset($input['building_id']);
-        }
-
-        if (isset($input['unit_id'])) {
-            $rentData['unit_id'] = $input['unit_id'];
-          //  unset($input['unit_id']);
-        }
         try {
             $tenant = $this->tenantRepository->create($input);
         } catch (\Exception $e) {
             return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
         }
 
-        if (!empty($rentData)) {
-            $rentData['tenant_id'] = $tenant->id;
-            try {
-                $rentRepository = App::make(TenantRentContractRepository::class);
-                $rentRepository->create($rentData);
-            } catch (\Exception $e) {
-                return $this->sendError(__('models.tenant_rent_contract.errors.create') . $e->getMessage());
-            }
+        $rentData = [];
+        if (isset($input['rent_start'])) {
+            $rentData['start_date'] = $input['rent_start'];
+        }
+
+        if (isset($input['building_id'])) {
+            $rentData['building_id'] = $input['building_id'];
+        }
+
+        if (isset($input['unit_id'])) {
+            $rentData['unit_id'] = $input['unit_id'];
+        }
+
+        $rentData['tenant_id'] = $tenant->id;
+        try {
+            $rentRepository = App::make(TenantRentContractRepository::class);
+            $rentRepository->create($rentData);
+        } catch (\Exception $e) {
+            return $this->sendError(__('models.tenant_rent_contract.errors.create') . $e->getMessage());
         }
 
         $tenant->load(['user', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
