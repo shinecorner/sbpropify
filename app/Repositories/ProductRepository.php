@@ -69,6 +69,11 @@ class ProductRepository extends BaseRepository
     public function setStatus(int $id, $status)
     {
         $product = $this->find($id);
+        return $this->setStatusExisting($product, $status);
+    }
+
+    public function setStatusExisting($product, $status)
+    {
         if ($product->status != $status && $status == Product::StatusPublished) {
             $product->published_at = Carbon::now();
             $this->notify($product);
