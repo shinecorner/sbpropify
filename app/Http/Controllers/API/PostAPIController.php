@@ -189,6 +189,19 @@ class PostAPIController extends AppBaseController
         }
 
         $post = $this->postRepository->create($input);
+        $post->load([
+            'media',
+            'user.tenant',
+            'likesCounter',
+            'likes',
+            'likes.user',
+            'buildings.address.state',
+            'buildings.serviceProviders',
+            'buildings.media',
+            'quarters',
+            'providers',
+            'views',
+        ])->loadCount('allComments');
         $this->postRepository->notifyAdmins($post);
         $data = $this->transformer->transform($post);
         return $this->sendResponse($data, __('models.post.saved'));
@@ -329,6 +342,8 @@ class PostAPIController extends AppBaseController
             'buildings.serviceProviders',
             'buildings.media',
             'quarters',
+            'providers',
+            'views',
         ])->withCount('allComments')->findWithoutFail($id);
         $post->status = $status;
         $data = $this->transformer->transform($post);

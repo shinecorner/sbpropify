@@ -865,10 +865,22 @@ class StatisticsAPIController extends AppBaseController
 
     protected function formatTime($timeInSeconds)
     {
-        $minutes = (int) floor($timeInSeconds / 60);
-        $seconds = (int)$timeInSeconds % 60;
+        $days           =  floor($timeInSeconds / (24 * 3600));
 
-        $result = ($minutes < 10) ? '0' . $minutes : $minutes;
+        $timeInSeconds  = ($timeInSeconds % (24 * 3600));
+        $hours          = floor($timeInSeconds / 3600);
+
+        $timeInSeconds %= 3600;
+        $minutes        = floor($timeInSeconds / 60 );
+
+        $timeInSeconds %= 60;
+        $seconds        = floor($timeInSeconds);
+
+        $result = ($days < 10) ? '0' . $days : $days;
+        $result .= ':';
+        $result .= ($hours < 10) ? '0' . $hours : $hours;
+        $result .= ':';
+        $result .= ($minutes < 10) ? '0' . $minutes : $minutes;
         $result .= ':';
         $result .= ($seconds < 10) ? '0' . $seconds : $seconds;
         return $result;

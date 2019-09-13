@@ -68,6 +68,9 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('/tenants/deletewithids', 'TenantAPIController@destroyWithIds')->name('tenants.destroyWithIds');
     Route::delete('/tenants/{id}/media/{media_id}', 'MediaAPIController@tenantDestroy')->name('tenants.media.destroy');
 
+    //Tenant rent contract
+    Route::get('/tenant-rent-contracts', 'TenantRentContractAPIController@index')->name('tenant-rent-contracts');
+
     // Location
     Route::get('/states', 'StateAPIController@index')->name('states');
     Route::get('/countries', 'CountryAPIController@index')->name('countries');
