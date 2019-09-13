@@ -500,7 +500,7 @@
             },
             unitEditView(row) {
                  this.$router.push({
-                    name: 'adminBuildingUnitsEdit',
+                    name: 'adminUnitsEdit',
                     params: {
                         id: row.id
                     }

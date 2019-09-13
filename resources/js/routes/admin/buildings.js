@@ -37,35 +37,5 @@ export default [{
         meta: {
             title: 'Edit Building'
         }
-    }, {
-        name: 'adminBuildingUnits',
-        path: ':id/units',
-        component: () => import ( /* webpackChunkName: "admin/units/index" */ 'views/Admin/Buildings/Units'),
-        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.list.unit)]),
-        meta: {
-            title: 'Building Units'
-        }
-    }, {
-        name: 'adminBuildingUnitsAdd',
-        path: ':id/units/add',
-        component: () => import ( /* webpackChunkName: "admin/units/add" */ 'views/Admin/Buildings/Units/Add'),
-        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.create.unit)]),
-        props: {
-            title: 'Add unit'
-        },
-        meta: {
-            title: 'Add Unit'
-        }
-    }, {
-        name: 'adminBuildingUnitsEdit',
-        path: ':buildingId/units/:id/edit',
-        component: () => import ( /* webpackChunkName: "admin/units/edit" */ 'views/Admin/Buildings/Units/Edit'),
-        beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.update.unit)]),
-        props: {
-            title: 'Edit unit'
-        },
-        meta: {
-            title: 'Edit Unit'
-        }
     }]
 }]
