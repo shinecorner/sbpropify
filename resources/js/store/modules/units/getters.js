@@ -1,10 +1,8 @@
-import {types} from "mixins/methods/unitTypes";
-
 export default {
-    units({units}) {
+    units({units}, getters, { application: { constants } }) {
         let unitsArr = units.data ? units.data : [];
         return unitsArr.map((unit) => {
-            unit.typeLabel = types[unit.type];
+            unit.typeLabel = constants.units.type[unit.type];
             return unit;
         });
     },

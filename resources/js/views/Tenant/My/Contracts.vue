@@ -17,7 +17,7 @@
             <el-divider class="column-divider" content-position="left">Unit</el-divider>
             <div>
                 <b>Type:</b>
-                {{getUnitType(contract.unit.type)}}
+                {{$t('models.unit.type.' + $constants.units.type[contract.unit.type])}}
             </div>
             <div>
                 <b>Unit number:</b>
@@ -62,12 +62,10 @@
     import Heading from 'components/Heading'
     import Placeholder from 'components/Placeholder'
     import {displayError} from 'helpers/messages'
-    import unitTypes from 'mixins/methods/unitTypes'
     import {format} from 'date-fns'
     import VueSticky from 'vue-sticky'
 
     export default {
-        mixins: [unitTypes],
         components: {
             Heading,
             Placeholder
@@ -94,11 +92,6 @@
 
                 return ['jpg', 'jpeg', 'gif', 'bmp', 'png'].includes(ext);
             },
-            getUnitType(type) {
-                const {label} = this.unitTypes.find(unit => unit.type === type);
-
-                return label
-            }
         },
         async mounted () {
             this.loading = this.$loading({
