@@ -10,7 +10,7 @@
                     </div>
                 </div>
                 {{item.contentSnippet || 'No description available.'}}
-                <el-button size="mini" round @click="readMore(item.link)">Read more</el-button>
+                <el-button size="mini" round @click="readMore(item.link)">{{$t('tenant.read_more')}}</el-button>
             </el-collapse-item>
         </el-collapse>
     </el-card>

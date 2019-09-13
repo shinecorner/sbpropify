@@ -1,6 +1,6 @@
 <template>
     <div class="settings">
-        <heading class="custom-heading" icon="icon-cog" title="User Settings"/>
+        <heading class="custom-heading" icon="icon-cog" :title="$t('tenant.user_settings')"/>
         <el-tabs v-model="active">
             <el-tab-pane label="Personal Informations" name="personal_informations">
                 <el-row>
@@ -24,7 +24,7 @@
                     </el-col>
                 </el-row>
             </el-tab-pane>
-            <el-tab-pane label="Security" name="security">
+            <el-tab-pane :label="$t('tenant.security')" name="security">
                 <el-row>
                     <el-col :span="12">
                         <card>
@@ -77,7 +77,7 @@
                         <el-form-item :label="$t('settings.admin')">
                             <el-switch v-model="loggedInUser.settings.admin_notification"></el-switch>
                         </el-form-item>
-                        <el-form-item label="Choose language">
+                        <el-form-item :label="$t('tenant.choose_language')">
                                 <el-radio-group v-model="loggedInUser.settings.language">
                                     <el-radio-button label="fr">
                                         <span class="flag-icon flag-icon-fr"></span> {{$t('languages.fr')}}
@@ -94,7 +94,7 @@
                                 </el-radio-group>
                         </el-form-item>
                         <el-form-item>
-                            <el-button @click="settingsUpdated" icon="ti-save" type="primary">Save</el-button>
+                            <el-button @click="settingsUpdated" icon="ti-save" type="primary">{{$t('tenant.actions.save')}}</el-button>
                         </el-form-item>
                     </el-form>
                 </card>

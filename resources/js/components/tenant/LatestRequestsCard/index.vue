@@ -1,8 +1,8 @@
 <template>
     <ui-card shadow="always">
         <template #header>
-            <i class="icon-chat-empty"></i> Latest public requests
-            <el-button type="text" @click="$router.push({name: 'tenantRequests'})">View all</el-button>
+            <i class="icon-chat-empty"></i> {{$t('tenant.latest_public_requests')}}
+            <el-button type="text" @click="$router.push({name: 'tenantRequests'})">{{$t('tenant.actions.view_all')}}</el-button>
         </template>
         <loader v-if="loading" />
         <div class="placeholder" v-else-if="!loading && !requests.length">
@@ -24,7 +24,7 @@
                     </div>
                 </template>
                 <div class="p-description">{{request.description}}</div>
-                <el-button size="mini" icon="icon-right-1" plain round>View</el-button>
+                <el-button size="mini" icon="icon-right-1" plain round>{{$t('tenant.actions.view')}}</el-button>
             </el-collapse-item>
         </el-collapse>
     </ui-card>

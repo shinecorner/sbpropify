@@ -8,8 +8,8 @@
         <template v-else>
             <el-button ref="button" type="text" :icon="status.liked ? icons.unlike : icons.like" :class="{active: status.liked}" :loading="loading" @click="handleLike">
                 <template v-if="showText">
-                    <template v-if="status.liked">Unlike</template>
-                    <template v-else>Like</template>
+                    <template v-if="status.liked">{{$t('tenant.unlike')}}</template>
+                    <template v-else>{{$t('tenant.like')}}</template>
                 </template>
             </el-button>
         </template>
