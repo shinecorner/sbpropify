@@ -61,7 +61,7 @@ class TenantCredentials extends Notification implements ShouldQueue
             $pdfName = $this->tenant->pdfFileName();
         }
         $disk = \Storage::disk('tenant_credentials');
-	    dump(view('mails.sendTenantCredentials', $data)->render());
+	    //dump(view('mails.sendTenantCredentials', $data)->render());
         return (new MailMessage)
             ->view('mails.sendTenantCredentials', $data)
             ->attachData($disk->get($pdfName), $pdfName)
