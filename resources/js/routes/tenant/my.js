@@ -25,7 +25,7 @@ export default {
         path: 'documents',
         component: () => import ( /* webpackChunkName: "tenant/my/documents" */ 'views/Tenant/My/Documents'),
         meta: {
-            title: this.$t('tenant.my_documents')
+            title: 'My documents'
         }
     }, {
         name: 'tenantMyContacts',

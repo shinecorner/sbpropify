@@ -7,6 +7,6 @@ export default {
     component: () => import ( /* webpackChunkName: "tenant/requests/index" */ 'views/Tenant/Requests/index'),
     beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isTenantGuard]),
     meta: {
-        title: this.$t('tenant.requests')
+        title: 'Requests'
     }
 }

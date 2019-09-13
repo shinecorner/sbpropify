@@ -7,6 +7,6 @@ export default {
     component: () => import ( /* webpackChunkName: "tenant/propertyManagers/index" */ 'views/Tenant/PropertyManagers'),
     beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isTenantGuard]),
     meta: {
-        title: this.$t('tenant.property_managers')
+        title: 'Property managers'
     },
 }
