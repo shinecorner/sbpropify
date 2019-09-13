@@ -1,21 +1,29 @@
 <template>
-    <div :class="['ui-heading', `ui-heading--${shadow}-shadow`]">
-        <i :class="['ui-heading__icon', icon]" v-if="icon"></i>
-        <div class="ui-heading__content">
-            <div class="ui-heading__content__title">{{title}}</div>
-            <div class="ui-heading__content__description" v-if="description || $slots.default">
-                {{description || $slots.default}}
+    <div>
+        <div :class="['ui-heading', `ui-heading--${shadow}-shadow`]">
+            <i :class="['ui-heading__icon', icon]" v-if="icon"></i>
+            <div class="ui-heading__content">
+                <div class="ui-heading__content__title">{{title}}</div>
+                <div class="ui-heading__content__description" v-if="description || $slots.default">
+                    {{description || $slots.default}}
+                </div>
+            </div>
+            <div class="ui-heading__actions" v-if="!el.is.md">
+                <slot />
             </div>
         </div>
-        <div class="ui-heading__actions">
+        <div class="ui-heading__mobile_actions"  v-if="el.is.md">
             <slot />
         </div>
     </div>
 </template>
 
 <script>
+    import { ResponsiveMixin } from "vue-responsive-components"
+
     export default {
         name: 'ui-heading',
+        mixins: [ResponsiveMixin],
         props: {
             icon: String,
             title: {
@@ -28,7 +36,21 @@
                 default: 'light',
                 validator: type => ['light', 'heavy'].includes(type)
             },
-        }
+        },
+        computed: {
+
+            breakpoints () {
+                return {
+                    md: el => {
+                        if (el.width <= 700) {
+                            return true
+                        } else {
+                            return false
+                        }
+                    }
+                }
+            },
+        },
     }
 </script>
 
@@ -84,4 +106,7 @@
 
             > *:not(:last-child)
                 margin-right: 8px
+    .ui-heading__mobile_actions
+        display: block
+        margin-top: 10px
 </style>

@@ -102,19 +102,24 @@
 
                     params.visibility = params.visibility.key
 
-                    const {data: {data}} = await this.axios.post('posts', params);                                        
-                    if (data.hasOwnProperty('id') && this.model.media.length) {                        
+                    
+                    const resp = await this.$store.dispatch('newPosts/create', params);
+
+                    displaySuccess(resp.message)
+                    const data = resp.data
+                    //const {data: {data}} = await this.axios.post('posts', params);                                        
+                    if (data.hasOwnProperty('id') && this.model.media.length) { 
                         this.post_id = data.id;
                         await this.$refs.media.startUploading();
+                        //console.log('data', this.data);
                         // this.$refs.media.
                     }
 
                     this.model.content = ''
                     //this.$refs.media.clearUploader()
 
-                    displaySuccess(data)
-                    //temporary fix browser refresh. later change this things with proper router things.
-                    // window.location = '/news';
+                    //displaySuccess(data)
+                   
                 } catch (error) {
                     displayError(error)
                 } finally {

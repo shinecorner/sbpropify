@@ -136,7 +136,7 @@
                     if (item.route) {
                         item.active = true
 
-                        //this.$router.push(item.route)
+//                        this.$router.push(item.route)
                     }
                 }
             },
@@ -336,10 +336,10 @@
 
                 this.doAnimeOnDirection(this.direction)
             },
-            'routes': {
+            '$route': {
                 immediate: true,
                 handler (routes) {
-                    this.parseRoutes(routes)
+                    this.parseRoutes(this.routes)
                 }
             }
         },
@@ -373,8 +373,8 @@
         &.vertical-direction .menu,
         .submenu {
             overflow-y: auto;
-            overflow-y: overlay;
-            overflow-x: hidden;
+            // overflow-y: overlay;
+            // overflow-x: hidden;
         }
 
         &.vertical-direction {
