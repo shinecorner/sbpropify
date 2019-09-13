@@ -1633,6 +1633,88 @@
                 }
             }
         },
+        "/tenant-rent-contracts/{id}/media": {
+            "post": {
+                "tags": [
+                    "TenantRentContract"
+                ],
+                "summary": "Store a newly created TenantRentContract Media in storage",
+                "description": "Store Media",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Media that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Media"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/TenantRentContract"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenant-rent-contracts/{id}/media/{media_id}": {
+            "delete": {
+                "tags": [
+                    "TenantRentContract"
+                ],
+                "summary": "Remove the specified Media from storage",
+                "description": "Delete Media",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Media",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/tenants/{id}/media/{media_id}": {
             "delete": {
                 "tags": [
@@ -9111,6 +9193,39 @@
                     "description": "updated_at",
                     "type": "string",
                     "format": "date-time"
+                }
+            }
+        },
+        "Media": {
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "collection_name": {
+                    "description": "collection_name",
+                    "type": "string"
+                },
+                "file_name": {
+                    "description": "file_name",
+                    "type": "string"
+                },
+                "mime_type": {
+                    "description": "mime_type",
+                    "type": "string"
+                },
+                "disk": {
+                    "description": "disk",
+                    "type": "string"
+                },
+                "order_column": {
+                    "description": "order_column",
+                    "type": "string"
+                },
+                "size": {
+                    "description": "size",
+                    "type": "string"
                 }
             }
         },
