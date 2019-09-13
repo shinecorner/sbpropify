@@ -1,8 +1,10 @@
 <template>
-    <div class="posts" v-infinite-scroll="getPosts" style="overflow: auto;">
+    <div>
         <ui-heading icon="icon-megaphone-1" title="News" description="Sed placerat volutpat mollis." />
-        <el-divider />
-
+        
+        <ui-divider />
+    <div class="posts" v-infinite-scroll="getPosts" style="overflow: auto;">
+        
         <div class="content">
             <post-add-card />
             <el-divider content-position="left">
@@ -29,6 +31,7 @@
             </dynamic-scroller>
         </div>
         <rss-feed title="Blick.ch News" />
+    </div>
     </div>
 </template>
 

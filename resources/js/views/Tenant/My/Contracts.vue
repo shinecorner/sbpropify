@@ -4,9 +4,9 @@
         <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
     </placeholder>
     <div class="contracts" v-else-if="contract">
-        <heading icon="ti-book" :title="$t('tenant.my_contract')">
-            <div slot="description" class="description">Curabitur pellentesque consectetur malesuada.</div>
-        </heading>
+        <ui-heading icon="ti-book" :title="$t('tenant.my_contract')" description="Curabitur pellentesque consectetur malesuada.">
+        </ui-heading>
+        <ui-divider />
         <el-card>
             <el-divider class="column-divider" content-position="left">{{$t('tenant.building')}}</el-divider>
             <div>
