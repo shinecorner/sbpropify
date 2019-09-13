@@ -242,10 +242,10 @@
                             const {message} = JSON.parse(xhr.response)
 
                             if (xhr.status === 200) {
-                                this.$notify.success({
-                                    message,
-                                    offset: 64
-                                })
+                                // this.$notify.success({
+                                //     message,
+                                //     offset: 64
+                                // })
                             } else {
                                 this.$notify.error({
                                     message,

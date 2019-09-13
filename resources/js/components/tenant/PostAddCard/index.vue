@@ -105,16 +105,15 @@
                     
                     const resp = await this.$store.dispatch('newPosts/create', params);
 
-                    displaySuccess(resp.message)
+                    
                     const data = resp.data
                     //const {data: {data}} = await this.axios.post('posts', params);                                        
                     if (data.hasOwnProperty('id') && this.model.media.length) { 
                         this.post_id = data.id;
                         this.$refs.media.startUploading();
                     }
-
+                    displaySuccess(resp.message)
                     this.model.content = ''
-                    //this.$refs.media.clearUploader()
                    
                 } catch (error) {
                     displayError(error)
