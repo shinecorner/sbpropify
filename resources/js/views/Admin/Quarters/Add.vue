@@ -7,7 +7,7 @@
             <el-col :md="12">
                 <card :loading="loading" :header="$t('general.actions.view')">
                     <el-form :model="model" label-width="192px" ref="form">
-                        <el-form-item label="Name" :rules="validationRules.name"
+                        <el-form-item :label="$t('tenant.name')" :rules="validationRules.name"
                                     prop="name">
                             <el-input type="text" v-model="model.name"/>
                         </el-form-item>

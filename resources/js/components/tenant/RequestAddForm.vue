@@ -16,7 +16,7 @@
                 </el-form-item>
             </el-col>
         </el-row>
-        <el-form-item prop="title" label="Title" required>
+        <el-form-item prop="title" :label="$t('tenant.title')" required>
             <el-input v-model="model.title" />
         </el-form-item>
         <el-form-item prop="description" label="Description" required>
@@ -31,7 +31,7 @@
         <el-divider />
         <media-upload ref="upload" v-model="model.media" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="4" />
         <el-form-item class="submitBtnDiv" v-if="showSubmit" style="grid-column: span 6">
-            <el-button class="submit" type="primary" :disabled="loading" @click="submit">Save</el-button>
+            <el-button class="submit" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
         </el-form-item>
     </el-form>
 </template>

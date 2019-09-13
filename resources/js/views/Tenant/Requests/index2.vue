@@ -11,7 +11,7 @@
             <el-tab-pane name="media" lazy>
                 <div slot="label">
                     <i class="ti-gallery"></i>
-                    Media
+                    {{$t('tenant.media')}}
                 </div>
                 <div ref="media-content" id="media-content" class="content">
                     <media-gallery :media="openedRequest.media" :cols="2" :use-placeholder="!uploadedMedia.length" :gallery-options="{container: '#gallery'}" lazy-scroll-container="#media-content" lazy />
@@ -26,7 +26,7 @@
                             </el-tooltip>
                         </div>
                         <template v-else>
-                            <i class="el-icon-upload"></i> Upload files...
+                            <i class="el-icon-upload"></i> {{$t('tenant.placeholder.upload')}}...
                         </template>
                     </el-divider>
                     <el-alert type="warning" title="Once confirmed the uploaded files, you can no longer delete them. Please proceed with caution!" :closable="false" center />
@@ -55,7 +55,7 @@
                     No requests found.
                     <small>Use the below button to reset the applied filters.</small>
                     <el-divider>
-                        <el-button size="small" icon="el-icon-sort-up" round @click="resetFilters">Reset filters</el-button>
+                        <el-button size="small" icon="el-icon-sort-up" round @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
                     </el-divider>
                 </template>
                 <template v-else>
@@ -77,11 +77,11 @@
                                 <dynamic-scroller-item :item="item" :active="active" :data-index="index">
                                     <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @show-more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" >
                                         <template #tab-overview-after>
-                                            <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>View</el-button>
+                                            <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
                                         </template>
                                         <template #tab-media-after>
                                             <el-divider v-if="!item.media.length">
-                                                <el-button icon="el-icon-upload" round @click="toggleDrawer(item, 'media')">Upload files...</el-button>
+                                                <el-button icon="el-icon-upload" round @click="toggleDrawer(item, 'media')">{{$t('tenant.placeholder.upload')}}...</el-button>
                                             </el-divider>
                                         </template>
                                     </request-card>
@@ -95,7 +95,7 @@
                     <el-col class="hidden-md-and-down" :span="8" v-sticky="{stickyTop: 16}">
                         <el-card>
                             <filters ref="filters" :data.sync="filters.data" :schema="filters.schema" @changed="filtersChanged"/>
-                            <el-button type="primary" icon="el-icon-sort-up" @click="resetFilters">Reset filters</el-button>
+                            <el-button type="primary" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
                         </el-card>
                     </el-col>
                 </el-row>

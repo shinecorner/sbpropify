@@ -2,7 +2,7 @@
     <div class="p-user__settings">
         <el-form label-position="left">
             <el-divider content-position="left" @change="save">
-                <i class="icon-chart"></i> Summary statistics
+                <i class="icon-chart"></i> {{$t('tenant.summary_statistics')}}
             </el-divider>
             <div class="p-user__settings__description">
                 Select how would you like to receive the statistics, {{summaries.join(', ').replace(/,(?=[^,]*$)/, ' or')}}.
@@ -24,19 +24,19 @@
             <div class="p-user__settings__description">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </div>
-            <el-form-item label="News">
+            <el-form-item :label="$t('tenant.news')">
                 <el-switch v-model="loggedInUser.settings.news_notification" @change="save" />
             </el-form-item>
             <div class="p-user__settings__description">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </div>
-            <el-form-item label="Marketplace">
+            <el-form-item :label="$t('tenant.marketplace')">
                 <el-switch v-model="loggedInUser.settings.marketplace_notification" @change="save" />
             </el-form-item>
             <div class="p-user__settings__description">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </div>
-            <el-form-item label="Admin">
+            <el-form-item :label="$t('tenant.admin')">
                 <el-switch v-model="loggedInUser.settings.admin_notification" @change="save" />
             </el-form-item>
             <div class="p-user__settings__description">

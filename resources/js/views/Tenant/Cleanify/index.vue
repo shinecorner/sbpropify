@@ -17,7 +17,7 @@
                                     <el-select placeholder="Select" style="display: block" v-model="model.title">
                                         <el-option
                                             :key="title"
-                                            :label="$t(`general.salutation_option.${title}`)"
+                                            :label="$t(`tenant.salutation_option.${title}`)"
                                             :value="title"
                                             v-for="title in titles">
                                         </el-option>
