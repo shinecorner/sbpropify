@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Criteria\Common\FilterFullnameCriteria;
 use App\Criteria\Common\RequestCriteria;
 use App\Criteria\Posts\FilterByTenantCriteria;
 use App\Criteria\TenantsRentContract\FilterByBuildingCriteria;
 use App\Criteria\TenantsRentContract\FilterByUnitCriteria;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\API\Post\ShowRequest;
+use App\Http\Requests\API\TenantRentContract\DeleteRequest;
+use App\Http\Requests\API\TenantRentContract\UpdateRequest;
+use App\Http\Requests\API\TenantRentContract\CreateRequest;
 use App\Http\Requests\API\TenantRentContract\ListRequest;
 use App\Models\TenantRentContract;
+use App\Repositories\PostRepository;
 use App\Repositories\TenantRentContractRepository;
 use App\Transformers\TenantRentContractTransformer;
+use App\Transformers\TenantTransformer;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 
@@ -113,5 +118,283 @@ class TenantRentContractAPIController extends AppBaseController
         $tenantRentContracts = $this->tenantRentContractRepository->with(['tenant', 'building.address', 'unit'])->paginate($perPage);
         $response = (new TenantRentContractTransformer())->transformPaginator($tenantRentContracts);
         return $this->sendResponse($response, 'TenantRentContracts retrieved successfully');
+    }
+
+
+    /**
+     * @param $id
+     * @param ShowRequest $request
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @SWG\Get(
+     *      path="/tenant-rent-contracts/{id}",
+     *      summary="Display the specified Tenant Rent Contract",
+     *      tags={"TenantRentContract"},
+     *      description="Get Tenant Rent Contract",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="id",
+     *          description="id of Tenant Rent Contract",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/TenantRentContract"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function show($id, ShowRequest $request)
+    {
+        /** @var TenantRentContract $tenant */
+        $tenantRentContract = $this->tenantRentContractRepository->findWithoutFail($id);
+        if (empty($tenantRentContract)) {
+            return $this->sendError(__('models.tenant_rent_contract.errors.not_found'));
+        }
+
+        $tenantRentContract->load(['tenant', 'building.address', 'unit']);
+        $response = (new TenantRentContractTransformer())->transform($tenantRentContract);
+        return $this->sendResponse($response, 'Tenant Rent Contract retrieved successfully');
+    }
+
+    /**
+     * @param CreateRequest $request
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     *
+     * @SWG\Post(
+     *      path="/tenants-rent-contracts",
+     *      summary="Store a newly created Tenant renat Contract in storage",
+     *      tags={"TenantRentContract"},
+     *      description="Store Tenant Rent Contract",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          description="Tenant that should be stored",
+     *          required=false,
+     *          @SWG\Schema(ref="#/definitions/TenantRentContract")
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/TenantRentContract"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function store(CreateRequest $request)
+    {
+        $input = $request->all();
+        try {
+            $tenantRentContract = $this->tenantRentContractRepository->create($input);
+        } catch (\Exception $e) {
+            return $this->sendError(__('models.tenant_rent_contract.errors.create') . $e->getMessage());
+        }
+
+
+        $tenantRentContract->load(['tenant', 'building.address', 'unit']);
+
+        $response = (new TenantRentContractTransformer())->transform($tenantRentContract);
+        return $this->sendResponse($response, __('models.tenant_rent_contract.saved'));
+    }
+
+    /**
+     * @param $id
+     * @param UpdateRequest $request
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @SWG\Put(
+     *      path="/tenant-rent-contracts/{id}",
+     *      summary="Update the specified Tenant Rent Contract in storage",
+     *      tags={"TenantRentContract"},
+     *      description="Update Tenant Rent Contract",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="id",
+     *          description="id of Tenant Rent Contract",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          description="Tenant that should be updated",
+     *          required=false,
+     *          @SWG\Schema(ref="#/definitions/TenantRentContract")
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/TenantRentContract"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function update($id, UpdateRequest $request)
+    {
+        $input =  $input = $request->all();
+        /** @var TenantRentContract $tenantRentContract */
+        $tenantRentContract = $this->tenantRentContractRepository->findWithoutFail($id);
+        if (empty($tenantRentContract)) {
+            return $this->sendError(__('models.tenant_rent_contract.errors.not_found'));
+        }
+
+        try {
+            $tenant = $this->tenantRentContractRepository->updateExisting($tenantRentContract, $input);
+        } catch (\Exception $e) {
+            return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
+        }
+
+        $tenantRentContract->load(['tenant', 'building.address', 'unit']);
+        $response = (new TenantRentContractTransformer())->transform($tenantRentContract);
+        return $this->sendResponse($response, __('models.tenant.saved'));
+    }
+
+    /**
+     * @param int $id
+     * @param DeleteRequest $request
+     * @return Response
+     *
+     * @SWG\Delete(
+     *      path="/tenant-rent-contracts/{id}",
+     *      summary="Remove the specified Tenant Rent Contract from storage",
+     *      tags={"TenantRentContract"},
+     *      description="Delete TenantRentContract",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="id",
+     *          description="id of TenantRentContract",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function destroy($id, DeleteRequest $request)
+    {
+        try {
+            $this->tenantRentContractRepository->delete($id);
+        } catch (\Exception $e) {
+            return $this->sendError('Delete error: ' . $e->getMessage());
+        }
+
+        return $this->sendResponse($id, __('models.tenant_rent_contract.deleted'));
+    }
+
+    /**
+     * @param DeleteRequest $request
+     * @return mixed
+     *
+     *
+     * @SWG\Post(
+     *      path="/tenant-rent-contracts/deletewithids",
+     *      summary="Remove multiple Tenant Rent Contract from storage",
+     *      tags={"TenantRentContract"},
+     *      description="Delete multiple TenantRentContract",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="ids",
+     *          description="id of TenantRentContract",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function destroyWithIds(DeleteRequest $request){
+        $ids = $request->get('ids');
+        try{
+            TenantRentContract::destroy($ids);
+        }
+        catch (\Exception $e) {
+            return $this->sendError(__('models.tenant_rent_contract.errors.deleted') . $e->getMessage());
+        }
+        return $this->sendResponse($ids, __('models.tenant_rent_contract.deleted'));
     }
 }

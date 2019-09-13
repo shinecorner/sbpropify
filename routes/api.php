@@ -70,6 +70,13 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     //Tenant rent contract
     Route::get('/tenant-rent-contracts', 'TenantRentContractAPIController@index')->name('tenant-rent-contracts');
+    Route::get('/tenant-rent-contracts/{id}', 'TenantRentContractAPIController@show')->name('tenant-rent-contracts.show');
+    Route::post('/tenant-rent-contracts', 'TenantRentContractAPIController@store')->name('tenant-rent-contracts.store');
+    Route::post('/tenant-rent-contracts/{id}/media', 'MediaAPIController@tenantRentContractUpload')->name('tenant-rent-contracts.media.upload');
+    Route::put('/tenant-rent-contracts/{id}', 'TenantRentContractAPIController@update')->name('tenant-rent-contracts.update');
+    Route::delete('/tenant-rent-contracts/{id}', 'TenantRentContractAPIController@destroy')->name('tenant-rent-contracts.destroy');
+    Route::post('/tenant-rent-contracts/deletewithids', 'TenantRentContractAPIController@destroyWithIds')->name('tenant-rent-contracts.destroyWithIds');
+    Route::delete('/tenant-rent-contracts/{id}/media/{media_id}', 'MediaAPIController@tenantRentContractDestroy')->name('tenant-rent-contracts.media.destroy');
 
     // Location
     Route::get('/states', 'StateAPIController@index')->name('states');
