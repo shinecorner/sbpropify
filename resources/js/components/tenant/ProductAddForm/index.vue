@@ -123,6 +123,7 @@
                         const resp = await this.$store.dispatch('newProducts/create', params);
                         if (resp && resp.data) {                            
                             if (this.model.media.length) {
+                                console.log('media', this.model.media)
                             // TODO - make await for this   
                                 this.product_id = resp.data.id;            
                                this.$refs.media.startUploading();
