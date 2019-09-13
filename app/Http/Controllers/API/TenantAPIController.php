@@ -533,7 +533,9 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant_rent_contract.errors.create') . $e->getMessage());
         }
 
-        $tenant->load('building', 'unit', 'address', 'media', 'settings');
+        $tenant->load(['settings', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
+            $q->with('building.address', 'unit', 'media');
+        }]);
         if ($shouldPost) {
             $pr->newTenantPost($tenant);
         }
@@ -614,7 +616,9 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.update') . $e->getMessage());
         }
 
-        $tenant->load('user', 'address', 'building', 'unit', 'media');
+        $tenant->load(['user', 'settings', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
+            $q->with('building.address', 'unit', 'media');
+        }]);
         $response = (new TenantTransformer)->transform($tenant);
         return $this->sendResponse($response, __('models.tenant.saved'));
     }
@@ -691,7 +695,9 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.update') . $e->getMessage());
         }
 
-        $tenant->load('user', 'address', 'building', 'unit', 'media');
+        $tenant->load(['user', 'settings', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
+            $q->with('building.address', 'unit', 'media');
+        }]);
         $response = (new TenantTransformer)->transform($tenant);
         return $this->sendResponse($response, __('models.tenant.status_changed'));
     }

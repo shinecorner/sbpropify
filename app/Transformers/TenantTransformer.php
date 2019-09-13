@@ -51,52 +51,22 @@ class TenantTransformer extends BaseTransformer
         $response['media'] = [];
         if ($model->relationExists('tenant_rent_contracts')) {
             $response['tenant_rent_contracts'] = (new TenantRentContractTransformer())->transformCollection($model->tenant_rent_contracts);
-            unset($response['rent_start']);
-            unset($response['rent_end']);
+        }
 
-            $tenantRentContract = $model->tenant_rent_contracts->first();
+        if ($model->relationExists('building')) {
+            $response['building'] = (new BuildingTransformer)->transform($model->building);
+        }
 
-            if ($tenantRentContract) {
-                if ($tenantRentContract->relationExists('building')) {
-                    $response['building'] = (new BuildingTransformer)->transform($tenantRentContract->building);
+        if ($model->relationExists('unit')) {
+            $response['unit'] = (new UnitTransformer)->transform($model->unit);
+        }
 
-                    if ($tenantRentContract->building->relationExists('address')) {
-                        $response['address'] = (new AddressTransformer)->transform($tenantRentContract->building->address);
-                    }
-                }
+        if ($model->relationExists('media')) {
+            $response['media'] = (new MediaTransformer)->transformCollection($model->media);
+        }
 
-                if ($tenantRentContract->relationExists('unit')) {
-                    $response['unit'] = (new UnitTransformer)->transform($tenantRentContract->unit);
-                }
-
-                if ($tenantRentContract->relationExists('media')) {
-                    $response['media'] = (new MediaTransformer)->transformCollection($tenantRentContract->media);
-                }
-
-                if ($tenantRentContract->start_date) {
-                    $response['rent_start'] = $tenantRentContract->start_date->format('Y-m-d');
-                }
-
-                if ($tenantRentContract->end_date) {
-                    $response['rent_end'] = $tenantRentContract->end_date->format('Y-m-d');
-                }
-            }
-        } else {
-            if ($model->relationExists('building')) {
-                $response['building'] = (new BuildingTransformer)->transform($model->building);
-            }
-
-            if ($model->relationExists('unit')) {
-                $response['unit'] = (new UnitTransformer)->transform($model->unit);
-            }
-
-            if ($model->relationExists('media')) {
-                $response['media'] = (new MediaTransformer)->transformCollection($model->media);
-            }
-
-            if ($model->relationExists('address')) {
-                $response['address'] = (new AddressTransformer)->transform($model->address);
-            }
+        if ($model->relationExists('address')) {
+            $response['address'] = (new AddressTransformer)->transform($model->address);
         }
 
         return $response;
