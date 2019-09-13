@@ -60,18 +60,17 @@ class ProductRepository extends BaseRepository
         $model = parent::create($atts);
 
         if (!$atts['needs_approval']) {
-            return $this->setStatus($model->id, Product::StatusPublished);
+            return $this->setStatusExisting($model, Product::StatusPublished);
         }
 
         return $model;
     }
 
-    public function setStatus(int $id, $status)
-    {
-        $product = $this->find($id);
-        return $this->setStatusExisting($product, $status);
-    }
-
+    /**
+     * @param $product
+     * @param $status
+     * @return mixed
+     */
     public function setStatusExisting($product, $status)
     {
         if ($product->status != $status && $status == Product::StatusPublished) {
