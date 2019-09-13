@@ -1,8 +1,8 @@
 <template>
     <ui-card shadow="always">
         <template #header>
-            <i class="icon-users"></i> Property managers
-            <el-button type="text" @click="$router.push({name: 'tenantPropertyManagers'})">View all</el-button>
+            <i class="icon-users"></i> {{$t('tenant.property_managers')}}
+            <el-button type="text" @click="$router.push({name: 'tenantPropertyManagers'})">{{$t('tenant.actions.view_all')}}</el-button>
         </template>
         <loader v-if="loading" />
         <template v-else-if="!loading && managers">

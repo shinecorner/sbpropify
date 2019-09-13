@@ -1,5 +1,5 @@
 <template>
-    <ui-card icon="icon-chat-empty" title="Requests" shadow="always">
+    <ui-card icon="icon-chat-empty" :title="$t('tenant.requests')" shadow="always">
         <loader v-if="loading && !data" style="grid-column: -1 / 1;" />
         <div class="placeholder" v-else-if="!loading && !data">
             <img class="image" :src="require('img/5c9d48f15dd1a.png')" />
@@ -12,28 +12,28 @@
             <div class="column">
                 <div class="icon-lock-open"></div>
                 <div class="title">
-                    Opened
+                    {{$t('tenant.request_status.opened')}}
                 </div>
                 <animated-number :value="data.opened_requests_count" :formatValue="formatNumber" :delay="0" :duration="960" :complete="onAnimatedNumberCompleted" />
             </div>
             <div class="column">
                 <div class="icon-stopwatch"></div>
                 <div class="title">
-                    Pending
+                    {{$t('tenant.request_status.pending')}}
                 </div>
                 <animated-number :value="data.pending_requests_count" :formatValue="formatNumber" :delay="480" :duration="960" :complete="onAnimatedNumberCompleted" />
             </div>
             <div class="column">
                 <div class="icon-ok"></div>
                 <div class="title">
-                    Done
+                    {{$t('tenant.request_status.done')}}
                 </div>
                 <animated-number :value="data.done_requests_count" :formatValue="formatNumber" :delay="960" :duration="960" :complete="onAnimatedNumberCompleted" />
             </div>
             <div class="column">
                 <div class="icon-lock"></div>
                 <div class="title">
-                    Archived
+                    {{$t('tenant.request_status.archived')}}
                 </div>
                 <animated-number :value="data.archived_requests_count" :formatValue="formatNumber" :delay="1440" :duration="960" :complete="onAnimatedNumberCompleted" />
             </div>
