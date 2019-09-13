@@ -45,9 +45,12 @@
                                     <el-select :placeholder="$t('models.unit.type.label')" class="w100p"
                                                style="width: 100%;"
                                                v-model="model.type">
-                                        <el-option :key="type.type" :label="$t('models.unit.type.' + type.label )"
-                                                   :value="type.type"
-                                                   v-for="type in unitTypes"></el-option>
+                                        <el-option
+                                                :key="key"
+                                                :label="$t('models.unit.type.' + value )"
+                                                :value="+key"
+                                                v-for="(value, key) in $constants.units.type">
+                                        </el-option>
                                     </el-select>
                                 </el-form-item>
                             </el-col>
@@ -69,7 +72,7 @@
 
                         </el-row>
                         <el-row class="last-form-row" :gutter="20">
-                            <el-col :md="6" v-if="!isBusiness">
+                            <el-col :md="6" v-if="+model.type === 1">
                                 <el-form-item :label="$t('models.unit.room_no')" :rules="validationRules.room_no"
                                               prop="room_no"
                                 >
