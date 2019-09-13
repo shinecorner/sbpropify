@@ -12,6 +12,8 @@ use App\Http\Requests\API\Media\ProductUploadRequest;
 use App\Http\Requests\API\Media\SRequestDeleteRequest;
 use App\Http\Requests\API\Media\SRequestUploadRequest;
 use App\Http\Requests\API\Media\TenantDeleteRequest;
+use App\Http\Requests\API\Media\TenantRentContractDeleteRequest;
+use App\Http\Requests\API\Media\TenantRentContractUploadRequest;
 use App\Http\Requests\API\Media\TenantUploadRequest;
 use App\Models\Building;
 use App\Repositories\AddressRepository;
@@ -390,13 +392,11 @@ class MediaAPIController extends AppBaseController
         //@TODO tmp solution
         $tenant->load('tenant_rent_contracts');
         $tenantRentContract = $tenant->tenant_rent_contracts->first();
-        if (empty($tenantRentContract)) {
-            return $this->sendError(__('models.tenant_rent_contracts.errors.not_found'));
-        }
-
-        $data = $request->get('media', '');
-        if (!$media = $this->tenantRentContractRepository->uploadFile('media', $data, $tenantRentContract)) {
-            return $this->sendError(__('general.upload_error'));
+        if (!empty($tenantRentContract)) {
+            $data = $request->get('media', '');
+            if (!$media = $this->tenantRentContractRepository->uploadFile('media', $data, $tenantRentContract)) {
+                return $this->sendError(__('general.upload_error'));
+            }
         }
 
         $data = $request->get('media', '');
@@ -457,6 +457,118 @@ class MediaAPIController extends AppBaseController
         }
 
         $media = $tenant->media->find($media_id);
+        if (empty($media)) {
+            return $this->sendError(__('general.media_not_found'));
+        }
+
+        $media->delete();
+
+        return $this->sendResponse($media_id, __('general.swal.media.deleted'));
+    }
+
+    /**
+     * @param int $id
+     * @param TenantRentContractUploadRequest $request
+     * @return Response
+     *
+     * @SWG\Post(
+     *      path="/tenant-rent-contracts/{id}/media",
+     *      summary="Store a newly created TenantRentContract Media in storage",
+     *      tags={"TenantRentContract"},
+     *      description="Store Media",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          description="Media that should be stored",
+     *          required=false,
+     *          @SWG\Schema(ref="#/definitions/Media")
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/TenantRentContract"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function tenantRentContractUpload(int $id, TenantRentContractUploadRequest $request)
+    {
+        $tenantRentContract = $this->tenantRentContractRepository->findWithoutFail($id);
+        if (empty($tenantRentContract)) {
+            return $this->sendError(__('models.tenant_rent_contracts.errors.not_found'));
+        }
+
+        $data = $request->get('media', '');
+        if (!$media = $this->tenantRentContractRepository->uploadFile('media', $data, $tenantRentContract)) {
+            return $this->sendError(__('general.upload_error'));
+        }
+
+        $response = (new MediaTransformer)->transform($media);
+        return $this->sendResponse($response, __('general.swal.media.added'));
+    }
+
+    /**
+     * @param int $id
+     * @param int $media_id
+     * @param TenantRentContractDeleteRequest $r
+     * @return Response
+     *
+     * @SWG\Delete(
+     *      path="/tenant-rent-contracts/{id}/media/{media_id}",
+     *      summary="Remove the specified Media from storage",
+     *      tags={"TenantRentContract"},
+     *      description="Delete Media",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="id",
+     *          description="id of Media",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="string"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function tenantRentContractDestroy(int $id, int $media_id, TenantRentContractDeleteRequest $r)
+    {
+        $tenantRentContract = $this->tenantRentContractRepository->findWithoutFail($id);
+        if (empty($tenantRentContract)) {
+            return $this->sendError(__('models.tenant_rent_contract.errors.not_found'));
+        }
+
+        $media = $tenantRentContract->media->find($media_id);
         if (empty($media)) {
             return $this->sendError(__('general.media_not_found'));
         }
