@@ -999,6 +999,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $sr->tags()->sync($tag, false);
+        $sr->touch();
         $sr->load('media', 'tenant.user', 'category', 'comments.user', 'users',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
@@ -1082,6 +1083,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         if ($tagIds) {
             $sr->tags()->sync($tagIds, false);
+            $sr->touch();
         }
 
         $sr->load('media', 'tenant.user', 'category', 'comments.user', 'users',
@@ -1160,6 +1162,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         if ($tagIds) {
             $sr->tags()->detach($tagIds);
+            $sr->touch();
         }
 
         $sr->load('media', 'tenant.user', 'category', 'comments.user', 'users',
@@ -1215,6 +1218,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $sr->tags()->detach($tag);
+        $sr->touch();
         $sr->load('media', 'tenant.user', 'category', 'comments.user', 'users',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 

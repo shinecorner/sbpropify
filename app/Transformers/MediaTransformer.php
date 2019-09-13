@@ -4,9 +4,6 @@ namespace App\Transformers;
 
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\Models\Media;
-use Illuminate\Database\Eloquent\Collection;
-use League\Fractal\Resource\Collection as FCollection;
-use League\Fractal\Manager;
 
 /**
  * Class MediaTransformer.
