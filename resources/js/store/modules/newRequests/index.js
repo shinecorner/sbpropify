@@ -41,13 +41,19 @@ export default {
             await this._vm.axios.delete(`requests/${id}`, {showMessage: true})
 
             commit('delete', id)
-        }
+        },
+        async uploadMedia({}, {id, ...payload}) {
+            console.log('uplaod media called', id, payload)
+            const {data} = await this._vm.axios.post(`requests/${id}/media`, payload);
+            console.log('uploadreqmedia success', data);
+            return data;
+        },
     },
     getters: {
         getById: ({data}) => id => data.find(request => request.id === id)
     },
     mutations: {
-        set: (state, payload) => Object.assign(state, payload),
+        set: (state, payload) => { console.log('set', state); Object.assign(state, payload) },
         update: ({data}, payload) => Object.assign(data.find(({id}) => id === payload.id), payload),
         delete: ({data}, id) => {
             let i = data.length

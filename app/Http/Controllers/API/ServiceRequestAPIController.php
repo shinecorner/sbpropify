@@ -133,6 +133,7 @@ class ServiceRequestAPIController extends AppBaseController
             $response = (new ServiceRequestTransformer)->transformCollection($serviceRequests);
             return $this->sendResponse($response, 'Service Requests retrieved successfully');
         }
+        
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $serviceRequests = $this->serviceRequestRepository
             ->with([
@@ -146,7 +147,7 @@ class ServiceRequestAPIController extends AppBaseController
                 'managers.user',
                 'users'
             ])->paginate($perPage);
-
+        
         $serviceRequests->getCollection()->loadCount('allComments');
         $response = (new ServiceRequestTransformer)->transformPaginator($serviceRequests);
         return $this->sendResponse($response, 'Service Requests retrieved successfully');

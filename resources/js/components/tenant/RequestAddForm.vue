@@ -94,9 +94,18 @@
                             if (media.length) {
                                 const queue = new PQueue({concurrency: 1})
 
-                                media.forEach(({file}) => queue.add(async () => await this.$store.dispatch('uploadRequestMedia', {
-                                    id, media: file.src
-                                })))
+                                // media.forEach(({file}) => queue.add(async () => await this.$store.dispatch('uploadRequestMedia', {
+                                //     id, media: file.src
+                                // })))
+                                media.forEach(
+                                    ({file}) => queue.add(
+                                        async () => { 
+                                            const mediaResp = await this.$store.dispatch('newRequests/uploadMedia', {
+                                                id, media: file.src
+                                            }) 
+                                        }
+                                    )
+                                )
 
                                 await queue.onIdle()
                             }
