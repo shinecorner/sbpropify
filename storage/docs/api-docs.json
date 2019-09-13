@@ -7395,21 +7395,66 @@
                 }
             }
         },
-        "/tenants-rent-contracts": {
-            "post": {
+        "/tenant-rent-contracts/{id}": {
+            "get": {
                 "tags": [
                     "TenantRentContract"
                 ],
-                "summary": "Store a newly created Tenant renat contract in storage",
-                "description": "Store Tenant rent contract",
+                "summary": "Display the specified Tenant rent contract",
+                "description": "Get Tenant Rent Contract",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Tenant Rent Contract",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/TenantRentContract"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "TenantRentContract"
+                ],
+                "summary": "Update the specified Tenant rent contract in storage",
+                "description": "Update Tenant rent contract",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Tenant",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
                         "name": "body",
                         "in": "body",
-                        "description": "Tenant that should be stored",
+                        "description": "Tenant that should be updated",
                         "required": false,
                         "schema": {
                             "$ref": "#/definitions/TenantRentContract"
@@ -7437,28 +7482,21 @@
                 }
             }
         },
-        "/tenant-rent-contracts/{id}": {
-            "put": {
+        "/tenants-rent-contracts": {
+            "post": {
                 "tags": [
                     "TenantRentContract"
                 ],
-                "summary": "Update the specified Tenant rent contract in storage",
-                "description": "Update Tenant rent contract",
+                "summary": "Store a newly created Tenant renat contract in storage",
+                "description": "Store Tenant rent contract",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of Tenant",
-                        "required": true,
-                        "type": "integer"
-                    },
-                    {
                         "name": "body",
                         "in": "body",
-                        "description": "Tenant that should be updated",
+                        "description": "Tenant that should be stored",
                         "required": false,
                         "schema": {
                             "$ref": "#/definitions/TenantRentContract"

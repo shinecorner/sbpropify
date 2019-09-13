@@ -361,12 +361,11 @@ class TenantAPIController extends AppBaseController
     {
         /** @var Tenant $tenant */
         $tenant = $this->tenantRepository->findWithoutFail($id);
-        $tenant->load('settings');
         if (empty($tenant)) {
             return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
-        $tenant->load(['user', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
+        $tenant->load(['settings', 'user', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
             $q->with('building.address', 'unit', 'media');
         }]);
         $response = (new TenantTransformer)->transform($tenant);
@@ -415,7 +414,7 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
-        $user->tenant->load(['user', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
+        $user->tenant->load(['user', 'settings', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
             $q->with('building.address', 'unit', 'media');
         }]);
         $response = (new TenantTransformer)->transform($user->tenant);
@@ -524,7 +523,8 @@ class TenantAPIController extends AppBaseController
 
     /**
      * @param UpdateLoggedInRequest $request
-     * @return Response
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
      * @SWG\Put(
      *      path="/tenants/me",

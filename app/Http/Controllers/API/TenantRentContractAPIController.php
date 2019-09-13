@@ -7,6 +7,7 @@ use App\Criteria\Posts\FilterByTenantCriteria;
 use App\Criteria\TenantsRentContract\FilterByBuildingCriteria;
 use App\Criteria\TenantsRentContract\FilterByUnitCriteria;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\API\Post\ShowRequest;
 use App\Http\Requests\API\TenantRentContract\UpdateRequest;
 use App\Http\Requests\API\TenantRentContract\CreateRequest;
 use App\Http\Requests\API\TenantRentContract\ListRequest;
@@ -118,6 +119,60 @@ class TenantRentContractAPIController extends AppBaseController
         return $this->sendResponse($response, 'TenantRentContracts retrieved successfully');
     }
 
+
+    /**
+     * @param $id
+     * @param ShowRequest $request
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @SWG\Get(
+     *      path="/tenant-rent-contracts/{id}",
+     *      summary="Display the specified Tenant Rent Contract",
+     *      tags={"TenantRentContract"},
+     *      description="Get Tenant Rent Contract",
+     *      produces={"application/json"},
+     *      @SWG\Parameter(
+     *          name="id",
+     *          description="id of Tenant Rent Contract",
+     *          type="integer",
+     *          required=true,
+     *          in="path"
+     *      ),
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  ref="#/definitions/TenantRentContract"
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     */
+    public function show($id, ShowRequest $request)
+    {
+        /** @var TenantRentContract $tenant */
+        $tenantRentContract = $this->tenantRentContractRepository->findWithoutFail($id);
+        if (empty($tenantRentContract)) {
+            return $this->sendError(__('models.tenant_rent_contract.errors.not_found'));
+        }
+
+        $tenantRentContract->load(['tenant', 'building.address', 'unit']);
+        $response = (new TenantRentContractTransformer())->transform($tenantRentContract);
+        return $this->sendResponse($response, 'Tenant Rent Contract retrieved successfully');
+    }
+
     /**
      * @param CreateRequest $request
      * @return mixed
@@ -126,9 +181,9 @@ class TenantRentContractAPIController extends AppBaseController
      *
      * @SWG\Post(
      *      path="/tenants-rent-contracts",
-     *      summary="Store a newly created Tenant renat contract in storage",
+     *      summary="Store a newly created Tenant renat Contract in storage",
      *      tags={"TenantRentContract"},
-     *      description="Store Tenant rent contract",
+     *      description="Store Tenant Rent Contract",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="body",
@@ -182,13 +237,13 @@ class TenantRentContractAPIController extends AppBaseController
      *
      * @SWG\Put(
      *      path="/tenant-rent-contracts/{id}",
-     *      summary="Update the specified Tenant rent contract in storage",
+     *      summary="Update the specified Tenant Rent Contract in storage",
      *      tags={"TenantRentContract"},
-     *      description="Update Tenant rent contract",
+     *      description="Update Tenant Rent Contract",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="id",
-     *          description="id of Tenant",
+     *          description="id of Tenant Rent Contract",
      *          type="integer",
      *          required=true,
      *          in="path"
