@@ -26,7 +26,7 @@ export default {
         async create ({state, commit}, params) {
             const {data} = await this._vm.axios.post('requests', params, {showMessage: true})
             const newData = state
-            
+
             newData.data.unshift(data.data)
 
             commit('set', newData)
