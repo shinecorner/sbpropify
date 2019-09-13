@@ -258,7 +258,7 @@
                     }
                 }
 
-                return await this.$refs.uploader.uploadXhr(xhr, file, JSON.stringify({
+                return this.$refs.uploader.uploadXhr(xhr, file, JSON.stringify({
                     media: file.file.src
                 }))
                 .then(data => {
