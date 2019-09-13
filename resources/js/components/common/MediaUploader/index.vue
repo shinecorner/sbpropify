@@ -376,6 +376,8 @@
 <style lang="scss" scoped>
     .media {
         width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
 
         &.media-list-layout {
             .media-list {

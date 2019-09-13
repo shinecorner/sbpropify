@@ -204,7 +204,9 @@
             .actions {
                 display: flex;
                 align-items: center;
-                align-self: flex-end;
+                justify-content: flex-end;
+                width: 100%;
+
 
                 .el-tag {
                     text-transform: uppercase;
