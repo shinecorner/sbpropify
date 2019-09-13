@@ -169,11 +169,23 @@ class TenantRentContract extends AuditableModel implements HasMedia
      * @var array
      */
     public static $rules = [
-        'birth_date' => 'date',
+        'tenant_id' => 'required|integer|exists:tenants,id',
+        'building_id' => 'integer|exists:buildings,id',
+        'unit_id' => 'integer|exists:units,id',
         'start_date' => 'date',
         'end_date' => 'date|after_or_equal:start_date',
-        'status' => 'digits_between:1,2|numeric'
+        'status' => 'digits_between:1,2|numeric',
+        'type' => 'digits_between:1,3|numeric',
+        'duration' => 'digits_between:1,2|numeric',
+        'deposit_type' => 'digits_between:1,4|numeric',
+        'deposit_status' => 'digits_between:1,2|numeric',
+        'deposit_amount' => 'numeric',
+        'net_rent' => 'numeric',
+        'operating_cost' => 'numeric',
+        'gross_rent' => 'numeric',
+        'parking_price' => 'numeric',
     ];
+
     /**
      * @var array
      */

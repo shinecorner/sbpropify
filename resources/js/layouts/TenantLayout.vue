@@ -274,7 +274,6 @@
                             if (this.sidebarDirection === 'vertical') {
                                 this.sidebarDirection = 'horizontal'
                             }
-
                             return true
                         } else {
                             if (this.sidebarDirection === 'horizontal') {
