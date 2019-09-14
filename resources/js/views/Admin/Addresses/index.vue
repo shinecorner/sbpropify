@@ -50,8 +50,8 @@
                     label: this.$t('models.address.street'),
                     prop: 'street'
                 }, {
-                    label: this.$t('models.address.street_nr'),
-                    prop: 'street_nr'
+                    label: this.$t('models.address.house_num'),
+                    prop: 'house_num'
                 }, {
                     label: this.$t('general.zip'),
                     prop: 'zip'
