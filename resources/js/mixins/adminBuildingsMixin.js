@@ -47,7 +47,7 @@ export default (config = {}) => {
                     state_id: '',
                     city: '',
                     street: '',
-                    street_nr: '',
+                    house_num: '',
                     zip: '',
                 },
                 validationRules: {
@@ -75,9 +75,9 @@ export default (config = {}) => {
                         required: true,
                         message: this.$t('models.address.validation.street.required')
                     }],
-                    street_nr: [{
+                    house_num: [{
                         required: true,
-                        message: this.$t('models.address.validation.street_nr.required')
+                        message: this.$t('models.address.validation.house_num.required')
                     }],
                     zip: [{
                         required: true,
@@ -201,13 +201,13 @@ export default (config = {}) => {
                         if (valid) {
                             this.loading.state = true;
                             try {
-                                const {state_id, city, street, street_nr, zip, ...restParams} = this.model;
+                                const {state_id, city, street, house_num, zip, ...restParams} = this.model;
                                 const response = await this.createBuilding({
                                     address: {
                                         state_id,
                                         city,
                                         street,
-                                        street_nr,
+                                        house_num,
                                         zip
                                     },
                                     ...restParams
@@ -253,13 +253,13 @@ export default (config = {}) => {
                                 }
                                 this.loading.state = true;
                                 try {
-                                    const {state_id, city, street, street_nr, zip, ...restParams} = this.model;
+                                    const {state_id, city, street, house_num, zip, ...restParams} = this.model;
                                     const data = await this.updateBuilding({
                                         address: {
                                             state_id,
                                             city,
                                             street,
-                                            street_nr,
+                                            house_num,
                                             zip
                                         },
                                         ...restParams,

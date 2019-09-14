@@ -11,7 +11,7 @@
             <el-divider class="column-divider" content-position="left">{{$t('tenant.building')}}</el-divider>
             <div>
                 <b>{{$t('tenant.name')}}: </b>
-                <div>{{contract.address.street}} {{contract.address.street_nr}}</div>
+                <div>{{contract.address.street}} {{contract.address.house_num}}</div>
                 <div>{{contract.address.zip}} {{contract.address.city}}</div>
             </div>
             <el-divider class="column-divider" content-position="left">{{$t('tenant.unit')}}</el-divider>

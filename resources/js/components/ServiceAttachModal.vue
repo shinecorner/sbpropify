@@ -232,7 +232,7 @@
                     return this.requestData.tenant.first_name + " " 
                         + this.requestData.tenant.last_name 
                         + ", " + this.address.street 
-                        + " " + this.address.street_nr
+                        + " " + this.address.house_num
                         + " " + this.address.city
                         +"\n"
                         + " [ " + this.requestData.service_request_format

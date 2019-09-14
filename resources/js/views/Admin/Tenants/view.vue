@@ -195,11 +195,11 @@
                                 }}
                             </el-col>
 
-                            <el-col :sm="8" :xs="12">{{$t('models.building.house_nr')}}:</el-col>
+                            <el-col :sm="8" :xs="12">{{$t('models.building.house_num')}}:</el-col>
                             <el-col :sm="16" :xs="12" class="text-secondary">
                                 {{
                                 buildings.filter(building => building.id==model.building_id).length>0 ?
-                                buildings.filter(building => building.id==model.building_id)[0].address.street_nr
+                                buildings.filter(building => building.id==model.building_id)[0].address.house_num
                                 : '&nbsp;'
                                 }}
                             </el-col>

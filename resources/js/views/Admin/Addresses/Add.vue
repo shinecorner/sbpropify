@@ -15,8 +15,8 @@
                     <el-form-item prop="street" :label="$t('models.address.street')" :rules="validationRules.street">
                         <el-input type="text" v-model="newAddress.street" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item prop="street_nr" :label="$t('models.address.street_nr')" :rules="validationRules.street_nr">
-                        <el-input type="text" v-model="newAddress.street_nr" autocomplete="off"></el-input>
+                    <el-form-item prop="house_num" :label="$t('models.address.house_num')" :rules="validationRules.house_num">
+                        <el-input type="text" v-model="newAddress.house_num" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item prop="zip" :label="$t('general.zip')" :rules="validationRules.zip">
                         <el-input type="text" v-model="newAddress.zip" autocomplete="off"></el-input>
@@ -63,10 +63,10 @@
                             message: this.$t('models.address.validation.street.required')
                         }
                     ],
-                    street_nr: [
+                    house_num: [
                         {
                             required: true,
-                            message: this.$t('models.address.validation.street_nr.required')
+                            message: this.$t('models.address.validation.house_num.required')
                         }
                     ],
                     zip: [
@@ -80,7 +80,7 @@
                     state_id: null,
                     city: '',
                     street: '',
-                    street_nr: '',
+                    house_num: '',
                     zip: '',
                 }
             }

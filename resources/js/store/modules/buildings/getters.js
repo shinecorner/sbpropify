@@ -4,7 +4,7 @@ export default {
             building.basement = building.basement ? 'Yes' : 'No';
 
             if (building.address) {
-                building.address_row = `${building.address.street} ${building.address.street_nr}`;
+                building.address_row = `${building.address.street} ${building.address.house_num}`;
                 building.address_zip = `${building.address.zip} ${building.address.city}`;
             }
 
