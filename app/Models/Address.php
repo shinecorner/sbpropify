@@ -37,8 +37,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          type="string"
  *      ),
  *      @SWG\Property(
- *          property="street_nr",
- *          description="street_nr",
+ *          property="house_nr",
+ *          description="house_nr",
  *          type="string"
  *      ),
  *      @SWG\Property(
@@ -73,7 +73,7 @@ class Address extends Model
         'state_id',
         'city',
         'street',
-        'street_nr',
+        'house_nr',
         'zip'
     ];
 
@@ -87,7 +87,7 @@ class Address extends Model
         'state_id' => 'integer',
         'city' => 'string',
         'street' => 'string',
-        'street_nr' => 'string',
+        'house_nr' => 'string',
         'zip' => 'string'
     ];
 
@@ -99,7 +99,7 @@ class Address extends Model
     public static $rules = [
         'city' => 'required',
         'street' => 'required',
-        'street_nr' => 'required',
+        'house_nr' => 'required',
         'zip' => 'required'
     ];
 

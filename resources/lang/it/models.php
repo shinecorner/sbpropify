@@ -353,7 +353,7 @@ return [
       "name" => "Indirizzo",
       "country" => "Paese",
       "street" => "Strada",
-      "street_nr" => "Via Nr...",
+      "house_nr" => "Via Nr...",
       "not_found" => "Indirizzo non trovato",
       "saved" => "Indirizzo salvato",
       'state' => 
@@ -374,7 +374,7 @@ return [
         [
           "required" => "La strada è obbligatoria",
         ],
-        'street_nr' => 
+        'house_nr' =>
         [
           "required" => "Il numero civico è obbligatorio",
         ],

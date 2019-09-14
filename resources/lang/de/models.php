@@ -353,7 +353,7 @@ return [
 			'name' => 'Address',								
 			'country' => 'Kanton',
 			'street' => 'Strasse',
-			'street_nr' => 'Hausnummer',			
+			'house_nr' => 'Hausnummer',
 			'not_found' => 'Adresse nicht gefunden',
 			'saved' => 'Adresse gespeichert',
 			'state' =>
@@ -374,7 +374,7 @@ return [
 						[
 							'required' => 'Strasse ist obligatorisch',
 						],
-					'street_nr' =>
+					'house_nr' =>
 						[
 							'required' => 'Hausnummer ist obligatorisch',
 						],

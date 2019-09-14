@@ -236,7 +236,7 @@ class ServiceProviderAPIController extends AppBaseController
         $input['user_id'] = $user->id;
 
         try {
-            unset($input['address']['street_nr']);
+            unset($input['address']['house_nr']);
             $address = $this->addressRepository->create($input['address']);
         } catch (Exception $e) {
             return $this->sendError(__('models.service.errors.create') . $e->getMessage());
@@ -384,7 +384,7 @@ class ServiceProviderAPIController extends AppBaseController
 
         if (isset($input['address'])) {
             try {
-                unset($input['address']['street_nr']);
+                unset($input['address']['house_nr']);
                 $this->addressRepository->update($input['address'], $serviceProvider->address_id);
             } catch (Exception $e) {
                 return $this->sendError(__('models.service.errors.update') . $e->getMessage());

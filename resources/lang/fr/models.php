@@ -353,7 +353,7 @@ return [
       "name" => "Adresse",
       "country" => "Pays",
       "street" => "Rue",
-      "street_nr" => "Rue Nr..",
+      "house_nr" => "Rue Nr..",
       "not_found" => "Adresse non trouvée",
       "saved" => "Adresse enregistrée",
       'state' => 
@@ -374,7 +374,7 @@ return [
         [
           "required" => "La rue est obligatoire",
         ],
-        'street_nr' => 
+        'house_nr' =>
         [
           "required" => "Le numéro de rue est requis",
         ],

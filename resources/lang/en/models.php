@@ -353,7 +353,7 @@ return [
       'name' => 'Address',      
       'country' => 'Country',
       'street' => 'Street',
-      'street_nr' => 'Street Nr.',
+      'house_nr' => 'Street Nr.',
       'not_found' => 'Address not found',
       'saved' => 'Address saved',
       'state' => 
@@ -374,7 +374,7 @@ return [
         [
           'required' => 'Street is required',
         ],
-        'street_nr' => 
+        'house_nr' =>
         [
           'required' => 'Street number is required',
         ],
