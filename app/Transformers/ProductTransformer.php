@@ -22,9 +22,6 @@ class ProductTransformer extends BaseTransformer
      */
     public function transform(Product $model)
     {
-        $ut = new UserTransformer();
-        $mt = new MediaTransformer();
-        $lt = new LikeTransformer();
         return [
             'id' => $model->id,
             'type' => $model->type,
@@ -38,10 +35,10 @@ class ProductTransformer extends BaseTransformer
             'updated_at' => $model->updated_at->format('d.m.Y H:i:s'),
             'published_at' => $model->published_at ? $model->published_at->toDateTimeString() : null,
             'user_id' => $model->user_id,
-            'user' => $ut->transform($model->user),
-            'media' => $mt->transformCollection($model->media),
+            'user' => (new UserTransformer())->transform($model->user),
+            'media' => (new MediaTransformer())->transformCollection($model->media),
             'liked' => $model->liked,
-            'likes' => $lt->transformCollection($model->likes),
+            'likes' => (new LikeTransformer())->transformCollection($model->likes),
             'likes_count' => $model->likesCount,
             'comments_count' => $model->all_comments_count,
         ];

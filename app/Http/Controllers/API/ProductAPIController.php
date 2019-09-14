@@ -521,12 +521,12 @@ class ProductAPIController extends AppBaseController
     public function publish($id, PublishRequest $request)
     {
         $newStatus = $request->get('status');
-        $post = $this->productRepository->findWithoutFail($id);
-        if (empty($post)) {
+        $product = $this->productRepository->findWithoutFail($id);
+        if (empty($product)) {
             return $this->sendError(__('models.product.errors.not_found'));
         }
 
-        $post = $this->productRepository->setStatus($id, $newStatus);
+        $product = $this->productRepository->setStatusExisting($product, $newStatus);
 
         return $this->sendResponse($id, __('models.product.status.published'));
     }

@@ -31,6 +31,7 @@ class TemplateCategoryTransformer extends BaseTransformer
             'tags' => $tags
         ];
 
+        // @TODO check lazy loading use also relationExists
         if ($model->parent_id == 0 || !$model->parentCategory) {
             $response['categories'] = $this->transformCollection($model->categories);
             return $response;

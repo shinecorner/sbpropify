@@ -30,7 +30,7 @@ class ConversationTransformer extends BaseTransformer
         if ($model->relationExists('users')) {
             foreach ($model->users as $u) {
                 if ($u->id != \Auth::id()) {
-                    $ret['user'] = $ut->transform($u);
+                    $ret['user'] = $ut->transform($u); // @TODO many time assign user diff value
                 }
             }
         }

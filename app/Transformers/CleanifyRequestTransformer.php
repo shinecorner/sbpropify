@@ -22,11 +22,10 @@ class CleanifyRequestTransformer extends BaseTransformer
      */
     public function transform(CleanifyRequest $model)
     {
-        $ut = new UserTransformer();
         return [
             'id' => $model->id,
             'user_id' => $model->user_id,
-            'user' => $ut->transform($model->user),
+            'user' => (new UserTransformer())->transform($model->user),
             'form' => $model->form,
         ];
     }
