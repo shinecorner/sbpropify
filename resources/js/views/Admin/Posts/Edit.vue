@@ -20,7 +20,7 @@
                                     </el-select> -->
                                     <el-select style="display: block" v-model="model.type">
                                         <el-option
-                                            :label="$t(`models.post.type.post`)"
+                                            :label="$t(`models.post.type.article`)"
                                             :value="1"
                                         >
                                         </el-option>
@@ -30,7 +30,7 @@
                                         >
                                         </el-option>
                                         <el-option
-                                            :label="$t(`models.post.type.article`)"
+                                            :label="$t(`models.post.type.post`)"
                                             :value="4"
                                             v-if="this.rolename == 'administrator'"
                                         >
@@ -271,7 +271,7 @@
                                 </div>
                                 <div class="contact-info-content">
                                     <span class="custom-value">
-                                        {{model.tenant}}
+                                        {{model.recipient_count}}
                                     </span>
                                 </div> 
                             </el-col>
