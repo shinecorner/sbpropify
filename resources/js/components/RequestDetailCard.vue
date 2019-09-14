@@ -276,11 +276,11 @@ export default {
                     align-items: center;
                     color: white;
                     height: 50px;
-                    background-color: #6ac06f;
+                    background-color: var(--primary-color);
                     font-size: 16px;
                     &:hover {
-                        background-color: #ddf4e5;
-                        color: #6ac06f;
+                        background-color: var(--primary-color-lighter);
+                        color: var(--primary-color);
                     }
                 }
             }
