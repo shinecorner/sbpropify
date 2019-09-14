@@ -21,7 +21,7 @@ class AddressRepository extends BaseRepository
     protected $fieldSearchable = [
         'city',
         'street',
-        'street_nr',
+        'house_num',
         'zip'
     ];
 

@@ -4,14 +4,14 @@
         <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
     </placeholder>
     <div class="contracts" v-else-if="contract">
-        <heading icon="ti-book" :title="$t('tenant.my_contract')">
-            <div slot="description" class="description">Curabitur pellentesque consectetur malesuada.</div>
-        </heading>
+        <ui-heading icon="ti-book" :title="$t('tenant.my_contract')" description="Curabitur pellentesque consectetur malesuada.">
+        </ui-heading>
+        <ui-divider />
         <el-card>
             <el-divider class="column-divider" content-position="left">{{$t('tenant.building')}}</el-divider>
             <div>
                 <b>{{$t('tenant.name')}}: </b>
-                <div>{{contract.address.street}} {{contract.address.street_nr}}</div>
+                <div>{{contract.address.street}} {{contract.address.house_num}}</div>
                 <div>{{contract.address.zip}} {{contract.address.city}}</div>
             </div>
             <el-divider class="column-divider" content-position="left">{{$t('tenant.unit')}}</el-divider>

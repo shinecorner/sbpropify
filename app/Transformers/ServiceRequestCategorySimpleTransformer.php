@@ -28,6 +28,7 @@ class ServiceRequestCategorySimpleTransformer extends BaseTransformer
             'acquisition' => $model->acquisition,
         ];
 
+        // @TODO check and use ->relationExists
         if ($model->parent_id > 0 && $model->parentCategory) {
             $response['parentCategory'] = $this->transform($model->parentCategory);
         }

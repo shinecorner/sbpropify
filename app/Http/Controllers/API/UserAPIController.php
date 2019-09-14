@@ -623,6 +623,7 @@ class UserAPIController extends AppBaseController
 
         // image upload
         $fileData = base64_decode($request->get('image_upload', ''));
+
         if ($fileData) {
             try {
                 $input['avatar'] = $this->userRepository->uploadImage($fileData, $user);

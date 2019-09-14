@@ -2,9 +2,26 @@
     <el-form ref="form" class="request-add" :model="model" label-position="top" :validate-on-rule-change="false" v-loading="loading">
         <el-row type="flex" :gutter="16">
             <el-col>
-                <el-form-item prop="category_id" label="Categories" required>
-                    <el-select v-model="model.category_id" placeholder="Select category">
-                        <el-option v-for="category in categories" :key="category.id" :label="category.name" :value="category.id" />
+                <el-form-item prop="category_id" :label="$t('models.request.category')" required>
+                    <el-select v-model="model.category_id" 
+                                :placeholder="$t('models.request.placeholders.category')"
+                                @change="showSubcategory">
+                        <el-option v-for="category in categories" 
+                                    :key="category.id" 
+                                    :label="category.name" 
+                                    :value="category.id" />
+                    </el-select>
+                </el-form-item>
+            </el-col>
+            <el-col v-if="this.showsubcategory == true">
+                <el-form-item prop="defect" :label="$t('models.request.defect_location.label')" required  >
+                    <el-select v-model="model.defect" 
+                                :placeholder="$t('general.placeholders.select')"
+                                @change="showLocationOrRoom">
+                        <el-option v-for="category in categories" 
+                                    :key="category.id" 
+                                    :label="category.name" 
+                                    :value="category.id" />
                     </el-select>
                 </el-form-item>
             </el-col>
@@ -61,20 +78,60 @@
         data () {
             return {
                 model: {
-                    category_id: '',
                     title: '',
-                    description: '',
+                    category_id: '',
                     priority: '',
+                    visibility: '',
+                    description: '',
                     media: [],
-                    visibility: ''
+                    defect:'',
+                    location: '',
+                    room: '',
+                    capture_phase: '',
+                    component: '',
+                    keyword: '',
+                    keywords: [],
+                    payer: '',
                 },
                 categories: [],
                 priorities: [],
                 loading: false,
-                mediaUploadMaxSize: MEDIA_UPLOAD_MAX_SIZE
+                defect_subcategories: [],
+                mediaUploadMaxSize: MEDIA_UPLOAD_MAX_SIZE,
+                showsubcategory: false,
+                showpayer: false,
+                showUmgebung: false,
+                showLiegenschaft: false,
+                showacquisition: false,
+                showWohnung: false,
             }
         },
         methods: {
+            showSubcategory() {
+                this.showsubcategory = this.model.category_id == 1 ? true : false;
+                this.showpayer = this.model.qualification == 5 ? true : false;
+            },
+            showLocationOrRoom() {
+                const subcategory = this.defect_subcategories.find(category => {
+                    return category.id == this.model.defect;
+                });
+
+                this.model.room = '';
+                this.model.location = '';
+                this.showLiegenschaft = false;
+                this.showUmgebung = false;
+                this.showWohnung = false;
+
+                if(subcategory.room == 1) {
+                    this.showWohnung = true;
+                }
+                else if(subcategory.location == 1) {
+                    this.showLiegenschaft = true;
+                }
+                else if(subcategory.location == 0 && subcategory.room == 0) {
+                    this.showUmgebung = true;
+                }
+            },
             submit () {
                 this.$refs.form.validate(async valid => {
                     if (valid) {
@@ -125,7 +182,10 @@
             try {
                 const {data} = await this.$store.dispatch('getRequestCategoriesTree', {get_all: true})
 
+                const initialCategories = data;
+                console.log('initial', initialCategories);
                 this.categories = this.categories = this.prepareCategories(data);
+
             } catch (err) {
                 displayError(err)
             }

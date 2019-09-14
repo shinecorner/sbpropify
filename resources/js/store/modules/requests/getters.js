@@ -27,7 +27,7 @@ export default {
             }
 
             if (request.tenant && request.tenant.building && request.tenant.building.address) {
-                request.address = `${request.tenant.building.address.street} ${request.tenant.building.address.street_nr}`;
+                request.address = `${request.tenant.building.address.street} ${request.tenant.building.address.house_num}`;
                 request.zip = `${request.tenant.building.address.zip} ${request.tenant.building.address.city}`;
             }
 

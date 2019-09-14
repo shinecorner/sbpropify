@@ -97,7 +97,7 @@
                 const items = response.data.data.map(item => {
                   item.status_label = `models.tenant.status.${that.tenantConstants.status[item.status]}`;
                   item.name = item.first_name + ' ' + item.last_name;
-                  item.address = item.address? item.address['street'] + ' ' + item.address['street_nr']:'';
+                  item.address = item.address? item.address['street'] + ' ' + item.address['house_num']:'';
                   item.status_class_suffix = that.tenantConstants.status[item.status];
                   return item;
                 });

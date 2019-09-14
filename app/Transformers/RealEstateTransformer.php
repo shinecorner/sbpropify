@@ -65,10 +65,12 @@ class RealEstateTransformer extends TransformerAbstract
             $ret['mail_from_name'] = $model->mail_from_name;
         }
 
-
+        // @TODO check and use ->relationExists
         if ($model->address) {
             $ret['address'] = (new AddressTransformer)->transform($model->address);
         }
+
+        // @TODO check and use ->relationExists
         if (isset($model->news_receivers)) {
             $ret['news_receivers'] = (new UserTransformer)->transformCollection($model->news_receivers);
         }

@@ -30,7 +30,7 @@ class PropertyManagerSimpleTransformer extends BaseTransformer
             'slogan' => $model->slogan,
         ];
 
-        if ($model->user) {
+        if ($model->relationExists('user')) {
             $response['user'] = (new UserTransformer)->transform($model->user);
         }
 

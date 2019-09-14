@@ -57,6 +57,7 @@ class AppServiceProvider extends ServiceProvider
             'request' => ServiceRequest::class,
             'real_estate' => RealEstate::class,
             'manager' => PropertyManager::class,
+            'translation' => \App\Models\Translation::class,
             'provider' => \App\Models\ServiceProvider::class,
             'tenant_rent_contract' => TenantRentContract::class,
             'conversation' => Conversation::class,

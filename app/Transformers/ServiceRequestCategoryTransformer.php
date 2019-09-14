@@ -31,6 +31,7 @@ class ServiceRequestCategoryTransformer extends BaseTransformer
             'room' => $model->room,
         ];
 
+        // @TODO check and use ->relationExists
         if ($model->categories) {
             $response['categories'] = $this->transformCollection($model->categories);
         }

@@ -1,9 +1,12 @@
 <template>
     <div class="dashboard">
-        <heading icon="ti-home" :title="$t('tenant.my_dashboard')">
+        <!-- <heading icon="ti-home" :title="$t('tenant.my_dashboard')">
             <greeting ref="greeting" class="description" slot="description" />
-        </heading>
-        <el-divider />
+        </heading> -->
+        <ui-heading icon="ti-home" :title="$t('tenant.my_dashboard')">
+            <greeting ref="greeting" class="description" slot="description" />
+        </ui-heading>
+        <ui-divider />
         <div class="row" name="fade" tag="div" ref="widgets">
             <div class="column">
                 <weather-card class="widget" />
