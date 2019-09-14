@@ -50,13 +50,11 @@
 <script>
     import Heading from 'components/Heading'
     import Placeholder from 'components/Placeholder'
-    import unitTypes from 'mixins/methods/unitTypes'
     import {displayError, displaySuccess} from 'helpers/messages'
     import {ResponsiveMixin} from 'vue-responsive-components'
 
     export default {
         mixins: [
-            unitTypes,
             ResponsiveMixin
         ],
         components: {
@@ -87,11 +85,6 @@
             }
         },
         methods: {
-            getUnitType (type) {
-                const {label} = this.unitTypes.find(unit => unit.type === type);
-
-                return label
-            },
             submit () {
                 this.$refs.form.validate(async valid => {
                     if (!valid) {

@@ -228,8 +228,8 @@
                             <el-col :sm="12" :xs="12" class="text-secondary">
 
                                 {{
-                                unitTypes.filter(obj => obj.type === unit.type).length > 0 ?
-                                $t('models.unit.type.' + unitTypes.filter(obj => obj.type === unit.type)[0].label)
+                                !!$constants.units.type[unit.type] ?
+                                $t('models.unit.type.' + $constants.units.type[unit.type])
                                 : '&nbsp;'
                                 }}
                             </el-col>
