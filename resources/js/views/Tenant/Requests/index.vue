@@ -1,43 +1,43 @@
 <template>
     <div :class="['requests']">
         <div class="container" v-infinite-scroll="get" style="overflow: auto;">
-            <div>
-            <ui-heading icon="icon-chat-empty" :title="$t('tenant.requests')" description="Need some info? Encountered an issue? Contact us!">
-                <el-popover popper-class="requests__filter-popover" placement="bottom-end" trigger="click" :width="192">
-                    <el-button slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
-                    <filters ref="filters" layout="column" :data.sync="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
-                    <el-button type="primary" size="small" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
-                </el-popover>
-                <el-button @click="addRequestDialogVisible = true" type="primary" icon="ti-plus" round>
-                    {{$t('tenant.add_request')}}
-                </el-button>
-            </ui-heading>
-            <ui-divider />
-            <dynamic-scroller ref="dynamic-scroller" :items="requests.data" :min-item-size="249" page-mode v-if="!loading">
-                <template #before v-if="loading && !requests.data.length">
-                    <loader v-for="idx in 5" :key="idx" />
-                </template>
-                <template v-slot="{item, index, active}">
-                    <dynamic-scroller-item :item="item" :active="active" :data-index="index">
-                        <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" @hook:mounted="$refs['dynamic-scroller'].forceUpdate">
-                            <template #tab-overview-after>
-                                <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
-                            </template>
-                            <template #tab-media-after>
-                                <ui-divider v-if="!item.media.length">
-                                    <el-button icon="el-icon-upload" round @click="toggleDrawer(item, 'media')">{{$t('tenant.placeholder.upload')}}...</el-button>
-                                </ui-divider>
-                                <!-- <ui-divider v-if="item.media.length">
-                                    Exist
-                                </ui-divider> -->
-                            </template>
-                        </request-card>
-                    </dynamic-scroller-item>
-                </template>
-                <template #after v-if="loading && requests.data.length">
-                    <loader />
-                </template>
-            </dynamic-scroller>
+            <div class="main-content">
+                <ui-heading icon="icon-chat-empty" :title="$t('tenant.requests')" description="Need some info? Encountered an issue? Contact us!">
+                    <el-popover popper-class="requests__filter-popover" placement="bottom-end" trigger="click" :width="192">
+                        <el-button slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
+                        <filters ref="filters" layout="column" :data.sync="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
+                        <el-button type="primary" size="small" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
+                    </el-popover>
+                    <el-button @click="addRequestDialogVisible = true" type="primary" icon="ti-plus" round>
+                        {{$t('tenant.add_request')}}
+                    </el-button>
+                </ui-heading>
+                <ui-divider />
+                <dynamic-scroller ref="dynamic-scroller" :items="requests.data" :min-item-size="249" page-mode v-if="!loading">
+                    <template #before v-if="loading && !requests.data.length">
+                        <loader v-for="idx in 5" :key="idx" />
+                    </template>
+                    <template v-slot="{item, index, active}">
+                        <dynamic-scroller-item :item="item" :active="active" :data-index="index">
+                            <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" @hook:mounted="$refs['dynamic-scroller'].forceUpdate">
+                                <template #tab-overview-after>
+                                    <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
+                                </template>
+                                <template #tab-media-after>
+                                    <ui-divider v-if="!item.media.length">
+                                        <el-button icon="el-icon-upload" round @click="toggleDrawer(item, 'media')">{{$t('tenant.placeholder.upload')}}...</el-button>
+                                    </ui-divider>
+                                    <!-- <ui-divider v-if="item.media.length">
+                                        Exist
+                                    </ui-divider> -->
+                                </template>
+                            </request-card>
+                        </dynamic-scroller-item>
+                    </template>
+                    <template #after v-if="loading && requests.data.length">
+                        <loader />
+                    </template>
+                </dynamic-scroller>
             </div>
             <ui-drawer :size="448" :visible.sync="addRequestDialogVisible" :z-index="1" direction="right" docked>
                 <ui-divider content-position="left">{{$t('tenant.add_request')}}</ui-divider>
