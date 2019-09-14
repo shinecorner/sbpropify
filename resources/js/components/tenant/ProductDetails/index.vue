@@ -81,6 +81,7 @@
             padding: 16px
             box-shadow: 0 24px 40px transparentize(#000, .68), 0 15px 12px transparentize(#000, .76)
             z-index: 1
+            min-height: 450px
             
             /deep/ .el-tabs__content
                 #pane-overview

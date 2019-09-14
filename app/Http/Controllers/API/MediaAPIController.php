@@ -392,11 +392,13 @@ class MediaAPIController extends AppBaseController
         //@TODO tmp solution
         $tenant->load('tenant_rent_contracts');
         $tenantRentContract = $tenant->tenant_rent_contracts->first();
-        if (!empty($tenantRentContract)) {
-            $data = $request->get('media', '');
-            if (!$media = $this->tenantRentContractRepository->uploadFile('media', $data, $tenantRentContract)) {
-                return $this->sendError(__('general.upload_error'));
-            }
+        if (empty($tenantRentContract)) {
+            $tenantRentContract = $this->tenantRentContractRepository->create(['tenant_id' => $tenant->id]);
+        }
+
+        $data = $request->get('media', '');
+        if (!$media = $this->tenantRentContractRepository->uploadFile('media', $data, $tenantRentContract)) {
+            return $this->sendError(__('general.upload_error'));
         }
 
         $data = $request->get('media', '');
@@ -628,7 +630,7 @@ class MediaAPIController extends AppBaseController
         if (!$media = $this->serviceRequestRepository->uploadFile('media', $data, $serviceRequest)) {
             return $this->sendError(__('general.upload_error'));
         }
-
+        $serviceRequest->touch();
         $this->serviceRequestRepository->notifyMedia($serviceRequest, \Auth::user(), $media);
         $response = (new MediaTransformer)->transform($media);
         return $this->sendResponse($response, __('general.swal.media.added'));
@@ -686,6 +688,7 @@ class MediaAPIController extends AppBaseController
         }
 
         $media->delete();
+        $serviceRequest->touch();
         return $this->sendResponse($media_id, __('general.swal.media.deleted'));
     }
 
