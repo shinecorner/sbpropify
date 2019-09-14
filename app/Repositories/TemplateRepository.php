@@ -239,7 +239,7 @@ class TemplateRepository extends BaseRepository
         $appUrl = env('APP_URL', '');
         $companyAddress = [
             $company->address->street,
-            $company->address->street_nr . ',',
+            $company->address->house_num . ',',
             $company->address->zip,
             $company->address->city,
         ];

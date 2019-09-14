@@ -37,8 +37,8 @@ class AddressTransformer extends TransformerAbstract
             'zip' => $model->zip,
         ];
 
-        if (key_exists('street_nr', $model->getAttributes())) {
-            $response['street_nr'] =  $model->street_nr;
+        if (key_exists('house_num', $model->getAttributes())) {
+            $response['house_num'] =  $model->house_num;
         }
         return $response;
     }
