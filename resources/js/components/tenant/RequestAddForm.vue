@@ -125,8 +125,7 @@
                 address: {},
                 building_locations: [],
                 apartment_rooms: [],
-                acquisitions: [],
-                costs: [],
+
                 mediaUploadMaxSize: MEDIA_UPLOAD_MAX_SIZE,
                 showsubcategory: false,
                 showpayer: false,
@@ -174,7 +173,7 @@
 
                             if(params.category_id == 1)
                                     params.category_id = this.model.defect;
-                                    
+
                             const resp = await this.$store.dispatch('newRequests/create', params);
                             
                             displaySuccess(resp.message)
@@ -236,17 +235,6 @@
                     this.apartment_rooms.push({name : apartment_rooms[key], value : key})
                 }
 
-                let acquisitions = this.$t('models.request.category_options.acquisitions');
-                this.acquisitions = [];
-                for (var key in acquisitions) {
-                    this.acquisitions.push({name : acquisitions[key], value : key})
-                }
-
-                let costs = this.$t('models.request.category_options.costs');
-                this.costs = [];
-                for (var key in costs) {
-                    this.costs.push({name : costs[key], value : key})
-                }
 
             } catch (err) {
                 displayError(err)
