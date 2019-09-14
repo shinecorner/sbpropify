@@ -4,12 +4,10 @@
         <small>All of them will be listed here, each shown in a detailed way.</small>
     </placeholder>
     <div class="contacts" v-else-if="contacts.length">
-        <el-card class="heading" v-sticky="{stickyTop: -16}">
-            <heading icon="ti-book" title="My contracts">
-                <div slot="description">A list with all the building's contacts.</div>
-            </heading>
-        </el-card>
-        <el-divider />
+        <ui-heading icon="ti-book" title="My contracts">
+            <div slot="description">A list with all the building's contacts.</div>
+        </ui-heading>
+        <ui-divider />
         <el-card>
             <el-tabs tab-position="left">
                 <el-tab-pane v-for="contact in contacts" :key="contact.id" :label="contact.name">

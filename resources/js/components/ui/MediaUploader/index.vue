@@ -31,7 +31,7 @@
             </div>
         </draggable>
         <!-- <el-button type="primary" round @click="$refs.uploader.active = true">Upload</el-button> -->
-        <el-button class="ui-media-uploader__btn" icon="el-icon-upload" type="primary" round @click="$refs.uploader.active = true">Upload</el-button>
+        <el-button class="ui-media-uploader__btn" icon="el-icon-upload" type="primary" round @click="startUploading()">Upload</el-button>
         <div v-if="$refs.uploader && $refs.uploader.dropActive" class="ui-media-uploader--drop--active">
             <i class="icon-upload-cloud"></i>
             Drop your files here..
@@ -56,6 +56,9 @@
         },
         props: {
             value: Array,
+            id: {
+                type: Number
+            },
             headers: {
                 type: Object,
                 default: () => ({
@@ -74,6 +77,12 @@
                     draggable: true,
                     autoUpload: false
                 })
+            }
+        },
+        data () {
+            return {
+                length: 0,
+                uploaded_count: 0
             }
         },
         computed: {
@@ -210,7 +219,27 @@
                 return this.$refs.uploader.uploadXhr(xhr, file, JSON.stringify({
                     media: file.file.src
                 }))
+                .then(data => {
+                    
+                    this.$store.dispatch('newRequests/addMedia', {
+                        id : this.id, media: data.response.data
+                    })  
+                    this.uploaded_count ++;
+                    if(this.uploaded_count == this.length) {
+                        this.clearUploader();
+                    }
+                })
+                .catch(error => console.log(error));
             },
+            startUploading () {
+                this.$refs.uploader.active = true
+                this.length = this.value.length
+            },
+            clearUploader () {
+                this.$refs.uploader.clear()
+                this.uploaded_count = 0
+                this.length = 0
+            }
         }
     }
 </script>

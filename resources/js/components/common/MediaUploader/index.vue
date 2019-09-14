@@ -128,7 +128,9 @@
         },
         data () {
             return {
-                galleryIndex: null
+                galleryIndex: null,
+                length: 0,
+                uploaded_count: 0
             }
         },
         methods: {
@@ -227,6 +229,8 @@
             },
             clearUploader () {
                 this.$refs.uploader.clear()
+                this.uploaded_count = 0
+                this.length = 0
             },
             async customAction (file) {
                 const xhr = new XMLHttpRequest()
@@ -238,10 +242,10 @@
                             const {message} = JSON.parse(xhr.response)
 
                             if (xhr.status === 200) {
-                                this.$notify.success({
-                                    message,
-                                    offset: 64
-                                })
+                                // this.$notify.success({
+                                //     message,
+                                //     offset: 64
+                                // })
                             } else {
                                 this.$notify.error({
                                     message,
@@ -257,12 +261,24 @@
                 return this.$refs.uploader.uploadXhr(xhr, file, JSON.stringify({
                     media: file.file.src
                 }))
+                .then(data => {
+                    
+                    this.$store.dispatch('newPosts/addMedia', {
+                        id : this.id, media: data.response.data
+                    })  
+                    this.uploaded_count ++;
+                    if(this.uploaded_count == this.length) {
+                        this.clearUploader();
+                    }
+                })
+                .catch(error => console.log(error));
             },
             getProgressStatus ({success, error}) {
                 return success ? 'success' : error ? 'exception' : undefined
             },
             startUploading () {
                 this.$refs.uploader.active = true
+                this.length = this.value.length
             },
             canShowProgress ({active, success}) {
                 return active || success
@@ -360,6 +376,8 @@
 <style lang="scss" scoped>
     .media {
         width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
 
         &.media-list-layout {
             .media-list {

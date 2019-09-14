@@ -4,12 +4,9 @@
         <small>All of them will be listed here in columns by category.</small>
     </placeholder>
     <div class="documents" v-else-if="!isEmpty">
-        <el-card v-sticky="{stickyTop: -16}">
-            <heading icon="ti-book" :title="$t('tenant.my_documents')">
-                <div slot="description">A list with all the building and unit's documents.</div>
-            </heading>
-        </el-card>
-        <el-divider />
+        <ui-heading icon="ti-book" :title="$t('tenant.my_documents')" description="A list with all the building and unit's documents.">
+        </ui-heading>
+        <ui-divider />
         <el-row>
             <el-col :span="24" v-for="(files, category) in documents" :key="category">
                 <div class="title">

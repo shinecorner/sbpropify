@@ -53,7 +53,7 @@
             height: 56px;
             background-color: transparentize(#fff, .2);
             color: var(--primary-color);
-            border-radius: 6px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;

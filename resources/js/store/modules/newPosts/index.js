@@ -104,7 +104,10 @@ export default {
         },
         async getComments ({commit}, {parent_id, ...params}) {
             const {data} = await this._vm.axios.get('comments', {params})
-        }
+        },
+        async addMedia({ commit}, {id, media}) {
+            commit('addmedia', {data_id : id, media})
+        },
     },
     getters: {
         getById: ({data}) => id => data.find(item => item.id === id)
@@ -125,6 +128,12 @@ export default {
                     break
                 }
             }
+        },
+        addmedia: ({data}, {data_id, media}) => {
+            let item = data.find(({id}) => id === data_id)
+            if(!item.media)
+                item.media = [];
+            item.media.push(media);
         }
     }
 }

@@ -49,6 +49,9 @@ export default {
             }
             return data;
         },
+        async addMedia({ commit}, {id, media}) {
+            commit('addmedia', {data_id : id, media})
+        },
     },
     getters: {
         getById: ({data}) => id => data.find(request => request.id === id)
