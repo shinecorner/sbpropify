@@ -212,7 +212,7 @@ return [
       "select_media_category" => "Categoria di supporti selezionati",
       "quarter" => "Quartiere",
       "managers" => "Manager",
-      "house_nr" => "Casa Nr...",
+      "house_num" => "Casa Nr...",
       "assign_managers" => "Assegnare i manager",
       "unassign_manager" => "Disassegnare",
       "managers_assigned" => "Dirigenti assegnati",
@@ -353,7 +353,7 @@ return [
       "name" => "Indirizzo",
       "country" => "Paese",
       "street" => "Strada",
-      "house_nr" => "Via Nr...",
+      "house_num" => "Via Nr...",
       "not_found" => "Indirizzo non trovato",
       "saved" => "Indirizzo salvato",
       'state' => 
@@ -374,7 +374,7 @@ return [
         [
           "required" => "La strada è obbligatoria",
         ],
-        'house_nr' =>
+        'house_num' =>
         [
           "required" => "Il numero civico è obbligatorio",
         ],

@@ -246,7 +246,7 @@ class BuildingAPIController extends AppBaseController
 
         $buildings = $model->select($columns)->with([
                 'address' => function ($q) {
-                    $q->select('id', 'country_id', 'state_id', 'city', 'street', 'house_nr', 'zip')
+                    $q->select('id', 'country_id', 'state_id', 'city', 'street', 'house_num', 'zip')
                         ->with(['state', 'country']);
                 },
             ])->withCount([
@@ -442,7 +442,7 @@ class BuildingAPIController extends AppBaseController
             }
             $address = $this->addressRepository->update($addressInput, $building->address_id);
 
-            $locationRelated = ['street', 'house_nr', 'zip', 'city'];
+            $locationRelated = ['street', 'house_num', 'zip', 'city'];
             $changes = array_keys($address->getChanges());
             if (array_intersect($locationRelated, $changes)) {
 
@@ -969,7 +969,7 @@ class BuildingAPIController extends AppBaseController
      */
     protected function getGeoDataByAddress($address)
     {
-        $_address = sprintf('%s %s, %s %s', $address->street, $address->house_nr, $address->zip, $address->city);
+        $_address = sprintf('%s %s, %s %s', $address->street, $address->house_num, $address->zip, $address->city);
         $client = new \GuzzleHttp\Client();
         $geocoder = new Geocoder($client);
         $geocoder->setApiKey(config('geocoder.key'));

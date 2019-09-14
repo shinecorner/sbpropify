@@ -212,7 +212,7 @@ return [
 			'select_media_category' => 'Kategorie der Mediendatei wählen',
 			'quarter' => 'Überbauung',
 			'managers' => 'Bewirtschafter',
-			'house_nr' => 'Hausnummer',			
+			'house_num' => 'Hausnummer',
 			'assign_managers' => 'Bewirtschafter zuweisen',
 			'unassign_manager' => 'Entfernen',
 			'managers_assigned' => 'Bewirtschafter zugewiesen',
@@ -353,7 +353,7 @@ return [
 			'name' => 'Address',								
 			'country' => 'Kanton',
 			'street' => 'Strasse',
-			'house_nr' => 'Hausnummer',
+			'house_num' => 'Hausnummer',
 			'not_found' => 'Adresse nicht gefunden',
 			'saved' => 'Adresse gespeichert',
 			'state' =>
@@ -374,7 +374,7 @@ return [
 						[
 							'required' => 'Strasse ist obligatorisch',
 						],
-					'house_nr' =>
+					'house_num' =>
 						[
 							'required' => 'Hausnummer ist obligatorisch',
 						],

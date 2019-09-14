@@ -196,7 +196,7 @@ export default {
                 "select_media_category": "Sélectionner une catégorie de médias",
                 "quarter": "Trimestre",
                 "managers": "Gestionnaires",
-                "house_nr": "Maison Nr.",
+                "house_num": "Maison Nr.",
                 "assign_managers": "Affecter des gestionnaires",
                 "unassign_manager": "Désassigner",
                 "managers_assigned": "Gestionnaires affectés",
@@ -316,7 +316,7 @@ export default {
                 "name": "Adresse",
                 "country": "Pays",
                 "street": "Rue",
-                "house_nr": "Rue Nr..",
+                "house_num": "Rue Nr..",
                 "not_found": "Adresse non trouvée",
                 "saved": "Adresse enregistrée",
                 "state": {
@@ -332,7 +332,7 @@ export default {
                     "street": {
                         "required": "La rue est obligatoire"
                     },
-                    "house_nr": {
+                    "house_num": {
                         "required": "Le numéro de rue est requis"
                     },
                     "zip": {

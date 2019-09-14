@@ -212,7 +212,7 @@ return [
       'select_media_category' => 'Selected media category',
       'quarter' => 'Quarter',
       'managers' => 'Managers',
-      'house_nr' => 'House Nr.',      
+      'house_num' => 'House Nr.',
       'assign_managers' => 'Assign managers',
       'unassign_manager' => 'Unassign',
       'managers_assigned' => 'Managers assigned',
@@ -353,7 +353,7 @@ return [
       'name' => 'Address',      
       'country' => 'Country',
       'street' => 'Street',
-      'house_nr' => 'Street Nr.',
+      'house_num' => 'Street Nr.',
       'not_found' => 'Address not found',
       'saved' => 'Address saved',
       'state' => 
@@ -374,7 +374,7 @@ return [
         [
           'required' => 'Street is required',
         ],
-        'house_nr' =>
+        'house_num' =>
         [
           'required' => 'Street number is required',
         ],

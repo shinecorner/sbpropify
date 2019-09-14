@@ -14,7 +14,7 @@ class RenameStreetNrInAddressTable extends Migration
     public function up()
     {
         Schema::table('loc_addresses', function (Blueprint $table) {
-            $table->renameColumn('street_nr', 'house_nr');
+            $table->renameColumn('street_nr', 'house_num');
         });
     }
 
@@ -26,7 +26,7 @@ class RenameStreetNrInAddressTable extends Migration
     public function down()
     {
         Schema::table('loc_addresses', function (Blueprint $table) {
-            $table->renameColumn('house_nr', 'street_nr');
+            $table->renameColumn('house_num', 'street_nr');
         });
     }
 }
