@@ -112,6 +112,7 @@ return [
     "comment" => "Commentaire",
     "messaging_info" => "Commencez la messagerie en utilisant le formulaire ci-dessous et appuyez sur Entrée.",
     "read_more" => "Pour en savoir plus,  ",
+    "read_less" => "Lire moins",
     "overview" => "Vue d'ensemble",
     "media" => "Médias",
     "status" => "Statut",
