@@ -1,23 +1,224 @@
 export default {
     "en": {
-        "layouts": {
-            "tenant": {
-                "menu": {
-                    "logout": "Logout"
-                },
-                "sidebar": {
-                    "dashboard": "Dashboard",
-                    "myTenancy": "My tenancy",
-                    "myPersonalData": "My personal data",
-                    "myRecentContract": "My recent contract",
-                    "myDocuments": "Documents",
-                    "myContactPersons": "Contact persons",
-                    "posts": "News",
-                    "requests": "Requests",
-                    "products": "Marketplace",
-                    "settings": "Settings"
+        "auth": {
+            "failed": "These credentials do not match our records.",
+            "throttle": "Too many login attempts. Please try again in {seconds} seconds.",
+            "login_welcome": "Welcome back, please login to your account.",
+            "title": "Everything is easier with our tenant app",
+            "intro": "In order to process the concerns of our tenants even faster, our tenants receive access to a protected area with which the tenancy can be digitally managed. Through the digital processing we can act even faster and create transparency for all parties involved.",
+            "benefit_1": {
+                "title": "All data and documents can be viewed online",
+                "description": "You can download all information about the tenancy and documents such as the rental agreement in PDF format at any time."
+            },
+            "benefit_2": {
+                "title": "Digital transmission of concerns",
+                "description": "You can record and transmit all your requests via the app. The management team will immediately take the necessary steps."
+            },
+            "benefit_3": {
+                "title": "Staying in touch with the neighbourhood",
+                "description": "In the News section you can post articles that are visible to your neighbours. For example, if noise is to be expected due to an event."
+            },
+            "benefit_4": {
+                "title": "Online rental and marketplace",
+                "description": "If you have items you don't need, you can advertise them in the app and offer them to your neighbours."
+            },
+            "login": {
+                "activate_account": {
+                    "title": "First login (account activation)",
+                    "description": "After receiving the activation code, you can log into the tenant portal for the first time and activate your account."
                 }
             }
+        },
+        "components": {
+            "common": {
+                "audit": {
+                    "type": {
+                        "post": "Post",
+                        "product": "Product",
+                        "request": "Request"
+                    },
+                    "filter": {
+                        "type": {
+                            "post": "Post",
+                            "product": "Product",
+                            "request": "Request"
+                        },
+                        "post": {
+                            "created": "Created",
+                            "updated": "Updates",
+                            "provider_assigned": "Provider assigned",
+                            "user_assigned": "User assigned",
+                            "media_uploaded": "Media uploaded",
+                            "media_deleted": "Media deleted"
+                        },
+                        "product": [],
+                        "request": {
+                            "created": "Created",
+                            "updated": "Updates",
+                            "provider_assigned": "Provider assigned",
+                            "user_assigned": "User assigned",
+                            "media_uploaded": "Media uploaded",
+                            "media_deleted": "Media deleted"
+                        }
+                    },
+                    "content": {
+                        "withId": {
+                            "post": {
+                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
+                                "updated": {
+                                    "status": "The status changed from \"{old}\" to \"{new}\".",
+                                    "published_at": "Post published on {new}."
+                                }
+                            },
+                            "product": {
+                                "created": "{userName} opened this {auditable_type}.",
+                                "updated": {
+                                    "title": "The title changed from \"{old}\" to \"{new}\".",
+                                    "status": "The status changed from \"{old}\" to \"{new}\".",
+                                    "due_date": "The due date changed from \"{old}\" to \"{new}\".",
+                                    "priority": "The priority changed from \"{old}\" to \"{new}\".",
+                                    "category_id": "The category changed from \"{old}\" to \"{new}\".",
+                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\".",
+                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\"."
+                                },
+                                "provider_assigned": "{providerName} has been assigned as provider.",
+                                "user_assigned": "{userName} has been assigned as manager.",
+                                "media_uploaded": "Media uploaded",
+                                "media_deleted": "Media deleted"
+                            },
+                            "request": {
+                                "created": "{userName} opened this {auditable_type}.",
+                                "updated": {
+                                    "title": "The title changed from \"{old}\" to \"{new}\".",
+                                    "status": "The status changed from \"{old}\" to \"{new}\".",
+                                    "due_date": "The due date changed from \"{old}\" to \"{new}\".",
+                                    "priority": "The priority changed from \"{old}\" to \"{new}\".",
+                                    "category_id": "The category changed from \"{old}\" to \"{new}\".",
+                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\".",
+                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\"."
+                                },
+                                "provider_assigned": "{providerName} has been assigned as provider.",
+                                "provider_unassigned": "Provider {providerName} has been unassigned.",
+                                "manager_assigned": "{propertyManagerFirstName} {propertyManagerLastName} has been assigned as manager.",
+                                "manager_unassigned": "Manager {propertyManagerFirstName} {propertyManagerLastName} has been unassigned.",
+                                "user_assigned": "{userName} has been assigned as manager.",
+                                "media_uploaded": "Media uploaded",
+                                "media_deleted": "Media deleted"
+                            }
+                        },
+                        "withNoId": {
+                            "post": {
+                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
+                                "updated": {
+                                    "status": "The status changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "published_at": "Post published on {new} on {auditable_type} #{auditable_id}."
+                                }
+                            },
+                            "product": {
+                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
+                                "updated": {
+                                    "title": "The title changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "status": "The status changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "due_date": "The due date changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "priority": "The priority changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "category_id": "The category changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}."
+                                },
+                                "provider_assigned": "{providerName} has been assigned as provider on {auditable_type} #{auditable_id}.",
+                                "user_assigned": "{userName} has been assigned as manager on {auditable_type} #{auditable_id}.",
+                                "media_uploaded": "Media uploaded on {auditable_type} #{auditable_id}.",
+                                "media_deleted": "Media deleted on {auditable_type} #{auditable_id}."
+                            },
+                            "request": {
+                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
+                                "updated": {
+                                    "title": "The title changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "status": "The status changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "due_date": "The due date changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "priority": "The priority changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "category_id": "The category changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
+                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}."
+                                },
+                                "provider_assigned": "{providerName} has been assigned as service provider on {auditable_type} #{auditable_id}.",
+                                "provider_unassigned": "Service provider {providerName} has been unassigned on {auditable_type} #{auditable_id}.",
+                                "manager_assigned": "{propertyManagerFirstName} {propertyManagerLastName} has been assigned as manager on {auditable_type} #{auditable_id}.",
+                                "manager_unassigned": "Manager {propertyManagerFirstName} {propertyManagerLastName} has been unassigned on {auditable_type} #{auditable_id}.",
+                                "user_assigned": "{userName} has been assigned as manager on {auditable_type} #{auditable_id}.",
+                                "media_uploaded": "Media uploaded on {auditable_type} #{auditable_id}.",
+                                "media_deleted": "Media deleted on {auditable_type} #{auditable_id}."
+                            }
+                        }
+                    }
+                },
+                "commentsList": {
+                    "loading": "Loading...",
+                    "loadMore": {
+                        "simple": "Load {count} more",
+                        "detailed": "Load {count} more comments"
+                    },
+                    "emptyPlaceholder": {
+                        "title": "There are no messages yet...",
+                        "description": "Start messaging by using the below form and press enter."
+                    }
+                },
+                "comment": {
+                    "updateShortcut": "or use {shortcut} shortcut",
+                    "updateOrCancel": "{update} or press {esc} to {cancel}",
+                    "update": "update",
+                    "esc": "ESC",
+                    "cancel": "cancel",
+                    "addChildComment": "Comment",
+                    "loadMore": "Load 1 more comment | Load {count} more comments",
+                    "deletedCommentPlaceholder": "This comment was deleted."
+                },
+                "addComment": {
+                    "placeholder": "Type a comment...",
+                    "tooltipTemplates": "Choose a template",
+                    "loadingTemplates": "Loading templates...",
+                    "saveShortcut": "or use {shortcut} shortcut",
+                    "emptyTemplatesPlaceholder": "No templates available."
+                },
+                "media": {
+                    "buttons": {
+                        "selectFiles": {
+                            "withDrop": "Drop files or click to select...",
+                            "withoutDrop": "Click to select..."
+                        },
+                        "upload": "Upload"
+                    },
+                    "dropActive": {
+                        "title": "Drop your files here...",
+                        "description": "Only the files with a certain extension are allowed."
+                    },
+                    "messages": {
+                        "preview": "This file cannot be previewed.",
+                        "uploading": "Uploading...",
+                        "uploaded": "Media files have been succesfully uploaded.",
+                        "size": "Oops! Some files had the size bigger than the maximum allowed of {bytes}.",
+                        "extensions": "Oops! Some files have had an extension that was not allowed. Skipping..."
+                    }
+                }
+            },
+            "tenant": {
+                "weatherWidget": {
+                    "minTemp": "min",
+                    "maxTemp": "max",
+                    "wind": "wind",
+                    "cloudiness": "cloudiness",
+                    "humidity": "humidity",
+                    "pressure": "pressure"
+                },
+                "postAdd": {
+                    "visibility": {
+                        "address": "Address",
+                        "quarter": "Quarter",
+                        "all": "All"
+                    }
+                }
+            },
+            "admin": []
         },
         "dashboard": {
             "statistics": "Statistics",
@@ -84,33 +285,25 @@ export default {
                 "counts": "Counts"
             }
         },
-        "passwords": {
-            "password": "Passwords must be at least six characters and match the confirmation.",
-            "reset": "Your password has been reset!",
-            "sent": "We have e-mailed your password reset link!",
-            "token": "This password reset token is invalid.",
-            "user": "We can't find a user with that e-mail address."
-        },
-        "settings": {
-            "notifications": "Notifications and language",
-            "admin": "Admin notifications",
-            "news": "News notifications",
-            "marketplace": "Marketplace notifications",
-            "service": "Service notifications",
-            "updated": "Settings updated",
-            "language": "Language",
-            "summary": {
-                "label": "Summary statistics",
-                "daily": "Daily",
-                "monthly": "Monthly",
-                "yearly": "Yearly"
-            },
-            "contact_enable": {
-                "label": "Enable my contacts",
-                "use_global": "Use global",
-                "show": "Show",
-                "hide": "Hide"
-            }
+        "filters": {
+            "header": "Filters",
+            "quarters": "Quarters",
+            "buildings": "Buildings",
+            "requests": "Requests",
+            "open_requests": "Open requests",
+            "units": "Units",
+            "states": "States",
+            "status": "Status",
+            "search": "Search",
+            "requestStatus": "Request status",
+            "propertyManagers": "Property Manager",
+            "categories": "Categories",
+            "created_from": "Created from",
+            "created_to": "Created to",
+            "services": "Services",
+            "tenant": "Tenant",
+            "roles": "Roles",
+            "type": "Type"
         },
         "general": {
             "en": "EN",
@@ -351,62 +544,24 @@ export default {
             "to_homepage": "To Homepage",
             "assignment": "Assignment"
         },
-        "filters": {
-            "header": "Filters",
-            "quarters": "Quarters",
-            "buildings": "Buildings",
-            "requests": "Requests",
-            "open_requests": "Open requests",
-            "units": "Units",
-            "states": "States",
-            "status": "Status",
-            "search": "Search",
-            "requestStatus": "Request status",
-            "propertyManagers": "Property Manager",
-            "categories": "Categories",
-            "created_from": "Created from",
-            "created_to": "Created to",
-            "services": "Services",
-            "tenant": "Tenant",
-            "roles": "Roles",
-            "type": "Type"
-        },
-        "template": {
-            "mr": "Mr",
-            "mrs": "Mrs",
-            "company": "Company",
-            "user_title_mr": "Mr",
-            "user_title_mrs": "Mrs",
-            "user_title_company": "Company",
-            "tenant_title_mr": "Mr",
-            "tenant_title_mrs": "Mrs",
-            "tenant_title_company": "Company",
-            "request_status_1": "Received",
-            "request_status_2": "In Processing",
-            "request_status_3": "Assigned",
-            "request_status_4": "Done",
-            "request_status_5": "Reactivated",
-            "request_status_6": "Archived",
-            "originalRequest_status_1": "Received",
-            "originalRequest_status_2": "In Processing",
-            "originalRequest_status_3": "Assigned",
-            "originalRequest_status_4": "Done",
-            "originalRequest_status_5": "Reactivated",
-            "originalRequest_status_6": "Archived",
-            "email_footer_message1": "This email was automatically generated for {UserName}.",
-            "email_footer_message2": "You get this automatically generated e-mail as a user of {CompanyName}.",
-            "email_link_contacts": "Contacts.",
-            "email_link_terms_of_use": "Terms of Use",
-            "email_link_data_protection": "Data protection",
-            "activate_account": "Activate Account",
-            "tenant_portal": "Tenant portal",
-            "generated_email_for_user": "This email was automatically generated for {userName}.",
-            "generated_email_for_company": "You will receive this automatically generated e-mail as a user of the {companyName} tenant portal. The tenant portal is operated by Propify AG.",
-            "links": "<a href=\"#\">Imprint </a>&ensp; | &ensp;<a href=\"#\">Conditions of use</a>&ensp; | &ensp;<a href=\"#\">Privacy statement</a>"
-        },
-        "pagination": {
-            "previous": "&laquo; Previous",
-            "next": "Next &raquo;"
+        "layouts": {
+            "tenant": {
+                "menu": {
+                    "logout": "Logout"
+                },
+                "sidebar": {
+                    "dashboard": "Dashboard",
+                    "myTenancy": "My tenancy",
+                    "myPersonalData": "My personal data",
+                    "myRecentContract": "My recent contract",
+                    "myDocuments": "Documents",
+                    "myContactPersons": "Contact persons",
+                    "posts": "News",
+                    "requests": "Requests",
+                    "products": "Marketplace",
+                    "settings": "Settings"
+                }
+            }
         },
         "menu": {
             "dashboard": "Dashboard",
@@ -443,394 +598,6 @@ export default {
             "activity": "Activity",
             "propertyManagers": "Property managers",
             "templates": "Templates"
-        },
-        "auth": {
-            "failed": "These credentials do not match our records.",
-            "throttle": "Too many login attempts. Please try again in {seconds} seconds.",
-            "login_welcome": "Welcome back, please login to your account.",
-            "title": "Everything is easier with our tenant app",
-            "intro": "In order to process the concerns of our tenants even faster, our tenants receive access to a protected area with which the tenancy can be digitally managed. Through the digital processing we can act even faster and create transparency for all parties involved.",
-            "benefit_1": {
-                "title": "All data and documents can be viewed online",
-                "description": "You can download all information about the tenancy and documents such as the rental agreement in PDF format at any time."
-            },
-            "benefit_2": {
-                "title": "Digital transmission of concerns",
-                "description": "You can record and transmit all your requests via the app. The management team will immediately take the necessary steps."
-            },
-            "benefit_3": {
-                "title": "Staying in touch with the neighbourhood",
-                "description": "In the News section you can post articles that are visible to your neighbours. For example, if noise is to be expected due to an event."
-            },
-            "benefit_4": {
-                "title": "Online rental and marketplace",
-                "description": "If you have items you don't need, you can advertise them in the app and offer them to your neighbours."
-            },
-            "login": {
-                "activate_account": {
-                    "title": "First login (account activation)",
-                    "description": "After receiving the activation code, you can log into the tenant portal for the first time and activate your account."
-                }
-            }
-        },
-        "tenant": {
-            "languages": {
-                "fr": "Français",
-                "it": "Italiano",
-                "de": "Deutsch",
-                "en": "English"
-            },
-            "actions": {
-                "save": "Save",
-                "search": "Search",
-                "send": "Send",
-                "view_all": "View all",
-                "view": "View"
-            },
-            "salutation_option": {
-                "mr": "Mr.",
-                "mrs": "Mrs.",
-                "company": "Company"
-            },
-            "summary_state_options": {
-                "daily": "Daily",
-                "monthly": "Monthly",
-                "yearly": "Yearly"
-            },
-            "request_status": {
-                "opened": "Opened",
-                "pending": "Pending",
-                "done": "Done",
-                "archived": "Archived"
-            },
-            "placeholder": {
-                "publish": "What do you want to publish?",
-                "rate": "How would you rate us?",
-                "media_upload": "Upload media or drag and drop files here",
-                "type_comment": "Type a comment",
-                "upload": "Upload files",
-                "search_product": "Search for a product"
-            },
-            "no_data": {
-                "message": "There are no messages yet",
-                "media": "There are no media files available."
-            },
-            "notifications": {
-                "service": "Service notifications",
-                "news": "News notifications",
-                "marketplace": "Marketplace notifications",
-                "admin": "Admin notifications"
-            },
-            "total": "Total",
-            "page": "page",
-            "go_to": "Go to",
-            "logout": "Logout",
-            "logout_confirm": "Are you sure?",
-            "quick_links": "Quick links",
-            "add_post": "Add a post",
-            "add_request": "Add a request",
-            "add_product": "Add a product",
-            "my_dashboard": "My dashboard",
-            "good_morning": "Good morning",
-            "good_afternoon": "Good afternoon",
-            "good_evening": "Good evening",
-            "requests": "Requests",
-            "property_managers": "Property managers",
-            "latest_public_requests": "Latest public requests",
-            "my_neighbours": "My neighbours",
-            "latest_news": "Latest news",
-            "latest_products": "Latest products",
-            "rate_us": "Rate us",
-            "personal_data": "Personal data",
-            "my_personal_details": "My personal details",
-            "title": "Title",
-            "company_name": "Company name",
-            "first_name": "First name",
-            "last_name": "Last name",
-            "birth_date": "Birth date",
-            "mobile_phone": "Mobile phone",
-            "work_phone": "Work phone",
-            "personal_phone": "Personal phone",
-            "my_contract": "My contract",
-            "building": "Building",
-            "name": "Name",
-            "unit": "Unit",
-            "type": "Type",
-            "unit_number": "Unit number",
-            "floor": "Floor",
-            "monthly_rent": "Monthly rent",
-            "rent_date": "Rent date",
-            "start_date": "Start date",
-            "rent_contract_file": "Rent contract file",
-            "my_documents": "My documents",
-            "doc_list": "A list with all building and unit's documents.",
-            "doc_available": "{num} documents available",
-            "house_rules": "House rules",
-            "operating_instructions": "Operating instructions",
-            "care_instructions": "Care instructions",
-            "news": "News",
-            "marketplace": "Marketplace",
-            "admin": "Admin",
-            "address": "Address",
-            "refresh": "Refresh",
-            "filters": "Filters",
-            "all": "All",
-            "my_posts": "My posts",
-            "from_neighbourhood": "From the neighbourhood",
-            "from_quarter": "From the quarter",
-            "reset_filters": "Reset filters",
-            "choose_visibility": "Choose the visibility",
-            "like": "Like",
-            "unlike": "Unlike",
-            "comment": "Comment",
-            "messaging_info": "Start messaging by using the below form and press enter.",
-            "read_more": "Read more",
-            "read_less": "Read less",
-            "overview": "Overview",
-            "media": "Media",
-            "status": "Status",
-            "priority": "Priority",
-            "qualification": "Qualification",
-            "assignees": "Assignees",
-            "cost_impact": "Cost Impact",
-            "comments": "Comments",
-            "price": "Price",
-            "sell": "Sell",
-            "get_in_touch": "Get in touch",
-            "user_settings": "User Settings",
-            "personal_informations": "Personal informations",
-            "security": "Security",
-            "notifications_and_language": "Notifications and language",
-            "profile_image": "Profile image",
-            "email": "email",
-            "old_password": "Old password",
-            "new_password": "New password",
-            "confirm_password": "Confirm password",
-            "summary_statistics": "Summary statistics",
-            "choose_language": "Choose language"
-        },
-        "pages": {
-            "profile": {
-                "pageTitle": "Profile",
-                "profile": "Profile",
-                "account": "Account",
-                "security": "Security",
-                "notifications": "Notifications"
-            },
-            "user": {
-                "title": "Users"
-            },
-            "request_activities": {
-                "title": "Request activities"
-            },
-            "tenant": {
-                "title": "Tenants"
-            }
-        },
-        "components": {
-            "common": {
-                "audit": {
-                    "type": {
-                        "post": "Post",
-                        "product": "Product",
-                        "request": "Request"
-                    },
-                    "filter": {
-                        "type": {
-                            "post": "Post",
-                            "product": "Product",
-                            "request": "Request"
-                        },
-                        "post": {
-                            "created": "Created",
-                            "updated": "Updates",
-                            "provider_assigned": "Provider assigned",
-                            "user_assigned": "User assigned",
-                            "media_uploaded": "Media uploaded",
-                            "media_deleted": "Media deleted"
-                        },
-                        "product": [],
-                        "request": {
-                            "created": "Created",
-                            "updated": "Updates",
-                            "provider_assigned": "Provider assigned",
-                            "user_assigned": "User assigned",
-                            "media_uploaded": "Media uploaded",
-                            "media_deleted": "Media deleted"
-                        }
-                    },
-                    "content": {
-                        "withId": {
-                            "post": {
-                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
-                                "updated": {
-                                    "status": "The status changed from \"{old}\" to \"{new}\".",
-                                    "published_at": "Post published on {new}."
-                                }
-                            },
-                            "product": {
-                                "created": "{userName} opened this {auditable_type}.",
-                                "updated": {
-                                    "title": "The title changed from \"{old}\" to \"{new}\".",
-                                    "status": "The status changed from \"{old}\" to \"{new}\".",
-                                    "due_date": "The due date changed from \"{old}\" to \"{new}\".",
-                                    "priority": "The priority changed from \"{old}\" to \"{new}\".",
-                                    "category_id": "The category changed from \"{old}\" to \"{new}\".",
-                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\".",
-                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\"."
-                                },
-                                "provider_assigned": "{providerName} has been assigned as provider.",
-                                "user_assigned": "{userName} has been assigned as manager.",
-                                "media_uploaded": "Media uploaded",
-                                "media_deleted": "Media deleted"
-                            },
-                            "request": {
-                                "created": "{userName} opened this {auditable_type}.",
-                                "updated": {
-                                    "title": "The title changed from \"{old}\" to \"{new}\".",
-                                    "status": "The status changed from \"{old}\" to \"{new}\".",
-                                    "due_date": "The due date changed from \"{old}\" to \"{new}\".",
-                                    "priority": "The priority changed from \"{old}\" to \"{new}\".",
-                                    "category_id": "The category changed from \"{old}\" to \"{new}\".",
-                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\".",
-                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\"."
-                                },
-                                "provider_assigned": "{providerName} has been assigned as provider.",
-                                "provider_unassigned": "Provider {providerName} has been unassigned.",
-                                "manager_assigned": "{propertyManagerFirstName} {propertyManagerLastName} has been assigned as manager.",
-                                "manager_unassigned": "Manager {propertyManagerFirstName} {propertyManagerLastName} has been unassigned.",
-                                "user_assigned": "{userName} has been assigned as manager.",
-                                "media_uploaded": "Media uploaded",
-                                "media_deleted": "Media deleted"
-                            }
-                        },
-                        "withNoId": {
-                            "post": {
-                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
-                                "updated": {
-                                    "status": "The status changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "published_at": "Post published on {new} on {auditable_type} #{auditable_id}."
-                                }
-                            },
-                            "product": {
-                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
-                                "updated": {
-                                    "title": "The title changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "status": "The status changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "due_date": "The due date changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "priority": "The priority changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "category_id": "The category changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}."
-                                },
-                                "provider_assigned": "{providerName} has been assigned as provider on {auditable_type} #{auditable_id}.",
-                                "user_assigned": "{userName} has been assigned as manager on {auditable_type} #{auditable_id}.",
-                                "media_uploaded": "Media uploaded on {auditable_type} #{auditable_id}.",
-                                "media_deleted": "Media deleted on {auditable_type} #{auditable_id}."
-                            },
-                            "request": {
-                                "created": "{userName} opened this {auditable_type} on {auditable_type} #{auditable_id}.",
-                                "updated": {
-                                    "title": "The title changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "status": "The status changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "due_date": "The due date changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "priority": "The priority changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "category_id": "The category changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "qualification": "The qualification changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}.",
-                                    "visibility": "The visibility changed from \"{old}\" to \"{new}\" on {auditable_type} #{auditable_id}."
-                                },
-                                "provider_assigned": "{providerName} has been assigned as service provider on {auditable_type} #{auditable_id}.",
-                                "provider_unassigned": "Service provider {providerName} has been unassigned on {auditable_type} #{auditable_id}.",
-                                "manager_assigned": "{propertyManagerFirstName} {propertyManagerLastName} has been assigned as manager on {auditable_type} #{auditable_id}.",
-                                "manager_unassigned": "Manager {propertyManagerFirstName} {propertyManagerLastName} has been unassigned on {auditable_type} #{auditable_id}.",
-                                "user_assigned": "{userName} has been assigned as manager on {auditable_type} #{auditable_id}.",
-                                "media_uploaded": "Media uploaded on {auditable_type} #{auditable_id}.",
-                                "media_deleted": "Media deleted on {auditable_type} #{auditable_id}."
-                            }
-                        }
-                    }
-                },
-                "commentsList": {
-                    "loading": "Loading...",
-                    "loadMore": {
-                        "simple": "Load {count} more",
-                        "detailed": "Load {count} more comments"
-                    },
-                    "emptyPlaceholder": {
-                        "title": "There are no messages yet...",
-                        "description": "Start messaging by using the below form and press enter."
-                    }
-                },
-                "comment": {
-                    "updateShortcut": "or use {shortcut} shortcut",
-                    "updateOrCancel": "{update} or press {esc} to {cancel}",
-                    "update": "update",
-                    "esc": "ESC",
-                    "cancel": "cancel",
-                    "addChildComment": "Comment",
-                    "loadMore": "Load 1 more comment | Load {count} more comments",
-                    "deletedCommentPlaceholder": "This comment was deleted."
-                },
-                "addComment": {
-                    "placeholder": "Type a comment...",
-                    "tooltipTemplates": "Choose a template",
-                    "loadingTemplates": "Loading templates...",
-                    "saveShortcut": "or use {shortcut} shortcut",
-                    "emptyTemplatesPlaceholder": "No templates available."
-                },
-                "media": {
-                    "buttons": {
-                        "selectFiles": {
-                            "withDrop": "Drop files or click to select...",
-                            "withoutDrop": "Click to select..."
-                        },
-                        "upload": "Upload"
-                    },
-                    "dropActive": {
-                        "title": "Drop your files here...",
-                        "description": "Only the files with a certain extension are allowed."
-                    },
-                    "messages": {
-                        "preview": "This file cannot be previewed.",
-                        "uploading": "Uploading...",
-                        "uploaded": "Media files have been succesfully uploaded.",
-                        "size": "Oops! Some files had the size bigger than the maximum allowed of {bytes}.",
-                        "extensions": "Oops! Some files have had an extension that was not allowed. Skipping..."
-                    }
-                }
-            },
-            "tenant": {
-                "weatherWidget": {
-                    "minTemp": "min",
-                    "maxTemp": "max",
-                    "wind": "wind",
-                    "cloudiness": "cloudiness",
-                    "humidity": "humidity",
-                    "pressure": "pressure"
-                },
-                "postAdd": {
-                    "visibility": {
-                        "address": "Address",
-                        "quarter": "Quarter",
-                        "all": "All"
-                    }
-                }
-            },
-            "admin": []
-        },
-        "views": {
-            "tenant": {
-                "my": {
-                    "personal": {
-                        "title": "Personal data",
-                        "description": "My personal details.",
-                        "placeholder": {
-                            "title": "No personal data available.",
-                            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                        }
-                    }
-                }
-            }
         },
         "models": {
             "user": {
@@ -983,7 +750,7 @@ export default {
                     "welcome": "Welcome to the tenant portal of the",
                     "content_1": "We are pleased to inform you that an account has been set up for you in the tenant's total. and send you the activation code.",
                     "offer": "What does the application offer?",
-                    "offers": "\n          <li>With the digital tenant dossier you have access to all relevant documents, such as Tenancy agreement, house rules or other documents relating to the property</li>\n          <li>The ticketing system enables you to process your enquiries simply and uncomplicatedly - with the following features Communicate your concerns to the administration at any time and from any place.</li>\n          <li>On the market and lending place you can send objects to your neighbourhood. sell or lend.</li>\n          <li>Share news with your neighbours by publishing a contribution. The pinboard is also used by the administration for the communication, so all are always on the Running.</li>\n          <li>Further micro apps within the application set new standards in living quality where various services can be conveniently used.</li>\n        ",
+                    "offers": "\r\n          <li>With the digital tenant dossier you have access to all relevant documents, such as Tenancy agreement, house rules or other documents relating to the property</li>\r\n          <li>The ticketing system enables you to process your enquiries simply and uncomplicatedly - with the following features Communicate your concerns to the administration at any time and from any place.</li>\r\n          <li>On the market and lending place you can send objects to your neighbourhood. sell or lend.</li>\r\n          <li>Share news with your neighbours by publishing a contribution. The pinboard is also used by the administration for the communication, so all are always on the Running.</li>\r\n          <li>Further micro apps within the application set new standards in living quality where various services can be conveniently used.</li>\r\n        ",
                     "register": "First registration and activation of your account",
                     "content_2": "To register, please click on the link below and log in with your e-mail address and the personal unlock code. Once you have logged in, you can Define your own password and use it from now on for the login.",
                     "link_application": "Link to the application",
@@ -1672,6 +1439,225 @@ export default {
                 "terms_text": "Terms text here, long text"
             }
         },
+        "pages": {
+            "profile": {
+                "pageTitle": "Profile",
+                "profile": "Profile",
+                "account": "Account",
+                "security": "Security",
+                "notifications": "Notifications"
+            },
+            "user": {
+                "title": "Users"
+            },
+            "request_activities": {
+                "title": "Request activities"
+            },
+            "tenant": {
+                "title": "Tenants"
+            }
+        },
+        "pagination": {
+            "previous": "&laquo; Previous",
+            "next": "Next &raquo;"
+        },
+        "passwords": {
+            "password": "Passwords must be at least six characters and match the confirmation.",
+            "reset": "Your password has been reset!",
+            "sent": "We have e-mailed your password reset link!",
+            "token": "This password reset token is invalid.",
+            "user": "We can't find a user with that e-mail address."
+        },
+        "settings": {
+            "notifications": "Notifications and language",
+            "admin": "Admin notifications",
+            "news": "News notifications",
+            "marketplace": "Marketplace notifications",
+            "service": "Service notifications",
+            "updated": "Settings updated",
+            "language": "Language",
+            "summary": {
+                "label": "Summary statistics",
+                "daily": "Daily",
+                "monthly": "Monthly",
+                "yearly": "Yearly"
+            },
+            "contact_enable": {
+                "label": "Enable my contacts",
+                "use_global": "Use global",
+                "show": "Show",
+                "hide": "Hide"
+            }
+        },
+        "template": {
+            "mr": "Mr",
+            "mrs": "Mrs",
+            "company": "Company",
+            "user_title_mr": "Mr",
+            "user_title_mrs": "Mrs",
+            "user_title_company": "Company",
+            "tenant_title_mr": "Mr",
+            "tenant_title_mrs": "Mrs",
+            "tenant_title_company": "Company",
+            "request_status_1": "Received",
+            "request_status_2": "In Processing",
+            "request_status_3": "Assigned",
+            "request_status_4": "Done",
+            "request_status_5": "Reactivated",
+            "request_status_6": "Archived",
+            "originalRequest_status_1": "Received",
+            "originalRequest_status_2": "In Processing",
+            "originalRequest_status_3": "Assigned",
+            "originalRequest_status_4": "Done",
+            "originalRequest_status_5": "Reactivated",
+            "originalRequest_status_6": "Archived",
+            "email_footer_message1": "This email was automatically generated for {UserName}.",
+            "email_footer_message2": "You get this automatically generated e-mail as a user of {CompanyName}.",
+            "email_link_contacts": "Contacts.",
+            "email_link_terms_of_use": "Terms of Use",
+            "email_link_data_protection": "Data protection",
+            "activate_account": "Activate Account",
+            "tenant_portal": "Tenant portal",
+            "generated_email_for_user": "This email was automatically generated for {userName}.",
+            "generated_email_for_company": "You will receive this automatically generated e-mail as a user of the {companyName} tenant portal. The tenant portal is operated by Propify AG.",
+            "links": "<a href=\"#\">Imprint </a>&ensp; | &ensp;<a href=\"#\">Conditions of use</a>&ensp; | &ensp;<a href=\"#\">Privacy statement</a>"
+        },
+        "tenant": {
+            "languages": {
+                "fr": "Français",
+                "it": "Italiano",
+                "de": "Deutsch",
+                "en": "English"
+            },
+            "actions": {
+                "save": "Save",
+                "search": "Search",
+                "send": "Send",
+                "view_all": "View all",
+                "view": "View"
+            },
+            "salutation_option": {
+                "mr": "Mr.",
+                "mrs": "Mrs.",
+                "company": "Company"
+            },
+            "summary_state_options": {
+                "daily": "Daily",
+                "monthly": "Monthly",
+                "yearly": "Yearly"
+            },
+            "request_status": {
+                "opened": "Opened",
+                "pending": "Pending",
+                "done": "Done",
+                "archived": "Archived"
+            },
+            "placeholder": {
+                "publish": "What do you want to publish?",
+                "rate": "How would you rate us?",
+                "media_upload": "Upload media or drag and drop files here",
+                "type_comment": "Type a comment",
+                "upload": "Upload files",
+                "search_product": "Search for a product"
+            },
+            "no_data": {
+                "message": "There are no messages yet",
+                "media": "There are no media files available."
+            },
+            "notifications": {
+                "service": "Service notifications",
+                "news": "News notifications",
+                "marketplace": "Marketplace notifications",
+                "admin": "Admin notifications"
+            },
+            "total": "Total",
+            "page": "page",
+            "go_to": "Go to",
+            "logout": "Logout",
+            "logout_confirm": "Are you sure?",
+            "quick_links": "Quick links",
+            "add_post": "Add a post",
+            "add_request": "Add a request",
+            "add_product": "Add a product",
+            "my_dashboard": "My dashboard",
+            "good_morning": "Good morning",
+            "good_afternoon": "Good afternoon",
+            "good_evening": "Good evening",
+            "requests": "Requests",
+            "property_managers": "Property managers",
+            "latest_public_requests": "Latest public requests",
+            "my_neighbours": "My neighbours",
+            "latest_news": "Latest news",
+            "latest_products": "Latest products",
+            "rate_us": "Rate us",
+            "personal_data": "Personal data",
+            "my_personal_details": "My personal details",
+            "title": "Title",
+            "company_name": "Company name",
+            "first_name": "First name",
+            "last_name": "Last name",
+            "birth_date": "Birth date",
+            "mobile_phone": "Mobile phone",
+            "work_phone": "Work phone",
+            "personal_phone": "Personal phone",
+            "my_contract": "My contract",
+            "building": "Building",
+            "name": "Name",
+            "unit": "Unit",
+            "type": "Type",
+            "unit_number": "Unit number",
+            "floor": "Floor",
+            "monthly_rent": "Monthly rent",
+            "rent_date": "Rent date",
+            "start_date": "Start date",
+            "rent_contract_file": "Rent contract file",
+            "my_documents": "My documents",
+            "doc_list": "A list with all building and unit's documents.",
+            "doc_available": "{num} documents available",
+            "house_rules": "House rules",
+            "operating_instructions": "Operating instructions",
+            "care_instructions": "Care instructions",
+            "news": "News",
+            "marketplace": "Marketplace",
+            "admin": "Admin",
+            "address": "Address",
+            "refresh": "Refresh",
+            "filters": "Filters",
+            "all": "All",
+            "my_posts": "My posts",
+            "from_neighbourhood": "From the neighbourhood",
+            "from_quarter": "From the quarter",
+            "reset_filters": "Reset filters",
+            "choose_visibility": "Choose the visibility",
+            "like": "Like",
+            "unlike": "Unlike",
+            "comment": "Comment",
+            "messaging_info": "Start messaging by using the below form and press enter.",
+            "read_more": "Read more",
+            "read_less": "Read less",
+            "overview": "Overview",
+            "media": "Media",
+            "status": "Status",
+            "priority": "Priority",
+            "qualification": "Qualification",
+            "assignees": "Assignees",
+            "cost_impact": "Cost Impact",
+            "comments": "Comments",
+            "price": "Price",
+            "sell": "Sell",
+            "get_in_touch": "Get in touch",
+            "user_settings": "User Settings",
+            "personal_informations": "Personal informations",
+            "security": "Security",
+            "notifications_and_language": "Notifications and language",
+            "profile_image": "Profile image",
+            "email": "email",
+            "old_password": "Old password",
+            "new_password": "New password",
+            "confirm_password": "Confirm password",
+            "summary_statistics": "Summary statistics",
+            "choose_language": "Choose language"
+        },
         "validation": {
             "validation_main_message": "The given data was invalid.",
             "accepted": "The {attribute} must be accepted.",
@@ -1842,6 +1828,20 @@ export default {
             },
             "terms": {
                 "required": "Please approve with terms and conditions"
+            }
+        },
+        "views": {
+            "tenant": {
+                "my": {
+                    "personal": {
+                        "title": "Personal data",
+                        "description": "My personal details.",
+                        "placeholder": {
+                            "title": "No personal data available.",
+                            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                        }
+                    }
+                }
             }
         }
     }
