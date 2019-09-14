@@ -31,11 +31,11 @@
         },
         async created () {
             try {
-                const id = this.$route.params.id
+                const id = Number(this.$route.params.id)
+                
+                await this.$store.dispatch('newPosts/get', {id})
+                this.data = this.$store.getters['newPosts/getById'](id)
 
-                await this.$store.dispatch('posts2/get', {id})
-
-                this.data = this.$store.getters['posts2/getById'](id)
             } catch (err) {
                 this.$router.replace({name: 'tenantPosts'})
             }

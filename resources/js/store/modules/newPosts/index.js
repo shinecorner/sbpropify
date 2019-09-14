@@ -1,3 +1,4 @@
+
 export default {
     namespaced: true,
     state: {
@@ -9,7 +10,6 @@ export default {
         },
         async get ({state, commit}, {id, ...params} = {}) {
             const {data} = await this._vm.axios.get(id ? `posts/${id}` : 'posts', {params})
-
             if (state.data.length) {
                 const {data: items, ...rest} = data.data
 
@@ -21,7 +21,9 @@ export default {
                     ...rest
                 })
             } else {
-                commit('set', data.data)
+                let newData = state;
+                newData.data.push(data.data)
+                commit('set', newData)
             }
         },
         async create ({state, commit}, params) {
@@ -50,8 +52,9 @@ export default {
         },
         async like ({commit, getters}, {id}) {
             const {data} = await this._vm.axios.post(`posts/${id}/like`)
-            const newData = getters[TYPES.getters.getById](id)
-
+            // const newData = getters[TYPES.getters.getById](id)
+            const newData = getters.getById(id)
+            
             Object.assign(newData, {
                 liked: true,
                 likes: newData.likes.concat([data.data]),
@@ -62,7 +65,8 @@ export default {
         },
         async unlike ({commit, getters}, {id}) {
             const {data} = await this._vm.axios.post(`posts/${id}/unlike`)
-            const newData = getters[TYPES.getters.getById](id)
+            // const newData = getters[TYPES.getters.getById](id)
+            const newData = getters.getById(id)
 
             Object.assign(newData, {
                 liked: false,

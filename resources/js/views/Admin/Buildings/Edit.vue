@@ -29,10 +29,10 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="4">
-                                    <el-form-item :label="$t('models.building.house_nr')"
-                                                  :rules="validationRules.street_nr"
-                                                  prop="street_nr" style="max-width: 512px;">
-                                        <el-input type="text" v-model="model.street_nr" v-on:change="setBuildingName"></el-input>
+                                    <el-form-item :label="$t('models.building.house_num')"
+                                                  :rules="validationRules.house_num"
+                                                  prop="house_num" style="max-width: 512px;">
+                                        <el-input type="text" v-model="model.house_num" v-on:change="setBuildingName"></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="10">
@@ -641,7 +641,7 @@
                 })
             },
             setBuildingName(event ) {
-                this.model.name = this.model.street + ' ' + this.model.street_nr;
+                this.model.name = this.model.street + ' ' + this.model.house_num;
             }
         },
         mounted() {
