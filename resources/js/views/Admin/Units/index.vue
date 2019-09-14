@@ -93,6 +93,7 @@
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
                         onClick: this.edit,
+                        editUrl: 'adminUnitsEdit',
                         permissions: [
                             this.$permissions.update.unit
                         ]

@@ -113,6 +113,7 @@
                             type: '', 
                             title: 'general.actions.edit',
                             onClick: this.edit,
+                            editUrl: 'adminPostsEdit',
                             permissions: [
                                 this.$permissions.update.post
                             ],
