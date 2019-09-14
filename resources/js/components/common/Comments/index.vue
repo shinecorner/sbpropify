@@ -48,7 +48,7 @@
             },
             type: {
                 type: String,
-                validator: type => ['post', 'product', 'request', 'conversation'].includes(type)
+                validator: type => ['post', 'product', 'request', 'conversation', 'internalNotice'].includes(type)
             },
             data: {
                 type: Object
@@ -119,6 +119,7 @@
                         sortedBy: 'desc',
                         orderBy: 'created_at',
                         commentable: this.type,
+                        request_id: this.type == 'internalNotice' ? this.id : '',
                         ...params
                     })
 

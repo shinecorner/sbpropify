@@ -17,7 +17,7 @@
             type: {
                 type: String,
                 required: true,
-                validator: type => ['post', 'product', 'request', 'conversation'].includes(type)
+                validator: type => ['post', 'product', 'request', 'conversation', 'internalNotice'].includes(type)
             },
             height: {
                 type: String,

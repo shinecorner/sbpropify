@@ -3,7 +3,8 @@ export default {
     state: {
         post: {},
         request: {},
-        product: {}
+        product: {},
+        internalNotice: {}
     },
     actions: {
         async get ({commit, getters}, {parent_id, ...params}) {
@@ -18,7 +19,7 @@ export default {
                 }, [])
             }
 
-            let newParams = params, url = 'comments'
+            let newParams = params, url = params.commentable !== 'internalNotice' ? 'comments' : 'internalNotice'
 
             if (parent_id && params.id) {
                 const {id, ...restParams} = params
