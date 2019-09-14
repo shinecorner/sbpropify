@@ -217,7 +217,6 @@
                 //     return
                 // }
 
-                console.log('get called')
                 this.loading = false
 
                 const {current_page, last_page} = this.requests

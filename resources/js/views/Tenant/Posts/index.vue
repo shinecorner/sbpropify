@@ -121,7 +121,6 @@
         },
         methods: {
             async getPosts (params = {}) {
-                console.log('getPosts', this.loading)
                 if (this.loading && this.posts.data.length) {
                     return
                 }
@@ -166,7 +165,6 @@
                 posts: state => state
             }),
             filteredPosts() {
-                console.log('posts', this.posts)
                 return this.posts.data.filter( post => { return this.filterCategory == null || post.category == this.filterCategory})
             }
         }

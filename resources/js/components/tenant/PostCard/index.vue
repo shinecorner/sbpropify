@@ -105,9 +105,6 @@
 
                 return `${title}. ${first_name} ${last_name}`
             }
-        },
-        mounted () {
-            //console.log('data', this.data)
         }
     }
 </script>

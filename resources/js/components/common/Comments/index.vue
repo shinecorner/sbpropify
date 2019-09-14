@@ -186,7 +186,6 @@
                 this.scrollToBottom()
             },
             'data' (comments) {
-                console.log('comments', this.id, this.comments)
                 this.comments = comments
             }
         },
