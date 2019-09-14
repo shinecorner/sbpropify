@@ -20,7 +20,7 @@ export default (config = {}) => {
                         state_id: '',
                         city: '',
                         street: '',
-                        street_nr: '',
+                        house_num: '',
                         zip: ''
                     },
                     email: '',
@@ -113,7 +113,7 @@ export default (config = {}) => {
                         required: true,
                         message: 'This field is required'
                     }],
-                    street_nr: [{
+                    house_num: [{
                         required: true,
                         message: 'This field is required'
                     }],
@@ -358,7 +358,7 @@ export default (config = {}) => {
                             this.model.address.state_id = respAddress.state.id;
                             this.model.address.city = respAddress.city;
                             this.model.address.street = respAddress.street;
-                            this.model.address.street_nr = respAddress.street_nr;
+                            this.model.address.house_num = respAddress.house_num;
                             this.model.address.zip = respAddress.zip;
                         }
 
