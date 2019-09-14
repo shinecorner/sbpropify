@@ -18,7 +18,7 @@ return [
         "mr" => "Monsieur",
         "mrs" => "Mme",
         "company" => "Société",
-    ], 
+    ],
     "summary_state_options" => [
         "daily" => "Quotidien",
         "monthly" => "Mensuel",
@@ -72,7 +72,7 @@ return [
     "my_personal_details" => "Mes données personnelles",
     "title" => "Titre",
     "company_name" => "Nom de l'entreprise",
-    "first_name" => "Prénom",    
+    "first_name" => "Prénom",
     "last_name" => "Nom de famille",
     "birth_date" => "Date de naissance",
     "mobile_phone" => "Téléphone portable",
