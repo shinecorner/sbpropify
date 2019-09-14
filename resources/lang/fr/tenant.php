@@ -151,4 +151,6 @@ return [
     "content" => "Contenu",
     "contact_name" => "Nom du contact",
     "contact_phone" => "Téléphone de contact",
+    "change" => "remanier",
+    "cancel" => "résilier",
 ];
