@@ -216,6 +216,8 @@
                 // if (this.loading && this.requests.data.length) {
                 //     return
                 // }
+
+                console.log('get called')
                 this.loading = false
 
                 const {current_page, last_page} = this.requests
@@ -247,24 +249,19 @@
                 this.$refs.filters.reset()
             },
             toggleDrawer (request, tab = 'chat') {
-                
-                
                 this.activeDrawerTab = tab
                 this.openedRequest = request
 
-                this.visibleDrawer = true
+                this.visibleDrawer = !this.visibleDrawer
 
-                console.log('toggle Drawerer States', this.visibleDrawer, this.addRequestDialogVisible)
             },
             resetDataFromDrawer () {
-                console.log('resetDataFromDrawer called')
                 this.activeDrawerTab = 'chat'
                 this.openedRequest = null
             },
             addRequest () {
-                console.log('addRequest  called');
                 this.$watch(() => this.$refs['request-add-form'].loading, state => {
-                    console.log('addRequest watch called');
+
                     this.$nextTick(async () => {
                         this.$refs['request-add-form'].$el.classList.remove('el-loading-parent--relative')
 
@@ -285,6 +282,7 @@
         },
         mounted () {
             // this.$refs['dynamic-scroller'].forceUpdate()
+            this.get()
         }
     }
 </script>

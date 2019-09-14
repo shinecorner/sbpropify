@@ -3,7 +3,7 @@
         <ui-heading icon="icon-megaphone-1" title="News" description="Sed placerat volutpat mollis." />
         
         <ui-divider />
-        <div class="posts" v-infinite-scroll="getPosts" style="overflow: auto;">
+        <div class="posts" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading" >
             
             <div class="content">
                 <post-add-card />
@@ -121,7 +121,8 @@
         },
         methods: {
             async getPosts (params = {}) {
-                if (this.loading) {
+                console.log('getPosts', this.loading)
+                if (this.loading && this.posts.data.length) {
                     return
                 }
 
@@ -135,7 +136,7 @@
 
                 page++
 
-                this.$refs['dynamic-scroller'].forceUpdate()
+//                this.$refs['dynamic-scroller'].forceUpdate()
                 this.loading = true
 
                 await this.$store.dispatch('newPosts/get', {
@@ -165,6 +166,7 @@
                 posts: state => state
             }),
             filteredPosts() {
+                console.log('posts', this.posts)
                 return this.posts.data.filter( post => { return this.filterCategory == null || post.category == this.filterCategory})
             }
         }

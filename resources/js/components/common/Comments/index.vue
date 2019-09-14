@@ -186,6 +186,7 @@
                 this.scrollToBottom()
             },
             'data' (comments) {
+                console.log('comments', this.id, this.comments)
                 this.comments = comments
             }
         },
@@ -193,6 +194,7 @@
             if (this.data) {
                 this.comments = this.data;
             } else {
+                
                 this.$store.dispatch('comments/clear', {commentable: this.type})
 
                 await this.fetch()
