@@ -1,6 +1,7 @@
 <template>
     <div :class="['requests']">
         <div class="container" v-infinite-scroll="get" style="overflow: auto;">
+            <div>
             <ui-heading icon="icon-chat-empty" :title="$t('tenant.requests')" description="Need some info? Encountered an issue? Contact us!">
                 <el-popover popper-class="requests__filter-popover" placement="bottom-end" trigger="click" :width="192">
                     <el-button slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
@@ -37,6 +38,13 @@
                     <loader />
                 </template>
             </dynamic-scroller>
+            </div>
+            <ui-drawer :size="448" :visible.sync="addRequestDialogVisible" :z-index="1" direction="right" docked>
+                <ui-divider content-position="left">{{$t('tenant.add_request')}}</ui-divider>
+                <div class="content">
+                    <request-add-form ref="request-add-form" />
+                </div>
+            </ui-drawer>
         </div>
         <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked @update:visibleDrawer="resetDataFromDrawer">
             <el-tabs type="card" v-model="activeDrawerTab" stretch v-if="openedRequest">
@@ -93,12 +101,7 @@
                 </el-tab-pane>
             </el-tabs>
         </ui-drawer>
-        <ui-drawer :size="448" :visible.sync="addRequestDialogVisible" :z-index="1" direction="right" docked>
-            <ui-divider content-position="left">{{$t('tenant.add_request')}}</ui-divider>
-            <div class="content">
-                <request-add-form ref="request-add-form" />
-            </div>
-        </ui-drawer>
+        
 
         <!-- <el-dialog ref="add-request-dialog" title="Add request" :visible.sync="addRequestDialogVisible" custom-class="add-request-dialog" append-to-body>
             
@@ -244,17 +247,24 @@
                 this.$refs.filters.reset()
             },
             toggleDrawer (request, tab = 'chat') {
+                
+                
                 this.activeDrawerTab = tab
                 this.openedRequest = request
 
-                this.visibleDrawer = !this.visibleDrawer
+                this.visibleDrawer = true
+
+                console.log('toggle Drawerer States', this.visibleDrawer, this.addRequestDialogVisible)
             },
             resetDataFromDrawer () {
+                console.log('resetDataFromDrawer called')
                 this.activeDrawerTab = 'chat'
                 this.openedRequest = null
             },
             addRequest () {
+                console.log('addRequest  called');
                 this.$watch(() => this.$refs['request-add-form'].loading, state => {
+                    console.log('addRequest watch called');
                     this.$nextTick(async () => {
                         this.$refs['request-add-form'].$el.classList.remove('el-loading-parent--relative')
 

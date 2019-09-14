@@ -69,8 +69,10 @@
                             break
                     }
 
+                    console.log('transparentOverlayElement', this.visible);
                     // TODO - auto blur container if visible is true first
                     if (state) {
+                        
                         this.transparentOverlayElement.style.zIndex = 0
 
                         const animeOptions = {
@@ -116,7 +118,9 @@
             this.$el.parentElement.style.overflowX = 'hidden'
 
             this.$nextTick(() => {
+                
                 this.siblingElement = this.overlayElement ? document.getElementById(this.overlayElement.substr(1)) : this.$el.nextElementSibling || this.$el.previousElementSibling
+                console.log('sibling', this.siblingElement);
                 this.$el.parentElement.appendChild(this.transparentOverlayElement)
             })
 
