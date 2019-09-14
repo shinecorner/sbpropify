@@ -263,7 +263,7 @@
                                     </span>   
                                 </div> 
                             </el-col>
-                            <el-col v-if="model.pinned" class="contact-info-card-col" :md="8">
+                            <el-col v-if="model.type == 3" class="contact-info-card-col" :md="8">
                                 <div class="contact-info-title">
                                     <span class="custom-label">
                                         <i class="icon-users"></i>&nbsp;&nbsp;{{$t('general.recipients')}}
@@ -275,10 +275,12 @@
                                     </span>
                                 </div> 
                             </el-col>
+                            <el-col v-if="model.type != 3" class="contact-info-card-col" :md="8">
+                            </el-col>
                         </el-row>                                                    
                     </el-card>
 
-                    <el-card v-if="model.pinned" :loading="loading" class="mt15">
+                    <el-card v-if="model.type == 3" :loading="loading" class="mt15">
                         <el-row :gutter="20">
                             <el-col :md="12">
                                 <el-form-item :label="$t('models.post.execution_interval.start')"
@@ -333,7 +335,7 @@
                         </el-form-item>
                     </el-card>
 
-                    <el-card :loading="loading" v-if="model.pinned && (!model.tenant)" class="mt15">
+                    <el-card :loading="loading" v-if="model.type == 3 && (!model.tenant)" class="mt15">
                         <el-row :gutter="10">
                             <el-col :lg="6">
                                 <el-select @change="resetToAssignList"
@@ -388,7 +390,7 @@
                         />
                     </el-card>
                     
-                    <el-card v-if="model.pinned" :loading="loading" class="mt15">
+                    <el-card v-if="model.type == 3" :loading="loading" class="mt15">
                         <el-row :gutter="10">
                             <el-col :lg="18" :xl="20">
                                 <el-select
@@ -430,7 +432,7 @@
                         />
                     </el-card>
 
-                    <el-card class="mt15" v-if="model.id && !model.pinned">
+                    <el-card class="mt15" v-if="model.id && model.type != 3">
                         <div slot="header" class="clearfix">
                             <span>{{$t('models.post.comments')}}</span>
                         </div>
