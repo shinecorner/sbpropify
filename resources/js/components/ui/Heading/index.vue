@@ -7,6 +7,9 @@
                 <div class="ui-heading__content__description" v-if="description || $slots.default">
                     {{description || $slots.default}}
                 </div>
+                <div class="ui-heading__content__description" v-if="$slots.description">
+                    <slot name="description"/>
+                </div>
             </div>
             <div class="ui-heading__actions" v-if="!el.is.md">
                 <slot />

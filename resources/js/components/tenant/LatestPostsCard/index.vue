@@ -34,7 +34,7 @@
                     </div>
                 </template>
                 <div class="content">{{post.content}}</div>
-                <el-button size="mini" icon="icon-right-1" plain round>{{$t('tenant.actions.view')}}</el-button>
+                <el-button size="mini" icon="icon-right-1" plain round @click="$router.push({name: 'tenantPost',  params: { id: post.id } });">{{$t('tenant.actions.view')}}</el-button>
             </el-collapse-item>
         </el-collapse>
     </ui-card>
@@ -106,9 +106,7 @@
                 border-style: none
 
                 .el-collapse-item
-                    &:hover
-                        background-color: var(--primary-color-lighter)
-
+                    
                     &:last-child /deep/ .el-collapse-item__header
                         border-bottom-style: none
 
