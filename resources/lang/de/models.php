@@ -151,12 +151,12 @@ return [
             'content_1' => 'Wir freuen uns, Ihnen mitzuteilen, dass für Sie ein Konto im Mieterpotal eingerichtet wurde und übermitteln Ihnen den Aktivierungscode',
             'offer' => 'Was bietet die Applikation',
             'offers' => '
-                    <li>Mit dem digitalen Mieterdossier habe Sie Zugriff auf alle relevanten Dokumente, wie Mietvertrag, Hausordnung oder sonstige Unterlagen zur Liegenschaft</li>
-                    <li>Über das Ticketing-System wickeln Sie Ihre Anfragen einfach und unkompliziert ab – Anliegen zeit- und ortsungebunden an die Verwaltung mitteilen</li>
-                    <li>Auf dem Markt- und Leihplatz können Sie Gegenstände an Ihre Nachbarschaft verkaufen oder verleihen.</li>
-                    <li>Teilen Sie Neuigkeiten mit Ihren Nachbarn indem Sie einen Beitrag publizieren. Die Pinnwand wird ebenfalls durch die Verwaltung für die Kommunikation genutzt, so sind alle stets auf dem Laufenden.</li>
-                    <li>Weitere Micro-Apps innerhalb der Applikation setzen neue Standards in der Wohnqualität wobei bequem diverse Dienstleistungen in Anspruch genommen werden können</li>
-                ',
+                <li>Mit dem digitalen Mieterdossier habe Sie Zugriff auf alle relevanten Dokumente, wie Mietvertrag, Hausordnung oder sonstige Unterlagen zur Liegenschaft</li>
+                <li>Über das Ticketing-System wickeln Sie Ihre Anfragen einfach und unkompliziert ab – Anliegen zeit- und ortsungebunden an die Verwaltung mitteilen</li>
+                <li>Auf dem Markt- und Leihplatz können Sie Gegenstände an Ihre Nachbarschaft verkaufen oder verleihen.</li>
+                <li>Teilen Sie Neuigkeiten mit Ihren Nachbarn indem Sie einen Beitrag publizieren. Die Pinnwand wird ebenfalls durch die Verwaltung für die Kommunikation genutzt, so sind alle stets auf dem Laufenden.</li>
+                <li>Weitere Micro-Apps innerhalb der Applikation setzen neue Standards in der Wohnqualität wobei bequem diverse Dienstleistungen in Anspruch genommen werden können</li>
+            ',
             'register' => 'Erste Anmeldung und Aktivierung Ihres Accounts',
             'content_2' => 'Um sich anzumelden, klicken Sie auf den untenstehenden Link und loggen Sie sich mit Ihrer E-Mail-Adresse und dem persönlichen Freischaltcode ein. Einmal eingeloggt können Sie Ihr eigenes Passwort definieren und dieses fortan für die Anmeldung nutzen.',
             'link_application' => 'Link zur Applikation',
@@ -211,10 +211,9 @@ return [
             'deleted' => 'Dienstleister entfernt',
         ],
         'validation' => [
-            'name' =>
-                [
-                    'required' => 'Name ist obligatorisch',
-                ],
+            'name' => [
+                'required' => 'Name ist obligatorisch',
+            ],
             'floor_nr' => [
                 'required' => 'Etage ist obligatorisch',
             ],
@@ -486,9 +485,9 @@ return [
         'startTime' => 'Start',
         'to' => 'An',
         'categories' => 'Kategorien',
+        'templates' => 'Vorlagen',
         'contact_enable' => 'Dienstleister-Kontakte für Mieter aktivieren',
         'contact_enable_desc' => 'Mieter können die Kontaktdaten der involvierten Dienstleister im Mieterportal sehen.',
-        'templates' => 'Vorlagen',
         'cleanify_email' => 'Cleanify email',
         'mail_encryption' => 'Verschlüsselung',
         'primary_color' => 'Primärfarbe',

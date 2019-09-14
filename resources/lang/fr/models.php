@@ -368,8 +368,8 @@ return [
         ],
         'type' => [
             "label" => "Type",
-            "article" => "Article",
             "post" => "Poster",
+            "article" => "Article",
             "new_neighbour" => "Nouveau voisin",
             "pinned" => "Épinglé",
         ],
@@ -796,6 +796,7 @@ return [
         'comment_created' => "Commentaire créé avec succès",
         'errors' => [
             'not_found' => "Produit non trouvé",
+            'deleted' => "Errore prodotto cancellato: ",
         ],
         'type' => [
             'label' => 'Type',
@@ -830,7 +831,6 @@ return [
         ],
         'errors' => [
             'not_found' => "Modèle non trouvé",
-            'deleted' => "Erreur de suppression de produit : ",
         ]
     ],
     'cleanify' => [

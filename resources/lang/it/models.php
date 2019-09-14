@@ -368,8 +368,8 @@ return [
         ],
         'type' => [
             "label" => "Tipo",
-            "article" => "Articolo",
             'post' => "Messaggio",
+            "article" => "Articolo",
             "new_neighbour" => "Nuovo vicino",
             "pinned" => "Inchiodato",
         ],

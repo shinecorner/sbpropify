@@ -619,8 +619,8 @@ return [
             'range' => 'Range',
             'component' => 'Component',
             'acquisition' => 'Acquisition Phase',
-            'keywords' => 'Keywords',
             'cost' => 'Cost Impact',
+            'keywords' => 'Keywords',
             'building_locations' => [
                 'house_entrance' => 'House Entrance',
                 'staircase' => 'Staircase',
