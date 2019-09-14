@@ -1,6 +1,7 @@
 <template>
     <div class="settings">
-        <heading class="custom-heading" icon="icon-cog" :title="$t('tenant.user_settings')"/>
+        <ui-heading class="custom-heading" icon="icon-cog" :title="$t('tenant.user_settings')"/>
+        <ui-divider/>
         <el-tabs v-model="active">
             <el-tab-pane label="Personal Informations" name="personal_informations">
                 <el-row>

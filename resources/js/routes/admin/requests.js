@@ -14,7 +14,7 @@ export default [{
         component: () => import ( /* webpackChunkName: "admin/requests/index" */ 'views/Admin/Requests'),
         beforeEnter: VueRouterMultiguard([isAuthenticatedGuard, isAdminGuard, hasPermissionGuard(AdminPermissions.list.request)]),
         props: {
-            title: 'Requests'
+            
         },
         meta: {
             title: 'Requests',

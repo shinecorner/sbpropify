@@ -1,9 +1,8 @@
 <template>
     <div class="property-managers">
-        <heading icon="icon-users" :title="$t('tenant.property_managers')">
-            <div slot="description">Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.</div>
-        </heading>
-        <el-divider />
+        <ui-heading icon="icon-users" :title="$t('tenant.property_managers')" description="Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.">
+        </ui-heading>
+        <ui-divider />
         <loader v-if="loading" />
         <div class="placeholder" v-else-if="!loading && !groupedManagers">
             <img class="image" :src="require('img/5d4c33211edfc.png')" />
@@ -128,10 +127,6 @@ import Heading from 'components/Heading'
             pointer-events: none;
             z-index: -1;
             filter: opacity(.048);
-        }
-
-        .el-divider {
-            background: linear-gradient(to right, var(--border-base-color), transparent 56%);
         }
 
         .placeholder {

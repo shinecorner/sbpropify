@@ -28,14 +28,10 @@
             </el-row>
             <el-row style="margin-bottom: 24px;" :gutter="20" type="flex">
                 <el-col :span="3" class="request-aside">
-                    <el-button
-                        type="primary"
-                        size="medium"
-                        @click="edit"
-                    >
-                        <i class="ti-pencil"></i>
-                        <span>{{ $t('general.actions.edit') }}</span>    
-                    </el-button>
+                    <router-link :to="{name: 'adminRequestsEdit',  params: { id:item.id}}" class="el-menu-item-link">
+                         <i class="ti-pencil"></i>
+                          <span>{{ $t('general.actions.edit') }}</span>
+                    </router-link>   
                 </el-col>
                 <el-col :span="18" class="request-content">
                     <p>{{ item.description }}</p>
@@ -84,8 +80,10 @@
                                         <avatar :size="28" :src="`/${user.avatar}`" v-else></avatar>
                                     </template>
                                 </el-tooltip>
-
                         </span>
+                        <avatar class="avatar-count" :size="28" :username="`+ ${item.assignedUsersCount}`"
+                                color="#fff"
+                                v-if="item.assignedUsers.length>2"></avatar>
                     </div>
                 </el-col>
                 <el-col :span="5">
@@ -272,13 +270,18 @@ export default {
                 h4 {
                     margin: 14px 0;
                 }
-                .el-button {
-                    width: 100%;
-                    border-radius: 0px;
+                a {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: white;
                     height: 50px;
-                    padding-left: 0;
-                    padding-right: 0;
-                    text-align: center;
+                    background-color: #6ac06f;
+                    font-size: 16px;
+                    &:hover {
+                        background-color: #ddf4e5;
+                        color: #6ac06f;
+                    }
                 }
             }
             .request-content {

@@ -233,16 +233,23 @@
                 })
             },
             logout () {
-                let router = this.$route;
-                
-                this.$confirm(this.$t('tenant.logout'), this.$t('tenant.logout_confirm'), {
-                    type: 'warning',
-                    roundButton: true
-                }).then(async () => {
-                    await this.$store.dispatch('logout')
+                // this.$confirm(this.$t('tenant.logout'), this.$t('tenant.logout_confirm'), {
+                //     type: 'warning',
+                //     roundButton: true
+                // }).then(async () => {
+                //     await this.$store.dispatch('logout')
 
-                    this.$router.push({name: 'login'})
-                })
+                //     this.$router.push({name: 'login'})
+                // })
+                this.$store.dispatch('logout')
+                    .then(() => {
+                        this.$router.push({name: 'login'});
+                    })
+                    .catch(err => {
+                        displayError(err);
+                    });
+                
+                
             },
             toggleDrawer () {
                 this.visibleDrawer = !this.visibleDrawer

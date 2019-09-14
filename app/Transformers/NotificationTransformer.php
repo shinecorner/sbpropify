@@ -3,8 +3,6 @@
 namespace App\Transformers;
 
 use Illuminate\Notifications\DatabaseNotification;
-use App\Notifications\PostPublished;
-use App\Models\Post;
 
 /**
  * Class NotificationTransformer.
@@ -16,7 +14,7 @@ class NotificationTransformer extends BaseTransformer
     /**
      * Transform the Notification entity.
      *
-     * @param \App\Models\Notification $model
+     * @param \Illuminate\Notifications\DatabaseNotification $model
      *
      * @return array
      */

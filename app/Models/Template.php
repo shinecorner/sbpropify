@@ -62,7 +62,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      )
  * )
  */
-class Template extends Model
+class Template extends AuditableModel
 {
     use SoftDeletes;
     use Translatable;

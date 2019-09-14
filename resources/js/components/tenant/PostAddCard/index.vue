@@ -2,7 +2,7 @@
     <el-card :class="['post-add', {'is-focused': focused}]" v-loading="loading">
         <ui-avatar :size="42" :src="loggedInUser.avatar" :name="loggedInUser.name" />
         <el-input ref="content" type="textarea" v-model="model.content" autosize resize="none" :placeholder="$t('tenant.placeholder.publish')" :validate-event="false" @focus="focused = true" @blur="focused = false" @keydown.native.alt.enter.exact="submit" />
-        <media-uploader ref="media" :id="post_id" type="posts" layout="list" v-model="model.media" :upload-options="uploadOptions" />
+        <media-uploader ref="media" :id="post_id" type="posts" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
         <div class="actions" :style="[model.content && {'width': '100%', 'justify-content': 'flex-end'}]">
             <el-tag size="mini">
                 <i class="icon-eye"></i>
@@ -105,20 +105,15 @@
                     
                     const resp = await this.$store.dispatch('newPosts/create', params);
 
-                    displaySuccess(resp.message)
+                    
                     const data = resp.data
                     //const {data: {data}} = await this.axios.post('posts', params);                                        
                     if (data.hasOwnProperty('id') && this.model.media.length) { 
                         this.post_id = data.id;
-                        await this.$refs.media.startUploading();
-                        //console.log('data', this.data);
-                        // this.$refs.media.
+                        this.$refs.media.startUploading();
                     }
-
+                    displaySuccess(resp.message)
                     this.model.content = ''
-                    //this.$refs.media.clearUploader()
-
-                    //displaySuccess(data)
                    
                 } catch (error) {
                     displayError(error)
@@ -208,7 +203,9 @@
             .actions {
                 display: flex;
                 align-items: center;
-                align-self: flex-end;
+                justify-content: flex-end;
+                width: 100%;
+
 
                 .el-tag {
                     text-transform: uppercase;
