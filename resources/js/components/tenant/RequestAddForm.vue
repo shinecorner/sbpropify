@@ -66,11 +66,17 @@
         <el-form-item prop="description" label="Description" required>
             <el-input type="textarea" ref="description" v-model="model.description" :autosize="{minRows: 4, maxRows: 16}" />
         </el-form-item>
-        <el-form-item prop="visibility" :label="$t('models.request.visibility.label')" required>
+        <!-- <el-form-item prop="visibility" :label="$t('models.request.visibility.label')" required>
             <el-select v-model="model.visibility" :placeholder="$t('models.request.placeholders.visibility')">
                 <el-option :key="k" :label="$t(`models.request.visibility.${visibility}`)" :value="parseInt(k)" v-for="(visibility, k) in $constants.serviceRequests.visibility">
                 </el-option>
             </el-select>
+        </el-form-item> -->
+        <el-form-item class="switcher-form-item" prop="public">
+            <label>
+                Mark a request as public
+            </label>
+            <el-switch v-model="model.public"/>
         </el-form-item>
         <el-divider />
         <media-upload ref="upload" v-model="model.media" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="4" />
@@ -282,14 +288,23 @@
             flex-grow: 1;
             justify-content: flex-end;
             margin-bottom: 30px;
-            
-            :global(.el-form-item__content) {
-                // margin-right: 9%;
-            }
+
         }
         .el-button.submit {
             margin-top: 1em;
             width: 100%;
+        }
+
+        .switcher-form-item {
+            :global(.el-form-item__content) {
+                display: flex;
+                align-items: center;
+
+                .el-switch {
+                    flex: 1;
+                    justify-content: flex-end;
+                }
+            }
         }
     }
 </style>
