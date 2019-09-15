@@ -50,7 +50,7 @@
             type: {
                 type: String,
                 required: true,
-                validator: type => ['post', 'product', 'request', 'conversation', 'internalNotice'].includes(type)
+                validator: type => ['post', 'product', 'request', 'conversation', 'internalNotices'].includes(type)
             },
             autofocus: {
                 type: Boolean,
@@ -104,7 +104,7 @@
                     this.loading = true
                     this.$refs.content.blur()
 
-                    let body = this.commentable !== 'internalNotice' ? {
+                    let body = this.type !== 'internalNotices' ? {
                         id: this.id,
                         comment: this.content,
                         commentable: this.type,

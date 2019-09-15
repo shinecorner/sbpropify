@@ -4,7 +4,7 @@ export default {
         post: {},
         request: {},
         product: {},
-        internalNotice: {}
+        internalNotices: {}
     },
     actions: {
         async get ({commit, getters}, {parent_id, ...params}) {
@@ -19,7 +19,7 @@ export default {
                 }, [])
             }
 
-            let newParams = params, url = params.commentable !== 'internalNotice' ? 'comments' : 'internalNotice'
+            let newParams = params, url = params.commentable !== 'internalNotices' ? 'comments' : 'internalNotices'
 
             if (parent_id && params.id) {
                 const {id, ...restParams} = params
@@ -41,6 +41,7 @@ export default {
             }
 
             const {data} = await this._vm.axios.get(url, {params: newParams})
+            
 
             commit('set', {
                 parent_id,
@@ -50,12 +51,14 @@ export default {
             })
         },
         async create ({commit, rootGetters}, {id, ...params}) {
+            let url = params.commentable == 'internalNotices' ? '' : `/${id}/comments`;
             const {data} = await this._vm.axios.post({
                 post: 'posts',
                 product: 'products',
                 request: 'requests',
-                conversation: 'conversations'
-            }[params.commentable] + `/${id}/comments`, params)
+                conversation: 'conversations',
+                internalNotices: 'internalNotices'
+            }[params.commentable] + url, params)
 
             commit('create', {
                 id,

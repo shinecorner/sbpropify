@@ -375,7 +375,7 @@
                                     <span slot="label">
                                         <el-badge value="0" :max="99" class="admin-layout">{{ $t('models.request.internal_notices') }}</el-badge>
                                     </span>
-                                    <chat :id="model.id" type="internalNotice" />
+                                    <chat :id="model.id" type="internalNotices" />
                                 </el-tab-pane>
                                 <el-tab-pane name="audit" style="height: 400px;overflow:auto;">
                                     <span slot="label">
