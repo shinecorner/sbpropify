@@ -208,14 +208,12 @@
                                 <el-input type="text" v-model="model.title"/>
                             </el-form-item>
                         </el-col>
-                        <el-col :md="12">
-                            <el-form-item :label="$t('general.description')" :rules="validationRules.description"
+                        <el-col :md="24">
+                            <el-form-item class="label-block" :label="$t('general.description')" :rules="validationRules.description"
                                         prop="description">
-                                <el-input
-                                    :autosize="{minRows: 5}"
-                                    type="textarea"
-                                    v-model="model.description">
-                                </el-input>
+                                <yimo-vue-editor
+                                        :config="editorConfig"
+                                        v-model="model.description"/>
                             </el-form-item>
                         </el-col>
                         <el-col :md="12">
@@ -269,6 +267,7 @@
     import {displayError} from "helpers/messages";
     import AddActions from 'components/EditViewActions';
 
+    let YimoVueEditor = require("yimo-vue-editor");
 
     export default {
         name: 'AdminRequestsEdit',
@@ -278,11 +277,16 @@
         components: {
             Heading,
             Card,
-            AddActions
+            AddActions,
+            'yimo-vue-editor': YimoVueEditor.default,
         },
         data() {
             return {
-                couldSaveWithService: false
+                couldSaveWithService: false,
+                editorConfig: {
+                    printLog: false,
+                    lang: YimoVueEditor.E.langs.en,
+                },
             }
         },
         methods: {
@@ -372,10 +376,14 @@
     .custom-select {
         display: block;
     }
-
-
 </style>
 <style lang="scss">
+    .label-block .el-form-item__label {
+        display: block;
+        float: none;
+        text-align: left;
+    }
+
     #add_request {
         .el-input__suffix {
             height: 120px !important;
