@@ -23,7 +23,7 @@ export default {
             } else {
                 let newData = state;
                 newData.data.push(data.data)
-                commit('set', newData)
+                commit('set', data.data)
             }
         },
         async create ({state, commit}, params) {
