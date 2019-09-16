@@ -85,7 +85,7 @@ class InternalNoticeAPIController extends AppBaseController
             $internalNotices = $this->internalNoticeRepository->get();
             $response = $internalNotices->toArray();
         } else {
-            $internalNotices = $this->internalNoticeRepository->paginate($perPage);
+            $internalNotices = $this->internalNoticeRepository->with('user')->paginate($perPage);
             $response = (new InternalNotesTransformer())->transformPaginator($internalNotices);
         }
 
@@ -136,7 +136,7 @@ class InternalNoticeAPIController extends AppBaseController
         $input = $request->all();
 
         $internalNotice = $this->internalNoticeRepository->create($input);
-
+        $internalNotice->load('user');
         return $this->sendResponse($internalNotice->toArray(), __('models.request.internal_notice_saved'));
     }
 
@@ -249,7 +249,7 @@ class InternalNoticeAPIController extends AppBaseController
         }
 
         $internalNotice = $this->internalNoticeRepository->update($input, $id);
-
+        $internalNotice->load('user');
         return $this->sendResponse($internalNotice->toArray(), __('models.request.internal_notice_updated'));
     }
 

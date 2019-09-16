@@ -93,14 +93,22 @@ class ServiceProvider extends AuditableModel
 
     public $table = 'service_providers';
 
-    const ServiceProviderCategories = [
-        'electrician',
-        'heating_company',
-        'lift',
-        'sanitary',
-        'key_service',
-        'caretaker',
-        'real_estate_service',
+    const ServiceProviderCategoryElectrician = 1;
+    const ServiceProviderCategoryHeatingCompany = 2;
+    const ServiceProviderCategoryLift = 3;
+    const ServiceProviderCategorySanitary = 4;
+    const ServiceProviderCategoryKeyService = 5;
+    const ServiceProviderCategoryCaretaker = 6;
+    const ServiceProviderCategoryRealEstateService = 7;
+
+    const ServiceProviderCategory = [
+        self::ServiceProviderCategoryElectrician => 'electrician',
+        self::ServiceProviderCategoryHeatingCompany => 'heating_company',
+        self::ServiceProviderCategoryLift => 'lift',
+        self::ServiceProviderCategorySanitary => 'sanitary',
+        self::ServiceProviderCategoryKeyService => 'key_service',
+        self::ServiceProviderCategoryCaretaker => 'caretaker',
+        self::ServiceProviderCategoryRealEstateService => 'real_estate_service',
     ];
 
     public $fillable = [
@@ -175,5 +183,17 @@ class ServiceProvider extends AuditableModel
     public function quarters()
     {
         return $this->belongsToMany(Quarter::class, 'quarter_service_provider', 'service_provider_id', 'quarter_id');
+    }
+
+    // tmp @TODO remove
+    public function setCategoryAttribute($value)
+    {
+        $this->attributes['category'] = array_flip(ServiceProvider::ServiceProviderCategory)[$value] ?? $value;
+    }
+
+    // tmp @TODO remove
+    public function getCategoryAttribute()
+    {
+        return self::ServiceProviderCategory[$this->attributes['category']] ?? $this->attributes['category'];
     }
 }
