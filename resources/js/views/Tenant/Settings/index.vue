@@ -254,9 +254,9 @@
             },
             validateConfirmPassword(rule, value, callback) {
                 if (value === '') {
-                    callback(new Error(this.$t('password_validation.confirm')));
+                    callback(new Error(this.$t('validation.required',{attribute: this.$t('tenant.confirm_password')})));
                 } else if (value !== this.changePassword.password) {
-                    callback(new Error(this.$t('password_validation.match')));
+                    callback(new Error(this.$t('validation.confirmed',{attribute: this.$t('tenant.confirm_password')})));
                 } else {
                     callback();
                 }

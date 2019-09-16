@@ -237,4 +237,5 @@ return [
     ],
     'to_homepage' => 'Alla Homepage',
     "assignment" => "Assegnazione",
+    'status_changed' => "Stato cambiato",
 ];

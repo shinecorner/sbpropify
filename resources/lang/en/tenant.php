@@ -37,6 +37,10 @@ return [
         "type_comment" => "Type a comment",
         "upload" => "Upload files",
         "search_product" => "Search for a product",
+        "category" => "Select category",
+        "priority" => "Select priority",
+        "defect_location" => "Select defect location",
+        "visibility" => "Select visibility",
     ],
     "no_data" => [
         "message" => "There are no messages yet",
@@ -111,6 +115,7 @@ return [
     "from_quarter" => "From the quarter",
     "reset_filters" => "Reset filters",
     "choose_visibility" => "Choose the visibility",
+    "visibility" => "Visibility",
     "like" => "Like",
     "unlike" => "Unlike",
     "image" => "Image",
@@ -154,4 +159,8 @@ return [
     "contact_phone" => "Contact phone",
     "change" => "Change",
     "cancel" => "Cancel",
+    "category" => "Category",
+    "defect_location" => "Defect location",
+    "description" => "Description",
+    "request_public_info" => "If your request is a request which also concerns your neighbours, then activate this option.",
 ];

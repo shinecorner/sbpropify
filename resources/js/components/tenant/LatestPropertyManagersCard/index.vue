@@ -67,18 +67,17 @@
             if (tenant.building_id) {
                 this.loading = true
 
-                const {managers} = await this.$store.dispatch('getBuilding', {
+                const {managers_last} = await this.$store.dispatch('getBuilding', {
                     id: tenant.building_id
                 })
 
-                if (managers) {
-                    this.managers = managers
+                if (managers_last) {
+                    this.managers = managers_last
                 }
 
                 this.timeout = setTimeout(() => this.loading = false, EXTRA_LOADING_SECONDS)
             }
 
-            console.log('mounted', this.managers);
         },
         beforeDestroy () {
             clearTimeout(this.timeout)
