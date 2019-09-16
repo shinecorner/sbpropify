@@ -345,26 +345,27 @@
                                             </el-col>
                                         </el-row>
                                     </el-tab-pane>
-                                    <el-tab-pane :label="$t('models.request.public')" name="public" v-loading="loading.state">
+                                    <el-tab-pane :label="$t('models.request.public.label')" name="public" v-loading="loading.state">
                                         <el-form-item class="switcher" prop="public">
-                                            <label class="switcher__label">
-                                                {{$t('models.request.public_desc')}}
+                                            <label class="public__label">
+                                                <span class="public__desc">{{$t('models.request.public.public_desc')}}</span>
                                             </label>
                                             <el-switch v-model="model.public"/>
                                         </el-form-item>
-                                        <el-form-item prop="model.pdf_font_family">
-                                            <label class="card-label">
-                                                {{$t('models.realEstate.font_family')}}
+                                        <el-form-item prop="visibility" v-if="model.public && model.tenant.building && model.tenant.building.quarter_id > 0">
+                                             <label class="public__label">
+                                                <span class="public__desc">{{$t('models.request.visibility.label')}}</span>
                                             </label>
-                                            <!-- <el-select
-                                                        style="display: block"
-                                                        v-model="model.pdf_font_family">
-                                                <el-option :key="font.id"
-                                                            :style="`font-family: '${font.label}';`"
-                                                            :label="font.label"
-                                                            :value="font.label"
-                                                            v-for="font in fonts"></el-option>
-                                            </el-select> -->
+                                             <el-select v-model="model.visibility">
+                                                <el-option :key="k" :label="$t(`models.request.visibility.${visibility}`)" :value="parseInt(k)" v-for="(visibility, k) in $constants.serviceRequests.visibility">
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                        <el-form-item class="switcher" prop="notification" v-if="model.public">
+                                            <label class="public__label">
+                                                <span class="public__desc">Send notification email to all the tenants{{$t('models.request.public.notification')}}</span>
+                                            </label>
+                                            <el-switch v-model="model.notification"/>
                                         </el-form-item>
                                     </el-tab-pane>
                                 </el-tabs>
@@ -597,7 +598,7 @@
                 this.getRealCategories();
                 this.fetchCurrentRequest();
             });
-
+            
         },
         methods: {
             ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags', 'deleteRequestTag']),
@@ -881,5 +882,28 @@
                 padding: 16px !important;
             }
         }
+
+        #pane-public {
+            .el-form-item {
+                
+                .el-form-item__content {
+                    display: flex;
+                    align-items: center;
+
+                    & > div {
+                        flex: 1;
+                        justify-content: flex-end;
+                        
+                    }
+
+                    // .el-select .el-input {
+                    //     max-width: 100px;
+                    //     float: right;
+                    // }
+                }
+
+            }
+        }
     }
+    
 </style>
