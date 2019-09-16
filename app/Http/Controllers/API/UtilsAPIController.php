@@ -189,6 +189,7 @@ class UtilsAPIController extends AppBaseController
     {
         $result = [
             'type' => Post::Type,
+            'sub_type' => Post::SubType,
             'visibility' => Post::Visibility,
             'status' => Post::Status,
             'category' => Post::Category,

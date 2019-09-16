@@ -84,6 +84,10 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
     const TypePinned = 3;
     const TypeArticle = 4;
 
+    const SubTypeImportant = 1;
+    const SubTypeCritical = 2;
+    const SubTypeMaintenance = 3;
+
     const StatusNew = 1;
     const StatusPublished = 2;
     const StatusUnpublished = 3;
@@ -104,6 +108,13 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         self::TypeNewNeighbour => 'new_neighbour',
         self::TypePinned => 'pinned',
         self::TypeArticle => 'article',
+    ];
+    const SubType = [
+        self::TypePinned => [
+            self::SubTypeImportant => 'important',
+            self::SubTypeCritical => 'critical',
+            self::SubTypeMaintenance => 'maintenance',
+        ]
     ];
     const Status = [
         self::StatusNew => 'new',
