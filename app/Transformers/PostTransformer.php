@@ -24,9 +24,14 @@ class PostTransformer extends BaseTransformer
     {
         $ut = new UserTransformer();
         $tt = new TenantTransformer();
+
+
+
         $ret = [
             'id' => $model->id,
             'type' => $model->type,
+            'sub_type' => $model->sub_type,
+            'is_execution_time' => (bool)$model->is_execution_time,
             'status' => $model->status,
             'visibility' => $model->visibility,
             'category_image' => (bool) $model->category_image,
@@ -44,8 +49,8 @@ class PostTransformer extends BaseTransformer
             'comments_count' => $model->all_comments_count,
             'pinned' => $model->pinned,
             'pinned_to' => $model->pinned_to ? $model->pinned_to->toDateTimeString() : null,
-            'execution_start' => $model->execution_start ? $model->execution_start->toDateTimeString() : null,
-            'execution_end' => $model->execution_end ? $model->execution_end->toDateTimeString() : null,
+            'execution_start' => $this->formatExecutionTime($model, 'execution_start'),
+            'execution_end' => $this->formatExecutionTime($model, 'execution_end'),
             'notify_email' => $model->notify_email,
         ];
 
@@ -73,5 +78,14 @@ class PostTransformer extends BaseTransformer
         }
 
         return $ret;
+    }
+
+    protected function formatExecutionTime($model, $col)
+    {
+        $value = $model->{$col};
+        if ($value) {
+            return $model->is_execution_time ? $value->toDateTimeString()  : $value->format('Y-m-d');
+        }
+        return null;
     }
 }
