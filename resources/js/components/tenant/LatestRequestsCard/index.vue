@@ -1,5 +1,5 @@
 <template>
-    <ui-card shadow="always">
+    <ui-card shadow="always" v-if="requests.length">
         <template #header>
             <i class="icon-chat-empty"></i> {{$t('tenant.latest_public_requests')}}
             <el-button type="text" @click="$router.push({name: 'tenantRequests'})">{{$t('tenant.actions.view_all')}}</el-button>
@@ -44,7 +44,7 @@
         props: {
             limit: {
                 type: Number,
-                default: 5
+                default: 4
             }
         },
         data () {

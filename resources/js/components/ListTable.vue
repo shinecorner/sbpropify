@@ -270,15 +270,31 @@
                         v-for="action in column.actions">
                         <template
                             v-if="(!action.permissions || ( action.permissions && $can(action.permissions))) && (!action.hidden || (action.hidden && !action.hidden(scope.row)))">
+                            <template v-if="action.title.indexOf('edit') !== -1">
+                                <router-link :to="{name: action.editUrl,  params: { id:scope.row['id']}}" class="el-menu-item-link">
+                                    <el-button
+                                        :style="action.style"
+                                        :type="action.type"
+                                        @click="action.onClick(scope.row)"
+                                        size="mini"
+                                    >
+                                        <i class="ti-pencil"></i>
+                                        <span>{{ $t('general.actions.edit') }}</span>
+                                    </el-button>
+                                </router-link>      
+                            </template>
                             <el-button
+                                v-else
                                 :style="action.style"
                                 :type="action.type"
                                 @click="action.onClick(scope.row)"
                                 size="mini"
                             >
-                                <template v-if="action.title == 'Edit'">
-                                    <i class="ti-pencil"></i>
-                                    <span>{{$t(action.title)}}</span>    
+                                <template v-if="action.title.indexOf('edit') !== -1">
+                                    <router-link :to="{name: 'adminPropertyManagersEdit',  params: { id:scope.row['id']}}" class="el-menu-item-link">
+                                        <i class="ti-pencil"></i>
+                                        <span>{{ $t('general.actions.edit') }}</span>
+                                    </router-link>      
                                 </template>
                                 <template v-else-if="action.title == 'Delete'">
                                     <i class="ti-close"></i>
@@ -863,6 +879,9 @@
 
     .btn-wrap:not(:first-child) {
         margin-left: 5px;
+    }
+    .btn-wrap {
+       
     }
 
     .square-avatars {

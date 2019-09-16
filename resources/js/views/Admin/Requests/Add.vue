@@ -37,7 +37,7 @@
                                         :key="category.id"
                                         :label="category.name"
                                         :value="category.id"
-                                        v-for="category in first_layout_subcategories">
+                                        v-for="category in defect_subcategories">
                                     </el-option>
                                 </el-select>
                             </el-form-item>
@@ -307,7 +307,7 @@
                 this.showpayer = this.model.qualification == 5 ? true : false;
             },
             showLocationOrRoom() {
-                const subcategory = this.first_layout_subcategories.find(category => {
+                const subcategory = this.defect_subcategories.find(category => {
                     return category.id == this.model.defect;
                 });
 

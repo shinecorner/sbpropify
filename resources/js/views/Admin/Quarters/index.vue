@@ -62,6 +62,7 @@
                         type: '',
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
+                        editUrl: 'adminQuartersEdit',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.quarter

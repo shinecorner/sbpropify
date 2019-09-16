@@ -515,7 +515,7 @@
             border-radius: 12px;
             overscroll-behavior: contain;
             border: 1px var(--border-color-base) solid;
-            box-shadow: 0 2px 6px transparentize(#000, .88), 0 2px 4px transparentize(#000, .76);
+            box-shadow: 0 2px 6px transparentize(rgb(59, 14, 14), .88), 0 2px 4px transparentize(#000, .76);
             -webkit-overflow-scrolling: touch;
 
             &, .item {
@@ -532,7 +532,6 @@
                 .title {
                     font-size: 14px;
                     overflow: hidden;
-                    width: 90%;
                     text-overflow: ellipsis;
                     white-space: nowrap;
                     pointer-events: none;
@@ -599,7 +598,7 @@
 
         .submenu {
             flex-direction: column;
-            background-color: transparentize(#fff, .28);
+            background-color: white;
             max-width: 320px;
             position: absolute;
             left: 0;
