@@ -44,7 +44,7 @@ class TenantRentContractAPIController extends AppBaseController
      * @throws \Exception
      *
      * @SWG\Get(
-     *      path="/tenant-rent-contracts",
+     *      path="/rent-contracts",
      *      summary="Get a listing of the TenantRentContracts.",
      *      tags={"TenantRentContract"},
      *      description="Get all TenantRentContracts",
@@ -128,7 +128,7 @@ class TenantRentContractAPIController extends AppBaseController
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
      * @SWG\Get(
-     *      path="/tenant-rent-contracts/{id}",
+     *      path="/rent-contracts/{id}",
      *      summary="Display the specified Tenant Rent Contract",
      *      tags={"TenantRentContract"},
      *      description="Get Tenant Rent Contract",
@@ -181,7 +181,7 @@ class TenantRentContractAPIController extends AppBaseController
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Post(
-     *      path="/tenants-rent-contracts",
+     *      path="/rent-contracts",
      *      summary="Store a newly created Tenant renat Contract in storage",
      *      tags={"TenantRentContract"},
      *      description="Store Tenant Rent Contract",
@@ -237,7 +237,7 @@ class TenantRentContractAPIController extends AppBaseController
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
      * @SWG\Put(
-     *      path="/tenant-rent-contracts/{id}",
+     *      path="/rent-contracts/{id}",
      *      summary="Update the specified Tenant Rent Contract in storage",
      *      tags={"TenantRentContract"},
      *      description="Update Tenant Rent Contract",
@@ -304,7 +304,7 @@ class TenantRentContractAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/tenant-rent-contracts/{id}",
+     *      path="/rent-contracts/{id}",
      *      summary="Remove the specified Tenant Rent Contract from storage",
      *      tags={"TenantRentContract"},
      *      description="Delete TenantRentContract",
@@ -354,7 +354,7 @@ class TenantRentContractAPIController extends AppBaseController
      *
      *
      * @SWG\Post(
-     *      path="/tenant-rent-contracts/deletewithids",
+     *      path="/rent-contracts/deletewithids",
      *      summary="Remove multiple Tenant Rent Contract from storage",
      *      tags={"TenantRentContract"},
      *      description="Delete multiple TenantRentContract",

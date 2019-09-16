@@ -474,7 +474,7 @@ class MediaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Post(
-     *      path="/tenant-rent-contracts/{id}/media",
+     *      path="/rent-contracts/{id}/media",
      *      summary="Store a newly created TenantRentContract Media in storage",
      *      tags={"TenantRentContract"},
      *      description="Store Media",
@@ -530,7 +530,7 @@ class MediaAPIController extends AppBaseController
      * @return Response
      *
      * @SWG\Delete(
-     *      path="/tenant-rent-contracts/{id}/media/{media_id}",
+     *      path="/rent-contracts/{id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
      *      tags={"TenantRentContract"},
      *      description="Delete Media",
