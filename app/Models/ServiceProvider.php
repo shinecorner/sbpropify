@@ -185,15 +185,9 @@ class ServiceProvider extends AuditableModel
         return $this->belongsToMany(Quarter::class, 'quarter_service_provider', 'service_provider_id', 'quarter_id');
     }
 
-    // tmp @TODO remove
+    // @TODO remove
     public function setCategoryAttribute($value)
     {
         $this->attributes['category'] = array_flip(ServiceProvider::ServiceProviderCategory)[$value] ?? $value;
-    }
-
-    // tmp @TODO remove
-    public function getCategoryAttribute()
-    {
-        return self::ServiceProviderCategory[$this->attributes['category']] ?? $this->attributes['category'];
     }
 }
