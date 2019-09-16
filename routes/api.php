@@ -69,14 +69,14 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::delete('/tenants/{id}/media/{media_id}', 'MediaAPIController@tenantDestroy')->name('tenants.media.destroy');
 
     //Tenant rent contract
-    Route::get('/rent-contracts', 'TenantRentContractAPIController@index')->name('rent-contracts');
-    Route::get('/rent-contracts/{id}', 'TenantRentContractAPIController@show')->name('rent-contracts.show');
-    Route::post('/rent-contracts', 'TenantRentContractAPIController@store')->name('rent-contracts.store');
-    Route::post('/rent-contracts/{id}/media', 'MediaAPIController@tenantRentContractUpload')->name('rent-contracts.media.upload');
-    Route::put('/rent-contracts/{id}', 'TenantRentContractAPIController@update')->name('rent-contracts.update');
-    Route::delete('/rent-contracts/{id}', 'TenantRentContractAPIController@destroy')->name('rent-contracts.destroy');
-    Route::post('/rent-contracts/deletewithids', 'TenantRentContractAPIController@destroyWithIds')->name('rent-contracts.destroyWithIds');
-    Route::delete('/rent-contracts/{id}/media/{media_id}', 'MediaAPIController@tenantRentContractDestroy')->name('rent-contracts.media.destroy');
+    Route::get('/rent-contracts', 'RentContractAPIController@index')->name('rent-contracts');
+    Route::get('/rent-contracts/{id}', 'RentContractAPIController@show')->name('rent-contracts.show');
+    Route::post('/rent-contracts', 'RentContractAPIController@store')->name('rent-contracts.store');
+    Route::post('/rent-contracts/{id}/media', 'MediaAPIController@rentContractUpload')->name('rent-contracts.media.upload');
+    Route::put('/rent-contracts/{id}', 'RentContractAPIController@update')->name('rent-contracts.update');
+    Route::delete('/rent-contracts/{id}', 'RentContractAPIController@destroy')->name('rent-contracts.destroy');
+    Route::post('/rent-contracts/deletewithids', 'RentContractAPIController@destroyWithIds')->name('rent-contracts.destroyWithIds');
+    Route::delete('/rent-contracts/{id}/media/{media_id}', 'MediaAPIController@rentContractDestroy')->name('rent-contracts.media.destroy');
 
     // Location
     Route::get('/states', 'StateAPIController@index')->name('states');

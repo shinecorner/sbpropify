@@ -12,8 +12,8 @@ use App\Http\Requests\API\Media\ProductUploadRequest;
 use App\Http\Requests\API\Media\SRequestDeleteRequest;
 use App\Http\Requests\API\Media\SRequestUploadRequest;
 use App\Http\Requests\API\Media\TenantDeleteRequest;
-use App\Http\Requests\API\Media\TenantRentContractDeleteRequest;
-use App\Http\Requests\API\Media\TenantRentContractUploadRequest;
+use App\Http\Requests\API\Media\RentContractDeleteRequest;
+use App\Http\Requests\API\Media\RentContractUploadRequest;
 use App\Http\Requests\API\Media\TenantUploadRequest;
 use App\Models\Building;
 use App\Repositories\AddressRepository;
@@ -21,7 +21,7 @@ use App\Repositories\BuildingRepository;
 use App\Repositories\PostRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ServiceRequestRepository;
-use App\Repositories\TenantRentContractRepository;
+use App\Repositories\RentContractRepository;
 use App\Repositories\TenantRepository;
 use App\Transformers\MediaTransformer;
 use Illuminate\Http\Request;
@@ -50,9 +50,9 @@ class MediaAPIController extends AppBaseController
     private $tenantRepository;
 
     /**
-     * @var TenantRentContractRepository
+     * @var RentContractRepository
      */
-    private $tenantRentContractRepository;
+    private $rentContractRepository;
 
     /** @var  ServiceRequestRepository */
     private $serviceRequestRepository;
@@ -64,6 +64,7 @@ class MediaAPIController extends AppBaseController
      * @param PostRepository $postRepo
      * @param ProductRepository $productRepo
      * @param TenantRepository $tenantRepo
+     * @param RentContractRepository $rentContractRepository
      * @param ServiceRequestRepository $serviceRequestRepo
      */
     public function __construct(
@@ -72,7 +73,7 @@ class MediaAPIController extends AppBaseController
         PostRepository $postRepo,
         ProductRepository $productRepo,
         TenantRepository $tenantRepo,
-        TenantRentContractRepository $tenantRentContractRepository,
+        RentContractRepository $rentContractRepository,
         ServiceRequestRepository $serviceRequestRepo
     )
     {
@@ -82,7 +83,7 @@ class MediaAPIController extends AppBaseController
         $this->productRepository = $productRepo;
         $this->tenantRepository = $tenantRepo;
         $this->serviceRequestRepository = $serviceRequestRepo;
-        $this->tenantRentContractRepository = $tenantRentContractRepository;
+        $this->rentContractRepository = $rentContractRepository;
     }
 
     /**
@@ -345,8 +346,9 @@ class MediaAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @param Request $request
-     * @return Response
+     * @param TenantUploadRequest $request
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Post(
      *      path="/tenants/{tenant_id}/media",
@@ -390,14 +392,14 @@ class MediaAPIController extends AppBaseController
         }
 
         //@TODO tmp solution
-        $tenant->load('tenant_rent_contracts');
-        $tenantRentContract = $tenant->tenant_rent_contracts->first();
-        if (empty($tenantRentContract)) {
-            $tenantRentContract = $this->tenantRentContractRepository->create(['tenant_id' => $tenant->id]);
+        $tenant->load('rent_contracts');
+        $rentContract = $tenant->rent_contracts->first();
+        if (empty($rentContract)) {
+            $rentContract = $this->rentContractRepository->create(['tenant_id' => $tenant->id]);
         }
 
         $data = $request->get('media', '');
-        if (!$media = $this->tenantRentContractRepository->uploadFile('media', $data, $tenantRentContract)) {
+        if (!$media = $this->rentContractRepository->uploadFile('media', $data, $rentContract)) {
             return $this->sendError(__('general.upload_error'));
         }
 
@@ -470,7 +472,7 @@ class MediaAPIController extends AppBaseController
 
     /**
      * @param int $id
-     * @param TenantRentContractUploadRequest $request
+     * @param RentContractUploadRequest $request
      * @return Response
      *
      * @SWG\Post(
@@ -507,15 +509,15 @@ class MediaAPIController extends AppBaseController
      *      )
      * )
      */
-    public function tenantRentContractUpload(int $id, TenantRentContractUploadRequest $request)
+    public function rentContractUpload(int $id, RentContractUploadRequest $request)
     {
-        $tenantRentContract = $this->tenantRentContractRepository->findWithoutFail($id);
-        if (empty($tenantRentContract)) {
-            return $this->sendError(__('models.tenant_rent_contract.errors.not_found'));
+        $rentContract = $this->rentContractRepository->findWithoutFail($id);
+        if (empty($rentContract)) {
+            return $this->sendError(__('models.rent_contract.errors.not_found'));
         }
 
         $data = $request->get('media', '');
-        if (!$media = $this->tenantRentContractRepository->uploadFile('media', $data, $tenantRentContract)) {
+        if (!$media = $this->rentContractRepository->uploadFile('media', $data, $rentContract)) {
             return $this->sendError(__('general.upload_error'));
         }
 
@@ -526,7 +528,7 @@ class MediaAPIController extends AppBaseController
     /**
      * @param int $id
      * @param int $media_id
-     * @param TenantRentContractDeleteRequest $r
+     * @param RentContractDeleteRequest $r
      * @return Response
      *
      * @SWG\Delete(
@@ -563,14 +565,14 @@ class MediaAPIController extends AppBaseController
      *      )
      * )
      */
-    public function tenantRentContractDestroy(int $id, int $media_id, TenantRentContractDeleteRequest $r)
+    public function rentContractDestroy(int $id, int $media_id, RentContractDeleteRequest $r)
     {
-        $tenantRentContract = $this->tenantRentContractRepository->findWithoutFail($id);
-        if (empty($tenantRentContract)) {
-            return $this->sendError(__('models.tenant_rent_contract.errors.not_found'));
+        $rentContract = $this->rentContractRepository->findWithoutFail($id);
+        if (empty($rentContract)) {
+            return $this->sendError(__('models.rent_contract.errors.not_found'));
         }
 
-        $media = $tenantRentContract->media->find($media_id);
+        $media = $rentContract->media->find($media_id);
         if (empty($media)) {
             return $this->sendError(__('general.media_not_found'));
         }
