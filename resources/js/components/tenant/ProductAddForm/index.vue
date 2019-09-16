@@ -22,13 +22,13 @@
                 <el-input v-model="model.price.decimals" style="width: 50%" />
             </div>
         </el-form-item>
-        <el-form-item prop="content" label="Content" style="grid-column: span 6">
+        <el-form-item prop="content" :label="$t('tenant.content')" style="grid-column: span 6">
             <el-input type="textarea" resize="none" v-model="model.content" :autosize="{minRows: 4, maxRows: 16}" />
         </el-form-item>
-        <el-form-item prop="tenant_name" label="Contact name" style="grid-column: span 3">
+        <el-form-item prop="tenant_name" :label="$t('tenant.contact_name')" style="grid-column: span 3">
             <el-input v-model="model.tenant_name" />
         </el-form-item>
-        <el-form-item prop="tenant_phone" label="Contact phone" style="grid-column: span 3">
+        <el-form-item prop="tenant_phone" :label="$t('tenant.contact_phone')" style="grid-column: span 3">
             <el-input v-model="model.tenant_phone" />
         </el-form-item>
         <el-form-item style="grid-column: span 6">

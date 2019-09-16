@@ -160,7 +160,7 @@
                 titles: ['mr', 'mrs'],
                 loading: {
                     state: false,
-                    text: 'Please wait...'
+                    text: this.$t('tenant.please_wait')
                 }
             }
         },

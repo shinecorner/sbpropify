@@ -5,7 +5,7 @@
                 <i class="icon-chart"></i> {{$t('tenant.summary_statistics')}}
             </el-divider>
             <div class="p-user__settings__description">
-                Select how would you like to receive the statistics, {{summaries.join(', ').replace(/,(?=[^,]*$)/, ' or')}}.
+                {{$t('tenant.select_recieve_statistic_prompt')}}
             </div>
             <el-form-item>
                 <el-select v-model="loggedInUser.settings.summary">
@@ -13,10 +13,10 @@
                 </el-select>
             </el-form-item>
             <el-divider content-position="left">
-                <i class="icon-bell"></i> Notifications
+                <i class="icon-bell"></i> {{$t('tenant.notification_label')}}
             </el-divider>
             <div class="p-user__settings__description">
-                Select which types of notifications you would like to receive only.
+                {{$t('tenant.select_type_notification_prompt')}}
             </div>
             <el-form-item label="Service">
                 <el-switch v-model="loggedInUser.settings.service_notification" @change="save" />
@@ -43,10 +43,10 @@
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </div>
             <el-divider content-position="left">
-                <i class="icon-language"></i> Language
+                <i class="icon-language"></i> {{$t('tenant.language')}}
             </el-divider>
             <div class="p-user__settings__description">
-                This setting is totally independent from the application's choosen language.
+                {{$t('tenant.language_selection_prompt')}}
             </div>
             <el-form-item>
                 <el-radio-group v-model="loggedInUser.settings.language" @change="save">

@@ -2,7 +2,7 @@
     <div class="notifications" v-infinite-scroll="getNotifications" infinite-scroll-disabled="true">
         <template v-if="loading.notifications || notifications.data.length">
             <el-divider content-position="right">
-                <el-button size="small" :disabled="!unreadNotifications.length" :loading="loading.markAll" icon="icon-th-list" round @click="markAll()">Mark all as read</el-button>
+                <el-button size="small" :disabled="!unreadNotifications.length" :loading="loading.markAll" icon="icon-th-list" round @click="markAll()">{{$t('tenant.mark_all_as_read')}}</el-button>
             </el-divider>
             <el-timeline>
                 <el-timeline-item :class="{'is-unread': !notification.read_at}" v-for="notification in notifications.data" :key="notification.id" size="large" placement="top" hide-timestamp>
