@@ -84,7 +84,11 @@ class BuildingTransformer extends BaseTransformer
         if ($model->relationExists('propertyManagers')) {
             $assignedUsers = $assignedUsers->merge($model->propertyManagers->pluck('user'));
             $response['managers'] = (new PropertyManagerSimpleTransformer)->transformCollection($model->propertyManagers);
-            $response['managers_last'] = (new PropertyManagerSimpleTransformer)->transformCollection($model->lastPropertyManagers);
+
+            if ($model->relationExists('lastPropertyManagers')) {
+                $response['managers_last'] = (new PropertyManagerSimpleTransformer)->transformCollection($model->lastPropertyManagers);
+            }
+            
             if ($model->property_managers_count > 2) {
                 $response['property_managers_count'] = $model->property_managers_count - 2;
             }
