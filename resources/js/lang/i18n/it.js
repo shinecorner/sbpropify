@@ -509,7 +509,11 @@ export default {
                 "media_upload": "Carica i media o trascina e rilascia i file qui",
                 "type_comment": "Scrivi un commento",
                 "upload": "Carica file",
-                "search_product": "Cerca un prodotto."
+                "search_product": "Cerca un prodotto.",
+                "category": "Selezionare la categoria",
+                "priority": "Selezionare la priorità",
+                "defect_location": "Selezionare la posizione del difetto",
+                "visibility": "Selezionare la visibilità"
             },
             "no_data": {
                 "message": "Non ci sono ancora messaggi",
@@ -584,6 +588,7 @@ export default {
             "from_quarter": "Dal quarto",
             "reset_filters": "Azzeramento dei filtri",
             "choose_visibility": "Scegliere la visibilità",
+            "visibility": "visibilità",
             "like": "Come",
             "unlike": "A differenza di",
             "image": "Immagine",
@@ -592,6 +597,7 @@ export default {
             "comment": "Commento",
             "messaging_info": "Avviare la messaggistica utilizzando il modulo sottostante e premere Invio.",
             "read_more": "Per saperne di più,  ",
+            "read_less": "Leggi meno",
             "overview": "Panoramica",
             "media": "Media",
             "status": "Stato",
@@ -625,7 +631,10 @@ export default {
             "contact_name": "Nome del contatto",
             "contact_phone": "Telefono di contatto",
             "change": "modifica",
-            "cancel": "stornare"
+            "cancel": "stornare",
+            "category": "Categoria",
+            "defect_location": "Posizione del difetto",
+            "description": "Descrizione"
         },
         "pages": {
             "profile": {
@@ -693,6 +702,7 @@ export default {
                                     "status": "Lo stato è cambiato da \"{old}\" al \"{new}\".",
                                     "due_date": "La data di scadenza è cambiata da \"{old}\" al \"{new}\".",
                                     "priority": "La categoria è cambiata da \"{old}\" al \"{new}\".",
+                                    "internal_priority": "La priorità interna è stata cambiata da \"{old}\" a \"{new}\".",
                                     "category_id": "La categoria è cambiata da \"{old}\" al \"{new}\".",
                                     "qualification": "La qualifica è cambiata da \"{old}\" al \"{new}\".",
                                     "visibility": "La visibilità è cambiata da \"{old}\" al \"{new}\"."
@@ -709,6 +719,7 @@ export default {
                                     "status": "Lo stato è cambiato da \"{old}\" al \"{new}\".",
                                     "due_date": "La data di scadenza è cambiata da \"{old}\" al \"{new}\".",
                                     "priority": "La categoria è cambiata da \"{old}\" al \"{new}\".",
+                                    "internal_priority": "La priorità interna è stata cambiata da \"{old}\" a \"{new}\".",
                                     "category_id": "La categoria è cambiata da \"{old}\" al \"{new}\".",
                                     "qualification": "La qualifica è cambiata da \"{old}\" al \"{new}\".",
                                     "visibility": "La visibilità è cambiata da \"{old}\" al \"{new}\"."
@@ -1001,7 +1012,7 @@ export default {
                     "welcome": "Benvenuti nel portale degli inquilini della",
                     "content_1": "Siamo lieti di informarvi che è stato creato un account per voi nel totale dell'inquilino e vi invieremo il codice di attivazione.",
                     "offer": "Cosa offre l'applicazione?",
-                    "offers": "\n          <li>Con il dossier digitale dell'inquilino avete accesso a tutti i documenti rilevanti, come il contratto di locazione, il regolamento interno o altri documenti relativi alla proprietà.</li>\n          <li>Il sistema di ticketing vi permette di elaborare le vostre richieste in modo semplice e senza complicazioni - potete comunicare le vostre preoccupazioni all'amministrazione in qualsiasi momento e da qualsiasi luogo . </li>\n          <li>Puoi vendere o prestare oggetti al tuo quartiere sulla piazza del mercato e sull'area di prestito . </li>\n          <li>Condividi le notizie con i tuoi vicini pubblicando un contributo. La bacheca è utilizzata anche dall'amministrazione per la comunicazione, in modo che tutti siano sempre aggiornati .</li>\n          <li>Ulteriori Micro-Apps all'interno dell'applicazione stabiliscono nuovi standard nella qualità della vita, per cui è possibile utilizzare comodamente diversi servizi.</li>\n        ",
+                    "offers": "\n                <li>Con il dossier digitale dell'inquilino avete accesso a tutti i documenti rilevanti, come il contratto di locazione, il regolamento interno o altri documenti relativi alla proprietà.</li>\n                <li>Il sistema di ticketing vi permette di elaborare le vostre richieste in modo semplice e senza complicazioni - potete comunicare le vostre preoccupazioni all'amministrazione in qualsiasi momento e da qualsiasi luogo . </li>\n                <li>Puoi vendere o prestare oggetti al tuo quartiere sulla piazza del mercato e sull'area di prestito . </li>\n                <li>Condividi le notizie con i tuoi vicini pubblicando un contributo. La bacheca è utilizzata anche dall'amministrazione per la comunicazione, in modo che tutti siano sempre aggiornati .</li>\n                <li>Ulteriori Micro-Apps all'interno dell'applicazione stabiliscono nuovi standard nella qualità della vita, per cui è possibile utilizzare comodamente diversi servizi.</li>\n            ",
                     "register": "Prima registrazione e attivazione del tuo account",
                     "content_2": "Per registrarsi, clicca sul link sottostante e accedi con il tuo indirizzo e-mail e codice di attivazione personale. Una volta effettuato l'accesso, è possibile definire la propria password e utilizzarla per l'accesso.",
                     "link_application": "Collegamento all'applicazione",
@@ -1009,6 +1020,15 @@ export default {
                     "content_4": "Se avete bisogno di assistenza per la registrazione, allora siamo a vostra disposizione.",
                     "your_sincerely": "La vostra sinceramente",
                     "your_administration": "la sua amministrazione"
+                }
+            },
+            "tenant_rent_contracts": {
+                "saved": "Contratto d'affitto d'affitto salvato",
+                "deleted": "Contratto d'affitto del locatario soppresso",
+                "errors": {
+                    "not_found": "Contratto di locazione non trovato",
+                    "create": "Contratto di affitto inquilino creare errore: ",
+                    "deleted": "Contratto di locazione dell'inquilino Cancella errore: "
                 }
             },
             "building": {
@@ -1213,8 +1233,8 @@ export default {
                 },
                 "type": {
                     "label": "Tipo",
-                    "article": "Articolo",
                     "post": "Messaggio",
+                    "article": "Articolo",
                     "new_neighbour": "Nuovo vicino",
                     "pinned": "Inchiodato"
                 },

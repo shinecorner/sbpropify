@@ -37,6 +37,10 @@ return [
         "type_comment" => "Scrivi un commento",
         "upload" => "Carica file",
         "search_product" => "Cerca un prodotto.",
+        "category" => "Selezionare la categoria",
+        "priority" => "Selezionare la priorità",
+        "defect_location" => "Selezionare la posizione del difetto",
+        "visibility" => "Selezionare la visibilità",
     ],
     "no_data" => [
         "message" => "Non ci sono ancora messaggi",
@@ -111,6 +115,7 @@ return [
     "from_quarter" => "Dal quarto",
     "reset_filters" => "Azzeramento dei filtri",
     "choose_visibility" => "Scegliere la visibilità",
+    "visibility" => "visibilità",
     "like" => "Come",
     "unlike" => "A differenza di",
     "image" => "Immagine",
@@ -154,4 +159,7 @@ return [
     "contact_phone" => "Telefono di contatto",    
     "change" => "modifica",
     "cancel" => "stornare",
+    "category" => "Categoria",
+    "defect_location" => "Posizione del difetto",
+    "description" => "Descrizione",
 ];

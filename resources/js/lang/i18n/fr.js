@@ -509,7 +509,11 @@ export default {
                 "media_upload": "Téléchargez des médias ou glissez-déposez des fichiers ici",
                 "type_comment": "Tapez un commentaire",
                 "upload": "Télécharger des fichiers",
-                "search_product": "Rechercher un produit"
+                "search_product": "Rechercher un produit",
+                "category": "Sélectionnez une catégorie",
+                "priority": "Sélectionnez la priorité",
+                "defect_location": "Sélectionnez la localisation du défaut",
+                "visibility": "Sélectionner la visibilité"
             },
             "no_data": {
                 "message": "Il n'y a pas encore de messages",
@@ -584,6 +588,7 @@ export default {
             "from_quarter": "Du trimestre",
             "reset_filters": "Réinitialiser les filtres",
             "choose_visibility": "Choisissez la visibilité",
+            "visibility": "visibilité",
             "like": "Comme",
             "unlike": "Contrairement à",
             "image": "Image",
@@ -592,6 +597,7 @@ export default {
             "comment": "Commentaire",
             "messaging_info": "Commencez la messagerie en utilisant le formulaire ci-dessous et appuyez sur Entrée.",
             "read_more": "Pour en savoir plus,  ",
+            "read_less": "Lire moins",
             "overview": "Vue d'ensemble",
             "media": "Médias",
             "status": "Statut",
@@ -625,7 +631,10 @@ export default {
             "contact_name": "Nom du contact",
             "contact_phone": "Téléphone de contact",
             "change": "remanier",
-            "cancel": "résilier"
+            "cancel": "résilier",
+            "category": "Catégorie",
+            "defect_location": "Localisation des défauts",
+            "description": "Description"
         },
         "pages": {
             "profile": {
@@ -693,6 +702,7 @@ export default {
                                     "status": "Le statut est passé de \"{old}\" au \"{new}\".",
                                     "due_date": "La date d'échéance est passée de '{old}' au '{new}'.",
                                     "priority": "La priorité est passée de \"{old}\" au \"{new}\".",
+                                    "internal_priority": "La priorité interne est passée de \"{old}\" à \"{new}\".",
                                     "category_id": "La catégorie est passée de \"{old}\" au \"{new}\".",
                                     "qualification": "La qualification est passée de \"{old}\" au \"{new}\".",
                                     "visibility": "La visibilité est passée de \"{old}\" au \"{new}\"."
@@ -709,6 +719,7 @@ export default {
                                     "status": "Le statut est passé de \"{old}\" au \"{new}\".",
                                     "due_date": "La date d'échéance est passée de '{old}' au '{new}'.",
                                     "priority": "La priorité est passée de \"{old}\" au \"{new}\".",
+                                    "internal_priority": "La priorité interne est passée de \"{old}\" à \"{new}\".",
                                     "category_id": "La catégorie est passée de \"{old}\" au \"{new}\".",
                                     "qualification": "La qualification est passée de \"{old}\" au \"{new}\".",
                                     "visibility": "La visibilité est passée de \"{old}\" au \"{new}\"."
@@ -1001,7 +1012,7 @@ export default {
                     "welcome": "Bienvenue sur le portail des locataires de la",
                     "content_1": "Nous avons le plaisir de vous informer qu'un compte a été créé pour vous dans le total du locataire et de vous envoyer le code d'activation.",
                     "offer": "Qu'offre l'application ?",
-                    "offers": "\n          <li>Avec le dossier locatif numérique, vous avez accès à tous les documents pertinents, tels que le contrat de location, le règlement intérieur ou d'autres documents relatifs à la propriété . </li>\n          <li>Le système de billetterie vous permet de traiter vos demandes facilement et sans complications - vous pouvez communiquer vos préoccupations à l'administration à tout moment et de n'importe quel endroit.</li>\n          <li>Vous pouvez vendre ou prêter des objets à votre quartier sur la place du marché et dans la zone de prêt.</li>\n          <li>Partagez les nouvelles avec vos voisins en publiant une contribution. Le tableau d'affichage est également utilisé par l'administration pour la communication, de sorte que tout le monde est toujours à jour.</li>\n          <li>D'autres Micro - Apps au sein de l'application fixent de nouveaux standards de qualité de vie, grâce auxquels divers services peuvent être utilisés de manière pratique.</li>\n        ",
+                    "offers": "\n                <li>Avec le dossier locatif numérique, vous avez accès à tous les documents pertinents, tels que le contrat de location, le règlement intérieur ou d'autres documents relatifs à la propriété . </li>\n                <li>Le système de billetterie vous permet de traiter vos demandes facilement et sans complications - vous pouvez communiquer vos préoccupations à l'administration à tout moment et de n'importe quel endroit.</li>\n                <li>Vous pouvez vendre ou prêter des objets à votre quartier sur la place du marché et dans la zone de prêt.</li>\n                <li>Partagez les nouvelles avec vos voisins en publiant une contribution. Le tableau d'affichage est également utilisé par l'administration pour la communication, de sorte que tout le monde est toujours à jour.</li>\n                <li>D'autres Micro - Apps au sein de l'application fixent de nouveaux standards de qualité de vie, grâce auxquels divers services peuvent être utilisés de manière pratique.</li>\n            ",
                     "register": "Première inscription et activation de votre compte",
                     "content_2": "Pour vous inscrire, cliquez sur le lien ci-dessous et connectez-vous avec votre adresse e-mail et votre code d'activation personnel. Une fois connecté, vous pouvez définir votre propre mot de passe et l'utiliser pour vous connecter.",
                     "link_application": "Lien vers l'application",
@@ -1009,6 +1020,15 @@ export default {
                     "content_4": "Si vous avez besoin d'aide pour l'enregistrement, nous sommes à votre disposition.",
                     "your_sincerely": "Sincèrement vôtre",
                     "your_administration": "votre administration"
+                }
+            },
+            "tenant_rent_contracts": {
+                "saved": "Contrat de location du locataire sauvegardé",
+                "deleted": "Loyer du locataire Contrat de location supprimé",
+                "errors": {
+                    "not_found": "Le contrat de location du locataire n'a pas été trouvé",
+                    "create": "Le contrat de location du locataire crée une erreur : ",
+                    "deleted": "Contrat de location du locataire Supprimer erreur : "
                 }
             },
             "building": {
@@ -1213,8 +1233,8 @@ export default {
                 },
                 "type": {
                     "label": "Type",
-                    "article": "Article",
                     "post": "Poster",
+                    "article": "Article",
                     "new_neighbour": "Nouveau voisin",
                     "pinned": "Épinglé"
                 },
@@ -1640,7 +1660,8 @@ export default {
                 "price": "Prix",
                 "comment_created": "Commentaire créé avec succès",
                 "errors": {
-                    "not_found": "Produit non trouvé"
+                    "not_found": "Produit non trouvé",
+                    "deleted": "Errore prodotto cancellato: "
                 },
                 "type": {
                     "label": "Type",
@@ -1674,8 +1695,7 @@ export default {
                     "category": "Choisir une catégorie"
                 },
                 "errors": {
-                    "not_found": "Modèle non trouvé",
-                    "deleted": "Erreur de suppression de produit : "
+                    "not_found": "Modèle non trouvé"
                 }
             },
             "cleanify": {
