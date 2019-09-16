@@ -190,13 +190,16 @@
                     if (valid) {
                         try {
                             this.loading = true
-
+                            this.model.visibility = 1
+                            if(this.model.public == true)
+                                this.model.visibility = 2
                             const {media, ...params} = this.model
 
                             //const data = await this.$store.dispatch('createRequest', params)
 
                             if(params.category_id == 1)
                                     params.category_id = this.model.defect;
+                            
 
                             const resp = await this.$store.dispatch('newRequests/create', params);
                             

@@ -71,14 +71,13 @@
                     id: tenant.building_id
                 })
 
-                if (managers) {
+                if (managers_last) {
                     this.managers = managers_last
                 }
 
                 this.timeout = setTimeout(() => this.loading = false, EXTRA_LOADING_SECONDS)
             }
 
-            console.log('mounted', this.managers);
         },
         beforeDestroy () {
             clearTimeout(this.timeout)
