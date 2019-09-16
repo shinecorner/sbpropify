@@ -323,7 +323,7 @@ return [
         'name' => 'Address',
         'country' => 'Country',
         'street' => 'Street',
-        'house_num' => 'Street Nr.',
+        'house_num' => 'House Nr.',
         'not_found' => 'Address not found',
         'saved' => 'Address saved',
         'state' => [

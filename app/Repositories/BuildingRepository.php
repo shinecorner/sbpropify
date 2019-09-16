@@ -91,4 +91,48 @@ class BuildingRepository extends BaseRepository
     {
         return $this->model;
     }
+
+    /**
+     * @param $building
+     * @param $floorData
+     * @param $preText
+     * @return mixed
+     */
+    public function saveManyUnit($building, $floorData, $preText)
+    {
+        if (! is_array($floorData)) {
+            return $building;
+        }
+
+        $data = [];
+        foreach ($floorData as $floor => $count) {
+            if (! is_integer($count)) {
+                continue;
+            }
+            for ($i = 1; $i <= $count; $i++) {
+                $data[] = [
+                    'floor' => $floor,
+                    'unit_number' => $i,
+                    'name' => $this->formatUnitName($preText, $floor, $i)
+                ];
+            }
+        }
+        $units = $building->units()->createMany($data);
+        $building->setRelation('units', $units);
+        return $building;
+    }
+
+    /**
+     * @param $preText
+     * @param $floor
+     * @param $number
+     * @return string
+     */
+    protected function formatUnitName($preText, $floor, $number)
+    {
+        if ($number < 10) {
+            $number = '0' . $number;
+        }
+        return $preText . '-' . $floor . $number;
+    }
 }

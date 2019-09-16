@@ -48,13 +48,6 @@ class UnitTransformer extends BaseTransformer
             $response['address'] = (new AddressTransformer)->transform($model->address);
         }
 
-        if ($model->relationExists('tenant')) {
-            $model->tenant->unit = null;
-            $model->tenant->building = null;
-            $model->tenant->address = null;
-            $response['tenant'] = (new TenantTransformer)->transform($model->tenant);
-        }
-
         if ($model->relationExists('tenants')) {
             foreach ($model->tenants as $tenant) {
                 $response['tenants'][] = (new TenantTransformer)->transform($tenant);

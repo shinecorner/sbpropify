@@ -34,6 +34,12 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *          format="int32"
  *      ),
  *      @SWG\Property(
+ *          property="sub_type",
+ *          description="sub_type",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
  *          property="status",
  *          description="status",
  *          type="integer",
@@ -55,9 +61,26 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *          description="content",
  *          type="string"
  *      ),
+ *     @SWG\Property(
+ *          property="is_execution_time",
+ *          description="is_execution_time",
+ *          type="integer"
+ *      ),
  *      @SWG\Property(
  *          property="created_at",
  *          description="created_at",
+ *          type="string",
+ *          format="date-time"
+ *      ),
+ *      @SWG\Property(
+ *          property="execution_start",
+ *          description="execution_start",
+ *          type="string",
+ *          format="date-time"
+ *      ),
+ *      @SWG\Property(
+ *          property="execution_end",
+ *          description="execution_end",
  *          type="string",
  *          format="date-time"
  *      ),
@@ -79,9 +102,14 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
 
     public $table = 'posts';
 
-    const TypeArticle = 1;
+    const TypePost = 1;
     const TypeNewNeighbour = 2;
     const TypePinned = 3;
+    const TypeArticle = 4;
+
+    const SubTypeImportant = 1;
+    const SubTypeCritical = 2;
+    const SubTypeMaintenance = 3;
 
     const StatusNew = 1;
     const StatusPublished = 2;
@@ -99,9 +127,17 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
     const CategorySanitary = 5;
 
     const Type = [
-        self::TypeArticle => 'article',
+        self::TypePost => 'post',
         self::TypeNewNeighbour => 'new_neighbour',
         self::TypePinned => 'pinned',
+        self::TypeArticle => 'article',
+    ];
+    const SubType = [
+        self::TypePinned => [
+            self::SubTypeImportant => 'important',
+            self::SubTypeCritical => 'critical',
+            self::SubTypeMaintenance => 'maintenance',
+        ]
     ];
     const Status = [
         self::StatusNew => 'new',
@@ -122,17 +158,10 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         self::CategorySanitary => 'sanitary',
     ];
 
-    protected $dates = [
-        'deleted_at',
-        'published_at',
-        'pinned_to',
-        'execution_start',
-        'execution_end'
-    ];
-
     const Fillable = [
         'user_id',
         'type',
+        'sub_type',
         'content',
         'visibility',
         'category',
@@ -144,9 +173,17 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         'title',
         'notify_email',
         'category_image',
+        'is_execution_time',
     ];
     public $fillable = self::Fillable;
 
+    protected $dates = [
+        'deleted_at',
+        'published_at',
+        'pinned_to',
+        'execution_start',
+        'execution_end'
+    ];
     /**
      * The attributes that should be casted to native types.
      *
@@ -155,12 +192,14 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
     protected $casts = [
         'user_id' => 'integer',
         'type' => 'integer',
+        'sub_type' => 'integer',
         'status' => 'integer',
         'visibility' => 'integer',
         'content' => 'string',
         'pinned' => 'boolean',
         'notify_email' => 'boolean',
         'category_image' => 'boolean',
+        'is_execution_time' => 'boolean',
     ];
 
     const templateMap = [
