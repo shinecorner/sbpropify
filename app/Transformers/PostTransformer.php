@@ -27,6 +27,8 @@ class PostTransformer extends BaseTransformer
         $ret = [
             'id' => $model->id,
             'type' => $model->type,
+            'sub_type' => $model->sub_type,
+            'is_execution_time' => (bool)$model->is_execution_time,
             'status' => $model->status,
             'visibility' => $model->visibility,
             'category_image' => (bool) $model->category_image,

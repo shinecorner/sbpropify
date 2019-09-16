@@ -199,7 +199,7 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         'pinned' => 'boolean',
         'notify_email' => 'boolean',
         'category_image' => 'boolean',
-        'is_execution_time' => 'integer',
+        'is_execution_time' => 'boolean',
     ];
 
     const templateMap = [
