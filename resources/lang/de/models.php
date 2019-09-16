@@ -554,6 +554,8 @@ return [
         'service' => 'Dienstleister',
         'created_by' => 'Erstellt durch',
         'is_public' => 'Öffentlich machen',
+        'public_desc' => 'Wenn es sich bei Ihrer Anfragen um ein Anliegen handelt, welche auch Ihre Nachbarn betrifft, dann aktivieren Sie diese Option.',
+        'send_notification' => 'Senden Sie eine Benachrichtigungs-E-Mail an alle Mieter.',
         'comments' => 'Mieter-Chat',
         'assigned_to' => 'Zuständig',
         'assign_providers' => 'Zuweisen',

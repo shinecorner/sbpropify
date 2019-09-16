@@ -554,6 +554,8 @@ return [
         'service' => 'Service',
         'created_by' => 'Created by',
         'is_public' => 'Public',
+        'public_desc' => 'If your request is a request which also concerns your neighbours, then activate this option.',
+        'send_notification' => 'Send notification email to all the tenants.',
         'comments' => 'Comments',
         'assigned_to' => 'Assigned to',
         'assign_providers' => 'Assign providers',

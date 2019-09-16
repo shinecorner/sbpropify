@@ -554,6 +554,8 @@ return [
         "service" => "Service",
         "created_by" => "Créé par",
         "is_public" => "Public",
+        'public_desc' => "Si votre demande concerne également vos voisins, activez cette option.",
+        'send_notification' => "Envoyer un email de notification à tous les locataires.",
         "comments" => "Commentaires",
         "assigned_to" => "Affecté à",
         "assign_providers" => "Affecter fournisseurs",

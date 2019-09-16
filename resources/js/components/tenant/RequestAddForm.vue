@@ -198,7 +198,7 @@
                             //const data = await this.$store.dispatch('createRequest', params)
 
                             if(params.category_id == 1)
-                                    params.category_id = this.model.defect;
+                                params.category_id = this.model.defect;
                             
 
                             const resp = await this.$store.dispatch('newRequests/create', params);
@@ -276,6 +276,14 @@
     .request-add.el-form {
         .el-form-item {
             margin-bottom: 0px;
+
+            &.switcher-form-item {
+                padding-top: 10px;
+
+                /deep/ label {
+                    line-height: 20px;
+                }
+            }
 
             /deep/ .el-form-item__label {
                 padding: 0;

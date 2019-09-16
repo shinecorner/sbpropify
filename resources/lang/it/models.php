@@ -554,6 +554,8 @@ return [
         "service" => "Servizio",
         "created_by" => "Creato da",
         "is_public" => "Pubblico",
+        'public_desc' => "Se la vostra richiesta è una richiesta che riguarda anche i vostri vicini, attivate questa opzione.",
+        'send_notification' => "Inviate un'e-mail di notifica a tutti gli inquilini.",
         "comments" => "Commenti",
         "assigned_to" => "Assegnato a",
         "assign_providers" => "Assegnare i fornitori",
