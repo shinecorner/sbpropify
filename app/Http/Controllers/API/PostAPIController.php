@@ -476,7 +476,7 @@ class PostAPIController extends AppBaseController
 
         $post = $this->postRepository->setStatus($id, $newStatus, Carbon::now());
 
-        return $this->sendResponse($post, __('models.post.status.published'));
+        return $this->sendResponse($post, __('general.status_changed'));
     }
 
     /**
