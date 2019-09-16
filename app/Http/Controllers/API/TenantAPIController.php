@@ -126,7 +126,9 @@ class TenantAPIController extends AppBaseController
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         // @TODO TENANT_RENT_CONTRACT is need? building, address, unit . I think not need because many
-        $tenants = $this->tenantRepository->with(['user', 'building.address', 'unit'])->paginate($perPage);
+        $tenants = $this->tenantRepository->with(['user', 'building.address', 'unit', 'tenant_rent_contracts' => function ($q) {
+                $q->with('building.address', 'unit');
+            }])->paginate($perPage);
         $this->fixCreatedBy($tenants);
         return $this->sendResponse($tenants->toArray(), 'Tenants retrieved successfully');
     }
@@ -202,7 +204,10 @@ class TenantAPIController extends AppBaseController
         $this->tenantRepository->pushCriteria(new LimitOffsetCriteria($request));
         $this->tenantRepository->pushCriteria(new RequestCriteria($request));
         // @TODO TENANT_RENT_CONTRACT is need? address. I think not need because many
-        $tenants = $this->tenantRepository->with('address:id,street,house_num')->get(['id', 'address_id', 'first_name', 'last_name', 'status', 'created_at']);
+        $tenants = $this->tenantRepository->with(['address:id,street,house_num', 'tenant_rent_contracts' => function ($q) {
+                $q->with('building.address', 'unit', 'media');
+            }])
+            ->get(['id', 'address_id', 'first_name', 'last_name', 'status', 'created_at']);
         $this->fixCreatedBy($tenants);
         return $this->sendResponse($tenants->toArray(), 'Tenants retrieved successfully');
     }
