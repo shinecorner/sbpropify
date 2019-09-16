@@ -1,5 +1,5 @@
 <?php
-return  [
+return [
     'statistics' => 'Statistiques',
     'requests_by_creation_date' => 'Demandes par date de création',
     'requests_by_status' => 'Demandes par statut',
@@ -25,44 +25,42 @@ return  [
     'tenants_by_age' => 'Tenants by age',
     'actions' => 'Actions',
     'requests' => [
-      'total_request' => "Nombre total de demandes",
-      'requests_with_service_providers' => 'Avec les fournisseurs de services',
-      'request_wihout_service_providers' => 'Sans fournisseurs de services',
-      'property_managers' => 'Gestionnaires immobiliers',
-      'service_partners' => 'Partenaires de service',
-      'go_to_property_managers' => 'Aller aux gestionnaires immobiliers',
-      'go_to_service_partners' => 'Aller aux partenaires de service'
+        'total_request' => "Nombre total de demandes",
+        'requests_with_service_providers' => 'Avec les fournisseurs de services',
+        'request_wihout_service_providers' => 'Sans fournisseurs de services',
+        'property_managers' => 'Gestionnaires immobiliers',
+        'service_partners' => 'Partenaires de service',
+        'go_to_property_managers' => 'Aller aux gestionnaires immobiliers',
+        'go_to_service_partners' => 'Aller aux partenaires de service'
     ],
-    'buildings' => 
-    [
-      'total_building' => 'Nombre total',
-      'total_units' => 'Total des unités',
-      'occupied_units' => 'Unités occupées',
-      'free_units' => 'Unités gratuites',
-      'buildings_by_creation_date' => 'Bâtiments par date de création',
-      'buildings_map' => 'Carte des bâtiments',
-      'latest_buildings' => 'Derniers bâtiments',
-      'managers' => 'gestionnaires',
-      'tenants' => 'locataires',
-      'requests' => 'demandes',
-      'go_to_buildings' => 'Aller aux bâtiments',
-      'buildings_by_state' => 'Immeubles par état',
-      'go_to_building' => 'go to building'
+    'buildings' => [
+        'total_building' => 'Nombre total',
+        'total_units' => 'Total des unités',
+        'occupied_units' => 'Unités occupées',
+        'free_units' => 'Unités gratuites',
+        'buildings_by_creation_date' => 'Bâtiments par date de création',
+        'buildings_map' => 'Carte des bâtiments',
+        'latest_buildings' => 'Derniers bâtiments',
+        'managers' => 'gestionnaires',
+        'tenants' => 'locataires',
+        'requests' => 'demandes',
+        'go_to_buildings' => 'Aller aux bâtiments',
+        'buildings_by_state' => 'Immeubles par état',
+        'go_to_building' => 'go to building'
     ],
-    'tenants' => 
-    [
-      'total_tenants' => 'Nombre total',
-      'average_age' => 'Âge moyen',
-      'average_age_acr' => 'Moy. Âge',
-      'latest_tenants' => 'Derniers locataires',
-      'go_to_tenants' => 'Aller aux locataires  '
+    'tenants' => [
+        'total_tenants' => 'Nombre total',
+        'average_age' => 'Âge moyen',
+        'average_age_acr' => 'Moy. Âge',
+        'latest_tenants' => 'Derniers locataires',
+        'go_to_tenants' => 'Aller aux locataires  '
     ],
     'marketplace' => [
-      'go_to_marketplace' => 'Aller au marché'
+        'go_to_marketplace' => 'Aller au marché'
     ],
     'news' => [
-      'latest_news' => 'Dernières nouvelles',
-      'go_to_news' => 'Aller aux actualités',
-      'counts' => 'Comptants'
+        'latest_news' => 'Dernières nouvelles',
+        'go_to_news' => 'Aller aux actualités',
+        'counts' => 'Comptants'
     ]
 ];

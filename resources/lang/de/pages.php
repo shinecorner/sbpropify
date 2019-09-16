@@ -1,23 +1,19 @@
 <?php
-return [  
-    'profile' => 
-    [
-      'pageTitle' => 'Profil-Einstellungen',
-      'profile' => 'Profil',
-      'account' => 'Konto',
-      'security' => 'Sicherheit',
-      'notifications' => 'Benachrichtigungen',
+return [
+    'profile' => [
+        'pageTitle' => 'Profil-Einstellungen',
+        'profile' => 'Profil',
+        'account' => 'Konto',
+        'security' => 'Sicherheit',
+        'notifications' => 'Benachrichtigungen',
     ],
-    'user' => 
-    [
-      'title' => 'Benutzer',
+    'user' => [
+        'title' => 'Benutzer',
     ],
-    'request_activities' => 
-    [
-      'title' => 'Aktivitäten Tracking',
+    'request_activities' => [
+        'title' => 'Aktivitäten Tracking',
     ],
-    'tenant' => 
-    [
-      'title' => 'Mieter',
+    'tenant' => [
+        'title' => 'Mieter',
     ],
 ];

@@ -1,23 +1,19 @@
 <?php
 return [
-    'profile' => 
-    [
-      "pageTitle" => "Profil",
-      "profile" => "Profil",
-      "account" => "Compte",
-      "security" => "Sécurité",
-      "notifications" => "Notifications",
+    'profile' => [
+        "pageTitle" => "Profil",
+        "profile" => "Profil",
+        "account" => "Compte",
+        "security" => "Sécurité",
+        "notifications" => "Notifications",
     ],
-    'user' => 
-    [
-      "title" => "Utilisateurs",
+    'user' => [
+        "title" => "Utilisateurs",
     ],
-    'request_activities' => 
-    [
-      "title" => "Demander des activités",
+    'request_activities' => [
+        "title" => "Demander des activités",
     ],
-    'tenant' => 
-    [
-      "title" => "Locataires",
+    'tenant' => [
+        "title" => "Locataires",
     ],
 ]; 
