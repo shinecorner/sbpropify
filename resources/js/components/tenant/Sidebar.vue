@@ -617,6 +617,12 @@
                     margin-right: 16px;
                 }
 
+                .title {
+                    margin-top: 0;
+                    display: flex;
+                    align-items: center;
+                }
+
                 &:not(:last-child) {
                     border-bottom: 1px var(--border-color-lighter) solid;
                 }
