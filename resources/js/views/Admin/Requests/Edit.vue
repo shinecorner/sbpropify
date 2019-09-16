@@ -363,7 +363,7 @@
                                                 </el-select>
                                             </div>
                                         </el-form-item>
-                                        <el-form-item class="switcher" prop="notification" v-if="model.is_public">
+                                        <el-form-item class="switcher" prop="send_notification" v-if="model.is_public">
                                             <label class="public__label">
                                                 <span class="public__desc">{{$t('models.request.send_notification')}}</span>
                                             </label>

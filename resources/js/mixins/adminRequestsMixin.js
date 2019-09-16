@@ -333,6 +333,7 @@ export default (config = {}) => {
                         if(this.model.category_id == 1) {
                             this.model.category_id = this.model.defect;
                         }
+
                         const resp = await this.createRequest(this.model);
                         
                         let requestId = resp.data.id;
