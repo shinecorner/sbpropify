@@ -72,11 +72,11 @@
                 </el-option>
             </el-select>
         </el-form-item> -->
-        <el-form-item class="switcher-form-item" prop="public">
+        <el-form-item class="switcher-form-item" prop="is_public">
             <label>
                 {{$t('tenant.request_public_info')}}
             </label>
-            <el-switch v-model="model.public"/>
+            <el-switch v-model="model.is_public"/>
         </el-form-item>
         <el-divider />
         <media-upload ref="upload" v-model="model.media" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="4" />
@@ -190,13 +190,16 @@
                     if (valid) {
                         try {
                             this.loading = true
-
+                            this.model.visibility = 1
+                            if(this.model.is_public == true)
+                                this.model.visibility = 2
                             const {media, ...params} = this.model
 
                             //const data = await this.$store.dispatch('createRequest', params)
 
                             if(params.category_id == 1)
                                     params.category_id = this.model.defect;
+                            
 
                             const resp = await this.$store.dispatch('newRequests/create', params);
                             

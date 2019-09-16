@@ -146,7 +146,7 @@
             padding-top: 22px;
 
             .el-timeline-item {
-                padding-bottom: 1px;
+                padding-bottom: 8px;
 
                 &:not(.letter) {
                     &:hover :global(.el-timeline-item__wrapper) :global(.el-timeline-item__content) {
@@ -156,6 +156,7 @@
                     :global(.el-timeline-item__wrapper) {
                         padding-left: 38px;
                     }
+
                 }
 
                 &:first-child {

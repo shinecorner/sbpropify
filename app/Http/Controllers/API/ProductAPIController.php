@@ -528,6 +528,6 @@ class ProductAPIController extends AppBaseController
 
         $product = $this->productRepository->setStatusExisting($product, $newStatus);
 
-        return $this->sendResponse($id, __('models.product.status.published'));
+        return $this->sendResponse($id, __('general.status_changed'));
     }
 }
