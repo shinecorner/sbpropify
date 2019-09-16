@@ -597,6 +597,7 @@ export default {
             "comment": "Commento",
             "messaging_info": "Avviare la messaggistica utilizzando il modulo sottostante e premere Invio.",
             "read_more": "Per saperne di più,  ",
+            "read_less": "Leggi meno",
             "overview": "Panoramica",
             "media": "Media",
             "status": "Stato",

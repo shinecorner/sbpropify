@@ -61,21 +61,24 @@
             }
         },
         async mounted () {
+            
             const {tenant} = this.user
 
             if (tenant.building_id) {
                 this.loading = true
 
-                const {managers_last} = await this.$store.dispatch('getBuilding', {
+                const {managers} = await this.$store.dispatch('getBuilding', {
                     id: tenant.building_id
                 })
 
-                if (managers_last) {
-                    this.managers = managers_last
+                if (managers) {
+                    this.managers = managers
                 }
 
                 this.timeout = setTimeout(() => this.loading = false, EXTRA_LOADING_SECONDS)
             }
+
+            console.log('mounted', this.managers);
         },
         beforeDestroy () {
             clearTimeout(this.timeout)

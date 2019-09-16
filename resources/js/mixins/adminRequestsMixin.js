@@ -3,11 +3,10 @@ import {mapActions} from 'vuex';
 import {displayError, displaySuccess} from 'helpers/messages';
 import UploadDocument from 'components/UploadDocument';
 import RequestMedia from 'components/RequestMedia';
-import PrepareCategories from 'mixins/methods/prepareCategories';
 
 export default (config = {}) => {
     let mixin = {
-        mixins: [PrepareCategories],
+        mixins: [],
         components: {
             UploadDocument,
             RequestMedia
@@ -82,7 +81,7 @@ export default (config = {}) => {
                 },
                 remoteLoading: false,
                 categories: [],
-                first_layout_subcategories: [],
+                defect_subcategories: [],
                 tenants: [],
                 toAssignList: [],
                 media: [],
@@ -286,29 +285,15 @@ export default (config = {}) => {
             async getRealCategories() {
                 const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
 
-                const filteredcategories = categories.filter(category => {
-                    if(category.id != 2) {
-                        return category;
-                    }
+                this.categories = categories.filter(category => {
+                    return category.parent_id !== 1;
                 });
+                
+                let defect_cat = categories.find(category => {
+                    return category.id === 1;
+                });
+                this.defect_subcategories = defect_cat.categories;
 
-                const initialcategories = this.prepareCategories(filteredcategories);
-                
-                this.categories = initialcategories.filter(category => {
-                    if(category.parent_id !== 1) {
-                        return category;
-                    }
-                });
-                
-                this.first_layout_subcategories = initialcategories.filter(category => {
-                    if(category.parent_id == 1) {
-                        return category;
-                    }
-                });
-                
-                this.first_layout_subcategories.map(item => {
-                    item.name = item.name.substring(3)
-                })
             },
             getLanguageI18n() {
                 let building_locations = this.$t('models.request.category_options.building_locations');

@@ -71,6 +71,7 @@
 
                     // TODO - auto blur container if visible is true first
                     if (state) {
+                        
                         this.transparentOverlayElement.style.zIndex = 0
 
                         const animeOptions = {

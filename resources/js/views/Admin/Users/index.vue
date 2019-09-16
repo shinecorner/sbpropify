@@ -70,6 +70,7 @@
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
                         onClick: this.edit,
+                        editUrl: 'adminUsersEdit',
                         permissions: [
                             this.$permissions.update.user
                         ]

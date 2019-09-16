@@ -14,36 +14,69 @@
                 </el-form-item>
             </el-col>
             <el-col v-if="this.showsubcategory == true">
-                <el-form-item prop="defect" :label="$t('tenant.defect_location')" required  >
+                <el-form-item prop="defect" :label="$t('tenant.defect_location')" required>
                     <el-select v-model="model.defect" 
                                 :placeholder="$t('tenant.placeholder.defect_location')"
                                 @change="showLocationOrRoom">
-                        <el-option v-for="category in categories" 
+                        <el-option v-for="category in defect_subcategories" 
                                     :key="category.id" 
                                     :label="category.name" 
                                     :value="category.id" />
                     </el-select>
                 </el-form-item>
             </el-col>
-            <el-col>
-                <el-form-item prop="priority" :label="$t('tenant.priority')" required>
+
+        </el-row>
+        <el-form-item :label="$t('models.request.category_options.range')" 
+                    v-if="this.showsubcategory == true && this.showLiegenschaft == true && this.showWohnung == false">
+            <el-select :disabled="$can($permissions.update.serviceRequest)"
+                        :placeholder="$t(`general.placeholders.select`)"
+                        class="custom-select"
+                        v-model="model.location">
+                <el-option
+                    :key="location.value"
+                    :label="location.name"
+                    :value="location.value"
+                    v-for="location in building_locations">
+                </el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item :label="$t('models.request.category_options.room')"
+                    v-if="this.showsubcategory == true && this.showWohnung == true && this.showLiegenschaft == false">
+            <el-select :disabled="$can($permissions.update.serviceRequest)"
+                        :placeholder="$t(`general.placeholders.select`)"
+                        class="custom-select"
+                        v-model="model.room">
+                <el-option
+                    :key="room.value"
+                    :label="room.name"
+                    :value="room.value"
+                    v-for="room in apartment_rooms">
+                </el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item prop="priority" :label="$t('tenant.priority')" required>
                     <el-select :placeholder="$t('tenant.placeholder.priority')" v-model="model.priority">
                         <el-option v-for="priority in priorities" :key="priority.value" :label="$t(`models.request.priority.${priority.label}`)" :value="priority.value" />
                     </el-select>
                 </el-form-item>
-            </el-col>
-        </el-row>
         <el-form-item prop="title" :label="$t('tenant.title')" required>
             <el-input v-model="model.title" />
         </el-form-item>
         <el-form-item prop="description" :label="$t('tenant.description')" required>
             <el-input type="textarea" ref="description" v-model="model.description" :autosize="{minRows: 4, maxRows: 16}" />
         </el-form-item>
-        <el-form-item prop="visibility" :label="$t('tenant.visibility')" required>
+        <!-- <el-form-item prop="visibility" :label="$t('tenant.visibility')" required>
             <el-select v-model="model.visibility" :placeholder="$t('tenant.choose_visibility')">
                 <el-option :key="k" :label="$t(`models.request.visibility.${visibility}`)" :value="parseInt(k)" v-for="(visibility, k) in $constants.serviceRequests.visibility">
                 </el-option>
             </el-select>
+        </el-form-item> -->
+        <el-form-item class="switcher-form-item" prop="public">
+            <label>
+                {{$t('models.request.public')}}
+            </label>
+            <el-switch v-model="model.public"/>
         </el-form-item>
         <el-divider />
         <media-upload ref="upload" v-model="model.media" :size="mediaUploadMaxSize" :allowed-types="['image/jpg', 'image/jpeg', 'image/png', 'application/pdf']" :cols="4" />
@@ -57,14 +90,12 @@
     import {MEDIA_UPLOAD_MAX_SIZE} from '@/config'
     import MediaUpload from 'components/MediaUpload'
     import ServicesTypes from 'mixins/methods/servicesTypes'
-    import PrepareCategories from 'mixins/methods/prepareCategories'
     import {displaySuccess, displayError} from 'helpers/messages'
     import PQueue from 'p-queue'
 
     export default {
         mixins: [
             ServicesTypes,
-            PrepareCategories
         ],
         props: {
             showSubmit: {
@@ -105,11 +136,7 @@
                     priority: {
                         required: true,
                         message: this.$t('validation.required',{attribute: this.$t('tenant.priority')})
-                    },                    
-                    visibility: {
-                        required: true,
-                        message: this.$t('validation.required',{attribute: this.$t('tenant.visibility')})
-                    },                    
+                    },                                        
                     description: {
                         required: true,
                         message: this.$t('validation.required',{attribute: this.$t('tenant.description')})
@@ -119,6 +146,10 @@
                 priorities: [],
                 loading: false,
                 defect_subcategories: [],
+                address: {},
+                building_locations: [],
+                apartment_rooms: [],
+
                 mediaUploadMaxSize: MEDIA_UPLOAD_MAX_SIZE,
                 showsubcategory: false,
                 showpayer: false,
@@ -164,6 +195,9 @@
 
                             //const data = await this.$store.dispatch('createRequest', params)
 
+                            if(params.category_id == 1)
+                                    params.category_id = this.model.defect;
+
                             const resp = await this.$store.dispatch('newRequests/create', params);
                             
                             displaySuccess(resp.message)
@@ -204,9 +238,27 @@
             try {
                 const {data} = await this.$store.dispatch('getRequestCategoriesTree', {get_all: true})
 
-                const initialCategories = data;
-                console.log('initial', initialCategories);
-                this.categories = this.categories = this.prepareCategories(data);
+                this.categories = data.filter(category => {
+                    return category.parent_id !== 1;
+                });
+                
+                let defect_cat = data.find(category => {
+                    return category.id === 1;
+                });
+                this.defect_subcategories = defect_cat.categories;
+
+                let building_locations = this.$t('models.request.category_options.building_locations');
+                this.building_locations = [];
+                for (var key in building_locations) {
+                    this.building_locations.push({name : building_locations[key], value : key})
+                }
+
+                let apartment_rooms = this.$t('models.request.category_options.apartment_rooms');
+                this.apartment_rooms = [];
+                for (var key in apartment_rooms) {
+                    this.apartment_rooms.push({name : apartment_rooms[key], value : key})
+                }
+
 
             } catch (err) {
                 displayError(err)
@@ -220,6 +272,12 @@
 <style lang="scss" scoped>
     .request-add.el-form {
         .el-form-item {
+            margin-bottom: 0px;
+
+            /deep/ .el-form-item__label {
+                padding: 0;
+            }
+
             .el-select {
                 width: 100%;
             }
@@ -254,14 +312,25 @@
             flex-grow: 1;
             justify-content: flex-end;
             margin-bottom: 30px;
-            
-            :global(.el-form-item__content) {
-                // margin-right: 9%;
-            }
+
         }
         .el-button.submit {
             margin-top: 1em;
             width: 100%;
         }
+
+        .switcher-form-item {
+            :global(.el-form-item__content) {
+                display: flex;
+                align-items: center;
+
+                .el-switch {
+                    flex: 1;
+                    justify-content: flex-end;
+                }
+            }
+        }
+
     }
+
 </style>
