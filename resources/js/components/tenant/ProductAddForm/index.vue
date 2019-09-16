@@ -80,11 +80,11 @@
                 validationRules: {
                     type: {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.type')})
                     },
                     title: {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.title')})
                     },
                     price: {
                         required: true,
@@ -92,19 +92,19 @@
                     },
                     content: {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.content')})
                     },
                     visibility: {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.visibility')})
                     },
                     tenant_name: {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.contact_name')})
                     },
                     tenant_phone: {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.contact_phone')})
                     }
                 }
             }

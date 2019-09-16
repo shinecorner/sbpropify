@@ -1,10 +1,10 @@
 <template>
-    <el-form ref="form" class="request-add" :model="model" label-position="top" :validate-on-rule-change="false" v-loading="loading">
+    <el-form ref="form" class="request-add" :model="model" label-position="top" :rules="validationRules" v-loading="loading">
         <el-row type="flex" :gutter="16">
             <el-col>
-                <el-form-item prop="category_id" :label="$t('models.request.category')" required>
+                <el-form-item prop="category_id" :label="$t('tenant.category')" required>
                     <el-select v-model="model.category_id" 
-                                :placeholder="$t('models.request.placeholders.category')"
+                                :placeholder="$t('tenant.placeholder.category')"
                                 @change="showSubcategory">
                         <el-option v-for="category in categories" 
                                     :key="category.id" 
@@ -14,9 +14,9 @@
                 </el-form-item>
             </el-col>
             <el-col v-if="this.showsubcategory == true">
-                <el-form-item prop="defect" :label="$t('models.request.defect_location.label')" required  >
+                <el-form-item prop="defect" :label="$t('tenant.defect_location')" required  >
                     <el-select v-model="model.defect" 
-                                :placeholder="$t('general.placeholders.select')"
+                                :placeholder="$t('tenant.placeholder.defect_location')"
                                 @change="showLocationOrRoom">
                         <el-option v-for="category in categories" 
                                     :key="category.id" 
@@ -26,8 +26,8 @@
                 </el-form-item>
             </el-col>
             <el-col>
-                <el-form-item prop="priority" label="Priority" required>
-                    <el-select :placeholder="$t('models.request.placeholders.priority')" v-model="model.priority">
+                <el-form-item prop="priority" :label="$t('tenant.priority')" required>
+                    <el-select :placeholder="$t('tenant.placeholder.priority')" v-model="model.priority">
                         <el-option v-for="priority in priorities" :key="priority.value" :label="$t(`models.request.priority.${priority.label}`)" :value="priority.value" />
                     </el-select>
                 </el-form-item>
@@ -36,11 +36,11 @@
         <el-form-item prop="title" :label="$t('tenant.title')" required>
             <el-input v-model="model.title" />
         </el-form-item>
-        <el-form-item prop="description" label="Description" required>
+        <el-form-item prop="description" :label="$t('tenant.description')" required>
             <el-input type="textarea" ref="description" v-model="model.description" :autosize="{minRows: 4, maxRows: 16}" />
         </el-form-item>
-        <el-form-item prop="visibility" :label="$t('models.request.visibility.label')" required>
-            <el-select v-model="model.visibility" :placeholder="$t('models.request.placeholders.visibility')">
+        <el-form-item prop="visibility" :label="$t('tenant.visibility')" required>
+            <el-select v-model="model.visibility" :placeholder="$t('tenant.choose_visibility')">
                 <el-option :key="k" :label="$t(`models.request.visibility.${visibility}`)" :value="parseInt(k)" v-for="(visibility, k) in $constants.serviceRequests.visibility">
                 </el-option>
             </el-select>
@@ -92,6 +92,28 @@
                     keyword: '',
                     keywords: [],
                     payer: '',
+                },
+                validationRules: {
+                    title: {
+                        required: true,
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.title')})
+                    },
+                    category_id: {
+                        required: true,
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.category')})
+                    },
+                    priority: {
+                        required: true,
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.priority')})
+                    },                    
+                    visibility: {
+                        required: true,
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.visibility')})
+                    },                    
+                    description: {
+                        required: true,
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.description')})
+                    }                    
                 },
                 categories: [],
                 priorities: [],

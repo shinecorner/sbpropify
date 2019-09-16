@@ -37,6 +37,10 @@ return [
 		"type_comment" => "Geben Sie einen Kommentar ein",
 		"upload" => "Dateien hochladen",
 		"search_product" => "Suche nach einem Produkt",
+		"category" => "Kategorie wählen",
+		"priority" => "Priorität wählen",
+		"defect_location" => "Bitte die Örtlichkeit angeben",
+		"visibility" => "Sichtbarkeit wählen",
 	],
 	"no_data" => [
 		"message" => "Es sind noch keine Nachrichten vorhanden.",
@@ -111,6 +115,7 @@ return [
 	"from_quarter" => "Aus dem Quartier",
 	"reset_filters" => "Filter zurücksetzen",
 	"choose_visibility" => "Wählen Sie die Sichtbarkeit",
+	"visibility" => "Sichtbarkeit",
 	"like" => "Gefällt mir",
     "unlike" => "Gefällt mir nicht",
     "image" => "Bild",
@@ -153,5 +158,8 @@ return [
     "contact_name" => "Kontaktname",
     "contact_phone" => "Kontakt Telefon",       
     "change" => "Ändern",
-    "cancel" => "Schliessen",
+	"cancel" => "Schliessen",
+	"category" => "Kategorie",
+	"defect_location" => "Örtlichkeit",
+	"description" => "Beschreibung",
 ];

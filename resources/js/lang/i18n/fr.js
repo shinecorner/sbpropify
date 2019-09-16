@@ -509,7 +509,11 @@ export default {
                 "media_upload": "Téléchargez des médias ou glissez-déposez des fichiers ici",
                 "type_comment": "Tapez un commentaire",
                 "upload": "Télécharger des fichiers",
-                "search_product": "Rechercher un produit"
+                "search_product": "Rechercher un produit",
+                "category": "Sélectionnez une catégorie",
+                "priority": "Sélectionnez la priorité",
+                "defect_location": "Sélectionnez la localisation du défaut",
+                "visibility": "Sélectionner la visibilité"
             },
             "no_data": {
                 "message": "Il n'y a pas encore de messages",
@@ -584,6 +588,7 @@ export default {
             "from_quarter": "Du trimestre",
             "reset_filters": "Réinitialiser les filtres",
             "choose_visibility": "Choisissez la visibilité",
+            "visibility": "visibilité",
             "like": "Comme",
             "unlike": "Contrairement à",
             "image": "Image",
@@ -625,7 +630,10 @@ export default {
             "contact_name": "Nom du contact",
             "contact_phone": "Téléphone de contact",
             "change": "remanier",
-            "cancel": "résilier"
+            "cancel": "résilier",
+            "category": "Catégorie",
+            "defect_location": "Localisation des défauts",
+            "description": "Description"
         },
         "pages": {
             "profile": {
