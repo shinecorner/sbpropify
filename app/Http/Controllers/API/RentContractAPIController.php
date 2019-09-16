@@ -161,7 +161,7 @@ class RentContractAPIController extends AppBaseController
      */
     public function show($id, ShowRequest $request)
     {
-        /** @var RentContract $tenant */
+        /** @var RentContract $rentContract */
         $rentContract = $this->rentContractRepository->findWithoutFail($id);
         if (empty($rentContract)) {
             return $this->sendError(__('models.rent_contract.errors.not_found'));
