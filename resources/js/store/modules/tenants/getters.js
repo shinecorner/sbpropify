@@ -8,7 +8,7 @@ export default {
             tenant.user_email = tenant.user.email;
 
             if (tenant.building && tenant.building.address) {
-                tenant.building_address_row = `${tenant.building.address.street} ${tenant.building.address.street_nr}`;
+                tenant.building_address_row = `${tenant.building.address.street} ${tenant.building.address.house_num}`;
                 tenant.building_address_zip = `${tenant.building.address.zip} ${tenant.building.address.city}`;
             }
 

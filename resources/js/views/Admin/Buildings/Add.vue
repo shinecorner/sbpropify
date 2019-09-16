@@ -10,9 +10,9 @@
                                   style="max-width: 512px;">
                         <el-input type="text" v-model="model.street" v-on:change="setBuildingName"></el-input>
                     </el-form-item>
-                    <el-form-item :label="$t('models.address.street_nr')" :rules="validationRules.street_nr"
-                                  prop="street_nr" style="max-width: 512px;">
-                        <el-input type="text" v-model="model.street_nr" v-on:change="setBuildingName"></el-input>
+                    <el-form-item :label="$t('models.address.house_num')" :rules="validationRules.house_num"
+                                  prop="house_num" style="max-width: 512px;">
+                        <el-input type="text" v-model="model.house_num" v-on:change="setBuildingName"></el-input>
                     </el-form-item>
                     <el-form-item :label="$t('general.name')" :rules="validationRules.name" prop="name"
                                   style="max-width: 512px;" ref="name">
@@ -81,7 +81,7 @@
         },
         methods: {
             setBuildingName() {
-                this.model.name = this.model.street + ' ' + this.model.street_nr;
+                this.model.name = this.model.street + ' ' + this.model.house_num;
             }
         },
         mounted() {

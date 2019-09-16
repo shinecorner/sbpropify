@@ -1,3 +1,4 @@
+
 export default {
     namespaced: true,
     state: {
@@ -9,7 +10,6 @@ export default {
         },
         async get ({state, commit}, {id, ...params} = {}) {
             const {data} = await this._vm.axios.get(id ? `posts/${id}` : 'posts', {params})
-
             if (state.data.length) {
                 const {data: items, ...rest} = data.data
 
@@ -21,6 +21,8 @@ export default {
                     ...rest
                 })
             } else {
+                let newData = state;
+                newData.data.push(data.data)
                 commit('set', data.data)
             }
         },
@@ -50,8 +52,9 @@ export default {
         },
         async like ({commit, getters}, {id}) {
             const {data} = await this._vm.axios.post(`posts/${id}/like`)
-            const newData = getters[TYPES.getters.getById](id)
-
+            // const newData = getters[TYPES.getters.getById](id)
+            const newData = getters.getById(id)
+            
             Object.assign(newData, {
                 liked: true,
                 likes: newData.likes.concat([data.data]),
@@ -62,7 +65,8 @@ export default {
         },
         async unlike ({commit, getters}, {id}) {
             const {data} = await this._vm.axios.post(`posts/${id}/unlike`)
-            const newData = getters[TYPES.getters.getById](id)
+            // const newData = getters[TYPES.getters.getById](id)
+            const newData = getters.getById(id)
 
             Object.assign(newData, {
                 liked: false,
@@ -104,7 +108,10 @@ export default {
         },
         async getComments ({commit}, {parent_id, ...params}) {
             const {data} = await this._vm.axios.get('comments', {params})
-        }
+        },
+        async addMedia({ commit}, {id, media}) {
+            commit('addmedia', {data_id : id, media})
+        },
     },
     getters: {
         getById: ({data}) => id => data.find(item => item.id === id)
@@ -125,6 +132,12 @@ export default {
                     break
                 }
             }
+        },
+        addmedia: ({data}, {data_id, media}) => {
+            let item = data.find(({id}) => id === data_id)
+            if(!item.media)
+                item.media = [];
+            item.media.push(media);
         }
     }
 }

@@ -143,6 +143,7 @@
 
         .el-timeline {
             padding: 0;
+            padding-top: 22px;
 
             .el-timeline-item {
                 padding-bottom: 1px;
@@ -150,11 +151,10 @@
                 &:not(.letter) {
                     &:hover :global(.el-timeline-item__wrapper) :global(.el-timeline-item__content) {
                         cursor: pointer;
-                        background-color: var(--primary-color-lighter);
                     }
 
                     :global(.el-timeline-item__wrapper) {
-                        padding-left: 24px;
+                        padding-left: 38px;
                     }
                 }
 
@@ -182,8 +182,13 @@
                     }
                 }
 
+                :global(.el-timeline-item__tail) {
+                    border-left: none;
+                }
+
                 :global(.el-timeline-item__node) {
                     position: relative;
+                    display: none;
 
                     &:not(:global(.el-timeline-item__node--large)) {
                         top: 24px;
@@ -195,6 +200,8 @@
                 }
 
                 :global(.el-timeline-item__wrapper) {
+                    padding-left: 0px;
+
                     :global(.el-timeline-item__content) {
                         display: flex;
                         align-items: center;

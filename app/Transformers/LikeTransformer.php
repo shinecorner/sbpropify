@@ -21,7 +21,6 @@ class LikeTransformer extends BaseTransformer
      */
     public function transform(Like $model)
     {
-        $ut = new UserTransformer();
-        return $ut->transform($model->user);
+        return (new UserTransformer())->transform($model->user);
     }
 }

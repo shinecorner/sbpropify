@@ -38,11 +38,11 @@
             <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
                 <el-tabs v-model="drawerTabsModel" type="card" stretch>
                     <el-tab-pane name="notifications">
-                        <div slot="label"><i class="icon-bell"></i> Notifications</div>
+                        <div slot="label"><i class="icon-bell"></i> {{$t('tenant.notification_label')}}</div>
                         <user-notifications />
                     </el-tab-pane>
                     <el-tab-pane name="settings">
-                        <div slot="label"><i class="icon-cog"></i> Settings</div>
+                        <div slot="label"><i class="icon-cog"></i> {{$t('tenant.settings')}}</div>
                         <user-settings />
                     </el-tab-pane>
                 </el-tabs>
@@ -233,16 +233,23 @@
                 })
             },
             logout () {
-                let router = this.$route;
-                
-                this.$confirm(this.$t('tenant.logout'), this.$t('tenant.logout_confirm'), {
-                    type: 'warning',
-                    roundButton: true
-                }).then(async () => {
-                    await this.$store.dispatch('logout')
+                // this.$confirm(this.$t('tenant.logout'), this.$t('tenant.logout_confirm'), {
+                //     type: 'warning',
+                //     roundButton: true
+                // }).then(async () => {
+                //     await this.$store.dispatch('logout')
 
-                    this.$router.push({name: 'login'})
-                })
+                //     this.$router.push({name: 'login'})
+                // })
+                this.$store.dispatch('logout')
+                    .then(() => {
+                        this.$router.push({name: 'login'});
+                    })
+                    .catch(err => {
+                        displayError(err);
+                    });
+                
+                
             },
             toggleDrawer () {
                 this.visibleDrawer = !this.visibleDrawer

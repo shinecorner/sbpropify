@@ -30,4 +30,8 @@
 
                 /deep/ [class*=icon] + span
                     margin-left: 5px
+        /deep/ .ui-card__body
+            .my-neighbours
+                max-height: 400px
+                overflow-y: auto;
 </style>

@@ -1,9 +1,11 @@
 <template>
     <div class="my-neighbours">
-        <heading icon="icon-group" :title="$t('tenant.my_neighbours')">
+        <ui-heading icon="icon-group" :title="$t('tenant.my_neighbours')" description="Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.">
+        </ui-heading>
+        <!-- <heading icon="icon-group" :title="$t('tenant.my_neighbours')">
             <div slot="description">Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.</div>
-        </heading>
-        <el-divider />
+        </heading> -->
+        <ui-divider />
         <el-card>
             <my-neighbours />
         </el-card>
@@ -37,10 +39,6 @@
             pointer-events: none;
             z-index: -1;
             filter: opacity(.048);
-        }
-
-        .el-divider {
-            background: linear-gradient(to right, var(--border-base-color), transparent 56%);
         }
 
         .el-card {

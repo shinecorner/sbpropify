@@ -36,7 +36,7 @@ class TemplateTransformer extends BaseTransformer
         }
 
         $response['translations'] = [];
-        if (!$model->relationExists('translations')) {
+        if (! $model->relationExists('translations')) {
             return $response;
         }
 

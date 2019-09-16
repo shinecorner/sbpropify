@@ -19,7 +19,7 @@
                     </el-divider>
                 </template>
                 <template v-slot="{item, index, active}">
-                    <dynamic-scroller-item :item="item" :active="active" :data-index="index">
+                    <dynamic-scroller-item :item="item" :active="active" :data-index="index" :sizeDependencies="item">
                         <comment v-bind="commentComponentProps" v-on="commentComponentListeners" :show-children="showChildren" :data="item" :reversed="isCommentReversed(item)" />
                     </dynamic-scroller-item>
                 </template>
@@ -193,6 +193,7 @@
             if (this.data) {
                 this.comments = this.data;
             } else {
+                
                 this.$store.dispatch('comments/clear', {commentable: this.type})
 
                 await this.fetch()

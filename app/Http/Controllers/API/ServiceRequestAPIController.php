@@ -35,6 +35,7 @@ use App\Transformers\ServiceRequestAssigneeTransformer;
 use App\Transformers\ServiceRequestTransformer;
 use App\Transformers\TagTransformer;
 use App\Transformers\TemplateTransformer;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Auth;
 use Exception;
 use Illuminate\Http\Request;
@@ -592,7 +593,8 @@ class ServiceRequestAPIController extends AppBaseController
         $propertyManager = $pmRepo->with('user:email,id')->find($managerId);
         $mailDetails = $request->only(['title', 'to', 'cc', 'bcc', 'body']);
         $this->serviceRequestRepository->notifyProvider($sr, $sp, $propertyManager, $mailDetails);
-
+        $sr->touch();
+        $sp->touch();
         return $this->sendResponse($sr, __('models.request.mail.success'));
     }
 
@@ -652,7 +654,8 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $sr->conversationFor(Auth::user(), $sp->user);
-
+        $sr->touch();
+        $sp->touch();
         return $this->sendResponse($sr, __('general.attached.service'));
     }
 
@@ -751,6 +754,8 @@ class ServiceRequestAPIController extends AppBaseController
             $sr->conversationFor($p->user, $u);
         }
 
+        $sr->touch();
+        $u->touch();
         return $this->sendResponse($sr, __('general.attached.user'));
     }
 
@@ -860,7 +865,8 @@ class ServiceRequestAPIController extends AppBaseController
         foreach ($sr->providers as $p) {
             $sr->conversationFor($p->user, $manager->user);
         }
-
+        $sr->touch();
+        $manager->touch();
         return $this->sendResponse($sr, __('general.attached.manager'));
     }
 
@@ -999,6 +1005,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $sr->tags()->sync($tag, false);
+        $sr->touch();
         $sr->load('media', 'tenant.user', 'category', 'comments.user', 'users',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
@@ -1082,6 +1089,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         if ($tagIds) {
             $sr->tags()->sync($tagIds, false);
+            $sr->touch();
         }
 
         $sr->load('media', 'tenant.user', 'category', 'comments.user', 'users',
@@ -1160,6 +1168,7 @@ class ServiceRequestAPIController extends AppBaseController
 
         if ($tagIds) {
             $sr->tags()->detach($tagIds);
+            $sr->touch();
         }
 
         $sr->load('media', 'tenant.user', 'category', 'comments.user', 'users',
@@ -1215,6 +1224,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $sr->tags()->detach($tag);
+        $sr->touch();
         $sr->load('media', 'tenant.user', 'category', 'comments.user', 'users',
             'providers.address:id,country_id,state_id,city,street,zip', 'providers.user', 'managers.user', 'tags');
 
@@ -1309,6 +1319,19 @@ class ServiceRequestAPIController extends AppBaseController
         if (empty($requestAssignee)) {
             // @TODO fix message
             return $this->sendError(__('models.request.errors.not_found'));
+        }
+        $sr = ServiceRequest::find($requestAssignee->request_id);
+        if ($sr) {
+            $sr->touch();
+        }
+
+        $type = $requestAssignee->assignee_type;
+        $class = Relation::$morphMap[$type] ?? $type;
+        if (class_exists($class)) {
+            $model = $class::find($requestAssignee->assignee_id);
+            if ($model) {
+                $model->touch();
+            }
         }
         $requestAssignee->delete();
 

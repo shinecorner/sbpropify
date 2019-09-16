@@ -74,6 +74,7 @@
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
                         onClick: this.edit,
+                        editUrl: 'adminServicesEdit',
                         permissions: [
                             this.$permissions.update.provider
                         ]

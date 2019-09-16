@@ -513,7 +513,9 @@ export default {
             },
             "no_data": {
                 "message": "Non ci sono ancora messaggi",
-                "media": "Non ci sono file multimediali disponibili."
+                "media": "Non ci sono file multimediali disponibili.",
+                "product": "Non sono ancora disponibili prodotti",
+                "contact": "Non ci sono ancora contatti disponibili"
             },
             "notifications": {
                 "service": "Notifiche di servizio",
@@ -521,6 +523,8 @@ export default {
                 "marketplace": "Notifiche di mercato",
                 "admin": "Notifiche dell'amministratore"
             },
+            "drag_drop_file": "Rilasciare i file o fare clic qui per selezionare",
+            "language": "Linguaggio",
             "total": "Totale",
             "page": "pagina",
             "go_to": "Vai a",
@@ -582,6 +586,9 @@ export default {
             "choose_visibility": "Scegliere la visibilità",
             "like": "Come",
             "unlike": "A differenza di",
+            "image": "Immagine",
+            "images": "Immagini",
+            "please_wait": "Attendere per favore...",
             "comment": "Commento",
             "messaging_info": "Avviare la messaggistica utilizzando il modulo sottostante e premere Invio.",
             "read_more": "Per saperne di più,  ",
@@ -606,7 +613,19 @@ export default {
             "new_password": "Nuova password",
             "confirm_password": "Conferma la password",
             "summary_statistics": "Statistiche di sintesi",
-            "choose_language": "Scegliere la lingua"
+            "choose_language": "Scegliere la lingua",
+            "welcome_neighbour_msg": "Date il benvenuto al vostro nuovo vicino di casa che a soli {num_days} è arrivato all'interno del vostro quartiere.",
+            "mark_all_as_read": "Segnare tutto come letto",
+            "notification_label": "Notifiche",
+            "settings": "Impostazioni",
+            "select_recieve_statistic_prompt": "Seleziona come desideri ricevere le statistiche, giornaliere, mensili o annuali",
+            "select_type_notification_prompt": "Selezionare i tipi di notifiche che si desidera ricevere solo.",
+            "language_selection_prompt": "Questa impostazione è totalmente indipendente dalla lingua scelta dall'applicazione.",
+            "content": "Contenuto",
+            "contact_name": "Nome del contatto",
+            "contact_phone": "Telefono di contatto",
+            "change": "modifica",
+            "cancel": "stornare"
         },
         "pages": {
             "profile": {
@@ -1020,7 +1039,7 @@ export default {
                 "select_media_category": "Categoria di supporti selezionati",
                 "quarter": "Quartiere",
                 "managers": "Manager",
-                "house_nr": "Casa Nr...",
+                "house_num": "Casa Nr...",
                 "assign_managers": "Assegnare i manager",
                 "unassign_manager": "Disassegnare",
                 "managers_assigned": "Dirigenti assegnati",
@@ -1140,7 +1159,7 @@ export default {
                 "name": "Indirizzo",
                 "country": "Paese",
                 "street": "Strada",
-                "street_nr": "Via Nr...",
+                "house_num": "Via Nr...",
                 "not_found": "Indirizzo non trovato",
                 "saved": "Indirizzo salvato",
                 "state": {
@@ -1156,7 +1175,7 @@ export default {
                     "street": {
                         "required": "La strada è obbligatoria"
                     },
-                    "street_nr": {
+                    "house_num": {
                         "required": "Il numero civico è obbligatorio"
                     },
                     "zip": {

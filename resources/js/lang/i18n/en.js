@@ -513,7 +513,9 @@ export default {
             },
             "no_data": {
                 "message": "There are no messages yet",
-                "media": "There are no media files available."
+                "media": "There are no media files available.",
+                "product": "No products available yet",
+                "contact": "No contacts available yet"
             },
             "notifications": {
                 "service": "Service notifications",
@@ -521,6 +523,8 @@ export default {
                 "marketplace": "Marketplace notifications",
                 "admin": "Admin notifications"
             },
+            "drag_drop_file": "Drop files or click here to select",
+            "language": "Language",
             "total": "Total",
             "page": "page",
             "go_to": "Go to",
@@ -582,6 +586,9 @@ export default {
             "choose_visibility": "Choose the visibility",
             "like": "Like",
             "unlike": "Unlike",
+            "image": "Image",
+            "images": "Images",
+            "please_wait": "Please wait...",
             "comment": "Comment",
             "messaging_info": "Start messaging by using the below form and press enter.",
             "read_more": "Read more",
@@ -607,7 +614,19 @@ export default {
             "new_password": "New password",
             "confirm_password": "Confirm password",
             "summary_statistics": "Summary statistics",
-            "choose_language": "Choose language"
+            "choose_language": "Choose language",
+            "welcome_neighbour_msg": "Welcome your new neighbour that just {num_days} arrived within your neighbourhood.",
+            "mark_all_as_read": "Mark all as read",
+            "notification_label": "Notifications",
+            "settings": "Settings",
+            "select_recieve_statistic_prompt": "Select how would you like to receive the statistics, daily, monthly or yearly",
+            "select_type_notification_prompt": "Select which types of notifications you would like to receive only.",
+            "language_selection_prompt": "This setting is totally independent from the application's choosen language.",
+            "content": "Content",
+            "contact_name": "Contact name",
+            "contact_phone": "Contact phone",
+            "change": "Change",
+            "cancel": "Cancel"
         },
         "pages": {
             "profile": {
@@ -1021,7 +1040,7 @@ export default {
                 "select_media_category": "Selected media category",
                 "quarter": "Quarter",
                 "managers": "Managers",
-                "house_nr": "House Nr.",
+                "house_num": "House Nr.",
                 "assign_managers": "Assign managers",
                 "unassign_manager": "Unassign",
                 "managers_assigned": "Managers assigned",
@@ -1141,7 +1160,7 @@ export default {
                 "name": "Address",
                 "country": "Country",
                 "street": "Street",
-                "street_nr": "Street Nr.",
+                "house_num": "Street Nr.",
                 "not_found": "Address not found",
                 "saved": "Address saved",
                 "state": {
@@ -1157,7 +1176,7 @@ export default {
                     "street": {
                         "required": "Street is required"
                     },
-                    "street_nr": {
+                    "house_num": {
                         "required": "Street number is required"
                     },
                     "zip": {

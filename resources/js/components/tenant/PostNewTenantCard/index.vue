@@ -2,7 +2,7 @@
     <el-card>
         <ui-avatar :src="data.user.avatar" :name="data.user.name" :size="48" shadow="always" />
         <div class="user">{{data.user.name}}</div>
-        <div class="content">Welcome your new neighbour that just {{ago(data.created_at)}} arrived within your neighbourhood.</div>
+        <div class="content">{{$t('tenant.welcome_neighbour_msg',{num_days: ago(data.created_at)})}}</div>
         <likes type="post" layout="column" :data="data.likes" suffix="welcomed the neighbour" />
         <like :id="data.id" type="post" :icons="{like: 'icon-heart', unlike: 'icon-heart-empty'}" :show-text="false" />
     </el-card>
