@@ -154,9 +154,9 @@ export default {
             "date": "Datum",
             "title": "Titel",
             "description": "Beschreibung",
-            "requests": "Anfragen",
-            "assign": "Zuweisen",
             "unassign": "Entfernen",
+            "assign": "Zuweisen",
+            "requests": "Anfragen",
             "salutation": "Anrede",
             "salutation_option": {
                 "mr": "Herr",
@@ -255,10 +255,10 @@ export default {
                 "old_password_required": "Das alte Passwort wird benötigt."
             },
             "assignmentTypes": {
-                "services": "Dienstleister",
-                "managers": "Bewirtschafter",
                 "building": "Liegenschaft",
                 "quarter": "Überbauung",
+                "services": "Dienstleister",
+                "managers": "Bewirtschafter",
                 "administrator": "Verwalterin"
             },
             "email": "E-Mail",
@@ -509,7 +509,11 @@ export default {
                 "media_upload": "Laden Sie hier Medien hoch oder ziehen Sie Dateien per Drag & Drop.",
                 "type_comment": "Geben Sie einen Kommentar ein",
                 "upload": "Dateien hochladen",
-                "search_product": "Suche nach einem Produkt"
+                "search_product": "Suche nach einem Produkt",
+                "category": "Kategorie wählen",
+                "priority": "Priorität wählen",
+                "defect_location": "Bitte die Örtlichkeit angeben",
+                "visibility": "Sichtbarkeit wählen"
             },
             "no_data": {
                 "message": "Es sind noch keine Nachrichten vorhanden.",
@@ -584,11 +588,12 @@ export default {
             "from_quarter": "Aus dem Quartier",
             "reset_filters": "Filter zurücksetzen",
             "choose_visibility": "Wählen Sie die Sichtbarkeit",
+            "visibility": "Sichtbarkeit",
             "like": "Gefällt mir",
             "unlike": "Gefällt mir nicht",
-            "image": "Bild",
-            "images": "Bilder",
-            "please_wait": "Bitte warten...",
+            "image": "Immagine",
+            "images": "Immagini",
+            "please_wait": "Per favore aspetta.....",
             "comment": "Kommentar",
             "messaging_info": "Starten Sie die Benachrichtigung mit dem untenstehenden Formular und drücken Sie die Eingabetaste.",
             "read_more": "Mehr erfahren",
@@ -626,7 +631,11 @@ export default {
             "contact_name": "Kontaktname",
             "contact_phone": "Kontakt Telefon",
             "change": "Ändern",
-            "cancel": "Schliessen"
+            "cancel": "Schliessen",
+            "category": "Kategorie",
+            "defect_location": "Örtlichkeit",
+            "description": "Beschreibung",
+            "request_public_info": "Wenn es sich bei Ihrer Anfragen um ein Anliegen handelt, welche auch Ihre Nachbarn betrifft, dann aktivieren Sie diese Option."
         },
         "pages": {
             "profile": {
@@ -1004,7 +1013,7 @@ export default {
                     "welcome": "Willkommen im Mieterportal der",
                     "content_1": "Wir freuen uns, Ihnen mitzuteilen, dass für Sie ein Konto im Mieterpotal eingerichtet wurde und übermitteln Ihnen den Aktivierungscode",
                     "offer": "Was bietet die Applikation",
-                    "offers": "\n                    <li>Mit dem digitalen Mieterdossier habe Sie Zugriff auf alle relevanten Dokumente, wie Mietvertrag, Hausordnung oder sonstige Unterlagen zur Liegenschaft</li>\n                    <li>Über das Ticketing-System wickeln Sie Ihre Anfragen einfach und unkompliziert ab – Anliegen zeit- und ortsungebunden an die Verwaltung mitteilen</li>\n                    <li>Auf dem Markt- und Leihplatz können Sie Gegenstände an Ihre Nachbarschaft verkaufen oder verleihen.</li>\n                    <li>Teilen Sie Neuigkeiten mit Ihren Nachbarn indem Sie einen Beitrag publizieren. Die Pinnwand wird ebenfalls durch die Verwaltung für die Kommunikation genutzt, so sind alle stets auf dem Laufenden.</li>\n                    <li>Weitere Micro-Apps innerhalb der Applikation setzen neue Standards in der Wohnqualität wobei bequem diverse Dienstleistungen in Anspruch genommen werden können</li>\n                ",
+                    "offers": "\n                <li>Mit dem digitalen Mieterdossier habe Sie Zugriff auf alle relevanten Dokumente, wie Mietvertrag, Hausordnung oder sonstige Unterlagen zur Liegenschaft</li>\n                <li>Über das Ticketing-System wickeln Sie Ihre Anfragen einfach und unkompliziert ab – Anliegen zeit- und ortsungebunden an die Verwaltung mitteilen</li>\n                <li>Auf dem Markt- und Leihplatz können Sie Gegenstände an Ihre Nachbarschaft verkaufen oder verleihen.</li>\n                <li>Teilen Sie Neuigkeiten mit Ihren Nachbarn indem Sie einen Beitrag publizieren. Die Pinnwand wird ebenfalls durch die Verwaltung für die Kommunikation genutzt, so sind alle stets auf dem Laufenden.</li>\n                <li>Weitere Micro-Apps innerhalb der Applikation setzen neue Standards in der Wohnqualität wobei bequem diverse Dienstleistungen in Anspruch genommen werden können</li>\n            ",
                     "register": "Erste Anmeldung und Aktivierung Ihres Accounts",
                     "content_2": "Um sich anzumelden, klicken Sie auf den untenstehenden Link und loggen Sie sich mit Ihrer E-Mail-Adresse und dem persönlichen Freischaltcode ein. Einmal eingeloggt können Sie Ihr eigenes Passwort definieren und dieses fortan für die Anmeldung nutzen.",
                     "link_application": "Link zur Applikation",
@@ -1012,6 +1021,15 @@ export default {
                     "content_4": "Sollten Sie Hilfe bei der Anmeldung benötigen, so stehen wir Ihnen gerne zur Verfügung.",
                     "your_sincerely": "Mit freundlichen Grüssen",
                     "your_administration": "Ihre Verwaltung"
+                }
+            },
+            "tenant_rent_contracts": {
+                "saved": "Mietvertrag gesichert",
+                "deleted": "Mietvertrag gelöscht",
+                "errors": {
+                    "not_found": "Mieter Mietvertrag nicht gefunden",
+                    "create": "Mietvertrag des Mieters erstellt Fehler: ",
+                    "deleted": "Mieter Mietvertrag Löschfehler: "
                 }
             },
             "building": {
@@ -1333,9 +1351,9 @@ export default {
                 "startTime": "Start",
                 "to": "An",
                 "categories": "Kategorien",
+                "templates": "Vorlagen",
                 "contact_enable": "Dienstleister-Kontakte für Mieter aktivieren",
                 "contact_enable_desc": "Mieter können die Kontaktdaten der involvierten Dienstleister im Mieterportal sehen.",
-                "templates": "Vorlagen",
                 "cleanify_email": "Cleanify email",
                 "mail_encryption": "Verschlüsselung",
                 "primary_color": "Primärfarbe",
