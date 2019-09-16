@@ -12,13 +12,13 @@
                     <card :loading="loading" :header="$t('models.service.company_details')">
                         <el-row class="last-form-row" :gutter="20">
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.service.category')" prop="category">
+                                <el-form-item :label="$t('models.service.category.label')" prop="category">
                                     <el-select :placeholder="$t('models.service.placeholders.category')"
                                                style="width: 100%"
                                                v-model="model.category">
                                         <el-option
                                             :key="category"
-                                            :label="$t(`models.service.${category}`)"
+                                            :label="$t(`models.service.category.${category}`)"
                                             :value="category"
                                             v-for="category in $constants.serviceProviders.category">
                                         </el-option>

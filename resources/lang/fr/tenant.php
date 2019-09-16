@@ -162,4 +162,5 @@ return [
     "category" => "Catégorie",
     "defect_location" => "Localisation des défauts",
     "description" => "Description",
+    "request_public_info" => "Si votre demande concerne également vos voisins, activez cette option.",
 ];

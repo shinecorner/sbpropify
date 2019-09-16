@@ -10,12 +10,12 @@
                         <card :loading="loading" :header="$t('models.service.company_details')">
                         <el-row :gutter="20">
                             <el-col :md="12">
-                                <el-form-item class="label-block" :label="$t('models.service.category')" :rules="validationRules.category" prop="category">
+                                <el-form-item class="label-block" :label="$t('models.service.category.label')" :rules="validationRules.category" prop="category">
                                     <el-select :placeholder="$t('models.service.placeholders.category')" style="display: block;"
                                                v-model="model.category">
                                         <el-option
                                                 :key="category"
-                                                :label="$t(`models.service.${category}`)"
+                                                :label="$t(`models.service.category.${category}`)"
                                                 :value="category"
                                                 v-for="category in $constants.serviceProviders.category">
                                         </el-option>
