@@ -86,7 +86,7 @@ class UnitAPIController extends AppBaseController
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $units = $this->unitRepository->with([
-            'building', 'tenant.user', 'tenants.user'
+            'building', 'tenants.user'
         ])->paginate($perPage);
 
         $response = (new UnitTransformer)->transformPaginator($units);
@@ -153,7 +153,7 @@ class UnitAPIController extends AppBaseController
             }
         }
 
-        $unit->load(['building', 'tenant.user', 'tenants.user']);
+        $unit->load(['building', 'tenants.user']);
         $response = (new UnitTransformer)->transform($unit);
         return $this->sendResponse($response, __('models.unit.saved'));
     }
@@ -204,7 +204,7 @@ class UnitAPIController extends AppBaseController
             return $this->sendError(__('models.unit.errors.not_found'));
         }
 
-        $unit->load(['building', 'tenant.user', 'tenants.user']);
+        $unit->load(['building', 'tenants.user']);
         $response = (new UnitTransformer)->transform($unit);
         return $this->sendResponse($response, 'Unit retrieved successfully');
     }
@@ -282,7 +282,7 @@ class UnitAPIController extends AppBaseController
             }
         }
 
-        $unit->load('building', 'tenant.user', 'tenants.user');
+        $unit->load('building', 'tenants.user');
         if ($shouldPost) {
             $pr->newTenantPost($unit->tenant);
         }
