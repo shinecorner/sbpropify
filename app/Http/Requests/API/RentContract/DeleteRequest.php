@@ -1,14 +1,10 @@
 <?php
 
-namespace App\Http\Requests\API\Media;
+namespace App\Http\Requests\API\RentContract;
 
 use InfyOm\Generator\Request\APIRequest;
 
-/**
- * Class TenantRentContractUploadRequest
- * @package App\Http\Requests\API\Media
- */
-class TenantRentContractUploadRequest extends APIRequest
+class DeleteRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,7 +13,7 @@ class TenantRentContractUploadRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('edit-tenant'); // @TODO correct permission
+        return $this->user()->can('delete-tenant'); // @TODO add new rule list-tenant_rent_contract
     }
 
     /**

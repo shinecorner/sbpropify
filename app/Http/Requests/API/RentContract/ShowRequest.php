@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Requests\API\TenantRentContract;
+namespace App\Http\Requests\API\RentContract;
 
-use App\Models\Tenant;
 use InfyOm\Generator\Request\APIRequest;
 
 class ShowRequest extends APIRequest
