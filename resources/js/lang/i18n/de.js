@@ -1178,6 +1178,9 @@ export default {
                 "due_in": "Zu erledigen in",
                 "was_due_on": "In Verzug seit",
                 "due_on": "Erledigt am",
+                "active_reminder_switcher": "Active Reminder",
+                "days_left": "How many days before should the email be sent?",
+                "send_person": "Which person should be notified?",
                 "media": {
                     "added": "Mediendatei hinzugefügt",
                     "removed": "Mediendatei entfernt.",

@@ -295,134 +295,119 @@
                     <el-col :md="12">
                         <template v-if="$can($permissions.assign.request)">
  
-                                <el-tabs type="border-card" :loading="loading" v-model="activeActionTab">
-                                    <el-tab-pane :label="$t('models.request.actions')" name="actions" v-loading="loading.state">
-                                        <el-row :gutter="10">                                    
-                                            <el-col :md="12">
-                                                <el-form-item :label="$t('models.request.status.label')"
-                                                            :rules="validationRules.status"
-                                                            prop="status">
-                                                    <el-select :placeholder="$t('models.request.placeholders.status')"
-                                                            class="custom-select"
-                                                            v-model="model.status">
-                                                        <el-option
-                                                            :key="k"
-                                                            :label="$t(`models.request.status.${status}`)"
-                                                            :value="parseInt(k)"
-                                                            v-for="(status, k) in constants.serviceRequests.status">
-                                                        </el-option>
-                                                    </el-select>
-                                                </el-form-item>
-                                            </el-col>
-                                            <el-col :md="12">
-                                                <el-form-item :label="$t('models.request.due_date')"
-                                                            :rules="validationRules.due_date">
-                                                    <el-date-picker
-                                                        :disabled="$can($permissions.update.serviceRequest)"
-                                                        :placeholder="$t('models.request.placeholders.due_date')"
-                                                        format="dd.MM.yyyy"
-                                                        style="width: 100%"
-                                                        type="date"
-                                                        v-model="model.due_date"
-                                                        value-format="yyyy-MM-dd"
-                                                    >
-                                                    </el-date-picker>
-                                                </el-form-item>
-                                            </el-col>
-                                            <el-col :md="12">
-                                                <el-form-item :label="$t('models.request.internal_priority.label')"
-                                                            :rules="validationRules.internal_priority"
-                                                            prop="internal_priority">
-                                                    <el-select :placeholder="$t('models.request.internal_priority.label')" class="custom-select" v-model="model.internal_priority">
-                                                        <el-option
-                                                            :key="k"
-                                                            :label="$t(`models.request.internal_priority.${priority}`)"
-                                                            :value="parseInt(k)"
-                                                            v-for="(priority, k) in $constants.serviceRequests.internal_priority">
-                                                        </el-option>
-                                                    </el-select>
-                                                </el-form-item>
-                                            </el-col>
-                                        </el-row>
-                                    </el-tab-pane>
-                                    <el-tab-pane :label="$t('models.request.is_public')" name="is_public" v-loading="loading.state">
-                                        <el-form-item class="switcher" prop="is_public">
-                                            <label class="public__label">
-                                                <span class="public__desc">{{$t('models.request.public_desc')}}</span>
-                                            </label>
-                                            <el-switch v-model="model.is_public"/>
-                                        </el-form-item>
-                                        <el-form-item prop="visibility" v-if="model.is_public && model.tenant.building && model.tenant.building.quarter_id > 0">
-                                             <label class="public__label">
-                                                <span class="public__desc">{{$t('models.request.visibility.label')}}</span>
-                                            </label>
-                                            <div>
-                                                <el-select v-model="model.visibility">
-                                                    <el-option :key="k" :label="$t(`models.request.visibility.${visibility}`)" :value="parseInt(k)" v-for="(visibility, k) in $constants.serviceRequests.visibility">
+                            <el-tabs type="border-card" :loading="loading" v-model="activeActionTab">
+                                <el-tab-pane :label="$t('models.request.actions')" name="actions" v-loading="loading.state">
+                                    <el-row :gutter="10">                                    
+                                        <el-col :md="12">
+                                            <el-form-item :label="$t('models.request.status.label')"
+                                                        :rules="validationRules.status"
+                                                        prop="status">
+                                                <el-select :placeholder="$t('models.request.placeholders.status')"
+                                                        class="custom-select"
+                                                        v-model="model.status">
+                                                    <el-option
+                                                        :key="k"
+                                                        :label="$t(`models.request.status.${status}`)"
+                                                        :value="parseInt(k)"
+                                                        v-for="(status, k) in constants.serviceRequests.status">
                                                     </el-option>
                                                 </el-select>
-                                            </div>
-                                        </el-form-item>
-                                        <el-form-item class="switcher" prop="send_notification" v-if="model.is_public">
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :md="12">
+                                            <el-form-item :label="$t('models.request.due_date')"
+                                                        :rules="validationRules.due_date">
+                                                <el-date-picker
+                                                    :disabled="$can($permissions.update.serviceRequest)"
+                                                    :placeholder="$t('models.request.placeholders.due_date')"
+                                                    format="dd.MM.yyyy"
+                                                    style="width: 100%"
+                                                    type="date"
+                                                    v-model="model.due_date"
+                                                    value-format="yyyy-MM-dd"
+                                                >
+                                                </el-date-picker>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :md="12">
+                                            <el-form-item :label="$t('models.request.internal_priority.label')"
+                                                        :rules="validationRules.internal_priority"
+                                                        prop="internal_priority">
+                                                <el-select :placeholder="$t('models.request.internal_priority.label')" class="custom-select" v-model="model.internal_priority">
+                                                    <el-option
+                                                        :key="k"
+                                                        :label="$t(`models.request.internal_priority.${priority}`)"
+                                                        :value="parseInt(k)"
+                                                        v-for="(priority, k) in $constants.serviceRequests.internal_priority">
+                                                    </el-option>
+                                                </el-select>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row :gutter="10"> 
+                                        <el-col :md="24">
+                                         <el-form-item class="switcher" prop="is_public">
                                             <label class="public__label">
-                                                <span class="public__desc">{{$t('models.request.send_notification')}}</span>
+                                                <span class="public__desc">{{$t('models.request.active_reminder_switcher')}}</span>
                                             </label>
-                                            <el-switch v-model="model.send_notification"/>
+                                            <el-switch v-model="model.active_reminder"/>
                                         </el-form-item>
-                                    </el-tab-pane>
-                                </el-tabs>
-                           
-
-                            <!-- <card class="mt15 request" :loading="loading" :header="$t('models.request.actions')" id="request_actions">
-                                <el-row :gutter="10">                                    
-                                    <el-col :md="12">
-                                        <el-form-item :label="$t('models.request.status.label')"
-                                                      :rules="validationRules.status"
-                                                      prop="status">
-                                            <el-select :placeholder="$t('models.request.placeholders.status')"
-                                                       class="custom-select"
-                                                       v-model="model.status">
-                                                <el-option
-                                                    :key="k"
-                                                    :label="$t(`models.request.status.${status}`)"
-                                                    :value="parseInt(k)"
-                                                    v-for="(status, k) in constants.serviceRequests.status">
+                                        </el-col>
+                                        <el-col :md="12" v-if="model.active_reminder">
+                                            <el-form-item :label="$t('models.request.days_left')"
+                                                        prop="days_left">
+                                                <el-input v-model="model.days_left"></el-input>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :md="12" v-if="model.active_reminder">
+                                            <el-form-item :label="$t('models.request.send_person')"
+                                                        prop="person_id">
+                                                <el-select
+                                                    :loading="remoteLoading"
+                                                    :placeholder="$t('models.request.placeholders.tenant')"
+                                                    :remote-method="remoteSearchTenants"
+                                                    filterable
+                                                    remote
+                                                    reserve-keyword
+                                                    style="width: 100%;"
+                                                    v-model="model.person_id">
+                                                    <el-option
+                                                        :key="tenant.id"
+                                                        :label="tenant.name"
+                                                        :value="tenant.id"
+                                                        v-for="tenant in tenants"/>
+                                                </el-select>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                </el-tab-pane>
+                                <el-tab-pane :label="$t('models.request.is_public')" name="is_public" v-loading="loading.state">
+                                    <el-form-item class="switcher" prop="is_public">
+                                        <label class="public__label">
+                                            <span class="public__desc">{{$t('models.request.public_desc')}}</span>
+                                        </label>
+                                        <el-switch v-model="model.is_public"/>
+                                    </el-form-item>
+                                    <el-form-item prop="visibility" v-if="model.is_public && model.tenant.building && model.tenant.building.quarter_id > 0">
+                                            <label class="public__label">
+                                            <span class="public__desc">{{$t('models.request.visibility.label')}}</span>
+                                        </label>
+                                        <div>
+                                            <el-select v-model="model.visibility">
+                                                <el-option :key="k" :label="$t(`models.request.visibility.${visibility}`)" :value="parseInt(k)" v-for="(visibility, k) in $constants.serviceRequests.visibility">
                                                 </el-option>
                                             </el-select>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :md="12">
-                                        <el-form-item :label="$t('models.request.due_date')"
-                                                      :rules="validationRules.due_date">
-                                            <el-date-picker
-                                                :disabled="$can($permissions.update.serviceRequest)"
-                                                :placeholder="$t('models.request.placeholders.due_date')"
-                                                format="dd.MM.yyyy"
-                                                style="width: 100%"
-                                                type="date"
-                                                v-model="model.due_date"
-                                                value-format="yyyy-MM-dd"
-                                            >
-                                            </el-date-picker>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :md="12">
-                                        <el-form-item :label="$t('models.request.internal_priority.label')"
-                                                      :rules="validationRules.internal_priority"
-                                                      prop="internal_priority">
-                                            <el-select :placeholder="$t('models.request.internal_priority.label')" class="custom-select" v-model="model.internal_priority">
-                                                <el-option
-                                                    :key="k"
-                                                    :label="$t(`models.request.internal_priority.${priority}`)"
-                                                    :value="parseInt(k)"
-                                                    v-for="(priority, k) in $constants.serviceRequests.internal_priority">
-                                                </el-option>
-                                            </el-select>
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row>
-                            </card> -->
-
+                                        </div>
+                                    </el-form-item>
+                                    <el-form-item class="switcher" prop="send_notification" v-if="model.is_public">
+                                        <label class="public__label">
+                                            <span class="public__desc">{{$t('models.request.send_notification')}}</span>
+                                        </label>
+                                        <el-switch v-model="model.send_notification"/>
+                                    </el-form-item>
+                                </el-tab-pane>
+                            </el-tabs>
+                        
                             <card class="mt15 request" :loading="loading" :header="$t('models.request.assignment')">
                                 <assignment-by-type
                                     :resetToAssignList="resetToAssignList"

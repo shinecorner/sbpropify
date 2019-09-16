@@ -581,6 +581,9 @@ return [
         'due_in' => 'Due in',
         'was_due_on' => 'Was due on',
         'due_on' => 'Due on',
+        'active_reminder_switcher' => 'Active Reminder',
+        'days_left' => 'How many days before should the email be sent?',
+        'send_person' => 'Which person should be notified?',
         'media' => [
             "added" => "Document ajouté",
             "removed" => "Suppression du support",
