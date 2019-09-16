@@ -511,7 +511,7 @@ class MediaAPIController extends AppBaseController
     {
         $tenantRentContract = $this->tenantRentContractRepository->findWithoutFail($id);
         if (empty($tenantRentContract)) {
-            return $this->sendError(__('models.tenant_rent_contracts.errors.not_found'));
+            return $this->sendError(__('models.tenant_rent_contract.errors.not_found'));
         }
 
         $data = $request->get('media', '');

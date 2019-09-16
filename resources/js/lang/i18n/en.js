@@ -154,9 +154,9 @@ export default {
             "date": "Date",
             "title": "Title",
             "description": "Description",
-            "requests": "Requests",
             "unassign": "Unassign",
             "assign": "Assign",
+            "requests": "Requests",
             "salutation": "Salutation",
             "salutation_option": {
                 "mr": "Mr.",
@@ -702,6 +702,7 @@ export default {
                                     "status": "The status changed from \"{old}\" to \"{new}\".",
                                     "due_date": "The due date changed from \"{old}\" to \"{new}\".",
                                     "priority": "The priority changed from \"{old}\" to \"{new}\".",
+                                    "internal_priority": "The internal priority has been changed from \"{old}\" to \"{new}\".",
                                     "category_id": "The category changed from \"{old}\" to \"{new}\".",
                                     "qualification": "The qualification changed from \"{old}\" to \"{new}\".",
                                     "visibility": "The visibility changed from \"{old}\" to \"{new}\"."
@@ -718,6 +719,7 @@ export default {
                                     "status": "The status changed from \"{old}\" to \"{new}\".",
                                     "due_date": "The due date changed from \"{old}\" to \"{new}\".",
                                     "priority": "The priority changed from \"{old}\" to \"{new}\".",
+                                    "internal_priority": "The internal priority has been changed from \"{old}\" to \"{new}\".",
                                     "category_id": "The category changed from \"{old}\" to \"{new}\".",
                                     "qualification": "The qualification changed from \"{old}\" to \"{new}\".",
                                     "visibility": "The visibility changed from \"{old}\" to \"{new}\"."
@@ -1010,7 +1012,7 @@ export default {
                     "welcome": "Welcome to the tenant portal of the",
                     "content_1": "We are pleased to inform you that an account has been set up for you in the tenant's total. and send you the activation code.",
                     "offer": "What does the application offer?",
-                    "offers": "\n          <li>With the digital tenant dossier you have access to all relevant documents, such as Tenancy agreement, house rules or other documents relating to the property</li>\n          <li>The ticketing system enables you to process your enquiries simply and uncomplicatedly - with the following features Communicate your concerns to the administration at any time and from any place.</li>\n          <li>On the market and lending place you can send objects to your neighbourhood. sell or lend.</li>\n          <li>Share news with your neighbours by publishing a contribution. The pinboard is also used by the administration for the communication, so all are always on the Running.</li>\n          <li>Further micro apps within the application set new standards in living quality where various services can be conveniently used.</li>\n        ",
+                    "offers": "\n                <li>With the digital tenant dossier you have access to all relevant documents, such as Tenancy agreement, house rules or other documents relating to the property</li>\n                <li>The ticketing system enables you to process your enquiries simply and uncomplicatedly - with the following features Communicate your concerns to the administration at any time and from any place.</li>\n                <li>On the market and lending place you can send objects to your neighbourhood. sell or lend.</li>\n                <li>Share news with your neighbours by publishing a contribution. The pinboard is also used by the administration for the communication, so all are always on the Running.</li>\n                <li>Further micro apps within the application set new standards in living quality where various services can be conveniently used.</li>\n            ",
                     "register": "First registration and activation of your account",
                     "content_2": "To register, please click on the link below and log in with your e-mail address and the personal unlock code. Once you have logged in, you can Define your own password and use it from now on for the login.",
                     "link_application": "Link to the application",
@@ -1018,6 +1020,15 @@ export default {
                     "content_4": "If you should need assistance with the registration, then we are gladly at your disposal.",
                     "your_sincerely": "Yours sincerely",
                     "your_administration": "your administration"
+                }
+            },
+            "tenant_rent_contracts": {
+                "saved": "Tenant rent contract saved",
+                "deleted": "Tenant rent contract deleted",
+                "errors": {
+                    "not_found": "Tenant rent contract not found",
+                    "create": "Tenant rent contract create error: ",
+                    "deleted": "Tenant rent contract Delete error: "
                 }
             },
             "building": {
@@ -1473,8 +1484,8 @@ export default {
                     "range": "Range",
                     "component": "Component",
                     "acquisition": "Acquisition Phase",
-                    "keywords": "Keywords",
                     "cost": "Cost Impact",
+                    "keywords": "Keywords",
                     "building_locations": {
                         "house_entrance": "House Entrance",
                         "staircase": "Staircase",

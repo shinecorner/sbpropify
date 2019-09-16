@@ -7,18 +7,16 @@ return [
     'service' => 'Service notifications',
     'updated' => 'Settings updated',
     'language' => 'Language',
-    'summary' =>
-    [
-      'label' => 'Summary statistics',
-      'daily' => 'Daily',
-      'monthly' => 'Monthly',
-      'yearly' => 'Yearly',
+    'summary' => [
+        'label' => 'Summary statistics',
+        'daily' => 'Daily',
+        'monthly' => 'Monthly',
+        'yearly' => 'Yearly',
     ],
-    'contact_enable' =>
-    [
-      'label' => 'Enable my contacts',
-      'use_global' => 'Use global',
-      'show' => 'Show',
-      'hide' => 'Hide',
+    'contact_enable' => [
+        'label' => 'Enable my contacts',
+        'use_global' => 'Use global',
+        'show' => 'Show',
+        'hide' => 'Hide',
     ],
 ];
