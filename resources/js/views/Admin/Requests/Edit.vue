@@ -347,8 +347,8 @@
                                     <el-row :gutter="10"> 
                                         <el-col :md="24">
                                          <el-form-item class="switcher" prop="is_public">
-                                            <label class="public__label">
-                                                <span class="public__desc">{{$t('models.request.active_reminder_switcher')}}</span>
+                                            <label class="switcher__label">
+                                                <span class="switcher__desc">{{$t('models.request.active_reminder_switcher')}}</span>
                                             </label>
                                             <el-switch v-model="model.active_reminder"/>
                                         </el-form-item>
@@ -383,14 +383,16 @@
                                 </el-tab-pane>
                                 <el-tab-pane :label="$t('models.request.is_public')" name="is_public" v-loading="loading.state">
                                     <el-form-item class="switcher" prop="is_public">
-                                        <label class="public__label">
-                                            <span class="public__desc">{{$t('models.request.public_desc')}}</span>
+                                        <label class="switcher__label">
+                                            {{$t('models.request.public_title')}}
+                                            <span class="switcher__desc">{{$t('models.request.public_desc')}}</span>
                                         </label>
                                         <el-switch v-model="model.is_public"/>
                                     </el-form-item>
                                     <el-form-item prop="visibility" v-if="model.is_public && model.tenant.building && model.tenant.building.quarter_id > 0">
-                                            <label class="public__label">
-                                            <span class="public__desc">{{$t('models.request.visibility.label')}}</span>
+                                        <label class="switcher__label">
+                                            {{$t('models.request.visibility_title')}}
+                                            <span class="switcher__desc">{{$t('models.request.visibility_desc')}}</span>
                                         </label>
                                         <div>
                                             <el-select v-model="model.visibility">
@@ -400,8 +402,9 @@
                                         </div>
                                     </el-form-item>
                                     <el-form-item class="switcher" prop="send_notification" v-if="model.is_public">
-                                        <label class="public__label">
-                                            <span class="public__desc">{{$t('models.request.send_notification')}}</span>
+                                        <label class="switcher__label">
+                                            {{$t('models.request.send_notification_title')}}
+                                            <span class="switcher__desc">{{$t('models.request.send_notification_desc')}}</span>
                                         </label>
                                         <el-switch v-model="model.send_notification"/>
                                     </el-form-item>
@@ -732,6 +735,10 @@
         }
     }
 
+    /deep/ .ql-container.ql-snow .ql-editor {
+        min-height: 300px;
+    }
+
 </style>
 
 <style lang="scss">
@@ -871,25 +878,34 @@
         }
 
         #pane-is_public {
-            .el-form-item {
-                
+
+            .switcher {
                 .el-form-item__content {
                     display: flex;
                     align-items: center;
-
-                    & > div {
-                        flex: 1;
-                        justify-content: flex-end;
-                        text-align: end;
-                    }
-
-                    // .el-select .el-input {
-                    //     max-width: 100px;
-                    //     float: right;
-                    // }
+                }
+                &__label {
+                    text-align: left;
+                    line-height: 1.4em;
+                    color: #606266;
+                }
+                &__desc {
+                    margin-top: 0.5em;
+                    display: block;
+                    font-size: 0.9em;
+                }
+                .el-switch {
+                    margin-left: auto;
                 }
 
+                & > div {
+                    flex: 1;
+                    justify-content: flex-end;
+                    text-align: end;
+                }
             }
+            
+            
         }
     }
     

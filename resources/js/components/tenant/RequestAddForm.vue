@@ -72,9 +72,10 @@
                 </el-option>
             </el-select>
         </el-form-item> -->
-        <el-form-item class="switcher-form-item" prop="is_public">
-            <label>
-                {{$t('tenant.request_public_info')}}
+        <el-form-item class="switcher" prop="is_public">
+            <label class="switcher__label" >
+                {{$t('tenant.request_public_title')}}
+                <span class="switcher__desc">{{$t('tenant.request_public_desc')}}</span>
             </label>
             <el-switch v-model="model.is_public"/>
         </el-form-item>
@@ -277,12 +278,34 @@
         .el-form-item {
             margin-bottom: 0px;
 
-            &.switcher-form-item {
+            &.switcher {
                 padding-top: 10px;
 
-                /deep/ label {
-                    line-height: 20px;
+                /deep/ .el-form-item__content {
+                    display: flex;
+                    
+                    .switcher__label {
+                        text-align: left;
+                        line-height: 1.4em;
+                        color: #606266;
+                    }
+                    .switcher__desc {
+                        margin-top: 0.5em;
+                        display: block;
+                        font-size: 0.9em;
+                    }
+
+                    /deep/ & > div {
+                        flex: 1;
+                        justify-content: flex-end;
+                        text-align: end;
+                    }
                 }
+                    
+                /deep/ .el-switch {
+                    margin-left: auto;
+                }
+                
             }
 
             /deep/ .el-form-item__label {

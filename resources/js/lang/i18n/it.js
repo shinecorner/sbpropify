@@ -1151,8 +1151,12 @@ export default {
                 "service": "Servizio",
                 "created_by": "Creato da",
                 "is_public": "Pubblico",
+                "public_title": "Pubblico",
                 "public_desc": "Se la vostra richiesta è una richiesta che riguarda anche i vostri vicini, attivate questa opzione.",
-                "send_notification": "Inviate un'e-mail di notifica a tutti gli inquilini.",
+                "visibility_title": "Visibilità",
+                "visibility_desc": "Visibility description",
+                "send_notification_title": "Notifica",
+                "send_notification_desc": "Inviate un'e-mail di notifica a tutti gli inquilini.",
                 "comments": "Commenti",
                 "assigned_to": "Assegnato a",
                 "assign_providers": "Assegnare i fornitori",
@@ -1178,9 +1182,9 @@ export default {
                 "due_in": "Due in",
                 "was_due_on": "Was due on",
                 "due_on": "Due on",
-                "active_reminder_switcher": "Active Reminder",
-                "days_left": "How many days before should the email be sent?",
-                "send_person": "Which person should be notified?",
+                "active_reminder_switcher": "Promemoria attivo",
+                "days_left": "Quanti giorni prima dovrebbe essere inviata l'e-mail?",
+                "send_person": "Quale persona deve essere informata?",
                 "media": {
                     "added": "Documento ajouté",
                     "removed": "Supporti rimossi",
@@ -1703,7 +1707,10 @@ export default {
             "category": "Categoria",
             "defect_location": "Posizione del difetto",
             "description": "Descrizione",
-            "request_public_info": "Se la vostra richiesta è una richiesta che riguarda anche i vostri vicini, attivate questa opzione."
+            "request_public_title": "Pubblico",
+            "request_public_desc": "Se la vostra richiesta è una richiesta che riguarda anche i vostri vicini, attivate questa opzione.",
+            "request_upload_title": "Carica",
+            "request_upload_desc": "Si prega di notare che una volta caricati i file non possono più essere cancellati da voi."
         },
         "validation": {
             "validation_main_message": "I dati forniti non erano validi.",

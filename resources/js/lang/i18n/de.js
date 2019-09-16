@@ -1151,8 +1151,12 @@ export default {
                 "service": "Dienstleister",
                 "created_by": "Erstellt durch",
                 "is_public": "Öffentlich machen",
+                "public_title": "Öffentlich machen",
                 "public_desc": "Wenn es sich bei Ihrer Anfragen um ein Anliegen handelt, welche auch Ihre Nachbarn betrifft, dann aktivieren Sie diese Option.",
-                "send_notification": "Senden Sie eine Benachrichtigungs-E-Mail an alle Mieter.",
+                "visibility_title": "Sichtbarkeit",
+                "visibility_desc": "Visibility description",
+                "send_notification_title": "Benachrichtigung",
+                "send_notification_desc": "Senden Sie eine Benachrichtigungs-E-Mail an alle Mieter.",
                 "comments": "Mieter-Chat",
                 "assigned_to": "Zuständig",
                 "assign_providers": "Zuweisen",
@@ -1178,8 +1182,8 @@ export default {
                 "due_in": "Zu erledigen in",
                 "was_due_on": "In Verzug seit",
                 "due_on": "Erledigt am",
-                "active_reminder_switcher": "Active Reminder",
-                "days_left": "How many days before should the email be sent?",
+                "active_reminder_switcher": "Aktive Erinnerung",
+                "days_left": "Wie viele Tage vorher soll die E-Mail versendet werden?",
                 "send_person": "Which person should be notified?",
                 "media": {
                     "added": "Mediendatei hinzugefügt",
@@ -1703,7 +1707,10 @@ export default {
             "category": "Kategorie",
             "defect_location": "Örtlichkeit",
             "description": "Beschreibung",
-            "request_public_info": "Wenn es sich bei Ihrer Anfragen um ein Anliegen handelt, welche auch Ihre Nachbarn betrifft, dann aktivieren Sie diese Option."
+            "request_public_title": "Öffentlich",
+            "request_public_desc": "Wenn es sich bei Ihrer Anfragen um ein Anliegen handelt, welche auch Ihre Nachbarn betrifft, dann aktivieren Sie diese Option.",
+            "request_upload_title": "Hochladen",
+            "request_upload_desc": "Bitte beachten Sie, dass einmal hochgeladene Dateien nicht mehr von Ihnen gelöscht werden können."
         },
         "validation": {
             "validation_main_message": "Die angegebenen Daten waren ungültig.",

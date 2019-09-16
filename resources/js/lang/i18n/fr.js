@@ -1151,8 +1151,12 @@ export default {
                 "service": "Service",
                 "created_by": "Créé par",
                 "is_public": "Public",
+                "public_title": "Public",
                 "public_desc": "Si votre demande concerne également vos voisins, activez cette option.",
-                "send_notification": "Envoyer un email de notification à tous les locataires.",
+                "visibility_title": "Visibilité",
+                "visibility_desc": "Visibility description",
+                "send_notification_title": "Notification",
+                "send_notification_desc": "Envoyer un email de notification à tous les locataires.",
                 "comments": "Commentaires",
                 "assigned_to": "Affecté à",
                 "assign_providers": "Affecter fournisseurs",
@@ -1178,9 +1182,9 @@ export default {
                 "due_in": "Due in",
                 "was_due_on": "Was due on",
                 "due_on": "Due on",
-                "active_reminder_switcher": "Active Reminder",
-                "days_left": "How many days before should the email be sent?",
-                "send_person": "Which person should be notified?",
+                "active_reminder_switcher": "Rappel actif",
+                "days_left": "Combien de jours avant l'envoi de l'email ?",
+                "send_person": "Quelle personne doit être notifiée ?",
                 "media": {
                     "added": "Document ajouté",
                     "removed": "Suppression du support",
@@ -1703,7 +1707,10 @@ export default {
             "category": "Catégorie",
             "defect_location": "Localisation des défauts",
             "description": "Description",
-            "request_public_info": "Si votre demande concerne également vos voisins, activez cette option."
+            "request_public_title": "Public",
+            "request_public_desc": "Si votre demande concerne également vos voisins, activez cette option.",
+            "request_upload_title": "Télécharger",
+            "request_upload_desc": "Veuillez noter qu'une fois les fichiers téléchargés, vous ne pouvez plus les supprimer."
         },
         "validation": {
             "validation_main_message": "Les données fournies n'étaient pas valides.",

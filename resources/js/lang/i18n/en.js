@@ -1151,8 +1151,12 @@ export default {
                 "service": "Service",
                 "created_by": "Created by",
                 "is_public": "Public",
+                "public_title": "Public",
                 "public_desc": "If your request is a request which also concerns your neighbours, then activate this option.",
-                "send_notification": "Send notification email to all the tenants.",
+                "visibility_title": "Visibility",
+                "visibility_desc": "Visibility description",
+                "send_notification_title": "Notification",
+                "send_notification_desc": "Send notification email to all the tenants.",
                 "comments": "Comments",
                 "assigned_to": "Assigned to",
                 "assign_providers": "Assign providers",
@@ -1180,7 +1184,7 @@ export default {
                 "due_on": "Due on",
                 "active_reminder_switcher": "Active Reminder",
                 "days_left": "How many days before should the email be sent?",
-                "send_person": "Which person should be notified?",
+                "send_person": "Welche Person soll benachrichtigt werden?",
                 "media": {
                     "added": "Document added",
                     "removed": "Document removed",
@@ -1287,7 +1291,8 @@ export default {
                     "tenant": "Search for a tenant",
                     "service": "Search for a service",
                     "propertyManagers": "Search for managers",
-                    "visibility": "Select visibility"
+                    "visibility": "Select visibility",
+                    "person": "Search for a person"
                 },
                 "mail": {
                     "body": "Body",
@@ -1703,7 +1708,10 @@ export default {
             "category": "Category",
             "defect_location": "Defect location",
             "description": "Description",
-            "request_public_info": "If your request is a request which also concerns your neighbours, then activate this option."
+            "request_public_title": "Public",
+            "request_public_desc": "If your request is a request which also concerns your neighbours, then activate this option.",
+            "request_upload_title": "Upload",
+            "request_upload_desc": "Please note that once uploaded files can no longer be deleted by you."
         },
         "validation": {
             "validation_main_message": "The given data was invalid.",

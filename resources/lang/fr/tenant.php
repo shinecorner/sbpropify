@@ -162,5 +162,8 @@ return [
     "category" => "Catégorie",
     "defect_location" => "Localisation des défauts",
     "description" => "Description",
-    "request_public_info" => "Si votre demande concerne également vos voisins, activez cette option.",
+    "request_public_title" => "Public",
+    "request_public_desc" => "Si votre demande concerne également vos voisins, activez cette option.",
+    "request_upload_title" => "Télécharger",
+    "request_upload_desc" => "Veuillez noter qu'une fois les fichiers téléchargés, vous ne pouvez plus les supprimer.",
 ];
