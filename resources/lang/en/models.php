@@ -166,7 +166,7 @@ return [
             'your_administration' => 'your administration'
         ],
     ],
-    'rent_contracts' => [
+    'rent_contract' => [
         'saved' => 'Tenant rent contract saved',
         'deleted' => 'Tenant rent contract deleted',
         'errors' => [

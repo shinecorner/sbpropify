@@ -166,7 +166,7 @@ return [
             'your_administration' => 'Ihre Verwaltung'
         ]
     ],
-    'rent_contracts' => [
+    'rent_contract' => [
         'saved' => 'Mietvertrag gesichert',
         'deleted' => 'Mietvertrag gelöscht',
         'errors' => [

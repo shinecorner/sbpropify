@@ -260,4 +260,9 @@ class RentContract extends AuditableModel implements HasMedia
     {
         return $this->belongsTo(Unit::class, 'unit_id', 'id');
     }
+
+    protected function getFormatColumnName()
+    {
+        return 'rent_contract_format';
+    }
 }
