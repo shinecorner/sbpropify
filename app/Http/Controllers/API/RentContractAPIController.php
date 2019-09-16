@@ -164,7 +164,7 @@ class RentContractAPIController extends AppBaseController
         /** @var RentContract $tenant */
         $rentContract = $this->rentContractRepository->findWithoutFail($id);
         if (empty($rentContract)) {
-            return $this->sendError(__('models.tenant_rent_contract.errors.not_found'));
+            return $this->sendError(__('models.rent_contract.errors.not_found'));
         }
 
         $rentContract->load(['tenant', 'building.address', 'unit']);
@@ -218,14 +218,14 @@ class RentContractAPIController extends AppBaseController
         try {
             $rentContract = $this->rentContractRepository->create($input);
         } catch (\Exception $e) {
-            return $this->sendError(__('models.tenant_rent_contract.errors.create') . $e->getMessage());
+            return $this->sendError(__('models.rent_contract.errors.create') . $e->getMessage());
         }
 
 
         $rentContract->load(['tenant', 'building.address', 'unit']);
 
         $response = (new RentContractTransformer())->transform($rentContract);
-        return $this->sendResponse($response, __('models.tenant_rent_contract.saved'));
+        return $this->sendResponse($response, __('models.rent_contract.saved'));
     }
 
     /**
@@ -282,7 +282,7 @@ class RentContractAPIController extends AppBaseController
         /** @var RentContract $rentContract */
         $rentContract = $this->rentContractRepository->findWithoutFail($id);
         if (empty($rentContract)) {
-            return $this->sendError(__('models.tenant_rent_contract.errors.not_found'));
+            return $this->sendError(__('models.rent_contract.errors.not_found'));
         }
 
         try {
@@ -343,7 +343,7 @@ class RentContractAPIController extends AppBaseController
             return $this->sendError('Delete error: ' . $e->getMessage());
         }
 
-        return $this->sendResponse($id, __('models.tenant_rent_contract.deleted'));
+        return $this->sendResponse($id, __('models.rent_contract.deleted'));
     }
 
     /**
@@ -391,8 +391,8 @@ class RentContractAPIController extends AppBaseController
             RentContract::destroy($ids);
         }
         catch (\Exception $e) {
-            return $this->sendError(__('models.tenant_rent_contract.errors.deleted') . $e->getMessage());
+            return $this->sendError(__('models.rent_contract.errors.deleted') . $e->getMessage());
         }
-        return $this->sendResponse($ids, __('models.tenant_rent_contract.deleted'));
+        return $this->sendResponse($ids, __('models.rent_contract.deleted'));
     }
 }

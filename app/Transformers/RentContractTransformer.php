@@ -5,7 +5,7 @@ namespace App\Transformers;
 use App\Models\RentContract;
 
 /**
- * Class TenantRentContractTransformer.
+ * Class RentContractTransformer.
  *
  * @package namespace App\Transformers;
  */

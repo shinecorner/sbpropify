@@ -13,7 +13,7 @@ class ListRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('list-tenant'); // @TODO add new rule list-tenant_rent_contract
+        return $this->user()->can('list-tenant'); // @TODO add new rule list-rent_contract
     }
 
     /**
