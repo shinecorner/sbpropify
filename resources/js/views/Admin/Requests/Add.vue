@@ -142,6 +142,13 @@
                             </el-form-item>
                         </el-col>
                         <el-col :md="12">
+                            <el-form-item :label="$t('models.request.public_desc')"
+                                        prop="visibility"
+                            >
+                                <el-switch v-model="model.is_public"/>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :md="12">
                             <el-form-item :label="$t('models.request.visibility.label')"
                                         :rules="validationRules.visibility"
                                         prop="visibility"

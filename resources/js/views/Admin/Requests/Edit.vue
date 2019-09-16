@@ -883,7 +883,7 @@
             }
         }
 
-        #pane-public {
+        #pane-is_public {
             .el-form-item {
                 
                 .el-form-item__content {
