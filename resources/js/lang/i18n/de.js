@@ -634,7 +634,8 @@ export default {
             "cancel": "Schliessen",
             "category": "Kategorie",
             "defect_location": "Örtlichkeit",
-            "description": "Beschreibung"
+            "description": "Beschreibung",
+            "request_public_info": "Wenn es sich bei Ihrer Anfragen um ein Anliegen handelt, welche auch Ihre Nachbarn betrifft, dann aktivieren Sie diese Option."
         },
         "pages": {
             "profile": {

@@ -634,7 +634,8 @@ export default {
             "cancel": "stornare",
             "category": "Categoria",
             "defect_location": "Posizione del difetto",
-            "description": "Descrizione"
+            "description": "Descrizione",
+            "request_public_info": "Se la vostra richiesta è una richiesta che riguarda anche i vostri vicini, attivate questa opzione."
         },
         "pages": {
             "profile": {

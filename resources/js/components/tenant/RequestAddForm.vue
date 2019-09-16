@@ -74,7 +74,7 @@
         </el-form-item> -->
         <el-form-item class="switcher-form-item" prop="public">
             <label>
-                {{$t('models.request.public')}}
+                {{$t('tenant.request_public_info')}}
             </label>
             <el-switch v-model="model.public"/>
         </el-form-item>
