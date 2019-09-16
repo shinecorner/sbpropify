@@ -74,7 +74,7 @@
         </el-form-item> -->
         <el-form-item class="switcher-form-item" prop="public">
             <label>
-                Mark a request as public
+                {{$t('models.request.public')}}
             </label>
             <el-switch v-model="model.public"/>
         </el-form-item>
@@ -254,6 +254,12 @@
 <style lang="scss" scoped>
     .request-add.el-form {
         .el-form-item {
+            margin-bottom: 0px;
+
+            /deep/ .el-form-item__label {
+                padding: 0;
+            }
+
             .el-select {
                 width: 100%;
             }
@@ -306,5 +312,7 @@
                 }
             }
         }
+
     }
+
 </style>
