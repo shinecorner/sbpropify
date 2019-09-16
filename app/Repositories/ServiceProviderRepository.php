@@ -48,7 +48,7 @@ class ServiceProviderRepository extends BaseRepository
         if (isset($attributes['address'])) {
             unset($attributes['address']);
         }
-
+        $attributes = $this->fixCategoryValue($attributes);
         return parent::create($attributes);
     }
 
@@ -94,6 +94,7 @@ class ServiceProviderRepository extends BaseRepository
             unset($attributes['user']);
         }
 
+        $attributes = $this->fixCategoryValue($attributes);
         return parent::updateExisting($model, $attributes);
     }
 
@@ -109,5 +110,18 @@ class ServiceProviderRepository extends BaseRepository
             ->where('quarter_service_provider.service_provider_id', $sp->id);
 
         return $spbs->union($spds);
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    protected function fixCategoryValue($data)
+    {
+        if (empty($data['category'])) {
+            return $data;
+        }
+        $data['category'] = array_flip(ServiceProvider::ServiceProviderCategory)[$data['category']] ?? $data['category'];
+        return $data;
     }
 }
