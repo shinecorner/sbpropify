@@ -168,7 +168,7 @@ export default {
                     "your_administration": "votre administration"
                 }
             },
-            "tenant_rent_contracts": {
+            "rent_contracts": {
                 "saved": "Contrat de location du locataire sauvegardé",
                 "deleted": "Loyer du locataire Contrat de location supprimé",
                 "errors": {
