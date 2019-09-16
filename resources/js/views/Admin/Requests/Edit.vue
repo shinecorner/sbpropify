@@ -192,11 +192,11 @@
                                         <strong>{{$constants.serviceRequests.priority[model.priority]}}</strong>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :md="8" class="summary-item">
+                                <!-- <el-col :md="8" class="summary-item">
                                     <el-form-item :label="$t('models.request.visibility.label')">
                                         <strong>{{$constants.serviceRequests.visibility[model.visibility]}}</strong>
                                     </el-form-item>
-                                </el-col>
+                                </el-col> -->
                             </el-row>
 
                             <el-tabs type="card" v-model="activeTab1">
@@ -294,7 +294,83 @@
                     </el-col>
                     <el-col :md="12">
                         <template v-if="$can($permissions.assign.request)">
-                            <card :loading="loading" :header="$t('models.request.actions')" id="request_actions">
+ 
+                                <el-tabs type="border-card" :loading="loading" v-model="activeActionTab">
+                                    <el-tab-pane :label="$t('models.request.actions')" name="actions" v-loading="loading.state">
+                                        <el-row :gutter="10">                                    
+                                            <el-col :md="12">
+                                                <el-form-item :label="$t('models.request.status.label')"
+                                                            :rules="validationRules.status"
+                                                            prop="status">
+                                                    <el-select :placeholder="$t('models.request.placeholders.status')"
+                                                            class="custom-select"
+                                                            v-model="model.status">
+                                                        <el-option
+                                                            :key="k"
+                                                            :label="$t(`models.request.status.${status}`)"
+                                                            :value="parseInt(k)"
+                                                            v-for="(status, k) in constants.serviceRequests.status">
+                                                        </el-option>
+                                                    </el-select>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :md="12">
+                                                <el-form-item :label="$t('models.request.due_date')"
+                                                            :rules="validationRules.due_date">
+                                                    <el-date-picker
+                                                        :disabled="$can($permissions.update.serviceRequest)"
+                                                        :placeholder="$t('models.request.placeholders.due_date')"
+                                                        format="dd.MM.yyyy"
+                                                        style="width: 100%"
+                                                        type="date"
+                                                        v-model="model.due_date"
+                                                        value-format="yyyy-MM-dd"
+                                                    >
+                                                    </el-date-picker>
+                                                </el-form-item>
+                                            </el-col>
+                                            <el-col :md="12">
+                                                <el-form-item :label="$t('models.request.internal_priority.label')"
+                                                            :rules="validationRules.internal_priority"
+                                                            prop="internal_priority">
+                                                    <el-select :placeholder="$t('models.request.internal_priority.label')" class="custom-select" v-model="model.internal_priority">
+                                                        <el-option
+                                                            :key="k"
+                                                            :label="$t(`models.request.internal_priority.${priority}`)"
+                                                            :value="parseInt(k)"
+                                                            v-for="(priority, k) in $constants.serviceRequests.internal_priority">
+                                                        </el-option>
+                                                    </el-select>
+                                                </el-form-item>
+                                            </el-col>
+                                        </el-row>
+                                    </el-tab-pane>
+                                    <el-tab-pane :label="$t('models.request.public')" name="public" v-loading="loading.state">
+                                        <el-form-item class="switcher" prop="public">
+                                            <label class="switcher__label">
+                                                {{$t('models.request.public_desc')}}
+                                            </label>
+                                            <el-switch v-model="model.public"/>
+                                        </el-form-item>
+                                        <el-form-item prop="model.pdf_font_family">
+                                            <label class="card-label">
+                                                {{$t('models.realEstate.font_family')}}
+                                            </label>
+                                            <!-- <el-select
+                                                        style="display: block"
+                                                        v-model="model.pdf_font_family">
+                                                <el-option :key="font.id"
+                                                            :style="`font-family: '${font.label}';`"
+                                                            :label="font.label"
+                                                            :value="font.label"
+                                                            v-for="font in fonts"></el-option>
+                                            </el-select> -->
+                                        </el-form-item>
+                                    </el-tab-pane>
+                                </el-tabs>
+                           
+
+                            <!-- <card class="mt15 request" :loading="loading" :header="$t('models.request.actions')" id="request_actions">
                                 <el-row :gutter="10">                                    
                                     <el-col :md="12">
                                         <el-form-item :label="$t('models.request.status.label')"
@@ -342,7 +418,8 @@
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
-                            </card>
+                            </card> -->
+
                             <card class="mt15 request" :loading="loading" :header="$t('models.request.assignment')">
                                 <assignment-by-type
                                     :resetToAssignList="resetToAssignList"
@@ -448,6 +525,7 @@
             return {
                 activeTab1: 'request_details',
                 activeTab2: 'comments',
+                activeActionTab: 'actions',
                 conversationVisible: false,
                 selectedConversation: {},
                 constants: this.$constants,
