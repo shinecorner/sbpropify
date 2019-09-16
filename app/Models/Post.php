@@ -79,9 +79,10 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
 
     public $table = 'posts';
 
-    const TypeArticle = 1;
+    const TypePost = 1;
     const TypeNewNeighbour = 2;
     const TypePinned = 3;
+    const TypeArticle = 4;
 
     const StatusNew = 1;
     const StatusPublished = 2;
@@ -99,9 +100,10 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
     const CategorySanitary = 5;
 
     const Type = [
-        self::TypeArticle => 'article',
+        self::TypePost => 'post',
         self::TypeNewNeighbour => 'new_neighbour',
         self::TypePinned => 'pinned',
+        self::TypeArticle => 'article',
     ];
     const Status = [
         self::StatusNew => 'new',
