@@ -295,7 +295,7 @@
                     <el-col :md="12">
                         <template v-if="$can($permissions.assign.request)">
  
-                            <el-tabs type="border-card" :loading="loading" v-model="activeActionTab">
+                            <el-tabs class="action-tabs" type="border-card" :loading="loading" v-model="activeActionTab">
                                 <el-tab-pane :label="$t('models.request.actions')" name="actions" v-loading="loading.state">
                                     <el-row :gutter="10">                                    
                                         <el-col :md="12">
@@ -364,7 +364,7 @@
                                                         prop="person_id">
                                                 <el-select
                                                     :loading="remoteLoading"
-                                                    :placeholder="$t('models.request.placeholders.tenant')"
+                                                    :placeholder="$t('models.request.placeholders.person')"
                                                     :remote-method="remoteSearchTenants"
                                                     filterable
                                                     remote
@@ -389,7 +389,7 @@
                                         </label>
                                         <el-switch v-model="model.is_public"/>
                                     </el-form-item>
-                                    <el-form-item prop="visibility" v-if="model.is_public && model.tenant.building && model.tenant.building.quarter_id > 0">
+                                    <el-form-item class="switcher" prop="visibility" v-if="model.is_public && model.tenant.building && model.tenant.building.quarter_id > 0">
                                         <label class="switcher__label">
                                             {{$t('models.request.visibility_title')}}
                                             <span class="switcher__desc">{{$t('models.request.visibility_desc')}}</span>
@@ -883,6 +883,12 @@
                 .el-form-item__content {
                     display: flex;
                     align-items: center;
+
+                    & > div {
+                        flex: 1;
+                        justify-content: flex-end;
+                        text-align: end;
+                    }
                 }
                 &__label {
                     text-align: left;
@@ -894,18 +900,12 @@
                     display: block;
                     font-size: 0.9em;
                 }
-                .el-switch {
-                    margin-left: auto;
-                }
 
-                & > div {
-                    flex: 1;
-                    justify-content: flex-end;
-                    text-align: end;
-                }
             }
             
-            
+        }
+        .action-tabs {
+            border-radius: 6px;
         }
     }
     
