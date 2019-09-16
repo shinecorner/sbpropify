@@ -345,14 +345,14 @@
                                             </el-col>
                                         </el-row>
                                     </el-tab-pane>
-                                    <el-tab-pane :label="$t('models.request.public.label')" name="public" v-loading="loading.state">
-                                        <el-form-item class="switcher" prop="public">
+                                    <el-tab-pane :label="$t('models.request.public.label')" name="is_public" v-loading="loading.state">
+                                        <el-form-item class="switcher" prop="is_public">
                                             <label class="public__label">
                                                 <span class="public__desc">{{$t('models.request.public.public_desc')}}</span>
                                             </label>
-                                            <el-switch v-model="model.public"/>
+                                            <el-switch v-model="model.is_public"/>
                                         </el-form-item>
-                                        <el-form-item prop="visibility" v-if="model.public && model.tenant.building && model.tenant.building.quarter_id > 0">
+                                        <el-form-item prop="visibility" v-if="model.is_public && model.tenant.building && model.tenant.building.quarter_id > 0">
                                              <label class="public__label">
                                                 <span class="public__desc">{{$t('models.request.visibility.label')}}</span>
                                             </label>
@@ -361,11 +361,11 @@
                                                 </el-option>
                                             </el-select>
                                         </el-form-item>
-                                        <el-form-item class="switcher" prop="notification" v-if="model.public">
+                                        <el-form-item class="switcher" prop="notification" v-if="model.is_public">
                                             <label class="public__label">
                                                 <span class="public__desc">Send notification email to all the tenants{{$t('models.request.public.notification')}}</span>
                                             </label>
-                                            <el-switch v-model="model.notification"/>
+                                            <el-switch v-model="model.send_notification"/>
                                         </el-form-item>
                                     </el-tab-pane>
                                 </el-tabs>
