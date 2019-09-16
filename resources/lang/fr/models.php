@@ -166,6 +166,15 @@ return [
             'your_administration' => 'votre administration'
         ]
     ],
+    'tenant_rent_contracts' => [
+        'saved' => 'Contrat de location du locataire sauvegardé',
+        'deleted' => 'Loyer du locataire Contrat de location supprimé',
+        'errors' => [
+            'not_found' => 'Le contrat de location du locataire n\'a pas été trouvé',
+            'create' => 'Le contrat de location du locataire crée une erreur : ',
+            'deleted' => 'Contrat de location du locataire Supprimer erreur : ',
+        ]
+    ],
     'building' => [
         "title" => "Bâtiments",
         "edit_title" => "Éditer le bâtiment",

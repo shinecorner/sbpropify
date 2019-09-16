@@ -166,6 +166,15 @@ return [
             'your_administration' => 'la sua amministrazione'
         ],
     ],
+    'tenant_rent_contracts' => [
+        'saved' => 'Contratto d\'affitto d\'affitto salvato',
+        'deleted' => 'Contratto d\'affitto del locatario soppresso',
+        'errors' => [
+            'not_found' => 'Contratto di locazione non trovato',
+            'create' => 'Contratto di affitto inquilino creare errore: ',
+            'deleted' => 'Contratto di locazione dell\'inquilino Cancella errore: ',
+        ]
+    ],
     'building' => [
         "title" => "Edifici",
         "edit_title" => "Modifica Edificio",

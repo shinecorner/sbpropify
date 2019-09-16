@@ -166,6 +166,15 @@ return [
             'your_administration' => 'your administration'
         ],
     ],
+    'tenant_rent_contracts' => [
+        'saved' => 'Tenant rent contract saved',
+        'deleted' => 'Tenant rent contract deleted',
+        'errors' => [
+            'not_found' => 'Tenant rent contract not found',
+            'create' => 'Tenant rent contract create error: ',
+            'deleted' => 'Tenant rent contract Delete error: ',
+        ]
+    ],
     'building' => [
         'title' => 'Buildings',
         'edit_title' => 'Edit Building',

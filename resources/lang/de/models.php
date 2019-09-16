@@ -166,6 +166,15 @@ return [
             'your_administration' => 'Ihre Verwaltung'
         ]
     ],
+    'tenant_rent_contracts' => [
+        'saved' => 'Mietvertrag gesichert',
+        'deleted' => 'Mietvertrag gelöscht',
+        'errors' => [
+            'not_found' => 'Mieter Mietvertrag nicht gefunden',
+            'create' => 'Mietvertrag des Mieters erstellt Fehler: ',
+            'deleted' => 'Mieter Mietvertrag Löschfehler: ',
+        ]
+    ],
     'building' => [
         'title' => 'Liegenschaften',
         'edit_title' => 'Liegenschaft bearbeiten',
