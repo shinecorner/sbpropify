@@ -2,22 +2,21 @@
 
 namespace App\Transformers;
 
-use App\Models\Tenant;
-use App\Models\TenantRentContract;
+use App\Models\RentContract;
 
 /**
  * Class TenantRentContractTransformer.
  *
  * @package namespace App\Transformers;
  */
-class TenantRentContractTransformer extends BaseTransformer
+class RentContractTransformer extends BaseTransformer
 {
     /**
-     * @param TenantRentContract $model
+     * @param RentContract $model
      * @return array
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function transform(TenantRentContract $model)
+    public function transform(RentContract $model)
     {
         $response = [
             'id' => $model->id,
@@ -27,7 +26,7 @@ class TenantRentContractTransformer extends BaseTransformer
             'type' => $model->type,
             'duration' => $model->duration,
             'status' => $model->status,
-            'tenant_rent_contract_format' => $model->tenant_rent_contract_format,
+            'rent_contract_format' => $model->rent_contract_format,
             'deposit_type' => $model->deposit_type,
             'deposit_status' => $model->deposit_status,
             'deposit_amount' => $model->deposit_amount,
