@@ -634,7 +634,8 @@ export default {
             "cancel": "Cancel",
             "category": "Category",
             "defect_location": "Defect location",
-            "description": "Description"
+            "description": "Description",
+            "request_public_info": "If your request is a request which also concerns your neighbours, then activate this option."
         },
         "pages": {
             "profile": {

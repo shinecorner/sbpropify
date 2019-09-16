@@ -634,7 +634,8 @@ export default {
             "cancel": "résilier",
             "category": "Catégorie",
             "defect_location": "Localisation des défauts",
-            "description": "Description"
+            "description": "Description",
+            "request_public_info": "Si votre demande concerne également vos voisins, activez cette option."
         },
         "pages": {
             "profile": {
