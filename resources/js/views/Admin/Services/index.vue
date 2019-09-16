@@ -108,7 +108,7 @@
                     }, {
                         name: this.$t('filters.categories'),
                         type: 'select',
-                        key: 'category_id',
+                        key: 'category',
                         data: this.categories,
                     },
                     // {

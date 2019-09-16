@@ -17,10 +17,10 @@
                                                style="width: 100%"
                                                v-model="model.category">
                                         <el-option
-                                            :key="category"
-                                            :label="$t(`models.service.category.${category}`)"
-                                            :value="category"
-                                            v-for="category in $constants.serviceProviders.category">
+                                            :key="key"
+                                            :label="$t(`models.service.category.${value}`)"
+                                            :value="+key"
+                                            v-for="(value, key) in $constants.serviceProviders.category">
                                         </el-option>
                                     </el-select>
                                 </el-form-item>
