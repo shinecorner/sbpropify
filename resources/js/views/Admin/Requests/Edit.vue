@@ -356,10 +356,12 @@
                                              <label class="public__label">
                                                 <span class="public__desc">{{$t('models.request.visibility.label')}}</span>
                                             </label>
-                                             <el-select v-model="model.visibility">
-                                                <el-option :key="k" :label="$t(`models.request.visibility.${visibility}`)" :value="parseInt(k)" v-for="(visibility, k) in $constants.serviceRequests.visibility">
-                                                </el-option>
-                                            </el-select>
+                                            <div>
+                                                <el-select v-model="model.visibility">
+                                                    <el-option :key="k" :label="$t(`models.request.visibility.${visibility}`)" :value="parseInt(k)" v-for="(visibility, k) in $constants.serviceRequests.visibility">
+                                                    </el-option>
+                                                </el-select>
+                                            </div>
                                         </el-form-item>
                                         <el-form-item class="switcher" prop="notification" v-if="model.is_public">
                                             <label class="public__label">
@@ -893,7 +895,7 @@
                     & > div {
                         flex: 1;
                         justify-content: flex-end;
-                        
+                        text-align: end;
                     }
 
                     // .el-select .el-input {
