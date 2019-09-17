@@ -19,7 +19,7 @@
         </placeholder>
             <el-timeline v-else>
                 <template v-for="(audit, date) in audits.data">
-                    <el-timeline-item v-html="content" v-for="(content, index) in audit.content" :key="audit.id+'-'+index" :timestamp="`${audit.userName} • ${formatDatetime(date)}`">
+                    <el-timeline-item  v-for="(content, index) in audit.content" :key="audit.id+'-'+index" :timestamp="`${audit.userName} • ${formatDatetime(date)}`">
                         {{content}}
                     </el-timeline-item>
                 </template>
