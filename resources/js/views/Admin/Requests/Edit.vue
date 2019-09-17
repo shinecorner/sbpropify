@@ -209,12 +209,9 @@
                                     </el-form-item>
                                     <el-form-item :label="$t('general.description')" :rules="validationRules.description"
                                                   prop="description">
-                                        <quill-editor
-                                            :disabled="$can($permissions.update.serviceRequest)"
-                                            ref="quillEditor"
-                                            v-model="model.description"
-                                        >
-                                        </quill-editor>
+                                        <yimo-vue-editor
+                                                :config="editorConfig"
+                                                v-model="model.description"/>
                                     </el-form-item>
                                 </el-tab-pane>
 
@@ -489,10 +486,7 @@
     import AssignmentByType from 'components/AssignmentByType';
     import Vue from 'vue';
 
-    import 'quill/dist/quill.core.css';
-    import 'quill/dist/quill.snow.css';
-    import 'quill/dist/quill.bubble.css';
-    import {quillEditor} from 'vue-quill-editor';
+    let YimoVueEditor = require("yimo-vue-editor");
 
     export default {
         name: 'AdminRequestsEdit',
@@ -510,7 +504,7 @@
             Avatar,
             Audit,
             AssignmentByType,
-            quillEditor,
+            'yimo-vue-editor': YimoVueEditor.default,
         },
         data() {
             return {
@@ -551,7 +545,10 @@
                 }],
                 rolename: null,
                 inputVisible: false,
-                
+                editorConfig: {
+                    printLog: false,
+                    lang: YimoVueEditor.E.langs.en,
+                },
             }
         },
         computed: {

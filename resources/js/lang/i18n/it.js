@@ -763,7 +763,7 @@ export default {
                     "your_administration": "la sua amministrazione"
                 }
             },
-            "tenant_rent_contracts": {
+            "rent_contract": {
                 "saved": "Contratto d'affitto d'affitto salvato",
                 "deleted": "Contratto d'affitto del locatario soppresso",
                 "errors": {

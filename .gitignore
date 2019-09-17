@@ -25,6 +25,7 @@ yarn-error.log
 /public/tenant
 /public/vendors*
 /public/*.js
+
 .DS_Store
 .idea/
 package-lock.json

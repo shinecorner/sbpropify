@@ -33,11 +33,13 @@
                                     @change="filterChanged(filter)"
                                     class="filter-select"
                                     v-model="filterModel[filter.key]">
+                                    <el-option :label="filter.name" value="" disabled></el-option>
+                                    <el-divider></el-divider>
                                     <el-option :label="$t('general.placeholders.select')" value=""></el-option>
                                     <el-option
                                         :key="item.id + item.name"
                                         :label="item.name"
-                                        :value="item.id"
+                                        :value="+item.id"
                                         v-for="item in filter.data">
                                     </el-option>
                                 </el-select>
@@ -105,7 +107,7 @@
 
         <!--        <div class="pull-right">-->
         <!--            <el-button :disabled="!selectedItems.length" @click="batchDelete" size="mini" type="danger">-->
-        <!--                {{$t('general.actions.delete')}}-->
+        <!--                {{ $t('general.actions.delete')}}-->
         <!--            </el-button>-->
         <!--        </div>-->
 
@@ -653,12 +655,12 @@
         },
         watch: {
             search(text) {
-                if (this.timer) {
+                 if (this.timer) {
                     clearTimeout(this.timer);
                     this.timer = null;
-                }
+                 }
 
-                this.timer = setTimeout(() => this.updatePage(), 800);
+                 this.timer = setTimeout(() => this.updatePage(), 800);
             },
             "$route.query": {
                 immediate: true,
@@ -699,6 +701,8 @@
                 const dateReg = /^\d{2}([./-])\d{2}\1\d{4}$/;
                 const value = queryFilterValue && queryFilterValue.toString().match(dateReg) ? queryFilterValue : parseInt(queryFilterValue);
                 this.$set(this.filterModel, filter.key, value);
+                if(filter.key == "search")
+                    this.filterModel[filter.key] = queryFilterValue;
                 
 
                 if (!this.filterModel[filter.key]) {
@@ -719,6 +723,11 @@
     }
     .list-table {
         padding: 20px;
+       
+    }
+    .el-divider.el-divider--horizontal {
+        width: 90%;
+        margin: 0 auto !important;
     }
 
     .el-input {

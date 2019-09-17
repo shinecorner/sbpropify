@@ -15,7 +15,7 @@ class MoveRentData extends Migration
     {
         $tenants = \App\Models\Tenant::whereNotNull('rent_start')->orWhereNotNull('building_id')->get();
         $tenants->each(function ($tenant) {
-            \App\Models\TenantRentContract::create([
+            \App\Models\RentContract::create([
                 'tenant_id' => $tenant->id,
                 'building_id' => $tenant->building_id,
                 'unit_id' => $tenant->unit_id,

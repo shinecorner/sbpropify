@@ -20,7 +20,7 @@ export default (config = {}) => {
                 model: {
                     tenant_id: '',
                     name: '',
-                    type: '',
+                    type: null,
                     room_no: '',
                     monthly_rent: '',
                     floor: '',
