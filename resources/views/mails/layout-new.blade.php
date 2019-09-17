@@ -149,35 +149,35 @@
                     <div style="max-width: 650px; margin: 0 auto;" class="email-container">
                         <!--[if mso]>
                         <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="680" align="center">
-                        <tr>
-                            <td>
-                                <![endif]-->
-                                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="wrapper">
-                                    <tbody>
-                                    <tr>
-                                        <td bgcolor="transparent" height="60"></td>
-                                    </tr>
-                                    <tr>
-                                        <td bgcolor="transparent">
-                                            <img src="{{ $company->logo ? asset($company->logo) : asset('images/logo3.png') }}" width="200" alt="Propify" class="email-header">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td bgcolor="transparent" height="23"></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="background-color: transparent; font-size: 18px;color: white;">
-                                            <h3 style="padding: 0; margin: 0" class="email-header">@lang('template.tenant_portal', [], $lang)</h3>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td bgcolor="transparent" height="23"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <!--[if mso]>
-                           </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <![endif]-->
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="wrapper">
+                                        <tbody>
+                                        <tr>
+                                            <td bgcolor="transparent" height="60"></td>
+                                        </tr>
+                                        <tr>
+                                            <td bgcolor="transparent">
+                                                <img src="{{ $company->logo ? asset($company->logo) : asset('images/logo3.png') }}" width="200" alt="Propify" class="email-header">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td bgcolor="transparent" height="23"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="background-color: transparent; font-size: 18px;color: white;">
+                                                <h3 style="padding: 0; margin: 0" class="email-header">@lang('template.tenant_portal', [], $lang)</h3>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td bgcolor="transparent" height="23"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <!--[if mso]>
+                               </td>
+                            </tr>
                         </table>
                         <![endif]-->
                     </div>
@@ -303,7 +303,7 @@
                             </tr>
                             <tr>
                                 <td bgcolor="transparent" align="center" style="color: #000000; font-size: 14px; font-weight: 400; line-height: 25px;">
-                                    @lang('template.links', [], $lang)
+                                    {!! __('template.links', [], $lang) !!}
                                 </td>
                             </tr>
                             <tr>
