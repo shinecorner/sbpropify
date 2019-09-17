@@ -10,6 +10,13 @@ use OwenIt\Auditing\AuditableObserver;
 
 trait UniqueIDFormat
 {
+    protected function getFormatColumnName()
+    {
+        $propName = $this->getTable();
+        $propName = Str::singular($propName) . '_format';
+        return $propName;
+    }
+
     /**
      * Auto save table table_format column and not save this in audits tabke.
      *
@@ -20,8 +27,7 @@ trait UniqueIDFormat
         static::created(function ($model) {
             $old = AuditableObserver::$restoring;
             AuditableObserver::$restoring = true;
-            $propName = $model->getTable();
-            $propName = Str::singular($propName) . '_format';
+            $propName = $model->getFormatColumnName();
             $model->{$propName} = $model->getUniqueIDFormat($model->getKey());
             $model->save();
             AuditableObserver::$restoring = $old;

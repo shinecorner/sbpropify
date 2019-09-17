@@ -168,7 +168,7 @@ export default {
                     "your_administration": "your administration"
                 }
             },
-            "tenant_rent_contracts": {
+            "rent_contracts": {
                 "saved": "Tenant rent contract saved",
                 "deleted": "Tenant rent contract deleted",
                 "errors": {

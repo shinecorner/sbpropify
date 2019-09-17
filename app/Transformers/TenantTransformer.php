@@ -49,8 +49,8 @@ class TenantTransformer extends BaseTransformer
         }
 
         $response['media'] = [];
-        if ($model->relationExists('tenant_rent_contracts')) {
-            $response['tenant_rent_contracts'] = (new TenantRentContractTransformer())->transformCollection($model->tenant_rent_contracts);
+        if ($model->relationExists('rent_contracts')) {
+            $response['rent_contracts'] = (new RentContractTransformer())->transformCollection($model->rent_contracts);
         }
 
         if ($model->relationExists('building')) {
