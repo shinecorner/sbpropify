@@ -96,8 +96,8 @@
                 const {execution_start, execution_end} = this.data
 
                 const start = this.formatDatetime(execution_start)
-                const end = format(execution_end, isSameDay(execution_start, execution_end) ? 'HH:mm':'DD.MM.YYYY HH:mm')
-
+                const end = isSameDay(execution_start, execution_end) ? format(execution_end, 'HH:mm') : this.formatDatetime(execution_end);
+                
                 return `${start} - ${end}`
             },
             tenant() {
@@ -116,6 +116,7 @@
                 border-width: 8px;
                 border-style: solid;
                 border-image: linear-gradient(to bottom, darken(#fff, 4%), transparent) 1;
+                position: relative;
             }
         }
 

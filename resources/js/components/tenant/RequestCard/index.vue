@@ -58,7 +58,7 @@
                     <div class="content">
                         {{data.tenant.user.name}}
                         <small>
-                            {{formatDatetime(data.created_by)}}
+                            {{requestFormatDatetime(data.created_by)}}
                             <!-- <template v-if="$constants.serviceRequests.status[data.status] === 'done'"> -->
                                 <!-- and solved on {{formatDatetime(data.solved_date)}} -->
                             <!-- </template> -->
@@ -161,6 +161,13 @@
                 this.idState.showAllAssginees = true
 
                 this.$emit('tab-click')
+            },
+            requestFormatDatetime (dateTime) {
+                var res = dateTime.split(" ");
+                return this.$t('general.dateTimeFormat', {
+                    date: res[0],
+                    time: res[1]
+                })
             }
         }
     }
