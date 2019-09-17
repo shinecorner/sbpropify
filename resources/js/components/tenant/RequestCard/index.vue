@@ -20,7 +20,7 @@
                             {{$t(`models.request.priority.${$constants.serviceRequests.priority[data.priority]}`)}}
                         </div>
                     </div>
-                    <div class="item" v-if="this.data.category.parent_id == 1 && this.data.qualification != 1" >
+                    <div class="item" v-if="this.data.category.parent_id == 1 && this.data.qualification > 1" >
                         {{$t('tenant.qualification')}}:
                         <div class="label">
                             {{$t(`models.request.qualification.${$constants.serviceRequests.qualification[data.qualification]}`)}}

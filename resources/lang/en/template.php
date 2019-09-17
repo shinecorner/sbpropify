@@ -41,5 +41,5 @@ return [
     'tenant_portal' => 'Tenant portal',
     'generated_email_for_user' => 'This email was automatically generated for :userName.',
     'generated_email_for_company' => 'You will receive this automatically generated e-mail as a user of the :companyName tenant portal. The tenant portal is operated by Propify AG.',
-    'links' => '<a href="#">Imprint </a>&ensp; | &ensp;<a href="#">Conditions of use</a>&ensp; | &ensp;<a href="#">Privacy statement</a>'
+    'links' => '<a href="#" style="color: #000000 ">Imprint </a>&ensp; | &ensp;<a href="#" style="color: #000000 ">Conditions of use</a>&ensp; | &ensp;<a href="#" style="color: #000000 ">Privacy statement</a>'
 ];

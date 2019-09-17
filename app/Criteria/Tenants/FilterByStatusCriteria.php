@@ -35,9 +35,9 @@ class FilterByStatusCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $status = $this->request->get('status', null);
+        $status = $this->request->get('tenants.status', null);
         if ($status) {
-            return $model->where('status', (int)$status);
+            return $model->where('tenants.status', (int)$status);
         }
 
         return $model;

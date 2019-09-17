@@ -41,5 +41,5 @@ return [
     'tenant_portal' => 'Portale degli inquilini',
     'generated_email_for_user' => 'Questa e-mail è stata generata automaticamente per :userName.',
     'generated_email_for_company' => 'Riceverai questa e-mail generata automaticamente come utente del portale :companyName tenant. Il portale per gli affittuari è gestito da Propify AG.',
-    'links' => '<a href="#">Impressum </a>&ensp; | &ensp;<a href="#">Condizioni di utilizzo</a>&ensp; | &ensp;<a href="#">Dichiarazione sulla privacy</a>/a>.'
+    'links' => '<a href="#" style="color: #000000 ">Impressum </a>&ensp; | &ensp;<a href="#" style="color: #000000 ">Condizioni di utilizzo</a>&ensp; | &ensp;<a href="#" style="color: #000000 ">Dichiarazione sulla privacy</a>'
 ];

@@ -37,12 +37,12 @@ class FilterByBuildingCriteria implements CriteriaInterface
     {
         $hasBuilding = $this->request->get('has_building', null);
         if ($hasBuilding) {
-            $model = $model->where('building_id', '>', 0);
+            $model = $model->where('tenants.building_id', '>', 0);
         }
 
         $building_id = $this->request->get('building_id', null);
         if ($building_id) {
-            $model = $model->where('building_id', (int)$building_id);
+            $model = $model->where('tenants.building_id', (int)$building_id);
         }
         
         return $model;     
