@@ -26,6 +26,11 @@ yarn-error.log
 /public/vendors*
 /public/*.js
 
+resources/js/lang/i18n/de.js
+resources/js/lang/i18n/en.js
+resources/js/lang/i18n/fr.js
+resources/js/lang/i18n/it.js
+
 .DS_Store
 .idea/
 package-lock.json
