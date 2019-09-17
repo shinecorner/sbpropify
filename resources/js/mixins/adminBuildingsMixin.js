@@ -44,6 +44,7 @@ export default (config = {}) => {
                     name: '',
                     description: '',
                     floor_nr: 1,
+                    floor: [],
                     state_id: '',
                     city: '',
                     street: '',
@@ -62,6 +63,10 @@ export default (config = {}) => {
                     floor_nr: [{
                         required: true,
                         message: this.$t("models.building.validation.floor_nr.required")
+                    }],
+                    floor: [{
+                        required: true,
+                        message: this.$t("models.unit.validation.floor.required")
                     }],
                     state_id: [{
                         required: true,
