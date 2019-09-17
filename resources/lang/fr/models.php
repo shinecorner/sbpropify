@@ -1,14 +1,14 @@
 <?php
 return [
-    'user' => 
+    'user' =>
     [
       'administrator' => 'Administrateurs',
       'super_admin' => 'Super admins',
       'add_admin' => 'Ajouter un administrateur',
       'edit_admin' => 'Modifier l\'administrateur',
       'add_super_admin' => 'Ajouter Super admin',
-      'edit_super_admin' => 'Editer Super admin',      
-      "date" => "Date",            
+      'edit_super_admin' => 'Editer Super admin',
+      "date" => "Date",
       "add" => "Ajouter un utilisateur",
       "saved" => "Utilisateur enregistré avec succès",
       "deleted" => "Utilisateur supprimé",
@@ -29,11 +29,11 @@ return [
       "serviceRequestCategorySaved" => "Catégorie de demande de service sauvegardée",
       "serviceRequestCategoryDeleted" => "Catégorie de demande de service supprimée",
       'setting_saved' => "réglage utilisateur sauvegardé",
-      'setting_deleted' => "Suppression du réglage utilisateur",      
-      'password_reset_request_sent' => "Nous vous avons envoyé un e-mail avec d'autres instructions. Veuillez vérifier votre boîte de réception.", 
+      'setting_deleted' => "Suppression du réglage utilisateur",
+      'password_reset_request_sent' => "Nous vous avons envoyé un e-mail avec d'autres instructions. Veuillez vérifier votre boîte de réception.",
       'errors' => [
         'not_found' => "Utilisateur introuvable",
-        'setting_not_found' => "réglage utilisateur introuvable",        
+        'setting_not_found' => "réglage utilisateur introuvable",
         'image_upload' => "Erreur de téléchargement de l'image de l'utilisateur :",
         'incorrect_password' => "Mot de passe utilisateur incorrect",
         'email_missing' => "email est manquant",
@@ -42,19 +42,19 @@ return [
         'password_reset_token_invalid' => "Ce jeton de réinitialisation de mot de passe n'est pas valide.",
         'deleted' => "Erreur de suppression par l'utilisateur : ",
       ],
-      'validation' => 
+      'validation' =>
       [
-        'name' => 
+        'name' =>
         [
           'required' => 'Nom est obligatoire',
         ],
-        'role' => 
+        'role' =>
         [
           'required' => 'Le rôle est requis',
         ],
       ],
     ],
-    'tenant' => 
+    'tenant' =>
     [
       "view" => "Vue",
       "view_title" => "Afficher locataire",
@@ -69,7 +69,7 @@ return [
       "deleted" => "Locataire supprimé",
       "status_changed" => "Le statut a changé",
       "password_reset" => "Le mot de passe du locataire a été réinitialisé avec succès",
-      "update" => "Mise à jour",      
+      "update" => "Mise à jour",
       "first_name" => "Prénom",
       "last_name" => "Nom de famille",
       "birth_date" => "Date de naissance",
@@ -84,43 +84,43 @@ return [
       "products" => "Produits",
       "company" => "Nom de l'entreprise",
       "no_building" => "Pas de bâtiment",
-      'building' => 
+      'building' =>
       [
         'name' => 'Edificio',
       ],
-      'unit' => 
+      'unit' =>
       [
         'name' => 'Unité',
       ],
       'search_building' => 'Rechercher un bâtiment',
       'search_unit' => 'Unité de recherche',
-      'validation' => 
+      'validation' =>
       [
-        'first_name' => 
+        'first_name' =>
         [
           'required' => "Prénom est obligatoire",
         ],
-        'last_name' => 
+        'last_name' =>
         [
           'required' => "Nom de famille est obligatoire",
         ],
-        'birth_date' => 
+        'birth_date' =>
         [
           'required' => "La date de naissance est requise",
         ],
-        'building' => 
+        'building' =>
         [
           'required' => "Un bâtiment est nécessaire",
         ],
-        'unit' => 
+        'unit' =>
         [
           'required' => "L'unité est nécessaire",
         ],
-        'title' => 
+        'title' =>
         [
           'required' => "Le titre est requis",
         ],
-        'language' => 
+        'language' =>
         [
           'required' => "La langue est obligatoire",
         ]
@@ -129,10 +129,10 @@ return [
         'not_found' => "Locataire introuvable",
         'incorrect_email' => "Adresse e-mail incorrecte",
         'create' => "Le locataire crée l'erreur : ",
-        'update' => "Erreur de mise à jour locataire : ",	
+        'update' => "Erreur de mise à jour locataire : ",
         'deleted' => "Erreur de suppression du locataire : ",
-        'not_allowed_change_status' => "Vous n'êtes pas autorisé à changer de statut.",        
-      ],      
+        'not_allowed_change_status' => "Vous n'êtes pas autorisé à changer de statut.",
+      ],
       "building_card" => "Affecter unité",
       "personal_details_card" => "Données personnelles",
       "account_info_card" => "Connexion de l'utilisateur",
@@ -145,11 +145,11 @@ return [
       "rent_end" => "Fin du loyer",
       "rent_start" => "Début du loyer",
       "rent_contract" => "Contrat de location",
-      'contact' => 
+      'contact' =>
       [
-        "category" => "Catégorie",        
+        "category" => "Catégorie",
       ],
-      'status' => 
+      'status' =>
       [
         "label" => "Statut",
         "active" => "Actif",
@@ -183,11 +183,11 @@ return [
         'your_administration' => 'votre administration'
       ]
     ],
-    'building' => 
+    'building' =>
     [
       "title" => "Bâtiments",
       "edit_title" => "Éditer le bâtiment",
-      "add" => "Ajouter un bâtiment",      
+      "add" => "Ajouter un bâtiment",
       "cancel" => "Annuler",
       "deleted" => "Bâtiment supprimé avec succès",
       "units" => "Unités",
@@ -218,38 +218,38 @@ return [
       "managers_assigned" => "Gestionnaires affectés",
       "occupied_units" => "Unités Ocuppied",
       "free_units" => "Unités libres",
-      'manager' => 
+      'manager' =>
       [
         "unassigned" => "Gestionnaire non affecté",
       ],
-      'document' => 
+      'document' =>
       [
         "uploaded" => "Document téléchargé",
         "deleted" => "Document supprimé",
       ],
-      'service' => 
+      'service' =>
       [
         "deleted" => "Service enlevé de ce bâtiment",
       ],
-      'validation' => 
+      'validation' =>
       [
-        'name' => 
+        'name' =>
         [
           "required" => "Le nom est obligatoire",
         ],
-        'floor_nr' => 
+        'floor_nr' =>
         [
           "required" => "Le numéro d'étage est requis",
         ],
-        'description' => 
+        'description' =>
         [
           "required" => "Une description est requise",
         ],
-        'label' => 
+        'label' =>
         [
           "required" => "Une étiquette est requise",
         ],
-        'address_id' => 
+        'address_id' =>
         [
           "required" => "L'adresse est requise",
         ],
@@ -260,8 +260,8 @@ return [
         'deleted' => "Erreur de suppression du bâtiment : ",
         'manager_assigned' => "Les gestionnaires immobiliers attribuent à l'erreur de construction : ",
         'provider_deleted' => "Erreur supprimée par le fournisseur de services : ",
-      ],      
-      'delete_building_modal' => 
+      ],
+      'delete_building_modal' =>
       [
         "title" => "Supprimer le(s) bâtiment(s)",
         "description_unit" => "Les unités sont affectées à la propriété sélectionnée. Si vous souhaitez également supprimer les unités, veuillez activer l'option ci-dessous..",
@@ -274,13 +274,13 @@ return [
       ],
       'assigned_buildings' => "Bâtiments affectés",
     ],
-    'unit' => 
+    'unit' =>
     [
       "title" => "Unités",
       "not_found" => "Unité non trouvée",
       "add" => "Ajouter une unité",
       "name" => "Numéro d'unité",
-      "deleted" => "Unité supprimée",      
+      "deleted" => "Unité supprimée",
       "saved" => "Unité sauvegardée",
       "floor" => "L'étage",
       "sq_meter" => "Mètre carré",
@@ -291,11 +291,11 @@ return [
       "basement" => "Sous-sol",
       "attic" => "Grenier aménageable",
       "empty_requests" => "Aucune demande",
-      "assigned_tenant" => "Locataire affecté",      
+      "assigned_tenant" => "Locataire affecté",
       "tenant_assigned" => "Locataire affecté",
       "tenant_unassigned" => "Locataire non affecté",
       'assignment' => 'Locataires affectés',
-      'type' => 
+      'type' =>
       [
         "label" => "Type",
         "apartment" => "Appartement",
@@ -306,29 +306,29 @@ return [
         'outdoor_parking' => 'Parking extérieur',
         'motorbike_pitch' => 'Emplacement moto'
       ],
-      'validation' => 
+      'validation' =>
       [
-        'name' => 
+        'name' =>
         [
           "required" => "Le nom est obligatoire",
         ],
-        'building' => 
+        'building' =>
         [
           "required" => "Un bâtiment est nécessaire",
         ],
-        'monthly_rent' => 
+        'monthly_rent' =>
         [
           "required" => "Un loyer mensuel est exigé",
         ],
-        'floor' => 
+        'floor' =>
         [
           "required" => "Un plancher est requis",
         ],
-        'room_no' => 
+        'room_no' =>
         [
           "required" => "Le numéro de chambre est requis",
         ],
-        'description' => 
+        'description' =>
         [
           "required" => "Une description est requise",
         ],
@@ -347,7 +347,7 @@ return [
         'deleted' => "Erreur d'effacement de l'unité : ",
       ],
     ],
-    'address' => 
+    'address' =>
     [
       "add" => "Ajouter une adresse",
       "name" => "Adresse",
@@ -356,21 +356,21 @@ return [
       "house_num" => "Rue Nr..",
       "not_found" => "Adresse non trouvée",
       "saved" => "Adresse enregistrée",
-      'state' => 
+      'state' =>
       [
         "label" => "État",
       ],
-      'validation' => 
+      'validation' =>
       [
-        'state' => 
+        'state' =>
         [
           "required" => "L'État est requis",
         ],
-        'city' => 
+        'city' =>
         [
           "required" => "Ville est obligatoire",
         ],
-        'street' => 
+        'street' =>
         [
           "required" => "La rue est obligatoire",
         ],
@@ -378,13 +378,13 @@ return [
         [
           "required" => "Le numéro de rue est requis",
         ],
-        'zip' => 
+        'zip' =>
         [
           "required" => "Zip est obligatoire",
         ],
       ],
     ],
-    'post' => 
+    'post' =>
     [
       "title" => "Nouvelles",
       "title_label" => "Titre",
@@ -398,7 +398,7 @@ return [
       "deleted" => "Notizie cancellate",
       "edit_title" => "Modifier un message",
       "likes" => "Aime",
-      "views" => "Vues",      
+      "views" => "Vues",
       "published_at" => "Publié",
       "publish" => "Publier",
       "unpublish" => "Non publié",
@@ -408,13 +408,13 @@ return [
       "pinned_to" => "Épinglé sur",
       "comments" => "Commentaires",
       "images" => "Images",
-      'category_default_image_label' => 'Voulez-vous utiliser cette image?',      
-      'placeholders' => 
+      'category_default_image_label' => 'Voulez-vous utiliser cette image?',
+      'placeholders' =>
       [
         "buildings" => "Choisir des bâtiments",
         "search_provider" => "Fournisseur de recherche",
       ],
-      'type' => 
+      'type' =>
       [
         "label" => "Type",
         "article" => "Article",
@@ -429,7 +429,7 @@ return [
         'provider_not_found' => "Fournisseur de services introuvable",
         'deleted' => "Enregistrer l'erreur supprimée : ",
       ],
-      'status' => 
+      'status' =>
       [
         "label" => "Statut",
         "new" => "Nouveau",
@@ -437,7 +437,7 @@ return [
         "unpublished" => "Non publié",
         "not_approved" => "Non approuvé",
       ],
-      'visibility' => 
+      'visibility' =>
       [
         "label" => "Visibilité",
         "address" => "Adresse",
@@ -446,14 +446,14 @@ return [
       ],
       "assignType" => "Type",
       "buildingAlreadyAssigned" => "Le bâtiment est déjà à l'intérieur sur un quart",
-      'execution_interval' => 
+      'execution_interval' =>
       [
         "label" => "Intervalle d'exécution",
         "end" => "Fin de l'exécution",
         "start" => "Début d'exécution",
         "separator" => "A",
       ],
-      'category' => 
+      'category' =>
       [
         "label" => "Catégorie",
         "general" => "Général",
@@ -463,7 +463,7 @@ return [
         "sanitary" => "Sanitaire",
       ],
     ],
-    'service' => 
+    'service' =>
     [
       "title" => "Services",
       "add_title" => "Ajouter un service",
@@ -477,20 +477,20 @@ return [
       "sanitary" => "Sanitaire",
       "key_service" => "Service clé",
       "caretaker" => "Concierge",
-      "real_estate_service" => "Service immobilier",      
+      "real_estate_service" => "Service immobilier",
       "contact_details" => "Coordonnées de contact",
       "user_credentials" => "Informations d'identification de l'utilisateur",
       "company_details" => "Coordonnées de l'entreprise",
       "assignType" => "Type",
       "buildingAlreadyAssigned" => "Le bâtiment est déjà à l'intérieur sur un quart",
-      'placeholders' => 
+      'placeholders' =>
       [
         "category" => "Sélectionnez une catégorie",
       ],
       'errors' => [
         'not_found' => "Fournisseur de services introuvable",
         'create' => "Le fournisseur de services crée l'erreur : ",
-        'update' => "Erreur de mise à jour du fournisseur de services : ",	
+        'update' => "Erreur de mise à jour du fournisseur de services : ",
         'deleted' => "Erreur supprimée par le fournisseur de services : ",
         'quarter_not_found' => "Trimestre non trouvé",
         'building_not_found' => "Bâtiment non trouvé",
@@ -513,7 +513,7 @@ return [
         'deleted' => "Erreur d'effacement trimestriel : ",
       ],
     ],
-    'realEstate' => 
+    'realEstate' =>
     [
       "title" => "Réglages de l'immobilier",
       "settings" => "Réglages",
@@ -551,7 +551,7 @@ return [
       'accent_color' => 'Couleur d\'accent',
       'iframe_enable' => 'Activation de l\'iframe',
       'iframe_enable_desc' => 'Dans le portail des locataires, une page avec vos objets de location gratuits est indiquée.',
-      'iframe_url' => 
+      'iframe_url' =>
       [
         "label" => "URL de l'iframe",
         "validation" => "L'URL de l'iframe doit être une URL valide",
@@ -587,7 +587,7 @@ return [
         'update' => "Erreur de mise à jour des biens immobiliers : ",
       ],
     ],
-    'request' => 
+    'request' =>
     [
       "audits" => "Audits",
       "deleted" => "Richiesta supprimée",
@@ -628,35 +628,35 @@ return [
       'due_in' => 'Due in',
       'was_due_on' => 'Was due on',
       'due_on' => 'Due on',
-      'media' => 
+      'media' =>
       [
         "added" => "Document ajouté",
         "removed" => "Suppression du support",
         "deleted" => "Médias supprimés",
         "delete" => "Supprimer",
       ],
-      'priority' => 
+      'priority' =>
       [
         "label" => "Priorité",
         "urgent" => "Urgent",
         "low" => "Faible",
         "normal" => "Normal",
       ],
-      'internal_priority' => 
+      'internal_priority' =>
       [
         "label" => "Priorité interne",
         "urgent" => "Urgent",
         "low" => "Faible",
         "normal" => "Normal",
-      ],      
-      'defect_location' => 
+      ],
+      'defect_location' =>
       [
         "label" => "Localisation des défauts",
         "apartment" => "Appartement",
         "building" => "Bâtiment",
         "environment" => "Environnement",
       ],
-      'qualification' => 
+      'qualification' =>
       [
         "label" => "Qualification",
         "none" => "Aucune",
@@ -665,23 +665,23 @@ return [
         "2_year_warranty" => "Garantie de 2 ans",
         "cost_consequences" => "Conséquences financières",
       ],
-      'status' => 
+      'status' =>
       [
         "label" => "Statut",
         "received" => "Reçu",
         "assigned" => "Affecté",
-        "in_processing" => "En cours de traitement",        
+        "in_processing" => "En cours de traitement",
         "reactivated" => "Réactivé",
-        "done" => "C'est fait",        
+        "done" => "C'est fait",
         "archived" => "Archivé",
         "solved" => "Résolues",
         "pending" => "En attente"
       ],
-      'category_options' => 
+      'category_options' =>
       [
         "disturbance" => "Perturbation",
         "defect" => "Défaut",
-        "other" => "Autre",  
+        "other" => "Autre",
         'room' => 'Chambre',
         'range' => 'Gamme',
         'component' => 'Composante',
@@ -731,7 +731,7 @@ return [
           'tenant/landlord' => 'Locataire/Propriétaire'
         ]
       ],
-      'placeholders' => 
+      'placeholders' =>
       [
         "category" => "Sélectionnez une catégorie",
         "priority" => "Sélectionnez la priorité",
@@ -744,7 +744,7 @@ return [
         "propertyManagers" => "Recherche de cadres",
         "visibility" => "Sélectionner la visibilité",
       ],
-      'mail' => 
+      'mail' =>
       [
         "body" => "Corps",
         "subject" => "Sujet",
@@ -759,21 +759,21 @@ return [
         "cc" => "CC",
         "bcc" => "BCC",
         "success" => "Envoi réussi du mail de notification",
-        'validation' => 
+        'validation' =>
         [
           "required" => "Ce champ est obligatoire",
           "email" => "Ce champ doit être un email valide",
         ],
         "fail_cc" => "Les champs CC/BCC/TO doivent être des e-mails valides",
-      ],     
-      'userType' => 
+      ],
+      'userType' =>
       [
         "label" => "Type",
         "provider" => "Service",
         "manager" => "Directeur",
         'user' => 'Administrator',
       ],
-      'visibility' => 
+      'visibility' =>
       [
         "label" => "Visibilité",
         "tenant" => "Soldat",
@@ -794,8 +794,15 @@ return [
       "requestID" => "Demande ID",
       "requestCategory" => "Catégorie de demande",
       'actions' => 'Actions',
+        'download_pdf' => [
+            'entrepreneur_signature'=> 'Signature entrepreneur',
+            'customer_signature'=> 'Signature du client',
+            'service_request' => 'Service Request',
+            'contact_details' => 'Contact Details',
+            'contact_text' => 'Ce sont les coordonnées du locataire/propriétaire actuel du logement',
+        ],
     ],
-    'requestCategory' => 
+    'requestCategory' =>
     [
       "title" => "Catégories de demandes",
       "add" => "Ajouter catégorie",
@@ -809,15 +816,15 @@ return [
         'used_by_request' => "Catégorie de demande de service utilisée par une demande de service",
       ]
     ],
-    'propertyManager' => 
+    'propertyManager' =>
     [
       "title" => "Gestionnaires immobiliers",
       "add" => "Ajouter un gestionnaire immobilier",
       "saved" => "Gestionnaire immobilier sauvé",
       "deleted" => "Gestionnaire immobilier supprimé",
-      "edit_title" => "Modifier le gestionnaire immobilier",      
+      "edit_title" => "Modifier le gestionnaire immobilier",
       "firstName" => "Prénom",
-      "lastName" => "Nom de famille",      
+      "lastName" => "Nom de famille",
       "profession" => "Profession",
       "slogan" => "Slogan",
       "linkedin_url" => "URL Linkedin",
@@ -852,7 +859,7 @@ return [
         'deleted' => "Le gestionnaire immobilier a supprimé l'erreur : ",
       ],
     ],
-    'product' => 
+    'product' =>
     [
       "title" => "Produits",
       "add" => "Ajouter un produit",
@@ -873,7 +880,7 @@ return [
       'errors' => [
         'not_found' => "Produit non trouvé",
       ],
-      'type' => 
+      'type' =>
       [
         'label' => 'Type',
         'sell' => 'Vendre',
@@ -881,13 +888,13 @@ return [
         'service' => 'Service après-vente',
         'giveaway' => 'Donner',
       ],
-      'status' => 
+      'status' =>
       [
         'label' => 'Statut',
         'published' => 'Publié',
         'unpublished' => 'Non publié',
       ],
-      'visibility' => 
+      'visibility' =>
       [
         'label' => 'Visibilité',
         'address' => 'Adresse',
@@ -895,8 +902,8 @@ return [
         'all' => 'Tous',
       ],
     ],
-    'template' => 
-    [      
+    'template' =>
+    [
       'saved' => 'Ajouter',
       'deleted' => 'Gabarit supprimé',
       'add' => 'Ajouter',
@@ -905,7 +912,7 @@ return [
       'body' => 'Corps',
       'category' => 'Catégorie',
       'tags' => 'Étiquettes',
-      'placeholders' => 
+      'placeholders' =>
       [
         'category' => 'Choisir une catégorie',
       ],
@@ -914,7 +921,7 @@ return [
         'deleted' => "Erreur de suppression de produit : ",
       ]
     ],
-    'cleanify' => 
+    'cleanify' =>
     [
       "pageTitle" => "Nettoyer la demande",
       "title" => "Titre",

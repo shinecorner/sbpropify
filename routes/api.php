@@ -231,6 +231,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::delete('/requests/{id}', 'ServiceRequestAPIController@destroy')->name('requests.destroy');
     Route::post('/requests/deletewithids', 'ServiceRequestAPIController@destroyWithIds')->name('requests.destroyWithIds');
     Route::delete('/requests/{id}/media/{media_id}', 'MediaAPIController@serviceRequestDestroy')->name('requests.media.destroy');
+    Route::post('/requests/{id}/download-pdf', 'ServiceRequestAPIController@downloadPdf');
 
     Route::get('/requests/{id}/tags', 'ServiceRequestAPIController@getTags');
     Route::get('/requests/{id}/assignees', 'ServiceRequestAPIController@getAssignees');
@@ -281,7 +282,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     // Templates
     Route::get('/templates', 'TemplateAPIController@index')->name('templates');
-    Route::get('/templates/categories', 'TemplateAPIController@categories')->name('templates.categories');
+    Route::get('/templates/categories', 'Templadownload-credentialsteAPIController@categories')->name('templates.categories');
     Route::get('/templates/{id}', 'TemplateAPIController@show')->name('templates.show');
     Route::post('/templates', 'TemplateAPIController@store')->name('templates.store');
     Route::put('/templates/{id}', 'TemplateAPIController@update')->name('templates.update');

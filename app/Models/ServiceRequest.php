@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use PDF;
+use Storage;
 
 /**
  * @SWG\Definition(
@@ -511,9 +513,29 @@ class ServiceRequest extends AuditableModel implements HasMedia
         ], $providers->all(), $this->users->all()) ;
     }
 
+    public function setDownloadPdf(){
+
+       $data = [
+            'category' => $this->category,
+            'request' => $this,
+            'tenant' => $this->tenant->user,
+            'language'  => $this->tenant->settings->language
+        ];
+
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pdfs.servicerequest.serviceRequestDownload', $data);
+
+        return Storage::disk('service_request_downloads')->put($this->pdfFileName(), $pdf->output());
+    }
 
     public function getDiskPreName()
     {
         return 'requests_';
+    }
+
+    public function pdfFileName()
+    {
+        $language  = $this->tenant->settings->language;
+
+        return $this->id . '-'. $this->tenant->id .'-' . $language . '.pdf';
     }
 }
