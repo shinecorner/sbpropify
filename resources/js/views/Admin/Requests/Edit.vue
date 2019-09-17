@@ -176,12 +176,12 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="8" class="summary-item" id="building">
-                                    <el-form-item label="Building">
+                                    <el-form-item :label="$t('general.assignmentTypes.building')">
                                         <strong>{{this.model.building}}</strong>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="8" class="summary-item" id="createtime">
-                                    <el-form-item label="Creation Datetime">
+                                    <el-form-item :label="$t('general.created_at')">
                                         <strong>{{this.model.created_by}}</strong>
                                     </el-form-item>
                                 </el-col>
@@ -189,7 +189,7 @@
                             <el-row :gutter="20" class="summary-row">
                                 <el-col :md="8" class="summary-item">
                                     <el-form-item :label="$t('models.request.priority.label')">
-                                        <strong>{{$constants.serviceRequests.priority[model.priority]}}</strong>
+                                        <strong>{{$t(`models.request.priority.${$constants.serviceRequests.priority[model.priority]}`)}}</strong>
                                     </el-form-item>
                                 </el-col>
                                 <!-- <el-col :md="8" class="summary-item">
