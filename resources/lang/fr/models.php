@@ -166,7 +166,7 @@ return [
             'your_administration' => 'votre administration'
         ]
     ],
-    'tenant_rent_contracts' => [
+    'rent_contract' => [
         'saved' => 'Contrat de location du locataire sauvegardé',
         'deleted' => 'Loyer du locataire Contrat de location supprimé',
         'errors' => [
@@ -554,6 +554,12 @@ return [
         "service" => "Service",
         "created_by" => "Créé par",
         "is_public" => "Public",
+        'public_title' => 'Rendre la demande publique',
+        'public_desc' => "Vous pouvez marquer cette demande comme publique et la rendre visible aux autres personnes dans le bâtiment ou le quartier.",
+        'visibility_title' => "Pour qui rendre visible ?",
+        'visibility_desc' => "Indiquez si les locataires peuvent voir à l'intérieur d'un immeuble ou même dans le quartier. ",
+        'send_notification_title' => 'Aviser les locataires',
+        'send_notification_desc' => "Vous pouvez informer les locataires concernés par e-mail de cette demande publique.",
         "comments" => "Commentaires",
         "assigned_to" => "Affecté à",
         "assign_providers" => "Affecter fournisseurs",
@@ -579,6 +585,9 @@ return [
         'due_in' => 'Due in',
         'was_due_on' => 'Was due on',
         'due_on' => 'Due on',
+        'active_reminder_switcher' => 'Rappel actif',
+        'days_left' => "Combien de jours avant l'envoi de l'email ?",
+        'send_person' => 'Quelle personne doit être notifiée ?',
         'media' => [
             "added" => "Document ajouté",
             "removed" => "Suppression du support",

@@ -3,14 +3,14 @@
 namespace App\Repositories;
 
 use App\Models\Model;
-use App\Models\TenantRentContract;
+use App\Models\RentContract;
 use App\Models\Unit;
 
 /**
- * Class TenantRentContractRepository
+ * Class RentContractRepository
  * @package App\Repositories
  */
-class TenantRentContractRepository extends BaseRepository
+class RentContractRepository extends BaseRepository
 {
     /**
      * @var array
@@ -26,7 +26,7 @@ class TenantRentContractRepository extends BaseRepository
      **/
     public function model()
     {
-        return TenantRentContract::class;
+        return RentContract::class;
     }
 
     /**

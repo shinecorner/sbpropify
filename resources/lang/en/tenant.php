@@ -162,5 +162,8 @@ return [
     "category" => "Category",
     "defect_location" => "Defect location",
     "description" => "Description",
-    "request_public_info" => "If your request is a request which also concerns your neighbours, then activate this option.",
+    "request_public_title" => "Public",
+    "request_public_desc" => "If your request is a request which also concerns your neighbours, then activate this option.",
+    "request_upload_title" => "Upload",
+    "request_upload_desc" => "Please note that once uploaded files can no longer be deleted by you.",
 ];

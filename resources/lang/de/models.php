@@ -166,7 +166,7 @@ return [
             'your_administration' => 'Ihre Verwaltung'
         ]
     ],
-    'tenant_rent_contracts' => [
+    'rent_contract' => [
         'saved' => 'Mietvertrag gesichert',
         'deleted' => 'Mietvertrag gelöscht',
         'errors' => [
@@ -554,6 +554,12 @@ return [
         'service' => 'Dienstleister',
         'created_by' => 'Erstellt durch',
         'is_public' => 'Öffentlich machen',
+        'public_title' => 'Anfrage öffentlich machen',
+        'public_desc' => 'Sie können diese Anfrage als öffentlich markieren und für weitere Personen in der Liegenschaft oder Überbauung sichtbar machen.',
+        'visibility_title' => 'Für wen sichtbar machen?',
+        'visibility_desc' => 'Geben Sie an, ob diese Anfrage von Mietern innerhalb der Liegenschaft oder sogar innerhalb der Überbauung eingesehen werden kann. ',
+        'send_notification_title' => 'Mieter benachrichtigen',
+        'send_notification_desc' => 'Sie können die betroffenen Mieter via Email über diese öffentliche Anfrage informieren.',
         'comments' => 'Mieter-Chat',
         'assigned_to' => 'Zuständig',
         'assign_providers' => 'Zuweisen',
@@ -579,6 +585,9 @@ return [
         'due_in' => 'Zu erledigen in',
         'was_due_on' => 'In Verzug seit',
         'due_on' => 'Erledigt am',
+        'active_reminder_switcher' => 'Aktive Erinnerung',
+        'days_left' => 'Wie viele Tage vorher soll die E-Mail versendet werden?',
+        'send_person' => 'Which person should be notified?',
         'media' => [
             'added' => 'Mediendatei hinzugefügt',
             'removed' => 'Mediendatei entfernt.',
