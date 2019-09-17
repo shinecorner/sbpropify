@@ -282,7 +282,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     // Templates
     Route::get('/templates', 'TemplateAPIController@index')->name('templates');
-    Route::get('/templates/categories', 'Templadownload-credentialsteAPIController@categories')->name('templates.categories');
+    Route::get('/templates/categories', 'TemplateAPIController@categories')->name('templates.categories');
     Route::get('/templates/{id}', 'TemplateAPIController@show')->name('templates.show');
     Route::post('/templates', 'TemplateAPIController@store')->name('templates.store');
     Route::put('/templates/{id}', 'TemplateAPIController@update')->name('templates.update');
