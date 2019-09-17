@@ -55,16 +55,9 @@ class TenantCredentials extends Notification implements ShouldQueue
         $data = $tRepo->getTenantCredentialsParsedTemplate($this->tenant);
         $data['userName'] = $notifiable->name;
         $data['lang'] = $notifiable->settings->language ?? App::getLocale();
-        $pdfName = $this->tenant->pdfXFileName();
 
-        if ($data['company'] && $data['company']->blank_pdf) {
-            $pdfName = $this->tenant->pdfFileName();
-        }
-        $disk = \Storage::disk('tenant_credentials');
-	    //dump(view('mails.sendTenantCredentials', $data)->render());
         return (new MailMessage)
             ->view('mails.sendTenantCredentials', $data)
-            ->attachData($disk->get($pdfName), $pdfName)
             ->subject($data['subject']);
     }
 
