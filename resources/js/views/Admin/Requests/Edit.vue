@@ -371,17 +371,17 @@
                                                 <el-select
                                                     :loading="remoteLoading"
                                                     :placeholder="$t('models.request.placeholders.person')"
-                                                    :remote-method="remoteSearchTenants"
+                                                    :remote-method="remoteSearchPersons"
                                                     filterable
                                                     remote
                                                     reserve-keyword
                                                     style="width: 100%;"
                                                     v-model="model.person_id">
                                                     <el-option
-                                                        :key="tenant.id"
-                                                        :label="tenant.name"
-                                                        :value="tenant.id"
-                                                        v-for="tenant in tenants"/>
+                                                        :key="person.id"
+                                                        :label="person.name"
+                                                        :value="person.id"
+                                                        v-for="person in persons"/>
                                                 </el-select>
                                             </el-form-item>
                                         </el-col>
