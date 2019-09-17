@@ -162,5 +162,8 @@ return [
     "category" => "Categoria",
     "defect_location" => "Posizione del difetto",
     "description" => "Descrizione",
-    "request_public_info" => "Se la vostra richiesta è una richiesta che riguarda anche i vostri vicini, attivate questa opzione.",
+    "request_public_title" => "Pubblico",
+    "request_public_desc" => "Se la vostra richiesta è una richiesta che riguarda anche i vostri vicini, attivate questa opzione.",
+    "request_upload_title" => "Carica",
+    "request_upload_desc" => "Si prega di notare che una volta caricati i file non possono più essere cancellati da voi.",
 ];

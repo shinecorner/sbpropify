@@ -141,7 +141,14 @@
                                 </el-select>
                             </el-form-item>
                         </el-col>
-                        <el-col :md="12">
+                        <el-col :md="24">
+                            <el-form-item :label="$t('models.request.public_desc')"
+                                        prop="is_public"
+                            >
+                                <el-switch v-model="model.is_public" @change="changePublic"/>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :md="24" v-if="model.is_public">
                             <el-form-item :label="$t('models.request.visibility.label')"
                                         :rules="validationRules.visibility"
                                         prop="visibility"
@@ -157,6 +164,13 @@
                                         v-for="(visibility, k) in $constants.serviceRequests.visibility">
                                     </el-option>
                                 </el-select>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :md="24" v-if="model.is_public">
+                            <el-form-item :label="$t('models.request.send_notification')"
+                                        prop="send_notification"
+                            >
+                                <el-switch v-model="model.send_notification"/>
                             </el-form-item>
                         </el-col>
                         <el-col :md="12">
@@ -334,6 +348,10 @@
             selectPayer() {
                 this.model.payer = '';
                 this.showpayer = this.model.qualification == 5 ? true : false;
+            },
+            changePublic(val) {
+                if(val == true)
+                    this.model.visibility = 1;
             },
             async deleteTag(tag) {
                 
