@@ -77,11 +77,6 @@
                     <el-form-item :label="$t('models.unit.sq_meter')" prop="sq_meter">
                         <el-input autocomplete="off" type="number" v-model="model.sq_meter"></el-input>
                     </el-form-item>
-                    <el-form-item :label="$t('models.unit.basement')" :rules="validationRules.basement"
-                                  class="switch-wrapper">
-                        <el-switch v-model="model.basement">
-                        </el-switch>
-                    </el-form-item>
                     <el-form-item :label="$t('models.unit.attic')" :rules="validationRules.attic" class="switch-wrapper">
                         <el-switch v-model="model.attic">
                         </el-switch>

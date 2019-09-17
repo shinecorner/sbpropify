@@ -93,12 +93,6 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12" style="display: flex">
-                                <el-form-item :label="$t('models.unit.basement')" :rules="validationRules.basement"
-                                              class="switch-wrapper"
-                                              style="margin-right: 20px;">
-                                    <el-switch v-model="model.basement">
-                                    </el-switch>
-                                </el-form-item>
                                 <el-form-item :label="$t('models.unit.attic')" :rules="validationRules.attic"
                                               class="switch-wrapper">
                                     <el-switch v-model="model.attic">
