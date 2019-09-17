@@ -1184,7 +1184,7 @@ export default {
                 "due_on": "Erledigt am",
                 "active_reminder_switcher": "Aktive Erinnerung",
                 "days_left": "Wie viele Tage vorher soll die E-Mail versendet werden?",
-                "send_person": "Which person should be notified?",
+                "send_person": "Welche Person soll benachrichtigt werden?",
                 "media": {
                     "added": "Mediendatei hinzugefügt",
                     "removed": "Mediendatei entfernt.",
