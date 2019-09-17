@@ -323,6 +323,12 @@
                                         <el-col :md="12">
                                             <el-form-item :label="$t('models.request.due_date')"
                                                         :rules="validationRules.due_date">
+                                                <div class="reminder-box">
+                                                    <label class="switcher__label">
+                                                        <span class="switcher__desc">{{$t('models.request.active_reminder_switcher')}}</span>
+                                                    </label>
+                                                    <el-switch v-model="model.active_reminder"/>
+                                                </div>
                                                 <el-date-picker
                                                     :disabled="$can($permissions.update.serviceRequest)"
                                                     :placeholder="$t('models.request.placeholders.due_date')"
@@ -334,6 +340,7 @@
                                                 >
                                                 </el-date-picker>
                                             </el-form-item>
+                                            
                                         </el-col>
                                         <el-col :md="12">
                                             <el-form-item :label="$t('models.request.internal_priority.label')"
@@ -351,14 +358,6 @@
                                         </el-col>
                                     </el-row>
                                     <el-row :gutter="10"> 
-                                        <el-col :md="24">
-                                         <el-form-item class="switcher" prop="is_public">
-                                            <label class="switcher__label">
-                                                <span class="switcher__desc">{{$t('models.request.active_reminder_switcher')}}</span>
-                                            </label>
-                                            <el-switch v-model="model.active_reminder"/>
-                                        </el-form-item>
-                                        </el-col>
                                         <el-col :md="12" v-if="model.active_reminder">
                                             <el-form-item :label="$t('models.request.days_left')"
                                                         prop="days_left">
@@ -939,6 +938,13 @@
             }
             
         }
+
+        .reminder-box {
+            position: absolute;
+            top: -100%;
+            right: 5px;
+        }
+            
         .action-tabs {
             border-radius: 6px;
         }
