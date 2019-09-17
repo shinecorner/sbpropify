@@ -77,7 +77,7 @@
                                                 </label>
                                                 <el-switch v-model="model.blank_pdf"/>
                                             </el-form-item>
-                                            <el-form-item prop="model.pdf_font_family">
+                                            <el-form-item prop="pdf_font_family">
                                                 <label class="card-label">
                                                     {{$t('models.realEstate.font_family')}}
                                                 </label>
