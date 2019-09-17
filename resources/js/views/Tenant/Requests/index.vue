@@ -61,7 +61,14 @@
                         {{$t('tenant.media')}}
                     </div>
                     <ui-media-gallery :files="openedRequest.media.map(({url}) => url)" />
+                    <ui-divider class="upload-divider" content-position="left">
+                        <i class="el-icon-upload"></i>
+                        {{$t('tenant.request_upload_title')}}
+                    </ui-divider>
                     
+                    <div class="upload-description">
+                        {{$t('tenant.request_upload_desc')}}
+                    </div>
                     <ui-media-uploader v-model="media" :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" :action="`api/v1/requests/${openedRequest.id}/media`" :id="openedRequest.id" :options="{drop: true, draggable: true, multiple: true}" />
 
                     <!-- <div ref="media-content" id="media-content" class="content">
@@ -384,6 +391,19 @@
                                     margin-right: -16px
                                     padding-top: 16px
                                     padding-right: 16px
+
+                        .upload-divider 
+                            padding: 0
+                            width: calc(100% - 32px);
+
+                            /deep/ .ui-divider__content--aligned-left
+                                transform: translate(calc(208px - 50%), -50%)
+                                padding-left: 16px
+                        
+                        .upload-description
+                            background: lightgrey;
+                            border: 1px solid grey;
+                            margin: 16px;
 
                         // .ui-media-gallery
                         //     height: 100%
