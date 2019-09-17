@@ -743,6 +743,7 @@ return [
         "requestCategory" => "Catégorie de demande",
         'actions' => 'Actions',
         'download_pdf' => [
+            'title' => 'Télécharger le PDF',
             'entrepreneur_signature'=> 'Signature entrepreneur',
             'customer_signature'=> 'Signature du client',
             'service_request' => 'Service Request',
