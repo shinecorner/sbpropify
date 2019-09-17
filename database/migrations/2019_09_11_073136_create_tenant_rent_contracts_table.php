@@ -18,12 +18,12 @@ class CreateTenantRentContractsTable extends Migration
             $table->integer('tenant_id')->unsigned();
             $table->unsignedInteger('building_id')->nullable();
             $table->unsignedInteger('unit_id')->nullable();
-            $table->smallInteger('type')->nullable()->default(\App\Models\TenantRentContract::TypePrivate);
-            $table->smallInteger('duration')->nullable()->default(\App\Models\TenantRentContract::DurationUnlimited);
-            $table->smallInteger('status')->nullable()->default(\App\Models\TenantRentContract::StatusActive);
+            $table->smallInteger('type')->nullable()->default(\App\Models\RentContract::TypePrivate);
+            $table->smallInteger('duration')->nullable()->default(\App\Models\RentContract::DurationUnlimited);
+            $table->smallInteger('status')->nullable()->default(\App\Models\RentContract::StatusActive);
             $table->string('tenant_rent_contract_format')->nullable();
-            $table->smallInteger('deposit_type')->nullable()->default(\App\Models\TenantRentContract::DepositTypeBankDepot);
-            $table->smallInteger('deposit_status')->nullable()->default(\App\Models\TenantRentContract::DepositStatusYes);
+            $table->smallInteger('deposit_type')->nullable()->default(\App\Models\RentContract::DepositTypeBankDepot);
+            $table->smallInteger('deposit_status')->nullable()->default(\App\Models\RentContract::DepositStatusYes);
             $table->integer('deposit_amount')->nullable()->default(0);
             $table->integer('net_rent')->nullable()->default(0);
             $table->integer('operating_cost')->nullable()->default(0);

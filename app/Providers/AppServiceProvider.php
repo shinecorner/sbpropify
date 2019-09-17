@@ -12,7 +12,7 @@ use App\Models\ServiceRequest;
 use App\Models\Template;
 use App\Models\Conversation;
 use App\Models\Tenant;
-use App\Models\TenantRentContract;
+use App\Models\RentContract;
 use App\Models\Unit;
 use App\Models\User;
 use App\Notifications\NewTenantPost;
@@ -59,7 +59,7 @@ class AppServiceProvider extends ServiceProvider
             'manager' => PropertyManager::class,
             'translation' => \App\Models\Translation::class,
             'provider' => \App\Models\ServiceProvider::class,
-            'tenant_rent_contract' => TenantRentContract::class,
+            'rent_contract' => RentContract::class,
             'conversation' => Conversation::class,
 
             'post_published' => PostPublished::class,

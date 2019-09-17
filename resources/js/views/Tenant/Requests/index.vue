@@ -1,42 +1,50 @@
 <template>
     <div :class="['requests']">
         <div class="container" v-infinite-scroll="get" style="overflow: auto;">
-            <ui-heading icon="icon-chat-empty" :title="$t('tenant.requests')" description="Need some info? Encountered an issue? Contact us!">
-                <el-popover popper-class="requests__filter-popover" placement="bottom-end" trigger="click" :width="192">
-                    <el-button slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
-                    <filters ref="filters" layout="column" :data.sync="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
-                    <el-button type="primary" size="small" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
-                </el-popover>
-                <el-button @click="addRequestDialogVisible = true" type="primary" icon="ti-plus" round>
-                    {{$t('tenant.add_request')}}
-                </el-button>
-            </ui-heading>
-            <ui-divider />
-            <dynamic-scroller ref="dynamic-scroller" :items="requests.data" :min-item-size="249" page-mode v-if="!loading">
-                <template #before v-if="loading && !requests.data.length">
-                    <loader v-for="idx in 5" :key="idx" />
-                </template>
-                <template v-slot="{item, index, active}">
-                    <dynamic-scroller-item :item="item" :active="active" :data-index="index">
-                        <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" @hook:mounted="$refs['dynamic-scroller'].forceUpdate">
-                            <template #tab-overview-after>
-                                <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
-                            </template>
-                            <template #tab-media-after>
-                                <ui-divider v-if="!item.media.length">
-                                    <el-button icon="el-icon-upload" round @click="toggleDrawer(item, 'media')">{{$t('tenant.placeholder.upload')}}...</el-button>
-                                </ui-divider>
-                                <!-- <ui-divider v-if="item.media.length">
-                                    Exist
-                                </ui-divider> -->
-                            </template>
-                        </request-card>
-                    </dynamic-scroller-item>
-                </template>
-                <template #after v-if="loading && requests.data.length">
-                    <loader />
-                </template>
-            </dynamic-scroller>
+            <div class="main-content">
+                <ui-heading icon="icon-chat-empty" :title="$t('tenant.requests')" description="Need some info? Encountered an issue? Contact us!">
+                    <el-popover popper-class="requests__filter-popover" placement="bottom-end" trigger="click" :width="192">
+                        <el-button slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
+                        <filters ref="filters" layout="column" :data.sync="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
+                        <el-button type="primary" size="small" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
+                    </el-popover>
+                    <el-button @click="addRequestDialogVisible = true" type="primary" icon="ti-plus" round>
+                        {{$t('tenant.add_request')}}
+                    </el-button>
+                </ui-heading>
+                <ui-divider />
+                <dynamic-scroller ref="dynamic-scroller" :items="requests.data" :min-item-size="249" page-mode v-if="!loading">
+                    <template #before v-if="loading && !requests.data.length">
+                        <loader v-for="idx in 5" :key="idx" />
+                    </template>
+                    <template v-slot="{item, index, active}">
+                        <dynamic-scroller-item :item="item" :active="active" :data-index="index">
+                            <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" @hook:mounted="$refs['dynamic-scroller'].forceUpdate">
+                                <template #tab-overview-after>
+                                    <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
+                                </template>
+                                <template #tab-media-after>
+                                    <ui-divider v-if="!item.media.length">
+                                        <el-button icon="el-icon-upload" round @click="toggleDrawer(item, 'media')">{{$t('tenant.placeholder.upload')}}...</el-button>
+                                    </ui-divider>
+                                    <!-- <ui-divider v-if="item.media.length">
+                                        Exist
+                                    </ui-divider> -->
+                                </template>
+                            </request-card>
+                        </dynamic-scroller-item>
+                    </template>
+                    <template #after v-if="loading && requests.data.length">
+                        <loader />
+                    </template>
+                </dynamic-scroller>
+            </div>
+            <ui-drawer :size="448" :visible.sync="addRequestDialogVisible" :z-index="1" direction="right" docked>
+                <ui-divider content-position="left">{{$t('tenant.add_request')}}</ui-divider>
+                <div class="content">
+                    <request-add-form ref="request-add-form" />
+                </div>
+            </ui-drawer>
         </div>
         <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked @update:visibleDrawer="resetDataFromDrawer">
             <el-tabs type="card" v-model="activeDrawerTab" stretch v-if="openedRequest">
@@ -53,7 +61,21 @@
                         {{$t('tenant.media')}}
                     </div>
                     <ui-media-gallery :files="openedRequest.media.map(({url}) => url)" />
+                    <ui-divider class="upload-divider" content-position="left">
+                        <i class="el-icon-upload"></i>
+                        {{$t('tenant.request_upload_title')}}
+                    </ui-divider>
                     
+                    <div class="upload-description">
+                        <el-alert
+                            :title="$t('tenant.request_upload_desc')"
+                            type="info"
+                            show-icon
+                            :closable="false"
+                        >
+                        </el-alert>
+                        
+                    </div>
                     <ui-media-uploader v-model="media" :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" :action="`api/v1/requests/${openedRequest.id}/media`" :id="openedRequest.id" :options="{drop: true, draggable: true, multiple: true}" />
 
                     <!-- <div ref="media-content" id="media-content" class="content">
@@ -93,12 +115,7 @@
                 </el-tab-pane>
             </el-tabs>
         </ui-drawer>
-        <ui-drawer :size="448" :visible.sync="addRequestDialogVisible" :z-index="1" direction="right" docked>
-            <ui-divider content-position="left">{{$t('tenant.add_request')}}</ui-divider>
-            <div class="content">
-                <request-add-form ref="request-add-form" />
-            </div>
-        </ui-drawer>
+        
 
         <!-- <el-dialog ref="add-request-dialog" title="Add request" :visible.sync="addRequestDialogVisible" custom-class="add-request-dialog" append-to-body>
             
@@ -213,6 +230,7 @@
                 // if (this.loading && this.requests.data.length) {
                 //     return
                 // }
+
                 this.loading = false
 
                 const {current_page, last_page} = this.requests
@@ -248,6 +266,7 @@
                 this.openedRequest = request
 
                 this.visibleDrawer = !this.visibleDrawer
+
             },
             resetDataFromDrawer () {
                 this.activeDrawerTab = 'chat'
@@ -255,6 +274,7 @@
             },
             addRequest () {
                 this.$watch(() => this.$refs['request-add-form'].loading, state => {
+
                     this.$nextTick(async () => {
                         this.$refs['request-add-form'].$el.classList.remove('el-loading-parent--relative')
 
@@ -275,6 +295,7 @@
         },
         mounted () {
             // this.$refs['dynamic-scroller'].forceUpdate()
+            this.get()
         }
     }
 </script>
@@ -377,6 +398,22 @@
                                     margin-right: -16px
                                     padding-top: 16px
                                     padding-right: 16px
+
+                        .upload-divider 
+                            padding: 0
+                            width: calc(100% - 32px);
+
+                            /deep/ .ui-divider__content--aligned-left
+                                transform: translate(calc(208px - 50%), -50%)
+                                padding-left: 16px
+                        
+                        .upload-description
+                            margin: 16px;
+                            padding: 0
+                            .el-alert
+                                align-items: flex-start
+                                .el-alert__icon
+                                    padding-top: 2px
 
                         // .ui-media-gallery
                         //     height: 100%

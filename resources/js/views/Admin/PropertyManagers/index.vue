@@ -123,6 +123,7 @@
                         type: '',
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
+                        editUrl: 'adminPropertyManagersEdit',
                         onClick: this.edit,
                         permissions: [
                             this.$permissions.update.propertyManager

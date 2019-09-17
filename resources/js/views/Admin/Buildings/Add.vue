@@ -25,6 +25,14 @@
                                   style="max-width: 512px;">
                         <el-input type="number" v-model="model.floor_nr"></el-input>
                     </el-form-item>
+                    <el-form-item :label="`${ordinalSuffixFloor(item + 1)} ${$t('models.unit.floor')}`"
+                                  :rules="validationRules.floor"
+                                  :prop="'floor.'+ item"
+                                  style="max-width: 512px;"
+                                  :key="item"
+                                  v-for="item in floors">
+                        <el-input type="number" v-model.number="model.floor[item]"></el-input>
+                    </el-form-item>
                     <el-form-item :label="$t('general.zip')" :rules="validationRules.zip" prop="zip"
                                   style="max-width: 512px;">
                         <el-input type="text" v-model="model.zip"></el-input>
@@ -82,11 +90,43 @@
         methods: {
             setBuildingName() {
                 this.model.name = this.model.street + ' ' + this.model.house_num;
-            }
+            },
+            ordinalSuffixFloor(i) {
+                let j = +i % 10,
+                    k = +i % 100;
+                if (+i === 1) {
+                    return 'Base'
+                }
+                if (j === 1 && k !== 11) {
+                    return i + "st";
+                }
+                if (j === 2 && k !== 12) {
+                    return i + "nd";
+                }
+                if (j === 3 && k !== 13) {
+                    return i + "rd";
+                }
+                return i + "th";
+            },
         },
         mounted() {
             this.$root.$on('changeLanguage', () => this.getStates());
         },
+        computed: {
+            floors() {
+                let arr = [];
+
+                for (let i = 0; i < this.model.floor_nr; i++) {
+                    arr.push(i);
+                }
+
+                if (this.model.floor_nr !== '' ) {
+                    this.model.floor = this.model.floor.splice(0, this.model.floor_nr);
+                }
+
+                return arr;
+            }
+        }
     }
 </script>
 

@@ -183,10 +183,10 @@
             return {
                 assignmentsColumns: [{
                     prop: 'name',
-                    label: this.$t('models.quarter.name')
+                    label: 'general.title'
                 }, {
                     prop: 'type',
-                    label: this.$t('models.propertyManager.assignType'),
+                    label: 'models.propertyManager.assignType',
                     i18n: this.translateType
                 }],
                 assignmentsActions: [{

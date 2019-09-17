@@ -30,17 +30,17 @@
                     <el-col :span="12">
                         <card>
                             <el-form :model="changePassword" label-width="210px" ref="changePasswordForm" size="medium">
-                                <el-form-item :label="$t('old_password')" :rules="passwordValidationRules.password_old"
+                                <el-form-item :label="$t('tenant.old_password')" :rules="passwordValidationRules.password_old"
                                               prop="password_old">
                                     <el-input autocomplete="off" type="password"
                                               v-model="changePassword.password_old"></el-input>
                                 </el-form-item>
-                                <el-form-item :label="$t('new_password')" :rules="passwordValidationRules.password"
+                                <el-form-item :label="$t('tenant.new_password')" :rules="passwordValidationRules.password"
                                               prop="password">
                                     <el-input autocomplete="off" type="password"
                                               v-model="changePassword.password"></el-input>
                                 </el-form-item>
-                                <el-form-item :label="$t('new_password_confirmation')"
+                                <el-form-item :label="$t('tenant.confirm_password')"
                                               :rules="passwordValidationRules.password_confirmation"
                                               prop="password_confirmation">
                                     <el-input autocomplete="off" type="password"
@@ -48,9 +48,9 @@
                                 </el-form-item>
                                 <el-form-item>
                                     <el-button @click="submitChangePasswordForm" icon="ti-save" type="primary">
-                                        {{$t('change')}}
+                                        {{$t('tenant.change')}}
                                     </el-button>
-                                    <el-button @click="resetForm">{{$t('cancel')}}</el-button>
+                                    <el-button @click="resetForm">{{$t('tenant.cancel')}}</el-button>
                                 </el-form-item>
                             </el-form>
                         </card>
@@ -81,16 +81,16 @@
                         <el-form-item :label="$t('tenant.choose_language')">
                                 <el-radio-group v-model="loggedInUser.settings.language">
                                     <el-radio-button label="fr">
-                                        <span class="flag-icon flag-icon-fr"></span> {{$t('languages.fr')}}
+                                        <span class="flag-icon flag-icon-fr"></span> {{$t('tenant.languages.fr')}}
                                     </el-radio-button>
                                     <el-radio-button label="de">
-                                        <span class="flag-icon flag-icon-de"></span> {{$t('languages.de')}}
+                                        <span class="flag-icon flag-icon-de"></span> {{$t('tenant.languages.de')}}
                                     </el-radio-button>
                                     <el-radio-button label="en">
-                                        <span class="flag-icon flag-icon-us"></span> {{$t('languages.en')}}
+                                        <span class="flag-icon flag-icon-us"></span> {{$t('tenant.languages.en')}}
                                     </el-radio-button>
                                     <el-radio-button label="it">
-                                        <span class="flag-icon flag-icon-it"></span> {{$t('languages.it')}}
+                                        <span class="flag-icon flag-icon-it"></span> {{$t('tenant.languages.it')}}
                                     </el-radio-button>
                                 </el-radio-group>
                         </el-form-item>
@@ -254,9 +254,9 @@
             },
             validateConfirmPassword(rule, value, callback) {
                 if (value === '') {
-                    callback(new Error(this.$t('password_validation.confirm')));
+                    callback(new Error(this.$t('validation.required',{attribute: this.$t('tenant.confirm_password')})));
                 } else if (value !== this.changePassword.password) {
-                    callback(new Error(this.$t('password_validation.match')));
+                    callback(new Error(this.$t('validation.confirmed',{attribute: this.$t('tenant.confirm_password')})));
                 } else {
                     callback();
                 }

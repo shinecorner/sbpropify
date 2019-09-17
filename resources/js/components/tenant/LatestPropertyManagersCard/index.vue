@@ -61,6 +61,7 @@
             }
         },
         async mounted () {
+            
             const {tenant} = this.user
 
             if (tenant.building_id) {
@@ -76,6 +77,7 @@
 
                 this.timeout = setTimeout(() => this.loading = false, EXTRA_LOADING_SECONDS)
             }
+
         },
         beforeDestroy () {
             clearTimeout(this.timeout)

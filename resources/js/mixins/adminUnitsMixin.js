@@ -20,12 +20,11 @@ export default (config = {}) => {
                 model: {
                     tenant_id: '',
                     name: '',
-                    type: '',
+                    type: null,
                     room_no: '',
                     monthly_rent: '',
                     floor: '',
                     sq_meter: '',
-                    basement: false,
                     attic: false,
                     building_id: this.$route.params.id,
                     selected_tenant: '',

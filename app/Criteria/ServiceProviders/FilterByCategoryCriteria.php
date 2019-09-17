@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Criteria\Tenants;
+namespace App\Criteria\ServiceProviders;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -9,10 +9,10 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByBuildingCriteria
- * @package Prettus\Repository\Criteria
+ * Class FilterByCategoryCriteria
+ * @package App\Criteria\ServiceProviders
  */
-class FilterByBuildingCriteria implements CriteriaInterface
+class FilterByCategoryCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -23,6 +23,7 @@ class FilterByBuildingCriteria implements CriteriaInterface
     {
         $this->request = $request;
     }
+
 
     /**
      * Apply criteria in query repository
@@ -35,16 +36,10 @@ class FilterByBuildingCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $hasBuilding = $this->request->get('has_building', null);
-        if ($hasBuilding) {
-            $model = $model->where('tenants.building_id', '>', 0);
-        }
+        $category = $this->request->get('category', null) ?? $this->request->get('category_id', null);
+        if (! $category) { return $model; }
 
-        $building_id = $this->request->get('building_id', null);
-        if ($building_id) {
-            $model = $model->where('tenants.building_id', (int)$building_id);
-        }
-        
-        return $model;     
-    }  
+        $model = $model->where('category', $category);
+        return $model;
+    }
 }

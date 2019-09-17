@@ -27,7 +27,7 @@ use App\Models\User;
 use App\Notifications\TenantCredentials;
 use App\Repositories\PostRepository;
 use App\Repositories\TemplateRepository;
-use App\Repositories\TenantRentContractRepository;
+use App\Repositories\RentContractRepository;
 use App\Repositories\TenantRepository;
 use App\Repositories\UserRepository;
 use App\Transformers\TenantTransformer;
@@ -102,7 +102,7 @@ class TenantAPIController extends AppBaseController
     public function index(ListRequest $request)
     {
         $request->merge([
-            'model' => (new Tenant)->table,
+            'model' => (new Tenant)->getTable(),
         ]);
 
         $this->tenantRepository->pushCriteria(new FilterByBuildingCriteria($request));
@@ -126,7 +126,9 @@ class TenantAPIController extends AppBaseController
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         // @TODO TENANT_RENT_CONTRACT is need? building, address, unit . I think not need because many
-        $tenants = $this->tenantRepository->with(['user', 'building.address', 'unit'])->paginate($perPage);
+        $tenants = $this->tenantRepository->with(['user', 'building.address', 'unit', 'rent_contracts' => function ($q) {
+                $q->with('building.address', 'unit');
+            }])->paginate($perPage);
         $this->fixCreatedBy($tenants);
         return $this->sendResponse($tenants->toArray(), 'Tenants retrieved successfully');
     }
@@ -202,7 +204,10 @@ class TenantAPIController extends AppBaseController
         $this->tenantRepository->pushCriteria(new LimitOffsetCriteria($request));
         $this->tenantRepository->pushCriteria(new RequestCriteria($request));
         // @TODO TENANT_RENT_CONTRACT is need? address. I think not need because many
-        $tenants = $this->tenantRepository->with('address:id,street,house_num')->get(['id', 'address_id', 'first_name', 'last_name', 'status', 'created_at']);
+        $tenants = $this->tenantRepository->with(['address:id,street,house_num', 'rent_contracts' => function ($q) {
+                $q->with('building.address', 'unit', 'media');
+            }])
+            ->get(['id', 'address_id', 'first_name', 'last_name', 'status', 'created_at']);
         $this->fixCreatedBy($tenants);
         return $this->sendResponse($tenants->toArray(), 'Tenants retrieved successfully');
     }
@@ -297,13 +302,13 @@ class TenantAPIController extends AppBaseController
 
         $rentData['tenant_id'] = $tenant->id;
         try {
-            $rentRepository = App::make(TenantRentContractRepository::class);
+            $rentRepository = App::make(RentContractRepository::class);
             $rentRepository->create($rentData);
         } catch (\Exception $e) {
-            return $this->sendError(__('models.tenant_rent_contract.errors.create') . $e->getMessage());
+            return $this->sendError(__('models.rent_contract.errors.create') . $e->getMessage());
         }
 
-        $tenant->load(['user', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
+        $tenant->load(['user', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
             $q->with('building.address', 'unit', 'media');
         }]);
         $pr->newTenantPost($tenant);
@@ -361,7 +366,7 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
-        $tenant->load(['settings', 'user', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
+        $tenant->load(['settings', 'user', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
             $q->with('building.address', 'unit', 'media');
         }]);
         $response = (new TenantTransformer)->transform($tenant);
@@ -410,7 +415,7 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
-        $user->tenant->load(['user', 'settings', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
+        $user->tenant->load(['user', 'settings', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
             $q->with('building.address', 'unit', 'media');
         }]);
         $response = (new TenantTransformer)->transform($user->tenant);
@@ -521,19 +526,19 @@ class TenantAPIController extends AppBaseController
 
         $rentData['tenant_id'] = $tenant->id;
         try {
-            $tenant->load('tenant_rent_contracts');
-            $tenantRentContract = $tenant->tenant_rent_contracts->first();
-            $rentRepository = App::make(TenantRentContractRepository::class);
-            if ($tenantRentContract) {
-                $rentRepository->updateExisting($tenantRentContract, $rentData);
+            $tenant->load('rent_contracts');
+            $rentContract = $tenant->rent_contracts->first();
+            $rentRepository = App::make(RentContractRepository::class);
+            if ($rentContract) {
+                $rentRepository->updateExisting($rentContract, $rentData);
             } else {
                 $rentRepository->create($rentData);
             }
         } catch (\Exception $e) {
-            return $this->sendError(__('models.tenant_rent_contract.errors.create') . $e->getMessage());
+            return $this->sendError(__('models.rent_contract.errors.create') . $e->getMessage());
         }
 
-        $tenant->load(['settings', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
+        $tenant->load(['settings', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
             $q->with('building.address', 'unit', 'media');
         }]);
         if ($shouldPost) {
@@ -616,7 +621,7 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.update') . $e->getMessage());
         }
 
-        $tenant->load(['user', 'settings', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
+        $tenant->load(['user', 'settings', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
             $q->with('building.address', 'unit', 'media');
         }]);
         $response = (new TenantTransformer)->transform($tenant);
@@ -695,7 +700,7 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.update') . $e->getMessage());
         }
 
-        $tenant->load(['user', 'settings', 'building', 'unit', 'address', 'media', 'tenant_rent_contracts' => function ($q) {
+        $tenant->load(['user', 'settings', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
             $q->with('building.address', 'unit', 'media');
         }]);
         $response = (new TenantTransformer)->transform($tenant);

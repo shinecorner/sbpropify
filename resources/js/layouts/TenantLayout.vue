@@ -38,11 +38,11 @@
             <ui-drawer :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
                 <el-tabs v-model="drawerTabsModel" type="card" stretch>
                     <el-tab-pane name="notifications">
-                        <div slot="label"><i class="icon-bell"></i> Notifications</div>
+                        <div slot="label"><i class="icon-bell"></i> {{$t('tenant.notification_label')}}</div>
                         <user-notifications />
                     </el-tab-pane>
                     <el-tab-pane name="settings">
-                        <div slot="label"><i class="icon-cog"></i> Settings</div>
+                        <div slot="label"><i class="icon-cog"></i> {{$t('tenant.settings')}}</div>
                         <user-settings />
                     </el-tab-pane>
                 </el-tabs>
@@ -92,87 +92,87 @@
                 tenant_logo_src: '',
                 quickLinks: [{
                     icon: 'icon-megaphone-1',
-                    title: this.$t('tenant.add_post'),
+                    title: 'tenant.add_post',
                     route: {
                         name: 'tenantPosts'
                     }
                 }, {
                     icon: 'icon-chat-empty',
-                    title: this.$t('tenant.add_request'),
+                    title: 'tenant.add_request',
                     route: {
                         name: 'tenantRequests'
                     }
                 }, {
                     icon: 'icon-basket',
-                    title: this.$t('tenant.add_product'),
+                    title: 'tenant.add_product',
                     route: {
                         name: 'tenantMarketplace'
                     }
                 }],
                 routes: [{
                     icon: 'icon-th',
-                    title: this.$t('layouts.tenant.sidebar.dashboard'),
+                    title: 'layouts.tenant.sidebar.dashboard',
                     route: {
                         name: 'tenantDashboard'
                     }
                 }, 
                 {
                     icon: 'icon-vcard',
-                    title: this.$t('layouts.tenant.sidebar.myTenancy'),
+                    title: 'layouts.tenant.sidebar.myTenancy',
                     children: [{
                         icon: 'icon-user',
-                        title: this.$t('layouts.tenant.sidebar.myPersonalData'),
+                        title: 'layouts.tenant.sidebar.myPersonalData',
                         route: {
                             name: 'tenantMyPersonal'
                         }
                     }, {
                         icon: 'icon-handshake-o',
-                        title: this.$t('layouts.tenant.sidebar.myRecentContract'),
+                        title: 'layouts.tenant.sidebar.myRecentContract',
                         route: {
                             name: 'tenantMyContracts'
                         }
                     }, {
                         icon: 'icon-doc-text',
-                        title: this.$t('layouts.tenant.sidebar.myDocuments'),
+                        title: 'layouts.tenant.sidebar.myDocuments',
                         route: {
                             name: 'tenantMyDocuments'
                         }
                         // do not show if no documents
                     }, {
                         icon: 'icon-contacts',
-                        title: this.$t('layouts.tenant.sidebar.myContactPersons'),
+                        title: 'layouts.tenant.sidebar.myContactPersons',
                         route: {
                             name: 'tenantMyContacts'
                         },
                         visible: this.realEstate && this.realEstate.contact_enable // OR no service partners for the building
                     }, {
                         icon: 'icon-users',
-                        title: this.$t('tenant.property_managers'),
+                        title: 'tenant.property_managers',
                         route: {
                             name: 'tenantPropertyManagers'
                         }
                     }, {
                         icon: 'icon-group',
-                        title: this.$t('tenant.my_neighbours'),
+                        title: 'tenant.my_neighbours',
                         route: {
                             name: 'tenantMyNeighbours'
                         }
                     }]
                 }, {
                     icon: 'icon-megaphone-1',
-                    title: this.$t('layouts.tenant.sidebar.posts'),
+                    title: 'layouts.tenant.sidebar.posts',
                     route: {
                         name: 'tenantPosts'
                     }
                 }, {
                     icon: 'icon-chat-empty',
-                    title: this.$t('layouts.tenant.sidebar.requests'),
+                    title: 'layouts.tenant.sidebar.requests',
                     route: {
                         name: 'tenantRequests'
                     }
                 }, {
                     icon: 'icon-basket',
-                    title: this.$t('layouts.tenant.sidebar.products'),
+                    title: 'layouts.tenant.sidebar.products',
                     route: {
                         name: 'tenantMarketplace'
                     }
@@ -184,7 +184,7 @@
                     },
                 }, {
                     icon: 'icon-cog',
-                    title: this.$t('layouts.tenant.sidebar.settings'),
+                    title: 'layouts.tenant.sidebar.settings',
                     positionedBottom: true,
                     route: {
                         name: 'tenantSettings'

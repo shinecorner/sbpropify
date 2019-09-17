@@ -86,12 +86,13 @@ class UtilsAPIController extends AppBaseController
             'languages' => $languages,
         ];
 
-        $re = App\Models\RealEstate::first(['primary_color', 'accent_color', 'logo', 'circle_logo', 'tenant_logo', 'favicon_icon']);
+        $re = App\Models\RealEstate::first(['primary_color', 'primary_color_lighter', 'accent_color', 'logo', 'circle_logo', 'tenant_logo', 'favicon_icon']);
 
         if ($re) {
-            $colors = $re->only(['primary_color', 'accent_color']);
+            $colors = $re->only(['primary_color', 'accent_color', 'primary_color_lighter']);
         } else {
             $colors = [
+                'primary_color_lighter' => '#c55a9059',
                 'primary_color' => '#6AC06F',
                 'accent_color' => '#F7CA18'
             ];
@@ -154,7 +155,7 @@ class UtilsAPIController extends AppBaseController
     private function getServiceProviderConstants()
     {
         $result = [
-            'category' => ServiceProvider::ServiceProviderCategories,
+            'category' => ServiceProvider::ServiceProviderCategory,
         ];
 
         return $result;
@@ -189,6 +190,7 @@ class UtilsAPIController extends AppBaseController
     {
         $result = [
             'type' => Post::Type,
+            'sub_type' => Post::SubType,
             'visibility' => Post::Visibility,
             'status' => Post::Status,
             'category' => Post::Category,
