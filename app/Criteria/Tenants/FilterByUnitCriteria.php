@@ -35,9 +35,9 @@ class FilterByUnitCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {      
-        $unit_id = $this->request->get('unit_id', null);
+        $unit_id = $this->request->get('tenants.unit_id', null);
         if ($unit_id) {
-            return $model->where('unit_id', (int)$unit_id);
+            return $model->where('tenants.unit_id', (int)$unit_id);
         }
         
         return $model;     
