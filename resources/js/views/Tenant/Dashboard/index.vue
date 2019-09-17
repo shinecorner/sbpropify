@@ -15,7 +15,7 @@
             </div>
             <div class="column">
                 <requests-statistics-card class="widget" />
-                <latest-requests-card class="widget" />
+                <latest-requests-card class="widget" @view-detail-request="viewDetailRequest"/>
                 <latest-posts-card class="widget" />
             </div>
             <div class="column">
@@ -23,7 +23,50 @@
                 <rate-card />
             </div>
         </div>
+        <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked @update:visibleDrawer="resetDataFromDrawer">
+            <el-tabs type="card" v-model="activeDrawerTab" stretch v-if="openedRequest">
+                <el-tab-pane name="chat" lazy>
+                    <div slot="label">
+                        <i class="ti-comments"></i>
+                        Chat
+                    </div>
+                    <chat ref="chat" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
+                </el-tab-pane>
+                <el-tab-pane name="media" lazy>
+                    <div slot="label">
+                        <i class="ti-gallery"></i>
+                        {{$t('tenant.media')}}
+                    </div>
+                    <ui-media-gallery :files="openedRequest.media.map(({url}) => url)" />
+                    <ui-divider class="upload-divider" content-position="left">
+                        <i class="el-icon-upload"></i>
+                        {{$t('tenant.request_upload_title')}}
+                    </ui-divider>
+                    
+                    <div class="upload-description">
+                        <el-alert
+                            :title="$t('tenant.request_upload_desc')"
+                            type="info"
+                            show-icon
+                            :closable="false"
+                        >
+                        </el-alert>
+                        
+                    </div>
+                    <ui-media-uploader v-model="media" :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" :action="`api/v1/requests/${openedRequest.id}/media`" :id="openedRequest.id" :options="{drop: true, draggable: true, multiple: true}" />
+
+                </el-tab-pane>
+                <el-tab-pane name="audit" lazy>
+                    <div slot="label">
+                        <i class="ti-gallery"></i>
+                        Audit
+                    </div>
+                    <audit :id="openedRequest.id" type="request" show-filter />
+                </el-tab-pane>
+            </el-tabs>
+        </ui-drawer>
         <!-- <div :class="[{[$refs.greeting.timeOfDay + '-time']: true}]" v-if="$refs.greeting"></div> -->
+
     </div>
 </template>
 
@@ -102,6 +145,28 @@
                 delay: 0,
                 timeout: 8000
             }),
+        },
+        data () {
+            return {
+                loading: false,
+                media: [],
+                openedRequest: null,
+                visibleDrawer: false,
+                activeDrawerTab: 'chat',
+                activeDrawerMediaTab: 0,
+            }
+        },
+        methods: {
+            resetDataFromDrawer () {
+                this.activeDrawerTab = 'chat'
+                this.openedRequest = null
+            },
+            viewDetailRequest(evt, request) {
+                this.activeDrawerTab = 'chat'
+                this.openedRequest = request
+
+                this.visibleDrawer = !this.visibleDrawer
+            }
         },
         mounted () {
             // TweenMax.staggerFrom(, 2, {scale:0.5, opacity:0, delay:0.5, ease:Elastic.easeOut, force3D:true}, 0.2)
