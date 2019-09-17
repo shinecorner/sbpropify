@@ -4,6 +4,15 @@
             <template slot="description" v-if="model.service_request_format">
                 <div class="subtitle">{{model.service_request_format}}</div>
             </template>
+            <el-button
+                    @click="downloadPDF"
+                    size="mini"
+                    type="primary"
+                    round
+                    class="download-pdf"
+            >
+                {{$t('models.request.download_pdf.title')}}
+            </el-button>
             <edit-actions :saveAction="submit" :deleteAction="deleteRequest" route="adminRequests"/>
         </heading>
         <div class="crud-view" id="edit_request">
@@ -480,7 +489,7 @@
     import RelationList from 'components/RelationListing';
     import EditActions from 'components/EditViewActions';
     import ServiceDialog from 'components/ServiceAttachModal';
-    import {displaySuccess} from "../../../helpers/messages";
+    import {displaySuccess, displayError} from "../../../helpers/messages";
     import {Avatar} from 'vue-avatar';
     import Audit from 'components/Audit';
     import AssignmentByType from 'components/AssignmentByType';
@@ -588,7 +597,7 @@
             
         },
         methods: {
-            ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags', 'deleteRequestTag']),
+            ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags', 'deleteRequestTag', 'downloadRequestPDF']),
             translateType(type) {
                 return this.$t(`models.request.userType.${type}`);
             },
@@ -703,10 +712,35 @@
                     return item.name != tag;
                 });
             },
+            async downloadPDF() {
+                this.loading.state = true;
+                try {
+                    console.log('this.model.id', this.model.id)
+                    const resp = await this.downloadRequestPDF({id: this.model.id});
+                    if (resp && resp.data) {
+                        const url = window.URL.createObjectURL(new Blob([resp.data], {type: resp.headers['content-type']}));
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.setAttribute('download', resp.headers['content-disposition'].split('filename=')[1]);
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(url);
+                    }
+                } catch (e) {
+                    displayError(e)
+                } finally {
+                    this.loading.state = false;
+                }
+            },
         }
     };
 </script>
 <style lang="scss" scoped>
+    .download-pdf {
+        margin-right: 5px;
+    }
+
     .services-edit {
         .heading {
             margin-bottom: 20px;
