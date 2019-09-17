@@ -20,6 +20,7 @@ use App\Http\Requests\API\ServiceRequest\ListRequest;
 use App\Http\Requests\API\ServiceRequest\NotifyProviderRequest;
 use App\Http\Requests\API\ServiceRequest\SeeRequestsCount;
 use App\Http\Requests\API\ServiceRequest\UpdateRequest;
+use App\Http\Requests\API\Tenant\DownloadCredentialsRequest;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
@@ -42,6 +43,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
+use PDF;
 
 /**
  * Class ServiceRequestController
@@ -51,6 +53,11 @@ class ServiceRequestAPIController extends AppBaseController
 {
     /** @var  ServiceRequestRepository */
     private $serviceRequestRepository;
+
+    /**
+     * @var string
+     */
+    private $serviceRequestFileNotFound = "Service request file not found!";
 
     /**
      * ServiceRequestAPIController constructor.
@@ -258,7 +265,7 @@ class ServiceRequestAPIController extends AppBaseController
     {
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
-       
+
         if (empty($serviceRequest)) {
             return $this->sendError(__('models.request.errors.not_found'));
         }
@@ -520,7 +527,7 @@ class ServiceRequestAPIController extends AppBaseController
     public function destroyWithIds(Request $request){
         $ids = $request->get('ids');
         try{
-            ServiceRequest::destroy($ids);            
+            ServiceRequest::destroy($ids);
         }
         catch (\Exception $e) {
             return $this->sendError(__('models.request.errors.deleted') . $e->getMessage());
@@ -1628,6 +1635,39 @@ class ServiceRequestAPIController extends AppBaseController
         $response['my_pending_request_count'] = $this->serviceRequestRepository->count();
 
         return $response;
+    }
+
+    /**
+     * @param $tenant
+     * @return mixed
+     */
+    protected function getPdfName(ServiceRequest $serviceRequest)
+    {
+        $serviceRequest->setDownloadPdf();
+        $pdfName = $serviceRequest->pdfFileName();
+
+        return $pdfName ;
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+
+    public function downloadPdf($id){
+
+        $r = $this->serviceRequestRepository->findWithoutFail($id);
+
+        if (empty($r)) {
+            return $this->sendError(__('models.request.errors.not_found'));
+        }
+
+        $pdfName = $this->getPdfName($r);
+        if (!\Storage::disk('service_request_downloads')->exists($pdfName)) {
+            return $this->sendError($this->serviceRequestFileNotFound);
+        }
+        return \Storage::disk('service_request_downloads')->download($pdfName, $pdfName);
+
     }
 
 }

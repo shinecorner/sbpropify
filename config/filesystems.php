@@ -122,6 +122,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'service_request_downloads' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/service-request/downloads'),
+            'visibility' => 'public',
+        ],
+
         'requests_media' => [
             'driver' => 'local',
             'root' => storage_path('app/public/requests/media'),
