@@ -919,10 +919,10 @@
                         flex: 1;
                         justify-content: flex-end;
                         text-align: end;
-                        
+                        width: 130px
                     }
                     .el-select {
-                        //min-width: 130px
+                        width: 130px
                     }
                 }
                 &__label {
