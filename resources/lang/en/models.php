@@ -587,7 +587,7 @@ return [
         'due_on' => 'Due on',
         'active_reminder_switcher' => 'Active Reminder',
         'days_left' => 'How many days before should the email be sent?',
-        'send_person' => 'Welche Person soll benachrichtigt werden?',
+        'send_person' => 'Which person should be notified?',
         'media' => [
             'added' => 'Document added',
             'removed' => 'Document removed',

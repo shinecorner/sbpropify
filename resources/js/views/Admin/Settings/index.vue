@@ -444,9 +444,11 @@
     import {displayError, displaySuccess} from 'helpers/messages';
     import CategoriesListing from './Categories'
     import TemplatesListing from '../Templates'
+    import globalFunction from "helpers/globalFunction";
 
     export default {
         name: 'AdminProfile',
+        mixins: [globalFunction],
         components: {
             Heading,
             Cropper,
@@ -629,6 +631,7 @@
             saveRealEstate(form) {
                 this.$refs[form].validate((valid) => {
                     if (valid) {
+                        this.model.primary_color_lighter = this.getLightenDarkenColor(this.model.primary_color, 90) + '59'
                         this.updateRealEstate(this.model).then((resp) => {
                             this.fetchRealEstate();
                             displaySuccess(resp);
