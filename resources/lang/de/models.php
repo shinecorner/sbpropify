@@ -421,7 +421,7 @@ return [
     ],
     'service' => [
         'title' => 'Dienstleister und Hauswartung',
-        'add_title' => 'Neue Firma hinzufügen',
+        'add_title' => 'Firma hinzufügen',
         'edit_title' => 'Firma bearbeiten',
         'saved' => 'Dienstleister gespeichert',
         'deleted' => 'Dienstleister gelöscht',
