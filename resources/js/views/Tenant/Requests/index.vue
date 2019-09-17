@@ -67,7 +67,14 @@
                     </ui-divider>
                     
                     <div class="upload-description">
-                        {{$t('tenant.request_upload_desc')}}
+                        <el-alert
+                            :title="$t('tenant.request_upload_desc')"
+                            type="info"
+                            show-icon
+                            :closable="false"
+                        >
+                        </el-alert>
+                        
                     </div>
                     <ui-media-uploader v-model="media" :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" :action="`api/v1/requests/${openedRequest.id}/media`" :id="openedRequest.id" :options="{drop: true, draggable: true, multiple: true}" />
 
@@ -401,9 +408,12 @@
                                 padding-left: 16px
                         
                         .upload-description
-                            background: lightgrey;
-                            border: 1px solid grey;
                             margin: 16px;
+                            padding: 0
+                            .el-alert
+                                align-items: flex-start
+                                .el-alert__icon
+                                    padding-top: 2px
 
                         // .ui-media-gallery
                         //     height: 100%

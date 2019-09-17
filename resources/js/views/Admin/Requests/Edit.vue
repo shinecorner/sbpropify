@@ -885,6 +885,10 @@
                         flex: 1;
                         justify-content: flex-end;
                         text-align: end;
+                        
+                    }
+                    .el-select {
+                        //min-width: 130px
                     }
                 }
                 &__label {

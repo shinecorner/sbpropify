@@ -7,11 +7,11 @@
                 <router-link 
                     :to="{name: item.route.name}" v-if="!item.children">
                     <i :class="['icon', item.icon]"></i>
-                    <div class="title">{{item.title}}</div>
+                    <div class="title">{{$t(item.title)}}</div>
                 </router-link>
                 <template v-else>
                 <i :class="['icon', item.icon]"></i>
-                <div class="title">{{item.title}}</div>
+                <div class="title">{{$t(item.title)}}</div>
                 </template>
             </div>
             
@@ -21,7 +21,7 @@
                 <router-link 
                     :to="{name: item.route.name}" >
                 <i :class="['icon', item.icon]"></i>
-                <div class="title">{{item.title}}</div>
+                <div class="title">{{$t(item.title)}}</div>
                 {{item.visible}}
                 </router-link>
             </div>

@@ -102,7 +102,7 @@ class TenantAPIController extends AppBaseController
     public function index(ListRequest $request)
     {
         $request->merge([
-            'model' => (new Tenant)->table,
+            'model' => (new Tenant)->getTable(),
         ]);
 
         $this->tenantRepository->pushCriteria(new FilterByBuildingCriteria($request));

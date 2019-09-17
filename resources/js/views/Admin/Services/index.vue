@@ -2,7 +2,7 @@
     <div class="services">
         <heading :title="$t('models.service.title')" icon="icon-tools" shadow="heavy">
             <template v-if="$can($permissions.create.provider)">
-                <el-button @click="add" icon="ti-plus" round size="mini" type="primary">{{$t('general.actions.add')}}
+                <el-button @click="add" icon="ti-plus" round size="mini" type="primary">{{$t('models.service.add_title')}}
                 </el-button>
             </template>
             <template v-if="$can($permissions.delete.provider)">

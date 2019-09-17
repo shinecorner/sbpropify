@@ -23,43 +23,13 @@ const Router = new VueRouter({
     mode: 'history'
 })
 
-function LightenDarkenColor(col, amt) {
-  
-    var usePound = false;
-  
-    if (col[0] == "#") {
-        col = col.slice(1);
-        usePound = true;
-    }
- 
-    var num = parseInt(col,16);
- 
-    var r = (num >> 16) + amt;
- 
-    if (r > 255) r = 255;
-    else if  (r < 0) r = 0;
- 
-    var b = ((num >> 8) & 0x00FF) + amt;
- 
-    if (b > 255) b = 255;
-    else if  (b < 0) b = 0;
- 
-    var g = (num & 0x0000FF) + amt;
- 
-    if (g > 255) g = 255;
-    else if (g < 0) g = 0;
- 
-    return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
-  
-}
-
 Router.beforeEach(async (to, from, next) => {
     if (!Object.keys(store.state.application.constants).length) {
         await store.dispatch(`application/${TYPES.actions.getConstants}`)
 
         document.documentElement.style.setProperty('--primary-color', store.state.application.constants.colors.primary_color) // this will be removed
         document.documentElement.style.setProperty('--color-primary', store.state.application.constants.colors.primary_color)
-        document.documentElement.style.setProperty('--primary-color-lighter', LightenDarkenColor(store.state.application.constants.colors.primary_color, 90) + '59' )
+        document.documentElement.style.setProperty('--primary-color-lighter', store.state.application.constants.colors.primary_color_lighter)
 
         if (!store.state.application.locale) {
             const [lang, locale] = (((navigator.userLanguage || navigator.language).replace('-', '_')).toLowerCase()).split('_')

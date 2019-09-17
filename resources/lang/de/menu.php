@@ -10,7 +10,7 @@ return [
     'allPendingRequests' => 'Alle offenen Anfragen',
     'marketplace' => 'Marktplatz',
     'settings' => 'Einstellungen',
-    'logout' => 'Anmelden',
+    'logout' => 'Abmelden',
     'profile' => 'Profil',
     'users' => 'Benutzer',
     'employees' => 'Bewirtschafter',

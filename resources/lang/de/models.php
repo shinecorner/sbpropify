@@ -421,7 +421,7 @@ return [
     ],
     'service' => [
         'title' => 'Dienstleister und Hauswartung',
-        'add_title' => 'Neue Firma hinzufügen',
+        'add_title' => 'Firma hinzufügen',
         'edit_title' => 'Firma bearbeiten',
         'saved' => 'Dienstleister gespeichert',
         'deleted' => 'Dienstleister gelöscht',
@@ -587,7 +587,7 @@ return [
         'due_on' => 'Erledigt am',
         'active_reminder_switcher' => 'Aktive Erinnerung',
         'days_left' => 'Wie viele Tage vorher soll die E-Mail versendet werden?',
-        'send_person' => 'Which person should be notified?',
+        'send_person' => 'Welche Person soll benachrichtigt werden?',
         'media' => [
             'added' => 'Mediendatei hinzugefügt',
             'removed' => 'Mediendatei entfernt.',
