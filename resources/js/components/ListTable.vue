@@ -37,7 +37,7 @@
                                     <el-option
                                         :key="item.id + item.name"
                                         :label="item.name"
-                                        :value="item.id"
+                                        :value="+item.id"
                                         v-for="item in filter.data">
                                     </el-option>
                                 </el-select>

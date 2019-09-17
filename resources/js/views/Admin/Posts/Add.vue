@@ -87,11 +87,9 @@
                         </template>
                         <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                       prop="content">
-                            <el-input
-                                :autosize="{minRows: 15}"
-                                type="textarea"
-                                v-model="model.content">
-                            </el-input>
+                            <yimo-vue-editor
+                                    :config="editorConfig"
+                                    v-model="model.content"/>
                         </el-form-item>
                         <el-form-item v-if="this.model.type == 3 && this.showdefaultimage == true">
                             <label>{{$t('models.post.category_default_image_label')}}</label>
@@ -277,11 +275,22 @@
     import PostsMixin from 'mixins/adminPostsMixin';
     import AddActions from 'components/EditViewActions';
 
+    let YimoVueEditor = require("yimo-vue-editor");
+
     const mixin = PostsMixin({mode: 'add'});
     export default {
         mixins: [mixin],
         components: {
-            AddActions
+            AddActions,
+            'yimo-vue-editor': YimoVueEditor.default,
+        },
+        data() {
+            return {
+                editorConfig: {
+                    printLog: false,
+                    lang: YimoVueEditor.E.langs.en,
+                },
+            }
         },
         mounted() {
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;

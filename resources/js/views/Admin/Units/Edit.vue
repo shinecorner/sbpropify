@@ -72,7 +72,7 @@
 
                         </el-row>
                         <el-row class="last-form-row" :gutter="20">
-                            <el-col :md="6" v-if="+model.type === 1">
+                            <el-col :md="6" v-if="model.type === 1">
                                 <el-form-item :label="$t('models.unit.room_no')" :rules="validationRules.room_no"
                                               prop="room_no"
                                 >

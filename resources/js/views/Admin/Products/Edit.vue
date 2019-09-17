@@ -75,11 +75,9 @@
                                     <el-col>
                                         <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                                     prop="content">
-                                            <quill-editor
-                                                    ref="quillEditor"
-                                                    v-model="model.content"
-                                            >
-                                            </quill-editor>
+                                            <yimo-vue-editor
+                                                    :config="editorConfig"
+                                                    v-model="model.content"/>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
@@ -201,10 +199,7 @@
     import EditActions from 'components/EditViewActions';
     import {Avatar} from 'vue-avatar';
 
-    import 'quill/dist/quill.core.css';
-    import 'quill/dist/quill.snow.css';
-    import 'quill/dist/quill.bubble.css';
-    import {quillEditor} from 'vue-quill-editor';
+    let YimoVueEditor = require("yimo-vue-editor");
 
     const mixin = ProductsMixin({mode: 'edit'});
 
@@ -215,11 +210,15 @@
         components: {
             EditActions,
             Avatar,
-            quillEditor,
+            'yimo-vue-editor': YimoVueEditor.default,
         },
         data() {
             return {
-                activeName: 'description'
+                editorConfig: {
+                    printLog: false,
+                    lang: YimoVueEditor.E.langs.en,
+                },
+                activeName: 'description',
             }
         },
         methods: {            
