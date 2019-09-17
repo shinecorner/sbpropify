@@ -94,8 +94,6 @@
                 border-style: none
 
                 .el-collapse-item
-                    &:hover
-                        background-color: var(--primary-color-lighter)
 
                     &:last-child /deep/ .el-collapse-item__header
                         border-bottom-style: none
