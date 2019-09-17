@@ -30,6 +30,18 @@ export default {
                 commit('set', data.data)
             }
         },
+        async getById ({state, commit}, {id, ...params} = {}) {
+            const {data} = await this._vm.axios.get(`posts/${id}`, {params})
+            if (state.data.length) {
+                const newData = state
+                newData.data.unshift(data.data)
+                commit('set', newData)
+            } else {
+                const newData = state
+                newData.data.push(data.data)
+                commit('set', newData)
+            }
+        },
         async create ({state, commit}, params) {
             const {data} = await this._vm.axios.post('posts', params, {showMessage: true})
             const newData = state
