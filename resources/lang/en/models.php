@@ -744,6 +744,7 @@ return [
         'requestCategory' => 'Request Category',
         'actions' => 'Actions',
         'download_pdf' => [
+            'title' => 'Download PDF',
             'entrepreneur_signature'=> 'Signature entrepreneur',
             'customer_signature'=> 'Customer Signature',
             'service_request' => 'Service Request',
