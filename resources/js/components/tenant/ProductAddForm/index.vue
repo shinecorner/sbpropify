@@ -22,13 +22,13 @@
                 <el-input v-model="model.price.decimals" style="width: 50%" />
             </div>
         </el-form-item>
-        <el-form-item prop="content" label="Content" style="grid-column: span 6">
+        <el-form-item prop="content" :label="$t('tenant.content')" style="grid-column: span 6">
             <el-input type="textarea" resize="none" v-model="model.content" :autosize="{minRows: 4, maxRows: 16}" />
         </el-form-item>
-        <el-form-item prop="tenant_name" label="Contact name" style="grid-column: span 3">
+        <el-form-item prop="tenant_name" :label="$t('tenant.contact_name')" style="grid-column: span 3">
             <el-input v-model="model.tenant_name" />
         </el-form-item>
-        <el-form-item prop="tenant_phone" label="Contact phone" style="grid-column: span 3">
+        <el-form-item prop="tenant_phone" :label="$t('tenant.contact_phone')" style="grid-column: span 3">
             <el-input v-model="model.tenant_phone" />
         </el-form-item>
         <el-form-item style="grid-column: span 6">
@@ -80,11 +80,11 @@
                 validationRules: {
                     type: {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.type')})
                     },
                     title: {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.title')})
                     },
                     price: {
                         required: true,
@@ -92,19 +92,19 @@
                     },
                     content: {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.content')})
                     },
                     visibility: {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.visibility')})
                     },
                     tenant_name: {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.contact_name')})
                     },
                     tenant_phone: {
                         required: true,
-                        message: 'This field is required'
+                        message: this.$t('validation.required',{attribute: this.$t('tenant.contact_phone')})
                     }
                 }
             }
@@ -123,7 +123,6 @@
                         const resp = await this.$store.dispatch('newProducts/create', params);
                         if (resp && resp.data) {                            
                             if (this.model.media.length) {
-                                console.log('media', this.model.media)
                             // TODO - make await for this   
                                 this.product_id = resp.data.id;            
                                this.$refs.media.startUploading();

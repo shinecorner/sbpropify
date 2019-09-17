@@ -110,4 +110,5 @@ class ServiceProviderRepository extends BaseRepository
 
         return $spbs->union($spds);
     }
+
 }

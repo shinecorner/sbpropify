@@ -1,6 +1,6 @@
 <template>
     <placeholder :size="256" :src="require('img/5ceaae95848f2.png')" v-if="!this.loader.visible && !this.contacts.length">
-        There are no contacts available.
+        {{$t('tenant.no_data.contact')}}
         <small>All of them will be listed here, each shown in a detailed way.</small>
     </placeholder>
     <div class="contacts" v-else-if="contacts.length">

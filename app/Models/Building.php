@@ -169,19 +169,19 @@ class Building extends AuditableModel implements HasMedia
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     **/
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function quarter()
     {
-        return $this->hasOne(Quarter::class, 'id', 'quarter_id');
+        return $this->belongsTo(Quarter::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function units()
     {
-        return $this->belongsTo(Unit::class, 'id', 'building_id');
+        return $this->hasMany(Unit::class);
     }
 
     /**

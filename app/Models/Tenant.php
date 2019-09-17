@@ -12,7 +12,6 @@ use PDF;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Storage;
-use Hashids\Hashids;
 
 /**
  * @SWG\Definition(
@@ -295,9 +294,9 @@ class Tenant extends AuditableModel implements HasMedia
     /**
      * @return HasMany
      */
-    public function tenant_rent_contracts()
+    public function rent_contracts()
     {
-        return $this->hasMany(TenantRentContract::class);
+        return $this->hasMany(RentContract::class);
     }
 
     /**

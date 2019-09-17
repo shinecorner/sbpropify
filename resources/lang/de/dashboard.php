@@ -32,9 +32,8 @@ return [
         'service_partners' => 'Dienstleister mit Anfragen',
         'go_to_property_managers' => 'zu den Bewirtschaftern gehen',
         'go_to_service_partners' => 'zu den Dienstleistern gehen'
-      ],
-    'buildings' => 
-    [
+    ],
+    'buildings' => [
         'total_building' => 'Anzahl Liegenschaften',
         'total_units' => 'Anzahl Enheiten',
         'occupied_units' => 'Vermiete Einheiten',
@@ -49,8 +48,7 @@ return [
         'buildings_by_state' => 'Liegenschaften nach Kanton',
         'go_to_building' => 'go to building'
     ],
-    'tenants' => 
-    [
+    'tenants' => [
         'total_tenants' => 'Total Mieter',
         'average_age' => 'Durchschnittsalter:',
         'average_age_acr' => 'Ø Alter',
@@ -64,5 +62,5 @@ return [
         'latest_news' => 'Neueste Beiträge',
         'go_to_news' => 'zur Pinnwand gehen',
         'counts' => 'Kommentare'
-      ]
+    ]
 ];

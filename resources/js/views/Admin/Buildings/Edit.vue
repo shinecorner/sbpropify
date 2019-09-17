@@ -365,13 +365,6 @@
                         tooltipMode: true,
                         icon: 'el-icon-close',
                         view: 'building'
-                    }, {
-                        title: 'general.actions.edit',
-                        type: 'primary',                        
-                        onClick: this.assigneeEditView,
-                        tooltipMode: true,
-                        icon: 'el-icon-edit',
-                        view: 'building'                        
                     }]
                 }],
                 unitColumns: [{

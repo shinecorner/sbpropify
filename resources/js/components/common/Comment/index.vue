@@ -106,6 +106,14 @@
                 errorFallback: ErrorFallback
             }
         },
+        watch: {
+            data: function(val) {
+                console.log('data change', val)
+            }
+        },
+        mounted () {
+            console.log('data', this.data)
+        },
         methods: {
             enterEdit () {
                 this.idState.editing = true

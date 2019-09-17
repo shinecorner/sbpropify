@@ -64,6 +64,7 @@
                         type: '',
                         title: 'general.actions.edit',
                         onClick: this.edit,
+                        editUrl: 'adminTemplatesEdit',
                         permissions: [
                             this.$permissions.update.template
                         ]

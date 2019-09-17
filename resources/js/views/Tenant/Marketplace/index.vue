@@ -19,7 +19,7 @@
                 </template>
                 <div class="placeholder" v-else-if="!loading && !products.data.length">
                     <img class="image" :src="require('img/5ca7dde590fa1.png')" />
-                    <div class="title">No products available yet.</div>
+                    <div class="title">{{$t('tenant.no_data.product')}}</div>
                     <div class="description">Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.</div>
                 </div>
                 <template v-else>
@@ -32,7 +32,7 @@
             </el-dialog>
         </div>
         <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
-            <ui-divider content-position="left">Add a product</ui-divider>
+            <ui-divider content-position="left">{{$t('tenant.add_product')}}</ui-divider>
             <div class="content">
                 <product-add-form />
             </div>

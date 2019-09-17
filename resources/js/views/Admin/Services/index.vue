@@ -74,6 +74,7 @@
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
                         onClick: this.edit,
+                        editUrl: 'adminServicesEdit',
                         permissions: [
                             this.$permissions.update.provider
                         ]
@@ -107,14 +108,15 @@
                     }, {
                         name: this.$t('filters.categories'),
                         type: 'select',
-                        key: 'category_id',
+                        key: 'category',
                         data: this.categories,
-                    }, {
-                        name: this.$t('filters.quarters'),
-                        type: 'select',
-                        key: 'quarter_id',
-                        data: this.quarters,
                     },
+                    // {
+                    //     name: this.$t('filters.quarters'),
+                    //     type: 'select',
+                    //     key: 'quarter_id',
+                    //     data: this.quarters,
+                    // },
                     {
                         name: this.$t('models.tenant.language'),
                         type: 'language',
@@ -146,8 +148,14 @@
                 return buildings.data;
             },
             async getFilterCategories() {
-                const categoriesResp = await this.getRequestCategoriesTree({});
-                const categories = this.prepareCategories(categoriesResp.data);
+                let categories = [];
+
+                await _.forEach(this.$constants.serviceProviders.category, (value, index) => {
+                    categories.push({
+                        name: this.$t(`models.service.category.${value}`),
+                        id: index
+                    });
+                });
 
                 return categories;
             },

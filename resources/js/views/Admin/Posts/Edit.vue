@@ -20,7 +20,7 @@
                                     </el-select> -->
                                     <el-select style="display: block" v-model="model.type">
                                         <el-option
-                                            :label="$t(`models.post.type.post`)"
+                                            :label="$t(`models.post.type.article`)"
                                             :value="1"
                                         >
                                         </el-option>
@@ -30,7 +30,7 @@
                                         >
                                         </el-option>
                                         <el-option
-                                            :label="$t(`models.post.type.article`)"
+                                            :label="$t(`models.post.type.post`)"
                                             :value="4"
                                             v-if="this.rolename == 'administrator'"
                                         >
@@ -84,11 +84,9 @@
                                 </el-form-item>
                                 <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                             prop="content">
-                                    <quill-editor
-                                        ref="quillEditor"
-                                        v-model="model.content"
-                                    >
-                                    </quill-editor>
+                                    <yimo-vue-editor
+                                            :config="editorConfig"
+                                            v-model="model.content"/>
                                 </el-form-item>
                                 <el-form-item v-if="this.model.type == 3 && this.showdefaultimage == true">
                                     <label>{{$t('models.post.category_default_image_label')}}</label>
@@ -142,11 +140,9 @@
                         <template v-if="this.model.type != 3">
                             <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                         prop="content">
-                                <quill-editor
-                                    ref="quillEditor"
-                                    v-model="model.content"
-                                >
-                                </quill-editor>
+                                <yimo-vue-editor
+                                        :config="editorConfig"
+                                        v-model="model.content"/>
                             </el-form-item>
                             <el-form-item :label="$t('models.post.images')"
                             >
@@ -263,7 +259,7 @@
                                     </span>   
                                 </div> 
                             </el-col>
-                            <el-col v-if="model.pinned" class="contact-info-card-col" :md="8">
+                            <el-col v-if="model.type == 3" class="contact-info-card-col" :md="8">
                                 <div class="contact-info-title">
                                     <span class="custom-label">
                                         <i class="icon-users"></i>&nbsp;&nbsp;{{$t('general.recipients')}}
@@ -271,14 +267,16 @@
                                 </div>
                                 <div class="contact-info-content">
                                     <span class="custom-value">
-                                        {{model.tenant}}
+                                        {{model.recipient_count}}
                                     </span>
                                 </div> 
+                            </el-col>
+                            <el-col v-if="model.type != 3" class="contact-info-card-col" :md="8">
                             </el-col>
                         </el-row>                                                    
                     </el-card>
 
-                    <el-card v-if="model.pinned" :loading="loading" class="mt15">
+                    <el-card v-if="model.type == 3" :loading="loading" class="mt15">
                         <el-row :gutter="20">
                             <el-col :md="12">
                                 <el-form-item :label="$t('models.post.execution_interval.start')"
@@ -333,7 +331,7 @@
                         </el-form-item>
                     </el-card>
 
-                    <el-card :loading="loading" v-if="model.pinned && (!model.tenant)" class="mt15">
+                    <el-card :loading="loading" v-if="model.type == 3 && (!model.tenant)" class="mt15">
                         <el-row :gutter="10">
                             <el-col :lg="6">
                                 <el-select @change="resetToAssignList"
@@ -388,7 +386,7 @@
                         />
                     </el-card>
                     
-                    <el-card v-if="model.pinned" :loading="loading" class="mt15">
+                    <el-card v-if="model.type == 3" :loading="loading" class="mt15">
                         <el-row :gutter="10">
                             <el-col :lg="18" :xl="20">
                                 <el-select
@@ -430,7 +428,7 @@
                         />
                     </el-card>
 
-                    <el-card class="mt15" v-if="model.id && !model.pinned">
+                    <el-card class="mt15" v-if="model.id && model.type != 3">
                         <div slot="header" class="clearfix">
                             <span>{{$t('models.post.comments')}}</span>
                         </div>
@@ -453,10 +451,7 @@
     import {Avatar} from 'vue-avatar'
     import AssignmentByType from 'components/AssignmentByType';
 
-    import 'quill/dist/quill.core.css';
-    import 'quill/dist/quill.snow.css';
-    import 'quill/dist/quill.bubble.css';
-    import {quillEditor} from 'vue-quill-editor';
+    let YimoVueEditor = require("yimo-vue-editor");
 
     const mixin = PostsMixin({mode: 'edit'});
 
@@ -467,7 +462,7 @@
             RelationList,
             Avatar,
             AssignmentByType,
-            quillEditor,
+            'yimo-vue-editor': YimoVueEditor.default,
         },
         data() {
             return {
@@ -500,6 +495,10 @@
                     }]
                 }],
                 activeTab1: "details",
+                editorConfig: {
+                    printLog: false,
+                    lang: YimoVueEditor.E.langs.en,
+                },
             }
         },
         mounted() {

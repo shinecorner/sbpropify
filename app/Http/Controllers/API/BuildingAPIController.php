@@ -140,6 +140,7 @@ class BuildingAPIController extends AppBaseController
                 'serviceProviders',
                 'tenants.user',
                 'propertyManagers',
+                'lastPropertyManagers.user',
                 'users'
             ])->withCount([
                 'units',
@@ -315,6 +316,8 @@ class BuildingAPIController extends AppBaseController
         $geoData = $this->getGeoDataByAddress($address);
         $input = array_merge($input, $geoData);
         $building = $this->buildingRepository->create($input);
+        $floorData = $request->get('floor', []);
+        $building = $this->buildingRepository->saveManyUnit($building, $floorData, $address->house_num);
         $response = (new BuildingTransformer)->transform($building);
 
         return $this->sendResponse($response, __('models.building.saved'));
@@ -368,7 +371,8 @@ class BuildingAPIController extends AppBaseController
         }
 
         $building
-            ->load('address.state', 'serviceProviders', 'tenants.user', 'propertyManagers', 'media', 'quarter', 'users')
+            ->load('address.state', 'serviceProviders', 'tenants.user', 'propertyManagers',
+                'lastPropertyManagers.user', 'media', 'quarter', 'users')
             ->loadCount('activeTenants', 'inActiveTenants');
         $response = (new BuildingTransformer)->transform($building);
         $response['media_category'] = Building::BuildingMediaCategories;
@@ -461,6 +465,8 @@ class BuildingAPIController extends AppBaseController
         }
 
         $building = $this->buildingRepository->update($input, $id);
+        $floorData = $request->get('floor', []);
+        $building = $this->buildingRepository->saveManyUnit($building, $floorData, $address->house_num);
 
         $building->load(['address.state', 'media', 'serviceProviders']);
         $response = (new BuildingTransformer)->transform($building);
@@ -798,7 +804,8 @@ class BuildingAPIController extends AppBaseController
             return $this->sendError( __('models.building.errors.manager_assigned') . $e->getMessage());
         }
 
-        $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers', 'users']);
+        $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers',
+            'lastPropertyManagers.user', 'users']);
         $response = (new BuildingTransformer)->transform($building);
         return $this->sendResponse($response, __('models.building.managers_assigned'));
     }
@@ -870,7 +877,8 @@ class BuildingAPIController extends AppBaseController
             return $this->sendError( __('models.building.errors.user_assigned') . $e->getMessage());
         }
 
-        $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers', 'users']);
+        $building->load(['address.state', 'media', 'serviceProviders', 'propertyManagers',
+            'lastPropertyManagers.user', 'users']);
         $response = (new BuildingTransformer)->transform($building);
         return $this->sendResponse($response, __('models.building.user_assigned'));
     }

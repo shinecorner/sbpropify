@@ -100,6 +100,7 @@
                             type: '',
                             title: 'general.actions.edit',
                             onClick: this.edit,
+                            editUrl: 'adminProductsEdit',
                             permissions: [
                                 this.$permissions.update.product
                             ]

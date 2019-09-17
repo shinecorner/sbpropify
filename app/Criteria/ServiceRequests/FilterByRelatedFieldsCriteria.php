@@ -80,7 +80,7 @@ class FilterByRelatedFieldsCriteria implements CriteriaInterface
         }
 
         // @TODO need filter to property manager or user also rename
-        $managerId = $this->request->get('property_manager_id', null) ?? $this->request->get('assignee_id', null);
+        $managerId = $this->request->get('property_manager_id', null);
 
         if ($managerId) {
             $managerIds[] = $managerId;

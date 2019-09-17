@@ -34,7 +34,7 @@ export default (config = {}) => {
                     service_provider_format: '',
                     name: '',
                     phone: '',
-                    category: '',
+                    category: null,
                     settings: []
                 },
                 statistics: {
@@ -340,7 +340,7 @@ export default (config = {}) => {
                         this.model.name = data.name;
                         this.model.email = data.email;
                         this.model.phone = data.phone;
-                        this.model.category = data.category;
+                        this.model.category = +data.category;
                         this.model.user.avatar = data.user.avatar;
                         this.model.user.id = data.user.id;
                         this.model.service_provider_format = data.service_provider_format;

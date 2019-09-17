@@ -187,6 +187,7 @@
                         icon: 'ti-pencil',
                         title: 'general.actions.edit',
                         onClick: this.edit,
+                        editUrl: 'adminBuildingsEdit',
                         permissions: [
                             this.$permissions.update.building
                         ]
