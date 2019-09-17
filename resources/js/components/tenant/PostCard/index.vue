@@ -116,6 +116,7 @@
                 border-width: 8px;
                 border-style: solid;
                 border-image: linear-gradient(to bottom, darken(#fff, 4%), transparent) 1;
+                position: relative;
             }
         }
 
