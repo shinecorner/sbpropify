@@ -10,7 +10,7 @@
         </div>
         <div class="content">
             <div class="title">{{data.title}}</div>
-            <div class="date">added at {{formatDatetime(data.published_at)}}</div>
+            <div class="date">{{$t('tenant.added_at')}} {{formatDatetime(data.published_at)}}</div>
             <likes type="product" :data="data.likes" />
             <like :id="data.id" type="product" readonly>
                 <div>
