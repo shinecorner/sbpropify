@@ -32,7 +32,7 @@ export default {
     },
     downloadRequestPDF(_, {id}) {
         return new Promise((resolve, reject) => {
-            axios.post(`request/${id}/download-pdf`, {}, {
+            axios.post(`requests/${id}/download-pdf`, {}, {
                 responseType: 'arraybuffer',
                 headers: {
                     'Accept': 'application/pdf'

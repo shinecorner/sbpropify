@@ -112,7 +112,7 @@
             }
         },
         mounted () {
-            console.log('data', this.data)
+            
         },
         methods: {
             enterEdit () {

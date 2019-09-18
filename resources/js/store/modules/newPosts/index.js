@@ -11,19 +11,35 @@ export default {
         async get ({state, commit}, {id, ...params} = {}) {
             const {data} = await this._vm.axios.get(id ? `posts/${id}` : 'posts', {params})
             if (state.data.length) {
-                const {data: items, ...rest} = data.data
-
-                commit('set', {
-                    data: [
-                        ...state.data,
-                        ...items
-                    ],
-                    ...rest
-                })
+                if (id) {
+                    const newData = state
+                    newData.data.unshift(data.data)
+                    commit('set', newData)
+                }
+                else {
+                    const {data: items, ...rest} = data.data
+                    commit('set', {
+                        data: [
+                            ...state.data,
+                            ...items
+                        ],
+                        ...rest
+                    })
+                }
             } else {
-                let newData = state;
-                newData.data.push(data.data)
                 commit('set', data.data)
+            }
+        },
+        async getById ({state, commit}, {id, ...params} = {}) {
+            const {data} = await this._vm.axios.get(`posts/${id}`, {params})
+            if (state.data.length) {
+                const newData = state
+                newData.data.unshift(data.data)
+                commit('set', newData)
+            } else {
+                const newData = state
+                newData.data.push(data.data)
+                commit('set', newData)
             }
         },
         async create ({state, commit}, params) {
