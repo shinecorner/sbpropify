@@ -34,7 +34,11 @@
         <likes type="post" :data="data.likes" layout="row" />
         <like :id="data.id" type="post">
             <el-button @click="$refs.addComment.focus()" icon="ti-comment-alt" type="text"> &nbsp;{{$t('tenant.comment')}}</el-button>
-            <el-button icon="icon-picture" type="text" v-if="data.pinned === false"> {{data.media.length}} {{data.media.length == 1 ? $t('tenant.image') : $t('tenant.images')}} </el-button>
+            <el-button icon="icon-picture" type="text" v-if="data.pinned === false">                 
+                <template v-if="data.media.length">
+                    {{data.media.length}} {{data.media.length > 1 ? $t('tenant.images') : $t('tenant.image')}}
+                </template>
+            </el-button>
         </like>
 
             
