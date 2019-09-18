@@ -194,7 +194,6 @@
             }
         },
         async mounted() {
-
             if (this.data) {
                 this.comments = this.data;
             } else {
