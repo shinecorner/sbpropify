@@ -1,4 +1,5 @@
 <template>
+<div class="dashboard-box">
     <div class="dashboard">
         <!-- <heading icon="ti-home" :title="$t('tenant.my_dashboard')">
             <greeting ref="greeting" class="description" slot="description" />
@@ -15,16 +16,61 @@
             </div>
             <div class="column">
                 <requests-statistics-card class="widget" />
-                <latest-requests-card class="widget" />
+                <latest-requests-card class="widget" @view-detail-request="viewDetailRequest"/>
                 <latest-posts-card class="widget" />
             </div>
             <div class="column">
                 <latest-products-card class="widget" />
-                <rate-card />
+                <rate-card v-if="this.loggedInUser.tenant.review == null"/>
             </div>
         </div>
+        
         <!-- <div :class="[{[$refs.greeting.timeOfDay + '-time']: true}]" v-if="$refs.greeting"></div> -->
+
     </div>
+    <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked @update:visibleDrawer="resetDataFromDrawer">
+            <el-tabs type="card" v-model="activeDrawerTab" stretch v-if="openedRequest">
+                <el-tab-pane name="chat" lazy>
+                    <div slot="label">
+                        <i class="ti-comments"></i>
+                        Chat
+                    </div>
+                    <chat ref="chat" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
+                </el-tab-pane>
+                <el-tab-pane name="media" lazy>
+                    <div slot="label">
+                        <i class="ti-gallery"></i>
+                        {{$t('tenant.media')}}
+                    </div>
+                    <ui-media-gallery :files="openedRequest.media.map(({url}) => url)" />
+                    <ui-divider class="upload-divider" content-position="left">
+                        <i class="el-icon-upload"></i>
+                        {{$t('tenant.request_upload_title')}}
+                    </ui-divider>
+                    
+                    <div class="upload-description">
+                        <el-alert
+                            :title="$t('tenant.request_upload_desc')"
+                            type="info"
+                            show-icon
+                            :closable="false"
+                        >
+                        </el-alert>
+                        
+                    </div>
+                    <ui-media-uploader v-model="media" :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" :action="`api/v1/requests/${openedRequest.id}/media`" :id="openedRequest.id" :options="{drop: true, draggable: true, multiple: true}" />
+
+                </el-tab-pane>
+                <el-tab-pane name="audit" lazy>
+                    <div slot="label">
+                        <i class="ti-gallery"></i>
+                        Audit
+                    </div>
+                    <audit :id="openedRequest.id" type="request" show-filter />
+                </el-tab-pane>
+            </el-tabs>
+        </ui-drawer>
+</div>
 </template>
 
 <script>
@@ -47,6 +93,7 @@
     import LatestRequestsCardErrorFallback from 'components/tenant/LatestRequestsCard/Loader'
 
     import {TweenMax, Elastic} from 'gsap'
+    import {mapGetters} from 'vuex'
 
     export default {
         components: {
@@ -103,7 +150,33 @@
                 timeout: 8000
             }),
         },
+        data () {
+            return {
+                loading: false,
+                media: [],
+                openedRequest: null,
+                visibleDrawer: false,
+                activeDrawerTab: 'chat',
+                activeDrawerMediaTab: 0,
+            }
+        },
+        computed: {
+            ...mapGetters(['loggedInUser'])
+        },
+        methods: {
+            resetDataFromDrawer () {
+                this.activeDrawerTab = 'chat'
+                this.openedRequest = null
+            },
+            viewDetailRequest(evt, request) {
+                this.activeDrawerTab = 'chat'
+                this.openedRequest = request
+
+                this.visibleDrawer = !this.visibleDrawer
+            }
+        },
         mounted () {
+            console.log('tenant', this.loggedInUser.tenant)
             // TweenMax.staggerFrom(, 2, {scale:0.5, opacity:0, delay:0.5, ease:Elastic.easeOut, force3D:true}, 0.2)
         }
     }
@@ -111,6 +184,8 @@
 
 <style lang="scss" scoped>
     .dashboard {
+        overflow: auto;
+        
         .heading {
             .description {
                 color: darken(#fff, 40%);
@@ -156,4 +231,104 @@
             }
         }
     }
+</style>
+
+<style lang="sass" scoped>
+    .dashboard-box
+        display: flex
+        padding: 0 !important
+        flex-direction: column
+        overflow: hidden !important
+
+
+        .ui-drawer
+            .el-tabs
+                height: 100%
+                display: flex
+                flex-direction: column
+
+                /deep/ .el-tabs__header
+                    margin-bottom: 0
+
+                    /deep/ .el-tabs__nav-wrap
+                        /deep/ .el-tabs__nav-scroll
+                            /deep/ .el-tabs__nav
+                                border: 0
+
+                /deep/ .el-tabs__content
+                    height: 100%
+                    overflow-y: auto
+                    display: flex
+                    flex-direction: column
+
+                    /deep/ .el-tab-pane
+                        height: 100%
+                        display: flex
+                        flex-direction: column
+
+                        > *
+                            padding: 16px
+
+                        .el-tabs
+                            padding: 0
+
+                        .chat
+                            .comments-list
+                                .vue-recycle-scroller
+                                    margin-top: -16px
+                                    margin-right: -16px
+                                    padding-top: 16px
+                                    padding-right: 16px
+
+                        .upload-divider 
+                            padding: 0
+                            width: calc(100% - 32px);
+
+                            /deep/ .ui-divider__content--aligned-left
+                                transform: translate(calc(208px - 50%), -50%)
+                                padding-left: 16px
+                        
+                        .upload-description
+                            margin: 16px;
+                            padding: 0
+                            .el-alert
+                                align-items: flex-start
+                                .el-alert__icon
+                                    padding-top: 2px
+
+                        // .ui-media-gallery
+                        //     height: 100%
+                        //     padding: 16px
+
+                        // .audit
+                        //     padding: 16px
+            .ui-divider
+                margin: 32px 16px 0 16px
+
+                /deep/ .ui-divider__content
+                    left: 0
+                    z-index: 1
+                    padding-left: 0
+                    font-size: 20px
+                    font-weight: 700
+                    color: var(--color-primary)
+            .content
+                height: calc(100% - 32px)
+                display: flex
+                padding: 16px
+                overflow-y: auto
+                flex-direction: column
+                position: relative
+
+                .el-form
+                    flex: 1
+                    display: flex
+                    flex-direction: column
+
+                    /deep/ .el-input .el-input__inner,
+                    /deep/ .el-textarea .el-textarea__inner
+                        background-color: transparentize(#fff, .44)
+
+                    /deep/ .el-loading-mask
+                        position: fixed
 </style>

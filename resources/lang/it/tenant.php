@@ -13,6 +13,7 @@ return [
         "send" => "Inviare",
         "view_all" => "Visualizza tutti",
         "view" => "Vista",
+        "done" => "To Done",
     ],
     "salutation_option" => [
         "mr" => "Signor",
@@ -166,4 +167,5 @@ return [
     "request_public_desc" => "Se la vostra richiesta è una richiesta che riguarda anche i vostri vicini, attivate questa opzione.",
     "request_upload_title" => "Carica",
     "request_upload_desc" => "Si prega di notare che una volta caricati i file non possono più essere cancellati da voi.",
+    "added_at" => "aggiunto a",
 ];

@@ -10,13 +10,28 @@
         </div>
         <div class="content">
             <div class="title">{{data.title}}</div>
-            <div class="date">added at {{formatDatetime(data.published_at)}}</div>
+            <div class="date">{{$t('tenant.added_at')}} {{formatDatetime(data.published_at)}}</div>
             <likes type="product" :data="data.likes" />
             <like :id="data.id" type="product" readonly>
                 <div>
                     <i class="icon-picture"></i> {{data.media.length}}
                 </div>
+                <!-- <el-button size="mini" type="primary"> 
+                    <i class="ti-pencil"></i>
+                    <span>{{ $t('general.actions.edit') }}</span>
+                </el-button>
+                <el-button size="mini" type="danger"> 
+                    <i class="ti-close"></i>
+                    <span>{{ $t('general.actions.delete') }}</span>
+                </el-button> -->
+                <el-button size="mini" @click.stop="$emit('edit-product', $event, data)" type="primary"> 
+                    <i class="ti-pencil"></i>
+                </el-button>
+                <el-button size="mini" @click.stop="$emit('delete-product', $event, data)" type="danger"> 
+                    <i class="ti-close"></i>
+                </el-button>
             </like>
+            
         </div>
     </ui-card>
 </template>
@@ -110,6 +125,9 @@
                     font-weight: 300
                     color: var(--color-text-placeholder)
 
+            .like 
+                /deep/ .el-button
+                    margin-left: 10px
         &:hover
             cursor: pointer
 
