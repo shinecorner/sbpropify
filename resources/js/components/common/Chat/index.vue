@@ -1,6 +1,6 @@
 <template>
-    <div class="chat">
-        <comments ref="comments" :id="id" :type="type" :limit="limit" reversed with-scroller :show-children="false" :style="{height: height, maxHeight: maxHeight}" />
+    <div class="chat">        
+        <comments :showAction="showAction" ref="comments" :id="id" :type="type" :limit="limit" reversed with-scroller :show-children="false" :style="{height: height, maxHeight: maxHeight}" />
         <add-comment ref="addComment" :id="id" :type="type" :show-templates="showTemplates" />
     </div>
 </template>
@@ -18,6 +18,11 @@
                 type: String,
                 required: true,
                 validator: type => ['post', 'product', 'request', 'conversation'].includes(type)
+            },
+            showAction: {
+                type: Boolean, 
+                required: false,               
+                default: true
             },
             height: {
                 type: String,

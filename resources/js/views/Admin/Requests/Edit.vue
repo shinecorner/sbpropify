@@ -4,6 +4,15 @@
             <template slot="description" v-if="model.service_request_format">
                 <div class="subtitle">{{model.service_request_format}}</div>
             </template>
+            <el-button
+                    @click="downloadPDF"
+                    size="mini"
+                    type="primary"
+                    round
+                    class="download-pdf"
+            >
+                {{$t('models.request.download_pdf.title')}}
+            </el-button>
             <edit-actions :saveAction="submit" :deleteAction="deleteRequest" route="adminRequests"/>
         </heading>
         <div class="crud-view" id="edit_request">
@@ -176,12 +185,12 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="8" class="summary-item" id="building">
-                                    <el-form-item label="Building">
+                                    <el-form-item :label="$t('general.assignmentTypes.building')">
                                         <strong>{{this.model.building}}</strong>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="8" class="summary-item" id="createtime">
-                                    <el-form-item label="Creation Datetime">
+                                    <el-form-item :label="$t('general.created_at')">
                                         <strong>{{this.model.created_by}}</strong>
                                     </el-form-item>
                                 </el-col>
@@ -189,7 +198,7 @@
                             <el-row :gutter="20" class="summary-row">
                                 <el-col :md="8" class="summary-item">
                                     <el-form-item :label="$t('models.request.priority.label')">
-                                        <strong>{{$constants.serviceRequests.priority[model.priority]}}</strong>
+                                        <strong>{{$t(`models.request.priority.${$constants.serviceRequests.priority[model.priority]}`)}}</strong>
                                     </el-form-item>
                                 </el-col>
                                 <!-- <el-col :md="8" class="summary-item">
@@ -314,6 +323,12 @@
                                         <el-col :md="12">
                                             <el-form-item :label="$t('models.request.due_date')"
                                                         :rules="validationRules.due_date">
+                                                <div class="reminder-box">
+                                                    <label class="switcher__label">
+                                                        <span class="switcher__desc">{{$t('models.request.active_reminder_switcher')}}</span>
+                                                    </label>
+                                                    <el-switch v-model="model.active_reminder"/>
+                                                </div>
                                                 <el-date-picker
                                                     :disabled="$can($permissions.update.serviceRequest)"
                                                     :placeholder="$t('models.request.placeholders.due_date')"
@@ -325,6 +340,7 @@
                                                 >
                                                 </el-date-picker>
                                             </el-form-item>
+                                            
                                         </el-col>
                                         <el-col :md="12">
                                             <el-form-item :label="$t('models.request.internal_priority.label')"
@@ -342,14 +358,6 @@
                                         </el-col>
                                     </el-row>
                                     <el-row :gutter="10"> 
-                                        <el-col :md="24">
-                                         <el-form-item class="switcher" prop="is_public">
-                                            <label class="switcher__label">
-                                                <span class="switcher__desc">{{$t('models.request.active_reminder_switcher')}}</span>
-                                            </label>
-                                            <el-switch v-model="model.active_reminder"/>
-                                        </el-form-item>
-                                        </el-col>
                                         <el-col :md="12" v-if="model.active_reminder">
                                             <el-form-item :label="$t('models.request.days_left')"
                                                         prop="days_left">
@@ -362,17 +370,17 @@
                                                 <el-select
                                                     :loading="remoteLoading"
                                                     :placeholder="$t('models.request.placeholders.person')"
-                                                    :remote-method="remoteSearchTenants"
+                                                    :remote-method="remoteSearchPersons"
                                                     filterable
                                                     remote
                                                     reserve-keyword
                                                     style="width: 100%;"
                                                     v-model="model.person_id">
                                                     <el-option
-                                                        :key="tenant.id"
-                                                        :label="tenant.name"
-                                                        :value="tenant.id"
-                                                        v-for="tenant in tenants"/>
+                                                        :key="person.id"
+                                                        :label="person.name"
+                                                        :value="person.id"
+                                                        v-for="person in persons"/>
                                                 </el-select>
                                             </el-form-item>
                                         </el-col>
@@ -480,7 +488,7 @@
     import RelationList from 'components/RelationListing';
     import EditActions from 'components/EditViewActions';
     import ServiceDialog from 'components/ServiceAttachModal';
-    import {displaySuccess} from "../../../helpers/messages";
+    import {displaySuccess, displayError} from "../../../helpers/messages";
     import {Avatar} from 'vue-avatar';
     import Audit from 'components/Audit';
     import AssignmentByType from 'components/AssignmentByType';
@@ -588,7 +596,7 @@
             
         },
         methods: {
-            ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags', 'deleteRequestTag']),
+            ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags', 'deleteRequestTag', 'downloadRequestPDF']),
             translateType(type) {
                 return this.$t(`models.request.userType.${type}`);
             },
@@ -703,10 +711,35 @@
                     return item.name != tag;
                 });
             },
+            async downloadPDF() {
+                this.loading.state = true;
+                try {
+                    console.log('this.model.id', this.model.id)
+                    const resp = await this.downloadRequestPDF({id: this.model.id});
+                    if (resp && resp.data) {
+                        const url = window.URL.createObjectURL(new Blob([resp.data], {type: resp.headers['content-type']}));
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.setAttribute('download', resp.headers['content-disposition'].split('filename=')[1]);
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(url);
+                    }
+                } catch (e) {
+                    displayError(e)
+                } finally {
+                    this.loading.state = false;
+                }
+            },
         }
     };
 </script>
 <style lang="scss" scoped>
+    .download-pdf {
+        margin-right: 5px;
+    }
+
     .services-edit {
         .heading {
             margin-bottom: 20px;
@@ -885,6 +918,10 @@
                         flex: 1;
                         justify-content: flex-end;
                         text-align: end;
+                        width: 130px
+                    }
+                    .el-select {
+                        width: 130px
                     }
                 }
                 &__label {
@@ -901,6 +938,13 @@
             }
             
         }
+
+        .reminder-box {
+            position: absolute;
+            top: -100%;
+            right: 5px;
+        }
+            
         .action-tabs {
             border-radius: 6px;
         }

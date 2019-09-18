@@ -25,7 +25,6 @@ export default (config = {}) => {
                     monthly_rent: '',
                     floor: '',
                     sq_meter: '',
-                    basement: false,
                     attic: false,
                     building_id: this.$route.params.id,
                     selected_tenant: '',

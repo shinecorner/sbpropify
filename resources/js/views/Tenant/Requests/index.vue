@@ -1,7 +1,8 @@
 <template>
+
     <div :class="['requests']">
-        <div class="container" v-infinite-scroll="get" style="overflow: auto;">
-            <div class="main-content">
+        <div class="container" >
+            <div class="main-content" v-infinite-scroll="get">
                 <ui-heading icon="icon-chat-empty" :title="$t('tenant.requests')" description="Need some info? Encountered an issue? Contact us!">
                     <el-popover popper-class="requests__filter-popover" placement="bottom-end" trigger="click" :width="192">
                         <el-button slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
@@ -22,6 +23,7 @@
                             <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" @hook:mounted="$refs['dynamic-scroller'].forceUpdate">
                                 <template #tab-overview-after>
                                     <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
+                                    <el-button icon="el-pencil" size="mini" @click="changeToDone(item)" plain round v-if="item.status != 4">{{$t('tenant.actions.done')}}</el-button>
                                 </template>
                                 <template #tab-media-after>
                                     <ui-divider v-if="!item.media.length">
@@ -53,7 +55,7 @@
                         <i class="ti-comments"></i>
                         Chat
                     </div>
-                    <chat ref="chat" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
+                    <chat ref="chat" v-bind:showAction="false" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
                 </el-tab-pane>
                 <el-tab-pane name="media" lazy>
                     <div slot="label">
@@ -227,6 +229,7 @@
                 if (this.loading) {
                     return
                 }
+
                 // if (this.loading && this.requests.data.length) {
                 //     return
                 // }
@@ -268,6 +271,11 @@
                 this.visibleDrawer = !this.visibleDrawer
 
             },
+            changeToDone(request) {
+                request.status = 4
+                request.category_id = request.category.id
+                this.$store.dispatch('newRequests/update', request)
+            },
             resetDataFromDrawer () {
                 this.activeDrawerTab = 'chat'
                 this.openedRequest = null
@@ -294,8 +302,7 @@
             },
         },
         mounted () {
-            // this.$refs['dynamic-scroller'].forceUpdate()
-            this.get()
+            //this.$refs['dynamic-scroller'].forceUpdate()
         }
     }
 </script>
