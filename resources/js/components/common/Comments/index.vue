@@ -7,7 +7,7 @@
         <div class="description">{{$t('components.common.commentsList.emptyPlaceholder.description')}}</div>
         </template>
     </div>
-    <div class="comments-list" v-infinite-scroll="fetch" v-else>
+    <div class="comments-list" v-else>
         <template v-if="withScroller" >
             <dynamic-scroller ref="dynamic-scroller" :items="comments.data" :min-item-size="40" @resize="scrollToBottom" v-if="!loading">
                 <template #before>
@@ -120,7 +120,6 @@
                 page++;
 
                 this.loading = true
-                console.log('comments fetch called')
 
                 try {
                     await this.$store.dispatch('comments/get', {
