@@ -6,12 +6,14 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Quarter\BatchAssignManagers;
 use App\Http\Requests\API\Quarter\BatchAssignUsers;
 use App\Http\Requests\API\Quarter\CreateRequest;
+use App\Http\Requests\API\Quarter\DeleteQuarterAssigneeRequest;
 use App\Http\Requests\API\Quarter\UpdateRequest;
 use App\Http\Requests\API\Quarter\ListRequest;
 use App\Http\Requests\API\Quarter\ViewRequest;
 use App\Http\Requests\API\Quarter\DeleteRequest;
 use App\Models\PropertyManager;
 use App\Models\Quarter;
+use App\Models\QuarterAssignee;
 use App\Models\User;
 use App\Repositories\QuarterRepository;
 use App\Transformers\QuarterAssigneeTransformer;
@@ -509,5 +511,50 @@ class QuarterAPIController extends AppBaseController
 
         $response = (new QuarterTransformer)->transform($quarter);
         return $this->sendResponse($response, __('models.quarter.user_assigned'));
+    }
+
+
+    /**
+     * @SWG\Delete(
+     *      path="/quarters-assignees/{quarters_assignee_id}",
+     *      summary="Unassign the user or manager to the quarter",
+     *      tags={"Quarter", "User", "PropertyManager"},
+     *      description="Unassign the user or manager to the request",
+     *      produces={"application/json"},
+     *      @SWG\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @SWG\Property(
+     *                  property="data",
+     *                  type="integer",
+     *              ),
+     *              @SWG\Property(
+     *                  property="message",
+     *                  type="string"
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     * @param int $id
+     * @param DeleteQuarterAssigneeRequest $request
+     * @return mixed
+     */
+    public function deleteQuarterAssignee(int $id, DeleteQuarterAssigneeRequest $request)
+    {
+        $quarterAssignee = QuarterAssignee::find($id);
+        if (empty($quarterAssignee)) {
+            // @TODO fix message
+            return $this->sendError(__('models.quarter.errors.not_found'));
+        }
+        $quarterAssignee->delete();
+
+        return $this->sendResponse($id, __('general.detached.' . $quarterAssignee->assignee_type));
     }
 }
