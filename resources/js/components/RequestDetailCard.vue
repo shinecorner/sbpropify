@@ -34,7 +34,7 @@
                     </router-link>   
                 </el-col>
                 <el-col :span="18" class="request-content">
-                    <p>{{ item.description }}</p>
+                    <p v-html="item.description"></p>
                 </el-col>
                 <el-col :span="3" class="request-tail">
                    
@@ -155,6 +155,10 @@ export default {
                 icon: 'el-icon-loading',
                 background: 'rgba(0, 0, 0, 0.8)'
             })
+        }
+    },
+    data() {
+        return {
         }
     },
     components: {
