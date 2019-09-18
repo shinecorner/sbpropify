@@ -20,8 +20,7 @@
                 </template>
                 <template v-slot="{item, index, active}">
                     <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]">
-                        <comment :showAction="showAction" 
-                                v-bind="commentComponentProps" 
+                        <comment v-bind="commentComponentProps" 
                                 v-on="commentComponentListeners" 
                                 :show-children="showChildren" 
                                 :data="item" 
