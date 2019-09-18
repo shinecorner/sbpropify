@@ -182,6 +182,14 @@ return [
             'confirmText' => 'Yes, delete it!',
             'deleted' => 'Deleted successfully',
         ],
+        'to_done' => [
+            'title' => 'Mark request as completed',
+            'text' => 'Do you really want to mark this request as completed?',
+        ],
+        'delete_listing' => [
+            'title' => 'Delete Listing',
+            'text' => 'Do you really want to delete the listing?',
+        ],
         'add' => [
             'added' => 'Added successfully',
         ],

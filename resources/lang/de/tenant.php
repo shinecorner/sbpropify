@@ -12,7 +12,8 @@ return [
         "search" => "Suchen",
         "send" => "Senden",
         "view_all" => "Alle anzeigen",
-        "done" => "To Done",
+        "to_done" => "Zu erledigen",
+        "to_reactivated" => "Reaktivieren",
     ],
     "salutation_option" => [
         "mr" => "Herr",

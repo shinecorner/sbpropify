@@ -182,6 +182,14 @@ return [
             'confirmText' => "Sì, cancellalo!",
             'deleted' => "Eliminato con successo"
         ],
+        'to_done' => [
+            'title' => 'Segnare la richiesta come completata',
+            'text' => 'Vuoi davvero contrassegnare questa richiesta come completata?',
+        ],
+        'delete_listing' => [
+            'title' => "Cancellare l'annuncio",
+            'text' => "Vuoi davvero cancellare l'annuncio?",
+        ],
         'add' => [
             'added' => 'Aggiunto con successo',
         ],

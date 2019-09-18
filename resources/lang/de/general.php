@@ -182,6 +182,14 @@ return [
             'confirmText' => 'Ja, ich will löschen!',
             'deleted' => 'Erfolgreich gelöscht!',
         ],
+        'to_done' => [
+            'title' => 'Anfrage als erledigt markieren',
+            'text' => 'Wollen Sie diese Anfrage wirklich als erledigt markieren?',
+        ],
+        'delete_listing' => [
+            'title' => 'Inserat löschen',
+            'text' => 'Soll das Inserat wirklich gelöscht werden?',
+        ],
         'add' => [
             'added' => 'Erfolgreich hinzugefügt',
         ],

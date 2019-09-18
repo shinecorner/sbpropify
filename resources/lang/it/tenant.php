@@ -13,7 +13,8 @@ return [
         "send" => "Inviare",
         "view_all" => "Visualizza tutti",
         "view" => "Vista",
-        "done" => "To Done",
+        "to_done" => "A Fatto",
+        "to_reactivated" => "Riattivare",
     ],
     "salutation_option" => [
         "mr" => "Signor",
