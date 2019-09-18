@@ -418,6 +418,13 @@
                                                     </el-col>
                                                 </el-row>
                                             </el-radio-group>
+                                            <el-form-item v-if="model.login_variation === 1"
+                                                          class="switcher mt-20"
+                                                          prop="login_variation_1_slider"
+                                            >
+                                                <label class="switcher__label">{{$t('models.realEstate.login_variation_slider')}}</label>
+                                                <el-switch v-model="model.login_variation_1_slider"/>
+                                            </el-form-item>
                                             <el-form-item v-if="model.login_variation === 2"
                                                           class="switcher mt-20"
                                                           prop="login_variation_2_slider"
@@ -425,6 +432,7 @@
                                                 <label class="switcher__label">{{$t('models.realEstate.login_variation_slider')}}</label>
                                                 <el-switch v-model="model.login_variation_2_slider"/>
                                             </el-form-item>
+                                            
                                         </el-card>
                                     </el-col>
                                 </el-row>
