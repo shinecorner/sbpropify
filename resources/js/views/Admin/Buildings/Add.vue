@@ -84,7 +84,7 @@
                                         <el-input type="number"
                                                   :min="0"
                                                   :max="30"
-                                                  v-model="model.floor_nr"></el-input>
+                                                  v-model.number="model.floor_nr"></el-input>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="12">
@@ -178,7 +178,9 @@
                     arr.push(i);
                 }
 
-                if (this.model.floor_nr !== '' && this.unitAutoCreate ) {
+                if (this.model.floor_nr !== '' &&
+                    this.model.floor_nr + 1 < this.model.floor.length
+                ) {
                     this.model.floor = this.model.floor.splice(0, this.model.floor_nr + 1);
                 }
                 if (!this.unitAutoCreate) {
