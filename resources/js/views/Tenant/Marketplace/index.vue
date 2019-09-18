@@ -194,7 +194,7 @@
             },
             deleteProduct(evt, product) {
                 console.log('delete id', product.id)
-                this.$store.dispatch('newProducts/delete', product)
+                this.$store.dispatch('newProducts/delete', {id: product.id})
             }
         },
         created () {
