@@ -3,7 +3,7 @@
         <ui-heading icon="icon-megaphone-1" title="News" description="Sed placerat volutpat mollis." />
         
         <ui-divider />
-        <div class="posts" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading" >
+        <div class="posts" v-infinite-scroll="getPosts" >
             
             <div class="content">
                 <post-add-card />
@@ -15,12 +15,12 @@
                         <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
                     </el-popover> -->
                 </el-divider>
-                <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" page-mode>
+                <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" page-mode v-if="!loading">
                     <template #before v-if="loading && !filteredPosts.length">
                         <loader v-for="idx in 5" :key="idx" />
                     </template>
                     <template v-slot="{item, index, active}">
-                        <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]">
+                        <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item,]">
                             <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour'" @hook:updated="$refs['dynamic-scroller'].forceUpdate" />
                             <post-card :data="item" @hook:updated="$refs['dynamic-scroller'].forceUpdate" v-else />
                         </dynamic-scroller-item>
@@ -165,6 +165,8 @@
                 posts: state => state
             }),
             filteredPosts() {
+                if(this.$refs['dynamic-scroller'])
+                    this.$refs['dynamic-scroller'].forceUpdate()
                 return this.posts.data.filter( post => { return this.filterCategory == null || post.category == this.filterCategory})
             }
         }
