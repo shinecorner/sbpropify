@@ -16,7 +16,22 @@
                 <div>
                     <i class="icon-picture"></i> {{data.media.length}}
                 </div>
+                <!-- <el-button size="mini" type="primary"> 
+                    <i class="ti-pencil"></i>
+                    <span>{{ $t('general.actions.edit') }}</span>
+                </el-button>
+                <el-button size="mini" type="danger"> 
+                    <i class="ti-close"></i>
+                    <span>{{ $t('general.actions.delete') }}</span>
+                </el-button> -->
+                <el-button size="mini" type="primary"> 
+                    <i class="ti-pencil"></i>
+                </el-button>
+                <el-button size="mini" type="danger"> 
+                    <i class="ti-close"></i>
+                </el-button>
             </like>
+            
         </div>
     </ui-card>
 </template>
@@ -110,6 +125,9 @@
                     font-weight: 300
                     color: var(--color-text-placeholder)
 
+            .like 
+                /deep/ .el-button
+                    margin-left: 10px
         &:hover
             cursor: pointer
 
