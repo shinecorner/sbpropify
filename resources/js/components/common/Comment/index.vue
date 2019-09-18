@@ -117,7 +117,8 @@
             }
         },
         mounted () {
-            
+            console.log('comment mounted', this.$refs.container.clientHeight);
+            this.data.height =  this.$refs.container.clientHeight
         },
         methods: {
             enterEdit () {

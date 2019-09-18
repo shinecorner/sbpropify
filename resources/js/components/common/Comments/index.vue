@@ -7,9 +7,9 @@
         <div class="description">{{$t('components.common.commentsList.emptyPlaceholder.description')}}</div>
         </template>
     </div>
-    <div class="comments-list" v-else>
-        <template v-if="withScroller">
-            <dynamic-scroller ref="dynamic-scroller" :items="comments.data" :min-item-size="40" @resize="scrollToBottom">
+    <div class="comments-list" v-infinite-scroll="fetch" v-else>
+        <template v-if="withScroller" >
+            <dynamic-scroller ref="dynamic-scroller" :items="comments.data" :min-item-size="40" @resize="scrollToBottom" v-if="!loading">
                 <template #before>
                     <el-divider v-if="comments.current_page !== comments.last_page">
                         <el-button icon="el-icon-top" size="mini" :loading="loading" round @click="fetch">
@@ -19,8 +19,13 @@
                     </el-divider>
                 </template>
                 <template v-slot="{item, index, active}">
-                    <dynamic-scroller-item :item="item" :active="active" :data-index="index" :sizeDependencies="item">
-                        <comment :showAction="showAction" v-bind="commentComponentProps" v-on="commentComponentListeners" :show-children="showChildren" :data="item" :reversed="isCommentReversed(item)" />
+                    <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]">
+                        <comment :showAction="showAction" 
+                                v-bind="commentComponentProps" 
+                                v-on="commentComponentListeners" 
+                                :show-children="showChildren" 
+                                :data="item" 
+                                :reversed="isCommentReversed(item)" />
                     </dynamic-scroller-item>
                 </template>
             </dynamic-scroller>
@@ -115,6 +120,7 @@
                 page++;
 
                 this.loading = true
+                console.log('comments fetch called')
 
                 try {
                     await this.$store.dispatch('comments/get', {
@@ -142,6 +148,7 @@
                 this.$refs['dynamic-scroller'].forceUpdate()
             },
             scrollToBottom () {
+                console.log('scrollToBottom');
                 if (this.$refs['dynamic-scroller']) {
                     this.$refs['dynamic-scroller'].scrollToBottom()
                 }
@@ -195,6 +202,7 @@
             }
         },
         async mounted() {
+            console.log('coments mounted')
             if (this.data) {
                 this.comments = this.data;
             } else {
