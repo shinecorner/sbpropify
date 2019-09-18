@@ -202,7 +202,7 @@
             }
         },
         async mounted() {
-            console.log('coments mounted')
+
             if (this.data) {
                 this.comments = this.data;
             } else {
