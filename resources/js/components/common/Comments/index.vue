@@ -148,7 +148,6 @@
                 this.$refs['dynamic-scroller'].forceUpdate()
             },
             scrollToBottom () {
-                console.log('scrollToBottom');
                 if (this.$refs['dynamic-scroller']) {
                     this.$refs['dynamic-scroller'].scrollToBottom()
                 }
