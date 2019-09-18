@@ -15,7 +15,7 @@
                         <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
                     </el-popover> -->
                 </el-divider>
-                <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="251" page-mode v-if="!loading">
+                <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" page-mode v-if="!loading">
                     <template #before v-if="loading && !filteredPosts.length">
                         <loader v-for="idx in 5" :key="idx" />
                     </template>

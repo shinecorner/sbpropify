@@ -41,7 +41,7 @@
                 </template>
             </el-button>
         </like>
-        
+
             
         
         <comments ref="comments" :id="data.id" type="post" :use-placeholder="false" />
