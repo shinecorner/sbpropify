@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\API\TenantRentContract;
+namespace App\Http\Requests\API\RentContract;
 
-use App\Models\Tenant;
+use App\Models\RentContract;
 use InfyOm\Generator\Request\APIRequest;
 
-class DeleteRequest extends APIRequest
+class CreateRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class DeleteRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('delete-tenant'); // @TODO add new rule list-tenant_rent_contract
+        return $this->user()->can('post-tenant'); // @TODO use correct permission
     }
 
     /**
@@ -24,6 +24,6 @@ class DeleteRequest extends APIRequest
      */
     public function rules()
     {
-        return [];
+        return RentContract::$rules;
     }
 }

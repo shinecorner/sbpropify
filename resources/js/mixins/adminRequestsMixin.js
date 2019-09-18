@@ -104,6 +104,7 @@ export default (config = {}) => {
                 editTag: false,
                 tags: [],
                 alltags: [],
+                persons: [],
             };
         },
         computed: {
@@ -123,6 +124,35 @@ export default (config = {}) => {
                         const {data} = await this.getTenants({get_all: true, has_building: true,search});
                         this.tenants = data;
                         this.tenants.forEach(t => t.name = `${t.first_name} ${t.last_name}`);
+                    } catch (err) {
+                        displayError(err);
+                    } finally {
+                        this.remoteLoading = false;
+                    }
+                }
+            },
+            async remoteSearchPersons(search) {
+
+                if (search === '') {
+                    this.persons = [];
+                } else {
+                    this.remoteLoading = true;
+                    let exclude_ids = [];
+                    try {
+                        const {data} = await this.getUsers({
+                            get_all: true,
+                            search,
+                            exclude_ids,
+                            role: 'administrator'
+                        });
+
+                        const resp = await this.getPropertyManagers({
+                            get_all: true,
+                            search,
+                            exclude_ids
+                        });
+
+                        this.persons = data.concat(resp.data);
                     } catch (err) {
                         displayError(err);
                     } finally {
@@ -333,6 +363,7 @@ export default (config = {}) => {
                         if(this.model.category_id == 1) {
                             this.model.category_id = this.model.defect;
                         }
+
                         const resp = await this.createRequest(this.model);
                         
                         let requestId = resp.data.id;

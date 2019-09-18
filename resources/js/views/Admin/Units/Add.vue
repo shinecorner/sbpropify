@@ -57,7 +57,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item :label="$t('models.unit.room_no')" :rules="validationRules.room_no" prop="room_no"
-                                  v-if="+model.type === 1">
+                                  v-if="model.type === 1">
                         <el-select :placeholder="$t('general.placeholders.select')" class="w100p" style="width: 100%;"
                                    v-model="model.room_no">
                             <el-option :key="room.value"
@@ -76,11 +76,6 @@
                     </el-form-item>
                     <el-form-item :label="$t('models.unit.sq_meter')" prop="sq_meter">
                         <el-input autocomplete="off" type="number" v-model="model.sq_meter"></el-input>
-                    </el-form-item>
-                    <el-form-item :label="$t('models.unit.basement')" :rules="validationRules.basement"
-                                  class="switch-wrapper">
-                        <el-switch v-model="model.basement">
-                        </el-switch>
                     </el-form-item>
                     <el-form-item :label="$t('models.unit.attic')" :rules="validationRules.attic" class="switch-wrapper">
                         <el-switch v-model="model.attic">

@@ -39,7 +39,7 @@
                                     <el-option
                                         :key="item.id + item.name"
                                         :label="item.name"
-                                        :value="item.id"
+                                        :value="+item.id"
                                         v-for="item in filter.data">
                                     </el-option>
                                 </el-select>
@@ -107,7 +107,7 @@
 
         <!--        <div class="pull-right">-->
         <!--            <el-button :disabled="!selectedItems.length" @click="batchDelete" size="mini" type="danger">-->
-        <!--                {{ $t('general.actions.delete') }}-->
+        <!--                {{ $t('general.actions.delete')}}-->
         <!--            </el-button>-->
         <!--        </div>-->
 
@@ -655,12 +655,12 @@
         },
         watch: {
             search(text) {
-                if (this.timer) {
+                 if (this.timer) {
                     clearTimeout(this.timer);
                     this.timer = null;
-                }
+                 }
 
-                this.timer = setTimeout(() => this.updatePage(), 800);
+                 this.timer = setTimeout(() => this.updatePage(), 800);
             },
             "$route.query": {
                 immediate: true,

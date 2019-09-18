@@ -166,7 +166,7 @@ return [
             'your_administration' => 'your administration'
         ],
     ],
-    'tenant_rent_contracts' => [
+    'rent_contract' => [
         'saved' => 'Tenant rent contract saved',
         'deleted' => 'Tenant rent contract deleted',
         'errors' => [
@@ -426,14 +426,14 @@ return [
         'saved' => 'Service saved',
         'deleted' => 'Service deleted',
         'category' => [
-          'label' => 'Category',
-          'electrician' => 'Electrician',
-          'heating_company' => 'Heating company',
-          'lift' => 'Lift',
-          'sanitary' => 'Sanitary',
-          'key_service' => 'Key service',
-          'caretaker' => 'Caretaker',
-          'real_estate_service' => 'Real estate service',
+            'label' => 'Category',
+            'electrician' => 'Electrician',
+            'heating_company' => 'Heating company',
+            'lift' => 'Lift',
+            'sanitary' => 'Sanitary',
+            'key_service' => 'Key service',
+            'caretaker' => 'Caretaker',
+            'real_estate_service' => 'Real estate service',
         ],
         'contact_details' => 'Contact details',
         'user_credentials' => 'User credentials',
@@ -554,6 +554,12 @@ return [
         'service' => 'Service',
         'created_by' => 'Created by',
         'is_public' => 'Public',
+        'public_title' => 'Make request public',
+        'public_desc' => 'You can mark this request as public and make it visible to other persons in the building or quarter.',
+        'visibility_title' => 'For whom to make visible?',
+        'visibility_desc' => 'Indicate whether tenants can see within a building or even within the quarter. ',
+        'send_notification_title' => 'Notify tenants',
+        'send_notification_desc' => 'You can inform the concerned tenants via email about this public request.',
         'comments' => 'Comments',
         'assigned_to' => 'Assigned to',
         'assign_providers' => 'Assign providers',
@@ -579,6 +585,9 @@ return [
         'due_in' => 'Due in',
         'was_due_on' => 'Was due on',
         'due_on' => 'Due on',
+        'active_reminder_switcher' => 'Active Reminder',
+        'days_left' => 'How many days before should the email be sent?',
+        'send_person' => 'Which person should be notified?',
         'media' => [
             'added' => 'Document added',
             'removed' => 'Document removed',
@@ -686,6 +695,7 @@ return [
             'service' => 'Search for a service',
             'propertyManagers' => 'Search for managers',
             'visibility' => 'Select visibility',
+            'person' => 'Search for a person',
         ],
         'mail' => [
             'body' => 'Body',
@@ -733,6 +743,14 @@ return [
         'requestID' => 'Request ID',
         'requestCategory' => 'Request Category',
         'actions' => 'Actions',
+        'download_pdf' => [
+            'title' => 'Download PDF',
+            'entrepreneur_signature'=> 'Signature entrepreneur',
+            'customer_signature'=> 'Customer Signature',
+            'service_request' => 'Service Request',
+            'contact_details' => 'Contact Details',
+            'contact_text' => 'These are the contact details of the current tenant/owner of the housing unit.',
+        ]
     ],
     'requestCategory' => [
         'title' => 'Request categories',

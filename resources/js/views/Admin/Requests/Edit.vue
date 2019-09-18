@@ -4,6 +4,15 @@
             <template slot="description" v-if="model.service_request_format">
                 <div class="subtitle">{{model.service_request_format}}</div>
             </template>
+            <el-button
+                    @click="downloadPDF"
+                    size="mini"
+                    type="primary"
+                    round
+                    class="download-pdf"
+            >
+                {{$t('models.request.download_pdf.title')}}
+            </el-button>
             <edit-actions :saveAction="submit" :deleteAction="deleteRequest" route="adminRequests"/>
         </heading>
         <div class="crud-view" id="edit_request">
@@ -176,12 +185,12 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="8" class="summary-item" id="building">
-                                    <el-form-item label="Building">
+                                    <el-form-item :label="$t('general.assignmentTypes.building')">
                                         <strong>{{this.model.building}}</strong>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :md="8" class="summary-item" id="createtime">
-                                    <el-form-item label="Creation Datetime">
+                                    <el-form-item :label="$t('general.created_at')">
                                         <strong>{{this.model.created_by}}</strong>
                                     </el-form-item>
                                 </el-col>
@@ -189,7 +198,7 @@
                             <el-row :gutter="20" class="summary-row">
                                 <el-col :md="8" class="summary-item">
                                     <el-form-item :label="$t('models.request.priority.label')">
-                                        <strong>{{$constants.serviceRequests.priority[model.priority]}}</strong>
+                                        <strong>{{$t(`models.request.priority.${$constants.serviceRequests.priority[model.priority]}`)}}</strong>
                                     </el-form-item>
                                 </el-col>
                                 <!-- <el-col :md="8" class="summary-item">
@@ -209,12 +218,9 @@
                                     </el-form-item>
                                     <el-form-item :label="$t('general.description')" :rules="validationRules.description"
                                                   prop="description">
-                                        <quill-editor
-                                            :disabled="$can($permissions.update.serviceRequest)"
-                                            ref="quillEditor"
-                                            v-model="model.description"
-                                        >
-                                        </quill-editor>
+                                        <yimo-vue-editor
+                                                :config="editorConfig"
+                                                v-model="model.description"/>
                                     </el-form-item>
                                 </el-tab-pane>
 
@@ -295,132 +301,121 @@
                     <el-col :md="12">
                         <template v-if="$can($permissions.assign.request)">
  
-                                <el-tabs type="border-card" :loading="loading" v-model="activeActionTab">
-                                    <el-tab-pane :label="$t('models.request.actions')" name="actions" v-loading="loading.state">
-                                        <el-row :gutter="10">                                    
-                                            <el-col :md="12">
-                                                <el-form-item :label="$t('models.request.status.label')"
-                                                            :rules="validationRules.status"
-                                                            prop="status">
-                                                    <el-select :placeholder="$t('models.request.placeholders.status')"
-                                                            class="custom-select"
-                                                            v-model="model.status">
-                                                        <el-option
-                                                            :key="k"
-                                                            :label="$t(`models.request.status.${status}`)"
-                                                            :value="parseInt(k)"
-                                                            v-for="(status, k) in constants.serviceRequests.status">
-                                                        </el-option>
-                                                    </el-select>
-                                                </el-form-item>
-                                            </el-col>
-                                            <el-col :md="12">
-                                                <el-form-item :label="$t('models.request.due_date')"
-                                                            :rules="validationRules.due_date">
-                                                    <el-date-picker
-                                                        :disabled="$can($permissions.update.serviceRequest)"
-                                                        :placeholder="$t('models.request.placeholders.due_date')"
-                                                        format="dd.MM.yyyy"
-                                                        style="width: 100%"
-                                                        type="date"
-                                                        v-model="model.due_date"
-                                                        value-format="yyyy-MM-dd"
-                                                    >
-                                                    </el-date-picker>
-                                                </el-form-item>
-                                            </el-col>
-                                            <el-col :md="12">
-                                                <el-form-item :label="$t('models.request.internal_priority.label')"
-                                                            :rules="validationRules.internal_priority"
-                                                            prop="internal_priority">
-                                                    <el-select :placeholder="$t('models.request.internal_priority.label')" class="custom-select" v-model="model.internal_priority">
-                                                        <el-option
-                                                            :key="k"
-                                                            :label="$t(`models.request.internal_priority.${priority}`)"
-                                                            :value="parseInt(k)"
-                                                            v-for="(priority, k) in $constants.serviceRequests.internal_priority">
-                                                        </el-option>
-                                                    </el-select>
-                                                </el-form-item>
-                                            </el-col>
-                                        </el-row>
-                                    </el-tab-pane>
-                                    <el-tab-pane :label="$t('models.request.public.label')" name="is_public" v-loading="loading.state">
-                                        <el-form-item class="switcher" prop="is_public">
-                                            <label class="public__label">
-                                                <span class="public__desc">{{$t('models.request.public.public_desc')}}</span>
-                                            </label>
-                                            <el-switch v-model="model.is_public"/>
-                                        </el-form-item>
-                                        <el-form-item prop="visibility" v-if="model.is_public && model.tenant.building && model.tenant.building.quarter_id > 0">
-                                             <label class="public__label">
-                                                <span class="public__desc">{{$t('models.request.visibility.label')}}</span>
-                                            </label>
-                                             <el-select v-model="model.visibility">
+                            <el-tabs class="action-tabs" type="border-card" :loading="loading" v-model="activeActionTab">
+                                <el-tab-pane :label="$t('models.request.actions')" name="actions" v-loading="loading.state">
+                                    <el-row :gutter="10">                                    
+                                        <el-col :md="12">
+                                            <el-form-item :label="$t('models.request.status.label')"
+                                                        :rules="validationRules.status"
+                                                        prop="status">
+                                                <el-select :placeholder="$t('models.request.placeholders.status')"
+                                                        class="custom-select"
+                                                        v-model="model.status">
+                                                    <el-option
+                                                        :key="k"
+                                                        :label="$t(`models.request.status.${status}`)"
+                                                        :value="parseInt(k)"
+                                                        v-for="(status, k) in constants.serviceRequests.status">
+                                                    </el-option>
+                                                </el-select>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :md="12">
+                                            <el-form-item :label="$t('models.request.due_date')"
+                                                        :rules="validationRules.due_date">
+                                                <div class="reminder-box">
+                                                    <label class="switcher__label">
+                                                        <span class="switcher__desc">{{$t('models.request.active_reminder_switcher')}}</span>
+                                                    </label>
+                                                    <el-switch v-model="model.active_reminder"/>
+                                                </div>
+                                                <el-date-picker
+                                                    :disabled="$can($permissions.update.serviceRequest)"
+                                                    :placeholder="$t('models.request.placeholders.due_date')"
+                                                    format="dd.MM.yyyy"
+                                                    style="width: 100%"
+                                                    type="date"
+                                                    v-model="model.due_date"
+                                                    value-format="yyyy-MM-dd"
+                                                >
+                                                </el-date-picker>
+                                            </el-form-item>
+                                            
+                                        </el-col>
+                                        <el-col :md="12">
+                                            <el-form-item :label="$t('models.request.internal_priority.label')"
+                                                        :rules="validationRules.internal_priority"
+                                                        prop="internal_priority">
+                                                <el-select :placeholder="$t('models.request.internal_priority.label')" class="custom-select" v-model="model.internal_priority">
+                                                    <el-option
+                                                        :key="k"
+                                                        :label="$t(`models.request.internal_priority.${priority}`)"
+                                                        :value="parseInt(k)"
+                                                        v-for="(priority, k) in $constants.serviceRequests.internal_priority">
+                                                    </el-option>
+                                                </el-select>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row :gutter="10"> 
+                                        <el-col :md="12" v-if="model.active_reminder">
+                                            <el-form-item :label="$t('models.request.days_left')"
+                                                        prop="days_left">
+                                                <el-input v-model="model.days_left"></el-input>
+                                            </el-form-item>
+                                        </el-col>
+                                        <el-col :md="12" v-if="model.active_reminder">
+                                            <el-form-item :label="$t('models.request.send_person')"
+                                                        prop="person_id">
+                                                <el-select
+                                                    :loading="remoteLoading"
+                                                    :placeholder="$t('models.request.placeholders.person')"
+                                                    :remote-method="remoteSearchPersons"
+                                                    filterable
+                                                    remote
+                                                    reserve-keyword
+                                                    style="width: 100%;"
+                                                    v-model="model.person_id">
+                                                    <el-option
+                                                        :key="person.id"
+                                                        :label="person.name"
+                                                        :value="person.id"
+                                                        v-for="person in persons"/>
+                                                </el-select>
+                                            </el-form-item>
+                                        </el-col>
+                                    </el-row>
+                                </el-tab-pane>
+                                <el-tab-pane :label="$t('models.request.is_public')" name="is_public" v-loading="loading.state">
+                                    <el-form-item class="switcher" prop="is_public">
+                                        <label class="switcher__label">
+                                            {{$t('models.request.public_title')}}
+                                            <span class="switcher__desc">{{$t('models.request.public_desc')}}</span>
+                                        </label>
+                                        <el-switch v-model="model.is_public"/>
+                                    </el-form-item>
+                                    <el-form-item class="switcher" prop="visibility" v-if="model.is_public && model.tenant.building && model.tenant.building.quarter_id > 0">
+                                        <label class="switcher__label">
+                                            {{$t('models.request.visibility_title')}}
+                                            <span class="switcher__desc">{{$t('models.request.visibility_desc')}}</span>
+                                        </label>
+                                        <div>
+                                            <el-select v-model="model.visibility">
                                                 <el-option :key="k" :label="$t(`models.request.visibility.${visibility}`)" :value="parseInt(k)" v-for="(visibility, k) in $constants.serviceRequests.visibility">
                                                 </el-option>
                                             </el-select>
-                                        </el-form-item>
-                                        <el-form-item class="switcher" prop="notification" v-if="model.is_public">
-                                            <label class="public__label">
-                                                <span class="public__desc">Send notification email to all the tenants{{$t('models.request.public.notification')}}</span>
-                                            </label>
-                                            <el-switch v-model="model.send_notification"/>
-                                        </el-form-item>
-                                    </el-tab-pane>
-                                </el-tabs>
-                           
-
-                            <!-- <card class="mt15 request" :loading="loading" :header="$t('models.request.actions')" id="request_actions">
-                                <el-row :gutter="10">                                    
-                                    <el-col :md="12">
-                                        <el-form-item :label="$t('models.request.status.label')"
-                                                      :rules="validationRules.status"
-                                                      prop="status">
-                                            <el-select :placeholder="$t('models.request.placeholders.status')"
-                                                       class="custom-select"
-                                                       v-model="model.status">
-                                                <el-option
-                                                    :key="k"
-                                                    :label="$t(`models.request.status.${status}`)"
-                                                    :value="parseInt(k)"
-                                                    v-for="(status, k) in constants.serviceRequests.status">
-                                                </el-option>
-                                            </el-select>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :md="12">
-                                        <el-form-item :label="$t('models.request.due_date')"
-                                                      :rules="validationRules.due_date">
-                                            <el-date-picker
-                                                :disabled="$can($permissions.update.serviceRequest)"
-                                                :placeholder="$t('models.request.placeholders.due_date')"
-                                                format="dd.MM.yyyy"
-                                                style="width: 100%"
-                                                type="date"
-                                                v-model="model.due_date"
-                                                value-format="yyyy-MM-dd"
-                                            >
-                                            </el-date-picker>
-                                        </el-form-item>
-                                    </el-col>
-                                    <el-col :md="12">
-                                        <el-form-item :label="$t('models.request.internal_priority.label')"
-                                                      :rules="validationRules.internal_priority"
-                                                      prop="internal_priority">
-                                            <el-select :placeholder="$t('models.request.internal_priority.label')" class="custom-select" v-model="model.internal_priority">
-                                                <el-option
-                                                    :key="k"
-                                                    :label="$t(`models.request.internal_priority.${priority}`)"
-                                                    :value="parseInt(k)"
-                                                    v-for="(priority, k) in $constants.serviceRequests.internal_priority">
-                                                </el-option>
-                                            </el-select>
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row>
-                            </card> -->
-
+                                        </div>
+                                    </el-form-item>
+                                    <el-form-item class="switcher" prop="send_notification" v-if="model.is_public">
+                                        <label class="switcher__label">
+                                            {{$t('models.request.send_notification_title')}}
+                                            <span class="switcher__desc">{{$t('models.request.send_notification_desc')}}</span>
+                                        </label>
+                                        <el-switch v-model="model.send_notification"/>
+                                    </el-form-item>
+                                </el-tab-pane>
+                            </el-tabs>
+                        
                             <card class="mt15 request" :loading="loading" :header="$t('models.request.assignment')">
                                 <assignment-by-type
                                     :resetToAssignList="resetToAssignList"
@@ -493,16 +488,13 @@
     import RelationList from 'components/RelationListing';
     import EditActions from 'components/EditViewActions';
     import ServiceDialog from 'components/ServiceAttachModal';
-    import {displaySuccess} from "../../../helpers/messages";
+    import {displaySuccess, displayError} from "../../../helpers/messages";
     import {Avatar} from 'vue-avatar';
     import Audit from 'components/Audit';
     import AssignmentByType from 'components/AssignmentByType';
     import Vue from 'vue';
 
-    import 'quill/dist/quill.core.css';
-    import 'quill/dist/quill.snow.css';
-    import 'quill/dist/quill.bubble.css';
-    import {quillEditor} from 'vue-quill-editor';
+    let YimoVueEditor = require("yimo-vue-editor");
 
     export default {
         name: 'AdminRequestsEdit',
@@ -520,7 +512,7 @@
             Avatar,
             Audit,
             AssignmentByType,
-            quillEditor,
+            'yimo-vue-editor': YimoVueEditor.default,
         },
         data() {
             return {
@@ -561,7 +553,10 @@
                 }],
                 rolename: null,
                 inputVisible: false,
-                
+                editorConfig: {
+                    printLog: false,
+                    lang: YimoVueEditor.E.langs.en,
+                },
             }
         },
         computed: {
@@ -601,7 +596,7 @@
             
         },
         methods: {
-            ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags', 'deleteRequestTag']),
+            ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags', 'deleteRequestTag', 'downloadRequestPDF']),
             translateType(type) {
                 return this.$t(`models.request.userType.${type}`);
             },
@@ -716,10 +711,35 @@
                     return item.name != tag;
                 });
             },
+            async downloadPDF() {
+                this.loading.state = true;
+                try {
+                    console.log('this.model.id', this.model.id)
+                    const resp = await this.downloadRequestPDF({id: this.model.id});
+                    if (resp && resp.data) {
+                        const url = window.URL.createObjectURL(new Blob([resp.data], {type: resp.headers['content-type']}));
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.setAttribute('download', resp.headers['content-disposition'].split('filename=')[1]);
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(url);
+                    }
+                } catch (e) {
+                    displayError(e)
+                } finally {
+                    this.loading.state = false;
+                }
+            },
         }
     };
 </script>
 <style lang="scss" scoped>
+    .download-pdf {
+        margin-right: 5px;
+    }
+
     .services-edit {
         .heading {
             margin-bottom: 20px;
@@ -743,6 +763,10 @@
         & > span {
             margin-left: 5px;
         }
+    }
+
+    /deep/ .ql-container.ql-snow .ql-editor {
+        min-height: 300px;
     }
 
 </style>
@@ -883,9 +907,9 @@
             }
         }
 
-        #pane-public {
-            .el-form-item {
-                
+        #pane-is_public {
+
+            .switcher {
                 .el-form-item__content {
                     display: flex;
                     align-items: center;
@@ -893,16 +917,36 @@
                     & > div {
                         flex: 1;
                         justify-content: flex-end;
-                        
+                        text-align: end;
+                        width: 130px
                     }
-
-                    // .el-select .el-input {
-                    //     max-width: 100px;
-                    //     float: right;
-                    // }
+                    .el-select {
+                        width: 130px
+                    }
+                }
+                &__label {
+                    text-align: left;
+                    line-height: 1.4em;
+                    color: #606266;
+                }
+                &__desc {
+                    margin-top: 0.5em;
+                    display: block;
+                    font-size: 0.9em;
                 }
 
             }
+            
+        }
+
+        .reminder-box {
+            position: absolute;
+            top: -100%;
+            right: 5px;
+        }
+            
+        .action-tabs {
+            border-radius: 6px;
         }
     }
     

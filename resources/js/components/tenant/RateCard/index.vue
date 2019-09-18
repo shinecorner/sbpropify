@@ -32,8 +32,8 @@
 
                 this.loading = true
 
-                const {data} = await this.axios.post('addReview', {
-                    tenant_id: this.loggedInUser.tenant.id,
+                const data = await this.$store.dispatch('addReview', {
+                     tenant_id: this.loggedInUser.tenant.id,
                     ...this.model
                 })
 

@@ -166,7 +166,7 @@ return [
             'your_administration' => 'la sua amministrazione'
         ],
     ],
-    'tenant_rent_contracts' => [
+    'rent_contract' => [
         'saved' => 'Contratto d\'affitto d\'affitto salvato',
         'deleted' => 'Contratto d\'affitto del locatario soppresso',
         'errors' => [
@@ -426,14 +426,14 @@ return [
         "saved" => "Servizio salvato",
         "deleted" => "Servizio cancellato",
         "category" => [
-          "label" => "Categoria",
-          "electrician" => "Elettricista",
-          "heating_company" => "Azienda di riscaldamento",
-          "lift" => "Sollevare",
-          "sanitary" => "Sanitario",
-          "key_service" => "Servizio chiave",
-          "caretaker" => "Custode",
-          "real_estate_service" => "Servizio immobiliare",
+            "label" => "Categoria",
+            "electrician" => "Elettricista",
+            "heating_company" => "Azienda di riscaldamento",
+            "lift" => "Sollevare",
+            "sanitary" => "Sanitario",
+            "key_service" => "Servizio chiave",
+            "caretaker" => "Custode",
+            "real_estate_service" => "Servizio immobiliare",
         ],
         "contact_details" => "Dati di contatto",
         "user_credentials" => "Credenziali utente",
@@ -554,6 +554,12 @@ return [
         "service" => "Servizio",
         "created_by" => "Creato da",
         "is_public" => "Pubblico",
+        'public_title' => 'Rendere pubblica la richiesta',
+        'public_desc' => "È possibile contrassegnare questa richiesta come pubblica e renderla visibile ad altre persone nell'edificio o nel quartiere.",
+        'visibility_title' => "Per chi rendere visibile?",
+        'visibility_desc' => "Indicare se gli inquilini possono vedere all'interno di un edificio o addirittura all'interno del quartiere. ",
+        'send_notification_title' => 'Informare gli inquilini',
+        'send_notification_desc' => "È possibile informare gli inquilini interessati via e-mail su questa richiesta pubblica.",
         "comments" => "Commenti",
         "assigned_to" => "Assegnato a",
         "assign_providers" => "Assegnare i fornitori",
@@ -579,6 +585,9 @@ return [
         'due_in' => 'Due in',
         'was_due_on' => 'Was due on',
         'due_on' => 'Due on',
+        'active_reminder_switcher' => 'Promemoria attivo',
+        'days_left' => "Quanti giorni prima dovrebbe essere inviata l'e-mail?",
+        'send_person' => 'Quale persona deve essere informata?',
         'media' => [
             "added" => "Documento ajouté",
             "removed" => "Supporti rimossi",
@@ -733,6 +742,14 @@ return [
         "requestID" => "Richiedi un documento d'identità",
         "requestCategory" => "Richiedi categoria",
         'actions' => 'Azioni',
+        'download_pdf' => [
+            'title' => 'Scarica il PDF',
+            'entrepreneur_signature'=> 'Signature entrepreneur',
+            'customer_signature'=> 'Firma del cliente',
+            'service_request' => 'Service Request',
+            'contact_details' => 'Contact Details',
+            'contact_text' => 'Questi sono i dati di contatto dell\'attuale inquilino/proprietario dell\'unità abitativa',
+        ]
     ],
     'requestCategory' => [
         "title" => "Richiedi categorie",

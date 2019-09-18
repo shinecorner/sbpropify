@@ -166,7 +166,7 @@ return [
             'your_administration' => 'Ihre Verwaltung'
         ]
     ],
-    'tenant_rent_contracts' => [
+    'rent_contract' => [
         'saved' => 'Mietvertrag gesichert',
         'deleted' => 'Mietvertrag gelöscht',
         'errors' => [
@@ -421,19 +421,19 @@ return [
     ],
     'service' => [
         'title' => 'Dienstleister und Hauswartung',
-        'add_title' => 'Neue Firma hinzufügen',
+        'add_title' => 'Firma hinzufügen',
         'edit_title' => 'Firma bearbeiten',
         'saved' => 'Dienstleister gespeichert',
         'deleted' => 'Dienstleister gelöscht',
         'category' => [
-          'label' => 'Gewerke',
-          'electrician' => 'Elektro',
-          'heating_company' => 'Heizung',
-          'lift' => 'Lift',
-          'sanitary' => 'Sanitär',
-          'key_service' => 'Schlüsseldienst',
-          'caretaker' => 'Hauswart',
-          'real_estate_service' => 'Liegenschaftsdienst',
+            'label' => 'Gewerke',
+            'electrician' => 'Elektro',
+            'heating_company' => 'Heizung',
+            'lift' => 'Lift',
+            'sanitary' => 'Sanitär',
+            'key_service' => 'Schlüsseldienst',
+            'caretaker' => 'Hauswart',
+            'real_estate_service' => 'Liegenschaftsdienst',
         ],
         'contact_details' => 'Kontaktdaten',
         'user_credentials' => 'Logindaten',
@@ -554,6 +554,12 @@ return [
         'service' => 'Dienstleister',
         'created_by' => 'Erstellt durch',
         'is_public' => 'Öffentlich machen',
+        'public_title' => 'Anfrage öffentlich machen',
+        'public_desc' => 'Sie können diese Anfrage als öffentlich markieren und für weitere Personen in der Liegenschaft oder Überbauung sichtbar machen.',
+        'visibility_title' => 'Für wen sichtbar machen?',
+        'visibility_desc' => 'Geben Sie an, ob diese Anfrage von Mietern innerhalb der Liegenschaft oder sogar innerhalb der Überbauung eingesehen werden kann. ',
+        'send_notification_title' => 'Mieter benachrichtigen',
+        'send_notification_desc' => 'Sie können die betroffenen Mieter via Email über diese öffentliche Anfrage informieren.',
         'comments' => 'Mieter-Chat',
         'assigned_to' => 'Zuständig',
         'assign_providers' => 'Zuweisen',
@@ -579,6 +585,9 @@ return [
         'due_in' => 'Zu erledigen in',
         'was_due_on' => 'In Verzug seit',
         'due_on' => 'Erledigt am',
+        'active_reminder_switcher' => 'Aktive Erinnerung',
+        'days_left' => 'Wie viele Tage vorher soll die E-Mail versendet werden?',
+        'send_person' => 'Welche Person soll benachrichtigt werden?',
         'media' => [
             'added' => 'Mediendatei hinzugefügt',
             'removed' => 'Mediendatei entfernt.',
@@ -733,6 +742,14 @@ return [
         'requestID' => 'Anfrage-ID',
         'requestCategory' => 'Anfrage-Kategorie ',
         'actions' => 'Aktionen',
+        'download_pdf' => [
+            'title' => 'PDF herunterladen',
+            'entrepreneur_signature'=> 'Entrepreneur unterschreiben',
+            'customer_signature'=> 'Kundenunterschrift',
+            'service_request' => 'Serviceanfrage',
+            'contact_details' => 'Kontaktdaten',
+            'contact_text' => 'Dies sind die Kontaktdaten des aktuellen Mieters/Eigentümers der Wohneinheit.',
+        ]
     ],
     'requestCategory' => [
         'title' => 'Anfrage Kategorien',

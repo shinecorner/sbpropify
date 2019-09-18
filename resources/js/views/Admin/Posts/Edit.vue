@@ -84,11 +84,9 @@
                                 </el-form-item>
                                 <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                             prop="content">
-                                    <quill-editor
-                                        ref="quillEditor"
-                                        v-model="model.content"
-                                    >
-                                    </quill-editor>
+                                    <yimo-vue-editor
+                                            :config="editorConfig"
+                                            v-model="model.content"/>
                                 </el-form-item>
                                 <el-form-item v-if="this.model.type == 3 && this.showdefaultimage == true">
                                     <label>{{$t('models.post.category_default_image_label')}}</label>
@@ -142,11 +140,9 @@
                         <template v-if="this.model.type != 3">
                             <el-form-item :label="$t('general.content')" :rules="validationRules.content"
                                         prop="content">
-                                <quill-editor
-                                    ref="quillEditor"
-                                    v-model="model.content"
-                                >
-                                </quill-editor>
+                                <yimo-vue-editor
+                                        :config="editorConfig"
+                                        v-model="model.content"/>
                             </el-form-item>
                             <el-form-item :label="$t('models.post.images')"
                             >
@@ -455,10 +451,7 @@
     import {Avatar} from 'vue-avatar'
     import AssignmentByType from 'components/AssignmentByType';
 
-    import 'quill/dist/quill.core.css';
-    import 'quill/dist/quill.snow.css';
-    import 'quill/dist/quill.bubble.css';
-    import {quillEditor} from 'vue-quill-editor';
+    let YimoVueEditor = require("yimo-vue-editor");
 
     const mixin = PostsMixin({mode: 'edit'});
 
@@ -469,7 +462,7 @@
             RelationList,
             Avatar,
             AssignmentByType,
-            quillEditor,
+            'yimo-vue-editor': YimoVueEditor.default,
         },
         data() {
             return {
@@ -502,6 +495,10 @@
                     }]
                 }],
                 activeTab1: "details",
+                editorConfig: {
+                    printLog: false,
+                    lang: YimoVueEditor.E.langs.en,
+                },
             }
         },
         mounted() {

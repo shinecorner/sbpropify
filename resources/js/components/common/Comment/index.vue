@@ -11,14 +11,14 @@
             <el-input ref="content" :class="{'is-focused': idState.focused}" type="textarea" resize="none" v-if="idState.editing" v-model="comment" autosize :disabled="idState.loading._isVue && idState.loading.visible" :validate-event="false" @blur="idState.focused = false" @focus="idState.focused = true" @keydown.native.enter="$emit('size-hanged')" @keydown.native.alt.enter.exact="update" @keydown.native.stop.esc.exact="cancelEdit" />
             <div class="content" :class="{'empty': !comment, 'disabled': idState.loading._isVue && idState.loading.visible}" v-else>
                 <div class="text">{{comment || $t('components.common.comment.deletedCommentPlaceholder')}}</div>
-                <!-- <div class="actions" v-if="hasActions">
+                <div class="actions" v-if="(showAction && hasActions)">                                    
                     <el-button type="text" @click="enterEdit" v-if="data.comment">
                         <i class="icon-pencil"></i>
                     </el-button>
                     <el-button type="text" @click="remove">
                         <i class="icon-trash-empty" style="color: red;"></i>
                     </el-button>
-                </div> -->
+                </div>
             </div>
         </div>
         <template v-if="idState.editing">
@@ -71,6 +71,11 @@
                 type: String,
                 validator: type => ['post', 'product', 'request', 'conversation'].includes(type)
             },
+            showAction: {
+                type: Boolean, 
+                required: false,               
+                default: true
+            },
             data: {
                 type: Object,
                 default: () => ({
@@ -112,7 +117,7 @@
             }
         },
         mounted () {
-            console.log('data', this.data)
+            
         },
         methods: {
             enterEdit () {

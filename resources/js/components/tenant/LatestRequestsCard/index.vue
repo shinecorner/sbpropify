@@ -24,7 +24,7 @@
                     </div>
                 </template>
                 <div class="p-description">{{request.description}}</div>
-                <el-button size="mini" icon="icon-right-1" plain round>{{$t('tenant.actions.view')}}</el-button>
+                <el-button size="mini" icon="icon-right-1" plain round @click="$emit('view-detail-request', $event, request)">{{$t('tenant.actions.view')}}</el-button>
             </el-collapse-item>
         </el-collapse>
     </ui-card>
@@ -62,6 +62,12 @@
             if (!this.requests.length) {
                 this.loading = true;
 
+                // await this.$store.dispatch('newRequests/get', {
+                //     is_public: true,
+                //     sortedBy: 'desc',
+                //     orderBy: 'created_at',
+                //     per_page: this.limit
+                // })
                 await this.$store.dispatch('newRequests/get', {
                     is_public: true,
                     sortedBy: 'desc',
@@ -94,8 +100,6 @@
                 border-style: none
 
                 .el-collapse-item
-                    &:hover
-                        background-color: var(--primary-color-lighter)
 
                     &:last-child /deep/ .el-collapse-item__header
                         border-bottom-style: none

@@ -11,7 +11,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 /**
  * @SWG\Definition(
- *      definition="TenantRentContract",
+ *      definition="RentContract",
  *      required={"first_name", "birthdate"},
  *      @SWG\Property(
  *          property="id",
@@ -53,8 +53,8 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *          type="integer"
  *      ),
  *     @SWG\Property(
- *          property="tenant_rent_contract_format",
- *          description="tenant_rent_contract_format",
+ *          property="rent_contract_format",
+ *          description="rent_contract_format",
  *          type="integer"
  *      ),
  *     @SWG\Property(
@@ -118,7 +118,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *      )
  * )
  */
-class TenantRentContract extends AuditableModel implements HasMedia
+class RentContract extends AuditableModel implements HasMedia
 {
     use HasMediaTrait, UniqueIDFormat;
 
@@ -186,6 +186,8 @@ class TenantRentContract extends AuditableModel implements HasMedia
         'parking_price' => 'numeric',
     ];
 
+    protected $table = 'tenant_rent_contracts';
+
     /**
      * @var array
      */
@@ -196,7 +198,7 @@ class TenantRentContract extends AuditableModel implements HasMedia
         'type',
         'duration',
         'status',
-        'tenant_rent_contract_format',
+        'rent_contract_format',
         'deposit_type',
         'deposit_status',
         'deposit_amount',
@@ -225,7 +227,7 @@ class TenantRentContract extends AuditableModel implements HasMedia
         'type' => 'integer',
         'duration' => 'integer',
         'status' => 'integer',
-        'tenant_rent_contract_formats' => 'string',
+        'rent_contract_formats' => 'string',
         'deposit_type' => 'integer',
         'deposit_status' => 'integer',
         'deposit_amount' => 'integer',
@@ -257,5 +259,10 @@ class TenantRentContract extends AuditableModel implements HasMedia
     public function unit()
     {
         return $this->belongsTo(Unit::class, 'unit_id', 'id');
+    }
+
+    protected function getFormatColumnName()
+    {
+        return 'rent_contract_format';
     }
 }

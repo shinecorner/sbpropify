@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\API\TenantRentContract;
+namespace App\Http\Requests\API\Tenant;
 
-use App\Models\Tenant;
+use App\Models\ServiceRequest;
 use InfyOm\Generator\Request\APIRequest;
 
-class ShowRequest extends APIRequest
+class DownloadPdfRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class ShowRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('view-tenant'); // @TODO add new rule list-tenant_rent_contract
+        return $this->user()->can('download_pdf-request');
     }
 
     /**

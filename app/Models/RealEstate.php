@@ -61,6 +61,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          type="string"
  *      ),
  *      @SWG\Property(
+ *          property="primary_color",
+ *          description="primary_color",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
+ *          property="primary_color_lighter",
+ *          description="primary_color_lighter",
+ *          type="string"
+ *      ),
+ *      @SWG\Property(
  *          property="pdf_font_family",
  *          description="pdf_font_family",
  *          type="string"
@@ -163,6 +173,7 @@ class RealEstate extends AuditableModel
         'mail_from_address',
         'mail_from_name',
         'primary_color',
+        'primary_color_lighter',
         'accent_color',
         'login_variation',
         'login_variation_2_slider'
@@ -207,6 +218,7 @@ class RealEstate extends AuditableModel
         'mail_from_address' => 'string',
         'mail_from_name' => 'string',
         'primary_color' => 'string',
+        'primary_color_lighter' => 'string',
         'accent_color' => 'string',
         'login_variation' => 'integer',
         'login_variation_2_slider' => 'integer',

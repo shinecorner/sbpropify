@@ -5,10 +5,10 @@ namespace App\Http\Requests\API\Media;
 use InfyOm\Generator\Request\APIRequest;
 
 /**
- * Class TenantRentContractUploadRequest
+ * Class RentContractUploadRequest
  * @package App\Http\Requests\API\Media
  */
-class TenantRentContractUploadRequest extends APIRequest
+class RentContractUploadRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.

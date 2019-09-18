@@ -133,6 +133,7 @@ return [
     'comment_created' => "Commento creato",
     'comment_updated' => "Commento aggiornato",
     'comment_deleted' => "Commento soppresso",
+    'created_at' => "Creato a",
     'password_validation' => [
         'required' => 'La password è richiesta',
         'confirm' => 'Inserisci nuovamente la password',

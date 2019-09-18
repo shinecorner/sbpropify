@@ -112,13 +112,19 @@ return [
         ],
         'tenant_rent_contracts_media' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/tenant-rent-contracts/media'),
-            'url' => env('APP_URL') . '/storage/tenant-rent-contracts/media',
+            'root' => storage_path('app/public/rent-contracts/media'),
+            'url' => env('APP_URL') . '/storage/rent-contracts/media',
             'visibility' => 'public',
         ],
         'tenant_credentials' => [
             'driver' => 'local',
             'root' => storage_path('app/private/tenants/credentials'),
+            'visibility' => 'public',
+        ],
+
+        'service_request_downloads' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/service-request/downloads'),
             'visibility' => 'public',
         ],
 
