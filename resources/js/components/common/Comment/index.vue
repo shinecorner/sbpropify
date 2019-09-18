@@ -106,13 +106,8 @@
                 errorFallback: ErrorFallback
             }
         },
-        watch: {
-            data: function(val) {
-                console.log('data change', val)
-            }
-        },
         mounted () {
-            
+            this.data.height =  this.$refs.container.clientHeight
         },
         methods: {
             enterEdit () {

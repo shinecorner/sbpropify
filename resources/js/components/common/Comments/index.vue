@@ -8,8 +8,8 @@
         </template>
     </div>
     <div class="comments-list" v-else>
-        <template v-if="withScroller">
-            <dynamic-scroller ref="dynamic-scroller" :items="comments.data" :min-item-size="40" @resize="scrollToBottom">
+        <template v-if="withScroller" >
+            <dynamic-scroller ref="dynamic-scroller" :items="comments.data" :min-item-size="40" @resize="scrollToBottom" v-if="!loading">
                 <template #before>
                     <el-divider v-if="comments.current_page !== comments.last_page">
                         <el-button icon="el-icon-top" size="mini" :loading="loading" round @click="fetch">
@@ -19,8 +19,12 @@
                     </el-divider>
                 </template>
                 <template v-slot="{item, index, active}">
-                    <dynamic-scroller-item :item="item" :active="active" :data-index="index" :sizeDependencies="item">
-                        <comment v-bind="commentComponentProps" v-on="commentComponentListeners" :show-children="showChildren" :data="item" :reversed="isCommentReversed(item)" />
+                    <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]">
+                        <comment v-bind="commentComponentProps" 
+                                v-on="commentComponentListeners" 
+                                :show-children="showChildren" 
+                                :data="item" 
+                                :reversed="isCommentReversed(item)" />
                     </dynamic-scroller-item>
                 </template>
             </dynamic-scroller>
