@@ -196,7 +196,7 @@ export default {
         const newData = state
         newData.loggedInUser.tenant.review = params.review
         newData.loggedInUser.tenant.rating = params.rating
-        console.log('newData.loggedInUser', newData.loggedInUser);
+        commit('SET_LOGGED_IN_USER', newData.loggedInUser);
         return data;
     }
 }
