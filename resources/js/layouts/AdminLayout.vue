@@ -23,7 +23,9 @@
                     </div>
                 </div>
             </div>
-            
+            <el-badge class="notification-badge" type="danger" :value="unreadNotifications.length" :max="9" :hidden="!unreadNotifications.length">
+                <el-button icon="icon-bell-alt" circle />
+            </el-badge>
             <div id="dropdown" class="dropdown-menu" ref="prev">
                 <el-dropdown trigger="click" @visible-change="handlerDropdownVisibleChange">
                     <div>
@@ -133,7 +135,8 @@
                 all_unassigned_count: null,
                 my_request_count: null,
                 my_pending_count: null,
-                rolename: null
+                rolename: null,
+                unreadNotifications: 0
             }
         },
 
@@ -756,6 +759,10 @@
             padding: 0px 12px !important;
             text-align: left;
             color: #909399;
+
+            i {
+                margin-right: 10px;
+            }
             &:hover {
                 color: #909399;
             }
@@ -962,6 +969,20 @@
                         }
                     }
                 }
+            }
+        }
+
+        .notification-badge {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+
+            /deep/ .el-button {
+                height: 100%;
+                width: 100%;
             }
         }
     }

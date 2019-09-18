@@ -19,6 +19,7 @@ class RealEstateTableSeeder extends Seeder
         $realEstate->language = env('RL_LANG', 'en');
         $realEstate->cleanify_email = env('CLEANIFY_EMAIL', '');
         $realEstate->primary_color = '#6B0036';
+        $realEstate->primary_color_lighter = '#c55a9059';
         $realEstate->accent_color = '#F7CA18';
 
         $realEstate->free_apartments_enable = false;

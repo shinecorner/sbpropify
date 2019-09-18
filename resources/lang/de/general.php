@@ -133,6 +133,7 @@ return [
     'comment_created' => "Kommentar erstellt",
     'comment_updated' => "Kommentar aktualisiert",
     'comment_deleted' => "Kommentar gelöscht",
+    'created_at' => "Erstellt am",
     'password_validation' => [
         'required' => 'Passwort ist obligatorisch',
         'confirm' => 'Passwort bestätigen',

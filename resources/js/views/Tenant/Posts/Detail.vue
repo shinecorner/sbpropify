@@ -33,7 +33,7 @@
             try {
                 const id = Number(this.$route.params.id)
                 
-                await this.$store.dispatch('newPosts/get', {id})
+                await this.$store.dispatch('newPosts/getById', {id})
                 this.data = this.$store.getters['newPosts/getById'](id)
 
             } catch (err) {

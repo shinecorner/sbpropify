@@ -8,7 +8,7 @@
                 </div>
                 <div class="type">{{$constants.products.type[data.type]}}</div>
                 <div class="title">{{data.title}}</div>
-                <div class="datetime">added on {{formatDatetime(data.published_at)}}</div>
+                <div class="datetime">{{$t('tenant.added_at')}} {{formatDatetime(data.published_at)}}</div>
                 <ui-divider />
                 <div class="price">
                     <template v-if="isFree">Free</template>
