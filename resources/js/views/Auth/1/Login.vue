@@ -41,10 +41,8 @@
 <script>
     import {mapActions, mapState} from 'vuex';
     import {displaySuccess, displayError} from 'helpers/messages';
-    import globalFunction from "helpers/globalFunction";
 
     export default {
-        mixins: [globalFunction],
         data() {
             return {
                 model: {
@@ -99,17 +97,8 @@
                 });
             },
 
-            ...mapActions(['me', 'login', 'getRealEstate']),
-        },
-        created() {
-            this.getRealEstate().then((resp) => {
-                this.model = Object.assign({}, this.model, resp.data);
-                console.log(model);
-
-            }).catch((error) => {
-                displayError(error);
-            });
-        },
+            ...mapActions(['me', 'login']),
+        }
     }
 </script>
 <style lang="scss" scoped>
