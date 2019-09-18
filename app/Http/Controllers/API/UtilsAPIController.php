@@ -86,26 +86,30 @@ class UtilsAPIController extends AppBaseController
             'languages' => $languages,
         ];
 
-        $re = App\Models\RealEstate::first(['primary_color', 'primary_color_lighter', 'accent_color', 'logo', 'circle_logo', 'tenant_logo', 'favicon_icon']);
+        $re = App\Models\RealEstate::first(['login_variation', 'login_variation_2_slider', 'primary_color', 'primary_color_lighter', 'accent_color', 'logo', 'circle_logo', 'tenant_logo', 'favicon_icon']);
 
         if ($re) {
             $colors = $re->only(['primary_color', 'accent_color', 'primary_color_lighter']);
+            $logo = $re->only(['logo', 'circle_logo', 'favicon_icon', 'tenant_logo']);
+            $login = [
+                'variation' => $re->login_variation,
+                'variation_2_slider' => (bool) $re->login_variation_2_slider,
+            ];
         } else {
             $colors = [
                 'primary_color_lighter' => '#c55a9059',
                 'primary_color' => '#6AC06F',
                 'accent_color' => '#F7CA18'
             ];
-        }
-
-        if ($re) {
-            $logo = $re->only(['logo', 'circle_logo', 'favicon_icon', 'tenant_logo']);
-        } else {
             $logo = [
                 'logo' => null,
                 'circle_logo' => null,
                 'favicon_icon' => null,
                 'tenant_logo' => null,
+            ];
+            $login = [
+                'variation' => 1,
+                'variation_2_slider' => true,
             ];
         }
         $response = [
@@ -121,7 +125,8 @@ class UtilsAPIController extends AppBaseController
             'templates' => self::getTemplateConstants(),
             'audits' => self::getAuditConstants(),
             'colors' => $colors,
-            'logo' => $logo
+            'logo' => $logo,
+            'login' => $login
         ];
 
         return $this->sendResponse($response, 'App constants statistics retrieved successfully');
