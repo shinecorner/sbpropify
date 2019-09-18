@@ -19,7 +19,7 @@
                         <loader v-for="idx in 5" :key="idx" />
                     </template>
                     <template v-slot="{item, index, active}">
-                        <dynamic-scroller-item :item="item" :active="active" :data-index="index">
+                        <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]">
                             <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" @hook:mounted="$refs['dynamic-scroller'].forceUpdate">
                                 <template #tab-overview-after>
                                     <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
@@ -55,7 +55,7 @@
                         <i class="ti-comments"></i>
                         Chat
                     </div>
-                    <chat ref="chat" v-bind:showAction="false" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
+                    <chat ref="chat" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
                 </el-tab-pane>
                 <el-tab-pane name="media" lazy>
                     <div slot="label">

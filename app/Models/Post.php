@@ -66,6 +66,11 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *          description="is_execution_time",
  *          type="integer"
  *      ),
+ *     @SWG\Property(
+ *          property="execution_period",
+ *          description="execution_period",
+ *          type="integer"
+ *      ),
  *      @SWG\Property(
  *          property="created_at",
  *          description="created_at",
@@ -126,6 +131,9 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
     const CategoryHeating = 4;
     const CategorySanitary = 5;
 
+    const ExecutionPeriodSingleDay = 1;
+    const ExecutionPeriodManyDay = 2;
+
     const Type = [
         self::TypePost => 'post',
         self::TypeNewNeighbour => 'new_neighbour',
@@ -158,6 +166,11 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         self::CategorySanitary => 'sanitary',
     ];
 
+    const ExecutionPeriod = [
+        self::ExecutionPeriodSingleDay => 'single_day',
+        self::ExecutionPeriodManyDay => 'many_day',
+    ];
+
     const Fillable = [
         'user_id',
         'type',
@@ -174,7 +187,9 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         'notify_email',
         'category_image',
         'is_execution_time',
+        'execution_period'
     ];
+
     public $fillable = self::Fillable;
 
     protected $dates = [
@@ -195,6 +210,7 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         'sub_type' => 'integer',
         'status' => 'integer',
         'visibility' => 'integer',
+        'execution_period' => 'integer',
         'content' => 'string',
         'pinned' => 'boolean',
         'notify_email' => 'boolean',
