@@ -66,6 +66,7 @@ return [
     "add_post" => "Ajouter un message",
     "add_request" => "Ajouter une demande",
     "add_product" => "Ajouter un produit",
+    "edit_product" => "Modifier un produit",
     "my_dashboard" => "Mon tableau de bord",
     "good_morning" => "Bonjour. Bonjour",
     "good_afternoon" => "Bon après-midi à tous",

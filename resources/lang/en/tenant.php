@@ -66,6 +66,7 @@ return [
     "add_post" => "Add a post",
     "add_request" => "Add a request",
     "add_product" => "Add a product",
+    "edit_product" => "Edit a product",
     "my_dashboard" => "My dashboard",
     "good_morning" => "Good morning",
     "good_afternoon" => "Good afternoon",
