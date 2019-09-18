@@ -183,15 +183,6 @@
             this.types = Object.entries(this.$constants.products.type).map(([value, label]) => ({value: +value, label}))
             this.visibilities = Object.entries(this.$constants.products.visibility).map(([value, label]) => ({value: +value, label}))
 
-            // if (this.types.length) {
-            //     this.model.type = this.types[0].value
-            // }
-
-            // if (this.visibilities) {
-            //     this.model.visibility = this.visibilities[0].value
-            // }
-
-           console.log('data', this.data)
         }
     };
 </script>
