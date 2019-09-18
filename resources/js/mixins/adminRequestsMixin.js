@@ -146,8 +146,6 @@ export default (config = {}) => {
                             roles: ['manager', 'administrator']
                         });
 
-                        
-
                         this.persons = data
                     } catch (err) {
                         displayError(err);
