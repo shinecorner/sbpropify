@@ -20,8 +20,8 @@ namespace App\Models;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="user_id",
- *          description="user_id",
+ *          property="tenant_id",
+ *          description="tenant_id",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -48,6 +48,12 @@ namespace App\Models;
 class PostView extends Model
 {
     public $table = 'post_view';
+
+    public $fillable = [
+        'tenant_id',
+        'post_id',
+        'views'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
