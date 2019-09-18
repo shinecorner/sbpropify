@@ -13,6 +13,7 @@ return [
         "send" => "Envoyer",
         "view_all" => "Voir tout",
         "view" => "Afficher",
+        "done" => "To Done",
     ],
     "salutation_option" => [
         "mr" => "Monsieur",

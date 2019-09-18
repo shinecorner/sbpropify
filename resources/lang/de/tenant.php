@@ -12,7 +12,7 @@ return [
         "search" => "Suchen",
         "send" => "Senden",
         "view_all" => "Alle anzeigen",
-        "view" => "Details",
+        "done" => "To Done",
     ],
     "salutation_option" => [
         "mr" => "Herr",

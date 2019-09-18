@@ -23,7 +23,7 @@
                             <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" @hook:mounted="$refs['dynamic-scroller'].forceUpdate">
                                 <template #tab-overview-after>
                                     <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
-                                    <el-button icon="el-pencil" size="mini" @click="changeToDone(item)" plain round v-if="item.status != 4">Done</el-button>
+                                    <el-button icon="el-pencil" size="mini" @click="changeToDone(item)" plain round v-if="item.status != 4">{{$t('tenant.actions.done')}}</el-button>
                                 </template>
                                 <template #tab-media-after>
                                     <ui-divider v-if="!item.media.length">
