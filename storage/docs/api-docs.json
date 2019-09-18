@@ -3815,6 +3815,39 @@
                 }
             }
         },
+        "/quarters-assignees/{quarters_assignee_id}": {
+            "delete": {
+                "tags": [
+                    "Quarter",
+                    "User",
+                    "PropertyManager"
+                ],
+                "summary": "Unassign the user or manager to the quarter",
+                "description": "Unassign the user or manager to the request",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "integer"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/realEstate/": {
             "get": {
                 "tags": [
