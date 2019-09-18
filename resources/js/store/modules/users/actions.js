@@ -190,5 +190,13 @@ export default {
                 .then(({data: r}) => {
                     resolve(r);
                 }).catch(({response: {data: err}}) => reject(err)));
+    },
+    async addReview ({state, commit}, params) {
+        const {data} = await this._vm.axios.post('addReview', params)
+        const newData = state
+        newData.loggedInUser.tenant.review = params.review
+        newData.loggedInUser.tenant.rating = params.rating
+        commit('SET_LOGGED_IN_USER', newData.loggedInUser);
+        return data;
     }
 }

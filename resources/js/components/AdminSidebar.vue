@@ -147,9 +147,9 @@
         },
     }
 </script>
-<style lang="scss">
-    .el-submenu {
-        .el-submenu__title {
+<style lang="scss" scoped>
+    /deep/ .el-submenu {
+        /deep/ .el-submenu__title {
             .el-icon-arrow-right {
                 display: none !important;
             }
@@ -158,7 +158,7 @@
             float: right;
         }
     }
-    .el-menu-item.is-active, .el-menu-item:hover {
+    /deep/ .el-menu-item.is-active, .el-menu-item:hover {
         font-weight: bolder;
         background-color: var(--primary-color) !important;
         color: white;
@@ -167,7 +167,7 @@
             color: white;
         }
     }
-    .el-submenu__title:hover {
+    /deep/ .el-submenu__title:hover {
         background-color: var(--primary-color) !important;
         color: white;
 

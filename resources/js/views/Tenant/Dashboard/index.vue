@@ -21,7 +21,7 @@
             </div>
             <div class="column">
                 <latest-products-card class="widget" />
-                <rate-card />
+                <rate-card v-if="this.loggedInUser.tenant.review == null"/>
             </div>
         </div>
         
@@ -93,6 +93,7 @@
     import LatestRequestsCardErrorFallback from 'components/tenant/LatestRequestsCard/Loader'
 
     import {TweenMax, Elastic} from 'gsap'
+    import {mapGetters} from 'vuex'
 
     export default {
         components: {
@@ -159,6 +160,9 @@
                 activeDrawerMediaTab: 0,
             }
         },
+        computed: {
+            ...mapGetters(['loggedInUser'])
+        },
         methods: {
             resetDataFromDrawer () {
                 this.activeDrawerTab = 'chat'
@@ -172,6 +176,7 @@
             }
         },
         mounted () {
+            console.log('tenant', this.loggedInUser.tenant)
             // TweenMax.staggerFrom(, 2, {scale:0.5, opacity:0, delay:0.5, ease:Elastic.easeOut, force3D:true}, 0.2)
         }
     }
