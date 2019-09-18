@@ -16,7 +16,7 @@
                 <div>
                     <i class="icon-picture"></i> {{data.media.length}}
                 </div>
-                <el-button size="mini" @click.stop="$emit('edit-product', $event, data)" type="primary"> 
+                <el-button size="mini" @click.stop="$emit('edit-product', $event, data)" type="primary" v-if="showAction"> 
                     <i class="ti-pencil"></i>
                     <span>{{ $t('general.actions.edit') }}</span>
                 </el-button>
@@ -43,6 +43,10 @@
             data: {
                 type: Object,
                 required: true
+            },
+            showAction: {
+                type: Boolean,
+                default: true
             }
         },
         computed: {
