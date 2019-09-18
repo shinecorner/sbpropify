@@ -20,7 +20,7 @@
                 </template>
                 <template v-slot="{item, index, active}">
                     <dynamic-scroller-item :item="item" :active="active" :data-index="index" :sizeDependencies="item">
-                        <comment v-bind="commentComponentProps" v-on="commentComponentListeners" :show-children="showChildren" :data="item" :reversed="isCommentReversed(item)" />
+                        <comment :showAction="showAction" v-bind="commentComponentProps" v-on="commentComponentListeners" :show-children="showChildren" :data="item" :reversed="isCommentReversed(item)" />
                     </dynamic-scroller-item>
                 </template>
             </dynamic-scroller>
@@ -28,8 +28,8 @@
         <template v-else>
             <el-button type="text" @click="fetch" :loading="loading" v-if="!data && comments.current_page !== comments.last_page">
                 {{$t('components.common.commentsList.loadMore.detailed', {count: comments.total - comments.data.length})}}
-            </el-button>
-            <comment v-bind="commentComponentProps" :show-children="showChildren" v-for="comment in comments.data" :key="comment.id" :data="comment" :reversed="isCommentReversed(comment)" />
+            </el-button>            
+            <comment :showAction="showAction" v-bind="commentComponentProps" :show-children="showChildren" v-for="comment in comments.data" :key="comment.id" :data="comment" :reversed="isCommentReversed(comment)" />
         </template>
     </div>
 </template>
@@ -71,6 +71,11 @@
             },
             usePlaceholder: {
                 type: Boolean,
+                default: true
+            },
+            showAction: {
+                type: Boolean, 
+                required: false,               
                 default: true
             },
         },
