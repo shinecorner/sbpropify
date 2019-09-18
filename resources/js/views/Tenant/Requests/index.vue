@@ -54,7 +54,7 @@
                         <i class="ti-comments"></i>
                         Chat
                     </div>
-                    <chat ref="chat" v-bind:showAction="false" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
+                    <chat ref="chat" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
                 </el-tab-pane>
                 <el-tab-pane name="media" lazy>
                     <div slot="label">
