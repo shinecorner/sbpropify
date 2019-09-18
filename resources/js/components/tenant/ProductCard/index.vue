@@ -24,10 +24,10 @@
                     <i class="ti-close"></i>
                     <span>{{ $t('general.actions.delete') }}</span>
                 </el-button> -->
-                <el-button size="mini" type="primary"> 
+                <el-button size="mini" @click.stop="$emit('edit-product', $event, data)" type="primary"> 
                     <i class="ti-pencil"></i>
                 </el-button>
-                <el-button size="mini" type="danger"> 
+                <el-button size="mini" @click.stop="$emit('delete-product', $event, data)" type="danger"> 
                     <i class="ti-close"></i>
                 </el-button>
             </like>

@@ -23,7 +23,12 @@
                     <div class="description">Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.</div>
                 </div>
                 <template v-else>
-                    <product-card v-for="product in products.data" :key="product.id" :data="product" @click="openProductDetailsDialog(product)" />
+                    <product-card v-for="product in products.data" 
+                                :key="product.id" 
+                                :data="product" 
+                                @click="openProductDetailsDialog(product)" 
+                                @delete-product="deleteProduct" 
+                                @edit-product="editProduct"/>
                 </template>
                 <el-pagination slot="footer" :layout="pagination.layout" :current-page="pagination.current" :page-size="pagination.size" :page-sizes="pagination.sizes" :total="products.total" @size-change="onSizeChange" @current-change="onCurrentPageChange" background />
             </ui-card>
@@ -183,6 +188,13 @@
                 this.openedProduct = null
 
                 done()
+            },
+            editProduct(evt, product) {
+                console.log('edit called', product)
+            },
+            deleteProduct(evt, product) {
+                console.log('delete id', product.id)
+                this.$store.dispatch('newProducts/delete', product)
             }
         },
         created () {
