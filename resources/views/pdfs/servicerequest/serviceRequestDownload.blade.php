@@ -44,7 +44,7 @@
                                                 </strong>
                                             </td>
 
-                                            <td style="border:none;">
+                                            <td>
                                                 @lang('models.request.category_options.acquisitions.'.$request->capture_phase,[],$language)
                                             </td>
 
@@ -91,47 +91,55 @@
                 </td>
 
             </tr>
+            <tr>
+                <td class="no_border" width="100%" style="padding-left:8px;">
+                    <h4>@lang('models.request.download_pdf.contact_details',[],$language)</h4>
+                    <p style="display:block;width:100%;">@lang('models.request.download_pdf.contact_text',[],$language)</p>
+                </td>
+            </tr>
         <tr>
-            <td colspan="4">
+            <td colspan="2" width="100%" class="no_border">
                 <table width="100%">
                 <tbody>
                     <tr>
-                        <td class="no_border">
-                            <h4>@lang('models.request.download_pdf.contact_details',[],$language)</h4>
-                            <p>@lang('models.request.download_pdf.contact_text',[],$language)</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        <td colspan="4" class="no_border" width="100%">
                             <table class="info_table" width="100%">
                                 <tbody>
                                 <tr>
-                                    <td width="200px"><strong>@lang('general.name',[],$language)</strong></td>
+                                    <td><strong>@lang('general.name',[],$language)</strong></td>
                                     <td>{{ $tenant->name }}</td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
-                                    <td width="200px"><strong>@lang('general.email',[],$language)</strong></td>
+                                    <td><strong>@lang('general.email',[],$language)</strong></td>
                                     <td>{{ $tenant->email }}</td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
-                                    <td width="200px"><strong>@lang('models.request.visibility.label',[],$language)</strong></td>
+                                    <td><strong>@lang('models.request.visibility.label',[],$language)</strong></td>
                                     <td>@lang('models.request.visibility.'.\App\Models\ServiceRequest::Visibility[$request->visibility],[],$language)</td>
-
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
-                                    <td width="200px"><strong>@lang('models.request.priority.label',[],$language)</strong></td>
+                                    <td><strong>@lang('models.request.priority.label',[],$language)</strong></td>
                                     <td>@lang('models.request.priority.'.\App\Models\ServiceRequest::Priority[$request->priority],[],$language)</td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
-                                        <table>
+                                    <td colspan="4" class="no_border" width="100%">
+                                        <table width="100%">
                                             <tbody>
                                             <tr>
-                                                <td class="no_border" width="200px" style="border-bottom:2px dotted #888;padding-bottom:50px;">
+                                                <td class="no_border" style="border-bottom:2px dotted #888;padding-bottom:50px;">
                                                     @lang('models.request.download_pdf.customer_signature',[],$language)
                                                 </td>
-                                                <td></td>
-                                                <td class="no_border" width="200px" style="border-bottom:2px dotted #888;padding-bottom:50px;">
+                                                <td class="no_border"></td>
+                                                <td class="no_border"></td>
+                                                <td class="no_border" style="border-bottom:2px dotted #888;padding-bottom:50px;">
                                                     @lang('models.request.download_pdf.entrepreneur_signature',[],$language)
                                                 </td>
                                             </tr>

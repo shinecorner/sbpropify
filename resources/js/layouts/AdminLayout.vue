@@ -759,6 +759,10 @@
             padding: 0px 12px !important;
             text-align: left;
             color: #909399;
+
+            i {
+                margin-right: 10px;
+            }
             &:hover {
                 color: #909399;
             }
@@ -973,7 +977,13 @@
             height: 35px;
             display: flex;
             justify-content: center;
-            margin-right:10px
+            align-items: center;
+            margin-right: 20px;
+
+            /deep/ .el-button {
+                height: 100%;
+                width: 100%;
+            }
         }
     }
 </style>

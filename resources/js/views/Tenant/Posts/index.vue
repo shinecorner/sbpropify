@@ -20,7 +20,7 @@
                         <loader v-for="idx in 5" :key="idx" />
                     </template>
                     <template v-slot="{item, index, active}">
-                        <dynamic-scroller-item :item="item" :active="active" :data-index="index">
+                        <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]">
                             <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour'" @hook:updated="$refs['dynamic-scroller'].forceUpdate" />
                             <post-card :data="item" @hook:updated="$refs['dynamic-scroller'].forceUpdate" v-else />
                         </dynamic-scroller-item>
