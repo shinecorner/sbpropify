@@ -1,5 +1,6 @@
 <template>
-    <el-card :class="{pinned: data.pinned}">
+    <el-card  :class="{pinned: data.pinned}">
+        <div ref="container">
         <div class="pinned" v-if="data.pinned"><span>pinned</span></div>
         <div class="user">
             <ui-avatar :name="data.user.name" :size="42" :src="data.user.avatar" />
@@ -40,11 +41,12 @@
                 </template>
             </el-button>
         </like>
-
+        
             
         
         <comments ref="comments" :id="data.id" type="post" :use-placeholder="false" />
         <add-comment ref="addComment" :id="data.id" type="post"/>
+        </div>
     </el-card>
 </template>
 
@@ -109,6 +111,11 @@
 
                 return `${title}. ${first_name} ${last_name}`
             }
+        },
+        mounted () {
+            this.data.height =  this.$refs.container.clientHeight
+            console.log('height', this.$refs.container.clientHeight)
+            console.log('mounted', this.data);
         }
     }
 </script>
