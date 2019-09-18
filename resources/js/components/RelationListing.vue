@@ -268,21 +268,28 @@
                     this.meta = _.omit(resp.data, 'data');
                     if (page === 1) {
                         this.list = resp.data.data;
-                        if(this.fetchAction == 'getUnits')
-                            this.list.map((unit) => {
-                                if(unit.type == 1)
-                                     unit.typeLabel = this.$t('models.unit.type.apartment');
-                                else
-                                    unit.typeLabel = this.$t('models.unit.type.business');
-                            })
+                        if(this.fetchAction == 'getUnits') {
+                            this.unitsTypeLabelMap();
+                        }
                     } else {
                         this.list.push(...resp.data.data);
+                        if(this.fetchAction == 'getUnits') {
+                            this.unitsTypeLabelMap();
+                        }
                     }
                 } catch (e) {
                     console.log(e);
                 } finally {
                     this.loading = false;
                 }
+            },
+            unitsTypeLabelMap() {
+                this.list.map((unit) => {
+                    if(unit.type == 1)
+                        unit.typeLabel = this.$t('models.unit.type.apartment');
+                    else
+                        unit.typeLabel = this.$t('models.unit.type.business');
+                })
             },
             loadMore() {
                 if (this.fetchStatus && this.meta.current_page < this.meta.last_page) {
