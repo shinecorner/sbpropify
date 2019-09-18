@@ -24,7 +24,7 @@
                 </div>
             </div>
             <el-badge class="notification-badge" type="danger" :value="unreadNotifications.length" :max="9" :hidden="!unreadNotifications.length">
-                <el-button icon="icon-bell-alt" circle style="width: 35px;height: 35px;display: flex;justify-content: center;margin-right:10px"    />
+                <el-button icon="icon-bell-alt" circle />
             </el-badge>
             <div id="dropdown" class="dropdown-menu" ref="prev">
                 <el-dropdown trigger="click" @visible-change="handlerDropdownVisibleChange">
@@ -966,6 +966,14 @@
                     }
                 }
             }
+        }
+
+        .notification-badge {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            margin-right:10px
         }
     }
 </style>
