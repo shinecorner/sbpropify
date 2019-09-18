@@ -45,6 +45,7 @@ export default (config = {}) => {
                     description: '',
                     floor_nr: 1,
                     floor: [],
+                    attic: false,
                     state_id: '',
                     city: '',
                     street: '',

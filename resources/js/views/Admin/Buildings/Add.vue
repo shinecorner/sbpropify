@@ -25,13 +25,17 @@
                                   style="max-width: 512px;">
                         <el-input type="number" v-model="model.floor_nr"></el-input>
                     </el-form-item>
-                    <el-form-item :label="`${ordinalSuffixFloor(item + 1)} ${$t('models.unit.floor')}`"
+                    <el-form-item :label="`${ordinalSuffixFloor(item)} ${$t('models.unit.floor')}`"
                                   :rules="validationRules.floor"
                                   :prop="'floor.'+ item"
                                   style="max-width: 512px;"
                                   :key="item"
                                   v-for="item in floors">
                         <el-input type="number" v-model.number="model.floor[item]"></el-input>
+                    </el-form-item>
+                    <el-form-item :label="$t('models.unit.attic')" :rules="validationRules.attic" class="switch-wrapper">
+                        <el-switch v-model="model.attic">
+                        </el-switch>
                     </el-form-item>
                     <el-form-item :label="$t('general.zip')" :rules="validationRules.zip" prop="zip"
                                   style="max-width: 512px;">
@@ -94,7 +98,7 @@
             ordinalSuffixFloor(i) {
                 let j = +i % 10,
                     k = +i % 100;
-                if (+i === 1) {
+                if (+i === 0) {
                     return 'Base'
                 }
                 if (j === 1 && k !== 11) {

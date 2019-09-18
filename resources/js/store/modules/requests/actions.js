@@ -30,6 +30,18 @@ export default {
             }).catch(({response: {data: err}}) => reject(err));
         });
     },
+    downloadRequestPDF(_, {id}) {
+        return new Promise((resolve, reject) => {
+            axios.post(`requests/${id}/download-pdf`, {}, {
+                responseType: 'arraybuffer',
+                headers: {
+                    'Accept': 'application/pdf'
+                }
+            })
+                .then((resp) => resolve(resp))
+                .catch(({response: {data: err}}) => reject(err));
+        });
+    },
     deleteRequest({commit}, payload) {
         return new Promise((resolve, reject) => {
             axios.delete(`requests/${payload.id}`).then((response) => {
