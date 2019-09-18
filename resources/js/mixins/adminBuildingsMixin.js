@@ -95,7 +95,8 @@ export default (config = {}) => {
                     text: 'Please wait...'
                 },
                 allServices: [],
-                quarters: []
+                quarters: [],
+                unitAutoCreate: false,
             };
         },
         methods: {
