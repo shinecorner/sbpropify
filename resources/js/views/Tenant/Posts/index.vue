@@ -9,11 +9,11 @@
                 <post-add-card />
                 <el-divider content-position="left">
                     <el-button @click="refreshPage" size="small" icon="icon-refresh" plain round>{{$t('tenant.refresh')}}</el-button>
-                    <el-popover popper-class="posts-filter" placement="bottom-end" trigger="click" :width="192">
+                    <!-- <el-popover popper-class="posts-filter" placement="bottom-end" trigger="click" :width="192">
                         <el-button size="small" slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
                         <filters ref="filters" layout="row" :data="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
                         <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
-                    </el-popover>
+                    </el-popover> -->
                 </el-divider>
                 <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" page-mode>
                     <template #before v-if="loading && !filteredPosts.length">

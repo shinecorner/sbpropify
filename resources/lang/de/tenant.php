@@ -12,7 +12,7 @@ return [
         "search" => "Suchen",
         "send" => "Senden",
         "view_all" => "Alle anzeigen",
-        "view" => "Details",
+        "done" => "To Done",
     ],
     "salutation_option" => [
         "mr" => "Herr",
@@ -166,4 +166,5 @@ return [
     "request_public_desc" => "Wenn es sich bei Ihrer Anfragen um ein Anliegen handelt, welche auch Ihre Nachbarn betrifft, dann aktivieren Sie diese Option.",
     "request_upload_title" => "Hochladen",
     "request_upload_desc" => "Bitte beachten Sie, dass einmal hochgeladene Dateien nicht mehr von Ihnen gelöscht werden können.",
+    "added_at" => "hinzugefügt bei",
 ];
