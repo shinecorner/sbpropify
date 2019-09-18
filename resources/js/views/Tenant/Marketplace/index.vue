@@ -40,7 +40,7 @@
             <ui-divider content-position="left" v-if="editingProduct">{{$t('tenant.edit_product')}}</ui-divider>
             <ui-divider content-position="left" v-else>{{$t('tenant.add_product')}}</ui-divider>
             <div class="content">
-                <product-edit-form :data="editingProduct" v-if="editingProduct"/>
+                <product-edit-form :data="editingProduct" @delete-product="deleteProduct" v-if="editingProduct"/>
                 <product-add-form v-else/>
             </div>
         </ui-drawer>
@@ -201,7 +201,7 @@
                 this.visibleDrawer = true
             },
             deleteProduct(evt, product) {
-                this.$confirm(this.$t(`general.swal.delete.title`), this.$t(`general.swal.delete.text`), {
+                this.$confirm(this.$t(`general.swal.delete_listing.text`), this.$t(`general.swal.delete_listing.title`), {
                     type: 'warning'
                 }).then(() => {
                     this.$store.dispatch('newProducts/delete', {id: product.id})

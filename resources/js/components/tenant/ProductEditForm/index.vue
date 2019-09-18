@@ -35,8 +35,11 @@
             <ui-media-gallery :files="data.media.map(({url}) => url)" />
             <media-uploader ref="media" :id="product_id" type="products" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
         </el-form-item>
-        <el-form-item v-if="!hideSubmit" style="grid-column: span 6">
+        <el-form-item v-if="!hideSubmit" style="grid-column: span 3">
             <el-button class="submit" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
+        </el-form-item>
+        <el-form-item v-if="!hideSubmit" style="grid-column: span 3">
+            <el-button class="submit" type="danger" :disabled="loading" @click.stop="$emit('delete-product', $event, data)">{{$t('general.actions.delete')}}</el-button>
         </el-form-item>
     </el-form>
 </template>
