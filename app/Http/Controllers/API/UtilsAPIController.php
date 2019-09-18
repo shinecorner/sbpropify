@@ -194,6 +194,7 @@ class UtilsAPIController extends AppBaseController
             'visibility' => Post::Visibility,
             'status' => Post::Status,
             'category' => Post::Category,
+            'execution_period' => Post::ExecutionPeriod,
         ];
 
         return $result;
