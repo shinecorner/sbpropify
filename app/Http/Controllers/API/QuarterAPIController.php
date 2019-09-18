@@ -14,6 +14,7 @@ use App\Models\PropertyManager;
 use App\Models\Quarter;
 use App\Models\User;
 use App\Repositories\QuarterRepository;
+use App\Transformers\QuarterAssigneeTransformer;
 use App\Transformers\QuarterTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
