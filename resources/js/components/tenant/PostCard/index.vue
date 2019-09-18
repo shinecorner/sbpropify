@@ -114,8 +114,6 @@
         },
         mounted () {
             this.data.height =  this.$refs.container.clientHeight
-            console.log('height', this.$refs.container.clientHeight)
-            console.log('mounted', this.data);
         }
     }
 </script>

@@ -193,8 +193,13 @@
                 console.log('edit called', product)
             },
             deleteProduct(evt, product) {
-                console.log('delete id', product.id)
-                this.$store.dispatch('newProducts/delete', {id: product.id})
+                this.$confirm(this.$t(`general.swal.delete.title`), this.$t(`general.swal.delete.text`), {
+                    type: 'warning'
+                }).then(() => {
+                    this.$store.dispatch('newProducts/delete', {id: product.id})
+                }).catch(() => {
+                });
+                
             }
         },
         created () {
