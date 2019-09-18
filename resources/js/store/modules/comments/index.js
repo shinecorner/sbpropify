@@ -98,6 +98,16 @@ export default {
                     }
 
                     break
+                // case 'internalNotices':
+                // let internalNotices = rootGetters['newInternalNotices/getById'](id)
+
+                // if (internalNotices) {
+                //     Object.assign(internalNotices, {comments_count: request.comments_count + 1})
+                    
+                //     commit('newInternalNotices/update', internalNotices, {root: true})
+                // }
+
+                // break
             }
         },
         async update ({commit}, {id, parent_id, child_id, ...params}) {
