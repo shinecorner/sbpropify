@@ -42,6 +42,8 @@ return [
         "priority" => "Select priority",
         "defect_location" => "Select defect location",
         "visibility" => "Select visibility",
+        "status" => "Select status",
+        "date" => "Choose date",
     ],
     "no_data" => [
         "message" => "There are no messages yet",
@@ -55,6 +57,8 @@ return [
         "marketplace" => "Marketplace notifications",
         "admin" => "Admin notifications",
     ],
+    "created_date" => "Created date",
+    "due_date" => "Due date",
     "drag_drop_file" => "Drop files or click here to select",
     "language" => "Language",
     "total" => "Total",

@@ -84,7 +84,7 @@
                         }
                     }, {
                         type: 'el-select',
-                        title: this.$t('tenant.type'),
+                        title: 'tenant.type',
                         name: 'type',
                         props: {
                             size: 'small'
@@ -92,12 +92,12 @@
                         children: [{
                             type: 'el-option',
                             props: {
-                                label: this.$t('tenant.all'),
+                                label: 'tenant.all',
                                 value: null
                             }
                         }].concat(Object.entries(this.$constants.products.type).map(([value, label]) => ({
                             type: 'el-option',
-                            props: {label, value}
+                            props: {label: `models.product.type.${label}`, value}
                         })))
                     }],
                     data: {

@@ -42,6 +42,8 @@ return [
         "priority" => "Selezionare la priorità",
         "defect_location" => "Selezionare la posizione del difetto",
         "visibility" => "Selezionare la visibilità",
+        "status" => "Selezionare lo stato",
+        "date" => "Scegli la data",
     ],
     "no_data" => [
         "message" => "Non ci sono ancora messaggi",
@@ -55,6 +57,8 @@ return [
         "marketplace" => "Notifiche di mercato",
         "admin" => "Notifiche dell'amministratore",
     ],
+    "created_date" => "Data di creazione",
+    "due_date" => "Scadenza",
     "drag_drop_file" => "Rilasciare i file o fare clic qui per selezionare",
     "language" => "Linguaggio",
     "total" => "Totale",
