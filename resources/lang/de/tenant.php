@@ -58,6 +58,10 @@ return [
         "marketplace" => "Marktplatz-Benachrichtigungen",
         "admin" => "Admin-Benachrichtigungen",
     ],
+    "tooltips" => [
+        "delete_post" => "Hier kannst du den Beitrag löschen.",
+        "status_change_requeset" => "Hier können Sie den Status der Anfrage ändern.",
+    ],
     "created_date" => "Erstelldatum",
     "due_date" => "Fälligkeitsdatum",
     "drag_drop_file" => "Dateien ablegen oder hier klicken, um sie auszuwählen.",

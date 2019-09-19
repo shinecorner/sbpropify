@@ -24,7 +24,7 @@
                                 <template #tab-overview-after>
                                     
                                     <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
-                                    <el-tooltip content="Here you can change the status of request">
+                                    <el-tooltip :content="$t('tenant.tooltips.status_change_requeset')">
                                         <el-button icon="el-pencil" size="mini" @click="changeToDone(item)" plain round v-if="item.status != 4">{{$t('tenant.actions.to_done')}}</el-button>
                                         <el-button icon="el-pencil" size="mini" plain round v-if="item.status == 4">{{$t('tenant.actions.to_reactivated')}}</el-button>
                                     </el-tooltip>

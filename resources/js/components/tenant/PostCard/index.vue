@@ -11,7 +11,7 @@
                 </small>
             </div>
             <div class="actions" v-if="showActions">
-                <el-tooltip content="Here you can delete the post" effect="dark">
+                <el-tooltip :content="$t('tenant.tooltips.delete_post')">
                     <el-button size="mini" @click="$emit('delete-post', $event, data)" plain round>{{$t('general.actions.delete')}}</el-button>
                 </el-tooltip>
                 

@@ -23,6 +23,8 @@ const Router = new VueRouter({
     mode: 'history'
 })
 
+//await store.dispatch(`application/${TYPES.actions.getConstants}`)
+
 Router.beforeEach(async (to, from, next) => {
     if (!Object.keys(store.state.application.constants).length) {
         await store.dispatch(`application/${TYPES.actions.getConstants}`)
