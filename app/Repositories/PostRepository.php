@@ -205,6 +205,7 @@ class PostRepository extends BaseRepository
                         ->where('buildings.deleted_at', null);
                 })
                 ->where('tenants.deleted_at', null)
+                ->where('tenant_rent_contracts.status', RentContract::StatusActive)
                 ->where('users.id', '!=', $post->user_id)
                 ->where(function ($q) use ($buildingIds, $quarterIds) {
                     $q->when($buildingIds, function ($q) use ($buildingIds) {
