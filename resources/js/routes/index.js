@@ -31,6 +31,11 @@ Router.beforeEach(async (to, from, next) => {
     if (!Object.keys(store.state.application.constants).length) {
         await store.dispatch(`application/${TYPES.actions.getConstants}`)
 
+        Router.replaceRoutes([{
+            path: '/',
+            component: Landing,
+        }, ...Auth2Routes, ...TenantRoutes, ...AdminRoutes, ...NotFound])
+
         document.documentElement.style.setProperty('--primary-color', store.state.application.constants.colors.primary_color) // this will be removed
         document.documentElement.style.setProperty('--color-primary', store.state.application.constants.colors.primary_color)
         document.documentElement.style.setProperty('--primary-color-lighter', store.state.application.constants.colors.primary_color_lighter)
