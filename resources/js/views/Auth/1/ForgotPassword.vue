@@ -63,6 +63,13 @@
                     });
                 });
             }
+        },
+        beforeCreate() {
+            if(this.$constants.login.variation == 2) {
+                this.$router.push({
+                    name: 'forgot2'
+                });
+            }
         }
     }
 </script>

@@ -143,6 +143,13 @@
                     callback();
                 }
             },
+        },
+        beforeCreate() {
+            if(this.$constants.login.variation == 2) {
+                this.$router.push({
+                    name: 'resetPassword2'
+                });
+            }
         }
     }
 </script>
