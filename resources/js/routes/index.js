@@ -15,7 +15,7 @@ Vue.use(VueRouter)
 
 let originalTitle
 
-let Router = new VueRouter({
+const Router = new VueRouter({
     routes: [{
         path: '/',
         component: Landing,
@@ -25,10 +25,9 @@ let Router = new VueRouter({
 
 
 
-//await store.dispatch(`application/${TYPES.actions.getConstants}`)
-
 Router.beforeEach(async (to, from, next) => {
     if (!Object.keys(store.state.application.constants).length) {
+
 
         document.documentElement.style.setProperty('--primary-color', store.state.application.constants.colors.primary_color) // this will be removed
         document.documentElement.style.setProperty('--color-primary', store.state.application.constants.colors.primary_color)
