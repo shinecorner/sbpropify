@@ -1,4 +1,4 @@
-<template functional>
+<template>
     <div :class="['likes', {[`${layout}-layout`]: true}]" v-if="data.length">
         <div class="users">
             <ui-avatar v-for="user in this.sortedUsers.slice(0, limit)" :key="user.id" :src="user.avatar" :name="user.name" :size="28" />
@@ -79,7 +79,8 @@
         display: flex;
         align-items: center;
         color: var(--color-primary);
-
+        padding: 10px;
+        
         &.row-layout {
             flex-direction: row;
 

@@ -8,8 +8,8 @@
         </template>
     </div>
     <div class="comments-list" v-else>
-        <template v-if="withScroller">
-            <dynamic-scroller ref="dynamic-scroller" :items="comments.data" :min-item-size="40" @resize="scrollToBottom">
+        <template v-if="withScroller" >
+            <dynamic-scroller ref="dynamic-scroller" :items="comments.data" :min-item-size="40" @resize="scrollToBottom" v-if="!loading">
                 <template #before>
                     <el-divider v-if="comments.current_page !== comments.last_page">
                         <el-button icon="el-icon-top" size="mini" :loading="loading" round @click="fetch">
@@ -19,8 +19,12 @@
                     </el-divider>
                 </template>
                 <template v-slot="{item, index, active}">
-                    <dynamic-scroller-item :item="item" :active="active" :data-index="index" :sizeDependencies="item">
-                        <comment :showAction="showAction" v-bind="commentComponentProps" v-on="commentComponentListeners" :show-children="showChildren" :data="item" :reversed="isCommentReversed(item)" />
+                    <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]">
+                        <comment v-bind="commentComponentProps" 
+                                v-on="commentComponentListeners" 
+                                :show-children="showChildren" 
+                                :data="item" 
+                                :reversed="isCommentReversed(item)" />
                     </dynamic-scroller-item>
                 </template>
             </dynamic-scroller>
@@ -29,7 +33,7 @@
             <el-button type="text" @click="fetch" :loading="loading" v-if="!data && comments.current_page !== comments.last_page">
                 {{$t('components.common.commentsList.loadMore.detailed', {count: comments.total - comments.data.length})}}
             </el-button>            
-            <comment :showAction="showAction" v-bind="commentComponentProps" :show-children="showChildren" v-for="comment in comments.data" :key="comment.id" :data="comment" :reversed="isCommentReversed(comment)" />
+            <comment v-bind="commentComponentProps" :show-children="showChildren" v-for="comment in comments.data" :key="comment.id" :data="comment" :reversed="isCommentReversed(comment)" />
         </template>
     </div>
 </template>
@@ -72,12 +76,7 @@
             usePlaceholder: {
                 type: Boolean,
                 default: true
-            },
-            showAction: {
-                type: Boolean, 
-                required: false,               
-                default: true
-            },
+            },            
         },
         components: {
             Loader

@@ -28,7 +28,7 @@ class PostViewTransformer extends BaseTransformer
             'views' => $model->views,
             'created_at' => $model->created_at->toDateTimeString(),
             'updated_at' => $model->updated_at->toDateTimeString(),
-            'user_id' => $model->user_id,
+            'tenant_id' => $model->tenant_id,
         ];
 
         if ($model->relationExists('user')) {

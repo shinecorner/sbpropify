@@ -127,8 +127,7 @@
                         title: 'general.actions.edit',
                         onClick: this.buildingEditView
                     }]
-                }],
-                buildingsCount: 20,
+                }],                
             }
         },
         methods: {

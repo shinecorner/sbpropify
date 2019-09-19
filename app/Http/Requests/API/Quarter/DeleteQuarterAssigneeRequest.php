@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\API\Post;
+namespace App\Http\Requests\API\Quarter;
 
-use App\Models\Post;
 use InfyOm\Generator\Request\APIRequest;
 
-class DeleteRequest extends APIRequest
+class DeleteQuarterAssigneeRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,12 +13,8 @@ class DeleteRequest extends APIRequest
      */
     public function authorize()
     {
-        $u = \Auth::user();
-        if ($u->can('delete-post')) {
-            return true;
-        }
-        return Post::where('id', $this->route('post'))
-            ->where('user_id', $u->id)->first();
+        return true;
+        return $this->user()->can('delete-quarter');
     }
 
     /**

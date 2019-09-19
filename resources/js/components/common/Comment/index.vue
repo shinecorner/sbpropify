@@ -10,8 +10,8 @@
         <div ref="container" class="container">
             <el-input ref="content" :class="{'is-focused': idState.focused}" type="textarea" resize="none" v-if="idState.editing" v-model="comment" autosize :disabled="idState.loading._isVue && idState.loading.visible" :validate-event="false" @blur="idState.focused = false" @focus="idState.focused = true" @keydown.native.enter="$emit('size-hanged')" @keydown.native.alt.enter.exact="update" @keydown.native.stop.esc.exact="cancelEdit" />
             <div class="content" :class="{'empty': !comment, 'disabled': idState.loading._isVue && idState.loading.visible}" v-else>
-                <div class="text">{{comment || $t('components.common.comment.deletedCommentPlaceholder')}}</div>
-                <div class="actions" v-if="(showAction && hasActions)">                                    
+                <div class="text">{{comment || $t('components.common.comment.deletedCommentPlaceholder')}}</div>                
+                <div class="actions" v-if="hasActions">                                    
                     <el-button type="text" @click="enterEdit" v-if="data.comment">
                         <i class="icon-pencil"></i>
                     </el-button>
@@ -71,11 +71,6 @@
                 type: String,
                 validator: type => ['post', 'product', 'request', 'conversation', 'internalNotices'].includes(type)
             },
-            showAction: {
-                type: Boolean, 
-                required: false,               
-                default: true
-            },
             data: {
                 type: Object,
                 default: () => ({
@@ -111,13 +106,8 @@
                 errorFallback: ErrorFallback
             }
         },
-        watch: {
-            data: function(val) {
-                console.log('data change', val)
-            }
-        },
         mounted () {
-            
+            this.data.height =  this.$refs.container.clientHeight
         },
         methods: {
             enterEdit () {
@@ -256,7 +246,12 @@
                 }
             },
             hasActions() {
-                return (this.data.comment || !this.data.children_count) && !this.idState.loading.visible && this.data.user_id === this.$store.getters.loggedInUser.id
+                if((this.$store.getters.loggedInUser.hasOwnProperty('tenant')) && (this.$store.getters.loggedInUser.tenant)){
+                    return false;
+                }
+                else{
+                    return (this.data.comment || !this.data.children_count) && !this.idState.loading.visible && this.data.user_id === this.$store.getters.loggedInUser.id
+                }                
             },
             updateKeysShortcut () {
                 if (navigator.platform.toUpperCase().includes('MAC')) {

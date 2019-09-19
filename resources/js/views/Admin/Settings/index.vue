@@ -254,40 +254,49 @@
                             </el-button>
                             <el-form :model="model" :rules="validationRules"
                                      ref="microAppsSettingsForm">
-                                <el-card class="marketplace-card">
-                                    <el-row :gutter="20">
-                                        <el-col :md="8">
-                                            <el-form-item class="switcher"
-                                                          prop="contact_enable">
+                                <el-row :gutter="20">
+                                    <el-col :md="8">
+                                        <el-card class="marketplace-card card-boxs">
+                                            <el-form-item class="switcher switcher-frist" prop="contact_enable">
                                                 <label class="switcher__label">
-                                                    {{$t('models.realEstate.iframe_enable')}}
+                                                    <p>{{$t('models.realEstate.iframe_enable')}}</p>
+                                                    
                                                     <span class="switcher__desc">{{$t('models.realEstate.iframe_enable_desc')}}</span>
+                                                    <el-switch 
+                                                        v-model="model.iframe_enable"
+                                                        @change="Iframe_drawer"
+                                                        />
                                                 </label>
-                                                <el-switch v-model="model.iframe_enable"/>
+                                                
                                             </el-form-item>
-                                            <el-form-item :label="$t('models.realEstate.iframe_url.label')"
-                                                          :rules="validationRules.iframe_url"
-                                                          prop="iframe_url"
-                                                          v-if="model.iframe_enable">
-                                                <el-input autocomplete="off" type="text"
-                                                          v-model="model.iframe_url"></el-input>
-                                            </el-form-item>
-                                        </el-col>
-                                        <el-col :md="8">
+                                        </el-card>
+                                    </el-col>
+                                    <el-col :md="8">
+                                        <el-card class="marketplace-card card-boxs">
                                             <el-form-item :label="$t('models.realEstate.gocaution')">
-                                                <div>
+                                                <span class="switcher__desc">
                                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid, delectus doloribus iusto molestias quam.
-                                                </div>
+                                                </span>
+                                                <el-switch 
+                                                v-model="model.gocaution_enable"
+                                                @change="Gocaution_drawer"
+                                                />
                                             </el-form-item>
-                                        </el-col>
-                                        <el-col :md="8">
-                                            <el-form-item :label="$t('models.realEstate.cleanify_email')"
-                                                          :rules="validationRules.cleanify_email" prop="cleanify_email">
-                                                <el-input type="email" v-model="model.cleanify_email"></el-input>
+                                        </el-card>
+                                    </el-col>
+                                    <el-col :md="8">
+                                        <el-card class="marketplace-card card-boxs">
+                                           <el-form-item :label="$t('models.realEstate.cleanify_email')"
+                                                        :rules="validationRules.cleanify_email" prop="cleanify_email">
+                                                <el-switch 
+                                                v-model="model.cleanify_enable"
+                                                @change="Cleanify_drawer"
+                                                />
+                                                
                                             </el-form-item>
-                                        </el-col>
-                                    </el-row>
-                                </el-card>
+                                        </el-card>
+                                    </el-col>
+                                </el-row>
                             </el-form>
                         </el-tab-pane>
                         <el-tab-pane :label="$t('models.realEstate.theme')" name="theme">
@@ -418,6 +427,13 @@
                                                     </el-col>
                                                 </el-row>
                                             </el-radio-group>
+                                            <el-form-item v-if="model.login_variation === 1"
+                                                          class="switcher mt-20"
+                                                          prop="login_variation_1_slider"
+                                            >
+                                                <label class="switcher__label">{{$t('models.realEstate.login_variation_slider')}}</label>
+                                                <el-switch v-model="model.login_variation_1_slider"/>
+                                            </el-form-item>
                                             <el-form-item v-if="model.login_variation === 2"
                                                           class="switcher mt-20"
                                                           prop="login_variation_2_slider"
@@ -425,6 +441,7 @@
                                                 <label class="switcher__label">{{$t('models.realEstate.login_variation_slider')}}</label>
                                                 <el-switch v-model="model.login_variation_2_slider"/>
                                             </el-form-item>
+                                            
                                         </el-card>
                                     </el-col>
                                 </el-row>
@@ -434,6 +451,35 @@
                 </div>
             </el-tab-pane>
         </el-tabs>
+        <ui-drawer :visible.sync="main_drawer" :z-index="1" direction="right" docked>
+            <el-tabs type="card" stretch>
+                <el-tab-pane  name="iframe" v-if="Iframe_drawer_val">
+                    <div slot="label"><i class="icon-bell"></i> IFrame</div>
+                </el-tab-pane>
+                <el-tab-pane name="gocaution" v-if="Gocaution_drawer_val">
+                    <div slot="label"><i class="icon-bell"></i> Gocaution</div>
+                    
+                </el-tab-pane>
+                <el-tab-pane name="cleanify" v-if="Cleanify_drawer_val">
+                    <div slot="label"><i class="icon-bell"></i> Cleanify</div>
+                    <!-- <el-input type="email" v-model="model.cleanify_email"></el-input> -->
+                </el-tab-pane>
+                <div v-if="Iframe_drawer_val">
+                    <el-input autocomplete="off" type="text"
+                        v-model="model.iframe_url"></el-input>
+                    <!-- <el-form-item :label="$t('models.realEstate.iframe_url.label')"
+                                    :rules="validationRules.iframe_url"
+                                    prop="iframe_url"
+                                    >
+                    <el-input autocomplete="off" type="text"
+                        v-model="model.iframe_url"></el-input>
+                    </el-form-item> -->
+                </div> 
+                <div v-if="Cleanify_drawer_val">
+                    <el-input type="email" v-model="model.cleanify_email"></el-input>
+                </div>    
+            </el-tabs>
+        </ui-drawer>
     </div>
 </template>
 <script>
@@ -494,7 +540,15 @@
                     login_variation: '',
                     login_variation_2_slider: false,
                     pdf_font_family: '',
+                    visibleDrawer: false,
+                    drawerTabsModel: 'iframe',
                 },
+                Iframe_drawer_val:false,
+                Gocaution_drawer_val: false,
+                Cleanify_drawer_val: false,
+                main_drawer:false,
+                direction: 'rtl',
+                appName : '',
                 logo_upload_img: '',
                 circle_logo_upload_img: '',
                 favicon_icon_upload_img: '',
@@ -629,6 +683,7 @@
                 });
             },
             saveRealEstate(form) {
+                console.log('=='); console.log(form);
                 this.$refs[form].validate((valid) => {
                     if (valid) {
                         this.model.primary_color_lighter = this.getLightenDarkenColor(this.model.primary_color, 90) + '59'
@@ -661,6 +716,61 @@
                 this.model.tenant_logo_upload = image;
                 this.tenant_logo_upload_img = "data:image/png;base64," + image;
             },
+            toggleDrawer () {
+                this.visibleDrawer = !this.visibleDrawer
+            },
+            toggleDrawer () {
+                this.visibleDrawer = !this.visibleDrawer
+            },
+            openIframeDrawer (val) {
+                if (!this.visibleDrawer || this.drawerTabsModel === 'iframe') {
+                    this.toggleDrawer()
+                }
+                this.drawerTabsModel = 'iframe'
+            },
+            openGocautionDrawer (val) {
+                if (!this.visibleDrawer || this.drawerTabsModel === 'gocaution') {
+                    this.toggleDrawer()
+                }
+                this.drawerTabsModel = 'gocaution'
+            },
+            openCleanifyDrawer(val) {
+                console.log('switch val', val);
+                if (!this.visibleDrawer || this.drawerTabsModel === 'gocaution') {
+                    this.toggleDrawer()
+                }
+                this.drawerTabsModel = 'cleanify'
+            },
+             Iframe_drawer(val){
+                if(val)
+                {
+                    this.main_drawer = true;
+                    this.Iframe_drawer_val = true;
+                    this.Gocaution_drawer_val = false;
+                    this.Cleanify_drawer_val = false;
+                    this.appName = 'Iframe';
+                }
+            },
+            Gocaution_drawer(val){
+                if(val)
+                {
+                    this.main_drawer = true;
+                    this.Iframe_drawer_val = false;
+                    this.Gocaution_drawer_val = true;
+                    this.Cleanify_drawer_val = false;
+                    this.appName = 'Gocaution';
+                }
+            },
+            Cleanify_drawer(val){
+                if(val)
+                {
+                    this.main_drawer = true;
+                    this.Iframe_drawer_val = false;
+                    this.Gocaution_drawer_val = false;
+                    this.Cleanify_drawer_val = true;
+                    this.appName = 'Cleanify';
+                }
+            }
         },
         watch: {
             activeName(newTab, oldTab) {
@@ -1082,5 +1192,60 @@
             line-height: 28px;
         }
     }
+    .card-boxs label {
+        text-align: center !important;
+        display: block !important;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 0;
+    }
+    .card-boxs span.switcher__desc {
+    text-align: left;
+    font-weight: normal;
+    margin-top: 10px;
+    line-height: 20px;
+    font-size: 13px;
+    color: #333;
+}
+    .card-boxs div {
+        text-align: center;
+    }
+    .card-boxs label p {
+        margin: 0 0 10px;
+    }
+    .card-boxs .el-input {
+        margin-top: 12px;
+    }
+    .ui-drawer {
+        .el-tabs {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
 
+            &.el-tabs--card :global(.el-tabs__header) {
+                :global(.el-tabs__nav-wrap) {
+                    :global(.el-tabs__nav-scroll) {
+                        :global(.el-tabs__nav) {
+                            border: 0;
+                        }
+                    }
+                }
+            }
+
+            :global(.el-tabs__header) {
+                margin-bottom: 0;
+            }
+
+            :global(.el-tabs__content) {
+                padding: 16px;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                overflow-y: auto;
+            }
+        }
+    }
+    .switcher-frist .el-switch {
+        margin-top: 10px;
+    }
 </style>

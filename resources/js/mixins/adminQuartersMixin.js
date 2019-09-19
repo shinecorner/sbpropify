@@ -22,6 +22,7 @@ export default (config = {}) => {
                     state: false,
                     text: this.$t('general.please_wait')
                 },
+                buildingsCount: 20,
             }
         },
         computed: {

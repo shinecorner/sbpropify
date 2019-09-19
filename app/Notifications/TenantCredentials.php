@@ -56,7 +56,7 @@ class TenantCredentials extends Notification implements ShouldQueue
         $data['userName'] = $notifiable->name;
         $data['lang'] = $notifiable->settings->language ?? App::getLocale();
         //dump(view('mails.sendTenantCredentials', $data)->render());
-        
+
         return (new MailMessage)
             ->view('mails.sendTenantCredentials', $data)
             ->subject($data['subject']);

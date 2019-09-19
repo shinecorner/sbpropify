@@ -33,6 +33,7 @@ use App\Transformers\UserTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 
 /**
@@ -178,9 +179,15 @@ class PostAPIController extends AppBaseController
 
         $input['user_id'] = \Auth::id();
         $input['status'] = Post::StatusNew;
-        $input['type'] = $request->pinned ? Post::TypePinned : Post::TypeArticle;
+
+        if ($request->pinned == 'true' || $request->pinned  == true) {
+            $input['type'] = Post::TypePinned;
+        } else {
+            $input['type'] =  $input['type'] ?? Post::TypePost;
+        }
+
         $input['needs_approval'] = true;
-        if ($input['type'] == Post::TypeArticle) {
+        if (! empty($input['type']) && $input['type'] == Post::TypePost) {
             $input['notify_email'] = true;
             $realEstate = $reRepo->first();
             if ($realEstate) {
@@ -260,15 +267,29 @@ class PostAPIController extends AppBaseController
             'quarters',
             'providers',
             'views',
-        ])->withCount('allComments')->findWithoutFail($id);
+        ])->withCount(['allComments', 'views'])->findWithoutFail($id);
 
         if (empty($post)) {
             return $this->sendError(__('models.post.errors.not_found'));
         }
         $post->likers = $post->collectLikers();
-
+        $this->fixPostViews($post);
         $data = $this->transformer->transform($post);
         return $this->sendResponse($data, 'Post retrieved successfully');
+    }
+
+    protected function fixPostViews($post)
+    {
+        $tenantId = Auth::user()->tenant->id ?? null;
+        if ($tenantId) {
+            $postView = $post->views->where('tenant_id', $tenantId)->first();
+            if (empty($postView)) {
+                $postView = $post->views()->create(['tenant_id' => Auth::user()->tenant->id, 'views' => 1]);
+                $post->views->push($postView);
+            } else {
+                $postView->update(['views' => $postView->views + 1]);
+            }
+        }
     }
 
     /**
@@ -321,7 +342,12 @@ class PostAPIController extends AppBaseController
     public function update($id, UpdateRequest $request)
     {
         $input = $request->only(Post::Fillable);
-        $input['type'] = $request->pinned ? Post::TypePinned : Post::TypeArticle;
+        if ($request->pinned) {
+            $input['type'] = Post::TypePinned;
+        } else {
+            $input['type'] =  $input['type'] ?? Post::TypePost;
+        }
+
         $status = $request->get('status');
 
         /** @var Post $post */

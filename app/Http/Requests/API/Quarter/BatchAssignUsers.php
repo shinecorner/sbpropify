@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\API\Post;
+namespace App\Http\Requests\API\Quarter;
 
-use App\Models\Post;
 use InfyOm\Generator\Request\APIRequest;
 
-class DeleteRequest extends APIRequest
+class BatchAssignUsers extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,12 +13,7 @@ class DeleteRequest extends APIRequest
      */
     public function authorize()
     {
-        $u = \Auth::user();
-        if ($u->can('delete-post')) {
-            return true;
-        }
-        return Post::where('id', $this->route('post'))
-            ->where('user_id', $u->id)->first();
+        return $this->user()->can('assign-building');
     }
 
     /**
@@ -29,6 +23,9 @@ class DeleteRequest extends APIRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            'userIds' => 'required|array',
+            'userIds.*' => 'integer'
+        ];
     }
 }

@@ -19,11 +19,12 @@
                         <loader v-for="idx in 5" :key="idx" />
                     </template>
                     <template v-slot="{item, index, active}">
-                        <dynamic-scroller-item :item="item" :active="active" :data-index="index">
+                        <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]">
                             <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" @hook:mounted="$refs['dynamic-scroller'].forceUpdate">
                                 <template #tab-overview-after>
                                     <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
-                                    <el-button icon="el-pencil" size="mini" @click="changeToDone(item)" plain round v-if="item.status != 4">{{$t('tenant.actions.done')}}</el-button>
+                                    <el-button icon="el-pencil" size="mini" @click="changeToDone(item)" plain round v-if="item.status != 4">{{$t('tenant.actions.to_done')}}</el-button>
+                                    <el-button icon="el-pencil" size="mini" plain round v-if="item.status == 4">{{$t('tenant.actions.to_reactivated')}}</el-button>
                                 </template>
                                 <template #tab-media-after>
                                     <ui-divider v-if="!item.media.length">
@@ -55,7 +56,7 @@
                         <i class="ti-comments"></i>
                         Chat
                     </div>
-                    <chat ref="chat" v-bind:showAction="false" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
+                    <chat ref="chat" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
                 </el-tab-pane>
                 <el-tab-pane name="media" lazy>
                     <div slot="label">
@@ -153,42 +154,42 @@
                 filters: {
                     schema: [{
                         type: 'el-select',
-                        title: 'Status',
+                        title: 'tenant.status',
                         name: 'status',
                         props: {
-                            placeholder: 'Select the status',
+                            placeholder: 'tenant.placeholder.status',
                             clearable: true,
                             size: 'small'
                         },
                         children: Object.entries(this.$store.getters['application/constants'].serviceRequests.status).map(([value, label]) => ({
                             type: 'el-option',
                             props: {
-                                label,
+                                label: `models.request.status.${label}`,
                                 value
                             }
                         }))
                     }, {
                         type: 'el-select',
-                        title: 'Priority',
+                        title: 'tenant.priority',
                         name: 'priority',
                         props: {
-                            placeholder: 'Select the priority',
+                            placeholder: 'tenant.placeholder.priority',
                             clearable: true,
                             size: 'small'
                         },
                         children: Object.entries(this.$store.getters['application/constants'].serviceRequests.priority).map(([value, label]) => ({
                             type: 'el-option',
                             props: {
-                                label,
+                                label: `models.request.priority.${label}`,
                                 value
                             }
                         }))
                     }, {
                         type: 'el-date-picker',
-                        title: 'Created',
+                        title: 'tenant.created_date',
                         name: 'created',
                         props: {
-                            placeholder: 'Choose the created date',
+                            placeholder: 'tenant.placeholder.date',
                             valueFormat: 'yyyy-MM-dd',
                             format: 'dd.MM.yyyy',
                             style: 'width: 100%',
@@ -196,10 +197,10 @@
                         }
                     }, {
                         type: 'el-date-picker',
-                        title: 'Due date',
+                        title: 'tenant.due_date',
                         name: 'due_date',
                         props: {
-                            placeholder: 'Choose the due date',
+                            placeholder: 'tenant.placeholder.date',
                             format: 'dd.MM.yyyy',
                             valueFormat: 'yyyy-MM-dd',
                             style: 'width: 100%',
@@ -272,9 +273,17 @@
 
             },
             changeToDone(request) {
-                request.status = 4
-                request.category_id = request.category.id
-                this.$store.dispatch('newRequests/update', request)
+                
+                this.$confirm(this.$t(`general.swal.to_done.text`), this.$t(`general.swal.to_done.title`), {
+                    type: 'warning'
+                }).then(() => {
+                    request.status = 4
+                    request.category_id = request.category.id
+                    this.$store.dispatch('newRequests/update', request)
+                }).catch(err => {
+                    console.log(err)
+                });
+                
             },
             resetDataFromDrawer () {
                 this.activeDrawerTab = 'chat'
@@ -457,4 +466,7 @@
 
                     /deep/ .el-loading-mask
                         position: fixed
+        /deep/ .el-button+.el-button
+            margin-right: 10px;
+            
 </style>

@@ -21,6 +21,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          type="string"
  *      ),
  *      @SWG\Property(
+ *          property="count_of_buildings",
+ *          description="count_of_buildings",
+ *          type="integer"
+ *      ),
+ *      @SWG\Property(
  *          property="description",
  *          description="description",
  *          type="string"
@@ -55,7 +60,8 @@ class Quarter extends AuditableModel
     public $fillable = [
         'name',
         'description',
-        'quarter_format'
+        'quarter_format',
+        'count_of_buildings'
     ];
     protected $dates = ['deleted_at'];
     /**
@@ -66,11 +72,28 @@ class Quarter extends AuditableModel
     protected $casts = [
         'name' => 'string',
         'description' => 'string',
-        'quarter_format' => 'string'
+        'quarter_format' => 'string',
+        'count_of_buildings' => 'integer',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
     public function propertyManagers()
     {
-        return $this->belongsToMany(PropertyManager::class, 'quarter_property_manager', 'quarter_id', 'property_manager_id');
+        return $this->morphedByMany(PropertyManager::class, 'assignee', 'quarter_assignees', 'quarter_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function users()
+    {
+        return $this->morphedByMany(User::class, 'assignee', 'quarter_assignees', 'quarter_id');
+    }
+
+    public function assignees()
+    {
+        return $this->hasMany(QuarterAssignee::class, 'quarter_id');
     }
 }
