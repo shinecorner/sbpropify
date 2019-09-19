@@ -172,11 +172,9 @@ class PostAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateRequest $request,
-        RealEstateRepository $reRepo)
+    public function store(CreateRequest $request, RealEstateRepository $reRepo)
     {
         $input = $request->only(Post::Fillable);
-
         $input['user_id'] = \Auth::id();
         $input['status'] = Post::StatusNew;
 
@@ -209,8 +207,8 @@ class PostAPIController extends AppBaseController
             'providers',
             'views',
         ])->loadCount('allComments');
-        $this->postRepository->notifyAdmins($post);
         $data = $this->transformer->transform($post);
+
         return $this->sendResponse($data, __('models.post.saved'));
     }
 

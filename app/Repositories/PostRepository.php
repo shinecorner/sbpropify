@@ -15,6 +15,7 @@ use App\Notifications\PinnedPostPublished;
 use App\Notifications\PostPublished;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class PostRepository
@@ -86,9 +87,11 @@ class PostRepository extends BaseRepository
         $model->buildings()->sync($atts['building_ids']);
         if (!$atts['needs_approval']) {
             // @TODO improve
-            return $this->setStatus($model->id, Post::StatusPublished, Carbon::now());
+            $model = $this->setStatus($model->id, Post::StatusPublished, Carbon::now());
         }
 
+        $this->notifyAdmins($model);
+        $this->notifyAdminActions($model);
         return $model;
     }
 
@@ -233,6 +236,14 @@ class PostRepository extends BaseRepository
     /**
      * @param Post $post
      */
+    public function notifyAdminActions(Post $post)
+    {
+        if (! Auth::user()->hasRole('super_admin')) {
+            return;
+        }
+        // @TODO
+    }
+
     public function notifyAdmins(Post $post)
     {
         $re = RealEstate::firstOrFail();
