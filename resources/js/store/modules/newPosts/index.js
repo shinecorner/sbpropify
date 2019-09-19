@@ -133,9 +133,9 @@ export default {
         getById: ({data}) => id => data.find(item => item.id === id)
     },
     mutations: {
-        reset: state => state = {
+        reset: state => Object.assign(state, {
             data: []
-        },
+        }),
         set: (state, payload) => Object.assign(state, payload),
         update: ({data}, payload) => Object.assign(data.find(({id}) => id === payload.id), payload),
         delete: ({data}, id) => {

@@ -176,7 +176,7 @@
             }
         },
         mounted () {
-            console.log('tenant', this.loggedInUser.tenant)
+//            console.log('tenant', this.loggedInUser.tenant)
             // TweenMax.staggerFrom(, 2, {scale:0.5, opacity:0, delay:0.5, ease:Elastic.easeOut, force3D:true}, 0.2)
         }
     }
