@@ -14,7 +14,12 @@ class DeleteRequest extends APIRequest
      */
     public function authorize()
     {
-        return \Auth::user()->can('delete-product');
+        $u = \Auth::user();
+        if ($u->can('delete-product')) {
+            return true;
+        }
+        return Product::where('id', $this->route('product'))
+            ->where('user_id', $u->id)->exists();
     }
 
     /**
