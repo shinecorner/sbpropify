@@ -176,7 +176,10 @@ class PostAPIController extends AppBaseController
     {
         $input = $request->only(Post::Fillable);
         $input['user_id'] = \Auth::id();
-        $input['status'] = Post::StatusNew;
+
+        if (! Auth::user()->hasRole('super_admin')) {
+            $input['status'] = Post::StatusNew;
+        }
 
         if ($request->pinned == 'true' || $request->pinned  == true) {
             $input['type'] = Post::TypePinned;
