@@ -11,7 +11,10 @@
                 </small>
             </div>
             <div class="actions" v-if="showActions">
-                <el-button size="mini" @click="$emit('delete-post', $event, data)" plain round>{{$t('general.actions.delete')}}</el-button>
+                <el-tooltip content="Here you can delete the post" effect="dark">
+                    <el-button size="mini" @click="$emit('delete-post', $event, data)" plain round>{{$t('general.actions.delete')}}</el-button>
+                </el-tooltip>
+                
             </div>
         </div>
         <div class="title" v-if="data.pinned">
