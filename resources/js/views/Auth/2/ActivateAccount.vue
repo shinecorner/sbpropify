@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-form :model="model" ref="form">
-            <router-link :to="{name: 'login2'}" class="el-menu-item-link">
+            <router-link :to="{name: 'login'}" class="el-menu-item-link">
                 <i class="el-icon-back"></i>{{ this.$t("general.back") }}
             </router-link>
             <h2>{{$t('general.activate_account')}}</h2>            

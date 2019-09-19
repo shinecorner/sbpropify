@@ -14,7 +14,7 @@
             </el-button>
         </el-form-item>
         <el-form-item>
-            <router-link :to="{name: 'login2'}" class="w100p">
+            <router-link :to="{name: 'login'}" class="w100p">
                 <el-button class="text-center w100p">{{$t('general.back_to_login')}}</el-button>
             </router-link>
         </el-form-item>

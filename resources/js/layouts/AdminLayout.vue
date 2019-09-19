@@ -613,6 +613,7 @@
                 // });
                 this.logout()
                     .then(() => {
+                        console.log('login called');
                         this.$router.push({name: 'login'});
                     })
                     .catch(err => {

@@ -25,7 +25,7 @@
             </el-form-item>
             <el-form-item>
                 <el-checkbox>{{$t('general.remember_me')}}</el-checkbox>
-                <router-link :to="{name: 'forgot2'}">
+                <router-link :to="{name: 'forgot'}">
                     <el-button type="text">
                         {{$t('general.forgot_password')}}
                     </el-button>
@@ -35,7 +35,7 @@
                 <el-button type="primary" class="text-center w100p" @click="submit" ref="prev">{{$t('general.login')}}</el-button>
             </el-form-item>
         </el-form>
-        <router-link :to="{name: 'activateAccount2'}" class="el-menu-item-link">
+        <router-link :to="{name: 'activateAccount'}" class="el-menu-item-link">
             <el-button type="primary" class="text-center w100p">{{$t('general.activate_account')}}</el-button>
         </router-link>
     </div>

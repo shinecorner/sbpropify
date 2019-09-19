@@ -15,13 +15,27 @@ Vue.use(VueRouter)
 
 let originalTitle
 
-const Router = new VueRouter({
+let Router = new VueRouter({
     routes: [{
         path: '/',
         component: Landing,
-    }, ...Auth1Routes, ...Auth2Routes, ...TenantRoutes, ...AdminRoutes, ...NotFound],
+    }, ...Auth1Routes, ...TenantRoutes, ...AdminRoutes, ...NotFound],
     mode: 'history'
 })
+
+const variation = localStorage.getItem('login_variation') || 1;
+
+console.log('variation', variation);
+if( variation == 2 ) {
+    Router = new VueRouter({
+        routes: [{
+            path: '/',
+            component: Landing,
+        }, ...Auth2Routes, ...TenantRoutes, ...AdminRoutes, ...NotFound],
+        mode: 'history'
+    })
+   
+}
 
 //await store.dispatch(`application/${TYPES.actions.getConstants}`)
 
