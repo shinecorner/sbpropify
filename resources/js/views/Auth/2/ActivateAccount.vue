@@ -135,6 +135,13 @@
                 }
             },            
         },
+        beforeCreate() {
+            if(this.$constants.login.variation == 1) {
+                this.$router.push({
+                    name: 'activateAccount'
+                });
+            }
+        }
     }
 </script>
 <style lang="scss" scoped>
