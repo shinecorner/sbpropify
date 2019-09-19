@@ -219,8 +219,8 @@ class PostRepository extends BaseRepository
                     ->delay(now()->addSeconds($delay)));
                 continue;
             }
-            if ($u->settings && $u->settings->news_notification && ! $post->pinned) { // @TODO ask ! $post->pinned need or not
-                if ($post->type == Post::TypeArticle) {
+            if ($u->settings && $u->settings->news_notification && ! $post->pinned) {
+                if ($post->type == Post::TypePost) {
                     $u->notify(new PostPublished($post));
                 }
                 if ($post->type == Post::TypeNewNeighbour) {
