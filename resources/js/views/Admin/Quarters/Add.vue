@@ -5,12 +5,28 @@
         </heading>
         <el-row :gutter="20" class="crud-view">
             <el-col :md="12">
-                <card :loading="loading" :header="$t('general.actions.view')">
-                    <el-form :model="model" label-width="192px" ref="form">
-                        <el-form-item :label="$t('tenant.name')" :rules="validationRules.name"
-                                    prop="name">
-                            <el-input type="text" v-model="model.name"/>
-                        </el-form-item>
+                <card :loading="loading" :header="$t('general.actions.view')">                    
+                    <el-form :model="model" ref="form">
+                        <el-row class="last-form-row" :gutter="20">
+                            <el-col :md="12">
+                                <el-form-item :label="$t('tenant.name')" :rules="validationRules.name"
+                                              prop="name">
+                                    <el-input type="text" v-model="model.name"/>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :md="12">
+                                <el-form-item class="label-block" :label="$t('models.quarter.count_of_buildings')"
+                                              prop="title">
+                                    <el-select style="display: block" v-model="model.count_of_buildings">
+                                        <el-option
+                                                :key="building"
+                                                :value="building"
+                                                v-for="building in buildingsCount">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
                     </el-form>
                 </card>
             </el-col>
