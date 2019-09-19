@@ -13,7 +13,8 @@ return [
         "send" => "Inviare",
         "view_all" => "Visualizza tutti",
         "view" => "Vista",
-        "done" => "To Done",
+        "to_done" => "A Fatto",
+        "to_reactivated" => "Riattivare",
     ],
     "salutation_option" => [
         "mr" => "Signor",
@@ -70,6 +71,7 @@ return [
     "add_post" => "Aggiungi un messaggio",
     "add_request" => "Aggiungi una richiesta",
     "add_product" => "Aggiungi un prodotto",
+    "edit_product" => "Modificare un prodotto",
     "my_dashboard" => "Il mio cruscotto",
     "good_morning" => "Buongiorno",
     "good_afternoon" => "Buon pomeriggio",

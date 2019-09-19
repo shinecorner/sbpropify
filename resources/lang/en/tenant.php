@@ -13,7 +13,8 @@ return [
         "send" => "Send",
         "view_all" => "View all",
         "view" => "View",
-        "done" => "To Done",
+        "to_done" => "To Done",
+        "to_reactivated" => "Reactivate",
     ],
     "salutation_option" => [
         "mr" => "Mr.",
@@ -70,6 +71,7 @@ return [
     "add_post" => "Add a post",
     "add_request" => "Add a request",
     "add_product" => "Add a product",
+    "edit_product" => "Edit a product",
     "my_dashboard" => "My dashboard",
     "good_morning" => "Good morning",
     "good_afternoon" => "Good afternoon",

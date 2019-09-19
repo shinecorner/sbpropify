@@ -262,10 +262,21 @@
                     media: file.file.src
                 }))
                 .then(data => {
-                    
-                    this.$store.dispatch('newPosts/addMedia', {
-                        id : this.id, media: data.response.data
-                    })  
+                    if(this.type == "posts") {
+                        this.$store.dispatch('newPosts/addMedia', {
+                            id : this.id, media: data.response.data
+                        })  
+                    }
+                    else if(this.type == "requests") {
+                        this.$store.dispatch('newRequests/addMedia', {
+                            id : this.id, media: data.response.data
+                        })  
+                    }
+                    else if(this.type == "products") {
+                        this.$store.dispatch('newProducts/addMedia', {
+                            id : this.id, media: data.response.data
+                        })  
+                    }
                     this.uploaded_count ++;
                     if(this.uploaded_count == this.length) {
                         this.clearUploader();

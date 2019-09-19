@@ -33,6 +33,7 @@ use App\Transformers\UserTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 
 /**
@@ -260,15 +261,29 @@ class PostAPIController extends AppBaseController
             'quarters',
             'providers',
             'views',
-        ])->withCount('allComments')->findWithoutFail($id);
+        ])->withCount(['allComments', 'views'])->findWithoutFail($id);
 
         if (empty($post)) {
             return $this->sendError(__('models.post.errors.not_found'));
         }
         $post->likers = $post->collectLikers();
-
+        $this->fixPostViews($post);
         $data = $this->transformer->transform($post);
         return $this->sendResponse($data, 'Post retrieved successfully');
+    }
+
+    protected function fixPostViews($post)
+    {
+        $tenantId = Auth::user()->tenant->id ?? null;
+        if ($tenantId) {
+            $postView = $post->views->where('tenant_id', $tenantId)->first();
+            if (empty($postView)) {
+                $postView = $post->views()->create(['tenant_id' => Auth::user()->tenant->id, 'views' => 1]);
+                $post->views->push($postView);
+            } else {
+                $postView->update(['views' => $postView->views + 1]);
+            }
+        }
     }
 
     /**
