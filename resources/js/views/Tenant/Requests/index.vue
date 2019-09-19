@@ -154,42 +154,42 @@
                 filters: {
                     schema: [{
                         type: 'el-select',
-                        title: 'Status',
+                        title: 'tenant.status',
                         name: 'status',
                         props: {
-                            placeholder: 'Select the status',
+                            placeholder: 'tenant.placeholder.status',
                             clearable: true,
                             size: 'small'
                         },
                         children: Object.entries(this.$store.getters['application/constants'].serviceRequests.status).map(([value, label]) => ({
                             type: 'el-option',
                             props: {
-                                label,
+                                label: `models.request.status.${label}`,
                                 value
                             }
                         }))
                     }, {
                         type: 'el-select',
-                        title: 'Priority',
+                        title: 'tenant.priority',
                         name: 'priority',
                         props: {
-                            placeholder: 'Select the priority',
+                            placeholder: 'tenant.placeholder.priority',
                             clearable: true,
                             size: 'small'
                         },
                         children: Object.entries(this.$store.getters['application/constants'].serviceRequests.priority).map(([value, label]) => ({
                             type: 'el-option',
                             props: {
-                                label,
+                                label: `models.request.priority.${label}`,
                                 value
                             }
                         }))
                     }, {
                         type: 'el-date-picker',
-                        title: 'Created',
+                        title: 'tenant.created_date',
                         name: 'created',
                         props: {
-                            placeholder: 'Choose the created date',
+                            placeholder: 'tenant.placeholder.date',
                             valueFormat: 'yyyy-MM-dd',
                             format: 'dd.MM.yyyy',
                             style: 'width: 100%',
@@ -197,10 +197,10 @@
                         }
                     }, {
                         type: 'el-date-picker',
-                        title: 'Due date',
+                        title: 'tenant.due_date',
                         name: 'due_date',
                         props: {
-                            placeholder: 'Choose the due date',
+                            placeholder: 'tenant.placeholder.date',
                             format: 'dd.MM.yyyy',
                             valueFormat: 'yyyy-MM-dd',
                             style: 'width: 100%',
