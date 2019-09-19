@@ -98,25 +98,15 @@ export default {
                     }
 
                     break
-                // case 'internalNotices':
-                // let internalNotices = rootGetters['newInternalNotices/getById'](id)
-
-                // if (internalNotices) {
-                //     Object.assign(internalNotices, {comments_count: request.comments_count + 1})
-                    
-                //     commit('newInternalNotices/update', internalNotices, {root: true})
-                // }
-
-                // break
             }
         },
-        async update ({commit}, {id, parent_id, child_id, ...params}) {
-            const {data} = await this._vm.axios.put(`comments/${child_id ? child_id : parent_id}`, child_id ? {parent_id, ...params} : params)
+        async update ({commit}, {id, parent_id, child_id, ...params}) {        
+            const {data} = await this._vm.axios.put( `${ params.commentable !== 'internalNotices' ? 'comments': 'internalNotices' }/${child_id ? child_id : parent_id}`, params.commentable !== 'internalNotices' ? child_id ? {parent_id, ...params} : params : { request_id: id, user_id: this.getters.loggedInUser.id, comment: params.comment} )
 
             commit('update', {id, parent_id, child_id, commentable: params.commentable, data: data.data})
         },
         async delete ({commit, dispatch}, {id, parent_id, child_id, ...params}) {
-            const {data} = await this._vm.axios.delete(`comments/${child_id ? child_id : parent_id}`, child_id ? {parent_id, ...params} : params)
+            const {data} = await this._vm.axios.delete(`${ params.commentable !== 'internalNotices' ? 'comments': 'internalNotices' }/${child_id ? child_id : parent_id}`, child_id ? {parent_id, ...params} : params)
 
             commit('delete', {id, parent_id, child_id, commentable: params.commentable, data: data.data})
         },
@@ -167,9 +157,13 @@ export default {
         },
         create (state, {id, data, parent_id, commentable}) {
             data.isNew = true
+            console.log(id, parent_id);
+            
     
             if (id && parent_id) {
                 let comment = state[commentable][id].data.find(({id}) => id === parent_id)
+                console.log(comment);
+                
     
                 if (comment) {
                     comment.children_count++

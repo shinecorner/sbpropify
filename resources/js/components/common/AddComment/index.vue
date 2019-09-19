@@ -110,6 +110,8 @@
                         commentable: this.type,
                         parent_id: this.parentId
                     } : {
+                        id: this.id,
+                        parent_id: this.parentId,
                         request_id: this.id,
                         user_id: this.user.id,
                         comment: this.content,
