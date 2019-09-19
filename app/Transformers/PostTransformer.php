@@ -49,10 +49,15 @@ class PostTransformer extends BaseTransformer
             'comments_count' => $model->all_comments_count,
             'pinned' => $model->pinned,
             'pinned_to' => $model->pinned_to ? $model->pinned_to->toDateTimeString() : null,
-            'execution_start' => $this->formatExecutionTime($model, 'execution_start'),
-            'execution_end' => $this->formatExecutionTime($model, 'execution_end'),
             'notify_email' => $model->notify_email,
         ];
+
+        if ($model->pinned) {
+            $ret['execution_start'] = $this->formatExecutionTime($model, 'execution_start');
+            $ret['execution_end'] = $this->formatExecutionTime($model, 'execution_end');
+            $ret['is_execution_time'] = $model->is_execution_time;
+            $ret['execution_period'] = $model->execution_period;
+        }
 
         if (key_exists('views_count', $model->getAttributes())) {
             $ret['views_count'] = $model->views_count;

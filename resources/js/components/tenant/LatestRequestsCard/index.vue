@@ -62,12 +62,6 @@
             if (!this.requests.length) {
                 this.loading = true;
 
-                // await this.$store.dispatch('newRequests/get', {
-                //     is_public: true,
-                //     sortedBy: 'desc',
-                //     orderBy: 'created_at',
-                //     per_page: this.limit
-                // })
                 await this.$store.dispatch('newRequests/get', {
                     is_public: true,
                     sortedBy: 'desc',
