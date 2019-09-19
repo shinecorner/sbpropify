@@ -64,14 +64,15 @@ class PostRepository extends BaseRepository
         $u = \Auth::user();
         if ($u->can('post-post') && !($u->can('post-located-post'))) {
             if ($u->tenant()->exists()) {
-                if ($u->tenant->homeless()) {
-                    throw new \Exception("Your tenant account does not belong to any unit");
+                $rentContracts = $u->tenant->active_rent_contracts_with_building()->get(['building_id']);
+                if ($rentContracts->isEmpty()) {
+                    throw new \Exception("Your tenant account does not have any active rent contract");
                 }
 
-                $atts['building_ids'] = [$u->tenant->building->id]; // @TODO fix overwrite quarter_ids
-                if ($u->tenant->building->quarter_id) {
-                    $atts['quarter_ids'] = [$u->tenant->building->quarter_id]; // @TODO fix overwrite quarter_ids
-                }
+                $rentContracts->load('building:id,quarter_id');
+                $atts['building_ids'] = $rentContracts->pluck('building_id')->unique()->toArray();
+                $quarterIds = $rentContracts->where('building.quarter_id', '!=', null)->pluck('building.quarter_id');
+                $atts['quarter_ids'] = $quarterIds->unique()->toArray();
             }
         }
 
@@ -83,8 +84,15 @@ class PostRepository extends BaseRepository
 
         $atts = $this->fixBollInt($atts, 'is_execution_time', 1);
         $model = parent::create($atts);
-        $model->quarters()->sync($atts['quarter_ids']);
-        $model->buildings()->sync($atts['building_ids']);
+
+        if (!empty($atts['quarter_ids'])) {
+            $model->quarters()->sync($atts['quarter_ids']);
+        }
+
+        if (!empty($atts['quarter_ids'])) {
+            $model->buildings()->sync($atts['building_ids']);
+        }
+
         if (!$atts['needs_approval']) {
             // @TODO improve
             $model = $this->setStatus($model->id, Post::StatusPublished, Carbon::now());
