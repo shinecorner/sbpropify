@@ -33,6 +33,9 @@
                 type: Number,
                 required: true
             },
+            name: {
+                type: String
+            },
             type: {
                 type: String,
                 required: true,

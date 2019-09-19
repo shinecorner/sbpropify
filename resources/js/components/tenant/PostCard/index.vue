@@ -195,7 +195,7 @@
         .like {
             background: #f2f4fa;
             padding: 10px;
-            border-radius: 5px;
+            padding-bottom: 0;
         }
         .likes {
             font-size: 14px;
