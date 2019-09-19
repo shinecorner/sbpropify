@@ -3,7 +3,7 @@
         <heading icon="ti-announcement" title="News" description="Sed placerat volutpat mollis." />
         <el-row :gutter="24">
             <el-col :span="16">
-                <post-card :data="data" v-if="data" />
+                <post-card :data="data" v-if="data" :show-actions="false"/>
             </el-col>
             <el-col :span="8">
                 <rss-feed title="Blick.ch News"/>

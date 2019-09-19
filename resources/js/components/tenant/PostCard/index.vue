@@ -10,7 +10,9 @@
                     {{formatDatetime(data.created_at)}}
                 </small>
             </div>
-            <el-button size="mini" @click="deletePost(data)" plain round>{{$t('general.actions.delete')}}</el-button>
+            <div class="actions" v-if="showActions">
+                <el-button size="mini" @click="$emit('delete-post', $event, data)" plain round>{{$t('general.actions.delete')}}</el-button>
+            </div>
         </div>
         <div class="title" v-if="data.pinned">
             <small>Category:
@@ -37,7 +39,7 @@
         <likes type="post" :data="data.likes" layout="row" />
         <like :id="data.id" type="post">
             <el-button @click="$refs.addComment.focus()" icon="ti-comment-alt" type="text"> &nbsp;{{$t('tenant.comment')}}</el-button>
-            <el-button icon="icon-picture" type="text" v-if="data.pinned === false">                 
+            <el-button icon="icon-picture" type="text" v-if="data.pinned === false && data.media.length">                 
                 <template v-if="data.media.length">
                     {{data.media.length}} {{data.media.length > 1 ? $t('tenant.images') : $t('tenant.image')}}
                 </template>
@@ -77,6 +79,10 @@
             data: {
                 type: Object,
                 required: true
+            },
+            showActions : {
+                type: Boolean,
+                default: true
             }
         },
         idState () {
@@ -151,6 +157,12 @@
                     color: darken(#fff, 48%);
                 }
             }
+
+            .actions {
+                flex-grow: 1;
+                display: flex;
+                justify-content: flex-end;
+            }
         }
 
         .title {
@@ -183,7 +195,7 @@
         .like {
             background: #f2f4fa;
             padding: 10px;
-            border-radius: 5px;
+            padding-bottom: 0;
         }
         .likes {
             font-size: 14px;
