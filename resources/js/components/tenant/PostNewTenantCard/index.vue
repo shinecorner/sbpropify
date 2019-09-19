@@ -1,10 +1,10 @@
 <template>
     <el-card>
         <ui-avatar :src="data.user.avatar" :name="data.user.name" :size="48" shadow="always" />
-        <div class="user">{{data.user.name}}</div>
-        <div class="content">{{$t('tenant.welcome_neighbour_msg',{num_days: ago(data.created_at)})}}</div>
-        <likes type="post" layout="column" :data="data.likes" suffix="welcomed the neighbour" />
-        <like :id="data.id" type="post" :icons="{like: 'icon-heart', unlike: 'icon-heart-empty'}" :show-text="false" />
+        <div class="user">{{data.user.name}} {{$t('tenant.new_neighbour_msg')}}</div>
+        <likes type="post" layout="row" :data="data.likes" :suffix="$t('tenant.welcome_neighbour_msg')" />
+        <like :id="data.id" :name="data.user.name" type="post" :show-text="false" :show-welcome-text="true"/> <!-- :icons="{like: 'icon-heart', unlike: 'icon-heart-empty'}" -->
+        
     </el-card>
 </template>
 
@@ -36,6 +36,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding-left: 0;
+            padding-right: 0;
 
             .ui-avatar {
                 margin-top: -40px;
@@ -46,6 +48,7 @@
                 font-size: 18px;
                 font-weight: 600;
                 color: var(--primary-color);
+                padding: 10px;
             }
 
             .content {
@@ -60,15 +63,15 @@
 
             :global(.like) {
                 margin-bottom: -36px;
-
+                width: 100%;
+                padding: 10px;
                 :global(.el-button) {
-                    font-size: 24px;
-                    width: 40px;
+                    font-size: 18px;
+                    width: 100%;
                     height: 40px;
                     padding: 0;
                     background-color: #fff;
                     color: var(--color-danger);
-                    border-radius: 50%;
                     border: 1px var(--border-color-base) solid;
                     display: flex;
                     align-items: center;

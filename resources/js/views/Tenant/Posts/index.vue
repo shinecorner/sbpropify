@@ -22,7 +22,7 @@
                     <template v-slot="{item, index, active}">
                         <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" :watchData="true" >
                             <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour'"/>
-                            <post-card :data="item" v-else />
+                            <post-card :data="item" @delete-post="deletePost" v-else/>
                         </dynamic-scroller-item>
                     </template>
                     <template #after v-if="loading && filteredPosts.length">
@@ -158,6 +158,16 @@
             refreshPage () {
                 this.getPosts();
                 this.resetFilters ()
+            },
+            async deletePost(event, data) {
+                
+                const resp = await this.$confirm(this.$t(`general.swal.delete_listing.text`), this.$t(`general.swal.delete_listing.title`), {
+                    type: 'warning'
+                }).then(() => {
+                    this.$store.dispatch('newPosts/delete', data)
+                })
+               
+                
             }
         },
         computed: {
