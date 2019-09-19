@@ -67,7 +67,7 @@ class PostRepository extends BaseRepository
                     throw new \Exception("Your tenant account does not belong to any unit");
                 }
 
-                $atts['building_ids'] = [$u->tenant->building->id];
+                $atts['building_ids'] = [$u->tenant->building->id]; // @TODO fix overwrite quarter_ids
                 if ($u->tenant->building->quarter_id) {
                     $atts['quarter_ids'] = [$u->tenant->building->quarter_id]; // @TODO fix overwrite quarter_ids
                 }
