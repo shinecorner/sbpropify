@@ -25,6 +25,7 @@ class QuarterTransformer extends BaseTransformer
             'name' => $model->name,
             'quarter_format' => $model->quarter_format,
             'description' => $model->description,
+            'count_of_buildings' => $model->count_of_buildings,
         ];
 
         return $response;

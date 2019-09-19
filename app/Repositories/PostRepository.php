@@ -67,7 +67,7 @@ class PostRepository extends BaseRepository
                     throw new \Exception("Your tenant account does not belong to any unit");
                 }
 
-                $atts['building_ids'] = [$u->tenant->building->id];
+                $atts['building_ids'] = [$u->tenant->building->id]; // @TODO fix overwrite quarter_ids
                 if ($u->tenant->building->quarter_id) {
                     $atts['quarter_ids'] = [$u->tenant->building->quarter_id]; // @TODO fix overwrite quarter_ids
                 }
@@ -219,8 +219,8 @@ class PostRepository extends BaseRepository
                     ->delay(now()->addSeconds($delay)));
                 continue;
             }
-            if ($u->settings && $u->settings->news_notification && ! $post->pinned) { // @TODO ask ! $post->pinned need or not
-                if ($post->type == Post::TypeArticle) {
+            if ($u->settings && $u->settings->news_notification && ! $post->pinned) {
+                if ($post->type == Post::TypePost) {
                     $u->notify(new PostPublished($post));
                 }
                 if ($post->type == Post::TypeNewNeighbour) {

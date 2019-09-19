@@ -21,6 +21,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          type="string"
  *      ),
  *      @SWG\Property(
+ *          property="count_of_buildings",
+ *          description="count_of_buildings",
+ *          type="integer"
+ *      ),
+ *      @SWG\Property(
  *          property="description",
  *          description="description",
  *          type="string"
@@ -55,7 +60,8 @@ class Quarter extends AuditableModel
     public $fillable = [
         'name',
         'description',
-        'quarter_format'
+        'quarter_format',
+        'count_of_buildings'
     ];
     protected $dates = ['deleted_at'];
     /**
@@ -66,7 +72,8 @@ class Quarter extends AuditableModel
     protected $casts = [
         'name' => 'string',
         'description' => 'string',
-        'quarter_format' => 'string'
+        'quarter_format' => 'string',
+        'count_of_buildings' => 'integer',
     ];
 
     /**

@@ -179,9 +179,15 @@ class PostAPIController extends AppBaseController
 
         $input['user_id'] = \Auth::id();
         $input['status'] = Post::StatusNew;
-        $input['type'] = $request->pinned ? Post::TypePinned : Post::TypeArticle;
+
+        if ($request->pinned == 'true' || $request->pinned  == true) {
+            $input['type'] = Post::TypePinned;
+        } else {
+            $input['type'] =  $input['type'] ?? Post::TypePost;
+        }
+
         $input['needs_approval'] = true;
-        if ($input['type'] == Post::TypeArticle) {
+        if (! empty($input['type']) && $input['type'] == Post::TypePost) {
             $input['notify_email'] = true;
             $realEstate = $reRepo->first();
             if ($realEstate) {
@@ -336,7 +342,12 @@ class PostAPIController extends AppBaseController
     public function update($id, UpdateRequest $request)
     {
         $input = $request->only(Post::Fillable);
-        $input['type'] = $request->pinned ? Post::TypePinned : Post::TypeArticle;
+        if ($request->pinned) {
+            $input['type'] = Post::TypePinned;
+        } else {
+            $input['type'] =  $input['type'] ?? Post::TypePost;
+        }
+
         $status = $request->get('status');
 
         /** @var Post $post */
