@@ -220,7 +220,7 @@
                 }
 
                 &:not(.is-disabled).is-focused:before {
-                    border-bottom-color: #6AC06F;
+                    border-bottom-color: var(--primary-color);
                 }
 
                 &:not(.is-disabled):not(.is-focused):before {

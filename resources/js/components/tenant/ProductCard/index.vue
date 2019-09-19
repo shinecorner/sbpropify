@@ -16,20 +16,13 @@
                 <div>
                     <i class="icon-picture"></i> {{data.media.length}}
                 </div>
-                <!-- <el-button size="mini" type="primary"> 
+                <el-button size="mini" @click.stop="$emit('edit-product', $event, data)" type="primary" v-if="showAction"> 
                     <i class="ti-pencil"></i>
                     <span>{{ $t('general.actions.edit') }}</span>
                 </el-button>
-                <el-button size="mini" type="danger"> 
+                <!-- <el-button size="mini" @click.stop="$emit('delete-product', $event, data)" type="danger"> 
                     <i class="ti-close"></i>
-                    <span>{{ $t('general.actions.delete') }}</span>
                 </el-button> -->
-                <el-button size="mini" @click.stop="$emit('edit-product', $event, data)" type="primary"> 
-                    <i class="ti-pencil"></i>
-                </el-button>
-                <el-button size="mini" @click.stop="$emit('delete-product', $event, data)" type="danger"> 
-                    <i class="ti-close"></i>
-                </el-button>
             </like>
             
         </div>
@@ -50,6 +43,10 @@
             data: {
                 type: Object,
                 required: true
+            },
+            showAction: {
+                type: Boolean,
+                default: true
             }
         },
         computed: {
@@ -128,6 +125,7 @@
             .like 
                 /deep/ .el-button
                     margin-left: 10px
+                    padding: 2px;
         &:hover
             cursor: pointer
 

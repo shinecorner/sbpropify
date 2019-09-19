@@ -12,7 +12,8 @@ return [
         "search" => "Suchen",
         "send" => "Senden",
         "view_all" => "Alle anzeigen",
-        "done" => "To Done",
+        "to_done" => "Zu erledigen",
+        "to_reactivated" => "Reaktivieren",
     ],
     "salutation_option" => [
         "mr" => "Herr",
@@ -65,6 +66,7 @@ return [
     "add_post" => "Einen Beitrag hinzufügen",
     "add_request" => "Eine Anfrage hinzufügen",
     "add_product" => "Ein Produkt hinzufügen",
+    "edit_product" => "Ein Produkt bearbeiten",
     "my_dashboard" => "Mein Dashboard",
     "good_morning" => "Guten Morgen",
     "good_afternoon" => "Guten Tag",

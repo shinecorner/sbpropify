@@ -12,7 +12,7 @@
                     </el-popover>
                     <el-input prefix-icon="el-icon-search" v-model="search" :placeholder="$t('tenant.placeholder.search_product')" clearable @clear="handleSearch" @keyup.enter.native="handleSearch" />
                     <el-button type="primary" icon="el-icon-search" :disabled="loading" @click="handleSearch">{{$t('tenant.actions.search')}}</el-button>
-                    <el-button type="primary" icon="icon-plus" @click="visibleDrawer = !visibleDrawer">{{$t('tenant.add_product')}}</el-button>
+                    <el-button type="primary" icon="icon-plus" @click="addProduct()">{{$t('tenant.add_product')}}</el-button>
                 </template>
                 <template v-if="loading">
                     <loader v-for="idx in 5" :key="idx" />
@@ -37,9 +37,11 @@
             </el-dialog>
         </div>
         <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
-            <ui-divider content-position="left">{{$t('tenant.add_product')}}</ui-divider>
+            <ui-divider content-position="left" v-if="editingProduct">{{$t('tenant.edit_product')}}</ui-divider>
+            <ui-divider content-position="left" v-else>{{$t('tenant.add_product')}}</ui-divider>
             <div class="content">
-                <product-add-form />
+                <product-edit-form :data="editingProduct" @delete-product="deleteProduct" v-if="editingProduct"/>
+                <product-add-form v-else/>
             </div>
         </ui-drawer>
     </div>
@@ -65,6 +67,7 @@
                 loading: false,
                 search: undefined,
                 openedProduct: null,
+                editingProduct: null,
                 visibleDrawer: false,
                 visibleDialog: false,
                 pagination: {
@@ -189,12 +192,22 @@
 
                 done()
             },
+            addProduct() {
+                this.editingProduct = null
+                this.visibleDrawer = true
+            },
             editProduct(evt, product) {
-                console.log('edit called', product)
+                this.editingProduct = product
+                this.visibleDrawer = true
             },
             deleteProduct(evt, product) {
-                console.log('delete id', product.id)
-                this.$store.dispatch('newProducts/delete', {id: product.id})
+                this.$confirm(this.$t(`general.swal.delete_listing.text`), this.$t(`general.swal.delete_listing.title`), {
+                    type: 'warning'
+                }).then(() => {
+                    this.$store.dispatch('newProducts/delete', {id: product.id})
+                }).catch(() => {
+                });
+                
             }
         },
         created () {

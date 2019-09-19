@@ -10,6 +10,7 @@
                     {{formatDatetime(data.created_at)}}
                 </small>
             </div>
+            <el-button size="mini" @click="deletePost(data)" plain round>{{$t('general.actions.delete')}}</el-button>
         </div>
         <div class="title" v-if="data.pinned">
             <small>Category:
@@ -17,6 +18,7 @@
             </small>
             <strong>{{data.title}}</strong>
         </div>
+        
         <hr v-if="data.pinned" />
         <read-more class="content" :text="data.content" :max-chars="512" :more-str="$t('tenant.read_more')" :less-str="$t('tenant.read_less')" />
         
@@ -114,8 +116,6 @@
         },
         mounted () {
             this.data.height =  this.$refs.container.clientHeight
-            console.log('height', this.$refs.container.clientHeight)
-            console.log('mounted', this.data);
         }
     }
 </script>
@@ -180,6 +180,11 @@
             box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
         }
 
+        .like {
+            background: #f2f4fa;
+            padding: 10px;
+            border-radius: 5px;
+        }
         .likes {
             font-size: 14px;
             margin: 12px 0 -8px 0;

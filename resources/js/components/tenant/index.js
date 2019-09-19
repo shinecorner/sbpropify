@@ -34,6 +34,9 @@ import PostNewTenantCardLoader from './PostNewTenantCard/Loader'
 import ProductAddFormError from './ProductAddForm/Error'
 import ProductAddFormLoader from './ProductAddForm/Loader'
 
+import ProductEditFormError from './ProductEditForm/Error'
+import ProductEditFormLoader from './ProductEditForm/Loader'
+
 import ProductCardError from './ProductCard/Error'
 import ProductCardLoader from './ProductCard/Loader'
 
@@ -148,6 +151,13 @@ export default {
                 component: import(/* webpackChunkName: "productAddForm" */ './ProductAddForm'),
                 loading: ProductAddFormLoader,
                 error: ProductAddFormError,
+                delay: 0,
+                timeout: 8000
+            }),
+            productEditForm: () => ({
+                component: import(/* webpackChunkName: "productEditForm" */ './ProductEditForm'),
+                loading: ProductEditFormLoader,
+                error: ProductEditFormError,
                 delay: 0,
                 timeout: 8000
             }),
