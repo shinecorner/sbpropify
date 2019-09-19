@@ -11,6 +11,9 @@
                     <template v-if="status.liked">{{$t('tenant.unlike')}}</template>
                     <template v-else>{{$t('tenant.like')}}</template>
                 </template>
+                <template v-if="showWelcomeText">
+                    {{$t('tenant.welcome')}} {{name}}
+                </template>
             </el-button>
         </template>
         <slot />
@@ -24,6 +27,9 @@
             id: {
                 type: Number,
                 required: true
+            },
+            name: {
+                type: String
             },
             type: {
                 type: String,
@@ -40,6 +46,10 @@
             showText: {
                 type: Boolean,
                 default: true
+            },
+            showWelcomeText: {
+                type: Boolean,
+                default: false
             },
             readonly: {
                 type: Boolean,
