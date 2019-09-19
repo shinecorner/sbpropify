@@ -205,6 +205,8 @@
                     type: 'warning'
                 }).then(() => {
                     this.$store.dispatch('newProducts/delete', {id: product.id})
+                    this.editingProduct = null
+                    this.visibleDrawer = false
                 }).catch(() => {
                 });
                 

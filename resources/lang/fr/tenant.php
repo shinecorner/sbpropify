@@ -58,6 +58,10 @@ return [
         "marketplace" => "Notifications de marché",
         "admin" => "Notifications administratives",
     ],
+    "tooltips" => [
+        "delete_post" => "Ici, vous pouvez supprimer le message.",
+        "status_change_requeset" => "Vous pouvez modifier ici le statut de la demande.",
+    ],
     "created_date" => "Date de création",
     "due_date" => "Date d'échéance",
     "drag_drop_file" => "Lâchez les fichiers ou cliquez ici pour sélectionner",

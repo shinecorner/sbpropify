@@ -11,7 +11,7 @@
         <div class="content">
             <div class="title">{{data.title}}</div>
             <div class="date">{{$t('tenant.added_at')}} {{formatDatetime(data.published_at)}}</div>
-            <likes type="product" :data="data.likes" />
+            <likes type="product" :data="data.likes" v-if="false"/>
             <like :id="data.id" type="product" readonly>
                 <div>
                     <i class="icon-picture"></i> {{data.media.length}}

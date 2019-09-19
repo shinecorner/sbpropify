@@ -58,6 +58,10 @@ return [
         "marketplace" => "Marketplace notifications",
         "admin" => "Admin notifications",
     ],
+    "tooltips" => [
+        "delete_post" => "Here you can delete the post.",
+        "status_change_requeset" => "Here you can change the status of request.",
+    ],
     "created_date" => "Created date",
     "due_date" => "Due date",
     "drag_drop_file" => "Drop files or click here to select",
