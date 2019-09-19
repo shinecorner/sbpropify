@@ -182,6 +182,14 @@ return [
             'confirmText' => "Oui, effacez-le !",
             'deleted' => "Supprimé avec succès",
         ],
+        'to_done' => [
+            'title' => 'Marquer la demande comme complétée',
+            'text' => 'Voulez-vous vraiment marquer cette demande comme complétée ?',
+        ],
+        'delete_listing' => [
+            'title' => 'supprimer la liste',
+            'text' => "Voulez-vous vraiment supprimer l'annonce ?",
+        ],
         'add' => [
             'added' => 'Ajouté avec succès',
         ],
