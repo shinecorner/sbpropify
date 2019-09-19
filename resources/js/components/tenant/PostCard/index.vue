@@ -11,7 +11,10 @@
                 </small>
             </div>
             <div class="actions" v-if="showActions">
-                <el-button size="mini" @click="$emit('delete-post', $event, data)" plain round>{{$t('general.actions.delete')}}</el-button>
+                <el-tooltip :content="$t('tenant.tooltips.delete_post')">
+                    <el-button size="mini" @click="$emit('delete-post', $event, data)" plain round>{{$t('general.actions.delete')}}</el-button>
+                </el-tooltip>
+                
             </div>
         </div>
         <div class="title" v-if="data.pinned">
@@ -195,7 +198,6 @@
         .like {
             background: #f2f4fa;
             padding: 10px;
-            padding-bottom: 0;
         }
         .likes {
             font-size: 14px;

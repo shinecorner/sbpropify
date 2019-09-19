@@ -6,6 +6,9 @@ export default {
         data: []
     },
     actions: {
+        reset ({commit}) {
+            commit('reset')
+        },
         async get ({state, commit}, {id, ...params} = {}) {
             const {data} = await this._vm.axios.get(id ? `requests/${id}` : 'requests', {params, showMessage: false})
 
@@ -57,6 +60,9 @@ export default {
         getById: ({data}) => id => data.find(request => request.id === id)
     },
     mutations: {
+        reset: state => Object.assign(state, {
+            data: []
+        }),
         set: (state, payload) => Object.assign(state, payload),
         update: ({data}, payload) => Object.assign(data.find(({id}) => id === payload.id), payload),
         delete: ({data}, id) => {
