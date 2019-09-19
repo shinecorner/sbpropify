@@ -130,6 +130,26 @@ return [
         'rent_end' => 'Mietende',
         'rent_start' => 'Mietbeginn',
         'rent_contract' => 'Mietvertrag',
+        'rent_type' => 'Mietart',
+        'rent_types' => [
+            'private' => 'Privat',
+            'business' => 'Business',
+            'parking_lot' => 'Parkplatz',
+        ],
+        'rent_duration' => 'Mietdauer',
+        'rent_durations' => [
+            'unlimited' => 'Unbegrenzt',
+            'limited' => 'Limitiert',
+        ],
+        'rent_contract_pdf' => 'Mietvertrag pdf',
+        'deposit_amount' => 'Einzahlungsbetrag',
+        'type_of_deposit' => 'Art der Einzahlung',
+        'deposit_types' => [
+            'bank_deposit' => 'Bankeinzahlung',
+            'bank_guarantee' => 'Bankgarantie',
+            'insurance' => 'Versicherung',
+            'other' => 'Sonstiges',
+        ],
         'contact' => [
             'category' => 'Kategorie',
         ],

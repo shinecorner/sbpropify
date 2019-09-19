@@ -130,6 +130,26 @@ return [
         "rent_end" => "Fin du loyer",
         "rent_start" => "Début du loyer",
         "rent_contract" => "Contrat de location",
+        'rent_type' => 'Type de loyer',
+        'rent_types' => [
+            'private' => 'Privé',
+            'business' => 'Affaires',
+            'parking_lot' => 'Terrain de stationnement',
+        ],
+        'rent_duration' => 'Durée du loyer',
+        'rent_durations' => [
+            'unlimited' => 'Illimité',
+            'limited' => 'Limitée',
+        ],
+        'rent_contract_pdf' => 'Contrat de location pdf',
+        'deposit_amount' => 'Montant du dépôt',
+        'type_of_deposit' => 'Type de dépôt',
+        'deposit_types' => [
+            'bank_deposit' => 'Dépôt bancaire',
+            'bank_guarantee' => 'Garantie bancaire',
+            'insurance' => 'Assurance',
+            'other' => 'Autre',
+        ],
         'contact' => [
             "category" => "Catégorie",
         ],

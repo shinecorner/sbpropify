@@ -130,6 +130,26 @@ return [
         'rent_end' => 'Rent end',
         'rent_start' => 'Rent start',
         'rent_contract' => 'Rent contract',
+        'rent_type' => 'Rent type',
+        'rent_types' => [
+            'private' => 'Private',
+            'business' => 'Business',
+            'parking_lot' => 'Parking Lot',
+        ],
+        'rent_duration' => 'Rent duration',
+        'rent_durations' => [
+            'unlimited' => 'Unlimited',
+            'limited' => 'Limited',
+        ],
+        'rent_contract_pdf' => 'Rent contract pdf',
+        'deposit_amount' => 'Deposit amount',
+        'type_of_deposit' => 'Type of deposit',
+        'deposit_types' => [
+            'bank_deposit' => 'Bank Deposit',
+            'bank_guarantee' => 'Bank Guarantee',
+            'insurance' => 'Insurance',
+            'other' => 'Other',
+        ],
         'contact' => [
             'category' => 'Category',
         ],
