@@ -35,6 +35,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Illuminate\Support\Facades\Validator;
 
@@ -270,6 +271,7 @@ class TenantAPIController extends AppBaseController
             return $this->sendError($validator->errors());
         }
 
+        DB::beginTransaction();
         try {
             $input['user']['role'] = 'registered';
             $input['user']['settings'] = Arr::pull($input, 'settings');
@@ -277,6 +279,7 @@ class TenantAPIController extends AppBaseController
             $user = $this->userRepository->create($input['user']);
             User::enableAuditing();
         } catch (\Exception $e) {
+            DB::rollBack();
             return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
         }
 
@@ -284,6 +287,7 @@ class TenantAPIController extends AppBaseController
         try {
             $tenant = $this->tenantRepository->create($input);
         } catch (\Exception $e) {
+            DB::rollBack();
             return $this->sendError(__('models.tenant.errors.create') . $e->getMessage());
         }
 
@@ -303,17 +307,18 @@ class TenantAPIController extends AppBaseController
         $rentData['tenant_id'] = $tenant->id;
         try {
             $rentRepository = App::make(RentContractRepository::class);
-            $rentRepository->create($rentData);
+            $rentContract = $rentRepository->create($rentData);
+            $pr->newRentContractPost($rentContract);
         } catch (\Exception $e) {
+            DB::rollBack();
             return $this->sendError(__('models.rent_contract.errors.create') . $e->getMessage());
         }
 
         $tenant->load(['user', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
             $q->with('building.address', 'unit', 'media');
         }]);
-        $pr->newTenantPost($tenant);
-        //$tenant->setCredentialsPDF();
 
+        DB::commit();
         $response = (new TenantTransformer)->transform($tenant);
         return $this->sendResponse($response, __('models.tenant.saved'));
     }
