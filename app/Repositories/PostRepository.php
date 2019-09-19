@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Building;
 use App\Models\Quarter;
 use App\Models\Post;
+use App\Models\RentContract;
 use App\Models\Tenant;
 use App\Models\RealEstate;
 use App\Models\User;
@@ -169,11 +170,13 @@ class PostRepository extends BaseRepository
             return;
         }
         $usersToNotify = new Collection();
+
         if ($post->visibility == Post::VisibilityAll) {
             $users = User::has('tenant')->where('id', '!=', $post->user_id)->get();
             $usersToNotify = $usersToNotify->merge($users);
         }
-        if ($post->visibility == Post::VisibilityQuarter) {
+
+        if ($post->visibility == Post::VisibilityQuarter || $post->pinned) {
             $quarter_ids = $post->quarters()->pluck('id')->toArray();
             $users = User::select('users.*')
                 ->join('tenants', 'tenants.user_id', '=', 'users.id')
@@ -183,7 +186,8 @@ class PostRepository extends BaseRepository
                 ->get();
             $usersToNotify = $usersToNotify->merge($users);
         }
-        if ($post->visibility == Post::VisibilityAddress) {
+
+        if ($post->visibility == Post::VisibilityAddress  || $post->pinned) {
             $building_ids = $post->buildings()->pluck('id')->toArray();
             $users = User::select('users.*')
                 ->join('tenants', 'tenants.user_id', '=', 'users.id')
@@ -192,23 +196,7 @@ class PostRepository extends BaseRepository
                 ->get();
             $usersToNotify = $usersToNotify->merge($users);
         }
-        if ($post->pinned) {
-            $building_ids = $post->buildings()->pluck('id')->toArray();
-            $quarter_ids = $post->quarters()->pluck('id')->toArray();
-            $bUsers = User::select('users.*')
-                ->join('tenants', 'tenants.user_id', '=', 'users.id')
-                ->where('tenants.deleted_at', null)
-                ->whereIn('tenants.building_id', $building_ids)
-                ->get();
-            $dUsers = User::select('users.*')
-                ->join('tenants', 'tenants.user_id', '=', 'users.id')
-                ->join('buildings', 'tenants.building_id', '=', 'buildings.id')
-                ->where('tenants.deleted_at', null)
-                ->whereIn('buildings.quarter_id', $quarter_ids)
-                ->get();
-            $usersToNotify = $usersToNotify->merge($bUsers);
-            $usersToNotify = $usersToNotify->merge($dUsers);
-        }
+
         $usersToNotify = $usersToNotify->unique();
         $usersToNotify->load('settings');
 
@@ -275,6 +263,37 @@ class PostRepository extends BaseRepository
         ]);
 
         $publishStart = $tenant->rent_start ?? Carbon::now();
+        if ($publishStart->isBefore(Carbon::now())) {
+            $publishStart = Carbon::now();
+        }
+
+        $this->setStatusExisting($post, Post::StatusPublished, $publishStart);
+        return $post;
+    }
+
+    /**
+     * @param RentContract $rentContract
+     * @return Post|bool|mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     */
+    public function newRentContractPost(RentContract $rentContract)
+    {
+        if (empty($rentContract->building_id)) {
+            return false;
+        }
+
+        $post = $this->create([
+            'visibility' => Post::VisibilityAddress,
+            'status' => Post::StatusNew,
+            'type' => Post::TypeNewNeighbour,
+            'content' => "New neighbour",
+            'user_id' => $rentContract->tenant->user->id,
+            'building_ids' => [$rentContract->building_id],
+            'needs_approval' => false,
+            'notify_email' => true,
+        ]);
+
+        $publishStart = $rentContract->start_date ?? Carbon::now();
         if ($publishStart->isBefore(Carbon::now())) {
             $publishStart = Carbon::now();
         }
