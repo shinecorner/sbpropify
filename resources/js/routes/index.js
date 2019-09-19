@@ -23,11 +23,9 @@ const Router = new VueRouter({
     mode: 'history'
 })
 
-
-
 Router.beforeEach(async (to, from, next) => {
     if (!Object.keys(store.state.application.constants).length) {
-
+        await store.dispatch(`application/${TYPES.actions.getConstants}`)
 
         document.documentElement.style.setProperty('--primary-color', store.state.application.constants.colors.primary_color) // this will be removed
         document.documentElement.style.setProperty('--color-primary', store.state.application.constants.colors.primary_color)
