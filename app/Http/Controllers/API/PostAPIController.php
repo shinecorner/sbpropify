@@ -179,6 +179,8 @@ class PostAPIController extends AppBaseController
 
         if (! Auth::user()->hasRole('super_admin')) {
             $input['status'] = Post::StatusNew;
+        } else {
+            $input['status'] = $input['status'] ?? Post::StatusNew;
         }
 
         if ($request->pinned == 'true' || $request->pinned  == true) {
@@ -187,7 +189,8 @@ class PostAPIController extends AppBaseController
             $input['type'] =  $input['type'] ?? Post::TypePost;
         }
 
-        $input['needs_approval'] = true;
+        //$input['needs_approval'] = true; // @TODO
+        $input['needs_approval'] = ! Auth::user()->hasRole('super_admin');
         if (! empty($input['type']) && $input['type'] == Post::TypePost) {
             $input['notify_email'] = true;
             $realEstate = $reRepo->first();

@@ -83,6 +83,11 @@ class PostRepository extends BaseRepository
         }
 
         $atts = $this->fixBollInt($atts, 'is_execution_time', 1);
+
+        if (! $atts['needs_approval']) {
+            $atts['status'] = Post::StatusPublished;
+            $atts['published_at'] = now();
+        }
         $model = parent::create($atts);
 
         if (!empty($atts['quarter_ids'])) {
@@ -93,9 +98,8 @@ class PostRepository extends BaseRepository
             $model->buildings()->sync($atts['building_ids']);
         }
 
-        if (!$atts['needs_approval']) {
-            // @TODO improve
-            $model = $this->setStatus($model->id, Post::StatusPublished, Carbon::now());
+        if (! $atts['needs_approval']) {
+            $this->notify($model);
         }
 
         $this->notifyAdmins($model);
