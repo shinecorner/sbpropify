@@ -1,6 +1,6 @@
 <template>
-    <div :class="['posts']">
-        
+    <div :class="['posts-box']">
+        <div :class="['posts']">
         <div class="container" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading">
             <ui-heading icon="icon-megaphone-1" title="News" description="Sed placerat volutpat mollis." />
         
@@ -31,6 +31,7 @@
                 </dynamic-scroller>
             </div>
             <rss-feed title="Blick.ch News" />
+        </div>
         </div>
         <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
             <ui-divider content-position="left" v-if="editingPost">{{$t('tenant.edit_post')}}</ui-divider>
@@ -220,6 +221,18 @@
 
 
 <style lang="scss" scoped>
+    .layout .container .content .view {
+        padding: 0;
+    }
+
+    .posts {
+        width: 100%;
+        height: 100%;
+        padding: 16px;
+        overflow-y: auto;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
     .container {
         display: grid;
         grid-gap: 12px;
@@ -283,7 +296,7 @@
 </style>
 
 <style lang="sass" scoped>
-    .posts
+    .posts-box
         /deep/ .ui-drawer
             display: flex
             flex-direction: column

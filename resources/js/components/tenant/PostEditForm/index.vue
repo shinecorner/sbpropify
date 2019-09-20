@@ -9,7 +9,7 @@
             <ui-media-gallery :files="data.media.map(({url}) => url)" />
             <media-uploader ref="media" :id="product_id" type="products" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
         </el-form-item>
-        <el-form-item v-if="!hideSubmit" style="grid-column: span 3">
+        <el-form-item v-if="!hideSubmit" style="grid-column: span 6; display: flex; flex-direction: column; justify-content: flex-end;">
             <el-button class="submit" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
         </el-form-item>
     </el-form>
@@ -46,43 +46,15 @@
                     media: [],
                     type: null,
                     title: null,
-                    price: {
-                        integer: '0',
-                        decimals: '00'
-                    },
                     content: null,
                     visibility: null,
                     tenant_name: null,
                     tenant_phone: null,       
                 },
                 validationRules: {
-                    type: {
-                        required: true,
-                        message: this.$t('validation.required',{attribute: this.$t('tenant.type')})
-                    },
-                    title: {
-                        required: true,
-                        message: this.$t('validation.required',{attribute: this.$t('tenant.title')})
-                    },
-                    price: {
-                        required: true,
-                        validator: this.priceValidator
-                    },
                     content: {
                         required: true,
                         message: this.$t('validation.required',{attribute: this.$t('tenant.content')})
-                    },
-                    visibility: {
-                        required: true,
-                        message: this.$t('validation.required',{attribute: this.$t('tenant.visibility')})
-                    },
-                    tenant_name: {
-                        required: true,
-                        message: this.$t('validation.required',{attribute: this.$t('tenant.contact_name')})
-                    },
-                    tenant_phone: {
-                        required: true,
-                        message: this.$t('validation.required',{attribute: this.$t('tenant.contact_phone')})
                     }
                 }
             }
@@ -93,13 +65,11 @@
                     if (valid) {
                         this.loading = true;
 
-                        const {price, media, tenant_name, tenant_phone, ...params} = this.model
+                        const {media, tenant_name, tenant_phone, ...params} = this.model
 
-                        params.price = `${price.integer}.${price.decimals}`
-                        params.contact = `${tenant_name} - ${tenant_phone}`
                         params.id = this.data.id
 
-                        const resp = await this.$store.dispatch('newProducts/update', params);
+                        const resp = await this.$store.dispatch('newPosts/update', params);
                         
                         if (resp && resp.data) {                            
                             if (this.model.media.length) {
@@ -112,32 +82,12 @@
 
                         this.loading = false
                         this.$refs.form.resetFields()
-                        // this.$refs.media.clearUploader()
                     }
                 })
             },
-            priceValidator (rule, value, callback) {
-                const integer = +(value.integer || undefined)
-                const decimals = +(value.decimals || undefined)
-
-                if (!isNaN(integer) &&
-                    !isNaN(decimals) &&
-                    integer % 1 === 0 &&
-                    decimals % 1 === 0 &&
-                    decimals >= 0 && decimals <= 99 &&
-                    integer >= 0 && integer <= Number.MAX_SAFE_INTEGER
-                ) {
-                    callback()
-                } else {
-                    callback(new Error('The price is invalid'))
-                }
-            }
+            
         },
-        computed: {
-            isPriceVisible () {
-                return this.model.type != (Object.values(this.$constants.products.type).find(name => name === 'giveaway') || [])[0]
-            }
-        },
+        
         created () {
 
             console.log('edit', this.data)
