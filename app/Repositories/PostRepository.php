@@ -85,6 +85,7 @@ class PostRepository extends BaseRepository
         $atts = $this->fixBollInt($atts, 'is_execution_time', 1);
 
         if (! $atts['needs_approval']) {
+            // @TODO correct this things
             $atts['status'] = Post::StatusPublished;
         }
 
@@ -98,12 +99,13 @@ class PostRepository extends BaseRepository
             $model->quarters()->sync($atts['quarter_ids']);
         }
 
-        if (!empty($atts['quarter_ids'])) {
+        if (!empty($atts['building_ids'])) {
             $model->buildings()->sync($atts['building_ids']);
         }
 
+        $notificationData = [];
         if (Post::StatusPublished == $atts['status']) {
-            $this->notify($model);
+            $notificationData = $this->notify($model);
         }
 
         $this->notifyAdmins($model);
@@ -205,8 +207,7 @@ class PostRepository extends BaseRepository
         }
 
         if (! empty($quarterIds) || !empty($buildingIds)) {
-            $users = User::select('users.*')
-                ->join('tenants', 'tenants.user_id', '=', 'users.id')
+            $tenants = Tenant::select('tenants.*')->with('user')
                 ->join('tenant_rent_contracts', 'tenant_rent_contracts.tenant_id', '=', 'tenants.id')
                 ->when($quarterIds, function ($q) {
                     $q->join('buildings', 'tenant_rent_contracts.building_id', '=', 'buildings.id')
@@ -214,7 +215,7 @@ class PostRepository extends BaseRepository
                 })
                 ->where('tenants.deleted_at', null)
                 ->where('tenant_rent_contracts.status', RentContract::StatusActive)
-                ->where('users.id', '!=', $post->user_id)
+                ->where('tenants.user_id', '!=', $post->user_id)
                 ->where(function ($q) use ($buildingIds, $quarterIds) {
                     $q->when($buildingIds, function ($q) use ($buildingIds) {
                             $q->whereIn('tenant_rent_contracts.building_id', $buildingIds);
@@ -224,6 +225,9 @@ class PostRepository extends BaseRepository
                         });
                 })
                 ->get();
+
+            $tenants = $tenants->unique();
+            $users = $tenants->pluck('user');
             $usersToNotify = $usersToNotify->merge($users);
         }
 
