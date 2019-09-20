@@ -44,10 +44,7 @@
                 product_id: null,
                 model: {
                     media: [],
-                    type: null,
-                    title: null,
                     content: null,
-                    visibility: null,
                     tenant_name: null,
                     tenant_phone: null,       
                 },
