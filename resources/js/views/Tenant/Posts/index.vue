@@ -40,12 +40,6 @@
                 <post-edit-form :data="editingPost" v-if="editingPost" :visible.sync="visibleDrawer"/>
             </div>
         </ui-drawer>
-        <post-delete-modal
-                :deleteModalVisible="deleteModalVisible"
-                :delPostStatus="delPostStatus"
-                :closeModal="closePostDeleteModal"
-                :deleteSelectedPost="deleteSelectedPost"
-            />
         
     </div>
 </template>
@@ -179,27 +173,17 @@
                 this.resetFilters ()
             },
             async deletePost(event, data) {
-                this.deleteModalVisible = true
-                this.delPostStatus = 2;
-                // const resp = await this.$confirm(this.$t(`general.swal.delete_listing.text`), this.$t(`general.swal.delete_listing.title`), {
-                //     type: 'warning'
-                // }).then(() => {
-                //     this.$store.dispatch('newPosts/delete', data)
-                // }).catch(() => {
-                // });
-               
-                
+                const resp = await this.$confirm(this.$t(`general.swal.delete_listing.text`), this.$t(`general.swal.delete_listing.title`), {
+                    type: 'warning'
+                }).then(() => {
+                    this.$store.dispatch('newPosts/delete', data)
+                }).catch(() => {
+                });
             },
             editPost(event, data) {
                 console.log('editPost', data)
                this.editingPost = data;
                this.visibleDrawer = true;
-            },
-            async deleteSelectedPost() {
-                this.deleteModalVisible = false;
-            },
-            closePostDeleteModal() {
-                this.deleteModalVisible = false;
             }
         },
         watch: {

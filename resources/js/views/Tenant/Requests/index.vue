@@ -147,6 +147,7 @@
                 visibleDrawer: false,
                 activeDrawerTab: 'chat',
                 activeDrawerMediaTab: 0,
+                addRequestDialogVisible: false,
                 statusChangeModalVisible: false,
                 deleteModalVisible: false,
                 filters: {
