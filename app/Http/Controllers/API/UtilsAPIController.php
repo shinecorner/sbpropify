@@ -117,6 +117,7 @@ class UtilsAPIController extends AppBaseController
             'buildings' => [],
             'units' => self::getUnitConstants(),
             'tenants' => self::getTenantConstants(),
+            'rentContracts' => self::getRentContractConstants(),
             'serviceProviders' => self::getServiceProviderConstants(),
             'serviceRequests' => self::getServiceRequestsConstants(),
             'propertyManager' => self::getPropertyManagerConstants(),
@@ -143,6 +144,19 @@ class UtilsAPIController extends AppBaseController
         $result = [
             'title' => Tenant::Title,
             'status' => Tenant::Status,
+        ];
+
+        return $result;
+    }
+
+    private function getRentContractConstants()
+    {
+        $result = [
+            'type' => App\Models\RentContract::Type,
+            'duration' => App\Models\RentContract::Duration,
+            'status' => App\Models\RentContract::Status,
+            'deposit_type' => App\Models\RentContract::DepositType,
+            'deposit_status' => App\Models\RentContract::DepositStatus,
         ];
 
         return $result;

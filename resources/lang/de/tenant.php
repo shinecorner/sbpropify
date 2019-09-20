@@ -13,7 +13,7 @@ return [
         "send" => "Senden",
         "view_all" => "Alle anzeigen",
         "view" => "Ansicht",
-        "to_done" => "Zu erledigen",
+        "to_done" => "Als erledigt markieren",
         "to_reactivated" => "Reaktivieren",
     ],
     "salutation_option" => [
@@ -58,6 +58,11 @@ return [
         "marketplace" => "Marktplatz-Benachrichtigungen",
         "admin" => "Admin-Benachrichtigungen",
     ],
+    "tooltips" => [
+        "edit_post" => "Beitrag bearbeiten",
+        "delete_post" => "Beitrag löschen",
+        "status_change_requeset" => "Hier können Sie den Status der Anfrage ändern.",
+    ],
     "created_date" => "Erstelldatum",
     "due_date" => "Fälligkeitsdatum",
     "drag_drop_file" => "Dateien ablegen oder hier klicken, um sie auszuwählen.",
@@ -69,6 +74,7 @@ return [
     "logout_confirm" => "Sind Sie sicher?",
     "quick_links" => "Schnell-Links",
     "add_post" => "Einen Beitrag hinzufügen",
+    "edit_post" => "Einen Beitrag bearbeiten",
     "add_request" => "Eine Anfrage hinzufügen",
     "add_product" => "Ein Produkt hinzufügen",
     "edit_product" => "Ein Produkt bearbeiten",

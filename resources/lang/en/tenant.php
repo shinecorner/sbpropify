@@ -13,7 +13,7 @@ return [
         "send" => "Send",
         "view_all" => "View all",
         "view" => "View",
-        "to_done" => "To Done",
+        "to_done" => "Mark as done",
         "to_reactivated" => "Reactivate",
     ],
     "salutation_option" => [
@@ -58,6 +58,11 @@ return [
         "marketplace" => "Marketplace notifications",
         "admin" => "Admin notifications",
     ],
+    "tooltips" => [
+        "edit_post" => "Edit post",
+        "delete_post" => "Delete post",
+        "status_change_requeset" => "Here you can change the status of request.",
+    ],
     "created_date" => "Created date",
     "due_date" => "Due date",
     "drag_drop_file" => "Drop files or click here to select",
@@ -69,6 +74,7 @@ return [
     "logout_confirm" => "Are you sure?",
     "quick_links" => "Quick links",
     "add_post" => "Add a post",
+    "edit_post" => "Edit a post",
     "add_request" => "Add a request",
     "add_product" => "Add a product",
     "edit_product" => "Edit a product",

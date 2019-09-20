@@ -33,7 +33,7 @@
                         </like>
                     </div>
                 </template>
-                <div class="content">{{post.content}}</div>
+                <div class="content" v-html="post.content"></div>
                 <el-button size="mini" icon="icon-right-1" plain round @click="$router.push({name: 'tenantPost',  params: { id: post.id } });">{{$t('tenant.actions.view')}}</el-button>
             </el-collapse-item>
         </el-collapse>
@@ -70,9 +70,10 @@
             })
         },
         async mounted () {
-            if (!this.posts.length) {
+            //if (!this.posts.length) {
                 this.loading = true
-
+                
+                await this.$store.dispatch('newPosts/reset');
                 await this.$store.dispatch('newPosts/get', {
                     feed: 1,
                     sortedBy: 'desc',
@@ -82,7 +83,7 @@
                 })
 
                 this.timeout = setTimeout(() => this.loading = false, EXTRA_LOADING_SECONDS)
-            }
+            //}
         },
         beforeDestroy () {
             clearTimeout(this.timeout)
