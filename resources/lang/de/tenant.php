@@ -59,7 +59,8 @@ return [
         "admin" => "Admin-Benachrichtigungen",
     ],
     "tooltips" => [
-        "delete_post" => "Hier kannst du den Beitrag löschen.",
+        "edit_post" => "Beitrag bearbeiten",
+        "delete_post" => "Beitrag löschen",
         "status_change_requeset" => "Hier können Sie den Status der Anfrage ändern.",
     ],
     "created_date" => "Erstelldatum",
@@ -73,6 +74,7 @@ return [
     "logout_confirm" => "Sind Sie sicher?",
     "quick_links" => "Schnell-Links",
     "add_post" => "Einen Beitrag hinzufügen",
+    "edit_post" => "Einen Beitrag bearbeiten",
     "add_request" => "Eine Anfrage hinzufügen",
     "add_product" => "Ein Produkt hinzufügen",
     "edit_product" => "Ein Produkt bearbeiten",

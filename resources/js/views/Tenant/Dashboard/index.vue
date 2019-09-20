@@ -185,6 +185,7 @@
 <style lang="scss" scoped>
     .dashboard {
         overflow: auto;
+        padding: 16px;
         
         .heading {
             .description {
