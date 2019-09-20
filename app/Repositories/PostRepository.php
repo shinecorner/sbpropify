@@ -184,12 +184,14 @@ class PostRepository extends BaseRepository
 
     /**
      * @param Post $post
+     * @return \Illuminate\Support\Collection
      */
     public function notify(Post $post)
     {
         if (!$post->notify_email) {
-            return;
+            return collect();
         }
+
         $usersToNotify = new Collection();
 
         if ($post->visibility == Post::VisibilityAll) {
@@ -206,27 +208,41 @@ class PostRepository extends BaseRepository
             $buildingIds = $post->buildings()->pluck('id')->toArray();
         }
 
+        $tenants = collect();
         if (! empty($quarterIds) || !empty($buildingIds)) {
-            $tenants = Tenant::select('tenants.*')->with('user')
-                ->join('tenant_rent_contracts', 'tenant_rent_contracts.tenant_id', '=', 'tenants.id')
-                ->when($quarterIds, function ($q) {
-                    $q->join('buildings', 'tenant_rent_contracts.building_id', '=', 'buildings.id')
-                        ->where('buildings.deleted_at', null);
-                })
-                ->where('tenants.deleted_at', null)
-                ->where('tenant_rent_contracts.status', RentContract::StatusActive)
-                ->where('tenants.user_id', '!=', $post->user_id)
-                ->where(function ($q) use ($buildingIds, $quarterIds) {
-                    $q->when($buildingIds, function ($q) use ($buildingIds) {
-                            $q->whereIn('tenant_rent_contracts.building_id', $buildingIds);
-                        })
-                        ->when($quarterIds, function ($q) use ($quarterIds) {
-                            $q->orWhereIn('buildings.quarter_id', $quarterIds);
-                        });
-                })
-                ->get();
+            $tenants = Tenant::select('tenants.id', 'tenants.first_name', 'tenants.last_name', 'tenants.user_id')
+                ->with('user')
+                ->whereNull('tenants.deleted_at')
+                ->whereHas('rent_contracts', function ($q) use ($quarterIds, $buildingIds) {
 
-            $tenants = $tenants->unique();
+                    $q->where('status', RentContract::StatusActive)
+                        ->when(
+                            ! empty($quarterIds) && !empty($buildingIds),
+                            function ($q)  use ($quarterIds, $buildingIds) {
+                                $q->whereHas('building', function ($q) use ($quarterIds, $buildingIds) {
+                                    $q->where(function ($q) use ($quarterIds, $buildingIds) {
+                                        $q->whereIn('id', $buildingIds)->orWhereIn('quarter_id', $quarterIds);
+                                    })->whereNull('buildings.deleted_at');
+                                });
+                            },
+                            function ($q) use ($quarterIds, $buildingIds) {
+                                $q->when(
+                                    !empty($quarterIds),
+                                    function ($q) use ($quarterIds) {
+                                        $q->whereHas('building', function ($q) use ($quarterIds) {
+                                            $q  ->whereIn('quarter_id', $quarterIds)
+                                                ->whereNull('buildings.deleted_at');
+                                        });
+                                    },
+                                    function ($q) use ($buildingIds) {
+                                        $q->whereIn('building_id', $buildingIds);
+                                    }
+                                );
+                            }
+                        );
+
+                })->get();
+
             $users = $tenants->pluck('user');
             $usersToNotify = $usersToNotify->merge($users);
         }
@@ -235,23 +251,35 @@ class PostRepository extends BaseRepository
         $usersToNotify->load('settings:user_id,admin_notification,news_notification');
 
         $i = 0;
+
+        $notificationData = collect([
+            'pinned_post_published' => collect(),
+            'post_published' => collect(),
+            'post_new_tenant_neighbor' => collect(),
+            'tenants' => $tenants
+        ]);
         foreach ($usersToNotify as $u) {
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
             $u->redirect = '/news';
             if ($u->settings && $u->settings->admin_notification && $post->pinned) {
+                $notificationData['pinned_post_published']->push($u);
                 $u->notify((new PinnedPostPublished($post))
                     ->delay(now()->addSeconds($delay)));
                 continue;
             }
             if ($u->settings && $u->settings->news_notification && ! $post->pinned) {
                 if ($post->type == Post::TypePost) {
+                    $notificationData['post_published']->push($u);
                     $u->notify(new PostPublished($post));
                 }
                 if ($post->type == Post::TypeNewNeighbour) {
+                    $notificationData['post_new_tenant_neighbor']->push($u);
                     $u->notify((new NewTenantInNeighbour($post))->delay($post->published_at));
                 }
             }
         }
+
+        return $notificationData;
     }
 
     /**
