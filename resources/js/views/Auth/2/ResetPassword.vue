@@ -147,13 +147,7 @@
                 }
             },
         },
-        beforeCreate() {
-            if(this.$constants.login.variation == 1) {
-                this.$router.push({
-                    name: 'resetPassword'
-                });
-            }
-        }
+      
     }
 </script>
 <style lang="scss" scoped>

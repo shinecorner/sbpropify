@@ -196,10 +196,13 @@
                 return buildings.data;
             },
             async getFilterCategories() {
-                const categoriesResp = await this.getRequestCategoriesTree({});
-                const categories = this.prepareCategories(categoriesResp.data);
+                const {data: categories} = await this.getRequestCategoriesTree({get_all: true});
 
-                return categories;
+                this.categories = categories.filter(category => {
+                    return category.parent_id !== 1;
+                });
+                console.log(this.categories);
+                return this.categories;
             },
             async getFilterServices() {
                 const services = await this.getServices({get_all: true});
@@ -304,7 +307,13 @@
             this.isLoadingFilters = false;
 
             //const routeName = this.$route.name;
-        }
+        },
+        async mounted() {
+            this.$root.$on('changeLanguage', () => {
+                this.getFilterCategories();
+            });
+            
+        },
     }
 </script>
 <style>
