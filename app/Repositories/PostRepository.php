@@ -103,13 +103,12 @@ class PostRepository extends BaseRepository
             $model->buildings()->sync($atts['building_ids']);
         }
 
-        $notificationData = [];
+        $notificationData = collect();
         if (Post::StatusPublished == $atts['status']) {
             $notificationData = $this->notify($model);
         }
-
-        $this->notifyAdmins($model);
-        $this->notifyAdminActions($model);
+        $notificationData['admin_new_tenant_post'] = $this->notifyAdminNewTenantPosts($model);
+//        $this->notifyAdminActions($model);
         return $model;
     }
 
@@ -293,10 +292,10 @@ class PostRepository extends BaseRepository
         // @TODO
     }
 
-    public function notifyAdmins(Post $post)
+    public function notifyAdminNewTenantPosts(Post $post)
     {
         $re = RealEstate::firstOrFail();
-        $tRepo = new TemplateRepository(app());
+        $admins = collect();
         if ($post->user->tenant) {
             $admins = User::whereIn('id', $re->news_receiver_ids)->get();
             $i = 0;
@@ -308,6 +307,7 @@ class PostRepository extends BaseRepository
                 $admin->notify($notif);
             }
         }
+        return $admins;
     }
 
     /**
