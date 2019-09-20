@@ -1,15 +1,17 @@
 <template>
-    <el-dialog  :close-on-click-modal="false" 
-                :title="$t('models.building.delete_building_modal.title')"
-                :visible="deletePostVisible"
+    <el-dialog  :close-on-click-modal="true" 
+                :title="$t(`general.swal.delete_listing.title`)"
+                :visible="deleteModalVisible"
                 width="30%"
-                class="delete_building_modal">
+                :modal="false"
+                class="delete_building_modal"
+                :modalAppendToBody="false">
             <el-row>
                 <el-col :span="24">
-                    <p class="description">{{getDelBuildingDescription()}}</p>                    
+                    <p class="description">{{ $t(`general.swal.delete_listing.text`) }}</p>                    
                 </el-col>
             </el-row>
-            <el-row v-if="(delBuildingStatus == 0 || delBuildingStatus == 2)">
+            <el-row>
                 <el-col :span="24">
                     <el-switch 
                         :active-text="$t('models.building.delete_building_modal.delete_units')"
@@ -18,19 +20,10 @@
                         class="delete_switch" />
                 </el-col>
             </el-row>
-            <el-row v-if="(delBuildingStatus == 1 || delBuildingStatus == 2)">
-                <el-col :span="24">
-                    <el-switch 
-                        :active-text="$t('models.building.delete_building_modal.delete_requests')"
-                        :inactive-text="$t('models.building.delete_building_modal.dont_delete_requests')"
-                        v-model="is_request"
-                        class="delete_switch" />
-                </el-col>
-            </el-row>
 
             <span class="dialog-footer" slot="footer">
                 <el-button @click="close" size="mini">{{$t('models.building.cancel')}}</el-button>
-                <el-button @click="deleteSelectedPost(is_units, is_request)" size="mini" type="danger">{{$t('general.actions.delete')}}</el-button>
+                <el-button @click="deleteSelectedPost()" size="mini" type="danger">{{$t('general.actions.delete')}}</el-button>
             </span>
     </el-dialog>
 </template>
@@ -38,7 +31,7 @@
     export default {
         name: 'p-post-delete-modal',
         props: {
-            deletePostVisible: {
+            deleteModalVisible: {
                 type: Boolean,
                 required: true
             },
@@ -47,6 +40,10 @@
                 required: true
             },
             deleteSelectedPost: {
+                type: Function,
+                required: true
+            },
+            closeModal: {
                 type: Function,
                 required: true
             }
@@ -58,22 +55,10 @@
             }
         },
         methods: {
-            getDelBuildingDescription() {
-                switch(this.delBuildingStatus) {
-                    case 0:
-                        return this.$t('models.building.delete_building_modal.description_unit');
-                    case 1:
-                        return this.$t('models.building.delete_building_modal.description_request');
-                    case 2:
-                        return this.$t('models.building.delete_building_modal.description_both');
-                    default:
-                        return "";
-                }
-            },
             close() {
                 this.is_units = false;
                 this.is_request = false;
-                this.$emit('closeModal');
+                this.closeModal();
             }            
         },        
     };

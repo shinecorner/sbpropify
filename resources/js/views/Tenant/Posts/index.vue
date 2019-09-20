@@ -33,7 +33,7 @@
                 <rss-feed title="Blick.ch News" />
             </div>
             <post-delete-modal
-                :deletePostVisible="deletePostVisible"
+                :deleteModalVisible="deleteModalVisible"
                 :delBuildingStatus="delBuildingStatus"
                 :closeModal="closePostDeleteModal"
                 :deleteSelectedPost="deleteSelectedPost"
@@ -134,7 +134,7 @@
                 filterCategory: null,
                 editingPost: null,
                 visibleDrawer: false,
-                deletePostVisible: false,
+                deleteModalVisible: false,
                 delBuildingStatus: -1
             }
         },
@@ -179,7 +179,7 @@
                 this.resetFilters ()
             },
             async deletePost(event, data) {
-                this.deletePostVisible = true
+                this.deleteModalVisible = true
                 this.delBuildingStatus = 2;
                 // const resp = await this.$confirm(this.$t(`general.swal.delete_listing.text`), this.$t(`general.swal.delete_listing.title`), {
                 //     type: 'warning'
@@ -195,11 +195,11 @@
                this.editingPost = data;
                this.visibleDrawer = true;
             },
-            async deleteSelectedPost(isUnits, isRequests) {
-                console.log('delete');
+            async deleteSelectedPost() {
+                this.deleteModalVisible = false;
             },
             closePostDeleteModal() {
-                this.deleteBuildingVisible = false;
+                this.deleteModalVisible = false;
             }
         },
         watch: {
