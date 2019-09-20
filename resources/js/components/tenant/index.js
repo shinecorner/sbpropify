@@ -49,6 +49,9 @@ import ProductDetailsLoader from './ProductDetails/Loader'
 import RateCardError from './RateCard/Error'
 import RateCardLoader from './RateCard/Loader'
 
+import RequestAddFormError from './RequestAddForm/Error'
+import RequestAddFormLoader from './RequestAddForm/Loader'
+
 import RequestCardError from './RequestCard/Error'
 import RequestCardLoader from './RequestCard/Loader'
 
@@ -196,6 +199,13 @@ export default {
                 component: import(/* webpackChunkName: "requestCard" */ './RequestCard'),
                 loading: RequestCardLoader,
                 error: RequestCardError,
+                delay: 0,
+                timeout: 8000
+            }),
+            requestAddForm: () => ({
+                component: import(/* webpackChunkName: "requestAddForm" */ './RequestAddForm'),
+                loading: RequestAddFormLoader,
+                error: RequestAddFormError,
                 delay: 0,
                 timeout: 8000
             }),
