@@ -13,7 +13,7 @@ return [
         "send" => "Send",
         "view_all" => "View all",
         "view" => "View",
-        "to_done" => "To Done",
+        "to_done" => "Mark as done",
         "to_reactivated" => "Reactivate",
     ],
     "salutation_option" => [
