@@ -35,7 +35,6 @@ export default {
                     'table',
                     'emotion',
                     '|',
-                    'img',
                     'video',
                     'location',
                     'insertcode',
