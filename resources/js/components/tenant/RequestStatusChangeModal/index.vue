@@ -1,13 +1,13 @@
 <template>
     <el-dialog  :close-on-click-modal="true" 
-                :title="$t(`general.swal.delete_listing.title`)"
-                :visible="deleteModalVisible"
-                width="30%"
-                class="post-delete-modal"
+                :title="$t(`general.swal.to_done.title`)"
+                :visible="statusChangeModalVisible"
+                width="40%"
+                class="request-status-change-modal"
                 :modalAppendToBody="false">
             <el-row>
                 <el-col :span="24">
-                    <p class="description">{{ $t(`general.swal.delete_listing.text`) }}</p>                    
+                    <p class="description">{{ $t(`general.swal.to_done.text`) }}</p>                    
                 </el-col>
             </el-row>
             <el-row>
@@ -18,23 +18,19 @@
 
             <span class="dialog-footer" slot="footer">
                 <el-button @click="close" size="mini">{{$t('models.building.cancel')}}</el-button>
-                <el-button @click="deleteSelectedPost()" size="mini" type="danger">{{$t('general.actions.delete')}}</el-button>
+                <el-button @click="changeStatus()" size="mini" type="danger">{{$t('general.actions.delete')}}</el-button>
             </span>
     </el-dialog>
 </template>
 <script>
     export default {
-        name: 'p-post-delete-modal',
+        name: 'p-request-status-change-modal',
         props: {
-            deleteModalVisible: {
+            statusChangeModalVisible: {
                 type: Boolean,
                 required: true
             },
-            delPostStatus: {
-                type: Number,
-                required: true
-            },
-            deleteSelectedPost: {
+            changeStatus: {
                 type: Function,
                 required: true
             },
@@ -58,7 +54,7 @@
     };
 </script>
 <style lang="scss">
-    .post-delete-modal {        
+    .request-status-change-modal {        
 
         .el-row {
             margin: 0 0 22px 0;

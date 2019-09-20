@@ -121,15 +121,11 @@
                 </el-tab-pane>
             </el-tabs>
         </ui-drawer>
-        
-
-        <!-- <el-dialog ref="add-request-dialog" title="Add request" :visible.sync="addRequestDialogVisible" custom-class="add-request-dialog" append-to-body>
-            
-            <span slot="footer" class="dialog-footer">
-                <el-button icon="el-icon-close" @click="addRequestDialogVisible = false" round>Cancel</el-button>
-                <el-button type="primary" icon="el-icon-check" round @click="addRequest">Confirm</el-button>
-            </span>
-        </el-dialog> -->
+        <request-status-change-modal
+                :statusChangeModalVisible="statusChangeModalVisible"
+                :closeModal="closeStatusChangeModal"
+                :changeStatus="changeStatus"
+            />
     </div>
 </template>
 
@@ -151,7 +147,8 @@
                 visibleDrawer: false,
                 activeDrawerTab: 'chat',
                 activeDrawerMediaTab: 0,
-                addRequestDialogVisible: false,
+                statusChangeModalVisible: false,
+                deleteModalVisible: false,
                 filters: {
                     schema: [{
                         type: 'el-select',
@@ -274,16 +271,17 @@
 
             },
             changeToDone(request) {
-                
-                this.$confirm(this.$t(`general.swal.to_done.text`), this.$t(`general.swal.to_done.title`), {
-                    type: 'warning'
-                }).then(() => {
-                    request.status = 4
-                    request.category_id = request.category.id
-                    this.$store.dispatch('newRequests/update', request)
-                }).catch(err => {
-                    console.log(err)
-                });
+                this.statusChangeModalVisible = true
+
+                // this.$confirm(this.$t(`general.swal.to_done.text`), this.$t(`general.swal.to_done.title`), {
+                //     type: 'warning'
+                // }).then(() => {
+                //     request.status = 4
+                //     request.category_id = request.category.id
+                //     this.$store.dispatch('newRequests/update', request)
+                // }).catch(err => {
+                //     console.log(err)
+                // });
                 
             },
             resetDataFromDrawer () {
@@ -310,6 +308,12 @@
 
                 this.$refs['request-add-form'].submit()
             },
+            changeStatus() {
+                this.statusChangeModalVisible = false;
+            },
+            closeStatusChangeModal() {
+                this.statusChangeModalVisible = false;
+            }
         },
         mounted () {
             //this.$refs['dynamic-scroller'].forceUpdate()

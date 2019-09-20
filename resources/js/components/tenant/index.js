@@ -58,6 +58,9 @@ import RequestAddFormLoader from './RequestAddForm/Loader'
 import RequestCardError from './RequestCard/Error'
 import RequestCardLoader from './RequestCard/Loader'
 
+import RequestStatusChangeModalError from './RequestStatusChangeModal/Error'
+import RequestStatusChangeModalLoader from './RequestStatusChangeModal/Loader'
+
 import RequestsStatisticsCardError from './RequestsStatisticsCard/Error'
 import RequestsStatisticsCardLoader from './RequestsStatisticsCard/Loader'
 
@@ -216,6 +219,13 @@ export default {
                 component: import(/* webpackChunkName: "requestAddForm" */ './RequestAddForm'),
                 loading: RequestAddFormLoader,
                 error: RequestAddFormError,
+                delay: 0,
+                timeout: 8000
+            }),
+            requestStatusChangeModal: () => ({
+                component: import(/* webpackChunkName: "requestAddForm" */ './RequestStatusChangeModal'),
+                loading: RequestStatusChangeModalLoader,
+                error: RequestStatusChangeModalError,
                 delay: 0,
                 timeout: 8000
             }),

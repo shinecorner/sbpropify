@@ -32,12 +32,7 @@
                 </div>
                 <rss-feed title="Blick.ch News" />
             </div>
-            <post-delete-modal
-                :deleteModalVisible="deleteModalVisible"
-                :delBuildingStatus="delBuildingStatus"
-                :closeModal="closePostDeleteModal"
-                :deleteSelectedPost="deleteSelectedPost"
-            />
+            
         </div>
         <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
             <ui-divider content-position="left" v-if="editingPost">{{$t('tenant.edit_post')}}</ui-divider>
@@ -45,7 +40,12 @@
                 <post-edit-form :data="editingPost" v-if="editingPost" :visible.sync="visibleDrawer"/>
             </div>
         </ui-drawer>
-
+        <post-delete-modal
+                :deleteModalVisible="deleteModalVisible"
+                :delPostStatus="delPostStatus"
+                :closeModal="closePostDeleteModal"
+                :deleteSelectedPost="deleteSelectedPost"
+            />
         
     </div>
 </template>
@@ -135,7 +135,7 @@
                 editingPost: null,
                 visibleDrawer: false,
                 deleteModalVisible: false,
-                delBuildingStatus: -1
+                delPostStatus: -1
             }
         },
         methods: {
@@ -180,7 +180,7 @@
             },
             async deletePost(event, data) {
                 this.deleteModalVisible = true
-                this.delBuildingStatus = 2;
+                this.delPostStatus = 2;
                 // const resp = await this.$confirm(this.$t(`general.swal.delete_listing.text`), this.$t(`general.swal.delete_listing.title`), {
                 //     type: 'warning'
                 // }).then(() => {
