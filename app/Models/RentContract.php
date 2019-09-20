@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Schema;
 use OwenIt\Auditing\AuditableObserver;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -263,6 +265,12 @@ class RentContract extends AuditableModel implements HasMedia
 
     protected function getFormatColumnName()
     {
-        return 'rent_contract_format';
+        $colName = Cache::rememberForever('rent_contract_format', function () {
+                return Schema::hasColumn($this->getTable(),'rent_contract_format')
+                    ? 'rent_contract_format'
+                    : 'tenant_rent_contract_format';
+            });
+
+        return $colName;
     }
 }

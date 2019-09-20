@@ -132,7 +132,10 @@
                                     </div>
                                 </el-form-item>
                             </el-tab-pane>
-                            <el-tab-pane :label="$t('models.post.comments')" name="comments">
+                            <el-tab-pane name="comments">
+                                <span slot="label">
+                                    <el-badge :value="commentCount" :max="99" class="admin-layout">{{ $t('models.post.comments') }}</el-badge>
+                                </span>
                                 <chat class="edit-post-chat" :id="model.id" size="480px" type="post"/>
                             </el-tab-pane>
                         </el-tabs>
@@ -450,6 +453,7 @@
     import {mapActions} from 'vuex';
     import {Avatar} from 'vue-avatar'
     import AssignmentByType from 'components/AssignmentByType';
+    import { EventBus } from '../../../event-bus.js';
 
     let YimoVueEditor = require("yimo-vue-editor");
 
@@ -466,6 +470,7 @@
         },
         data() {
             return {
+                commentCount: 0,
                 assignmentsColumns: [{
                     prop: 'name',
                     label: 'general.name'
@@ -503,6 +508,9 @@
         },
         mounted() {
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
+            EventBus.$on('comments-get-counted', comment_count => {
+                this.commentCount = comment_count;
+            });
         },
         methods: {
             ...mapActions(['unassignPostBuilding', 'unassignPostQuarter', 'unassignPostProvider', 'deletePost']),
@@ -615,7 +623,7 @@
             display: inline-block;
             margin-bottom: 10px;
         }
-    }
+    }    
     .contact-info-content {
         display: flex;
         justify-content: center;
@@ -681,7 +689,16 @@
         }
     }
 </style>
-
+<style lang="scss">
+    .admin-layout .el-badge__content.is-fixed {
+        top: 19px;
+        right: -5px;
+        background-color: var(--primary-color) !important;
+        margin-left: 5px;
+        height: 18px;
+        width: 6px;
+    }
+</style>
 <style>
 
     #post-edit-view .el-card__body .el-form-item:last-child {
