@@ -34,6 +34,9 @@ import PostNewTenantCardLoader from './PostNewTenantCard/Loader'
 import PostEditFormError from './PostEditForm/Error'
 import PostEditFormLoader from './PostEditForm/Loader'
 
+import PostDeleteModalError from './PostDeleteModal/Error'
+import PostDeleteModalLoader from './PostDeleteModal/Loader'
+
 import ProductAddFormError from './ProductAddForm/Error'
 import ProductAddFormLoader from './ProductAddForm/Loader'
 
@@ -157,6 +160,13 @@ export default {
                 component: import(/* webpackChunkName: "postEditForm" */ './PostEditForm'),
                 loading: PostEditFormLoader,
                 error: PostEditFormError,
+                delay: 0,
+                timeout: 8000
+            }),
+            postDeleteModal: () => ({
+                component: import(/* webpackChunkName: "postDeleteModal" */ './PostDeleteModal'),
+                loading: PostDeleteModalLoader,
+                error: PostDeleteModalError,
                 delay: 0,
                 timeout: 8000
             }),

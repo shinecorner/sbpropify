@@ -1,7 +1,7 @@
 <template>
     <el-dialog  :close-on-click-modal="false" 
                 :title="$t('models.building.delete_building_modal.title')"
-                :visible="deleteBuildingVisible"
+                :visible="deletePostVisible"
                 width="30%"
                 class="delete_building_modal">
             <el-row>
@@ -30,14 +30,15 @@
 
             <span class="dialog-footer" slot="footer">
                 <el-button @click="close" size="mini">{{$t('models.building.cancel')}}</el-button>
-                <el-button @click="deleteSelectedBuilding(is_units, is_request)" size="mini" type="danger">{{$t('general.actions.delete')}}</el-button>
+                <el-button @click="deleteSelectedPost(is_units, is_request)" size="mini" type="danger">{{$t('general.actions.delete')}}</el-button>
             </span>
     </el-dialog>
 </template>
 <script>
     export default {
+        name: 'p-post-delete-modal',
         props: {
-            deleteBuildingVisible: {
+            deletePostVisible: {
                 type: Boolean,
                 required: true
             },
@@ -45,11 +46,7 @@
                 type: Number,
                 required: true
             },
-            deleteSelectedBuilding: {
-                type: Function,
-                required: true
-            },
-            closeModal: {
+            deleteSelectedPost: {
                 type: Function,
                 required: true
             }
@@ -76,7 +73,7 @@
             close() {
                 this.is_units = false;
                 this.is_request = false;
-                this.closeModal();
+                this.$emit('closeModal');
             }            
         },        
     };
