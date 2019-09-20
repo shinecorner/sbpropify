@@ -6,9 +6,12 @@
                 class="request-status-change-modal"
                 :modalAppendToBody="false">
             <el-row>
-                <el-col :span="24">
+                <el-col :span="24" v-if="statusChangeModalType=='done'">
                     <p class="description">{{ $t(`general.swal.to_done.desc`) }}</p>
                     <p class="description">{{ $t(`general.swal.to_done.message`) }}</p>
+                </el-col>
+                <el-col :span="24" v-if="statusChangeModalType=='reactivate'">
+                    <p class="description">{{ $t(`general.swal.reactivate.text`) }}</p>
                 </el-col>
             </el-row>
             <el-row>
@@ -29,6 +32,10 @@
         props: {
             statusChangeModalVisible: {
                 type: Boolean,
+                required: true
+            },
+            statusChangeModalType: {
+                type: String,
                 required: true
             },
             changeStatus: {

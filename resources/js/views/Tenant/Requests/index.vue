@@ -25,8 +25,8 @@
                                     
                                     <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
                                     <el-tooltip :content="$t('tenant.tooltips.status_change_requeset')">
-                                        <el-button icon="el-pencil" size="mini" @click="changeToDone(item)" plain round v-if="item.status != 4">{{$t('tenant.actions.to_done')}}</el-button>
-                                        <el-button icon="el-pencil" size="mini" plain round v-if="item.status == 4">{{$t('tenant.actions.to_reactivated')}}</el-button>
+                                        <el-button icon="el-pencil" size="mini" @click="changeRequestStatus(item, 'done')" plain round v-if="item.status != 4">{{$t('tenant.actions.to_done')}}</el-button>
+                                        <el-button icon="el-pencil" size="mini" @click="changeRequestStatus(item, 'reactivate')" plain round v-if="item.status == 4">{{$t('tenant.actions.to_reactivated')}}</el-button>
                                     </el-tooltip>
                                 </template>
                                 <template #tab-media-after>
@@ -123,6 +123,7 @@
         </ui-drawer>
         <request-status-change-modal
                 :statusChangeModalVisible="statusChangeModalVisible"
+                :statusChangeModalType="statusChangeModalType"
                 :closeModal="closeStatusChangeModal"
                 :changeStatus="changeStatus"
             />
@@ -150,6 +151,7 @@
                 addRequestDialogVisible: false,
                 statusChangeModalVisible: false,
                 deleteModalVisible: false,
+                statusChangeModalType: "done",
                 filters: {
                     schema: [{
                         type: 'el-select',
@@ -271,9 +273,11 @@
                 this.visibleDrawer = !this.visibleDrawer
 
             },
-            changeToDone(request) {
+            changeRequestStatus(request, type) {
+                this.statusChangeModalType = type
                 this.statusChangeModalVisible = true
 
+                
                 // this.$confirm(this.$t(`general.swal.to_done.text`), this.$t(`general.swal.to_done.title`), {
                 //     type: 'warning'
                 // }).then(() => {
