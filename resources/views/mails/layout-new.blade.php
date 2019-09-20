@@ -148,7 +148,7 @@
                 <td align="center" style="background-color: {{$company->primary_color_lighter ?? '#c55a9059'}} ">
                     <div style="max-width: 650px; margin: 0 auto;" class="email-container">
                         <!--[if mso]>
-                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="680" align="center">
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="650" align="center">
                             <tr>
                                 <td>
                                     <![endif]-->
@@ -187,7 +187,7 @@
                 <td style="background-color: {{$company->primary_color_lighter ?? '#c55a9059'}} " align="center">
                     <div style="max-width: 650px; margin: 0 auto;" class="email-container">
                         <!--[if mso]>
-                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="680" align="center">
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="650" align="center">
                             <tr>
                                 <td>
                                     <![endif]-->
@@ -211,7 +211,7 @@
                 <td bgcolor="#f4f4f4" align="center">
                     <div style="max-width: 650px; margin: 0 auto;" class="email-container">
                         <!--[if mso]>
-                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="680"
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="650"
                                align="center">
                             <tr>
                                 <td>
@@ -233,7 +233,7 @@
                 <td bgcolor="#f4f4f4" align="center" cellpadding="0" cellspacing="0">
                     <div style="max-width: 650px; margin: 0 auto;" class="email-container">
                         <!--[if mso]>
-                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="680" align="center">
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="650" align="center">
                             <tr>
                                 <td>
                                     <![endif]-->
@@ -256,7 +256,7 @@
                 <td style="background-color: #f4f4f4 " align="center">
                     <div style="max-width: 650px; margin: 0 auto;" class="email-container">
                         <!--[if mso]>
-                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="680"
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="650"
                                align="center">
                             <tr>
                                 <td>
