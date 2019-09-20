@@ -7,7 +7,7 @@
 
         <el-form-item style="grid-column: span 6">
             <ui-media-gallery :files="data.media.map(({url}) => url)" />
-            <media-uploader ref="media" :id="product_id" type="products" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
+            <media-uploader ref="media" :id="post_id" type="posts" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
         </el-form-item>
         <el-form-item v-if="!hideSubmit" style="grid-column: span 6; display: flex; flex-direction: column; justify-content: flex-end;">
             <el-button class="submit" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
@@ -27,6 +27,10 @@
             },
             data: {
                 type: Object
+            },
+            visible: {
+                type: Boolean,
+                default: false
             }
         },
         data () {
@@ -41,12 +45,10 @@
                     extensions: 'png,jpg,jpeg',
                     hideSelectFilesButton: false
                 },
-                product_id: null,
+                post_id: null,
                 model: {
                     media: [],
-                    content: null,
-                    tenant_name: null,
-                    tenant_phone: null,       
+                    content: null,   
                 },
                 validationRules: {
                     content: {
@@ -62,32 +64,33 @@
                     if (valid) {
                         this.loading = true;
 
-                        const {media, tenant_name, tenant_phone, ...params} = this.model
+                        const {media, ...params} = this.model
 
                         params.id = this.data.id
 
-                        const resp = await this.$store.dispatch('newPosts/update', params);
+                        this.data.content = this.model.content
+                        const resp = await this.$store.dispatch('newPosts/update', this.data);
                         
                         if (resp && resp.data) {                            
                             if (this.model.media.length) {
                             // TODO - make await for this   
-                                this.product_id = this.data.id;            
+                                this.post_id = this.data.id;
                                 this.$refs.media.startUploading();
+                                this.$root.$on('media-upload-finished', () => this.$emit('update:visible', false));
                             }
                         }
-                        
 
                         this.loading = false
-                        this.$refs.form.resetFields()
+                        
+                        if(!this.model.media.length)
+                            this.$emit('update:visible', false);
+//                        this.$refs.form.resetFields()
                     }
                 })
             },
             
         },
-        
         created () {
-
-            console.log('edit', this.data)
             this.model.content = this.data.content;
         }
     };

@@ -36,7 +36,7 @@
         <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
             <ui-divider content-position="left" v-if="editingPost">{{$t('tenant.edit_post')}}</ui-divider>
             <div class="content">
-                <post-edit-form :data="editingPost" v-if="editingPost"/>
+                <post-edit-form :data="editingPost" v-if="editingPost" :visible.sync="visibleDrawer"/>
             </div>
         </ui-drawer>
     </div>
@@ -184,13 +184,24 @@
                this.visibleDrawer = true;
             }
         },
+        watch: {
+            'visibleDrawer': {
+                immediate: false,
+                handler (state) {
+                    // TODO - auto blur container if visible is true first
+                    if (!state) {
+                        this.editingPost = null
+                    }
+                }
+            }
+        },
         computed: {
             ...mapState('newPosts', {
                 posts: state => state
             }),
             filteredPosts() {
-                if(this.$refs['dynamic-scroller'])
-                    this.$refs['dynamic-scroller'].forceUpdate()
+                // if(this.$refs['dynamic-scroller'])
+                //     this.$refs['dynamic-scroller'].forceUpdate()
                 return this.posts.data.filter( post => { return this.filterCategory == null || post.category == this.filterCategory})
             }
         }

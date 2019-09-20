@@ -95,6 +95,7 @@
     import PQueue from 'p-queue'
 
     export default {
+        name: 'p-request-add-form',
         mixins: [
             ServicesTypes,
         ],
