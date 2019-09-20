@@ -41,7 +41,7 @@
 <script>
     import Loader from 'components/common/Comments/Loader'
     import {displaySuccess, displayError} from 'helpers/messages'
-
+    import { EventBus } from '../../../event-bus.js';
     export default {
         props: {
             id: {
@@ -127,6 +127,7 @@
                     })
 
                     this.comments = this.$store.getters['comments/get'](this.id, this.type)
+                    EventBus.$emit('comments-get-counted', this.comments.total);
 
                     if (this.$refs['dynamic-scroller'] && current_page >= 1) {
                         this.$refs['dynamic-scroller'].$el.scrollTop = this.$refs['dynamic-scroller'].$el.scrollHeight - prevScrollHeight

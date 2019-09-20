@@ -36,6 +36,7 @@
     import queryString from 'query-string'
     import FormatDateTimeMixin from 'mixins/formatDateTimeMixin'
     import Filters from 'components/Filters';
+    import { EventBus } from '../event-bus.js';
 
     export default {
         mixins: [FormatDateTimeMixin],
@@ -318,6 +319,7 @@
 
                 // Concatenate to the existing audits and also update the extra data like current page and last page that come from the request
                 this.audits = {data: {...this.audits.data, ...audits}, ...data}
+                EventBus.$emit('audit-get-counted', this.audits.total);
                 }catch (err) {
                     this.$message.error(err, {
                         offset: 88

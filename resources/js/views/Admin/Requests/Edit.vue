@@ -441,7 +441,10 @@
                         <!--                    v-if="(!$can($permissions.update.serviceRequest)) || ($can($permissions.update.serviceRequest) && (media.length || (model.media && model.media.length)))"-->
                         <card class="mt15" v-if="model.id" id="comments">
                             <el-tabs id="comments-card" v-model="activeTab2"  @tab-click="adjustAuditTabPadding">
-                                <el-tab-pane :label="$t('models.request.comments')" name="comments">
+                                <el-tab-pane name="comments">
+                                    <span slot="label">
+                                        <el-badge :value="commentCount" :max="99" class="admin-layout">{{ $t('models.request.comments') }}</el-badge>
+                                    </span>
                                     <chat :id="model.id" type="request" show-templates />
                                 </el-tab-pane>
                                 <el-tab-pane name="internal-notices">
@@ -451,7 +454,7 @@
                                 </el-tab-pane>
                                 <el-tab-pane name="audit" style="height: 400px;overflow:auto;">
                                     <span slot="label">
-                                        {{ $t('models.request.audits') }}
+                                        <el-badge :value="auditCount" :max="99" class="admin-layout">{{ $t('models.request.audits') }}</el-badge>
                                     </span>
                                     <audit :id="model.id" type="request" showFilter/>
                                 </el-tab-pane>
@@ -493,6 +496,7 @@
     import Audit from 'components/Audit';
     import AssignmentByType from 'components/AssignmentByType';
     import Vue from 'vue';
+    import { EventBus } from '../../../event-bus.js';
 
     let YimoVueEditor = require("yimo-vue-editor");
 
@@ -516,6 +520,8 @@
         },
         data() {
             return {
+                commentCount: 0,
+                auditCount: 0,
                 activeTab1: 'request_details',
                 activeTab2: 'comments',
                 activeActionTab: 'actions',
@@ -593,7 +599,19 @@
                 this.getRealCategories();
                 this.fetchCurrentRequest();
             });
-            
+            EventBus.$on('comments-get-counted', comment_count => {
+                this.commentCount = comment_count;
+            });
+            EventBus.$on('comments-deleted', () => {
+                this.commentCount--;
+            });
+            EventBus.$on('comments-added', () => {
+                this.commentCount++;
+            });
+            EventBus.$on('audit-get-counted', audit_count => {
+                this.auditCount = audit_count;
+            });
+
         },
         methods: {
             ...mapActions(['unassignAssignee', 'deleteRequest', 'getTags', 'deleteRequestTag', 'downloadRequestPDF']),
