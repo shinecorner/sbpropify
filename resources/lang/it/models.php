@@ -130,6 +130,26 @@ return [
         "rent_end" => "Fine affitto",
         "rent_start" => "Inizio affitto",
         "rent_contract" => "Contratto d'affitto",
+        'rent_type' => 'Tipo di affitto',
+        'rent_types' => [
+            'private' => 'Privato',
+            'business' => 'Affari',
+            'parking_lot' => 'Parcheggio',
+        ],
+        'rent_duration' => "Durata dell'affitto",
+        'rent_durations' => [
+            'unlimited' => 'Illimitato',
+            'limited' => 'Limitato',
+        ],
+        'rent_contract_pdf' => "Contratto d'affitto pdf",
+        'deposit_amount' => 'Importo del deposito',
+        'type_of_deposit' => 'Tipo di deposito',
+        'deposit_types' => [
+            'bank_deposit' => 'Deposito bancario',
+            'bank_guarantee' => 'Garanzia bancaria',
+            'insurance' => 'Assicurazione',
+            'other' => 'Altro',
+        ],
         'contact' => [
             "category" => "Categoria",
         ],
