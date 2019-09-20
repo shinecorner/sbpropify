@@ -86,8 +86,12 @@ class PostRepository extends BaseRepository
 
         if (! $atts['needs_approval']) {
             $atts['status'] = Post::StatusPublished;
+        }
+
+        if (Post::StatusPublished == $atts['status']) {
             $atts['published_at'] = now();
         }
+
         $model = parent::create($atts);
 
         if (!empty($atts['quarter_ids'])) {
@@ -98,7 +102,7 @@ class PostRepository extends BaseRepository
             $model->buildings()->sync($atts['building_ids']);
         }
 
-        if (! $atts['needs_approval']) {
+        if (Post::StatusPublished == $atts['status']) {
             $this->notify($model);
         }
 
