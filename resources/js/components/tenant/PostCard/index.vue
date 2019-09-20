@@ -1,5 +1,6 @@
 <template>
-    <el-card :class="{pinned: data.pinned}">
+    <el-card  :class="{pinned: data.pinned}">
+        <div ref="container">
         <div class="pinned" v-if="data.pinned"><span>pinned</span></div>
         <div class="user">
             <ui-avatar :name="data.user.name" :size="42" :src="data.user.avatar" />
@@ -9,6 +10,13 @@
                     {{formatDatetime(data.created_at)}}
                 </small>
             </div>
+            <div class="actions" v-if="showActions">
+                <el-button size="mini" @click="$emit('edit-post', $event, data)" plain round>{{$t('general.actions.edit')}}</el-button>
+                <el-tooltip :content="$t('tenant.tooltips.delete_post')">
+                    <el-button size="mini" @click="$emit('delete-post', $event, data)" plain round>{{$t('general.actions.delete')}}</el-button>
+                </el-tooltip>
+                
+            </div>
         </div>
         <div class="title" v-if="data.pinned">
             <small>Category:
@@ -16,6 +24,7 @@
             </small>
             <strong>{{data.title}}</strong>
         </div>
+        
         <hr v-if="data.pinned" />
         <read-more class="content" :text="data.content" :max-chars="512" :more-str="$t('tenant.read_more')" :less-str="$t('tenant.read_less')" />
         
@@ -34,7 +43,7 @@
         <likes type="post" :data="data.likes" layout="row" />
         <like :id="data.id" type="post">
             <el-button @click="$refs.addComment.focus()" icon="ti-comment-alt" type="text"> &nbsp;{{$t('tenant.comment')}}</el-button>
-            <el-button icon="icon-picture" type="text" v-if="data.pinned === false">                 
+            <el-button icon="icon-picture" type="text" v-if="data.pinned === false && data.media.length">                 
                 <template v-if="data.media.length">
                     {{data.media.length}} {{data.media.length > 1 ? $t('tenant.images') : $t('tenant.image')}}
                 </template>
@@ -45,6 +54,7 @@
         
         <comments ref="comments" :id="data.id" type="post" :use-placeholder="false" />
         <add-comment ref="addComment" :id="data.id" type="post"/>
+        </div>
     </el-card>
 </template>
 
@@ -73,6 +83,10 @@
             data: {
                 type: Object,
                 required: true
+            },
+            showActions : {
+                type: Boolean,
+                default: true
             }
         },
         idState () {
@@ -109,6 +123,9 @@
 
                 return `${title}. ${first_name} ${last_name}`
             }
+        },
+        mounted () {
+            this.data.height =  this.$refs.container.clientHeight
         }
     }
 </script>
@@ -144,6 +161,12 @@
                     color: darken(#fff, 48%);
                 }
             }
+
+            .actions {
+                flex-grow: 1;
+                display: flex;
+                justify-content: flex-end;
+            }
         }
 
         .title {
@@ -173,6 +196,10 @@
             box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
         }
 
+        .like {
+            background: #f2f4fa;
+            padding: 10px;
+        }
         .likes {
             font-size: 14px;
             margin: 12px 0 -8px 0;

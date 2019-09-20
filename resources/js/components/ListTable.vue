@@ -33,9 +33,7 @@
                                     @change="filterChanged(filter)"
                                     class="filter-select"
                                     v-model="filterModel[filter.key]">
-                                    <el-option :label="filter.name" value="" disabled></el-option>
-                                    <el-divider></el-divider>
-                                    <el-option :label="$t('general.placeholders.select')" value=""></el-option>
+                                    <el-option :label="`${$t('general.placeholders.select') + ' ' + filter.name}`" value=""></el-option>
                                     <el-option
                                         :key="item.id + item.name"
                                         :label="item.name"

@@ -18,13 +18,8 @@ class DeleteRequest extends APIRequest
         if ($u->can('delete-post')) {
             return true;
         }
-        $p = Post::where('id', $this->route('post'))
+        return Post::where('id', $this->route('post'))
             ->where('user_id', $u->id)->first();
-        if (!$p) {
-            return false;
-        }
-
-        return $p->status == Post::StatusNew;
     }
 
     /**

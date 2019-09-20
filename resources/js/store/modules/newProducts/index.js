@@ -4,6 +4,9 @@ export default {
         data: []
     },
     actions: {
+        reset ({commit}) {
+            commit('reset')
+        },
         async get ({state, commit}, {id, ...params} = {}) {
             const {data} = await this._vm.axios.get(id ? `products/${id}` : 'products', {params})
 
@@ -21,6 +24,7 @@ export default {
             const {data} = await this._vm.axios.put(`products/${id}`, params, {showMessage: true})
 
             commit('update', data.data)
+            return data;
         },
         async delete ({commit}, {id}) {
             await this._vm.axios.delete(`products/${id}`, {showMessage: true})
@@ -61,12 +65,18 @@ export default {
         },
         async deleteMedia ({commit}, {id, media_id}) {
             await this._vm.axios.delete(`products/${id}/media/${media_id}`)
-        }
+        },
+        async addMedia({ commit}, {id, media}) {
+            commit('addmedia', {data_id : id, media})
+        },
     },
     getters: {
         getById: ({data}) => id => data.find(product => product.id === id)
     },
     mutations: {
+        reset: state => Object.assign(state, {
+            data: []
+        }),
         set: (state, payload) => Object.assign(state, payload),
         update: ({data}, payload) => Object.assign(data.find(({id}) => id === payload.id), payload),
         delete: ({data}, id) => {
@@ -79,6 +89,12 @@ export default {
                     break
                 }
             }
+        },
+        addmedia: ({data}, {data_id, media}) => {
+            let item = data.find(({id}) => id === data_id)
+            if(!item.media)
+                item.media = [];
+            item.media.push(media);
         }
     }
 }

@@ -143,16 +143,10 @@ export default (config = {}) => {
                             get_all: true,
                             search,
                             exclude_ids,
-                            role: 'administrator'
+                            roles: ['manager', 'administrator']
                         });
 
-                        const resp = await this.getPropertyManagers({
-                            get_all: true,
-                            search,
-                            exclude_ids
-                        });
-
-                        this.persons = data.concat(resp.data);
+                        this.persons = data
                     } catch (err) {
                         displayError(err);
                     } finally {

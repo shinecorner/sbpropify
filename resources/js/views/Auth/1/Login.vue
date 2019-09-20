@@ -98,6 +98,13 @@
             },
 
             ...mapActions(['me', 'login']),
+        },
+        beforeCreate() {
+            if(this.$constants.login.variation == 2) {
+                this.$router.push({
+                    name: 'login2'
+                });
+            }
         }
     }
 </script>

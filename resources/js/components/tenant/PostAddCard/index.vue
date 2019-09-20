@@ -103,6 +103,7 @@
                     params.visibility = params.visibility.key
 
                     params.type = 1
+                    params.status = 1
                     const resp = await this.$store.dispatch('newPosts/create', params);
 
                     

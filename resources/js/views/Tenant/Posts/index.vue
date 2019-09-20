@@ -3,7 +3,7 @@
         <ui-heading icon="icon-megaphone-1" title="News" description="Sed placerat volutpat mollis." />
         
         <ui-divider />
-        <div class="posts" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading" >
+        <div class="posts" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading">
             
             <div class="content">
                 <post-add-card />
@@ -15,14 +15,14 @@
                         <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
                     </el-popover> -->
                 </el-divider>
-                <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" page-mode>
+                <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" page-mode v-if="!loading">
                     <template #before v-if="loading && !filteredPosts.length">
                         <loader v-for="idx in 5" :key="idx" />
                     </template>
                     <template v-slot="{item, index, active}">
-                        <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]">
-                            <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour'" @hook:updated="$refs['dynamic-scroller'].forceUpdate" />
-                            <post-card :data="item" @hook:updated="$refs['dynamic-scroller'].forceUpdate" v-else />
+                        <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" :watchData="true" >
+                            <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour'"/>
+                            <post-card :data="item" @delete-post="deletePost" v-else/>
                         </dynamic-scroller-item>
                     </template>
                     <template #after v-if="loading && filteredPosts.length">
@@ -158,6 +158,16 @@
             refreshPage () {
                 this.getPosts();
                 this.resetFilters ()
+            },
+            async deletePost(event, data) {
+                
+                const resp = await this.$confirm(this.$t(`general.swal.delete_listing.text`), this.$t(`general.swal.delete_listing.title`), {
+                    type: 'warning'
+                }).then(() => {
+                    this.$store.dispatch('newPosts/delete', data)
+                })
+               
+                
             }
         },
         computed: {
@@ -165,6 +175,8 @@
                 posts: state => state
             }),
             filteredPosts() {
+                if(this.$refs['dynamic-scroller'])
+                    this.$refs['dynamic-scroller'].forceUpdate()
                 return this.posts.data.filter( post => { return this.filterCategory == null || post.category == this.filterCategory})
             }
         }
