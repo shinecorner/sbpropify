@@ -38,17 +38,17 @@
             })
         },
         async mounted () {
-            if (!this.products.length) {
+            //if (!this.products.length) {
                 this.loading = true
 
+                await this.$store.dispatch('newProducts/reset');
                 await this.$store.dispatch('newProducts/get', {
                     sortedBy: 'desc',
                     orderBy: 'created_at',
                     per_page: this.limit
                 })
-
                 this.loading = false
-            }
+            //}
         }
     }
 </script>

@@ -70,9 +70,10 @@
             })
         },
         async mounted () {
-            if (!this.posts.length) {
+            //if (!this.posts.length) {
                 this.loading = true
-
+                
+                await this.$store.dispatch('newPosts/reset');
                 await this.$store.dispatch('newPosts/get', {
                     feed: 1,
                     sortedBy: 'desc',
@@ -82,7 +83,7 @@
                 })
 
                 this.timeout = setTimeout(() => this.loading = false, EXTRA_LOADING_SECONDS)
-            }
+            //}
         },
         beforeDestroy () {
             clearTimeout(this.timeout)

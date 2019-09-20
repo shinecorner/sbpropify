@@ -59,9 +59,11 @@
             })
         },
         async mounted () {
-            if (!this.requests.length) {
+            
+            //if (!this.requests.length) {
                 this.loading = true;
 
+                await this.$store.dispatch('newRequests/reset');    
                 await this.$store.dispatch('newRequests/get', {
                     is_public: true,
                     sortedBy: 'desc',
@@ -70,7 +72,7 @@
                 })
 
                 this.timeout = setTimeout(() => this.loading = false, EXTRA_LOADING_SECONDS)
-            }
+            //}
         },
         beforeDestroy () {
             clearTimeout(this.timeout)
