@@ -74,6 +74,7 @@ return [
     "logout_confirm" => "Sind Sie sicher?",
     "quick_links" => "Schnell-Links",
     "add_post" => "Einen Beitrag hinzufügen",
+    "edit_post" => "Einen Beitrag bearbeiten",
     "add_request" => "Eine Anfrage hinzufügen",
     "add_product" => "Ein Produkt hinzufügen",
     "edit_product" => "Ein Produkt bearbeiten",

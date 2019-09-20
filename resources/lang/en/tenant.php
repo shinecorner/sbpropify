@@ -74,6 +74,7 @@ return [
     "logout_confirm" => "Are you sure?",
     "quick_links" => "Quick links",
     "add_post" => "Add a post",
+    "edit_post" => "Edit a post",
     "add_request" => "Add a request",
     "add_product" => "Add a product",
     "edit_product" => "Edit a product",

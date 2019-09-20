@@ -74,6 +74,7 @@ return [
     "logout_confirm" => "Ne sei sicuro?",
     "quick_links" => "Link rapidi",
     "add_post" => "Aggiungi un messaggio",
+    "edit_post" => "Modifica un messaggio",
     "add_request" => "Aggiungi una richiesta",
     "add_product" => "Aggiungi un prodotto",
     "edit_product" => "Modificare un prodotto",

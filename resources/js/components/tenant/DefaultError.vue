@@ -1,3 +1,3 @@
 <template functional>
-    <div>Something went wrong!</div>
+    <div></div>
 </template>
