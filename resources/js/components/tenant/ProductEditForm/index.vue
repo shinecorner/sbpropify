@@ -135,12 +135,15 @@
                             // TODO - make await for this   
                                 this.product_id = this.data.id;            
                                 this.$refs.media.startUploading();
+                                this.$root.$on('media-upload-finished', () => this.$emit('update:visible', false));
                             }
                         }
                         
 
                         this.loading = false
                         this.$refs.form.resetFields()
+                        if(!this.model.media.length)
+                            this.$emit('update:visible', false);
                         // this.$refs.media.clearUploader()
                     }
                 })
