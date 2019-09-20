@@ -59,7 +59,8 @@ return [
         "admin" => "Notifiche dell'amministratore",
     ],
     "tooltips" => [
-        "delete_post" => "Qui è possibile eliminare il messaggio.",
+        "edit_post" => "Modifica post",
+        "delete_post" => "Cancellare un messaggio",
         "status_change_requeset" => "Qui è possibile modificare lo stato della richiesta.",
     ],
     "created_date" => "Data di creazione",

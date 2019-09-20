@@ -59,7 +59,8 @@ return [
         "admin" => "Admin notifications",
     ],
     "tooltips" => [
-        "delete_post" => "Here you can delete the post.",
+        "edit_post" => "Edit post",
+        "delete_post" => "Delete post",
         "status_change_requeset" => "Here you can change the status of request.",
     ],
     "created_date" => "Created date",

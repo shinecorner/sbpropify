@@ -59,7 +59,8 @@ return [
         "admin" => "Admin-Benachrichtigungen",
     ],
     "tooltips" => [
-        "delete_post" => "Hier kannst du den Beitrag löschen.",
+        "edit_post" => "Beitrag bearbeiten",
+        "delete_post" => "Beitrag löschen",
         "status_change_requeset" => "Hier können Sie den Status der Anfrage ändern.",
     ],
     "created_date" => "Erstelldatum",
