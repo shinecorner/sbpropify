@@ -7,12 +7,13 @@
                 :modalAppendToBody="false">
             <el-row>
                 <el-col :span="24">
-                    <p class="description">{{ $t(`general.swal.to_done.text`) }}</p>                    
+                    <p class="description">{{ $t(`general.swal.to_done.desc`) }}</p>
+                    <p class="description">{{ $t(`general.swal.to_done.message`) }}</p>
                 </el-col>
             </el-row>
             <el-row>
                 <el-col :span="24">
-                    <el-input autocomplete="off" type="text" v-model="model.message"></el-input>
+                    <el-input type="text" v-model="model.message"></el-input>
                 </el-col>
             </el-row>
 
