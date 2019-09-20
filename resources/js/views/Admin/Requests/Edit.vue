@@ -217,7 +217,8 @@
                                                   v-model="model.title"/>
                                     </el-form-item>
                                     <el-form-item :label="$t('general.description')" :rules="validationRules.description"
-                                                  prop="description">
+                                                  prop="description"
+                                                  :key="editorKey">
                                         <yimo-vue-editor
                                                 :config="editorConfig"
                                                 v-model="model.description"/>
@@ -497,8 +498,7 @@
     import AssignmentByType from 'components/AssignmentByType';
     import Vue from 'vue';
     import { EventBus } from '../../../event-bus.js';
-
-    let YimoVueEditor = require("yimo-vue-editor");
+    import EditorConfig from 'mixins/adminEditorConfig';
 
     export default {
         name: 'AdminRequestsEdit',
@@ -506,7 +506,7 @@
             mode: 'edit'
         }), ServiceModalMixin({
             mode: 'edit'
-        })],
+        }), EditorConfig],
         components: {
             Heading,
             Card,
@@ -516,7 +516,6 @@
             Avatar,
             Audit,
             AssignmentByType,
-            'yimo-vue-editor': YimoVueEditor.default,
         },
         data() {
             return {
@@ -559,10 +558,6 @@
                 }],
                 rolename: null,
                 inputVisible: false,
-                editorConfig: {
-                    printLog: false,
-                    lang: YimoVueEditor.E.langs.en,
-                },
             }
         },
         computed: {
