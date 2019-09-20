@@ -23,7 +23,7 @@
                         </div>
                     </div>
                 </template>
-                <div class="p-description">{{request.description}}</div>
+                <div class="p-description" v-html="request.description"></div>
                 <el-button size="mini" icon="icon-right-1" plain round @click="$emit('view-detail-request', $event, request)">{{$t('tenant.actions.view')}}</el-button>
             </el-collapse-item>
         </el-collapse>
@@ -65,7 +65,6 @@
 
                 await this.$store.dispatch('newRequests/reset');    
                 await this.$store.dispatch('newRequests/get', {
-                    is_public: true,
                     sortedBy: 'desc',
                     orderBy: 'created_at',
                     per_page: this.limit

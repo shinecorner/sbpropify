@@ -31,6 +31,9 @@ import PostCardLoader from './PostCard/Loader'
 import PostNewTenantCardError from './PostNewTenantCard/Error'
 import PostNewTenantCardLoader from './PostNewTenantCard/Loader'
 
+import PostEditFormError from './PostEditForm/Error'
+import PostEditFormLoader from './PostEditForm/Loader'
+
 import ProductAddFormError from './ProductAddForm/Error'
 import ProductAddFormLoader from './ProductAddForm/Loader'
 
@@ -144,6 +147,13 @@ export default {
                 component: import(/* webpackChunkName: "postNewTenantCard" */ './PostNewTenantCard'),
                 loading: PostNewTenantCardLoader,
                 error: PostNewTenantCardError,
+                delay: 0,
+                timeout: 8000
+            }),
+            postEditForm: () => ({
+                component: import(/* webpackChunkName: "postEditForm" */ './PostEditForm'),
+                loading: PostEditFormLoader,
+                error: PostEditFormError,
                 delay: 0,
                 timeout: 8000
             }),

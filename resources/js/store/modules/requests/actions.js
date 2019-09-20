@@ -1,13 +1,18 @@
 import axios from '@/axios';
 import {buildFetchUrl} from 'helpers/url';
 import queryString from 'query-string'
+import { EventBus } from '../../../event-bus.js';
 
 export default {
     getRequests({commit}, payload) {
         return new Promise((resolve, reject) =>
             axios.get(buildFetchUrl('requests', payload))
-                .then(({data: r}) => (r && commit('SET_REQUESTS', r.data), resolve(r)))
-                .catch(({response: {data: err}}) => reject(err)));
+            .then(({data: r}) => {
+                commit('SET_REQUESTS', r.data);
+                console.log(r.data.total);  
+                EventBus.$emit('request-get-counted', r.data.total);
+                resolve(r)
+             }).catch(({response: {data: err}}) => reject(err)));
     },
     createRequest({commit}, payload) {
         return new Promise((resolve, reject) => {

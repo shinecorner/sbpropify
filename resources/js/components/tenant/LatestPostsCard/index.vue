@@ -33,7 +33,7 @@
                         </like>
                     </div>
                 </template>
-                <div class="content">{{post.content}}</div>
+                <div class="content" v-html="post.content"></div>
                 <el-button size="mini" icon="icon-right-1" plain round @click="$router.push({name: 'tenantPost',  params: { id: post.id } });">{{$t('tenant.actions.view')}}</el-button>
             </el-collapse-item>
         </el-collapse>

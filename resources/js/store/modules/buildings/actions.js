@@ -1,5 +1,6 @@
 import axios from '@/axios';
 import {buildFetchUrl} from 'helpers/url';
+import { EventBus } from '../../../event-bus.js';
 
 export default {
     getBuildings({commit}, payload) {
@@ -108,7 +109,10 @@ export default {
                 axios.get(buildFetchUrl(`buildings/${payload.building_id}/assignees`, payload))
                     .then(({data: r}) => {
                         if (!Array.isArray(r.data.data)) {
-                            r.data.data = Object.values(r.data.data);
+                            r.data.data = Object.values(r.data.data);                            
+                        }                        
+                        if(r.data.total){
+                            EventBus.$emit('assignee-get-counted', r.data.total);
                         }                        
                         r.data.data = r.data.data.map((user) => {
                             if (user.type == 'provider') {

@@ -1,10 +1,10 @@
 <template>
-    <div>
-        <ui-heading icon="icon-megaphone-1" title="News" description="Sed placerat volutpat mollis." />
+    <div :class="['posts']">
         
-        <ui-divider />
-        <div class="posts" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading">
-            
+        <div class="container" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading">
+            <ui-heading icon="icon-megaphone-1" title="News" description="Sed placerat volutpat mollis." />
+        
+            <ui-divider />
             <div class="content">
                 <post-add-card />
                 <el-divider content-position="left">
@@ -22,7 +22,7 @@
                     <template v-slot="{item, index, active}">
                         <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" :watchData="true" >
                             <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour'"/>
-                            <post-card :data="item" @delete-post="deletePost" v-else/>
+                            <post-card :data="item" @edit-post="editPost" @delete-post="deletePost" v-else/>
                         </dynamic-scroller-item>
                     </template>
                     <template #after v-if="loading && filteredPosts.length">
@@ -32,6 +32,12 @@
             </div>
             <rss-feed title="Blick.ch News" />
         </div>
+        <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
+            <ui-divider content-position="left" v-if="editingPost">{{$t('tenant.edit_post')}}</ui-divider>
+            <div class="content">
+                <post-edit-form :data="editingPost" v-if="editingPost"/>
+            </div>
+        </ui-drawer>
     </div>
 </template>
 
@@ -116,7 +122,9 @@
                         category: null
                     }
                 },
-                filterCategory: null
+                filterCategory: null,
+                editingPost: null,
+                visibleDrawer: false,
             }
         },
         methods: {
@@ -168,6 +176,11 @@
                 })
                
                 
+            },
+            editPost(event, data) {
+                console.log('editPost', data)
+               this.editingPost = data;
+               this.visibleDrawer = true;
             }
         },
         computed: {
@@ -207,7 +220,7 @@
 
 
 <style lang="scss" scoped>
-    .posts {
+    .container {
         display: grid;
         grid-gap: 12px;
         grid-template-columns: minmax(min-content, 640px) minmax(auto, 480px);
@@ -267,4 +280,54 @@
             }
         }
     }
+</style>
+
+<style lang="sass" scoped>
+    .posts
+        /deep/ .ui-drawer
+            display: flex
+            flex-direction: column
+
+            &:before
+                content: ''
+                position: fixed
+                top: 0
+                left: 0
+                width: 100%
+                height: 100%
+                background-image: url('~img/5d619aede1e3c.png')
+                background-repeat: no-repeat
+                background-position: top center
+                width: 100%
+                height: 100%
+                filter: opacity(0.08)
+                pointer-events: none
+
+            .ui-divider
+                margin: 32px 16px 0 16px
+
+                /deep/ .ui-divider__content
+                    left: 0
+                    z-index: 1
+                    padding-left: 0
+                    font-size: 20px
+                    font-weight: 700
+                    color: var(--color-primary)
+
+            .content
+                height: 100%
+                display: flex
+                padding: 16px
+                overflow-y: auto
+                flex-direction: column
+
+                .el-form
+                    flex: 1
+
+                    /deep/ .el-input .el-input__inner,
+                    /deep/ .el-textarea .el-textarea__inner
+                        background-color: transparentize(#fff, .44)
+
+                    /deep/ .el-loading-mask
+                        position: fixed
 </style>

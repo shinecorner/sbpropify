@@ -262,11 +262,6 @@ class Tenant extends AuditableModel implements HasMedia
         $this->addMediaCollection('documents');
     }
 
-    public function homeless()
-    {
-        return !$this->building()->exists();
-    }
-
     /**
      * @return BelongsTo
      **/
@@ -297,6 +292,20 @@ class Tenant extends AuditableModel implements HasMedia
     public function rent_contracts()
     {
         return $this->hasMany(RentContract::class);
+    }
+
+    public function homeless()
+    {
+        return ! $this->rent_contracts()
+            ->where('tenant_rent_contracts.status', RentContract::StatusActive)
+            ->whereNotNull('tenant_rent_contracts.building_id')->count();
+    }
+
+    public function active_rent_contracts_with_building()
+    {
+        return $this->rent_contracts()
+            ->where('tenant_rent_contracts.status', RentContract::StatusActive)
+            ->whereNotNull('tenant_rent_contracts.building_id');
     }
 
     /**

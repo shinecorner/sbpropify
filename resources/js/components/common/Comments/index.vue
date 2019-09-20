@@ -2,9 +2,9 @@
     <loader v-if="loading && !comments.data.length" />
     <div class="placeholder" v-else-if="!loading && !comments.data.length">
         <template v-if="usePlaceholder">
-        <img class="image" :src="require('img/5c98b47a97050.png')" />
-        <div class="title">{{$t('components.common.commentsList.emptyPlaceholder.title')}}</div>
-        <div class="description">{{$t('components.common.commentsList.emptyPlaceholder.description')}}</div>
+            <img class="image" :src="require('img/5c98b47a97050.png')" />
+            <div class="title">{{$t('components.common.commentsList.emptyPlaceholder.title')}}</div>
+            <div class="description">{{$t('components.common.commentsList.emptyPlaceholder.description')}}</div>
         </template>
     </div>
     <div class="comments-list" v-else>
@@ -41,7 +41,7 @@
 <script>
     import Loader from 'components/common/Comments/Loader'
     import {displaySuccess, displayError} from 'helpers/messages'
-
+    import { EventBus } from '../../../event-bus.js';
     export default {
         props: {
             id: {
@@ -127,6 +127,7 @@
                     })
 
                     this.comments = this.$store.getters['comments/get'](this.id, this.type)
+                    EventBus.$emit('comments-get-counted', this.comments.total);
 
                     if (this.$refs['dynamic-scroller'] && current_page >= 1) {
                         this.$refs['dynamic-scroller'].$el.scrollTop = this.$refs['dynamic-scroller'].$el.scrollHeight - prevScrollHeight

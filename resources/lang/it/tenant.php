@@ -59,7 +59,8 @@ return [
         "admin" => "Notifiche dell'amministratore",
     ],
     "tooltips" => [
-        "delete_post" => "Qui è possibile eliminare il messaggio.",
+        "edit_post" => "Modifica post",
+        "delete_post" => "Cancellare un messaggio",
         "status_change_requeset" => "Qui è possibile modificare lo stato della richiesta.",
     ],
     "created_date" => "Data di creazione",
@@ -73,6 +74,7 @@ return [
     "logout_confirm" => "Ne sei sicuro?",
     "quick_links" => "Link rapidi",
     "add_post" => "Aggiungi un messaggio",
+    "edit_post" => "Modifica un messaggio",
     "add_request" => "Aggiungi una richiesta",
     "add_product" => "Aggiungi un prodotto",
     "edit_product" => "Modificare un prodotto",
