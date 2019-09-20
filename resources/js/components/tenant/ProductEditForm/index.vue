@@ -56,6 +56,10 @@
             },
             data: {
                 type: Object
+            },
+            visible: {
+                type: Boolean,
+                default: false
             }
         },
         data () {
