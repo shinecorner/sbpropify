@@ -485,6 +485,7 @@ return [
         "required" => "Ce champ est obligatoire",
         "buildings" => "Bâtiments",
         'count_of_buildings' => 'Nombre de bâtiments',
+        'assignment' => "Affectation des gestionnaires/administrateurs",
         'errors' => [
             'not_found' => "Trimestre non trouvé",
             'deleted' => "Erreur d'effacement trimestriel : ",

@@ -485,6 +485,7 @@ return [
         'required' => 'Überbauung ist ein Pflichfeld!',
         'buildings' => 'Liegenschaften',
         'count_of_buildings' => 'Anzahl Liegenschaften',
+        'assignment' => 'Zugewiesene Personen/Administrator',
         'errors' => [
             'not_found' => "Überbauung nicht gefunden.",
             'deleted' => "Fehler beim Löschen der Überbauung: ",
