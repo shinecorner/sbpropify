@@ -2,10 +2,10 @@
 
 return [
     "languages" => [
-        "fr" => "Français",
-        "it" => "Italiano",
+        "fr" => "Französisch",
+        "it" => "Italienisch",
         "de" => "Deutsch",
-        "en" => "English",
+        "en" => "Englisch",
     ],
     "actions" => [
         "save" => "Speichern",
@@ -133,7 +133,7 @@ return [
     "unlike" => "Gefällt mir nicht",
     "image" => "Bild",
     "images" => "Bilder",
-    "please_wait" => "Per favore aspetta.....",
+    "please_wait" => "Bitte warten..",
     "comment" => "Kommentar",
     "messaging_info" => "Starten Sie die Benachrichtigung mit dem untenstehenden Formular und drücken Sie die Eingabetaste.",
     "read_more" => "Mehr erfahren",
@@ -161,7 +161,8 @@ return [
     "summary_statistics" => "Zusammenfassende Statistiken",
     "choose_language" => "Sprache auswählen",
     "new_neighbour_msg" => "ist neu in der Nachbarschaft.",
-    "welcome_neighbour_msg" => "begrüßte den Nachbarn.",
+    "welcome_neighbour_msg" => "begrüsst den neuen Nachbarn.",
+    "welcome_neighbour_msg_multiple" => "begrüssen den neuen Nachbarn.",
     "welcome" => "Willkommen",
     "mark_all_as_read" => "Alle als gelesen markieren",
     "notification_label" => "Benachrichtigungen",
@@ -181,5 +182,5 @@ return [
     "request_public_desc" => "Wenn es sich bei Ihrer Anfragen um ein Anliegen handelt, welche auch Ihre Nachbarn betrifft, dann aktivieren Sie diese Option.",
     "request_upload_title" => "Hochladen",
     "request_upload_desc" => "Bitte beachten Sie, dass einmal hochgeladene Dateien nicht mehr von Ihnen gelöscht werden können.",
-    "added_at" => "hinzugefügt bei",
+    "added_at" => "hinzugefügt am",
 ];
