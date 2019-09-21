@@ -169,6 +169,7 @@ return [
     "select_recieve_statistic_prompt" => "Wählen Sie aus, wie Sie die Statistiken erhalten möchten, täglich, monatlich oder jährlich.",
     "select_type_notification_prompt" => "Wählen Sie aus, welche Arten von Benachrichtigungen Sie nur erhalten möchten.",
     "language_selection_prompt" => "Diese Einstellung ist völlig unabhängig von der gewählten Sprache der Anwendung.",
+    "language_switcher_info" => "Dadurch wird nur die Sprache der Anwendung geändert.",
     "content" => "Inhalt",
     "contact_name" => "Kontaktname",
     "contact_phone" => "Kontakt Telefon",       

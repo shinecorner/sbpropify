@@ -169,6 +169,7 @@ return [
     "select_recieve_statistic_prompt" => "Sélectionnez la façon dont vous souhaitez recevoir les statistiques, quotidiennes, mensuelles ou annuelles",
     "select_type_notification_prompt" => "Sélectionnez les types de notifications que vous souhaitez recevoir uniquement.",
     "language_selection_prompt" => "Ce paramètre est totalement indépendant de la langue choisie par l'application.",
+    "language_switcher_info" => "Ceci change uniquement la langue de l'application.",
     "content" => "Contenu",
     "contact_name" => "Nom du contact",
     "contact_phone" => "Téléphone de contact",
