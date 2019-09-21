@@ -41,6 +41,12 @@ class ServiceRequestTransformer extends BaseTransformer
             'visibility' => $model->visibility,
         ];
 
+        if ($model->relationExists('audits')) {
+            $audit = $model->audits->first();
+            if ($audit) {
+                $response['audit_id'] = $audit->id;
+            }
+        }
         if ($model->due_date) {
             $response['due_date'] = $model->due_date->format('d.m.Y');
         }
