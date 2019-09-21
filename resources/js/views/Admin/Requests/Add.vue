@@ -224,7 +224,8 @@
                         </el-col>
                         <el-col :md="24">
                             <el-form-item class="label-block" :label="$t('general.description')" :rules="validationRules.description"
-                                        prop="description">
+                                          prop="description"
+                                          :key="editorKey">
                                 <yimo-vue-editor
                                         :config="editorConfig"
                                         v-model="model.description"/>
@@ -280,27 +281,21 @@
     import RequestsMixin from 'mixins/adminRequestsMixin';
     import {displayError} from "helpers/messages";
     import AddActions from 'components/EditViewActions';
-
-    let YimoVueEditor = require("yimo-vue-editor");
+    import EditorConfig from 'mixins/adminEditorConfig';
 
     export default {
         name: 'AdminRequestsEdit',
         mixins: [RequestsMixin({
             mode: 'add'
-        })],
+        }), EditorConfig],
         components: {
             Heading,
             Card,
             AddActions,
-            'yimo-vue-editor': YimoVueEditor.default,
         },
         data() {
             return {
                 couldSaveWithService: false,
-                editorConfig: {
-                    printLog: false,
-                    lang: YimoVueEditor.E.langs.en,
-                },
             }
         },
         methods: {

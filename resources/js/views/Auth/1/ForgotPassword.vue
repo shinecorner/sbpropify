@@ -64,13 +64,7 @@
                 });
             }
         },
-        beforeCreate() {
-            if(this.$constants.login.variation == 2) {
-                this.$router.push({
-                    name: 'forgot2'
-                });
-            }
-        }
+    
     }
 </script>
 <style lang="scss" scoped>
@@ -88,6 +82,17 @@
 
             a, .el-button {
                 width: 100%;
+            }
+        }
+        .el-menu-item-link {
+            line-height: 1;
+            text-align: center;
+            text-decoration: none;
+            color: #909399;
+
+            i {
+                margin-bottom: 5px;
+                margin-right: 10px;
             }
         }
     }

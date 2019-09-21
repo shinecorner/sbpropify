@@ -136,13 +136,11 @@
 <script>
     import {mapState} from 'vuex'
     import Loader from 'components/tenant/RequestCard/Loader'
-    import RequestAddForm from 'components/tenant/RequestAddForm'
     import GalleryList from 'components/MediaGalleryList'
 
     export default {
         components: {
             Loader,
-            RequestAddForm,
             GalleryList
         },
         data () {

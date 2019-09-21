@@ -55,6 +55,7 @@ export default {
             const {data} = await this._vm.axios.put(`posts/${id}`, params, {showMessage: true})
 
             commit('update', data.data)
+            return data;
         },
         async delete ({commit}, {id}) {
             await this._vm.axios.delete(`posts/${id}`, {showMessage: true})
@@ -137,7 +138,8 @@ export default {
             data: []
         }),
         set: (state, payload) => Object.assign(state, payload),
-        update: ({data}, payload) => Object.assign(data.find(({id}) => id === payload.id), payload),
+        update: ({data}, payload) => { Object.assign(data.find(({id}) => id === payload.id), payload);
+         },
         delete: ({data}, id) => {
             let i = data.length
 

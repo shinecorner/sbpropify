@@ -1,7 +1,7 @@
 <?php
 return [
     'header' => 'Filter',
-    'quarters' => 'Ãœberbauungen',
+    'quarters' => 'Überbauungen',
     'buildings' => 'Liegenschaften',
     'requests' => 'Anfragen',
     'open_requests' => 'Offene Anfragen',
@@ -14,7 +14,7 @@ return [
     'categories' => 'Kategorien',
     'created_from' => 'Erstellt vom',
     'created_to' => 'Erstellt bis',
-    'services' => 'Partnerfirmen',
+    'services' => 'Dienstleister',
     'tenant' => 'Mieter',
     'roles' => 'Rollen',
     'type' => 'Typ',

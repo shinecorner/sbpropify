@@ -1,6 +1,6 @@
 <template>
-    <div :class="['posts']">
-        
+    <div :class="['posts-box']">
+        <div :class="['posts']">
         <div class="container" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading">
             <ui-heading icon="icon-megaphone-1" title="News" description="Sed placerat volutpat mollis." />
         
@@ -32,10 +32,11 @@
             </div>
             <rss-feed title="Blick.ch News" />
         </div>
+        </div>
         <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
             <ui-divider content-position="left" v-if="editingPost">{{$t('tenant.edit_post')}}</ui-divider>
             <div class="content">
-                <post-edit-form :data="editingPost" v-if="editingPost"/>
+                <post-edit-form :data="editingPost" v-if="editingPost" :visible.sync="visibleDrawer"/>
             </div>
         </ui-drawer>
     </div>
@@ -183,13 +184,24 @@
                this.visibleDrawer = true;
             }
         },
+        watch: {
+            'visibleDrawer': {
+                immediate: false,
+                handler (state) {
+                    // TODO - auto blur container if visible is true first
+                    if (!state) {
+                        this.editingPost = null
+                    }
+                }
+            }
+        },
         computed: {
             ...mapState('newPosts', {
                 posts: state => state
             }),
             filteredPosts() {
-                if(this.$refs['dynamic-scroller'])
-                    this.$refs['dynamic-scroller'].forceUpdate()
+                // if(this.$refs['dynamic-scroller'])
+                //     this.$refs['dynamic-scroller'].forceUpdate()
                 return this.posts.data.filter( post => { return this.filterCategory == null || post.category == this.filterCategory})
             }
         }
@@ -220,6 +232,18 @@
 
 
 <style lang="scss" scoped>
+    .layout .container .content .view {
+        padding: 0;
+    }
+
+    .posts {
+        width: 100%;
+        height: 100%;
+        padding: 16px;
+        overflow-y: auto;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
     .container {
         display: grid;
         grid-gap: 12px;
@@ -283,7 +307,7 @@
 </style>
 
 <style lang="sass" scoped>
-    .posts
+    .posts-box
         /deep/ .ui-drawer
             display: flex
             flex-direction: column

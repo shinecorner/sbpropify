@@ -187,7 +187,9 @@ class Post extends Model implements HasMedia, LikeableContract, Auditable
         'notify_email',
         'category_image',
         'is_execution_time',
-        'execution_period'
+        'execution_period',
+        'published_at',
+        'status'
     ];
 
     public $fillable = self::Fillable;

@@ -86,7 +86,8 @@
                             </el-form-item>
                         </template>
                         <el-form-item :label="$t('general.content')" :rules="validationRules.content"
-                                      prop="content">
+                                      prop="content"
+                                      :key="editorKey">
                             <yimo-vue-editor
                                     :config="editorConfig"
                                     v-model="model.content"/>
@@ -274,23 +275,13 @@
 <script>
     import PostsMixin from 'mixins/adminPostsMixin';
     import AddActions from 'components/EditViewActions';
-
-    let YimoVueEditor = require("yimo-vue-editor");
+    import EditorConfig from 'mixins/adminEditorConfig';
 
     const mixin = PostsMixin({mode: 'add'});
     export default {
-        mixins: [mixin],
+        mixins: [mixin, EditorConfig],
         components: {
             AddActions,
-            'yimo-vue-editor': YimoVueEditor.default,
-        },
-        data() {
-            return {
-                editorConfig: {
-                    printLog: false,
-                    lang: YimoVueEditor.E.langs.en,
-                },
-            }
         },
         mounted() {
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;

@@ -28,12 +28,6 @@
         methods: {
             ...mapActions(['autoLogin'])
         },
-        beforeCreate() {
-            if(this.$constants.login.variation == 1) {
-                this.$router.push({
-                    name: 'autoLogin'
-                });
-            }
-        }
+      
     }
 </script>
