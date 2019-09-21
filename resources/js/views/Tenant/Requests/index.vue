@@ -305,18 +305,21 @@
             },
             async changeStatus(status, message) {
 
+                
                 if(message != null) {
-                    await this.$store.dispatch('comments/create', {
+                    await this.$store.dispatch('comments/createOnly', {
                         id: this.changingRequest.id,
                         comment: message,
                         commentable: "request"
                     });
                 }
+                
                 this.statusChangeModalVisible = false;
                 
                 this.changingRequest.status = status == 'done' ? 4 : 5;
                 this.changingRequest.category_id = this.changingRequest.category.id
                 await this.$store.dispatch('newRequests/update', this.changingRequest)
+                
                 this.changingRequest = null
             },
             closeStatusChangeModal() {
