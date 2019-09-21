@@ -611,6 +611,8 @@ return [
         'active_reminder_switcher' => 'Promemoria attivo',
         'days_left' => "Quanti giorni prima dovrebbe essere inviata l'e-mail?",
         'send_person' => 'Quale persona deve essere informata?',
+        'add_contract' => 'Aggiungere un nuovo contratto',
+        'delete_contract' => 'Cancellare il contratto',
         'media' => [
             "added" => "Documento ajouté",
             "removed" => "Supporti rimossi",

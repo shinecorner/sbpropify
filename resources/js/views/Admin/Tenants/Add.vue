@@ -319,8 +319,9 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                            </el-row> 
-                            
+                            </el-row>
+                            <ui-divider></ui-divider> 
+                            <el-button type="success" icon="icon-filter" size="mini" slot="reference" plain round>{{$t('general.actions.')}}</el-button>
                         </card>
                     </el-col>
                 </el-row>

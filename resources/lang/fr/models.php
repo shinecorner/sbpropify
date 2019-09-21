@@ -611,6 +611,8 @@ return [
         'active_reminder_switcher' => 'Rappel actif',
         'days_left' => "Combien de jours avant l'envoi de l'email ?",
         'send_person' => 'Quelle personne doit être notifiée ?',
+        'add_contract' => 'Ajouter un nouveau contrat',
+        'delete_contract' => 'Supprimer contrat',
         'media' => [
             "added" => "Document ajouté",
             "removed" => "Suppression du support",
