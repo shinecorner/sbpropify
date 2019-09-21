@@ -102,6 +102,7 @@
         methods: {
             submit () {
                 this.$refs.form.validate(async valid => {
+                    console.log('submit', valid)
                     if (!valid) {
                         return false
                     }
@@ -109,7 +110,7 @@
                     this.loading.visible = true
 
                     try {
-                        // displaySuccess(await this.$store.dispatch('updateMyTenancy', this.model))
+                        displaySuccess(await this.$store.dispatch('updateMyTenancy', this.model))
                     } catch (error) {
                         displayError(error)
                     } finally {
