@@ -6,7 +6,6 @@ export default {
         const requests = state.requests.data ? state.requests.data : [];
 
         return requests.map((request) => {
-            request.created_at = format(new Date(request.created_at), 'DD.MM.YYYY');
             request.priority_label = serviceRequests.priority[request.priority];
             request.internal_priority_label = serviceRequests.internal_priority[request.internal_priority];
             request.status_label = serviceRequests.status[request.status];

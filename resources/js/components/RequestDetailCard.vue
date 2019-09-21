@@ -97,7 +97,7 @@
                             <table-avatar :src="item.tenant.user.avatar" :name="item.tenant_name" :size="33" />
                         </el-tooltip>
                         {{ item.tenant_name }}, 
-                        {{ item.created_at }}
+                        {{formatDate(item.created_at)}}
                     </p>
                 </el-col> 
                 <el-col :span="4" class="request-category">
@@ -114,7 +114,7 @@
                 </el-col>
                 <el-col :span="3">
                    <span>{{ $t('models.request.last_updated') }}</span>
-                    <br>
+                    <br>{{this.item.created_by_formatted}}
                     <p v-if="updated_at.h>12">{{ updated_at.date }}</p>
                     <div v-else style="display: flex">
                         <p v-if="updated_at.h">{{ updated_at.h }}h&nbsp;</p>
@@ -137,6 +137,7 @@
     import {Avatar} from 'vue-avatar'
     import tableAvatar from 'components/Avatar';
     import globalFunction from "helpers/globalFunction";
+    import {format} from 'date-fns';
 
 export default {
     mixins: [globalFunction],
@@ -164,6 +165,7 @@ export default {
     components: {
         RequestCount,
         Avatar,
+        format,
         'table-avatar': tableAvatar
     },
     computed: {
@@ -199,16 +201,16 @@ export default {
         updated_at() {
             var currentDate = new Date();
             var updated_date = new Date(
-                parseInt(this.item.created_by.substr(6,4)), 
-                parseInt(this.item.created_by.substr(3,2)) - 1, 
-                parseInt(this.item.created_by.substr(0,2)), 
-                parseInt(this.item.created_by.substr(11,2)), 
-                parseInt(this.item.created_by.substr(14,2)), 
-                parseInt(this.item.created_by.substr(17,2)), 
+                parseInt(this.item.created_at.substr(6,4)),
+                parseInt(this.item.created_at.substr(3,2)) - 1,
+                parseInt(this.item.created_at.substr(0,2)),
+                parseInt(this.item.created_at.substr(11,2)),
+                parseInt(this.item.created_at.substr(14,2)),
+                parseInt(this.item.created_at.substr(17,2)),
             );
             var minutes = Math.ceil((currentDate.getTime() - updated_date.getTime()) / 1000 / 60) ;
             return {
-                date: this.item.created_by.substr(0,10),
+                date: this.item.created_at.substr(0,10),
                 h: Math.floor(minutes / 60),
                 m: Math.ceil(minutes % 60)
             }
@@ -233,6 +235,10 @@ export default {
         },
         edit() {
             this.$emit('editAction', this.item);
+        },
+        formatDate (date) {
+            var res = date.split(" ");
+            return res[0];
         }
     },
     created() {

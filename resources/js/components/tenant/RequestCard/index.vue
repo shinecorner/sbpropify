@@ -58,7 +58,7 @@
                     <div class="content">
                         {{data.tenant.user.name}}
                         <small>
-                            {{requestFormatDatetime(data.created_by)}}
+                            {{requestFormatDatetime(data.created_at)}}
                             <!-- <template v-if="$constants.serviceRequests.status[data.status] === 'done'"> -->
                                 <!-- and solved on {{formatDatetime(data.solved_date)}} -->
                             <!-- </template> -->
