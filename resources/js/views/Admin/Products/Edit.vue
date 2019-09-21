@@ -333,14 +333,6 @@
             padding: 0 10px;
             font-weight: bold;
         }
-        .admin-layout .el-badge__content.is-fixed {
-            top: 19px;
-            right: -5px;
-            background-color: var(--primary-color) !important;
-            margin-left: 5px;
-            height: 18px;
-            width: 6px;
-        }
         .el-card .el-card__body, .el-card .el-card__header {
             padding: 20px !important;
         }

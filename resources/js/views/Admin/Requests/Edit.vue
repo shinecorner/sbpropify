@@ -795,14 +795,6 @@
         }
     }
 
-    .admin-layout .el-badge__content.is-fixed {
-        top: 19px;
-        right: -5px;
-        background-color: var(--primary-color) !important;
-        margin-left: 5px;
-        height: 18px;
-        width: 6px;
-    }
     #tab-audit{
         padding-left:40px;
     }

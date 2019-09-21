@@ -734,12 +734,7 @@
             border-radius: 6px 6px 0 0;
         }
     }
-    .admin-layout .el-badge__content.is-fixed {
-        top: 19px;
-        right: -5px;
-        background-color: var(--primary-color) !important;
-        margin-left: 5px;
-    }
+    
     #tab-files, #tab-companies, #tab-requests, #tab-tenants, #tab-managers, #tab-units{
         padding-right: 40px;
     }

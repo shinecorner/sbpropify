@@ -1011,3 +1011,12 @@
         color: var(--primary-color);
     } 
 </style>
+
+<style lang="scss">
+    .admin-layout .el-badge__content.is-fixed {
+        top: 19px;
+        right: -5px;
+        background-color: var(--primary-color) !important;
+        margin-left: 5px;
+    }
+</style>
