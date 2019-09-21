@@ -164,6 +164,7 @@ return [
     "welcome_neighbour_msg" => "begrüsst den neuen Nachbarn.",
     "welcome_neighbour_msg_multiple" => "begrüssen den neuen Nachbarn.",
     "welcome" => "Willkommen",
+    "unwelcome" => "Willkommensgrüsse zurücknehmen",
     "mark_all_as_read" => "Alle als gelesen markieren",
     "notification_label" => "Benachrichtigungen",
     "settings" => "Einstellungen",
