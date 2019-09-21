@@ -3,7 +3,7 @@
         <ui-avatar :src="data.user.avatar" :name="data.user.name" :size="48" shadow="always" />
         <div class="user">{{data.user.name}} {{$t('tenant.new_neighbour_msg')}}</div>
         <likes type="post" layout="row" :data="data.likes" :suffix="data.likes.length > 1 ? $t('tenant.welcome_neighbour_msg_multiple') : $t('tenant.welcome_neighbour_msg')" />
-        <like :id="data.id" :name="data.user.name" type="post" :show-text="false" :show-welcome-text="true"/> <!-- :icons="{like: 'icon-heart', unlike: 'icon-heart-empty'}" -->
+        <like :id="data.id" :name="data.user.name" type="post" :icons="{like: 'icon-handshake-o', unlike: 'icon-handshake-o'}" :show-text="false" :show-welcome-text="true"/> <!-- :icons="{like: 'icon-heart', unlike: 'icon-heart-empty'}" -->
         
     </el-card>
 </template>
@@ -78,6 +78,9 @@
                     justify-content: center;
                     border-radius: 0;
                     //box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
+                    /deep/ i {
+                        padding-right: 10px;
+                    }
                 }
             }
         }

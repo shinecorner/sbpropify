@@ -113,6 +113,19 @@
                             </el-row>
                         </el-form>
                     </el-tab-pane>
+                    <el-tab-pane name="units" v-loading="loading.state">
+                        <span slot="label">
+                            <el-badge :value="unitCount" :max="99" class="admin-layout">{{ $t('models.building.units') }}</el-badge>
+                        </span>
+                        <relation-list
+                            :actions="unitActions"
+                            :columns="unitColumns"
+                            :filterValue="model.id"
+                            fetchAction="getUnits"
+                            filter="building_id"
+                            v-if="model.id"
+                        />
+                    </el-tab-pane>
                     <el-tab-pane name="files">
                         <span slot="label">
                             <el-badge :value="fileCount" :max="99" class="admin-layout">{{ $t('models.building.files') }}</el-badge>
@@ -152,6 +165,67 @@
                             <upload-document @fileUploaded="uploadFiles" class="drag-custom" drag multiple
                                              v-if="selectedFileCategory"/>
                         </div>
+                    </el-tab-pane>
+                    
+
+                    
+                </el-tabs>
+                <div>
+                    <raw-grid-statistics-card :cols="8" :data="statistics.raw"/>
+                </div>
+                <el-row :gutter="15" type="flex">
+                    <el-col :span="12">
+                        <circular-progress-statistics-card
+                            :percentage="+statistics.percentage.occupied_units"
+                            :title="$t('models.building.occupied_units')"
+                            :color="getUnitsCountColor('occupied_units', 'name')"/>
+                    </el-col>
+                    <el-col :span="12">
+                        <circular-progress-statistics-card
+                            :percentage="+statistics.percentage.free_units"
+                            :title="$t('models.building.free_units')"
+                            :color="getUnitsCountColor('free_units', 'name')"/>
+                    </el-col>
+                </el-row>
+            </el-col>
+            <el-col :md="12">
+                <el-tabs type="border-card" v-model="activeRightTab">
+                    <el-tab-pane name="tenants" v-loading="loading.state">                        
+                        <span slot="label">
+                            <el-badge :value="tenantCount" :max="99" class="admin-layout">{{ $t('general.tenants') }}</el-badge>
+                        </span>
+                        <relation-list
+                            :actions="tenantActions"
+                            :columns="tenantColumns"
+                            :filterValue="model.id"
+                            fetchAction="getTenants"
+                            filter="building_id"
+                            v-if="model.id"
+                        />
+                    </el-tab-pane>
+                    <el-tab-pane name="managers">
+                        <span slot="label">
+                            <el-badge :value="assigneeCount" :max="99" class="admin-layout">{{ $t('models.building.managers') }}</el-badge>
+                        </span>
+                        <assignment-by-type
+                            :resetToAssignList="resetToAssignList"
+                            :assignmentType.sync="assignmentType"
+                            :toAssign.sync="toAssign"
+                            :assignmentTypes="assignmentTypes"
+                            :assign="assignUser"
+                            :toAssignList="toAssignList"
+                            :remoteLoading="remoteLoading"
+                            :remoteSearch="remoteSearchAssignees"
+                        />
+                        <relation-list
+                            :actions="assigneesActions"
+                            :columns="assigneesColumns"
+                            :filterValue="model.id"
+                            fetchAction="getBuildingAssignees"
+                            filter="building_id"
+                            ref="assigneesList"
+                            v-if="model.id"
+                        />
                     </el-tab-pane>
                     <el-tab-pane name="companies">
                         <span slot="label">
@@ -208,8 +282,10 @@
                             </el-select>
                         </div>
                     </el-tab-pane>
-
-                    <el-tab-pane name="requests">                        
+                </el-tabs>
+                
+                <el-tabs type="border-card" v-model="activeRequestTab">
+                    <el-tab-pane name="requests">
                         <span slot="label">
                             <el-badge :value="requestCount" :max="99" class="admin-layout">{{ $t('general.requests') }}</el-badge>
                         </span>
@@ -223,77 +299,6 @@
                         />
                     </el-tab-pane>
                 </el-tabs>
-            </el-col>
-            <el-col :md="12">
-                <el-tabs type="border-card" v-model="activeRightTab">
-                    <el-tab-pane name="tenants" v-loading="loading.state">                        
-                        <span slot="label">
-                            <el-badge :value="tenantCount" :max="99" class="admin-layout">{{ $t('general.tenants') }}</el-badge>
-                        </span>
-                        <relation-list
-                            :actions="tenantActions"
-                            :columns="tenantColumns"
-                            :filterValue="model.id"
-                            fetchAction="getTenants"
-                            filter="building_id"
-                            v-if="model.id"
-                        />
-                    </el-tab-pane>
-                    <el-tab-pane name="managers">
-                        <span slot="label">
-                            <el-badge :value="assigneeCount" :max="99" class="admin-layout">{{ $t('models.building.managers') }}</el-badge>
-                        </span>
-                        <assignment-by-type
-                            :resetToAssignList="resetToAssignList"
-                            :assignmentType.sync="assignmentType"
-                            :toAssign.sync="toAssign"
-                            :assignmentTypes="assignmentTypes"
-                            :assign="assignUser"
-                            :toAssignList="toAssignList"
-                            :remoteLoading="remoteLoading"
-                            :remoteSearch="remoteSearchAssignees"
-                        />
-                        <relation-list
-                            :actions="assigneesActions"
-                            :columns="assigneesColumns"
-                            :filterValue="model.id"
-                            fetchAction="getBuildingAssignees"
-                            filter="building_id"
-                            ref="assigneesList"
-                            v-if="model.id"
-                        />
-                    </el-tab-pane>
-                    <el-tab-pane name="units" v-loading="loading.state">
-                        <span slot="label">
-                            <el-badge :value="unitCount" :max="99" class="admin-layout">{{ $t('models.building.units') }}</el-badge>
-                        </span>
-                        <relation-list
-                            :actions="unitActions"
-                            :columns="unitColumns"
-                            :filterValue="model.id"
-                            fetchAction="getUnits"
-                            filter="building_id"
-                            v-if="model.id"
-                        />
-                    </el-tab-pane>
-                </el-tabs>
-                <div>
-                    <raw-grid-statistics-card :cols="8" :data="statistics.raw"/>
-                </div>
-                <el-row :gutter="15" type="flex">
-                    <el-col :span="12">
-                        <circular-progress-statistics-card
-                            :percentage="+statistics.percentage.occupied_units"
-                            :title="$t('models.building.occupied_units')"
-                            :color="getUnitsCountColor('occupied_units', 'name')"/>
-                    </el-col>
-                    <el-col :span="12">
-                        <circular-progress-statistics-card
-                            :percentage="+statistics.percentage.free_units"
-                            :title="$t('models.building.free_units')"
-                            :color="getUnitsCountColor('free_units', 'name')"/>
-                    </el-col>
-                </el-row>
             </el-col>
         </el-row>
 
@@ -344,6 +349,7 @@
                 selectedFileCategory: 'house_rules',
                 activeTab: 'details',
                 activeRightTab: 'tenants',
+                activeRequestTab: 'requests',
                 tenantColumns: [{
                     type: 'requestTenantAvatar',
                     width: 70                    
@@ -752,6 +758,22 @@
     .buildings-edit {
         .heading {
             margin-bottom: 20px;
+        }
+
+        > .el-row > .el-col {
+            /*min-width: 448px;*/
+            /*max-width: 576px;*/
+
+            :global(.el-card) {
+                label {
+                    margin-bottom: .5em;
+                    display: block;
+                }
+            }
+
+            > *:not(:last-of-type) {
+                margin-bottom: 1em;
+            }
         }
 
         > .el-row > .el-col:last-of-type:not(.custom-column) {
