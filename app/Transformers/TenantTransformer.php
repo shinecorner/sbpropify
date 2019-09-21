@@ -26,6 +26,7 @@ class TenantTransformer extends BaseTransformer
             'first_name' => $model->first_name,
             'last_name' => $model->last_name,
             'birth_date' => $model->birth_date->format('Y-m-d'),
+            'birth_date_formatted' => $model->birth_date->format('d.m.Y'),
             'mobile_phone' => $model->mobile_phone,
             'private_phone' => $model->private_phone,
             'work_phone' => $model->work_phone,
