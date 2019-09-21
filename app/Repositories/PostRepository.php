@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\AuditableModel;
 use App\Models\Building;
 use App\Models\Quarter;
 use App\Models\Post;
@@ -103,13 +104,20 @@ class PostRepository extends BaseRepository
             $model->buildings()->sync($atts['building_ids']);
         }
 
-        $notificationData = collect();
+        $notificationsData = collect();
         if (Post::StatusPublished == $atts['status']) {
-            $notificationData = $this->notify($model);
+            $notificationsData = $this->notify($model);
         }
-        $notificationData['admin_new_tenant_post'] = $this->notifyAdminNewTenantPosts($model);
+        $adminNotificationsData = $this->notifyAdminNewTenantPosts($model);
+        $notificationsData = $notificationsData->merge($adminNotificationsData);
+        $this->saveNotificationAuditsAndLogs($model, $notificationsData);
 //        $this->notifyAdminActions($model);
         return $model;
+    }
+
+    protected function saveNotificationAuditsAndLogs(Post $post, $notificationsData)
+    {
+//        $post->registerAuditEvent(AuditableModel::EventSendNotifications, $notificationsData);
     }
 
 
@@ -192,14 +200,18 @@ class PostRepository extends BaseRepository
         }
 
         $usersToNotify = $this->getNotifiedTenantUsers($post);
-        $notificationData = collect([
-            'pinned_post_published' => collect(),
-            'post_published' => collect(),
-            'post_new_tenant_neighbor' => collect(),
+
+        $pinnedPostPublished = get_morph_type_of(PinnedPostPublished::class);
+        $postPublished = get_morph_type_of(PostPublished::class);
+        $postNewTenantNeighbor = get_morph_type_of(NewTenantInNeighbour::class);
+        $notificationsData = collect([
+            $pinnedPostPublished => collect(),
+            $postPublished => collect(),
+            $postNewTenantNeighbor => collect(),
         ]);
 
         if ($usersToNotify->isEmpty()) {
-            return $notificationData;
+            return $notificationsData;
         }
 
         $usersToNotify->load('settings:user_id,admin_notification,news_notification', 'tenant:id,user_id,first_name,last_name');
@@ -208,24 +220,24 @@ class PostRepository extends BaseRepository
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
             $u->redirect = '/news';
             if ($u->settings && $u->settings->admin_notification && $post->pinned) {
-                $notificationData['pinned_post_published']->push($u);
+                $notificationsData[$pinnedPostPublished]->push($u);
                 $u->notify((new PinnedPostPublished($post))
                     ->delay(now()->addSeconds($delay)));
                 continue;
             }
             if ($u->settings && $u->settings->news_notification && ! $post->pinned) {
                 if ($post->type == Post::TypePost) {
-                    $notificationData['post_published']->push($u);
+                    $notificationsData[$postPublished]->push($u);
                     $u->notify(new PostPublished($post));
                 }
                 if ($post->type == Post::TypeNewNeighbour) {
-                    $notificationData['post_new_tenant_neighbor']->push($u);
+                    $notificationsData[$postNewTenantNeighbor]->push($u);
                     $u->notify((new NewTenantInNeighbour($post))->delay($post->published_at));
                 }
             }
         }
 
-        return $notificationData;
+        return $notificationsData;
     }
 
     /**
@@ -300,8 +312,9 @@ class PostRepository extends BaseRepository
 
     public function notifyAdminNewTenantPosts(Post $post)
     {
+        $newTenantPost = get_morph_type_of(NewTenantPost::class);
         if (empty($post->user->tenant)) {
-            return collect();
+            return collect([$newTenantPost => collect()]);
         }
 
         $re = RealEstate::firstOrFail();
@@ -315,7 +328,7 @@ class PostRepository extends BaseRepository
             $admin->notify($notif);
         }
 
-        return $admins;
+        return collect([$newTenantPost => $admins]);
     }
 
     /**

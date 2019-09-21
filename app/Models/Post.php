@@ -97,13 +97,12 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *      )
  * )
  */
-class Post extends Model implements HasMedia, LikeableContract, Auditable
+class Post extends AuditableModel implements HasMedia, LikeableContract
 {
     use SoftDeletes;
     use HasMediaTrait;
     use Likeable;
     use HasComments;
-    use \OwenIt\Auditing\Auditable;
 
     public $table = 'posts';
 
