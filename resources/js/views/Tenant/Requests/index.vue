@@ -152,6 +152,7 @@
                 statusChangeModalVisible: false,
                 deleteModalVisible: false,
                 statusChangeModalType: "done",
+                changeRequest: null,
                 filters: {
                     schema: [{
                         type: 'el-select',
@@ -276,18 +277,7 @@
             changeRequestStatus(request, type) {
                 this.statusChangeModalType = type
                 this.statusChangeModalVisible = true
-
-                
-                // this.$confirm(this.$t(`general.swal.to_done.text`), this.$t(`general.swal.to_done.title`), {
-                //     type: 'warning'
-                // }).then(() => {
-                //     request.status = 4
-                //     request.category_id = request.category.id
-                //     this.$store.dispatch('newRequests/update', request)
-                // }).catch(err => {
-                //     console.log(err)
-                // });
-                
+                this.changeRequest = request;
             },
             resetDataFromDrawer () {
                 this.activeDrawerTab = 'chat'
@@ -313,8 +303,13 @@
 
                 this.$refs['request-add-form'].submit()
             },
-            changeStatus() {
+            async changeStatus(status) {
                 this.statusChangeModalVisible = false;
+                
+                this.changeRequest.status = status == 'done' ? 4 : 5;
+                this.changeRequest.category_id = this.changeRequest.category.id
+                await this.$store.dispatch('newRequests/update', this.changeRequest)
+                this.changeRequest = null
             },
             closeStatusChangeModal() {
                 this.statusChangeModalVisible = false;
