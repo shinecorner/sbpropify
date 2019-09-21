@@ -41,7 +41,7 @@ class ServiceRequestTransformer extends BaseTransformer
         ];
 
         if ($model->due_date) {
-            $response['due_date'] = $model->due_date->format('d.m.Y');
+            $response['due_date'] = $model->due_date->format('Y-m-d');
         }
 
         if ($model->solved_date) {
