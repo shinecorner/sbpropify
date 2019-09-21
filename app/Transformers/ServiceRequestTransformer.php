@@ -35,9 +35,8 @@ class ServiceRequestTransformer extends BaseTransformer
             'component' => $model->component,
             'payer' => $model->payer,
             'location' => $model->location,
-            'created_at' => $model->created_at->format('Y-m-d'),
-            'created_by' => $model->created_at->format('d.m.Y H:i:s'),
-            'updated_at' => $model->updated_at->format('d.m.Y'),
+            'created_at' => $model->created_at->format('d.m.Y H:i:s'),
+            'updated_at' => $model->updated_at->format('d.m.Y H:i:s'),
             'visibility' => $model->visibility,
         ];
 

@@ -191,7 +191,7 @@
                                 </el-col>
                                 <el-col :md="8" class="summary-item" id="createtime">
                                     <el-form-item :label="$t('general.created_at')">
-                                        <strong>{{this.model.created_by}}</strong>
+                                        <strong>{{this.model.created_at}}</strong>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
