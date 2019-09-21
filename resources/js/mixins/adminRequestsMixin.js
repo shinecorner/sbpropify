@@ -113,7 +113,7 @@ export default (config = {}) => {
             },
         },
         methods: {
-            ...mapActions(['getRequestCategoriesTree', 'getTenants', 'getServices', 'uploadRequestMedia', 'deleteRequestMedia', 'getPropertyManagers', 'assignProvider', 'assignManager', 'getUsers', 'assignAdministrator']),
+            ...mapActions(['getRequestCategoriesTree', 'getTenants', 'getServices', 'uploadRequestMedia', 'deleteRequestMedia', 'getPropertyManagers', 'assignProvider', 'assignManager', 'getUsers', 'assignAdministrator','getAssignees']),
             async remoteSearchTenants(search) {
                 if (search === '') {
                     this.tenants = [];
@@ -167,11 +167,13 @@ export default (config = {}) => {
                     
                     try {
                         let resp = [];
-                        const respRequest = await this.getRequest({id: this.$route.params.id});
-                        let exclude_ids = [];
+                        const respAssignee = await this.getAssignees({request_id: this.$route.params.id});                        
+                        let exclude_ids = [];                                                
                         if (this.assignmentType === 'managers') {
-                            respRequest.data.property_managers.map(item => {
-                                exclude_ids.push(item.id);
+                            respAssignee.data.data.map(item => {
+                                if(item.type === 'manager'){
+                                    exclude_ids.push(item.edit_id);
+                                }                                
                             })
                             resp = await this.getPropertyManagers({
                                 get_all: true,
@@ -179,8 +181,10 @@ export default (config = {}) => {
                                 exclude_ids
                             });
                         } else if(this.assignmentType === 'administrator'){
-                            respRequest.data.assignedUsers.map(item => {
-                                exclude_ids.push(item.id);
+                            respAssignee.data.data.map(item => {
+                                if(item.type === 'user'){                                    
+                                    exclude_ids.push(item.edit_id);
+                                }                                
                             })
                             resp = await this.getUsers({
                                 get_all: true,
@@ -189,9 +193,11 @@ export default (config = {}) => {
                                 role: 'administrator'
                             });
                         }
-                        else {
-                            respRequest.data.service_providers.map(item => {
-                                exclude_ids.push(item.id);
+                        else if(this.assignmentType === 'services') {
+                            respAssignee.data.data.map(item => {
+                                if(item.type === 'provider'){
+                                    exclude_ids.push(item.edit_id);
+                                }                                
                             })
                             resp = await this.getServices({
                                 get_all: true, 
