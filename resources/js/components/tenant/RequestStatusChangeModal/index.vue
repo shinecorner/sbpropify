@@ -22,7 +22,7 @@
 
             <span class="dialog-footer" slot="footer">
                 <el-button @click="close" size="mini">{{$t('tenant.cancel')}}</el-button>
-                <el-button @click="changeStatus(statusChangeModalType)" size="mini" type="danger">{{$t('tenant.close_request')}}</el-button>
+                <el-button @click="changeStatus(statusChangeModalType, model.message)" size="mini" type="danger">{{$t('tenant.close_request')}}</el-button>
             </span>
     </el-dialog>
 </template>

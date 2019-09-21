@@ -102,7 +102,6 @@
         methods: {
             submit () {
                 this.$refs.form.validate(async valid => {
-                    console.log('submit', valid)
                     if (!valid) {
                         return false
                     }

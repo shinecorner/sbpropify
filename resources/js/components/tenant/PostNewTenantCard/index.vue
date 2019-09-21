@@ -2,7 +2,7 @@
     <el-card>
         <ui-avatar :src="data.user.avatar" :name="data.user.name" :size="48" shadow="always" />
         <div class="user">{{data.user.name}} {{$t('tenant.new_neighbour_msg')}}</div>
-        <likes type="post" layout="row" :data="data.likes" :suffix="$t('tenant.welcome_neighbour_msg')" />
+        <likes type="post" layout="row" :data="data.likes" :suffix="data.likes.length > 1 ? $t('tenant.welcome_neighbour_msg_multiple') : $t('tenant.welcome_neighbour_msg')" />
         <like :id="data.id" :name="data.user.name" type="post" :show-text="false" :show-welcome-text="true"/> <!-- :icons="{like: 'icon-heart', unlike: 'icon-heart-empty'}" -->
         
     </el-card>
