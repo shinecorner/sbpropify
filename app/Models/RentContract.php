@@ -130,7 +130,7 @@ class RentContract extends AuditableModel implements HasMedia
     const Type = [
         self::TypePrivate => 'private',
         self::TypeBusiness => 'business',
-        self::TypeParkingSlot => 'parking slot'
+        self::TypeParkingSlot => 'parking_slot'
     ];
 
     const DurationUnlimited = 1;
@@ -152,10 +152,10 @@ class RentContract extends AuditableModel implements HasMedia
     const DepositTypeInsurance = 3;
     const DepositTypeOther = 4;
     const DepositType = [
-        self::DepositTypeBankDepot => 'Bank depot',
-        self::DepositTypeBankGuarantee => 'Bank guarantee',
-        self::DepositTypeInsurance => 'Insurance',
-        self::DepositTypeOther => 'Other'
+        self::DepositTypeBankDepot => 'bank_depot',
+        self::DepositTypeBankGuarantee => 'bank_guarantee',
+        self::DepositTypeInsurance => 'insurance',
+        self::DepositTypeOther => 'other'
     ];
 
     const DepositStatusYes = 1;
