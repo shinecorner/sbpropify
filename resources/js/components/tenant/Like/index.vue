@@ -13,7 +13,7 @@
                 </template>
                 <template v-if="showWelcomeText">
                     <template v-if="status.liked">{{$t('tenant.unwelcome')}}</template>
-                    <template v-else>{{$t('tenant.welcome')}} {{name}}</template>
+                    <template v-else>{{$t('tenant.welcome',{name})}}</template>
                     
                 </template>
             </el-button>

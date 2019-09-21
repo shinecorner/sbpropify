@@ -163,7 +163,7 @@ return [
     "new_neighbour_msg" => "est nouvelle dans le quartier.",
     "welcome_neighbour_msg" => "salue votre nouveau voisin.",
     "welcome_neighbour_msg_multiple" => "saluez votre nouveau voisin.",
-    "welcome" => "Bienvenue",
+    "welcome" => "Bienvenue :name",
     "unwelcome" => "Reprendre le message de bienvenue",
     "mark_all_as_read" => "Tout marquer comme lu",
     "notification_label" => "Notifications",
