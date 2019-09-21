@@ -34,6 +34,9 @@ import PostNewTenantCardLoader from './PostNewTenantCard/Loader'
 import PostEditFormError from './PostEditForm/Error'
 import PostEditFormLoader from './PostEditForm/Loader'
 
+import PostDeleteModalError from './PostDeleteModal/Error'
+import PostDeleteModalLoader from './PostDeleteModal/Loader'
+
 import ProductAddFormError from './ProductAddForm/Error'
 import ProductAddFormLoader from './ProductAddForm/Loader'
 
@@ -54,6 +57,9 @@ import RequestAddFormLoader from './RequestAddForm/Loader'
 
 import RequestCardError from './RequestCard/Error'
 import RequestCardLoader from './RequestCard/Loader'
+
+import RequestStatusChangeModalError from './RequestStatusChangeModal/Error'
+import RequestStatusChangeModalLoader from './RequestStatusChangeModal/Loader'
 
 import RequestsStatisticsCardError from './RequestsStatisticsCard/Error'
 import RequestsStatisticsCardLoader from './RequestsStatisticsCard/Loader'
@@ -160,6 +166,13 @@ export default {
                 delay: 0,
                 timeout: 8000
             }),
+            postDeleteModal: () => ({
+                component: import(/* webpackChunkName: "postDeleteModal" */ './PostDeleteModal'),
+                loading: PostDeleteModalLoader,
+                error: PostDeleteModalError,
+                delay: 0,
+                timeout: 8000
+            }),
             productAddForm: () => ({
                 component: import(/* webpackChunkName: "productAddForm" */ './ProductAddForm'),
                 loading: ProductAddFormLoader,
@@ -206,6 +219,13 @@ export default {
                 component: import(/* webpackChunkName: "requestAddForm" */ './RequestAddForm'),
                 loading: RequestAddFormLoader,
                 error: RequestAddFormError,
+                delay: 0,
+                timeout: 8000
+            }),
+            requestStatusChangeModal: () => ({
+                component: import(/* webpackChunkName: "requestAddForm" */ './RequestStatusChangeModal'),
+                loading: RequestStatusChangeModalLoader,
+                error: RequestStatusChangeModalError,
                 delay: 0,
                 timeout: 8000
             }),

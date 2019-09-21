@@ -175,6 +175,7 @@ return [
     "contact_phone" => "Téléphone de contact",
     "change" => "remanier",
     "cancel" => "résilier",
+    "close_request" => "Fermer la demande",
     "category" => "Catégorie",
     "defect_location" => "Localisation des défauts",
     "description" => "Description",

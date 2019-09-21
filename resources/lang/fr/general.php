@@ -184,7 +184,12 @@ return [
         ],
         'to_done' => [
             'title' => 'Marquer la demande comme complétée',
-            'text' => 'Voulez-vous vraiment marquer cette demande comme complétée ?',
+            'desc' => "Avec ce processus, la demande est marquée comme étant terminée et le dossier est clos. Vous pouvez réactiver cette demande ultérieurement si vous avez besoin d'aide pour ce problème.",
+            'message' => 'Vous pouvez également laisser un message ici.',
+        ],
+        'reactivate' => [
+            'title' => 'Riattivare la richiesta',
+            'text' => 'Veuillez laisser un message avec la raison de la réactivation.',
         ],
         'delete_listing' => [
             'title' => 'supprimer la liste',

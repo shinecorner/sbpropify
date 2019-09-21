@@ -25,8 +25,8 @@
                                     
                                     <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
                                     <el-tooltip :content="$t('tenant.tooltips.status_change_requeset')">
-                                        <el-button icon="el-pencil" size="mini" @click="changeToDone(item)" plain round v-if="item.status != 4">{{$t('tenant.actions.to_done')}}</el-button>
-                                        <el-button icon="el-pencil" size="mini" plain round v-if="item.status == 4">{{$t('tenant.actions.to_reactivated')}}</el-button>
+                                        <el-button icon="el-pencil" size="mini" @click="changeRequestStatus(item, 'done')" plain round v-if="item.status != 4">{{$t('tenant.actions.to_done')}}</el-button>
+                                        <el-button icon="el-pencil" size="mini" @click="changeRequestStatus(item, 'reactivate')" plain round v-if="item.status == 4">{{$t('tenant.actions.to_reactivated')}}</el-button>
                                     </el-tooltip>
                                 </template>
                                 <template #tab-media-after>
@@ -121,15 +121,12 @@
                 </el-tab-pane>
             </el-tabs>
         </ui-drawer>
-        
-
-        <!-- <el-dialog ref="add-request-dialog" title="Add request" :visible.sync="addRequestDialogVisible" custom-class="add-request-dialog" append-to-body>
-            
-            <span slot="footer" class="dialog-footer">
-                <el-button icon="el-icon-close" @click="addRequestDialogVisible = false" round>Cancel</el-button>
-                <el-button type="primary" icon="el-icon-check" round @click="addRequest">Confirm</el-button>
-            </span>
-        </el-dialog> -->
+        <request-status-change-modal
+                :statusChangeModalVisible="statusChangeModalVisible"
+                :statusChangeModalType="statusChangeModalType"
+                :closeModal="closeStatusChangeModal"
+                :changeStatus="changeStatus"
+            />
     </div>
 </template>
 
@@ -152,6 +149,10 @@
                 activeDrawerTab: 'chat',
                 activeDrawerMediaTab: 0,
                 addRequestDialogVisible: false,
+                statusChangeModalVisible: false,
+                deleteModalVisible: false,
+                statusChangeModalType: "done",
+                changeRequest: null,
                 filters: {
                     schema: [{
                         type: 'el-select',
@@ -273,18 +274,10 @@
                 this.visibleDrawer = !this.visibleDrawer
 
             },
-            changeToDone(request) {
-                
-                this.$confirm(this.$t(`general.swal.to_done.text`), this.$t(`general.swal.to_done.title`), {
-                    type: 'warning'
-                }).then(() => {
-                    request.status = 4
-                    request.category_id = request.category.id
-                    this.$store.dispatch('newRequests/update', request)
-                }).catch(err => {
-                    console.log(err)
-                });
-                
+            changeRequestStatus(request, type) {
+                this.statusChangeModalType = type
+                this.statusChangeModalVisible = true
+                this.changeRequest = request;
             },
             resetDataFromDrawer () {
                 this.activeDrawerTab = 'chat'
@@ -310,6 +303,17 @@
 
                 this.$refs['request-add-form'].submit()
             },
+            async changeStatus(status) {
+                this.statusChangeModalVisible = false;
+                
+                this.changeRequest.status = status == 'done' ? 4 : 5;
+                this.changeRequest.category_id = this.changeRequest.category.id
+                await this.$store.dispatch('newRequests/update', this.changeRequest)
+                this.changeRequest = null
+            },
+            closeStatusChangeModal() {
+                this.statusChangeModalVisible = false;
+            }
         },
         mounted () {
             //this.$refs['dynamic-scroller'].forceUpdate()

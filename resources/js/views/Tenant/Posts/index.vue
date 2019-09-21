@@ -1,37 +1,38 @@
 <template>
     <div :class="['posts-box']">
         <div :class="['posts']">
-        <div class="container" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading">
-            <ui-heading icon="icon-megaphone-1" title="News" description="Sed placerat volutpat mollis." />
-        
-            <ui-divider />
-            <div class="content">
-                <post-add-card />
-                <el-divider content-position="left">
-                    <el-button @click="refreshPage" size="small" icon="icon-refresh" plain round>{{$t('tenant.refresh')}}</el-button>
-                    <!-- <el-popover popper-class="posts-filter" placement="bottom-end" trigger="click" :width="192">
-                        <el-button size="small" slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
-                        <filters ref="filters" layout="row" :data="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
-                        <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
-                    </el-popover> -->
-                </el-divider>
-                <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" page-mode v-if="!loading">
-                    <template #before v-if="loading && !filteredPosts.length">
-                        <loader v-for="idx in 5" :key="idx" />
-                    </template>
-                    <template v-slot="{item, index, active}">
-                        <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" :watchData="true" >
-                            <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour'"/>
-                            <post-card :data="item" @edit-post="editPost" @delete-post="deletePost" v-else/>
-                        </dynamic-scroller-item>
-                    </template>
-                    <template #after v-if="loading && filteredPosts.length">
-                        <loader />
-                    </template>
-                </dynamic-scroller>
+            <div class="container" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading">
+                <ui-heading icon="icon-megaphone-1" title="News" description="Sed placerat volutpat mollis." />
+            
+                <ui-divider />
+                <div class="content">
+                    <post-add-card />
+                    <el-divider content-position="left">
+                        <el-button @click="refreshPage" size="small" icon="icon-refresh" plain round>{{$t('tenant.refresh')}}</el-button>
+                        <!-- <el-popover popper-class="posts-filter" placement="bottom-end" trigger="click" :width="192">
+                            <el-button size="small" slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
+                            <filters ref="filters" layout="row" :data="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
+                            <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
+                        </el-popover> -->
+                    </el-divider>
+                    <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" page-mode v-if="!loading">
+                        <template #before v-if="loading && !filteredPosts.length">
+                            <loader v-for="idx in 5" :key="idx" />
+                        </template>
+                        <template v-slot="{item, index, active}">
+                            <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" :watchData="true" >
+                                <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour'"/>
+                                <post-card :data="item" @edit-post="editPost" @delete-post="deletePost" v-else/>
+                            </dynamic-scroller-item>
+                        </template>
+                        <template #after v-if="loading && filteredPosts.length">
+                            <loader />
+                        </template>
+                    </dynamic-scroller>
+                </div>
+                <rss-feed title="Blick.ch News" />
             </div>
-            <rss-feed title="Blick.ch News" />
-        </div>
+            
         </div>
         <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
             <ui-divider content-position="left" v-if="editingPost">{{$t('tenant.edit_post')}}</ui-divider>
@@ -39,6 +40,7 @@
                 <post-edit-form :data="editingPost" v-if="editingPost" :visible.sync="visibleDrawer"/>
             </div>
         </ui-drawer>
+        
     </div>
 </template>
 
@@ -126,6 +128,8 @@
                 filterCategory: null,
                 editingPost: null,
                 visibleDrawer: false,
+                deleteModalVisible: false,
+                delPostStatus: -1
             }
         },
         methods: {
@@ -169,14 +173,12 @@
                 this.resetFilters ()
             },
             async deletePost(event, data) {
-                
                 const resp = await this.$confirm(this.$t(`general.swal.delete_listing.text`), this.$t(`general.swal.delete_listing.title`), {
                     type: 'warning'
                 }).then(() => {
                     this.$store.dispatch('newPosts/delete', data)
-                })
-               
-                
+                }).catch(() => {
+                });
             },
             editPost(event, data) {
                 console.log('editPost', data)
