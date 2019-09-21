@@ -221,7 +221,7 @@
                                     <el-form-item :label="$t('models.tenant.rent_type')" prop="rent_type"
                                                   class="label-block">
                                         <el-select placeholder="Select" style="display: block" 
-                                                    v-model="model.rent_type">
+                                                    v-model="model.contract.rent_type">
                                             <el-option
                                                     :key="type.value"
                                                     :label="type.name"
@@ -235,7 +235,7 @@
                                     <el-form-item :label="$t('models.tenant.rent_duration')" prop="rent_duration"
                                                   class="label-block">
                                         <el-select placeholder="Select" style="display: block" 
-                                                    v-model="model.rent_duration">
+                                                    v-model="model.contract.rent_duration">
                                             <el-option
                                                     :key="type.value"
                                                     :label="type.name"
@@ -343,7 +343,7 @@
                             <ui-divider></ui-divider>
                             <div class="contract-actions">
                                 <el-button type="primary" icon="icon-plus" size="mini" round>{{$t('models.request.add_contract')}}</el-button>
-                                <!-- <el-button type="danger" icon="icon-minus" size="mini" round>{{$t('models.request.delete_contract')}}</el-button> -->
+                                <el-button type="danger" icon="icon-minus" size="mini" round>{{$t('models.request.delete_contract')}}</el-button>
                             </div>
                             
                         </card>

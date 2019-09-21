@@ -43,6 +43,16 @@ export default (config = {}) => {
                         language: '',
                     },
                     nation: '',
+                    contract: {
+                        rent_type: '',
+                        rent_duration: '',
+                        rent_start: '',
+                        rent_end: '',
+                        deposit_amount: '',
+                        deposit_type: '',
+                        net_rent: '',
+                        heating_operating_costs_installment: ''
+                    }
                 },
                 validationRules: {
                     first_name: [{

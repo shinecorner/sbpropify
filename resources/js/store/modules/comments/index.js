@@ -174,7 +174,6 @@ export default {
             } else {
                 data.children = {data: [], total: 0}
     
-                console.log('state', state)
                 state[commentable][id].total++
                 state[commentable][id].data.push(data)
             }
