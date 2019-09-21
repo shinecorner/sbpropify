@@ -16,13 +16,13 @@
             </el-row>
             <el-row>
                 <el-col :span="24">
-                    <el-input type="text" v-model="model.message"></el-input>
+                    <el-input type="textarea" :autosize="{ minRows: 3}" v-model="model.message"></el-input>
                 </el-col>
             </el-row>
 
             <span class="dialog-footer" slot="footer">
-                <el-button @click="close" size="mini">{{$t('models.building.cancel')}}</el-button>
-                <el-button @click="changeStatus()" size="mini" type="danger">{{$t('general.actions.delete')}}</el-button>
+                <el-button @click="close" size="mini">{{$t('tenant.cancel')}}</el-button>
+                <el-button @click="changeStatus()" size="mini" type="danger">{{$t('tenant.close_request')}}</el-button>
             </span>
     </el-dialog>
 </template>

@@ -1617,7 +1617,7 @@
 }
 .el-menu-item:focus,.el-menu-item:hover{
     outline:0;
-    background-color:#f0f9f1
+    background-color:var(--primary-color-lighter)
 }
 .el-menu-item.is-disabled{
     opacity:.25;
