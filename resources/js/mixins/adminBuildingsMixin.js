@@ -116,29 +116,33 @@ export default (config = {}) => {
                     
                     try {
                         let resp = [];
-                        // const respRequest = await this.getRequest({id: this.$route.params.id});
+                        const buildingAssignee = await this.getBuildingAssignees({building_id: this.$route.params.id});                        
                         let exclude_ids = [];
                         if (this.assignmentType === 'managers') {
-                            // respRequest.data.property_managers.map(item => {
-                            //     exclude_ids.push(item.id);
-                            // })
+                            buildingAssignee.data.data.map(item => {
+                                if(item.type === 'manager'){
+                                    exclude_ids.push(item.edit_id);
+                                }                                
+                            })
                             resp = await this.getPropertyManagers({
                                 get_all: true,
                                 search,
                                 exclude_ids
                             });
                         } else if(this.assignmentType === 'administrator'){
-                            // respRequest.data.assignedUsers.map(item => {
-                            //     exclude_ids.push(item.id);
-                            // })
+                            buildingAssignee.data.data.map(item => {
+                                if(item.type === 'user'){                                    
+                                    exclude_ids.push(item.edit_id);
+                                }                                
+                            })
                             resp = await this.getUsers({
                                 get_all: true,
                                 search,
                                 exclude_ids,
                                 role: 'administrator'
                             });
-                        }                       
-
+                        }
+                                                     
                         this.toAssignList = resp.data;
                     } catch (err) {
                         displayError(err);

@@ -23,6 +23,11 @@ export default (config = {}) => {
                     text: this.$t('general.please_wait')
                 },
                 buildingsCount: 20,
+                remoteLoading: false,
+                toAssign: '',
+                toAssignList: [],
+                assignmentTypes: ['managers', 'administrator'],
+                assignmentType: 'managers',
             }
         },
         computed: {
@@ -30,6 +35,108 @@ export default (config = {}) => {
                 return this.$refs.form;
             },
         },
+        methods: {
+            ...mapActions(['assignManagerToQuarter','assignUsersToQuarter','getQuarter','getUsers','getPropertyManagers','unassignQuarterAssignee']),
+            resetToAssignList() {
+                this.toAssignList = [];
+                this.toAssign = '';
+            },
+            async assignUser() {
+                if (!this.toAssign || !this.model.id) {
+                    return false;
+                }
+                let resp;
+
+                if (this.assignmentType === 'managers') {
+                    resp = await this.assignManagerToQuarter({
+                        id: this.model.id,
+                        toAssignId: this.toAssign   
+                    });
+                } else if (this.assignmentType === 'administrator') {
+                    resp = await this.assignUsersToQuarter({
+                        id: this.model.id,
+                        toAssignId: this.toAssign
+                    });
+                }
+                if (resp && resp.data) {             
+                    displaySuccess(resp.data)                           
+                    this.resetToAssignList();
+                    this.$refs.assigneesList.fetch();                    
+                }
+            },
+            async remoteSearchAssignees(search) {
+
+                /*if (!this.$can(this.$permissions.assign.quarter)) {
+                    return false;
+                }*/
+
+                if (search === '') {
+                    this.resetToAssignList();
+                } else {
+                    this.remoteLoading = true;
+                    
+                    try {
+                        let resp = [];
+                        const quarterAssignee = await this.getQuarterAssignees({quarter_id: this.$route.params.id});
+                        let exclude_ids = [];
+                        if (this.assignmentType === 'managers') {
+                            quarterAssignee.data.data.map(item => {
+                                if(item.type === 'manager'){
+                                    exclude_ids.push(item.edit_id);
+                                }                                
+                            })
+                            resp = await this.getPropertyManagers({
+                                get_all: true,
+                                search,
+                                exclude_ids
+                            });
+                        } else if(this.assignmentType === 'administrator'){
+                            quarterAssignee.data.data.map(item => {
+                                if(item.type === 'user'){                                    
+                                    exclude_ids.push(item.edit_id);
+                                }                                
+                            })
+                            resp = await this.getUsers({
+                                get_all: true,
+                                search,
+                                exclude_ids,
+                                role: 'administrator'
+                            });
+                        }
+                        this.toAssignList = resp.data;
+                    } catch (err) {
+                        displayError(err);
+                    } finally {
+                        this.remoteLoading = false;
+                    }
+                }
+            },
+            unassignQuarter(assignee) {
+                this.$confirm(this.$t(`general.swal.confirmChange.title`), this.$t('general.swal.confirmChange.warning'), {
+                    confirmButtonText: this.$t(`general.swal.confirmChange.confirmBtnText`),
+                    cancelButtonText: this.$t(`general.swal.confirmChange.cancelBtnText`),
+                    type: 'warning'
+                }).then(async () => {
+                    try {                        
+                        const resp = await this.unassignQuarterAssignee({                            
+                            assignee_id: assignee.id
+                        });
+
+                        displaySuccess(resp);
+
+                        this.$refs.assigneesList.fetch();
+
+                    } catch (e) {
+                        displayError(e);
+                    } finally {
+                        this.loading.status = false;
+                    }
+                }).catch(() => {
+                    this.loading.status = false;
+                })
+
+            },
+        }
     };
 
     if (config.mode) {
