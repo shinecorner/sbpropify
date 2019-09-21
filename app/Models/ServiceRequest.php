@@ -5,8 +5,6 @@ namespace App\Models;
 use App\Traits\HasComments;
 use App\Traits\UniqueIDFormat;
 use Chelout\RelationshipEvents\Concerns\HasMorphedByManyEvents;
-use function foo\func;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
