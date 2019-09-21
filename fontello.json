@@ -425,6 +425,12 @@
       "css": "right-small",
       "code": 59438,
       "src": "typicons"
+    },
+    {
+      "uid": "qab5uvjyoc3uu4d2pvt8soshtgkuvpak",
+      "css": "minus",
+      "code": 59439,
+      "src": "typicons"
     }
   ]
 }

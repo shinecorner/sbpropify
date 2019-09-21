@@ -320,8 +320,32 @@
                                     </el-form-item>
                                 </el-col>
                             </el-row>
-                            <ui-divider></ui-divider> 
-                            <el-button type="success" icon="icon-filter" size="mini" slot="reference" plain round>{{$t('general.actions.')}}</el-button>
+                            <el-row :gutter="20">
+                               <el-col :md="12">
+                                    <el-form-item :label="$t('models.tenant.net_rent')"
+                                                    prop="net_rent">
+                                         <el-input type="text"
+                                                  v-model="model.net_rent"
+                                                  class="dis-autofill"
+                                        ></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.tenant.heating_operating_costs_installment')" prop="deposit_type"
+                                                  class="label-block">
+                                        <el-input type="text"
+                                                  v-model="model.heating_operating_costs_installment"
+                                                  class="dis-autofill"
+                                        ></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <ui-divider></ui-divider>
+                            <div class="contract-actions">
+                                <el-button type="primary" icon="icon-plus" size="mini" round>{{$t('models.request.add_contract')}}</el-button>
+                                <!-- <el-button type="danger" icon="icon-minus" size="mini" round>{{$t('models.request.delete_contract')}}</el-button> -->
+                            </div>
+                            
                         </card>
                     </el-col>
                 </el-row>
@@ -400,5 +424,9 @@
 
     .mb15 {
         margin-bottom: 15px;
+    }
+
+    .contract-actions {
+        text-align: right;
     }
 </style>

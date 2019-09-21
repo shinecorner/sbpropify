@@ -150,6 +150,9 @@ return [
             'insurance' => 'Assicurazione',
             'other' => 'Altro',
         ],
+        'net_rent' => 'Affitto netto',
+        'heating_operating_costs_installment' => 'Rata dei costi di riscaldamento/costi di esercizio',
+        'gross_rent' => 'Affitto lordo',
         'contact' => [
             "category" => "Categoria",
         ],

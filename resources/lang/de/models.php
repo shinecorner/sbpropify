@@ -150,6 +150,9 @@ return [
             'insurance' => 'Kautionsversicherung',
             'other' => 'Sonstiges',
         ],
+        'net_rent' => 'Nettomiete',
+        'heating_operating_costs_installment' => 'Heizungs-/Betriebskostenrate',
+        'gross_rent' => 'Bruttomiete',
         'contact' => [
             'category' => 'Kategorie',
         ],

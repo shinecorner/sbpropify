@@ -150,6 +150,9 @@ return [
             'insurance' => 'Assurance',
             'other' => 'Autre',
         ],
+        'net_rent' => 'Loyer net',
+        'heating_operating_costs_installment' => "Versement des frais de chauffage et d'exploitation",
+        'gross_rent' => 'Loyer brut',
         'contact' => [
             "category" => "Catégorie",
         ],

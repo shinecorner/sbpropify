@@ -150,6 +150,9 @@ return [
             'insurance' => 'Insurance',
             'other' => 'Other',
         ],
+        'net_rent' => 'Net rent',
+        'heating_operating_costs_installment' => 'Heating/operating costs installment',
+        'gross_rent' => 'Gross rent',
         'contact' => [
             'category' => 'Category',
         ],
