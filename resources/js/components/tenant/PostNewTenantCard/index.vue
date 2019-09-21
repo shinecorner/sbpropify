@@ -66,17 +66,18 @@
                 width: 100%;
                 padding: 10px;
                 :global(.el-button) {
-                    font-size: 18px;
+                    font-size: 15px;
                     width: 100%;
                     height: 40px;
                     padding: 0;
                     background-color: #fff;
-                    color: var(--color-danger);
+                    color: var(--primary-color);
                     border-top: 1px var(--border-color-base) solid;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     border-radius: 0;
+                    font-family: inherit;
                     //box-shadow: 0 1px 3px transparentize(#000, .88), 0 1px 2px transparentize(#000, .76);
                     /deep/ i {
                         padding-right: 10px;

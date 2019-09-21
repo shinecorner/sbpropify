@@ -739,8 +739,6 @@
         right: -5px;
         background-color: var(--primary-color) !important;
         margin-left: 5px;
-        height: 18px;
-        width: 6px;
     }
     #tab-files, #tab-companies, #tab-requests, #tab-tenants, #tab-managers, #tab-units{
         padding-right: 40px;
