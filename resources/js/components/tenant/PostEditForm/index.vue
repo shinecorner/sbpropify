@@ -7,9 +7,9 @@
 
         <el-form-item style="grid-column: span 6">
             <ui-media-gallery :files="data.media.map(({url}) => url)" />
-            <media-uploader ref="media" :id="product_id" type="products" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
+            <media-uploader ref="media" :id="post_id" type="posts" layout="grid" v-model="model.media" :upload-options="uploadOptions" />
         </el-form-item>
-        <el-form-item v-if="!hideSubmit" style="grid-column: span 3">
+        <el-form-item v-if="!hideSubmit" style="grid-column: span 6; display: flex; flex-direction: column; justify-content: flex-end;">
             <el-button class="submit" type="primary" :disabled="loading" @click="submit">{{$t('tenant.actions.save')}}</el-button>
         </el-form-item>
     </el-form>
@@ -27,6 +27,10 @@
             },
             data: {
                 type: Object
+            },
+            visible: {
+                type: Boolean,
+                default: false
             }
         },
         data () {
@@ -41,48 +45,15 @@
                     extensions: 'png,jpg,jpeg',
                     hideSelectFilesButton: false
                 },
-                product_id: null,
+                post_id: null,
                 model: {
                     media: [],
-                    type: null,
-                    title: null,
-                    price: {
-                        integer: '0',
-                        decimals: '00'
-                    },
-                    content: null,
-                    visibility: null,
-                    tenant_name: null,
-                    tenant_phone: null,       
+                    content: null,   
                 },
                 validationRules: {
-                    type: {
-                        required: true,
-                        message: this.$t('validation.required',{attribute: this.$t('tenant.type')})
-                    },
-                    title: {
-                        required: true,
-                        message: this.$t('validation.required',{attribute: this.$t('tenant.title')})
-                    },
-                    price: {
-                        required: true,
-                        validator: this.priceValidator
-                    },
                     content: {
                         required: true,
                         message: this.$t('validation.required',{attribute: this.$t('tenant.content')})
-                    },
-                    visibility: {
-                        required: true,
-                        message: this.$t('validation.required',{attribute: this.$t('tenant.visibility')})
-                    },
-                    tenant_name: {
-                        required: true,
-                        message: this.$t('validation.required',{attribute: this.$t('tenant.contact_name')})
-                    },
-                    tenant_phone: {
-                        required: true,
-                        message: this.$t('validation.required',{attribute: this.$t('tenant.contact_phone')})
                     }
                 }
             }
@@ -93,54 +64,33 @@
                     if (valid) {
                         this.loading = true;
 
-                        const {price, media, tenant_name, tenant_phone, ...params} = this.model
+                        const {media, ...params} = this.model
 
-                        params.price = `${price.integer}.${price.decimals}`
-                        params.contact = `${tenant_name} - ${tenant_phone}`
                         params.id = this.data.id
 
-                        const resp = await this.$store.dispatch('newProducts/update', params);
+                        this.data.content = this.model.content
+                        const resp = await this.$store.dispatch('newPosts/update', this.data);
                         
                         if (resp && resp.data) {                            
                             if (this.model.media.length) {
                             // TODO - make await for this   
-                                this.product_id = this.data.id;            
+                                this.post_id = this.data.id;
                                 this.$refs.media.startUploading();
+                                this.$root.$on('media-upload-finished', () => this.$emit('update:visible', false));
                             }
                         }
-                        
 
                         this.loading = false
-                        this.$refs.form.resetFields()
-                        // this.$refs.media.clearUploader()
+                        
+                        if(!this.model.media.length)
+                            this.$emit('update:visible', false);
+//                        this.$refs.form.resetFields()
                     }
                 })
             },
-            priceValidator (rule, value, callback) {
-                const integer = +(value.integer || undefined)
-                const decimals = +(value.decimals || undefined)
-
-                if (!isNaN(integer) &&
-                    !isNaN(decimals) &&
-                    integer % 1 === 0 &&
-                    decimals % 1 === 0 &&
-                    decimals >= 0 && decimals <= 99 &&
-                    integer >= 0 && integer <= Number.MAX_SAFE_INTEGER
-                ) {
-                    callback()
-                } else {
-                    callback(new Error('The price is invalid'))
-                }
-            }
-        },
-        computed: {
-            isPriceVisible () {
-                return this.model.type != (Object.values(this.$constants.products.type).find(name => name === 'giveaway') || [])[0]
-            }
+            
         },
         created () {
-
-            console.log('edit', this.data)
             this.model.content = this.data.content;
         }
     };

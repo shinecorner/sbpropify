@@ -485,6 +485,7 @@ return [
         'required' => 'This field is required',
         'buildings' => 'Buildings',
         'count_of_buildings' => 'Count of buildings',
+        'assignment' => 'Assignment of managers/administrator',
         'errors' => [
             'not_found' => "Quarter not found",
             'deleted' => "Quarter deleted error: ",

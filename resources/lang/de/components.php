@@ -89,7 +89,7 @@ return [
                         ]
                     ],
                     'product' => [
-                        'created' => '{userName} hat dieses Inserat erstellt #{auditable_id}.',
+                        'created' => '{userName} hat dieses Inserat erstellt.',
                         'updated' => [
                             'title' => 'Der Titel wurde von "{old}" zu "{new}" geändert im {auditable_type} #{auditable_id}.',
                             'status' => 'Der Status wurde von "{old}" zu "{new}" geändert im {auditable_type} #{auditable_id}.',
@@ -99,8 +99,8 @@ return [
                             'qualification' => 'Die Qualifikation wurde von "{old}" zu "{new}" geändert im {auditable_type} #{auditable_id}.',
                             'visibility' => 'Die Sichtbarkeit wurde von "{old}" zu "{new}" geändert im {auditable_type} #{auditable_id}.',
                         ],
-                        'provider_assigned' => '{providerName} has been assigned as provider im {auditable_type} #{auditable_id}.',
-                        'user_assigned' => '{userName} has been assigned as manager im {auditable_type} #{auditable_id}.',
+                        'provider_assigned' => '{providerName} wurde als Dienstleister zugewiesen.',
+                        'user_assigned' => '{userName} wurde als zuständige Person zugewiesen.',
                         'media_uploaded' => 'Mediendateien aktualisiert',
                         'media_deleted' => 'Mediendateien gelöscht',
                     ],
@@ -116,9 +116,11 @@ return [
                             'visibility' => 'Die Sichtbarkeit wurde von "{old}" zu "{new}" geändert.',
                         ],
                         'provider_assigned' => '{providerName} wurde als Dienstleister zugewiesen.',
-                        'provider_unassigned' => 'Dienstleisterin {providerName} wurde nicht beauftragt im {auditable_type} #{auditable_id}.',
-                        'manager_assigned' => '{propertyManagerFirstName} {propertyManagerLastName} wurde als Managerin zugewiesen im {auditable_type} #{auditable_id}.',
-                        'manager_unassigned' => 'Managerin {propertyManagerFirstName} {propertyManagerLastName} wurde nicht zugewiesen im {auditable_type} #{auditable_id}.',
+                        //'provider_unassigned' => 'Dienstleisterin {providerName} wurde nicht beauftragt im {auditable_type} #{auditable_id}.',
+                        'provider_unassigned' => '{providerName} wurde als Dienstleister entfernt.',
+
+                        'manager_assigned' => '{propertyManagerFirstName} {propertyManagerLastName} wurde als zuständige Person zugewiesen.',
+                        'manager_unassigned' => '{propertyManagerFirstName} {propertyManagerLastName} als zusätinge Person wurde entfernt.',
                         'user_assigned' => '{userName} wurde als zuständige Person zugewiesen.',
                         'media_uploaded' => 'Mediendateien aktualisiert',
                         'media_deleted' => 'Mediendateien gelöscht',

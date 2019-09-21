@@ -83,7 +83,8 @@
                                     <el-input type="text" v-model="model.title"></el-input>
                                 </el-form-item>
                                 <el-form-item :label="$t('general.content')" :rules="validationRules.content"
-                                            prop="content">
+                                              prop="content"
+                                              :key="editorKey">
                                     <yimo-vue-editor
                                             :config="editorConfig"
                                             v-model="model.content"/>
@@ -142,7 +143,8 @@
                         
                         <template v-if="this.model.type != 3">
                             <el-form-item :label="$t('general.content')" :rules="validationRules.content"
-                                        prop="content">
+                                          prop="content"
+                                          :key="editorKey">
                                 <yimo-vue-editor
                                         :config="editorConfig"
                                         v-model="model.content"/>
@@ -454,19 +456,17 @@
     import {Avatar} from 'vue-avatar'
     import AssignmentByType from 'components/AssignmentByType';
     import { EventBus } from '../../../event-bus.js';
-
-    let YimoVueEditor = require("yimo-vue-editor");
+    import EditorConfig from 'mixins/adminEditorConfig';
 
     const mixin = PostsMixin({mode: 'edit'});
 
     export default {
-        mixins: [mixin, FormatDateTimeMixin],
+        mixins: [mixin, FormatDateTimeMixin, EditorConfig],
         components: {
             EditActions,
             RelationList,
             Avatar,
             AssignmentByType,
-            'yimo-vue-editor': YimoVueEditor.default,
         },
         data() {
             return {
@@ -500,10 +500,6 @@
                     }]
                 }],
                 activeTab1: "details",
-                editorConfig: {
-                    printLog: false,
-                    lang: YimoVueEditor.E.langs.en,
-                },
             }
         },
         mounted() {

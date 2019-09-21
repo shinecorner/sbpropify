@@ -46,12 +46,35 @@
                 </card>
             </el-col>
             <el-col :md="12">
-                <card :loading="loading" :header="$t('models.quarter.buildings')">
+                <card :loading="loading" :header="$t('models.quarter.assignment')">
+                                <assignment-by-type
+                                    :resetToAssignList="resetToAssignList"
+                                    :assignmentType.sync="assignmentType"
+                                    :toAssign.sync="toAssign"
+                                    :assignmentTypes="assignmentTypes"
+                                    :assign="assignUser"
+                                    :toAssignList="toAssignList"
+                                    :remoteLoading="remoteLoading"
+                                    :remoteSearch="remoteSearchAssignees"
+                                />
+                                <relation-list
+                                    :actions="assigneesActions"
+                                    :columns="assigneesColumns"
+                                    :filterValue="model.id"
+                                    fetchAction="getQuarterAssignees"
+                                    filter="quarter_id"
+                                    ref="assigneesList"
+                                    v-if="model.id"
+                                />
+                            </card>
+            </el-col>                
+            <el-col :md="12">
+                <card class="mt15" :loading="loading" :header="$t('models.quarter.buildings')">
                     <relation-list
                         :actions="quarterActions"
                         :columns="quarterColumns"
                         :filterValue="model.id"
-                        fetchAction="getBuildings"
+                        fetchAction="getQuarters"
                         filter="quarter_id"
                         v-if="model.id"
                     />
@@ -69,6 +92,7 @@
     import EditActions from 'components/EditViewActions';
     import {mapActions} from 'vuex';
     import RelationList from 'components/RelationListing';
+    import AssignmentByType from 'components/AssignmentByType';
 
     export default {
         name: 'AdminRequestsEdit',
@@ -80,7 +104,8 @@
             Heading,
             Card,
             EditActions,
-            RelationList
+            RelationList,
+            AssignmentByType
         },
         data() {
             return {
@@ -104,6 +129,28 @@
                         title: 'general.actions.edit',
                         onClick: this.requestEditView
                     }]
+                }],
+                assigneesActions: [{
+                    width: '180px',
+                    buttons: [ {
+                        title: 'general.unassign',
+                        tooltipMode: true,
+                        type: 'danger',
+                        icon: 'el-icon-close',
+                        onClick: this.unassignQuarter
+                    }]
+                }],
+                 assigneesColumns: [{
+                    type: 'assignProviderManagerAvatars',
+                    width: 70,
+                }, {
+                    type: 'assigneesName',
+                    prop: 'name',
+                    label: 'general.name'
+                }, {
+                    prop: 'type',
+                    label: 'models.request.userType.label',
+                    i18n: this.translateType
                 }],
                 quarterColumns: [{
                     prop: 'name',
@@ -131,7 +178,7 @@
             }
         },
         methods: {
-            ...mapActions(['deleteQuarter']),
+            ...mapActions(['deleteQuarter','getQuarterAssignees']),
 
             requestEditView(row) {
                 this.$router.push({

@@ -6,7 +6,7 @@ return [
     'requests_by_category' => 'Anfragen nach Kategorie',
     'requests_by_assigned_status' => 'Einbezug von Dienstleistern',
     'each_hour_request' => 'Stündlich',
-    'average_request_duration' => 'Ø Bearbeitungszeit in Std.',
+    'average_request_duration' => 'Ø Bearbeitungszeit',
     'week_hour' => 'Woche und Stunden',
     'month_date' => 'Monat und Tag',
     'news_by_creation_date' => 'Nachrichten nach Erstellungsdatum',

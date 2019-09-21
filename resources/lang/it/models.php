@@ -485,6 +485,7 @@ return [
         "required" => "Questo campo è obbligatorio",
         "buildings" => "Edifici",
         'count_of_buildings' => 'Conteggio degli edifici',
+        'assignment' => "Assegnazione di manager/amministratore",
         'errors' => [
             'not_found' => "Quartiere non trovato",
             'deleted' => "Errore al quarto eliminato: ",
