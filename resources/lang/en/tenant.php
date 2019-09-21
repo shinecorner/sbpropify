@@ -174,6 +174,7 @@ return [
     "contact_phone" => "Contact phone",
     "change" => "Change",
     "cancel" => "Cancel",
+    "close_request" => "Close request",
     "category" => "Category",
     "defect_location" => "Defect location",
     "description" => "Description",
