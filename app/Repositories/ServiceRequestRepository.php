@@ -16,6 +16,7 @@ use App\Notifications\RequestCommented;
 use App\Notifications\RequestDue;
 use App\Notifications\RequestMedia;
 use App\Notifications\StatusChangedRequest;
+use App\Traits\SaveMediaUploads;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\Models\Media;
@@ -31,6 +32,7 @@ use Spatie\MediaLibrary\Models\Media;
  */
 class ServiceRequestRepository extends BaseRepository
 {
+    use  SaveMediaUploads;
     /**
      * @var array
      */
@@ -78,9 +80,9 @@ class ServiceRequestRepository extends BaseRepository
                 unset($attr['qualification']);
             }
         }
-
-        // $attr has assignee_ids where used?
-        return parent::create($attr);
+        $model = parent::create($attr);
+        $this->saveMediaUploads($model, $attr);
+        return $model;
     }
 
     /**

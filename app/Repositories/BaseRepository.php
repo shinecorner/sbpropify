@@ -31,7 +31,9 @@ abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepositor
             return false;
         }
         if ($mergeInAudit) {
-            $audit = Audit::where('auditable_type', get_morph_type_of($model))->find($mergeInAudit);
+            $audit = is_integer($mergeInAudit)
+                ? Audit::where('auditable_type', get_morph_type_of($model))->find($mergeInAudit)
+                : $mergeInAudit;
             if (empty($audit)) {
                 return false;
             }
