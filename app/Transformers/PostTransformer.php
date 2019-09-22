@@ -86,6 +86,10 @@ class PostTransformer extends BaseTransformer
         if ($model->relationExists('views')) {
             $ret['views'] = $model->views->sum('views');
         }
+        if ($model->relationExists('pinned_email_receptionists')) {
+            $ret['pinned_email_receptionists'] = (new PinnedEmailReceptionistTransformer())
+                ->transformCollection($model->pinned_email_receptionists);
+        }
 
         return $ret;
     }

@@ -95,7 +95,7 @@ class PostRepository extends BaseRepository
         }
 
         $model = parent::create($atts);
-
+        $atts['quarter_ids'] = 1;
         if (!empty($atts['quarter_ids'])) {
             $model->quarters()->sync($atts['quarter_ids']);
         }
@@ -117,6 +117,14 @@ class PostRepository extends BaseRepository
 
     protected function saveNotificationAuditsAndLogs(Post $post, $notificationsData)
     {
+        $pinnedPostPublished = get_morph_type_of(PinnedPostPublished::class);
+        $pinnedPostPublishedUsers = $notificationsData[$pinnedPostPublished] ?? collect();
+        if ($pinnedPostPublishedUsers->isNotEmpty()) {
+            $post->pinned_email_receptionists()->create([
+                'tenant_ids' => $pinnedPostPublishedUsers->pluck('tenant.id'),
+                'failed_tenant_ids' => []
+            ]);
+        }
 //        $post->registerAuditEvent(AuditableModel::EventSendNotifications, $notificationsData);
     }
 
@@ -268,6 +276,7 @@ class PostRepository extends BaseRepository
 
         return User::whereHas('tenant', function ($q) use ($quarterIds, $buildingIds) {
             $q->whereNull('tenants.deleted_at')
+                ->where('tenants.status', Tenant::StatusActive)
                 ->whereHas('rent_contracts', function ($q) use ($quarterIds, $buildingIds) {
 
                     $q->where('status', RentContract::StatusActive)

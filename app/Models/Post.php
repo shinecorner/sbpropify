@@ -300,6 +300,11 @@ class Post extends AuditableModel implements HasMedia, LikeableContract
         return $this->hasMany(PostView::class);
     }
 
+    public function pinned_email_receptionists()
+    {
+        return $this->hasMany(PinnedEmailReceptionist::class);
+    }
+
     public function registerMediaCollections()
     {
         $this->addMediaCollection('media');

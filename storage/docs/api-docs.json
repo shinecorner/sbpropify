@@ -9429,6 +9429,47 @@
                 }
             }
         },
+        "PinnedEmailReceptionist": {
+            "required": [
+                "content"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "post_id": {
+                    "description": "post_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "tenant_ids": {
+                    "description": "tenant_ids",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "failed_tenant_ids": {
+                    "description": "failed_tenant_ids",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
         "Post": {
             "required": [
                 "content"
