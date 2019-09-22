@@ -95,7 +95,6 @@ class PostRepository extends BaseRepository
         }
 
         $model = parent::create($atts);
-        $atts['quarter_ids'] = 1;
         if (!empty($atts['quarter_ids'])) {
             $model->quarters()->sync($atts['quarter_ids']);
         }
