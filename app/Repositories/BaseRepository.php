@@ -14,10 +14,10 @@ abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepositor
      * @param string $collectionName
      * @param string $dataBase64
      * @param Model $model
-     * @param $mergeInAudit
+     * @param null $mergeInAudit
      * @return bool
      */
-    public function uploadFile(string $collectionName, string $dataBase64, Model $model, $mergeInAudit)
+    public function uploadFile(string $collectionName, string $dataBase64, Model $model, $mergeInAudit = null)
     {
         if (!$data = base64_decode($dataBase64)) {
             return false;
