@@ -9515,8 +9515,8 @@
                     "type": "integer",
                     "format": "int32"
                 },
-                "user_id": {
-                    "description": "user_id",
+                "tenant_id": {
+                    "description": "tenant_id",
                     "type": "integer",
                     "format": "int32"
                 },
@@ -9661,6 +9661,10 @@
                 "name": {
                     "description": "name",
                     "type": "string"
+                },
+                "count_of_buildings": {
+                    "description": "count_of_buildings",
+                    "type": "integer"
                 },
                 "description": {
                     "description": "description",

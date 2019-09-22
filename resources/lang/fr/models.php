@@ -150,6 +150,9 @@ return [
             'insurance' => 'Assurance',
             'other' => 'Autre',
         ],
+        'net_rent' => 'Loyer net',
+        'heating_operating_costs_installment' => "Versement des frais de chauffage et d'exploitation",
+        'gross_rent' => 'Loyer brut',
         'contact' => [
             "category" => "Catégorie",
         ],
@@ -611,6 +614,8 @@ return [
         'active_reminder_switcher' => 'Rappel actif',
         'days_left' => "Combien de jours avant l'envoi de l'email ?",
         'send_person' => 'Quelle personne doit être notifiée ?',
+        'add_contract' => 'Ajouter un nouveau contrat',
+        'delete_contract' => 'Supprimer contrat',
         'media' => [
             "added" => "Document ajouté",
             "removed" => "Suppression du support",

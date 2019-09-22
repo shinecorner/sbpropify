@@ -109,7 +109,7 @@
                     this.loading.visible = true
 
                     try {
-                        // displaySuccess(await this.$store.dispatch('updateMyTenancy', this.model))
+                        displaySuccess(await this.$store.dispatch('updateMyTenancy', this.model))
                     } catch (error) {
                         displayError(error)
                     } finally {
