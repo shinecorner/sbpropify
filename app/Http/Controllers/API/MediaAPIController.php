@@ -280,7 +280,8 @@ class MediaAPIController extends AppBaseController
         }
 
         $data = $request->get('media', '');
-        if (!$media = $this->postRepository->uploadFile('media', $data, $post)) {
+        $auditId = $request->merge_in_audit ?? $request->merge_audit; // @TODO remove merge_audit
+        if (!$media = $this->postRepository->uploadFile('media', $data, $post, $auditId)) {
             return $this->sendError(__('general.upload_error'));
         }
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use Chelout\RelationshipEvents\Concerns\HasMorphedByManyEvents;
+use Illuminate\Support\Arr;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Models\Audit;
 
@@ -107,24 +108,44 @@ class AuditableModel extends Model implements Auditable
         });
     }
 
-    public function addDataInAudit($key, $value, $auditId = null)
+    /**
+     * @param $key
+     * @param $value
+     * @param null $audit
+     * @param bool $isSingle
+     */
+    public function addDataInAudit($key, $value, $audit = null, $isSingle = true)
     {
-        if ($auditId) {
-            $audit = Audit::find($auditId);
-        } else {
+        if (is_null($audit)) {
             $audit = $this->audit;
         }
         if (empty($audit)) {
             return;
         }
 
+        if ('media' == $key) {
+            $data = $value->only('name', 'file_name', 'disk', 'collection_name', 'mime_type', 'size', 'order_column');
+            $data['media_id'] = $value->id;
+            $data['media_url'] = $value->getFullUrl();
+            $value = $data;
+        }
+
         if (self::EventCreated == $audit->event) {
-            $newValues = $audit->new_values;
-            $newValues[$key] = $value;
-            $audit->new_values = $newValues;
+            $audit->new_values = $this->fixAddedData($audit->new_values, $key, $value, $isSingle);
             $audit->save();
         } else {
             // @TODO
         }
+    }
+
+    protected function fixAddedData($savedValues, $key, $newValue, $isSingle)
+    {
+        if ($isSingle) {
+            $savedValues[$key] = $newValue;
+        } else  {
+            $savedValues[$key][] = $newValue;
+        }
+
+        return $savedValues;
     }
 }

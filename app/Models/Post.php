@@ -387,9 +387,10 @@ class Post extends AuditableModel implements HasMedia, LikeableContract
     /**
      * @param $key
      * @param $value
-     * @param null $auditId
+     * @param null $audit
+     * @param bool $isSingle
      */
-    public function addDataInAudit($key, $value, $auditId = null)
+    public function addDataInAudit($key, $value, $audit = null, $isSingle = true)
     {
         if ('notifications' == $key) {
             $_value = [];
