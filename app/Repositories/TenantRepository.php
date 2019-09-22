@@ -85,7 +85,30 @@ class TenantRepository extends BaseRepository
         }
 
         $attributes['status'] = Tenant::StatusActive;
-        return parent::create($attributes);
+        $model = parent::create($attributes);
+        if ($model) {
+            $model = $this->saveRentContracts($model, $attributes);
+        }
+        return $model;
+    }
+
+    protected function saveRentContracts($model, $data)
+    {
+        if (empty($data['rent_contracts'])) {
+            return $model;
+        }
+
+        $savedData = [];
+        foreach ($data['rent_contracts'] as $rentContractData) {
+            // @TODO if need validate this data
+            if (is_array($rentContractData)) {
+                $savedData[] = $rentContractData;
+            }
+        }
+        if ($savedData) {
+            $model->rent_contracts()->createMany($savedData);
+        }
+        return $model;
     }
 
     /**

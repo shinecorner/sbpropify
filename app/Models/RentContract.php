@@ -270,6 +270,11 @@ class RentContract extends AuditableModel implements HasMedia
                     ? 'rent_contract_format'
                     : 'tenant_rent_contract_format';
             });
+        if ('tenant_rent_contract_format' == $colName) {
+            $colName = Schema::hasColumn($this->getTable(),'rent_contract_format')
+                ? 'rent_contract_format'
+                : 'tenant_rent_contract_format';
+        }
 
         return $colName;
     }
