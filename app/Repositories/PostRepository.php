@@ -125,7 +125,8 @@ class PostRepository extends BaseRepository
                 'failed_tenant_ids' => []
             ]);
         }
-//        $post->registerAuditEvent(AuditableModel::EventSendNotifications, $notificationsData);
+
+        $post->addDataInAudit('notifications', $notificationsData);
     }
 
 

@@ -5,6 +5,7 @@ namespace App\Models;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use Chelout\RelationshipEvents\Concerns\HasMorphedByManyEvents;
 use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Models\Audit;
 
 class AuditableModel extends Model implements Auditable
 {
@@ -104,5 +105,26 @@ class AuditableModel extends Model implements Auditable
                 self::auditManyRelations($relation, $parent, $ids, $auditType);
             }
         });
+    }
+
+    public function addDataInAudit($key, $value, $auditId = null)
+    {
+        if ($auditId) {
+            $audit = Audit::find($auditId);
+        } else {
+            $audit = $this->audit;
+        }
+        if (empty($audit)) {
+            return;
+        }
+
+        if (self::EventCreated == $audit->event) {
+            $newValues = $audit->new_values;
+            $newValues[$key] = $value;
+            $audit->new_values = $newValues;
+            $audit->save();
+        } else {
+            // @TODO
+        }
     }
 }
