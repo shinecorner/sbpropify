@@ -1,7 +1,9 @@
 <template>
     <el-form :model="resetPassword" @submit.native.prevent="" ref="resetPasswordEmailForm">       
-        <router-link :to="{name: 'login2'}" class="el-menu-item-link">
-           <i class="el-icon-back"></i>{{ this.$t('general.back')}}
+        <router-link :to="{name: 'login'}">
+            <el-button type="text">
+                <i class="el-icon-back"></i>{{$t('general.back')}}
+            </el-button>
         </router-link>
         <h2>{{$t('general.reset_password')}}</h2>
         <p>{{$t('general.forgot_password_info')}}</p>
@@ -64,13 +66,7 @@
                 });
             }
         },
-        beforeCreate() {
-            if(this.$constants.login.variation == 1) {
-                this.$router.push({
-                    name: 'forgot'
-                });
-            }
-        }
+     
     }
 </script>
 <style lang="scss" scoped>
@@ -88,6 +84,17 @@
 
             a, .el-button {
                 width: 100%;
+            }
+        }
+        .el-menu-item-link{
+            line-height: 1;
+            text-align: center;
+            text-decoration: none;
+            color: #909399;
+
+            i {
+                margin-bottom: 5px;
+                margin-right: 10px;
             }
         }
     }

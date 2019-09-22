@@ -72,7 +72,7 @@
                 </el-option>
             </el-select>
         </el-form-item> -->
-        <el-form-item class="switcher" prop="is_public">
+        <el-form-item class="switcher" prop="is_public" v-if="this.showsubcategory == true">
             <label class="switcher__label" >
                 {{$t('tenant.request_public_title')}}
                 <span class="switcher__desc">{{$t('tenant.request_public_desc')}}</span>
@@ -95,6 +95,7 @@
     import PQueue from 'p-queue'
 
     export default {
+        name: 'p-request-add-form',
         mixins: [
             ServicesTypes,
         ],

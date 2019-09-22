@@ -52,6 +52,7 @@
     import AgoMixin from 'mixins/agoMixin'
     import {IdState} from 'vue-virtual-scroller'
     import {displaySuccess, displayError} from 'helpers/messages'
+    import { EventBus } from '../../../event-bus.js';
 
     export default {
         mixins: [
@@ -189,6 +190,7 @@
 
                 try {
                     await this.$store.dispatch('comments/delete', params)
+                    EventBus.$emit('comments-deleted');
                 } catch (error) {
                     displayError(error)
                 } finally {

@@ -1,11 +1,15 @@
 import axios from '@/axios';
 import {buildFetchUrl} from 'helpers/url';
-
+import { EventBus } from '../../../event-bus.js';
 export default {
     getUnits({commit}, payload) {
         return new Promise((resolve, reject) => 
             axios.get(buildFetchUrl('units', payload))
-                 .then(({data: r}) => (r && commit('SET_UNITS', r.data), resolve(r)))
+                 .then(({data: r}) => {
+                    commit('SET_UNITS', r.data);                                        
+                    EventBus.$emit('unit-get-counted', r.data.total);
+                    resolve(r)
+                 })
                  .catch(({response: {data: err}}) => reject(err)));
     },
     getUnit(_, {id}) {

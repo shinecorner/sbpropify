@@ -1,6 +1,7 @@
 import {mapGetters, mapActions} from 'vuex';
 import {displayError, displaySuccess} from 'helpers/messages';
 import ServicesTypes from 'mixins/methods/servicesTypes';
+import { EventBus } from '../event-bus.js';
 
 export default (config = {}) => {
     let mixin = {
@@ -51,6 +52,7 @@ export default (config = {}) => {
                     street: '',
                     house_num: '',
                     zip: '',
+                    service_providers: []
                 },
                 validationRules: {
                     name: [{
@@ -114,29 +116,33 @@ export default (config = {}) => {
                     
                     try {
                         let resp = [];
-                        // const respRequest = await this.getRequest({id: this.$route.params.id});
+                        const buildingAssignee = await this.getBuildingAssignees({building_id: this.$route.params.id});                        
                         let exclude_ids = [];
                         if (this.assignmentType === 'managers') {
-                            // respRequest.data.property_managers.map(item => {
-                            //     exclude_ids.push(item.id);
-                            // })
+                            buildingAssignee.data.data.map(item => {
+                                if(item.type === 'manager'){
+                                    exclude_ids.push(item.edit_id);
+                                }                                
+                            })
                             resp = await this.getPropertyManagers({
                                 get_all: true,
                                 search,
                                 exclude_ids
                             });
                         } else if(this.assignmentType === 'administrator'){
-                            // respRequest.data.assignedUsers.map(item => {
-                            //     exclude_ids.push(item.id);
-                            // })
+                            buildingAssignee.data.data.map(item => {
+                                if(item.type === 'user'){                                    
+                                    exclude_ids.push(item.edit_id);
+                                }                                
+                            })
                             resp = await this.getUsers({
                                 get_all: true,
                                 search,
                                 exclude_ids,
                                 role: 'administrator'
                             });
-                        }                       
-
+                        }
+                                                     
                         this.toAssignList = resp.data;
                     } catch (err) {
                         displayError(err);
@@ -314,9 +320,12 @@ export default (config = {}) => {
                         } = await this.getBuilding({id: this.$route.params.id});
                         this.statistics.raw[0].value = restData.active_tenants_count + restData.in_active_tenants_count;
                         this.statistics.raw[1].value = restData.active_tenants_count;
-                        this.statistics.raw[2].value = restData.in_active_tenants_count;
+                        this.statistics.raw[2].value = restData.in_active_tenants_count;                        
 
                         this.model = {state_id, ...restAddress, ...restData, service_providers_ids: []};
+                        EventBus.$emit('service-get-counted', this.model.service_providers.length);
+                        EventBus.$emit('file-get-counted', this.model.media.length);                        
+                        EventBus.$emit('tenant-get-counted', this.model.tenants.length);
 
                         if (this.model.quarter) {
                             this.$set(this.model, 'quarter_id', this.model.quarter.id);

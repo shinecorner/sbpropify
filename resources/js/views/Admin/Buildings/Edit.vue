@@ -113,7 +113,10 @@
                             </el-row>
                         </el-form>
                     </el-tab-pane>
-                    <el-tab-pane :label="$t('models.building.files')" name="files">
+                    <el-tab-pane name="files">
+                        <span slot="label">
+                            <el-badge :value="fileCount" :max="99" class="admin-layout">{{ $t('models.building.files') }}</el-badge>
+                        </span>
                         <draggable @sort="sortFiles" v-model="model.media">
                             <transition-group name="list-complete">
                                 <el-row :gutter="10" :key="element.name" class="list-complete-item"
@@ -150,7 +153,10 @@
                                              v-if="selectedFileCategory"/>
                         </div>
                     </el-tab-pane>
-                    <el-tab-pane :label="$t('models.building.companies')" name="companies">
+                    <el-tab-pane name="companies">
+                        <span slot="label">
+                            <el-badge :value="serviceCount" :max="99" class="admin-layout">{{ $t('models.building.companies') }}</el-badge>
+                        </span>                        
                         <label class="card-label">{{$t('settings.contact_enable.label')}}</label>
                         <el-select
                                 placeholder="Chose"
@@ -167,7 +173,7 @@
                             <el-row :gutter="10" :key="service.id" class="list-complete-item"
                                     v-for="service in model.service_providers">
                                 <el-col :md="7">
-                                    <strong>{{$t(`models.service.${service.category}`)}}</strong>
+                                    <strong>{{$t(`models.service.category.${$constants.serviceProviders.category[service.category]}`)}}</strong>
                                 </el-col>
                                 <el-col :md="16">
                                     {{service.name}}
@@ -203,7 +209,10 @@
                         </div>
                     </el-tab-pane>
 
-                    <el-tab-pane :label="$t('general.requests')" name="requests">
+                    <el-tab-pane name="requests">                        
+                        <span slot="label">
+                            <el-badge :value="requestCount" :max="99" class="admin-layout">{{ $t('general.requests') }}</el-badge>
+                        </span>
                         <relation-list
                             :actions="requestActions"
                             :columns="requestColumns"
@@ -217,7 +226,10 @@
             </el-col>
             <el-col :md="12">
                 <el-tabs type="border-card" v-model="activeRightTab">
-                    <el-tab-pane :label="$t('general.tenants')" name="tenants" v-loading="loading.state">
+                    <el-tab-pane name="tenants" v-loading="loading.state">                        
+                        <span slot="label">
+                            <el-badge :value="tenantCount" :max="99" class="admin-layout">{{ $t('general.tenants') }}</el-badge>
+                        </span>
                         <relation-list
                             :actions="tenantActions"
                             :columns="tenantColumns"
@@ -227,7 +239,10 @@
                             v-if="model.id"
                         />
                     </el-tab-pane>
-                    <el-tab-pane :label="$t('models.building.managers')" name="managers">
+                    <el-tab-pane name="managers">
+                        <span slot="label">
+                            <el-badge :value="assigneeCount" :max="99" class="admin-layout">{{ $t('models.building.managers') }}</el-badge>
+                        </span>
                         <assignment-by-type
                             :resetToAssignList="resetToAssignList"
                             :assignmentType.sync="assignmentType"
@@ -248,7 +263,10 @@
                             v-if="model.id"
                         />
                     </el-tab-pane>
-                    <el-tab-pane :label="$t('models.building.units')" name="units" v-loading="loading.state">
+                    <el-tab-pane name="units" v-loading="loading.state">
+                        <span slot="label">
+                            <el-badge :value="unitCount" :max="99" class="admin-layout">{{ $t('models.building.units') }}</el-badge>
+                        </span>
                         <relation-list
                             :actions="unitActions"
                             :columns="unitColumns"
@@ -303,6 +321,7 @@
     import globalFunction from "helpers/globalFunction";
     import DeleteBuildingModal from 'components/DeleteBuildingModal';
     import AssignmentByType from 'components/AssignmentByType';
+    import { EventBus } from '../../../event-bus.js';
 
     export default {
         mixins: [globalFunction, BuildingsMixin({
@@ -412,7 +431,13 @@
                 deleteBuildingVisible: false,
                 multiple: true,
                 delBuildingStatus: -1, // 0: unit, 1: request, 2: both
-                contactUseGlobalAddition: ''
+                contactUseGlobalAddition: '',
+                fileCount: 0,
+                serviceCount: 0,
+                tenantCount: 0,
+                assigneeCount: 0,
+                unitCount: 0,
+                requestCount: 0
             };
         },
         methods: {
@@ -531,6 +556,7 @@
                     media_id: this.model[prop][index].id
                 }).then((resp) => {
                     displaySuccess(resp);
+                    this.fileCount--;
                     this.model[prop].splice(index, 1);
                     this.setOrder(prop);
                 }).catch((error) => {
@@ -559,6 +585,11 @@
             },
             uploadFiles(file) {
                 this.insertDocument(this.selectedFileCategory, file);
+                if(this.fileCount){
+                    this.fileCount++;
+                } else {
+                    this.fileCount = 1;
+                }
             },
             removeService(service) {
                 this.deleteBuildingService({
@@ -568,6 +599,7 @@
                     this.model.service_providers = this.model.service_providers.filter((provider) => {
                         return provider.id !== service.id;
                     });
+                    this.serviceCount--;
                     displaySuccess(resp);
                 }).catch((error) => {
                     displayError(error);
@@ -638,7 +670,26 @@
             }
         },
         mounted() {
-            this.$root.$on('changeLanguage', () => this.getStates());
+            this.$root.$on('changeLanguage', () => this.getStates());            
+            EventBus.$on('service-get-counted', service_count => {
+                this.serviceCount = service_count;
+            });
+            EventBus.$on('file-get-counted', file_count => {
+                this.fileCount = file_count;
+            });
+            EventBus.$on('tenant-get-counted', tenant_count => {
+                this.tenantCount = tenant_count;
+            });
+            EventBus.$on('assignee-get-counted', assignee_count => {                
+                this.assigneeCount = assignee_count;
+            });
+            EventBus.$on('unit-get-counted', unit_count => {
+                this.unitCount = unit_count;
+            });
+             EventBus.$on('request-get-counted', request_count => {
+                this.requestCount = request_count;
+            });
+            // this.fileCount = this.model.media.length;
         },
         computed: {
             ...mapGetters('application', {
@@ -676,6 +727,17 @@
         .el-tabs__nav-wrap.is-top {
             border-radius: 6px 6px 0 0;
         }
+    }
+    .admin-layout .el-badge__content.is-fixed {
+        top: 19px;
+        right: -5px;
+        background-color: var(--primary-color) !important;
+        margin-left: 5px;
+        height: 18px;
+        width: 6px;
+    }
+    #tab-files, #tab-companies, #tab-requests, #tab-tenants, #tab-managers, #tab-units{
+        padding-right: 40px;
     }
 </style>
 <style lang="scss" scoped>

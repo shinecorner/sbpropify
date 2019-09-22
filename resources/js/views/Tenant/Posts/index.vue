@@ -1,37 +1,46 @@
 <template>
-    <div>
-        <ui-heading icon="icon-megaphone-1" title="News" description="Sed placerat volutpat mollis." />
-        
-        <ui-divider />
-        <div class="posts" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading">
+    <div :class="['posts-box']">
+        <div :class="['posts']">
+            <div class="container" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading">
+                <ui-heading icon="icon-megaphone-1" title="News" description="Sed placerat volutpat mollis." />
             
-            <div class="content">
-                <post-add-card />
-                <el-divider content-position="left">
-                    <el-button @click="refreshPage" size="small" icon="icon-refresh" plain round>{{$t('tenant.refresh')}}</el-button>
-                    <!-- <el-popover popper-class="posts-filter" placement="bottom-end" trigger="click" :width="192">
-                        <el-button size="small" slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
-                        <filters ref="filters" layout="row" :data="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
-                        <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
-                    </el-popover> -->
-                </el-divider>
-                <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" page-mode v-if="!loading">
-                    <template #before v-if="loading && !filteredPosts.length">
-                        <loader v-for="idx in 5" :key="idx" />
-                    </template>
-                    <template v-slot="{item, index, active}">
-                        <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" :watchData="true" >
-                            <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour'"/>
-                            <post-card :data="item" @delete-post="deletePost" v-else/>
-                        </dynamic-scroller-item>
-                    </template>
-                    <template #after v-if="loading && filteredPosts.length">
-                        <loader />
-                    </template>
-                </dynamic-scroller>
+                <ui-divider />
+                <div class="content">
+                    <post-add-card />
+                    <el-divider content-position="left">
+                        <el-button @click="refreshPage" size="small" icon="icon-refresh" plain round>{{$t('tenant.refresh')}}</el-button>
+                        <!-- <el-popover popper-class="posts-filter" placement="bottom-end" trigger="click" :width="192">
+                            <el-button size="small" slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
+                            <filters ref="filters" layout="row" :data="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
+                            <el-button type="primary" size="mini" icon="el-icon-sort-up" @click="resetFilters">{{$t('tenant.reset_filters')}}</el-button>
+                        </el-popover> -->
+                    </el-divider>
+                    <dynamic-scroller ref="dynamic-scroller" :items="filteredPosts" :min-item-size="131" page-mode v-if="!loading">
+                        <template #before v-if="loading && !filteredPosts.length">
+                            <loader v-for="idx in 5" :key="idx" />
+                        </template>
+                        <template v-slot="{item, index, active}">
+                            <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]" :watchData="true" >
+                                <post-new-tenant-card :data="item" v-if="$constants.posts.type[item.type] === 'new_neighbour'"/>
+                                <post-card :data="item" @edit-post="editPost" @delete-post="deletePost" v-else/>
+                            </dynamic-scroller-item>
+                        </template>
+                        <template #after v-if="loading && filteredPosts.length">
+                            <loader />
+                        </template>
+                    </dynamic-scroller>
+                </div>
+                <rss-feed title="Blick.ch News" />
             </div>
-            <rss-feed title="Blick.ch News" />
+            
         </div>
+        <ui-drawer :size="448" :visible.sync="visibleDrawer" :z-index="1" direction="right" docked>
+            <ui-divider content-position="left" v-if="editingPost">{{$t('tenant.edit_post')}}</ui-divider>
+            <div class="content">
+                <post-edit-form :data="editingPost" v-if="editingPost" :visible.sync="visibleDrawer"/>
+            </div>
+        </ui-drawer>
+        
     </div>
 </template>
 
@@ -116,7 +125,11 @@
                         category: null
                     }
                 },
-                filterCategory: null
+                filterCategory: null,
+                editingPost: null,
+                visibleDrawer: false,
+                deleteModalVisible: false,
+                delPostStatus: -1
             }
         },
         methods: {
@@ -160,14 +173,28 @@
                 this.resetFilters ()
             },
             async deletePost(event, data) {
-                
                 const resp = await this.$confirm(this.$t(`general.swal.delete_listing.text`), this.$t(`general.swal.delete_listing.title`), {
                     type: 'warning'
                 }).then(() => {
                     this.$store.dispatch('newPosts/delete', data)
-                })
-               
-                
+                }).catch(() => {
+                });
+            },
+            editPost(event, data) {
+                console.log('editPost', data)
+               this.editingPost = data;
+               this.visibleDrawer = true;
+            }
+        },
+        watch: {
+            'visibleDrawer': {
+                immediate: false,
+                handler (state) {
+                    // TODO - auto blur container if visible is true first
+                    if (!state) {
+                        this.editingPost = null
+                    }
+                }
             }
         },
         computed: {
@@ -175,8 +202,8 @@
                 posts: state => state
             }),
             filteredPosts() {
-                if(this.$refs['dynamic-scroller'])
-                    this.$refs['dynamic-scroller'].forceUpdate()
+                // if(this.$refs['dynamic-scroller'])
+                //     this.$refs['dynamic-scroller'].forceUpdate()
                 return this.posts.data.filter( post => { return this.filterCategory == null || post.category == this.filterCategory})
             }
         }
@@ -207,7 +234,19 @@
 
 
 <style lang="scss" scoped>
+    .layout .container .content .view {
+        padding: 0;
+    }
+
     .posts {
+        width: 100%;
+        height: 100%;
+        padding: 16px;
+        overflow-y: auto;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .container {
         display: grid;
         grid-gap: 12px;
         grid-template-columns: minmax(min-content, 640px) minmax(auto, 480px);
@@ -267,4 +306,54 @@
             }
         }
     }
+</style>
+
+<style lang="sass" scoped>
+    .posts-box
+        /deep/ .ui-drawer
+            display: flex
+            flex-direction: column
+
+            &:before
+                content: ''
+                position: fixed
+                top: 0
+                left: 0
+                width: 100%
+                height: 100%
+                background-image: url('~img/5d619aede1e3c.png')
+                background-repeat: no-repeat
+                background-position: top center
+                width: 100%
+                height: 100%
+                filter: opacity(0.08)
+                pointer-events: none
+
+            .ui-divider
+                margin: 32px 16px 0 16px
+
+                /deep/ .ui-divider__content
+                    left: 0
+                    z-index: 1
+                    padding-left: 0
+                    font-size: 20px
+                    font-weight: 700
+                    color: var(--color-primary)
+
+            .content
+                height: 100%
+                display: flex
+                padding: 16px
+                overflow-y: auto
+                flex-direction: column
+
+                .el-form
+                    flex: 1
+
+                    /deep/ .el-input .el-input__inner,
+                    /deep/ .el-textarea .el-textarea__inner
+                        background-color: transparentize(#fff, .44)
+
+                    /deep/ .el-loading-mask
+                        position: fixed
 </style>

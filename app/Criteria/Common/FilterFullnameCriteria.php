@@ -39,7 +39,7 @@ class FilterFullnameCriteria implements CriteriaInterface
     {
         $search = $this->request->search;
         if ($search) {
-            $model = $model->orWhere(DB::raw('concat(first_name, " ", last_name)'), 'like' ,"%" .$search . "%");
+            $model = $model->where(DB::raw('concat(first_name, " ", last_name)'), 'like' ,"%" .$search . "%");
         }
         return $model;
     }

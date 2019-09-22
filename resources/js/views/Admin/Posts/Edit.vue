@@ -83,7 +83,8 @@
                                     <el-input type="text" v-model="model.title"></el-input>
                                 </el-form-item>
                                 <el-form-item :label="$t('general.content')" :rules="validationRules.content"
-                                            prop="content">
+                                              prop="content"
+                                              :key="editorKey">
                                     <yimo-vue-editor
                                             :config="editorConfig"
                                             v-model="model.content"/>
@@ -132,14 +133,18 @@
                                     </div>
                                 </el-form-item>
                             </el-tab-pane>
-                            <el-tab-pane :label="$t('models.post.comments')" name="comments">
+                            <el-tab-pane name="comments">
+                                <span slot="label">
+                                    <el-badge :value="commentCount" :max="99" class="admin-layout">{{ $t('models.post.comments') }}</el-badge>
+                                </span>
                                 <chat class="edit-post-chat" :id="model.id" size="480px" type="post"/>
                             </el-tab-pane>
                         </el-tabs>
                         
                         <template v-if="this.model.type != 3">
                             <el-form-item :label="$t('general.content')" :rules="validationRules.content"
-                                        prop="content">
+                                          prop="content"
+                                          :key="editorKey">
                                 <yimo-vue-editor
                                         :config="editorConfig"
                                         v-model="model.content"/>
@@ -450,22 +455,22 @@
     import {mapActions} from 'vuex';
     import {Avatar} from 'vue-avatar'
     import AssignmentByType from 'components/AssignmentByType';
-
-    let YimoVueEditor = require("yimo-vue-editor");
+    import { EventBus } from '../../../event-bus.js';
+    import EditorConfig from 'mixins/adminEditorConfig';
 
     const mixin = PostsMixin({mode: 'edit'});
 
     export default {
-        mixins: [mixin, FormatDateTimeMixin],
+        mixins: [mixin, FormatDateTimeMixin, EditorConfig],
         components: {
             EditActions,
             RelationList,
             Avatar,
             AssignmentByType,
-            'yimo-vue-editor': YimoVueEditor.default,
         },
         data() {
             return {
+                commentCount: 0,
                 assignmentsColumns: [{
                     prop: 'name',
                     label: 'general.name'
@@ -495,14 +500,13 @@
                     }]
                 }],
                 activeTab1: "details",
-                editorConfig: {
-                    printLog: false,
-                    lang: YimoVueEditor.E.langs.en,
-                },
             }
         },
         mounted() {
             this.rolename = this.$store.getters.loggedInUser.roles[0].name;
+            EventBus.$on('comments-get-counted', comment_count => {
+                this.commentCount = comment_count;
+            });
         },
         methods: {
             ...mapActions(['unassignPostBuilding', 'unassignPostQuarter', 'unassignPostProvider', 'deletePost']),
@@ -615,7 +619,7 @@
             display: inline-block;
             margin-bottom: 10px;
         }
-    }
+    }    
     .contact-info-content {
         display: flex;
         justify-content: center;
@@ -681,7 +685,16 @@
         }
     }
 </style>
-
+<style lang="scss">
+    .admin-layout .el-badge__content.is-fixed {
+        top: 19px;
+        right: -5px;
+        background-color: var(--primary-color) !important;
+        margin-left: 5px;
+        height: 18px;
+        width: 6px;
+    }
+</style>
 <style>
 
     #post-edit-view .el-card__body .el-form-item:last-child {

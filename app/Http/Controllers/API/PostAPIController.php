@@ -172,13 +172,16 @@ class PostAPIController extends AppBaseController
      *      )
      * )
      */
-    public function store(CreateRequest $request,
-        RealEstateRepository $reRepo)
+    public function store(CreateRequest $request, RealEstateRepository $reRepo)
     {
         $input = $request->only(Post::Fillable);
-
         $input['user_id'] = \Auth::id();
-        $input['status'] = Post::StatusNew;
+
+        if (! Auth::user()->hasRole('super_admin')) {
+            $input['status'] = Post::StatusNew;
+        } else {
+            $input['status'] = $input['status'] ?? Post::StatusNew;
+        }
 
         if ($request->pinned == 'true' || $request->pinned  == true) {
             $input['type'] = Post::TypePinned;
@@ -186,7 +189,8 @@ class PostAPIController extends AppBaseController
             $input['type'] =  $input['type'] ?? Post::TypePost;
         }
 
-        $input['needs_approval'] = true;
+        //$input['needs_approval'] = true; // @TODO
+        $input['needs_approval'] = ! Auth::user()->hasRole('super_admin');
         if (! empty($input['type']) && $input['type'] == Post::TypePost) {
             $input['notify_email'] = true;
             $realEstate = $reRepo->first();
@@ -209,8 +213,8 @@ class PostAPIController extends AppBaseController
             'providers',
             'views',
         ])->loadCount('allComments');
-        $this->postRepository->notifyAdmins($post);
         $data = $this->transformer->transform($post);
+
         return $this->sendResponse($data, __('models.post.saved'));
     }
 

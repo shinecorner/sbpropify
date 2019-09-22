@@ -100,13 +100,7 @@
 
             ...mapActions(['me', 'login']),
         },
-        beforeCreate() {
-            if(this.$constants.login.variation == 1) {
-                this.$router.push({
-                    name: 'login'
-                });
-            }
-        }
+      
     }
 </script>
 <style lang="scss" scoped>
@@ -148,6 +142,7 @@
 <style lang="scss">
     .login2-container {
         position: relative;
+        width: 100%;
 
         .el-form-item {
             .el-form-item__label {

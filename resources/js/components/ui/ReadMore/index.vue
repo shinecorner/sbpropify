@@ -1,6 +1,6 @@
 <template>
     <div class="ui-readmore">
-        {{formattedText}}
+        <p v-html="formattedText"></p>
         <span class="ui-readmore__button" v-if="text.length > max" @click="isReadMore = !isReadMore">
             <template v-if="isReadMore">
                 read less

@@ -32,8 +32,10 @@
                                     :placeholder="filter.name"
                                     @change="filterChanged(filter)"
                                     class="filter-select"
+                                    multiple
+                                    collapse-tags
                                     v-model="filterModel[filter.key]">
-                                    <el-option :label="$t('general.placeholders.select')" value=""></el-option>
+                                    <el-option :label="`${$t('general.placeholders.select')+' '+filter.name}`" value=""></el-option>
                                     <el-option
                                         :key="item.id + item.name"
                                         :label="item.name"
@@ -41,6 +43,7 @@
                                         v-for="item in filter.data">
                                     </el-option>
                                 </el-select>
+                               
                             </el-form-item>
                             <el-form-item
                                 v-else-if="filter.type === filterTypes.text || filter.type === filterTypes.number">
@@ -99,7 +102,11 @@
         <!--                {{$t('general.actions.delete')}}-->
         <!--            </el-button>-->
         <!--        </div>-->
-
+        <el-popover popper-class="marketplace__filter-popover" placement="left-end" trigger="click" :width="192" style="float:right">
+            <el-button slot="reference" icon="el-icon-sort">{{$t('tenant.filters')}}</el-button>
+            <filters ref="sortFilters" layout="row" :data.sync="sortFilters.data" :schema="sortFilters.schema"  />
+            <el-button type="primary" size="small" icon="el-icon-sort-up" style="width: 100%; margin-top: 8px;">{{$t('tenant.reset_filters')}}</el-button>
+        </el-popover>
         <el-table
             :data="items"
             :element-loading-background="loading.background"
@@ -147,14 +154,21 @@
     import RequestCount from 'components/RequestCount.vue'
     import tableAvatar from 'components/Avatar';
     import RequestDetailCard from 'components/RequestDetailCard';
+    import filters from 'components/Filters';
+    
+    import {ResponsiveMixin} from 'vue-responsive-components'
 
     export default {
         name: 'ListTable',
+        mixins: [
+            ResponsiveMixin
+        ],
         components: {
             Avatar,
             RequestCount,
             'table-avatar': tableAvatar,
-            RequestDetailCard
+            RequestDetailCard,
+            filters
         },
         props: {
             header: {
@@ -235,7 +249,30 @@
                 },
                 filterModel: {},
                 uuid,
-                selectedItems: []
+                selectedItems: [],
+                sortFilters: {
+                    schema: [{
+                        type: 'el-switch',
+                        title: 'Due Date',
+                        name: 'due_date',
+                        props: {
+                            activeValue: true,
+                            inactiveValue: false
+                        }
+                    }, {
+                        type: 'el-switch',
+                        title: 'Creation Date',
+                        name: 'creation_date',
+                        props: {
+                            activeValue: true,
+                            inactiveValue: false
+                        }
+                    },],
+                    data: {
+                        type: null,
+                        user_id: null
+                    }
+                }
             }
         },
         computed: {

@@ -2,7 +2,7 @@
     <div class="login2-layout" :style="{backgroundImage: `url(${backImage})`}">
         <el-row class="container-row" type="flex" justify="center">
             <el-col :xs="24" :sm="12" :md="18" :lg="15" :xl="15">
-                <div class="auth-card" :style="[ this.$route.path=='/activate2'?{'max-width': '1100px'}:{ 'max-width': '920px'} ]">
+                <div class="auth-card" >
                     <el-row type="flex">
                         <el-col :md="12" class="image-container">
                             <img :src="loginImage" alt="login"/>
@@ -58,6 +58,7 @@ export default {
                 transition: all .3s ease-in-out;
                 margin-right: auto;
                 margin-left: auto;
+                min-height: 450px;
 
                 .image-container {
                     display: flex;
@@ -76,6 +77,10 @@ export default {
 
                 .form-container {
                     padding: 2rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    min-height: 450px;
                 }
             }
         }
@@ -87,7 +92,7 @@ export default {
             .auth-card {
                 .form-container {
                     .el-form-item {
-                        margin-bottom: 15px !important;
+                        margin-bottom: 15px;
                     }
                 }
             }

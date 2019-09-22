@@ -3,17 +3,21 @@
         <el-form :model="model" ref="form">
             <el-form-item prop="email" :label="$t('general.email')" :rules="validationRules.email">
                 <el-input
-                        type="email"
-                        v-model="model.email"
-                        autocomplete="off"
+                    type="email"
+                    v-model="model.email"
+                    autocomplete="off"
+                    prefix-icon="el-icon-user"
+                    :placeholder="$t('general.email')"
                 ></el-input>
 
             </el-form-item>
             <el-form-item prop="password" :label="$t('general.password')" :rules="validationRules.password">
                 <el-input
-                        type="password"
-                        v-model="model.password"
-                        autocomplete="off"
+                    type="password"
+                    v-model="model.password"
+                    autocomplete="off"
+                    prefix-icon="el-icon-lock"
+                    :placeholder="$t('general.password')"
                 ></el-input>
 
             </el-form-item>
@@ -99,13 +103,7 @@
 
             ...mapActions(['me', 'login']),
         },
-        beforeCreate() {
-            if(this.$constants.login.variation == 2) {
-                this.$router.push({
-                    name: 'login2'
-                });
-            }
-        }
+       
     }
 </script>
 <style lang="scss" scoped>

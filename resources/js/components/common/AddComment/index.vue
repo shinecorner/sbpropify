@@ -37,6 +37,7 @@
     import {mapActions, mapGetters} from 'vuex'
     import ErrorFallback from 'components/common/AddComment/Error'
     import {displaySuccess, displayError} from 'helpers/messages'
+    import { EventBus } from '../../../event-bus.js';
 
     export default {
         props: {

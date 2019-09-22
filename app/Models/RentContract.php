@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Traits\UniqueIDFormat;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Schema;
 use OwenIt\Auditing\AuditableObserver;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -128,7 +130,7 @@ class RentContract extends AuditableModel implements HasMedia
     const Type = [
         self::TypePrivate => 'private',
         self::TypeBusiness => 'business',
-        self::TypeParkingSlot => 'parking slot'
+        self::TypeParkingSlot => 'parking_slot'
     ];
 
     const DurationUnlimited = 1;
@@ -150,10 +152,10 @@ class RentContract extends AuditableModel implements HasMedia
     const DepositTypeInsurance = 3;
     const DepositTypeOther = 4;
     const DepositType = [
-        self::DepositTypeBankDepot => 'Bank depot',
-        self::DepositTypeBankGuarantee => 'Bank guarantee',
-        self::DepositTypeInsurance => 'Insurance',
-        self::DepositTypeOther => 'Other'
+        self::DepositTypeBankDepot => 'bank_depot',
+        self::DepositTypeBankGuarantee => 'bank_guarantee',
+        self::DepositTypeInsurance => 'insurance',
+        self::DepositTypeOther => 'other'
     ];
 
     const DepositStatusYes = 1;
@@ -263,6 +265,12 @@ class RentContract extends AuditableModel implements HasMedia
 
     protected function getFormatColumnName()
     {
-        return 'rent_contract_format';
+        $colName = Cache::rememberForever('rent_contract_format', function () {
+                return Schema::hasColumn($this->getTable(),'rent_contract_format')
+                    ? 'rent_contract_format'
+                    : 'tenant_rent_contract_format';
+            });
+
+        return $colName;
     }
 }

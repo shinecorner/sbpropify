@@ -11,7 +11,13 @@
                 </small>
             </div>
             <div class="actions" v-if="showActions">
-                <el-button size="mini" @click="$emit('delete-post', $event, data)" plain round>{{$t('general.actions.delete')}}</el-button>
+                <el-tooltip :content="$t('tenant.tooltips.edit_post')">
+                    <el-button size="mini" @click="$emit('edit-post', $event, data)" plain round>{{$t('general.actions.edit')}}</el-button>
+                </el-tooltip>
+                <el-tooltip :content="$t('tenant.tooltips.delete_post')">
+                    <el-button size="mini" @click="$emit('delete-post', $event, data)" plain round>{{$t('general.actions.delete')}}</el-button>
+                </el-tooltip>
+                
             </div>
         </div>
         <div class="title" v-if="data.pinned">
@@ -24,7 +30,6 @@
         <hr v-if="data.pinned" />
         <read-more class="content" :text="data.content" :max-chars="512" :more-str="$t('tenant.read_more')" :less-str="$t('tenant.read_less')" />
         
-        <br />
         <hr v-if="data.pinned"/>
         <div class="execution" v-if="data.pinned">
             Execution {{execution}}
@@ -32,7 +37,7 @@
         <div class="providers" v-if="data.pinned && data.providers && data.providers.length">
             Providers: {{data.providers.map(provider => provider.name).join(', ')}}
         </div>
-        <div class="gallery">
+        <div class="gallery" v-if="data.media.length">
             <ui-images-carousel :images="data.media.map(({url}) => url)" :use-placeholder="false" :show-indicator="false" v-if="data.media.length > 0"/>
         </div>
         <!-- <media-gallery-carousel :media="data.media" :use-placeholder="false" height="320px" :autoplay="false" :gallery-options="{container: '#gallery'}" /> -->
@@ -45,7 +50,6 @@
                 </template>
             </el-button>
         </like>
-
             
         
         <comments ref="comments" :id="data.id" type="post" :use-placeholder="false" />
@@ -195,11 +199,12 @@
         .like {
             background: #f2f4fa;
             padding: 10px;
-            padding-bottom: 0;
         }
         .likes {
             font-size: 14px;
-            margin: 12px 0 -8px 0;
+            margin: 0;
+            padding: 0;
+            padding-bottom: 16px;
             display: flex;
             align-items: center;
 
@@ -221,6 +226,10 @@
             }
         }
 
+        .placeholder {
+            padding: 8px;
+        }
+
         :global(.reactions) {
             border-width: 1px;
             border-color: darken(#fff, 6%);
@@ -230,7 +239,7 @@
         }
 
         :global(.comments-list) {
-            margin-bottom: 8px;
+            margin: 16px 0;
             > :global(.el-button) {
                 padding-top: 0;
             }

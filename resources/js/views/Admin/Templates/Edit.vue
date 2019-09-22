@@ -21,7 +21,8 @@
                                       v-model="model.translations[language].subject"></el-input>
                         </el-form-item>
                         <el-form-item :label="$t('models.template.body')" :prop="`translations.${language}.body`"
-                                      :rules="validationRules.body">
+                                      :rules="validationRules.body"
+                                      :key="editorKey">
                             <yimo-vue-editor
                                 :config="editorConfig"
                                 v-model="model.translations[language].body"></yimo-vue-editor>
@@ -68,27 +69,17 @@
     import EditActions from 'components/EditViewActions';
     import SelectLanguage from 'components/SelectLanguage';
     import TemplatesMixin from 'mixins/adminTemplatesMixin';
-
-    let YimoVueEditor = require("yimo-vue-editor");
+    import EditorConfig from 'mixins/adminEditorConfig';
 
     export default {
         mixins: [TemplatesMixin({
             mode: 'edit'
-        })],
+        }), EditorConfig],
         components: {
             Heading,
             Card,
             EditActions,
-            'yimo-vue-editor': YimoVueEditor.default,
             SelectLanguage
-        },
-        data() {
-            return {
-                editorConfig: {
-                    printLog: false,
-                    lang: YimoVueEditor.E.langs.en,
-                },
-            }
         },
     }
 </script>

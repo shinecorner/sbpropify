@@ -1,7 +1,7 @@
 <template>
     <div class="p-user__settings">
         <el-form label-position="left">
-            <el-divider content-position="left" @change="save">
+            <!-- <el-divider content-position="left" @change="save">
                 <i class="icon-chart"></i> {{$t('tenant.summary_statistics')}}
             </el-divider>
             <div class="p-user__settings__description">
@@ -11,7 +11,7 @@
                 <el-select v-model="loggedInUser.settings.summary">
                     <el-option v-for="summary in summaries" :key="summary" :label="summary" :value="summary" />
                 </el-select>
-            </el-form-item>
+            </el-form-item> -->
             <el-divider content-position="left">
                 <i class="icon-bell"></i> {{$t('tenant.notification_label')}}
             </el-divider>

@@ -19,6 +19,9 @@ export default (config = {}) => {
                 remoteLoading: false,
                 buildings: [],
                 units: [],
+                rent_types: [],
+                rent_durations: [],
+                deposit_types: [],
                 user: {},
                 unit: {},
                 model: {
@@ -40,6 +43,16 @@ export default (config = {}) => {
                         language: '',
                     },
                     nation: '',
+                    contract: {
+                        rent_type: '',
+                        rent_duration: '',
+                        rent_start: '',
+                        rent_end: '',
+                        deposit_amount: '',
+                        deposit_type: '',
+                        net_rent: '',
+                        heating_operating_costs_installment: ''
+                    }
                 },
                 validationRules: {
                     first_name: [{
@@ -165,6 +178,21 @@ export default (config = {}) => {
         },
         async mounted() {
             await this.getCountries();
+
+            let rent_types = this.$t('models.tenant.rent_types');
+            for (var key in rent_types) {
+                this.rent_types.push({name : rent_types[key], value : key})
+            }
+
+            let rent_durations = this.$t('models.tenant.rent_durations');
+            for (var key in rent_durations) {
+                this.rent_durations.push({name : rent_durations[key], value : key})
+            }
+
+            let deposit_types = this.$t('models.tenant.deposit_types');
+            for (var key in deposit_types) {
+                this.deposit_types.push({name : deposit_types[key], value : key})
+            }
         },
         computed: {
             form() {

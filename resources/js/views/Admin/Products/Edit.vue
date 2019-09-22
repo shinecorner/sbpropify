@@ -74,7 +74,8 @@
                                 <el-row class="last-form-row">
                                     <el-col>
                                         <el-form-item :label="$t('general.content')" :rules="validationRules.content"
-                                                    prop="content">
+                                                      prop="content"
+                                                      :key="editorKey">
                                             <yimo-vue-editor
                                                     :config="editorConfig"
                                                     v-model="model.content"/>
@@ -198,26 +199,21 @@
     import ProductsMixin from 'mixins/adminProductsMixin';
     import EditActions from 'components/EditViewActions';
     import {Avatar} from 'vue-avatar';
-
-    let YimoVueEditor = require("yimo-vue-editor");
+    import EditorConfig from 'mixins/adminEditorConfig';
 
     const mixin = ProductsMixin({mode: 'edit'});
 
     export default {
         mixins: [
-            mixin
+            mixin,
+            EditorConfig
         ],
         components: {
             EditActions,
             Avatar,
-            'yimo-vue-editor': YimoVueEditor.default,
         },
         data() {
             return {
-                editorConfig: {
-                    printLog: false,
-                    lang: YimoVueEditor.E.langs.en,
-                },
                 activeName: 'description',
             }
         },

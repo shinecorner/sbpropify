@@ -205,6 +205,8 @@
                     type: 'warning'
                 }).then(() => {
                     this.$store.dispatch('newProducts/delete', {id: product.id})
+                    this.editingProduct = null
+                    this.visibleDrawer = false
                 }).catch(() => {
                 });
                 
@@ -227,7 +229,18 @@
             const {page = this.pagination.current, per_page = this.pagination.size, search, ...rest} = this.$route.query
 
             await this.get({page, per_page, search, ...rest})
-        }
+        },
+        watch: {
+            'visibleDrawer': {
+                immediate: false,
+                handler (state) {
+                    // TODO - auto blur container if visible is true first
+                    if (!state) {
+                        this.editingProduct = null
+                    }
+                }
+            }
+        },
     }
 </script>
 

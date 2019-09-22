@@ -14,7 +14,7 @@ return [
     'categories' => 'Kategorien',
     'created_from' => 'Erstellt vom',
     'created_to' => 'Erstellt bis',
-    'services' => 'Partnerfirmen',
+    'services' => 'Dienstleister',
     'tenant' => 'Mieter',
     'roles' => 'Rollen',
     'type' => 'Typ',
