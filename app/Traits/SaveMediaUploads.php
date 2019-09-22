@@ -25,5 +25,7 @@ trait SaveMediaUploads
                 $savedMedia[] = $this->uploadFile('media', $mediaData['media'], $model, $audit);
             }
         }
+
+        return $model;
     }
 }
