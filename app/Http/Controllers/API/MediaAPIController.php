@@ -168,7 +168,7 @@ class MediaAPIController extends AppBaseController
             $data = $request->get('other_upload', '');
         }
 
-        if (!$media = $this->buildingRepository->uploadFile($collectionName, $data, $building)) {
+        if (!$media = $this->buildingRepository->uploadFile($collectionName, $data, $building, $request->merge_in_audit)) {
             return $this->sendError(__('general.upload_error'));
         }
 
@@ -280,7 +280,7 @@ class MediaAPIController extends AppBaseController
         }
 
         $data = $request->get('media', '');
-        if (!$media = $this->postRepository->uploadFile('media', $data, $post)) {
+        if (!$media = $this->postRepository->uploadFile('media', $data, $post, $request->merge_in_audit)) {
             return $this->sendError(__('general.upload_error'));
         }
 
@@ -399,7 +399,7 @@ class MediaAPIController extends AppBaseController
         }
 
         $data = $request->get('media', '');
-        if (!$media = $this->rentContractRepository->uploadFile('media', $data, $rentContract)) {
+        if (!$media = $this->rentContractRepository->uploadFile('media', $data, $rentContract, $request->merge_in_audit)) {
             return $this->sendError(__('general.upload_error'));
         }
 
@@ -517,7 +517,7 @@ class MediaAPIController extends AppBaseController
         }
 
         $data = $request->get('media', '');
-        if (!$media = $this->rentContractRepository->uploadFile('media', $data, $rentContract)) {
+        if (!$media = $this->rentContractRepository->uploadFile('media', $data, $rentContract, $request->merge_in_audit)) {
             return $this->sendError(__('general.upload_error'));
         }
 
@@ -629,7 +629,7 @@ class MediaAPIController extends AppBaseController
         }
 
         $data = $request->get('media', '');
-        if (!$media = $this->serviceRequestRepository->uploadFile('media', $data, $serviceRequest)) {
+        if (!$media = $this->serviceRequestRepository->uploadFile('media', $data, $serviceRequest, $request->merge_in_audit)) {
             return $this->sendError(__('general.upload_error'));
         }
         $serviceRequest->touch();
@@ -741,7 +741,7 @@ class MediaAPIController extends AppBaseController
         }
 
         $data = $request->get('media', '');
-        if (!$media = $this->productRepository->uploadFile('media', $data, $product)) {
+        if (!$media = $this->productRepository->uploadFile('media', $data, $product, $request->merge_in_audit)) {
             return $this->sendError(__('general.upload_error'));
         }
 

@@ -22,7 +22,7 @@ class ProductTransformer extends BaseTransformer
      */
     public function transform(Product $model)
     {
-        return [
+        $response = [
             'id' => $model->id,
             'type' => $model->type,
             'status' => $model->status,
@@ -42,5 +42,14 @@ class ProductTransformer extends BaseTransformer
             'likes_count' => $model->likesCount,
             'comments_count' => $model->all_comments_count,
         ];
+
+        if ($model->relationExists('audit')) {
+            $audit = $model->audit;
+            if ($audit) {
+                $response['audit_id'] = $audit->id;
+            }
+        }
+
+        return $response;
     }
 }
