@@ -5,6 +5,7 @@ namespace App\Models;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use Chelout\RelationshipEvents\Concerns\HasMorphedByManyEvents;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Models\Audit;
 
@@ -124,10 +125,7 @@ class AuditableModel extends Model implements Auditable
         }
 
         if ('media' == $key) {
-            $data = $value->only('name', 'file_name', 'disk', 'collection_name', 'mime_type', 'size', 'order_column');
-            $data['media_id'] = $value->id;
-            $data['media_url'] = $value->getFullUrl();
-            $value = $data;
+            $value = $this->getMediaAudit($value);
         }
 
         if (self::EventCreated == $audit->event) {
@@ -138,6 +136,13 @@ class AuditableModel extends Model implements Auditable
         }
     }
 
+    /**
+     * @param $savedValues
+     * @param $key
+     * @param $newValue
+     * @param $isSingle
+     * @return mixed
+     */
     protected function fixAddedData($savedValues, $key, $newValue, $isSingle)
     {
         if ($isSingle) {
@@ -147,5 +152,63 @@ class AuditableModel extends Model implements Auditable
         }
 
         return $savedValues;
+    }
+
+    /**
+     * @param $media
+     * @return mixed
+     */
+    protected function getMediaAudit($media)
+    {
+        $data = $media->only('name', 'file_name', 'disk', 'collection_name', 'mime_type', 'size', 'order_column');
+        $data['media_id'] = $media->id;
+        $data['media_url'] = $media->getFullUrl();
+        return $data;
+    }
+
+    /**
+     * @param $relationData
+     * @return array|mixed
+     */
+    public function getModelRelationAuditData($relationData)
+    {
+        if (is_a($relationData, Collection::class)) {
+            return $this->getManyRelationAuditData($relationData);
+        } elseif(is_a($relationData, Model::class)) {
+            return $this->getSingleRelationAuditData($relationData);
+        }
+        return [];//'@TODO'
+    }
+
+    /**
+     * @param $relationData
+     * @return array
+     */
+    protected function getManyRelationAuditData($relationData)
+    {
+        $auditData = [];
+        foreach ($relationData as $relation) {
+            $auditData[] = $this->getSingleRelationAuditData($relation);
+        }
+        return $auditData;
+    }
+
+    /**
+     * @param $relation
+     * @return mixed
+     */
+    protected function getSingleRelationAuditData($relation)
+    {
+        if (is_a($relation, Media::class)) {
+            return $this->getMediaAudit($relation);
+        }
+
+        $auditData = $relation->getAttributes();
+        unset($auditData['created_at']);
+        unset($auditData['updated_at']);
+        foreach ($relation->getExistingRelations() as $_relation) {
+            $auditData[$_relation] = $this->getModelRelationAuditData($relation->{$_relation});
+        }
+        return $auditData;
     }
 }

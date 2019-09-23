@@ -20,7 +20,6 @@ use App\Http\Requests\API\ServiceRequest\ListRequest;
 use App\Http\Requests\API\ServiceRequest\NotifyProviderRequest;
 use App\Http\Requests\API\ServiceRequest\SeeRequestsCount;
 use App\Http\Requests\API\ServiceRequest\UpdateRequest;
-use App\Http\Requests\API\Tenant\DownloadCredentialsRequest;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;

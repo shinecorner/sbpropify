@@ -299,7 +299,9 @@ class TenantAPIController extends AppBaseController
         }
 
         if ($rentData) {
-            $input['rent_contracts'][] = $rentData;
+            if (empty($input['rent_contracts'])) {
+                $input['rent_contracts'][] = $rentData;
+            }
         }
         try {
             $tenant = $this->tenantRepository->create($input);

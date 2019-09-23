@@ -2,12 +2,14 @@
 
 namespace App\Repositories;
 
+use App\Models\Media;
 use App\Models\Model;
 use App\Models\RentContract;
 use App\Models\ServiceRequest;
 use App\Models\Tenant;
 use App\Models\Unit;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use Prettus\Repository\Events\RepositoryEntityDeleted;
 
 /**
@@ -92,23 +94,44 @@ class TenantRepository extends BaseRepository
         return $model;
     }
 
-    protected function saveRentContracts($model, $data)
+    /**
+     * @param Tenant $tenant
+     * @param $data
+     * @return Tenant
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     */
+    protected function saveRentContracts(Tenant $tenant, $data)
     {
         if (empty($data['rent_contracts'])) {
-            return $model;
+            return $tenant;
         }
 
-        $savedData = [];
+        if (Arr::isAssoc($data['rent_contracts'])) {
+            return $tenant;
+        }
+
+        /**
+         * @var $rentContractRepo RentContractRepository
+         */
+        $rentContractRepo = App::make(RentContractRepository::class);
+        $rentContractSavedData = collect();
+
+        RentContract::disableAuditing();
+        Media::disableAuditing();
         foreach ($data['rent_contracts'] as $rentContractData) {
             // @TODO if need validate this data
             if (is_array($rentContractData)) {
-                $savedData[] = $rentContractData;
+                $rentContractData['tenant_id'] = $tenant->id;
+                $rentContractSavedData->push($rentContractRepo->create($rentContractData));
             }
         }
-        if ($savedData) {
-            $model->rent_contracts()->createMany($savedData);
-        }
-        return $model;
+        RentContract::enableAuditing();
+        Media::enableAuditing();
+
+        $tenant->setRelation('rent_contracts', $rentContractSavedData);
+        $auditData = $tenant->getModelRelationAuditData($rentContractSavedData);
+        $tenant->addDataInAudit('rent_contracts', $auditData);
+        return $tenant;
     }
 
     /**

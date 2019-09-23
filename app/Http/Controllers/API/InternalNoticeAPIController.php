@@ -302,6 +302,6 @@ class InternalNoticeAPIController extends AppBaseController
 
         $internalNotice->delete();
 
-        return $this->sendResponse($internalNotice->only('id', 'request_id', 'user_id'), __('models.request.internal_notice_deleted'));
+        return $this->sendResponse($internalNotice->only('id', 'request_id', 'user_id', 'comment'), __('models.request.internal_notice_deleted'));
     }
 }
