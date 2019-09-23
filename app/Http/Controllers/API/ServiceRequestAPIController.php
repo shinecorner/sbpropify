@@ -178,6 +178,24 @@ class ServiceRequestAPIController extends AppBaseController
      *          required=false,
      *          @SWG\Schema(ref="#/definitions/ServiceRequest")
      *      ),
+     *     @SWG\Parameter(
+     *          name="media",
+     *          in="body",
+     *          description="Save media. You can pass media paramater
+                                As string(base64) like **media=base64_string**,
+                                as array of string(base64) like **media = [base64_string1, base64_string2, base64_string3, ...etc]**
+                                or as array of array(media => string(base64)) like media = **[[media => base64_string1], [media => base64_string2], ...etc]**",
+     *          required=false,
+     *          @SWG\Schema(
+     *              @SWG\Property(
+     *                  property="media",
+     *                  description="id",
+     *                  type="integer",
+     *                  format="int32"
+     *               ),
+     *
+     *          )
+     *      ),
      *      @SWG\Response(
      *          response=200,
      *          description="successful operation",

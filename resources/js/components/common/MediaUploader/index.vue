@@ -277,8 +277,10 @@
                             id : this.id, media: data.response.data
                         })  
                     }
+
                     this.uploaded_count ++;
                     if(this.uploaded_count == this.length) {
+                        this.$root.$emit('media-upload-finished');
                         this.clearUploader();
                     }
                 })

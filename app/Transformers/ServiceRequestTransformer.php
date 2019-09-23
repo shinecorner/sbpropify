@@ -35,14 +35,20 @@ class ServiceRequestTransformer extends BaseTransformer
             'component' => $model->component,
             'payer' => $model->payer,
             'location' => $model->location,
-            'created_at' => $model->created_at->format('Y-m-d'),
-            'created_by' => $model->created_at->format('d.m.Y H:i:s'),
-            'updated_at' => $model->updated_at->format('d.m.Y'),
+            'created_at' => $model->created_at->format('d.m.Y H:i:s'),
+            'updated_at' => $model->updated_at->toDateTimeString(),
             'visibility' => $model->visibility,
         ];
 
+        if ($model->relationExists('audit')) {
+            $audit = $model->audit;
+            if ($audit) {
+                $response['audit_id'] = $audit->id;
+            }
+        }
+
         if ($model->due_date) {
-            $response['due_date'] = $model->due_date->format('d.m.Y');
+            $response['due_date'] = $model->due_date->format('Y-m-d');
         }
 
         if ($model->solved_date) {

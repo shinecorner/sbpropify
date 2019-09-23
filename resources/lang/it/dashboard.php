@@ -46,7 +46,7 @@ return [
         'requests' => 'richieste',
         'go_to_buildings' => 'vai agli edifici',
         'buildings_by_state' => 'Edifici per stato',
-        'go_to_building' => 'go to building'
+        'go_to_building' => 'vai al palazzo'
     ],
     'tenants' => [
         'total_tenants' => 'Totale',

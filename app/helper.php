@@ -2,6 +2,9 @@
 
 function get_morph_type_of($class)
 {
+    if (is_object($class)) {
+        $class = get_class($class);
+    }
     return array_flip(\Illuminate\Database\Eloquent\Relations\Relation::$morphMap)[$class] ?? $class;
 }
 

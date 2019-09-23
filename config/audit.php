@@ -104,7 +104,7 @@ return [
     |
     */
 
-    'driver' => 'database',
+    'driver' => App\AuditDrivers\Database::class,
 
     /*
     |--------------------------------------------------------------------------

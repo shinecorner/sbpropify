@@ -1,7 +1,7 @@
 <template>
     <div :class="['marketplace', {md: el.is.md}]">
         <div class="container">
-            <ui-heading icon="icon-basket" title="Marketplace" description="Start selling things you don't need anymore." />
+            <ui-heading icon="icon-basket" title="Marketplace" :description="$t('tenant.heading_info.marketplace')" />
             <ui-divider />
             <ui-card class="content" shadow="always" v-loading="loading">
                 <template #header>
@@ -229,7 +229,18 @@
             const {page = this.pagination.current, per_page = this.pagination.size, search, ...rest} = this.$route.query
 
             await this.get({page, per_page, search, ...rest})
-        }
+        },
+        watch: {
+            'visibleDrawer': {
+                immediate: false,
+                handler (state) {
+                    // TODO - auto blur container if visible is true first
+                    if (!state) {
+                        this.editingProduct = null
+                    }
+                }
+            }
+        },
     }
 </script>
 

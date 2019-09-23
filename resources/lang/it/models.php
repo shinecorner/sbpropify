@@ -150,6 +150,9 @@ return [
             'insurance' => 'Assicurazione',
             'other' => 'Altro',
         ],
+        'net_rent' => 'Affitto netto',
+        'heating_operating_costs_installment' => 'Rata dei costi di riscaldamento/costi di esercizio',
+        'gross_rent' => 'Affitto lordo',
         'contact' => [
             "category" => "Categoria",
         ],
@@ -485,6 +488,7 @@ return [
         "required" => "Questo campo è obbligatorio",
         "buildings" => "Edifici",
         'count_of_buildings' => 'Conteggio degli edifici',
+        'assignment' => "Assegnazione di manager/amministratore",
         'errors' => [
             'not_found' => "Quartiere non trovato",
             'deleted' => "Errore al quarto eliminato: ",
@@ -610,6 +614,8 @@ return [
         'active_reminder_switcher' => 'Promemoria attivo',
         'days_left' => "Quanti giorni prima dovrebbe essere inviata l'e-mail?",
         'send_person' => 'Quale persona deve essere informata?',
+        'add_contract' => 'Aggiungere un nuovo contratto',
+        'delete_contract' => 'Cancellare il contratto',
         'media' => [
             "added" => "Documento ajouté",
             "removed" => "Supporti rimossi",

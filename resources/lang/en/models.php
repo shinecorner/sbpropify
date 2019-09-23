@@ -150,6 +150,9 @@ return [
             'insurance' => 'Insurance',
             'other' => 'Other',
         ],
+        'net_rent' => 'Net rent',
+        'heating_operating_costs_installment' => 'Heating/operating costs installment',
+        'gross_rent' => 'Gross rent',
         'contact' => [
             'category' => 'Category',
         ],
@@ -485,6 +488,7 @@ return [
         'required' => 'This field is required',
         'buildings' => 'Buildings',
         'count_of_buildings' => 'Count of buildings',
+        'assignment' => 'Assignment of managers/administrator',
         'errors' => [
             'not_found' => "Quarter not found",
             'deleted' => "Quarter deleted error: ",
@@ -610,6 +614,8 @@ return [
         'active_reminder_switcher' => 'Active Reminder',
         'days_left' => 'How many days before should the email be sent?',
         'send_person' => 'Which person should be notified?',
+        'add_contract' => 'Add new contract',
+        'delete_contract' => 'Delete contract',
         'media' => [
             'added' => 'Document added',
             'removed' => 'Document removed',

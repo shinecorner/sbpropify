@@ -191,7 +191,7 @@
                                 </el-col>
                                 <el-col :md="8" class="summary-item" id="createtime">
                                     <el-form-item :label="$t('general.created_at')">
-                                        <strong>{{this.model.created_by}}</strong>
+                                        <strong>{{this.model.created_at}}</strong>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -795,14 +795,6 @@
         }
     }
 
-    .admin-layout .el-badge__content.is-fixed {
-        top: 19px;
-        right: -5px;
-        background-color: var(--primary-color) !important;
-        margin-left: 5px;
-        height: 18px;
-        width: 6px;
-    }
     #tab-audit{
         padding-left:40px;
     }

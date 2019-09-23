@@ -184,7 +184,12 @@ return [
         ],
         'to_done' => [
             'title' => 'Segnare la richiesta come completata',
-            'text' => 'Vuoi davvero contrassegnare questa richiesta come completata?',
+            'desc' => "Con questo processo, la richiesta viene contrassegnata come completata e il caso viene chiuso. È possibile riattivare la richiesta in un secondo momento se si ha bisogno di ulteriore assistenza per questo problema.",
+            'message' => 'In alternativa, è possibile lasciare un messaggio qui.',
+        ],
+        'reactivate' => [
+            'title' => 'Riattivare la richiesta',
+            'text' => 'Si prega di lasciare un messaggio con il motivo della riattivazione.',
         ],
         'delete_listing' => [
             'title' => "Cancellare l'annuncio",

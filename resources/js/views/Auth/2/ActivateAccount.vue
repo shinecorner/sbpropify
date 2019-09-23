@@ -1,8 +1,10 @@
 <template>
     <div class="activate2-container">
         <el-form :model="model" ref="form">
-            <router-link :to="{name: 'login2'}" class="el-menu-item-link">
-                <i class="el-icon-back"></i>{{ this.$t("general.back") }}
+            <router-link :to="{name: 'login'}">
+                <el-button type="text">
+                    <i class="el-icon-back"></i>{{$t('general.back')}}
+                </el-button>
             </router-link>
             <h2>{{$t('general.activate_account')}}</h2>            
             <p>{{$t('general.activate_info')}}</p>

@@ -1,7 +1,9 @@
 <template>
     <el-form :model="resetPassword" @submit.native.prevent="" ref="resetPasswordEmailForm">       
-        <router-link :to="{name: 'login2'}" class="el-menu-item-link">
-           <i class="el-icon-back"></i>{{ this.$t('general.back')}}
+        <router-link :to="{name: 'login'}">
+            <el-button type="text">
+                <i class="el-icon-back"></i>{{$t('general.back')}}
+            </el-button>
         </router-link>
         <h2>{{$t('general.reset_password')}}</h2>
         <p>{{$t('general.forgot_password_info')}}</p>

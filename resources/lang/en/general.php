@@ -184,7 +184,12 @@ return [
         ],
         'to_done' => [
             'title' => 'Mark request as completed',
-            'text' => 'Do you really want to mark this request as completed?',
+            'desc' => 'With this process, the request is marked as completed and the case closed. You can reactivate this request later if you need further assistance with this issue.',
+            'message' => 'Alternatively, you can leave a message here.',
+        ],
+        'reactivate' => [
+            'title' => 'Reactivate request',
+            'text' => 'Please leave a message with the reason for the reactivation.',
         ],
         'delete_listing' => [
             'title' => 'Delete Listing',

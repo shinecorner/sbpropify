@@ -51,7 +51,12 @@ class PostTransformer extends BaseTransformer
             'pinned_to' => $model->pinned_to ? $model->pinned_to->toDateTimeString() : null,
             'notify_email' => $model->notify_email,
         ];
-
+        if ($model->relationExists('audit')) {
+            $audit = $model->audit;
+            if ($audit) {
+                $ret['audit_id'] = $audit->id;
+            }
+        }
         if ($model->pinned) {
             $ret['execution_start'] = $this->formatExecutionTime($model, 'execution_start');
             $ret['execution_end'] = $this->formatExecutionTime($model, 'execution_end');
@@ -80,6 +85,10 @@ class PostTransformer extends BaseTransformer
         }
         if ($model->relationExists('views')) {
             $ret['views'] = $model->views->sum('views');
+        }
+        if ($model->relationExists('pinned_email_receptionists')) {
+            $ret['pinned_email_receptionists'] = (new PinnedEmailReceptionistTransformer())
+                ->transformCollection($model->pinned_email_receptionists);
         }
 
         return $ret;

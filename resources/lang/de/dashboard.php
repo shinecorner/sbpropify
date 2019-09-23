@@ -6,7 +6,7 @@ return [
     'requests_by_category' => 'Anfragen nach Kategorie',
     'requests_by_assigned_status' => 'Einbezug von Dienstleistern',
     'each_hour_request' => 'Stündlich',
-    'average_request_duration' => 'Ø Bearbeitungszeit in Std.',
+    'average_request_duration' => 'Ø Bearbeitungszeit',
     'week_hour' => 'Woche und Stunden',
     'month_date' => 'Monat und Tag',
     'news_by_creation_date' => 'Nachrichten nach Erstellungsdatum',
@@ -46,7 +46,7 @@ return [
         'requests' => 'Anfragen',
         'go_to_buildings' => 'zu den Liegenschaften',
         'buildings_by_state' => 'Liegenschaften nach Kanton',
-        'go_to_building' => 'go to building'
+        'go_to_building' => 'zu den Liegenschaft gehen'
     ],
     'tenants' => [
         'total_tenants' => 'Total Mieter',
