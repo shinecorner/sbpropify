@@ -6,12 +6,12 @@
                 <div slot="label">
                     <i class="icon-th"></i> {{$t('tenant.overview')}}
                 </div>
-                <div class="type">{{$constants.products.type[data.type]}}</div>
+                <div class="type">{{this.$t(`models.product.type.${$constants.products.type[data.type]}`)}}</div>
                 <div class="title">{{data.title}}</div>
                 <div class="datetime">{{$t('tenant.added_at')}} {{formatDatetime(data.published_at)}}</div>
                 <ui-divider />
                 <div class="price">
-                    <template v-if="isFree">Free</template>
+                    <template v-if="isFree">{{$t('tenant.free')}}</template>
                     <template v-else>
                         {{$t('tenant.price')}}
                         <div class="value">
@@ -28,7 +28,7 @@
                 </div>
                 <template v-else>
                     <el-button type="primary" round @click="showContactInformations = true">{{$t('tenant.get_in_touch')}}</el-button>
-                    <div class="hint">Use the above button to get to know how you may contact the seller in order to get this product.</div>
+                    <div class="hint">{{$t('tenant.get_in_touch_info')}}</div>
                 </template>
             </el-tab-pane>
             <el-tab-pane name="comments" lazy>

@@ -10,11 +10,11 @@
                             added on {{formatDatetime(data.published_at)}}
                         </small>
                     </div>
-                    <el-tag class="type" size="mini" disable-transitions>{{typeName}}</el-tag>
+                    <el-tag class="type" size="mini" disable-transitions>{{this.$t(`models.product.type.${typeName}`)}}</el-tag>
                     <el-divider />
                     <div class="price">
                         <span v-if="isFree">
-                            <div class="content">Free</div>
+                            <div class="content">{{$t('tenant.free')}}</div>
                         </span>
                         <template v-else>
                             <div class="title">{{$t('tenant.price')}}</div>
@@ -33,7 +33,7 @@
                 <el-alert class="contact" type="info" :description="data.contact" center v-if="showContactInformations" :closable="false" />
                 <template v-else>
                     <el-button type="primary" round @click="showContactInformations = true">{{$t('tenant.get_in_touch')}}</el-button>
-                    <small class="hint">Use the above button to get to know how you may contact the seller in order to get this product.</small>
+                    <small class="hint">{{$t('tenant.get_in_touch_info')}}</small>
                 </template>
             </el-tab-pane>
             <el-tab-pane name="comments" :label="$t('tenant.comments')" lazy>
