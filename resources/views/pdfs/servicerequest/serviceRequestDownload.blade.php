@@ -11,14 +11,23 @@
                     <table width="100%">
                         <tbody>
                             <tr>
-                                <td class="table_header">
-                                    @lang('models.request.category',[],$language) >
+                                <td class="table_header" valign="middle">
+                                    <b>@lang('models.request.category',[],$language)</b> :
 
                                     {{ ($category->parentCategory != null) ? $category->parentCategory->{'name'.($language != 'en' ? '_'.$language : '') } . ' > ' : ''  }}
 
-                                    {{ $category->{'name'.($language != 'en' ? '_'.$language : '') } }}</td>
+                                    {{ $category->{'name'.($language != 'en' ? '_'.$language : '') } }}
+                                    <p><b>@lang('general.notification',[],$language)</b> : {{ now()->format('d.m.Y h:i:s a') }}</p>
+                                    <p>  <b>Address</b> :
+                                        {{ @$tenant->building->name }} ,
+                                        {{ @$tenant->building->floor_nr }} floor,
+                                        {{ @$tenant->address->street }},
+                                        {{ @$tenant->address->city }},
+                                        {{ @$tenant->address->country->name }}
+                                    </p>
+                                </td>
 
-                                <td style="text-align:right;" class="table_header">
+                                <td style="text-align:right;vertical-align:top;" class="table_header">
                                     <img class="logo" src="http://dev.propify.ch/storage/fortimo-ag-1.png"/>
                                 </td>
                             </tr>
@@ -93,8 +102,24 @@
             </tr>
             <tr>
                 <td class="no_border" width="100%" style="padding-left:8px;">
-                    <h4>@lang('models.request.download_pdf.contact_details',[],$language)</h4>
-                    <p style="display:block;width:100%;">@lang('models.request.download_pdf.contact_text',[],$language)</p>
+                    <h4 style="margin-bottom:0">@lang('general.title',[],$language)</h4>
+                    <p style="display:block;width:100%;margin-top:0;">{{ $request->title }}</p>
+                </td>
+            </tr>
+            <tr>
+                <td class="no_border" width="100%" style="padding-left:8px;">
+                    <h4 style="margin-bottom:0">@lang('general.description',[],$language)</h4>
+                    <p style="display:block;width:100%;margin-top:0;">{!!  $request->description !!} </p>
+                </td>
+            </tr>
+            <tr>
+                <td class="no_border" style="padding-left:8px;">
+                    <h4 style="margin-bottom:0">@lang('models.request.download_pdf.contact_details',[],$language)</h4>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="no_border" width="100%" style="padding-left:8px;">
+                    <p style="display:block;width:100%;margin-top:0;">@lang('models.request.download_pdf.contact_text',[],$language)</p>
                 </td>
             </tr>
         <tr>
@@ -102,36 +127,44 @@
                 <table width="100%">
                 <tbody>
                     <tr>
-                        <td colspan="4" class="no_border" width="100%">
+                        <td colspan="2" class="no_border" width="100%">
                             <table class="info_table" width="100%">
                                 <tbody>
                                 <tr>
                                     <td><strong>@lang('general.name',[],$language)</strong></td>
-                                    <td>{{ $tenant->name }}</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
+                                    <td>{{ $tenant->user->name }}</td>
+
                                     <td><strong>@lang('general.email',[],$language)</strong></td>
-                                    <td>{{ $tenant->email }}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $tenant->user->email }}</td>
+
                                 </tr>
-                                <tr>
+
+                               {{-- <tr>
                                     <td><strong>@lang('models.request.visibility.label',[],$language)</strong></td>
                                     <td>@lang('models.request.visibility.'.\App\Models\ServiceRequest::Visibility[$request->visibility],[],$language)</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
+
                                     <td><strong>@lang('models.request.priority.label',[],$language)</strong></td>
                                     <td>@lang('models.request.priority.'.\App\Models\ServiceRequest::Priority[$request->priority],[],$language)</td>
-                                    <td></td>
-                                    <td></td>
+
+                                </tr>--}}
+
+                                <tr>
+                                    @if($tenant->mobile != null)
+                                        <td><strong>@lang('models.tenant.mobile_phone',[],$language)</strong></td>
+                                        <td>{{ $tenant->mobile }}</td>
+                                    @else
+                                        <td><strong>@lang('models.tenant.private_phone',[],$language)</strong></td>
+                                        <td>{{ $tenant->private_phone }}</td>
+                                    @endif
+
+                                        <td></td>
+                                        <td></td>
+
                                 </tr>
+
                                 <tr>
                                     <td colspan="4" class="no_border" width="100%">
-                                        <table width="100%">
+                                        <table width="100%" style="margin:25px 0 0;">
                                             <tbody>
                                             <tr>
                                                 <td class="no_border" style="border-bottom:2px dotted #888;padding-bottom:50px;">

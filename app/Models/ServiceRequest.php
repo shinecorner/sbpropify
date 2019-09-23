@@ -518,7 +518,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
        $data = [
             'category' => $this->category,
             'request' => $this,
-            'tenant' => $this->tenant->user,
+            'tenant' => $this->tenant,
             'language'  => $this->tenant->settings->language
         ];
 
