@@ -16,15 +16,17 @@
     }
     img.logo {
         width: 181px;
-        height: 55px;
+        height:auto;
+        margin-top:-15px;
     }
+
 .data_table{width:100%;}
 table.data_table th, table.data_table td {
     text-align: left;
     font-size:13px;
-    font-family:"Arial, sans-serif
+    font-family:{{$re->pdf_font_family ?? 'arial'}}
 }
-    table.data_table strong{font-size:13px;font-family:"Arial, sans-serif}
+    table.data_table strong{font-size:13px;font-family:{{$re->pdf_font_family ?? 'arial'}}}
     .inner_table{width:100%;}
 .inner_table td{padding:7px;}
     table.data_table td{border-top:1px solid #eee;}
@@ -34,6 +36,7 @@ table.data_table th, table.data_table td {
     .info_table td, .info_table th{padding:7px;}
     .no_border{border-top:none!important}
     .border_btm{border-bottom:1px solid #eee;}
+    .data_table h4{padding:0;margin-bottom:-10px;}
 </style>
 </head>
 
