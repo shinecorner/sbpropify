@@ -445,7 +445,30 @@
             height: auto;
             order: 999999;
             padding-top: 0;
+            
+            /deep/ &::-webkit-scrollbar {
+                width: 4px;
+            }
 
+            /deep/ &::-webkit-scrollbar-thumb {
+                border-radius: 8px;
+                width: 4px;
+                background-color: transparentize(lighten(#000, 48%), .16);
+            }
+
+            /deep/ &:hover::-webkit-scrollbar-thumb {
+                background-color: lighten(#000, 48%);
+            }
+
+            /deep/ &::-webkit-scrollbar-track {
+                border-radius: 8px;
+                background-color: darken(#fff, 2%);
+            }
+
+            /deep/ &::-webkit-scrollbar-thumb:window-inactive {
+                background-color: lighten(lighten(#000, 48%), 12%);
+            }
+            
             &.hidden {
                 padding-bottom: 0;
                 overflow: hidden;
@@ -555,28 +578,28 @@
                 }
             }
 
-            &::-webkit-scrollbar {
-                width: 4px;
-            }
+            // &::-webkit-scrollbar {
+            //     width: 4px;
+            // }
 
-            &::-webkit-scrollbar-thumb {
-                border-radius: 8px;
-                width: 4px;
-                background-color: transparentize(lighten(#000, 48%), .16);
-            }
+            // &::-webkit-scrollbar-thumb {
+            //     border-radius: 8px;
+            //     width: 4px;
+            //     background-color: transparentize(lighten(#000, 48%), .16);
+            // }
 
-            &:hover::-webkit-scrollbar-thumb {
-                background-color: lighten(#000, 48%);
-            }
+            // &:hover::-webkit-scrollbar-thumb {
+            //     background-color: lighten(#000, 48%);
+            // }
 
-            &::-webkit-scrollbar-track {
-                border-radius: 8px;
-                background-color: darken(#fff, 2%);
-            }
+            // &::-webkit-scrollbar-track {
+            //     border-radius: 8px;
+            //     background-color: darken(#fff, 2%);
+            // }
 
-            &::-webkit-scrollbar-thumb:window-inactive {
-                background-color: lighten(lighten(#000, 48%), 12%);
-            }
+            // &::-webkit-scrollbar-thumb:window-inactive {
+            //     background-color: lighten(lighten(#000, 48%), 12%);
+            // }
         }
 
         .menu {
@@ -631,4 +654,5 @@
             }
         }
     }
+
 </style>
