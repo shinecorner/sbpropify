@@ -120,4 +120,9 @@ class Media extends SpatieMedia implements Auditable
         $data['auditable_type'] = $this->model_type;
         return $data;
     }
+
+    public function getExistingRelations()
+    {
+        return array_keys($this->relations);
+    }
 }

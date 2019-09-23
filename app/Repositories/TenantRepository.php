@@ -95,41 +95,43 @@ class TenantRepository extends BaseRepository
     }
 
     /**
-     * @param $model
+     * @param Tenant $tenant
      * @param $data
-     * @return mixed
+     * @return Tenant
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    protected function saveRentContracts($model, $data)
+    protected function saveRentContracts(Tenant $tenant, $data)
     {
         if (empty($data['rent_contracts'])) {
-            return $model;
+            return $tenant;
         }
 
         if (Arr::isAssoc($data['rent_contracts'])) {
-            return $model;
+            return $tenant;
         }
 
         /**
          * @var $rentContractRepo RentContractRepository
          */
         $rentContractRepo = App::make(RentContractRepository::class);
-        $rentContractSavedData = [];
+        $rentContractSavedData = collect();
 
         RentContract::disableAuditing();
         Media::disableAuditing();
         foreach ($data['rent_contracts'] as $rentContractData) {
             // @TODO if need validate this data
             if (is_array($rentContractData)) {
-                $rentContractData['tenant_id'] = $model->id;
-                $rentContractSavedData[] = $rentContractRepo->create($rentContractData);
+                $rentContractData['tenant_id'] = $tenant->id;
+                $rentContractSavedData->push($rentContractRepo->create($rentContractData));
             }
         }
         RentContract::enableAuditing();
         Media::enableAuditing();
 
-        $model->setRelation('rent_contracts', collect($rentContractSavedData));
-        return $model;
+        $tenant->setRelation('rent_contracts', $rentContractSavedData);
+        $auditData = $tenant->getModelRelationAuditData($rentContractSavedData);
+        $tenant->addDataInAudit('rent_contracts', $auditData);
+        return $tenant;
     }
 
     /**
