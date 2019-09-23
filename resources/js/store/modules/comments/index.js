@@ -100,6 +100,15 @@ export default {
                     break
             }
         },
+        async createOnly ({}, {id, ...params}) {
+            const {data} = await this._vm.axios.post({
+                post: 'posts',
+                product: 'products',
+                request: 'requests',
+                conversation: 'conversations'
+            }[params.commentable] + `/${id}/comments`, params)
+
+        },
         async update ({commit}, {id, parent_id, child_id, ...params}) {        
             const {data} = await this._vm.axios.put( `${ params.commentable !== 'internalNotices' ? 'comments': 'internalNotices' }/${child_id ? child_id : parent_id}`, params.commentable !== 'internalNotices' ? child_id ? {parent_id, ...params} : params : { request_id: id, user_id: this.getters.loggedInUser.id, comment: params.comment} )
 
