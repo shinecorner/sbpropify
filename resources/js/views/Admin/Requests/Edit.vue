@@ -337,7 +337,7 @@
                                                     style="width: 100%"
                                                     type="date"
                                                     v-model="model.due_date"
-                                                    value-format="yyyy-MM-dd"
+                                                    value-format="dyyyy-MM-d"
                                                 >
                                                 </el-date-picker>
                                             </el-form-item>
