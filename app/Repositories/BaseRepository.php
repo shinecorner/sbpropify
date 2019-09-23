@@ -15,9 +15,10 @@ abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepositor
      * @param string $dataBase64
      * @param Model $model
      * @param null $mergeInAudit
+     * @param bool $disableAuditing
      * @return bool
      */
-    public function uploadFile(string $collectionName, string $dataBase64, Model $model, $mergeInAudit = null)
+    public function uploadFile(string $collectionName, string $dataBase64, Model $model, $mergeInAudit = null, $disableAuditing = false)
     {
         if (!$data = base64_decode($dataBase64)) {
             return false;
@@ -37,8 +38,13 @@ abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepositor
             if (empty($audit)) {
                 return false;
             }
+            $disableAuditing = true;
+        }
+
+        if ($disableAuditing) {
             Media::disableAuditing();
         }
+
         $extension = $this->mimeToExtension[$mimeType];
 
         $diskName = $model->getDiskPreName() . $collectionName;
@@ -48,8 +54,11 @@ abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepositor
             })
             ->toMediaCollection($collectionName, $diskName);
 
-        if ($mergeInAudit) {
+        if ($disableAuditing) {
             Media::enableAuditing();
+        }
+
+        if ($mergeInAudit) {
             (new AuditableModel())->addDataInAudit('media', $media, $audit, false);
         }
 

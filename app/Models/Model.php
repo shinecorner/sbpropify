@@ -15,4 +15,9 @@ class Model extends \Illuminate\Database\Eloquent\Model
     {
         return $this->getTable() . '_';
     }
+
+    public function getExistingRelations()
+    {
+        return array_keys($this->relations);
+    }
 }
