@@ -5,7 +5,7 @@
             <!-- <ui-image src="https://placeimg.com/640/480/any" /> -->
         </div>
         <div :class="['price', {'free': isFree}]">
-            <template v-if="isFree">Free</template>
+            <template v-if="isFree">{{$t('tenant.free')}}</template>
             <template v-else>{{data.price | price}}</template>
         </div>
         <div class="content">

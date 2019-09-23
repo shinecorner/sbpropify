@@ -28,7 +28,7 @@
     </div>
     <placeholder :src="require('img/5c98a90bb5c05.png')" v-else-if="!media.length && usePlaceholder">
         {{$t('tenant.no_data.media')}}
-        <small>All of them will be listed here in columns and can be seen in fullsize by hovering on any of them.</small>
+        <small>{{$t('tenant.media_info')}}</small>
     </placeholder>
 </template>
 
