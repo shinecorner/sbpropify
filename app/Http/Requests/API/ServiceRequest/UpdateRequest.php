@@ -5,6 +5,7 @@ namespace App\Http\Requests\API\ServiceRequest;
 use App\Models\ServiceRequest;
 use Illuminate\Support\Facades\Auth;
 use InfyOm\Generator\Request\APIRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateRequest extends APIRequest
 {
@@ -39,7 +40,12 @@ class UpdateRequest extends APIRequest
         if ($user->can('edit-request_service')) {
             return ServiceRequest::$rulesPutService;
         }
+        $putRoles =  ServiceRequest::$rulesPut;
+        $putRoles['reminder_user_id'] = Rule::requiredIf(function () {
+            return $this->active_reminder == true;
+        });
+        $putRoles['days_left_due_date'] = $putRoles['reminder_user_id'];
 
-        return ServiceRequest::$rulesPut;
+        return $putRoles;
     }
 }
