@@ -166,13 +166,9 @@ export default {
         },
         create (state, {id, data, parent_id, commentable}) {
             data.isNew = true
-            console.log(id, parent_id);
-            
     
             if (id && parent_id) {
                 let comment = state[commentable][id].data.find(({id}) => id === parent_id)
-                console.log(comment);
-                
     
                 if (comment) {
                     comment.children_count++
