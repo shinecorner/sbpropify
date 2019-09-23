@@ -78,7 +78,7 @@
     .likes {
         display: flex;
         align-items: center;
-        color: var(--color-primary);
+        color: grey;
         padding: 10px;
         
         &.row-layout {

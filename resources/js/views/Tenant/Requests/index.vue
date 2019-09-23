@@ -3,7 +3,7 @@
     <div :class="['requests']">
         <div class="container" >
             <div class="main-content" v-infinite-scroll="get">
-                <ui-heading icon="icon-chat-empty" :title="$t('tenant.requests')" description="Need some info? Encountered an issue? Contact us!">
+                <ui-heading icon="icon-chat-empty" :title="$t('tenant.requests')" :description="$t('tenant.heading_info.request')">
                     <el-popover popper-class="requests__filter-popover" placement="bottom-end" trigger="click" :width="192">
                         <el-button slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
                         <filters ref="filters" layout="column" :data.sync="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
@@ -152,7 +152,7 @@
                 statusChangeModalVisible: false,
                 deleteModalVisible: false,
                 statusChangeModalType: "done",
-                changeRequest: null,
+                changingRequest: null,
                 filters: {
                     schema: [{
                         type: 'el-select',
@@ -277,7 +277,7 @@
             changeRequestStatus(request, type) {
                 this.statusChangeModalType = type
                 this.statusChangeModalVisible = true
-                this.changeRequest = request;
+                this.changingRequest = request;
             },
             resetDataFromDrawer () {
                 this.activeDrawerTab = 'chat'
@@ -303,13 +303,24 @@
 
                 this.$refs['request-add-form'].submit()
             },
-            async changeStatus(status) {
+            async changeStatus(status, message) {
+
+                
+                if(message != null) {
+                    await this.$store.dispatch('comments/createOnly', {
+                        id: this.changingRequest.id,
+                        comment: message,
+                        commentable: "request"
+                    });
+                }
+                
                 this.statusChangeModalVisible = false;
                 
-                this.changeRequest.status = status == 'done' ? 4 : 5;
-                this.changeRequest.category_id = this.changeRequest.category.id
-                await this.$store.dispatch('newRequests/update', this.changeRequest)
-                this.changeRequest = null
+                this.changingRequest.status = status == 'done' ? 4 : 5;
+                this.changingRequest.category_id = this.changingRequest.category.id
+                await this.$store.dispatch('newRequests/update', this.changingRequest)
+                
+                this.changingRequest = null
             },
             closeStatusChangeModal() {
                 this.statusChangeModalVisible = false;
@@ -433,6 +444,7 @@
                             padding: 0
                             .el-alert
                                 align-items: flex-start
+                                padding-right: 0
                                 .el-alert__icon
                                     padding-top: 2px
 

@@ -150,6 +150,9 @@ return [
             'insurance' => 'Kautionsversicherung',
             'other' => 'Sonstiges',
         ],
+        'net_rent' => 'Nettomiete',
+        'heating_operating_costs_installment' => 'Heizungs-/Betriebskostenrate',
+        'gross_rent' => 'Bruttomiete',
         'contact' => [
             'category' => 'Kategorie',
         ],
@@ -598,7 +601,7 @@ return [
         'other_recipients' => 'Weitere Empfänger',
         'recipients' => 'Empfänger',
         'images' => 'Fotos und Dokumente',
-        'no_images_message' => 'Bisland keine Dateien hochgeladen',
+        'no_images_message' => 'Bislang keine Dateien hochgeladen',
         'request_details' => 'Beschreibung',
         'internal_notices' => 'Interne Notizen',
         'status_changed' => 'Status wurde geändert',
@@ -611,6 +614,8 @@ return [
         'active_reminder_switcher' => 'Aktive Erinnerung',
         'days_left' => 'Wie viele Tage vorher soll die E-Mail versendet werden?',
         'send_person' => 'Welche Person soll benachrichtigt werden?',
+        'add_contract' => 'Neuen Vertrag hinzufügen',
+        'delete_contract' => 'Vertrag löschen',
         'media' => [
             'added' => 'Mediendatei hinzugefügt',
             'removed' => 'Mediendatei entfernt.',

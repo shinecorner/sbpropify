@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="title" v-if="data.pinned">
-            <small>Category:
+            <small>{{$t('tenant.category')}}:
                 {{$t(`models.post.category.${$store.getters['application/constants'].posts.category[data.category]}`)}}
             </small>
             <strong>{{data.title}}</strong>
@@ -32,10 +32,10 @@
         
         <hr v-if="data.pinned"/>
         <div class="execution" v-if="data.pinned">
-            Execution {{execution}}
+            {{$t('tenant.execution')}} {{execution}}
         </div>
         <div class="providers" v-if="data.pinned && data.providers && data.providers.length">
-            Providers: {{data.providers.map(provider => provider.name).join(', ')}}
+            {{$t('tenant.providers')}}: {{data.providers.map(provider => provider.name).join(', ')}}
         </div>
         <div class="gallery" v-if="data.media.length">
             <ui-images-carousel :images="data.media.map(({url}) => url)" :use-placeholder="false" :show-indicator="false" v-if="data.media.length > 0"/>

@@ -51,7 +51,7 @@
             type: {
                 type: String,
                 required: true,
-                validator: type => ['post', 'product', 'request', 'conversation'].includes(type)
+                validator: type => ['post', 'product', 'request', 'conversation', 'internalNotices'].includes(type)
             },
             autofocus: {
                 type: Boolean,
@@ -105,13 +105,23 @@
                     this.loading = true
                     this.$refs.content.blur()
 
-                    await this.$store.dispatch('comments/create', {
+                    let body = this.type !== 'internalNotices' ? {
                         id: this.id,
                         comment: this.content,
                         commentable: this.type,
                         parent_id: this.parentId
-                    });
-                    EventBus.$emit('comments-added');
+                    } : {
+                        id: this.id,
+                        parent_id: this.parentId,
+                        request_id: this.id,
+                        user_id: this.user.id,
+                        comment: this.content,
+                        commentable: this.type,
+                    }
+
+                    await this.$store.dispatch('comments/create', body);
+                    EventBus.$emit('comments-added')
+
                 } catch (error) {
                     displayError(error)
                 } finally {

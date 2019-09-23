@@ -221,7 +221,7 @@
                                     <el-form-item :label="$t('models.tenant.rent_type')" prop="rent_type"
                                                   class="label-block">
                                         <el-select placeholder="Select" style="display: block" 
-                                                    v-model="model.rent_type">
+                                                    v-model="model.contract.rent_type">
                                             <el-option
                                                     :key="type.value"
                                                     :label="type.name"
@@ -235,7 +235,7 @@
                                     <el-form-item :label="$t('models.tenant.rent_duration')" prop="rent_duration"
                                                   class="label-block">
                                         <el-select placeholder="Select" style="display: block" 
-                                                    v-model="model.rent_duration">
+                                                    v-model="model.contract.rent_duration">
                                             <el-option
                                                     :key="type.value"
                                                     :label="type.name"
@@ -256,7 +256,7 @@
                                                 format="dd.MM.yyyy"
                                                 style="width: 100%;"
                                                 type="date"
-                                                v-model="model.rent_start"
+                                                v-model="model.contract.rent_start"
                                                 value-format="yyyy-MM-dd"/>
                                     </el-form-item>
                                 </el-col>
@@ -269,7 +269,7 @@
                                             format="dd.MM.yyyy"
                                             style="width: 100%;"
                                             type="date"
-                                            v-model="model.rent_end"
+                                            v-model="model.contract.rent_end"
                                             value-format="yyyy-MM-dd"/>
                                     </el-form-item>
                                 </el-col>
@@ -300,7 +300,7 @@
                                     <el-form-item :label="$t('models.tenant.deposit_amount')"
                                                     prop="deposit_amount">
                                          <el-input type="text"
-                                                  v-model="model.deposit_amount"
+                                                  v-model="model.contract.deposit_amount"
                                                   class="dis-autofill"
                                         ></el-input>
                                     </el-form-item>
@@ -309,7 +309,7 @@
                                     <el-form-item :label="$t('models.tenant.type_of_deposit')" prop="deposit_type"
                                                   class="label-block">
                                         <el-select placeholder="Select" style="display: block" 
-                                                    v-model="model.deposit_type">
+                                                    v-model="model.contract.deposit_type">
                                             <el-option
                                                     :key="type.value"
                                                     :label="type.name"
@@ -319,7 +319,32 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                            </el-row> 
+                            </el-row>
+                            <el-row :gutter="20">
+                               <el-col :md="12">
+                                    <el-form-item :label="$t('models.tenant.net_rent')"
+                                                    prop="net_rent">
+                                         <el-input type="text"
+                                                  v-model="model.contract.net_rent"
+                                                  class="dis-autofill"
+                                        ></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :md="12">
+                                    <el-form-item :label="$t('models.tenant.heating_operating_costs_installment')" prop="deposit_type"
+                                                  class="label-block">
+                                        <el-input type="text"
+                                                  v-model="model.contract.heating_operating_costs_installment"
+                                                  class="dis-autofill"
+                                        ></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <ui-divider></ui-divider>
+                            <div class="contract-actions">
+                                <el-button type="primary" @click="addContract" icon="icon-plus" size="mini" round>{{$t('models.request.add_contract')}}</el-button>
+                                <el-button type="danger" icon="icon-minus" size="mini" round>{{$t('models.request.delete_contract')}}</el-button>
+                            </div>
                             
                         </card>
                     </el-col>
@@ -367,8 +392,6 @@
         },
         mounted() {
             this.$root.$on('changeLanguage', () => this.getCountries());
-
-            
         },
     }
 </script>
@@ -399,5 +422,9 @@
 
     .mb15 {
         margin-bottom: 15px;
+    }
+
+    .contract-actions {
+        text-align: right;
     }
 </style>

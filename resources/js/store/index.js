@@ -29,6 +29,7 @@ import TagsStore from 'store/modules/tags'
 import NewPostsStore from 'store/modules/newPosts'
 import NewRequestsStore from 'store/modules/newRequests'
 import NewProductsStore from 'store/modules/newProducts'
+import rentContractsStore from 'store/modules/rentContracts'
 
 import createPersistedState from 'vuex-persistedstate'
 
@@ -85,7 +86,8 @@ export default new Vuex.Store({
         comments: CommentsStore,
         newPosts: NewPostsStore,
         newProducts: NewProductsStore,
-        newRequests: NewRequestsStore
+        newRequests: NewRequestsStore,
+        rentContracts: rentContractsStore
     },
     plugins: [createPersistedState({
         key: 'state',

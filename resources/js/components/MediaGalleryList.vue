@@ -13,8 +13,9 @@
                         </el-image>
                     </template>
                     <template v-else>
-                        <i class="media-icon ti-file" />
-                        <div class="media-filename">{{file.name}}</div>
+                        <i class="icon-file-pdf" />
+                        <!-- <i class="media-icon ti-file" /> -->
+                        <!-- <div class="media-filename">{{file.name}}</div> -->
                     </template>
                     <div class="media-actions">
                         <div class="el-icon-zoom-in" @click="openFile(file, idx)" v-if="canFileBePreviewed(file)"></div>
@@ -27,7 +28,7 @@
     </div>
     <placeholder :src="require('img/5c98a90bb5c05.png')" v-else-if="!media.length && usePlaceholder">
         {{$t('tenant.no_data.media')}}
-        <small>All of them will be listed here in columns and can be seen in fullsize by hovering on any of them.</small>
+        <small>{{$t('tenant.media_info')}}</small>
     </placeholder>
 </template>
 
@@ -185,6 +186,10 @@
                 }
                 .media-icon {
                     font-size: 24px;
+                    margin: 4px;
+                }
+                .icon-file-pdf{
+                    font-size: 72px;
                     margin: 4px;
                 }
                 .media-filename {

@@ -1,7 +1,7 @@
 <template>
     <div class="p-user__settings">
         <el-form label-position="left">
-            <el-divider content-position="left" @change="save">
+            <!-- <el-divider content-position="left" @change="save">
                 <i class="icon-chart"></i> {{$t('tenant.summary_statistics')}}
             </el-divider>
             <div class="p-user__settings__description">
@@ -11,37 +11,37 @@
                 <el-select v-model="loggedInUser.settings.summary">
                     <el-option v-for="summary in summaries" :key="summary" :label="summary" :value="summary" />
                 </el-select>
-            </el-form-item>
+            </el-form-item> -->
             <el-divider content-position="left">
                 <i class="icon-bell"></i> {{$t('tenant.notification_label')}}
             </el-divider>
             <div class="p-user__settings__description">
-                {{$t('tenant.select_type_notification_prompt')}}
+                {{$t('tenant.notifications.prompt')}}
             </div>
             <el-form-item label="Service">
                 <el-switch v-model="loggedInUser.settings.service_notification" @change="save" />
             </el-form-item>
             <div class="p-user__settings__description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                {{$t('tenant.notifications.service')}}
             </div>
             <el-form-item :label="$t('tenant.news')">
                 <el-switch v-model="loggedInUser.settings.news_notification" @change="save" />
             </el-form-item>
             <div class="p-user__settings__description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                {{$t('tenant.notifications.news')}}
             </div>
             <el-form-item :label="$t('tenant.marketplace')">
                 <el-switch v-model="loggedInUser.settings.marketplace_notification" @change="save" />
             </el-form-item>
             <div class="p-user__settings__description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                {{$t('tenant.notifications.marketplace')}}
             </div>
-            <el-form-item :label="$t('tenant.admin')">
+            <!--<el-form-item :label="$t('tenant.admin')">
                 <el-switch v-model="loggedInUser.settings.admin_notification" @change="save" />
             </el-form-item>
             <div class="p-user__settings__description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </div>
+                {{$t('tenant.notifications.prompt')}}
+            </div>-->
             <el-divider content-position="left">
                 <i class="icon-language"></i> {{$t('tenant.language')}}
             </el-divider>

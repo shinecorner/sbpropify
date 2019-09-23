@@ -15,8 +15,10 @@ use App\Models\Tenant;
 use App\Models\RentContract;
 use App\Models\Unit;
 use App\Models\User;
+use App\Notifications\NewTenantInNeighbour;
 use App\Notifications\NewTenantPost;
 use App\Notifications\NewTenantRequest;
+use App\Notifications\PinnedPostPublished;
 use App\Notifications\PostPublished;
 use App\Notifications\ProductPublished;
 use App\Notifications\StatusChangedRequest;
@@ -64,6 +66,8 @@ class AppServiceProvider extends ServiceProvider
 
             'post_published' => PostPublished::class,
             'new_tenant_post' => NewTenantPost::class,
+            'pinned_post_published' => PinnedPostPublished::class,
+            'new_tenant_in_neighbour' => NewTenantInNeighbour::class,
             'product_published' => ProductPublished::class,
             'new_tenant_request' => NewTenantRequest::class,
             'status_change_request' => StatusChangedRequest::class,

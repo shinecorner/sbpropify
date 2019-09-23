@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Traits\HasComments;
 use App\Traits\UniqueIDFormat;
 use Chelout\RelationshipEvents\Concerns\HasMorphedByManyEvents;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -518,7 +517,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
        $data = [
             'category' => $this->category,
             'request' => $this,
-            'tenant' => $this->tenant->user,
+            'tenant' => $this->tenant,
             'language'  => $this->tenant->settings->language
         ];
 

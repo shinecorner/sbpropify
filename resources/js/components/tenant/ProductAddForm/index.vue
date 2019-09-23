@@ -5,12 +5,12 @@
         </el-form-item>
         <el-form-item prop="type" :label="$t('tenant.type')" style="grid-column: span 3">
             <el-select v-model="model.type">
-                <el-option v-for="category in types" :key="category.value" :label="category.label" :value="category.value" />
+                <el-option v-for="category in types" :key="category.value" :label="$t(`models.product.type.${category.label}`)" :value="category.value" />
             </el-select>
         </el-form-item>
-        <el-form-item prop="visibility" label="Visibility" style="grid-column: span 3">
+        <el-form-item prop="visibility" :label="$t('tenant.visibility')" style="grid-column: span 3">
             <el-select v-model="model.visibility">
-                <el-option v-for="visibility in visibilities" :key="visibility.value" :label="visibility.label" :value="visibility.value" />
+                <el-option v-for="visibility in visibilities" :key="visibility.value" :label="$t(`models.product.visibility.${visibility.label}`)" :value="visibility.value" />
             </el-select>
         </el-form-item>
         <el-form-item prop="price" :label="$t('tenant.price')" v-if="isPriceVisible" style="grid-column: span 3">
