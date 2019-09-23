@@ -52,6 +52,7 @@
                         <el-link @click="showRestAssignees" type="success">and {{assignees.slice(3).length}} more</el-link>
                     </div>
                 </div>
+                <slot name="tab-overview-after-for-mobile" />
                 <ui-divider />
                 <div class="user">
                     <ui-avatar :name="data.tenant.user.name" :size="32" :src="data.tenant.user.avatar" />
@@ -233,6 +234,14 @@
                             margin-top: 16px
                             color: var(--color-text-secondary)
 
+                        .tab-overview-after-for-mobile
+                            display: flex
+                            margin-top: 12px
+                            display: none
+
+                        .tab-overview-after
+                            float: right
+
                         .assignees
                             font-size: 15px
                             font-weight: 500
@@ -304,4 +313,17 @@
 
                                     i
                                         font-size: 28px
+    
+</style>
+
+<style lang="scss" scoped>
+    @media only screen and (max-width: 676px) {
+        /deep/ .tab-overview-after {
+            display: none;
+        }
+
+        /deep/ .tab-overview-after-for-mobile {
+            display: flex !important;
+        }
+    }
 </style>
