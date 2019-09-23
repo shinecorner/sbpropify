@@ -2,7 +2,7 @@
     <div :class="['posts-box']">
         <div :class="['posts']">
             <div class="container" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading">
-                <ui-heading icon="icon-megaphone-1" title="News" description="Sed placerat volutpat mollis." />
+                <ui-heading icon="icon-megaphone-1" title="News" :description="$t('tenant.heading_info.news')" />
             
                 <ui-divider />
                 <div class="content">
