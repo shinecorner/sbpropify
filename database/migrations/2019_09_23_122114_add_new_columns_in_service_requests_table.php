@@ -15,9 +15,9 @@ class AddNewColumnsInServiceRequestsTable extends Migration
     {
         Schema::table('service_requests', function (Blueprint $table) {
             $table->smallInteger('active_reminder')->after('resolution_time')->default(0);
-            $table->smallInteger('is_sent_remainder_notification')->after('active_reminder')->default(0);
-            $table->integer('reminder_user_id')->unsigned()->nullable()->after('is_sent_remainder_notification');
-            $table->integer('days_left_due_date')->unsigned()->default(0)->after('reminder_user_id');
+            $table->integer('days_left_due_date')->unsigned()->default(0)->after('active_reminder');
+            $table->integer('reminder_user_id')->unsigned()->nullable()->after('days_left_due_date');
+            $table->string('sent_reminder_user_ids')->after('reminder_user_id')->default('');
             $table->foreign('reminder_user_id')->references('id')->on('users');
         });
     }
@@ -31,7 +31,7 @@ class AddNewColumnsInServiceRequestsTable extends Migration
     {
         Schema::table('service_requests', function (Blueprint $table) {
             $table->dropForeign('service_requests_reminder_user_id_foreign');
-            $table->dropColumn('active_reminder', 'days_left_due_date', 'reminder_user_id', 'is_sent_remainder_notification');
+            $table->dropColumn('active_reminder', 'days_left_due_date', 'reminder_user_id', 'sent_reminder_user_ids');
         });
     }
 }

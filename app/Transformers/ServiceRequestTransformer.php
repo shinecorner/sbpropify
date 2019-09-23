@@ -41,6 +41,7 @@ class ServiceRequestTransformer extends BaseTransformer
             'active_reminder' => $model->active_reminder,
             'reminder_user_id' => $model->reminder_user_id,
             'days_left_due_date' => $model->days_left_due_date,
+            'sent_reminder_user_ids' => $model->sent_reminder_user_ids,
         ];
 
         if ($model->relationExists('audit')) {

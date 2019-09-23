@@ -247,6 +247,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'solved_date' => 'datetime',
         'qualification' => 'integer',
         'visibility' => 'integer',
+        'sent_reminder_user_ids' => 'array',
         'service_request_format' => 'string',
         'room' => 'string',
         'capture_phase' => 'string',
