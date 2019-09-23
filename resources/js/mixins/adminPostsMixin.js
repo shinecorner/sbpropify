@@ -377,8 +377,26 @@ export default (config = {}) => {
                         });
                     },
                     async fetchCurrentPost() {
-                        this.model = await this.getPost({id: this.$route.params.id});
+                        const {
+                            execution_period,
+                            is_execution_time,
+                            execution_start,
+                            execution_end,
+
+                            ...restData
+                        } = await this.getPost({id: this.$route.params.id});
+
+                        this.model = {
+                            execution_period: this.model.execution_period,
+                            is_execution_time: this.model.is_execution_time,
+                            execution_start: this.model.execution_start,
+                            execution_end: this.model.execution_end,
+
+                            ...restData
+                        };
+
                         this.showdefaultimage = this.model.category != null ? true : false;
+
                         return this.model;
                     }
                 };
