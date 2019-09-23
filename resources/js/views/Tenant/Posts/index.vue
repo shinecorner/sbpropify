@@ -30,7 +30,7 @@
                         </template>
                     </dynamic-scroller>
                 </div>
-                <rss-feed title="Blick.ch News" />
+                <rss-feed class="rss-feed" title="Blick.ch News" />
             </div>
             
         </div>
@@ -304,6 +304,12 @@
                     }
                 }
             }
+        }
+    }
+
+    @media screen and (max-width: 676px) {
+        .rss-feed {
+            display: none;
         }
     }
 </style>
