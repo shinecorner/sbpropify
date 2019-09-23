@@ -120,6 +120,7 @@
                     }
 
                     await this.$store.dispatch('comments/create', body);
+                    EventBus.$emit('comments-added')
 
                 } catch (error) {
                     displayError(error)
