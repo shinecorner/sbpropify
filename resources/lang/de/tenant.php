@@ -51,6 +51,7 @@ return [
         "media" => "Es sind keine Mediendateien verfügbar.",
         "product" => "Es sind keine Produkte verfügbar",
         "contact" => "Es sind keine Kontakte verfügbar",
+        "document" => "Es sind keine Dokumente verfügbar",
     ],
     "notifications" => [
         "service" => "Service-Benachrichtigungen",
@@ -63,6 +64,15 @@ return [
         "delete_post" => "Beitrag löschen",
         "status_change_requeset" => "Hier können Sie den Status der Anfrage ändern.",
     ],
+    "heading_info" => [
+        "property_manager" => "Ansprechpartner für Ihre Anliegen",
+        "my_neighbour" => "Mieter aus der Nachbarschaft",
+        "news" => "Aktuelle News rund um Ihr Quartier",
+        "request" => "Lösen Sie ein Ticket für Ihr Anliegen",
+        "marketplace" => "Aktuelle Angebote aus Ihrem Quartier",
+        "my_document" => "Eine Liste mit allen Dokumenten des Gebäudes und der Einheit.",
+        "document_listed_by_category" => "Alle werden hier in Spalten nach Kategorien aufgelistet.",
+    ],    
     "created_date" => "Erstelldatum",
     "due_date" => "Fälligkeitsdatum",
     "drag_drop_file" => "Dateien ablegen oder hier klicken, um sie auszuwählen.",
@@ -170,7 +180,7 @@ return [
     "select_recieve_statistic_prompt" => "Wählen Sie aus, wie Sie die Statistiken erhalten möchten, täglich, monatlich oder jährlich.",
     "select_type_notification_prompt" => "Wählen Sie aus, welche Arten von Benachrichtigungen Sie nur erhalten möchten.",
     "language_selection_prompt" => "Diese Einstellung ist völlig unabhängig von der gewählten Sprache der Anwendung.",
-    "language_switcher_info" => "Dadurch wird nur die Sprache der Anwendung geändert.",
+    "language_switcher_info" => "Dadurch wird nur die Sprache der Anwendung geändert.",    
     "content" => "Inhalt",
     "contact_name" => "Kontaktname",
     "contact_phone" => "Kontakt Telefon",       
@@ -185,4 +195,7 @@ return [
     "request_upload_title" => "Hochladen",
     "request_upload_desc" => "Bitte beachten Sie, dass einmal hochgeladene Dateien nicht mehr von Ihnen gelöscht werden können.",
     "added_at" => "hinzugefügt am",
+    "providers" => "Dienstleister",
+    "execution" => "Ausführung",
+
 ];

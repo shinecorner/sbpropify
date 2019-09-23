@@ -51,6 +51,7 @@ return [
         "media" => "There are no media files available.",
         "product" => "No products available yet",
         "contact" => "No contacts available yet",        
+        "document" => "There are no documents available",
     ],
     "notifications" => [
         "service" => "Service notifications",
@@ -62,6 +63,15 @@ return [
         "edit_post" => "Edit post",
         "delete_post" => "Delete post",
         "status_change_requeset" => "Here you can change the status of request.",
+    ],
+    "heading_info" => [
+        "property_manager" => "Contact person for your concerns",
+        "my_neighbour" => "Tenants from the neighbourhood",
+        "news" => "Current news around your accommodation",
+        "request" => "Buy a ticket for your request",
+        "marketplace" => "Current offers from your neighbourhood",
+        "my_document" => "A list with all the building and unit's documents.",
+        "document_listed_by_category" => "All of them will be listed here in columns by category.",
     ],
     "created_date" => "Created date",
     "due_date" => "Due date",
@@ -184,4 +194,6 @@ return [
     "request_upload_title" => "Upload",
     "request_upload_desc" => "Please note that once uploaded files can no longer be deleted by you.",
     "added_at" => "added at",
+    "providers" => "Service providers",
+    "execution" => "Execution",
 ];

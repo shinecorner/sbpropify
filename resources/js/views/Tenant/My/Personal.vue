@@ -28,7 +28,7 @@
                         <el-date-picker format="dd.MM.yyyy" type="date" v-model="model.birth_date" value-format="yyyy-MM-dd" />
                     </el-form-item> -->
                     <el-form-item :label="$t('tenant.title')" prop="title">
-                        <el-input type="text" v-model="model.title" disabled/>
+                        <el-input type="text" :value="$t(`tenant.salutation_option.${model.title}`)" disabled/>
                     </el-form-item>
                     <el-form-item :label="$t('tenant.company_name')" prop="company" v-if="model.title === 'company'">
                         <el-input type="text" v-model="model.company" disabled/>
@@ -40,7 +40,7 @@
                         <el-input type="text" v-model="model.last_name" disabled/>
                     </el-form-item>
                     <el-form-item :label="$t('tenant.birth_date')" prop="birth_date">
-                        <el-input type="text" v-model="model.birth_date" disabled/>
+                        <el-input type="text" :value="model.birth_date_formatted" disabled/>
                     </el-form-item>
                     <el-form-item :label="$t('tenant.mobile_phone')" prop="mobile_phone">
                         <el-input type="text" v-model="model.mobile_phone"/>
@@ -149,7 +149,7 @@
                     company,
                     first_name,
                     last_name,
-                    birth_date,
+                    birth_date_formatted,
                     mobile_phone,
                     work_phone,
                     private_phone
@@ -160,7 +160,7 @@
                     company,
                     first_name,
                     last_name,
-                    birth_date,
+                    birth_date_formatted,                    
                     mobile_phone,
                     work_phone,
                     private_phone

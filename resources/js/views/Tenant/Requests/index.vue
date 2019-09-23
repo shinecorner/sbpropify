@@ -3,7 +3,7 @@
     <div :class="['requests']">
         <div class="container" >
             <div class="main-content" v-infinite-scroll="get">
-                <ui-heading icon="icon-chat-empty" :title="$t('tenant.requests')" description="Need some info? Encountered an issue? Contact us!">
+                <ui-heading icon="icon-chat-empty" :title="$t('tenant.requests')" :description="$t('tenant.heading_info.request')">
                     <el-popover popper-class="requests__filter-popover" placement="bottom-end" trigger="click" :width="192">
                         <el-button slot="reference" icon="el-icon-sort" round>{{$t('tenant.filters')}}</el-button>
                         <filters ref="filters" layout="column" :data.sync="filters.data" :schema="filters.schema" @changed="onFiltersChanged" />
