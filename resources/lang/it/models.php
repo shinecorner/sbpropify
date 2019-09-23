@@ -407,6 +407,12 @@ return [
             "new_neighbour" => "Nuovo vicino",
             "pinned" => "Inchiodato",
         ],
+        'sub_type' => [
+            'label' => 'Sottotipo',
+            'important' => 'Importante',
+            'critical' => 'Critico',
+            'maintenance' => 'Manutenzione',
+        ],
         'errors' => [
             'not_found' => "Posta non trovata",
             'quarter_not_found' => "Quartiere non trovato",
@@ -429,8 +435,15 @@ return [
         ],
         "assignType" => "Tipo",
         "buildingAlreadyAssigned" => "L'edificio e' gia' all'interno di un quarto di dollaro.",
+        'execution_period' => [
+            'label' => 'Un giorno o più giorni',
+            'single_day' => 'Giorno singolo',
+            'many_day' => 'Più giorni',
+        ],
+        'specify_time_question' => 'Vuoi specificare l\'ora?',
         'execution_interval' => [
             "label" => "Intervallo di esecuzione",
+            "date" => "Data di esecuzione",
             "end" => "Fine dell'esecuzione",
             "start" => "Inizio esecuzione",
             "separator" => "A",

@@ -6,7 +6,7 @@
         <el-row :gutter="20" class="crud-view">
             <el-form :model="model" label-position="top" label-width="192px" ref="form">
                 <el-col :md="12">                
-                    <el-card :loading="loading" class="mb20">
+                    <el-card :header="$t('models.propertyManager.details_card')" :loading="loading" class="mb20">
                         <el-row :gutter="20" class="mb20">
                             <el-col :lg="8">
                                 <el-form-item :label="$t('models.post.type.label')">
@@ -20,7 +20,7 @@
                                     </el-select> -->
                                     <el-select style="display: block" v-model="model.type">
                                         <el-option
-                                            :label="$t(`models.post.type.article`)"
+                                            :label="$t(`models.post.type.post`)"
                                             :value="1"
                                         >
                                         </el-option>
@@ -30,9 +30,9 @@
                                         >
                                         </el-option>
                                         <el-option
-                                            :label="$t(`models.post.type.post`)"
+                                            :label="$t(`models.post.type.article`)"
                                             :value="4"
-                                            v-if="this.rolename == 'administrator'"
+                                            v-if="rolename == 'administrator' || rolename == 'super_admin'"
                                         >
                                         </el-option>
                                     </el-select>
@@ -50,17 +50,33 @@
                                     </el-select>
                                 </el-form-item>
                             </el-col>
-                            <el-col :lg="8" v-if="this.model.type == 3">
-                                <el-form-item :label="$t('models.post.category.label')">
-                                    <el-select style="display: block" v-model="model.category" @change="ShowSlide">
-                                        <el-option
-                                            :key="key"
-                                            :label="$t(`models.post.category.${category}`)"
-                                            :value="parseInt(key)"
-                                            v-for="(category, key) in postConstants.category">
-                                        </el-option>
-                                    </el-select>
-                                </el-form-item>
+                            <el-col :lg="16" v-if="this.model.type == 3">
+                                <el-row :gutter="20">
+                                    <el-col :lg="model.sub_type == 3 ? 12 : 24">
+                                        <el-form-item :label="$t('models.post.sub_type.label')">
+                                            <el-select style="display: block" v-model="model.sub_type">
+                                                <el-option
+                                                        :key="key"
+                                                        :label="$t(`models.post.sub_type.${subtype}`)"
+                                                        :value="parseInt(key)"
+                                                        v-for="(subtype, key) in postConstants.sub_type[3]">
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                    </el-col>
+                                    <el-col :lg="12" v-if="model.sub_type == 3">
+                                        <el-form-item :label="$t('models.post.category.label')">
+                                            <el-select style="display: block" v-model="model.category"  @change="ShowSlide">
+                                                <el-option
+                                                        :key="key"
+                                                        :label="$t(`models.post.category.${category}`)"
+                                                        :value="parseInt(key)"
+                                                        v-for="(category, key) in postConstants.category">
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+                                    </el-col>
+                                </el-row>
                             </el-col>
                             <el-col :lg="8" v-else>
                                 <el-form-item :label="$t('models.post.visibility.label')">
@@ -76,7 +92,7 @@
                             </el-col>
                         </el-row>
 
-                        <el-tabs v-if="this.model.type == 3" v-model="activeTab1">
+                        <el-tabs type="card" v-if="this.model.type == 3" v-model="activeTab1">
                             <el-tab-pane :label="$t('general.actions.view')" name="details">
                                 <el-form-item :label="$t('models.post.title_label')" :rules="validationRules.title"
                                             prop="title">
@@ -281,48 +297,53 @@
                         </el-row>                                                    
                     </el-card>
 
-                    <el-card v-if="model.type == 3" :loading="loading" class="mt15">
+                    <el-card :header="$t('models.post.pinned')" v-if="model.type == 3" :loading="loading" class="mt15">
                         <el-row :gutter="20">
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.post.execution_interval.start')"
-                                                prop="execution_start">
+                                <el-form-item :label="$t('models.post.execution_period.label')">
+                                    <el-select style="display: block"
+                                               v-model="model.execution_period"
+                                               @change="model.execution_end = null">
+                                        <el-option
+                                                :key="key"
+                                                :label="$t(`models.post.execution_period.${period}`)"
+                                                :value="parseInt(key)"
+                                                v-for="(period, key) in postConstants.execution_period">
+                                        </el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col :md="12">
+                                <el-form-item :label="$t('models.post.specify_time_question')">
+                                    <el-switch v-model="model.is_execution_time" @change="!model.is_execution_time ? resetExecutionTime() : ''">
+                                    </el-switch>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row :gutter="20">
+                            <el-col :md="12">
+                                <el-form-item :label="model.execution_period == 2 ? $t('models.post.execution_interval.start') : $t('models.post.execution_interval.date')"
+                                              prop="execution_start">
                                     <el-date-picker
                                         :picker-options="{disabledDate: disabledExecutionStart}"
-                                        format="dd.MM.yyyy HH:mm"
+                                        :format="model.is_execution_time ? 'dd.MM.yyyy HH:mm' : 'dd.MM.yyyy'"
                                         style="width: 100%"
-                                        type="datetime"
+                                        :type="model.is_execution_time ? 'datetime' : 'date'"
                                         v-model="model.execution_start"
                                         value-format="yyyy-MM-dd HH:mm:ss"
                                     >
                                     </el-date-picker>
                                 </el-form-item>
                             </el-col>
-                            <el-col :md="12">
+                            <el-col :md="12" v-if="model.execution_period == 2">
                                 <el-form-item :label="$t('models.post.execution_interval.end')"
-                                                prop="execution_end">
+                                              prop="execution_end">
                                     <el-date-picker
                                         :picker-options="{disabledDate: disabledExecutionEnd}"
-                                        format="dd.MM.yyyy HH:mm"
+                                        :format="model.is_execution_time ? 'dd.MM.yyyy HH:mm' : 'dd.MM.yyyy'"
                                         style="width: 100%"
-                                        type="datetime"
+                                        :type="model.is_execution_time ? 'datetime' : 'date'"
                                         v-model="model.execution_end"
-                                        value-format="yyyy-MM-dd HH:mm:ss"
-                                        @change="setPinnedTo"
-                                    >
-                                    </el-date-picker>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                        <el-row :gutter="20">
-                            <el-col :md="12">
-                                <el-form-item :label="$t('models.post.pinned_to')"
-                                                :rules="validationRules.pinned_to"
-                                                prop="pinned_to">
-                                    <el-date-picker
-                                        format="dd.MM.yyyy HH:mm"
-                                        style="width: 100%"
-                                        type="datetime"
-                                        v-model="model.pinned_to"
                                         value-format="yyyy-MM-dd HH:mm:ss"
                                     >
                                     </el-date-picker>
@@ -336,7 +357,7 @@
                         </el-form-item>
                     </el-card>
 
-                    <el-card :loading="loading" v-if="model.type == 3 && (!model.tenant)" class="mt15">
+                    <el-card :header="$t('models.post.buildings')" :loading="loading" v-if="model.type == 3 && (!model.tenant)" class="mt15">
                         <el-row :gutter="10">
                             <el-col :lg="6">
                                 <el-select @change="resetToAssignList"
@@ -391,7 +412,7 @@
                         />
                     </el-card>
                     
-                    <el-card v-if="model.type == 3" :loading="loading" class="mt15">
+                    <el-card :header="$t('models.post.placeholders.search_provider')" v-if="model.type == 3" :loading="loading" class="mt15">
                         <el-row :gutter="10">
                             <el-col :lg="18" :xl="20">
                                 <el-select
@@ -596,9 +617,6 @@
                     this.loading.status = false;
                 });
             },
-            setPinnedTo(val) {
-                this.$set(this.model, 'pinned_to', val)
-            },
             ShowSlide() {
                 this.showdefaultimage = '';
                 this.showdefaultimage = true;
@@ -686,8 +704,7 @@
     }
 </style>
 
-<style>
-
+<style lang="scss">
     #post-edit-view .el-card__body .el-form-item:last-child {
         margin-bottom: 0;
     }
@@ -695,4 +712,17 @@
     .edit-post-chat .add-comment {
         margin-bottom: 0 !important;
     }
-</style>    
+
+    .units-edit {
+        .el-input-group--prepend .el-input-group__prepend {
+            padding: 0 10px;
+            font-weight: bold;
+        }
+        .el-card .el-card__body, .el-card .el-card__header {
+            padding: 20px !important;
+        }
+        #tab-comments {
+            padding-right: 40px !important;
+        }
+    }
+</style>
