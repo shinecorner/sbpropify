@@ -57,7 +57,7 @@ class SendActiveRemainderNotification extends Command
                 $serviceRequest->sent_reminder_user_ids = $sentReminderUserIds;
                 $serviceRequest->save();
             } else {
-                $serviceRequest->reminder_user_id = null;
+                $serviceRequest->reminder_user_id = null; // when user is deleted or wrong id
                 $serviceRequest->save();
             }
         }
