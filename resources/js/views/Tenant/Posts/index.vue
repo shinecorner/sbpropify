@@ -1,10 +1,11 @@
 <template>
     <div :class="['posts-box']">
         <div :class="['posts']">
-            <div class="container" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading">
-                <ui-heading icon="icon-megaphone-1" title="News" :description="$t('tenant.heading_info.news')" />
+            <ui-heading icon="icon-megaphone-1" title="News" :description="$t('tenant.heading_info.news')" />
             
                 <ui-divider />
+            <div class="container" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading">
+                
                 <div class="content">
                     <post-add-card />
                     <el-divider content-position="left">
@@ -308,6 +309,10 @@
     }
 
     @media screen and (max-width: 676px) {
+
+        .posts .container {
+            grid-template-columns: auto;
+        }
         .rss-feed {
             display: none;
         }
