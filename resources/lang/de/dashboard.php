@@ -46,7 +46,7 @@ return [
         'requests' => 'Anfragen',
         'go_to_buildings' => 'zu den Liegenschaften',
         'buildings_by_state' => 'Liegenschaften nach Kanton',
-        'go_to_building' => 'go to building'
+        'go_to_building' => 'zu den Liegenschaft gehen'
     ],
     'tenants' => [
         'total_tenants' => 'Total Mieter',

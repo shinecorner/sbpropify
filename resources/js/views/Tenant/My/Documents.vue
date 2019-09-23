@@ -1,10 +1,10 @@
 <template>
     <placeholder :size="256" :src="require('img/5c98a90bb5c05.png')" v-if="!this.loader.visible && isEmpty">
-        There are no documents available.
-        <small>All of them will be listed here in columns by category.</small>
+        {{$t('tenant.no_data.document')}}
+        <small>{{$t('tenant.heading_info.document_listed_by_category')}}</small>
     </placeholder>
     <div class="documents" v-else-if="!isEmpty">
-        <ui-heading icon="ti-book" :title="$t('tenant.my_documents')" description="A list with all the building and unit's documents.">
+        <ui-heading icon="ti-book" :title="$t('tenant.my_documents')" :description="$t('tenant.heading_info.my_document')">
         </ui-heading>
         <ui-divider />
         <el-row>

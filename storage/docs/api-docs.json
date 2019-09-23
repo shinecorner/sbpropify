@@ -4644,6 +4644,21 @@
                         "schema": {
                             "$ref": "#/definitions/ServiceRequest"
                         }
+                    },
+                    {
+                        "name": "media",
+                        "in": "body",
+                        "description": "Save media. You can pass media paramater\n                                As string(base64) like **media=base64_string**,\n                                as array of string(base64) like **media = [base64_string1, base64_string2, base64_string3, ...etc]**\n                                or as array of array(media => string(base64)) like media = **[[media => base64_string1], [media => base64_string2], ...etc]**",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "media": {
+                                    "description": "id",
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
                     }
                 ],
                 "responses": {
@@ -9426,6 +9441,47 @@
                 "description": {
                     "description": "A more detailed explanation of the Permission.",
                     "type": "string"
+                }
+            }
+        },
+        "PinnedEmailReceptionist": {
+            "required": [
+                "content"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "post_id": {
+                    "description": "post_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "tenant_ids": {
+                    "description": "tenant_ids",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "failed_tenant_ids": {
+                    "description": "failed_tenant_ids",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
                 }
             }
         },

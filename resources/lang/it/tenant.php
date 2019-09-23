@@ -51,6 +51,7 @@ return [
         "media" => "Non ci sono file multimediali disponibili.",
         "product" => "Non sono ancora disponibili prodotti",
         "contact" => "Non ci sono ancora contatti disponibili",
+        "document" => "Non ci sono documenti disponibili",
     ],
     "notifications" => [
         "service" => "Notifiche di servizio",
@@ -62,6 +63,15 @@ return [
         "edit_post" => "Modifica post",
         "delete_post" => "Cancellare un messaggio",
         "status_change_requeset" => "Qui è possibile modificare lo stato della richiesta.",
+    ],
+    "heading_info" => [
+        "property_manager" => "Persona di contatto per le vostre preoccupazioni",
+        "my_neighbour" => "Gli inquilini del quartiere",
+        "news" => "Notizie aggiornate sul vostro alloggio",
+        "request" => "Acquista un biglietto per la tua richiesta",
+        "marketplace" => "Offerte attuali del vostro quartiere",
+        "my_document" => "Una lista con tutti i documenti dell'edificio e dell'unita'.",
+        "document_listed_by_category" => "Tutti loro saranno elencati qui in colonne per categoria.",
     ],
     "created_date" => "Data di creazione",
     "due_date" => "Scadenza",
@@ -171,6 +181,7 @@ return [
     "select_recieve_statistic_prompt" => "Seleziona come desideri ricevere le statistiche, giornaliere, mensili o annuali",
     "select_type_notification_prompt" => "Selezionare i tipi di notifiche che si desidera ricevere solo.",
     "language_selection_prompt" => "Questa impostazione è totalmente indipendente dalla lingua scelta dall'applicazione.",
+    "language_switcher_info" => "Questo cambia solo la lingua dell'applicazione.",
     "content" => "Contenuto",
     "contact_name" => "Nome del contatto",
     "contact_phone" => "Telefono di contatto",    
@@ -185,4 +196,6 @@ return [
     "request_upload_title" => "Carica",
     "request_upload_desc" => "Si prega di notare che una volta caricati i file non possono più essere cancellati da voi.",
     "added_at" => "aggiunto a",
+    "providers" => "fornitori di servizi",
+    "execution" => "Esecuzione",
 ];

@@ -51,6 +51,7 @@ return [
         "media" => "Il n'y a pas de fichiers médias disponibles.",
         "product" => "Aucun produit disponible pour le moment",
         "contact" => "Aucun contact disponible pour le moment",
+        "document" => "Il n'y a pas de documents disponibles",
     ],
     "notifications" => [
         "service" => "Notifications de service",
@@ -62,6 +63,15 @@ return [
         "edit_post" => "Modifier le message",
         "delete_post" => "Supprimer un message",
         "status_change_requeset" => "Vous pouvez modifier ici le statut de la demande.",
+    ],
+    "heading_info" => [
+        "property_manager" => "Personne-ressource pour vos préoccupations",
+        "my_neighbour" => "Locataires du quartier",
+        "news" => "Actualités autour de votre hébergement",
+        "request" => "Acheter un billet pour votre demande",
+        "marketplace" => "Offres actuelles de votre quartier",
+        "my_document" => "Une liste avec tous les documents du bâtiment et de l'unité.",
+        "document_listed_by_category" => "Tous seront listés ici en colonnes par catégorie.",
     ],
     "created_date" => "Date de création",
     "due_date" => "Date d'échéance",
@@ -171,6 +181,7 @@ return [
     "select_recieve_statistic_prompt" => "Sélectionnez la façon dont vous souhaitez recevoir les statistiques, quotidiennes, mensuelles ou annuelles",
     "select_type_notification_prompt" => "Sélectionnez les types de notifications que vous souhaitez recevoir uniquement.",
     "language_selection_prompt" => "Ce paramètre est totalement indépendant de la langue choisie par l'application.",
+    "language_switcher_info" => "Ceci change uniquement la langue de l'application.",
     "content" => "Contenu",
     "contact_name" => "Nom du contact",
     "contact_phone" => "Téléphone de contact",
@@ -185,4 +196,6 @@ return [
     "request_upload_title" => "Télécharger",
     "request_upload_desc" => "Veuillez noter qu'une fois les fichiers téléchargés, vous ne pouvez plus les supprimer.",
     "added_at" => "ajouté à",
+    "providers" => "pourvoyeurs de services",
+    "execution" => "Exécution",
 ];
