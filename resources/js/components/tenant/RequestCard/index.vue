@@ -27,8 +27,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="statuses">
-                    <div class="item" v-if="this.data.category.parent_id == 1 && this.data.qualification ==5" >
+                <div class="statuses" v-if="this.data.category.parent_id == 1 && this.data.qualification ==5">
+                    <div class="item">
                         {{$t('tenant.cost_impact')}}:
                         <div class="label">
                             {{$t(`models.request.category_options.costs.${this.data.payer}`)}}
@@ -191,7 +191,7 @@
                         .statuses
                             display: flex
                             align-items: center
-                            margin-bottom: 16px
+                            margin-bottom: 12px
 
                             .item
                                 font-weight: 600
@@ -226,6 +226,7 @@
                         .title
                             font-size: 20px
                             font-weight: 600
+                            margin-top: 12px
                             color: var(--color-primary)
 
                         .description

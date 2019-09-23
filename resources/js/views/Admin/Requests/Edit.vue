@@ -170,7 +170,7 @@
                                         <label slot="label">
                                             {{$t('general.tenant')}}
                                         </label>
-                                        <router-link :to="{name: 'adminTenantsEdit', params: {id: model.tenant.id}}"
+                                        <router-link :to="{name: 'adminTenantsView', params: {id: model.tenant.id}}"
                                                      class="tenant-link">
                                             <avatar :size="30"
                                                     :src="'/' + model.tenant.user.avatar"
