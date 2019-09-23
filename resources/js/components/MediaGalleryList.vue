@@ -13,8 +13,9 @@
                         </el-image>
                     </template>
                     <template v-else>
-                        <i class="media-icon ti-file" />
-                        <div class="media-filename">{{file.name}}</div>
+                        <i class="icon-file-pdf" />
+                        <!-- <i class="media-icon ti-file" /> -->
+                        <!-- <div class="media-filename">{{file.name}}</div> -->
                     </template>
                     <div class="media-actions">
                         <div class="el-icon-zoom-in" @click="openFile(file, idx)" v-if="canFileBePreviewed(file)"></div>
@@ -185,6 +186,10 @@
                 }
                 .media-icon {
                     font-size: 24px;
+                    margin: 4px;
+                }
+                .icon-file-pdf{
+                    font-size: 72px;
                     margin: 4px;
                 }
                 .media-filename {

@@ -1,6 +1,6 @@
 <template>
     <div class="my-neighbours">
-        <ui-heading icon="icon-group" :title="$t('tenant.my_neighbours')" description="Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.">
+        <ui-heading icon="icon-group" :title="$t('tenant.my_neighbours')" :description="$t('tenant.heading_info.my_neighbour')">
         </ui-heading>
         <!-- <heading icon="icon-group" :title="$t('tenant.my_neighbours')">
             <div slot="description">Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.</div>

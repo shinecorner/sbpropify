@@ -1,6 +1,6 @@
 <template>
     <div class="property-managers">
-        <ui-heading icon="icon-users" :title="$t('tenant.property_managers')" description="Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.">
+        <ui-heading icon="icon-users" :title="$t('tenant.property_managers')" :description="$t('tenant.heading_info.property_manager')">
         </ui-heading>
         <ui-divider />
         <loader v-if="loading" />

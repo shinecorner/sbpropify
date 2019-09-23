@@ -1,7 +1,7 @@
 <template>
     <div :class="['marketplace', {md: el.is.md}]">
         <div class="container">
-            <ui-heading icon="icon-basket" title="Marketplace" description="Start selling things you don't need anymore." />
+            <ui-heading icon="icon-basket" title="Marketplace" :description="$t('tenant.heading_info.marketplace')" />
             <ui-divider />
             <ui-card class="content" shadow="always" v-loading="loading">
                 <template #header>

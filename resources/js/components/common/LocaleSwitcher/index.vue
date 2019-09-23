@@ -7,7 +7,7 @@
             <div class="content">
                 <i class="icon icon-language"></i>
                 Choose the language
-                <div class="description">This changes the application's language only.</div>
+                <div class="description">{{$t('tenant.language_switcher_info')}}</div>
             </div>
             <el-dropdown-item v-for="(name, iso) in $constants.app.languages" :key="iso" :command="iso">
                 <img :src="require(`svg/${iso}.svg`)" />
