@@ -19,11 +19,6 @@
                 required: true,
                 validator: type => ['post', 'product', 'request', 'conversation', 'internalNotices'].includes(type)
             },
-            showAction: {
-                type: Boolean, 
-                required: false,               
-                default: true
-            },
             height: {
                 type: String,
                 default: '100%'
