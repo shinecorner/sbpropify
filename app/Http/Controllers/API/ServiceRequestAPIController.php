@@ -289,7 +289,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $serviceRequest->load([
-            'media', 'tenant.user', 'tenant.building', 'category', 'managers', 'users',
+            'media', 'tenant.user', 'tenant.building', 'category', 'managers', 'users', 'remainder_user',
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers',
         ]);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
@@ -367,7 +367,7 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $updatedServiceRequest->load([
-            'media', 'tenant.user', 'category', 'managers.user', 'users',
+            'media', 'tenant.user', 'category', 'managers.user', 'users', 'remainder_user',
             'comments.user', 'providers.address:id,country_id,state_id,city,street,zip', 'providers.user',
         ]);
         $response = (new ServiceRequestTransformer)->transform($updatedServiceRequest);

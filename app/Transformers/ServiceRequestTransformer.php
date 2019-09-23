@@ -86,6 +86,9 @@ class ServiceRequestTransformer extends BaseTransformer
         if ($model->relationExists('category')) {
             $response['category'] = (new ServiceRequestCategorySimpleTransformer)->transform($model->category);
         }
+        if ($model->relationExists('remainder_user')) {
+            $response['remainder_user'] = (new UserTransformer())->transform($model->remainder_user);
+        }
 
         if ($model->relationExists('tenant')) {
             $response['tenant'] = (new TenantTransformer)->transform($model->tenant);

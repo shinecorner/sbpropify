@@ -33,6 +33,23 @@ use Storage;
  *          type="integer",
  *          format="int32"
  *      ),
+ *     @SWG\Property(
+ *          property="reminder_user_id",
+ *          description="reminder_user_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *     @SWG\Property(
+ *          property="days_left_due_date",
+ *          description="days_left_due_date",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *     @SWG\Property(
+ *          property="active_reminder",
+ *          description="active_reminder",
+ *          type="boolean",
+ *      ),
  *      @SWG\Property(
  *          property="title",
  *          description="title",
@@ -531,5 +548,10 @@ class ServiceRequest extends AuditableModel implements HasMedia
         $language  = $this->tenant->settings->language;
 
         return $this->id . '-'. $this->tenant->id .'-' . $language . '.pdf';
+    }
+
+    public function remainder_user()
+    {
+        return $this->belongsTo(User::class, 'reminder_user_id');
     }
 }
