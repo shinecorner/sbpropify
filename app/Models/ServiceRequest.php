@@ -300,6 +300,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'due_date' => 'date',
         'category_id' => 'integer',
         'visibility' => 'required|integer',
+        'active_reminder' => 'boolean',
     ];
 
     /**
