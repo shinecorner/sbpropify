@@ -184,6 +184,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
     protected $dates = ['deleted_at'];
 
     const Fillable = [
+        'reminder_user_id',
         'category_id',
         'subject_id',
         'tenant_id',
@@ -205,6 +206,8 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'location',
         'reactivation_date',
         'resolution_time',
+        'days_left_due_date',
+        'active_reminder'
     ];
 
     public $fillable = self::Fillable;
@@ -216,6 +219,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
      */
     protected $casts = [
         'category_id' => 'integer',
+        'reminder_user_id' => 'integer',
         'tenant_id' => 'integer',
         'title' => 'string',
         'description' => 'string',
@@ -234,20 +238,10 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'location' => 'integer',
         'reactivation_date' => 'datetime',
         'resolution_time' => 'integer',
+        'days_left_due_date' => 'integer',
+        'active_reminder' => 'boolean'
     ];
 
-    protected $auditInclude = [
-        'category_id',
-        'tenant_id',
-        'title',
-        'status',
-        'priority',
-        'internal_priority',
-        'qualification',
-        'due_date',
-        'visibility',
-        'description',
-    ];
 
     const templateMap = [
         'title' => 'request.title',
