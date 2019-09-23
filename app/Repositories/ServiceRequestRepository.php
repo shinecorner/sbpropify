@@ -81,7 +81,9 @@ class ServiceRequestRepository extends BaseRepository
             }
         }
         $model = parent::create($attr);
-        $this->saveMediaUploads($model, $attr);
+        if ($model)  {
+            $model = $this->saveMediaUploads($model, $attr);
+        }
         return $model;
     }
 
