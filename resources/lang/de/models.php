@@ -601,7 +601,7 @@ return [
         'other_recipients' => 'Weitere Empfänger',
         'recipients' => 'Empfänger',
         'images' => 'Fotos und Dokumente',
-        'no_images_message' => 'Bisland keine Dateien hochgeladen',
+        'no_images_message' => 'Bislang keine Dateien hochgeladen',
         'request_details' => 'Beschreibung',
         'internal_notices' => 'Interne Notizen',
         'status_changed' => 'Status wurde geändert',
