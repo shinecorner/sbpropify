@@ -38,6 +38,10 @@ class ServiceRequestTransformer extends BaseTransformer
             'created_at' => $model->created_at->format('d.m.Y H:i:s'),
             'updated_at' => $model->updated_at->toDateTimeString(),
             'visibility' => $model->visibility,
+            'active_reminder' => $model->active_reminder,
+            'reminder_user_id' => $model->reminder_user_id,
+            'days_left_due_date' => $model->days_left_due_date,
+            'sent_reminder_user_ids' => $model->sent_reminder_user_ids,
         ];
 
         if ($model->relationExists('audit')) {
@@ -82,6 +86,9 @@ class ServiceRequestTransformer extends BaseTransformer
 
         if ($model->relationExists('category')) {
             $response['category'] = (new ServiceRequestCategorySimpleTransformer)->transform($model->category);
+        }
+        if ($model->relationExists('remainder_user')) {
+            $response['remainder_user'] = (new UserTransformer())->transform($model->remainder_user);
         }
 
         if ($model->relationExists('tenant')) {
