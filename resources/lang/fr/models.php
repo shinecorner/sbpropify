@@ -629,6 +629,10 @@ return [
         'send_person' => 'Quelle personne doit être notifiée ?',
         'add_contract' => 'Ajouter un nouveau contrat',
         'delete_contract' => 'Supprimer contrat',
+        'sort' => 'Sort fr',
+        'reset_sort' => 'Reset Sort fr',
+        'creation_date' => 'Creation Date fr',
+        'ago' => 'ago fr',
         'media' => [
             "added" => "Document ajouté",
             "removed" => "Suppression du support",

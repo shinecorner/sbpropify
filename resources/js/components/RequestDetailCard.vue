@@ -118,7 +118,7 @@
                     <div v-else style="display: flex">
                         <p v-if="updated_at.h">{{ updated_at.h }}h&nbsp;</p>
                         <p v-else-if="updated_at.m">{{  updated_at.m }}m&nbsp;</p>
-                        <p>ago</p>
+                        <p>{{ $t('models.request.ago') }}</p>
                     </div>
                 </el-col>
                 <el-col :span="3">
@@ -192,12 +192,14 @@ export default {
                         label:'models.request.due_on',
                         date: due_date_formatted
                     };
-            } else {
-                return {
-                    label:'models.request.due_on',
-                    date: ''
-                }
+            }  else {
+                label = 'models.request.due_on';
+                date = '';
             }
+            return {
+                label: label,
+                date: date
+            };
             
         },
         updated_at() {
