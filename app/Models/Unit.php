@@ -44,12 +44,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="monthly_rent",
- *          description="monthly_rent",
- *          type="number",
- *          format="float"
- *      ),
- *      @SWG\Property(
  *          property="room_no",
  *          description="room_no",
  *          type="string",
@@ -62,20 +56,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="net_rent",
- *          description="net_rent",
+ *          property="monthly_net_rent",
+ *          description="monthly_net_rent",
  *          type="integer",
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="gross_rent",
- *          description="gross_rent",
+ *          property="monthly_gross_rent",
+ *          description="monthly_gross_rent",
  *          type="integer",
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="maintenance",
- *          description="maintenance",
+ *          property="monthly_maintenance",
+ *          description="monthly_maintenance",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -131,10 +125,9 @@ class Unit extends AuditableModel
         'name',
         'description',
         'floor',
-        'monthly_rent',
-        'net_rent',
-        'gross_rent',
-        'maintenance',
+        'monthly_net_rent',
+        'monthly_gross_rent',
+        'monthly_maintenance',
         'room_no',
         'basement',
         'attic',
@@ -153,10 +146,9 @@ class Unit extends AuditableModel
         'name' => 'string',
         'description' => 'string',
         'floor' => 'integer',
-        'monthly_rent' => 'float',
-        'net_rent' => 'float',
-        'gross_rent' => 'float',
-        'maintenance' => 'float',
+        'monthly_net_rent' => 'float',
+        'monthly_gross_rent' => 'float',
+        'monthly_maintenance' => 'float',
         'room_no' => 'float',
         'basement' => 'boolean',
         'attic' => 'boolean',
