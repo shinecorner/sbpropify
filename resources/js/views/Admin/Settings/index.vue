@@ -5,7 +5,6 @@
         <el-tabs class="settings-tabs" tab-position="left" v-model="activeName">
             <el-tab-pane name="settings">
                 <template slot="label"><i class="icon icon-cog"></i>{{$t('models.realEstate.settings')}}</template>
-
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
                     <el-tabs type="border-card" v-model="activeSettingsName">
                         <el-tab-pane :label="$t('models.realEstate.settings')" name="settings_settings">
