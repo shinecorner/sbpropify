@@ -263,8 +263,8 @@ class UnitAPIController extends AppBaseController
     {
         $input = $request->all();
         if (isset($input['monthly_rent'])) {
-            $input['monthly_gross_rent'] = $input['monthly_net_rent'] ?? $input['monthly_rent'];
-            $input['monthly_gross_rent'] = $input['monthly_net_rent'] ?? $input['monthly_rent'];
+            $input['monthly_gross_rent'] = $input['monthly_gross_rent'] ?? $input['monthly_rent'];
+            $input['monthly_net_rent'] = $input['monthly_net_rent'] ?? $input['monthly_rent'];
         }
         /** @var Unit $unit */
         $unit = $this->unitRepository->findWithoutFail($id);
