@@ -629,6 +629,10 @@ return [
         'send_person' => 'Welche Person soll benachrichtigt werden?',
         'add_contract' => 'Neuen Vertrag hinzufügen',
         'delete_contract' => 'Vertrag löschen',
+        'sort' => 'Sort de',
+        'reset_sort' => 'Reset Sort de',
+        'creation_date' => 'Creation Date de',
+        'ago' => 'ago de',
         'media' => [
             'added' => 'Mediendatei hinzugefügt',
             'removed' => 'Mediendatei entfernt.',

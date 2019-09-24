@@ -629,6 +629,10 @@ return [
         'send_person' => 'Quale persona deve essere informata?',
         'add_contract' => 'Aggiungere un nuovo contratto',
         'delete_contract' => 'Cancellare il contratto',
+        'sort' => 'Sort it',
+        'reset_sort' => 'Reset Sort it',
+        'creation_date' => 'Creation Date it',
+        'ago' => 'ago it',
         'media' => [
             "added" => "Documento ajouté",
             "removed" => "Supporti rimossi",
