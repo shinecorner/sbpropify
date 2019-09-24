@@ -62,6 +62,24 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="int32"
  *      ),
  *      @SWG\Property(
+ *          property="net_rent",
+ *          description="net_rent",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="gross_rent",
+ *          description="gross_rent",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="maintenance",
+ *          description="maintenance",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
  *          property="attic",
  *          description="attic",
  *          type="integer",
@@ -114,6 +132,9 @@ class Unit extends AuditableModel
         'description',
         'floor',
         'monthly_rent',
+        'net_rent',
+        'gross_rent',
+        'maintenance',
         'room_no',
         'basement',
         'attic',
@@ -133,6 +154,9 @@ class Unit extends AuditableModel
         'description' => 'string',
         'floor' => 'integer',
         'monthly_rent' => 'float',
+        'net_rent' => 'float',
+        'gross_rent' => 'float',
+        'maintenance' => 'float',
         'room_no' => 'float',
         'basement' => 'boolean',
         'attic' => 'boolean',

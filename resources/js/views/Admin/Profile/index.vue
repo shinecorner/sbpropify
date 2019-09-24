@@ -3,9 +3,6 @@
         <heading :title="$t('pages.profile.pageTitle')" class="custom-heading" icon="ti-user" shadow="heavy" />
         <div class="crud-view">
             <el-tabs v-model="active">
-                <el-tab-pane :label="$t('pages.profile.profile')" :lazy="true" name="profile">
-                    <profile/>
-                </el-tab-pane>
                 <el-tab-pane :label="$t('pages.profile.account')" :lazy="true" name="account">
                     <accounts/>
                 </el-tab-pane>
@@ -22,7 +19,6 @@
 
 <script>
     import Heading from 'components/Heading';
-    import Profile from './Profile';
     import Accounts from './Account';
     import Security from './Security';
     import Notifications from './Notifications';
@@ -32,14 +28,13 @@
         name: 'AdminSettings',
         components: {
             Heading,
-            Profile,
             Accounts,
             Security,
             Notifications
         },
         data() {
             return {
-                active: 'profile'
+                active: 'account'
             }
         }
     }

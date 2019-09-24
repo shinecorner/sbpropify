@@ -28,12 +28,12 @@ table.data_table th, table.data_table td {
 }
     table.data_table strong{font-size:13px;font-family:{{$re->pdf_font_family ?? 'arial'}}}
     .inner_table{width:100%;}
-.inner_table td{padding:7px;}
+.inner_table td{padding:7px 0;}
     table.data_table td{border-top:1px solid #eee;}
     table{border:none;border-spacing:0;}
 
-    table.data_table .table_header{border:none;padding:10px;}
-    .info_table td, .info_table th{padding:7px;}
+    table.data_table .table_header{border:none;padding:10px 0;}
+    .info_table td, .info_table th{padding:7px 0;}
     .no_border{border-top:none!important}
     .border_btm{border-bottom:1px solid #eee;}
     .data_table h4{padding:0;margin-bottom:-10px;}
