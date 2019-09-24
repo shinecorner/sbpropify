@@ -16,7 +16,6 @@
                                      ref="realEstateSettingsForm">
                                 <el-row :gutter="20">
                                     <el-col :md="12">
-
                                         <el-card :header="$t('general.actions.view')">
                                             <el-row :gutter="20">
                                                 <el-col :md="12">
