@@ -4,7 +4,7 @@
         <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
     </placeholder>
     <div class="contracts" v-else-if="contract">
-        <ui-heading icon="ti-book" :title="$t('tenant.my_contract')" description="Curabitur pellentesque consectetur malesuada.">
+        <ui-heading icon="ti-book" :title="$t('tenant.my_contract')" :description="$t('tenant.heading_info.my_contract')">
         </ui-heading>
         <ui-divider />
         <el-card>
