@@ -114,7 +114,6 @@
                 </el-col>
                 <el-col :span="3">
                    <span>{{ $t('models.request.last_updated') }}</span>
-                    <br>{{this.item.created_by_formatted}}
                     <p v-if="updated_at.h>12">{{ updated_at.date }}</p>
                     <div v-else style="display: flex">
                         <p v-if="updated_at.h">{{ updated_at.h }}h&nbsp;</p>
@@ -137,7 +136,10 @@
     import {Avatar} from 'vue-avatar'
     import tableAvatar from 'components/Avatar';
     import globalFunction from "helpers/globalFunction";
-    import {format} from 'date-fns';
+    import {
+        format, differenceInMinutes, parse, 
+        differenceInCalendarDays, subHours
+    } from 'date-fns';
 
 export default {
     mixins: [globalFunction],
@@ -172,9 +174,8 @@ export default {
         due() {
             var currentDate = new Date();
             if(this.item.due_date !==undefined) {
-                var updated = this.item.due_date.split('.');
-                var updated_date = new Date(parseInt(updated[2]), parseInt(updated[1])-1, parseInt(updated[0]));
-                var days = ( updated_date.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24 ;
+                var updated_date = parse(this.item.due_date, 'yyyy-MM-dd', new Date());
+                var days = differenceInCalendarDays(updated_date, new Date()) ;
                 if(days < 0)
                     return {
                         label:'models.request.was_due_on',
@@ -199,18 +200,11 @@ export default {
             
         },
         updated_at() {
+            var updated_date = parse(this.item.updated_at, 'yyyy-MM-dd hh:mm:ss', new Date());
             var currentDate = new Date();
-            var updated_date = new Date(
-                parseInt(this.item.created_at.substr(6,4)),
-                parseInt(this.item.created_at.substr(3,2)) - 1,
-                parseInt(this.item.created_at.substr(0,2)),
-                parseInt(this.item.created_at.substr(11,2)),
-                parseInt(this.item.created_at.substr(14,2)),
-                parseInt(this.item.created_at.substr(17,2)),
-            );
-            var minutes = Math.ceil((currentDate.getTime() - updated_date.getTime()) / 1000 / 60) ;
+            var minutes = differenceInMinutes(currentDate, updated_date) + currentDate.getTimezoneOffset() ;
             return {
-                date: this.item.created_at.substr(0,10),
+                date: format(updated_date, 'YYYY-MM-DD'),
                 h: Math.floor(minutes / 60),
                 m: Math.ceil(minutes % 60)
             }

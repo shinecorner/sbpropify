@@ -60,8 +60,10 @@
                     return [[...this.sortedUsers.slice(0, this.limit)], [...this.sortedUsers.slice(this.limit)]].reduce((text, users, index) => {
                         if (index === 0) {
                             text += users.map(({id, name}) => id === this.loggedInUser.id ? 'You' : name.split(' ')[0]).join(', ')
+                        } else if (users.length > 1) {
+                            text += ` and ${users.length} ` + $t('tenant.welcome_others')
                         } else if (users.length) {
-                            text += ` and ${users.length} others`
+                            text += ` and ${users.length} ` + $t('tenant.welcome_other')
                         } else {
                             text = text.replace(/,(?=[^,]*$)/, ' and')
                         }

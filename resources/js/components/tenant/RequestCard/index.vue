@@ -27,8 +27,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="statuses">
-                    <div class="item" v-if="this.data.category.parent_id == 1 && this.data.qualification ==5" >
+                <div class="statuses" v-if="this.data.category.parent_id == 1 && this.data.qualification ==5">
+                    <div class="item">
                         {{$t('tenant.cost_impact')}}:
                         <div class="label">
                             {{$t(`models.request.category_options.costs.${this.data.payer}`)}}
@@ -52,6 +52,7 @@
                         <el-link @click="showRestAssignees" type="success">and {{assignees.slice(3).length}} more</el-link>
                     </div>
                 </div>
+                <slot name="tab-overview-after-for-mobile" />
                 <ui-divider />
                 <div class="user">
                     <ui-avatar :name="data.tenant.user.name" :size="32" :src="data.tenant.user.avatar" />
@@ -191,7 +192,7 @@
                         .statuses
                             display: flex
                             align-items: center
-                            margin-bottom: 16px
+                            margin-bottom: 12px
 
                             .item
                                 font-weight: 600
@@ -226,11 +227,20 @@
                         .title
                             font-size: 20px
                             font-weight: 600
+                            margin-top: 12px
                             color: var(--color-primary)
 
                         .description
                             margin-top: 16px
                             color: var(--color-text-secondary)
+
+                        .tab-overview-after-for-mobile
+                            display: flex
+                            margin-top: 12px
+                            display: none
+
+                        .tab-overview-after
+                            float: right
 
                         .assignees
                             font-size: 15px
@@ -303,4 +313,17 @@
 
                                     i
                                         font-size: 28px
+    
+</style>
+
+<style lang="scss" scoped>
+    @media only screen and (max-width: 676px) {
+        /deep/ .tab-overview-after {
+            display: none;
+        }
+
+        /deep/ .tab-overview-after-for-mobile {
+            display: flex !important;
+        }
+    }
 </style>
