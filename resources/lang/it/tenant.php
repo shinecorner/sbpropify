@@ -177,6 +177,8 @@ return [
     "new_neighbour_msg" => "e' nuova nel quartiere.",
     "welcome_neighbour_msg" => "saluta il tuo nuovo vicino.",
     "welcome_neighbour_msg_multiple" => "saluta il tuo nuovo vicino.",
+    "welcome_other" => "altro",
+    "welcome_others" => "altri",
     "welcome" => "Benvenuta :name",
     "unwelcome" => "Restituire il saluto di benvenuto",
     "mark_all_as_read" => "Segnare tutto come letto",

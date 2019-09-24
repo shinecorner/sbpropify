@@ -177,6 +177,8 @@ return [
     "new_neighbour_msg" => "is new in the neighborhood.",
     "welcome_neighbour_msg" => "greets your new neighbor.",
     "welcome_neighbour_msg_multiple" => "greet your new neighbor.",
+    "welcome_other" => "other",
+    "welcome_others" => "others",
     "welcome" => "Welcome :name",
     "unwelcome" => "Take back the welcome greeting",
     "mark_all_as_read" => "Mark all as read",

@@ -177,6 +177,8 @@ return [
     "new_neighbour_msg" => "ist neu in der Nachbarschaft.",
     "welcome_neighbour_msg" => "begrüsst den neuen Nachbarn.",
     "welcome_neighbour_msg_multiple" => "begrüssen den neuen Nachbarn.",
+    "welcome_other" => "weitere Person",
+    "welcome_others" => "weitere Personen",
     "welcome" => "Heisse :name willkommen",
     "unwelcome" => "Willkommensgrüsse zurücknehmen",
     "mark_all_as_read" => "Alle als gelesen markieren",
