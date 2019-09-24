@@ -174,12 +174,13 @@ export default {
         due() {
             var currentDate = new Date();
             if(this.item.due_date !==undefined) {
+                let due_date_formatted = format(this.item.due_date, 'DD.MM.YYYY');
                 var updated_date = parse(this.item.due_date, 'yyyy-MM-dd', new Date());
                 var days = differenceInCalendarDays(updated_date, new Date()) ;
                 if(days < 0)
                     return {
                         label:'models.request.was_due_on',
-                        date: this.item.due_date
+                        date: due_date_formatted
                     };
                 else if(days <= 30)
                     return {
@@ -189,7 +190,7 @@ export default {
                 else
                     return {
                         label:'models.request.due_on',
-                        date: this.item.due_date
+                        date: due_date_formatted
                     };
             } else {
                 return {
@@ -204,7 +205,7 @@ export default {
             var currentDate = new Date();
             var minutes = differenceInMinutes(currentDate, updated_date) + currentDate.getTimezoneOffset() ;
             return {
-                date: format(updated_date, 'YYYY-MM-DD'),
+                date: format(updated_date, 'DD.MM.YYYY'),
                 h: Math.floor(minutes / 60),
                 m: Math.ceil(minutes % 60)
             }
