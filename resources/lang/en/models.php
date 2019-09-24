@@ -407,6 +407,12 @@ return [
             'new_neighbour' => 'New neighbour',
             'pinned' => 'Pinned',
         ],
+        'sub_type' => [
+            'label' => 'Subtype',
+            'important' => 'Important',
+            'critical' => 'Critical',
+            'maintenance' => 'Maintenance',
+        ],
         'errors' => [
             'not_found' => "Post not found",
             'quarter_not_found' => "Quarter not found",
@@ -429,8 +435,15 @@ return [
         ],
         'assignType' => 'Type',
         'buildingAlreadyAssigned' => 'Building is already inside on a quarter',
+        'execution_period' => [
+            'label' => 'One day or multiple days',
+            'single_day' => 'Single day',
+            'many_day' => 'Multiple days',
+        ],
+        'specify_time_question' => 'Do you want to specify time?',
         'execution_interval' => [
             'label' => 'Execution interval',
+            'date' => 'Execution Date',
             'end' => 'Execution End',
             'start' => 'Execution Start',
             'separator' => 'To',

@@ -10063,6 +10063,20 @@
                     "type": "integer",
                     "format": "int32"
                 },
+                "reminder_user_id": {
+                    "description": "reminder_user_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "days_left_due_date": {
+                    "description": "days_left_due_date",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "active_reminder": {
+                    "description": "active_reminder",
+                    "type": "boolean"
+                },
                 "title": {
                     "description": "title",
                     "type": "string"
