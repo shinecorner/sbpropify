@@ -17,6 +17,7 @@ use App\Notifications\PostPublished;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class PostRepository
@@ -186,7 +187,8 @@ class PostRepository extends BaseRepository
         $model = parent::updateExisting($model, $attributes);
 
         if (Post::StatusPublished == $status) {
-            $this->notify($model);
+            $notificationsData = $this->notify($model);
+            $this->saveNotificationAuditsAndLogs($model, $notificationsData);
         }
 
         return $model;
