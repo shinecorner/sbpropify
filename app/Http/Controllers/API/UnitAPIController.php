@@ -135,6 +135,10 @@ class UnitAPIController extends AppBaseController
     {
         $input = $request->all();
         $input['sq_meter'] = $input['sq_meter'] ?? 0;
+        if (isset($input['monthly_rent'])) {
+            $input['monthly_gross_rent'] = $input['monthly_net_rent'] ?? $input['monthly_rent'];
+            $input['monthly_gross_rent'] = $input['monthly_net_rent'] ?? $input['monthly_rent'];
+        }
         try {
             $unit = $this->unitRepository->create($input);
         } catch (\Exception $e) {
@@ -258,7 +262,10 @@ class UnitAPIController extends AppBaseController
     public function update($id, UpdateRequest $request, PostRepository $pr)
     {
         $input = $request->all();
-
+        if (isset($input['monthly_rent'])) {
+            $input['monthly_gross_rent'] = $input['monthly_net_rent'] ?? $input['monthly_rent'];
+            $input['monthly_gross_rent'] = $input['monthly_net_rent'] ?? $input['monthly_rent'];
+        }
         /** @var Unit $unit */
         $unit = $this->unitRepository->findWithoutFail($id);
         if (empty($unit)) {
