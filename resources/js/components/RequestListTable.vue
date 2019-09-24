@@ -28,6 +28,7 @@
                             <el-form-item
                                 v-if="filter.type === filterTypes.select && filter.data &&  filter.data.length">
                                 <el-select
+                                    v-if="filter.key == 'category_id' || filter.key == 'status' || filter.key == 'internal_priority'"
                                     :filterable="true"
                                     :placeholder="filter.name"
                                     @change="filterChanged(filter)"
@@ -43,6 +44,22 @@
                                         v-for="item in filter.data">
                                     </el-option>
                                 </el-select>
+                                <el-select
+                                    v-else
+                                    :filterable="true"
+                                    :placeholder="filter.name"
+                                    @change="filterChanged(filter)"
+                                    class="filter-select"
+                                    v-model="filterModel[filter.key]">
+                                    <el-option :label="`${$t('general.placeholders.select')+' '+filter.name}`" value=""></el-option>
+                                    <el-option
+                                        :key="item.id + item.name"
+                                        :label="item.name"
+                                        :value="item.id"
+                                        v-for="item in filter.data">
+                                    </el-option>
+                                </el-select>
+
                                
                             </el-form-item>
                             <el-form-item
@@ -102,11 +119,24 @@
         <!--                {{$t('general.actions.delete')}}-->
         <!--            </el-button>-->
         <!--        </div>-->
-        <el-popover popper-class="marketplace__filter-popover" placement="left-end" trigger="click" :width="192" style="float:right">
-            <el-button slot="reference" icon="el-icon-sort">{{$t('tenant.filters')}}</el-button>
-            <filters ref="sortFilters" layout="row" :data.sync="sortFilters.data" :schema="sortFilters.schema"  />
-            <el-button type="primary" size="small" icon="el-icon-sort-up" style="width: 100%; margin-top: 8px;">{{$t('tenant.reset_filters')}}</el-button>
+        <el-popover placement="left-end" trigger="click" :width="192" style="float:right">
+            <el-button slot="reference" icon="el-icon-sort">{{$t('models.request.sort')}}</el-button>
+            <div class="sorters">
+                <template v-for="(sorter, key) in this.Sorters">
+                    <el-radio-group v-if="sorter.type=='el-radio'" v-model="filterModel[sorter.key]" @change="filterChanged(sorter)" :key="key">
+                        <el-radio :label="item.key" v-for="(item, key) in sorter.data" :key="key" style="padding-top:5px">{{ $t(item.text) }}</el-radio>
+                    </el-radio-group>
+                    <div v-else-if="sorter.type=='el-button'" :key="key" class="sort-by">
+                        <el-button  size="medium" circle @click="sortedBy(sorter)">
+                            <i class="el-icon-bottom" v-if="filterModel[sorter.key]==undefined || filterModel[sorter.key]=='asc'"></i>
+                            <i class="el-icon-top" v-else-if="filterModel[sorter.key]=='desc'"></i>
+                        </el-button>
+                    </div>
+                </template>
+            </div>
+            <el-button type="primary" size="small" icon="el-icon-sort-up" style="width: 100%; margin-top: 8px;" @click="resetSorters">{{$t('models.request.reset_sort')}}</el-button>
         </el-popover>
+        
         <el-table
             :data="items"
             :element-loading-background="loading.background"
@@ -250,29 +280,25 @@
                 filterModel: {},
                 uuid,
                 selectedItems: [],
-                sortFilters: {
-                    schema: [{
-                        type: 'el-switch',
-                        title: 'Due Date',
-                        name: 'due_date',
-                        props: {
-                            activeValue: true,
-                            inactiveValue: false
-                        }
+                Sorters: [
+                    {
+                        name: this.$t('filters.search'),
+                        type: 'el-radio',
+                        icon: 'el-icon-search',
+                        key: 'orderBy',
+                        data: [{
+                            key: 'due_date',
+                            text: 'models.request.due_date'
+                        }, {
+                            key: 'creation_date',
+                            text: 'models.request.creation_date'
+                        }],
+                        
                     }, {
-                        type: 'el-switch',
-                        title: 'Creation Date',
-                        name: 'creation_date',
-                        props: {
-                            activeValue: true,
-                            inactiveValue: false
-                        }
-                    },],
-                    data: {
-                        type: null,
-                        user_id: null
+                        type: 'el-button',
+                        key: 'sortedBy',
                     }
-                }
+                ]
             }
         },
         computed: {
@@ -299,8 +325,25 @@
             clearSearch() {
                 this.search = '';
             },
-            onChange() {
-                
+            sortedBy(sorter) {
+                console.log(sorter);
+                if(this.filterModel[sorter.key] == undefined) {
+                    this.filterModel[sorter.key] = 'desc';
+                } else if(this.filterModel[sorter.key] == 'asc') {
+                    this.filterModel[sorter.key] = 'desc'
+                } else if(this.filterModel[sorter.key] == 'desc') {
+                    this.filterModel[sorter.key] = 'asc'
+                } 
+                this.filterChanged(sorter);
+            },
+            resetSorters() {
+                this.Sorters.map((sorter) => {
+                    if(sorter.type == 'el-button') 
+                        this.filterModel[sorter.key] = 'asc';
+                    else
+                        this.filterModel[sorter.key] = '';
+                    this.filterChanged(sorter);
+                });
             },
             fetch(fetchPage, fetchPerPage) {
                 fetchPerPage = 4;
@@ -533,7 +576,15 @@
     .list-table {
         padding: 20px;
     }
-
+    .sorters {
+        padding: 10px 0;
+        display: flex;
+        .sort-by {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
     .el-input {
         &.el-input--suffix {
             :global(.el-input__inner) {

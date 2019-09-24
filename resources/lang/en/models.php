@@ -615,7 +615,10 @@ return [
         'days_left' => 'How many days before should the email be sent?',
         'send_person' => 'Which person should be notified?',
         'add_contract' => 'Add new contract',
-        'delete_contract' => 'Delete contract',
+        'delete_contract' => 'Delete contract', 
+        'sort' => 'Sort',
+        'reset_sort' => 'Reset Sort',
+        'creation_date' => 'Creation Date',
         'media' => [
             'added' => 'Document added',
             'removed' => 'Document removed',
