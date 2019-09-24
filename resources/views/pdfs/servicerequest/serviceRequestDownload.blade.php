@@ -12,18 +12,17 @@
                         <tbody>
                             <tr>
                                 <td class="table_header" valign="middle">
-                                    <b>@lang('models.request.category',[],$language)</b> :
+                                    <b>@lang('models.request.category',[],$language)</b>:
 
                                     {{ ($category->parentCategory != null) ? $category->parentCategory->{'name'.($language != 'en' ? '_'.$language : '') } . ' > ' : ''  }}
 
                                     {{ $category->{'name'.($language != 'en' ? '_'.$language : '') } }}
-                                    <p><b>@lang('general.notification',[],$language)</b> : {{ now()->format('d.m.Y h:i:s a') }}</p>
-                                    <p>  <b>Address</b> :
-                                        {{ @$tenant->building->name }} ,
-                                        {{ @$tenant->building->floor_nr }} floor,
+                                    <p><b>@lang('general.notification',[],$language)</b>: {{ now()->format('d.m.Y H:i a') }}</p>
+                                    <p>  <b>Address</b>:
                                         {{ @$tenant->address->street }},
+                                        {{ @$tenant->building_id }} ,
                                         {{ @$tenant->address->city }},
-                                        {{ @$tenant->address->country->name }}
+
                                     </p>
                                 </td>
 
