@@ -14,9 +14,9 @@ class AddRentRelatedColsInUnit extends Migration
     public function up()
     {
         Schema::table('units', function (Blueprint $table) {
-            $table->integer('net_rent')->nullable()->default(0)->after('monthly_rent');
-            $table->integer('gross_rent')->nullable()->default(0)->after('net_rent');
-            $table->integer('maintenance')->nullable()->default(0)->after('gross_rent');
+            $table->decimal('net_rent')->nullable()->default(0.0)->after('monthly_rent');
+            $table->decimal('gross_rent')->nullable()->default(0.0)->after('net_rent');
+            $table->integer('maintenance')->nullable()->default(0.0)->after('gross_rent');
         });
     }
 
