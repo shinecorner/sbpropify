@@ -407,6 +407,12 @@ return [
             "new_neighbour" => "Nouveau voisin",
             "pinned" => "Épinglé",
         ],
+        'sub_type' => [
+            'label' => 'Sous-type',
+            'important' => 'Important',
+            'critical' => 'Critique',
+            'maintenance' => 'Maintenance',
+        ],
         'errors' => [
             'not_found' => "Message non trouvé",
             'quarter_not_found' => "Trimestre non trouvé",
@@ -429,8 +435,15 @@ return [
         ],
         "assignType" => "Type",
         "buildingAlreadyAssigned" => "Le bâtiment est déjà à l'intérieur sur un quart",
+        'execution_period' => [
+            'label' => 'Un jour ou plusieurs jours',
+            'single_day' => 'Une seule journée',
+            'many_day' => 'Plusieurs jours',
+        ],
+        'specify_time_question' => 'Voulez-vous spécifier l\'heure ?',
         'execution_interval' => [
             "label" => "Intervalle d'exécution",
+            "date" => "Date d'exécution",
             "end" => "Fin de l'exécution",
             "start" => "Début d'exécution",
             "separator" => "A",
