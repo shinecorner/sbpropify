@@ -407,6 +407,12 @@ return [
             'new_neighbour' => 'Neuer Nachbar',
             'pinned' => 'Ankündigung',
         ],
+        'sub_type' => [
+            'label' => 'Subtyp',
+            'important' => 'Wichtig',
+            'critical' => 'Kritisch',
+            'maintenance' => 'Wartung',
+        ],
         'errors' => [
             'not_found' => "Beitrag nicht gefunden",
             'quarter_not_found' => "Überbauung nicht gefunden",
@@ -429,8 +435,15 @@ return [
         ],
         'assignType' => 'Typ',
         'buildingAlreadyAssigned' => 'Diese Liegschaft ist bereits einer Überbauung zugewiesen.',
+        'execution_period' => [
+            'label' => 'Ein Tag oder mehrere Tage',
+            'single_day' => 'Ein Tag',
+            'many_day' => 'Mehrtägig',
+        ],
+        'specify_time_question' => 'Möchten Sie die Zeit angeben?',
         'execution_interval' => [
             'label' => 'Datum der Durchführung',
+            'date' => 'Datum',
             'end' => 'Ende',
             'start' => 'Start',
             'separator' => 'Bis',
@@ -601,7 +614,7 @@ return [
         'other_recipients' => 'Weitere Empfänger',
         'recipients' => 'Empfänger',
         'images' => 'Fotos und Dokumente',
-        'no_images_message' => 'Bisland keine Dateien hochgeladen',
+        'no_images_message' => 'Bislang keine Dateien hochgeladen',
         'request_details' => 'Beschreibung',
         'internal_notices' => 'Interne Notizen',
         'status_changed' => 'Status wurde geändert',

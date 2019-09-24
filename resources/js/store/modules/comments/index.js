@@ -3,7 +3,8 @@ export default {
     state: {
         post: {},
         request: {},
-        product: {}
+        product: {},
+        internalNotices: {}
     },
     actions: {
         async get ({commit, getters}, {parent_id, ...params}) {
@@ -18,7 +19,7 @@ export default {
                 }, [])
             }
 
-            let newParams = params, url = 'comments'
+            let newParams = params, url = params.commentable !== 'internalNotices' ? 'comments' : 'internalNotices'
 
             if (parent_id && params.id) {
                 const {id, ...restParams} = params
@@ -40,6 +41,7 @@ export default {
             }
 
             const {data} = await this._vm.axios.get(url, {params: newParams})
+            
 
             commit('set', {
                 parent_id,
@@ -49,12 +51,14 @@ export default {
             })
         },
         async create ({commit, rootGetters}, {id, ...params}) {
+            let url = params.commentable == 'internalNotices' ? '' : `/${id}/comments`;
             const {data} = await this._vm.axios.post({
                 post: 'posts',
                 product: 'products',
                 request: 'requests',
-                conversation: 'conversations'
-            }[params.commentable] + `/${id}/comments`, params)
+                conversation: 'conversations',
+                internalNotices: 'internalNotices'
+            }[params.commentable] + url, params)
 
             commit('create', {
                 id,
@@ -105,13 +109,13 @@ export default {
             }[params.commentable] + `/${id}/comments`, params)
 
         },
-        async update ({commit}, {id, parent_id, child_id, ...params}) {
-            const {data} = await this._vm.axios.put(`comments/${child_id ? child_id : parent_id}`, child_id ? {parent_id, ...params} : params)
+        async update ({commit}, {id, parent_id, child_id, ...params}) {        
+            const {data} = await this._vm.axios.put( `${ params.commentable !== 'internalNotices' ? 'comments': 'internalNotices' }/${child_id ? child_id : parent_id}`, params.commentable !== 'internalNotices' ? child_id ? {parent_id, ...params} : params : { request_id: id, user_id: this.getters.loggedInUser.id, comment: params.comment} )
 
             commit('update', {id, parent_id, child_id, commentable: params.commentable, data: data.data})
         },
         async delete ({commit, dispatch}, {id, parent_id, child_id, ...params}) {
-            const {data} = await this._vm.axios.delete(`comments/${child_id ? child_id : parent_id}`, child_id ? {parent_id, ...params} : params)
+            const {data} = await this._vm.axios.delete(`${ params.commentable !== 'internalNotices' ? 'comments': 'internalNotices' }/${child_id ? child_id : parent_id}`, child_id ? {parent_id, ...params} : params)
 
             commit('delete', {id, parent_id, child_id, commentable: params.commentable, data: data.data})
         },

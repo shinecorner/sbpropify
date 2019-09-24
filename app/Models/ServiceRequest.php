@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Traits\HasComments;
 use App\Traits\UniqueIDFormat;
 use Chelout\RelationshipEvents\Concerns\HasMorphedByManyEvents;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -33,6 +32,23 @@ use Storage;
  *          description="tenant_id",
  *          type="integer",
  *          format="int32"
+ *      ),
+ *     @SWG\Property(
+ *          property="reminder_user_id",
+ *          description="reminder_user_id",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *     @SWG\Property(
+ *          property="days_left_due_date",
+ *          description="days_left_due_date",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *     @SWG\Property(
+ *          property="active_reminder",
+ *          description="active_reminder",
+ *          type="boolean",
  *      ),
  *      @SWG\Property(
  *          property="title",
@@ -185,6 +201,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
     protected $dates = ['deleted_at'];
 
     const Fillable = [
+        'reminder_user_id',
         'category_id',
         'subject_id',
         'tenant_id',
@@ -206,6 +223,8 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'location',
         'reactivation_date',
         'resolution_time',
+        'days_left_due_date',
+        'active_reminder'
     ];
 
     public $fillable = self::Fillable;
@@ -217,6 +236,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
      */
     protected $casts = [
         'category_id' => 'integer',
+        'reminder_user_id' => 'integer',
         'tenant_id' => 'integer',
         'title' => 'string',
         'description' => 'string',
@@ -227,6 +247,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'solved_date' => 'datetime',
         'qualification' => 'integer',
         'visibility' => 'integer',
+        'sent_reminder_user_ids' => 'array',
         'service_request_format' => 'string',
         'room' => 'string',
         'capture_phase' => 'string',
@@ -235,20 +256,10 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'location' => 'integer',
         'reactivation_date' => 'datetime',
         'resolution_time' => 'integer',
+        'days_left_due_date' => 'integer',
+        'active_reminder' => 'boolean'
     ];
 
-    protected $auditInclude = [
-        'category_id',
-        'tenant_id',
-        'title',
-        'status',
-        'priority',
-        'internal_priority',
-        'qualification',
-        'due_date',
-        'visibility',
-        'description',
-    ];
 
     const templateMap = [
         'title' => 'request.title',
@@ -307,6 +318,7 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'due_date' => 'date',
         'category_id' => 'integer',
         'visibility' => 'required|integer',
+        'active_reminder' => 'boolean',
     ];
 
     /**
@@ -537,5 +549,10 @@ class ServiceRequest extends AuditableModel implements HasMedia
         $language  = $this->tenant->settings->language;
 
         return $this->id . '-'. $this->tenant->id .'-' . $language . '.pdf';
+    }
+
+    public function remainder_user()
+    {
+        return $this->belongsTo(User::class, 'reminder_user_id');
     }
 }

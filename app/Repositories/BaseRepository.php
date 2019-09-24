@@ -2,7 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Models\AuditableModel;
+use App\Models\Media;
 use App\Models\Model;
+use OwenIt\Auditing\Models\Audit;
 use Prettus\Repository\Events\RepositoryEntityUpdated;
 
 abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepository
@@ -11,9 +14,11 @@ abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepositor
      * @param string $collectionName
      * @param string $dataBase64
      * @param Model $model
-     * @return bool|\Spatie\MediaLibrary\Models\Media
+     * @param null $mergeInAudit
+     * @param bool $disableAuditing
+     * @return bool
      */
-    public function uploadFile(string $collectionName, string $dataBase64, Model $model)
+    public function uploadFile(string $collectionName, string $dataBase64, Model $model, $mergeInAudit = null, $disableAuditing = false)
     {
         if (!$data = base64_decode($dataBase64)) {
             return false;
@@ -26,15 +31,36 @@ abstract class BaseRepository extends \Prettus\Repository\Eloquent\BaseRepositor
         if (!isset($this->mimeToExtension[$mimeType])) {
             return false;
         }
+        if ($mergeInAudit) {
+            $audit = is_integer($mergeInAudit)
+                ? Audit::where('auditable_type', get_morph_type_of($model))->find($mergeInAudit)
+                : $mergeInAudit;
+            if (empty($audit)) {
+                return false;
+            }
+            $disableAuditing = true;
+        }
+
+        if ($disableAuditing) {
+            Media::disableAuditing();
+        }
+
         $extension = $this->mimeToExtension[$mimeType];
 
-        $diskName = $model->getDiskPreName() . $collectionName;;
-
+        $diskName = $model->getDiskPreName() . $collectionName;
         $media = $model->addMediaFromBase64($dataBase64)
             ->sanitizingFileName(function ($fileName) use ($extension) {
                 return sprintf('%s.%s', str_slug($fileName), $extension);
             })
             ->toMediaCollection($collectionName, $diskName);
+
+        if ($disableAuditing) {
+            Media::enableAuditing();
+        }
+
+        if ($mergeInAudit) {
+            (new AuditableModel())->addDataInAudit('media', $media, $audit, false);
+        }
 
         return $media;
     }

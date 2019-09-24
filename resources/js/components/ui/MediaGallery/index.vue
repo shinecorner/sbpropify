@@ -23,7 +23,7 @@
                 {{$t('tenant.no_data.media')}}
             </div>
             <div class="ui-media-gallery__placeholder__description">
-                All of them will be listed here in columns and can be seen in fullsize by hovering on any of them.
+                {{$t('tenant.media_info')}}
             </div>
         </div>
         <slot name="after" />
@@ -97,6 +97,7 @@
             align-items: center
             flex-direction: column
             justify-content: center
+            width: 100%
 
             &__image
                 width: 128px

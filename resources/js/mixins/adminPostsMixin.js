@@ -29,13 +29,15 @@ export default (config = {}) => {
                     content: '',
                     visibility: 1,
                     status: 1,
+                    sub_type: 1,
                     media: [],
                     published_at: '',
                     user_id: '',
                     pinned: '',
                     notify_email: false,
                     category: '',
-                    pinned_to: null,
+                    execution_period: 2,
+                    is_execution_time: false,
                     execution_start: null,
                     execution_end: null,
                     pinned_category: true
@@ -58,10 +60,6 @@ export default (config = {}) => {
                         message: this.$t('validation.general.required')
                     }],
                     published_at: [{
-                        required: true,
-                        message: this.$t('validation.general.required')
-                    }],
-                    pinned_to: [{
                         required: true,
                         message: this.$t('validation.general.required')
                     }]
@@ -270,6 +268,14 @@ export default (config = {}) => {
                     }
                 })
             },
+            resetExecutionTime() {
+                this.model.execution_start
+                    ? this.model.execution_start = this.model.execution_start.split(' ')[0] + ' 00:00:00'
+                    : '';
+                this.model.execution_end
+                    ? this.model.execution_end = this.model.execution_end.split(' ')[0] + ' 00:00:00'
+                    : '';
+            },
         }
     };
 
@@ -371,8 +377,26 @@ export default (config = {}) => {
                         });
                     },
                     async fetchCurrentPost() {
-                        this.model = await this.getPost({id: this.$route.params.id});
+                        const {
+                            execution_period,
+                            is_execution_time,
+                            execution_start,
+                            execution_end,
+
+                            ...restData
+                        } = await this.getPost({id: this.$route.params.id});
+
+                        this.model = {
+                            execution_period: this.model.execution_period,
+                            is_execution_time: this.model.is_execution_time,
+                            execution_start: this.model.execution_start,
+                            execution_end: this.model.execution_end,
+
+                            ...restData
+                        };
+
                         this.showdefaultimage = this.model.category != null ? true : false;
+
                         return this.model;
                     }
                 };
@@ -386,6 +410,7 @@ export default (config = {}) => {
                                 name: 'adminPosts'
                             });
                         }
+                        this.resetExecutionTime();
                     } catch (err) {
                         this.$router.replace({
                             name: 'adminPosts'

@@ -1,14 +1,14 @@
 <template>
     <div class="property-managers">
-        <ui-heading icon="icon-users" :title="$t('tenant.property_managers')" description="Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.">
+        <ui-heading icon="icon-users" :title="$t('tenant.property_managers')" :description="$t('tenant.heading_info.property_manager')">
         </ui-heading>
         <ui-divider />
         <loader v-if="loading" />
         <div class="placeholder" v-else-if="!loading && !groupedManagers">
             <img class="image" :src="require('img/5d4c33211edfc.png')" />
             <div class="content">
-                <div class="title">There are no property managers available yet.</div>
-                <div class="description">Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.</div>
+                <div class="title">{{$t('tenant.no_data.property_manager')}}</div>
+                <div class="description">{{$t('tenant.no_data_info.property_manager')}}</div>
             </div>
         </div>
         <el-card v-else>

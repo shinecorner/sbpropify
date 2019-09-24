@@ -70,7 +70,7 @@
             },
             type: {
                 type: String,
-                validator: type => ['post', 'product', 'request', 'conversation'].includes(type)
+                validator: type => ['post', 'product', 'request', 'conversation', 'internalNotices'].includes(type)
             },
             data: {
                 type: Object,

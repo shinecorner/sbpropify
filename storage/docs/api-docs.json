@@ -4644,6 +4644,21 @@
                         "schema": {
                             "$ref": "#/definitions/ServiceRequest"
                         }
+                    },
+                    {
+                        "name": "media",
+                        "in": "body",
+                        "description": "Save media. You can pass media paramater\n                                As string(base64) like **media=base64_string**,\n                                as array of string(base64) like **media = [base64_string1, base64_string2, base64_string3, ...etc]**\n                                or as array of array(media => string(base64)) like media = **[[media => base64_string1], [media => base64_string2], ...etc]**",
+                        "required": false,
+                        "schema": {
+                            "properties": {
+                                "media": {
+                                    "description": "id",
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
                     }
                 ],
                 "responses": {
@@ -9429,6 +9444,47 @@
                 }
             }
         },
+        "PinnedEmailReceptionist": {
+            "required": [
+                "content"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "post_id": {
+                    "description": "post_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "tenant_ids": {
+                    "description": "tenant_ids",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "failed_tenant_ids": {
+                    "description": "failed_tenant_ids",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
         "Post": {
             "required": [
                 "content"
@@ -10006,6 +10062,20 @@
                     "description": "tenant_id",
                     "type": "integer",
                     "format": "int32"
+                },
+                "reminder_user_id": {
+                    "description": "reminder_user_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "days_left_due_date": {
+                    "description": "days_left_due_date",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "active_reminder": {
+                    "description": "active_reminder",
+                    "type": "boolean"
                 },
                 "title": {
                     "description": "title",

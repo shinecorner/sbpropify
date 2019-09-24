@@ -256,7 +256,7 @@
                                                 format="dd.MM.yyyy"
                                                 style="width: 100%;"
                                                 type="date"
-                                                v-model="model.rent_start"
+                                                v-model="model.contract.rent_start"
                                                 value-format="yyyy-MM-dd"/>
                                     </el-form-item>
                                 </el-col>
@@ -269,7 +269,7 @@
                                             format="dd.MM.yyyy"
                                             style="width: 100%;"
                                             type="date"
-                                            v-model="model.rent_end"
+                                            v-model="model.contract.rent_end"
                                             value-format="yyyy-MM-dd"/>
                                     </el-form-item>
                                 </el-col>
@@ -300,7 +300,7 @@
                                     <el-form-item :label="$t('models.tenant.deposit_amount')"
                                                     prop="deposit_amount">
                                          <el-input type="text"
-                                                  v-model="model.deposit_amount"
+                                                  v-model="model.contract.deposit_amount"
                                                   class="dis-autofill"
                                         ></el-input>
                                     </el-form-item>
@@ -309,7 +309,7 @@
                                     <el-form-item :label="$t('models.tenant.type_of_deposit')" prop="deposit_type"
                                                   class="label-block">
                                         <el-select placeholder="Select" style="display: block" 
-                                                    v-model="model.deposit_type">
+                                                    v-model="model.contract.deposit_type">
                                             <el-option
                                                     :key="type.value"
                                                     :label="type.name"
@@ -325,7 +325,7 @@
                                     <el-form-item :label="$t('models.tenant.net_rent')"
                                                     prop="net_rent">
                                          <el-input type="text"
-                                                  v-model="model.net_rent"
+                                                  v-model="model.contract.net_rent"
                                                   class="dis-autofill"
                                         ></el-input>
                                     </el-form-item>
@@ -334,7 +334,7 @@
                                     <el-form-item :label="$t('models.tenant.heating_operating_costs_installment')" prop="deposit_type"
                                                   class="label-block">
                                         <el-input type="text"
-                                                  v-model="model.heating_operating_costs_installment"
+                                                  v-model="model.contract.heating_operating_costs_installment"
                                                   class="dis-autofill"
                                         ></el-input>
                                     </el-form-item>
@@ -342,7 +342,7 @@
                             </el-row>
                             <ui-divider></ui-divider>
                             <div class="contract-actions">
-                                <el-button type="primary" icon="icon-plus" size="mini" round>{{$t('models.request.add_contract')}}</el-button>
+                                <el-button type="primary" @click="addContract" icon="icon-plus" size="mini" round>{{$t('models.request.add_contract')}}</el-button>
                                 <el-button type="danger" icon="icon-minus" size="mini" round>{{$t('models.request.delete_contract')}}</el-button>
                             </div>
                             
@@ -392,8 +392,6 @@
         },
         mounted() {
             this.$root.$on('changeLanguage', () => this.getCountries());
-
-            
         },
     }
 </script>

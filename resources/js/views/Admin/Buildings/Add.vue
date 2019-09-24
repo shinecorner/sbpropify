@@ -6,7 +6,7 @@
         <div class="crud-view">
             <el-form :model="model" ref="form">
                 <el-row :gutter="20">
-                    <el-col :md="18">
+                    <el-col :md="12">
                         <card :header="$t('models.propertyManager.details_card')" :loading="loading">
                             <el-row :gutter="20">
                                 <el-col :md="12">
@@ -73,7 +73,7 @@
                 </el-row>
 
                 <el-row :gutter="20" class="mt15">
-                    <el-col :md="18">
+                    <el-col :md="12">
                         <card :header="$t('models.unit.floor')" :loading="loading">
                     <!--<el-form-item prop="description" :label="$t('general.description')" :rules="validationRules.description" style="max-width: 512px;">-->
                     <!--<el-input type="textarea" v-model="model.description"></el-input>-->

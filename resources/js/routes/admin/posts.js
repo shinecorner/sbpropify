@@ -21,7 +21,7 @@ export default [{
         component: () => import ( /* webpackChunkName: "admin/posts/add" */ 'views/Admin/Posts/Add'),
         beforeEnter: VueRouterMultiguard([hasPermissionGuard(AdminPermissions.create.post)]),
         meta: {
-            title: 'Add Pinned Post'
+            title: 'Add Post'
         }
     }, {
         name: 'adminPostsEdit',

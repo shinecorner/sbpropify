@@ -278,6 +278,9 @@ class PostAPIController extends AppBaseController
         }
         $post->likers = $post->collectLikers();
         $this->fixPostViews($post);
+        if ($post->pinned) {
+            $post->load('pinned_email_receptionists');
+        }
         $data = $this->transformer->transform($post);
         return $this->sendResponse($data, 'Post retrieved successfully');
     }

@@ -1,7 +1,7 @@
 <template>
     <div :class="['marketplace', {md: el.is.md}]">
         <div class="container">
-            <ui-heading icon="icon-basket" title="Marketplace" description="Start selling things you don't need anymore." />
+            <ui-heading icon="icon-basket" :title="$t('tenant.marketplace')" :description="$t('tenant.heading_info.marketplace')" />
             <ui-divider />
             <ui-card class="content" shadow="always" v-loading="loading">
                 <template #header>
@@ -20,7 +20,7 @@
                 <div class="placeholder" v-else-if="!loading && !products.data.length">
                     <img class="image" :src="require('img/5ca7dde590fa1.png')" />
                     <div class="title">{{$t('tenant.no_data.product')}}</div>
-                    <div class="description">Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.</div>
+                    <div class="description">{{$t('tenant.no_data_info.product')}}</div>
                 </div>
                 <template v-else>
                     <product-card v-for="product in products.data" 
