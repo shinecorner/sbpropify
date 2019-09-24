@@ -9930,21 +9930,24 @@
                     "description": "deposit_amount",
                     "type": "integer"
                 },
-                "net_rent": {
-                    "description": "net_rent",
-                    "type": "integer"
-                },
-                "operating_cost": {
-                    "description": "operating_cost",
-                    "type": "integer"
-                },
-                "gross_rent": {
-                    "description": "gross_rent",
-                    "type": "integer"
-                },
                 "parking_price": {
                     "description": "parking_price",
                     "type": "integer"
+                },
+                "monthly_rent_net": {
+                    "description": "monthly_rent_net",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "monthly_rent_gross": {
+                    "description": "monthly_rent_gross",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "monthly_maintenance": {
+                    "description": "monthly_maintenance",
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "start_date": {
                     "description": "start_date",
@@ -10113,6 +10116,14 @@
                 "visibility": {
                     "description": "visibility",
                     "type": "int32"
+                },
+                "is_public": {
+                    "description": "is_public",
+                    "type": "boolean"
+                },
+                "notify_email": {
+                    "description": "notify_email",
+                    "type": "boolean"
                 },
                 "created_at": {
                     "description": "created_at",
@@ -10537,11 +10548,6 @@
                     "type": "integer",
                     "format": "int32"
                 },
-                "monthly_rent": {
-                    "description": "monthly_rent",
-                    "type": "number",
-                    "format": "float"
-                },
                 "room_no": {
                     "description": "room_no",
                     "type": "string",
@@ -10549,6 +10555,21 @@
                 },
                 "basement": {
                     "description": "basement",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "monthly_rent_net": {
+                    "description": "monthly_rent_net",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "monthly_rent_gross": {
+                    "description": "monthly_rent_gross",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "monthly_maintenance": {
+                    "description": "monthly_maintenance",
                     "type": "integer",
                     "format": "int32"
                 },

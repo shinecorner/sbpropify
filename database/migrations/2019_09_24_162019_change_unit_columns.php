@@ -13,6 +13,11 @@ class ChangeUnitColumns extends Migration
      */
     public function up()
     {
+        \App\Models\Unit::withTrashed()
+            ->update([
+                "monthly_net_rent" => DB::raw("`monthly_rent`"),
+                "monthly_gross_rent" => DB::raw("`monthly_rent`"),
+            ]);
         Schema::table('units', function (Blueprint $table) {
             $table->renameColumn('monthly_net_rent' ,'monthly_rent_net');
             $table->renameColumn('monthly_gross_rent', 'monthly_rent_gross');
