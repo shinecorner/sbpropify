@@ -364,7 +364,7 @@ class PostAPIController extends AppBaseController
             return $this->sendError(__('models.post.errors.not_found'));
         }
 
-        $this->postRepository->update($input, $id);
+        $this->postRepository->updateExisting($post, $input);
         $post = $this->postRepository->with([
             'media',
             'user.tenant',
@@ -453,8 +453,11 @@ class PostAPIController extends AppBaseController
     }
 
     /**
+     * @param $id
      * @param PublishRequest $request
-     * @return Response
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     *
      *
      * @SWG\Post(
      *      path="/posts/{id}/publish",
@@ -507,7 +510,7 @@ class PostAPIController extends AppBaseController
             return $this->sendError(__('models.post.errors.not_found'));
         }
 
-        $post = $this->postRepository->setStatus($id, $newStatus, Carbon::now());
+        $post = $this->postRepository->setStatusExisting($post, $newStatus, Carbon::now());
 
         return $this->sendResponse($post, __('general.status_changed'));
     }
