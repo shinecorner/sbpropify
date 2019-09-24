@@ -56,6 +56,7 @@ return [
         "neighbour" => "You have no neighbours yet",
         "personal" => "No personal data available",
         "property_manager" => "You have no manager yet.",
+        "activity" => "No activity available yet",
     ],
     "no_data_info" => [
         "product" => "All of them will be listed here.",
@@ -64,6 +65,7 @@ return [
         "neighbour" => "All of them will be listed here.",
         "contact" => "All of them will be listed here.",
         "personal" => "All of them will be listed here.",
+        "activity" => "All available activities will appear here in chronological order.",
     ],
     "notifications" => [
         "prompt" => "Select which types of notifications you would like to receive only.",
@@ -218,4 +220,5 @@ return [
     "providers" => "Service providers",
     "execution" => "Execution",
     "loading" => "Loading...",
+    "chat" => "Chat",
 ];
