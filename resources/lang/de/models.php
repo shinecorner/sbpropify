@@ -619,6 +619,7 @@ return [
         'sort' => 'Sort de',
         'reset_sort' => 'Reset Sort de',
         'creation_date' => 'Creation Date de',
+        'ago' => 'ago de',
         'media' => [
             'added' => 'Mediendatei hinzugefügt',
             'removed' => 'Mediendatei entfernt.',
