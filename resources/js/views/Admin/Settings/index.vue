@@ -5,7 +5,6 @@
         <el-tabs class="settings-tabs" tab-position="left" v-model="activeName">
             <el-tab-pane name="settings">
                 <template slot="label"><i class="icon icon-cog"></i>{{$t('models.realEstate.settings')}}</template>
-
                 <div class="dashboard-tabpanel dashboard-tabpanel_left">
                     <el-tabs type="border-card" v-model="activeSettingsName">
                         <el-tab-pane :label="$t('models.realEstate.settings')" name="settings_settings">
@@ -16,7 +15,6 @@
                                      ref="realEstateSettingsForm">
                                 <el-row :gutter="20">
                                     <el-col :md="12">
-
                                         <el-card :header="$t('general.actions.view')">
                                             <el-row :gutter="20">
                                                 <el-col :md="12">
@@ -257,6 +255,7 @@
                                 <el-row :gutter="20">
                                     <el-col :md="8">
                                         <el-card class="marketplace-card card-boxs">
+                                            <span @click="Iframe_drawer" class="icon-menu"></span>
                                             <el-form-item class="switcher switcher-frist" prop="contact_enable">
                                                 <label class="switcher__label">
                                                     <p>{{$t('models.realEstate.iframe_enable')}}</p>
@@ -264,7 +263,6 @@
                                                     <span class="switcher__desc">{{$t('models.realEstate.iframe_enable_desc')}}</span>
                                                     <el-switch 
                                                         v-model="model.iframe_enable"
-                                                        @change="Iframe_drawer"
                                                         />
                                                 </label>
                                                 
@@ -273,24 +271,24 @@
                                     </el-col>
                                     <el-col :md="8">
                                         <el-card class="marketplace-card card-boxs">
+                                            <span @click="Gocaution_drawer" class="icon-menu"></span>
                                             <el-form-item :label="$t('models.realEstate.gocaution')">
                                                 <span class="switcher__desc">
                                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid, delectus doloribus iusto molestias quam.
                                                 </span>
                                                 <el-switch 
                                                 v-model="model.gocaution_enable"
-                                                @change="Gocaution_drawer"
                                                 />
                                             </el-form-item>
                                         </el-card>
                                     </el-col>
                                     <el-col :md="8">
                                         <el-card class="marketplace-card card-boxs">
+                                            <span @click="Cleanify_drawer" class="icon-menu"></span>
                                            <el-form-item :label="$t('models.realEstate.cleanify_email')"
                                                         :rules="validationRules.cleanify_email" prop="cleanify_email">
                                                 <el-switch 
                                                 v-model="model.cleanify_enable"
-                                                @change="Cleanify_drawer"
                                                 />
                                                 
                                             </el-form-item>
@@ -477,7 +475,13 @@
                 </div> 
                 <div v-if="Cleanify_drawer_val">
                     <el-input type="email" v-model="model.cleanify_email"></el-input>
-                </div>    
+                </div> 
+                <div class="drawer-btn-sec"> 
+                    <el-button class="save-tab drawer-save" @click="saveRealEstate('themeSettingsForm')" icon="ti-save"
+                            type="primary">
+                        {{$t('general.actions.save')}}
+                    </el-button> 
+                </div> 
             </el-tabs>
         </ui-drawer>
     </div>
@@ -683,13 +687,24 @@
                 });
             },
             saveRealEstate(form) {
-                console.log('=='); console.log(form);
+                // this.main_drawer = false;
+                // console.log("assas");
+                // return;
+                //console.log('=='); console.log(form);
                 this.$refs[form].validate((valid) => {
                     if (valid) {
                         this.model.primary_color_lighter = this.getLightenDarkenColor(this.model.primary_color, 90) + '59'
                         this.updateRealEstate(this.model).then((resp) => {
+                            
                             this.fetchRealEstate();
                             displaySuccess(resp);
+                            //this.main_drawer = false;
+                            var v = this;
+                            setTimeout(function () {
+                                v.main_drawer = false;
+                            }, 3000);
+
+                            // this.main_drawer = false;
                             
                         }).catch((error) => {
                             displayError(error);
@@ -744,6 +759,7 @@
              Iframe_drawer(val){
                 if(val)
                 {
+                    console.log("sd");
                     this.main_drawer = true;
                     this.Iframe_drawer_val = true;
                     this.Gocaution_drawer_val = false;
@@ -1248,4 +1264,38 @@
     .switcher-frist .el-switch {
         margin-top: 10px;
     }
+   .card-boxs .icon-menu:after {
+        width: auto;
+        position: absolute;
+        top: -22px;
+        left: -10px;
+        font-size: 20px;
+        z-index: 9;
+        content: "\2630";
+        font-weight: bold;
+        color: #000;
+    }
+    .card-boxs  .icon-menu {
+        position: relative;
+        float: right;
+        font-size: 0;
+        cursor: pointer;
+        visibility: hidden;
+        opacity: 0;
+        transition: all .5s ease .0s;
+        -webkit-transition: all .5s ease .0s;
+        -ms-transition: all .5s ease .0s;
+        -moz-transition: all .5s ease .0s;
+    }
+    div#pane-microApps .el-card__body {
+        padding-top: 30px;
+    }
+    .drawer-save {
+        float: right !important;
+        width: 100px !important;
+        min-width: 100px;
+        margin-top: 15px;
+    }
+    .card-boxs:hover  .icon-menu{ visibility: visible;
+        opacity: 1;}
 </style>

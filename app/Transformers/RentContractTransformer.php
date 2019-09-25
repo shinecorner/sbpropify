@@ -33,6 +33,9 @@ class RentContractTransformer extends BaseTransformer
             'parking_price' => $model->parking_price,
             'start_date' => $model->start_date,
             'end_date' => $model->end_date,
+            'monthly_rent_net' => $model->monthly_rent_net,
+            'monthly_rent_gross' => $model->monthly_rent_gross,
+            'monthly_maintenance' => $model->monthly_maintenance,
         ];
 
         if ($model->start_date) {

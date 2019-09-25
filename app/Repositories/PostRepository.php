@@ -73,8 +73,12 @@ class PostRepository extends BaseRepository
 
                 $rentContracts->load('building:id,quarter_id');
                 $atts['building_ids'] = $rentContracts->pluck('building_id')->unique()->toArray();
-                $quarterIds = $rentContracts->where('building.quarter_id', '!=', null)->pluck('building.quarter_id');
-                $atts['quarter_ids'] = $quarterIds->unique()->toArray();
+                if (!empty($atts['visibility']) && Post::VisibilityQuarter == $atts['visibility']) {
+                    $quarterIds = $rentContracts->where('building.quarter_id', '!=', null)->pluck('building.quarter_id');
+                    $atts['quarter_ids'] = $quarterIds->unique()->toArray();
+                } else {
+                    $atts['quarter_ids'] = [];
+                }
             }
         }
 
