@@ -14,7 +14,7 @@ class ViewRequest extends BaseRequest
      */
     public function authorize()
     {
-        if ($this->user()->can('view-building')) {
+        if ($this->can('view-building')) {
             return true;
         }
 

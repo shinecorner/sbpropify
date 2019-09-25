@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\SRequestCategory;
 
 use App\Models\ServiceRequestCategory;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class CreateRequest extends APIRequest
+class CreateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class CreateRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('add-service_request_category');
+        return $this->can('add-service_request_category');
     }
 
     /**

@@ -15,4 +15,13 @@ class BaseRequest extends APIRequest
     {
         return [];
     }
+
+    /**
+     * @param $permission
+     * @return mixed
+     */
+    protected function can($permission)
+    {
+        return $this->user()->can($permission);
+    }
 }

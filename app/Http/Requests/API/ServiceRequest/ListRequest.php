@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\ServiceRequest;
 
 use App\Models\ServiceRequest;
-use InfyOm\Generator\Request\APIRequest;
+use InfyOm\Generator\Request\BaseRequest;
 
-class ListRequest extends APIRequest
+class ListRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class ListRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('list-request');
+        return $this->can('list-request');
     }
 
     /**

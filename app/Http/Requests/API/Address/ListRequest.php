@@ -13,6 +13,6 @@ class ListRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->user()->can('list-address');
+        return $this->can('list-address');
     }
 }

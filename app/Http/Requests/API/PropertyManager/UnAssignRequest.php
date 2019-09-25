@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\PropertyManager;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
 class UnAssignRequest extends APIRequest
 {
@@ -13,7 +13,7 @@ class UnAssignRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('assign-property_manager');
+        return $this->can('assign-property_manager');
     }
 
     /**

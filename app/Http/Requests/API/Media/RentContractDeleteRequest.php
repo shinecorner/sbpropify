@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\Media;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
 /**
  * Class RentContractDeleteRequest
@@ -17,7 +17,7 @@ class RentContractDeleteRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('edit-tenant'); // @TODO correct permission
+        return $this->can('edit-tenant'); // @TODO correct permission
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\RentContract;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
 class ListRequest extends APIRequest
 {
@@ -13,7 +13,7 @@ class ListRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('list-tenant'); // @TODO add new rule list-rent_contract
+        return $this->can('list-tenant'); // @TODO add new rule list-rent_contract
     }
 
     /**

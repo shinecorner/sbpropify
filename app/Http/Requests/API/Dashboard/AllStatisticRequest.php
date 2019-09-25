@@ -13,6 +13,6 @@ class AllStatisticRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true;
+        return 'view-all-statistics';
     }
 }

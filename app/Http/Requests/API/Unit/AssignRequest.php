@@ -14,7 +14,7 @@ class AssignRequest extends BaseRequest
     public function authorize()
     {
         return true;
-        return $this->user()->can('assign-unit');
+        return $this->can('assign-unit');
     }
 
     /**

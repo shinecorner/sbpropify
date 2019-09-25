@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\User;
 
 use App\Models\User;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class DeleteRequest extends APIRequest
+class DeleteRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class DeleteRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('delete-user');
+        return $this->can('delete-user');
     }
 
     /**

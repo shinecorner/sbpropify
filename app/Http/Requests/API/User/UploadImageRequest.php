@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\User;
 
 use App\Models\User;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class UploadImageRequest extends APIRequest
+class UploadImageRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.

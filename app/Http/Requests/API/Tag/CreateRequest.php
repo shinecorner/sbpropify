@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\Tag;
 
 use App\Models\Tag;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class CreateRequest extends APIRequest
+class CreateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ class CreateRequest extends APIRequest
     public function authorize()
     {
         return true; // @TODO
-        return $this->user()->can('tag-quarter');
+        return $this->can('tag-quarter');
     }
 
     /**

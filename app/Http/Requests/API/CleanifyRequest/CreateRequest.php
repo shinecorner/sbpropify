@@ -13,7 +13,7 @@ class CreateRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->user()->can('add-cleanify_request');
+        return $this->can('add-cleanify_request');
     }
 
     /**

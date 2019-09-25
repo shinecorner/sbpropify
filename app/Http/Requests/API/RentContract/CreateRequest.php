@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API\RentContract;
 
 use App\Models\RentContract;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
 class CreateRequest extends APIRequest
 {
@@ -14,7 +14,7 @@ class CreateRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('add-tenant'); // @TODO use correct permission
+        return $this->can('add-tenant'); // @TODO use correct permission
     }
 
     /**

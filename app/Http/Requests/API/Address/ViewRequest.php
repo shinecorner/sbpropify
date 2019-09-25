@@ -13,6 +13,6 @@ class ViewRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->user()->can('view-address');
+        return $this->can('view-address');
     }
 }

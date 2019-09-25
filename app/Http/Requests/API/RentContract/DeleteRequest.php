@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\RentContract;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
 class DeleteRequest extends APIRequest
 {
@@ -13,7 +13,7 @@ class DeleteRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('delete-tenant'); // @TODO add new rule list-rent_contract
+        return $this->can('delete-tenant'); // @TODO add new rule list-rent_contract
     }
 
     /**

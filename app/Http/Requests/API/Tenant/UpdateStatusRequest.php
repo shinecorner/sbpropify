@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\Tenant;
 
 use App\Models\Tenant;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class UpdateStatusRequest extends APIRequest
+class UpdateStatusRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class UpdateStatusRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('edit-tenant');
+        return $this->can('edit-tenant');
     }
 
     /**

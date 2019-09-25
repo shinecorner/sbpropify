@@ -3,7 +3,7 @@
 namespace App\Http\Requests\API\RentContract;
 
 use App\Models\RentContract;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
 class UpdateRequest extends APIRequest
 {
@@ -14,7 +14,7 @@ class UpdateRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('edit-tenant'); // @TODO use correct permission
+        return $this->can('edit-tenant'); // @TODO use correct permission
     }
 
     /**

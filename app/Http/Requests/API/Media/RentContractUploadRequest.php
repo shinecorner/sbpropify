@@ -2,13 +2,13 @@
 
 namespace App\Http\Requests\API\Media;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
 /**
  * Class RentContractUploadRequest
  * @package App\Http\Requests\API\Media
  */
-class RentContractUploadRequest extends APIRequest
+class RentContractUploadRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,7 +17,7 @@ class RentContractUploadRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('edit-tenant'); // @TODO correct permission
+        return $this->can('edit-tenant'); // @TODO correct permission
     }
 
     /**

@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\Tenant;
 
 use App\Models\Tenant;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class UpdateLoggedInRequest extends APIRequest
+class UpdateLoggedInRequest extends BaseRequest
 {
     /**
      * Get the validation rules that apply to the request.

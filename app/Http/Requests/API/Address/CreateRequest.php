@@ -14,7 +14,7 @@ class CreateRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->user()->can('add-address');
+        return $this->can('add-address');
     }
 
     /**

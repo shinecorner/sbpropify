@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\UserSetting;
 
 use App\Models\UserSettings;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class UpdateLoggedInRequest extends APIRequest
+class UpdateLoggedInRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.

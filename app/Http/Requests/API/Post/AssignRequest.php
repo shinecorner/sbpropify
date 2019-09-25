@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\Post;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
 class AssignRequest extends APIRequest
 {
@@ -13,7 +13,7 @@ class AssignRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('assign-post');
+        return $this->can('assign-post');
     }
 
     /**

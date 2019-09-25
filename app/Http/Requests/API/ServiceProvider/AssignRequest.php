@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\API\ServiceProvider;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class AssignRequest extends APIRequest
+class AssignRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class AssignRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('assign-provider');
+        return $this->can('assign-provider');
     }
 
     /**

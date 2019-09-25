@@ -14,7 +14,7 @@ class UpdateRequest extends BaseRequest
      */
     public function authorize()
     {
-        if ($this->user()->can('edit-comment')) {
+        if ($this->can('edit-comment')) {
             return true;
         }
         $comm = Comment::where('id', $this->route('id'))

@@ -14,6 +14,6 @@ class UnAssignRequest extends BaseRequest
     public function authorize()
     {
         // @TODO ROLE RELATED is need unassign-building like add-building, deleted building
-        return $this->user()->can('assign-building');
+        return $this->can('assign-building');
     }
 }

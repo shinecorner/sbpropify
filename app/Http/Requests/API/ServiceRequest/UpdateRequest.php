@@ -4,10 +4,10 @@ namespace App\Http\Requests\API\ServiceRequest;
 
 use App\Models\ServiceRequest;
 use Illuminate\Support\Facades\Auth;
-use InfyOm\Generator\Request\APIRequest;
+use InfyOm\Generator\Request\BaseRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateRequest extends APIRequest
+class UpdateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.

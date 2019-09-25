@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\Media;
 
 use App\Models\Tenant;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class TenantDeleteRequest extends APIRequest
+class TenantDeleteRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ class TenantDeleteRequest extends APIRequest
     public function authorize()
     {
         // @TODO ROLE RELATED
-        return $this->user()->can('edit-tenant');
+        return $this->can('edit-tenant');
     }
 
     /**

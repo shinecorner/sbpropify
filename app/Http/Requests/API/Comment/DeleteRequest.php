@@ -15,7 +15,7 @@ class DeleteRequest extends BaseRequest
     public function authorize()
     {
         //TODO ROLE RELATED is need create delete-comment like other
-        if ($this->user()->can('edit-comment')) {
+        if ($this->can('edit-comment')) {
             return true;
         }
         return Comment::where('id', $this->route('id'))

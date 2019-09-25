@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\Tenant;
 
 use App\Models\Tenant;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class ShowRequest extends APIRequest
+class ShowRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class ShowRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('view-tenant');
+        return $this->can('view-tenant');
     }
 
     /**

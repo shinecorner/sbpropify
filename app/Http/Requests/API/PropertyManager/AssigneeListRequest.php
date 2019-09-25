@@ -13,6 +13,6 @@ class AssigneeListRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->user()->can('assign-property_manager');
+        return $this->can('assign-property_manager');
     }
 }

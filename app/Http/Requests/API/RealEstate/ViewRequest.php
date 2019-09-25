@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\API\RealEstate;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class ViewRequest extends APIRequest
+class ViewRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class ViewRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('view-real_estate');
+        return $this->can('view-real_estate');
     }
 
     /**

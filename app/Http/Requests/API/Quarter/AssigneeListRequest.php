@@ -13,6 +13,6 @@ class AssigneeListRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->user()->can('assign-building');
+        return $this->can('assign-building');
     }
 }
