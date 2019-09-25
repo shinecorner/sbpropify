@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\API;
 
 use App\Criteria\Common\WhereCriteria;
-use App\Http\Requests\API\CreateInternalNoticeAPIRequest;
-use App\Http\Requests\API\UpdateInternalNoticeAPIRequest;
+use App\Http\Requests\API\InternalNotice\CreateRequest;
+use App\Http\Requests\API\InternalNotice\DeleteRequest;
+use App\Http\Requests\API\InternalNotice\ListRequest;
+use App\Http\Requests\API\InternalNotice\UpdateRequest;
+use App\Http\Requests\API\InternalNotice\ViewRequest;
 use App\Models\InternalNotice;
 use App\Repositories\InternalNoticeRepository;
 use App\Transformers\InternalNotesTransformer;
-use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
-use Illuminate\Support\Facades\Response;
 
 /**
  * Class InternalNoticeController
@@ -22,17 +23,16 @@ class InternalNoticeAPIController extends AppBaseController
     /** @var  InternalNoticeRepository */
     private $internalNoticeRepository;
 
+    /**
+     * InternalNoticeAPIController constructor.
+     * @param InternalNoticeRepository $internalNoticeRepo
+     */
     public function __construct(InternalNoticeRepository $internalNoticeRepo)
     {
         $this->internalNoticeRepository = $internalNoticeRepo;
     }
 
     /**
-     * @param Request $request
-     * @return mixed
-     * @throws \Prettus\Repository\Exceptions\RepositoryException
-     *
-     *
      * @SWG\Get(
      *      path="/internalNotices",
      *      summary="Get a listing of the InternalNotices.",
@@ -72,8 +72,12 @@ class InternalNoticeAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function index(Request $request)
+    public function index(ListRequest $request)
     {
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         if (!empty($request->request_id)) {
@@ -93,10 +97,7 @@ class InternalNoticeAPIController extends AppBaseController
         return $this->sendResponse($response, 'Internal Notices retrieved successfully');
     }
 
-    /**
-     * @param CreateInternalNoticeAPIRequest $request
-     * @return Response
-     *
+    /**\
      * @SWG\Post(
      *      path="/internalNotices",
      *      summary="Store a newly created InternalNotice in storage",
@@ -130,8 +131,12 @@ class InternalNoticeAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(CreateInternalNoticeAPIRequest $request)
+    public function store(CreateRequest $request)
     {
         $input = $request->all();
 
@@ -141,9 +146,6 @@ class InternalNoticeAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/internalNotices/{id}",
      *      summary="Display the specified InternalNotice",
@@ -177,8 +179,12 @@ class InternalNoticeAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param ViewRequest $r
+     * @return mixed
      */
-    public function show($id)
+    public function show($id, ViewRequest $r)
     {
         /** @var InternalNotice $internalNotice */
         $internalNotice = $this->internalNoticeRepository->find($id);
@@ -192,10 +198,6 @@ class InternalNoticeAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param UpdateInternalNoticeAPIRequest $request
-     * @return Response
-     *
      * @SWG\Put(
      *      path="/internalNotices/{id}",
      *      summary="Update the specified InternalNotice in storage",
@@ -236,8 +238,13 @@ class InternalNoticeAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param UpdateRequest $request
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update($id, UpdateInternalNoticeAPIRequest $request)
+    public function update($id, UpdateRequest $request)
     {
         $input = $request->all();
 
@@ -254,9 +261,6 @@ class InternalNoticeAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/internalNotices/{id}",
      *      summary="Remove the specified InternalNotice from storage",
@@ -290,8 +294,13 @@ class InternalNoticeAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param DeleteRequest $r
+     * @return mixed
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy($id, DeleteRequest $r)
     {
         /** @var InternalNotice $internalNotice */
         $internalNotice = $this->internalNoticeRepository->find($id);
