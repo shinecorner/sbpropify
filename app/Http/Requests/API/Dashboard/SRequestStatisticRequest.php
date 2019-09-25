@@ -13,6 +13,6 @@ class SRequestStatisticRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->can('view-requests_statistics');
     }
 }

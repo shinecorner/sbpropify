@@ -13,6 +13,6 @@ class PieChartStatisticRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->can('view-pie_chart_statistics');
     }
 }

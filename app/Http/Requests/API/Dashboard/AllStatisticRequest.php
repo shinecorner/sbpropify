@@ -13,6 +13,6 @@ class AllStatisticRequest extends BaseRequest
      */
     public function authorize()
     {
-        return 'view-all-statistics';
+        return $this->can('view-all_statistics');
     }
 }

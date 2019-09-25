@@ -13,6 +13,6 @@ class TenantStatisticRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->can('view-tenants_statistics');
     }
 }

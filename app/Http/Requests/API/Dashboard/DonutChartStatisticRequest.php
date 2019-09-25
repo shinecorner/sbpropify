@@ -13,6 +13,6 @@ class DonutChartStatisticRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->can('view-donut_chart_statistics');
     }
 }

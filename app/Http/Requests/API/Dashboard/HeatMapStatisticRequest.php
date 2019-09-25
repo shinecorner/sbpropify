@@ -13,6 +13,6 @@ class HeatMapStatisticRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->can('view-heat_map_statistics');
     }
 }

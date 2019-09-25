@@ -13,6 +13,6 @@ class BuildingStatisticRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->can('view-buildings_statistics');
     }
 }

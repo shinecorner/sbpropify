@@ -13,6 +13,7 @@ class DeleteRequest extends BaseRequest
      */
     public function authorize()
     {
+        //TODO ROLE RELATED is need create delete-internal_notice
         return true;
     }
 }

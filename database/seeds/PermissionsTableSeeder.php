@@ -108,6 +108,15 @@ class PermissionsTableSeeder extends Seeder
         // Cleanify requests
         ['list-cleanify_request', 'List cleanify requests', 'list cleanify requests'],
         ['add-cleanify_request', 'Add cleanify requests', 'add cleanify requests'],
+
+        //statistics
+        ['view-tenants_statistics', 'View tenants statistics', 'view tenants statistics'],
+        ['view-requests_statistics', 'View requests statistics', 'view requests statistics'],
+        ['view-buildings_statistics', 'View buildings statistics', 'view buildings statistics'],
+        ['view-all_statistics', 'View all statistics', 'view all statistics'],
+        ['view-pie_chart_statistics', 'View pie chart statistics', 'view pie chart statistics'],
+        ['view-donut_chart_statistics', 'View donut chart statistics', 'view donut chart statistics'],
+        ['view-heat_map_statistics', 'View heat map statistics', 'view heat map statistics'],
     ];
     /**
      * Run the database seeds.

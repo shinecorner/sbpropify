@@ -13,6 +13,7 @@ class ListRequest extends BaseRequest
      */
     public function authorize()
     {
+        //TODO ROLE RELATED is need create list-internal_notice
         return true;
     }
 }
