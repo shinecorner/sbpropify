@@ -96,9 +96,9 @@ class Building extends AuditableModel implements HasMedia
     const ContactEnablesHide = 3;
 
     const BuildingContactEnables = [
-        self::ContactEnablesBasedRealEstate => 'Reference Real Estate',
-        self::ContactEnablesShow => 'Show',
-        self::ContactEnablesHide => 'Hide',
+        self::ContactEnablesBasedRealEstate => 'reference_real_estate',
+        self::ContactEnablesShow => 'show',
+        self::ContactEnablesHide => 'hide',
     ];
 
     public $table = 'buildings';
