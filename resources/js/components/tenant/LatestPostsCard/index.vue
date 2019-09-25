@@ -8,8 +8,8 @@
         <div class="placeholder" v-else-if="!loading && !posts.length">
             <img class="image" :src="require('img/5c9d6e6c73f70.png')" />
             <div class="content">
-                <div class="title">No post available yet.</div>
-                <div class="description">Et aut cum ut earum. Et aperiam ut possimus explicabo. Modi dolores in odit id fuga maxime aperiam dolor.</div>
+                <div class="title">{{$t('tenant.no_data.news')}}</div>
+                <div class="description">{{$t('tenant.no_data_info.news')}}</div>
             </div>
         </div>
         <el-collapse :value="0" accordion v-else>
@@ -27,8 +27,8 @@
                             <div>
                                 <i class="icon-picture"></i> {{post.media.length}}
                             </div>
-                            <div class="time">
-                                {{ago(post.published_at)}}
+                            <div class="time">                                                      
+                                {{ago(post.published_at, $i18n.locale)}}
                             </div>
                         </like>
                     </div>

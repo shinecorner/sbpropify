@@ -14,8 +14,8 @@
             </el-divider>
         </el-col>
         <placeholder :src="require('img/5ce8f4e279cb2.png')" v-if="isEmpty">
-            No activity available for now!
-            <small>All available activities will appear here in chronological order.</small>
+            {{$t('tenant.no_data.activity')}}
+            <small>{{$t('tenant.no_data_info.activity')}}</small>
         </placeholder>
             <el-timeline v-else>
                 <template v-for="(audit, date) in audits.data">
@@ -24,7 +24,7 @@
                     </el-timeline-item>
                 </template>
                 <el-timeline-item v-if="loading">
-                    Loading...
+                    {{$t('tenant.loading')}}
                 </el-timeline-item>
             </el-timeline>
     </div>
@@ -90,7 +90,7 @@
                 schema_children.push({
                             type: 'el-option',
                             props: {
-                                label: this.$t('tenant.all'),
+                                label: 'tenant.all',
                                 value: null
                             }
                         });
@@ -104,11 +104,12 @@
                         schema_children.push({
                             type: 'el-option',
                             props: {
-                                label: filter_event_translations[key],
+                                label: `components.common.audit.filter.${this.type}.${key}`,
                                 value: key
                             }
                         })
                     });
+                    console.log(schema_children);
                 }else{
                     // If there is no type prop on audit component then show type select
                     // Get filter translations from file
@@ -126,7 +127,7 @@
                 }
                 this.filters.schema.push({
                     type: 'el-select',
-                    title: this.$t('tenant.type'),
+                    title: 'tenant.type',
                     name: filter_name,
                     props: {
                         size: 'mini'

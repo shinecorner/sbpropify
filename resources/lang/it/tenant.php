@@ -56,6 +56,8 @@ return [
         "neighbour" => "Non hai ancora vicini di casa",
         "personal" => "Nessun dato personale disponibile.",
         "property_manager" => "Non hai ancora un manager",
+        "activity" => "Non sono ancora disponibili attività",
+        "news" => "Non ci sono ancora palo",
     ],
     "no_data_info" => [
         "product" => "Tutti loro saranno elencati qui.",
@@ -64,6 +66,8 @@ return [
         "neighbour" => "Tutti loro saranno elencati qui.",
         "contact" => "Tutti loro saranno elencati qui.",
         "personal" => "Tutti loro saranno elencati qui.",
+        "activity" => "Tutte le attività disponibili appariranno qui in ordine cronologico.",
+        "news" => "Tutti loro saranno elencati qui.",
     ],
     "notifications" => [
         "prompt" => "Selezionare i tipi di notifiche che si desidera ricevere solo.",
@@ -218,4 +222,5 @@ return [
     "providers" => "fornitori di servizi",
     "execution" => "Esecuzione",
     "loading" => "Caricamento...",
+    "chat" => "Chiacchierata",
 ];

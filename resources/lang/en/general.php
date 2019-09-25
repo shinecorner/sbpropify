@@ -11,6 +11,7 @@ return [
         'weeks' => 'Weeks',
         'months' => 'Months',
         'years' => 'Years',
+        'day' => 'Day'
     ],
     'chooseLanguage' => 'Choose Language',
     'language' => "Language",

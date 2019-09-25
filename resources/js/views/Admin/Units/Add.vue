@@ -66,10 +66,10 @@
                                        v-for="room in rooms"/>
                         </el-select>
                     </el-form-item>
-                    <el-form-item :label="$t('models.unit.monthly_rent')" :rules="validationRules.monthly_rent"
-                                  prop="monthly_rent">
+                    <el-form-item :label="$t('models.unit.monthly_rent_net')" :rules="validationRules.monthly_rent_net"
+                                  prop="monthly_rent_net">
                         <el-input autocomplete="off" step="0.01" type="number"
-                                  v-model="model.monthly_rent"></el-input>
+                                  v-model="model.monthly_rent_net"></el-input>
                     </el-form-item>
                     <el-form-item :label="$t('models.unit.floor')" :rules="validationRules.floor" prop="floor">
                         <el-input autocomplete="off" type="number" v-model="model.floor"></el-input>

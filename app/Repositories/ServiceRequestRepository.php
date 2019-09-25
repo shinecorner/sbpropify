@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\AuditableModel;
 use App\Mails\NotifyServiceProvider;
 use App\Models\Comment;
+use App\Models\Model;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
@@ -177,6 +178,30 @@ class ServiceRequestRepository extends BaseRepository
         return $attributes;
     }
 
+    /**
+     * @param Model $model
+     * @param $attributes
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
+    public function updateExisting(Model $model, $attributes)
+    {
+        $attributes = $this->getPutAttributes($attributes, $model);
+        $attributes = $this->getStatusRelatedAttributes($attributes, $model);
+        $oldModel = clone $model;
+        $updatedModel =  parent::updateExisting($model, $attributes);
+
+        if ($updatedModel) {
+            $this->notifyStatusChangeIfNeed($oldModel, $updatedModel);
+
+            if ($updatedModel->due_date && $updatedModel->due_date != $oldModel->due_date) {
+                $this->notifyDue($updatedModel);
+            }
+        }
+
+        return $updatedModel;
+    }
+
     public static function getStatusRelatedAttributes($attributes, $request)
     {
         if ($attributes['status'] != $request->status) {
@@ -227,7 +252,7 @@ class ServiceRequestRepository extends BaseRepository
      * @param ServiceRequest $originalRequest
      * @param ServiceRequest $serviceRequest
      */
-    public function notifyStatusChange(ServiceRequest $originalRequest, ServiceRequest $serviceRequest)
+    public function notifyStatusChangeIfNeed(ServiceRequest $originalRequest, ServiceRequest $serviceRequest)
     {
         if ($originalRequest->status != $serviceRequest->status) {
             $user = $serviceRequest->tenant->user;

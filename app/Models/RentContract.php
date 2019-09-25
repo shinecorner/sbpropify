@@ -75,24 +75,27 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *          type="integer"
  *      ),
  *     @SWG\Property(
- *          property="net_rent",
- *          description="net_rent",
- *          type="integer"
- *      ),
- *     @SWG\Property(
- *          property="operating_cost",
- *          description="operating_cost",
- *          type="integer"
- *      ),
- *     @SWG\Property(
- *          property="gross_rent",
- *          description="gross_rent",
- *          type="integer"
- *      ),
- *     @SWG\Property(
  *          property="parking_price",
  *          description="parking_price",
  *          type="integer"
+ *      ),
+ *      @SWG\Property(
+ *          property="monthly_rent_net",
+ *          description="monthly_rent_net",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="monthly_rent_gross",
+ *          description="monthly_rent_gross",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="monthly_maintenance",
+ *          description="monthly_maintenance",
+ *          type="integer",
+ *          format="int32"
  *      ),
  *     @SWG\Property(
  *          property="start_date",
@@ -182,9 +185,6 @@ class RentContract extends AuditableModel implements HasMedia
         'deposit_type' => 'digits_between:1,4|numeric',
         'deposit_status' => 'digits_between:1,2|numeric',
         'deposit_amount' => 'numeric',
-        'net_rent' => 'numeric',
-        'operating_cost' => 'numeric',
-        'gross_rent' => 'numeric',
         'parking_price' => 'numeric',
     ];
 
@@ -204,12 +204,12 @@ class RentContract extends AuditableModel implements HasMedia
         'deposit_type',
         'deposit_status',
         'deposit_amount',
-        'net_rent',
-        'operating_cost',
-        'gross_rent',
         'parking_price',
         'start_date',
         'end_date',
+        'monthly_rent_net',
+        'monthly_rent_gross',
+        'monthly_maintenance',
     ];
 
     /**
@@ -233,10 +233,10 @@ class RentContract extends AuditableModel implements HasMedia
         'deposit_type' => 'integer',
         'deposit_status' => 'integer',
         'deposit_amount' => 'integer',
-        'net_rent' => 'integer',
-        'operating_cost' => 'integer',
-        'gross_rent' => 'integer',
         'parking_price' => 'integer',
+        'monthly_rent_net' => 'float',
+        'monthly_rent_gross' => 'float',
+        'monthly_maintenance' => 'float',
     ];
 
     /**
