@@ -13,7 +13,6 @@ class ListRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true;
         return $this->user()->can('list-cleanify_request');
     }
 }

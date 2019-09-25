@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Criteria\CleanifyRequests\FilterByUserCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\CleanifyRequest\CreateRequest;
+use App\Http\Requests\API\CleanifyRequest\ListRequest;
 use App\Models\RealEstate;
 use App\Repositories\CleanifyRequestRepository;
 use App\Repositories\TemplateRepository;
@@ -64,11 +65,11 @@ class CleanifyRequestAPIController extends AppBaseController
      *      )
      * )
      *
-     * @param Request $request
+     * @param ListRequest $request
      * @return Response
      * @throws /Exception
      */
-    public function index(Request $request)
+    public function index(ListRequest $request)
     {
         $this->repo->pushCriteria(new FilterByUserCriteria($request));
 
