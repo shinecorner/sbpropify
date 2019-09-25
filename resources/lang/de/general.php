@@ -252,5 +252,4 @@ return [
     'to_homepage' => 'Zur Startseite',
     'assignment' => 'Zugewiesene Liegenschaften',
     'status_changed' => 'Status geändert',
-    'notification' => 'Benachrichtigung',
 ];

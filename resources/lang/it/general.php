@@ -251,6 +251,5 @@ return [
     ],
     'to_homepage' => 'Alla Homepage',
     "assignment" => "Assegnazione",
-    'status_changed' => "Stato cambiato",
-    'notification' => 'Notifica',
+    'status_changed' => "Stato cambiato"
 ];
