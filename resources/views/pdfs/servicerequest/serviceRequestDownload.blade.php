@@ -21,8 +21,8 @@
                                     <p> @lang('models.request.status.'.\App\Models\ServiceRequest::Status[$request->status],[],$language) ({{ now()->format('d.m.Y H:i') }})</p>
 
                                     <p> {{ @$tenant->address->street }}
-                                        {{ @$tenant->address->house_num }}
-                                        {{ @$tenant->address->zip }},
+                                        {{ @$tenant->address->house_num }},
+                                        {{ @$tenant->address->zip }}
                                         {{ @$tenant->address->city }}
 
                                     </p>
