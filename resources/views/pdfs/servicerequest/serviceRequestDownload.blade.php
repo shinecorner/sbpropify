@@ -18,10 +18,10 @@
 
                                     {{ $category->{'name'.($language != 'en' ? '_'.$language : '') } }}
                                     </p>
-                                    <p> @lang('models.request.status.'.\App\Models\ServiceRequest::Status[$request->status],[],$language) ({{ now()->format('d.m.Y H:i a') }})</p>
+                                    <p> @lang('models.request.status.'.\App\Models\ServiceRequest::Status[$request->status],[],$language) ({{ now()->format('d.m.Y H:i') }})</p>
 
-                                    <p> {{ @$tenant->address->street }},
-                                        {{ @$tenant->building_id }} ,
+                                    <p> {{ @$tenant->address->street }}
+                                        {{ @$tenant->building_id }}
                                         {{ @$tenant->address->zip }},
                                         {{ @$tenant->address->city }}
 
