@@ -57,6 +57,7 @@ return [
         "personal" => "Nessun dato personale disponibile.",
         "property_manager" => "Non hai ancora un manager",
         "activity" => "Non sono ancora disponibili attività",
+        "news" => "Non ci sono ancora palo",
     ],
     "no_data_info" => [
         "product" => "Tutti loro saranno elencati qui.",
@@ -66,6 +67,7 @@ return [
         "contact" => "Tutti loro saranno elencati qui.",
         "personal" => "Tutti loro saranno elencati qui.",
         "activity" => "Tutte le attività disponibili appariranno qui in ordine cronologico.",
+        "news" => "Tutti loro saranno elencati qui.",
     ],
     "notifications" => [
         "prompt" => "Selezionare i tipi di notifiche che si desidera ricevere solo.",
