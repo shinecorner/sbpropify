@@ -21,7 +21,7 @@
                                     <p> @lang('models.request.status.'.\App\Models\ServiceRequest::Status[$request->status],[],$language) ({{ now()->format('d.m.Y H:i') }})</p>
 
                                     <p> {{ @$tenant->address->street }}
-                                        {{ @$tenant->building_id }}
+                                        {{ @$tenant->address->house_num }}
                                         {{ @$tenant->address->zip }},
                                         {{ @$tenant->address->city }}
 
@@ -55,20 +55,22 @@
                                             </td>
 
                                             <td class="no_border">
-                                                @lang('models.request.category_options.acquisitions.'.$request->capture_phase,[],$language)
+                                                @if($request->capture_phase != null)
+                                                    {{ \Lang::has('models.request.category_options.apartment_rooms.'.$request->capture_phase) ?  __('models.request.category_options.apartment_rooms.'.$request->capture_phase,[],$language) : '' }}
+                                                @endif
                                             </td>
 
                                             @endif
-                                                @if($category->has_qualifications == 1 || ($category->parentCategory != null && $category->parentCategory->has_qualifications))
-                                                    <td class="no_border">
-                                                        <strong>
-                                                            @lang('models.request.qualification.label',[],$language):
-                                                        </strong>
-                                                    </td>
-                                                    <td class="no_border">
-                                                        @lang('models.request.qualification.'.\App\Models\ServiceRequest::Qualification[$request->qualification],[],$language)
-                                                    </td>
-                                               @endif
+                                            @if($category->has_qualifications == 1 || ($category->parentCategory != null && $category->parentCategory->has_qualifications))
+                                                <td class="no_border">
+                                                    <strong>
+                                                        @lang('models.request.qualification.label',[],$language):
+                                                    </strong>
+                                                </td>
+                                                <td class="no_border">
+                                                    @lang('models.request.qualification.'.\App\Models\ServiceRequest::Qualification[$request->qualification],[],$language)
+                                                </td>
+                                           @endif
                                         </tr>
 
 
@@ -79,14 +81,22 @@
 
 
                                             @if($category->location == 1 || ($category->parentCategory != null && $category->parentCategory->location))
-                                                <td class="border_btm"><strong> @lang('models.request.category_options.range',[],$language):</strong></td>
-                                                <td class="border_btm"> {{ array_values(__('models.request.category_options.building_locations',[],$language))[$request->location] }}</td>
+                                                <td class="border_btm">
+                                                    <strong> @lang('models.request.category_options.range',[],$language):</strong>
+                                                </td>
+                                                <td class="border_btm">
+                                                    @if($request->location !=null )
+                                                        {{ array_values(__('models.request.category_options.building_locations',[],$language))[$request->location] }}
+                                                    @endif
+                                                </td>
                                             @endif
 
                                             @if($category->room == 1 || ($category->parentCategory != null && $category->parentCategory->room))
                                              <td class="border_btm"><strong>@lang('models.request.category_options.room',[],$language):</strong></td>
                                                 <td class="border_btm">
-                                                    @lang('models.request.category_options.apartment_rooms.'.$request->room,[],$language)
+                                                    @if($request->room != '')
+                                                        {{ \Lang::has('models.request.category_options.apartment_rooms.'.$request->room) ?  __('models.request.category_options.apartment_rooms.'.$request->room,[],$language) : '' }}
+                                                    @endif
                                                 </td>
                                             @endif
 
