@@ -8,7 +8,7 @@
                 <el-timeline-item :class="{'is-unread': !notification.read_at}" v-for="notification in notifications.data" :key="notification.id" size="large" placement="top" hide-timestamp>
                     <div class="user">
                         <ui-avatar :src="notification.avatar" :name="notification.data.user_name" :size="24" />
-                        {{notification.data.user_name}} • <div class="date">{{ago(notification.created_at)}}</div>
+                        {{notification.data.user_name}} • <div class="date">{{ago(notification.created_at, $i18n.locale)}}</div>
                     </div>
                     <div class="content">{{notification.data.fragment}}</div>
                     <el-dropdown size="small" @command="onDropdownCommand" trigger="click">

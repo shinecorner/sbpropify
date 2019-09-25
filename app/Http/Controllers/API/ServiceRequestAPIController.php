@@ -345,7 +345,6 @@ class ServiceRequestAPIController extends AppBaseController
     public function update($id, UpdateRequest $request)
     {
         $input = $request->only(ServiceRequest::Fillable);
-
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
@@ -357,13 +356,7 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
-        $attr = $this->serviceRequestRepository->getPutAttributes($input, $serviceRequest);
-        $updatedServiceRequest = $this->serviceRequestRepository->update($attr, $id);
-        $this->serviceRequestRepository->notifyStatusChange($serviceRequest, $updatedServiceRequest);
-
-        if ($updatedServiceRequest->due_date && $updatedServiceRequest->due_date != $serviceRequest->due_date) {
-            $this->serviceRequestRepository->notifyDue($updatedServiceRequest);
-        }
+        $updatedServiceRequest = $this->serviceRequestRepository->updateExisting($serviceRequest, $input);
 
         $updatedServiceRequest->load([
             'media', 'tenant.user', 'category', 'managers.user', 'users', 'remainder_user',
@@ -422,13 +415,12 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $input = ['status' => $request->get('status', '')];
-        $input = $this->serviceRequestRepository->getStatusRelatedAttributes($input, $serviceRequest);
 
         if (!$this->serviceRequestRepository->checkStatusPermission($input, $serviceRequest->status)) {
             return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
-        $serviceRequest = $this->serviceRequestRepository->update($input, $id);
+        $serviceRequest = $this->serviceRequestRepository->updateExisting($serviceRequest, $input);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, __('models.request.status_changed'));
     }

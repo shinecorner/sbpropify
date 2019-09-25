@@ -56,11 +56,11 @@
                             </el-col>
 
                             <el-col :md="6" >
-                                <el-form-item :label="$t('models.unit.monthly_rent')"
-                                              :rules="validationRules.monthly_rent"
-                                              prop="monthly_rent">
+                                <el-form-item :label="$t('models.unit.monthly_rent_net')"
+                                              :rules="validationRules.monthly_rent_net"
+                                              prop="monthly_rent_net">
                                     <el-input autocomplete="off" step="0.01" type="number"
-                                              v-model="model.monthly_rent">
+                                              v-model="model.monthly_rent_net">
                                         <template slot="prepend">CHF</template>
                                     </el-input>
                                 </el-form-item>

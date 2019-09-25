@@ -3,7 +3,7 @@
         <el-tooltip :content="data.user.name" :placement="reversed ? 'top-end':'top-start'" effect="dark">
             <template slot="content">
                 {{data.user.name}}
-                <small style="display: block;">{{ago(data.created_at)}}</small>
+                <small style="display: block;">{{ago(data.created_at, $i18n.locale)}}</small>
             </template>
             <ui-avatar ref="avatar" :name="data.user.name" :size="32" :src="data.user.avatar" />
         </el-tooltip>

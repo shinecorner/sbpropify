@@ -290,7 +290,7 @@ return [
         "floor" => "L'étage",
         "sq_meter" => "Mètre carré",
         "room_no" => "Nombre de pièces",
-        "monthly_rent" => "Loyer mensuel",
+        "monthly_rent_net" => "Loyer mensuel",
         "building_search" => "Veuillez entrer le nom d'un bâtiment et le sélectionner",
         "building" => "Bâtiment",
         "basement" => "Sous-sol",
@@ -317,7 +317,7 @@ return [
             'building' => [
                 "required" => "Un bâtiment est nécessaire",
             ],
-            'monthly_rent' => [
+            'monthly_rent_net' => [
                 "required" => "Un loyer mensuel est exigé",
             ],
             'floor' => [
