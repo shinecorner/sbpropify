@@ -15,7 +15,7 @@ class CreateRequest extends APIRequest
     public function authorize()
     {
         $u = \Auth::user();
-        return $u->can('post-post') || $u->can('post-located-post');
+        return $u->can('add-post');
     }
 
     /**

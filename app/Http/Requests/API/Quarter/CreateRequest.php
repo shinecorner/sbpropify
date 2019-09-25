@@ -14,7 +14,7 @@ class CreateRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('post-quarter');
+        return $this->user()->can('add-quarter');
     }
 
     /**

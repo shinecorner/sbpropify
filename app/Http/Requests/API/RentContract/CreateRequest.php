@@ -14,7 +14,7 @@ class CreateRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('post-tenant'); // @TODO use correct permission
+        return $this->user()->can('add-tenant'); // @TODO use correct permission
     }
 
     /**

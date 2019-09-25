@@ -14,7 +14,7 @@ class CreateRequest extends APIRequest
      */
     public function authorize()
     {
-        return \Auth::user()->can('post-product');
+        return \Auth::user()->can('add-product');
     }
 
     /**

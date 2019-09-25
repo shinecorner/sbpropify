@@ -14,7 +14,7 @@ class CreateRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('post-property_manager');
+        return $this->user()->can('add-property_manager');
     }
 
     /**

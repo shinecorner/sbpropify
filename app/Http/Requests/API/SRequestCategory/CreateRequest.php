@@ -14,7 +14,7 @@ class CreateRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('post-service_request_category');
+        return $this->user()->can('add-service_request_category');
     }
 
     /**

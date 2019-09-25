@@ -21,7 +21,7 @@ class CreateRequest extends APIRequest
     public function authorize()
     {
         $user = Auth::user();
-        if (!$user->can(['post-request_tenant', 'post-request_service', 'post-request'])) {
+        if (!$user->can(['add-request'])) {
             return false;
         }
 
@@ -36,7 +36,7 @@ class CreateRequest extends APIRequest
     public function rules()
     {
         $user = Auth::user();
-        if ($user->can('post-request_tenant')) {
+        if ($user->can('add-request_tenant')) { // @TODO @TODO
             return ServiceRequest::$rulesPostTenant;
         }
 
