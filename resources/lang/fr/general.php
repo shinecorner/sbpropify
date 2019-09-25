@@ -253,5 +253,5 @@ return [
     'to_homepage' => 'Vers la page d\'accueil',
     "assignment" => "Affectation",
     'status_changed' => "Changement de statut",
-    'notification' => 'Notification',
+
 ];
