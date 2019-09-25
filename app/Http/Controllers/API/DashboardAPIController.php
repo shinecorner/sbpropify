@@ -314,10 +314,9 @@ class DashboardAPIController extends AppBaseController
     }
 
     /**
-     * @param BuildingStatisticRequest $request
      * @return array
      */
-    protected function allBuildingStatistics(BuildingStatisticRequest $request)
+    protected function allBuildingStatistics()
     {
         $unitCount = Unit::count();
         $occupiedUnitsCount = Unit::has('tenant')->count();
@@ -859,7 +858,7 @@ class DashboardAPIController extends AppBaseController
             // all time total requests count and total request count of per status
             'total_requests' => $this->thousandsFormat(ServiceRequest::count('id')),
             'requests_per_status' => $this->donutChartByTable($request, $optionalArgs, 'service_requests'),
-            'requests_per_category' => $this->donutChartRequestByCategory($request, $optionalArgs),
+            'requests_per_category' => $this->_donutChartRequestByCategory($request, $optionalArgs),
 
             // all time total tenants count and total tenants count of per status
             'total_tenants' => $this->thousandsFormat(Tenant::count('id')),
@@ -1222,6 +1221,16 @@ class DashboardAPIController extends AppBaseController
      */
     public function donutChart(DonutChartStatisticRequest $request, $optionalArgs = [])
     {
+        return $this->_donutChart($request, $optionalArgs);
+    }
+
+    /**
+     * @param $request
+     * @param array $optionalArgs
+     * @return mixed
+     */
+    protected function _donutChart($request, $optionalArgs = [])
+    {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         [$class, $table, $column, $columnValues] = $this->getTableColumnClassByRequest(
             $request,
@@ -1307,6 +1316,16 @@ class DashboardAPIController extends AppBaseController
      * @return mixed
      */
     public function donutChartRequestByCategory(SRequestStatisticRequest $request, $optionalArgs = [])
+    {
+        return $this->_donutChartRequestByCategory($request, $optionalArgs);
+    }
+
+    /**
+     * @param $request
+     * @param array $optionalArgs
+     * @return array|mixed
+     */
+    protected function _donutChartRequestByCategory($request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         $name = get_translation_attribute_name('name');
@@ -1932,7 +1951,7 @@ class DashboardAPIController extends AppBaseController
      */
     protected function donutChartByTable(Request $request, $optionalArgs, $table = 'service_requests')
     {
-        return $this->donutChart($request, array_merge($optionalArgs, ['table' => $table, 'column' => 'status']));
+        return $this->_donutChart($request, array_merge($optionalArgs, ['table' => $table, 'column' => 'status']));
     }
 
     /**
