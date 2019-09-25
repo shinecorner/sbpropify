@@ -22,14 +22,4 @@ class ProductDeleteRequest extends BaseRequest
             ->where('user_id', $u->id)->first();
         return (bool)$p;
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
-    }
 }

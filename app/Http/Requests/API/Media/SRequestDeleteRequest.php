@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\API\Media;
 
-use App\Models\ServiceRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\BaseRequest;
 
@@ -22,15 +21,5 @@ class SRequestDeleteRequest extends BaseRequest
         }
 
         return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
     }
 }

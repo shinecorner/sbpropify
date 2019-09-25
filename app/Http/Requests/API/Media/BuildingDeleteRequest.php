@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\API\Media;
 
-use App\Models\Product;
 use App\Http\Requests\BaseRequest;
 
 class BuildingDeleteRequest extends BaseRequest
@@ -15,15 +14,5 @@ class BuildingDeleteRequest extends BaseRequest
     public function authorize()
     {
         return $this->can('edit-building');
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Requests\API\RentContract;
 use App\Models\RentContract;
 use App\Http\Requests\BaseRequest;
 
-class CreateRequest extends APIRequest
+class CreateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.

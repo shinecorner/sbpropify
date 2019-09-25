@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\API\Media;
 
-use App\Models\ServiceRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\BaseRequest;
 
@@ -31,6 +30,8 @@ class SRequestUploadRequest extends BaseRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            'media' => 'required|string',
+        ];
     }
 }

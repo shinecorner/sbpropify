@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\API\Media;
 
-use App\Models\Product;
 use App\Http\Requests\BaseRequest;
 
 class BuildingUploadRequest extends BaseRequest
@@ -24,6 +23,8 @@ class BuildingUploadRequest extends BaseRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            'media' => 'required|string',
+        ];
     }
 }

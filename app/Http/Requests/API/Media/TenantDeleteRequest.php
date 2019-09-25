@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\API\Media;
 
-use App\Models\Tenant;
 use App\Http\Requests\BaseRequest;
 
 class TenantDeleteRequest extends BaseRequest
@@ -16,15 +15,5 @@ class TenantDeleteRequest extends BaseRequest
     {
         // @TODO ROLE RELATED
         return $this->can('edit-tenant');
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
     }
 }

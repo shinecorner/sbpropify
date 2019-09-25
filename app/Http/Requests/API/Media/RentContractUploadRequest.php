@@ -27,6 +27,8 @@ class RentContractUploadRequest extends BaseRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            'media' => 'required|string',
+        ];
     }
 }

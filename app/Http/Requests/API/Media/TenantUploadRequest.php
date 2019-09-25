@@ -27,6 +27,8 @@ class TenantUploadRequest extends BaseRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            'media' => 'required|string',
+        ];
     }
 }

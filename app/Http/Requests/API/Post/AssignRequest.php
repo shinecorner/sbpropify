@@ -4,7 +4,7 @@ namespace App\Http\Requests\API\Post;
 
 use App\Http\Requests\BaseRequest;
 
-class AssignRequest extends APIRequest
+class AssignRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
