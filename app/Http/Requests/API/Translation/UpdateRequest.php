@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\API\Template;
+namespace App\Http\Requests\API\Translation;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
+use App\Models\Translation;
 
-class ListCategoriesRequest extends APIRequest
+class UpdateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class ListCategoriesRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('list-template');
+        return true;
     }
 
     /**
@@ -23,6 +24,6 @@ class ListCategoriesRequest extends APIRequest
      */
     public function rules()
     {
-        return [];
+        return Translation::$rules;
     }
 }

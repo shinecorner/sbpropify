@@ -68,10 +68,6 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
-     * @param ListRequest $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Get(
      *      path="/tenants",
      *      summary="Get a listing of the Tenants.",
@@ -99,6 +95,10 @@ class TenantAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function index(ListRequest $request)
     {
@@ -135,10 +135,6 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
-     * @param ListRequest $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Get(
      *      path="/tenants/latest",
      *      summary="Get a latest 5 Tenants",
@@ -224,12 +220,6 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
-     * @param CreateRequest $request
-     * @param PostRepository $pr
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     *
      * @SWG\Post(
      *      path="/tenants",
      *      summary="Store a newly created Tenant in storage",
@@ -263,6 +253,11 @@ class TenantAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @param PostRepository $pr
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function store(CreateRequest $request, PostRepository $pr)
     {
@@ -323,11 +318,6 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
-     * @param $id
-     * @param ShowRequest $request
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @SWG\Get(
      *      path="/tenants/{id}",
      *      summary="Display the specified Tenant",
@@ -361,6 +351,11 @@ class TenantAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param ShowRequest $request
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function show($id, ShowRequest $request)
     {
@@ -379,10 +374,6 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @SWG\Get(
      *      path="/tenants/me",
      *      summary="Display the Logged In Tenant",
@@ -410,6 +401,9 @@ class TenantAPIController extends AppBaseController
      *      )
      * )
      *
+     * @param Request $request
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function showLoggedIn(Request $request)
     {
@@ -428,13 +422,6 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
-     * @param $id
-     * @param UpdateRequest $request
-     * @param PostRepository $pr
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     *
      * @SWG\Put(
      *      path="/tenants/{id}",
      *      summary="Update the specified Tenant in storage",
@@ -475,6 +462,13 @@ class TenantAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param UpdateRequest $request
+     * @param PostRepository $pr
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function update($id, UpdateRequest $request, PostRepository $pr)
     {
@@ -557,10 +551,6 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
-     * @param UpdateLoggedInRequest $request
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @SWG\Put(
      *      path="/tenants/me",
      *      summary="Update the Logged In Tenant in storage",
@@ -594,6 +584,10 @@ class TenantAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param UpdateLoggedInRequest $request
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function updateLoggedIn(UpdateLoggedInRequest $request)
     {
@@ -634,10 +628,6 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param UpdateStatusRequest $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/tenants/{id}/status",
      *      summary="Change status on Tenant",
@@ -671,6 +661,11 @@ class TenantAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param UpdateStatusRequest $request
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function changeStatus(int $id, UpdateStatusRequest $request)
     {
@@ -713,10 +708,6 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param DeleteRequest $request
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/tenants/{id}",
      *      summary="Remove the specified Tenant from storage",
@@ -750,6 +741,10 @@ class TenantAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param DeleteRequest $request
+     * @return mixed
      */
     public function destroy($id, DeleteRequest $request)
     {
@@ -862,7 +857,6 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
-     *
      * @SWG\Post(
      *      path="/tenants/activateTenant",
      *      summary="Activate tenant",
@@ -932,7 +926,6 @@ class TenantAPIController extends AppBaseController
      *          )
      *      )
      * )
-     *
      *
      * @param Request $request
      * @return mixed
@@ -1039,7 +1032,7 @@ class TenantAPIController extends AppBaseController
      *      )
      * )
      *
-     * @param Request $request
+     * @param UpdateRequest $request
      * @return mixed
      */
     public function addReview(UpdateRequest $request){

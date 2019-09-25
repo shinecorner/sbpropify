@@ -11,8 +11,6 @@ use App\Http\Requests\API\Tag\DeleteRequest;
 use App\Models\Tag;
 use App\Repositories\TagRepository;
 use App\Transformers\TagTransformer;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use App\Criteria\Common\RequestCriteria;
 
@@ -25,16 +23,16 @@ class TagAPIController extends AppBaseController
     /** @var  TagRepository */
     private $tagRepository;
 
+    /**
+     * TagAPIController constructor.
+     * @param TagRepository $tagRepo
+     */
     public function __construct(TagRepository $tagRepo)
     {
         $this->tagRepository = $tagRepo;
     }
 
     /**
-     * @param ListRequest $request
-     * @return mixed
-     * @throws \Prettus\Repository\Exceptions\RepositoryException
-     *
      * @SWG\Get(
      *      path="/tags",
      *      summary="Get a listing of the Tags.",
@@ -76,6 +74,10 @@ class TagAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function index(ListRequest $request)
     {
@@ -97,11 +99,6 @@ class TagAPIController extends AppBaseController
     }
 
     /**
-     * @param CreateRequest $request
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     *
      * @SWG\Post(
      *      path="/tags",
      *      summary="Store a newly created Tag in storage",
@@ -135,6 +132,11 @@ class TagAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function store(CreateRequest $request)
     {
@@ -146,11 +148,6 @@ class TagAPIController extends AppBaseController
     }
 
     /**
-     * @param $id
-     * @param ViewRequest $r
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @SWG\Get(
      *      path="/tags/{id}",
      *      summary="Display the specified Tag",
@@ -184,6 +181,11 @@ class TagAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param ViewRequest $r
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function show($id, ViewRequest $r)
     {
@@ -199,11 +201,6 @@ class TagAPIController extends AppBaseController
     }
 
     /**
-     * @param $id
-     * @param UpdateRequest $request
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
      * @SWG\Put(
      *      path="/tags/{id}",
      *      summary="Update the specified Tag in storage",
@@ -244,7 +241,12 @@ class TagAPIController extends AppBaseController
      *          )
      *      )
      * )
-
+     *
+     * @param $id
+     * @param UpdateRequest $request
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function update($id, UpdateRequest $request)
     {
@@ -264,11 +266,6 @@ class TagAPIController extends AppBaseController
     }
 
     /**
-     * @param $id
-     * @param DeleteRequest $r
-     * @return mixed
-     * @throws \Exception
-     *
      * @SWG\Delete(
      *      path="/tags/{id}",
      *      summary="Remove the specified Tag from storage",
@@ -302,6 +299,11 @@ class TagAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param DeleteRequest $r
+     * @return mixed
+     * @throws \Exception
      */
     public function destroy($id, DeleteRequest $r)
     {
