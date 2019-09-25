@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Repositories\AddressRepository;
 use App\Repositories\RealEstateRepository;
 use App\Transformers\RealEstateTransformer;
-use Cache;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
