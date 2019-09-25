@@ -290,7 +290,7 @@ return [
         'floor' => 'Etage',
         'sq_meter' => 'Fläche',
         'room_no' => 'Anzahl Zimmer',
-        'monthly_rent' => 'Monatsmiete',
+        'monthly_rent_net' => 'Monatsmiete',
         'building_search' => 'Bitte nach einer Liegenschaft suchen',
         'building' => 'Liegenschaft',
         'basement' => 'Untergeschoss',
@@ -317,7 +317,7 @@ return [
             'building' => [
                 'required' => 'Liegenschaft ist obligatorisch',
             ],
-            'monthly_rent' => [
+            'monthly_rent_net' => [
                 'required' => 'Monatsmiete ist obligatorisch',
             ],
             'floor' => [

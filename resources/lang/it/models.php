@@ -290,7 +290,7 @@ return [
         "floor" => "Piano",
         "sq_meter" => "Misuratore di mq",
         "room_no" => "Numero di camere",
-        "monthly_rent" => "Affitto mensile",
+        "monthly_rent_net" => "Affitto mensile",
         "building_search" => "Inserire il nome di un edificio e selezionarlo",
         "building" => "Edificio",
         "basement" => "Nel seminterrato",
@@ -317,7 +317,7 @@ return [
             'building' => [
                 "required" => "L'edificio è obbligatorio",
             ],
-            'monthly_rent' => [
+            'monthly_rent_net' => [
                 "required" => "L'affitto mensile è richiesto",
             ],
             'floor' => [
