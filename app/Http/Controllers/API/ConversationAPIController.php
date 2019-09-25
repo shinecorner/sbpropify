@@ -35,6 +35,12 @@ class ConversationAPIController extends AppBaseController
      */
     private $commTransf;
 
+    /**
+     * ConversationAPIController constructor.
+     * @param ConversationRepository $repo
+     * @param ConversationTransformer $convTransf
+     * @param CommentTransformer $commTransf
+     */
     public function __construct(
         ConversationRepository $repo,
         ConversationTransformer $convTransf,

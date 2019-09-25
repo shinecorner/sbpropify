@@ -26,6 +26,11 @@ class RealEstateAPIController extends AppBaseController
     /** @var  AddressRepository */
     private $addressRepository;
 
+    /**
+     * RealEstateAPIController constructor.
+     * @param RealEstateRepository $realEstateRepo
+     * @param AddressRepository $addressRepo
+     */
     public function __construct(RealEstateRepository $realEstateRepo, AddressRepository $addressRepo)
     {
         $this->realEstateRepository = $realEstateRepo;

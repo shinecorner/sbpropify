@@ -25,6 +25,11 @@ class CleanifyRequestAPIController extends AppBaseController
      */
     private $transformer;
 
+    /**
+     * CleanifyRequestAPIController constructor.
+     * @param CleanifyRequestRepository $repo
+     * @param CleanifyRequestTransformer $transf
+     */
     public function __construct(CleanifyRequestRepository $repo, CleanifyRequestTransformer $transf)
     {
         $this->repo = $repo;

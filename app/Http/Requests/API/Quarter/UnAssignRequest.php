@@ -4,7 +4,7 @@ namespace App\Http\Requests\API\Quarter;
 
 use InfyOm\Generator\Request\APIRequest;
 
-class DeleteQuarterAssigneeRequest extends APIRequest
+class UnAssignRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.

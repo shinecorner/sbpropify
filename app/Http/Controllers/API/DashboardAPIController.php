@@ -230,11 +230,19 @@ class DashboardAPIController extends AppBaseController
     /** @var  ServiceRequestRepository */
     private $serviceRequestRepo;
 
+    /**
+     * DashboardAPIController constructor.
+     * @param BuildingRepository $br
+     * @param UnitRepository $ur
+     * @param TenantRepository $tr
+     * @param ServiceRequestRepository $srr
+     */
     public function __construct(
         BuildingRepository $br,
         UnitRepository $ur,
         TenantRepository $tr,
-        ServiceRequestRepository $srr)
+        ServiceRequestRepository $srr
+    )
     {
         $this->buildingRepo = $br;
         $this->unitRepo = $ur;
