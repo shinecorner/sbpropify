@@ -687,10 +687,10 @@ class BuildingAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param AssigneeListRequest $request
+     * @param ViewRequest $request
      * @return Response
      */
-    public function getAssignees(int $id, AssigneeListRequest $request)
+    public function getAssignees(int $id, ViewRequest $request)
     {
         // @TODO permissions
         $building = $this->buildingRepository->findWithoutFail($id);

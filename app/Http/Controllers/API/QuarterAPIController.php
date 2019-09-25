@@ -357,10 +357,10 @@ class QuarterAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param AssigneeListRequest $request
+     * @param ViewRequest $request
      * @return mixed
      */
-    public function getAssignees(int $id, AssigneeListRequest $request)
+    public function getAssignees(int $id, ViewRequest $request)
     {
         // @TODO permissions
         $quarter = $this->quarterRepository->findWithoutFail($id);
