@@ -7,7 +7,7 @@ use App\Criteria\Posts\FilterByTenantCriteria;
 use App\Criteria\TenantsRentContract\FilterByBuildingCriteria;
 use App\Criteria\TenantsRentContract\FilterByUnitCriteria;
 use App\Http\Controllers\AppBaseController;
-use App\Http\Requests\API\Post\ShowRequest;
+use App\Http\Requests\API\RentContract\ShowRequest;
 use App\Http\Requests\API\RentContract\DeleteRequest;
 use App\Http\Requests\API\RentContract\UpdateRequest;
 use App\Http\Requests\API\RentContract\CreateRequest;
@@ -117,7 +117,6 @@ class RentContractAPIController extends AppBaseController
         $response = (new RentContractTransformer())->transformPaginator($rentContracts);
         return $this->sendResponse($response, 'RentContracts retrieved successfully');
     }
-
 
     /**
      * @param $id
