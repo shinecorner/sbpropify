@@ -24,7 +24,6 @@ use App\Repositories\ServiceRequestRepository;
 use App\Repositories\RentContractRepository;
 use App\Repositories\TenantRepository;
 use App\Transformers\MediaTransformer;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -87,10 +86,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/buildings/{building_id}/media",
      *      summary="Store a newly created Building Media in storage",
@@ -124,11 +119,14 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param BuildingUploadRequest $request
+     * @return Response
      */
     public function buildingUpload(int $id, BuildingUploadRequest $request)
     {
-
-        $categories = \App\Models\Building::BuildingMediaCategories;
+        $categories = Building::BuildingMediaCategories;
         $rules = [];
         foreach ($categories as $category) {
             $requiredWithout = implode('_upload,', array_diff($categories, [$category])) . '_upload';
@@ -177,10 +175,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $building_id
-     * @param int $media_id
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/building/{building_id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
@@ -214,6 +208,11 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $building_id
+     * @param int $media_id
+     * @param BuildingDeleteRequest $r
+     * @return Response
      */
     public function buildingDestroy(int $building_id, int $media_id, BuildingDeleteRequest $r)
     {
@@ -234,10 +233,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/posts/{post_id}/media",
      *      summary="Store a newly created Post Media in storage",
@@ -271,6 +266,10 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param PostUploadRequest $request
+     * @return Response
      */
     public function postUpload(int $id, PostUploadRequest $request)
     {
@@ -289,10 +288,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $media_id
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/post/{post_id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
@@ -326,6 +321,11 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $media_id
+     * @param PostDeleteRequest $r
+     * @return Response
      */
     public function postDestroy(int $id, int $media_id, PostDeleteRequest $r)
     {
@@ -345,11 +345,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param TenantUploadRequest $request
-     * @return mixed
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     *
      * @SWG\Post(
      *      path="/tenants/{tenant_id}/media",
      *      summary="Store a newly created Tenant Media in storage",
@@ -383,6 +378,11 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param TenantUploadRequest $request
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function tenantUpload(int $id, TenantUploadRequest $request)
     {
@@ -414,11 +414,6 @@ class MediaAPIController extends AppBaseController
 
 
     /**
-     * @param int $id
-     * @param int $media_id
-     * @param TenantDeleteRequest $r
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/tenants/{id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
@@ -452,6 +447,11 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $media_id
+     * @param TenantDeleteRequest $r
+     * @return Response
      */
     public function tenantDestroy(int $id, int $media_id, TenantDeleteRequest $r)
     {
@@ -471,10 +471,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param RentContractUploadRequest $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/rent-contracts/{id}/media",
      *      summary="Store a newly created RentContract Media in storage",
@@ -508,6 +504,10 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param RentContractUploadRequest $request
+     * @return Response
      */
     public function rentContractUpload(int $id, RentContractUploadRequest $request)
     {
@@ -526,11 +526,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $media_id
-     * @param RentContractDeleteRequest $r
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/rent-contracts/{id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
@@ -564,6 +559,11 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $media_id
+     * @param RentContractDeleteRequest $r
+     * @return Response
      */
     public function rentContractDestroy(int $id, int $media_id, RentContractDeleteRequest $r)
     {
@@ -583,10 +583,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/requests/{id}/media",
      *      summary="Store a newly created Request Media in storage",
@@ -620,6 +616,10 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param SRequestUploadRequest $request
+     * @return Response
      */
     public function serviceRequestUpload(int $id, SRequestUploadRequest $request)
     {
@@ -639,10 +639,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $media_id
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/requests/{id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
@@ -676,6 +672,11 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $media_id
+     * @param SRequestDeleteRequest $r
+     * @return Response
      */
     public function serviceRequestDestroy(int $id, int $media_id, SRequestDeleteRequest $r)
     {
@@ -695,10 +696,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/products/{product_id}/media",
      *      summary="Store a newly created product Media in storage",
@@ -732,6 +729,11 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     *
+     * @param int $id
+     * @param ProductUploadRequest $request
+     * @return Response
      */
     public function productUpload(int $id, ProductUploadRequest $request)
     {
@@ -750,10 +752,6 @@ class MediaAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $media_id
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/products/{product_id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
@@ -787,6 +785,12 @@ class MediaAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $media_id
+     * @param ProductDeleteRequest $r
+     * @return Response
+     *
      */
     public function productDestroy(int $id, int $media_id, ProductDeleteRequest $r)
     {

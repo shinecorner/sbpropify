@@ -16,9 +16,6 @@ use Illuminate\Http\Response;
 class NewsAPIController extends AppBaseController
 {
     /**
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/news/rss.xml",
      *      summary="RSS feed of news",
@@ -30,8 +27,9 @@ class NewsAPIController extends AppBaseController
      *          description="successful operation"
      *      )
      * )
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
      */
-    public function showNewsRSS(Request $request)
+    public function showNewsRSS()
     {
         $feed = Cache::remember('rss_feed', 600, function() {
             return file_get_contents("https://www.blick.ch/news/schweiz/rss.xml");
@@ -43,9 +41,6 @@ class NewsAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/news/weather.json",
      *      summary="JSON feed of weather",
@@ -57,8 +52,11 @@ class NewsAPIController extends AppBaseController
      *          description="successful operation"
      *      )
      * )
+     *
+     * @param RealEstateRepository $reRepo
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|Response
      */
-    public function showWeatherJSON(Request $request, RealEstateRepository $reRepo)
+    public function showWeatherJSON(RealEstateRepository $reRepo)
     {
         $zip = $this->getZip($reRepo);
         $feed = Cache::remember('weather_at_' . $zip, 60*60, function() use ($reRepo, $zip) {
@@ -74,6 +72,11 @@ class NewsAPIController extends AppBaseController
             'Content-Type' => 'application/json'
         ]);
     }
+
+    /**
+     * @param $reRepo
+     * @return int
+     */
     private function getZip($reRepo)
     {
         $u = \Auth::user();
