@@ -149,10 +149,10 @@
                                 <tbody>
                                 <tr>
                                     <td class="no_border"><strong>@lang('general.name',[],$language):</strong></td>
-                                    <td class="no_border" width="200px">{{ $tenant->user->name }}</td>
+                                    <td class="no_border" width="163px">{{ $tenant->user->name }}</td>
 
-                                    <td class="no_border" style="padding-left:38px;"><strong>@lang('general.email',[],$language):</strong></td>
-                                    <td  class="no_border" style="padding-left:38px;">{{ $tenant->user->email }}</td>
+                                    <td class="no_border" ><strong>@lang('general.email',[],$language):</strong></td>
+                                    <td  class="no_border">{{ $tenant->user->email }}</td>
                                     <td class="no_border"></td>
 
                                 </tr>
