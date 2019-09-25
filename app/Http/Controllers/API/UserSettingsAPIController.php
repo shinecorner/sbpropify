@@ -27,11 +27,6 @@ class UserSettingsAPIController extends AppBaseController
     }
 
     /**
-     * @param $userId
-     * @param UpdateRequest $request
-     * @return mixed
-     * @throws \Prettus\Repository\Exceptions\RepositoryException
-     *
      * @SWG\Put(
      *      path="/users/{user_id}",
      *      summary="Update the specified UserSettings in storage",
@@ -72,6 +67,11 @@ class UserSettingsAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $userId
+     * @param UpdateRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function update($userId, UpdateRequest $request)
     {
@@ -88,11 +88,6 @@ class UserSettingsAPIController extends AppBaseController
     }
 
     /**
-     * @param UpdateLoggedInRequest $request
-     * @return mixed
-     * @throws \Prettus\Repository\Exceptions\RepositoryException
-     *
-     *
      * @SWG\Put(
      *      path="/users/me/settings",
      *      summary="Update the Logged In UserSettings in storage",
@@ -126,6 +121,10 @@ class UserSettingsAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param UpdateLoggedInRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function updateLoggedIn(UpdateLoggedInRequest $request)
     {

@@ -33,6 +33,11 @@ class UnitAPIController extends AppBaseController
     /** @var  TenantRepository */
     private $tenantRepository;
 
+    /**
+     * UnitAPIController constructor.
+     * @param UnitRepository $unitRepo
+     * @param TenantRepository $tenantRepo
+     */
     public function __construct(UnitRepository $unitRepo, TenantRepository $tenantRepo)
     {
         $this->unitRepository = $unitRepo;
@@ -374,7 +379,6 @@ class UnitAPIController extends AppBaseController
     }
 
     /**
-     *
      * @SWG\Post(
      *      path="/units/{id}/assignees/{assignee_id}",
      *      summary="Assign the tenant to unit",

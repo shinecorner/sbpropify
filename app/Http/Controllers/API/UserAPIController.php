@@ -43,10 +43,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param ListRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Get(
      *      path="/users",
      *      summary="Get a listing of the Users.",
@@ -74,6 +70,10 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function index(ListRequest $request)
     {
@@ -93,10 +93,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param ListRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Get(
      *      path="/users/requestManagers",
      *      summary="Get a listing of the requestManagers Users.",
@@ -124,6 +120,10 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function requestManagers(ListRequest $request)
     {
@@ -142,10 +142,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param CreateRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Post(
      *      path="/users",
      *      summary="Store a newly created User in storage",
@@ -179,6 +175,10 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function store(CreateRequest $request)
     {
@@ -191,10 +191,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param ShowRequest $request
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/users/{id}",
      *      summary="Display the specified User",
@@ -228,6 +224,10 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param ShowRequest $request
+     * @return mixed
      */
     public function show($id, ShowRequest $request)
     {
@@ -242,9 +242,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/users/me",
      *      summary="Display the Logged In User",
@@ -271,6 +268,9 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param Request $request
+     * @return mixed
      */
     public function showLoggedIn(Request $request)
     {
@@ -298,11 +298,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param UpdateRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Put(
      *      path="/users/{id}",
      *      summary="Update the specified User in storage",
@@ -343,6 +338,11 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param UpdateRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function update(int $id, UpdateRequest $request)
     {
@@ -373,10 +373,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param UpdateLoggedInRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Put(
      *      path="/users/me",
      *      summary="Update the Logged In UserSettings in storage",
@@ -410,6 +406,10 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param UpdateLoggedInRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function updateLoggedIn(UpdateLoggedInRequest $request)
     {
@@ -439,10 +439,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param ChangePasswordRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Put(
      *      path="/users/me/change_password",
      *      summary="Change password for Logged In User",
@@ -476,6 +472,10 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ChangePasswordRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function changePassword(ChangePasswordRequest $request)
     {
@@ -499,11 +499,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param UploadImageRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Put(
      *      path="/users/{id}/upload_image",
      *      summary="Change profile image for selected User",
@@ -537,6 +532,11 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param UploadImageRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function uploadImage(int $id, UploadImageRequest $request)
     {
@@ -566,10 +566,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param UploadImageRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Put(
      *      path="/users/me/upload_image",
      *      summary="Change profile image for Logged In User",
@@ -603,6 +599,10 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param UploadImageRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function uploadImageLoggedIn(UploadImageRequest $request)
     {
@@ -632,10 +632,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param DeleteRequest $request
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/users/{id}",
      *      summary="Remove the specified User from storage",
@@ -669,6 +665,10 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param DeleteRequest $request
+     * @return mixed
      */
     public function destroy($id, DeleteRequest $request)
     {
