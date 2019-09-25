@@ -46,12 +46,12 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     // Tenants
     Route::get('/tenants', 'TenantAPIController@index')->name('tenants');
-    Route::get('/tenants/gender-statistics', 'StatisticsAPIController@tenantsGenderStatistics')->name('tenants.gender-statistics');
-    Route::get('/tenants/age-statistics', 'StatisticsAPIController@tenantsAgeStatistics')->name('tenants.age-statistics');
+    Route::get('/tenants/gender-statistics', 'DashboardAPIController@tenantsGenderStatistics')->name('tenants.gender-statistics');
+    Route::get('/tenants/age-statistics', 'DashboardAPIController@tenantsAgeStatistics')->name('tenants.age-statistics');
     Route::get('/tenants/latest', 'TenantAPIController@latest')->name('tenants.latest');
     Route::get('/tenants/me', 'TenantAPIController@showLoggedIn')->name('tenants.me');
     Route::get('/tenants/{id}', 'TenantAPIController@show')->name('tenants.show');
-    Route::get('/tenants/{id}/statistics', 'StatisticsAPIController@tenantStatistics')->name('tenants.statistics.show');
+    Route::get('/tenants/{id}/statistics', 'DashboardAPIController@tenantStatistics')->name('tenants.statistics.show');
 
     Route::post('/tenants', 'TenantAPIController@store')->name('tenants.store');
     Route::post('/addReview', 'TenantAPIController@addReview');
@@ -95,7 +95,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/buildings/latest', 'BuildingAPIController@latest')->name('buildings.latest');
     Route::get('/buildings/map', 'BuildingAPIController@map')->name('buildings.map');
     Route::get('/buildings/{id}', 'BuildingAPIController@show')->name('buildings.show');
-    Route::get('/buildings/{id}/statistics', 'StatisticsAPIController@buildingStatistics')->name('buildings.statistics.show');
+    Route::get('/buildings/{id}/statistics', 'DashboardAPIController@buildingStatistics')->name('buildings.statistics.show');
     Route::get('/buildings/{id}/assignees', 'BuildingAPIController@getAssignees');
 
     Route::post('/buildings', 'BuildingAPIController@store')->name('buildings.store');
@@ -224,7 +224,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     // Service Requests
     Route::get('/requests', 'ServiceRequestAPIController@index')->name('requests');
     Route::get('/requestsCounts', 'ServiceRequestAPIController@requestsCounts')->name('requestsCounts');
-    Route::get('/requests/statistics', 'StatisticsAPIController@requestsStatistics')->name('requests.statistics');
+    Route::get('/requests/statistics', 'DashboardAPIController@requestsStatistics')->name('requests.statistics');
     Route::get('/requests/{id}', 'ServiceRequestAPIController@show')->name('requests.show');
     Route::post('/requests', 'ServiceRequestAPIController@store')->name('requests.store');
     Route::post('/requests/{id}/media', 'MediaAPIController@serviceRequestUpload')->name('requests.media.upload');
@@ -298,20 +298,20 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
 
     // Translations
     Route::resource('translations', 'TranslationAPIController');
-    Route::get('/admin/statistics', 'StatisticsAPIController@adminStats');
-    Route::get('/admin/chartRequestByCreationDate', 'StatisticsAPIController@chartRequestByCreationDate');
-    Route::get('/admin/chartRequestByAssignedProvider', 'StatisticsAPIController@chartRequestByAssignedProvider');
-    Route::get('/admin/chartBuildingsByCreationDate', 'StatisticsAPIController@chartBuildingsByCreationDate');
-    Route::get('/admin/chartByCreationDate', 'StatisticsAPIController@chartByCreationDate');
+    Route::get('/admin/statistics', 'DashboardAPIController@adminStats');
+    Route::get('/admin/chartRequestByCreationDate', 'DashboardAPIController@chartRequestByCreationDate');
+    Route::get('/admin/chartRequestByAssignedProvider', 'DashboardAPIController@chartRequestByAssignedProvider');
+    Route::get('/admin/chartBuildingsByCreationDate', 'DashboardAPIController@chartBuildingsByCreationDate');
+    Route::get('/admin/chartByCreationDate', 'DashboardAPIController@chartByCreationDate');
 
-    Route::get('/admin/donutChart', 'StatisticsAPIController@donutChart');
-    Route::get('/admin/donutChartRequestByCategory', 'StatisticsAPIController@donutChartRequestByCategory');
-    Route::get('/admin/donutChartTenantsByDateAndStatus', 'StatisticsAPIController@donutChartTenantsByDateAndStatus');
-    Route::get('/admin/pieChartBuildingByState', 'StatisticsAPIController@pieChartBuildingByState');
+    Route::get('/admin/donutChart', 'DashboardAPIController@donutChart');
+    Route::get('/admin/donutChartRequestByCategory', 'DashboardAPIController@donutChartRequestByCategory');
+    Route::get('/admin/donutChartTenantsByDateAndStatus', 'DashboardAPIController@donutChartTenantsByDateAndStatus');
+    Route::get('/admin/pieChartBuildingByState', 'DashboardAPIController@pieChartBuildingByState');
 
-    Route::get('/admin/heatMapByDatePeriod', 'StatisticsAPIController@heatMapByDatePeriod');
-    Route::get('/admin/chartLoginDevice', 'StatisticsAPIController@chartLoginDevice');
-    Route::get('/admin/chartTenantLanguage', 'StatisticsAPIController@chartTenantLanguage');
+    Route::get('/admin/heatMapByDatePeriod', 'DashboardAPIController@heatMapByDatePeriod');
+    Route::get('/admin/chartLoginDevice', 'DashboardAPIController@chartLoginDevice');
+    Route::get('/admin/chartTenantLanguage', 'DashboardAPIController@chartTenantLanguage');
 });
 
 

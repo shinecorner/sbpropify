@@ -26,12 +26,10 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 /**
- * @TODO authorize each request
- *
- * Class StatisticsAPIController
+ * Class DashboardAPIController
  * @package App\Http\Controllers\API
  */
-class StatisticsAPIController extends AppBaseController
+class DashboardAPIController extends AppBaseController
 {
     const YEAR = 'year';
     const MONTH = 'month';
