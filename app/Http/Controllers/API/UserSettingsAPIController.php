@@ -62,10 +62,10 @@ class UserSettingsAPIController extends AppBaseController
     }
 
     /**
-     * @param int $user_id
+     * @param $user_id
      * @param UpdateRequest $request
-     * @return Response
-     * @throws ValidatorException
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      *
      * @SWG\Put(
      *      path="/users/{user_id}",
@@ -111,21 +111,22 @@ class UserSettingsAPIController extends AppBaseController
     public function update($user_id, UpdateRequest $request)
     {
         $input = $request->all();
-
         $user = (new User)->find($user_id);
+
         if (empty($user)) {
             return $this->sendError(__('models.user.not_found'));
         }
 
-        $userSettings = $this->userSettingsRepository->update($input, $user->settings->id);
+        $userSettings = $this->userSettingsRepository->updateExisting($user->settings, $input);
 
         return $this->sendResponse($userSettings->toArray(), __('models.user.notificationSaved'));
     }
 
     /**
-     * @param UpdateRequest $request
-     * @return Response
-     * @throws ValidatorException
+     * @param UpdateLoggedInRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     *
      *
      * @SWG\Put(
      *      path="/users/me/settings",
@@ -164,14 +165,8 @@ class UserSettingsAPIController extends AppBaseController
     public function updateLoggedIn(UpdateLoggedInRequest $request)
     {
         $input = $request->all();
-        $user_id = $request->user()->id;
-
-        $user = (new User)->find($user_id);
-        if (empty($user)) {
-            return $this->sendError(__('models.user.not_found'));
-        }
-
-        $userSettings = $this->userSettingsRepository->update($input, $user->settings->id);
+        $user = $request->user();
+        $userSettings = $this->userSettingsRepository->updateExisting($user->settings, $input);
 
         return $this->sendResponse($userSettings->toArray(), __('models.user.notificationSaved'));
     }

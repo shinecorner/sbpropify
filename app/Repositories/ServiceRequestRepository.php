@@ -94,7 +94,7 @@ class ServiceRequestRepository extends BaseRepository
      */
     private static function getPostAttributes($attributes)
     {
-        $user = Auth::user(); // @TODO @TODO 
+        $user = Auth::user(); // @TODO @TODO
         if ($user->can('add-request_tenant')) {
             $attr = [];
             $attr['title'] = $attributes['title'];

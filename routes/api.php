@@ -27,14 +27,13 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     // Users
     Route::get('/users', 'UserAPIController@index')->name('users');
     Route::get('/users/me', 'UserAPIController@showLoggedIn')->name('users.me');
-    Route::get('/users/requestManagers', 'UserAPIController@requestManagers')->name('users.requestManagers');
+    Route::get('/users/requestManagers', 'UserAPIController@requestManagers')->name('users.requestManagers'); // @TODO used or not
     Route::get('/users/check-email', 'UserAPIController@checkEmail')->name('users.check-email');
     Route::get('/users/{id}', 'UserAPIController@show')->name('users.show');
 
     Route::post('/users', 'UserAPIController@store')->name('users.store');
-    Route::post('/users/me/upload_image', 'UserAPIController@uploadImageLoggedIn')->name('users.me.upload.image');
-    Route::post('/users/{id}/upload_image', 'UserAPIController@uploadImage')->name('users.upload.image');
-
+    Route::post('/users/me/upload_image', 'UserAPIController@uploadImageLoggedIn')->name('users.me.upload.image');  // @TODO ROLE RELATED is incorrect permission
+    Route::post('/users/{id}/upload_image', 'UserAPIController@uploadImage')->name('users.upload.image'); // @TODO ROLE RELATED one is incorrect permission
     Route::put('/users/me', 'UserAPIController@updateLoggedIn')->name('users.me.update');
     Route::put('/users/me/changePassword', 'UserAPIController@changePassword')->name('users.me.changePassword');
     Route::put('/users/me/settings', 'UserSettingsAPIController@updateLoggedIn')->name('users.me.settings.update');

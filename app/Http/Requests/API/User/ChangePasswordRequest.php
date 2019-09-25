@@ -14,6 +14,7 @@ class ChangePasswordRequest extends APIRequest
      */
     public function authorize()
     {
+        // @TODO ROLE RELATED
         return true;
     }
 

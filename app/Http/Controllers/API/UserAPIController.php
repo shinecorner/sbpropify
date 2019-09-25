@@ -43,7 +43,7 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
+     * @param ListRequest $request
      * @return Response
      * @throws /Exception
      *
@@ -86,9 +86,9 @@ class UserAPIController extends AppBaseController
             $users = $this->userRepository->get();
             return $this->sendResponse($users->toArray(), 'Users retrieved successfully');
         }
+
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $users = $this->userRepository->with('roles')->paginate($perPage);
-
         return $this->sendResponse($users->toArray(), 'Users retrieved successfully');
     }
 
@@ -137,52 +137,6 @@ class UserAPIController extends AppBaseController
             ->with('roles')
             ->scope('allRequestStatusCount')
             ->paginate($perPage);
-
-        return $this->sendResponse($users->toArray(), 'Users retrieved successfully');
-    }
-
-    /**
-     * @param ListRequest $request
-     * @return Response
-     * @throws /Exception
-     *
-     * @SWG\Get(
-     *      path="/services",
-     *      summary="Get a listing of the Service Users.",
-     *      tags={"Service"},
-     *      description="Get all services Users",
-     *      produces={"application/json"},
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/User")
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    public function services(ListRequest $request)
-    {
-        $request->request->set('role', 'service');
-        $this->userRepository->pushCriteria(new RequestCriteria($request));
-        $this->userRepository->pushCriteria(new FilterByRolesCriteria($request));
-        $this->userRepository->pushCriteria(new LimitOffsetCriteria($request));
-
-        $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $users = $this->userRepository->with('roles')->paginate($perPage);
 
         return $this->sendResponse($users->toArray(), 'Users retrieved successfully');
     }
@@ -321,11 +275,7 @@ class UserAPIController extends AppBaseController
     public function showLoggedIn(Request $request)
     {
         /** @var User $user */
-        $user = $this->userRepository->findWithoutFail($request->user()->id);
-        if (empty($user)) {
-            return $this->sendError(__('models.user.errors.not_found'));
-        }
-
+        $user = $request->user();
         $user->load(['settings', 'roles.perms', 'tenant.media', 'tenant.building:id,contact_enable', 'propertyManager:id,user_id', 'serviceProvider:id,user_id']);
         if ($user->propertyManager) {
             $user->property_manager_id = $user->propertyManager->id;
@@ -345,24 +295,6 @@ class UserAPIController extends AppBaseController
         }
 
         return $this->sendResponse($user->toArray(), 'User retrieved successfully');
-    }
-
-    /**
-     * @param $tenant
-     * @return bool
-     */
-    protected function getTenantContactEnable($tenant)
-    {
-        $default = true;
-        $building = $tenant->building;
-
-        if ( ! $building || Building::ContactEnablesBasedRealEstate == $building->contact_enable) {
-            $re = RealEstate::first('contact_enable');
-            return $re->contact_enable ?? $default;
-        }
-
-
-        return Building::ContactEnablesShow == $building->contact_enable;
     }
 
     /**
@@ -481,14 +413,9 @@ class UserAPIController extends AppBaseController
      */
     public function updateLoggedIn(UpdateLoggedInRequest $request)
     {
-        $input = $request->all();
-        $id = $request->user()->id;
-
         /** @var User $user */
-        $user = $this->userRepository->findWithoutFail($id);
-        if (empty($user)) {
-            return $this->sendError(__('models.user.errors.not_found'));
-        }
+        $user = $request->user();
+        $input = $request->all();
 
         if (isset($input['password_old']) && !Hash::check($input['password_old'], $user->password)) {
             return $this->sendError(__('models.user.errors.incorrect_password'));
@@ -754,22 +681,29 @@ class UserAPIController extends AppBaseController
         $user->forceDelete();
         return $this->sendResponse($id, __('models.user.deleted'));
     }
-    public function destroyWithIds(Request $request){
+
+    /**
+     * @param DeleteRequest $request
+     * @return mixed
+     */
+    public function destroyWithIds(DeleteRequest $request){
         $ids = $request->get('ids');
+
         try{
             User::destroy($ids);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendError(__('models.user.errors.deleted') . $e->getMessage());
         }
+
         return $this->sendResponse($ids, __('models.user.deleted'));
     }
+
     /**
-     * @param Request $request
+     * @param CreateRequest $request
      * @return mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function checkEmail(Request $request)
+    public function checkEmail(CreateRequest $request)
     {
         $email = $request->email;
         if (empty($email)) {
@@ -784,5 +718,23 @@ class UserAPIController extends AppBaseController
 
         return $this->sendResponse($email, __('models.user.errors.email_not_exists', ['email' => $email]));
 
+    }
+
+    /**
+     * @param $tenant
+     * @return bool
+     */
+    protected function getTenantContactEnable($tenant)
+    {
+        $default = true;
+        $building = $tenant->building;
+
+        if ( ! $building || Building::ContactEnablesBasedRealEstate == $building->contact_enable) {
+            $re = RealEstate::first('contact_enable');
+            return $re->contact_enable ?? $default;
+        }
+
+
+        return Building::ContactEnablesShow == $building->contact_enable;
     }
 }
