@@ -208,8 +208,10 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('/conversations', 'ConversationAPIController@show');
     Route::post('/conversations/{id}/comments', 'ConversationAPIController@storeComment');
 
+    // Cleanify Request
     Route::get('cleanify', 'CleanifyRequestAPIController@index');
     Route::post('cleanify', 'CleanifyRequestAPIController@store');
+
     // Service Requests Category
     Route::get('/requestCategories', 'ServiceRequestCategoryAPIController@index')->name('requests.categories');
     Route::get('/requestCategories/tree', 'ServiceRequestCategoryAPIController@categoryTree')->name('requests.categories.tree');

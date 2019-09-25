@@ -5,7 +5,7 @@ namespace App\Http\Requests\API\Comment;
 use App\Models\Comment;
 use InfyOm\Generator\Request\APIRequest;
 
-class DestroyRequest extends APIRequest
+class DeleteRequest extends APIRequest
 {
     /**
      * Determine if the user is authorized to make this request.

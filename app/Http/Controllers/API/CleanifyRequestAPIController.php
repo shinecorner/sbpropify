@@ -20,6 +20,9 @@ class CleanifyRequestAPIController extends AppBaseController
 {
     /** @var  CleanifyRequestRepository */
     private $repo;
+    /**
+     * @var CleanifyRequestTransformer
+     */
     private $transformer;
 
     public function __construct(CleanifyRequestRepository $repo, CleanifyRequestTransformer $transf)
@@ -29,10 +32,6 @@ class CleanifyRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Get(
      *      path="/cleanify",
      *      summary="Get a listing of the cleanify requests.",
@@ -59,6 +58,10 @@ class CleanifyRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param Request $request
+     * @return Response
+     * @throws /Exception
      */
     public function index(Request $request)
     {
@@ -74,10 +77,6 @@ class CleanifyRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param CreateRequest $request
-     * @param TemplateRepository $tRepo
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/cleanify",
      *      summary="Store a newly created cleanify request in storage",
@@ -110,6 +109,11 @@ class CleanifyRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @param TemplateRepository $tRepo
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function store(CreateRequest $request, TemplateRepository $tRepo)
     {
