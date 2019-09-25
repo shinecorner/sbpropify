@@ -7,11 +7,13 @@ use App\Criteria\Common\RequestCriteria;
 use App\Criteria\PropertyManagers\FilterByRelatedFieldsCriteria;
 use App\Criteria\PropertyManagers\HasRequestCriteria;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\API\PropertyManager\AssigneeListRequest;
 use App\Http\Requests\API\PropertyManager\AssignRequest;
 use App\Http\Requests\API\PropertyManager\BatchDeleteRequest;
 use App\Http\Requests\API\PropertyManager\CreateRequest;
 use App\Http\Requests\API\PropertyManager\DeleteRequest;
 use App\Http\Requests\API\PropertyManager\ListRequest;
+use App\Http\Requests\API\PropertyManager\UnAssignRequest;
 use App\Http\Requests\API\PropertyManager\UpdateRequest;
 use App\Http\Requests\API\PropertyManager\ViewRequest;
 use App\Models\PropertyManager;
@@ -22,9 +24,7 @@ use App\Repositories\PropertyManagerRepository;
 use App\Repositories\UserRepository;
 use App\Transformers\PropertyManagerTransformer;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Illuminate\Support\Facades\Validator;
 
@@ -40,6 +40,11 @@ class PropertyManagerAPIController extends AppBaseController
     /** @var  UserRepository */
     private $userRepository;
 
+    /**
+     * PropertyManagerAPIController constructor.
+     * @param PropertyManagerRepository $propertyManagerRepo
+     * @param UserRepository $userRepo
+     */
     public function __construct(PropertyManagerRepository $propertyManagerRepo, UserRepository $userRepo)
     {
         $this->propertyManagerRepository = $propertyManagerRepo;
@@ -47,10 +52,6 @@ class PropertyManagerAPIController extends AppBaseController
     }
 
     /**
-     * @param ListRequest $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Get(
      *      path="/propertyManagers",
      *      summary="Get a listing of the PropertyManagers.",
@@ -78,6 +79,10 @@ class PropertyManagerAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function index(ListRequest $request)
     {
@@ -107,9 +112,6 @@ class PropertyManagerAPIController extends AppBaseController
     }
 
     /**
-     * @param CreateRequest $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/propertyManagers",
      *      summary="Store a newly created PropertyManager in storage",
@@ -143,6 +145,9 @@ class PropertyManagerAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @return mixed
      */
     public function store(CreateRequest $request)
     {
@@ -181,9 +186,6 @@ class PropertyManagerAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/propertyManagers/{id}",
      *      summary="Display the specified PropertyManager",
@@ -217,6 +219,10 @@ class PropertyManagerAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param ViewRequest $r
+     * @return mixed
      */
     public function show($id, ViewRequest $r)
     {
@@ -235,10 +241,6 @@ class PropertyManagerAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param UpdateRequest $request
-     * @return Response
-     *
      * @SWG\Put(
      *      path="/propertyManagers/{id}",
      *      summary="Update the specified PropertyManager in storage",
@@ -279,6 +281,10 @@ class PropertyManagerAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param UpdateRequest $request
+     * @return mixed
      */
     public function update($id, UpdateRequest $request)
     {
@@ -318,11 +324,6 @@ class PropertyManagerAPIController extends AppBaseController
     }
 
     /**
-     * @param $id
-     * @param DeleteRequest $r
-     * @return mixed
-     * @throws \Exception
-     *
      * @SWG\Delete(
      *      path="/propertyManagers/{id}",
      *      summary="Remove the specified PropertyManager from storage",
@@ -356,6 +357,11 @@ class PropertyManagerAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param DeleteRequest $r
+     * @return mixed
+     * @throws \Exception
      */
     public function destroy($id, DeleteRequest $r)
     {
@@ -371,12 +377,6 @@ class PropertyManagerAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $did
-     * @param AssignRequest $r
-     * @param QuarterRepository $dRepo
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/propertyManagers/{id}/quarters/{did}",
      *      summary="Assign the provided quarter to the property manager",
@@ -403,6 +403,12 @@ class PropertyManagerAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $did
+     * @param QuarterRepository $qRepo
+     * @param AssignRequest $r
+     * @return mixed
      */
     public function assignQuarter(int $id, int $did, QuarterRepository $qRepo, AssignRequest $r)
     {
@@ -422,12 +428,6 @@ class PropertyManagerAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $did
-     * @param AssignRequest $request
-     * @param QuarterRepository $qRepo
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/propertyManagers/{id}/quarters/{did}",
      *      summary="Unassign the provided quarter from the property manager",
@@ -454,8 +454,14 @@ class PropertyManagerAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $did
+     * @param QuarterRepository $qRepo
+     * @param UnAssignRequest $r
+     * @return mixed
      */
-    public function unassignQuarter(int $id, int $did, QuarterRepository $qRepo, AssignRequest $r)
+    public function unassignQuarter(int $id, int $did, QuarterRepository $qRepo, UnAssignRequest $r)
     {
         $pm = $this->propertyManagerRepository->findWithoutFail($id);
         if (empty($pm)) {
@@ -473,12 +479,6 @@ class PropertyManagerAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $bid
-     * @param AssignRequest $r
-     * @param BuildingRepository $bRepo
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/propertyManagers/{id}/buildings/{bid}",
      *      summary="Assign the provided building to the property manager",
@@ -505,6 +505,12 @@ class PropertyManagerAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $bid
+     * @param BuildingRepository $bRepo
+     * @param AssignRequest $r
+     * @return mixed
      */
     public function assignBuilding(int $id, int $bid, BuildingRepository $bRepo, AssignRequest $r)
     {
@@ -528,12 +534,6 @@ class PropertyManagerAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $bid
-     * @param AssignRequest $r
-     * @param BuildingRepository $bRepo
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/propertyManagers/{id}/buildings/{bid}",
      *      summary="Unassign the provided building from the property manager",
@@ -560,8 +560,14 @@ class PropertyManagerAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $bid
+     * @param BuildingRepository $bRepo
+     * @param UnAssignRequest $r
+     * @return mixed
      */
-    public function unassignBuilding(int $id, int $bid, BuildingRepository $bRepo, AssignRequest $r)
+    public function unassignBuilding(int $id, int $bid, BuildingRepository $bRepo, UnAssignRequest $r)
     {
         $pm = $this->propertyManagerRepository->findWithoutFail($id);
         if (empty($pm)) {
@@ -579,9 +585,6 @@ class PropertyManagerAPIController extends AppBaseController
     }
 
     /**
-     * @param BatchDeleteRequest $request
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/propertyManagers/batchDelete",
      *      summary="Remove batch PropertyManager from storage",
@@ -615,6 +618,9 @@ class PropertyManagerAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param BatchDeleteRequest $request
+     * @return mixed
      */
     public function batchDelete(BatchDeleteRequest $request)
     {
@@ -661,11 +667,6 @@ class PropertyManagerAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Get(
      *      path="/requests/{id}/assignments",
      *      summary="Get a listing of the ServiceProvider assigned buildings and quarters.",
@@ -693,8 +694,12 @@ class PropertyManagerAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param AssigneeListRequest $request
+     * @return mixed
      */
-    public function getAssignments(int $id, Request $request)
+    public function getAssignments(int $id, AssigneeListRequest $request)
     {
         /** @var PropertyManager $propertyManager */
         $propertyManager = $this->propertyManagerRepository->find($id);
@@ -710,6 +715,7 @@ class PropertyManagerAPIController extends AppBaseController
     /**
      * @param Request $request
      * @return mixed
+     *  // @TODO ROLE RELATED
      */
     public function getIDsAssignmentsCount(Request $request)
     {

@@ -11,7 +11,7 @@ use App\Http\Requests\API\Building\BatchAssignUsers;
 use App\Http\Requests\API\Building\CreateRequest;
 use App\Http\Requests\API\Building\UnAssignRequest;
 use App\Http\Requests\API\Building\DeleteRequest;
-use App\Http\Requests\API\Building\ListAssigneesRequest;
+use App\Http\Requests\API\Building\AssigneeListRequest;
 use App\Http\Requests\API\Building\ListRequest;
 use App\Http\Requests\API\Building\UpdateRequest;
 use App\Http\Requests\API\Building\ViewRequest;
@@ -687,10 +687,10 @@ class BuildingAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param ListAssigneesRequest $request
+     * @param AssigneeListRequest $request
      * @return Response
      */
-    public function getAssignees(int $id, ListAssigneesRequest $request)
+    public function getAssignees(int $id, AssigneeListRequest $request)
     {
         // @TODO permissions
         $building = $this->buildingRepository->findWithoutFail($id);

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\API\Building;
+namespace App\Http\Requests\API\Product;
 
 use App\Http\Requests\BaseRequest;
 
-class ListAssigneesRequest extends BaseRequest
+class ListRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,6 +13,7 @@ class ListAssigneesRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->user()->can('assign-building');
+        return true;
+        return \Auth::user()->can('list-product');
     }
 }
