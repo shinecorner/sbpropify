@@ -213,6 +213,9 @@ class TenantAPIController extends AppBaseController
         return $this->sendResponse($tenants->toArray(), 'Tenants retrieved successfully');
     }
 
+    /**
+     * @param $tenants
+     */
     protected function fixCreatedBy($tenants)
     {
         foreach ($tenants as $tenant) {
@@ -429,6 +432,7 @@ class TenantAPIController extends AppBaseController
      * @param UpdateRequest $request
      * @param PostRepository $pr
      * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Put(
@@ -758,6 +762,10 @@ class TenantAPIController extends AppBaseController
         return $this->sendResponse($id, __('models.tenant.deleted'));
     }
 
+    /**
+     * @param DeleteRequest $request
+     * @return mixed
+     */
     public function destroyWithIds(DeleteRequest $request)
     {
         $ids = $request->get('ids');
@@ -964,7 +972,6 @@ class TenantAPIController extends AppBaseController
     }
 
     /**
-
      * @SWG\Post(
      *      path="/addReview",
      *      summary="Update Tenant review and rating",
@@ -1035,7 +1042,7 @@ class TenantAPIController extends AppBaseController
      * @param Request $request
      * @return mixed
      */
-    public function addReview(Request $request){
+    public function addReview(UpdateRequest $request){
         $input = $request->all();
         $tenant = $this->tenantRepository->findWithoutFail($input['tenant_id']);
         
