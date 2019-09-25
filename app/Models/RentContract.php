@@ -79,6 +79,24 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *          description="parking_price",
  *          type="integer"
  *      ),
+ *      @SWG\Property(
+ *          property="monthly_rent_net",
+ *          description="monthly_rent_net",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="monthly_rent_gross",
+ *          description="monthly_rent_gross",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="monthly_maintenance",
+ *          description="monthly_maintenance",
+ *          type="integer",
+ *          format="int32"
+ *      ),
  *     @SWG\Property(
  *          property="start_date",
  *          description="start_date",
@@ -189,6 +207,9 @@ class RentContract extends AuditableModel implements HasMedia
         'parking_price',
         'start_date',
         'end_date',
+        'monthly_rent_net',
+        'monthly_rent_gross',
+        'monthly_maintenance',
     ];
 
     /**
@@ -213,6 +234,9 @@ class RentContract extends AuditableModel implements HasMedia
         'deposit_status' => 'integer',
         'deposit_amount' => 'integer',
         'parking_price' => 'integer',
+        'monthly_rent_net' => 'float',
+        'monthly_rent_gross' => 'float',
+        'monthly_maintenance' => 'float',
     ];
 
     /**
