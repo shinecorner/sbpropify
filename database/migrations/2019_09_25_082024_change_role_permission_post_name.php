@@ -49,8 +49,8 @@ class ChangeRolePermissionPostName extends Migration
             'description' => 'add serviceRequest',
         ]);
         \App\Models\Permission::where('name', 'edit-request')->update([
-            'name' => 'Edit ServiceRequests',
-            'display_name' => 'edit existing serviceRequest',
+            'display_name' => 'Edit ServiceRequests',
+            'description' => 'edit existing serviceRequest',
         ]);
         \App\Models\Permission::where('name', 'post-building')->update([
             'name' => 'add-building',
