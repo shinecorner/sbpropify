@@ -36,8 +36,8 @@
                 Yes
             </div>
             <div>
-                <b>{{$t('tenant.monthly_rent')}}:</b>
-                {{contract.unit.monthly_rent}}
+                <b>{{$t('tenant.monthly_rent_net')}}:</b>
+                {{contract.unit.monthly_rent_net}}
             </div>
             <template v-if="contract.rent_start">
                 <el-divider content-position="left">{{$t('tenant.rent_date')}}</el-divider>
