@@ -6,12 +6,12 @@
         <div class="content">
             <el-input autosize ref="content" :class="{'is-focused': focused}" type="textarea" resize="none" v-model="content" :placeholder="$t('components.common.addComment.placeholder')" :disabled="loading" :validate-event="false" @blur="focused = false" @focus="focused = true" @keydown.native.alt.enter.exact="save" />
             <el-dropdown class="templates" size="small" placement="top-end" trigger="click" @command="onTemplateSelected" @visible-change="onDropdownVisibility" v-if="showTemplates">
-                <el-tooltip ref="templates-button-tooltip" :content="$t('components.common.addComment.tooltipTemplates')" placement="top-end">
+                <el-tooltip ref="templates-button-tooltip" :content="type == 'internalNotices' ? 'Property maneger and Admin' : $t('components.common.addComment.tooltipTemplates')" placement="top-end">
                     <el-button ref="templates-button" type="text" class="el-dropdown-link" :disabled="loading">
                         <i class="icon-ellipsis-vert"></i>
                     </el-button>
                 </el-tooltip>
-                <el-dropdown-menu slot="dropdown">
+                <el-dropdown-menu v-if="type !== 'internalNotices'" slot="dropdown">
                     <el-dropdown-item v-for="(template, idx) in templates" :key="template.id" :command="template" :divided="!!idx">
                         {{template.name}}
                         <small style="display: block;color: #A9A9A9;width: 280px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
@@ -24,6 +24,16 @@
                     <el-dropdown-item disabled v-else-if="!loadingTemplates && !templates.length">
                         {{$t('components.common.addComment.emptyTemplatesPlaceholder')}}
                     </el-dropdown-item>
+                </el-dropdown-menu>
+                <el-dropdown-menu v-else slot="dropdown">
+                    <relation-list
+                                    :actions="assigneesActions"
+                                    :columns="assigneesColumns"
+                                    :filterValue="model.id"
+                                    fetchAction="getAssignees"
+                                    filter="request_id"
+                                    ref="assigneesList"
+                                />
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
@@ -38,6 +48,7 @@
     import ErrorFallback from 'components/common/AddComment/Error'
     import {displaySuccess, displayError} from 'helpers/messages'
     import { EventBus } from '../../../event-bus.js';
+    import RelationList from '../../RelationListing';
 
     export default {
         props: {
@@ -73,7 +84,8 @@
                 loading: false,
                 loadingTemplates: false,
                 dropdownTemplatesVisible: false,
-                errorFallback: ErrorFallback
+                errorFallback: ErrorFallback,
+                RelationList: RelationList
             }
         },
         methods: {
