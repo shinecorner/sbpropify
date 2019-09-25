@@ -8,21 +8,27 @@
         <tbody>
             <tr>
                 <td colspan="2" width="100%" class="no_border">
-                    <table width="100%">
+                    <table width="100%" style="vertical-align:middle;margin-bottom: 15px;">
                         <tbody>
                             <tr>
                                 <td class="table_header" valign="middle">
 
-                                    <p>{{ $request->service_request_format }}</p>
-                                    <p>{{ ($category->parentCategory != null) ? $category->parentCategory->{'name'.($language != 'en' ? '_'.$language : '') } . ' > ' : ''  }}
+                                    <span>{{ $request->service_request_format }}</span> <br />
 
-                                    {{ $category->{'name'.($language != 'en' ? '_'.$language : '') } }}
+                                    <p style="margin:7px 0 0;">
+                                        <b>@lang('models.request.category',[],$language):</b>
+                                        {{ ($category->parentCategory != null) ? $category->parentCategory->{'name'.($language != 'en' ? '_'.$language : '') } . ' > ' : ''  }}
+                                        {{ $category->{'name'.($language != 'en' ? '_'.$language : '') } }}
                                     </p>
-                                    <p> @lang('models.request.status.'.\App\Models\ServiceRequest::Status[$request->status],[],$language) ({{ now()->format('d.m.Y H:i') }})</p>
-
-                                    <p> {{ @$tenant->address->street }}
-                                        {{ @$tenant->address->house_num }}
-                                        {{ @$tenant->address->zip }},
+                                    <p style="margin:7px 0 0;">
+                                        <b>@lang('models.request.status.label',[],$language):</b>
+                                        @lang('models.request.status.'.\App\Models\ServiceRequest::Status[$request->status],[],$language) ({{ now()->format('d.m.Y, H:i') }})
+                                    </p>
+                                    <p style="margin:7px 0 0;">
+                                        <b>@lang('models.address.name',[],$language):</b>
+                                        {{ @$tenant->address->street }}
+                                        {{ @$tenant->address->house_num }},
+                                        {{ @$tenant->address->zip }}
                                         {{ @$tenant->address->city }}
 
                                     </p>
@@ -113,24 +119,24 @@
             </tr>
             <tr>
                 <td class="no_border" width="100%">
-                    <h4 style="margin-bottom:0">@lang('general.title',[],$language):</h4>
+                    <h4 style="margin-bottom:0;font-size: 14px;">@lang('general.title',[],$language):</h4>
                     <p style="display:block;width:100%;margin-top:5px;">{{ $request->title }}</p>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" class="no_border" width="100%">
-                    <h4 style="margin-bottom:0">@lang('general.description',[],$language):</h4>
-                    <p style="display:block;width:100%;margin-top:0;">{!!  $request->description !!} </p>
+                    <h4 style="margin-bottom:0;font-size: 14px;">@lang('general.description',[],$language):</h4>
+                    <p style="display:block;width:100%;margin-top:5px;">{!!  $request->description !!} </p>
                 </td>
             </tr>
             <tr>
                 <td class="no_border">
-                    <h4 style="margin-bottom:0">@lang('models.request.download_pdf.contact_details',[],$language):</h4>
+                    <h4 style="margin-bottom:0;font-size: 14px;">@lang('models.request.download_pdf.contact_details',[],$language):</h4>
                 </td>
             </tr>
             <tr>
                 <td colspan="2" class="no_border" width="100%">
-                    <p style="display:block;width:100%;margin-top:0;">@lang('models.request.download_pdf.contact_text',[],$language)</p>
+                    <p style="display:block;width:100%;margin-top:5px;">@lang('models.request.download_pdf.contact_text',[],$language)</p>
                 </td>
             </tr>
         <tr>
@@ -143,10 +149,10 @@
                                 <tbody>
                                 <tr>
                                     <td class="no_border"><strong>@lang('general.name',[],$language):</strong></td>
-                                    <td class="no_border" width="200px">{{ $tenant->user->name }}</td>
+                                    <td class="no_border" width="163px">{{ $tenant->user->name }}</td>
 
-                                    <td class="no_border" style="padding-left:38px;"><strong>@lang('general.email',[],$language):</strong></td>
-                                    <td  class="no_border" style="padding-left:38px;">{{ $tenant->user->email }}</td>
+                                    <td class="no_border" ><strong>@lang('general.email',[],$language):</strong></td>
+                                    <td  class="no_border">{{ $tenant->user->email }}</td>
                                     <td class="no_border"></td>
 
                                 </tr>
