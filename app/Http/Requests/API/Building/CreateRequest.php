@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\API\Building;
 
+use App\Http\Requests\BaseRequest;
 use App\Models\Building;
-use InfyOm\Generator\Request\APIRequest;
 
-class CreateRequest extends APIRequest
+class CreateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.

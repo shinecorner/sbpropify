@@ -11,7 +11,6 @@ use App\Http\Requests\API\Building\BatchAssignUsers;
 use App\Http\Requests\API\Building\CreateRequest;
 use App\Http\Requests\API\Building\UnAssignRequest;
 use App\Http\Requests\API\Building\DeleteRequest;
-use App\Http\Requests\API\Building\AssigneeListRequest;
 use App\Http\Requests\API\Building\ListRequest;
 use App\Http\Requests\API\Building\UpdateRequest;
 use App\Http\Requests\API\Building\ViewRequest;

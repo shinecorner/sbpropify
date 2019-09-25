@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\API\Building;
 
+use App\Http\Requests\BaseRequest;
 use App\Models\Building;
-use InfyOm\Generator\Request\APIRequest;
 
-class ViewRequest extends APIRequest
+class ViewRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,15 +23,5 @@ class ViewRequest extends APIRequest
         $t = $this->user()->tenant ?? null;
 
         return $t && $t->building_id == $b->id;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
     }
 }
