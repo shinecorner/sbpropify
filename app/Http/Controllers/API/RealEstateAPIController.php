@@ -33,8 +33,6 @@ class RealEstateAPIController extends AppBaseController
     }
 
     /**
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/realEstate/",
      *      summary="Display the RealEstate",
@@ -61,6 +59,9 @@ class RealEstateAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ViewRequest $r
+     * @return mixed
      */
     public function show(ViewRequest $r)
     {
@@ -78,9 +79,6 @@ class RealEstateAPIController extends AppBaseController
     }
 
     /**
-     * @param UpdateRequest $request
-     * @return Response
-     *
      * @SWG\Put(
      *      path="/realEstate",
      *      summary="Update the RealEstate in storage",
@@ -114,6 +112,9 @@ class RealEstateAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param UpdateRequest $request
+     * @return Response
      */
     public function update(UpdateRequest $request)
     {

@@ -9,7 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Building\BatchAssignManagers;
 use App\Http\Requests\API\Building\BatchAssignUsers;
 use App\Http\Requests\API\Building\CreateRequest;
-use App\Http\Requests\API\Building\DeleteAssigneeRequest;
+use App\Http\Requests\API\Building\UnAssignRequest;
 use App\Http\Requests\API\Building\DeleteRequest;
 use App\Http\Requests\API\Building\ListAssigneesRequest;
 use App\Http\Requests\API\Building\ListRequest;
@@ -558,7 +558,6 @@ class BuildingAPIController extends AppBaseController
     }
 
     /**
-     *
      * @param Request $request
      * @return mixed
      * // @TODO ROLE RELATED
@@ -638,10 +637,10 @@ class BuildingAPIController extends AppBaseController
      *
      * @param int $id
      * @param int $service_id
-     * @param DeleteAssigneeRequest $r
+     * @param UnAssignRequest $r
      * @return Response
      */
-    public function serviceRemove(int $id, int $service_id, DeleteAssigneeRequest $r)
+    public function serviceRemove(int $id, int $service_id, UnAssignRequest $r)
     {
         /** @var Building $building */
         $building = $this->buildingRepository->findWithoutFail($id);
@@ -920,10 +919,10 @@ class BuildingAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param DeleteAssigneeRequest $request
+     * @param UnAssignRequest $request
      * @return mixed
      */
-    public function deleteBuildingAssignee(int $id, DeleteAssigneeRequest $request)
+    public function deleteBuildingAssignee(int $id, UnAssignRequest $request)
     {
         $buildingAssignee = BuildingAssignee::find($id);
         if (empty($buildingAssignee)) {
@@ -966,10 +965,10 @@ class BuildingAPIController extends AppBaseController
      *
      * @param int $building_id
      * @param int $manager_id
-     * @param DeleteAssigneeRequest $r
+     * @param UnAssignRequest $r
      * @return Response
      */
-    public function unAssignPropertyManager(int $building_id, int $manager_id, DeleteAssigneeRequest $r)
+    public function unAssignPropertyManager(int $building_id, int $manager_id, UnAssignRequest $r)
     {
         $assigneeId = BuildingAssignee::where([
                 'building_id' => $building_id,

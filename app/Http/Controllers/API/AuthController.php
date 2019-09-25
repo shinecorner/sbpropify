@@ -22,9 +22,6 @@ use Jenssegers\Agent\Agent;
 class AuthController extends Controller
 {
     /**
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/auth/signup",
      *      summary="User signup",
@@ -58,7 +55,10 @@ class AuthController extends Controller
      *          )
      *      )
      * )
-    */
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function signup(Request $request)
     {
         $request->validate([
@@ -80,9 +80,6 @@ class AuthController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/auth/login",
      *      summary="User login",
@@ -116,7 +113,10 @@ class AuthController extends Controller
      *          )
      *      )
      * )
-    */
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function login(Request $request)
     {
 
@@ -187,9 +187,6 @@ class AuthController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/auth/logout",
      *      summary="User logout",
@@ -223,7 +220,10 @@ class AuthController extends Controller
      *          )
      *      )
      * )
-    */
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function logout(Request $request)
     {
         $request->user()->token()->revoke();
@@ -233,9 +233,6 @@ class AuthController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/auth/autologin",
      *      summary="User autologin",
@@ -269,7 +266,10 @@ class AuthController extends Controller
      *          )
      *      )
      * )
-    */
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function autologin(Request $request)
     {
         $request->validate([
