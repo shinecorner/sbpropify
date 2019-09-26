@@ -47,7 +47,7 @@ Vue.use(VueVirtualScroller)
 Vue.use(VueLocalStorage, {name: 'localStorage', bind: true})
 Vue.use(VueSweetalert2, {confirmButtonColor: '#3085d6', cancelButtonColor: '#d33'})
 
-const i18n = new VueI18n({messages, locale: 'en', fallbackLocale: DEFAULT_FALLBACK_LOCALE})
+const i18n = new VueI18n({messages, locale: DEFAULT_FALLBACK_LOCALE, fallbackLocale: DEFAULT_FALLBACK_LOCALE})
 
 Vue.use(ElementUI, {i18n: (key, value) => i18n.t(key, value)})
 
