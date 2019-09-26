@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\API\Post;
+namespace App\Http\Requests\API\Pinboard;
 
 use App\Http\Requests\BaseRequest;
 

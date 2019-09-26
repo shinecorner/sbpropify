@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\API\Post;
+namespace App\Http\Requests\API\Pinboard;
 
 use App\Models\Post;
 use App\Http\Requests\BaseRequest;
 
-class PublishRequest extends BaseRequest
+class UpdateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,12 @@ class PublishRequest extends BaseRequest
      */
     public function authorize()
     {
-        return $this->can('publish-post');
+        $u = \Auth::user();
+        if ($u->can('edit-post')) {
+            return true;
+        }
+        return Post::where('id', $this->route('post'))
+            ->where('user_id', $u->id)->first();
     }
 
     /**
@@ -24,6 +29,6 @@ class PublishRequest extends BaseRequest
      */
     public function rules()
     {
-        return Post::publishRules();
+        return Post::rules();
     }
 }
