@@ -30,7 +30,7 @@ use App\Repositories\QuarterRepository;
 use App\Repositories\PinboardRepository;
 use App\Repositories\RealEstateRepository;
 use App\Repositories\ServiceProviderRepository;
-use App\Transformers\PostTransformer;
+use App\Transformers\PinboardTransformer;
 use App\Transformers\PostViewTransformer;
 use App\Transformers\UserTransformer;
 use Carbon\Carbon;
@@ -47,7 +47,7 @@ class PinboardAPIController extends AppBaseController
     /** @var  PinboardRepository */
     private $postRepository;
     /**
-     * @var PostTransformer
+     * @var PinboardTransformer
      */
     private $transformer;
     /**
@@ -58,10 +58,10 @@ class PinboardAPIController extends AppBaseController
     /**
      * PinboardAPIController constructor.
      * @param PinboardRepository $postRepo
-     * @param PostTransformer $pt
+     * @param PinboardTransformer $pt
      * @param UserTransformer $ut
      */
-    public function __construct(PinboardRepository $postRepo, PostTransformer $pt, UserTransformer $ut)
+    public function __construct(PinboardRepository $postRepo, PinboardTransformer $pt, UserTransformer $ut)
     {
         $this->postRepository = $postRepo;
         $this->transformer = $pt;

@@ -5,20 +5,17 @@ namespace App\Transformers;
 use App\Models\Pinboard;
 
 /**
- * Class PostTransformer.
- *
- * @package namespace App\Transformers;
+ * Class PinboardTransformer
+ * @package App\Transformers
  */
-class PostTransformer extends BaseTransformer
+class PinboardTransformer extends BaseTransformer
 {
     protected $defaultIncludes = [];
 
     /**
-     * Transform the Post entity.
-     *
-     * @param \App\Models\Pinboard $model
-     *
+     * @param Pinboard $model
      * @return array
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function transform(Pinboard $model)
     {
