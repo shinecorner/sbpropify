@@ -4,7 +4,7 @@
             :data="items"
             :element-loading-background="loading.background"
             :element-loading-spinner="loading.icon"
-            :element-loading-text="loading.text"
+            :element-loading-text="$t(loading.text)"
             :empty-text="emptyText"
             @selection-change="handleSelectionChange"
             v-loading="loading.state"
@@ -223,7 +223,7 @@
                 type: Object,
                 default: () => ({
                     state: false,
-                    text: 'Loading...',
+                    text: 'general.loading',
                     icon: 'el-icon-loading',
                     background: 'rgba(0, 0, 0, 0.8)'
                 })

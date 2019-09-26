@@ -19,7 +19,7 @@
                      v-if="this.filters.length"
                     :element-loading-background="loading.background"
                     :element-loading-spinner="loading.icon"
-                    :element-loading-text="loading.text"
+                    :element-loading-text="$t(loading.text)"
                     v-loading="isLoadingFilters.state"
             >
                 <el-row :gutter="10">
@@ -245,7 +245,7 @@
                 :label="$t(column.label)"
                 v-for="(column, key) in headerWithSelect">
                 <template slot-scope="scope">
-                    <el-select class="select-icon" :class="column.class" @change="column.select.onChange(scope.row)" v-model="scope.row[column.prop]">
+                    <!-- <el-select class="select-icon" :class="column.class" @change="column.select.onChange(scope.row)" v-model="scope.row[column.prop]">
                         <template slot="prefix">
                             <i class="icon-dot-circled" :class="scope.row[column.prop] == 1 ? 'icon-success':'icon-danger'"  v-if="column.ShowCircleIcon"></i>
                         </template>
@@ -256,7 +256,13 @@
                             v-for="item in column.select.data">
                             <i class="icon-dot-circled" :class="item.id == 1 ? 'icon-success':'icon-danger'"  v-if="column.ShowCircleIcon"></i> {{item.name}}
                         </el-option>
-                    </el-select>
+                    </el-select> -->
+                    <list-table-select
+                        :column="column"
+                        @change="selectChanged($event, scope.row, column)"
+                        :spanKey="column.prop"
+                        :selectValue="scope.row[column.prop]"
+                    />
                 </template>
             </el-table-column>
             <el-table-column
@@ -329,6 +335,7 @@
     import tableAvatar from 'components/Avatar';
     import RequestDetailCard from 'components/RequestDetailCard';
     import SelectLanguage from 'components/SelectLanguage';
+    import ListTableSelect from 'components/ListTableSelect';
 
     export default {
         name: 'ListTable',
@@ -337,7 +344,8 @@
             RequestCount,
             'table-avatar': tableAvatar,
             RequestDetailCard,
-            SelectLanguage
+            SelectLanguage,
+            ListTableSelect
         },
         props: {
             header: {
@@ -364,7 +372,7 @@
                 type: Object,
                 default: () => ({
                     state: false,
-                    text: 'Loading...',
+                    text: 'general.loading',
                     icon: 'el-icon-loading',
                     background: 'rgba(0, 0, 0, 0.8)'
                 })
@@ -373,7 +381,7 @@
                 type: Object,
                 default: () => ({
                     state: false,
-                    text: 'Loading...',
+                    text: 'general.loading',
                     icon: 'el-icon-loading',
                     background: 'rgba(0, 0, 0, 0.8)'
                 })
@@ -490,6 +498,10 @@
             }
         },
         methods: {
+            selectChanged(e, row, column) {
+                row[column.prop] = e;
+                column.select.onChange(row);
+            },
             clearSearch() {
                 this.search = '';
             },

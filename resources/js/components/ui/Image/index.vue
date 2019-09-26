@@ -2,7 +2,7 @@
     <div class="ui-image">
         <slot name="placeholder" v-if="loading">
             <div class="ui-image__placeholder">
-                Loading...
+                {{$t('general.loading')}}
             </div>
         </slot>
         <slot name="error" v-else-if="error">
