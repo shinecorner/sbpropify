@@ -87,6 +87,18 @@ class CleanDB extends Command
 
         $config = [
             'audits' => $audits,
+            'autologins' => [
+                'relation' => (new User())->getTable(),
+            ],
+            'buildings' => [
+                [
+                    'relation' => (new Quarter())->getTable(),
+                ],
+                [
+                    'relation' => (new Address())->getTable(),
+                    'relation_id' => 'address_id'
+                ]
+            ],
             'conversations' => $conversations,
             'comments' => $comments,
         ];
