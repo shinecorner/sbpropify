@@ -10,7 +10,7 @@
                     {{formatDatetime(data.created_at)}}
                 </small>
             </div>
-            <div class="actions" v-if="showActions">
+            <div class="actions" v-if="showActions && loggedInUser.tenant.id == data.tenant['id']">
                 <el-tooltip :content="$t('tenant.tooltips.edit_post')">
                     <el-button size="mini" @click="$emit('edit-post', $event, data)" plain round>{{$t('general.actions.edit')}}</el-button>
                 </el-tooltip>
@@ -59,6 +59,8 @@
 </template>
 
 <script>
+    import {mapActions, mapGetters} from 'vuex'
+
     import AgoMixin from 'mixins/agoMixin'
     import Card from 'components/Card'
     import Likes from 'components/tenant/Likes'
@@ -107,6 +109,8 @@
             }
         },
         computed: {
+            ...mapGetters(['loggedInUser']),
+
             isNewNeighbourType() {
                 return this.$store.getters['application/constants'].posts.type[this.data.type] === 'new_neighbour'
             },
