@@ -3,6 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\API\Dashboard\AllStatisticRequest;
+use App\Http\Requests\API\Dashboard\BuildingStatisticRequest;
+use App\Http\Requests\API\Dashboard\DonutChartStatisticRequest;
+use App\Http\Requests\API\Dashboard\HeatMapStatisticRequest;
+use App\Http\Requests\API\Dashboard\PieChartStatisticRequest;
+use App\Http\Requests\API\Dashboard\SRequestStatisticRequest;
+use App\Http\Requests\API\Dashboard\TenantStatisticRequest;
 use App\Models\Building;
 use App\Models\LoginDevice;
 use App\Models\ServiceRequest;
@@ -23,15 +30,12 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\DB;
 
 /**
- * @TODO authorize each request
- *
- * Class StatisticsAPIController
+ * Class DashboardAPIController
  * @package App\Http\Controllers\API
  */
-class StatisticsAPIController extends AppBaseController
+class DashboardAPIController extends AppBaseController
 {
     const YEAR = 'year';
     const MONTH = 'month';
@@ -190,6 +194,9 @@ class StatisticsAPIController extends AppBaseController
         ],
     ];
 
+    /**
+     *
+     */
     const PERMITTED_TABLES_FOR_CREATED_DATE = [
         'products' => [
             'class' => Product::class,
@@ -223,11 +230,19 @@ class StatisticsAPIController extends AppBaseController
     /** @var  ServiceRequestRepository */
     private $serviceRequestRepo;
 
+    /**
+     * DashboardAPIController constructor.
+     * @param BuildingRepository $br
+     * @param UnitRepository $ur
+     * @param TenantRepository $tr
+     * @param ServiceRequestRepository $srr
+     */
     public function __construct(
         BuildingRepository $br,
         UnitRepository $ur,
         TenantRepository $tr,
-        ServiceRequestRepository $srr)
+        ServiceRequestRepository $srr
+    )
     {
         $this->buildingRepo = $br;
         $this->unitRepo = $ur;
@@ -236,8 +251,6 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
      *
      * @SWG\Get(
      *      path="/buildings/{id}/statistics",
@@ -272,8 +285,13 @@ class StatisticsAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     *
+     * @param int $id
+     * @param BuildingStatisticRequest $request
+     * @return Response
      */
-    public function buildingStatistics(int $id)
+    public function buildingStatistics(int $id, BuildingStatisticRequest $request)
     {
         /** @var Building $building */
         $building = $this->buildingRepo->findWithoutFail($id);
@@ -349,9 +367,6 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/tenants/{id}/statistics",
      *      summary="Display the specified Tenant statistics",
@@ -385,8 +400,13 @@ class StatisticsAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param TenantStatisticRequest $tenantStatisticRequest
+     * @return Response
+     *
      */
-    public function tenantStatistics(int $id)
+    public function tenantStatistics(int $id, TenantStatisticRequest $tenantStatisticRequest)
     {
         /** @var Tenant $tenant */
         $tenant = $this->tenantRepo
@@ -487,9 +507,10 @@ class StatisticsAPIController extends AppBaseController
      *      )
      * )
      *
+     * @param TenantStatisticRequest $request
      * @return mixed
      */
-    public function tenantsGenderStatistics()
+    public function tenantsGenderStatistics(TenantStatisticRequest $request)
     {
         $tenants = Tenant::selectRaw('count(id) as count, title')
             ->whereIn('title', ['mr', 'mrs'])
@@ -559,9 +580,10 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
+     * @param TenantStatisticRequest $tenantStatisticRequest
      * @return mixed
      */
-    public function tenantsAgeStatistics()
+    public function tenantsAgeStatistics(TenantStatisticRequest $tenantStatisticRequest)
     {
         // @TODO check permission in request
         $ageConfig = [
@@ -628,8 +650,6 @@ class StatisticsAPIController extends AppBaseController
     }
 
     /**
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/requests/{id}/statistics",
      *      summary="Display the specified Tenant statistics",
@@ -663,8 +683,12 @@ class StatisticsAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     *
+     * @param SRequestStatisticRequest $request
+     * @return mixed
      */
-    public function requestsStatistics()
+    public function requestsStatistics(SRequestStatisticRequest $request)
     {
         $serviceReq = (new ServiceRequest);
 
@@ -817,10 +841,10 @@ class StatisticsAPIController extends AppBaseController
      *      )
      * )
      *
-     * @param Request $request
+     * @param AllStatisticRequest $request
      * @return mixed
      */
-    public function adminStats(Request $request)
+    public function adminStats(AllStatisticRequest $request)
     {
         $optionalArgs = [
             'isConvertResponse' => false,
@@ -842,7 +866,7 @@ class StatisticsAPIController extends AppBaseController
             // all time total requests count and total request count of per status
             'total_requests' => $this->thousandsFormat(ServiceRequest::count('id')),
             'requests_per_status' => $this->donutChartByTable($request, $optionalArgs, 'service_requests'),
-            'requests_per_category' => $this->donutChartRequestByCategory($request, $optionalArgs),
+            'requests_per_category' => $this->_donutChartRequestByCategory($request, $optionalArgs),
 
             // all time total tenants count and total tenants count of per status
             'total_tenants' => $this->thousandsFormat(Tenant::count('id')),
@@ -863,6 +887,10 @@ class StatisticsAPIController extends AppBaseController
         return $this->sendResponse($ret, 'Admin statistics retrieved successfully');
     }
 
+    /**
+     * @param $timeInSeconds
+     * @return float|string
+     */
     protected function formatTime($timeInSeconds)
     {
         $days           =  floor($timeInSeconds / (24 * 3600));
@@ -925,11 +953,11 @@ class StatisticsAPIController extends AppBaseController
      * )
      *
      *
-     * @param Request $request
+     * @param SRequestStatisticRequest $request
      * @param array $optionalArgs
      * @return mixed
      */
-    public function chartRequestByCreationDate(Request $request, $optionalArgs = [])
+    public function chartRequestByCreationDate(SRequestStatisticRequest $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         $period = $this->getPeriod($request);
@@ -1011,7 +1039,7 @@ class StatisticsAPIController extends AppBaseController
      * @param array $optionalArgs
      * @return mixed
      */
-    public function chartByCreationDate(Request $request, $optionalArgs = [])
+    public function chartByCreationDate(AllStatisticRequest $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         [$class, $table, $column, $columnValues] = $this->getTableColumnClassByRequest(
@@ -1087,11 +1115,11 @@ class StatisticsAPIController extends AppBaseController
      * )
      *
      *
-     * @param Request $request
+     * @param BuildingStatisticRequest $request
      * @param array $optionalArgs
      * @return mixed
      */
-    public function chartBuildingsByCreationDate(Request $request, $optionalArgs = [])
+    public function chartBuildingsByCreationDate(BuildingStatisticRequest $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         $period = $optionalArgs['period'] ?? $this->getPeriod($request);
@@ -1199,7 +1227,17 @@ class StatisticsAPIController extends AppBaseController
      * @param array $optionalArgs
      * @return mixed
      */
-    public function donutChart(Request $request, $optionalArgs = [])
+    public function donutChart(DonutChartStatisticRequest $request, $optionalArgs = [])
+    {
+        return $this->_donutChart($request, $optionalArgs);
+    }
+
+    /**
+     * @param $request
+     * @param array $optionalArgs
+     * @return mixed
+     */
+    protected function _donutChart($request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         [$class, $table, $column, $columnValues] = $this->getTableColumnClassByRequest(
@@ -1285,7 +1323,17 @@ class StatisticsAPIController extends AppBaseController
      * @param array $optionalArgs
      * @return mixed
      */
-    public function donutChartRequestByCategory(Request $request, $optionalArgs = [])
+    public function donutChartRequestByCategory(SRequestStatisticRequest $request, $optionalArgs = [])
+    {
+        return $this->_donutChartRequestByCategory($request, $optionalArgs);
+    }
+
+    /**
+     * @param $request
+     * @param array $optionalArgs
+     * @return array|mixed
+     */
+    protected function _donutChartRequestByCategory($request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         $name = get_translation_attribute_name('name');
@@ -1372,7 +1420,7 @@ class StatisticsAPIController extends AppBaseController
      * @param array $optionalArgs
      * @return mixed
      */
-    public function chartRequestByAssignedProvider(Request $request, $optionalArgs = [])
+    public function chartRequestByAssignedProvider(SRequestStatisticRequest $request, $optionalArgs = [])
     {
         if (empty($optionalArgs) && empty($request->only(self::QUERY_PARAMS['start_date'], self::QUERY_PARAMS['end_date']))) {
             $startDate = null;
@@ -1478,11 +1526,11 @@ class StatisticsAPIController extends AppBaseController
      * )
      *
      *
-     * @param Request $request
+     * @param TenantStatisticRequest $request
      * @param array $optionalArgs
      * @return mixed
      */
-    public function donutChartTenantsByDateAndStatus(Request $request, $optionalArgs = [])
+    public function donutChartTenantsByDateAndStatus(TenantStatisticRequest $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
 
@@ -1503,7 +1551,12 @@ class StatisticsAPIController extends AppBaseController
             : $response;
     }
 
-    public function pieChartBuildingByState(Request $request, $optionalArgs = [])
+    /**
+     * @param PieChartStatisticRequest $request
+     * @param array $optionalArgs
+     * @return mixed
+     */
+    public function pieChartBuildingByState(PieChartStatisticRequest $request, $optionalArgs = [])
     {
         [$startDate, $endDate] = $this->getStartDateEndDate($request, $optionalArgs);
         $statistics = Building::selectRaw('loc_states.id, count(buildings.id) `count`')
@@ -1526,7 +1579,7 @@ class StatisticsAPIController extends AppBaseController
             : $response;
     }
 
-        /**
+    /**
      *
      * @SWG\Get(
      *      path="/admin/heatMapByDatePeriod",
@@ -1602,10 +1655,10 @@ class StatisticsAPIController extends AppBaseController
      * )
      *
      * @TODO improve
-     * @param Request $request
+     * @param HeatMapStatisticRequest  $request
      * @return mixed
      */
-    public function heatMapByDatePeriod(Request $request)
+    public function heatMapByDatePeriod(HeatMapStatisticRequest $request)
     {
         $colStats = $this->getStatisticForHeatMap($request);
         $response = [];
@@ -1866,9 +1919,10 @@ class StatisticsAPIController extends AppBaseController
      *      )
      * )
      *
+     * @param TenantStatisticRequest $request
      * @return mixed
      */
-    public function chartTenantLanguage()
+    public function chartTenantLanguage(TenantStatisticRequest $request)
     {
         $languages = config('app.locales');
 //        $languages[null] = 'Unknown'; @TODO need or not
@@ -1887,7 +1941,7 @@ class StatisticsAPIController extends AppBaseController
      * @param null $endDate
      * @return mixed
      */
-    public function getDayCountStatistic($table, $startDate = null, $endDate = null)
+    protected function getDayCountStatistic($table, $startDate = null, $endDate = null)
     {
         return \DB::table($table)->selectRaw ('date(created_at) `x`, count(id) `y`')
             ->whereDate('created_at', '>=', $startDate->format('Y-m-d'))
@@ -1905,7 +1959,7 @@ class StatisticsAPIController extends AppBaseController
      */
     protected function donutChartByTable(Request $request, $optionalArgs, $table = 'service_requests')
     {
-        return $this->donutChart($request, array_merge($optionalArgs, ['table' => $table, 'column' => 'status']));
+        return $this->_donutChart($request, array_merge($optionalArgs, ['table' => $table, 'column' => 'status']));
     }
 
     /**

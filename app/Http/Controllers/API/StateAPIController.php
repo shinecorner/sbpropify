@@ -31,10 +31,6 @@ class StateAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     * @throws RepositoryException
-     *
      * @SWG\Get(
      *      path="/states",
      *      summary="Get a listing of the States.",
@@ -62,6 +58,10 @@ class StateAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param Request $request
+     * @return Response
+     * @throws RepositoryException
      */
     public function index(Request $request)
     {

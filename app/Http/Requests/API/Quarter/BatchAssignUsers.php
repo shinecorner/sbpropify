@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\API\Quarter;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class BatchAssignUsers extends APIRequest
+class BatchAssignUsers extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class BatchAssignUsers extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('assign-building');
+        return $this->can('assign-quarter');
     }
 
     /**

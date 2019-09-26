@@ -9,11 +9,11 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Building\BatchAssignManagers;
 use App\Http\Requests\API\Building\BatchAssignUsers;
 use App\Http\Requests\API\Building\CreateRequest;
+use App\Http\Requests\API\Building\UnAssignRequest;
 use App\Http\Requests\API\Building\DeleteRequest;
 use App\Http\Requests\API\Building\ListRequest;
 use App\Http\Requests\API\Building\UpdateRequest;
 use App\Http\Requests\API\Building\ViewRequest;
-use App\Http\Requests\API\PropertyManager\AssignRequest;
 use App\Models\Address;
 use App\Models\Building;
 use App\Models\BuildingAssignee;
@@ -84,10 +84,6 @@ class BuildingAPIController extends AppBaseController
     }
 
     /**
-     * @param ListRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Get(
      *      path="/buildings",
      *      summary="Get a listing of the Buildings.",
@@ -115,6 +111,10 @@ class BuildingAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return Response
+     * @throws /Exception
      */
     public function index(ListRequest $request)
     {
@@ -156,11 +156,6 @@ class BuildingAPIController extends AppBaseController
     }
 
     /**
-    /**
-     * @param ListRequest $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Get(
      *      path="/buildings/latest",
      *      summary="Get latest buildings 5 Tenants",
@@ -214,10 +209,9 @@ class BuildingAPIController extends AppBaseController
      *      )
      * )
      *
-     *
      * @param ListRequest $request
-     * @return mixed
-     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     * @return Response
+     * @throws \Exception
      */
     public function latest(ListRequest $request)
     {
@@ -231,10 +225,10 @@ class BuildingAPIController extends AppBaseController
     }
 
     /**
-     * @param ListRequest $request
+     * @param ListRequest $r
      * @return mixed
      */
-    public function map(ListRequest $request)
+    public function map(ListRequest $r)
     {
         $model = $this->buildingRepository->getModel();
         $columns = [
@@ -261,10 +255,6 @@ class BuildingAPIController extends AppBaseController
     }
 
     /**
-     * @param CreateRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Post(
      *      path="/buildings",
      *      summary="Store a newly created Building in storage",
@@ -298,6 +288,10 @@ class BuildingAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @return Response
+     * @throws /Exception
      */
     public function store(CreateRequest $request)
     {
@@ -324,10 +318,6 @@ class BuildingAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param ViewRequest $r
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/buildings/{id}",
      *      summary="Display the specified Building",
@@ -361,6 +351,10 @@ class BuildingAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param ViewRequest $r
+     * @return Response
      */
     public function show($id, ViewRequest $r)
     {
@@ -381,11 +375,6 @@ class BuildingAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param UpdateRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Put(
      *      path="/buildings/{id}",
      *      summary="Update the specified Building in storage",
@@ -426,6 +415,11 @@ class BuildingAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param UpdateRequest $request
+     * @return Response
+     * @throws /Exception
      */
     public function update(int $id, UpdateRequest $request)
     {
@@ -474,10 +468,6 @@ class BuildingAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param DeleteRequest $r
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/buildings/{id}",
      *      summary="Remove the specified Building from storage",
@@ -511,6 +501,10 @@ class BuildingAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param DeleteRequest $r
+     * @return Response
      */
     public function destroy($id, DeleteRequest $r)
     {
@@ -529,7 +523,11 @@ class BuildingAPIController extends AppBaseController
         return $this->sendResponse($id, __('models.building.deleted'));
     }
 
-    public function destroyWithIds(Request $request)
+    /**
+     * @param DeleteRequest $request
+     * @return mixed
+     */
+    public function destroyWithIds(DeleteRequest $request)
     {
         /** @var Building $building */        
         $buildings = $this->buildingRepository->findWithoutFail($request->get('ids'));
@@ -558,6 +556,11 @@ class BuildingAPIController extends AppBaseController
         }
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     * // @TODO ROLE RELATED
+     */
     public function checkUnitRequest(Request $request)
     {
         $buildings = $this->buildingRepository->findWithoutFail($request->get('ids'));
@@ -565,13 +568,14 @@ class BuildingAPIController extends AppBaseController
             return $this->sendError(__('models.building.errors.not_found'));
         }
 
-        try {            
+        try {
+            // @TODO check I think this code is not properly made
             $units = $this->unitRepository->getUnitsIdwithBuildingIds($buildings->pluck('id'));
             $returnValue = [
                 'isUnitExist' => false,
                 'isRequestExist' => false,
             ];
-            
+
             if(count($units) > 0) {
                 $request['isUnitExist'] = true;
             }
@@ -596,10 +600,6 @@ class BuildingAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $service_id
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/buildings/{post_id}/service/{service_id}",
      *      summary="Remove the specified Service from storage",
@@ -633,8 +633,13 @@ class BuildingAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $service_id
+     * @param UnAssignRequest $r
+     * @return Response
      */
-    public function serviceRemove(int $id, int $service_id)
+    public function serviceRemove(int $id, int $service_id, UnAssignRequest $r)
     {
         /** @var Building $building */
         $building = $this->buildingRepository->findWithoutFail($id);
@@ -652,10 +657,6 @@ class BuildingAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/buildings/{id}/assignees",
      *      summary="Get a listing of the Building assignees.",
@@ -683,8 +684,12 @@ class BuildingAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param ViewRequest $request
+     * @return Response
      */
-    public function getAssignees(int $id, Request $request)
+    public function getAssignees(int $id, ViewRequest $request)
     {
         // @TODO permissions
         $building = $this->buildingRepository->findWithoutFail($id);
@@ -701,10 +706,6 @@ class BuildingAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param BatchAssignManagers $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/buildings/{id}/propertyManagers",
      *      summary="Assign the provided propertyManagers to the Building",
@@ -742,6 +743,7 @@ class BuildingAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
      * @SWG\Post(
      *      path="/buildings/{id}/managers",
      *      summary="Assign the provided managers to the Building",
@@ -778,6 +780,10 @@ class BuildingAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param BatchAssignManagers $request
+     * @return Response
      */
     public function assignManagers(int $id, BatchAssignManagers $request)
     {
@@ -811,10 +817,6 @@ class BuildingAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param BatchAssignUsers $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/buildings/{id}/users",
      *      summary="Assign the provided users to the Building",
@@ -851,6 +853,10 @@ class BuildingAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param BatchAssignUsers $request
+     * @return Response
      */
     public function assignUsers(int $id, BatchAssignUsers $request)
     {
@@ -912,10 +918,10 @@ class BuildingAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param AssignRequest $request
+     * @param UnAssignRequest $request
      * @return mixed
      */
-    public function deleteBuildingAssignee(int $id, AssignRequest $request)
+    public function deleteBuildingAssignee(int $id, UnAssignRequest $request)
     {
         $buildingAssignee = BuildingAssignee::find($id);
         if (empty($buildingAssignee)) {
@@ -928,11 +934,6 @@ class BuildingAPIController extends AppBaseController
     }
 
     /**
-     * @param int $building_id
-     * @param int $manager_id
-     * @param BatchAssignManagers $r
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/buildings/{building_id}/propertyManagers/{manager_id}",
      *      summary="Unassign the provided property managerfrom the building ",
@@ -960,8 +961,13 @@ class BuildingAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $building_id
+     * @param int $manager_id
+     * @param UnAssignRequest $r
+     * @return Response
      */
-    public function unAssignPropertyManager(int $building_id, int $manager_id, AssignRequest $r)
+    public function unAssignPropertyManager(int $building_id, int $manager_id, UnAssignRequest $r)
     {
         $assigneeId = BuildingAssignee::where([
                 'building_id' => $building_id,

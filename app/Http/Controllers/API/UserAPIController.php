@@ -43,10 +43,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Get(
      *      path="/users",
      *      summary="Get a listing of the Users.",
@@ -74,6 +70,10 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function index(ListRequest $request)
     {
@@ -86,17 +86,13 @@ class UserAPIController extends AppBaseController
             $users = $this->userRepository->get();
             return $this->sendResponse($users->toArray(), 'Users retrieved successfully');
         }
+
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
         $users = $this->userRepository->with('roles')->paginate($perPage);
-
         return $this->sendResponse($users->toArray(), 'Users retrieved successfully');
     }
 
     /**
-     * @param ListRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Get(
      *      path="/users/requestManagers",
      *      summary="Get a listing of the requestManagers Users.",
@@ -124,6 +120,10 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function requestManagers(ListRequest $request)
     {
@@ -142,56 +142,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param ListRequest $request
-     * @return Response
-     * @throws /Exception
-     *
-     * @SWG\Get(
-     *      path="/services",
-     *      summary="Get a listing of the Service Users.",
-     *      tags={"Service"},
-     *      description="Get all services Users",
-     *      produces={"application/json"},
-     *      @SWG\Response(
-     *          response=200,
-     *          description="successful operation",
-     *          @SWG\Schema(
-     *              type="object",
-     *              @SWG\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @SWG\Property(
-     *                  property="data",
-     *                  type="array",
-     *                  @SWG\Items(ref="#/definitions/User")
-     *              ),
-     *              @SWG\Property(
-     *                  property="message",
-     *                  type="string"
-     *              )
-     *          )
-     *      )
-     * )
-     */
-    public function services(ListRequest $request)
-    {
-        $request->request->set('role', 'service');
-        $this->userRepository->pushCriteria(new RequestCriteria($request));
-        $this->userRepository->pushCriteria(new FilterByRolesCriteria($request));
-        $this->userRepository->pushCriteria(new LimitOffsetCriteria($request));
-
-        $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $users = $this->userRepository->with('roles')->paginate($perPage);
-
-        return $this->sendResponse($users->toArray(), 'Users retrieved successfully');
-    }
-
-    /**
-     * @param CreateRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Post(
      *      path="/users",
      *      summary="Store a newly created User in storage",
@@ -225,6 +175,10 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function store(CreateRequest $request)
     {
@@ -237,10 +191,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param ShowRequest $request
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/users/{id}",
      *      summary="Display the specified User",
@@ -274,6 +224,10 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param ShowRequest $request
+     * @return mixed
      */
     public function show($id, ShowRequest $request)
     {
@@ -288,9 +242,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/users/me",
      *      summary="Display the Logged In User",
@@ -317,15 +268,14 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param Request $request
+     * @return mixed
      */
     public function showLoggedIn(Request $request)
     {
         /** @var User $user */
-        $user = $this->userRepository->findWithoutFail($request->user()->id);
-        if (empty($user)) {
-            return $this->sendError(__('models.user.errors.not_found'));
-        }
-
+        $user = $request->user();
         $user->load(['settings', 'roles.perms', 'tenant.media', 'tenant.building:id,contact_enable', 'propertyManager:id,user_id', 'serviceProvider:id,user_id']);
         if ($user->propertyManager) {
             $user->property_manager_id = $user->propertyManager->id;
@@ -348,29 +298,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param $tenant
-     * @return bool
-     */
-    protected function getTenantContactEnable($tenant)
-    {
-        $default = true;
-        $building = $tenant->building;
-
-        if ( ! $building || Building::ContactEnablesBasedRealEstate == $building->contact_enable) {
-            $re = RealEstate::first('contact_enable');
-            return $re->contact_enable ?? $default;
-        }
-
-
-        return Building::ContactEnablesShow == $building->contact_enable;
-    }
-
-    /**
-     * @param int $id
-     * @param UpdateRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Put(
      *      path="/users/{id}",
      *      summary="Update the specified User in storage",
@@ -411,6 +338,11 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param UpdateRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function update(int $id, UpdateRequest $request)
     {
@@ -441,10 +373,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param UpdateLoggedInRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Put(
      *      path="/users/me",
      *      summary="Update the Logged In UserSettings in storage",
@@ -478,17 +406,16 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param UpdateLoggedInRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function updateLoggedIn(UpdateLoggedInRequest $request)
     {
-        $input = $request->all();
-        $id = $request->user()->id;
-
         /** @var User $user */
-        $user = $this->userRepository->findWithoutFail($id);
-        if (empty($user)) {
-            return $this->sendError(__('models.user.errors.not_found'));
-        }
+        $user = $request->user();
+        $input = $request->all();
 
         if (isset($input['password_old']) && !Hash::check($input['password_old'], $user->password)) {
             return $this->sendError(__('models.user.errors.incorrect_password'));
@@ -512,10 +439,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param ChangePasswordRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Put(
      *      path="/users/me/change_password",
      *      summary="Change password for Logged In User",
@@ -549,6 +472,10 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ChangePasswordRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function changePassword(ChangePasswordRequest $request)
     {
@@ -572,11 +499,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param UploadImageRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Put(
      *      path="/users/{id}/upload_image",
      *      summary="Change profile image for selected User",
@@ -610,6 +532,11 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param UploadImageRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function uploadImage(int $id, UploadImageRequest $request)
     {
@@ -639,10 +566,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param UploadImageRequest $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Put(
      *      path="/users/me/upload_image",
      *      summary="Change profile image for Logged In User",
@@ -676,6 +599,10 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param UploadImageRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function uploadImageLoggedIn(UploadImageRequest $request)
     {
@@ -705,10 +632,6 @@ class UserAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param DeleteRequest $request
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/users/{id}",
      *      summary="Remove the specified User from storage",
@@ -742,6 +665,10 @@ class UserAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param DeleteRequest $request
+     * @return mixed
      */
     public function destroy($id, DeleteRequest $request)
     {
@@ -754,22 +681,29 @@ class UserAPIController extends AppBaseController
         $user->forceDelete();
         return $this->sendResponse($id, __('models.user.deleted'));
     }
-    public function destroyWithIds(Request $request){
+
+    /**
+     * @param DeleteRequest $request
+     * @return mixed
+     */
+    public function destroyWithIds(DeleteRequest $request){
         $ids = $request->get('ids');
+
         try{
             User::destroy($ids);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return $this->sendError(__('models.user.errors.deleted') . $e->getMessage());
         }
+
         return $this->sendResponse($ids, __('models.user.deleted'));
     }
+
     /**
-     * @param Request $request
+     * @param CreateRequest $request
      * @return mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function checkEmail(Request $request)
+    public function checkEmail(CreateRequest $request)
     {
         $email = $request->email;
         if (empty($email)) {
@@ -784,5 +718,23 @@ class UserAPIController extends AppBaseController
 
         return $this->sendResponse($email, __('models.user.errors.email_not_exists', ['email' => $email]));
 
+    }
+
+    /**
+     * @param $tenant
+     * @return bool
+     */
+    protected function getTenantContactEnable($tenant)
+    {
+        $default = true;
+        $building = $tenant->building;
+
+        if ( ! $building || Building::ContactEnablesBasedRealEstate == $building->contact_enable) {
+            $re = RealEstate::first('contact_enable');
+            return $re->contact_enable ?? $default;
+        }
+
+
+        return Building::ContactEnablesShow == $building->contact_enable;
     }
 }

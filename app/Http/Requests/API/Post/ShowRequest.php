@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\Post;
 
 use App\Models\Post;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class ShowRequest extends APIRequest
+class ShowRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,15 +28,5 @@ class ShowRequest extends APIRequest
         }
 
         return $p->status == Post::StatusPublished;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
     }
 }

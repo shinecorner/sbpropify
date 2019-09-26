@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
-use App\Http\Requests\API\CreateTranslationAPIRequest;
-use App\Http\Requests\API\UpdateTranslationAPIRequest;
+use App\Http\Requests\API\Translation\CreateRequest;
+use App\Http\Requests\API\Translation\DeleteRequest;
+use App\Http\Requests\API\Translation\ListRequest;
+use App\Http\Requests\API\Translation\UpdateRequest;
+use App\Http\Requests\API\Translation\ViewRequest;
 use App\Models\Translation;
 use App\Repositories\TranslationRepository;
 use Illuminate\Http\Request;
@@ -19,15 +22,16 @@ class TranslationAPIController extends AppBaseController
     /** @var  TranslationRepository */
     private $translationRepository;
 
+    /**
+     * TranslationAPIController constructor.
+     * @param TranslationRepository $translationRepo
+     */
     public function __construct(TranslationRepository $translationRepo)
     {
         $this->translationRepository = $translationRepo;
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/translations",
      *      summary="Get a listing of the Translations.",
@@ -55,8 +59,11 @@ class TranslationAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return mixed
      */
-    public function index(Request $request)
+    public function index(ListRequest $request)
     {
         $translations = $this->translationRepository->all(
             $request->except(['skip', 'limit']),
@@ -68,9 +75,6 @@ class TranslationAPIController extends AppBaseController
     }
 
     /**
-     * @param CreateTranslationAPIRequest $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/translations",
      *      summary="Store a newly created Translation in storage",
@@ -104,8 +108,12 @@ class TranslationAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(CreateTranslationAPIRequest $request)
+    public function store(CreateRequest $request)
     {
         $input = $request->all();
 
@@ -115,9 +123,6 @@ class TranslationAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/translations/{id}",
      *      summary="Display the specified Translation",
@@ -151,8 +156,12 @@ class TranslationAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param ViewRequest $r
+     * @return mixed
      */
-    public function show($id)
+    public function show($id, ViewRequest $r)
     {
         /** @var Translation $translation */
         $translation = $this->translationRepository->find($id);
@@ -165,10 +174,6 @@ class TranslationAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param UpdateTranslationAPIRequest $request
-     * @return Response
-     *
      * @SWG\Put(
      *      path="/translations/{id}",
      *      summary="Update the specified Translation in storage",
@@ -209,8 +214,13 @@ class TranslationAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param UpdateRequest $request
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update($id, UpdateTranslationAPIRequest $request)
+    public function update($id, UpdateRequest $request)
     {
         $input = $request->all();
 
@@ -227,9 +237,6 @@ class TranslationAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/translations/{id}",
      *      summary="Remove the specified Translation from storage",
@@ -263,8 +270,13 @@ class TranslationAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param DeleteRequest $deleteRequest
+     * @return mixed
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy($id, DeleteRequest $deleteRequest)
     {
         /** @var Translation $translation */
         $translation = $this->translationRepository->find($id);

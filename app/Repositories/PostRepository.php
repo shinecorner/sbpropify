@@ -64,21 +64,19 @@ class PostRepository extends BaseRepository
         $atts['building_ids'] = $atts['building_ids'] ?? [];
         $atts['quarter_ids'] = $atts['quarter_ids'] ?? [];
         $u = \Auth::user();
-        if ($u->can('post-post') && !($u->can('post-located-post'))) {
-            if ($u->tenant()->exists()) {
-                $rentContracts = $u->tenant->active_rent_contracts_with_building()->get(['building_id']);
-                if ($rentContracts->isEmpty()) {
-                    throw new \Exception("Your tenant account does not have any active rent contract");
-                }
+        if ($u->tenant()->exists()) {
+            $rentContracts = $u->tenant->active_rent_contracts_with_building()->get(['building_id']);
+            if ($rentContracts->isEmpty()) {
+                throw new \Exception("Your tenant account does not have any active rent contract");
+            }
 
-                $rentContracts->load('building:id,quarter_id');
-                $atts['building_ids'] = $rentContracts->pluck('building_id')->unique()->toArray();
-                if (!empty($atts['visibility']) && Post::VisibilityQuarter == $atts['visibility']) {
-                    $quarterIds = $rentContracts->where('building.quarter_id', '!=', null)->pluck('building.quarter_id');
-                    $atts['quarter_ids'] = $quarterIds->unique()->toArray();
-                } else {
-                    $atts['quarter_ids'] = [];
-                }
+            $rentContracts->load('building:id,quarter_id');
+            $atts['building_ids'] = $rentContracts->pluck('building_id')->unique()->toArray();
+            if (!empty($atts['visibility']) && Post::VisibilityQuarter == $atts['visibility']) {
+                $quarterIds = $rentContracts->where('building.quarter_id', '!=', null)->pluck('building.quarter_id');
+                $atts['quarter_ids'] = $quarterIds->unique()->toArray();
+            } else {
+                $atts['quarter_ids'] = [];
             }
         }
 

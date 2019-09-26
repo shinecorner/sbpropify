@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\Post;
 
 use App\Models\Post;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class PublishRequest extends APIRequest
+class PublishRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class PublishRequest extends APIRequest
      */
     public function authorize()
     {
-        return \Auth::user()->can('publish-post');
+        return $this->can('publish-post');
     }
 
     /**

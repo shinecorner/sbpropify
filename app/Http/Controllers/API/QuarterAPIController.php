@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\API\Quarter\AssigneeListRequest;
 use App\Http\Requests\API\Quarter\BatchAssignManagers;
 use App\Http\Requests\API\Quarter\BatchAssignUsers;
 use App\Http\Requests\API\Quarter\CreateRequest;
-use App\Http\Requests\API\Quarter\DeleteQuarterAssigneeRequest;
+use App\Http\Requests\API\Quarter\UnAssignRequest;
 use App\Http\Requests\API\Quarter\UpdateRequest;
 use App\Http\Requests\API\Quarter\ListRequest;
 use App\Http\Requests\API\Quarter\ViewRequest;
@@ -32,16 +33,16 @@ class QuarterAPIController extends AppBaseController
     /** @var  QuarterRepository */
     private $quarterRepository;
 
+    /**
+     * QuarterAPIController constructor.
+     * @param QuarterRepository $quarterRepo
+     */
     public function __construct(QuarterRepository $quarterRepo)
     {
         $this->quarterRepository = $quarterRepo;
     }
 
     /**
-     * @param ListRequest $request
-     * @return mixed
-     * @throws \Prettus\Repository\Exceptions\RepositoryException
-     *
      * @SWG\Get(
      *      path="/quarters",
      *      summary="Get a listing of the Quarters.",
@@ -69,6 +70,10 @@ class QuarterAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function index(ListRequest $request)
     {
@@ -90,10 +95,6 @@ class QuarterAPIController extends AppBaseController
     }
 
     /**
-     * @param CreateRequest $request
-     * @return mixed
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     *
      * @SWG\Post(
      *      path="/quarters",
      *      summary="Store a newly created Quarter in storage",
@@ -127,6 +128,10 @@ class QuarterAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function store(CreateRequest $request)
     {
@@ -138,9 +143,6 @@ class QuarterAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/quarters/{id}",
      *      summary="Display the specified Quarter",
@@ -174,6 +176,10 @@ class QuarterAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param ViewRequest $r
+     * @return mixed
      */
     public function show($id, ViewRequest $r)
     {
@@ -189,11 +195,6 @@ class QuarterAPIController extends AppBaseController
     }
 
     /**
-     * @param $id
-     * @param UpdateRequest $request
-     * @return mixed
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     *
      * @SWG\Put(
      *      path="/quarters/{id}",
      *      summary="Update the specified Quarter in storage",
@@ -234,6 +235,11 @@ class QuarterAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param UpdateRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function update($id, UpdateRequest $request)
     {
@@ -253,12 +259,6 @@ class QuarterAPIController extends AppBaseController
     }
 
     /**
-     * @param $id
-     * @param DeleteRequest $r
-     * @return mixed
-     * @throws \Exception
-     *
-     *
      * @SWG\Delete(
      *      path="/quarters/{id}",
      *      summary="Remove the specified Quarter from storage",
@@ -292,6 +292,11 @@ class QuarterAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param DeleteRequest $r
+     * @return mixed
+     * @throws \Exception
      */
     public function destroy($id, DeleteRequest $r)
     {
@@ -308,10 +313,10 @@ class QuarterAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
+     * @param DeleteRequest $request
      * @return mixed
      */
-    public function destroyWithIds(Request $request){
+    public function destroyWithIds(DeleteRequest $request){
         $ids = $request->get('ids');
         try{
             Quarter::destroy($ids);
@@ -323,10 +328,6 @@ class QuarterAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/quarters/{id}/assignees",
      *      summary="Get a listing of the Quarter assignees.",
@@ -354,8 +355,12 @@ class QuarterAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param ViewRequest $request
+     * @return mixed
      */
-    public function getAssignees(int $id, Request $request)
+    public function getAssignees(int $id, ViewRequest $request)
     {
         // @TODO permissions
         $quarter = $this->quarterRepository->findWithoutFail($id);
@@ -372,10 +377,6 @@ class QuarterAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param BatchAssignManagers $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/quarters/{id}/managers",
      *      summary="Assign the provided propertyManagers to the Quarter",
@@ -412,6 +413,10 @@ class QuarterAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param BatchAssignManagers $request
+     * @return mixed
      */
     public function assignManagers(int $id, BatchAssignManagers $request)
     {
@@ -443,10 +448,6 @@ class QuarterAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param BatchAssignUsers $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/quarters/{id}/users",
      *      summary="Assign the provided users to the Quarter",
@@ -483,6 +484,10 @@ class QuarterAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param BatchAssignUsers $request
+     * @return mixed
      */
     public function assignUsers(int $id, BatchAssignUsers $request)
     {
@@ -513,7 +518,6 @@ class QuarterAPIController extends AppBaseController
         return $this->sendResponse($response, __('models.quarter.user_assigned'));
     }
 
-
     /**
      * @SWG\Delete(
      *      path="/quarters-assignees/{quarters_assignee_id}",
@@ -543,10 +547,10 @@ class QuarterAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param DeleteQuarterAssigneeRequest $request
+     * @param UnAssignRequest $request
      * @return mixed
      */
-    public function deleteQuarterAssignee(int $id, DeleteQuarterAssigneeRequest $request)
+    public function deleteQuarterAssignee(int $id, UnAssignRequest $request)
     {
         $quarterAssignee = QuarterAssignee::find($id);
         if (empty($quarterAssignee)) {
