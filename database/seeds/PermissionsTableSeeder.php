@@ -90,6 +90,7 @@ class PermissionsTableSeeder extends Seeder
         ['add-quarter', 'Add quarter', 'add quarter'],
         ['edit-quarter', 'Edit quarter', 'edit existing quarter'],
         ['delete-quarter', 'Delete quarter', 'delete existing quarter'],
+        ['assign-quarter', 'Assign property manager, user quarter', 'Assign property manager, user quarter'],
         // Real estate
         ['view-real_estate', 'View real estate', 'view real estate'],
         ['edit-real_estate', 'Edit real estate', 'edit existing real estate'],

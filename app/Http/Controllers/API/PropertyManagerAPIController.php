@@ -7,7 +7,6 @@ use App\Criteria\Common\RequestCriteria;
 use App\Criteria\PropertyManagers\FilterByRelatedFieldsCriteria;
 use App\Criteria\PropertyManagers\HasRequestCriteria;
 use App\Http\Controllers\AppBaseController;
-use App\Http\Requests\API\PropertyManager\AssigneeListRequest;
 use App\Http\Requests\API\PropertyManager\AssignRequest;
 use App\Http\Requests\API\PropertyManager\BatchDeleteRequest;
 use App\Http\Requests\API\PropertyManager\CreateRequest;
@@ -696,10 +695,10 @@ class PropertyManagerAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param AssigneeListRequest $request
+     * @param ViewRequest $request
      * @return mixed
      */
-    public function getAssignments(int $id, AssigneeListRequest $request)
+    public function getAssignments(int $id, ViewRequest $request)
     {
         /** @var PropertyManager $propertyManager */
         $propertyManager = $this->propertyManagerRepository->find($id);

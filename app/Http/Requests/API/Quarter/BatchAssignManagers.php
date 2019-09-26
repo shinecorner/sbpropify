@@ -13,7 +13,6 @@ class BatchAssignManagers extends BaseRequest
      */
     public function authorize()
     {
-        return true;
         return $this->can('assign-quarter');
     }
 

@@ -13,7 +13,7 @@ class BatchAssignUsers extends BaseRequest
      */
     public function authorize()
     {
-        return $this->can('assign-building');
+        return $this->can('assign-quarter');
     }
 
     /**
