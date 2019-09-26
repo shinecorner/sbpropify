@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Criteria\Posts;
+namespace App\Criteria\Pinboards;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -9,10 +9,10 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByUserCriteria
+ * Class FeedCriteria
  * @package Prettus\Repository\Criteria
  */
-class FilterByUserCriteria implements CriteriaInterface
+class FeedCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -23,6 +23,7 @@ class FilterByUserCriteria implements CriteriaInterface
     {
         $this->request = $request;
     }
+
 
     /**
      * Apply criteria in query repository
@@ -35,11 +36,15 @@ class FilterByUserCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $user_id = $this->request->get('user_id', null);
-        if ($user_id) {
-            $model->where('posts.user_id', $user_id);
+        if ($this->request->get('feed')) {
+            return $model
+                ->whereRaw("(posts.pinned = ? or (posts.pinned_to is not null and posts.pinned_to > now()))", false)
+                ->orderBy('posts.pinned', 'desc')
+                ->orderBy('posts.execution_start', 'asc')
+                ->orderBy('posts.published_at', 'desc')
+                ->orderBy('posts.created_at', 'desc');
         }
 
-        return $model;
+        return $model->orderBy('posts.created_at', 'desc');
     }
 }

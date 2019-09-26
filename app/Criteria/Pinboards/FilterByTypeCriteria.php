@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Criteria\Posts;
+namespace App\Criteria\Pinboards;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -9,10 +9,10 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByQuarterCriteria
+ * Class FilterByTypeCriteria
  * @package Prettus\Repository\Criteria
  */
-class FilterByQuarterCriteria implements CriteriaInterface
+class FilterByTypeCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -24,10 +24,11 @@ class FilterByQuarterCriteria implements CriteriaInterface
         $this->request = $request;
     }
 
+
     /**
      * Apply criteria in query repository
      *
-     * @param Builder|Model $model
+     * @param         Builder|Model     $model
      * @param RepositoryInterface $repository
      *
      * @return mixed
@@ -35,19 +36,10 @@ class FilterByQuarterCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $quarter_id = $this->request->get('quarter_id', null);
-        if (!$quarter_id) {
-            return $model;
+        $type = $this->request->get('type', null);
+        if ($type) {
+            return $model->where('type', $type);
         }
-
-        $u = \Auth::user();
-        if (!$u->can('list-post') && $u->tenant) {
-            $quarter_id = $u->tenant->building->quarter_id;
-        }
-
-        $model->whereHas('quarters', function ($query) use ($quarter_id) {
-            $query->where('id', $quarter_id);
-        });
 
         return $model;
     }

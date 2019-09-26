@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Criteria\Posts\FeedCriteria;
-use App\Criteria\Posts\FilterByBuildingCriteria;
-use App\Criteria\Posts\FilterByQuarterCriteria;
-use App\Criteria\Posts\FilterByLocationCriteria;
-use App\Criteria\Posts\FilterByPinnedCriteria;
-use App\Criteria\Posts\FilterByStatusCriteria;
-use App\Criteria\Posts\FilterByTypeCriteria;
-use App\Criteria\Posts\FilterByUserCriteria;
-use App\Criteria\Posts\FilterByTenantCriteria;
+use App\Criteria\Pinboards\FeedCriteria;
+use App\Criteria\Pinboards\FilterByBuildingCriteria;
+use App\Criteria\Pinboards\FilterByQuarterCriteria;
+use App\Criteria\Pinboards\FilterByLocationCriteria;
+use App\Criteria\Pinboards\FilterByPinnedCriteria;
+use App\Criteria\Pinboards\FilterByStatusCriteria;
+use App\Criteria\Pinboards\FilterByTypeCriteria;
+use App\Criteria\Pinboards\FilterByUserCriteria;
+use App\Criteria\Pinboards\FilterByTenantCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Pinboard\AssignRequest;
 use App\Http\Requests\API\Pinboard\CreateRequest;
@@ -71,9 +71,9 @@ class PinboardAPIController extends AppBaseController
     /**
      * @SWG\Get(
      *      path="/posts",
-     *      summary="Get a listing of the Posts.",
+     *      summary="Get a listing of the Pinboards.",
      *      tags={"Listing"},
-     *      description="Get all Posts",
+     *      description="Get all Pinboards",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -130,7 +130,7 @@ class PinboardAPIController extends AppBaseController
 
 
         $out = $this->transformer->transformPaginator($posts);
-        return $this->sendResponse($out, 'Posts retrieved successfully');
+        return $this->sendResponse($out, 'Pinboards retrieved successfully');
     }
 
     /**

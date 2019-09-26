@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Criteria\Posts;
+namespace App\Criteria\Pinboards;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

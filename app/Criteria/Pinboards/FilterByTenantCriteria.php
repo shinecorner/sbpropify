@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Criteria\Posts;
+namespace App\Criteria\Pinboards;
 
-use Illuminate\Database\Eloquent\Tenant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Prettus\Repository\Contracts\CriteriaInterface;
@@ -27,7 +26,7 @@ class FilterByTenantCriteria implements CriteriaInterface
     /**
      * Apply criteria in query repository
      *
-     * @param Tenant|Model $model
+     * @param Model $model
      * @param RepositoryInterface $repository
      *
      * @return mixed
