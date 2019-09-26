@@ -553,7 +553,7 @@
                 main_drawer:false,
                 direction: 'rtl',
                 appName : '',
-                logo_upload_img: '',
+                logo_upload_img: '', 
                 circle_logo_upload_img: '',
                 favicon_icon_upload_img: '',
                 tenant_logo_upload_img: '',
