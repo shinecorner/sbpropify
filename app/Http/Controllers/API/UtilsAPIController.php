@@ -120,7 +120,8 @@ class UtilsAPIController extends AppBaseController
             'serviceProviders' => $this->getServiceProviderConstants(),
             'serviceRequests' => $this->getServiceRequestsConstants(),
             'propertyManager' => $this->getPropertyManagerConstants(),
-            'posts' => $this->getPostConstants(),
+            'posts' => $this->getPinboardConstants(),
+            'pinboards' => $this->getPinboardConstants(),
             'products' => $this->getProductConstants(),
             'templates' => $this->getTemplateConstants(),
             'audits' => $this->getAuditConstants(),
@@ -228,7 +229,7 @@ class UtilsAPIController extends AppBaseController
     /**
      * @return array
      */
-    protected function getPostConstants()
+    protected function getPinboardConstants()
     {
         $result = [
             'type' => Pinboard::Type,

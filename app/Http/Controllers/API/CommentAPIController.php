@@ -31,7 +31,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 class CommentAPIController extends AppBaseController
 {
     /** @var  CommentRepository */
-    private $postRepository;
+    private $pinboardRepository;
     /**
      * @var ProductRepository
      */
@@ -55,7 +55,7 @@ class CommentAPIController extends AppBaseController
 
     /**
      * CommentAPIController constructor.
-     * @param PinboardRepository $postRepo
+     * @param PinboardRepository $pinboardRepo
      * @param CommentRepository $commRepo
      * @param ProductRepository $prodRepo
      * @param ServiceRequestRepository $sr
@@ -63,7 +63,7 @@ class CommentAPIController extends AppBaseController
      * @param CommentTransformer $pt
      */
     public function __construct(
-        PinboardRepository $postRepo,
+        PinboardRepository $pinboardRepo,
         CommentRepository $commRepo,
         ProductRepository $prodRepo,
         ServiceRequestRepository $sr,
@@ -71,7 +71,7 @@ class CommentAPIController extends AppBaseController
         CommentTransformer $pt
     )
     {
-        $this->postRepository = $postRepo;
+        $this->pinboardRepository = $pinboardRepo;
         $this->productRepository = $prodRepo;
         $this->serviceRequestRepository = $sr;
         $this->commentRepository = $commRepo;
@@ -81,7 +81,7 @@ class CommentAPIController extends AppBaseController
 
     /**
      * @SWG\Post(
-     *      path="/posts/{id}/comments",
+     *      path="/pinboards/{id}/comments",
      *      summary="Store a newly created comment in storage",
      *      tags={"Comment"},
      *      description="Store Comment",
@@ -118,23 +118,23 @@ class CommentAPIController extends AppBaseController
      * @param CreateRequest $request
      * @return Response
      */
-    public function storePostComment(int $id, CreateRequest $request)
+    public function storePinboardComment(int $id, CreateRequest $request)
     {
-        $post = $this->postRepository->findWithoutFail($id);
-        if (empty($post)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+        $pinboard = $this->pinboardRepository->findWithoutFail($id);
+        if (empty($pinboard)) {
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
 
-        $comment = $post->comment($request->comment, $request->parent_id);
+        $comment = $pinboard->comment($request->comment, $request->parent_id);
         $comment->load('user');
 
 
         // if logged in user is tenant and
-        // author of post is tenant and
-        // author of post is different than liker
+        // author of pinboard is tenant and
+        // author of pinboard is different than liker
         $u = \Auth::user();
-        if ($u->tenant && $post->user->tenant && $u->id != $post->user_id) {
-            $post->user->notify(new PinboardCommented($post, $u->tenant, $comment));
+        if ($u->tenant && $pinboard->user->tenant && $u->id != $pinboard->user_id) {
+            $pinboard->user->notify(new PinboardCommented($pinboard, $u->tenant, $comment));
         }
         $out = $this->transformer->transform($comment);
         return $this->sendResponse($out, __('general.comment_created'));
@@ -244,8 +244,8 @@ class CommentAPIController extends AppBaseController
         $comment->load('user');
 
         // if logged in user is tenant and
-        // author of post is tenant and
-        // author of post is different than liker
+        // author of pinboard is tenant and
+        // author of pinboard is different than liker
         $u = \Auth::user();
         if ($u->tenant && $product->user->tenant && $u->id != $product->user_id) {
             $product->user->notify(new ProductCommented($product, $u->tenant, $comment));
