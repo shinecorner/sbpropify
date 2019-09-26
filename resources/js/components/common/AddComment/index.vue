@@ -6,7 +6,7 @@
         <div class="content">
             <el-input autosize ref="content" :class="{'is-focused': focused}" type="textarea" resize="none" v-model="content" :placeholder="$t('components.common.addComment.placeholder')" :disabled="loading" :validate-event="false" @blur="focused = false" @focus="focused = true" @keydown.native.alt.enter.exact="save" />
             <el-dropdown class="templates" size="small" placement="top-end" trigger="click" @command="onTemplateSelected" @visible-change="onDropdownVisibility" v-if="showTemplates">
-                <el-tooltip ref="templates-button-tooltip" :content="type == 'internalNotices' ? 'Property maneger and Admin' : $t('components.common.addComment.tooltipTemplates')" placement="top-end">
+                <el-tooltip ref="templates-button-tooltip" :content="type == 'internalNotices' ? 'Choose Property maneger and Admin' : $t('components.common.addComment.tooltipTemplates')" placement="top-end">
                     <el-button ref="templates-button" type="text" class="el-dropdown-link" :disabled="loading">
                         <i class="icon-ellipsis-vert"></i>
                     </el-button>
@@ -25,15 +25,26 @@
                         {{$t('components.common.addComment.emptyTemplatesPlaceholder')}}
                     </el-dropdown-item>
                 </el-dropdown-menu>
-                <el-dropdown-menu v-else slot="dropdown">
-                    <relation-list
-                                    :actions="assigneesActions"
-                                    :columns="assigneesColumns"
-                                    :filterValue="model.id"
-                                    fetchAction="getAssignees"
-                                    filter="request_id"
-                                    ref="assigneesList"
-                                />
+                <el-dropdown-menu v-else slot="dropdown" style="padding: 5px">
+                        Property maneger
+                        <el-select
+                            v-model="value"
+                            multiple
+                            filterable
+                            remote
+                            reserve-keyword
+                            placeholder="Please enter a keyword"
+                            :remote-method="remoteSearch"
+                            :loading="loading"
+                            style="width: 100%;"
+                            :popper-append-to-body="false">
+                            <el-option
+                                v-for="item in options"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
+                            </el-option>
+                        </el-select>
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
@@ -85,12 +96,21 @@
                 loadingTemplates: false,
                 dropdownTemplatesVisible: false,
                 errorFallback: ErrorFallback,
-                RelationList: RelationList
+                managerList: [],
+                toAssign: '',
+                toAssignList: [],
+                
+                options: [],
+                value: [],
+                list: [],
+                loading: false,
             }
         },
         methods: {
             ...mapActions({
-                getTemplates: 'getRequestTemplates'
+                getTemplates: 'getRequestTemplates',
+                getPropertyManagers: 'getPropertyManagers',
+                getAssignees: 'getAssignees'
             }),
 
             focus () {
@@ -142,7 +162,35 @@
                     this.content = ''
                     this.loading = false
                 }
-            }
+            },
+            async remoteSearch(search) {
+                if (search === '') {
+                    this.options = [];
+                    this.value = [];
+                } else {
+                    this.loading = true;
+                    try {
+                        let resp = [];
+                        const respAssignee = await this.getPropertyManagers({request_id: this.$route.params.id});                        
+                        let exclude_ids = [];                                                
+                            respAssignee.data.data.map(item => {
+                                if(item.type === 'manager'){
+                                    exclude_ids.push(item.edit_id);
+                                }                                
+                            })
+                            resp = await this.getPropertyManagers({
+                                get_all: true,
+                                search,
+                                exclude_ids
+                            });
+                        this.options = resp.data;
+                    } catch (err) {
+                        displayError(err);
+                    } finally {
+                        this.loading = false;
+                    }
+                }           
+            },
         },
         computed: {
             ...mapGetters({
