@@ -110,6 +110,23 @@
                         </template>
 
                     </el-col>
+                    <el-popover placement="left-end" trigger="click" :width="192" style="float:right;padding: 5px">
+                        <el-button slot="reference" icon="el-icon-sort">{{$t('models.request.sort')}}</el-button>
+                        <div class="sorters">
+                            <template v-for="(sorter, key) in this.Sorters">
+                                <el-radio-group v-if="sorter.type=='el-radio'" v-model="filterModel[sorter.key]" @change="filterChanged(sorter)" :key="key">
+                                    <el-radio :label="item.key" v-for="(item, key) in sorter.data" :key="key" style="padding-top:5px">{{ $t(item.text) }}</el-radio>
+                                </el-radio-group>
+                                <div v-else-if="sorter.type=='el-button'" :key="key" class="sort-by">
+                                    <a @click="sortedBy(sorter)">
+                                        <i class="el-icon-bottom" v-if="filterModel[sorter.key]==undefined || filterModel[sorter.key]=='asc'"></i>
+                                        <i class="el-icon-top" v-else-if="filterModel[sorter.key]=='desc'"></i>
+                                    </a>
+                                </div>
+                            </template>
+                        </div>
+                        <el-button type="primary" size="small" icon="el-icon-sort-up" style="width: 100%; margin-top: 8px;" @click="resetSorters">{{$t('models.request.reset_sort')}}</el-button>
+                    </el-popover>
                 </el-row>
             </el-card>
         </el-form>
@@ -119,23 +136,6 @@
         <!--                {{$t('general.actions.delete')}}-->
         <!--            </el-button>-->
         <!--        </div>-->
-        <el-popover placement="left-end" trigger="click" :width="192" style="float:right">
-            <el-button slot="reference" icon="el-icon-sort">{{$t('models.request.sort')}}</el-button>
-            <div class="sorters">
-                <template v-for="(sorter, key) in this.Sorters">
-                    <el-radio-group v-if="sorter.type=='el-radio'" v-model="filterModel[sorter.key]" @change="filterChanged(sorter)" :key="key">
-                        <el-radio :label="item.key" v-for="(item, key) in sorter.data" :key="key" style="padding-top:5px">{{ $t(item.text) }}</el-radio>
-                    </el-radio-group>
-                    <div v-else-if="sorter.type=='el-button'" :key="key" class="sort-by">
-                        <el-button  size="medium" circle @click="sortedBy(sorter)">
-                            <i class="el-icon-bottom" v-if="filterModel[sorter.key]==undefined || filterModel[sorter.key]=='asc'"></i>
-                            <i class="el-icon-top" v-else-if="filterModel[sorter.key]=='desc'"></i>
-                        </el-button>
-                    </div>
-                </template>
-            </div>
-            <el-button type="primary" size="small" icon="el-icon-sort-up" style="width: 100%; margin-top: 8px;" @click="resetSorters">{{$t('models.request.reset_sort')}}</el-button>
-        </el-popover>
         
         <el-table
             :data="items"
@@ -583,6 +583,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-right: 20px;
         }
     }
     .el-input {
