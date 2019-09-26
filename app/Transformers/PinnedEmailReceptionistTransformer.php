@@ -17,7 +17,7 @@ class PinnedEmailReceptionistTransformer extends BaseTransformer
     /**
      * Transform the Post entity.
      *
-     * @param \App\Models\Post $model
+     * @param \App\Models\PinnedEmailReceptionist $model
      *
      * @return array
      */

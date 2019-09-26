@@ -5,9 +5,8 @@ namespace App\Mails;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-use App\Models\Post;
+use App\Models\Pinboard;
 
 class PinnedPostPublished extends Mailable
 {
@@ -19,7 +18,7 @@ class PinnedPostPublished extends Mailable
      *
      * @return void
      */
-    public function __construct(Post $post)
+    public function __construct(Pinboard $post)
     {
         $this->post = $post;
     }

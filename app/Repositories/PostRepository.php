@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Building;
 use App\Models\Model;
 use App\Models\Quarter;
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Models\RentContract;
 use App\Models\Tenant;
 use App\Models\RealEstate;
@@ -24,9 +24,9 @@ use Illuminate\Support\Facades\DB;
  * @package App\Repositories
  * @version February 11, 2019, 6:22 pm UTC
  *
- * @method Post findWithoutFail($id, $columns = ['*'])
- * @method Post find($id, $columns = ['*'])
- * @method Post first($columns = ['*'])
+ * @method Pinboard findWithoutFail($id, $columns = ['*'])
+ * @method Pinboard find($id, $columns = ['*'])
+ * @method Pinboard first($columns = ['*'])
 */
 class PostRepository extends BaseRepository
 {
@@ -51,12 +51,12 @@ class PostRepository extends BaseRepository
      **/
     public function model()
     {
-        return Post::class;
+        return Pinboard::class;
     }
 
     /**
      * @param array $atts
-     * @return Post|mixed
+     * @return Pinboard|mixed
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function create(array $atts)
@@ -72,7 +72,7 @@ class PostRepository extends BaseRepository
 
             $rentContracts->load('building:id,quarter_id');
             $atts['building_ids'] = $rentContracts->pluck('building_id')->unique()->toArray();
-            if (!empty($atts['visibility']) && Post::VisibilityQuarter == $atts['visibility']) {
+            if (!empty($atts['visibility']) && Pinboard::VisibilityQuarter == $atts['visibility']) {
                 $quarterIds = $rentContracts->where('building.quarter_id', '!=', null)->pluck('building.quarter_id');
                 $atts['quarter_ids'] = $quarterIds->unique()->toArray();
             } else {
@@ -90,10 +90,10 @@ class PostRepository extends BaseRepository
 
         if (! $atts['needs_approval']) {
             // @TODO correct this things
-            $atts['status'] = Post::StatusPublished;
+            $atts['status'] = Pinboard::StatusPublished;
         }
 
-        if (Post::StatusPublished == $atts['status']) {
+        if (Pinboard::StatusPublished == $atts['status']) {
             $atts['published_at'] = now();
         }
 
@@ -107,7 +107,7 @@ class PostRepository extends BaseRepository
         }
 
         $notificationsData = collect();
-        if (Post::StatusPublished == $atts['status']) {
+        if (Pinboard::StatusPublished == $atts['status']) {
             $notificationsData = $this->notify($model);
         }
         $adminNotificationsData = $this->notifyAdminNewTenantPosts($model);
@@ -117,7 +117,7 @@ class PostRepository extends BaseRepository
         return $model;
     }
 
-    protected function saveNotificationAuditsAndLogs(Post $post, $notificationsData)
+    protected function saveNotificationAuditsAndLogs(Pinboard $post, $notificationsData)
     {
         $pinnedPostPublished = get_morph_type_of(PinnedPostPublished::class);
         $pinnedPostPublishedUsers = $notificationsData[$pinnedPostPublished] ?? collect();
@@ -136,7 +136,7 @@ class PostRepository extends BaseRepository
      * @param int $id
      * @param $status
      * @param $publishedAt
-     * @return Post|mixed
+     * @return Pinboard|mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function setStatus(int $id, $status, $publishedAt)
@@ -146,13 +146,13 @@ class PostRepository extends BaseRepository
     }
 
     /**
-     * @param Post $post
+     * @param Pinboard $post
      * @param $status
      * @param $publishedAt
-     * @return Post|mixed
+     * @return Pinboard|mixed
      * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function setStatusExisting(Post $post, $status, $publishedAt)
+    public function setStatusExisting(Pinboard $post, $status, $publishedAt)
     {
         if ($post->status == $status) {
             return $post;
@@ -183,12 +183,12 @@ class PostRepository extends BaseRepository
     {
         $attributes = $this->fixBollInt($attributes, 'is_execution_time', 1);
         $status= $attributes['status'] ?? null;
-        if (Post::StatusPublished == $status) {
+        if (Pinboard::StatusPublished == $status) {
             $attributes['published_at'] = now();
         }
         $model = parent::updateExisting($model, $attributes);
 
-        if (Post::StatusPublished == $status) {
+        if (Pinboard::StatusPublished == $status) {
             $notificationsData = $this->notify($model);
             $this->saveNotificationAuditsAndLogs($model, $notificationsData);
         }
@@ -197,10 +197,10 @@ class PostRepository extends BaseRepository
     }
 
     /**
-     * @param Post $post
+     * @param Pinboard $post
      * @return \Illuminate\Support\Collection
      */
-    public function notify(Post $post)
+    public function notify(Pinboard $post)
     {
         if (!$post->notify_email) {
             return collect();
@@ -233,11 +233,11 @@ class PostRepository extends BaseRepository
                 continue;
             }
             if ($u->settings && $u->settings->news_notification && ! $post->pinned) {
-                if ($post->type == Post::TypePost) {
+                if ($post->type == Pinboard::TypePost) {
                     $notificationsData[$postPublished]->push($u);
                     $u->notify(new PostPublished($post));
                 }
-                if ($post->type == Post::TypeNewNeighbour) {
+                if ($post->type == Pinboard::TypeNewNeighbour) {
                     $notificationsData[$postNewTenantNeighbor]->push($u);
                     $u->notify((new NewTenantInNeighbour($post))->delay($post->published_at));
                 }
@@ -248,12 +248,12 @@ class PostRepository extends BaseRepository
     }
 
     /**
-     * @param Post $post
+     * @param Pinboard $post
      * @return Collection
      */
-    protected function getNotifiedTenantUsers(Post $post)
+    protected function getNotifiedTenantUsers(Pinboard $post)
     {
-        if ($post->visibility == Post::VisibilityAll) {
+        if ($post->visibility == Pinboard::VisibilityAll) {
             return User::whereHas('tenant', function ($q) {
                     $q->whereNull('tenants.deleted_at');
                 })
@@ -262,11 +262,11 @@ class PostRepository extends BaseRepository
         }
 
         $quarterIds = $buildingIds = [];
-        if ($post->visibility == Post::VisibilityQuarter || $post->pinned) {
+        if ($post->visibility == Pinboard::VisibilityQuarter || $post->pinned) {
             $quarterIds = $post->quarters()->pluck('id')->toArray();
         }
 
-        if ($post->visibility == Post::VisibilityAddress  || $post->pinned) {
+        if ($post->visibility == Pinboard::VisibilityAddress  || $post->pinned) {
             $buildingIds = $post->buildings()->pluck('id')->toArray();
         }
         if (empty($quarterIds) && empty($buildingIds)) {
@@ -308,9 +308,9 @@ class PostRepository extends BaseRepository
     }
 
     /**
-     * @param Post $post
+     * @param Pinboard $post
      */
-    public function notifyAdminActions(Post $post)
+    public function notifyAdminActions(Pinboard $post)
     {
         if (! Auth::user()->hasRole('super_admin')) {
             return;
@@ -318,7 +318,7 @@ class PostRepository extends BaseRepository
         // @TODO
     }
 
-    public function notifyAdminNewTenantPosts(Post $post)
+    public function notifyAdminNewTenantPosts(Pinboard $post)
     {
         $newTenantPost = get_morph_type_of(NewTenantPost::class);
         if (empty($post->user->tenant)) {
@@ -341,7 +341,7 @@ class PostRepository extends BaseRepository
 
     /**
      * @param Tenant $tenant
-     * @return Post|bool|mixed
+     * @return Pinboard|bool|mixed
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function newTenantPost(Tenant $tenant)
@@ -351,9 +351,9 @@ class PostRepository extends BaseRepository
         }
 
         $post = $this->create([
-            'visibility' => Post::VisibilityAddress,
-            'status' => Post::StatusNew,
-            'type' => Post::TypeNewNeighbour,
+            'visibility' => Pinboard::VisibilityAddress,
+            'status' => Pinboard::StatusNew,
+            'type' => Pinboard::TypeNewNeighbour,
             'content' => "New neighbour",
             'user_id' => $tenant->user->id,
             'building_ids' => [$tenant->building->id],
@@ -366,13 +366,13 @@ class PostRepository extends BaseRepository
             $publishStart = Carbon::now();
         }
 
-        $this->setStatusExisting($post, Post::StatusPublished, $publishStart);
+        $this->setStatusExisting($post, Pinboard::StatusPublished, $publishStart);
         return $post;
     }
 
     /**
      * @param RentContract $rentContract
-     * @return Post|bool|mixed
+     * @return Pinboard|bool|mixed
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function newRentContractPost(RentContract $rentContract)
@@ -382,9 +382,9 @@ class PostRepository extends BaseRepository
         }
 
         $post = $this->create([
-            'visibility' => Post::VisibilityAddress,
-            'status' => Post::StatusNew,
-            'type' => Post::TypeNewNeighbour,
+            'visibility' => Pinboard::VisibilityAddress,
+            'status' => Pinboard::StatusNew,
+            'type' => Pinboard::TypeNewNeighbour,
             'content' => "New neighbour",
             'user_id' => $rentContract->tenant->user->id,
             'building_ids' => [$rentContract->building_id],
@@ -397,15 +397,15 @@ class PostRepository extends BaseRepository
             $publishStart = Carbon::now();
         }
 
-        $this->setStatusExisting($post, Post::StatusPublished, $publishStart);
+        $this->setStatusExisting($post, Pinboard::StatusPublished, $publishStart);
         return $post;
     }
 
     /**
-     * @param Post $p
+     * @param Pinboard $p
      * @return mixed
      */
-    public function locations(Post $p)
+    public function locations(Pinboard $p)
     {
         // Cannot use $p->buildings() and $p->quarters() because of a bug
         // related to different number of columns in union

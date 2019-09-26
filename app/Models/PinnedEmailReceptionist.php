@@ -2,14 +2,7 @@
 
 namespace App\Models;
 
-use App\Traits\HasComments;
-use Cog\Contracts\Love\Likeable\Models\Likeable as LikeableContract;
-use Cog\Laravel\Love\Likeable\Models\Traits\Likeable;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Validation\Rule;
-use OwenIt\Auditing\Contracts\Auditable;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 /**
  * @SWG\Definition(
@@ -124,7 +117,6 @@ class PinnedEmailReceptionist extends Model
      **/
     public function post()
     {
-        return $this->belongsTo(Post::class, 'post_id', 'id');
+        return $this->belongsTo(Pinboard::class, 'post_id', 'id');
     }
-
 }

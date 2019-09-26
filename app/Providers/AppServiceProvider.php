@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Models\Building;
 use App\Models\Quarter;
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Models\Product;
 use App\Models\PropertyManager;
 use App\Models\RealEstate;
@@ -50,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
 	    Relation::morphMap([
             'unit' => Unit::class,
             'user' => User::class,
-            'post' => Post::class,
+            'post' => Pinboard::class,
             'tenant' => Tenant::class,
             'product' => Product::class,
             'quarter' => Quarter::class,

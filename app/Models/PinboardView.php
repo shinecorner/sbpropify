@@ -5,7 +5,7 @@ namespace App\Models;
 
 /**
  * @SWG\Definition(
- *      definition="PostView",
+ *      definition="PinboardView",
  *      required={},
  *      @SWG\Property(
  *          property="id",
@@ -45,7 +45,7 @@ namespace App\Models;
  *      )
  * )
  */
-class PostView extends Model
+class PinboardView extends Model
 {
     public $table = 'post_view';
 
@@ -68,6 +68,6 @@ class PostView extends Model
      **/
     public function post()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Pinboard::class);
     }
 }

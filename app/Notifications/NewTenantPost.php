@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Models\User;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
@@ -21,7 +21,7 @@ class NewTenantPost extends Notification implements ShouldQueue
     use Queueable;
 
     /**
-     * @var Post
+     * @var Pinboard
      */
     protected $post;
     /**
@@ -31,10 +31,10 @@ class NewTenantPost extends Notification implements ShouldQueue
 
     /**
      * NewTenantPost constructor.
-     * @param Post $post
+     * @param Pinboard $post
      * @param User $user
      */
-    public function __construct(Post $post, User $user)
+    public function __construct(Pinboard $post, User $user)
     {
         $this->post = $post;
         $this->user = $user;

@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use App\Models\PostView;
+use App\Models\PinboardView;
 
 /**
  * Class PostViewTransformer.
@@ -14,13 +14,13 @@ class PostViewTransformer extends BaseTransformer
     protected $defaultIncludes = [];
 
     /**
-     * Transform the PostView entity.
+     * Transform the PinboardView entity.
      *
-     * @param \App\Models\PostView $model
+     * @param \App\Models\PinboardView $model
      *
      * @return array
      */
-    public function transform(PostView $model)
+    public function transform(PinboardView $model)
     {
         $ut = new UserTransformer();
         $ret = [

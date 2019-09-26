@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\Media;
 
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Http\Requests\BaseRequest;
 
 class PostDeleteRequest extends BaseRequest
@@ -18,12 +18,12 @@ class PostDeleteRequest extends BaseRequest
         if ($u->can('edit-post')) {
             return true;
         }
-        $p = Post::where('id', $this->route('id'))
+        $p = Pinboard::where('id', $this->route('id'))
             ->where('user_id', $u->id)->first();
         if (!$p) {
             return false;
         }
 
-        return $p->status == Post::StatusNew;
+        return $p->status == Pinboard::StatusNew;
     }
 }

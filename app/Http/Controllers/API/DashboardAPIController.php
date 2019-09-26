@@ -17,7 +17,7 @@ use App\Models\ServiceRequestCategory;
 use App\Models\State;
 use App\Models\Tenant;
 use App\Models\Product;
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Models\Unit;
 use App\Models\UserSettings;
 use App\Repositories\BuildingRepository;
@@ -186,7 +186,7 @@ class DashboardAPIController extends AppBaseController
             ]
         ],
         'posts' => [
-            'class' => Post::class,
+            'class' => Pinboard::class,
             'columns' => [
                 'status',
                 'type'
@@ -211,7 +211,7 @@ class DashboardAPIController extends AppBaseController
             ]
         ],
         'posts' => [
-            'class' => Post::class,
+            'class' => Pinboard::class,
             'columns' => [
                 'status',
             ]
@@ -858,7 +858,7 @@ class DashboardAPIController extends AppBaseController
             'tenants' => $this->timeFormat(Tenant::min('created_at')),
             'buildings' => $this->timeFormat(Building::min('created_at')),
             'products' => $this->timeFormat(Product::min('created_at')),
-            'posts' => $this->timeFormat(Post::min('created_at')),
+            'posts' => $this->timeFormat(Pinboard::min('created_at')),
         ];
 
         $ret = [
@@ -879,7 +879,7 @@ class DashboardAPIController extends AppBaseController
             'total_products' => $this->thousandsFormat(Product::count('id')),
             'products_per_status' => $this->donutChartByTable($request, $optionalArgs, 'products'),
 
-            'total_posts' => $this->thousandsFormat(Post::count('id')),
+            'total_posts' => $this->thousandsFormat(Pinboard::count('id')),
             'posts_per_status' => $this->donutChartByTable($request, $optionalArgs, 'posts'),
             'all_start_dates' => $allStartDates
         ];

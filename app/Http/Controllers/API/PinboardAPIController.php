@@ -23,7 +23,7 @@ use App\Http\Requests\API\Pinboard\UnAssignRequest;
 use App\Http\Requests\API\Pinboard\UpdateRequest;
 use App\Http\Requests\API\Pinboard\ListViewsRequest;
 use App\Http\Requests\API\Pinboard\ViewRequest;
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Notifications\PostLiked;
 use App\Repositories\BuildingRepository;
 use App\Repositories\QuarterRepository;
@@ -175,24 +175,24 @@ class PinboardAPIController extends AppBaseController
      */
     public function store(CreateRequest $request, RealEstateRepository $reRepo)
     {
-        $input = $request->only(Post::Fillable);
+        $input = $request->only(Pinboard::Fillable);
         $input['user_id'] = \Auth::id();
 
         if (! Auth::user()->hasRole('super_admin')) {
-            $input['status'] = Post::StatusNew;
+            $input['status'] = Pinboard::StatusNew;
         } else {
-            $input['status'] = $input['status'] ?? Post::StatusNew;
+            $input['status'] = $input['status'] ?? Pinboard::StatusNew;
         }
 
         if ($request->pinned == 'true' || $request->pinned  == true) {
-            $input['type'] = Post::TypePinned;
+            $input['type'] = Pinboard::TypePinned;
         } else {
-            $input['type'] =  $input['type'] ?? Post::TypePost;
+            $input['type'] =  $input['type'] ?? Pinboard::TypePost;
         }
 
         //$input['needs_approval'] = true; // @TODO
         $input['needs_approval'] = ! Auth::user()->hasRole('super_admin');
-        if (! empty($input['type']) && $input['type'] == Post::TypePost) {
+        if (! empty($input['type']) && $input['type'] == Pinboard::TypePost) {
             $input['notify_email'] = true;
             $realEstate = $reRepo->first();
             if ($realEstate) {
@@ -260,7 +260,7 @@ class PinboardAPIController extends AppBaseController
      */
     public function show($id, ShowRequest $request)
     {
-        /** @var Post $post */
+        /** @var Pinboard $post */
         $post = $this->postRepository->with([
             'media',
             'user.tenant',
@@ -353,16 +353,16 @@ class PinboardAPIController extends AppBaseController
      */
     public function update($id, UpdateRequest $request)
     {
-        $input = $request->only(Post::Fillable);
+        $input = $request->only(Pinboard::Fillable);
         if ($request->pinned) {
-            $input['type'] = Post::TypePinned;
+            $input['type'] = Pinboard::TypePinned;
         } else {
-            $input['type'] =  $input['type'] ?? Post::TypePost;
+            $input['type'] =  $input['type'] ?? Pinboard::TypePost;
         }
 
         $status = $request->get('status');
 
-        /** @var Post $post */
+        /** @var Pinboard $post */
         $post = $this->postRepository->findWithoutFail($id);
 
         if (empty($post)) {
@@ -430,7 +430,7 @@ class PinboardAPIController extends AppBaseController
      */
     public function destroy($id, DeleteRequest $request)
     {
-        /** @var Post $post */
+        /** @var Pinboard $post */
         $post = $this->postRepository->findWithoutFail($id);
 
         if (empty($post)) {
@@ -449,7 +449,7 @@ class PinboardAPIController extends AppBaseController
     public function destroyWithIds(DeleteRequest $request){
         $ids = $request->get('ids');
         try{
-            Post::destroy($ids);            
+            Pinboard::destroy($ids);
         }
         catch (\Exception $e) {
             return $this->sendError(__('models.post.errors.deleted') . $e->getMessage());
@@ -1116,7 +1116,7 @@ class PinboardAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/PostView"
+     *                  ref="#/definitions/PinboardView"
      *              ),
      *              @SWG\Property(
      *                  property="message",

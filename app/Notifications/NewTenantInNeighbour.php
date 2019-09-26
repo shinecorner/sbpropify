@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -26,15 +26,15 @@ class NewTenantInNeighbour extends Notification implements ShouldQueue
     public $tries = 3;
 
     /**
-     * @var Post
+     * @var Pinboard
      */
     protected $post;
 
     /**
      * NewTenantInNeighbour constructor.
-     * @param Post $post
+     * @param Pinboard $post
      */
-    public function __construct(Post $post)
+    public function __construct(Pinboard $post)
     {
         $this->post = $post;
     }

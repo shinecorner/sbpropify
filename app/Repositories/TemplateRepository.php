@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\CleanifyRequest;
 use App\Models\Comment;
 use App\Models\PasswordReset;
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Models\Product;
 use App\Models\RealEstate;
 use App\Models\ServiceRequest;
@@ -225,8 +225,7 @@ class TemplateRepository extends BaseRepository
      * @param $lang
      * @return array
      */
-    public
-    function getParsedTemplateData($template, $tagMap, $lang = ''): array
+    public function getParsedTemplateData($template, $tagMap, $lang = ''): array
     {
         if (!$template) {
             return [
@@ -268,8 +267,7 @@ class TemplateRepository extends BaseRepository
      *
      * @return Template
      */
-    public
-    function getParsedTemplate($template, $tagMap, $lang = ''): Template
+    public function getParsedTemplate($template, $tagMap, $lang = ''): Template
     {
         if (!$template) {
             return null;
@@ -306,8 +304,7 @@ class TemplateRepository extends BaseRepository
      * @param PasswordReset|null $pwReset
      * @return array
      */
-    public
-    function getUserResetPasswordTemplate(User $user, PasswordReset $pwReset): array
+    public function getUserResetPasswordTemplate(User $user, PasswordReset $pwReset): array
     {
         $template = $this->getByCategoryName('reset_password');
 
@@ -323,8 +320,7 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return array
      */
-    public
-    function getUserResetPasswordSuccessTemplate(User $user): array
+    public function getUserResetPasswordSuccessTemplate(User $user): array
     {
         $template = $this->getByCategoryName('reset_password_success');
 
@@ -337,12 +333,11 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Post $post
+     * @param Pinboard $post
      * @param User $user
      * @return array
      */
-    public
-    function getNewPostParsedTemplate(Post $post, User $user): array
+    public function getNewPostParsedTemplate(Pinboard $post, User $user): array
     {
         $template = $this->getByCategoryName('new_post');
 
@@ -384,11 +379,11 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Post $post
+     * @param Pinboard $post
      * @param User $user
      * @return array
      */
-    public function getPinnedPostParsedTemplate(Post $post, User $user): array
+    public function getPinnedPostParsedTemplate(Pinboard $post, User $user): array
     {
         $template = $this->getByCategoryName('pinned_post');
 
@@ -404,12 +399,11 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Post $post
+     * @param Pinboard $post
      * @param User $receiver
      * @return array
      */
-    public
-    function getPostParsedTemplate(Post $post, User $receiver): array
+    public function getPostParsedTemplate(Pinboard $post, User $receiver): array
     {
         $template = $this->getByCategoryName('post_published');
 
@@ -425,12 +419,11 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Post $post
+     * @param Pinboard $post
      * @param User $receiver
      * @return array
      */
-    public
-    function getPostNewTenantInNeighbourParsedTemplate(Post $post, User $receiver): array
+    public function getPostNewTenantInNeighbourParsedTemplate(Pinboard $post, User $receiver): array
     {
         $template = $this->getByCategoryName('post_new_tenant_in_neighbour');
 
@@ -446,13 +439,12 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Post $post
+     * @param Pinboard $post
      * @param User $user
      * @param Comment $comment
      * @return array
      */
-    public
-    function getPostCommentedParsedTemplate(Post $post, User $user, Comment $comment): array
+    public function getPostCommentedParsedTemplate(Pinboard $post, User $user, Comment $comment): array
     {
         $template = $this->getByCategoryName('post_commented');
 
@@ -469,12 +461,11 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Post $post
+     * @param Pinboard $post
      * @param User $user
      * @return array
      */
-    public
-    function getPostLikedParsedTemplate(Post $post, User $user): array
+    public function getPostLikedParsedTemplate(Pinboard $post, User $user): array
     {
         $template = $this->getByCategoryName('post_liked');
 
@@ -494,8 +485,7 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return array
      */
-    public
-    function getProductLikedParsedTemplate(Product $product, User $user): array
+    public function getProductLikedParsedTemplate(Product $product, User $user): array
     {
         $template = $this->getByCategoryName('product_liked');
 
@@ -516,8 +506,7 @@ class TemplateRepository extends BaseRepository
      * @param Comment $comment
      * @return array
      */
-    public
-    function getProductCommentedParsedTemplate(Product $product, User $user, Comment $comment): array
+    public function getProductCommentedParsedTemplate(Product $product, User $user, Comment $comment): array
     {
         $template = $this->getByCategoryName('product_commented');
 
@@ -539,8 +528,7 @@ class TemplateRepository extends BaseRepository
      * @param User $subject
      * @return array
      */
-    public
-    function getNewRequestParsedTemplate(ServiceRequest $request, User $user, User $subject): array
+    public function getNewRequestParsedTemplate(ServiceRequest $request, User $user, User $subject): array
     {
         $template = $this->getByCategoryName('new_request');
 
@@ -562,8 +550,7 @@ class TemplateRepository extends BaseRepository
      * @param Comment $comment
      * @return array
      */
-    public
-    function getRequestCommentedParsedTemplate(ServiceRequest $sr, User $user, Comment $comment): array
+    public function getRequestCommentedParsedTemplate(ServiceRequest $sr, User $user, Comment $comment): array
     {
         $template = $this->getByCategoryName('request_comment');
 
@@ -586,8 +573,7 @@ class TemplateRepository extends BaseRepository
      * @param ServiceRequest $sr
      * @return array
      */
-    public
-    function getRequestDueParsedTemplate(ServiceRequest $sr, User $receiver): array
+    public function getRequestDueParsedTemplate(ServiceRequest $sr, User $receiver): array
     {
         $template = $this->getByCategoryName('request_due_date_reminder');
 
@@ -609,8 +595,7 @@ class TemplateRepository extends BaseRepository
      * @param Media $media
      * @return array
      */
-    public
-    function getRequestMediaParsedTemplate(
+    public function getRequestMediaParsedTemplate(
         ServiceRequest $sr,
         User $uploader,
         User $receiver,
@@ -643,8 +628,7 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return array
      */
-    public
-    function getRequestStatusChangedParsedTemplate(ServiceRequest $sr, ServiceRequest $osr, User $user): array
+    public function getRequestStatusChangedParsedTemplate(ServiceRequest $sr, ServiceRequest $osr, User $user): array
     {
         $template = $this->getByCategoryName('request_admin_change_status');
 
@@ -666,8 +650,7 @@ class TemplateRepository extends BaseRepository
      * @param User $receiver
      * @return array
      */
-    public
-    function getRequestInternalCommentParsedTemplate(
+    public function getRequestInternalCommentParsedTemplate(
         ServiceRequest $sr,
         Comment $comment,
         User $sender,
@@ -693,8 +676,7 @@ class TemplateRepository extends BaseRepository
      * @param CleanifyRequest $creq
      * @return array
      */
-    public
-    function getCleanifyParsedTemplate(CleanifyRequest $creq): array
+    public function getCleanifyParsedTemplate(CleanifyRequest $creq): array
     {
         $template = $this->getByCategoryName('cleanify_request_email');
 

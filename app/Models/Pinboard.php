@@ -12,7 +12,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 /**
  * @SWG\Definition(
- *      definition="Post",
+ *      definition="Pinboard",
  *      required={"content"},
  *      @SWG\Property(
  *          property="id",
@@ -96,7 +96,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *      )
  * )
  */
-class Post extends AuditableModel implements HasMedia, LikeableContract
+class Pinboard extends AuditableModel implements HasMedia, LikeableContract
 {
     use SoftDeletes;
     use HasMediaTrait;
@@ -296,7 +296,7 @@ class Post extends AuditableModel implements HasMedia, LikeableContract
 
     public function views()
     {
-        return $this->hasMany(PostView::class);
+        return $this->hasMany(PinboardView::class);
     }
 
     public function pinned_email_receptionists()
@@ -371,11 +371,11 @@ class Post extends AuditableModel implements HasMedia, LikeableContract
 
     public function incrementViews(int $userID)
     {
-        $uv = PostView::where('post_id', $this->id)
+        $uv = PinboardView::where('post_id', $this->id)
             ->where('user_id', $userID)
             ->first();
         if (!$uv) {
-            $uv = new PostView();
+            $uv = new PinboardView();
             $uv->user_id = $userID;
             $uv->post_id = $this->id;
         }

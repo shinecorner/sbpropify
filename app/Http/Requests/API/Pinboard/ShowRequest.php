@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\Pinboard;
 
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Http\Requests\BaseRequest;
 
 class ShowRequest extends BaseRequest
@@ -18,7 +18,7 @@ class ShowRequest extends BaseRequest
         if ($u->can('view-pinboard')) {
             return true;
         }
-        $p = Post::where('id', $this->route('pinboard'))->first();
+        $p = Pinboard::where('id', $this->route('pinboard'))->first();
         if (!$p) {
             return false;
         }
@@ -27,6 +27,6 @@ class ShowRequest extends BaseRequest
             return true;
         }
 
-        return $p->status == Post::StatusPublished;
+        return $p->status == Pinboard::StatusPublished;
     }
 }

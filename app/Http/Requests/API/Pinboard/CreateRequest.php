@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\Pinboard;
 
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Http\Requests\BaseRequest;
 
 class CreateRequest extends BaseRequest
@@ -24,6 +24,6 @@ class CreateRequest extends BaseRequest
      */
     public function rules()
     {
-        return Post::rules();
+        return Pinboard::rules();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Models\Tenant;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
@@ -21,7 +21,7 @@ class PostLiked extends Notification implements ShouldQueue
     use Queueable;
 
     /**
-     * @var Post
+     * @var Pinboard
      */
     protected $post;
     /**
@@ -31,10 +31,10 @@ class PostLiked extends Notification implements ShouldQueue
 
     /**
      * PostLiked constructor.
-     * @param Post $post
+     * @param Pinboard $post
      * @param Tenant $liker
      */
-    public function __construct(Post $post, Tenant $liker)
+    public function __construct(Pinboard $post, Tenant $liker)
     {
         $this->post = $post;
         $this->liker = $liker;

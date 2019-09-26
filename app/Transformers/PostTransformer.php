@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use App\Models\Post;
+use App\Models\Pinboard;
 
 /**
  * Class PostTransformer.
@@ -16,11 +16,11 @@ class PostTransformer extends BaseTransformer
     /**
      * Transform the Post entity.
      *
-     * @param \App\Models\Post $model
+     * @param \App\Models\Pinboard $model
      *
      * @return array
      */
-    public function transform(Post $model)
+    public function transform(Pinboard $model)
     {
         $ut = new UserTransformer();
         $tt = new TenantTransformer();

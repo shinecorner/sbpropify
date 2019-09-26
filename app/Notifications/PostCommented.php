@@ -3,7 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Comment;
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Models\Tenant;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
@@ -22,7 +22,7 @@ class PostCommented extends Notification implements ShouldQueue
     use Queueable;
 
     /**
-     * @var Post
+     * @var Pinboard
      */
     protected $post;
     /**
@@ -36,11 +36,11 @@ class PostCommented extends Notification implements ShouldQueue
 
     /**
      * PostCommented constructor.
-     * @param Post $post
+     * @param Pinboard $post
      * @param Tenant $commenter
      * @param Comment $comment
      */
-    public function __construct(Post $post, Tenant $commenter, Comment $comment)
+    public function __construct(Pinboard $post, Tenant $commenter, Comment $comment)
     {
         $this->post = $post;
         $this->commenter = $commenter;

@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Repositories\TemplateRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -20,15 +20,15 @@ class PinnedPostPublished extends Notification implements ShouldQueue
     use Queueable;
 
     /**
-     * @var Post
+     * @var Pinboard
      */
     protected $post;
 
     /**
      * PinnedPostPublished constructor.
-     * @param Post $post
+     * @param Pinboard $post
      */
-    public function __construct(Post $post)
+    public function __construct(Pinboard $post)
     {
         $this->post = $post;
     }

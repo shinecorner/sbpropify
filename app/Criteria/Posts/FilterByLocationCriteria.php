@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
-use App\Models\Post;
+use App\Models\Pinboard;
 
 /**
  * Class FilterByLocationCriteria
@@ -57,7 +57,7 @@ class FilterByLocationCriteria implements CriteriaInterface
         ];
         $args = [
             \Auth::id(),
-            Post::VisibilityAll,
+            Pinboard::VisibilityAll,
             $t->building_id,
         ];
         // If the tenant building is in a quarter, show the pinned posts from that quarter

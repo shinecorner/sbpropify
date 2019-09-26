@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\Pinboard;
 
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Http\Requests\BaseRequest;
 
 class UpdateRequest extends BaseRequest
@@ -18,7 +18,7 @@ class UpdateRequest extends BaseRequest
         if ($u->can('edit-pinboard')) {
             return true;
         }
-        return Post::where('id', $this->route('pinboard'))
+        return Pinboard::where('id', $this->route('pinboard'))
             ->where('user_id', $u->id)->first();
     }
 
@@ -29,6 +29,6 @@ class UpdateRequest extends BaseRequest
      */
     public function rules()
     {
-        return Post::rules();
+        return Pinboard::rules();
     }
 }

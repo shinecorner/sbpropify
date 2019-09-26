@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\API\Pinboard;
 
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Http\Requests\BaseRequest;
 
 class DeleteRequest extends BaseRequest
@@ -18,7 +18,7 @@ class DeleteRequest extends BaseRequest
         if ($u->can('delete-pinboard')) {
             return true;
         }
-        return Post::where('id', $this->route('pinboard') ?? $this->route('post'))
+        return Pinboard::where('id', $this->route('pinboard') ?? $this->route('post'))
             ->where('user_id', $u->id)->first();
     }
 }

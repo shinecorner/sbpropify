@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
-use App\Models\Post;
+use App\Models\Pinboard;
 
 /**
  * Class FilterByStatusCriteria
@@ -39,7 +39,7 @@ class FilterByStatusCriteria implements CriteriaInterface
     {
         $status = $this->request->get('status', null);
         if (!\Auth::user()->can('list-post')) {
-            $status = Post::StatusPublished;
+            $status = Pinboard::StatusPublished;
         }
         if ($status) {
             $model->where('status', $status);
