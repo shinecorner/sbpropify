@@ -13,7 +13,7 @@ class RenamePostsTableToPinboards extends Migration
      */
     public function up()
     {
-        Schema::rename('posts', 'pinboards');
+        Schema::rename('posts', 'pinboard');
     }
 
     /**
@@ -23,6 +23,6 @@ class RenamePostsTableToPinboards extends Migration
      */
     public function down()
     {
-        Schema::rename('pinboards', 'posts');
+        Schema::rename('pinboard', 'posts');
     }
 }
