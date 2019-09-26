@@ -14,8 +14,7 @@ class CreateRequest extends BaseRequest
      */
     public function authorize()
     {
-        $u = \Auth::user();
-        return $u->can('add-post');
+        return $this->can('add-post');
     }
 
     /**

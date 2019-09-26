@@ -14,6 +14,6 @@ class ViewRequest extends BaseRequest
      */
     public function authorize()
     {
-        return \Auth::user()->can('view-product');
+        return $this->can('view-product');
     }
 }

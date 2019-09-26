@@ -14,6 +14,6 @@ class ListViewsRequest extends BaseRequest
      */
     public function authorize()
     {
-        return \Auth::user()->can('list_views-post');
+        return $this->can('list_views-post');
     }
 }

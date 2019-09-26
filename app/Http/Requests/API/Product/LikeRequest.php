@@ -14,6 +14,5 @@ class LikeRequest extends BaseRequest
     public function authorize()
     {
         return true;
-        return \Auth::user()->can('list-product');
     }
 }

@@ -14,7 +14,7 @@ class CreateRequest extends BaseRequest
      */
     public function authorize()
     {
-        return \Auth::user()->can('add-product');
+        return $this->can('add-product');
     }
 
     /**

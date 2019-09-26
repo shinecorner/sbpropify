@@ -13,7 +13,6 @@ class ListRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true;
-        return \Auth::user()->can('list-product');
+        return $this->can('list-product');
     }
 }

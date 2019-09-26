@@ -14,7 +14,7 @@ class PublishRequest extends BaseRequest
      */
     public function authorize()
     {
-        return \Auth::user()->can('publish-post');
+        return $this->can('publish-post');
     }
 
     /**
