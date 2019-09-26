@@ -8,8 +8,7 @@ export default {
         return new Promise((resolve, reject) =>
             axios.get(buildFetchUrl('requests', payload))
             .then(({data: r}) => {
-                commit('SET_REQUESTS', r.data);
-                console.log(r.data.total);  
+                commit('SET_REQUESTS', r.data);                
                 EventBus.$emit('request-get-counted', r.data.total);
                 resolve(r)
              }).catch(({response: {data: err}}) => reject(err)));
