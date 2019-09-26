@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Criteria\Pinboards;
+namespace App\Criteria\Pinboard;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByTenantCriteria
+ * Class FilterByBuildingCriteria
  * @package Prettus\Repository\Criteria
  */
-class FilterByTenantCriteria implements CriteriaInterface
+class FilterByBuildingCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -26,7 +27,7 @@ class FilterByTenantCriteria implements CriteriaInterface
     /**
      * Apply criteria in query repository
      *
-     * @param Model $model
+     * @param Builder|Model $model
      * @param RepositoryInterface $repository
      *
      * @return mixed
@@ -34,20 +35,20 @@ class FilterByTenantCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $tenant_id = $this->request->get('tenant_id', null);
-
-        $createdByTenant = $this->request->get('createdby_tenant', false);
-        if ($createdByTenant) {
-            $model = $model->whereHas('user', function ($q) {
-                $q->has('tenant');
-            });
-        }
-
-        if (!$tenant_id) {
+        $building_id = $this->request->get('building_id', null);
+        if (!$building_id) {
             return $model;
         }
-        // @TODO discuss
-        $model = $model->where('id', $tenant_id);
+
+        $u = \Auth::user();
+        if (!$u->can('list-pinboard') && $u->tenant) {
+            $building_id = $u->tenant->building_id;
+        }
+
+        $model->whereHas('buildings', function ($query) use ($building_id) {
+            $query->where('id', $building_id);
+        });
+
         return $model;
     }
 }

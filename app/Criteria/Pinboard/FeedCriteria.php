@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Criteria\Pinboards;
+namespace App\Criteria\Pinboard;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -9,10 +9,10 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByBuildingCriteria
+ * Class FeedCriteria
  * @package Prettus\Repository\Criteria
  */
-class FilterByBuildingCriteria implements CriteriaInterface
+class FeedCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -24,10 +24,11 @@ class FilterByBuildingCriteria implements CriteriaInterface
         $this->request = $request;
     }
 
+
     /**
      * Apply criteria in query repository
      *
-     * @param Builder|Model $model
+     * @param         Builder|Model     $model
      * @param RepositoryInterface $repository
      *
      * @return mixed
@@ -35,20 +36,15 @@ class FilterByBuildingCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $building_id = $this->request->get('building_id', null);
-        if (!$building_id) {
-            return $model;
+        if ($this->request->get('feed')) {
+            return $model
+                ->whereRaw("(pinboard.pinned = ? or (pinboard.pinned_to is not null and pinboard.pinned_to > now()))", false)
+                ->orderBy('pinboard.pinned', 'desc')
+                ->orderBy('pinboard.execution_start', 'asc')
+                ->orderBy('pinboard.published_at', 'desc')
+                ->orderBy('pinboard.created_at', 'desc');
         }
 
-        $u = \Auth::user();
-        if (!$u->can('list-pinboard') && $u->tenant) {
-            $building_id = $u->tenant->building_id;
-        }
-
-        $model->whereHas('buildings', function ($query) use ($building_id) {
-            $query->where('id', $building_id);
-        });
-
-        return $model;
+        return $model->orderBy('pinboard.created_at', 'desc');
     }
 }

@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Criteria\Pinboards;
+namespace App\Criteria\Pinboard;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByTypeCriteria
+ * Class FilterByTenantCriteria
  * @package Prettus\Repository\Criteria
  */
-class FilterByTypeCriteria implements CriteriaInterface
+class FilterByTenantCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -24,11 +23,10 @@ class FilterByTypeCriteria implements CriteriaInterface
         $this->request = $request;
     }
 
-
     /**
      * Apply criteria in query repository
      *
-     * @param         Builder|Model     $model
+     * @param Model $model
      * @param RepositoryInterface $repository
      *
      * @return mixed
@@ -36,11 +34,20 @@ class FilterByTypeCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $type = $this->request->get('type', null);
-        if ($type) {
-            return $model->where('type', $type);
+        $tenant_id = $this->request->get('tenant_id', null);
+
+        $createdByTenant = $this->request->get('createdby_tenant', false);
+        if ($createdByTenant) {
+            $model = $model->whereHas('user', function ($q) {
+                $q->has('tenant');
+            });
         }
 
+        if (!$tenant_id) {
+            return $model;
+        }
+        // @TODO discuss
+        $model = $model->where('id', $tenant_id);
         return $model;
     }
 }

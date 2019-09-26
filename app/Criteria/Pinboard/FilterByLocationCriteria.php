@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Criteria\Pinboards;
+namespace App\Criteria\Pinboard;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -51,8 +51,8 @@ class FilterByLocationCriteria implements CriteriaInterface
         }
 
         $conds = [
-            "pinboards.user_id = ?",
-            "pinboards.visibility = ?",
+            "pinboard.user_id = ?",
+            "pinboard.visibility = ?",
             "building_pinboard.building_id = ?",
         ];
         $args = [
@@ -60,16 +60,16 @@ class FilterByLocationCriteria implements CriteriaInterface
             Pinboard::VisibilityAll,
             $t->building_id,
         ];
-        // If the tenant building is in a quarter, show the pinned pinboards from that quarter
+        // If the tenant building is in a quarter, show the pinned pinboard from that quarter
         if ($t->building && $t->building->quarter_id) {
             $conds[] = "quarter_pinboard.quarter_id = ?";
             $args[] = $t->building->quarter_id;
         }
 
         // It's raw, Melissa, because  https://github.com/laravel/framework/issues/23957
-        return $model->select('pinboards.*')->distinct()
-            ->leftJoin("building_pinboard", "building_pinboard.pinboard_id", "=", "pinboards.id")
-            ->leftJoin("quarter_pinboard", "quarter_pinboard.pinboard_id", "=", "pinboards.id")
+        return $model->select('pinboard.*')->distinct()
+            ->leftJoin("building_pinboard", "building_pinboard.pinboard_id", "=", "pinboard.id")
+            ->leftJoin("quarter_pinboard", "quarter_pinboard.pinboard_id", "=", "pinboard.id")
             ->whereRaw("(" . implode(" or ", $conds) . ")", $args);
     }
 }

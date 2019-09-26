@@ -103,7 +103,7 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
     use Likeable;
     use HasComments;
 
-    public $table = 'pinboards';
+    public $table = 'pinboard';
 
     const TypePost = 1;
     const TypeNewNeighbour = 2;

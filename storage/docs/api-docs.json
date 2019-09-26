@@ -802,7 +802,7 @@
                 }
             }
         },
-        "/pinboards/{id}/comments": {
+        "/pinboard/{id}/comments": {
             "post": {
                 "tags": [
                     "Comment"
@@ -1497,11 +1497,11 @@
                                         "products_per_status": {
                                             "$ref": "#/definitions/Donut"
                                         },
-                                        "total_pinboards": {
+                                        "total_pinboard": {
                                             "type": "string",
                                             "example": "200"
                                         },
-                                        "pinboards_per_status": {
+                                        "pinboard_per_status": {
                                             "$ref": "#/definitions/Donut"
                                         },
                                         "all_start_dates": {
@@ -1522,7 +1522,7 @@
                                                     "type": "string",
                                                     "example": "01.01.2019"
                                                 },
-                                                "pinboards": {
+                                                "pinboard": {
                                                     "type": "string",
                                                     "example": "01.01.2019"
                                                 }
@@ -1595,8 +1595,8 @@
                     "Pinboard",
                     "CreationDate"
                 ],
-                "summary": "get statistics for Grouped Report by products:status | tenants:status | pinboards:status ",
-                "description": "get statistics for Grouped Report by products:status | tenants:status | pinboards:status",
+                "summary": "get statistics for Grouped Report by products:status | tenants:status | pinboard:status ",
+                "description": "get statistics for Grouped Report by products:status | tenants:status | pinboard:status",
                 "produces": [
                     "application/json"
                 ],
@@ -1610,7 +1610,7 @@
                         "enum": [
                             "products",
                             "tenants",
-                            "pinboards"
+                            "pinboard"
                         ]
                     },
                     {
@@ -1735,8 +1735,8 @@
                     "Product",
                     "Donut"
                 ],
-                "summary": "service_requests, products, tenants,  pinboards statistics for Donut Chart",
-                "description": "service_requests:status | tenants:status,title | products:status,type |  pinboards:status,type statistics for Donut Chart",
+                "summary": "service_requests, products, tenants,  pinboard statistics for Donut Chart",
+                "description": "service_requests:status | tenants:status,title | products:status,type |  pinboard:status,type statistics for Donut Chart",
                 "produces": [
                     "application/json"
                 ],
@@ -1751,13 +1751,13 @@
                             "service_requests",
                             "tenants",
                             "products",
-                            "pinboards"
+                            "pinboard"
                         ]
                     },
                     {
                         "name": "column",
                         "in": "query",
-                        "description": "The column used for get statistic according that column | permitted values for each table [service_requests:status | tenants:status,title | products:status,type |  pinboards:status,type]",
+                        "description": "The column used for get statistic according that column | permitted values for each table [service_requests:status | tenants:status,title | products:status,type |  pinboard:status,type]",
                         "type": "string",
                         "default": "status",
                         "enum": [
@@ -2575,7 +2575,7 @@
                 }
             }
         },
-        "/pinboards/{pinboard_id}/media": {
+        "/pinboard/{pinboard_id}/media": {
             "post": {
                 "tags": [
                     "Listing"
@@ -3073,13 +3073,13 @@
                 }
             }
         },
-        "/pinboards": {
+        "/pinboard": {
             "get": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Get a listing of the Pinboards.",
-                "description": "Get all Pinboards",
+                "summary": "Get a listing of the Pinboard.",
+                "description": "Get all Pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3147,7 +3147,7 @@
                 }
             }
         },
-        "/pinboards/{id}": {
+        "/pinboard/{id}": {
             "get": {
                 "tags": [
                     "Listing"
@@ -3272,7 +3272,7 @@
                 }
             }
         },
-        "/pinboards/{id}/publish": {
+        "/pinboard/{id}/publish": {
             "post": {
                 "tags": [
                     "Listing"
@@ -3323,7 +3323,7 @@
                 }
             }
         },
-        "/pinboards/{id}/like": {
+        "/pinboard/{id}/like": {
             "post": {
                 "tags": [
                     "Listing"
@@ -3364,7 +3364,7 @@
                 }
             }
         },
-        "/pinboards/{id}/unlike": {
+        "/pinboard/{id}/unlike": {
             "post": {
                 "tags": [
                     "Listing"
@@ -3405,7 +3405,7 @@
                 }
             }
         },
-        "/pinboards/{id}/buildings/{bid}": {
+        "/pinboard/{id}/buildings/{bid}": {
             "post": {
                 "tags": [
                     "Listing"
@@ -3465,7 +3465,7 @@
                 }
             }
         },
-        "/pinboards/{id}/quarters/{did}": {
+        "/pinboard/{id}/quarters/{did}": {
             "post": {
                 "tags": [
                     "Listing"
@@ -3525,7 +3525,7 @@
                 }
             }
         },
-        "/pinboards/{id}/locations": {
+        "/pinboard/{id}/locations": {
             "get": {
                 "tags": [
                     "Listing"
@@ -3559,7 +3559,7 @@
                 }
             }
         },
-        "/pinboards/{id}/providers/{pid}": {
+        "/pinboard/{id}/providers/{pid}": {
             "post": {
                 "tags": [
                     "Listing"
@@ -3619,7 +3619,7 @@
                 }
             }
         },
-        "/pinboards/{id}/views": {
+        "/pinboard/{id}/views": {
             "get": {
                 "tags": [
                     "Listing"
@@ -3679,13 +3679,13 @@
                 }
             }
         },
-        "/pinboards/rss.xml": {
+        "/pinboard/rss.xml": {
             "get": {
                 "tags": [
                     "RSS"
                 ],
-                "summary": "RSS feed of pinboards",
-                "description": "Get RSS feed of pinboards",
+                "summary": "RSS feed of pinboard",
+                "description": "Get RSS feed of pinboard",
                 "produces": [
                     "application/xml"
                 ],
@@ -3696,7 +3696,7 @@
                 }
             }
         },
-        "/pinboards/weather.json": {
+        "/pinboard/weather.json": {
             "get": {
                 "tags": [
                     "weather"

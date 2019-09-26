@@ -26,7 +26,7 @@ class PermissionsTableSeeder extends Seeder
         ['add-comment', 'Add Comment', 'add comment'],
         ['edit-comment', 'Edit Comment', 'edit existing comment'],
         // Pinboard
-        ['list-pinboard', 'List Pinboards', 'list all pinboards'],
+        ['list-pinboard', 'List Pinboard', 'list all pinboard'],
         ['view-pinboard', 'View Pinboard', 'view pinboard'],
         ['add-pinboard', 'Add Pinboard', 'add pinboard'],
         ['edit-pinboard', 'Edit Pinboard', 'edit existing pinboard'],

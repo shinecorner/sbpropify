@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Criteria\Pinboards;
+namespace App\Criteria\Pinboard;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -37,7 +37,7 @@ class FilterByUserCriteria implements CriteriaInterface
     {
         $user_id = $this->request->get('user_id', null);
         if ($user_id) {
-            $model->where('pinboards.user_id', $user_id);
+            $model->where('pinboard.user_id', $user_id);
         }
 
         return $model;

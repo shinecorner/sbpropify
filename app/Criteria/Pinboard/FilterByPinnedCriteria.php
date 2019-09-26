@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Criteria\Pinboards;
+namespace App\Criteria\Pinboard;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
-use App\Models\Pinboard;
 
 /**
- * Class FilterByStatusCriteria
+ * Class FilterByPinnedCriteria
  * @package Prettus\Repository\Criteria
  */
-class FilterByStatusCriteria implements CriteriaInterface
+class FilterByPinnedCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -37,14 +36,9 @@ class FilterByStatusCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $status = $this->request->get('status', null);
-        if (!\Auth::user()->can('list-pinboard')) {
-            $status = Pinboard::StatusPublished;
+        if (!$this->request->has('pinned')) {
+            return $model;
         }
-        if ($status) {
-            $model->where('status', $status);
-        }
-
-        return $model;
+        return $model->where('pinned', $this->request->get('pinned'));
     }
 }

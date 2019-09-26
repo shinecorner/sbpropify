@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Criteria\Pinboards;
+namespace App\Criteria\Pinboard;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -9,10 +9,10 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByPinnedCriteria
+ * Class FilterByTypeCriteria
  * @package Prettus\Repository\Criteria
  */
-class FilterByPinnedCriteria implements CriteriaInterface
+class FilterByTypeCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -36,9 +36,11 @@ class FilterByPinnedCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        if (!$this->request->has('pinned')) {
-            return $model;
+        $type = $this->request->get('type', null);
+        if ($type) {
+            return $model->where('type', $type);
         }
-        return $model->where('pinned', $this->request->get('pinned'));
+
+        return $model;
     }
 }

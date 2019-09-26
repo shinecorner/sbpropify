@@ -109,7 +109,7 @@ class PinboardRepository extends BaseRepository
         if (Pinboard::StatusPublished == $atts['status']) {
             $notificationsData = $this->notify($model);
         }
-        $adminNotificationsData = $this->notifyAdminNewTenantPinboards($model);
+        $adminNotificationsData = $this->notifyAdminNewTenantPinboard($model);
         $notificationsData = $notificationsData->merge($adminNotificationsData);
         $this->saveNotificationAuditsAndLogs($model, $notificationsData);
 //        $this->notifyAdminActions($model);
@@ -317,7 +317,7 @@ class PinboardRepository extends BaseRepository
         // @TODO
     }
 
-    public function notifyAdminNewTenantPinboards(Pinboard $pinboard)
+    public function notifyAdminNewTenantPinboard(Pinboard $pinboard)
     {
         $newTenantPinboard = get_morph_type_of(NewTenantPinboard::class);
         if (empty($pinboard->user->tenant)) {
@@ -329,7 +329,7 @@ class PinboardRepository extends BaseRepository
         $i = 0;
         foreach ($admins as $admin) {
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
-            $admin->redirect = '/admin/pinboards';
+            $admin->redirect = '/admin/pinboard';
 
             $notif = (new NewTenantPinboard($pinboard, $admin))->delay(now()->addSeconds($delay));
             $admin->notify($notif);

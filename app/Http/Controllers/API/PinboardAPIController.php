@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Criteria\Pinboards\FeedCriteria;
-use App\Criteria\Pinboards\FilterByBuildingCriteria;
-use App\Criteria\Pinboards\FilterByQuarterCriteria;
-use App\Criteria\Pinboards\FilterByLocationCriteria;
-use App\Criteria\Pinboards\FilterByPinnedCriteria;
-use App\Criteria\Pinboards\FilterByStatusCriteria;
-use App\Criteria\Pinboards\FilterByTypeCriteria;
-use App\Criteria\Pinboards\FilterByUserCriteria;
-use App\Criteria\Pinboards\FilterByTenantCriteria;
+use App\Criteria\Pinboard\FeedCriteria;
+use App\Criteria\Pinboard\FilterByBuildingCriteria;
+use App\Criteria\Pinboard\FilterByQuarterCriteria;
+use App\Criteria\Pinboard\FilterByLocationCriteria;
+use App\Criteria\Pinboard\FilterByPinnedCriteria;
+use App\Criteria\Pinboard\FilterByStatusCriteria;
+use App\Criteria\Pinboard\FilterByTypeCriteria;
+use App\Criteria\Pinboard\FilterByUserCriteria;
+use App\Criteria\Pinboard\FilterByTenantCriteria;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Pinboard\AssignRequest;
 use App\Http\Requests\API\Pinboard\CreateRequest;
@@ -71,10 +71,10 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="/pinboards",
-     *      summary="Get a listing of the Pinboards.",
+     *      path="/pinboard",
+     *      summary="Get a listing of the Pinboard.",
      *      tags={"Listing"},
-     *      description="Get all Pinboards",
+     *      description="Get all Pinboard",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -116,7 +116,7 @@ class PinboardAPIController extends AppBaseController
         $this->pinboardRepository->pushCriteria(new FilterByTenantCriteria($request));
 
         $perPage = $request->get('per_page', env('APP_PAGINATE', 10));
-        $pinboards = $this->pinboardRepository->with([
+        $pinboard = $this->pinboardRepository->with([
             'media',
             'user.tenant',
             'likesCounter',
@@ -127,16 +127,16 @@ class PinboardAPIController extends AppBaseController
             'buildings.media',
             'providers',
         ])->withCount('views')->paginate($perPage);
-        $pinboards->getCollection()->loadCount('allComments');
+        $pinboard->getCollection()->loadCount('allComments');
 
 
-        $out = $this->transformer->transformPaginator($pinboards);
-        return $this->sendResponse($out, 'Pinboards retrieved successfully');
+        $out = $this->transformer->transformPaginator($pinboard);
+        return $this->sendResponse($out, 'Pinboard retrieved successfully');
     }
 
     /**
      * @SWG\Post(
-     *      path="/pinboards",
+     *      path="/pinboard",
      *      summary="Store a newly created Pinboard in storage",
      *      tags={"Listing"},
      *      description="Store Pinboard",
@@ -222,7 +222,7 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="/pinboards/{id}",
+     *      path="/pinboard/{id}",
      *      summary="Display the specified Pinboard",
      *      tags={"Listing"},
      *      description="Get Pinboard",
@@ -307,7 +307,7 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Put(
-     *      path="/pinboards/{id}",
+     *      path="/pinboard/{id}",
      *      summary="Update the specified Pinboard in storage",
      *      tags={"Listing"},
      *      description="Update Pinboard",
@@ -391,7 +391,7 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Delete(
-     *      path="/pinboards/{id}",
+     *      path="/pinboard/{id}",
      *      summary="Remove the specified Pinboard from storage",
      *      tags={"Listing"},
      *      description="Delete Pinboard",
@@ -460,7 +460,7 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Post(
-     *      path="/pinboards/{id}/publish",
+     *      path="/pinboard/{id}/publish",
      *      summary="Publish a pinboard",
      *      tags={"Listing"},
      *      description="Publish a pinboard",
@@ -522,7 +522,7 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Post(
-     *      path="/pinboards/{id}/like",
+     *      path="/pinboard/{id}/like",
      *      summary="Like a pinboard",
      *      tags={"Listing"},
      *      description="Like a pinboard",
@@ -582,7 +582,7 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Post(
-     *      path="/pinboards/{id}/unlike",
+     *      path="/pinboard/{id}/unlike",
      *      summary="Unlike a pinboard",
      *      tags={"Listing"},
      *      description="Unlike a pinboard",
@@ -635,7 +635,7 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Post(
-     *      path="/pinboards/{id}/buildings/{bid}",
+     *      path="/pinboard/{id}/buildings/{bid}",
      *      summary="Assign the provided building to the pinboard",
      *      tags={"Listing"},
      *      description="Assign the provided building to the pinboard",
@@ -698,7 +698,7 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Delete(
-     *      path="/pinboards/{id}/buildings/{bid}",
+     *      path="/pinboard/{id}/buildings/{bid}",
      *      summary="Unassign the provided building to the pinboard",
      *      tags={"Listing"},
      *      description="Unassign the provided building to the pinboard",
@@ -760,7 +760,7 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Post(
-     *      path="/pinboards/{id}/quarters/{did}",
+     *      path="/pinboard/{id}/quarters/{did}",
      *      summary="Assign the provided quarter to the pinboard",
      *      tags={"Listing"},
      *      description="Assign the provided quarter to the pinboard",
@@ -823,7 +823,7 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Delete(
-     *      path="/pinboards/{id}/quarters/{did}",
+     *      path="/pinboard/{id}/quarters/{did}",
      *      summary="Unassign the provided quarter to the pinboard",
      *      tags={"Listing"},
      *      description="Unassign the provided quarter to the pinboard",
@@ -886,7 +886,7 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="/pinboards/{id}/locations",
+     *      path="/pinboard/{id}/locations",
      *      summary="Get a listing of the pinboard locations.",
      *      tags={"Listing"},
      *      description="Get a listing of the pinboard locations.",
@@ -932,7 +932,7 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Post(
-     *      path="/pinboards/{id}/providers/{pid}",
+     *      path="/pinboard/{id}/providers/{pid}",
      *      summary="Assign the provided service provider to the pinboard",
      *      tags={"Listing"},
      *      description="Assign the provided service provider to the pinboard",
@@ -996,7 +996,7 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Delete(
-     *      path="/pinboards/{id}/providers/{pid}",
+     *      path="/pinboard/{id}/providers/{pid}",
      *      summary="Unassign the provided service provider to the pinboard",
      *      tags={"Listing"},
      *      description="Unassign the provided service provider to the pinboard",
@@ -1059,7 +1059,7 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Put(
-     *      path="/pinboards/{id}/views",
+     *      path="/pinboard/{id}/views",
      *      summary="Increment the view count of the pinboard",
      *      tags={"Listing"},
      *      description="Increment the view count of the pinboard",
@@ -1101,7 +1101,7 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="/pinboards/{id}/views",
+     *      path="/pinboard/{id}/views",
      *      summary="List the view count of the pinboard",
      *      tags={"Listing"},
      *      description="List the view count of the pinboard",
@@ -1147,10 +1147,10 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="/pinboards/rss.xml",
-     *      summary="RSS feed of pinboards",
+     *      path="/pinboard/rss.xml",
+     *      summary="RSS feed of pinboard",
      *      tags={"RSS"},
-     *      description="Get RSS feed of pinboards",
+     *      description="Get RSS feed of pinboard",
      *      produces={"application/xml"},
      *      @SWG\Response(
      *          response=200,
@@ -1172,7 +1172,7 @@ class PinboardAPIController extends AppBaseController
 
     /**
      * @SWG\Get(
-     *      path="/pinboards/weather.json",
+     *      path="/pinboard/weather.json",
      *      summary="JSON feed of weather",
      *      tags={"weather"},
      *      description="Get json feed of weather",

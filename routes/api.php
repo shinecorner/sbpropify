@@ -169,7 +169,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::delete('/quarters-assignees/{quarters_assignee_id}', 'QuarterAPIController@deleteQuarterAssignee');
 
 
-    // Pinboards
+    // Pinboard
     Route::resource('pinboard', 'PinboardAPIController');
     Route::post('/pinboard/deletewithids', 'PinboardAPIController@destroyWithIds')->name('pinboard.destroyWithIds');
     Route::post('pinboard/{id}/publish', 'PinboardAPIController@publish')->name('pinboard.publish');
@@ -194,7 +194,7 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::get('pinboard/weather.json', 'PinboardAPIController@showWeatherJSON');
 
 
-    // Pinboards
+    // Pinboard
     Route::resource('posts', 'PinboardAPIController');
     Route::post('/posts/deletewithids', 'PinboardAPIController@destroyWithIds')->name('posts.destroyWithIds');
     Route::post('posts/{id}/publish', 'PinboardAPIController@publish')->name('posts.publish');

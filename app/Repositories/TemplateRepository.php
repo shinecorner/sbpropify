@@ -342,7 +342,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('new_pinboard');
 
-        $user->redirect = "/admin/pinboards/" . $pinboard->id;
+        $user->redirect = "/admin/pinboard/" . $pinboard->id;
         $context = [
             'user' => $user,
             'pinboard' => $pinboard,
@@ -449,7 +449,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('pinboard_commented');
 
-        $pinboard->user->redirect = '/pinboards/' . $pinboard->id;
+        $pinboard->user->redirect = '/pinboard/' . $pinboard->id;
         $context = [
             'user' => $user,
             'pinboard' => $pinboard,
@@ -470,7 +470,7 @@ class TemplateRepository extends BaseRepository
     {
         $template = $this->getByCategoryName('pinboard_liked');
 
-        $pinboard->user->redirect = '/pinboards/' . $pinboard->id;
+        $pinboard->user->redirect = '/pinboard/' . $pinboard->id;
         $context = [
             'user' => $user,
             'pinboard' => $pinboard,

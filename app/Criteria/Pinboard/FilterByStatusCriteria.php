@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Criteria\Pinboards;
+namespace App\Criteria\Pinboard;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
+use App\Models\Pinboard;
 
 /**
- * Class FeedCriteria
+ * Class FilterByStatusCriteria
  * @package Prettus\Repository\Criteria
  */
-class FeedCriteria implements CriteriaInterface
+class FilterByStatusCriteria implements CriteriaInterface
 {
     /**
      * @var \Illuminate\Http\Request
@@ -36,15 +37,14 @@ class FeedCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        if ($this->request->get('feed')) {
-            return $model
-                ->whereRaw("(pinboards.pinned = ? or (pinboards.pinned_to is not null and pinboards.pinned_to > now()))", false)
-                ->orderBy('pinboards.pinned', 'desc')
-                ->orderBy('pinboards.execution_start', 'asc')
-                ->orderBy('pinboards.published_at', 'desc')
-                ->orderBy('pinboards.created_at', 'desc');
+        $status = $this->request->get('status', null);
+        if (!\Auth::user()->can('list-pinboard')) {
+            $status = Pinboard::StatusPublished;
+        }
+        if ($status) {
+            $model->where('status', $status);
         }
 
-        return $model->orderBy('pinboards.created_at', 'desc');
+        return $model;
     }
 }

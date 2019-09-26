@@ -234,7 +234,7 @@ class MediaAPIController extends AppBaseController
 
     /**
      * @SWG\Post(
-     *      path="/pinboards/{pinboard_id}/media",
+     *      path="/pinboard/{pinboard_id}/media",
      *      summary="Store a newly created Pinboard Media in storage",
      *      tags={"Listing"},
      *      description="Store Media",

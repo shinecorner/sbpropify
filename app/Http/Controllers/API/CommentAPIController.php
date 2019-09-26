@@ -81,7 +81,7 @@ class CommentAPIController extends AppBaseController
 
     /**
      * @SWG\Post(
-     *      path="/pinboards/{id}/comments",
+     *      path="/pinboard/{id}/comments",
      *      summary="Store a newly created comment in storage",
      *      tags={"Comment"},
      *      description="Store Comment",
