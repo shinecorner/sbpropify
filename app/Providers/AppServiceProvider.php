@@ -16,7 +16,7 @@ use App\Models\RentContract;
 use App\Models\Unit;
 use App\Models\User;
 use App\Notifications\NewTenantInNeighbour;
-use App\Notifications\NewTenantPost;
+use App\Notifications\NewTenantPinboard;
 use App\Notifications\NewTenantRequest;
 use App\Notifications\PinnedPinboardPublished;
 use App\Notifications\PinboardPublished;
@@ -65,7 +65,7 @@ class AppServiceProvider extends ServiceProvider
             'conversation' => Conversation::class,
 
             'post_published' => PinboardPublished::class,
-            'new_tenant_post' => NewTenantPost::class,
+            'new_tenant_post' => NewTenantPinboard::class,
             'pinned_post_published' => PinnedPinboardPublished::class,
             'new_tenant_in_neighbour' => NewTenantInNeighbour::class,
             'product_published' => ProductPublished::class,

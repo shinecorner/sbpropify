@@ -11,7 +11,7 @@ use App\Models\Tenant;
 use App\Models\RealEstate;
 use App\Models\User;
 use App\Notifications\NewTenantInNeighbour;
-use App\Notifications\NewTenantPost;
+use App\Notifications\NewTenantPinboard;
 use App\Notifications\PinnedPinboardPublished;
 use App\Notifications\PinboardPublished;
 use Carbon\Carbon;
@@ -319,9 +319,9 @@ class PinboardRepository extends BaseRepository
 
     public function notifyAdminNewTenantPosts(Pinboard $pinboard)
     {
-        $newTenantPost = get_morph_type_of(NewTenantPost::class);
+        $newTenantPinboard = get_morph_type_of(NewTenantPinboard::class);
         if (empty($pinboard->user->tenant)) {
-            return collect([$newTenantPost => collect()]);
+            return collect([$newTenantPinboard => collect()]);
         }
 
         $re = RealEstate::firstOrFail();
@@ -331,11 +331,11 @@ class PinboardRepository extends BaseRepository
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
             $admin->redirect = '/admin/pinboards';
 
-            $notif = (new NewTenantPost($pinboard, $admin))->delay(now()->addSeconds($delay));
+            $notif = (new NewTenantPinboard($pinboard, $admin))->delay(now()->addSeconds($delay));
             $admin->notify($notif);
         }
 
-        return collect([$newTenantPost => $admins]);
+        return collect([$newTenantPinboard => $admins]);
     }
 
     /**

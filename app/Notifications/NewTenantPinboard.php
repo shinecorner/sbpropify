@@ -13,17 +13,17 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 /**
- * Class NewTenantPost
+ * Class NewTenantPinboard
  * @package App\Notifications
  */
-class NewTenantPost extends Notification implements ShouldQueue
+class NewTenantPinboard extends Notification implements ShouldQueue
 {
     use Queueable;
 
     /**
      * @var Pinboard
      */
-    protected $post;
+    protected $pinboard;
     /**
      * @var User
      */
@@ -31,12 +31,12 @@ class NewTenantPost extends Notification implements ShouldQueue
 
     /**
      * NewTenantPost constructor.
-     * @param Pinboard $post
+     * @param Pinboard $pinboard
      * @param User $user
      */
-    public function __construct(Pinboard $post, User $user)
+    public function __construct(Pinboard $pinboard, User $user)
     {
-        $this->post = $post;
+        $this->pinboard = $pinboard;
         $this->user = $user;
     }
 
@@ -60,12 +60,12 @@ class NewTenantPost extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $data = $tRepo->getNewPostParsedTemplate($this->post, $this->user);
+        $data = $tRepo->getNewPostParsedTemplate($this->pinboard, $this->user);
         $data['userName'] = $notifiable->name;
         $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 
         return (new MailMessage)
-            ->view('mails.postAddedByTenant', $data)->subject($data['subject']);
+            ->view('mails.pinboardAddedByTenant', $data)->subject($data['subject']);
     }
 
     /**
@@ -77,9 +77,9 @@ class NewTenantPost extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'post_id' => $this->post->id,
-            'user_name' => $this->post->user->name,
-            'fragment' => Str::limit($this->post->content, 128),
+            'pinboard_id' => $this->pinboard->id,
+            'user_name' => $this->pinboard->user->name,
+            'fragment' => Str::limit($this->pinboard->content, 128),
         ];
     }
 

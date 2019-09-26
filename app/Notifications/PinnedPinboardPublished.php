@@ -57,7 +57,7 @@ class PinnedPinboardPublished extends Notification implements ShouldQueue
         $data['userName'] = $notifiable->name;
         $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 
-        return (new MailMessage)->view('mails.pinnedPostPublished', $data)->subject($data['subject']);
+        return (new MailMessage)->view('mails.pinnedPinboardPublished', $data)->subject($data['subject']);
     }
 
     /**
