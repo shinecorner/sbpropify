@@ -29,14 +29,4 @@ class ShowRequest extends BaseRequest
 
         return $p->status == Post::StatusPublished;
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
-    }
 }

@@ -16,14 +16,4 @@ class DownloadPdfRequest extends BaseRequest
     {
         return $this->can('download_pdf-request');
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
-    }
 }

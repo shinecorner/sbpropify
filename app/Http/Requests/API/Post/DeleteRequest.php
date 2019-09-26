@@ -21,14 +21,4 @@ class DeleteRequest extends BaseRequest
         return Post::where('id', $this->route('post'))
             ->where('user_id', $u->id)->first();
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
-    }
 }

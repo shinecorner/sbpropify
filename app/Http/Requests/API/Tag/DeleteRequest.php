@@ -17,14 +17,4 @@ class DeleteRequest extends BaseRequest
         return true; // @TODO
         return $this->can('delete-tag');
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
-    }
 }

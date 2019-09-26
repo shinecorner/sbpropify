@@ -15,14 +15,4 @@ class ListRequest extends BaseRequest
     {
         return $this->can('list-tenant'); // @TODO add new rule list-rent_contract
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
-    }
 }

@@ -16,14 +16,4 @@ class UnAssignRequest extends BaseRequest
         return true;
         return $this->can('assign-unit');
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
-    }
 }

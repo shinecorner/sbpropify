@@ -17,14 +17,4 @@ class DeleteRequest extends BaseRequest
     {
         return $this->can('delete-request');
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
-    }
 }

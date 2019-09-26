@@ -16,14 +16,4 @@ class ListViewsRequest extends BaseRequest
     {
         return \Auth::user()->can('list_views-post');
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
-    }
 }

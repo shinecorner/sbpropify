@@ -15,14 +15,4 @@ class DeleteRequest extends BaseRequest
     {
         return $this->can('delete-tenant'); // @TODO add new rule list-rent_contract
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
-    }
 }

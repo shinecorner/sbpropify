@@ -15,14 +15,4 @@ class DeleteRequest extends BaseRequest
     {
         return $this->can('delete-service_request_category');
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
-    }
 }

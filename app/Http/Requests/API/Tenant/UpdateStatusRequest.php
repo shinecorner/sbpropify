@@ -16,14 +16,4 @@ class UpdateStatusRequest extends BaseRequest
     {
         return $this->can('edit-tenant');
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
-    }
 }

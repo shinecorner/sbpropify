@@ -16,14 +16,4 @@ class SendCredentialsRequest extends BaseRequest
     {
         return $this->can('send_credentials-tenant');
     }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
-    }
 }
