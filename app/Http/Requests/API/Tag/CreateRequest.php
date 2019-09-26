@@ -14,8 +14,7 @@ class CreateRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true; // @TODO
-        return $this->can('tag-quarter');
+        return $this->can('add-tag');
     }
 
     /**

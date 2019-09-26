@@ -13,6 +13,6 @@ class DeleteRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->can('delete-translation');
     }
 }

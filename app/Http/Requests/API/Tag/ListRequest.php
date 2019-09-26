@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\API\Tag;
 
-use App\Models\Tag;
 use App\Http\Requests\BaseRequest;
 
 class ListRequest extends BaseRequest
@@ -14,7 +13,6 @@ class ListRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true; // @TODO
         return $this->can('list-tag');
     }
 }

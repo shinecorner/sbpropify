@@ -31,6 +31,8 @@ class RolesTableSeeder extends Seeder
         $sReqCategPermissions = Permission::where('name', 'like', '%-service_request_category')->get();
         $cleanifyPermissions = Permission::where('name', 'like', '%-cleanify_request')->get();
         $statisticsPermissions = Permission::where('name', 'like', '%_statistics')->get();
+        $tagPermissions = Permission::where('name', 'like', '%-tag')->get();
+        $translationPermissions = Permission::where('name', 'like', '%-translation')->get();
 
         $allPermissions = $userPermissions
             ->merge($postPermissions)
@@ -49,6 +51,8 @@ class RolesTableSeeder extends Seeder
             ->merge($sReqCategPermissions)
             ->merge($cleanifyPermissions)
             ->merge($auditPermissions)
+            ->merge($tagPermissions)
+            ->merge($translationPermissions)
             ->merge($statisticsPermissions);
 
         $adminPermissions = $userPermissions
@@ -64,6 +68,8 @@ class RolesTableSeeder extends Seeder
             ->merge($templatePermissions)
             ->merge($sReqCategPermissions)
             ->merge($reqPermissions)
+            ->merge($tagPermissions)
+            ->merge($translationPermissions)
             ->merge($statisticsPermissions);
 
         $superAdmin = new Role();

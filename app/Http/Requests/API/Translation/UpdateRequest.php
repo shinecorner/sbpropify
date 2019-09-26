@@ -14,7 +14,7 @@ class UpdateRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->can('edit-translation');
     }
 
     /**

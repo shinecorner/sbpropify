@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\API\Tag;
 
-use App\Models\Tag;
 use App\Http\Requests\BaseRequest;
 
 class ViewRequest extends BaseRequest
@@ -14,7 +13,6 @@ class ViewRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true; // @TODO
         return $this->can('view-tag');
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\API\Tag;
 
-use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Requests\BaseRequest;
@@ -16,7 +15,6 @@ class UpdateRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true; // @TODO
         return $this->can('edit-tag');
     }
 

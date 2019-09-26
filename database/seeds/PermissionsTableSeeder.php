@@ -118,6 +118,19 @@ class PermissionsTableSeeder extends Seeder
         ['view-pie_chart_statistics', 'View pie chart statistics', 'view pie chart statistics'],
         ['view-donut_chart_statistics', 'View donut chart statistics', 'view donut chart statistics'],
         ['view-heat_map_statistics', 'View heat map statistics', 'view heat map statistics'],
+        // Tag
+        ['list-tag', 'List tag', 'list tag'],
+        ['view-tag', 'View tag', 'view tag'],
+        ['add-tag', 'Add tag', 'add tag'],
+        ['edit-tag', 'Edit tag', 'edit existing tag'],
+        ['delete-tag', 'Delete tag', 'delete existing tag'],
+        // Translation
+        ['list-translation', 'List translation', 'list translation'],
+        ['view-translation', 'View translation', 'view translation'],
+        ['add-translation', 'Add translation', 'add translation'],
+        ['edit-translation', 'Edit translation', 'edit existing translation'],
+        ['delete-translation', 'Delete translation', 'delete existing translation'],
+
     ];
     /**
      * Run the database seeds.

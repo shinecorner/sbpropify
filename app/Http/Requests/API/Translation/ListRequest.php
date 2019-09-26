@@ -13,6 +13,6 @@ class ListRequest extends BaseRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->can('list-translation');
     }
 }
