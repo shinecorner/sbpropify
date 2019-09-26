@@ -114,12 +114,11 @@
                 </el-col>
                 <el-col :span="3">
                    <span>{{ $t('models.request.last_updated') }}</span>
-                    <br>{{this.item.created_by_formatted}}
                     <p v-if="updated_at.h>12">{{ updated_at.date }}</p>
                     <div v-else style="display: flex">
                         <p v-if="updated_at.h">{{ updated_at.h }}h&nbsp;</p>
                         <p v-else-if="updated_at.m">{{  updated_at.m }}m&nbsp;</p>
-                        <p>ago</p>
+                        <p>{{ $t('models.request.ago') }}</p>
                     </div>
                 </el-col>
                 <el-col :span="3">
@@ -137,7 +136,10 @@
     import {Avatar} from 'vue-avatar'
     import tableAvatar from 'components/Avatar';
     import globalFunction from "helpers/globalFunction";
-    import {format} from 'date-fns';
+    import {
+        format, differenceInMinutes, parse, 
+        differenceInCalendarDays, subHours
+    } from 'date-fns';
 
 export default {
     mixins: [globalFunction],
@@ -172,45 +174,37 @@ export default {
         due() {
             var currentDate = new Date();
             if(this.item.due_date !==undefined) {
-                var updated = this.item.due_date.split('.');
-                var updated_date = new Date(parseInt(updated[2]), parseInt(updated[1])-1, parseInt(updated[0]));
-                var days = ( updated_date.getTime() - currentDate.getTime()) / 1000 / 60 / 60 / 24 ;
-                if(days < 0)
-                    return {
-                        label:'models.request.was_due_on',
-                        date: this.item.due_date
-                    };
-                else if(days <= 30)
-                    return {
-                        label:'models.request.due_in',
-                        date: Math.floor(days) + (Math.floor(days) > 1?` ${this.$t('general.timestamps.days')}`:` ${this.$t('validation.attributes.day')}`),
-                    };
-                else
-                    return {
-                        label:'models.request.due_on',
-                        date: this.item.due_date
-                    };
-            } else {
-                return {
-                    label:'models.request.due_on',
-                    date: ''
+                let due_date_formatted = format(this.item.due_date, 'DD.MM.YYYY');
+                var updated_date = parse(this.item.due_date, 'yyyy-MM-dd', new Date());
+                var days = differenceInCalendarDays(updated_date, new Date()) ;
+                var label, date;
+                if(days < 0) {
+                    label = 'models.request.was_due_on';
+                    date = due_date_formatted;
                 }
+                else if(days <= 30) {
+                    label = 'models.request.due_in';
+                    date = Math.floor(days) + (Math.floor(days) > 1?` ${this.$t('general.timestamps.days')}`:` ${this.$t('validation.attributes.day')}`);
+                } else {
+                    label = 'models.request.due_on';
+                    date = due_date_formatted;
+                }
+            }  else {
+                label = 'models.request.due_on';
+                date = '';
             }
+            return {
+                label: label,
+                date: date
+            };
             
         },
         updated_at() {
+            var updated_date = parse(this.item.updated_at, 'yyyy-MM-dd hh:mm:ss', new Date());
             var currentDate = new Date();
-            var updated_date = new Date(
-                parseInt(this.item.created_at.substr(6,4)),
-                parseInt(this.item.created_at.substr(3,2)) - 1,
-                parseInt(this.item.created_at.substr(0,2)),
-                parseInt(this.item.created_at.substr(11,2)),
-                parseInt(this.item.created_at.substr(14,2)),
-                parseInt(this.item.created_at.substr(17,2)),
-            );
-            var minutes = Math.ceil((currentDate.getTime() - updated_date.getTime()) / 1000 / 60) ;
+            var minutes = differenceInMinutes(currentDate, updated_date) + currentDate.getTimezoneOffset() ;
             return {
-                date: this.item.created_at.substr(0,10),
+                date: format(updated_date, 'DD.MM.YYYY'),
                 h: Math.floor(minutes / 60),
                 m: Math.ceil(minutes % 60)
             }

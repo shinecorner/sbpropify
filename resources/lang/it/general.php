@@ -11,6 +11,7 @@ return [
         'weeks' => 'Settimane',
         'months' => 'Mesi',
         'years' => 'Anni',
+        'day' => 'Day it'
     ],
     'chooseLanguage' => 'Scegliere la lingua',
     'language' => "Linguaggio",
@@ -251,6 +252,5 @@ return [
     ],
     'to_homepage' => 'Alla Homepage',
     "assignment" => "Assegnazione",
-    'status_changed' => "Stato cambiato",
-    'notification' => 'Notifica',
+    'status_changed' => "Stato cambiato"
 ];

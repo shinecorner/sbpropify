@@ -290,7 +290,7 @@ return [
         "floor" => "L'étage",
         "sq_meter" => "Mètre carré",
         "room_no" => "Nombre de pièces",
-        "monthly_rent" => "Loyer mensuel",
+        "monthly_rent_net" => "Loyer mensuel",
         "building_search" => "Veuillez entrer le nom d'un bâtiment et le sélectionner",
         "building" => "Bâtiment",
         "basement" => "Sous-sol",
@@ -317,7 +317,7 @@ return [
             'building' => [
                 "required" => "Un bâtiment est nécessaire",
             ],
-            'monthly_rent' => [
+            'monthly_rent_net' => [
                 "required" => "Un loyer mensuel est exigé",
             ],
             'floor' => [
@@ -629,6 +629,10 @@ return [
         'send_person' => 'Quelle personne doit être notifiée ?',
         'add_contract' => 'Ajouter un nouveau contrat',
         'delete_contract' => 'Supprimer contrat',
+        'sort' => 'Sort fr',
+        'reset_sort' => 'Reset Sort fr',
+        'creation_date' => 'Creation Date fr',
+        'ago' => 'ago fr',
         'media' => [
             "added" => "Document ajouté",
             "removed" => "Suppression du support",
@@ -959,5 +963,27 @@ return [
         'uploadPlaceTxt' => 'téléchargement__',
         'uploadTimeoutPlaceTxt' => 'upload_timeout__',
         'uploadErrorPlaceTxt' => 'upload_error__',
+        'title' => 'Intitulé',
+        'in_format' => 'En format',
+        'rows' => 'Lignes',
+        'cols' => 'Colonnes',
+        'color' => [
+            'dark_red' => 'Rouge foncé',
+            'violet' => 'Violet',
+            'red' => 'Rouge',
+            'fresh_pink' => 'Rose frais',
+            'navy_blue' => 'Bleu marine',
+            'blue' => 'Bleu',
+            'blue_lake' => ' Blue Lake',
+            'blue_green' => 'Vert bleu',
+            'green' => 'Vert',
+            'olive' => 'Olive',
+            'light_green' => 'Vert clair',
+            'orange' => 'Orange',
+            'gray' => 'Gris',
+            'silver' => 'Argent',
+            'black' => 'Noir',
+            'white' => 'Blanc',
+        ]
     ],
 ];

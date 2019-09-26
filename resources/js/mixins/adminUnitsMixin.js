@@ -22,7 +22,7 @@ export default (config = {}) => {
                     name: '',
                     type: null,
                     room_no: '',
-                    monthly_rent: '',
+                    monthly_rent_net: '',
                     floor: '',
                     sq_meter: '',
                     attic: false,
@@ -46,9 +46,9 @@ export default (config = {}) => {
                         required: true,
                         message: this.$t("models.unit.validation.room_no.required")
                     }],
-                    monthly_rent: [{
+                    monthly_rent_net: [{
                         required: true,
-                        message: this.$t("models.unit.validation.monthly_rent.required")
+                        message: this.$t("models.unit.validation.monthly_rent_net.required")
                     }],
                     floor: [{
                         required: true,

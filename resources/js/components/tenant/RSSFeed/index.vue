@@ -58,7 +58,7 @@
                 const {items} = await parser.parseURL(API_BASE_URL + 'news/rss.xml')
 
                 this.items = items.filter((item, idx) => {
-                    item.pubDate = this.ago(item.pubDate)
+                    item.pubDate = this.ago(item.pubDate, $i18n.locale)
 
                     if (idx <= this.limit - 1) {
                         return item;

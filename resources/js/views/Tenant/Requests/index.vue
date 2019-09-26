@@ -21,13 +21,23 @@
                     <template v-slot="{item, index, active}">
                         <dynamic-scroller-item :item="item" :active="active" :data-index="index" :size-dependencies="[item]">
                             <request-card :data="item" :visible-media-limit="3" :media-options="{container: '#gallery'}" @more-media="toggleDrawer(item, 'media')" @tab-click="$refs['dynamic-scroller'].forceUpdate" @hook:mounted="$refs['dynamic-scroller'].forceUpdate">
-                                <template #tab-overview-after>
-                                    
+                                <template #tab-overview-after-for-mobile>
+                                    <div class="tab-overview-after-for-mobile">
                                     <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
                                     <el-tooltip :content="$t('tenant.tooltips.status_change_requeset')">
                                         <el-button icon="el-pencil" size="mini" @click="changeRequestStatus(item, 'done')" plain round v-if="item.status != 4">{{$t('tenant.actions.to_done')}}</el-button>
                                         <el-button icon="el-pencil" size="mini" @click="changeRequestStatus(item, 'reactivate')" plain round v-if="item.status == 4">{{$t('tenant.actions.to_reactivated')}}</el-button>
                                     </el-tooltip>
+                                    </div>
+                                </template>
+                                <template #tab-overview-after>
+                                    <div class="tab-overview-after">
+                                    <el-button icon="el-icon-right" size="mini" @click="toggleDrawer(item)" plain round>{{$t('tenant.actions.view')}}</el-button>
+                                    <el-tooltip :content="$t('tenant.tooltips.status_change_requeset')">
+                                        <el-button icon="el-pencil" size="mini" @click="changeRequestStatus(item, 'done')" plain round v-if="item.status != 4">{{$t('tenant.actions.to_done')}}</el-button>
+                                        <el-button icon="el-pencil" size="mini" @click="changeRequestStatus(item, 'reactivate')" plain round v-if="item.status == 4">{{$t('tenant.actions.to_reactivated')}}</el-button>
+                                    </el-tooltip>
+                                    </div>
                                 </template>
                                 <template #tab-media-after>
                                     <ui-divider v-if="!item.media.length">
@@ -57,7 +67,7 @@
                 <el-tab-pane name="chat" lazy>
                     <div slot="label">
                         <i class="ti-comments"></i>
-                        Chat
+                        {{$t('tenant.chat')}}
                     </div>
                     <chat ref="chat" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
                 </el-tab-pane>

@@ -11,6 +11,7 @@ return [
         'weeks' => 'Semaines',
         'months' => 'Mois',
         'years' => 'Années',
+        'day' => 'Day fr'
     ],
     'chooseLanguage' => 'Choisir la langue',
     'language' => "Langage",
@@ -252,5 +253,5 @@ return [
     'to_homepage' => 'Vers la page d\'accueil',
     "assignment" => "Affectation",
     'status_changed' => "Changement de statut",
-    'notification' => 'Notification',
+
 ];

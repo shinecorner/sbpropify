@@ -1,7 +1,7 @@
 <template>
     <div>
         <card>
-            <el-form :model="model" label-width="96px" ref="form">
+            <el-form :model="model" label-width="224px" ref="form">
                 <el-form-item :label="$t('general.name')" :rules="validationRules.name" prop="name">
                     <el-input autocomplete="off" type="text" v-model="model.name"></el-input>
                 </el-form-item>
@@ -10,6 +10,21 @@
                 </el-form-item>
                 <el-form-item :label="$t('general.phone')" prop="phone">
                     <el-input type="text" v-model="model.phone"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('general.old_password')" :rules="validationRules.password_old"
+                              prop="password_old">
+                    <el-input autocomplete="off" type="password"
+                              v-model="model.password_old"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('general.new_password')" :rules="validationRules.password"
+                              prop="password">
+                    <el-input autocomplete="off" type="password"
+                              v-model="model.password"></el-input>
+                </el-form-item>
+                <el-form-item :label="$t('general.new_password_confirmation')" :rules="validationRules.password_confirmation"
+                              prop="password_confirmation">
+                    <el-input autocomplete="off" type="password"
+                              v-model="model.password_confirmation"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button @click="submit" icon="ti-save" type="primary">
@@ -37,7 +52,10 @@
                 model: {
                     name: '',
                     email: '',
-                    phone: ''
+                    phone: '',
+                    password_old: '',
+                    password: '',
+                    password_confirmation: ''
                 },
                 validationRules: {
                     email: [{
@@ -50,7 +68,11 @@
                     name: [{
                         required: true,
                         message: this.$t("models.user.validation.name.required")
-                    }]
+                    }],
+                    password_old: [{
+                        required: true,
+                        message: this.$t("general.password_validation.old_password_required")
+                    }],
                 }
             };
         },
@@ -62,9 +84,7 @@
                         try {
                             const {data, ...message} = await this.changeDetails(this.model);
 
-                                                        
                             displaySuccess(message);
-
 
                             this.me();
 
@@ -89,7 +109,6 @@
 
 <style lang="scss" scoped>
     .el-card {
-        height: 420px;
         &:before {
             content: '';
             position: absolute;
@@ -105,6 +124,10 @@
 
         .el-form {
             max-width: 512px;
+
+            &-item:last-child {
+                margin-bottom: 0;
+            }
 
             .el-button :global([class*="ti"]) {
                 margin-right: 8px;
