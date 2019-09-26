@@ -154,7 +154,7 @@ export default {
             type: Object,
             default: () => ({
                 state: false,
-                text: 'Loading...',
+                text: this.$t('general.loading'),
                 icon: 'el-icon-loading',
                 background: 'rgba(0, 0, 0, 0.8)'
             })
@@ -173,11 +173,13 @@ export default {
     computed: {
         due() {
             var currentDate = new Date();
+            var label = 'models.request.due_on';
+            var date = '';
             if(this.item.due_date !==undefined) {
                 let due_date_formatted = format(this.item.due_date, 'DD.MM.YYYY');
                 var updated_date = parse(this.item.due_date, 'yyyy-MM-dd', new Date());
                 var days = differenceInCalendarDays(updated_date, new Date()) ;
-                var label, date;
+                date = due_date_formatted;
                 if(days < 0) {
                     label = 'models.request.was_due_on';
                     date = due_date_formatted;
@@ -185,13 +187,7 @@ export default {
                 else if(days <= 30) {
                     label = 'models.request.due_in';
                     date = Math.floor(days) + (Math.floor(days) > 1?` ${this.$t('general.timestamps.days')}`:` ${this.$t('validation.attributes.day')}`);
-                } else {
-                    label = 'models.request.due_on';
-                    date = due_date_formatted;
                 }
-            }  else {
-                label = 'models.request.due_on';
-                date = '';
             }
             return {
                 label: label,

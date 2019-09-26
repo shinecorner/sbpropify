@@ -19,7 +19,7 @@
                     </el-dropdown>
                 </el-timeline-item>
                 <el-timeline-item v-if="loading.notifications">
-                    Loading...
+                    {{$t('general.loading')}}
                 </el-timeline-item>
             </el-timeline>
         </template>
