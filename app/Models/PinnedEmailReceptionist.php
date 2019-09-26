@@ -70,52 +70,9 @@ class PinnedEmailReceptionist extends Model
     ];
 
     /**
-     * Validation rules
-     *
-     * @return array
-     * @var array
-     */
-    public static function rules()
-    {
-        $categories = array_keys(self::Category);
-        $categories[] = null;
-        $re = RealEstate::first();
-        $visibilities = self::Visibility;
-        if (!$re->quarter_enable) {
-            unset($visibilities[self::VisibilityQuarter]);
-        }
-        return [
-            'content' => 'required',
-            'visibility' => ['required', Rule::in(array_keys($visibilities))],
-            'category' => [Rule::in($categories)],
-            'pinned' => function ($attribute, $value, $fail) {
-                if ($value && !\Auth::user()->can('pin-post')) {
-                    $fail($attribute.' must be false.');
-                }
-            },
-            'pinned_to' => Rule::requiredIf(request()->pinned),
-            'execution_start' => 'nullable|date',
-            'execution_end' => 'nullable|date|after_or_equal:execution_start',
-        ];
-    }
-
-    /**
-     * Publish validation rules
-     *
-     * @return array
-     * @var array
-     */
-    public static function publishRules()
-    {
-        return [
-            'status' => ['required', Rule::in(array_keys(self::Status))]
-        ];
-    }
-
-    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function post()
+    public function pinboard()
     {
         return $this->belongsTo(Pinboard::class, 'pinboard_id', 'id');
     }

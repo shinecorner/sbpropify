@@ -64,9 +64,9 @@ class AppServiceProvider extends ServiceProvider
             'rent_contract' => RentContract::class,
             'conversation' => Conversation::class,
 
-            'post_published' => PinboardPublished::class,
-            'new_tenant_post' => NewTenantPinboard::class,
-            'pinned_post_published' => PinnedPinboardPublished::class,
+            'pinboard_published' => PinboardPublished::class,
+            'new_tenant_pinboard' => NewTenantPinboard::class,
+            'pinned_pinboard_published' => PinnedPinboardPublished::class,
             'new_tenant_in_neighbour' => NewTenantInNeighbour::class,
             'product_published' => ProductPublished::class,
             'new_tenant_request' => NewTenantRequest::class,

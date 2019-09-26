@@ -219,12 +219,12 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
     ];
 
     const templateMap = [
-        'title' => 'post.title',
-        'content' => 'post.content',
-        'providers' => 'post.providersList',
-        'category' => 'post.categoryStr',
-        'execution_start' => 'post.execution_start',
-        'execution_end' => 'post.execution_end',
+        'title' => 'pinboard.title',
+        'content' => 'pinboard.content',
+        'providers' => 'pinboard.providersList',
+        'category' => 'pinboard.categoryStr',
+        'execution_start' => 'pinboard.execution_start',
+        'execution_end' => 'pinboard.execution_end',
         'autologinUrl' => 'user.autologinUrl',
     ];
 
@@ -248,7 +248,7 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
             'visibility' => ['required', Rule::in(array_keys($visibilities))],
             'category' => [Rule::in($categories)],
             'pinned' => function ($attribute, $value, $fail) {
-                if ($value && !\Auth::user()->can('pin-post')) {
+                if ($value && !\Auth::user()->can('pin-pinboard')) {
                     $fail($attribute.' must be false.');
                 }
             },
@@ -286,7 +286,7 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
 
     public function quarters()
     {
-        return $this->belongsToMany(Quarter::class, 'quarter_post');
+        return $this->belongsToMany(Quarter::class, 'quarter_pinboard');
     }
 
     public function providers()

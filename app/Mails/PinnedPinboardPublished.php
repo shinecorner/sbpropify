@@ -12,15 +12,15 @@ class PinnedPinboardPublished extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $post;
+    public $pinboard;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Pinboard $post)
+    public function __construct(Pinboard $pinboard)
     {
-        $this->post = $post;
+        $this->pinboard = $pinboard;
     }
 
     /**
@@ -31,9 +31,9 @@ class PinnedPinboardPublished extends Mailable
     public function build()
     {
         return $this->view('mails.pinnedPinboardPublished')
-            ->subject($this->post->title)
+            ->subject($this->pinboard->title)
             ->with([
-                'post' => $this->post,
+                'pinboard' => $this->pinboard,
             ]);
     }
 }
