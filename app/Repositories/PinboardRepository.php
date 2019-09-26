@@ -373,9 +373,10 @@ class PinboardRepository extends BaseRepository
     /**
      * @param RentContract $rentContract
      * @return Pinboard|bool|mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function newRentContractPost(RentContract $rentContract)
+    public function newRentContractPinboard(RentContract $rentContract)
     {
         if (empty($rentContract->building_id)) {
             return false;

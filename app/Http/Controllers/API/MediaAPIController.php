@@ -235,7 +235,7 @@ class MediaAPIController extends AppBaseController
     /**
      * @SWG\Post(
      *      path="/pinboards/{pinboard_id}/media",
-     *      summary="Store a newly created Post Media in storage",
+     *      summary="Store a newly created Pinboard Media in storage",
      *      tags={"Listing"},
      *      description="Store Media",
      *      produces={"application/json"},
@@ -244,7 +244,7 @@ class MediaAPIController extends AppBaseController
      *          in="body",
      *          description="Media that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/Post")
+     *          @SWG\Schema(ref="#/definitions/Pinboard")
      *      ),
      *      @SWG\Response(
      *          response=200,
@@ -257,7 +257,7 @@ class MediaAPIController extends AppBaseController
      *              ),
      *              @SWG\Property(
      *                  property="data",
-     *                  ref="#/definitions/Post"
+     *                  ref="#/definitions/Pinboard"
      *              ),
      *              @SWG\Property(
      *                  property="message",
@@ -356,7 +356,7 @@ class MediaAPIController extends AppBaseController
      *          in="body",
      *          description="Media that should be stored",
      *          required=false,
-     *          @SWG\Schema(ref="#/definitions/Post")
+     *          @SWG\Schema(ref="#/definitions/Pinboard")
      *      ),
      *      @SWG\Response(
      *          response=200,

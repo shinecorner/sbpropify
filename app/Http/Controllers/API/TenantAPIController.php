@@ -468,6 +468,7 @@ class TenantAPIController extends AppBaseController
      * @param PinboardRepository $pr
      * @return mixed
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function update($id, UpdateRequest $request, PinboardRepository $pr)
@@ -479,7 +480,7 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
-        $shouldPost = isset($input['unit_id']) && $input['unit_id'] != $tenant->unit_id;
+        $shouldPinboard = isset($input['unit_id']) && $input['unit_id'] != $tenant->unit_id;
 
         $input['user'] = $input['user'] ?? [];
         $input['user']['name'] = sprintf('%s %s', $input['first_name'], $input['last_name']);
@@ -540,7 +541,7 @@ class TenantAPIController extends AppBaseController
         $tenant->load(['settings', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
             $q->with('building.address', 'unit', 'media');
         }]);
-        if ($shouldPost) {
+        if ($shouldPinboard) {
             $pr->newTenantPinboard($tenant);
         }
         //if ($userPass) {

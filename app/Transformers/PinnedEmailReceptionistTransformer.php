@@ -15,7 +15,7 @@ class PinnedEmailReceptionistTransformer extends BaseTransformer
     protected $defaultIncludes = [];
 
     /**
-     * Transform the Post entity.
+     * Transform the Pinboard entity.
      *
      * @param \App\Models\PinnedEmailReceptionist $model
      *
