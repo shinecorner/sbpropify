@@ -87,6 +87,7 @@ return [
     'none' => 'None',
     'all' => 'All',
     'loadMore' => 'Load more',
+    'loading' => 'Loading...',
     'account' => 'Account',
     'activate_account' => 'Activate Account',
     'activate_code' => 'Activate Code',
