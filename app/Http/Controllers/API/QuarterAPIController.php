@@ -381,7 +381,7 @@ class QuarterAPIController extends AppBaseController
      *      path="/quarters/{id}/managers",
      *      summary="Assign the provided propertyManagers to the Quarter",
      *      tags={"Quarter"},
-     *      description=" <a href='http://dev.propify.ch/api/docs#/Quarter/pinboard_quarters__id__managers'>http://dev.propify.ch/api/docs#/Quarter/post_quarters__id__managers</a>",
+     *      description=" <a href='http://dev.propify.ch/api/docs#/Quarter/pinboard_quarters__id__managers'>http://dev.propify.ch/api/docs#/Quarter/pinboard_quarters__id__managers</a>",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="managerIds",

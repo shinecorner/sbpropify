@@ -15,7 +15,7 @@ class PinboardUploadRequest extends BaseRequest
     public function authorize()
     {
         $u = \Auth::user();
-        if ($u->can('edit-post')) {
+        if ($u->can('edit-pinboard')) {
             return true;
         }
         return Pinboard::where('id', $this->route('id'))

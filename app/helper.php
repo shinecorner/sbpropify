@@ -55,3 +55,36 @@ function update_district_to_quarter($class, $fields)
         }
     }
 }
+
+function update_db_fileds($class, $fields, $replace, $to)
+{
+    $model = new $class();
+    $query = $model->newQuery();
+    $query->where('id', 0);
+    foreach ($fields as $field) {
+        $query->orWhere($field, 'like', '%' . $replace . '%');
+    }
+    $items = $query->select($fields)->addSelect('id')->get();
+    foreach ($items as $item) {
+        foreach ($fields as $field) {
+            $oldValue = $item->{$field};
+            $value = str_replace(ucfirst($replace), ucfirst($to), $item->{$field});
+            $value = str_replace($replace, $to, $value);
+            $item->{$field} = $value;
+            if ($oldValue != $value) {
+                if (is_array($oldValue)) {
+                    echo $model->getTable() . ': ' . $item->id . PHP_EOL;
+                    foreach ($oldValue as $i => $_val) {
+                        echo '[' . $_val  . "] replaced to [" . ($value[$i] ?? '') . ']' . PHP_EOL;
+                    }
+                    echo PHP_EOL . '------------------------' .  PHP_EOL;
+                } else {
+                    echo $model->getTable() . ': ' . $item->id . PHP_EOL;
+                    echo '[' . $oldValue  . "] replaced to [" . $value . ']';
+                    echo  '------------------------' .  PHP_EOL;
+                }
+                $item->save();
+            }
+        }
+    }
+}

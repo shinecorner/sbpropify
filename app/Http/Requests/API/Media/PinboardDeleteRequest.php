@@ -15,7 +15,7 @@ class PinboardDeleteRequest extends BaseRequest
     public function authorize()
     {
         $u = \Auth::user();
-        if ($u->can('edit-post')) {
+        if ($u->can('edit-pinboard')) {
             return true;
         }
         $p = Pinboard::where('id', $this->route('id'))

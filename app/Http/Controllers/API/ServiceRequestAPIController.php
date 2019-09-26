@@ -793,7 +793,7 @@ class ServiceRequestAPIController extends AppBaseController
      *      path="/requests/{id}/assignees/{uid}",
      *      summary="Assign the provided user to the request",
      *      tags={"ServiceRequest"},
-     *      description="use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/post_requests__id__managers__pmid_'>/requests/{id}/managers/{pmid}</a>",
+     *      description="use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/pinboard_requests__id__managers__pmid_'>/requests/{id}/managers/{pmid}</a>",
      *      deprecated=true,
      *      produces={"application/json"},
      *      @SWG\Response(

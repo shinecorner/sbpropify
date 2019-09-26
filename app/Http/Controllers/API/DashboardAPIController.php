@@ -1065,7 +1065,6 @@ class DashboardAPIController extends AppBaseController
             self::PERMITTED_TABLES_FOR_CREATED_DATE,
             $optionalArgs
         );
-        dd($table);
         $period = $optionalArgs['period'] ?? $this->getPeriod($request);
         [$periodValues, $raw] = $this->getPeriodRelatedData($period, $startDate, $endDate, $table);
 
@@ -2225,7 +2224,7 @@ class DashboardAPIController extends AppBaseController
         $table = $optionalArgs['table'] ?? null;
         $table = $table ?? $request->{self::QUERY_PARAMS['table']};
         $table = key_exists($table, $permissions) ? $table : Arr::first(array_keys($permissions));
-        $table = ('posts' == $table) ? 'pinboards' : $table;
+        $table = ('posts' == $table) ? 'pinboards' : $table; // @TODO delete
         $class = $permissions[$table]['class'];
 
         $permittedColumns = [];

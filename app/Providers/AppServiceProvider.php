@@ -50,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
 	    Relation::morphMap([
             'unit' => Unit::class,
             'user' => User::class,
-            'post' => Pinboard::class,
+            'pinboard' => Pinboard::class,
             'tenant' => Tenant::class,
             'product' => Product::class,
             'quarter' => Quarter::class,

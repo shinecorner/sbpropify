@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class FixTemplateRelatedQuarter extends Migration
+class FixMorphRelations extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,8 @@ class FixTemplateRelatedQuarter extends Migration
      */
     public function up()
     {
-        update_district_to_quarter(\App\Models\TemplateCategory::class, ['tag_map']);
+//        update_db_fileds(\OwenIt\Auditing\Models\Audit::class, ['auditable_type', 'old_values', 'new_values', 'url'], 'post', 'pinboard');
+        update_db_fileds(\App\Models\TemplateCategory::class, ['tag_map'], 'post', 'pinboard');
     }
 
     /**
