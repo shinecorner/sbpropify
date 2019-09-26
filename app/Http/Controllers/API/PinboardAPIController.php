@@ -42,7 +42,7 @@ use InfyOm\Generator\Criteria\LimitOffsetCriteria;
  * Class PostController
  * @package App\Http\Controllers\API
  */
-class PostAPIController extends AppBaseController
+class PinboardAPIController extends AppBaseController
 {
     /** @var  PostRepository */
     private $postRepository;
@@ -56,7 +56,7 @@ class PostAPIController extends AppBaseController
     private $uTransformer;
 
     /**
-     * PostAPIController constructor.
+     * PinboardAPIController constructor.
      * @param PostRepository $postRepo
      * @param PostTransformer $pt
      * @param UserTransformer $ut
