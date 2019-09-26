@@ -13,8 +13,9 @@ class FixMorphRelations extends Migration
      */
     public function up()
     {
-//        update_db_fileds(\OwenIt\Auditing\Models\Audit::class, ['auditable_type', 'old_values', 'new_values', 'url'], 'post', 'pinboard');
+        update_db_fileds(\OwenIt\Auditing\Models\Audit::class, ['auditable_type', 'old_values', 'new_values', 'url'], 'post', 'pinboard');
         update_db_fileds(\App\Models\TemplateCategory::class, ['tag_map'], 'post', 'pinboard');
+        update_db_fileds(\App\Models\Permission::class, ['name', 'display_name', 'description'], 'post', 'pinboard');
     }
 
     /**
@@ -24,6 +25,8 @@ class FixMorphRelations extends Migration
      */
     public function down()
     {
-        //
+        update_db_fileds(\OwenIt\Auditing\Models\Audit::class, ['auditable_type', 'old_values', 'new_values', 'url'], 'pinboard', 'post');
+        update_db_fileds(\App\Models\TemplateCategory::class, ['tag_map'], 'pinboard', 'post');
+        update_db_fileds(\App\Models\Permission::class, ['name', 'display_name', 'description'], 'pinboard', 'post');
     }
 }
