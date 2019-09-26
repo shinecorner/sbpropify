@@ -17,7 +17,7 @@ use App\Models\ServiceRequestCategory;
 use App\Models\State;
 use App\Models\Tenant;
 use App\Models\Product;
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Models\Unit;
 use App\Models\UserSettings;
 use App\Repositories\BuildingRepository;
@@ -185,8 +185,16 @@ class DashboardAPIController extends AppBaseController
                 'type'
             ]
         ],
+        'pinboard' => [
+            'class' => Pinboard::class,
+            'columns' => [
+                'status',
+                'type'
+            ]
+        ],
+        // @TODO delete
         'posts' => [
-            'class' => Post::class,
+            'class' => Pinboard::class,
             'columns' => [
                 'status',
                 'type'
@@ -210,8 +218,15 @@ class DashboardAPIController extends AppBaseController
                 'status',
             ]
         ],
+        'pinboard' => [
+            'class' => Pinboard::class,
+            'columns' => [
+                'status',
+            ]
+        ],
+        // @TODO delete
         'posts' => [
-            'class' => Post::class,
+            'class' => Pinboard::class,
             'columns' => [
                 'status',
             ]
@@ -720,9 +735,9 @@ class DashboardAPIController extends AppBaseController
 
      * @SWG\Get(
      *      path="/admin/statistics",
-     *      summary="statistics for request, building, post, product",
-     *      tags={"ServiceRequest", "Post", "Tenant", "Product"},
-     *      description="statistics for request, building, post, product",
+     *      summary="statistics for request, building, pinboard, product",
+     *      tags={"ServiceRequest", "Pinboard", "Tenant", "Product"},
+     *      description="statistics for request, building, pinboard, product",
      *      produces={"application/json"},
      *      @SWG\Response(
      *          response=200,
@@ -794,12 +809,12 @@ class DashboardAPIController extends AppBaseController
      *                      ref="#/definitions/Donut"
      *                  ),
      *                  @SWG\Property(
-     *                      property="total_posts",
+     *                      property="total_pinboard",
      *                      type="string",
      *                      example="200"
      *                  ),
      *                  @SWG\Property(
-     *                      property="posts_per_status",
+     *                      property="pinboard_per_status",
      *                      ref="#/definitions/Donut"
      *                  ),
      *                  @SWG\Property(
@@ -826,7 +841,7 @@ class DashboardAPIController extends AppBaseController
      *                          example="01.01.2019"
      *                      ),
      *                      @SWG\Property(
-     *                          property="posts",
+     *                          property="pinboard",
      *                          type="string",
      *                          example="01.01.2019"
      *                      ),
@@ -851,14 +866,15 @@ class DashboardAPIController extends AppBaseController
             'startDate' => null,
             'endDate' => null,
         ];
-
         $timeDifInSeconds = ServiceRequest::where('status', ServiceRequest::StatusDone)->avg('resolution_time');
         $allStartDates = [
+
             'requests' => $this->timeFormat(ServiceRequest::min('created_at')),
             'tenants' => $this->timeFormat(Tenant::min('created_at')),
             'buildings' => $this->timeFormat(Building::min('created_at')),
             'products' => $this->timeFormat(Product::min('created_at')),
-            'posts' => $this->timeFormat(Post::min('created_at')),
+            'pinboard' => $this->timeFormat(Pinboard::min('created_at')),
+            'posts' => $this->timeFormat(Pinboard::min('created_at')),
         ];
 
         $ret = [
@@ -879,8 +895,10 @@ class DashboardAPIController extends AppBaseController
             'total_products' => $this->thousandsFormat(Product::count('id')),
             'products_per_status' => $this->donutChartByTable($request, $optionalArgs, 'products'),
 
-            'total_posts' => $this->thousandsFormat(Post::count('id')),
-            'posts_per_status' => $this->donutChartByTable($request, $optionalArgs, 'posts'),
+            'total_pinboard' => $this->thousandsFormat(Pinboard::count('id')),
+            'total_posts' => $this->thousandsFormat(Pinboard::count('id')),
+            'pinboard_per_status' => $this->donutChartByTable($request, $optionalArgs, 'pinboard'),
+            'posts_per_status' => $this->donutChartByTable($request, $optionalArgs, 'pinboard'),
             'all_start_dates' => $allStartDates
         ];
 
@@ -984,9 +1002,9 @@ class DashboardAPIController extends AppBaseController
     /**
      * @SWG\Get(
      *      path="/admin/chartByCreationDate",
-     *      summary="get statistics for Grouped Report by products:status | tenants:status | posts:status ",
-     *      tags={"Tenant", "Product", "Post", "CreationDate"},
-     *      description="get statistics for Grouped Report by products:status | tenants:status | posts:status",
+     *      summary="get statistics for Grouped Report by products:status | tenants:status | pinboard:status ",
+     *      tags={"Tenant", "Product", "Pinboard", "CreationDate"},
+     *      description="get statistics for Grouped Report by products:status | tenants:status | pinboard:status",
      *      produces={"application/json"},
      *      @SWG\Parameter(
      *          name="table",
@@ -994,7 +1012,7 @@ class DashboardAPIController extends AppBaseController
      *          description="The table used for get statistic data based db table",
      *          type="string",
      *          default="products",
-     *          enum={"products", "tenants", "posts"}
+     *          enum={"products", "tenants", "pinboard"}
      *      ),
      *      @SWG\Parameter(
      *          name="column",
@@ -1166,9 +1184,9 @@ class DashboardAPIController extends AppBaseController
     /**
      * @SWG\Get(
      *      path="/admin/donutChart",
-     *      summary="service_requests, products, tenants,  posts statistics for Donut Chart",
-     *      tags={"Tenant", "ServiceRequest", "Post", "Product", "Donut"},
-     *      description="service_requests:status | tenants:status,title | products:status,type |  posts:status,type statistics for Donut Chart",
+     *      summary="service_requests, products, tenants,  pinboard statistics for Donut Chart",
+     *      tags={"Tenant", "ServiceRequest", "Pinboard", "Product", "Donut"},
+     *      description="service_requests:status | tenants:status,title | products:status,type |  pinboard:status,type statistics for Donut Chart",
      *      produces={"application/json"},
      *     @SWG\Parameter(
      *          name="table",
@@ -1176,12 +1194,12 @@ class DashboardAPIController extends AppBaseController
      *          description="The table used for get statistic data based db table",
      *          type="string",
      *          default="service_requests",
-     *          enum={"service_requests", "tenants", "products", "posts"}
+     *          enum={"service_requests", "tenants", "products", "pinboard"}
      *      ),
      *      @SWG\Parameter(
      *          name="column",
      *          in="query",
-     *          description="The column used for get statistic according that column | permitted values for each table [service_requests:status | tenants:status,title | products:status,type |  posts:status,type]",
+     *          description="The column used for get statistic according that column | permitted values for each table [service_requests:status | tenants:status,title | products:status,type |  pinboard:status,type]",
      *          type="string",
      *          default="status",
      *          enum={"status", "type", "title"}
@@ -2206,6 +2224,7 @@ class DashboardAPIController extends AppBaseController
         $table = $optionalArgs['table'] ?? null;
         $table = $table ?? $request->{self::QUERY_PARAMS['table']};
         $table = key_exists($table, $permissions) ? $table : Arr::first(array_keys($permissions));
+        $table = ('posts' == $table) ? 'pinboard' : $table; // @TODO delete
         $class = $permissions[$table]['class'];
 
         $permittedColumns = [];

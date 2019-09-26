@@ -8,8 +8,8 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class FilterByPostCriteria
- * @package Prettus\Repository\Criteria
+ * Class HasRequestCriteria
+ * @package App\Criteria\Common
  */
 class HasRequestCriteria implements CriteriaInterface
 {

@@ -91,7 +91,7 @@ class NewTenantRequest extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'post_id' => $this->serviceRequest->id,
+            'pinboard_id' => $this->serviceRequest->id, // @TODO correct it but be pinboard_id or service_request_id
             'user_name' => $this->serviceRequest->tenant->user->name,
             'fragment' => 'New request opened',
         ];

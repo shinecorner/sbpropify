@@ -2,7 +2,7 @@
 
 namespace App\Transformers;
 
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Models\Product;
 use App\Models\ServiceRequest;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -45,8 +45,8 @@ class AuditTransformer extends BaseTransformer
 
     private function getMessage(Audit $a)
     {
-        if ($this->getMorphedModel($a->auditable_type) == Post::class) {
-            return $this->getPostMessage($a);
+        if ($this->getMorphedModel($a->auditable_type) == Pinboard::class) {
+            return $this->getPinboardMessage($a);
         }
         if ($this->getMorphedModel($a->auditable_type) == Product::class) {
             return $this->getProductMessage($a);
@@ -58,17 +58,17 @@ class AuditTransformer extends BaseTransformer
         return "unkown";
     }
 
-    private function getPostMessage(Audit $a)
+    private function getPinboardMessage(Audit $a)
     {
         if ($a->event == 'created' || $a->event == 'deleted') {
             return $a->event;
         }
 
         $sMsgs = [
-            Post::StatusNew . Post::StatusPublished => "published",
-            Post::StatusUnpublished . Post::StatusPublished => "published",
-            Post::StatusNotApproved . Post::StatusPublished => "published",
-            Post::StatusPublished . Post::StatusUnpublished => "unpublished",
+            Pinboard::StatusNew . Pinboard::StatusPublished => "published",
+            Pinboard::StatusUnpublished . Pinboard::StatusPublished => "published",
+            Pinboard::StatusNotApproved . Pinboard::StatusPublished => "published",
+            Pinboard::StatusPublished . Pinboard::StatusUnpublished => "unpublished",
         ];
         if (Arr::has($a->new_values, 'status') &&
             Arr::has($a->old_values, 'status')) {

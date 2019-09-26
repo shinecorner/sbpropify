@@ -104,7 +104,7 @@ class StatusChangedRequest extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'post_id' => $this->request->id,
+            'pinboard_id' => $this->request->id,
             'user_name' => $notifiable->name,
             'fragment' => sprintf('Request: %s status changed to:%',
                 $this->request->title,

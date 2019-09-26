@@ -169,30 +169,55 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::delete('/quarters-assignees/{quarters_assignee_id}', 'QuarterAPIController@deleteQuarterAssignee');
 
 
-    // Posts
-    Route::resource('posts', 'PostAPIController');
-    Route::post('/posts/deletewithids', 'PostAPIController@destroyWithIds')->name('posts.destroyWithIds');
-    Route::post('posts/{id}/publish', 'PostAPIController@publish')->name('posts.publish');
-    Route::post('posts/{id}/like', 'PostAPIController@like')->name('posts.like');
-    Route::post('posts/{id}/unlike', 'PostAPIController@unlike')->name('posts.unlike');
-    Route::post('posts/{id}/media', 'MediaAPIController@postUpload')->name('posts.media.upload');
-    Route::delete('posts/{id}/media/{media_id}', 'MediaAPIController@postDestroy')->name('posts.media.destroy');
-    Route::post('posts/{id}/comments', 'CommentAPIController@storePostComment')->name('posts.store.comment');
-    Route::get('/posts/{id}/locations', 'PostAPIController@getLocations');
-    Route::post('/posts/{id}/buildings/{building_id}', 'PostAPIController@assignBuilding');
-    Route::delete('/posts/{id}/buildings/{building_id}', 'PostAPIController@unassignBuilding');
-    Route::post('/posts/{id}/quarters/{quarter_id}', 'PostAPIController@assignQuarter');
-    Route::post('/posts/{id}/districts/{district_id}', 'PostAPIController@assignQuarter');
-    Route::delete('/posts/{id}/quarters/{quarter_id}', 'PostAPIController@unassignQuarter');
-    Route::delete('/posts/{id}/districts/{district_id}', 'PostAPIController@unassignQuarter');
-    Route::post('/posts/{id}/providers/{provider_id}', 'PostAPIController@assignProvider');
-    Route::delete('/posts/{id}/providers/{provider_id}', 'PostAPIController@unassignProvider');
-    Route::put('/posts/{id}/views', 'PostAPIController@incrementViews');
-    Route::get('/posts/{id}/views', 'PostAPIController@indexViews');
+    // Pinboard
+    Route::resource('pinboard', 'PinboardAPIController');
+    Route::post('/pinboard/deletewithids', 'PinboardAPIController@destroyWithIds')->name('pinboard.destroyWithIds');
+    Route::post('pinboard/{id}/publish', 'PinboardAPIController@publish')->name('pinboard.publish');
+    Route::post('pinboard/{id}/like', 'PinboardAPIController@like')->name('pinboard.like');
+    Route::post('pinboard/{id}/unlike', 'PinboardAPIController@unlike')->name('pinboard.unlike');
+    Route::post('pinboard/{id}/media', 'MediaAPIController@pinboardUpload')->name('pinboard.media.upload');
+    Route::delete('pinboard/{id}/media/{media_id}', 'MediaAPIController@pinboardDestroy')->name('pinboard.media.destroy');
+    Route::post('pinboard/{id}/comments', 'CommentAPIController@storePinboardComment')->name('pinboard.store.comment');
+    Route::get('/pinboard/{id}/locations', 'PinboardAPIController@getLocations');
+    Route::post('/pinboard/{id}/buildings/{building_id}', 'PinboardAPIController@assignBuilding');
+    Route::delete('/pinboard/{id}/buildings/{building_id}', 'PinboardAPIController@unassignBuilding');
+    Route::post('/pinboard/{id}/quarters/{quarter_id}', 'PinboardAPIController@assignQuarter');
+    Route::post('/pinboard/{id}/districts/{district_id}', 'PinboardAPIController@assignQuarter');
+    Route::delete('/pinboard/{id}/quarters/{quarter_id}', 'PinboardAPIController@unassignQuarter');
+    Route::delete('/pinboard/{id}/districts/{district_id}', 'PinboardAPIController@unassignQuarter');
+    Route::post('/pinboard/{id}/providers/{provider_id}', 'PinboardAPIController@assignProvider');
+    Route::delete('/pinboard/{id}/providers/{provider_id}', 'PinboardAPIController@unassignProvider');
+    Route::put('/pinboard/{id}/views', 'PinboardAPIController@incrementViews');
+    Route::get('/pinboard/{id}/views', 'PinboardAPIController@indexViews');
+
+    Route::get('pinboard/rss.xml', 'PinboardAPIController@showNewsRSS');
+    Route::get('pinboard/weather.json', 'PinboardAPIController@showWeatherJSON');
+
+
+    // Pinboard
+    Route::resource('posts', 'PinboardAPIController');
+    Route::post('/posts/deletewithids', 'PinboardAPIController@destroyWithIds')->name('posts.destroyWithIds');
+    Route::post('posts/{id}/publish', 'PinboardAPIController@publish')->name('posts.publish');
+    Route::post('posts/{id}/like', 'PinboardAPIController@like')->name('posts.like');
+    Route::post('posts/{id}/unlike', 'PinboardAPIController@unlike')->name('posts.unlike');
+    Route::post('posts/{id}/media', 'MediaAPIController@pinboardUpload')->name('posts.media.upload');
+    Route::delete('posts/{id}/media/{media_id}', 'MediaAPIController@pinboardDestroy')->name('posts.media.destroy');
+    Route::post('posts/{id}/comments', 'CommentAPIController@storePinboardComment')->name('posts.store.comment');
+    Route::get('/posts/{id}/locations', 'PinboardAPIController@getLocations');
+    Route::post('/posts/{id}/buildings/{building_id}', 'PinboardAPIController@assignBuilding');
+    Route::delete('/posts/{id}/buildings/{building_id}', 'PinboardAPIController@unassignBuilding');
+    Route::post('/posts/{id}/quarters/{quarter_id}', 'PinboardAPIController@assignQuarter');
+    Route::post('/posts/{id}/districts/{district_id}', 'PinboardAPIController@assignQuarter');
+    Route::delete('/posts/{id}/quarters/{quarter_id}', 'PinboardAPIController@unassignQuarter');
+    Route::delete('/posts/{id}/districts/{district_id}', 'PinboardAPIController@unassignQuarter');
+    Route::post('/posts/{id}/providers/{provider_id}', 'PinboardAPIController@assignProvider');
+    Route::delete('/posts/{id}/providers/{provider_id}', 'PinboardAPIController@unassignProvider');
+    Route::put('/posts/{id}/views', 'PinboardAPIController@incrementViews');
+    Route::get('/posts/{id}/views', 'PinboardAPIController@indexViews');
 
     // News
-    Route::get('news/rss.xml', 'NewsAPIController@showNewsRSS');
-    Route::get('news/weather.json', 'NewsAPIController@showWeatherJSON');
+    Route::get('news/rss.xml', 'PinboardAPIController@showNewsRSS');
+    Route::get('news/weather.json', 'PinboardAPIController@showWeatherJSON');
 
     //Internal Notices
     Route::resource('internalNotices', 'InternalNoticeAPIController');

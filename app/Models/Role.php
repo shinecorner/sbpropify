@@ -40,8 +40,23 @@ class Role extends EntrustRole
     public function attachPermissionIfNotExits($permissionName)
     {
         if (! $this->hasPermission($permissionName)) {
-            $permission = Permission::whereName($permissionName)->firstOrFail();
-            $this->attachPermission($permission);
+            $permission = Permission::whereName($permissionName)->first();
+            if ($permission) {
+                $this->attachPermission($permission);
+            }
+        }
+    }
+
+    /**
+     * @param $permissionName
+     */
+    public function detachPermissionIfExits($permissionName)
+    {
+        if ($this->hasPermission($permissionName)) {
+            $permission = Permission::whereName($permissionName)->first();
+            if ($permission) {
+                $this->detachPermission($permission);
+            }
         }
     }
 }
