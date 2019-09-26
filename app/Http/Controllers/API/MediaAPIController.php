@@ -5,8 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Media\BuildingDeleteRequest;
 use App\Http\Requests\API\Media\BuildingUploadRequest;
-use App\Http\Requests\API\Media\PostDeleteRequest;
-use App\Http\Requests\API\Media\PostUploadRequest;
+use App\Http\Requests\API\Media\PinboardDeleteRequest;
+use App\Http\Requests\API\Media\PinboardUploadRequest;
 use App\Http\Requests\API\Media\ProductDeleteRequest;
 use App\Http\Requests\API\Media\ProductUploadRequest;
 use App\Http\Requests\API\Media\SRequestDeleteRequest;
@@ -40,7 +40,7 @@ class MediaAPIController extends AppBaseController
     private $addressRepository;
 
     /** @var  PinboardRepository */
-    private $postRepository;
+    private $pinboardRepository;
 
     /** @var  ProductRepository */
     private $productRepository;
@@ -60,7 +60,7 @@ class MediaAPIController extends AppBaseController
      * MediaAPIController constructor.
      * @param BuildingRepository $buildingRepo
      * @param AddressRepository $addrRepo
-     * @param PinboardRepository $postRepo
+     * @param PinboardRepository $pinboardRepo
      * @param ProductRepository $productRepo
      * @param TenantRepository $tenantRepo
      * @param RentContractRepository $rentContractRepository
@@ -69,7 +69,7 @@ class MediaAPIController extends AppBaseController
     public function __construct(
         BuildingRepository $buildingRepo,
         AddressRepository $addrRepo,
-        PinboardRepository $postRepo,
+        PinboardRepository $pinboardRepo,
         ProductRepository $productRepo,
         TenantRepository $tenantRepo,
         RentContractRepository $rentContractRepository,
@@ -78,7 +78,7 @@ class MediaAPIController extends AppBaseController
     {
         $this->buildingRepository = $buildingRepo;
         $this->addressRepository = $addrRepo;
-        $this->postRepository = $postRepo;
+        $this->pinboardRepository = $pinboardRepo;
         $this->productRepository = $productRepo;
         $this->tenantRepository = $tenantRepo;
         $this->serviceRequestRepository = $serviceRequestRepo;
@@ -234,7 +234,7 @@ class MediaAPIController extends AppBaseController
 
     /**
      * @SWG\Post(
-     *      path="/posts/{post_id}/media",
+     *      path="/pinboards/{pinboard_id}/media",
      *      summary="Store a newly created Post Media in storage",
      *      tags={"Listing"},
      *      description="Store Media",
@@ -268,18 +268,18 @@ class MediaAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param PostUploadRequest $request
+     * @param PinboardUploadRequest $request
      * @return Response
      */
-    public function postUpload(int $id, PostUploadRequest $request)
+    public function pinboardUpload(int $id, PinboardUploadRequest $request)
     {
-        $post = $this->postRepository->findWithoutFail($id);
-        if (empty($post)) {
+        $pinboard = $this->pinboardRepository->findWithoutFail($id);
+        if (empty($pinboard)) {
             return $this->sendError(__('models.building.not_found'));
         }
 
         $data = $request->get('media', '');
-        if (!$media = $this->postRepository->uploadFile('media', $data, $post, $request->merge_in_audit)) {
+        if (!$media = $this->pinboardRepository->uploadFile('media', $data, $pinboard, $request->merge_in_audit)) {
             return $this->sendError(__('general.upload_error'));
         }
 
@@ -289,7 +289,7 @@ class MediaAPIController extends AppBaseController
 
     /**
      * @SWG\Delete(
-     *      path="/post/{post_id}/media/{media_id}",
+     *      path="/pinboard/{pinboard_id}/media/{media_id}",
      *      summary="Remove the specified Media from storage",
      *      tags={"Listing"},
      *      description="Delete Media",
@@ -324,17 +324,17 @@ class MediaAPIController extends AppBaseController
      *
      * @param int $id
      * @param int $media_id
-     * @param PostDeleteRequest $r
+     * @param PinboardDeleteRequest $r
      * @return Response
      */
-    public function postDestroy(int $id, int $media_id, PostDeleteRequest $r)
+    public function pinboardDestroy(int $id, int $media_id, PinboardDeleteRequest $r)
     {
-        $post = $this->postRepository->findWithoutFail($id);
-        if (empty($post)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+        $pinboard = $this->pinboardRepository->findWithoutFail($id);
+        if (empty($pinboard)) {
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
 
-        $media = $post->media->find($media_id);
+        $media = $pinboard->media->find($media_id);
         if (empty($media)) {
             return $this->sendError(__('general.media_not_found'));
         }
@@ -457,7 +457,7 @@ class MediaAPIController extends AppBaseController
     {
         $tenant = $this->tenantRepository->findWithoutFail($id);
         if (empty($tenant)) {
-            return $this->sendError(__('models.post.errors.not_found'));
+            return $this->sendError(__('models.pinboard.errors.not_found'));
         }
 
         $media = $tenant->media->find($media_id);

@@ -721,7 +721,7 @@ class DashboardAPIController extends AppBaseController
      * @SWG\Get(
      *      path="/admin/statistics",
      *      summary="statistics for request, building, post, product",
-     *      tags={"ServiceRequest", "Post", "Tenant", "Product"},
+     *      tags={"ServiceRequest", "Pinboard", "Tenant", "Product"},
      *      description="statistics for request, building, post, product",
      *      produces={"application/json"},
      *      @SWG\Response(
@@ -985,7 +985,7 @@ class DashboardAPIController extends AppBaseController
      * @SWG\Get(
      *      path="/admin/chartByCreationDate",
      *      summary="get statistics for Grouped Report by products:status | tenants:status | posts:status ",
-     *      tags={"Tenant", "Product", "Post", "CreationDate"},
+     *      tags={"Tenant", "Product", "Pinboard", "CreationDate"},
      *      description="get statistics for Grouped Report by products:status | tenants:status | posts:status",
      *      produces={"application/json"},
      *      @SWG\Parameter(
@@ -1167,7 +1167,7 @@ class DashboardAPIController extends AppBaseController
      * @SWG\Get(
      *      path="/admin/donutChart",
      *      summary="service_requests, products, tenants,  posts statistics for Donut Chart",
-     *      tags={"Tenant", "ServiceRequest", "Post", "Product", "Donut"},
+     *      tags={"Tenant", "ServiceRequest", "Pinboard", "Product", "Donut"},
      *      description="service_requests:status | tenants:status,title | products:status,type |  posts:status,type statistics for Donut Chart",
      *      produces={"application/json"},
      *     @SWG\Parameter(

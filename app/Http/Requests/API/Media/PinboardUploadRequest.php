@@ -5,7 +5,7 @@ namespace App\Http\Requests\API\Media;
 use App\Models\Pinboard;
 use App\Http\Requests\BaseRequest;
 
-class PostUploadRequest extends BaseRequest
+class PinboardUploadRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.

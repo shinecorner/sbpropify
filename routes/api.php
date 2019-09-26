@@ -175,8 +175,8 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('pinboards/{id}/publish', 'PinboardAPIController@publish')->name('pinboards.publish');
     Route::post('pinboards/{id}/like', 'PinboardAPIController@like')->name('pinboards.like');
     Route::post('pinboards/{id}/unlike', 'PinboardAPIController@unlike')->name('pinboards.unlike');
-    Route::post('pinboards/{id}/media', 'MediaAPIController@postUpload')->name('pinboards.media.upload');
-    Route::delete('pinboards/{id}/media/{media_id}', 'MediaAPIController@postDestroy')->name('pinboards.media.destroy');
+    Route::post('pinboards/{id}/media', 'MediaAPIController@pinboardUpload')->name('pinboards.media.upload');
+    Route::delete('pinboards/{id}/media/{media_id}', 'MediaAPIController@pinboardDestroy')->name('pinboards.media.destroy');
     Route::post('pinboards/{id}/comments', 'CommentAPIController@storePinboardComment')->name('pinboards.store.comment');
     Route::get('/pinboards/{id}/locations', 'PinboardAPIController@getLocations');
     Route::post('/pinboards/{id}/buildings/{building_id}', 'PinboardAPIController@assignBuilding');
@@ -200,8 +200,8 @@ Route::middleware('auth:api', 'throttle:180,1', 'locale')->group(function () {
     Route::post('posts/{id}/publish', 'PinboardAPIController@publish')->name('posts.publish');
     Route::post('posts/{id}/like', 'PinboardAPIController@like')->name('posts.like');
     Route::post('posts/{id}/unlike', 'PinboardAPIController@unlike')->name('posts.unlike');
-    Route::post('posts/{id}/media', 'MediaAPIController@postUpload')->name('posts.media.upload');
-    Route::delete('posts/{id}/media/{media_id}', 'MediaAPIController@postDestroy')->name('posts.media.destroy');
+    Route::post('posts/{id}/media', 'MediaAPIController@pinboardUpload')->name('posts.media.upload');
+    Route::delete('posts/{id}/media/{media_id}', 'MediaAPIController@pinboardDestroy')->name('posts.media.destroy');
     Route::post('posts/{id}/comments', 'CommentAPIController@storePinboardComment')->name('posts.store.comment');
     Route::get('/posts/{id}/locations', 'PinboardAPIController@getLocations');
     Route::post('/posts/{id}/buildings/{building_id}', 'PinboardAPIController@assignBuilding');

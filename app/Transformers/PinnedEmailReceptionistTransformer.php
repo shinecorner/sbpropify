@@ -24,7 +24,7 @@ class PinnedEmailReceptionistTransformer extends BaseTransformer
     public function transform(PinnedEmailReceptionist $model)
     {
         $response = [
-            'post_id' => $model->post_id,
+            'pinboard_id' => $model->pinboard_id,
             'tenant_ids' => $model->tenant_ids,
             'failed_tenant_ids' => $model->failed_tenant_ids,
         ];
