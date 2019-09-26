@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 /**
- * Class PostPublished
+ * Class PinboardPublished
  * @package App\Notifications
  */
-class PostPublished extends Notification implements ShouldQueue
+class PinboardPublished extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -25,7 +25,7 @@ class PostPublished extends Notification implements ShouldQueue
     protected $post;
 
     /**
-     * PostPublished constructor.
+     * PinboardPublished constructor.
      * @param Pinboard $post
      */
     public function __construct(Pinboard $post)

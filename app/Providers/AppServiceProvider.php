@@ -19,7 +19,7 @@ use App\Notifications\NewTenantInNeighbour;
 use App\Notifications\NewTenantPost;
 use App\Notifications\NewTenantRequest;
 use App\Notifications\PinnedPostPublished;
-use App\Notifications\PostPublished;
+use App\Notifications\PinboardPublished;
 use App\Notifications\ProductPublished;
 use App\Notifications\StatusChangedRequest;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -64,7 +64,7 @@ class AppServiceProvider extends ServiceProvider
             'rent_contract' => RentContract::class,
             'conversation' => Conversation::class,
 
-            'post_published' => PostPublished::class,
+            'post_published' => PinboardPublished::class,
             'new_tenant_post' => NewTenantPost::class,
             'pinned_post_published' => PinnedPostPublished::class,
             'new_tenant_in_neighbour' => NewTenantInNeighbour::class,

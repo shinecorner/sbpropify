@@ -13,7 +13,7 @@ use App\Models\User;
 use App\Notifications\NewTenantInNeighbour;
 use App\Notifications\NewTenantPost;
 use App\Notifications\PinnedPostPublished;
-use App\Notifications\PostPublished;
+use App\Notifications\PinboardPublished;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -208,7 +208,7 @@ class PinboardRepository extends BaseRepository
         $usersToNotify = $this->getNotifiedTenantUsers($pinboard);
 
         $pinnedPostPublished = get_morph_type_of(PinnedPostPublished::class);
-        $pinboardPublished = get_morph_type_of(PostPublished::class);
+        $pinboardPublished = get_morph_type_of(PinboardPublished::class);
         $pinboardNewTenantNeighbor = get_morph_type_of(NewTenantInNeighbour::class);
         $notificationsData = collect([
             $pinnedPostPublished => collect(),
@@ -234,7 +234,7 @@ class PinboardRepository extends BaseRepository
             if ($u->settings && $u->settings->news_notification && ! $pinboard->pinned) {
                 if ($pinboard->type == Pinboard::TypePost) {
                     $notificationsData[$pinboardPublished]->push($u);
-                    $u->notify(new PostPublished($pinboard));
+                    $u->notify(new PinboardPublished($pinboard));
                 }
                 if ($pinboard->type == Pinboard::TypeNewNeighbour) {
                     $notificationsData[$pinboardNewTenantNeighbor]->push($u);
