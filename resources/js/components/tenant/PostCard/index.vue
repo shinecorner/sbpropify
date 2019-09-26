@@ -10,7 +10,7 @@
                     {{formatDatetime(data.created_at)}}
                 </small>
             </div>
-            <div class="actions" v-if="showActions && loggedInUser.tenant.id == data.tenant['id']">
+            <div class="actions" v-if="showActions && loggedInUser.id == data.user_id">
                 <el-tooltip :content="$t('tenant.tooltips.edit_post')">
                     <el-button size="mini" @click="$emit('edit-post', $event, data)" plain round>{{$t('general.actions.edit')}}</el-button>
                 </el-tooltip>
