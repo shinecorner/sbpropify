@@ -3,16 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\AppBaseController;
-use App\Http\Requests\API\UserSetting\CreateRequest;
-use App\Http\Requests\API\UserSetting\ShowRequest;
 use App\Http\Requests\API\UserSetting\UpdateRequest;
 use App\Http\Requests\API\UserSetting\UpdateLoggedInRequest;
 use App\Models\User;
-use App\Models\UserSettings;
 use App\Repositories\UserSettingsRepository;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Prettus\Validator\Exceptions\ValidatorException;
 
 /**
  * Class UserSettingsController
@@ -23,50 +17,16 @@ class UserSettingsAPIController extends AppBaseController
     /** @var  UserSettingsRepository */
     private $userSettingsRepository;
 
+    /**
+     * UserSettingsAPIController constructor.
+     * @param UserSettingsRepository $userSettingsRepo
+     */
     public function __construct(UserSettingsRepository $userSettingsRepo)
     {
         $this->userSettingsRepository = $userSettingsRepo;
     }
 
-    public function index(int $user_id, Request $request)
-    {
-        $user = (new User)->find($user_id);
-        if (empty($user)) {
-            return $this->sendError(__('models.user.not_found'));
-        }
-
-        $userSettings = $user->settings->toArray();
-
-        return $this->sendResponse($userSettings, 'User Settings retrieved successfully');
-    }
-
-    public function store(CreateRequest $request)
-    {
-        $input = $request->all();
-
-        $userSettings = $this->userSettingsRepository->create($input);
-
-        return $this->sendResponse($userSettings->toArray(), __('models.user.setting_saved'));
-    }
-
-    public function show($id, ShowRequest $request)
-    {
-        /** @var UserSettings $userSettings */
-        $userSettings = $this->userSettingsRepository->findWithoutFail($id);
-
-        if (empty($userSettings)) {
-            return $this->sendError(__('models.user.errors.setting_not_found'));
-        }
-
-        return $this->sendResponse($userSettings->toArray(), 'User Settings retrieved successfully');
-    }
-
     /**
-     * @param int $user_id
-     * @param UpdateRequest $request
-     * @return Response
-     * @throws ValidatorException
-     *
      * @SWG\Put(
      *      path="/users/{user_id}",
      *      summary="Update the specified UserSettings in storage",
@@ -107,26 +67,27 @@ class UserSettingsAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $userId
+     * @param UpdateRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function update($user_id, UpdateRequest $request)
+    public function update($userId, UpdateRequest $request)
     {
         $input = $request->all();
+        $user = (new User)->find($userId);
 
-        $user = (new User)->find($user_id);
         if (empty($user)) {
             return $this->sendError(__('models.user.not_found'));
         }
 
-        $userSettings = $this->userSettingsRepository->update($input, $user->settings->id);
+        $userSettings = $this->userSettingsRepository->updateExisting($user->settings, $input);
 
         return $this->sendResponse($userSettings->toArray(), __('models.user.notificationSaved'));
     }
 
     /**
-     * @param UpdateRequest $request
-     * @return Response
-     * @throws ValidatorException
-     *
      * @SWG\Put(
      *      path="/users/me/settings",
      *      summary="Update the Logged In UserSettings in storage",
@@ -160,33 +121,17 @@ class UserSettingsAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param UpdateLoggedInRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function updateLoggedIn(UpdateLoggedInRequest $request)
     {
         $input = $request->all();
-        $user_id = $request->user()->id;
-
-        $user = (new User)->find($user_id);
-        if (empty($user)) {
-            return $this->sendError(__('models.user.not_found'));
-        }
-
-        $userSettings = $this->userSettingsRepository->update($input, $user->settings->id);
+        $user = $request->user();
+        $userSettings = $this->userSettingsRepository->updateExisting($user->settings, $input);
 
         return $this->sendResponse($userSettings->toArray(), __('models.user.notificationSaved'));
-    }
-
-    public function destroy($id)
-    {
-        /** @var UserSettings $userSettings */
-        $userSettings = $this->userSettingsRepository->findWithoutFail($id);
-
-        if (empty($userSettings)) {
-            return $this->sendError(__('models.user.errors.setting_not_found'));
-        }
-
-        $userSettings->delete();
-
-        return $this->sendResponse($id, __('models.user.setting_deleted'));
     }
 }

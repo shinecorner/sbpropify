@@ -2,13 +2,12 @@
 
 namespace App\Http\Requests\API\Comment;
 
-use App\Models\Post;
+use App\Http\Requests\BaseRequest;
 use App\Models\Conversation;
-use InfyOm\Generator\Request\APIRequest;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Validation\Rule;
 
-class ListRequest extends APIRequest
+class ListRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.

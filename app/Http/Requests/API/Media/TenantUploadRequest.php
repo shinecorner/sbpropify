@@ -2,13 +2,13 @@
 
 namespace App\Http\Requests\API\Media;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
 /**
  * Class TenantUploadRequest
  * @package App\Http\Requests\API\Media
  */
-class TenantUploadRequest extends APIRequest
+class TenantUploadRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,7 +17,7 @@ class TenantUploadRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('edit-tenant');
+        return $this->can('edit-tenant');
     }
 
     /**
@@ -27,6 +27,8 @@ class TenantUploadRequest extends APIRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            'media' => 'required|string',
+        ];
     }
 }

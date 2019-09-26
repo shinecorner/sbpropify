@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Post;
-use App\Repositories\PostRepository;
+use App\Models\Pinboard;
+use App\Repositories\PinboardRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class PostRepositoryTest extends TestCase
@@ -9,14 +9,14 @@ class PostRepositoryTest extends TestCase
     use MakePostTrait, ApiTestTrait, DatabaseTransactions;
 
     /**
-     * @var PostRepository
+     * @var PinboardRepository
      */
     protected $postRepo;
 
     public function setUp()
     {
         parent::setUp();
-        $this->postRepo = App::make(PostRepository::class);
+        $this->postRepo = App::make(PinboardRepository::class);
     }
 
     /**
@@ -29,7 +29,7 @@ class PostRepositoryTest extends TestCase
         $createdPost = $createdPost->toArray();
         $this->assertArrayHasKey('id', $createdPost);
         $this->assertNotNull($createdPost['id'], 'Created Post must have id specified');
-        $this->assertNotNull(Post::find($createdPost['id']), 'Post with given id must be in DB');
+        $this->assertNotNull(Pinboard::find($createdPost['id']), 'Post with given id must be in DB');
         $this->assertModelData($post, $createdPost);
     }
 
@@ -65,6 +65,6 @@ class PostRepositoryTest extends TestCase
         $post = $this->makePost();
         $resp = $this->postRepo->delete($post->id);
         $this->assertTrue($resp);
-        $this->assertNull(Post::find($post->id), 'Post should not exist in DB');
+        $this->assertNull(Pinboard::find($post->id), 'Post should not exist in DB');
     }
 }

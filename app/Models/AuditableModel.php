@@ -131,6 +131,9 @@ class AuditableModel extends Model implements Auditable
         if (self::EventCreated == $audit->event) {
             $audit->new_values = $this->fixAddedData($audit->new_values, $key, $value, $isSingle);
             $audit->save();
+        } elseif (self::EventUpdated == $audit->event) {
+            $audit->new_values = $this->fixAddedData($audit->new_values, $key, $value, $isSingle);
+            $audit->save();
         } else {
             // @TODO
         }

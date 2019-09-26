@@ -2,7 +2,7 @@
     <el-card v-bind="$attrs"
              v-on="$listeners"
              v-loading="loading.state"
-             :element-loading-text="loading.text"
+             :element-loading-text="$t(loading.text)"
              :element-loading-spinner="loading.icon"
              :element-loading-background="loading.background">
         <template slot="header" v-if="$slots.header">
@@ -20,7 +20,7 @@
                 type: Object,
                 default: () => ({
                     state: false,
-                    text: 'Loading...',
+                    text: 'general.loading',
                     icon: 'el-icon-loading',
                     background: 'rgba(0, 0, 0, 0.8)'
                 })

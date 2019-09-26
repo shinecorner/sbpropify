@@ -67,7 +67,7 @@
                 <el-tab-pane name="chat" lazy>
                     <div slot="label">
                         <i class="ti-comments"></i>
-                        Chat
+                        {{$t('tenant.chat')}}
                     </div>
                     <chat ref="chat" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
                 </el-tab-pane>
@@ -92,7 +92,12 @@
                         </el-alert>
                         
                     </div>
-                    <ui-media-uploader v-model="media" :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" :action="`api/v1/requests/${openedRequest.id}/media`" :id="openedRequest.id" :options="{drop: true, draggable: true, multiple: true}" />
+                    <ui-media-uploader v-model="media" 
+                                    :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" 
+                                    :action="`api/v1/requests/${openedRequest.id}/media`" 
+                                    :id="openedRequest.id" 
+                                    type="request"
+                                    :options="{drop: true, draggable: true, multiple: true}" />
 
                     <!-- <div ref="media-content" id="media-content" class="content">
                         <ui-media-gallery :images="openedRequest.media.map(({url}) => url)" />

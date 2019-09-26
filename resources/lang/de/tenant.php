@@ -56,6 +56,8 @@ return [
         "neighbour" => "Du hast noch keine Nachbarn.",
         "personal" => "Keine personenbezogenen Daten vorhanden.",        
         "property_manager" => "Du hast noch keine Bewirtschafter.",
+        "activity" => "Es sind keine Aktivität verfügbar",
+        "news" => "Es sind keine Beitrag verfügbar.",
     ],
     "no_data_info" => [
         "product" => "Alle werden hier aufgelistet.",
@@ -64,6 +66,8 @@ return [
         "neighbour" => "Alle werden hier aufgelistet.",
         "contact" => "Alle werden hier aufgelistet.",
         "personal" => "Alle werden hier aufgelistet.",
+        "activity" => "Alle verfügbaren Aktivitäten werden hier in chronologischer Reihenfolge angezeigt.",
+        "news" => "Alle werden hier aufgelistet.",
     ],
     "notifications" => [
         "prompt" => "Wählen Sie aus, welche Arten von Benachrichtigungen Sie nur erhalten möchten.",
@@ -218,4 +222,5 @@ return [
     "providers" => "Dienstleister",
     "execution" => "Ausführung",  
     "loading" => "Ladet...",
+    "chat" => "Chat",
 ];

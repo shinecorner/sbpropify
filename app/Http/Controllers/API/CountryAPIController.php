@@ -31,10 +31,6 @@ class CountryAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     * @throws RepositoryException
-     *
      * @SWG\Get(
      *      path="/countries",
      *      summary="Get a listing of the Countries.",
@@ -62,6 +58,10 @@ class CountryAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param Request $request
+     * @return Response
+     * @throws RepositoryException
      */
     public function index(Request $request)
     {

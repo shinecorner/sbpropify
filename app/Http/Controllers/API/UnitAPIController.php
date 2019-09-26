@@ -6,17 +6,18 @@ use App\Criteria\Common\RequestCriteria;
 use App\Criteria\Units\FilterByRelatedFieldsCriteria;
 use App\Criteria\Units\FilterByTypeCriteria;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\API\Unit\AssignRequest;
 use App\Http\Requests\API\Unit\CreateRequest;
+use App\Http\Requests\API\Unit\UnAssignRequest;
 use App\Http\Requests\API\Unit\DeleteRequest;
 use App\Http\Requests\API\Unit\ListRequest;
 use App\Http\Requests\API\Unit\UpdateRequest;
 use App\Http\Requests\API\Unit\ViewRequest;
 use App\Models\Unit;
-use App\Repositories\PostRepository;
+use App\Repositories\PinboardRepository;
 use App\Repositories\TenantRepository;
 use App\Repositories\UnitRepository;
 use App\Transformers\UnitTransformer;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 
@@ -32,6 +33,11 @@ class UnitAPIController extends AppBaseController
     /** @var  TenantRepository */
     private $tenantRepository;
 
+    /**
+     * UnitAPIController constructor.
+     * @param UnitRepository $unitRepo
+     * @param TenantRepository $tenantRepo
+     */
     public function __construct(UnitRepository $unitRepo, TenantRepository $tenantRepo)
     {
         $this->unitRepository = $unitRepo;
@@ -39,10 +45,6 @@ class UnitAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Get(
      *      path="/units",
      *      summary="Get a listing of the Units.",
@@ -70,6 +72,10 @@ class UnitAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return Response
+     * @throws /Exception
      */
     public function index(ListRequest $request)
     {
@@ -94,9 +100,6 @@ class UnitAPIController extends AppBaseController
     }
 
     /**
-     * @param CreateRequest $request
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/units",
      *      summary="Store a newly created Unit in storage",
@@ -130,11 +133,19 @@ class UnitAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @param PinboardRepository $pr
+     * @return Response
      */
-    public function store(CreateRequest $request, PostRepository $pr)
+    public function store(CreateRequest $request, PinboardRepository $pr)
     {
         $input = $request->all();
         $input['sq_meter'] = $input['sq_meter'] ?? 0;
+        if (isset($input['monthly_rent'])) {
+            $input['monthly_gross_rent'] = $input['monthly_net_rent'] ?? $input['monthly_rent'];
+            $input['monthly_gross_rent'] = $input['monthly_net_rent'] ?? $input['monthly_rent'];
+        }
         try {
             $unit = $this->unitRepository->create($input);
         } catch (\Exception $e) {
@@ -147,7 +158,7 @@ class UnitAPIController extends AppBaseController
                     'unit_id' => $unit->id,
                 ];
                 $tenant = $this->tenantRepository->update($attr, $input['tenant_id']);
-                $pr->newTenantPost($tenant);
+                $pr->newTenantPinboard($tenant);
             } catch (\Exception $e) {
                 return $this->sendError(__('models.unit.errors.tenant_assign') . $e->getMessage());
             }
@@ -159,9 +170,6 @@ class UnitAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/units/{id}",
      *      summary="Display the specified Unit",
@@ -195,6 +203,10 @@ class UnitAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param ViewRequest $r
+     * @return Response
      */
     public function show($id, ViewRequest $r)
     {
@@ -210,10 +222,6 @@ class UnitAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param UpdateRequest $request
-     * @return Response
-     *
      * @SWG\Put(
      *      path="/units/{id}",
      *      summary="Update the specified Unit in storage",
@@ -254,17 +262,27 @@ class UnitAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param UpdateRequest $request
+     * @param PinboardRepository $pr
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update($id, UpdateRequest $request, PostRepository $pr)
+    public function update($id, UpdateRequest $request, PinboardRepository $pr)
     {
         $input = $request->all();
-
+        if (isset($input['monthly_rent'])) {
+            $input['monthly_gross_rent'] = $input['monthly_gross_rent'] ?? $input['monthly_rent'];
+            $input['monthly_net_rent'] = $input['monthly_net_rent'] ?? $input['monthly_rent'];
+        }
         /** @var Unit $unit */
         $unit = $this->unitRepository->findWithoutFail($id);
         if (empty($unit)) {
             return $this->sendError(__('models.unit.errors.not_found'));
         }
-        $shouldPost = isset($input['tenant_id']) &&
+        $shouldPinboard = isset($input['tenant_id']) &&
             (!$unit->tenant || ($unit->tenant && $unit->tenant->id != $input['tenant_id']));
 
         try {
@@ -283,8 +301,8 @@ class UnitAPIController extends AppBaseController
         }
 
         $unit->load('building', 'tenants.user');
-        if ($shouldPost) {
-            $pr->newTenantPost($unit->tenant);
+        if ($shouldPinboard) {
+            $pr->newTenantPinboard($unit->tenant);
         }
 
         $response = (new UnitTransformer)->transform($unit);
@@ -292,9 +310,6 @@ class UnitAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/units/{id}",
      *      summary="Remove the specified Unit from storage",
@@ -328,6 +343,11 @@ class UnitAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param DeleteRequest $r
+     * @return mixed
+     * @throws \Exception
      */
     public function destroy($id, DeleteRequest $r)
     {
@@ -343,7 +363,12 @@ class UnitAPIController extends AppBaseController
 
         return $this->sendResponse($id, __('models.unit.deleted'));
     }
-    public function destroyWithIds(Request $request){
+
+    /**
+     * @param DeleteRequest $request
+     * @return mixed
+     */
+    public function destroyWithIds(DeleteRequest $request){
         $ids = $request->get('ids');
         try{
             Unit::destroy($ids);      
@@ -353,6 +378,7 @@ class UnitAPIController extends AppBaseController
         }
         return $this->sendResponse($ids, __('models.unit.deleted'));
     }
+
     /**
      * @SWG\Post(
      *      path="/units/{id}/assignees/{assignee_id}",
@@ -415,10 +441,11 @@ class UnitAPIController extends AppBaseController
      *
      * @param $unitId
      * @param $tenantId
+     * @param AssignRequest $r
      * @return mixed
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function assignTenant($unitId, $tenantId)
+    public function assignTenant($unitId, $tenantId, AssignRequest $r)
     {
         $unit = $this->unitRepository->find($unitId, ['id']);
         if (empty($unit)) {
@@ -499,10 +526,11 @@ class UnitAPIController extends AppBaseController
      *
      * @param $unitId
      * @param $tenantId
+     * @param UnAssignRequest $r$tenantId
      * @return mixed
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function unassignTenant($unitId, $tenantId)
+    public function unassignTenant($unitId, $tenantId, UnAssignRequest $r)
     {
         $tenant = $this->tenantRepository->find($tenantId, ['id', 'unit_id']);
         if (empty($tenant)) {

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App;
 use App\Http\Controllers\AppBaseController;
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Models\Product;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
@@ -14,7 +14,6 @@ use App\Models\Tenant;
 use App\Repositories\BuildingRepository;
 use App\Repositories\TenantRepository;
 use App\Repositories\UnitRepository;
-use Config;
 use Illuminate\Http\Response;
 
 /**
@@ -114,17 +113,18 @@ class UtilsAPIController extends AppBaseController
         }
         $response = [
             'app' => $app,
-            'buildings' => [],
-            'units' => self::getUnitConstants(),
-            'tenants' => self::getTenantConstants(),
-            'rentContracts' => self::getRentContractConstants(),
-            'serviceProviders' => self::getServiceProviderConstants(),
-            'serviceRequests' => self::getServiceRequestsConstants(),
-            'propertyManager' => self::getPropertyManagerConstants(),
-            'posts' => self::getPostConstants(),
-            'products' => self::getProductConstants(),
-            'templates' => self::getTemplateConstants(),
-            'audits' => self::getAuditConstants(),
+            'buildings' => [], // @TODO is need return building related constants
+            'units' => $this->getUnitConstants(),
+            'tenants' => $this->getTenantConstants(),
+            'rentContracts' => $this->getRentContractConstants(),
+            'serviceProviders' => $this->getServiceProviderConstants(),
+            'serviceRequests' => $this->getServiceRequestsConstants(),
+            'propertyManager' => $this->getPropertyManagerConstants(),
+            'posts' => $this->getPinboardConstants(),
+            'pinboard' => $this->getPinboardConstants(),
+            'products' => $this->getProductConstants(),
+            'templates' => $this->getTemplateConstants(),
+            'audits' => $this->getAuditConstants(),
             'colors' => $colors,
             'logo' => $logo,
             'login' => $login
@@ -133,13 +133,19 @@ class UtilsAPIController extends AppBaseController
         return $this->sendResponse($response, 'App constants statistics retrieved successfully');
     }
 
-    private static function getAuditConstants()
+    /**
+     * @return array|false
+     */
+    protected function getAuditConstants()
     {
         $events = App\Models\AuditableModel::Events;
         return array_combine($events, $events);
     }
 
-    private function getTenantConstants()
+    /**
+     * @return array
+     */
+    protected function getTenantConstants()
     {
         $result = [
             'title' => Tenant::Title,
@@ -149,7 +155,10 @@ class UtilsAPIController extends AppBaseController
         return $result;
     }
 
-    private function getRentContractConstants()
+    /**
+     * @return array
+     */
+    protected function getRentContractConstants()
     {
         $result = [
             'type' => App\Models\RentContract::Type,
@@ -162,7 +171,10 @@ class UtilsAPIController extends AppBaseController
         return $result;
     }
 
-    private function getUnitConstants()
+    /**
+     * @return array
+     */
+    protected function getUnitConstants()
     {
         $result = [
             'type' => App\Models\Unit::Type,
@@ -171,7 +183,10 @@ class UtilsAPIController extends AppBaseController
         return $result;
     }
 
-    private function getServiceProviderConstants()
+    /**
+     * @return array
+     */
+    protected function getServiceProviderConstants()
     {
         $result = [
             'category' => ServiceProvider::ServiceProviderCategory,
@@ -180,7 +195,10 @@ class UtilsAPIController extends AppBaseController
         return $result;
     }
 
-    private function getServiceRequestsConstants()
+    /**
+     * @return array
+     */
+    protected function getServiceRequestsConstants()
     {
         $result = [
             'status' => ServiceRequest::Status,
@@ -196,7 +214,10 @@ class UtilsAPIController extends AppBaseController
         return $result;
     }
 
-    private function getPropertyManagerConstants()
+    /**
+     * @return array
+     */
+    protected function getPropertyManagerConstants()
     {
         $result = [
             'title' => PropertyManager::Title,
@@ -205,21 +226,27 @@ class UtilsAPIController extends AppBaseController
         return $result;
     }
 
-    private function getPostConstants()
+    /**
+     * @return array
+     */
+    protected function getPinboardConstants()
     {
         $result = [
-            'type' => Post::Type,
-            'sub_type' => Post::SubType,
-            'visibility' => Post::Visibility,
-            'status' => Post::Status,
-            'category' => Post::Category,
-            'execution_period' => Post::ExecutionPeriod,
+            'type' => Pinboard::Type,
+            'sub_type' => Pinboard::SubType,
+            'visibility' => Pinboard::Visibility,
+            'status' => Pinboard::Status,
+            'category' => Pinboard::Category,
+            'execution_period' => Pinboard::ExecutionPeriod,
         ];
 
         return $result;
     }
 
-    private function getProductConstants()
+    /**
+     * @return array
+     */
+    protected function getProductConstants()
     {
         $result = [
             'type' => Product::Type,
@@ -230,7 +257,10 @@ class UtilsAPIController extends AppBaseController
         return $result;
     }
 
-    private function getTemplateConstants()
+    /**
+     * @return array
+     */
+    protected function getTemplateConstants()
     {
         $result = [
             'type' => TemplateCategory::Type,

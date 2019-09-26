@@ -58,7 +58,12 @@
                         </el-alert>
                         
                     </div>
-                    <ui-media-uploader v-model="media" :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" :action="`api/v1/requests/${openedRequest.id}/media`" :id="openedRequest.id" :options="{drop: true, draggable: true, multiple: true}" />
+                    <ui-media-uploader v-model="media" 
+                                    :headers="{'Authorization': `Bearer ${authorizationToken}`, 'Accept': 'application/json, text/plain, */*', 'Content-Type': 'application/json;charset=UTF-8'}" 
+                                    :action="`api/v1/requests/${openedRequest.id}/media`" 
+                                    :id="openedRequest.id" 
+                                    type="request"
+                                    :options="{drop: true, draggable: true, multiple: true}" />
 
                 </el-tab-pane>
                 <el-tab-pane name="audit" lazy>

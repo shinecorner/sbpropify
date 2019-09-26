@@ -304,36 +304,29 @@
                         "schema": {
                             "properties": {
                                 "success": {
-                                    "description": "/**",
                                     "type": "boolean",
                                     "example": "true"
                                 },
                                 "data": {
-                                    "description": "/**",
                                     "type": "array",
                                     "items": {
                                         "properties": {
                                             "id": {
-                                                "description": "/**",
                                                 "type": "integer"
                                             },
                                             "name": {
-                                                "description": "/**",
                                                 "type": "string"
                                             },
                                             "units_count": {
-                                                "description": "/**",
                                                 "type": "integer"
                                             },
                                             "tenants_count": {
-                                                "description": "/**",
                                                 "type": "integer"
                                             }
                                         }
                                     }
                                 },
                                 "message": {
-                                    "description": "/**",
                                     "type": "string"
                                 }
                             },
@@ -468,7 +461,7 @@
                 }
             }
         },
-        "/buildings/{post_id}/service/{service_id}": {
+        "/buildings/{pinboard_id}/service/{service_id}": {
             "delete": {
                 "tags": [
                     "Building"
@@ -548,7 +541,7 @@
                     "Building"
                 ],
                 "summary": "Assign the provided propertyManagers to the Building",
-                "description": " <a href='http://dev.propify.ch/api/docs#/Building/post_buildings__id__managers'>http://dev.propify.ch/api/docs#/Building/post_buildings__id__managers</a>",
+                "description": " <a href='http://dev.propify.ch/api/docs#/Building/pinboard_buildings__id__managers'>http://dev.propify.ch/api/docs#/Building/pinboard_buildings__id__managers</a>",
                 "produces": [
                     "application/json"
                 ],
@@ -809,7 +802,7 @@
                 }
             }
         },
-        "/posts/{id}/comments": {
+        "/pinboard/{id}/comments": {
             "post": {
                 "tags": [
                     "Comment"
@@ -1214,6 +1207,1079 @@
                 }
             }
         },
+        "/buildings/{id}/statistics": {
+            "get": {
+                "tags": [
+                    "Building"
+                ],
+                "summary": "Display the specified Building",
+                "description": "Get Building",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Building",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Building"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenants/{id}/statistics": {
+            "get": {
+                "tags": [
+                    "Building"
+                ],
+                "summary": "Display the specified Tenant statistics",
+                "description": "Get Tenants statistics",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Tenant",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Tenant"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/tenants/gender-statistics": {
+            "get": {
+                "tags": [
+                    "Tenant",
+                    "Donut"
+                ],
+                "summary": "Tenants gender statistics for Donut Chart",
+                "description": "Get tenants gender statistics",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "properties": {
+                                        "labels": {
+                                            "description": "Labels for statistics",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "mr",
+                                                "mrs"
+                                            ]
+                                        },
+                                        "data": {
+                                            "description": "data correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            },
+                                            "example": [
+                                                "65",
+                                                "72"
+                                            ]
+                                        },
+                                        "tag_percentage": {
+                                            "description": "percentage correspond data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            },
+                                            "example": [
+                                                "47",
+                                                "53"
+                                            ]
+                                        },
+                                        "average_age": {
+                                            "description": "associative array show average emage",
+                                            "properties": {
+                                                "mr": {
+                                                    "description": "data correspond labels",
+                                                    "type": "integer",
+                                                    "example": 30
+                                                },
+                                                "mrs": {
+                                                    "description": "data correspond labels",
+                                                    "type": "integer",
+                                                    "example": 24
+                                                },
+                                                "both": {
+                                                    "description": "data correspond labels",
+                                                    "type": "integer",
+                                                    "example": 26
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/requests/{id}/statistics": {
+            "get": {
+                "tags": [
+                    "Building"
+                ],
+                "summary": "Display the specified Tenant statistics",
+                "description": "Get ServiceRequest statistics",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Tenant",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Tenant"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/statistics": {
+            "get": {
+                "tags": [
+                    "ServiceRequest",
+                    "Pinboard",
+                    "Tenant",
+                    "Product"
+                ],
+                "summary": "statistics for request, building, pinboard, product",
+                "description": "statistics for request, building, pinboard, product",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "properties": {
+                                        "avg_request_duration": {
+                                            "type": "string",
+                                            "example": "01:07"
+                                        },
+                                        "total_requests": {
+                                            "type": "string",
+                                            "example": "1'000"
+                                        },
+                                        "requests_per_status": {
+                                            "$ref": "#/definitions/Donut"
+                                        },
+                                        "requests_per_category": {
+                                            "properties": {
+                                                "labels": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string"
+                                                    },
+                                                    "example": [
+                                                        "Disturbance",
+                                                        "Defect",
+                                                        "...."
+                                                    ]
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "integer"
+                                                    },
+                                                    "example": [
+                                                        "320",
+                                                        "425",
+                                                        "...."
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "total_tenants": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "tenants_per_status": {
+                                            "$ref": "#/definitions/Donut"
+                                        },
+                                        "total_buildings": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "buildings_per_status": {
+                                            "$ref": "#/definitions/Donut"
+                                        },
+                                        "total_products": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "products_per_status": {
+                                            "$ref": "#/definitions/Donut"
+                                        },
+                                        "total_pinboard": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "pinboard_per_status": {
+                                            "$ref": "#/definitions/Donut"
+                                        },
+                                        "all_start_dates": {
+                                            "properties": {
+                                                "requests": {
+                                                    "type": "string",
+                                                    "example": "01.01.2019"
+                                                },
+                                                "tenants": {
+                                                    "type": "string",
+                                                    "example": "01.01.2019"
+                                                },
+                                                "buildings": {
+                                                    "type": "string",
+                                                    "example": "01.01.2019"
+                                                },
+                                                "products": {
+                                                    "type": "string",
+                                                    "example": "01.01.2019"
+                                                },
+                                                "pinboard": {
+                                                    "type": "string",
+                                                    "example": "01.01.2019"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Request services statistics formatted successfully"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/chartRequestByCreationDate": {
+            "get": {
+                "tags": [
+                    "ServiceRequest",
+                    "CreationDate"
+                ],
+                "summary": "get statistics for Grouped Report for request",
+                "description": "get statistics for Grouped Report for request",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/period"
+                    },
+                    {
+                        "$ref": "#/parameters/start_date"
+                    },
+                    {
+                        "$ref": "#/parameters/end_date"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/StatisticByCreationDate"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Request services statistics formatted successfully"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/chartByCreationDate": {
+            "get": {
+                "tags": [
+                    "Tenant",
+                    "Product",
+                    "Pinboard",
+                    "CreationDate"
+                ],
+                "summary": "get statistics for Grouped Report by products:status | tenants:status | pinboard:status ",
+                "description": "get statistics for Grouped Report by products:status | tenants:status | pinboard:status",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "table",
+                        "in": "query",
+                        "description": "The table used for get statistic data based db table",
+                        "type": "string",
+                        "default": "products",
+                        "enum": [
+                            "products",
+                            "tenants",
+                            "pinboard"
+                        ]
+                    },
+                    {
+                        "name": "column",
+                        "in": "query",
+                        "description": "The column used for get statistic according that column",
+                        "type": "string",
+                        "default": "status",
+                        "enum": [
+                            "status"
+                        ]
+                    },
+                    {
+                        "$ref": "#/parameters/period"
+                    },
+                    {
+                        "$ref": "#/parameters/start_date"
+                    },
+                    {
+                        "$ref": "#/parameters/end_date"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/StatisticByCreationDate"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "products statistics formatted successfully by status"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/chartBuildingsByCreationDate": {
+            "get": {
+                "tags": [
+                    "Building",
+                    "CreationDate"
+                ],
+                "summary": "get statistics for Grouped Report for buildings",
+                "description": "get statistics for Grouped Report for buildings",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/period"
+                    },
+                    {
+                        "$ref": "#/parameters/start_date"
+                    },
+                    {
+                        "$ref": "#/parameters/end_date"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "properties": {
+                                        "requests_per_day_xdata": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "format": "full-date"
+                                            },
+                                            "example": [
+                                                "01.07.2019",
+                                                "02.07.2019",
+                                                ".......",
+                                                "01.08.2019"
+                                            ]
+                                        },
+                                        "requests_per_day_ydata": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "numeric"
+                                            },
+                                            "example": [
+                                                "4",
+                                                "5",
+                                                ".......",
+                                                "2"
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Building statistics formatted successfully"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/donutChart": {
+            "get": {
+                "tags": [
+                    "Tenant",
+                    "ServiceRequest",
+                    "Pinboard",
+                    "Product",
+                    "Donut"
+                ],
+                "summary": "service_requests, products, tenants,  pinboard statistics for Donut Chart",
+                "description": "service_requests:status | tenants:status,title | products:status,type |  pinboard:status,type statistics for Donut Chart",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "table",
+                        "in": "query",
+                        "description": "The table used for get statistic data based db table",
+                        "type": "string",
+                        "default": "service_requests",
+                        "enum": [
+                            "service_requests",
+                            "tenants",
+                            "products",
+                            "pinboard"
+                        ]
+                    },
+                    {
+                        "name": "column",
+                        "in": "query",
+                        "description": "The column used for get statistic according that column | permitted values for each table [service_requests:status | tenants:status,title | products:status,type |  pinboard:status,type]",
+                        "type": "string",
+                        "default": "status",
+                        "enum": [
+                            "status",
+                            "type",
+                            "title"
+                        ]
+                    },
+                    {
+                        "name": "start_date",
+                        "in": "query",
+                        "description": "format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. default value is one month ago of end_date",
+                        "type": "string",
+                        "format": "full-date"
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "query",
+                        "description": "format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. | default value today",
+                        "type": "string",
+                        "format": "full-date"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Donut"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "service_requests statistics by status retrieved successfully for DonutChart"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/donutChartRequestByCategory": {
+            "get": {
+                "tags": [
+                    "ServiceRequest",
+                    "Donut"
+                ],
+                "summary": "Get request statistics for Donut Chart by service_request_categories",
+                "description": "Get request statistics for Donut Chart by service_request_categories",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "start_date",
+                        "in": "query",
+                        "description": "format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. default value is one month ago of end_date",
+                        "type": "string",
+                        "format": "full-date"
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "query",
+                        "description": "format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. | default value today",
+                        "type": "string",
+                        "format": "full-date"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "properties": {
+                                        "labels": {
+                                            "description": "Labels for statistics",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "Disturbance",
+                                                "Defect",
+                                                "....."
+                                            ]
+                                        },
+                                        "data": {
+                                            "description": "data correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            },
+                                            "example": [
+                                                "65",
+                                                "130",
+                                                "..."
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Request statistics retrieved successfully By service_request_categories"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/chartRequestByAssignedProvider": {
+            "get": {
+                "tags": [
+                    "ServiceRequest",
+                    "Donut"
+                ],
+                "summary": "Requests by service_providers statistics for donut chart",
+                "description": "Requests by service_providers statistics for donut chart",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/start_date"
+                    },
+                    {
+                        "$ref": "#/parameters/end_date"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "properties": {
+                                        "labels": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string",
+                                                "format": "full-date"
+                                            },
+                                            "example": [
+                                                "requests_with_service_providers",
+                                                "request_wihout_service_providers"
+                                            ]
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "numeric"
+                                            },
+                                            "example": [
+                                                "45",
+                                                "96"
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Requests by service_providers statistics retrieved successfully"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/donutChartTenantsByDateAndStatus": {
+            "get": {
+                "tags": [
+                    "Tenant",
+                    "Donut"
+                ],
+                "summary": "Tenants statistics for Donut Chart by service_requests status",
+                "description": "Tenants statistics for Donut Chart by service_requests status",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "start_date",
+                        "in": "query",
+                        "description": "format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. default value is one month ago of end_date",
+                        "type": "string",
+                        "format": "full-date"
+                    },
+                    {
+                        "name": "end_date",
+                        "in": "query",
+                        "description": "format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. | default value today",
+                        "type": "string",
+                        "format": "full-date"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "properties": {
+                                        "labels": {
+                                            "description": "Labels for statistics",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "received",
+                                                "in_processing",
+                                                "....."
+                                            ]
+                                        },
+                                        "ids": {
+                                            "description": "key correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "1",
+                                                "2",
+                                                "..."
+                                            ]
+                                        },
+                                        "data": {
+                                            "description": "data correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            },
+                                            "example": [
+                                                "65",
+                                                "130",
+                                                "..."
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Admin statistics retrieved successfully for tenants by request status"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/heatMapByDatePeriod": {
+            "get": {
+                "tags": [
+                    "ServiceRequest",
+                    "HeatMap"
+                ],
+                "summary": "Get Service Request statistics for Heat Map Graph",
+                "description": "Get Service Request statistics for Heat Map Graph",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "period",
+                        "in": "query",
+                        "description": "The column used for get statistic for year period or week period",
+                        "type": "string",
+                        "default": "week",
+                        "enum": [
+                            "week",
+                            "year"
+                        ]
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "Format: dd.mm.yyyy | The column used for get statistic that date correspond week or year",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    },
+                                    "example": [
+                                        {
+                                            "name": 1,
+                                            "data": [
+                                                {
+                                                    "x": 1,
+                                                    "y": "6"
+                                                },
+                                                ".....",
+                                                {
+                                                    "x": 31,
+                                                    "y": "16"
+                                                }
+                                            ]
+                                        },
+                                        ".........",
+                                        {
+                                            "name": 12,
+                                            "data": [
+                                                {
+                                                    "x": 1,
+                                                    "y": "6"
+                                                },
+                                                ".....",
+                                                {
+                                                    "x": 31,
+                                                    "y": "16"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Request services statistics formatted successfully for Heat Map"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/chartLoginDevice": {
+            "get": {
+                "tags": [
+                    "Auth",
+                    "Donut"
+                ],
+                "summary": "Get statistics for Donut Chart by login device",
+                "description": "Get all time statistics for Donut Chart by login device",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "properties": {
+                                        "labels": {
+                                            "description": "Labels for statistics",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "Desktop",
+                                                "Tablet",
+                                                "Mobile"
+                                            ]
+                                        },
+                                        "ids": {
+                                            "description": "key correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "1",
+                                                "2",
+                                                "3"
+                                            ]
+                                        },
+                                        "data": {
+                                            "description": "data correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            },
+                                            "example": [
+                                                "65",
+                                                "130",
+                                                "32"
+                                            ]
+                                        },
+                                        "tag_percentage": {
+                                            "description": "percentage correspond data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            },
+                                            "example": [
+                                                "30",
+                                                "60",
+                                                "10"
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Statistics by login device retrieved successfully"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/chartTenantLanguage": {
+            "get": {
+                "tags": [
+                    "Tenant",
+                    "Donut"
+                ],
+                "summary": "Tenants statistics for Donut Chart by language",
+                "description": "Tenants statistics for Donut Chart by language",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "properties": {
+                                        "labels": {
+                                            "description": "Labels for statistics",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "Douche",
+                                                "English",
+                                                "....."
+                                            ]
+                                        },
+                                        "ids": {
+                                            "description": "key correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "example": [
+                                                "de",
+                                                "en",
+                                                "..."
+                                            ]
+                                        },
+                                        "data": {
+                                            "description": "data correspond labels",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            },
+                                            "example": [
+                                                "65",
+                                                "130",
+                                                "..."
+                                            ]
+                                        },
+                                        "tag_percentage": {
+                                            "description": "percentage correspond data",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "integer"
+                                            },
+                                            "example": [
+                                                "30",
+                                                "60",
+                                                "..."
+                                            ]
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Tenants statistics by language retrieved successfully"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
         "/internalNotices": {
             "get": {
                 "tags": [
@@ -1509,12 +2575,12 @@
                 }
             }
         },
-        "/posts/{post_id}/media": {
+        "/pinboard/{pinboard_id}/media": {
             "post": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Store a newly created Post Media in storage",
+                "summary": "Store a newly created Pinboard Media in storage",
                 "description": "Store Media",
                 "produces": [
                     "application/json"
@@ -1526,7 +2592,7 @@
                         "description": "Media that should be stored",
                         "required": false,
                         "schema": {
-                            "$ref": "#/definitions/Post"
+                            "$ref": "#/definitions/Pinboard"
                         }
                     }
                 ],
@@ -1539,7 +2605,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -1551,7 +2617,7 @@
                 }
             }
         },
-        "/post/{post_id}/media/{media_id}": {
+        "/pinboard/{pinboard_id}/media/{media_id}": {
             "delete": {
                 "tags": [
                     "Listing"
@@ -1608,7 +2674,7 @@
                         "description": "Media that should be stored",
                         "required": false,
                         "schema": {
-                            "$ref": "#/definitions/Post"
+                            "$ref": "#/definitions/Pinboard"
                         }
                     }
                 ],
@@ -1919,40 +2985,6 @@
                 }
             }
         },
-        "/news/rss.xml": {
-            "get": {
-                "tags": [
-                    "RSS"
-                ],
-                "summary": "RSS feed of news",
-                "description": "Get RSS feed of news",
-                "produces": [
-                    "application/xml"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    }
-                }
-            }
-        },
-        "/news/weather.json": {
-            "get": {
-                "tags": [
-                    "weather"
-                ],
-                "summary": "JSON feed of weather",
-                "description": "Get json feed of weather",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    }
-                }
-            }
-        },
         "/notifications": {
             "get": {
                 "tags": [
@@ -2041,137 +3073,13 @@
                 }
             }
         },
-        "/auth/forgot_password": {
-            "post": {
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Send email for reseting password",
-                "description": "PasswordReset",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "Send email for reseting password",
-                        "required": false,
-                        "schema": {
-                            "$ref": "#/definitions/PasswordReset"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/PasswordReset"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/auth/forgot_password/{token}": {
-            "get": {
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Validate token for password reset",
-                "description": "Validate token for password reset",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "string",
-                        "in": "path",
-                        "description": "token",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/PasswordReset"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/auth/reset_password": {
-            "post": {
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Reset password",
-                "description": "Reset password",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "Reset password",
-                        "required": false,
-                        "schema": {
-                            "$ref": "#/definitions/PasswordReset"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/PasswordReset"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/posts": {
+        "/pinboard": {
             "get": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Get a listing of the Posts.",
-                "description": "Get all Posts",
+                "summary": "Get a listing of the Pinboard.",
+                "description": "Get all Pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -2186,7 +3094,7 @@
                                 "data": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/definitions/Post"
+                                        "$ref": "#/definitions/Pinboard"
                                     }
                                 },
                                 "message": {
@@ -2202,8 +3110,8 @@
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Store a newly created Post in storage",
-                "description": "Store Post",
+                "summary": "Store a newly created Pinboard in storage",
+                "description": "Store Pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -2211,10 +3119,10 @@
                     {
                         "name": "body",
                         "in": "body",
-                        "description": "Post that should be stored",
+                        "description": "Pinboard that should be stored",
                         "required": false,
                         "schema": {
-                            "$ref": "#/definitions/Post"
+                            "$ref": "#/definitions/Pinboard"
                         }
                     }
                 ],
@@ -2227,7 +3135,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -2239,13 +3147,13 @@
                 }
             }
         },
-        "/posts/{id}": {
+        "/pinboard/{id}": {
             "get": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Display the specified Post",
-                "description": "Get Post",
+                "summary": "Display the specified Pinboard",
+                "description": "Get Pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -2253,7 +3161,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id of Post",
+                        "description": "id of Pinboard",
                         "required": true,
                         "type": "integer"
                     }
@@ -2267,7 +3175,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -2282,8 +3190,8 @@
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Update the specified Post in storage",
-                "description": "Update Post",
+                "summary": "Update the specified Pinboard in storage",
+                "description": "Update Pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -2291,17 +3199,17 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id of Post",
+                        "description": "id of Pinboard",
                         "required": true,
                         "type": "integer"
                     },
                     {
                         "name": "body",
                         "in": "body",
-                        "description": "Post that should be updated",
+                        "description": "Pinboard that should be updated",
                         "required": false,
                         "schema": {
-                            "$ref": "#/definitions/Post"
+                            "$ref": "#/definitions/Pinboard"
                         }
                     }
                 ],
@@ -2314,7 +3222,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -2329,8 +3237,8 @@
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Remove the specified Post from storage",
-                "description": "Delete Post",
+                "summary": "Remove the specified Pinboard from storage",
+                "description": "Delete Pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -2338,7 +3246,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id of Post",
+                        "description": "id of Pinboard",
                         "required": true,
                         "type": "integer"
                     }
@@ -2364,13 +3272,13 @@
                 }
             }
         },
-        "/posts/{id}/publish": {
+        "/pinboard/{id}/publish": {
             "post": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Publish a post",
-                "description": "Publish a post",
+                "summary": "Publish a pinboard",
+                "description": "Publish a pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -2378,17 +3286,17 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id of Post",
+                        "description": "id of Pinboard",
                         "required": true,
                         "type": "integer"
                     },
                     {
                         "name": "status",
                         "in": "body",
-                        "description": "The new status of the post",
+                        "description": "The new status of the pinboard",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Post"
+                            "$ref": "#/definitions/Pinboard"
                         },
                         "type": "integer",
                         "format": "int32"
@@ -2403,7 +3311,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -2415,13 +3323,13 @@
                 }
             }
         },
-        "/posts/{id}/like": {
+        "/pinboard/{id}/like": {
             "post": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Like a post",
-                "description": "Like a post",
+                "summary": "Like a pinboard",
+                "description": "Like a pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -2429,7 +3337,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id of Post",
+                        "description": "id of Pinboard",
                         "required": true,
                         "type": "integer"
                     }
@@ -2456,13 +3364,13 @@
                 }
             }
         },
-        "/posts/{id}/unlike": {
+        "/pinboard/{id}/unlike": {
             "post": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Unlike a post",
-                "description": "Unlike a post",
+                "summary": "Unlike a pinboard",
+                "description": "Unlike a pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -2470,7 +3378,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id of Post",
+                        "description": "id of Pinboard",
                         "required": true,
                         "type": "integer"
                     }
@@ -2484,7 +3392,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "description": "count of likes for the post",
+                                    "description": "count of likes for the pinboard",
                                     "type": "integer"
                                 },
                                 "message": {
@@ -2497,13 +3405,13 @@
                 }
             }
         },
-        "/posts/{id}/buildings/{bid}": {
+        "/pinboard/{id}/buildings/{bid}": {
             "post": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Assign the provided building to the post",
-                "description": "Assign the provided building to the post",
+                "summary": "Assign the provided building to the pinboard",
+                "description": "Assign the provided building to the pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -2516,7 +3424,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -2531,8 +3439,8 @@
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Unassign the provided building to the post",
-                "description": "Unassign the provided building to the post",
+                "summary": "Unassign the provided building to the pinboard",
+                "description": "Unassign the provided building to the pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -2545,7 +3453,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -2557,13 +3465,13 @@
                 }
             }
         },
-        "/posts/{id}/quarters/{did}": {
+        "/pinboard/{id}/quarters/{did}": {
             "post": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Assign the provided quarter to the post",
-                "description": "Assign the provided quarter to the post",
+                "summary": "Assign the provided quarter to the pinboard",
+                "description": "Assign the provided quarter to the pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -2576,7 +3484,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -2591,8 +3499,8 @@
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Unassign the provided quarter to the post",
-                "description": "Unassign the provided quarter to the post",
+                "summary": "Unassign the provided quarter to the pinboard",
+                "description": "Unassign the provided quarter to the pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -2605,7 +3513,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -2617,13 +3525,13 @@
                 }
             }
         },
-        "/posts/{id}/locations": {
+        "/pinboard/{id}/locations": {
             "get": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Get a listing of the post locations.",
-                "description": "Get a listing of the post locations.",
+                "summary": "Get a listing of the pinboard locations.",
+                "description": "Get a listing of the pinboard locations.",
                 "produces": [
                     "application/json"
                 ],
@@ -2638,7 +3546,7 @@
                                 "data": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/definitions/Post"
+                                        "$ref": "#/definitions/Pinboard"
                                     }
                                 },
                                 "message": {
@@ -2651,13 +3559,13 @@
                 }
             }
         },
-        "/posts/{id}/providers/{pid}": {
+        "/pinboard/{id}/providers/{pid}": {
             "post": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Assign the provided service provider to the post",
-                "description": "Assign the provided service provider to the post",
+                "summary": "Assign the provided service provider to the pinboard",
+                "description": "Assign the provided service provider to the pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -2670,7 +3578,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -2685,8 +3593,8 @@
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Unassign the provided service provider to the post",
-                "description": "Unassign the provided service provider to the post",
+                "summary": "Unassign the provided service provider to the pinboard",
+                "description": "Unassign the provided service provider to the pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -2699,7 +3607,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -2711,13 +3619,13 @@
                 }
             }
         },
-        "/posts/{id}/views": {
+        "/pinboard/{id}/views": {
             "get": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "List the view count of the post",
-                "description": "List the view count of the post",
+                "summary": "List the view count of the pinboard",
+                "description": "List the view count of the pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -2730,7 +3638,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/PostView"
+                                    "$ref": "#/definitions/PinboardView"
                                 },
                                 "message": {
                                     "type": "string"
@@ -2745,8 +3653,8 @@
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Increment the view count of the post",
-                "description": "Increment the view count of the post",
+                "summary": "Increment the view count of the pinboard",
+                "description": "Increment the view count of the pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -2759,7 +3667,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -2767,6 +3675,40 @@
                             },
                             "type": "object"
                         }
+                    }
+                }
+            }
+        },
+        "/pinboard/rss.xml": {
+            "get": {
+                "tags": [
+                    "RSS"
+                ],
+                "summary": "RSS feed of pinboard",
+                "description": "Get RSS feed of pinboard",
+                "produces": [
+                    "application/xml"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/pinboard/weather.json": {
+            "get": {
+                "tags": [
+                    "weather"
+                ],
+                "summary": "JSON feed of weather",
+                "description": "Get json feed of weather",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
                     }
                 }
             }
@@ -3735,7 +4677,7 @@
                     "Quarter"
                 ],
                 "summary": "Assign the provided propertyManagers to the Quarter",
-                "description": " <a href='http://dev.propify.ch/api/docs#/Quarter/post_quarters__id__managers'>http://dev.propify.ch/api/docs#/Quarter/post_quarters__id__managers</a>",
+                "description": " <a href='http://dev.propify.ch/api/docs#/Quarter/pinboard_quarters__id__managers'>http://dev.propify.ch/api/docs#/Quarter/pinboard_quarters__id__managers</a>",
                 "produces": [
                     "application/json"
                 ],
@@ -5038,7 +5980,7 @@
                     "ServiceRequest"
                 ],
                 "summary": "Assign the provided user to the request",
-                "description": "use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/post_requests__id__managers__pmid_'>/requests/{id}/managers/{pmid}</a>",
+                "description": "use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/pinboard_requests__id__managers__pmid_'>/requests/{id}/managers/{pmid}</a>",
                 "produces": [
                     "application/json"
                 ],
@@ -5807,1079 +6749,6 @@
                                 },
                                 "message": {
                                     "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/buildings/{id}/statistics": {
-            "get": {
-                "tags": [
-                    "Building"
-                ],
-                "summary": "Display the specified Building",
-                "description": "Get Building",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of Building",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Building"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/tenants/{id}/statistics": {
-            "get": {
-                "tags": [
-                    "Building"
-                ],
-                "summary": "Display the specified Tenant statistics",
-                "description": "Get Tenants statistics",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of Tenant",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Tenant"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/tenants/gender-statistics": {
-            "get": {
-                "tags": [
-                    "Tenant",
-                    "Donut"
-                ],
-                "summary": "Tenants gender statistics for Donut Chart",
-                "description": "Get tenants gender statistics",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "properties": {
-                                        "labels": {
-                                            "description": "Labels for statistics",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string"
-                                            },
-                                            "example": [
-                                                "mr",
-                                                "mrs"
-                                            ]
-                                        },
-                                        "data": {
-                                            "description": "data correspond labels",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "integer"
-                                            },
-                                            "example": [
-                                                "65",
-                                                "72"
-                                            ]
-                                        },
-                                        "tag_percentage": {
-                                            "description": "percentage correspond data",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "integer"
-                                            },
-                                            "example": [
-                                                "47",
-                                                "53"
-                                            ]
-                                        },
-                                        "average_age": {
-                                            "description": "associative array show average emage",
-                                            "properties": {
-                                                "mr": {
-                                                    "description": "data correspond labels",
-                                                    "type": "integer",
-                                                    "example": 30
-                                                },
-                                                "mrs": {
-                                                    "description": "data correspond labels",
-                                                    "type": "integer",
-                                                    "example": 24
-                                                },
-                                                "both": {
-                                                    "description": "data correspond labels",
-                                                    "type": "integer",
-                                                    "example": 26
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/requests/{id}/statistics": {
-            "get": {
-                "tags": [
-                    "Building"
-                ],
-                "summary": "Display the specified Tenant statistics",
-                "description": "Get ServiceRequest statistics",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "id of Tenant",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Tenant"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/admin/statistics": {
-            "get": {
-                "tags": [
-                    "ServiceRequest",
-                    "Post",
-                    "Tenant",
-                    "Product"
-                ],
-                "summary": "statistics for request, building, post, product",
-                "description": "statistics for request, building, post, product",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "properties": {
-                                        "avg_request_duration": {
-                                            "type": "string",
-                                            "example": "01:07"
-                                        },
-                                        "total_requests": {
-                                            "type": "string",
-                                            "example": "1'000"
-                                        },
-                                        "requests_per_status": {
-                                            "$ref": "#/definitions/Donut"
-                                        },
-                                        "requests_per_category": {
-                                            "properties": {
-                                                "labels": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "string"
-                                                    },
-                                                    "example": [
-                                                        "Disturbance",
-                                                        "Defect",
-                                                        "...."
-                                                    ]
-                                                },
-                                                "data": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "integer"
-                                                    },
-                                                    "example": [
-                                                        "320",
-                                                        "425",
-                                                        "...."
-                                                    ]
-                                                }
-                                            },
-                                            "type": "object"
-                                        },
-                                        "total_tenants": {
-                                            "type": "string",
-                                            "example": "200"
-                                        },
-                                        "tenants_per_status": {
-                                            "$ref": "#/definitions/Donut"
-                                        },
-                                        "total_buildings": {
-                                            "type": "string",
-                                            "example": "200"
-                                        },
-                                        "buildings_per_status": {
-                                            "$ref": "#/definitions/Donut"
-                                        },
-                                        "total_products": {
-                                            "type": "string",
-                                            "example": "200"
-                                        },
-                                        "products_per_status": {
-                                            "$ref": "#/definitions/Donut"
-                                        },
-                                        "total_posts": {
-                                            "type": "string",
-                                            "example": "200"
-                                        },
-                                        "posts_per_status": {
-                                            "$ref": "#/definitions/Donut"
-                                        },
-                                        "all_start_dates": {
-                                            "properties": {
-                                                "requests": {
-                                                    "type": "string",
-                                                    "example": "01.01.2019"
-                                                },
-                                                "tenants": {
-                                                    "type": "string",
-                                                    "example": "01.01.2019"
-                                                },
-                                                "buildings": {
-                                                    "type": "string",
-                                                    "example": "01.01.2019"
-                                                },
-                                                "products": {
-                                                    "type": "string",
-                                                    "example": "01.01.2019"
-                                                },
-                                                "posts": {
-                                                    "type": "string",
-                                                    "example": "01.01.2019"
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                },
-                                "message": {
-                                    "type": "string",
-                                    "example": "Request services statistics formatted successfully"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/admin/chartRequestByCreationDate": {
-            "get": {
-                "tags": [
-                    "ServiceRequest",
-                    "CreationDate"
-                ],
-                "summary": "get statistics for Grouped Report for request",
-                "description": "get statistics for Grouped Report for request",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/period"
-                    },
-                    {
-                        "$ref": "#/parameters/start_date"
-                    },
-                    {
-                        "$ref": "#/parameters/end_date"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/StatisticByCreationDate"
-                                },
-                                "message": {
-                                    "type": "string",
-                                    "example": "Request services statistics formatted successfully"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/admin/chartByCreationDate": {
-            "get": {
-                "tags": [
-                    "Tenant",
-                    "Product",
-                    "Post",
-                    "CreationDate"
-                ],
-                "summary": "get statistics for Grouped Report by products:status | tenants:status | posts:status ",
-                "description": "get statistics for Grouped Report by products:status | tenants:status | posts:status",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "table",
-                        "in": "query",
-                        "description": "The table used for get statistic data based db table",
-                        "type": "string",
-                        "default": "products",
-                        "enum": [
-                            "products",
-                            "tenants",
-                            "posts"
-                        ]
-                    },
-                    {
-                        "name": "column",
-                        "in": "query",
-                        "description": "The column used for get statistic according that column",
-                        "type": "string",
-                        "default": "status",
-                        "enum": [
-                            "status"
-                        ]
-                    },
-                    {
-                        "$ref": "#/parameters/period"
-                    },
-                    {
-                        "$ref": "#/parameters/start_date"
-                    },
-                    {
-                        "$ref": "#/parameters/end_date"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/StatisticByCreationDate"
-                                },
-                                "message": {
-                                    "type": "string",
-                                    "example": "products statistics formatted successfully by status"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/admin/chartBuildingsByCreationDate": {
-            "get": {
-                "tags": [
-                    "Building",
-                    "CreationDate"
-                ],
-                "summary": "get statistics for Grouped Report for buildings",
-                "description": "get statistics for Grouped Report for buildings",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/period"
-                    },
-                    {
-                        "$ref": "#/parameters/start_date"
-                    },
-                    {
-                        "$ref": "#/parameters/end_date"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "properties": {
-                                        "requests_per_day_xdata": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string",
-                                                "format": "full-date"
-                                            },
-                                            "example": [
-                                                "01.07.2019",
-                                                "02.07.2019",
-                                                ".......",
-                                                "01.08.2019"
-                                            ]
-                                        },
-                                        "requests_per_day_ydata": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "numeric"
-                                            },
-                                            "example": [
-                                                "4",
-                                                "5",
-                                                ".......",
-                                                "2"
-                                            ]
-                                        }
-                                    },
-                                    "type": "object"
-                                },
-                                "message": {
-                                    "type": "string",
-                                    "example": "Building statistics formatted successfully"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/admin/donutChart": {
-            "get": {
-                "tags": [
-                    "Tenant",
-                    "ServiceRequest",
-                    "Post",
-                    "Product",
-                    "Donut"
-                ],
-                "summary": "service_requests, products, tenants,  posts statistics for Donut Chart",
-                "description": "service_requests:status | tenants:status,title | products:status,type |  posts:status,type statistics for Donut Chart",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "table",
-                        "in": "query",
-                        "description": "The table used for get statistic data based db table",
-                        "type": "string",
-                        "default": "service_requests",
-                        "enum": [
-                            "service_requests",
-                            "tenants",
-                            "products",
-                            "posts"
-                        ]
-                    },
-                    {
-                        "name": "column",
-                        "in": "query",
-                        "description": "The column used for get statistic according that column | permitted values for each table [service_requests:status | tenants:status,title | products:status,type |  posts:status,type]",
-                        "type": "string",
-                        "default": "status",
-                        "enum": [
-                            "status",
-                            "type",
-                            "title"
-                        ]
-                    },
-                    {
-                        "name": "start_date",
-                        "in": "query",
-                        "description": "format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. default value is one month ago of end_date",
-                        "type": "string",
-                        "format": "full-date"
-                    },
-                    {
-                        "name": "end_date",
-                        "in": "query",
-                        "description": "format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. | default value today",
-                        "type": "string",
-                        "format": "full-date"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/Donut"
-                                },
-                                "message": {
-                                    "type": "string",
-                                    "example": "service_requests statistics by status retrieved successfully for DonutChart"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/admin/donutChartRequestByCategory": {
-            "get": {
-                "tags": [
-                    "ServiceRequest",
-                    "Donut"
-                ],
-                "summary": "Get request statistics for Donut Chart by service_request_categories",
-                "description": "Get request statistics for Donut Chart by service_request_categories",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "start_date",
-                        "in": "query",
-                        "description": "format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. default value is one month ago of end_date",
-                        "type": "string",
-                        "format": "full-date"
-                    },
-                    {
-                        "name": "end_date",
-                        "in": "query",
-                        "description": "format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. | default value today",
-                        "type": "string",
-                        "format": "full-date"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "properties": {
-                                        "labels": {
-                                            "description": "Labels for statistics",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string"
-                                            },
-                                            "example": [
-                                                "Disturbance",
-                                                "Defect",
-                                                "....."
-                                            ]
-                                        },
-                                        "data": {
-                                            "description": "data correspond labels",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "integer"
-                                            },
-                                            "example": [
-                                                "65",
-                                                "130",
-                                                "..."
-                                            ]
-                                        }
-                                    },
-                                    "type": "object"
-                                },
-                                "message": {
-                                    "type": "string",
-                                    "example": "Request statistics retrieved successfully By service_request_categories"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/admin/chartRequestByAssignedProvider": {
-            "get": {
-                "tags": [
-                    "ServiceRequest",
-                    "Donut"
-                ],
-                "summary": "Requests by service_providers statistics for donut chart",
-                "description": "Requests by service_providers statistics for donut chart",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "$ref": "#/parameters/start_date"
-                    },
-                    {
-                        "$ref": "#/parameters/end_date"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "properties": {
-                                        "labels": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string",
-                                                "format": "full-date"
-                                            },
-                                            "example": [
-                                                "requests_with_service_providers",
-                                                "request_wihout_service_providers"
-                                            ]
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "numeric"
-                                            },
-                                            "example": [
-                                                "45",
-                                                "96"
-                                            ]
-                                        }
-                                    },
-                                    "type": "object"
-                                },
-                                "message": {
-                                    "type": "string",
-                                    "example": "Requests by service_providers statistics retrieved successfully"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/admin/donutChartTenantsByDateAndStatus": {
-            "get": {
-                "tags": [
-                    "Tenant",
-                    "Donut"
-                ],
-                "summary": "Tenants statistics for Donut Chart by service_requests status",
-                "description": "Tenants statistics for Donut Chart by service_requests status",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "start_date",
-                        "in": "query",
-                        "description": "format: dd.mm.yyyy | example: 19.06.2019 | Get statistic after correspond value. default value is one month ago of end_date",
-                        "type": "string",
-                        "format": "full-date"
-                    },
-                    {
-                        "name": "end_date",
-                        "in": "query",
-                        "description": "format: dd.mm.yyyy | example: 19.07.2019 | Get statistic before correspond value. | default value today",
-                        "type": "string",
-                        "format": "full-date"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "properties": {
-                                        "labels": {
-                                            "description": "Labels for statistics",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string"
-                                            },
-                                            "example": [
-                                                "received",
-                                                "in_processing",
-                                                "....."
-                                            ]
-                                        },
-                                        "ids": {
-                                            "description": "key correspond labels",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string"
-                                            },
-                                            "example": [
-                                                "1",
-                                                "2",
-                                                "..."
-                                            ]
-                                        },
-                                        "data": {
-                                            "description": "data correspond labels",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "integer"
-                                            },
-                                            "example": [
-                                                "65",
-                                                "130",
-                                                "..."
-                                            ]
-                                        }
-                                    },
-                                    "type": "object"
-                                },
-                                "message": {
-                                    "type": "string",
-                                    "example": "Admin statistics retrieved successfully for tenants by request status"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/admin/heatMapByDatePeriod": {
-            "get": {
-                "tags": [
-                    "ServiceRequest",
-                    "HeatMap"
-                ],
-                "summary": "Get Service Request statistics for Heat Map Graph",
-                "description": "Get Service Request statistics for Heat Map Graph",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "period",
-                        "in": "query",
-                        "description": "The column used for get statistic for year period or week period",
-                        "type": "string",
-                        "default": "week",
-                        "enum": [
-                            "week",
-                            "year"
-                        ]
-                    },
-                    {
-                        "name": "date",
-                        "in": "query",
-                        "description": "Format: dd.mm.yyyy | The column used for get statistic that date correspond week or year",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "object"
-                                    },
-                                    "example": [
-                                        {
-                                            "name": 1,
-                                            "data": [
-                                                {
-                                                    "x": 1,
-                                                    "y": "6"
-                                                },
-                                                ".....",
-                                                {
-                                                    "x": 31,
-                                                    "y": "16"
-                                                }
-                                            ]
-                                        },
-                                        ".........",
-                                        {
-                                            "name": 12,
-                                            "data": [
-                                                {
-                                                    "x": 1,
-                                                    "y": "6"
-                                                },
-                                                ".....",
-                                                {
-                                                    "x": 31,
-                                                    "y": "16"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                "message": {
-                                    "type": "string",
-                                    "example": "Request services statistics formatted successfully for Heat Map"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/admin/chartLoginDevice": {
-            "get": {
-                "tags": [
-                    "Auth",
-                    "Donut"
-                ],
-                "summary": "Get statistics for Donut Chart by login device",
-                "description": "Get all time statistics for Donut Chart by login device",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "properties": {
-                                        "labels": {
-                                            "description": "Labels for statistics",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string"
-                                            },
-                                            "example": [
-                                                "Desktop",
-                                                "Tablet",
-                                                "Mobile"
-                                            ]
-                                        },
-                                        "ids": {
-                                            "description": "key correspond labels",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string"
-                                            },
-                                            "example": [
-                                                "1",
-                                                "2",
-                                                "3"
-                                            ]
-                                        },
-                                        "data": {
-                                            "description": "data correspond labels",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "integer"
-                                            },
-                                            "example": [
-                                                "65",
-                                                "130",
-                                                "32"
-                                            ]
-                                        },
-                                        "tag_percentage": {
-                                            "description": "percentage correspond data",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "integer"
-                                            },
-                                            "example": [
-                                                "30",
-                                                "60",
-                                                "10"
-                                            ]
-                                        }
-                                    },
-                                    "type": "object"
-                                },
-                                "message": {
-                                    "type": "string",
-                                    "example": "Statistics by login device retrieved successfully"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/admin/chartTenantLanguage": {
-            "get": {
-                "tags": [
-                    "Tenant",
-                    "Donut"
-                ],
-                "summary": "Tenants statistics for Donut Chart by language",
-                "description": "Tenants statistics for Donut Chart by language",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "properties": {
-                                        "labels": {
-                                            "description": "Labels for statistics",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string"
-                                            },
-                                            "example": [
-                                                "Douche",
-                                                "English",
-                                                "....."
-                                            ]
-                                        },
-                                        "ids": {
-                                            "description": "key correspond labels",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string"
-                                            },
-                                            "example": [
-                                                "de",
-                                                "en",
-                                                "..."
-                                            ]
-                                        },
-                                        "data": {
-                                            "description": "data correspond labels",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "integer"
-                                            },
-                                            "example": [
-                                                "65",
-                                                "130",
-                                                "..."
-                                            ]
-                                        },
-                                        "tag_percentage": {
-                                            "description": "percentage correspond data",
-                                            "type": "array",
-                                            "items": {
-                                                "type": "integer"
-                                            },
-                                            "example": [
-                                                "30",
-                                                "60",
-                                                "..."
-                                            ]
-                                        }
-                                    },
-                                    "type": "object"
-                                },
-                                "message": {
-                                    "type": "string",
-                                    "example": "Tenants statistics by language retrieved successfully"
                                 }
                             },
                             "type": "object"
@@ -8484,40 +8353,6 @@
                 }
             }
         },
-        "/services": {
-            "get": {
-                "tags": [
-                    "Service"
-                ],
-                "summary": "Get a listing of the Service Users.",
-                "description": "Get all services Users",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/definitions/User"
-                                    }
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
         "/users/{id}": {
             "get": {
                 "tags": [
@@ -9444,48 +9279,7 @@
                 }
             }
         },
-        "PinnedEmailReceptionist": {
-            "required": [
-                "content"
-            ],
-            "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "post_id": {
-                    "description": "post_id",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "tenant_ids": {
-                    "description": "tenant_ids",
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                },
-                "failed_tenant_ids": {
-                    "description": "failed_tenant_ids",
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
-                }
-            }
-        },
-        "Post": {
+        "Pinboard": {
             "required": [
                 "content"
             ],
@@ -9558,7 +9352,7 @@
                 }
             }
         },
-        "PostView": {
+        "PinboardView": {
             "required": [],
             "properties": {
                 "id": {
@@ -9566,8 +9360,8 @@
                     "type": "integer",
                     "format": "int32"
                 },
-                "post_id": {
-                    "description": "post_id",
+                "pinboard_id": {
+                    "description": "pinboard_id",
                     "type": "integer",
                     "format": "int32"
                 },
@@ -9580,6 +9374,47 @@
                     "description": "views",
                     "type": "integer",
                     "format": "int32"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "PinnedEmailReceptionist": {
+            "required": [
+                "content"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "pinboard_id": {
+                    "description": "pinboard_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "tenant_ids": {
+                    "description": "tenant_ids",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "failed_tenant_ids": {
+                    "description": "failed_tenant_ids",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 },
                 "created_at": {
                     "description": "created_at",
@@ -9930,21 +9765,24 @@
                     "description": "deposit_amount",
                     "type": "integer"
                 },
-                "net_rent": {
-                    "description": "net_rent",
-                    "type": "integer"
-                },
-                "operating_cost": {
-                    "description": "operating_cost",
-                    "type": "integer"
-                },
-                "gross_rent": {
-                    "description": "gross_rent",
-                    "type": "integer"
-                },
                 "parking_price": {
                     "description": "parking_price",
                     "type": "integer"
+                },
+                "monthly_rent_net": {
+                    "description": "monthly_rent_net",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "monthly_rent_gross": {
+                    "description": "monthly_rent_gross",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "monthly_maintenance": {
+                    "description": "monthly_maintenance",
+                    "type": "integer",
+                    "format": "int32"
                 },
                 "start_date": {
                     "description": "start_date",
@@ -10113,6 +9951,14 @@
                 "visibility": {
                     "description": "visibility",
                     "type": "int32"
+                },
+                "is_public": {
+                    "description": "is_public",
+                    "type": "boolean"
+                },
+                "notify_email": {
+                    "description": "notify_email",
+                    "type": "boolean"
                 },
                 "created_at": {
                     "description": "created_at",
@@ -10537,11 +10383,6 @@
                     "type": "integer",
                     "format": "int32"
                 },
-                "monthly_rent": {
-                    "description": "monthly_rent",
-                    "type": "number",
-                    "format": "float"
-                },
                 "room_no": {
                     "description": "room_no",
                     "type": "string",
@@ -10549,6 +10390,21 @@
                 },
                 "basement": {
                     "description": "basement",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "monthly_rent_net": {
+                    "description": "monthly_rent_net",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "monthly_rent_gross": {
+                    "description": "monthly_rent_gross",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "monthly_maintenance": {
+                    "description": "monthly_maintenance",
                     "type": "integer",
                     "format": "int32"
                 },

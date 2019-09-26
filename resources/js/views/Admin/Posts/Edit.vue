@@ -105,7 +105,7 @@
                                             :config="editorConfig"
                                             v-model="model.content"/>
                                 </el-form-item>
-                                <el-form-item v-if="this.model.type == 3 && this.showdefaultimage == true">
+                                <el-form-item v-if="this.model.type == 3 && this.model.sub_type == 3 && this.showdefaultimage == true">
                                     <label>{{$t('models.post.category_default_image_label')}}</label>
                                     <el-switch v-model="model.pinned_category"/>
                                     <el-row :gutter="20">
@@ -298,7 +298,7 @@
                     </el-card>
 
                     <el-card :header="$t('models.post.pinned')" v-if="model.type == 3" :loading="loading" class="mt15">
-                        <el-row :gutter="20">
+                        <el-row :gutter="20" type="flex" align="bottom">
                             <el-col :md="12">
                                 <el-form-item :label="$t('models.post.execution_period.label')">
                                     <el-select style="display: block"
@@ -314,9 +314,13 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12">
-                                <el-form-item :label="$t('models.post.specify_time_question')">
-                                    <el-switch v-model="model.is_execution_time" @change="!model.is_execution_time ? resetExecutionTime() : ''">
-                                    </el-switch>
+                                <el-form-item class="switcher">
+                                    <label class="switcher__label">
+                                        {{$t('models.post.specify_time_question')}}
+                                        <span class="switcher__desc">Lorem ipsum dolor sit amet.</span>
+                                    </label>
+                                    <el-switch v-model="model.is_execution_time"
+                                               @change="!model.is_execution_time ? resetExecutionTime() : ''"/>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -325,6 +329,7 @@
                                 <el-form-item :label="model.execution_period == 2 ? $t('models.post.execution_interval.start') : $t('models.post.execution_interval.date')"
                                               prop="execution_start">
                                     <el-date-picker
+                                        prefix-icon="el-icon-date"
                                         :picker-options="{disabledDate: disabledExecutionStart}"
                                         :format="model.is_execution_time ? 'dd.MM.yyyy HH:mm' : 'dd.MM.yyyy'"
                                         style="width: 100%"
@@ -339,6 +344,7 @@
                                 <el-form-item :label="$t('models.post.execution_interval.end')"
                                               prop="execution_end">
                                     <el-date-picker
+                                        prefix-icon="el-icon-date"
                                         :picker-options="{disabledDate: disabledExecutionEnd}"
                                         :format="model.is_execution_time ? 'dd.MM.yyyy HH:mm' : 'dd.MM.yyyy'"
                                         style="width: 100%"
@@ -624,6 +630,27 @@
         }
     }
 </script>
+
+<style lang="scss">
+    .switcher {
+        .el-form-item__content {
+            display: flex;
+            align-items: center;
+        }
+        &__label {
+            line-height: 1.4em;
+            color: #606266;
+        }
+        &__desc {
+            margin-top: 0.5em;
+            display: block;
+            font-size: 0.9em;
+        }
+        .el-switch {
+            margin-left: auto;
+        }
+    }
+</style>
 
 <style lang="scss" scoped>
     .custom-select {

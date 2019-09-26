@@ -19,7 +19,7 @@
                      v-if="this.filters.length"
                     :element-loading-background="loading.background"
                     :element-loading-spinner="loading.icon"
-                    :element-loading-text="loading.text"
+                    :element-loading-text="$t(loading.text)"
                     v-loading="isLoadingFilters.state"
             >
                 <el-row :gutter="10">
@@ -226,7 +226,7 @@
                 type: Object,
                 default: () => ({
                     state: false,
-                    text: 'Loading...',
+                    text: 'general.loading',
                     icon: 'el-icon-loading',
                     background: 'rgba(0, 0, 0, 0.8)'
                 })
@@ -235,7 +235,7 @@
                 type: Object,
                 default: () => ({
                     state: false,
-                    text: 'Loading...',
+                    text: 'general.loading',
                     icon: 'el-icon-loading',
                     background: 'rgba(0, 0, 0, 0.8)'
                 })

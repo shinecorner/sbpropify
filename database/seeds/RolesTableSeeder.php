@@ -14,7 +14,7 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         $userPermissions = Permission::where('name', 'like', '%-user')->get();
-        $postPermissions = Permission::where('name', 'like', '%-post')->get();
+        $postPermissions = Permission::where('name', 'like', '%-pinboard')->get();
         $prodPermissions = Permission::where('name', 'like', '%-product')->get();
         $reqPermissions = Permission::where('name', 'like', '%-request')->get();
         $providerPermissions = Permission::where('name', 'like', '%-provider')->get();
@@ -30,6 +30,9 @@ class RolesTableSeeder extends Seeder
         $templatePermissions = Permission::where('name', 'like', '%-template')->get();
         $sReqCategPermissions = Permission::where('name', 'like', '%-service_request_category')->get();
         $cleanifyPermissions = Permission::where('name', 'like', '%-cleanify_request')->get();
+        $statisticsPermissions = Permission::where('name', 'like', '%_statistics')->get();
+        $tagPermissions = Permission::where('name', 'like', '%-tag')->get();
+        $translationPermissions = Permission::where('name', 'like', '%-translation')->get();
 
         $allPermissions = $userPermissions
             ->merge($postPermissions)
@@ -47,7 +50,10 @@ class RolesTableSeeder extends Seeder
             ->merge($templatePermissions)
             ->merge($sReqCategPermissions)
             ->merge($cleanifyPermissions)
-            ->merge($auditPermissions);
+            ->merge($auditPermissions)
+            ->merge($tagPermissions)
+            ->merge($translationPermissions)
+            ->merge($statisticsPermissions);
 
         $adminPermissions = $userPermissions
             ->merge($providerPermissions)
@@ -61,7 +67,10 @@ class RolesTableSeeder extends Seeder
             ->merge($realEstatePermissions)
             ->merge($templatePermissions)
             ->merge($sReqCategPermissions)
-            ->merge($reqPermissions);
+            ->merge($reqPermissions)
+            ->merge($tagPermissions)
+            ->merge($translationPermissions)
+            ->merge($statisticsPermissions);
 
         $superAdmin = new Role();
         $superAdmin->name = 'super_admin';

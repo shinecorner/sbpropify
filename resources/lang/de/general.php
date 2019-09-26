@@ -85,8 +85,9 @@ return [
     'zip' => 'PLZ',
     'content' => 'Inhalt',
     'none' => 'Nichts gewählt',
-    'all' => 'Alle',
+    'all' => 'Alle',    
     'loadMore' => 'Weitere laden',
+    'loading' => 'Ladet...',
     'account' => 'Konto',
     'activate_account' => 'Konto aktivieren',
     'activate_code' => 'Aktivierunscode',
@@ -253,5 +254,4 @@ return [
     'to_homepage' => 'Zur Startseite',
     'assignment' => 'Zugewiesene Liegenschaften',
     'status_changed' => 'Status geändert',
-    'notification' => 'Benachrichtigung',
 ];

@@ -95,6 +95,16 @@ use Storage;
  *          description="visibility",
  *          type="int32"
  *      ),
+ *     @SWG\Property(
+ *          property="is_public",
+ *          description="is_public",
+ *          type="boolean"
+ *      ),
+ *     @SWG\Property(
+ *          property="notify_email",
+ *          description="notify_email",
+ *          type="boolean"
+ *      ),
  *      @SWG\Property(
  *          property="created_at",
  *          description="created_at",
@@ -224,7 +234,9 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'reactivation_date',
         'resolution_time',
         'days_left_due_date',
-        'active_reminder'
+        'active_reminder',
+        'is_public',
+        'notify_email',
     ];
 
     public $fillable = self::Fillable;
@@ -257,7 +269,9 @@ class ServiceRequest extends AuditableModel implements HasMedia
         'reactivation_date' => 'datetime',
         'resolution_time' => 'integer',
         'days_left_due_date' => 'integer',
-        'active_reminder' => 'boolean'
+        'active_reminder' => 'boolean',
+        'is_public' => 'boolean',
+        'notify_email' => 'boolean',
     ];
 
 

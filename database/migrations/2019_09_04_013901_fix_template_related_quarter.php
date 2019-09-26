@@ -14,8 +14,6 @@ class FixTemplateRelatedQuarter extends Migration
     public function up()
     {
         update_district_to_quarter(\App\Models\TemplateCategory::class, ['tag_map']);
-
-
     }
 
     /**

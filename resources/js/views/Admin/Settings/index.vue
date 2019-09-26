@@ -257,6 +257,7 @@
                                 <el-row :gutter="20">
                                     <el-col :md="8">
                                         <el-card class="marketplace-card card-boxs">
+                                            <span @click="Iframe_drawer" class="icon-cog"></span>
                                             <el-form-item class="switcher switcher-frist" prop="contact_enable">
                                                 <label class="switcher__label">
                                                     <p>{{$t('models.realEstate.iframe_enable')}}</p>
@@ -264,7 +265,6 @@
                                                     <span class="switcher__desc">{{$t('models.realEstate.iframe_enable_desc')}}</span>
                                                     <el-switch 
                                                         v-model="model.iframe_enable"
-                                                        @change="Iframe_drawer"
                                                         />
                                                 </label>
                                                 
@@ -273,24 +273,23 @@
                                     </el-col>
                                     <el-col :md="8">
                                         <el-card class="marketplace-card card-boxs">
+                                            <span @click="Gocaution_drawer" class="icon-cog"></span>
                                             <el-form-item :label="$t('models.realEstate.gocaution')">
-                                                <span class="switcher__desc">
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid, delectus doloribus iusto molestias quam.
-                                                </span>
+                                                <span class="switcher__desc">{{$t('models.realEstate.gocaution_desc')}}</span>
                                                 <el-switch 
                                                 v-model="model.gocaution_enable"
-                                                @change="Gocaution_drawer"
                                                 />
                                             </el-form-item>
                                         </el-card>
                                     </el-col>
                                     <el-col :md="8">
                                         <el-card class="marketplace-card card-boxs">
+                                            <span @click="Cleanify_drawer" class="icon-cog"></span>
                                            <el-form-item :label="$t('models.realEstate.cleanify_email')"
                                                         :rules="validationRules.cleanify_email" prop="cleanify_email">
+                                                <span class="switcher__desc">{{$t('models.realEstate.cleanify_email_desc')}}</span>        
                                                 <el-switch 
                                                 v-model="model.cleanify_enable"
-                                                @change="Cleanify_drawer"
                                                 />
                                                 
                                             </el-form-item>
@@ -454,30 +453,36 @@
         <ui-drawer :visible.sync="main_drawer" :z-index="1" direction="right" docked>
             <el-tabs type="card" stretch>
                 <el-tab-pane  name="iframe" v-if="Iframe_drawer_val">
-                    <div slot="label"><i class="icon-bell"></i> IFrame</div>
+                    <div slot="label"><i class="icon-cog"></i> <label class="switcher__label">{{$t('models.realEstate.iframe_enable')}}</label> </div>
                 </el-tab-pane>
                 <el-tab-pane name="gocaution" v-if="Gocaution_drawer_val">
-                    <div slot="label"><i class="icon-bell"></i> Gocaution</div>
+                    <div slot="label"><i class="icon-cog"></i><label class="switcher__label">{{$t('models.realEstate.gocaution')}}</label> </div>
                     
                 </el-tab-pane>
                 <el-tab-pane name="cleanify" v-if="Cleanify_drawer_val">
-                    <div slot="label"><i class="icon-bell"></i> Cleanify</div>
+                    <div slot="label"><i class="icon-cog"></i><label class="switcher__label">{{$t('models.realEstate.cleanify_email')}}</label> </div>
                     <!-- <el-input type="email" v-model="model.cleanify_email"></el-input> -->
                 </el-tab-pane>
                 <div v-if="Iframe_drawer_val">
-                    <el-input autocomplete="off" type="text"
-                        v-model="model.iframe_url"></el-input>
-                    <!-- <el-form-item :label="$t('models.realEstate.iframe_url.label')"
-                                    :rules="validationRules.iframe_url"
-                                    prop="iframe_url"
-                                    >
-                    <el-input autocomplete="off" type="text"
-                        v-model="model.iframe_url"></el-input>
-                    </el-form-item> -->
+                        <el-form :model="model" :rules="iFrameRules" ref="microAppsSettingsForm" label-width="120px" class="demo-ruleForm">
+                            <el-form-item  prop="iframe_url">
+                                <el-input v-model="model.iframe_url"></el-input>
+                            </el-form-item>
+                        </el-form>    
                 </div> 
                 <div v-if="Cleanify_drawer_val">
-                    <el-input type="email" v-model="model.cleanify_email"></el-input>
-                </div>    
+                    <el-form :model="model" :rules="cleanifyRules" ref="microAppsSettingsForm" label-width="120px" class="demo-ruleForm">
+                            <el-form-item  prop="cleanify_email">
+                                <el-input type="email" v-model="model.cleanify_email"></el-input>
+                            </el-form-item>
+                        </el-form>
+                </div> 
+                <div class="drawer-btn-sec"> 
+                    <el-button class="save-tab drawer-save" @click="saveRealEstate('microAppsSettingsForm')" icon="ti-save"
+                            type="primary">
+                        {{$t('general.actions.save')}}
+                    </el-button> 
+                </div> 
             </el-tabs>
         </ui-drawer>
     </div>
@@ -542,6 +547,19 @@
                     pdf_font_family: '',
                     visibleDrawer: false,
                     drawerTabsModel: 'iframe',
+                    iframe_url: '',
+                },
+                iFrameRules: {
+                    iframe_url: [  
+                        { required: true, message: this.$t("general.iframeValidation.required"), trigger: 'blur' },
+                        { type: 'url', message: this.$t("general.iframeValidation.url") },
+                    ]
+                },    
+                cleanifyRules:{
+                    cleanify_email:[
+                        { required: true, message: this.$t("general.email_validation.required"), trigger: 'blur' },
+                        { type: 'email', message: this.$t("general.email_validation.email") },
+                    ]
                 },
                 Iframe_drawer_val:false,
                 Gocaution_drawer_val: false,
@@ -617,10 +635,10 @@
                         required: true,
                         message: this.$t("models.user.validation.name.required")
                     }],
-                    iframe_url: [{
-                        type: 'url',
-                        message: this.$t("models.realEstate.iframe_url.validation")
-                    }],
+                    // iframe_url: [{
+                    //     type: 'url',
+                    //     message: this.$t("models.realEstate.iframe_url.validation")
+                    // }],
                     cleanify_email: [{
                         type: 'email',
                         message: this.$t("general.email_validation.email")
@@ -683,13 +701,24 @@
                 });
             },
             saveRealEstate(form) {
-                console.log('=='); console.log(form);
+                // this.main_drawer = false;
+                // console.log("assas");
+                // return;
+                //console.log('=='); console.log(form);
                 this.$refs[form].validate((valid) => {
                     if (valid) {
                         this.model.primary_color_lighter = this.getLightenDarkenColor(this.model.primary_color, 90) + '59'
                         this.updateRealEstate(this.model).then((resp) => {
+                            
                             this.fetchRealEstate();
                             displaySuccess(resp);
+                            //this.main_drawer = false;
+                            var v = this;
+                            setTimeout(function () {
+                                v.main_drawer = false;
+                            }, 3000);
+
+                            // this.main_drawer = false;
                             
                         }).catch((error) => {
                             displayError(error);
@@ -744,6 +773,7 @@
              Iframe_drawer(val){
                 if(val)
                 {
+                    console.log("sd");
                     this.main_drawer = true;
                     this.Iframe_drawer_val = true;
                     this.Gocaution_drawer_val = false;
@@ -1248,4 +1278,62 @@
     .switcher-frist .el-switch {
         margin-top: 10px;
     }
+   .card-boxs .icon-menu:after {
+        width: auto;
+        position: absolute;
+        top: -22px;
+        left: -10px;
+        font-size: 20px;
+        z-index: 9;
+        content: "\2630";
+        font-weight: bold;
+        color: #000;
+    }
+    div#pane-microApps .el-card__body span.icon-cog {
+        float: right;
+        cursor: pointer;
+        visibility: hidden;
+        opacity: 0;
+        transition: all .5s ease .0s;
+        -webkit-transition: all .5s ease .0s;
+        -ms-transition: all .5s ease .0s;
+        -moz-transition: all .5s ease .0s;
+        position: absolute;
+        top: 10px;
+        right: 12px;
+    }
+    div#pane-microApps .el-card__body {
+        padding-top: 30px;
+    }
+    .drawer-save {
+        float: right !important;
+        width: 100px !important;
+        min-width: 100px;
+        margin-top: 15px;
+    }
+    div#pane-microApps .card-boxs:hover .el-card__body span.icon-cog {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    .ui-drawer .drawer-save {
+        float: none !important;
+        width: auto !important;
+        min-width: 80px;
+        margin-top: 15px;
+        padding: 6px 15px;
+    }
+    .ui-drawer .drawer-btn-sec {
+        position: absolute;
+        width: 94%;
+        bottom: 20px;
+        text-align: center;
+    }
+    .ui-drawer.ui-drawer i.icon-cog {
+        margin-right: 7px;
+    }
+    .ui-drawer .drawer-save i.ti-save {
+        font-size: 12px;
+        margin-right: 3px;
+    }
+
 </style>

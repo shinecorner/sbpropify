@@ -77,6 +77,10 @@
                     draggable: true,
                     autoUpload: false
                 })
+            },
+            type : {
+                type: String,
+                default: "request"
             }
         },
         data () {

@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Repositories\AddressRepository;
 use App\Repositories\RealEstateRepository;
 use App\Transformers\RealEstateTransformer;
-use Cache;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
@@ -26,6 +26,11 @@ class RealEstateAPIController extends AppBaseController
     /** @var  AddressRepository */
     private $addressRepository;
 
+    /**
+     * RealEstateAPIController constructor.
+     * @param RealEstateRepository $realEstateRepo
+     * @param AddressRepository $addressRepo
+     */
     public function __construct(RealEstateRepository $realEstateRepo, AddressRepository $addressRepo)
     {
         $this->realEstateRepository = $realEstateRepo;
@@ -33,8 +38,6 @@ class RealEstateAPIController extends AppBaseController
     }
 
     /**
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/realEstate/",
      *      summary="Display the RealEstate",
@@ -61,6 +64,9 @@ class RealEstateAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ViewRequest $r
+     * @return mixed
      */
     public function show(ViewRequest $r)
     {
@@ -78,9 +84,6 @@ class RealEstateAPIController extends AppBaseController
     }
 
     /**
-     * @param UpdateRequest $request
-     * @return Response
-     *
      * @SWG\Put(
      *      path="/realEstate",
      *      summary="Update the RealEstate in storage",
@@ -114,6 +117,9 @@ class RealEstateAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param UpdateRequest $request
+     * @return Response
      */
     public function update(UpdateRequest $request)
     {

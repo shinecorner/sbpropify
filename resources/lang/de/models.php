@@ -290,7 +290,7 @@ return [
         'floor' => 'Etage',
         'sq_meter' => 'Fläche',
         'room_no' => 'Anzahl Zimmer',
-        'monthly_rent' => 'Monatsmiete',
+        'monthly_rent_net' => 'Monatsmiete',
         'building_search' => 'Bitte nach einer Liegenschaft suchen',
         'building' => 'Liegenschaft',
         'basement' => 'Untergeschoss',
@@ -317,7 +317,7 @@ return [
             'building' => [
                 'required' => 'Liegenschaft ist obligatorisch',
             ],
-            'monthly_rent' => [
+            'monthly_rent_net' => [
                 'required' => 'Monatsmiete ist obligatorisch',
             ],
             'floor' => [
@@ -963,5 +963,27 @@ return [
         'uploadPlaceTxt' => 'hochladen__',
         'uploadTimeoutPlaceTxt' => 'upload_timeout__',
         'uploadErrorPlaceTxt' => 'upload_error__',
+        'title' => 'Titel',
+        'in_format' => 'Im Format',
+        'rows' => 'Zeilen',
+        'cols' => 'Spalten',
+        'color' => [
+            'dark_red' => 'Dunkelrot',
+            'violet' => 'Violett',
+            'red' => 'Rot',
+            'fresh_pink' => 'Frisches Rosa',
+            'navy_blue' => 'Marineblau',
+            'blue' => 'Blau',
+            'blue_lake' => 'Blauer See',
+            'blue_green' => 'Blaugrün',
+            'green' => 'Grün',
+            'olive' => 'Olive',
+            'light_green' => 'Hellgrün',
+            'orange' => 'Orange',
+            'gray' => 'Grau',
+            'silver' => 'Silber',
+            'black' => 'Schwarz',
+            'white' => 'Weiß',
+        ]
     ],
 ];

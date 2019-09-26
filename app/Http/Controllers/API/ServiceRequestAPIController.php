@@ -19,7 +19,9 @@ use App\Http\Requests\API\ServiceRequest\DeleteRequest;
 use App\Http\Requests\API\ServiceRequest\ListRequest;
 use App\Http\Requests\API\ServiceRequest\NotifyProviderRequest;
 use App\Http\Requests\API\ServiceRequest\SeeRequestsCount;
+use App\Http\Requests\API\ServiceRequest\UnAssignRequest;
 use App\Http\Requests\API\ServiceRequest\UpdateRequest;
+use App\Http\Requests\API\ServiceRequest\ViewRequest;
 use App\Models\PropertyManager;
 use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
@@ -38,11 +40,8 @@ use App\Transformers\TemplateTransformer;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Auth;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
-use PDF;
 
 /**
  * Class ServiceRequestController
@@ -68,10 +67,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param ListRequest $request
-     * @return Response
-     * @throws Exception
-     *
      * @SWG\Get(
      *      path="/requests",
      *      summary="Get a listing of the ServiceRequests.",
@@ -121,6 +116,10 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function index(ListRequest $request)
     {
@@ -160,10 +159,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param CreateRequest $request
-     * @return Response
-     * @throws Exception
-     *
      * @SWG\Post(
      *      path="/requests",
      *      summary="Store a newly created ServiceRequest in storage",
@@ -215,6 +210,10 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function store(CreateRequest $request)
     {
@@ -241,9 +240,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/requests/{id}",
      *      summary="Display the specified ServiceRequest",
@@ -277,8 +273,12 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param ViewRequest $request
+     * @return mixed
      */
-    public function show($id)
+    public function show($id, ViewRequest $request)
     {
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
@@ -296,11 +296,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param UpdateRequest $request
-     * @return Response
-     * @throws Exception
-     *
      * @SWG\Put(
      *      path="/requests/{id}",
      *      summary="Update the specified ServiceRequest in storage",
@@ -341,11 +336,15 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param UpdateRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function update($id, UpdateRequest $request)
     {
         $input = $request->only(ServiceRequest::Fillable);
-
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($serviceRequest)) {
@@ -357,13 +356,7 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
-        $attr = $this->serviceRequestRepository->getPutAttributes($input, $serviceRequest);
-        $updatedServiceRequest = $this->serviceRequestRepository->update($attr, $id);
-        $this->serviceRequestRepository->notifyStatusChange($serviceRequest, $updatedServiceRequest);
-
-        if ($updatedServiceRequest->due_date && $updatedServiceRequest->due_date != $serviceRequest->due_date) {
-            $this->serviceRequestRepository->notifyDue($updatedServiceRequest);
-        }
+        $updatedServiceRequest = $this->serviceRequestRepository->updateExisting($serviceRequest, $input);
 
         $updatedServiceRequest->load([
             'media', 'tenant.user', 'category', 'managers.user', 'users', 'remainder_user',
@@ -374,11 +367,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param ChangeStatusRequest $request
-     * @return Response
-     * @throws Exception
-     *
      * @SWG\Post(
      *      path="/requests/{id}/changeStatus",
      *      summary="Change status on ServiceRequest",
@@ -412,6 +400,11 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param ChangeStatusRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function changeStatus(int $id, ChangeStatusRequest $request)
     {
@@ -422,23 +415,17 @@ class ServiceRequestAPIController extends AppBaseController
         }
 
         $input = ['status' => $request->get('status', '')];
-        $input = $this->serviceRequestRepository->getStatusRelatedAttributes($input, $serviceRequest);
 
         if (!$this->serviceRequestRepository->checkStatusPermission($input, $serviceRequest->status)) {
             return $this->sendError(__('models.request.errors.not_allowed_change_status'));
         }
 
-        $serviceRequest = $this->serviceRequestRepository->update($input, $id);
+        $serviceRequest = $this->serviceRequestRepository->updateExisting($serviceRequest, $input);
         $response = (new ServiceRequestTransformer)->transform($serviceRequest);
         return $this->sendResponse($response, __('models.request.status_changed'));
     }
 
     /**
-     * @param int $id
-     * @param ChangePriorityRequest $request
-     * @return Response
-     * @throws Exception
-     *
      * @SWG\Post(
      *      path="/requests/{id}/changePriority",
      *      summary="Change status on ServiceRequest",
@@ -472,6 +459,11 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param ChangePriorityRequest $request
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function changePriority(int $id, ChangePriorityRequest $request)
     {
@@ -492,9 +484,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/requests/{id}",
      *      summary="Remove the specified ServiceRequest from storage",
@@ -528,6 +517,11 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param DeleteRequest $r
+     * @return mixed
+     * @throws Exception
      */
     public function destroy($id, DeleteRequest $r)
     {
@@ -541,7 +535,12 @@ class ServiceRequestAPIController extends AppBaseController
 
         return $this->sendResponse($id, __('models.request.deleted'));
     }
-    public function destroyWithIds(Request $request){
+
+    /**
+     * @param DeleteRequest $request
+     * @return mixed
+     */
+    public function destroyWithIds(DeleteRequest $request){
         $ids = $request->get('ids');
         try{
             ServiceRequest::destroy($ids);
@@ -551,12 +550,8 @@ class ServiceRequestAPIController extends AppBaseController
         }
         return $this->sendResponse($ids, __('models.request.deleted'));
     }
+
     /**
-     * @param int $id
-     * @param NotifyProviderRequest $request
-     * @param ServiceProviderRepository $spRepo
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/requests/{id}/notify",
      *      summary="Notify the provided service provider",
@@ -597,10 +592,19 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param NotifyProviderRequest $request
+     * @param ServiceProviderRepository $spRepo
+     * @param PropertyManagerRepository $pmRepo
+     * @return mixed
      */
-    public function notifyProvider(int $id, NotifyProviderRequest $request,
-                                   ServiceProviderRepository $spRepo,
-                                   PropertyManagerRepository $pmRepo)
+    public function notifyProvider(
+        int $id,
+        NotifyProviderRequest $request,
+        ServiceProviderRepository $spRepo,
+        PropertyManagerRepository $pmRepo
+    )
     {
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
@@ -623,12 +627,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $pid
-     * @param AssignRequest $request
-     * @param ServiceProviderRepository $spRepo
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/requests/{id}/providers/{pid}",
      *      summary="Assign the provided service provider to the request",
@@ -655,6 +653,12 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $pid
+     * @param ServiceProviderRepository $spRepo
+     * @param AssignRequest $r
+     * @return mixed
      */
     public function assignProvider(int $id, int $pid, ServiceProviderRepository $spRepo, AssignRequest $r)
     {
@@ -684,12 +688,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $pid
-     * @param AssignRequest $request
-     * @param ServiceProviderRepository $spRepo
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/requests/{id}/providers/{pid}",
      *      summary="Unassign the provided service provider from the request",
@@ -717,19 +715,19 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $pid
+     * @param ServiceProviderRepository $spRepo
+     * @param UnAssignRequest $r
+     * @return mixed
      */
-    public function unassignProvider(int $id, int $pid, ServiceProviderRepository $spRepo, AssignRequest $r)
+    public function unassignProvider(int $id, int $pid, ServiceProviderRepository $spRepo, UnAssignRequest $r)
     {
         return $this->deleteRequestAssignee($pid, $r);
     }
 
     /**
-     * @param int $id
-     * @param int $uid
-     * @param UserRepository $uRepo
-     * @param AssignRequest $r
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/requests/{id}/users/{user_id}",
      *      summary="Assign admin user to the request",
@@ -756,6 +754,12 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $uid
+     * @param UserRepository $uRepo
+     * @param AssignRequest $r
+     * @return Response
      */
     public function assignUser(int $id, int $uid, UserRepository $uRepo, AssignRequest $r)
     {
@@ -789,7 +793,7 @@ class ServiceRequestAPIController extends AppBaseController
      *      path="/requests/{id}/assignees/{uid}",
      *      summary="Assign the provided user to the request",
      *      tags={"ServiceRequest"},
-     *      description="use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/post_requests__id__managers__pmid_'>/requests/{id}/managers/{pmid}</a>",
+     *      description="use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/pinboard_requests__id__managers__pmid_'>/requests/{id}/managers/{pmid}</a>",
      *      deprecated=true,
      *      produces={"application/json"},
      *      @SWG\Response(
@@ -836,12 +840,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $uid
-     * @param UserRepository $uRepo
-     * @param AssignRequest $r
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/requests/{id}/managers/{pmid}",
      *      summary="Assign property manager to the request",
@@ -868,6 +866,12 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $pmid
+     * @param UserRepository $uRepo
+     * @param AssignRequest $r
+     * @return mixed
      */
     public function assignManager(int $id, int $pmid, UserRepository $uRepo, AssignRequest $r)
     {
@@ -895,12 +899,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $uid
-     * @param AssignRequest $r
-     * @param UserRepository $uRepo
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/requests/{id}/assignees/{uid}",
      *      summary="Unassign the provided user to the request",
@@ -928,18 +926,19 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $uid
+     * @param UserRepository $uRepo
+     * @param UnAssignRequest $r
+     * @return mixed
      */
-    public function unassignUser(int $id, int $uid, UserRepository $uRepo, AssignRequest $r)
+    public function unassignUser(int $id, int $uid, UserRepository $uRepo, UnAssignRequest $r)
     {
         return $this->deleteRequestAssignee($uid, $r);
     }
 
     /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     * @throws Exception
-     *
      * @SWG\Get(
      *      path="/requests/{id}/tags",
      *      summary="Get a listing of the ServiceRequest tags.",
@@ -967,8 +966,12 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param ViewRequest $request
+     * @return mixed
      */
-    public function getTags(int $id, Request $request)
+    public function getTags(int $id, ViewRequest $request)
     {
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
@@ -983,12 +986,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $tid
-     * @param TagRepository $tRepo
-     * @param AssignRequest $r
-     * @return mixed
-     *
      * @SWG\Post(
      *      path="/requests/{id}/tags/{tid}",
      *      summary="Assign the tag to the request",
@@ -1015,6 +1012,12 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $tid
+     * @param TagRepository $tRepo
+     * @param AssignRequest $r
+     * @return mixed
      */
     public function assignTag(int $id, int $tid, TagRepository $tRepo, AssignRequest $r)
     {
@@ -1037,12 +1040,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param TagRepository $tRepo
-     * @param AssignRequest $r
-     * @return mixed
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     *
      * @SWG\Post(
      *      path="/requests/{id}/tags",
      *      summary="Assign many tags to the request",
@@ -1081,6 +1078,12 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param TagRepository $tRepo
+     * @param AssignRequest $r
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function assignManyTags(int $id, TagRepository $tRepo, AssignRequest $r)
     {
@@ -1123,12 +1126,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param TagRepository $tRepo
-     * @param AssignRequest $r
-     * @return mixed
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     *
      * @SWG\Delete(
      *      path="/requests/{id}/tags",
      *      summary="Un assign many tags from the request",
@@ -1167,8 +1164,13 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param TagRepository $tRepo
+     * @param UnAssignRequest $r
+     * @return mixed
      */
-    public function unassignManyTags(int $id, TagRepository $tRepo, AssignRequest $r)
+    public function unassignManyTags(int $id, TagRepository $tRepo, UnAssignRequest $r)
     {
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
@@ -1202,12 +1204,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $tid
-     * @param TagRepository $tRepo
-     * @param AssignRequest $r
-     * @return mixed
-     *
      * @SWG\Delete(
      *      path="/requests/{id}/tags/{tid}",
      *      summary="Unassign single tag from the request",
@@ -1234,8 +1230,14 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $tid
+     * @param TagRepository $tRepo
+     * @param UnAssignRequest $r
+     * @return mixed
      */
-    public function unassignTag(int $id, int $tid, TagRepository $tRepo, AssignRequest $r)
+    public function unassignTag(int $id, int $tid, TagRepository $tRepo, UnAssignRequest $r)
     {
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
         if (empty($sr)) {
@@ -1256,11 +1258,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     * @throws Exception
-     *
      * @SWG\Get(
      *      path="/requests/{id}/assignees",
      *      summary="Get a listing of the ServiceRequest assignees.",
@@ -1288,8 +1285,12 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param ViewRequest $request
+     * @return mixed
      */
-    public function getAssignees(int $id, Request $request)
+    public function getAssignees(int $id, ViewRequest $request)
     {
         // @TODO permissions
         $sr = $this->serviceRequestRepository->findWithoutFail($id);
@@ -1334,10 +1335,10 @@ class ServiceRequestAPIController extends AppBaseController
      * )
      *
      * @param int $id
-     * @param AssignRequest $request
+     * @param UnAssignRequest $request
      * @return mixed
      */
-    public function deleteRequestAssignee(int $id, AssignRequest $request)
+    public function deleteRequestAssignee(int $id, UnAssignRequest $request)
     {
         $requestAssignee = ServiceRequestAssignee::find($id);
         if (empty($requestAssignee)) {
@@ -1362,13 +1363,7 @@ class ServiceRequestAPIController extends AppBaseController
         return $this->sendResponse($id, __('general.detached.' . $requestAssignee->assignee_type));
     }
 
-
     /**
-     * @param int $id
-     * @param TemplateRepository $tempRepo
-     *
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/requests/{id}/comunicationTemplates",
      *      summary="Display the list of Comunication templates filled with request data",
@@ -1404,8 +1399,13 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param TemplateRepository $tempRepo
+     * @param ViewRequest $request
+     * @return mixed
      */
-    public function getCommunicationTemplates($id, TemplateRepository $tempRepo)
+    public function getCommunicationTemplates($id, TemplateRepository $tempRepo, ViewRequest $request)
     {
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
@@ -1424,11 +1424,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param TemplateRepository $tempRepo
-     *
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/requests/{id}/serviceComunicationTemplates",
      *      summary="Display the list of Service Comunication templates filled with request data",
@@ -1464,8 +1459,13 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param TemplateRepository $tempRepo
+     * @param ViewRequest $request
+     * @return mixed
      */
-    public function getServiceCommunicationTemplates($id, TemplateRepository $tempRepo)
+    public function getServiceCommunicationTemplates($id, TemplateRepository $tempRepo, ViewRequest $request)
     {
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
@@ -1484,11 +1484,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param TemplateRepository $tempRepo
-     *
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/requests/{id}/serviceemailTemplates",
      *      summary="Display the list of Service Email templates filled with request data",
@@ -1524,8 +1519,13 @@ class ServiceRequestAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param TemplateRepository $tempRepo
+     * @param ViewRequest $request
+     * @return mixed
      */
-    public function getServiceEmailTemplates($id, TemplateRepository $tempRepo)
+    public function getServiceEmailTemplates($id, TemplateRepository $tempRepo, ViewRequest $request)
     {
         /** @var ServiceRequest $serviceRequest */
         $serviceRequest = $this->serviceRequestRepository->findWithoutFail($id);
@@ -1544,11 +1544,6 @@ class ServiceRequestAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param TemplateRepository $tempRepo
-     *
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/requestsCounts",
      *      summary="get recuests count",
@@ -1633,6 +1628,14 @@ class ServiceRequestAPIController extends AppBaseController
         return $this->sendResponse($response, 'Request countes');
     }
 
+    /**
+     * @param $user
+     * @param $response
+     * @param $userRelation
+     * @param $requestRelation
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
     protected function getLoggedRequestCount($user, $response, $userRelation, $requestRelation)
     {
 
@@ -1670,7 +1673,6 @@ class ServiceRequestAPIController extends AppBaseController
      * @param $id
      * @return mixed
      */
-
     public function downloadPdf($id){
 
         $r = $this->serviceRequestRepository->findWithoutFail($id);
@@ -1684,7 +1686,6 @@ class ServiceRequestAPIController extends AppBaseController
             return $this->sendError($this->serviceRequestFileNotFound);
         }
         return \Storage::disk('service_request_downloads')->download($pdfName, $pdfName);
-
     }
 
 }
