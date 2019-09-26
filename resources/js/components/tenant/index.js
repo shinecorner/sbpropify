@@ -79,6 +79,10 @@ import UserSettingsLoader from './UserSettings/Loader'
 import WeatherCardError from './WeatherCard/Error'
 import WeatherCardLoader from './WeatherCard/Loader'
 
+import EmergencyCardError from './EmergencyCard/Error'
+import EmergencyCardLoader from './EmergencyCard/Loader'
+
+
 export default {
     install (Vue) {
         Object.entries({
@@ -268,6 +272,13 @@ export default {
                 component: import(/* webpackChunkName: "weatherCard" */ './WeatherCard'),
                 loading: WeatherCardLoader,
                 error: WeatherCardError,
+                delay: 0,
+                timeout: 8000
+            }),
+            emergencyCard: () => ({
+                component: import(/* webpackChunkName: "weatherCard" */ './EmergencyCard'),
+                loading: EmergencyCardLoader,
+                error: EmergencyCardError,
                 delay: 0,
                 timeout: 8000
             })

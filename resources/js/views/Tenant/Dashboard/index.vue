@@ -10,6 +10,7 @@
         <ui-divider />
         <div class="row" name="fade" tag="div" ref="widgets">
             <div class="column">
+                <emergency-card />
                 <weather-card class="widget" />
                 <latest-property-managers-card class="widget" />
                 <latest-my-neighbours-card class="widget" />
