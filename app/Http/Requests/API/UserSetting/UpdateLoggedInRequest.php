@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\API\UserSetting;
 
-use App\Models\UserSettings;
 use App\Http\Requests\BaseRequest;
 
 class UpdateLoggedInRequest extends BaseRequest

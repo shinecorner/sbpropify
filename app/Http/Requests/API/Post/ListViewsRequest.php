@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\API\Post;
 
-use App\Models\Post;
 use App\Http\Requests\BaseRequest;
 
 class ListViewsRequest extends BaseRequest

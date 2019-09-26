@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\API\Product;
 
-use App\Models\Product;
 use App\Http\Requests\BaseRequest;
 
 class ViewRequest extends BaseRequest

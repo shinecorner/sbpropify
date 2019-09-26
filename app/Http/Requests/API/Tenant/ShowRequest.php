@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\API\Tenant;
 
-use App\Models\Tenant;
 use App\Http\Requests\BaseRequest;
 
 class ShowRequest extends BaseRequest

@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\API\Tenant;
 
-use App\Models\ServiceRequest;
 use App\Http\Requests\BaseRequest;
 
 class DownloadPdfRequest extends BaseRequest
