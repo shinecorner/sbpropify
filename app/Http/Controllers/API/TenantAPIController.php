@@ -25,7 +25,7 @@ use App\Models\RealEstate;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Notifications\TenantCredentials;
-use App\Repositories\PostRepository;
+use App\Repositories\PinboardRepository;
 use App\Repositories\TemplateRepository;
 use App\Repositories\RentContractRepository;
 use App\Repositories\TenantRepository;
@@ -255,11 +255,11 @@ class TenantAPIController extends AppBaseController
      * )
      *
      * @param CreateRequest $request
-     * @param PostRepository $pr
+     * @param PinboardRepository $pr
      * @return mixed
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function store(CreateRequest $request, PostRepository $pr)
+    public function store(CreateRequest $request, PinboardRepository $pr)
     {
         $input = (new TenantTransformer)->transformRequest($request->all());
         //@TODO This action already done in  TenantTransformer delete it
@@ -465,12 +465,13 @@ class TenantAPIController extends AppBaseController
      *
      * @param $id
      * @param UpdateRequest $request
-     * @param PostRepository $pr
+     * @param PinboardRepository $pr
      * @return mixed
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update($id, UpdateRequest $request, PostRepository $pr)
+    public function update($id, UpdateRequest $request, PinboardRepository $pr)
     {
         $input = (new TenantTransformer)->transformRequest($request->all());
         /** @var Tenant $tenant */
@@ -479,7 +480,7 @@ class TenantAPIController extends AppBaseController
             return $this->sendError(__('models.tenant.errors.not_found'));
         }
 
-        $shouldPost = isset($input['unit_id']) && $input['unit_id'] != $tenant->unit_id;
+        $shouldPinboard = isset($input['unit_id']) && $input['unit_id'] != $tenant->unit_id;
 
         $input['user'] = $input['user'] ?? [];
         $input['user']['name'] = sprintf('%s %s', $input['first_name'], $input['last_name']);
@@ -540,8 +541,8 @@ class TenantAPIController extends AppBaseController
         $tenant->load(['settings', 'building', 'unit', 'address', 'media', 'rent_contracts' => function ($q) {
             $q->with('building.address', 'unit', 'media');
         }]);
-        if ($shouldPost) {
-            $pr->newTenantPost($tenant);
+        if ($shouldPinboard) {
+            $pr->newTenantPinboard($tenant);
         }
         //if ($userPass) {
             //$tenant->setCredentialsPDF();

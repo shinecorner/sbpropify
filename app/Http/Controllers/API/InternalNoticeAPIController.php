@@ -97,7 +97,7 @@ class InternalNoticeAPIController extends AppBaseController
         return $this->sendResponse($response, 'Internal Notices retrieved successfully');
     }
 
-    /**\
+    /**
      * @SWG\Post(
      *      path="/internalNotices",
      *      summary="Store a newly created InternalNotice in storage",

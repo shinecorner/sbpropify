@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -21,7 +21,7 @@ class CommentsTableSeeder extends Seeder
             User::where('email', 'tenant@example.com')->first(),
         ];
 
-        $ps = Post::all();
+        $ps = Pinboard::all();
         foreach ($ps as $p) {
             for ($i = 1; $i <= 20; $i++) {
                 $u = $us[rand(0, 1)];

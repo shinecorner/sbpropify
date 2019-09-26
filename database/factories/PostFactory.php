@@ -1,10 +1,10 @@
 <?php
 
 use Faker\Generator as Faker;
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Models\User;
 
-$factory->define(App\Models\Post::class, function (Faker $faker) {
+$factory->define(App\Models\Pinboard::class, function (Faker $faker) {
     $us = [
         User::where('deleted_at', null)->inRandomOrder()->first(),
         User::where('email', 'tenant@example.com')->first(),
@@ -17,9 +17,9 @@ $factory->define(App\Models\Post::class, function (Faker $faker) {
 
     $ret = [
         'user_id' => $u->id,
-        'type' => Post::TypeArticle,
-        'status' => Post::StatusNew,
-        'visibility' => Post::VisibilityAll,
+        'type' => Pinboard::TypeArticle,
+        'status' => Pinboard::StatusNew,
+        'visibility' => Pinboard::VisibilityAll,
         'content' => $faker->paragraph(),
         'notify_email' => true,
         'pinned' => $faker->boolean,

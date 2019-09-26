@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\CleanifyRequest;
 use App\Models\Comment;
 use App\Models\PasswordReset;
-use App\Models\Post;
+use App\Models\Pinboard;
 use App\Models\Product;
 use App\Models\RealEstate;
 use App\Models\ServiceRequest;
@@ -17,6 +17,7 @@ use Illuminate\Container\Container as Application;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\Models\Media;
 
 /**
@@ -139,7 +140,7 @@ class TemplateRepository extends BaseRepository
         $tenant = $context['tenant'] ?? null;
 
         if ($tag == 'autologinUrl' && $user) {
-            $linkText = __('See post', [], $language);
+            $linkText = __('See pinboard', [], $language);
             return $this->button($user->autologinUrl, $linkText);
         }
 
@@ -150,7 +151,7 @@ class TemplateRepository extends BaseRepository
         }
 
         if ($tag == 'tenantCredentials' && $tenant) {
-            $linkHref = env('APP_URL') . \Storage::url($tenant->pdfXFileName());
+            $linkHref = env('APP_URL') . Storage::url($tenant->pdfXFileName());
             $linkText = __('Download Credentials', [], $language);
             return $this->button($linkHref, $linkText);
         }
@@ -225,8 +226,7 @@ class TemplateRepository extends BaseRepository
      * @param $lang
      * @return array
      */
-    public
-    function getParsedTemplateData($template, $tagMap, $lang = ''): array
+    public function getParsedTemplateData($template, $tagMap, $lang = ''): array
     {
         if (!$template) {
             return [
@@ -268,8 +268,7 @@ class TemplateRepository extends BaseRepository
      *
      * @return Template
      */
-    public
-    function getParsedTemplate($template, $tagMap, $lang = ''): Template
+    public function getParsedTemplate($template, $tagMap, $lang = ''): Template
     {
         if (!$template) {
             return null;
@@ -306,8 +305,7 @@ class TemplateRepository extends BaseRepository
      * @param PasswordReset|null $pwReset
      * @return array
      */
-    public
-    function getUserResetPasswordTemplate(User $user, PasswordReset $pwReset): array
+    public function getUserResetPasswordTemplate(User $user, PasswordReset $pwReset): array
     {
         $template = $this->getByCategoryName('reset_password');
 
@@ -323,8 +321,7 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return array
      */
-    public
-    function getUserResetPasswordSuccessTemplate(User $user): array
+    public function getUserResetPasswordSuccessTemplate(User $user): array
     {
         $template = $this->getByCategoryName('reset_password_success');
 
@@ -337,20 +334,19 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Post $post
+     * @param Pinboard $pinboard
      * @param User $user
      * @return array
      */
-    public
-    function getNewPostParsedTemplate(Post $post, User $user): array
+    public function getNewPinboardParsedTemplate(Pinboard $pinboard, User $user): array
     {
-        $template = $this->getByCategoryName('new_post');
+        $template = $this->getByCategoryName('new_pinboard');
 
-        $user->redirect = "/admin/posts/" . $post->id;
+        $user->redirect = "/admin/pinboard/" . $pinboard->id;
         $context = [
             'user' => $user,
-            'post' => $post,
-            'subject' => $post->user,
+            'pinboard' => $pinboard,
+            'subject' => $pinboard->user,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
@@ -384,18 +380,18 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Post $post
+     * @param Pinboard $pinboard
      * @param User $user
      * @return array
      */
-    public function getPinnedPostParsedTemplate(Post $post, User $user): array
+    public function getPinnedPinboardParsedTemplate(Pinboard $pinboard, User $user): array
     {
-        $template = $this->getByCategoryName('pinned_post');
+        $template = $this->getByCategoryName('pinned_pinboard');
 
-        $user->redirect = '/news/' . $post->id;
+        $user->redirect = '/news/' . $pinboard->id;
         $context = [
             'user' => $user,
-            'post' => $post,
+            'pinboard' => $pinboard,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
@@ -404,19 +400,18 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Post $post
+     * @param Pinboard $pinboard
      * @param User $receiver
      * @return array
      */
-    public
-    function getPostParsedTemplate(Post $post, User $receiver): array
+    public function getPinboardParsedTemplate(Pinboard $pinboard, User $receiver): array
     {
-        $template = $this->getByCategoryName('post_published');
+        $template = $this->getByCategoryName('pinboard_published');
 
-	    $receiver->redirect = '/news/' . $post->id;
+	    $receiver->redirect = '/news/' . $pinboard->id;
         $context = [
             'receiver' => $receiver,
-            'post' => $post,
+            'pinboard' => $pinboard,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
@@ -425,19 +420,18 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Post $post
+     * @param Pinboard $pinboard
      * @param User $receiver
      * @return array
      */
-    public
-    function getPostNewTenantInNeighbourParsedTemplate(Post $post, User $receiver): array
+    public function getPinboardNewTenantInNeighbourParsedTemplate(Pinboard $pinboard, User $receiver): array
     {
-        $template = $this->getByCategoryName('post_new_tenant_in_neighbour');
+        $template = $this->getByCategoryName('pinboard_new_tenant_in_neighbour');
 
-        $receiver->redirect = '/news/' . $post->id;
+        $receiver->redirect = '/news/' . $pinboard->id;
         $context = [
             'receiver' => $receiver,
-            'post' => $post,
+            'pinboard' => $pinboard,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
@@ -446,47 +440,45 @@ class TemplateRepository extends BaseRepository
     }
 
     /**
-     * @param Post $post
+     * @param Pinboard $pinboard
      * @param User $user
      * @param Comment $comment
      * @return array
      */
-    public
-    function getPostCommentedParsedTemplate(Post $post, User $user, Comment $comment): array
+    public function getPinboradCommentedParsedTemplate(Pinboard $pinboard, User $user, Comment $comment): array
     {
-        $template = $this->getByCategoryName('post_commented');
+        $template = $this->getByCategoryName('pinboard_commented');
 
-        $post->user->redirect = '/news/' . $post->id;
+        $pinboard->user->redirect = '/pinboard/' . $pinboard->id;
         $context = [
             'user' => $user,
-            'post' => $post,
+            'pinboard' => $pinboard,
             'comment' => $comment,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplateData($template, $tags, $post->user->settings->language);
+        return $this->getParsedTemplateData($template, $tags, $pinboard->user->settings->language);
     }
 
     /**
-     * @param Post $post
+     * @param Pinboard $pinboard
      * @param User $user
      * @return array
      */
-    public
-    function getPostLikedParsedTemplate(Post $post, User $user): array
+    public function getPinboardLikedParsedTemplate(Pinboard $pinboard, User $user): array
     {
-        $template = $this->getByCategoryName('post_liked');
+        $template = $this->getByCategoryName('pinboard_liked');
 
-        $post->user->redirect = '/news/' . $post->id;
+        $pinboard->user->redirect = '/pinboard/' . $pinboard->id;
         $context = [
             'user' => $user,
-            'post' => $post,
+            'pinboard' => $pinboard,
         ];
 
         $tags = $this->getTags($template->category->tag_map, $context);
 
-        return $this->getParsedTemplateData($template, $tags, $post->user->settings->language);
+        return $this->getParsedTemplateData($template, $tags, $pinboard->user->settings->language);
     }
 
     /**
@@ -494,8 +486,7 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return array
      */
-    public
-    function getProductLikedParsedTemplate(Product $product, User $user): array
+    public function getProductLikedParsedTemplate(Product $product, User $user): array
     {
         $template = $this->getByCategoryName('product_liked');
 
@@ -516,8 +507,7 @@ class TemplateRepository extends BaseRepository
      * @param Comment $comment
      * @return array
      */
-    public
-    function getProductCommentedParsedTemplate(Product $product, User $user, Comment $comment): array
+    public function getProductCommentedParsedTemplate(Product $product, User $user, Comment $comment): array
     {
         $template = $this->getByCategoryName('product_commented');
 
@@ -539,8 +529,7 @@ class TemplateRepository extends BaseRepository
      * @param User $subject
      * @return array
      */
-    public
-    function getNewRequestParsedTemplate(ServiceRequest $request, User $user, User $subject): array
+    public function getNewRequestParsedTemplate(ServiceRequest $request, User $user, User $subject): array
     {
         $template = $this->getByCategoryName('new_request');
 
@@ -562,8 +551,7 @@ class TemplateRepository extends BaseRepository
      * @param Comment $comment
      * @return array
      */
-    public
-    function getRequestCommentedParsedTemplate(ServiceRequest $sr, User $user, Comment $comment): array
+    public function getRequestCommentedParsedTemplate(ServiceRequest $sr, User $user, Comment $comment): array
     {
         $template = $this->getByCategoryName('request_comment');
 
@@ -586,8 +574,7 @@ class TemplateRepository extends BaseRepository
      * @param ServiceRequest $sr
      * @return array
      */
-    public
-    function getRequestDueParsedTemplate(ServiceRequest $sr, User $receiver): array
+    public function getRequestDueParsedTemplate(ServiceRequest $sr, User $receiver): array
     {
         $template = $this->getByCategoryName('request_due_date_reminder');
 
@@ -609,8 +596,7 @@ class TemplateRepository extends BaseRepository
      * @param Media $media
      * @return array
      */
-    public
-    function getRequestMediaParsedTemplate(
+    public function getRequestMediaParsedTemplate(
         ServiceRequest $sr,
         User $uploader,
         User $receiver,
@@ -643,8 +629,7 @@ class TemplateRepository extends BaseRepository
      * @param User $user
      * @return array
      */
-    public
-    function getRequestStatusChangedParsedTemplate(ServiceRequest $sr, ServiceRequest $osr, User $user): array
+    public function getRequestStatusChangedParsedTemplate(ServiceRequest $sr, ServiceRequest $osr, User $user): array
     {
         $template = $this->getByCategoryName('request_admin_change_status');
 
@@ -666,8 +651,7 @@ class TemplateRepository extends BaseRepository
      * @param User $receiver
      * @return array
      */
-    public
-    function getRequestInternalCommentParsedTemplate(
+    public function getRequestInternalCommentParsedTemplate(
         ServiceRequest $sr,
         Comment $comment,
         User $sender,
@@ -693,8 +677,7 @@ class TemplateRepository extends BaseRepository
      * @param CleanifyRequest $creq
      * @return array
      */
-    public
-    function getCleanifyParsedTemplate(CleanifyRequest $creq): array
+    public function getCleanifyParsedTemplate(CleanifyRequest $creq): array
     {
         $template = $this->getByCategoryName('cleanify_request_email');
 

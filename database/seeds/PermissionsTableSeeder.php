@@ -25,16 +25,16 @@ class PermissionsTableSeeder extends Seeder
         // Comment
         ['add-comment', 'Add Comment', 'add comment'],
         ['edit-comment', 'Edit Comment', 'edit existing comment'],
-        // Post
-        ['list-post', 'List Posts', 'list all posts'],
-        ['view-post', 'View Post', 'view post'],
-        ['add-post', 'Add Post', 'add post'],
-        ['edit-post', 'Edit Post', 'edit existing post'],
-        ['delete-post', 'Delete Post', 'delete existing post'],
-        ['publish-post', 'Publish Post', 'publish post'],
-        ['pin-post', 'Pin Post', 'pin post'],
-        ['assign-post', 'Assign Post', 'assign post'],
-        ['list_views-post', 'List views of Post', 'list views of post'],
+        // Pinboard
+        ['list-pinboard', 'List Pinboard', 'list all pinboard'],
+        ['view-pinboard', 'View Pinboard', 'view pinboard'],
+        ['add-pinboard', 'Add Pinboard', 'add pinboard'],
+        ['edit-pinboard', 'Edit Pinboard', 'edit existing pinboard'],
+        ['delete-pinboard', 'Delete Pinboard', 'delete existing pinboard'],
+        ['publish-pinboard', 'Publish Pinboard', 'publish pinboard'],
+        ['pin-pinboard', 'Pin Pinboard', 'pin pinboard'],
+        ['assign-pinboard', 'Assign Pinboard', 'assign pinboard'],
+        ['list_views-pinboard', 'List views of Pinboard', 'list views of pinboard'],
         // Product
         ['list-product', 'List Products', 'list all products'],
         ['view-product', 'View Product', 'view product'],

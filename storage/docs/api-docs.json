@@ -461,7 +461,7 @@
                 }
             }
         },
-        "/buildings/{post_id}/service/{service_id}": {
+        "/buildings/{pinboard_id}/service/{service_id}": {
             "delete": {
                 "tags": [
                     "Building"
@@ -541,7 +541,7 @@
                     "Building"
                 ],
                 "summary": "Assign the provided propertyManagers to the Building",
-                "description": " <a href='http://dev.propify.ch/api/docs#/Building/post_buildings__id__managers'>http://dev.propify.ch/api/docs#/Building/post_buildings__id__managers</a>",
+                "description": " <a href='http://dev.propify.ch/api/docs#/Building/pinboard_buildings__id__managers'>http://dev.propify.ch/api/docs#/Building/pinboard_buildings__id__managers</a>",
                 "produces": [
                     "application/json"
                 ],
@@ -802,7 +802,7 @@
                 }
             }
         },
-        "/posts/{id}/comments": {
+        "/pinboard/{id}/comments": {
             "post": {
                 "tags": [
                     "Comment"
@@ -1419,12 +1419,12 @@
             "get": {
                 "tags": [
                     "ServiceRequest",
-                    "Post",
+                    "Pinboard",
                     "Tenant",
                     "Product"
                 ],
-                "summary": "statistics for request, building, post, product",
-                "description": "statistics for request, building, post, product",
+                "summary": "statistics for request, building, pinboard, product",
+                "description": "statistics for request, building, pinboard, product",
                 "produces": [
                     "application/json"
                 ],
@@ -1497,11 +1497,11 @@
                                         "products_per_status": {
                                             "$ref": "#/definitions/Donut"
                                         },
-                                        "total_posts": {
+                                        "total_pinboard": {
                                             "type": "string",
                                             "example": "200"
                                         },
-                                        "posts_per_status": {
+                                        "pinboard_per_status": {
                                             "$ref": "#/definitions/Donut"
                                         },
                                         "all_start_dates": {
@@ -1522,7 +1522,7 @@
                                                     "type": "string",
                                                     "example": "01.01.2019"
                                                 },
-                                                "posts": {
+                                                "pinboard": {
                                                     "type": "string",
                                                     "example": "01.01.2019"
                                                 }
@@ -1592,11 +1592,11 @@
                 "tags": [
                     "Tenant",
                     "Product",
-                    "Post",
+                    "Pinboard",
                     "CreationDate"
                 ],
-                "summary": "get statistics for Grouped Report by products:status | tenants:status | posts:status ",
-                "description": "get statistics for Grouped Report by products:status | tenants:status | posts:status",
+                "summary": "get statistics for Grouped Report by products:status | tenants:status | pinboard:status ",
+                "description": "get statistics for Grouped Report by products:status | tenants:status | pinboard:status",
                 "produces": [
                     "application/json"
                 ],
@@ -1610,7 +1610,7 @@
                         "enum": [
                             "products",
                             "tenants",
-                            "posts"
+                            "pinboard"
                         ]
                     },
                     {
@@ -1731,12 +1731,12 @@
                 "tags": [
                     "Tenant",
                     "ServiceRequest",
-                    "Post",
+                    "Pinboard",
                     "Product",
                     "Donut"
                 ],
-                "summary": "service_requests, products, tenants,  posts statistics for Donut Chart",
-                "description": "service_requests:status | tenants:status,title | products:status,type |  posts:status,type statistics for Donut Chart",
+                "summary": "service_requests, products, tenants,  pinboard statistics for Donut Chart",
+                "description": "service_requests:status | tenants:status,title | products:status,type |  pinboard:status,type statistics for Donut Chart",
                 "produces": [
                     "application/json"
                 ],
@@ -1751,13 +1751,13 @@
                             "service_requests",
                             "tenants",
                             "products",
-                            "posts"
+                            "pinboard"
                         ]
                     },
                     {
                         "name": "column",
                         "in": "query",
-                        "description": "The column used for get statistic according that column | permitted values for each table [service_requests:status | tenants:status,title | products:status,type |  posts:status,type]",
+                        "description": "The column used for get statistic according that column | permitted values for each table [service_requests:status | tenants:status,title | products:status,type |  pinboard:status,type]",
                         "type": "string",
                         "default": "status",
                         "enum": [
@@ -2575,12 +2575,12 @@
                 }
             }
         },
-        "/posts/{post_id}/media": {
+        "/pinboard/{pinboard_id}/media": {
             "post": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Store a newly created Post Media in storage",
+                "summary": "Store a newly created Pinboard Media in storage",
                 "description": "Store Media",
                 "produces": [
                     "application/json"
@@ -2592,7 +2592,7 @@
                         "description": "Media that should be stored",
                         "required": false,
                         "schema": {
-                            "$ref": "#/definitions/Post"
+                            "$ref": "#/definitions/Pinboard"
                         }
                     }
                 ],
@@ -2605,7 +2605,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -2617,7 +2617,7 @@
                 }
             }
         },
-        "/post/{post_id}/media/{media_id}": {
+        "/pinboard/{pinboard_id}/media/{media_id}": {
             "delete": {
                 "tags": [
                     "Listing"
@@ -2674,7 +2674,7 @@
                         "description": "Media that should be stored",
                         "required": false,
                         "schema": {
-                            "$ref": "#/definitions/Post"
+                            "$ref": "#/definitions/Pinboard"
                         }
                     }
                 ],
@@ -2985,40 +2985,6 @@
                 }
             }
         },
-        "/news/rss.xml": {
-            "get": {
-                "tags": [
-                    "RSS"
-                ],
-                "summary": "RSS feed of news",
-                "description": "Get RSS feed of news",
-                "produces": [
-                    "application/xml"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    }
-                }
-            }
-        },
-        "/news/weather.json": {
-            "get": {
-                "tags": [
-                    "weather"
-                ],
-                "summary": "JSON feed of weather",
-                "description": "Get json feed of weather",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    }
-                }
-            }
-        },
         "/notifications": {
             "get": {
                 "tags": [
@@ -3107,137 +3073,13 @@
                 }
             }
         },
-        "/auth/forgot_password": {
-            "post": {
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Send email for reseting password",
-                "description": "PasswordReset",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "Send email for reseting password",
-                        "required": false,
-                        "schema": {
-                            "$ref": "#/definitions/PasswordReset"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/PasswordReset"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/auth/forgot_password/{token}": {
-            "get": {
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Validate token for password reset",
-                "description": "Validate token for password reset",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "string",
-                        "in": "path",
-                        "description": "token",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/PasswordReset"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/auth/reset_password": {
-            "post": {
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Reset password",
-                "description": "Reset password",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "Reset password",
-                        "required": false,
-                        "schema": {
-                            "$ref": "#/definitions/PasswordReset"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "properties": {
-                                "success": {
-                                    "type": "boolean"
-                                },
-                                "data": {
-                                    "$ref": "#/definitions/PasswordReset"
-                                },
-                                "message": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            }
-        },
-        "/posts": {
+        "/pinboard": {
             "get": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Get a listing of the Posts.",
-                "description": "Get all Posts",
+                "summary": "Get a listing of the Pinboard.",
+                "description": "Get all Pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3252,7 +3094,7 @@
                                 "data": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/definitions/Post"
+                                        "$ref": "#/definitions/Pinboard"
                                     }
                                 },
                                 "message": {
@@ -3268,8 +3110,8 @@
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Store a newly created Post in storage",
-                "description": "Store Post",
+                "summary": "Store a newly created Pinboard in storage",
+                "description": "Store Pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3277,10 +3119,10 @@
                     {
                         "name": "body",
                         "in": "body",
-                        "description": "Post that should be stored",
+                        "description": "Pinboard that should be stored",
                         "required": false,
                         "schema": {
-                            "$ref": "#/definitions/Post"
+                            "$ref": "#/definitions/Pinboard"
                         }
                     }
                 ],
@@ -3293,7 +3135,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -3305,13 +3147,13 @@
                 }
             }
         },
-        "/posts/{id}": {
+        "/pinboard/{id}": {
             "get": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Display the specified Post",
-                "description": "Get Post",
+                "summary": "Display the specified Pinboard",
+                "description": "Get Pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3319,7 +3161,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id of Post",
+                        "description": "id of Pinboard",
                         "required": true,
                         "type": "integer"
                     }
@@ -3333,7 +3175,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -3348,8 +3190,8 @@
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Update the specified Post in storage",
-                "description": "Update Post",
+                "summary": "Update the specified Pinboard in storage",
+                "description": "Update Pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3357,17 +3199,17 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id of Post",
+                        "description": "id of Pinboard",
                         "required": true,
                         "type": "integer"
                     },
                     {
                         "name": "body",
                         "in": "body",
-                        "description": "Post that should be updated",
+                        "description": "Pinboard that should be updated",
                         "required": false,
                         "schema": {
-                            "$ref": "#/definitions/Post"
+                            "$ref": "#/definitions/Pinboard"
                         }
                     }
                 ],
@@ -3380,7 +3222,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -3395,8 +3237,8 @@
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Remove the specified Post from storage",
-                "description": "Delete Post",
+                "summary": "Remove the specified Pinboard from storage",
+                "description": "Delete Pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3404,7 +3246,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id of Post",
+                        "description": "id of Pinboard",
                         "required": true,
                         "type": "integer"
                     }
@@ -3430,13 +3272,13 @@
                 }
             }
         },
-        "/posts/{id}/publish": {
+        "/pinboard/{id}/publish": {
             "post": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Publish a post",
-                "description": "Publish a post",
+                "summary": "Publish a pinboard",
+                "description": "Publish a pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3444,17 +3286,17 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id of Post",
+                        "description": "id of Pinboard",
                         "required": true,
                         "type": "integer"
                     },
                     {
                         "name": "status",
                         "in": "body",
-                        "description": "The new status of the post",
+                        "description": "The new status of the pinboard",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Post"
+                            "$ref": "#/definitions/Pinboard"
                         },
                         "type": "integer",
                         "format": "int32"
@@ -3469,7 +3311,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -3481,13 +3323,13 @@
                 }
             }
         },
-        "/posts/{id}/like": {
+        "/pinboard/{id}/like": {
             "post": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Like a post",
-                "description": "Like a post",
+                "summary": "Like a pinboard",
+                "description": "Like a pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3495,7 +3337,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id of Post",
+                        "description": "id of Pinboard",
                         "required": true,
                         "type": "integer"
                     }
@@ -3522,13 +3364,13 @@
                 }
             }
         },
-        "/posts/{id}/unlike": {
+        "/pinboard/{id}/unlike": {
             "post": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Unlike a post",
-                "description": "Unlike a post",
+                "summary": "Unlike a pinboard",
+                "description": "Unlike a pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3536,7 +3378,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id of Post",
+                        "description": "id of Pinboard",
                         "required": true,
                         "type": "integer"
                     }
@@ -3550,7 +3392,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "description": "count of likes for the post",
+                                    "description": "count of likes for the pinboard",
                                     "type": "integer"
                                 },
                                 "message": {
@@ -3563,13 +3405,13 @@
                 }
             }
         },
-        "/posts/{id}/buildings/{bid}": {
+        "/pinboard/{id}/buildings/{bid}": {
             "post": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Assign the provided building to the post",
-                "description": "Assign the provided building to the post",
+                "summary": "Assign the provided building to the pinboard",
+                "description": "Assign the provided building to the pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3582,7 +3424,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -3597,8 +3439,8 @@
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Unassign the provided building to the post",
-                "description": "Unassign the provided building to the post",
+                "summary": "Unassign the provided building to the pinboard",
+                "description": "Unassign the provided building to the pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3611,7 +3453,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -3623,13 +3465,13 @@
                 }
             }
         },
-        "/posts/{id}/quarters/{did}": {
+        "/pinboard/{id}/quarters/{did}": {
             "post": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Assign the provided quarter to the post",
-                "description": "Assign the provided quarter to the post",
+                "summary": "Assign the provided quarter to the pinboard",
+                "description": "Assign the provided quarter to the pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3642,7 +3484,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -3657,8 +3499,8 @@
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Unassign the provided quarter to the post",
-                "description": "Unassign the provided quarter to the post",
+                "summary": "Unassign the provided quarter to the pinboard",
+                "description": "Unassign the provided quarter to the pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3671,7 +3513,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -3683,13 +3525,13 @@
                 }
             }
         },
-        "/posts/{id}/locations": {
+        "/pinboard/{id}/locations": {
             "get": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Get a listing of the post locations.",
-                "description": "Get a listing of the post locations.",
+                "summary": "Get a listing of the pinboard locations.",
+                "description": "Get a listing of the pinboard locations.",
                 "produces": [
                     "application/json"
                 ],
@@ -3704,7 +3546,7 @@
                                 "data": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/definitions/Post"
+                                        "$ref": "#/definitions/Pinboard"
                                     }
                                 },
                                 "message": {
@@ -3717,13 +3559,13 @@
                 }
             }
         },
-        "/posts/{id}/providers/{pid}": {
+        "/pinboard/{id}/providers/{pid}": {
             "post": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Assign the provided service provider to the post",
-                "description": "Assign the provided service provider to the post",
+                "summary": "Assign the provided service provider to the pinboard",
+                "description": "Assign the provided service provider to the pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3736,7 +3578,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -3751,8 +3593,8 @@
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Unassign the provided service provider to the post",
-                "description": "Unassign the provided service provider to the post",
+                "summary": "Unassign the provided service provider to the pinboard",
+                "description": "Unassign the provided service provider to the pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3765,7 +3607,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -3777,13 +3619,13 @@
                 }
             }
         },
-        "/posts/{id}/views": {
+        "/pinboard/{id}/views": {
             "get": {
                 "tags": [
                     "Listing"
                 ],
-                "summary": "List the view count of the post",
-                "description": "List the view count of the post",
+                "summary": "List the view count of the pinboard",
+                "description": "List the view count of the pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3796,7 +3638,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/PostView"
+                                    "$ref": "#/definitions/PinboardView"
                                 },
                                 "message": {
                                     "type": "string"
@@ -3811,8 +3653,8 @@
                 "tags": [
                     "Listing"
                 ],
-                "summary": "Increment the view count of the post",
-                "description": "Increment the view count of the post",
+                "summary": "Increment the view count of the pinboard",
+                "description": "Increment the view count of the pinboard",
                 "produces": [
                     "application/json"
                 ],
@@ -3825,7 +3667,7 @@
                                     "type": "boolean"
                                 },
                                 "data": {
-                                    "$ref": "#/definitions/Post"
+                                    "$ref": "#/definitions/Pinboard"
                                 },
                                 "message": {
                                     "type": "string"
@@ -3833,6 +3675,40 @@
                             },
                             "type": "object"
                         }
+                    }
+                }
+            }
+        },
+        "/pinboard/rss.xml": {
+            "get": {
+                "tags": [
+                    "RSS"
+                ],
+                "summary": "RSS feed of pinboard",
+                "description": "Get RSS feed of pinboard",
+                "produces": [
+                    "application/xml"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/pinboard/weather.json": {
+            "get": {
+                "tags": [
+                    "weather"
+                ],
+                "summary": "JSON feed of weather",
+                "description": "Get json feed of weather",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
                     }
                 }
             }
@@ -4801,7 +4677,7 @@
                     "Quarter"
                 ],
                 "summary": "Assign the provided propertyManagers to the Quarter",
-                "description": " <a href='http://dev.propify.ch/api/docs#/Quarter/post_quarters__id__managers'>http://dev.propify.ch/api/docs#/Quarter/post_quarters__id__managers</a>",
+                "description": " <a href='http://dev.propify.ch/api/docs#/Quarter/pinboard_quarters__id__managers'>http://dev.propify.ch/api/docs#/Quarter/pinboard_quarters__id__managers</a>",
                 "produces": [
                     "application/json"
                 ],
@@ -6104,7 +5980,7 @@
                     "ServiceRequest"
                 ],
                 "summary": "Assign the provided user to the request",
-                "description": "use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/post_requests__id__managers__pmid_'>/requests/{id}/managers/{pmid}</a>",
+                "description": "use <a href='http://dev.propify.ch/api/docs#/ServiceRequest/pinboard_requests__id__managers__pmid_'>/requests/{id}/managers/{pmid}</a>",
                 "produces": [
                     "application/json"
                 ],
@@ -9403,48 +9279,7 @@
                 }
             }
         },
-        "PinnedEmailReceptionist": {
-            "required": [
-                "content"
-            ],
-            "properties": {
-                "id": {
-                    "description": "id",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "post_id": {
-                    "description": "post_id",
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "tenant_ids": {
-                    "description": "tenant_ids",
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                },
-                "failed_tenant_ids": {
-                    "description": "failed_tenant_ids",
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                },
-                "created_at": {
-                    "description": "created_at",
-                    "type": "string",
-                    "format": "date-time"
-                },
-                "updated_at": {
-                    "description": "updated_at",
-                    "type": "string",
-                    "format": "date-time"
-                }
-            }
-        },
-        "Post": {
+        "Pinboard": {
             "required": [
                 "content"
             ],
@@ -9517,7 +9352,7 @@
                 }
             }
         },
-        "PostView": {
+        "PinboardView": {
             "required": [],
             "properties": {
                 "id": {
@@ -9525,8 +9360,8 @@
                     "type": "integer",
                     "format": "int32"
                 },
-                "post_id": {
-                    "description": "post_id",
+                "pinboard_id": {
+                    "description": "pinboard_id",
                     "type": "integer",
                     "format": "int32"
                 },
@@ -9539,6 +9374,47 @@
                     "description": "views",
                     "type": "integer",
                     "format": "int32"
+                },
+                "created_at": {
+                    "description": "created_at",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "description": "updated_at",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "PinnedEmailReceptionist": {
+            "required": [
+                "content"
+            ],
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "pinboard_id": {
+                    "description": "pinboard_id",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "tenant_ids": {
+                    "description": "tenant_ids",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "failed_tenant_ids": {
+                    "description": "failed_tenant_ids",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 },
                 "created_at": {
                     "description": "created_at",
