@@ -371,13 +371,13 @@ class Pinboard extends AuditableModel implements HasMedia, LikeableContract
 
     public function incrementViews(int $userID)
     {
-        $uv = PinboardView::where('post_id', $this->id)
+        $uv = PinboardView::where('pinboard_id', $this->id)
             ->where('user_id', $userID)
             ->first();
         if (!$uv) {
             $uv = new PinboardView();
             $uv->user_id = $userID;
-            $uv->post_id = $this->id;
+            $uv->pinboard_id = $this->id;
         }
         $uv->views += 1;
         $uv->save();

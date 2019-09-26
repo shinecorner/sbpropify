@@ -36,11 +36,11 @@ class FilterByPostCriteria implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $post_id = $this->request->get('post_id', null);
-        if (!$post_id) { return $model; }
+        $pinboardId = $this->request->pinboard_id ?? $this->request->post_id;
+        if (!$pinboardId) { return $model; }
 
-        $model->join('post_service_provider', 'post_service_provider.service_provider_id', '=', 'service_providers.id')
-            ->where('post_service_provider.post_id', $post_id);
+        $model->join('pinboard_service_provider', 'pinboard_service_provider.service_provider_id', '=', 'service_providers.id')
+            ->where('pinboard_service_provider.pinboard_id', $pinboardId);
 
         return $model;
     }

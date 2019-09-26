@@ -15,8 +15,8 @@ use Illuminate\Validation\Rule;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="post_id",
- *          description="post_id",
+ *          property="pinboard_id",
+ *          description="pinboard_id",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -53,7 +53,7 @@ use Illuminate\Validation\Rule;
 class PinnedEmailReceptionist extends Model
 {
     public $fillable = [
-        'post_id',
+        'pinboard_id',
         'tenant_ids',
         'failed_tenant_ids'
     ];
@@ -64,7 +64,7 @@ class PinnedEmailReceptionist extends Model
      * @var array
      */
     protected $casts = [
-        'post_id' => 'integer',
+        'pinboard_id' => 'integer',
         'tenant_ids' => 'array',
         'failed_tenant_ids' => 'array'
     ];
@@ -117,6 +117,6 @@ class PinnedEmailReceptionist extends Model
      **/
     public function post()
     {
-        return $this->belongsTo(Pinboard::class, 'post_id', 'id');
+        return $this->belongsTo(Pinboard::class, 'pinboard_id', 'id');
     }
 }
