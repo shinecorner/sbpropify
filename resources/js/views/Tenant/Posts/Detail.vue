@@ -1,6 +1,6 @@
 <template>
     <div class="post">
-        <heading icon="ti-announcement" title="News" description="Sed placerat volutpat mollis." />
+        <heading icon="ti-announcement" :title="$t('tenant.news')" :description="$t('tenant.heading_info.news')"/>
         <el-row :gutter="24">
             <el-col :span="16">
                 <post-card :data="data" v-if="data" :show-actions="false"/>

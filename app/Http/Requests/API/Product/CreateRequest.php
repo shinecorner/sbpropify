@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\Product;
 
 use App\Models\Product;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class CreateRequest extends APIRequest
+class CreateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class CreateRequest extends APIRequest
      */
     public function authorize()
     {
-        return \Auth::user()->can('post-product');
+        return $this->can('add-product');
     }
 
     /**

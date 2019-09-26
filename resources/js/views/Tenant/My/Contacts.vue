@@ -1,18 +1,18 @@
 <template>
     <placeholder :size="256" :src="require('img/5ceaae95848f2.png')" v-if="!this.loader.visible && !this.contacts.length">
         {{$t('tenant.no_data.contact')}}
-        <small>All of them will be listed here, each shown in a detailed way.</small>
+        <small>{{$t('tenant.no_data_info.contact')}}</small>
     </placeholder>
     <div class="contacts" v-else-if="contacts.length">
-        <ui-heading icon="ti-book" title="My contracts">
-            <div slot="description">A list with all the building's contacts.</div>
+        <ui-heading icon="ti-book" :title="$t('tenant.my_contacts')">
+            <div slot="description">{{$t('tenant.heading_info.my_contact')}}</div>
         </ui-heading>
         <ui-divider />
         <el-card>
             <el-tabs tab-position="left">
                 <el-tab-pane v-for="contact in contacts" :key="contact.id" :label="contact.name">
                     <div class="title">
-                        <small>Category</small>
+                        <small>{{$t('tenant.category')}}</small>
                         {{$t(`models.service.${contact.category}`)}}
                     </div>
                     <div class="title">
@@ -20,11 +20,11 @@
                         {{contact.name}}
                     </div>
                     <div class="title">
-                        <small>Email</small>
+                        <small>{{$t('tenant.email')}}</small>
                         {{contact.email}}
                     </div>
                     <div class="title">
-                        <small>Phone</small>
+                        <small>{{$t('tenant.contact_phone')}}</small>
                         {{contact.phone}}
                     </div>
                 </el-tab-pane>

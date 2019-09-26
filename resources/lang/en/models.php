@@ -290,7 +290,7 @@ return [
         'floor' => 'Floor',
         'sq_meter' => 'Sq Meter',
         'room_no' => 'Number of rooms',
-        'monthly_rent' => 'Monthly rent',
+        'monthly_rent_net' => 'Monthly rent',
         'building_search' => 'Please enter a building name and select it',
         'building' => 'Building',
         'basement' => 'Basement',
@@ -317,7 +317,7 @@ return [
             'building' => [
                 'required' => 'Building is required',
             ],
-            'monthly_rent' => [
+            'monthly_rent_net' => [
                 'required' => 'Monthly rent is required',
             ],
             'floor' => [
@@ -628,7 +628,11 @@ return [
         'days_left' => 'How many days before should the email be sent?',
         'send_person' => 'Which person should be notified?',
         'add_contract' => 'Add new contract',
-        'delete_contract' => 'Delete contract',
+        'delete_contract' => 'Delete contract', 
+        'sort' => 'Sort',
+        'reset_sort' => 'Reset Sort',
+        'creation_date' => 'Creation Date',
+        'ago' => 'ago',
         'media' => [
             'added' => 'Document added',
             'removed' => 'Document removed',
@@ -960,5 +964,27 @@ return [
         'uploadPlaceTxt' => 'uploading__',
         'uploadTimeoutPlaceTxt' => 'upload_timeout__',
         'uploadErrorPlaceTxt' => 'upload_error__',
+        'title' => 'Title',
+        'in_format' => 'In format',
+        'rows' => 'Rows',
+        'cols' => 'Columns',
+        'color' => [
+            'dark_red' => 'Dark red',
+            'violet' => 'Violet',
+            'red' => 'Red',
+            'fresh_pink' => 'Fresh pink',
+            'navy_blue' => 'Navy blue',
+            'blue' => 'Blue',
+            'blue_lake' => 'Blue Lake',
+            'blue_green' => 'Blue green',
+            'green' => 'Green',
+            'olive' => 'Olive',
+            'light_green' => 'Light green',
+            'orange' => 'Orange',
+            'gray' => 'Gray',
+            'silver' => 'Silver',
+            'black' => 'Black',
+            'white' => 'White',
+        ]
     ],
 ];

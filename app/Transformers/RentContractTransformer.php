@@ -30,12 +30,12 @@ class RentContractTransformer extends BaseTransformer
             'deposit_type' => $model->deposit_type,
             'deposit_status' => $model->deposit_status,
             'deposit_amount' => $model->deposit_amount,
-            'net_rent' => $model->net_rent,
-            'operating_cost' => $model->operating_cost,
-            'gross_rent' => $model->gross_rent,
             'parking_price' => $model->parking_price,
             'start_date' => $model->start_date,
             'end_date' => $model->end_date,
+            'monthly_rent_net' => $model->monthly_rent_net,
+            'monthly_rent_gross' => $model->monthly_rent_gross,
+            'monthly_maintenance' => $model->monthly_maintenance,
         ];
 
         if ($model->start_date) {

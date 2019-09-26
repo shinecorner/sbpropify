@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\Post;
 
 use App\Models\Post;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class CreateRequest extends APIRequest
+class CreateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,8 +14,7 @@ class CreateRequest extends APIRequest
      */
     public function authorize()
     {
-        $u = \Auth::user();
-        return $u->can('post-post') || $u->can('post-located-post');
+        return $this->can('add-post');
     }
 
     /**

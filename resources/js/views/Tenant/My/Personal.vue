@@ -1,8 +1,8 @@
 <template>
     <div>
         <placeholder :size="256" :src="require('img/5d0672abb48ed.png')" v-if="!model && !loading.visible">
-            No personal data available.
-            <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
+            {{$t('tenant.no_data.personal')}}
+            <small>{{$t('tenant.no_data_info.personal')}}</small>
         </placeholder>
         <div class="personal" v-else-if="model && !loading.visible">
             <ui-heading icon="ti-book" :title="$t('tenant.personal_data')" :description="$t('tenant.my_personal_details')">

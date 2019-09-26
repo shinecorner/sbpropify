@@ -56,11 +56,13 @@
                             </el-col>
 
                             <el-col :md="6" >
-                                <el-form-item :label="$t('models.unit.monthly_rent')"
-                                              :rules="validationRules.monthly_rent"
-                                              prop="monthly_rent">
+                                <el-form-item :label="$t('models.unit.monthly_rent_net')"
+                                              :rules="validationRules.monthly_rent_net"
+                                              prop="monthly_rent_net">
                                     <el-input autocomplete="off" step="0.01" type="number"
-                                              v-model="model.monthly_rent"></el-input>
+                                              v-model="model.monthly_rent_net">
+                                        <template slot="prepend">CHF</template>
+                                    </el-input>
                                 </el-form-item>
                             </el-col>
 
@@ -89,7 +91,9 @@
 
                             <el-col :md="6">
                                 <el-form-item :label="$t('models.unit.sq_meter')" prop="sq_meter">
-                                    <el-input autocomplete="off" type="number" v-model="model.sq_meter"></el-input>
+                                    <el-input autocomplete="off" type="number" v-model="model.sq_meter">
+                                        <template slot="prepend">m2</template>
+                                    </el-input>
                                 </el-form-item>
                             </el-col>
                             <el-col :md="12" style="display: flex">
@@ -223,6 +227,14 @@
     .el-card .el-card__body {
         display: flex;
         flex-direction: column;
+    }
+    .el-form-item__content {
+        .el-input.el-input-group {
+            .el-input-group__prepend {
+                padding: 2px 8px 0;
+                font-weight: 600;
+            }
+        }
     }
 </style>
 <style lang="scss" scoped>

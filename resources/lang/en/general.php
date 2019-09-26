@@ -11,6 +11,7 @@ return [
         'weeks' => 'Weeks',
         'months' => 'Months',
         'years' => 'Years',
+        'day' => 'Day'
     ],
     'chooseLanguage' => 'Choose Language',
     'language' => "Language",
@@ -252,5 +253,5 @@ return [
     'to_homepage' => 'To Homepage',
     'assignment' => 'Assignment',
     'status_changed' => 'Status changed',
-    'notification' => 'Notification',
+
 ];

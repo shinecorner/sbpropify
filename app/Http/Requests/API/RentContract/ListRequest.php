@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\API\RentContract;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class ListRequest extends APIRequest
+class ListRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,16 +13,6 @@ class ListRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('list-tenant'); // @TODO add new rule list-rent_contract
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
+        return $this->can('list-tenant'); // @TODO add new rule list-rent_contract
     }
 }

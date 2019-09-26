@@ -44,12 +44,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="int32"
  *      ),
  *      @SWG\Property(
- *          property="monthly_rent",
- *          description="monthly_rent",
- *          type="number",
- *          format="float"
- *      ),
- *      @SWG\Property(
  *          property="room_no",
  *          description="room_no",
  *          type="string",
@@ -58,6 +52,24 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      @SWG\Property(
  *          property="basement",
  *          description="basement",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="monthly_rent_net",
+ *          description="monthly_rent_net",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="monthly_rent_gross",
+ *          description="monthly_rent_gross",
+ *          type="integer",
+ *          format="int32"
+ *      ),
+ *      @SWG\Property(
+ *          property="monthly_maintenance",
+ *          description="monthly_maintenance",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -113,7 +125,9 @@ class Unit extends AuditableModel
         'name',
         'description',
         'floor',
-        'monthly_rent',
+        'monthly_rent_net',
+        'monthly_rent_gross',
+        'monthly_maintenance',
         'room_no',
         'basement',
         'attic',
@@ -132,7 +146,9 @@ class Unit extends AuditableModel
         'name' => 'string',
         'description' => 'string',
         'floor' => 'integer',
-        'monthly_rent' => 'float',
+        'monthly_rent_net' => 'float',
+        'monthly_rent_gross' => 'float',
+        'monthly_maintenance' => 'float',
         'room_no' => 'float',
         'basement' => 'boolean',
         'attic' => 'boolean',

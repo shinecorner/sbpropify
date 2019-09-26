@@ -239,9 +239,9 @@
                                 {{unit.room_no}}&nbsp;
                             </el-col>
 
-                            <el-col :sm="12" :xs="12">{{$t('models.unit.monthly_rent')}}:</el-col>
+                            <el-col :sm="12" :xs="12">{{$t('models.unit.monthly_rent_net')}}:</el-col>
                             <el-col :sm="12" :xs="12" class="text-secondary">
-                                {{unit.monthly_rent}}&nbsp;
+                                {{unit.monthly_rent_net}}&nbsp;
                             </el-col>
 
                             <el-col :sm="12" :xs="12">{{$t('models.unit.floor')}}:</el-col>

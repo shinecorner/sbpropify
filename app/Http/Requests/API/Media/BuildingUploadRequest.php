@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests\API\Media;
 
-use App\Models\Product;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class BuildingUploadRequest extends APIRequest
+class BuildingUploadRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +13,7 @@ class BuildingUploadRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('edit-building');
+        return $this->can('edit-building');
     }
 
     /**
@@ -24,6 +23,8 @@ class BuildingUploadRequest extends APIRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            'media' => 'required|string',
+        ];
     }
 }

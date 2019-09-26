@@ -1,7 +1,7 @@
 <template>
     <div :class="['posts-box']">
         <div :class="['posts']">
-            <ui-heading icon="icon-megaphone-1" title="News" :description="$t('tenant.heading_info.news')" />
+            <ui-heading icon="icon-megaphone-1" :title="$t('tenant.news')" :description="$t('tenant.heading_info.news')" />
             
                 <ui-divider />
             <div class="container" v-infinite-scroll="getPosts" infinite-scroll-disabled="loading">

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\API\Template;
+namespace App\Http\Requests\API\InternalNotice;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
+use App\Models\InternalNotice;
 
-class ListCategoriesRequest extends APIRequest
+class UpdateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,8 @@ class ListCategoriesRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('list-template');
+        //TODO ROLE RELATED is need create update-internal_notice
+        return true;
     }
 
     /**
@@ -23,6 +25,6 @@ class ListCategoriesRequest extends APIRequest
      */
     public function rules()
     {
-        return [];
+        return InternalNotice::$rules;
     }
 }

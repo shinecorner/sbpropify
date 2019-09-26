@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\API\PropertyManager;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class BatchDeleteRequest extends APIRequest
+class BatchDeleteRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class BatchDeleteRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('delete-property_manager');
+        return $this->can('delete-property_manager');
     }
 
     /**

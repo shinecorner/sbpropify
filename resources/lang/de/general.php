@@ -11,6 +11,7 @@ return [
         'weeks' => 'Wochen',
         'months' => 'Monate',
         'years' => 'Jahre',
+        'day' => 'Day de'
     ],
     'chooseLanguage' => 'Sprache auswählen',
     'language' => "Sprache",
@@ -252,5 +253,4 @@ return [
     'to_homepage' => 'Zur Startseite',
     'assignment' => 'Zugewiesene Liegenschaften',
     'status_changed' => 'Status geändert',
-    'notification' => 'Benachrichtigung',
 ];

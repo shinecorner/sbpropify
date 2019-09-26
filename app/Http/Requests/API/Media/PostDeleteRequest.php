@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\Media;
 
 use App\Models\Post;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class PostDeleteRequest extends APIRequest
+class PostDeleteRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,15 +25,5 @@ class PostDeleteRequest extends APIRequest
         }
 
         return $p->status == Post::StatusNew;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
     }
 }

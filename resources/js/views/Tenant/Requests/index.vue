@@ -67,7 +67,7 @@
                 <el-tab-pane name="chat" lazy>
                     <div slot="label">
                         <i class="ti-comments"></i>
-                        Chat
+                        {{$t('tenant.chat')}}
                     </div>
                     <chat ref="chat" :id="openedRequest.id" type="request" height="100%" max-height="100%" />
                 </el-tab-pane>

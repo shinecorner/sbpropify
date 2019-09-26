@@ -9,9 +9,6 @@
                 <el-tab-pane :label="$t('pages.profile.account')" :lazy="true" name="account">
                     <accounts/>
                 </el-tab-pane>
-                <el-tab-pane :label="$t('pages.profile.security')" :lazy="true" name="security">
-                    <security/>
-                </el-tab-pane>
                 <el-tab-pane :label="$t('pages.profile.notifications')" :lazy="true" name="notifications">
                     <notifications/>
                 </el-tab-pane>
@@ -24,7 +21,6 @@
     import Heading from 'components/Heading';
     import Profile from './Profile';
     import Accounts from './Account';
-    import Security from './Security';
     import Notifications from './Notifications';
 
 
@@ -34,7 +30,6 @@
             Heading,
             Profile,
             Accounts,
-            Security,
             Notifications
         },
         data() {

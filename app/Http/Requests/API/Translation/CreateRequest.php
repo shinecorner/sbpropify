@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\API\Quarter;
+namespace App\Http\Requests\API\Translation;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
+use App\Models\Translation;
 
-class DeleteQuarterAssigneeRequest extends APIRequest
+class CreateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,8 +14,7 @@ class DeleteQuarterAssigneeRequest extends APIRequest
      */
     public function authorize()
     {
-        return true;
-        return $this->user()->can('delete-quarter');
+        return $this->can('add-translation');
     }
 
     /**
@@ -24,6 +24,6 @@ class DeleteQuarterAssigneeRequest extends APIRequest
      */
     public function rules()
     {
-        return [];
+        return Translation::$rules;
     }
 }
