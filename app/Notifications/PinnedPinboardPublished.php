@@ -12,25 +12,25 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 /**
- * Class PinnedPostPublished
+ * Class PinnedPinboardPublished
  * @package App\Notifications
  */
-class PinnedPostPublished extends Notification implements ShouldQueue
+class PinnedPinboardPublished extends Notification implements ShouldQueue
 {
     use Queueable;
 
     /**
      * @var Pinboard
      */
-    protected $post;
+    protected $pinboard;
 
     /**
      * PinnedPostPublished constructor.
-     * @param Pinboard $post
+     * @param Pinboard $pinboard
      */
-    public function __construct(Pinboard $post)
+    public function __construct(Pinboard $pinboard)
     {
-        $this->post = $post;
+        $this->pinboard = $pinboard;
     }
 
     /**
@@ -53,7 +53,7 @@ class PinnedPostPublished extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $tRepo = new TemplateRepository(app());
-        $data = $tRepo->getPinnedPostParsedTemplate($this->post, $notifiable);
+        $data = $tRepo->getPinnedPostParsedTemplate($this->pinboard, $notifiable);
         $data['userName'] = $notifiable->name;
         $data['lang'] = $notifiable->settings->language ?? App::getLocale();
 
@@ -69,10 +69,10 @@ class PinnedPostPublished extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'post_id' => $this->post->id,
-            'post_type' => $this->post->type,
-            'user_name' => $this->post->user->name,
-            'fragment' => Str::limit($this->post->content, 128),
+            'pinboard_id' => $this->pinboard->id,
+            'pinboard_type' => $this->pinboard->type,
+            'user_name' => $this->pinboard->user->name,
+            'fragment' => Str::limit($this->pinboard->content, 128),
         ];
     }
 

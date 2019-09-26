@@ -12,7 +12,7 @@ use App\Models\RealEstate;
 use App\Models\User;
 use App\Notifications\NewTenantInNeighbour;
 use App\Notifications\NewTenantPost;
-use App\Notifications\PinnedPostPublished;
+use App\Notifications\PinnedPinboardPublished;
 use App\Notifications\PinboardPublished;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -118,11 +118,11 @@ class PinboardRepository extends BaseRepository
 
     protected function saveNotificationAuditsAndLogs(Pinboard $pinboard, $notificationsData)
     {
-        $pinnedPostPublished = get_morph_type_of(PinnedPostPublished::class);
-        $pinnedPostPublishedUsers = $notificationsData[$pinnedPostPublished] ?? collect();
-        if ($pinnedPostPublishedUsers->isNotEmpty()) {
+        $pinnedPinboardPublished = get_morph_type_of(PinnedPinboardPublished::class);
+        $pinnedPinboardtPublishedUsers = $notificationsData[$pinnedPinboardPublished] ?? collect();
+        if ($pinnedPinboardtPublishedUsers->isNotEmpty()) {
             $pinboard->pinned_email_receptionists()->create([
-                'tenant_ids' => $pinnedPostPublishedUsers->pluck('tenant.id'),
+                'tenant_ids' => $pinnedPinboardtPublishedUsers->pluck('tenant.id'),
                 'failed_tenant_ids' => []
             ]);
         }
@@ -207,11 +207,11 @@ class PinboardRepository extends BaseRepository
 
         $usersToNotify = $this->getNotifiedTenantUsers($pinboard);
 
-        $pinnedPostPublished = get_morph_type_of(PinnedPostPublished::class);
+        $pinnedPinboardPublished = get_morph_type_of(PinnedPinboardPublished::class);
         $pinboardPublished = get_morph_type_of(PinboardPublished::class);
         $pinboardNewTenantNeighbor = get_morph_type_of(NewTenantInNeighbour::class);
         $notificationsData = collect([
-            $pinnedPostPublished => collect(),
+            $pinnedPinboardPublished => collect(),
             $pinboardPublished => collect(),
             $pinboardNewTenantNeighbor => collect(),
         ]);
@@ -226,8 +226,8 @@ class PinboardRepository extends BaseRepository
             $delay = $i++ * env("DELAY_BETWEEN_EMAILS", 10);
             $u->redirect = '/news';
             if ($u->settings && $u->settings->admin_notification && $pinboard->pinned) {
-                $notificationsData[$pinnedPostPublished]->push($u);
-                $u->notify((new PinnedPostPublished($pinboard))
+                $notificationsData[$pinnedPinboardPublished]->push($u);
+                $u->notify((new PinnedPinboardPublished($pinboard))
                     ->delay(now()->addSeconds($delay)));
                 continue;
             }
