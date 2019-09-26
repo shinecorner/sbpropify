@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\API\Comment;
 
+use App\Http\Requests\BaseRequest;
 use App\Models\Comment;
-use InfyOm\Generator\Request\APIRequest;
 
-class CreateRequest extends APIRequest
+class CreateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class CreateRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('post-comment');
+        return $this->can('add-comment');
     }
 
     /**

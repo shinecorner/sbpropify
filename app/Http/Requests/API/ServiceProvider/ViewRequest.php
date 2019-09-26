@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\ServiceProvider;
 
 use App\Models\ServiceProvider;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class ShowRequest extends APIRequest
+class ViewRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,15 +24,5 @@ class ShowRequest extends APIRequest
         }
 
         return $p->user_id == $u->id;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
     }
 }

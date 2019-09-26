@@ -26,16 +26,16 @@ class ServiceRequestCategoryAPIController extends AppBaseController
     /** @var  ServiceRequestCategoryRepository */
     private $serviceRequestCategoryRepository;
 
+    /**
+     * ServiceRequestCategoryAPIController constructor.
+     * @param ServiceRequestCategoryRepository $serviceRequestCategoryRepo
+     */
     public function __construct(ServiceRequestCategoryRepository $serviceRequestCategoryRepo)
     {
         $this->serviceRequestCategoryRepository = $serviceRequestCategoryRepo;
     }
 
     /**
-     * @param ListRequest $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Get(
      *      path="/requestCategories",
      *      summary="Get a listing of the ServiceRequestCategories.",
@@ -63,6 +63,10 @@ class ServiceRequestCategoryAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return Response
+     * @throws \Exception
      */
     public function index(ListRequest $request)
     {
@@ -96,10 +100,6 @@ class ServiceRequestCategoryAPIController extends AppBaseController
     }
 
     /**
-     * @param ListRequest $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Get(
      *      path="/categoryTree",
      *      summary="Get a Tree listing of the ServiceRequestCategories.",
@@ -127,6 +127,10 @@ class ServiceRequestCategoryAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return Response
+     * @throws \Exception
      */
     public function categoryTree(ListRequest $request)
     {
@@ -144,10 +148,6 @@ class ServiceRequestCategoryAPIController extends AppBaseController
     }
 
     /**
-     * @param CreateRequest $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Post(
      *      path="/requestCategories",
      *      summary="Store a newly created ServiceRequestCategory in storage",
@@ -181,6 +181,10 @@ class ServiceRequestCategoryAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @return Response
+     * @throws \Exception
      */
     public function store(CreateRequest $request)
     {
@@ -209,9 +213,6 @@ class ServiceRequestCategoryAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/requestCategories/{id}",
      *      summary="Display the specified ServiceRequestCategory",
@@ -245,6 +246,10 @@ class ServiceRequestCategoryAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param ViewRequest $r
+     * @return mixed
      */
     public function show($id, ViewRequest $r)
     {
@@ -259,11 +264,6 @@ class ServiceRequestCategoryAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param UpdateRequest $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Put(
      *      path="/requestCategories/{id}",
      *      summary="Update the specified ServiceRequestCategory in storage",
@@ -304,6 +304,11 @@ class ServiceRequestCategoryAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param UpdateRequest $request
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function update(int $id, UpdateRequest $request)
     {
@@ -339,10 +344,6 @@ class ServiceRequestCategoryAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param DeleteRequest $r
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/requestCategories/{id}",
      *      summary="Remove the specified ServiceRequestCategory from storage",
@@ -376,6 +377,11 @@ class ServiceRequestCategoryAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param DeleteRequest $r
+     * @return mixed
+     * @throws \Exception
      */
     public function destroy(int $id, DeleteRequest $r)
     {

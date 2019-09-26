@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests\API\Tag;
 
-use App\Models\Tag;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class ListRequest extends APIRequest
+class ListRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,17 +13,6 @@ class ListRequest extends APIRequest
      */
     public function authorize()
     {
-        return true; // @TODO
-        return $this->user()->can('list-tag');
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
+        return $this->can('list-tag');
     }
 }

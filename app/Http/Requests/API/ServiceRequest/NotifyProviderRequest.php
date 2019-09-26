@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\API\ServiceRequest;
 
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class NotifyProviderRequest extends APIRequest
+class NotifyProviderRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class NotifyProviderRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('notify-provider');
+        return $this->can('notify-provider');
     }
 
     /**

@@ -10,7 +10,6 @@ use App\Http\Requests\API\Address\UpdateRequest;
 use App\Http\Requests\API\Address\ViewRequest;
 use App\Models\Address;
 use App\Repositories\AddressRepository;
-use Illuminate\Http\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
 
@@ -34,9 +33,8 @@ class AddressAPIController extends AppBaseController
 
     /**
      * @param ListRequest $request
-     * @return Response
-     * @throws \Exception
-     *
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function index(ListRequest $request)
     {
@@ -57,9 +55,8 @@ class AddressAPIController extends AppBaseController
 
     /**
      * @param CreateRequest $request
-     * @return Response
-     * @throws \Exception
-     *
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function store(CreateRequest $request)
     {
@@ -71,10 +68,9 @@ class AddressAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @param ViewRequest $r
-     * @return Response
-     *
+     * @return mixed
      */
     public function show($id, ViewRequest $r)
     {
@@ -89,11 +85,10 @@ class AddressAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @param UpdateRequest $request
-     * @return Response
-     * @throws \Exception
-     *
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function update($id, UpdateRequest $request)
     {
@@ -113,10 +108,10 @@ class AddressAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @param DeleteRequest $r
-     * @return Response
-     *
+     * @return mixed
+     * @throws \Exception
      */
     public function destroy($id, DeleteRequest $r)
     {

@@ -15,10 +15,14 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\API\Post\AssignRequest;
 use App\Http\Requests\API\Post\CreateRequest;
 use App\Http\Requests\API\Post\DeleteRequest;
+use App\Http\Requests\API\Post\LikeRequest;
+use App\Http\Requests\API\Post\ListRequest;
 use App\Http\Requests\API\Post\PublishRequest;
 use App\Http\Requests\API\Post\ShowRequest;
+use App\Http\Requests\API\Post\UnAssignRequest;
 use App\Http\Requests\API\Post\UpdateRequest;
 use App\Http\Requests\API\Post\ListViewsRequest;
+use App\Http\Requests\API\Post\ViewRequest;
 use App\Models\Post;
 use App\Notifications\PostLiked;
 use App\Repositories\BuildingRepository;
@@ -26,12 +30,10 @@ use App\Repositories\QuarterRepository;
 use App\Repositories\PostRepository;
 use App\Repositories\RealEstateRepository;
 use App\Repositories\ServiceProviderRepository;
-use App\Repositories\TemplateRepository;
 use App\Transformers\PostTransformer;
 use App\Transformers\PostViewTransformer;
 use App\Transformers\UserTransformer;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
@@ -67,10 +69,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
-     * @return Response
-     * @throws /Exception
-     *
      * @SWG\Get(
      *      path="/posts",
      *      summary="Get a listing of the Posts.",
@@ -98,8 +96,12 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param ListRequest $request
+     * @return Response
+     * @throws /Exception
      */
-    public function index(Request $request)
+    public function index(ListRequest $request)
     {
         $this->postRepository->pushCriteria(new LimitOffsetCriteria($request));
         $this->postRepository->pushCriteria(new FeedCriteria($request));
@@ -132,12 +134,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param CreateRequest $request
-     * @param RealEstateRepository $reRepo
-     * @param TemplateRepository $tRepo
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Post(
      *      path="/posts",
      *      summary="Store a newly created Post in storage",
@@ -171,6 +167,11 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param CreateRequest $request
+     * @param RealEstateRepository $reRepo
+     * @return mixed
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function store(CreateRequest $request, RealEstateRepository $reRepo)
     {
@@ -219,9 +220,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/posts/{id}",
      *      summary="Display the specified Post",
@@ -255,6 +253,10 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param ShowRequest $request
+     * @return mixed
      */
     public function show($id, ShowRequest $request)
     {
@@ -285,6 +287,9 @@ class PostAPIController extends AppBaseController
         return $this->sendResponse($data, 'Post retrieved successfully');
     }
 
+    /**
+     * @param $post
+     */
     protected function fixPostViews($post)
     {
         $tenantId = Auth::user()->tenant->id ?? null;
@@ -300,11 +305,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param UpdateRequest $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Put(
      *      path="/posts/{id}",
      *      summary="Update the specified Post in storage",
@@ -345,6 +345,11 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param UpdateRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function update($id, UpdateRequest $request)
     {
@@ -384,11 +389,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param $id
-     * @param DeleteRequest $request
-     * @return mixed
-     * @throws \Exception
-     *
      * @SWG\Delete(
      *      path="/posts/{id}",
      *      summary="Remove the specified Post from storage",
@@ -422,6 +422,11 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param DeleteRequest $request
+     * @return mixed
+     * @throws \Exception
      */
     public function destroy($id, DeleteRequest $request)
     {
@@ -438,10 +443,10 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param Request $request
+     * @param DeleteRequest $request
      * @return mixed
      */
-    public function destroyWithIds(Request $request){
+    public function destroyWithIds(DeleteRequest $request){
         $ids = $request->get('ids');
         try{
             Post::destroy($ids);            
@@ -453,12 +458,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param $id
-     * @param PublishRequest $request
-     * @return mixed
-     * @throws \Prettus\Repository\Exceptions\RepositoryException
-     *
-     *
      * @SWG\Post(
      *      path="/posts/{id}/publish",
      *      summary="Publish a post",
@@ -501,6 +500,11 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param PublishRequest $request
+     * @return mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function publish($id, PublishRequest $request)
     {
@@ -516,9 +520,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param $id
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/posts/{id}/like",
      *      summary="Like a post",
@@ -553,8 +554,12 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param LikeRequest $r
+     * @return mixed
      */
-    public function like($id)
+    public function like($id, LikeRequest $r)
     {
         $post = $this->postRepository->findWithoutFail($id);
         if (empty($post)) {
@@ -575,8 +580,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/posts/{id}/unlike",
      *      summary="Unlike a post",
@@ -611,8 +614,12 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param $id
+     * @param LikeRequest $r
+     * @return mixed
      */
-    public function unlike($id)
+    public function unlike($id, LikeRequest $r)
     {
         $post = $this->postRepository->findWithoutFail($id);
         if (empty($post)) {
@@ -626,12 +633,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $bid
-     * @param BuildingRepository $bRepo
-     * @param AssignRequest $r
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/posts/{id}/buildings/{bid}",
      *      summary="Assign the provided building to the post",
@@ -658,6 +659,12 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $bid
+     * @param BuildingRepository $bRepo
+     * @param AssignRequest $r
+     * @return mixed
      */
     public function assignBuilding(int $id, int $bid, BuildingRepository $bRepo, AssignRequest $r)
     {
@@ -689,12 +696,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $bid
-     * @param BuildingRepository $bRepo
-     * @param AssignRequest $r
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/posts/{id}/buildings/{bid}",
      *      summary="Unassign the provided building to the post",
@@ -721,8 +722,13 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     * @param int $id
+     * @param int $bid
+     * @param BuildingRepository $bRepo
+     * @param UnAssignRequest $r
+     * @return Response
      */
-    public function unassignBuilding(int $id, int $bid, BuildingRepository $bRepo, AssignRequest $r)
+    public function unassignBuilding(int $id, int $bid, BuildingRepository $bRepo, UnAssignRequest $r)
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
@@ -752,12 +758,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $qid
-     * @param QuarterRepository $qRepo
-     * @param AssignRequest $r
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/posts/{id}/quarters/{did}",
      *      summary="Assign the provided quarter to the post",
@@ -784,6 +784,12 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $qid
+     * @param QuarterRepository $qRepo
+     * @param AssignRequest $r
+     * @return Response
      */
     public function assignQuarter(int $id, int $qid, QuarterRepository $qRepo, AssignRequest $r)
     {
@@ -815,12 +821,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $qid
-     * @param QuarterRepository $qRepo
-     * @param AssignRequest $r
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/posts/{id}/quarters/{did}",
      *      summary="Unassign the provided quarter to the post",
@@ -847,8 +847,14 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $qid
+     * @param QuarterRepository $qRepo
+     * @param UnAssignRequest $r
+     * @return Response
      */
-    public function unassignQuarter(int $id, int $qid, QuarterRepository $qRepo, AssignRequest $r)
+    public function unassignQuarter(int $id, int $qid, QuarterRepository $qRepo, UnAssignRequest $r)
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
@@ -878,11 +884,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param Request $request
-     * @return Response
-     * @throws \Exception
-     *
      * @SWG\Get(
      *      path="/posts/{id}/locations",
      *      summary="Get a listing of the post locations.",
@@ -910,8 +911,13 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param ViewRequest $request
+     * @return Response
+     * @throws \Exception
      */
-    public function getLocations(int $id, Request $request)
+    public function getLocations(int $id, ViewRequest $request)
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
@@ -923,14 +929,7 @@ class PostAPIController extends AppBaseController
         return $this->sendResponse($locations, 'Locations retrieved successfully');
     }
 
-
     /**
-     * @param int $id
-     * @param int $pid
-     * @param ServiceProviderRepository $pRepo
-     * @param AssignRequest $r
-     * @return Response
-     *
      * @SWG\Post(
      *      path="/posts/{id}/providers/{pid}",
      *      summary="Assign the provided service provider to the post",
@@ -957,6 +956,12 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $pid
+     * @param ServiceProviderRepository $pRepo
+     * @param AssignRequest $r
+     * @return Response
      */
     public function assignProvider(int $id, int $pid, ServiceProviderRepository $pRepo, AssignRequest $r)
     {
@@ -989,12 +994,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @param int $pid
-     * @param ServiceProviderRepository $pRepo
-     * @param AssignRequest $r
-     * @return Response
-     *
      * @SWG\Delete(
      *      path="/posts/{id}/providers/{pid}",
      *      summary="Unassign the provided service provider to the post",
@@ -1021,8 +1020,14 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param int $pid
+     * @param ServiceProviderRepository $pRepo
+     * @param UnAssignRequest $r
+     * @return mixed
      */
-    public function unassignProvider(int $id, int $pid, ServiceProviderRepository $pRepo, AssignRequest $r)
+    public function unassignProvider(int $id, int $pid, ServiceProviderRepository $pRepo, UnAssignRequest $r)
     {
         $p = $this->postRepository->findWithoutFail($id);
         if (empty($p)) {
@@ -1052,9 +1057,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Put(
      *      path="/posts/{id}/views",
      *      summary="Increment the view count of the post",
@@ -1081,6 +1083,9 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @return mixed
      */
     public function incrementViews(int $id)
     {
@@ -1094,9 +1099,6 @@ class PostAPIController extends AppBaseController
     }
 
     /**
-     * @param int $id
-     * @return Response
-     *
      * @SWG\Get(
      *      path="/posts/{id}/views",
      *      summary="List the view count of the post",
@@ -1123,6 +1125,11 @@ class PostAPIController extends AppBaseController
      *          )
      *      )
      * )
+     *
+     * @param int $id
+     * @param PostViewTransformer $pvt
+     * @param ListViewsRequest $req
+     * @return mixed
      */
     public function indexViews(int $id, PostViewTransformer $pvt, ListViewsRequest $req)
     {

@@ -3,9 +3,9 @@
 namespace App\Http\Requests\API\RealEstate;
 
 use App\Models\RealEstate;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class UpdateRequest extends APIRequest
+class UpdateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class UpdateRequest extends APIRequest
      */
     public function authorize()
     {
-        return $this->user()->can('edit-real_estate');
+        return $this->can('edit-real_estate');
     }
 
     /**

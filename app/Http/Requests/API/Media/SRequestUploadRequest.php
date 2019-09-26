@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests\API\Media;
 
-use App\Models\ServiceRequest;
 use Illuminate\Support\Facades\Auth;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class SRequestUploadRequest extends APIRequest
+class SRequestUploadRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,6 +30,8 @@ class SRequestUploadRequest extends APIRequest
      */
     public function rules()
     {
-        return [];
+        return [
+            'media' => 'required|string',
+        ];
     }
 }

@@ -2,12 +2,11 @@
 
 namespace App\Http\Requests\API\Tag;
 
-use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
 
-class UpdateRequest extends APIRequest
+class UpdateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,8 +15,7 @@ class UpdateRequest extends APIRequest
      */
     public function authorize()
     {
-        return true; // @TODO
-        return $this->user()->can('edit-tag');
+        return $this->can('edit-tag');
     }
 
     /**

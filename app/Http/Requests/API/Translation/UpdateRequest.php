@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\API;
+namespace App\Http\Requests\API\Translation;
 
-use App\Models\InternalNotice;
-use InfyOm\Generator\Request\APIRequest;
+use App\Http\Requests\BaseRequest;
+use App\Models\Translation;
 
-class CreateInternalNoticeAPIRequest extends APIRequest
+class UpdateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class CreateInternalNoticeAPIRequest extends APIRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->can('edit-translation');
     }
 
     /**
@@ -24,6 +24,6 @@ class CreateInternalNoticeAPIRequest extends APIRequest
      */
     public function rules()
     {
-        return InternalNotice::$rules;
+        return Translation::$rules;
     }
 }

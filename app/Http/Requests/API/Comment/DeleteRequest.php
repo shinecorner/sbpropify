@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\API\Comment;
 
+use App\Http\Requests\BaseRequest;
 use App\Models\Comment;
-use InfyOm\Generator\Request\APIRequest;
 
-class DestroyRequest extends APIRequest
+class DeleteRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,20 +14,11 @@ class DestroyRequest extends APIRequest
      */
     public function authorize()
     {
-        if ($this->user()->can('edit-comment')) {
+        //TODO ROLE RELATED is need create delete-comment like other
+        if ($this->can('edit-comment')) {
             return true;
         }
         return Comment::where('id', $this->route('id'))
             ->where('user_id', \Auth::id())->exists();
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        return [];
     }
 }
