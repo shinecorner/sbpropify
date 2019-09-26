@@ -2,7 +2,38 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Address;
+use App\Models\Building;
+use App\Models\BuildingAssignee;
+use App\Models\CleanifyRequest;
+use App\Models\Comment;
+use App\Models\Conversation;
+use App\Models\Country;
+use App\Models\InternalNotice;
+use App\Models\Like;
+use App\Models\LoginDevice;
+use App\Models\Media;
+use App\Models\Permission;
+use App\Models\Pinboard;
+use App\Models\PinboardView;
+use App\Models\PinnedEmailReceptionist;
+use App\Models\Product;
+use App\Models\PropertyManager;
+use App\Models\Quarter;
+use App\Models\QuarterAssignee;
+use App\Models\RealEstate;
+use App\Models\RentContract;
+use App\Models\Role;
+use App\Models\ServiceProvider;
 use App\Models\ServiceRequest;
+use App\Models\ServiceRequestAssignee;
+use App\Models\ServiceRequestCategory;
+use App\Models\State;
+use App\Models\Tag;
+use App\Models\Template;
+use App\Models\TemplateCategory;
+use App\Models\Translation;
+use App\Models\Unit;
 use App\Models\User;
 use App\Models\UserSettings;
 use Illuminate\Console\Command;
@@ -44,15 +75,17 @@ class CleanDB extends Command
     public function handle()
     {
         $audits = $this->getMorphTable('auditable_id', 'auditable_type');
+        $conversations = $this->getMorphTable('conversationable_id', 'conversationable_type');
         $audits[] = [
             'relation' => (new User())->getTable(),
             'conditions' => [
                 'user_type' => get_morph_type_of(User::class)
             ],
         ];
-        
+
         $config = [
-            'audits' => $audits
+            'audits' => $audits,
+            'conversations' => $conversations,
         ];
 
 
@@ -91,10 +124,47 @@ class CleanDB extends Command
         return $query;
     }
 
+    /**
+     * @param $relatedId
+     * @param $relatedType
+     * @return array
+     */
     protected function getMorphTable($relatedId, $relatedType)
     {
         $classes = [
+            Address::class,
+            Building::class,
+            BuildingAssignee::class,
+            CleanifyRequest::class,
+            Comment::class,
+            Conversation::class,
+            Country::class,
+            InternalNotice::class,
+            Like::class,
+            LoginDevice::class,
+            Media::class,
+            Permission::class,
+            Pinboard::class,
+            PinboardView::class,
+            PinnedEmailReceptionist::class,
             ServiceRequest::class,
+            Product::class,
+            PropertyManager::class,
+            Quarter::class,
+            QuarterAssignee::class,
+            RealEstate::class,
+            RentContract::class,
+            Role::class,
+            ServiceProvider::class,
+            ServiceRequest::class,
+            ServiceRequestAssignee::class,
+            ServiceRequestCategory::class,
+            State::class,
+            Tag::class,
+            Template::class,
+            TemplateCategory::class,
+            Translation::class,
+            Unit::class,
             User::class,
             UserSettings::class,
         ];
